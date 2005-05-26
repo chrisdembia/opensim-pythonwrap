@@ -55,8 +55,6 @@ LIB32=link.exe -lib
 # ADD LIB32 /nologo
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PreLink_Desc=Updating .h files...
-PreLink_Cmds=$(RDI_INSTALL)\Bin\cphq
 PostBuild_Desc=Updating libraries...
 PostBuild_Cmds=$(RDI_INSTALL)\Bin\cpl
 # End Special Build Tool
