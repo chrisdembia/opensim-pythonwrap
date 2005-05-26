@@ -16,10 +16,10 @@
 //=============================================================================
 #include <iostream>
 #include <string>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Tools/rdStorage.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Tools/rdStorage.h>
 #include "suActuatorGeneralizedForces.h"
 
 

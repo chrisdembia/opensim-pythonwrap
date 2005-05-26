@@ -9,14 +9,14 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdStorage.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdDerivCallback.h>
-#include <RD/Simulation/Manager/rdManager.h>
-#include <RD/Tools/rdVectorFunction.h>
-#include <RD/Tools/rdFunctionSet.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdStorage.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdDerivCallback.h>
+#include <NMBLTK/Simulation/Manager/rdManager.h>
+#include <NMBLTK/Tools/rdVectorFunction.h>
+#include <NMBLTK/Tools/rdFunctionSet.h>
 #include "suAnalysesDLL.h"
 #include "suContact.h"
 #include "suDecomp.h"

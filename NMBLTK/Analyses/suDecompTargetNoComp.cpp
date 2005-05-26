@@ -8,9 +8,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/SQP/rdFSQP.h>
-#include <RD/Tools/rdPointConstraint.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/SQP/rdFSQP.h>
+#include <NMBLTK/Tools/rdPointConstraint.h>
 #include "suDecompHardUTWalkNoComp.h"
 #include "suDecompTargetNoComp.h"
 

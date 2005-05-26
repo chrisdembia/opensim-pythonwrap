@@ -10,9 +10,9 @@
 // INCLUDES
 //==============================================================================
 #include <math.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/SQP/rdFSQP.h>
-#include <RD/Simulation/Model/rdModel.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/SQP/rdFSQP.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
 #include "suDecompHardUTWalkNoComp.h"
 
 

@@ -12,13 +12,13 @@
 #include <string.h>
 #include <math.h>
 #include <float.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdSprings.h>
-#include <RD/Models/UTWalking8/rdUTWalking8.h>
-#include <RD/SQP/rdSQP.h>
-#include <RD/Tools/rdPointConstraint.h>
-#include <RD/Simulation/Model/rdDerivCallbackSet.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdSprings.h>
+#include <NMBLTK/Models/UTWalking8/rdUTWalking8.h>
+#include <NMBLTK/SQP/rdSQP.h>
+#include <NMBLTK/Tools/rdPointConstraint.h>
+#include <NMBLTK/Simulation/Model/rdDerivCallbackSet.h>
 #include "suDecompTarget.h"
 #include "suDecompHardUTWalk.h"
 

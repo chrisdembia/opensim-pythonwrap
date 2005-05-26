@@ -8,10 +8,10 @@
 // INCLUDES
 //=============================================================================
 #include <string>
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdMtx.h>
-#include <RD/Simulation/Model/rdModel.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMtx.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
 #include "suDecompNoComp.h"
 
 

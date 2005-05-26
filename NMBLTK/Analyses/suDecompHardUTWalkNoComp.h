@@ -9,9 +9,9 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdTools.h>
-#include <RD/Models/UTWalking8/rdUTWalking8.h>
-#include <RD/Tools/rdBodyConstraint.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Models/UTWalking8/rdUTWalking8.h>
+#include <NMBLTK/Tools/rdBodyConstraint.h>
 #include "suAnalyses.h"
 #include "suDecompNoComp.h"
 
