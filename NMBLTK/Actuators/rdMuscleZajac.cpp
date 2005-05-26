@@ -14,12 +14,11 @@
 #include "rdMuscleZajac.h"
 #include <RD/Simulation/Model/rdMuscle.h>
 
-
 //=============================================================================
 // STATICS
 //=============================================================================
 // MUSCLE CONSTANTS
-/*const double rdMuscleZajac::C1 = 18.0;
+const double rdMuscleZajac::C1 = 18.0;
 const double rdMuscleZajac::C2 = 0.020833;
 const double rdMuscleZajac::PE1 = 0.1;
 const double rdMuscleZajac::SIG0 = 0.01;
@@ -29,23 +28,10 @@ const double rdMuscleZajac::AF = 133;
 const double rdMuscleZajac::MS = 74;
 const double rdMuscleZajac::MF = 111;
 const double rdMuscleZajac::CONPE1 = 111;
-*/
-const double rdMuscleZajac_C1 = 18.0;
-const double rdMuscleZajac_C2 = 0.020833;
-const double rdMuscleZajac_PE1 = 0.1;
-const double rdMuscleZajac_SIG0 = 0.01;
-const double rdMuscleZajac_LMNORMMAX = 1.6;
-const double rdMuscleZajac_AS = 40;
-const double rdMuscleZajac_AF = 133;
-const double rdMuscleZajac_MS = 74;
-const double rdMuscleZajac_MF = 111;
-const double rdMuscleZajac_CONPE1 = 111;
-
-
 
 
 // FORCE-LENGTH CURVE
-const double rdMuscleZajac_flcoef[30][6] = {
+const double rdMuscleZajac::flcoef[][6] = {
 	0.29999999E-01, 0.24252515E-01, 0.83434001E-01,
 	0.00000000E+00, 0.00000000E+00, 0.93781357E+01,
 	0.32000002E-01, 0.36303282E-01, 0.11122108E+00,
@@ -109,7 +95,7 @@ const double rdMuscleZajac_flcoef[30][6] = {
 };
 
 // FORCE-VELOCITY CURVE
-const double rdMuscleZajac_fvcoef[][6] = {
+const double rdMuscleZajac::fvcoef[][6] = {
 	-0.99995804E+00,  0.50985093E+01, -0.12840916E+02, 
 	0.00000000E+00,  0.00000000E+00,  0.24692949E+03, 
 	-0.73122555E+00,  0.35122344E+01, -0.12238060E+02, 
@@ -174,7 +160,7 @@ const double rdMuscleZajac_fvcoef[][6] = {
 
 // VELOCITY-FORCE CURVE
 
-const double rdMuscleZajac_vfcoef[][6] = {
+const double rdMuscleZajac::vfcoef[][6] = {
 	0.00000000E+00,  0.19490500E+00,  0.11604053E+00,
 	0.00000000E+00,  0.00000000E+00,  0.17118695E+01,
 	0.20667715E-01,  0.21896866E+00,  0.13315850E+00,
@@ -258,9 +244,16 @@ rdMuscleZajac::~rdMuscleZajac()
  */
 rdMuscleZajac::
 rdMuscleZajac(int aQID,int aNX,int aNY,int aNYP) :
-	rdForce(aQID,aNX,aNY,aNYP)
-{
-	setNull();
+	rdForce(aQID,aNX,aNY,aNYP),
+	_tRise(_proptRise.getValueDbl()),
+	_tFall(_proptFall.getValueDbl()),
+	_fmOpt(_propfmOpt.getValueDbl()),
+	_lmOpt(_proplmOpt.getValueDbl()),
+	_lmRecipOpt(_proplmRecipOpt.getValueDbl()),
+	_alphaOpt(_propalphaOpt.getValueDbl()),
+	_vmMax(_propvmMax.getValueDbl()),
+	_ltSlack(_propltSlack.getValueDbl())
+{	setNull();
 }
 //_____________________________________________________________________________
 /**
@@ -273,10 +266,18 @@ rdMuscleZajac(int aQID,int aNX,int aNY,int aNYP) :
  */
 rdMuscleZajac::
 rdMuscleZajac(DOMElement *aElement,int aNX,int aNY,int aNYP) :
-	rdForce(aElement,aNX,aNY,aNYP)
+	rdForce(aElement,aNX,aNY,aNYP),
+	_tRise(_proptRise.getValueDbl()),
+	_tFall(_proptFall.getValueDbl()),
+	_fmOpt(_propfmOpt.getValueDbl()),
+	_lmOpt(_proplmOpt.getValueDbl()),
+	_lmRecipOpt(_proplmRecipOpt.getValueDbl()),
+	_alphaOpt(_propalphaOpt.getValueDbl()),
+	_vmMax(_propvmMax.getValueDbl()),
+	_ltSlack(_propltSlack.getValueDbl())
 {
 	setNull();
-	updateFromXMLNode();
+//	updateFromXMLNode();
 }
 //_____________________________________________________________________________
 /**
@@ -286,7 +287,15 @@ rdMuscleZajac(DOMElement *aElement,int aNX,int aNY,int aNYP) :
  */
 rdMuscleZajac::
 rdMuscleZajac(const rdMuscleZajac &aActuator) :
-	rdForce(aActuator)
+	rdForce(aActuator),
+	_tRise(_proptRise.getValueDbl()),
+	_tFall(_proptFall.getValueDbl()),
+	_fmOpt(_propfmOpt.getValueDbl()),
+	_lmOpt(_proplmOpt.getValueDbl()),
+	_lmRecipOpt(_proplmRecipOpt.getValueDbl()),
+	_alphaOpt(_propalphaOpt.getValueDbl()),
+	_vmMax(_propvmMax.getValueDbl()),
+	_ltSlack(_propltSlack.getValueDbl())
 {
 	setNull();
 	copyData(aActuator);
@@ -305,6 +314,7 @@ setNull()
 {
 	// TYPE
 	setType("rdMuscleZajac");
+	setupProperties();
 
 	// APPLIES FORCE
 	_appliesForce = true;
@@ -320,51 +330,86 @@ setNull()
 	_x = 0.0;
 	_a = 0.0;
 	_force = 0.0;
-	(*_tRise) = 0.010;
-	(*_tFall) = 0.050;
-	(*_fmOpt) = 1000.0;
-	(*_lmOpt) = 0.1;
-	(*_alphaOpt) = 0.0;
-	(*_vmMax) = 10.0;
-	(*_ltSlack) = 0.1;
 	_width = 0.0;
 	_widthSquared = 0.0;
 	_ktRecip = 1.0;
 	_ktLmOptRecip = 1.0;
-	_lmt = (*_ltSlack) + (*_lmOpt);
-//	_mass = 0.0;
+	_lmRecipOpt=0.0;
+	_lmt = (_ltSlack) + (_lmOpt);
+	_speed = 0.0;
 
 }
+
+
+void rdMuscleZajac::
+setupProperties()
+{
+_proptRise.setName("Rise time");
+_proptRise.setValue(0.01);
+_propertySet.append( &_proptRise );
+
+ printf("in setupproperties%.16lfn\n",_tRise);
+	
+_proptFall.setName("Fall time");
+_proptFall.setValue(0.05);
+_propertySet.append( &_proptFall );
+
+_propfmOpt.setName("Optimal fiber force");
+_propfmOpt.setValue(1000.0);
+_propertySet.append( &_propfmOpt );
+
+_proplmOpt.setName("Optimal fiber length");
+_proplmOpt.setValue(0.1);
+_propertySet.append( &_proplmOpt );
+
+_proplmRecipOpt.setName("Recip Optimal fiber length");
+_proplmRecipOpt.setValue(0.1);
+_propertySet.append( &_proplmRecipOpt );
+
+_propalphaOpt.setName("Optimal fiber angle");
+_propalphaOpt.setValue(0.0);
+_propertySet.append( &_propalphaOpt );
+
+_propvmMax.setName("Optimal fiber shortening velocity");
+_propvmMax.setValue(10.0);
+_propertySet.append( &_propvmMax );
+
+_propltSlack.setName("Tendon slack length");
+_propltSlack.setValue(0.1);
+_propertySet.append( &_propltSlack );
+
+
+}
+
+
 
 //_____________________________________________________________________________
 /**
  * Set up the serializable member variables.  This involves generating
  * properties and connecting local variables to those properties.
  */
-void rdMuscleZajac::
-setupSerializedMembers()
-{
-	_propertySet.append( new rdPropertyDbl("activation_rise_time",0.010) );
-	_tRise = &_propertySet.get("activation_rise_time")->getValueDbl();
+//void rdMuscleZajac::
+//etupSerializedMembers()
+//{
+//	_propertySet.append( new rdPropertyDbl("activation_rise_time",0.010) );
+//	_tRise = &_propertySet.get("activation_rise_time")->getValueDbl();
+//	_propertySet.append( new rdPropertyDbl("activation_fall_time",0.050) );
+//	_tFall = &_propertySet.get("activation_fall_time")->getValueDbl();
 
-	_propertySet.append( new rdPropertyDbl("activation_fall_time",0.050) );
-	_tFall = &_propertySet.get("activation_fall_time")->getValueDbl();
+//	_propertySet.append( new rdPropertyDbl("optimal_force",1000.0) );
+//	_fmOpt = &_propertySet.get("optimal_force")->getValueDbl();
 
-	_propertySet.append( new rdPropertyDbl("optimal_force",1000.0) );
-	_fmOpt = &_propertySet.get("optimal_force")->getValueDbl();
+//	_propertySet.append( new rdPropertyDbl("optimal_fiber_length",0.100) );
+//	_lmOpt = &_propertySet.get("optimal_fiber_length")->getValueDbl();
 
-	_propertySet.append( new rdPropertyDbl("optimal_fiber_length",0.100) );
-	_lmOpt = &_propertySet.get("optimal_fiber_length")->getValueDbl();
+//	_propertySet.append( new rdPropertyDbl("optimal_pennation_angle",0.000) );
+//	_alphaOpt = &_propertySet.get("optimal_pennation_angle")->getValueDbl();
 
-	_propertySet.append( new rdPropertyDbl("optimal_pennation_angle",0.000) );
-	_alphaOpt = &_propertySet.get("optimal_pennation_angle")->getValueDbl();
-
-	_propertySet.append( new rdPropertyDbl("tendon_slack_length",0.100) );
-	_ltSlack = &_propertySet.get("tendon_slack_length")->getValueDbl();
-
-	_propertySet.append( new rdPropertyDbl("max_shortening_velocity",10.0) );
-	_vmMax = &_propertySet.get("max_shortening_velocity")->getValueDbl();
-}
+//	_propertySet.append( new rdPropertyDbl("tendon_slack_length",0.100) );
+//	_ltSlack = &_propertySet.get("tendon_slack_length")->getValueDbl();
+//	_propertySet.append( new rdPropertyDbl("max_shortening_velocity",10.0) );
+//	_vmMax = &_propertySet.get("max_shortening_velocity")->getValueDbl();
+//}
 
 //_____________________________________________________________________________
 /**
@@ -508,6 +553,7 @@ setStates(const double aY[])
 	if(aY==NULL) return;
 	_a = aY[0];
 	_force = aY[1];
+	printf("PRINTING _force %.16lfn\n",_force);
 }
 //_____________________________________________________________________________
 /**
@@ -536,7 +582,10 @@ getStates(double rY[]) const
 void rdMuscleZajac::
 setRiseTime(double aTime)
 {
-	(*_tRise) = aTime;
+	(_tRise) = aTime;
+
+	printf("PRINTING in setRiseTime%.16lfn\n",_tRise);
+	
 }
 //_____________________________________________________________________________
 /**
@@ -547,7 +596,7 @@ setRiseTime(double aTime)
 double rdMuscleZajac::
 getRiseTime() const
 {
-	return((*_tRise));
+	return((_tRise));
 }
 
 //-----------------------------------------------------------------------------
@@ -562,7 +611,9 @@ getRiseTime() const
 void rdMuscleZajac::
 setFallTime(double aTime)
 {
-	(*_tFall) = aTime;
+	(_tFall) = aTime;
+	printf("PRINTING in setFallTime%.16lfn\n",_tFall);
+	
 }
 //_____________________________________________________________________________
 /**
@@ -573,7 +624,7 @@ setFallTime(double aTime)
 double rdMuscleZajac::
 getFallTime() const
 {
-	return((*_tFall));
+	return((_tFall));
 }
 
 //-----------------------------------------------------------------------------
@@ -588,7 +639,9 @@ getFallTime() const
 void rdMuscleZajac::
 setOptimalForce(double aForce)
 {
-	(*_fmOpt) = aForce;
+	(_fmOpt) = aForce;
+
+	printf("PRINTING in setOptimalForce%.16lfn\n",_fmOpt);
 }
 //_____________________________________________________________________________
 /**
@@ -599,7 +652,7 @@ setOptimalForce(double aForce)
 double rdMuscleZajac::
 getOptimalForce() const
 {
-	return((*_fmOpt));
+	return((_fmOpt));
 }
 
 //-----------------------------------------------------------------------------
@@ -614,7 +667,10 @@ getOptimalForce() const
 void rdMuscleZajac::
 setOptimalFiberLength(double aLength)
 {
-	(*_lmOpt) = aLength;
+	(_lmOpt) = aLength;
+	(_lmRecipOpt) = 1/aLength;
+	printf("PRINTING in setOptimalfiberlength%.16lfn\n",_lmOpt);
+	printf("PRINTING in setOptimalfiberlength _lmRecipOpt %.16lfn\n",_lmRecipOpt);
 }
 //_____________________________________________________________________________
 /**
@@ -625,7 +681,7 @@ setOptimalFiberLength(double aLength)
 double rdMuscleZajac::
 getOptimalFiberLength() const
 {
-	return((*_lmOpt));
+	return((_lmOpt));
 }
 
 //-----------------------------------------------------------------------------
@@ -649,8 +705,13 @@ getOptimalFiberLength() const
 void rdMuscleZajac::
 setOptimalPennationAngle(double aAngleDeg)
 {
-	(*_alphaOpt) = rdMath::DTR*aAngleDeg;
-	_width = (*_lmOpt) * sin((*_alphaOpt));
+	(_alphaOpt) = rdMath::DTR*aAngleDeg;
+	_width = (_lmOpt) * sin((_alphaOpt));
+	_widthSquared = _width * _width;
+
+	printf("PRINTING in setOptimalPennationAngle%.16lfn\n",_alphaOpt);
+	printf("PRINTING in setOptimalPennationAngle%.16lfn\n",_width);
+
 }
 //_____________________________________________________________________________
 /**
@@ -661,7 +722,7 @@ setOptimalPennationAngle(double aAngleDeg)
 double rdMuscleZajac::
 getOptimalPennationAngle() const
 {
-	return(rdMath::RTD*(*_alphaOpt));
+	return(rdMath::RTD*(_alphaOpt));
 }
 
 //-----------------------------------------------------------------------------
@@ -677,7 +738,8 @@ getOptimalPennationAngle() const
 void rdMuscleZajac::
 setMaxShorteningVelocity(double aVelocity)
 {
-	(*_vmMax) = aVelocity;
+	(_vmMax) = aVelocity;
+	printf("PRINTING in setMaxShorteningVelocity%.16lfn\n",_vmMax);
 }
 //_____________________________________________________________________________
 /**
@@ -689,7 +751,7 @@ setMaxShorteningVelocity(double aVelocity)
 double rdMuscleZajac::
 getMaxShorteningVelocity() const
 {
-	return((*_vmMax));
+	return((_vmMax));
 }
 
 //-----------------------------------------------------------------------------
@@ -704,16 +766,44 @@ getMaxShorteningVelocity() const
 void rdMuscleZajac::
 setTendonSlackLength(double aLength)
 {
-	(*_ltSlack) = aLength;
+	(_ltSlack) = aLength;
+	_ktRecip = _ltSlack/37.5;
+	_ktLmOptRecip = (1/_lmOpt)*_ktRecip;
+	printf("PRINTING in setTendonSlackLength%.16lfn\n",_ltSlack);
+	printf("PRINTING in setTendonSlackLength _ktRecip %.16lfn\n",_ktRecip);
+
 }
 
+/**
+ * Set the maximum shortening velocity of the muscle.
+ *
+ * @param aVelocity Maximum shortening velocity in optimal muscle fiber
+ * lengths per second- should be positive.
+ */
+void rdMuscleZajac::
+setShorteningVelocity(double aSpeed)
+{
+	(_speed) = aSpeed;
+	printf("PRINTING in setShorteningVelocity%.16lfn\n",_speed);
+}
+/**
+ * Set the actuatorlength of the muscle.
+ *
+ */
+void rdMuscleZajac::
+setActuatorLength(double aLength)
+{
+	(_lmt) = aLength;
+	printf("PRINTING in setActuatorLength%.16lfn\n",_lmt);
+}
+
+// 
 
 
 //=============================================================================
 // COMPUTATIONS
 //=============================================================================
 
-// ??
 //_____________________________________________________________________________
 /**
  * Set the activation level of this actuator equal to the neural excitation.
@@ -721,11 +811,12 @@ setTendonSlackLength(double aLength)
 void rdMuscleZajac::
 promoteControlsToStates(const double aX[],double aDT)
 {
-	if(aX==NULL) return;
+	
+       if(aX==NULL) return;
 	if(aDT<=0) {
 		_a = aX[0];
 	} else {
-		_a = rdMuscle::EstimateActivation((*_tRise),(*_tFall),_a,aX[0],aDT);
+		_a = rdMuscle::EstimateActivation((_tRise),(_tFall),_a,aX[0],aDT);
 	}
 }
 
@@ -770,18 +861,63 @@ computeActuation()
 void rdMuscleZajac::
 computeStateDerivatives(double rDYDT[])
 {
+	printf("PRINTING rDYDT[0] in  computeStateDerivatives%.16lfn\n",rDYDT[0]);
+	printf("PRINTING rDYDT[1] in  computeStateDerivatives%.16lfn\n",rDYDT[1]);
 	if(rDYDT==NULL) return;
 
 // Is this sufficient-relation with mmatvdot?
 	// ACTIVATION DYNAMICS
-	rDYDT[0] = rdMuscle::DADT((*_tRise),(*_tFall),_x,_a);
+	
+	printf("PRINTING _tRise in  computeStateDerivatives%.16lfn\n", _tRise);
+	printf("PRINTING _tFall in  computeStateDerivatives%.16lfn\n",_tFall);
+	printf("PRINTING _x in  computeStateDerivatives%.16lfn\n",_x);
+	printf("PRINTING _a in  computeStateDerivatives%.16lfn\n",_a);
 
+	rDYDT[0] = rdMuscleZajac::computeDADT((_tRise),(_tFall),_x,_a);
+
+        printf("PRINTING rDYDT[0] in  computeStateDerivatives na berekening %.16lfn\n",rDYDT[0]);
 
 	// MUSCLE-TENDON DYNAMICS
 	rDYDT[1] = computeDFDT();
-
+	printf("PRINTING rDYDT[1] in computeStateDerivatives na berekening %.16lfn\n",rDYDT[1]); 
 }
+//_____________________________________________________________________________
+/**
+ * Compute the time derivative of an activation level given its excitation
+ * signal, a rise-time, and a fall-time.
+ * This method represents the rise or fall using a simple 1st order
+ * differential equation which is linear in x and a.  The time constant is
+ * chosen based on whether x is greater than or less than a.
+ * 
+ */
+double rdMuscleZajac::
+computeDADT(double aTRise,double aTFall,double aX,double aA)
+{
+printf("PRINTING in  DADT exc %.16lfn\n",aX);
+printf("PRINTING in  DADT act %.16lfn\n",aA);
+	// DETERMINE TIME CONSTANT
+	double tau;
+	if(aX>=aA) {
+		tau = aTRise;
+	} else {
+		tau = aTFall;
+	}
 
+	// CHECK FOR ZERO TAU
+	if(tau<=0) {
+		printf("rdMuscle.dadt: ERROR- tau<=0.0\n");
+		return(aX-aA);
+	}
+	printf("PRINTING in  DADT tau %.16lfn\n",tau);
+
+	// COMPUTE DERIVATIVE
+	// double dadt = (aX-aA)/tau;
+ 	double dadt=(aTRise*aX*aX) + (aTFall * aX) -(aTRise*aX+aTFall)*aA;
+        printf("PRINTING in  DADT dadt %.16lfn\n",dadt);
+
+	return(dadt);
+}
+//____
 //_____________________________________________________________________________
 /**
  * Compute the time derivative of actuator force.
@@ -792,34 +928,49 @@ double rdMuscleZajac::
 computeDFDT()
 {
 	// NORMALIZED ACTUATOR FORCE
-	double ftNorm = _force / (*_fmOpt);
+	double ftNorm = _force / (_fmOpt);
+	
 
 	// TENDON LENGTH
 	// _reckt must be normalized to fmOpt
-	double lt = _ktRecip * ftNorm + (*_ltSlack);
-
+	double lt = _ktRecip * _force + (_ltSlack);
+	
 	// MUSCLE LENGTH
 	double tmp = _lmt - lt;  if(tmp<0.0) tmp=0.0;
+ printf("PRINTING in computeDFDT _lmt%.16lfn\n",_lmt);
+ printf("PRINTING in computeDFDT tmp%.16lfn\n",tmp);
+
+
 	double lm = sqrt(_width*_width + tmp*tmp);
+
+
+
+	 printf("PRINTING in computeDFDT lm%.16lfn\n",lm);
 	double lmMin = _width + 1.0e-4;
 	if(lm<lmMin) lm = lmMin;
-	double lmNorm = lm / (*_lmOpt);
+	double lmNorm = lm / (_lmOpt);
+
 
 	// PASSIVE FORCE
 	double sigma = SIG0 * exp( (lmNorm-1.0) / PE1 );
+	
 
 	// COMPUTE DFDT
 	double dfdt;
 	double denom,term1,term3;
 	double fmNorm,fmNormIso,coAlpha,coAlphaRecip,cossq;
 	double vce,zeta;
-
+        printf("PRINTING in computeDFDT lmNorm%.16lfn\n",lmNorm);
 	// ONLY PASSIVE FORCES
 	// lmNorm is beyond _lmNormMax.
 	if(lmNorm > LMNORMMAX) {
-      tmp = PE1 / (sigma * _ktLmOptRecip);
+          tmp = PE1 / (sigma * _ktLmOptRecip);
 	  denom = _ktRecip * (1.0 + tmp);
 	  dfdt = _speed / denom;
+    
+         printf("PRINTING in computeDFDT tmp%.16lfn\n",lmNorm);
+         printf("PRINTING in computeDFDT alternate  dfdt%.16lfn\n",dfdt);
+
 
 	// ACTIVE AND PASSIVE FORCES
 	} else {
@@ -827,32 +978,39 @@ computeDFDT()
 		// FORCE-LENGTH CURVE
 		//f:pol
 		fmNormIso = ComputeForceLengthCurve(lmNorm);
-
+	
 		// COSINE OF ALPHA
-        // F:co/muswidthsq()/lm/recco 
+        	// F:co/muswidthsq()/lm/recco 
 		coAlpha = sqrt(1.0 - _widthSquared / (lm*lm));
 		coAlphaRecip = 1.0 / coAlpha;
 
 		// NORMALIZED MUSCLE FORCE
 		
-    	fmNorm = (ftNorm*coAlphaRecip - sigma) / (fmNormIso*_a);
+	    	fmNorm = (_force*coAlphaRecip - sigma) / (fmNormIso*_a);
 		
+
 		if(fmNorm<0.0) fmNorm = 0.0;
 
 		// CONTRACTILE ELEMENT SHORTENING VELOCITY
-		vce = (*_vmMax) * ComputeShorteningVelocity(fmNormIso,fmNorm);
+		vce = (_vmMax) * ComputeShorteningVelocity(fmNormIso,fmNorm);
+
 
 		// DFDT
 		cossq = coAlpha * coAlpha;
-		zeta = _speed * _lmOptRecip;
-
-		term1 = ftNorm * (C1 + (1.0 - cossq)/cossq) +
-			coAlpha * (C1*C2 + (1.0/PE1 - C1)*sigma);
-		term3 = C1 * (ftNorm *coAlphaRecip - sigma + C2);
+		zeta = _speed * _lmRecipOpt;
 		
-		dfdt = (zeta*term1 - vce*term3) / (coAlphaRecip + _ktLmOptRecip*term1);
-	}
+		printf("PRINTING in computeDFDT zeta %.16lfn\n",zeta);
 
+		term1 = _force* (C1 + (1.0 - cossq)/cossq) +
+			coAlpha * (C1*C2 + (1.0/PE1 - C1)*sigma);
+		term3 = C1 * (_force *coAlphaRecip - sigma + C2);
+		printf("PRINTING in computeDFDT term1%.16lfn\n",term1);
+		printf("PRINTING in computeDFDT term3%.16lfn\n",term3);
+		dfdt = (zeta*term1 - vce*term3) / (coAlphaRecip + _ktLmOptRecip*term1);
+		printf("PRINTING in computeDFDT _ktLmOptRecip%.16lfn\n",_ktLmOptRecip);
+
+	}
+	printf("PRINTING in computeDFDT%.16lfn\n",dfdt);
 	return(dfdt);
 }
 
@@ -870,11 +1028,20 @@ computeDFDT()
 */
 
 double rdMuscleZajac::
-ComputeMuscleForce() 
+ComputeMuscleForce(double activ,double actlen,double actsv) 
 {
-  _lm=ComputeMuscleLength(_width,1.0,0.00005);
-double active_force=ComputeMsForce(_lmt);
+ 
+printf("PRINTING IN activ %.16lf\n",activ);
+printf("PRINTING IN width %.16lf\n",_width);
+printf("PRINTING IN actlen %.16lf\n",actlen);
+printf("PRINTING IN actsv %.16lf\n",actsv);
 
+_lm=ComputeMuscleLength(activ,_width,1.0,0.00005,actlen,actsv); 
+
+printf("PRINTING IN _lm %.16lf\n",_lm);
+double active_force=ComputeMsForce(activ,_lm,actsv);
+
+printf("PRINTING active_force %.16lf\n",active_force);
 return (active_force); //Is this the appropriate name
 
 }
@@ -896,206 +1063,255 @@ return (active_force); //Is this the appropriate name
 */
 
 double rdMuscleZajac::
-ComputeMuscleLength(double ax, double bx, double tol)
+ComputeMuscleLength(double activ, double ax, double bx, double tol, double actlen, double actsv)
 {
     
 	const double eps=6.93889e-18; //6.9389d-18
-    double a,b,fa,fb,c,fc,d,e,toli,xm,q,r,s,p;
+	double a,b,fa,fb,c,fc,d,e,toli,xm,q,r,s,p;
 
 
 	a=ax;	//ax from input
 	b=bx;	//bx from input
-	fa=ComputeMuscleZero(a);  // Define function mszero 
-	fb=ComputeMuscleZero(b);	// Define function mszero 
-	
-	// BEGIN STEP	
-	
-	
-    while ((fb*(fc/abs(fc))) > 0.0){
-		c=a;
-		fc=fa;
-		d=b-a;
-		e=d;
+	printf("PRINTING IN ComputeMuscleLength a %.16lf\n",a);
+	printf("PRINTING IN COmputeMuscleLength b %.16lf\n",b);	
 
-		if (abs(fc)<abs(fb)){
-		a=b;
-		b=c;
-		c=a;
-		fa=fb;
-		fb=fc;
-		fc=fa;
-		}
-
-		toli=20.0*eps*abs(b)+0.5*tol;
-		xm=0.5*(c-d);
-
-		if ((abs(xm)<=toli)||(fb==0.0)){
-			goto END;
-			}
+	fa=ComputeMuscleZero(activ,a,actlen,actsv);  // Define function mszero 
+	fb=ComputeMuscleZero(activ,b,actlen,actsv);	// Define function mszero 
 	
-		
-		if ((abs(e)<toli) ||(abs(fa)<=fb)){
-			d=xm;
-			e=d;
-			a=b;
-			fa=fb;
-			if (abs(d)>toli) {
-				b=b+d;
-				}
-			if (abs(d)<=toli) {
-/*			b=b+sign(toli,xm);*/
-				if (xm > 0.0) {
-					b=b+toli;}
-				if (xm < 0.0 ){
-					b=b-toli;}
-				}
-			fb=ComputeMuscleZero(b);
-		}
-		else
+	printf("PRINTING IN ComputeMuscleLength fa %.16lf\n",fa);
+	printf("PRINTING IN COmputeMuscleLength fb %.16lf\n",fb);	
+
+	printf("PRINTING IN ComputeMuscleLength a %.16lf\n",a);
+	
+	c=a;
+	fc=fa;
+	d=b-a;
+	e=d;
+	printf("PRINTING IN ComputeMuscleLength c %.16lf\n",c);
+	printf("PRINTING IN ComputeMuscleLength fc %.16lf\n",fc);
+	printf("PRINTING IN ComputeMuscleLength e %.16lf\n",e);
+
+	for(;;)
+	{
+
+  	if (abs(fc)>= abs(fb))
+	{
+	toli=20.0*eps*abs(b)+0.5*tol;
+	}
+	else
+	{
+	a=b;
+	b=c;
+	c=a;
+	fa=fb;
+	fb=fc;
+	fc=fa;
+	toli=20.0*eps*abs(b)+0.5*tol;
+	printf("PRINTING IN 30 ComputeMuscleLength a %.16lf\n",a);
+	printf("PRINTING IN 30  ComputeMuscleLength b %.16lf\n",b);
+	printf("PRINTING IN 30  ComputeMuscleLength c %.16lf\n",c);
+	printf("PRINTING IN 30  ComputeMuscleLength fa %.16lf\n",fa);
+	printf("PRINTING IN 30  ComputeMuscleLength fb %.16lf\n",fb);
+	printf("PRINTING IN 30  ComputeMuscleLength fc%.16lf\n",fc);
+	printf("PRINTING IN 30  ComputeMuscleLength tol%.16lf\n",tol);
+	printf("PRINTING IN 30  ComputeMuscleLength toli %.16lf\n",toli);
+	}
+	printf("PRINTING IN 30  ComputeMuscleLength d %.16lf\n",d);
+	printf("PRINTING IN 30  ComputeMuscleLength c %.16lf\n",c);
+	xm=0.5*(c-b);
+	printf("PRINTING IN 40 ComputeMuscleLength xm %.16lf\n",xm);
+	
+
+        if ((abs(xm)<=toli)||(fb==0.0))
+	{
+	printf(" IN if1\n");
+	break;
+	}
+
+	if ((abs(e)<toli)||(abs(fa)<=abs(fb)))
+ 	{
+	printf(" IN if3\n");
+	d=xm;
+	e=d;
+	}
+
+	if (a != c) 
+	{
+	printf(" IN if5\n");
+	q=fa/fc;
+	r=fb/fc;
+	s=fb/fa;
+	p=s*(2.0*xm*q*(q-r)-(b-a)*(r-1.0));
+	q=(q-1.0)*(r-1.0)*(s-1.0); 
+	}
+	else
+	{
+	printf(" IN else\n");
+	s=fb/fa;
+	p=2.0*xm*s;
+	q=1.0-s;
+	;
+        }
+
+	if (p > 0.0) 
+	{
+	printf(" IN if6\n");
+	q=-q;
+	}
+	p=abs(p);
+
+	printf("PRINTING IN else ComputeMuscleLength s%.16lf\n",s);
+	printf("PRINTING IN else ComputeMuscleLength p%.16lf\n",p);
+	printf("PRINTING IN else ComputeMuscleLength q %.16lf\n",q);
+ 
+
+
+	
+	if (((2.0*p) >=(3.0*xm*q-abs(toli*q)))||(p >=abs(0.5*e*q)))
+	{
+	printf(" IN if7\n");
+	d=xm;
+	e=d;
+	}
+	else
+	{
+	e=d;
+	d=p/q;
+	}
+//	printf("PRINTING IN after ComputeMuscleLength e%.16lf\n",e);
+//	printf("PRINTING IN after ComputeMuscleLength d %.16lf\n",d);
+
+	a=b;
+	fa=fb;
+	if (abs(d)>toli) 
+	{
+	printf(" IN if9\n");
+//	printf("PRINTING before ADOPTED b %.16lf\n",b);
+//	printf("PRINTING before ADOPTED d %.16lf\n",d);
+	b=b+d;
+//	printf("PRINTING ADOPTED b %.16lf\n",b);
+
+	}
+	if (abs(d)<=toli) 
+	{
+	printf(" IN if10\n");
+		if (xm > 0.0) 
 		{
-
-			if(a != c) {
-				q=fa/fc;
-				r=fb/fc;
-				s=fb/fa;
-				p=s*(2.0*xm*q*(q-r)-(b-a)*(r-1.0));
-				q=(q-1.0)*(r-1.0)*(s-1.0); 
-				if (p>0.0) {
-					q=-q;
-					}
-				p=abs(p);
-	
-				if (((2.0*p) >=(3.0*xm*q-abs(toli*q)))|| (p >=abs(0.5*e*q))){
-					d=xm;
-					e=d;
-					}
-				else{
-				e=d;
-				d=p/q;
-				}
-	
-				a=b;
-				fa=fb;
-				if (abs(d)>toli) {
-					b=b+d;
-					}
-				if (abs(d)<=toli) {
-/*			b=b+sign(toli,xm);*/
-					if (xm > 0.0) {
-						b=b+toli;}
-					if (xm < 0.0 ){
-						b=b-toli;}
-				}
-				fb=ComputeMuscleZero(b);
-		
-			}
-			else {
-				s=fb/fa;
-				p=2.0*xm*s;
-				q=1.0-s;
-				if (p>0.0) {
-					q=-q;
-					}
-				p=abs(p);
-	
-				if (((2.0*p) >= (3.0*xm*q-abs(toli*q))) || (p >=abs(0.5*e*q))){
-					d=xm;
-					e=d;
-					}
-				else{
-					e=d;
-					d=p/q;
-					}
-	
-				a=b;
-				fa=fb;
-				if (abs(d)>toli) {
-					b=b+d;
-					}
-				if (abs(d)<=toli) {
-/*			b=b+sign(toli,xm);*/
-					if (xm > 0.0) {
-						b=b+toli;}
-					if (xm < 0.0 ){
-						b=b-toli;}
-				}
-				fb=ComputeMuscleZero(b);
-			}
-			
+		b=b+toli;
 		}
+		if (xm < 0.0 )
+		{
+		b=b-toli;
+		}
+	}
+
+	fb=ComputeMuscleZero(activ,b,actlen,actsv);
+	printf("PRINTING IN ComputeMuscleLength a %.16lf\n",a);
+	printf("PRINTING IN ComputeMuscleLength b %.16lf\n",b);
+	printf("PRINTING IN ComputeMuscleLength c %.16lf\n",c);
+	printf("PRINTING IN ComputeMuscleLength fa %.16lf\n",fa);
+	printf("PRINTING IN ComputeMuscleLength fb %.16lf\n",fb);
+	printf("PRINTING IN ComputeMuscleLength fc %.16lf\n",fc);
+
+
+	if (fb*fc/abs(fc) > 0.0)
+	{
+	printf(" IN if11\n");
+	c=a;
+	fc=fa;
+	d=b-a;
+	e=d;	
+	
+	}
+
 	}	
-END:
 double _lm=b;
 return(_lm);
+	
 }
 
 
 double rdMuscleZajac::
-ComputeMuscleZero(double aLength)
+ComputeMuscleZero(double activ,double &rLength,double actlen,double actsv)
 {
+//	printf("PRINTING IN ComputeMuscleZero \n");
 	double fmus;
-	
-	double lmt=max(aLength,_width+0.0002);
-	fmus = ComputeMsForce(lmt);
+	double dump=(_width+0.0001);
+	double tLength;
+	tLength=rLength;
+	tLength=(tLength>dump)?tLength:dump;
+	fmus = ComputeMsForce(activ,tLength,actsv);
 	double tomp=_ktRecip*fmus;
-	double lt=*_ltSlack+tomp;
-	double tmp=(double)(lmt-lt);
-	double temp=max(0.0,tmp);
-	double mszero=temp*temp-lmt*lmt+_width;
+	double lt=_ltSlack+tomp;
+	double tmp=(double)(actlen-lt);
+	double temp=(0.0 > tmp)?0.0:tmp;
+	double mszero=temp*temp-tLength*tLength+_widthSquared;
+	rLength=tLength;
+	printf("PRINTING IN ComputeMuscleZero fmus %.16lf\n",mszero);
 	return(mszero);
 
 }
 
 double rdMuscleZajac::
-ComputeMsForce(double alength)
+ComputeMsForce(double activ, double aLength, double actsv)
 {
-	
-	double lmNorm = alength / (*_lmOpt);
+//	printf("PRINTING IN COMPUTEMsFORCE \n");
+	double lmNorm = aLength / (_lmOpt);
 	
 	// PASSIVE FORCE
 	double sigma = SIG0 * exp( (lmNorm-1.0) / PE1 );
 	
+
 	if(lmNorm > LMNORMMAX) {
-	 double fmNorm=sigma;
+	 double msforce=sigma;
+	 return(msforce);
 	}	
 	
 	// COSINE OF ALPHA
-    // F:co/muswidthsq()/lm/recco 
-	double coAlpha = sqrt(1.0 - _widthSquared / (alength*alength));
+
+
+	double coAlpha = sqrt(1.0 - _widthSquared / (aLength*aLength));
 	double coAlphaRecip = 1.0 / coAlpha;
+
 
 	// FORCE-LENGTH CURVE
 	//f:pol
-	double fmNormIso = ComputeForceLengthCurve(lmNorm);
+
+	 double fmNormIso = ComputeForceLengthCurve(lmNorm);
+	
 	// FIND THE CHANGE IN FORCE DUE TO TEH SHORTENING VELOCITY
-	// for simplicity we assume that the shortening velocity of the muscle is the same as that of the actuator.
+	// for simplicity we assume that the shortening velocity of the muscle is   			//the same as that of the actuator.
 	// In other words assume that the shortening velocity of the tendon is zero
-	double vbar=_a*(*_lmOpt)*coAlpha/(*_vmMax);
-	vbar=max(-1.0,vbar);
-	vbar=min(2.0, vbar);
+
+	double reclom=1/_lmOpt;
+	double vbar=actsv*reclom*coAlpha/(_vmMax);
+	
+	vbar=(-1.0 > vbar)?-1:vbar;
+	vbar=(2.0 > vbar)?vbar:2.0;
 	
 	double fce=ComputeVelocityEffect(vbar);
-
-	double msforce=coAlpha*sigma + fmNormIso*coAlpha*_a*fce;
+	double msforce=coAlpha*sigma + fmNormIso*coAlpha*activ*fce;
 	return(msforce);
 }
 
-// I AM NOT SURE ABOUT THE ARGUMENTS LIST
+// I AM NOT SURE ABOUT THE ARGUMENTS LIST - NOT VERIFIED!!!!
 double rdMuscleZajac:: 
 ComputeActivation(double aForce, double aLength, double asvel)
 {
+	double lm;
 	double Ractiv,pbar,vbar,coAlpha,fmNormIso,sigma;
 	// lt is tendon length at aForce
-	double lt= _lmOptRecip*aForce+*_ltSlack;
+	double lt= _lmOptRecip*aForce+_ltSlack;
 	// lm is muscle length at aForce, if lm is too short, adjust it
 	double var=aLength-lt;
-	double temp=max(0.0,var);
-	double lm=sqrt(_widthSquared + temp*temp);
+	double temp=(0.0>var)?0.0:
+	
+         lm=sqrt(_widthSquared + temp*temp);
 	// muscle length must be greater than the width
 	double temp2=_width+0.0001;
-	lm=max(lm,temp2);
+	lm=(lm>temp2)?lm:temp2;
 	
-	double LmNorm=lm*_lmOptRecip;
+	double LmNorm=lm * _lmOptRecip;
 
 	if (LmNorm > LMNORMMAX){
 		Ractiv=0.5;
@@ -1109,11 +1325,11 @@ ComputeActivation(double aForce, double aLength, double asvel)
     // F:co/muswidthsq()/lm/recco 
 	coAlpha = sqrt(1.0 - _widthSquared / (lm*lm));
 	
-	vbar=asvel*_lmOptRecip*coAlpha / (*_vmMax);
-	vbar=max(-1,vbar);
-	vbar=min(2,vbar);
+	vbar=asvel * _lmOptRecip*coAlpha / (_vmMax);
+	vbar=(-1>vbar)?-1:vbar;
+	vbar=(2>vbar)?vbar:2;
 	pbar = ComputeVelocityEffect(vbar);
-	pbar=max(0.0,pbar);
+	pbar=(0.0>pbar)?pbar:0.0;
 	fmNormIso=fmNormIso*pbar;
 	
 	Ractiv=(aForce/coAlpha - sigma)/fmNormIso;
@@ -1135,20 +1351,25 @@ END:
 double rdMuscleZajac::
 ComputeForceLengthCurve(double aLmNorm)
 {
+//	printf("PRINTING IN ComputeForceLengthCurve \n");
 	// SPLINE INTERVAL
-	int i = 1 + (int)(aLmNorm*15.0);
-	if(i>30) i = 30;
-
+        int i=1+ (int)(aLmNorm*15.0);
+        if (i>30) i=30;
+        
+ 	printf("PRINTING COMPUTEFORCELENGTHCURVE i %d\n",i);
+	
 	// LEFT OVER MUSCLE LENGTH
 	double tmp = (double)(i - 1);
-	double dlm = aLmNorm - tmp/15.0;
-
+ 	printf("PRINTING COMPUTEFORCELENGTHCURVE tmp %.16lf\n",tmp);
+	double dlm = aLmNorm - (tmp/15.0);
+ 	printf("PRINTING COMPUTEFORCELENGTHCURVE dlm %.16lf\n",dlm);
 	// EVALUATE THE SPLINE
 	double fm;
-	fm = (((( flcoef[i][5]  *dlm + flcoef[i][4] )*dlm +
+	i=i-1; //different numbering of array in c
+	fm = (((( flcoef[i][5] *dlm + flcoef[i][4] )*dlm +
 				 flcoef[i][3] )*dlm + flcoef[i][2] )*dlm +
 				 flcoef[i][1] )*dlm + flcoef[i][0];
-
+ 	
 	return(fm);
 }
 
@@ -1168,6 +1389,7 @@ ComputeForceLengthCurve(double aLmNorm)
 double rdMuscleZajac::
 ComputeShorteningVelocity(double aFmNormIsometric,double aFmNorm)
 {
+//	printf("PRINTING IN ComputeShorteningVelocity \n");
 	// SPLINE INTERVAL
 	int i = 1 + (int)(16.0*aFmNorm);
 	if(i>28) i = 28;
@@ -1177,9 +1399,10 @@ ComputeShorteningVelocity(double aFmNormIsometric,double aFmNorm)
 	double dfm = aFmNorm - tmp/16.0;
 
 	// EVALUATE THE SPLINE
+	i=i-1; //different array structure in c
 	double vce = (((( fvcoef[i][5]  *dfm + fvcoef[i][4] )*dfm
 						 + fvcoef[i][3] )*dfm + fvcoef[i][2] )*dfm
-						 + fvcoef[i][1] )*dfm + fvcoef[i][0] + 2.1220e-03;
+						 + fvcoef[i][1] )*dfm + fvcoef[i][0] + 		2.1220e-03;
 
 	return(vce);
 }
@@ -1199,21 +1422,26 @@ ComputeShorteningVelocity(double aFmNormIsometric,double aFmNorm)
 double rdMuscleZajac::
 ComputeVelocityEffect(double aVNorm)
 {
+//	printf("PRINTING IN ComputeFVelocityEffect \n");
 	// SPLINE INTERVAL
-	int i = 1 + (int)(10.0*aVNorm);
+	int i = 11 + (int)(10.0*aVNorm);
 	if(i>30) i = 30;
+
 
 	// LEFT OVER MUSCLE FORCE
 	double tmp = (double)(i - 11);
 	double dpb = aVNorm - tmp*0.1;
 
 	// EVALUATE THE SPLINE
+	i=i-1;
 	double fce = (((( vfcoef[i][5]  *dpb + vfcoef[i][4] )*dpb
 						 + vfcoef[i][3] )*dpb + vfcoef[i][2] )*dpb
-						 + vfcoef[i][1] )*dpb + vfcoef[i][0] + 2.1220e-03;
+						 + vfcoef[i][1] )*dpb + vfcoef[i][0] + 			2.1220e-03;
 
-	fce=max(0.0,fce);
+
+	fce=(0.0>fce)?0.0:fce;
 	return(fce);
+
 }
 
 

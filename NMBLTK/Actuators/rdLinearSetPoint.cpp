@@ -11,10 +11,10 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdIO.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdMtx.h>
-#include <RD/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Tools/rdIO.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMtx.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
 #include "rdLinearSetPoint.h"
 
 

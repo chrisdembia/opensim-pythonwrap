@@ -33,7 +33,7 @@ ARFLG		=	-rsv
 #=============================
 # OBJECTS	
 #=============================
-OBJ1	=	rdActuators.o rdGeneralizedForceAtv.o
+OBJ1	=	rdActuators.o rdGeneralizedForceAtv.o rdMuscleZajac.o 
 OBJ2	=	rdSetPoint.o rdLinearSetPoint.o rdPolynomialSetPoint.o
 OBJ	=	$(OBJ1) $(OBJ2)
 

@@ -10,8 +10,8 @@
 #define __rdLinearSetPoint_h__
 
 #include "rdActuators.h"
-#include <RD/Tools/rdPropertyDbl.h>
-#include <RD/Simulation/Model/rdModel.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
 #include "rdSetPoint.h"
 
 

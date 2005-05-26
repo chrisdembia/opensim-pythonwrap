@@ -10,9 +10,9 @@
 #define __rdSetPoint_h__
 
 #include "rdActuators.h"
-#include <RD/Tools/rdPropertyDbl.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdContactForce.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdContactForce.h>
 
 
 //=============================================================================

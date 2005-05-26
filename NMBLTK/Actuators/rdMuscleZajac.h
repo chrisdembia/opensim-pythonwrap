@@ -9,11 +9,13 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdMath.h>
 #include <RD/Tools/rdTools.h>
+#include <RD/Tools/rdMath.h>
+#include <RD/Tools/rdPropertyDbl.h> //added
 #include <RD/Tools/rdStorage.h>
 #include <RD/Simulation/Model/rdModel.h>
 #include <RD/Simulation/Model/rdForce.h>
+// #include <rdMuscle.h>  // Not used?
 #include "rdActuators.h"
 
 
@@ -60,9 +62,9 @@ public:
 
 
 	static const double LMNORMMAX;
-	static const double flcoef[30][6];
-	static const double fvcoef[30][6];
-	static const double vfcoef[30][6];
+	static const double flcoef[][6];
+	static const double fvcoef[][6];
+	static const double vfcoef[][6];
 
 protected:
 	/** Excitation (control 0). */
@@ -72,20 +74,20 @@ protected:
 	/** Actuator force (state 1).  Note that this state is a member variable
 	of class rdForce. */ 
 	/** Rise time of muscle activation in seconds. (serialized) */
-	double *_tRise;
+	//double *_tRise;
 	/** Fall time of muscle activation in seconds.  (serialized) */
-	double *_tFall;
+	//double *_tFall;
 	/** Optimal muscle force in Newtons.  (serialized) */
-	double *_fmOpt;
+	//double *_fmOpt;
 	/** Optimal muscle fiber length in meters. (serialized) */
-	double *_lmOpt;
+	//double *_lmOpt;
 	/** Optimal muscle pennation angle in degrees.  (serialized) */
-	double *_alphaOpt;
+	//double *_alphaOpt;
 	/** Maximum muscle fiber shortening velocity in optimal fiber lengths per
 	second.  (serialized) */
-	double *_vmMax;
+	//double *_vmMax;
 	/** Tendon slack length in meters.  (serialized) */
-	double *_ltSlack;
+	//double *_ltSlack;
 	// INITIALIZED VARIABLES
 	/** Reciprocal of muscle length. */
 	double _lmOptRecip;
@@ -97,6 +99,7 @@ protected:
 	double _ktRecip;
 	/** Reciprocal of normalized tendon stiffness times optimal fiber length. */
 	double _ktLmOptRecip;
+
 	// WORK VARIABLES
 	/** Actuator length. */
 	double _lmt;
@@ -104,8 +107,25 @@ protected:
 	// ILSE ADDED CLAY would define them locally
 	/** length of contractile part */
 	double _lm;
+	//PROPERTIES - previous serialized protected data
+   rdPropertyDbl _proptRise;
+   rdPropertyDbl _proptFall;
+   rdPropertyDbl _propfmOpt;
+	rdPropertyDbl _proplmOpt;
+	rdPropertyDbl _proplmRecipOpt;
+	rdPropertyDbl _propalphaOpt;
+	rdPropertyDbl _propvmMax;
+	rdPropertyDbl _propltSlack;
 
-	
+// REFERENCES
+	double &_tRise;
+	double &_tFall;
+	double &_fmOpt;
+	double &_lmOpt;
+	double &_lmRecipOpt;
+	double &_alphaOpt;
+   double &_vmMax;
+   double &_ltSlack;
 	//=============================================================================
 // METHODS
 //=============================================================================
@@ -121,7 +141,7 @@ private:
 	void setNull();
 	void setupSerializedMembers();
 	void copyData(const rdMuscleZajac &aActuator);
-
+   	void setupProperties();
 public:
 
 	//--------------------------------------------------------------------------
@@ -153,7 +173,8 @@ public:
 	double getMaxShorteningVelocity() const;
 	void setMslMass(double aMass);
 	double getMslMass() const;
-	//--------------------------------------------------------------------------
+	void setShorteningVelocity(double aSpeed);
+	void setActuatorLength(double aLength);	//--------------------------------------------------------------------------
 	// APPLICATION
 	//--------------------------------------------------------------------------
 
@@ -164,14 +185,14 @@ public:
 	virtual void computeActuation();
 	virtual void computeStateDerivatives(double rDYDT[]);
 	virtual double computeDFDT();
-	
-	virtual double ComputeMuscleForce(); //NOT SURE ABOUT THE VIRTUAL
+	virtual double computeDADT(double aTRise,double aTFall,double aX,double 	aA);
+	virtual double ComputeMuscleForce(double act,double alength,double avelocity);
 	virtual double ComputeActivation(double aForce, double aLength, double asvel);
 			// Not sure about the argument list
 	
-    virtual double ComputeMsForce(double aLength);
-	virtual double ComputeMuscleZero(double aLength);
-	virtual double ComputeMuscleLength(double ax, double bx, double tol);
+        virtual double ComputeMsForce(double activ,  double aLength, double actsv);
+	virtual double ComputeMuscleZero(double activ, double &rLength, double actlen, double actsv);
+	virtual double ComputeMuscleLength(double activ, double ax, double bx, double tol,double actlen, double actsv );
 
 	//Why change to static//
 	

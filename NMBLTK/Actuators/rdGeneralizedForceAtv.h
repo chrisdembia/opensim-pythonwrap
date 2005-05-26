@@ -10,12 +10,12 @@
 // INCLUDES
 //=============================================================================
 #include "rdActuators.h"
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdPropertyDbl.h>
-#include <RD/Tools/rdStorage.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdGeneralizedForce.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Tools/rdStorage.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdGeneralizedForce.h>
 
 
 //=============================================================================
