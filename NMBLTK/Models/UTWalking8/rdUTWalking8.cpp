@@ -9,16 +9,16 @@
 //=============================================================================
 #include <string>
 #include <math.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdMtx.h>
-#include <RD/Tools/rdMemory.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdSprings.h>
-#include <RD/Simulation/Model/rdAnalysis.h>
-#include <RD/Simulation/Model/rdIntegCallbackSet.h>
-#include <RD/Simulation/Model/rdDerivCallbackSet.h>
-#include <RD/Simulation/SDFast/sdfast.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMtx.h>
+#include <NMBLTK/Tools/rdMemory.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdSprings.h>
+#include <NMBLTK/Simulation/Model/rdAnalysis.h>
+#include <NMBLTK/Simulation/Model/rdIntegCallbackSet.h>
+#include <NMBLTK/Simulation/Model/rdDerivCallbackSet.h>
+#include <NMBLTK/Simulation/SDFast/sdfast.h>
 #include "rdUTWalking8.h"
 #include "rdUTWalkingIntegCallback.h"
 #include "utwalking.h"

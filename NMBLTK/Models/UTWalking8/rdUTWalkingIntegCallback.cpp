@@ -9,10 +9,9 @@
 //=============================================================================
 #include <iostream>
 #include <string>
-#include <RD/Tools/rdMath.h>
-#include <RD/Simulation/Model/rdModel.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
 #include "rdUTWalkingIntegCallback.h"
-#include <SU/Models/UTWalk8IATaylor/utwalking.h>
 
 using namespace std;
 

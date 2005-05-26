@@ -9,8 +9,8 @@ int winfocus = 0;
 #include <gl/gl.h>
 #include <device.h>
 #include <string.h>
-#include <SU/Models/UTWalk8IATaylor/23drawGL.h>
-#include <SU/Models/UTWalk8IATaylor/23inputs.h>
+#include <NMBLTK/Models/UTWalk8IATaylor/23drawGL.h>
+#include <NMBLTK/Models/UTWalk8IATaylor/23inputs.h>
 #include <interpolate.h>
 #include <vector.h>
 #include <matrix.h>

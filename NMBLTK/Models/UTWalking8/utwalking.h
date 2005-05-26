@@ -35,6 +35,7 @@ void mmfdot_(const int *nmus,double *actlen,double *actsv,double *f,double *atv,
 	double *xt,double *fdot,double *edot);
 double __stdcall MUSFRC(const int *mus,double *atv,double *actlen,double *actsv);
 double musfrc_(const int *mus,double *atv,double *actlen,double *actsv);
+double mmintl_(const int *nmus,double *fom,double *lom,double *lst,double *pennation, double *slow,double *mass);
 
 // APPLYING LOADS
 void sforce23_(double *t,double *q,double *u,
