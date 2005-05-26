@@ -17,7 +17,7 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdMtx.h>
+#include <NMBLTK/Tools/rdMtx.h>
 #include "rdSQPDLL.h"
 #include "rdOptimizationTarget.h"
 

@@ -7,9 +7,9 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <SU/CFSQP/cfsqpusr.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdMtx.h>
+#include <CFSQP/cfsqpusr.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMtx.h>
 #include "rdSQPDLL.h"
 #include "rdFSQP.h"
 #include "rdOptimizationTarget.h"

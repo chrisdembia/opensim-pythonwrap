@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <RD/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMath.h>
 #include "nrODS.h"
 #include "rdSQP.h"
 #include "rdOptimizationTarget.h"
