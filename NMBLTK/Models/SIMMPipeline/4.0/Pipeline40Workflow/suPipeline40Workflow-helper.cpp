@@ -12,9 +12,9 @@
 #include <cstdio>
 #include <cstdarg>
 #include <climits>
-#include <SU/Models/SIMMPipeline/4.0/suPipeline40/suPipeline40.h>
-#include <SU/Models/SIMMPipeline/4.0/suPipeline40/suPipeline40-helper.h>
-#include <SU/Models/SIMMPipeline/4.0/Pipeline40Workflow/suPipeline40Workflow-helper.h>
+#include <NMBLTK/Models/SIMMPipeline/4.0/suPipeline40/suPipeline40.h>
+#include <NMBLTK/Models/SIMMPipeline/4.0/suPipeline40/suPipeline40-helper.h>
+#include <NMBLTK/Models/SIMMPipeline/4.0/Pipeline40Workflow/suPipeline40Workflow-helper.h>
 
 
 extern "C" void set_up_kin_out_file ( FILE **fp, char filename[] );
@@ -226,7 +226,7 @@ void DP_MainStartup_Workflow(DP_Data *dpd,const char *workpath,const char *param
    sdstab( 2.0 * BAUMGARTE_STAB, BAUMGARTE_STAB * BAUMGARTE_STAB );
 
    //******** DT - replace the assemble model routine with one that maintains the previously set gen coords **********
-   //assemble_model(t, y);
+   //assemble_model(dpd->t, dpd->y);
 	// However, even this incoorectly alters the initial joint angles, so
 	// this step is now commented out.
 	//assemble_model_lockgencoord(sdm,dpd->t,dpd->y);
@@ -257,9 +257,11 @@ void DP_MainStartup_Workflow(DP_Data *dpd,const char *workpath,const char *param
    if ( dpd->output_kinetics_file )
       set_up_kin_out_file( &dpd->kin_out, dpd->output_kinetics_file );
 
-   check_for_sderror( "MAIN" );
+   check_for_sderror( "DP_MainStartup_Workflow_1" );
 
    calc_derivatives(dpd->t, dpd->y, dpd->dy, param, &status);
+
+	check_for_sderror( "DP_MainStartup_Workflow_2" );
 
    if ( verbose == dpYes )
    {

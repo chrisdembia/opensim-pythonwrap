@@ -9,8 +9,8 @@
 //=============================================================================
 
 #include <cstdio>
-#include <SU/Models/SIMMPipeline/4.0/suPipeline40/suPipeline40.h>
-#include <SU/Models/SIMMPipeline/4.0/suPipeline40/suPipeline40-helper.h>
+#include <NMBLTK/Models/SIMMPipeline/4.0/suPipeline40/suPipeline40.h>
+#include <NMBLTK/Models/SIMMPipeline/4.0/suPipeline40/suPipeline40-helper.h>
 #include "suPipeline40Workflow.h"
 #include "suPipeline40Workflow-helper.h"
 

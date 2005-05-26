@@ -10,8 +10,8 @@
 // INCLUDES
 //=============================================================================
 #include <string>
-#include <RD/Simulation/SDFast/rdSDFastDLL.h>
-#include <RD/Simulation/SDFast/rdActuatedModel_SDFast.h>
+#include <NMBLTK/Simulation/SDFast/rdSDFastDLL.h>
+#include <NMBLTK/Simulation/SDFast/rdActuatedModel_SDFast.h>
 
 
 class rdActuatorSet;

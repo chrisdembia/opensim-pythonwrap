@@ -9,14 +9,14 @@
 //=============================================================================
 #include <string>
 #include <iostream>
-#include <RD/Tools/rdMath.h>
-#include <RD/Simulation/Model/rdDerivCallbackSet.h>
-#include <RD/Simulation/Model/rdActuatorSet.h>
-#include <RD/Simulation/Model/rdContactForceSet.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Simulation/Model/rdDerivCallbackSet.h>
+#include <NMBLTK/Simulation/Model/rdActuatorSet.h>
+#include <NMBLTK/Simulation/Model/rdContactForceSet.h>
 #include "suPipeline40.h"
 #include "suPipeline40-helper.h"
-#include <RD/Tools/suScale.h>
-#include <RD/Tools/suScaleSet.h>
+#include <NMBLTK/Tools/suScale.h>
+#include <NMBLTK/Tools/suScaleSet.h>
 
 extern "C" {
 #include "./dp/mathtools.h"
