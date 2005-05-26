@@ -1,0 +1,43 @@
+SD/FAST Information File: hopper.sd
+Generated 20-Nov-2002 10:25:53 by SD/FAST, Kane's formulation
+(sdfast B.2.6 #70405) on machine ID 690ee52e
+
+ROADMAP (hopper.sd)
+
+Bodies        Inb
+No  Name      body Joint type  Coords q
+--- --------- ---- ----------- ----------------
+ -1 $ground                                    
+  0 trunk      -1  Sliding       0             
+  1 foot        0  Sliding       1             
+
+
+STATE INDEX TO JOINT/AXIS MAP (hopper.sd)
+
+ Index
+  q|u   Joint  Axis   Joint type    Axis type    Joint Name
+ -----  -----  ----   -----------   ----------   ----------
+  0|2       0     0   Sliding       translate    
+  1|3       1     0   Sliding       translate    
+
+
+SYSTEM PARAMETERS (hopper.sd)
+
+Parameter  Value  Description
+
+nbod           2  no. bodies (also, no. of tree joints)
+njnt           2  total number of joints (tree+loop)
+ndof           2  no. degrees of freedom allowed by tree joints
+nloop          0  no. loop joints
+nldof          0  no. degrees of freedom allowed by loop joints
+
+nq             2  no. position coordinates in state (tree joints)
+nu             2  no. rate coordinates in state (tree joints)
+nlq            0  no. position coordinates describing loop joints
+nlu            0  no. rate coordinates describing loop joints
+
+nc             0  total no. constraints defined
+nlc            0  no. loop joint constraints
+npresc         0  no. prescribed motion constraints
+nuserc         0  no. user constraints
+
