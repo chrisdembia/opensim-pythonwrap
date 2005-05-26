@@ -6,11 +6,11 @@
 // Please do not read, copy, distribute, or use without permission.
 // Contact: Frank C. Anderson, fc.anderson@RealisticDynamics.com
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include <RD/Simulation/rdSimulationDLL.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdIO.h>
-#include <RD/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdIO.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
 #include "rdControlLinearNode.h"
 
 
@@ -18,7 +18,6 @@
 // STATIC CONSTANTS
 //=============================================================================
 double rdControlLinearNode::_EqualityTolerance = rdMath::ZERO;
-
 
 //=============================================================================
 // CONSTRUCTOR(S)
@@ -110,10 +109,9 @@ rdObject* rdControlLinearNode::
 copy(DOMElement *aElement) const
 {
 	// ESTABLISH RELATIONSHIP WITH XML NODE
-	rdControlLinearNode *node = new rdControlLinearNode(aElement);
+	rdControlLinearNode *node = (rdControlLinearNode *)this->copy();
 
-	// ASSIGNMENT OPERATOR
-	*node = *this;
+	node->setXMLNode(aElement);
 
 	// UPDATE BASED ON NODE
 	node->updateFromXMLNode();
@@ -121,7 +119,9 @@ copy(DOMElement *aElement) const
 	return(node);
 }
 
-
+rdControlLinearNode::~rdControlLinearNode()
+{
+}
 //=============================================================================
 // CONSTRUCTION METHODS
 //=============================================================================

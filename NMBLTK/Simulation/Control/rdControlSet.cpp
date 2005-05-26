@@ -11,9 +11,9 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdIO.h>
-#include <RD/Tools/rdObject.h>
-#include <RD/Tools/rdPropertyObjArray.h>
+#include <NMBLTK/Tools/rdIO.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdPropertyObjArray.h>
 #include "rdControlSet.h"
 
 

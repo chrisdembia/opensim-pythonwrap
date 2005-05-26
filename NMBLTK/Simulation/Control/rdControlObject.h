@@ -10,11 +10,11 @@
 #define __rdControlObject_h__
 
 // INCLUDES
-#include <RD/Simulation/rdSimulationDLL.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdFunction.h>
-#include <RD/Tools/rdFunctionSet.h>
-#include <RD/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdFunction.h>
+#include <NMBLTK/Tools/rdFunctionSet.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
 
 
 //=============================================================================

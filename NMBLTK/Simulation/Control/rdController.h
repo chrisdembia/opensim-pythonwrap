@@ -6,7 +6,7 @@
 // Please do not read, copy, distribute, or use without permission.
 // Contact: Frank C. Anderson, fc.anderson@RealisticDynamics.com
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include <RD/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
 //============================================================================
 #ifndef __rdController_h__
 #define __rdController_h__

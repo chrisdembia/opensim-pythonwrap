@@ -6,12 +6,12 @@
 // Please do not read, copy, distribute, or use without permission.
 // Contact: Frank C. Anderson, fc.anderson@RealisticDynamics.com
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include <RD/Simulation/rdSimulationDLL.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdIO.h>
-#include <RD/Tools/rdProperty.h>
-#include <RD/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdIO.h>
+#include <NMBLTK/Tools/rdProperty.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
 #include "rdControlConstant.h"
 
 

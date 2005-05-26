@@ -12,9 +12,9 @@
 // INCLUDES
 //=============================================================================
 #include "rdControlObject.h"
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdMtx.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMtx.h>
 
 
 //=============================================================================

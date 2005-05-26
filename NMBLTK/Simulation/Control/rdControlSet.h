@@ -11,9 +11,9 @@
 
 
 // INCLUDES
-#include <RD/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
 #include "rdControl.h"
-#include <RD/Tools/rdSet.h>
+#include <NMBLTK/Tools/rdSet.h>
 
 
 // EXPORT LINE FOR MICROSOFT VISUAL C++

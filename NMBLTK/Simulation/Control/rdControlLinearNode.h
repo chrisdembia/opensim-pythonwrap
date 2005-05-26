@@ -11,10 +11,10 @@
 
 
 // INCLUDES
-#include <RD/Simulation/rdSimulationDLL.h>
-#include <RD/Tools/rdObject.h>
-#include <RD/Tools/rdArray.h>
-#include <RD/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdArray.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
 
 //=============================================================================
 //=============================================================================
@@ -75,6 +75,7 @@ public:
 	rdControlLinearNode(const rdControlLinearNode &aNode);
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
+	virtual ~rdControlLinearNode();
 private:
 	void setNull();
 	void setupProperties();
