@@ -25,7 +25,13 @@ using namespace std;
 // STATICS
 //=============================================================================
 rdArrayPtrs<rdObject> rdObject::_Types;
+rdArray<XMLCh *> rdObject::_typeNames(0);
 
+stringsToObjects rdObject::_mapTypesToDefaultObjects;
+#include <vector>
+#include <algorithm>  // Include algorithms
+
+static vector<std::string> recognizedTypes;
 
 //============================================================================
 // CONSTANTS
@@ -85,6 +91,11 @@ rdObject::rdObject(const string &aFileName)
 	// GET DOCUMENT ELEMENT
 	_node = doc->getDocumentElement();
 
+	// Build array of type names to avoid calling xmlTranscode repeatedly with 
+	// The side effect of allocating and releasing buffers. 
+	// This should've been done right after registration however this seems to crash
+	// (probably because XML initialization is not done until we try to read an object from a file).
+	buildTypeNamesTable();
 	// UPDATE OBJECT
 	updateFromXMLNode();
 	}
@@ -216,7 +227,26 @@ copy(DOMElement *aElement) const
 	return(object);
 }
 
-
+//_____________________________________________________________________________
+/**
+ * Build table of Type names to avoid allocating and deallocating
+ * memory for XML tags repeatedly.
+ */
+void rdObject::
+buildTypeNamesTable()
+{
+	// Fill up the _typeNames array for quick indexing
+	if (_typeNames.getSize() != _Types.getSize()){
+		for(int i=0;i<_Types.getSize();i++) {
+			rdObject *object = _Types.get(i);
+			string objType = object->getType();
+			XMLCh *tagName = XMLString::transcode(objType.c_str());
+			_typeNames.append(tagName);
+			recognizedTypes.push_back(objType);
+		}
+		sort(recognizedTypes.begin(), recognizedTypes.end());
+	}
+}
 //=============================================================================
 // CONSTRUCTION METHODS
 //=============================================================================
@@ -371,7 +401,6 @@ void rdObject::
 setName(const string &aName)
 {
 	_name = aName;
-	if(_name.size()>NAME_LENGTH) _name.resize(NAME_LENGTH);
 }
 //_____________________________________________________________________________
 /**
@@ -474,13 +503,16 @@ RegisterType(const rdObject &aObject)
 			}
 			_Types.set(i,aObject.copy());
 			_Types.get(i)->setName(DEFAULT_NAME);
+			_mapTypesToDefaultObjects[aObject.getType()]= aObject.copy();
 			return;
 		} 
 	}
 
 	// APPEND
-	_Types.append(aObject.copy());
-	_Types.getLast()->setName(DEFAULT_NAME);
+	rdObject *defaultObj = aObject.copy();
+	_Types.append(defaultObj);
+	_mapTypesToDefaultObjects[aObject.getType()]= defaultObj;
+	_Types.getLast()->setName(DEFAULT_NAME);//0x00c067d8, 0x003b84f8
 }
 
 
@@ -798,8 +830,83 @@ updateFromXMLNode()
 			DOMElement *objElmt;
 			DOMNodeList *list;
 			rdObject *defaultObject,*object;
-
+#if 1
 			// LOOP THROUGH SUPPORTED OBJECT TYPES
+			list = elmt->getChildNodes();
+			listLength = list->getLength();
+			char buffer[31];
+			for(j=0;j<listLength;j++) {
+
+				// GET ELEMENT
+				objElmt = (DOMElement*) list->item(j);
+				if(objElmt==NULL) continue;
+				const XMLCh *objType = objElmt->getTagName();
+				XMLString::transcode(objType, buffer, 30);
+				XMLString::trim(buffer);
+				string  objectType(buffer);
+				if ( find(recognizedTypes.begin(), recognizedTypes.end(), objectType)== recognizedTypes.end()){
+					continue;
+				}
+				defaultObject = _mapTypesToDefaultObjects[objectType];
+					// GET ELEMENT
+					objElmt = (DOMElement*) list->item(j);
+					if(objElmt==NULL) continue;
+
+					// If object is from non-inlined, detect it and set attributes
+					// However we need to do that on the finalized object as copying
+					// does not keep track of XML related issues
+					//-----------Begin inline support---------------------------
+					// Collect inlining attributes
+					char *fileAttrib = rdXMLNode::GetAttribute(objElmt, "file");
+					bool inLinedObject = true;
+					DOMElement *refNode;
+					rdXMLDocument *childDocument;
+					if ((fileAttrib!=NULL) && (strlen(fileAttrib)>0)){
+						// Change _node to refer to the root of the external file
+						refNode = objElmt;
+						childDocument = new rdXMLDocument(fileAttrib);
+						objElmt = childDocument->getDOMDocument()->getDocumentElement();
+						inLinedObject = false;
+					}
+					if(fileAttrib!=NULL) delete[] fileAttrib;
+					//-----------End inline support---------------------
+					// CHECK THAT THE ELEMENT IS AN IMMEDIATE CHILD
+					DOMNode *parent = objElmt->getParentNode();
+					if( (parent!=elmt) && (parent!=NULL) && (_node!=NULL) &&
+						(parent->getOwnerDocument()==_node->getOwnerDocument()) ) {
+						if(rdObject_DEBUG) {
+							char *elmtName,*parentName,*nodeName;
+							elmtName = XMLString::transcode(objElmt->getNodeName());
+							parentName = XMLString::transcode(parent->getNodeName());
+							nodeName = XMLString::transcode(elmt->getNodeName());
+							cout<<"rdObject.updateFromXMLNode: "<<elmtName;
+							cout<<" is a child of "<<parentName<<", not of ";
+							cout<<nodeName<<endl;
+							delete[] elmtName;
+							delete[] parentName;
+							delete[] nodeName;
+						}
+						continue;
+					}
+					
+
+					// CONSTRUCT THE OBJECT BASED ON THE ELEMENT
+					object = defaultObject->copy(objElmt);
+
+					// Set inlining attributes on final object
+					if (!inLinedObject){
+						object->_inLined = inLinedObject;
+						object->_refNode = refNode;
+						object->_document = childDocument;
+					}
+
+					// ADD
+					if(object!=NULL) {
+						objArray.append(object);
+					}
+				}
+				
+#else
 			for(i=0;i<_Types.getSize();i++) {
 
 				// GET DEFAULT OBJECT
@@ -807,9 +914,8 @@ updateFromXMLNode()
 				if(defaultObject==NULL) continue;
 
 				// GET ELEMENTS
-				tagName = XMLString::transcode(defaultObject->getType().c_str());
+				tagName = _typeNames.get(i);
 				list = elmt->getElementsByTagName(tagName);
-				if(tagName!=NULL) delete[] tagName;
 				listLength = list->getLength();
 				if(listLength>0) {
 					if(rdObject_DEBUG) {
@@ -881,7 +987,7 @@ updateFromXMLNode()
 					}
 				}
 			}
-
+#endif
 			break; }
 
 		// NOT RECOGNIZED

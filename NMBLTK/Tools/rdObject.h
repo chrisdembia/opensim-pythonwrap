@@ -9,9 +9,11 @@
 #ifndef __rdObject_h__
 #define __rdObject_h__
 
+#pragma warning( disable : 4786)
 
 // INCLUDES
 #include <assert.h>
+#include <map>
 #include "rdObservable.h"
 #include "rdEvent.h"
 #include "rdTools.h"
@@ -32,6 +34,8 @@
 template class RDTOOLS_API rdArrayPtrs<rdObject>;
 #endif
 #endif
+
+typedef std::map<std::string, rdObject*, std::less<std::string> > stringsToObjects;
 
 
 // CONSTANTS
@@ -68,6 +72,12 @@ private:
 	once in this array.  Future enhancements could be using a hash table
 	instead of an array. */
 	static rdArrayPtrs<rdObject> _Types;
+
+	static rdArray<XMLCh *> _typeNames;
+	/** A Hash map that maps an std::string& to the corresponding default object.
+	*/
+	static stringsToObjects _mapTypesToDefaultObjects;
+
 	/**
 	* A pointer to the observable object implementation. Null if not needed to minimize
 	* memory overhead 
@@ -120,6 +130,7 @@ private:
 	void setNull();
 	void setupProperties();
 	void init();
+	void buildTypeNamesTable();
 
 	//--------------------------------------------------------------------------
 	// OPERATORS
