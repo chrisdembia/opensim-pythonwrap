@@ -1,0 +1,55 @@
+SD/FAST Information File: cgmalWalking01.sd
+Generated 18-Jun-2003 17:59:22 by SD/FAST, Kane's formulation
+(sdfast B.2.6 #70405) on machine ID 690ee52e
+
+ROADMAP (cgmalWalking01.sd)
+
+Bodies        Inb
+No  Name      body Joint type  Coords q
+--- --------- ---- ----------- ----------------
+ -1 $ground                                    
+  0 RFoot      -1  Planar        0   1   2     
+  1 RTibia      0  Pin           3             
+  2 RFemur      1  Pin           4             
+  3 HAT         2  Pin           5             
+  4 LFemur      3  Pin           6             
+  5 LTibia      4  Pin           7             
+  6 LFoot       5  Pin           8             
+
+
+STATE INDEX TO JOINT/AXIS MAP (cgmalWalking01.sd)
+
+ Index
+  q|u   Joint  Axis   Joint type    Axis type    Joint Name
+ -----  -----  ----   -----------   ----------   ----------
+  0|9       0     0   Planar        translate    
+  1|10      .     1   .             translate 
+  2|11      .     2   .             rotate    
+  3|12      1     0   Pin           rotate       
+  4|13      2     0   Pin           rotate       
+  5|14      3     0   Pin           rotate       
+  6|15      4     0   Pin           rotate       
+  7|16      5     0   Pin           rotate       
+  8|17      6     0   Pin           rotate       
+
+
+SYSTEM PARAMETERS (cgmalWalking01.sd)
+
+Parameter  Value  Description
+
+nbod           7  no. bodies (also, no. of tree joints)
+njnt           7  total number of joints (tree+loop)
+ndof           9  no. degrees of freedom allowed by tree joints
+nloop          0  no. loop joints
+nldof          0  no. degrees of freedom allowed by loop joints
+
+nq             9  no. position coordinates in state (tree joints)
+nu             9  no. rate coordinates in state (tree joints)
+nlq            0  no. position coordinates describing loop joints
+nlu            0  no. rate coordinates describing loop joints
+
+nc             0  total no. constraints defined
+nlc            0  no. loop joint constraints
+npresc         0  no. prescribed motion constraints
+nuserc         0  no. user constraints
+

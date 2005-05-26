@@ -1,0 +1,105 @@
+# FILE: cgmalWalking01.sd
+#
+# This file contains the system description for a walking model
+# generated for the research directed by Clive Pai, Ph.D. at
+# the Clinical Gait and Movement Analysis Laboratory at the
+# University of Illinois, Chicago.
+#
+# The inertial coordinate system is located at the surface of
+# the floor.  the Y-axis is directed upward, the X-axis
+# forward, and the Z-axis laterally to the right.
+# 
+# The model consists of 7 segments articulated by 9 degrees of freedom.
+# The model is confined to the sagittal plane. The base segment is
+# the right foot.  Its position is specified by a 3 DOF planar
+# joint.  The remaining segments branch in open chain from the
+# right foot.  The right ankle, right knee, right hip, left hip,
+# left knee, and left ankle are all modeled as 1 DOF revolute
+# joints.  The rotation axes for all these joints are aligned
+# with inertial Z-axis.  Note that for the right side
+# of the body the joint axes are in the direction of
+# the positive Z-axis (laterally to the right), but for the
+# left side of the body the joint axes are in the direction
+# of the negative Z-axis (laterally to the left).  These
+# joint axis directions were chosen so that a positive
+# change in joint angle produces the same anatomical
+# movement for both the left and right sides of the body.
+# 
+# The generalized coordinates (q) are listed below.  The
+# name of each generalized coordinate reflects the motion
+# that occurs with a positive change in the generalized
+# coordinate.
+#
+# 0  RFoot_X      |The planar joint is located at the most posterior
+# 1  RFoot_Y      |part of the heel where the heel contacts the
+# 2  RFoot_Angle  |ground.  Positive rotation tips the toe up.
+# 3  RAnkle_Plantarflexion
+# 4  RKnee_Flexion
+# 5  RHip_Extension
+# 6  LHip_Extension
+# 7  LKnee_Flexion
+# 8  LAnkle_Plantarflexion
+#
+# Anthropometry is based on data obtained from 5 subjects.  The centers
+# of mass, masses, and moments of inertia were estimated from regression
+# equation provided by McConville et al. (1980) (Anthropometric
+# relationships of body and body segment moments of inertia, Technical
+# report AFAMRL-TR-80-119, Wright-Patterson AFB, Ohio).  For details
+# on the anthropometry consult Anderson and Pandy (1999) (A Dynamic
+# Optimization Solution for Vertical Jumping in Three Dimensions,
+# Computer Methods in Biomechanics and Biomedical Engineering, Vol. 2,
+# 201-231).  
+
+language = c
+
+gravity = 0.0? -9.81? 0.0?
+
+body = RFoot inb = $ground joint = planar
+mass = 1.41
+inertia = 0.0017 0.0067 0.0068
+bodytojoint = -0.0917 -0.0387  0.0000
+pin = 1 0 0
+pin = 0 1 0
+pin = 0 0 1
+
+body = RTibia inb = RFoot joint = pin
+mass = 3.51
+inertia = 0.0477 0.0048 0.0484
+inbtojoint =  -0.0459  0.0513  0.0000
+bodytojoint =  0.0000 -0.2438  0.0000
+pin = 0 0 1
+
+body = RFemur inb = RTibia joint = pin
+mass = 8.81
+inertia = 0.1268 0.0332 0.1337
+inbtojoint =   0.0000  0.1862  0.0000
+bodytojoint =  0.0033 -0.2294  0.0000
+pin = 0 0 1
+
+body = HAT inb = RFemur joint = pin
+mass = 43.56
+inertia = 3.1524 0.7978 3.0691
+inbtojoint =  0.0020  0.1715  0.0000
+bodytojoint = 0.0000 -0.4027  0.0935
+pin = 0 0 1
+
+body = LFemur inb = HAT joint = pin
+mass = 8.81
+inertia = 0.1268 0.0332 0.1337
+inbtojoint =  0.0000 -0.4027 -0.0935
+bodytojoint = 0.0020  0.1715  0.0000
+pin = 0 0 -1
+
+body = LTibia inb = LFemur joint = pin
+mass = 3.51
+inertia = 0.0477 0.0048 0.0484
+inbtojoint =   0.0033 -0.2294  0.0000
+bodytojoint =  0.0000  0.1862  0.0000
+pin = 0 0 -1
+
+body = LFoot inb = LTibia joint = pin
+mass = 1.41
+inertia = 0.0017 0.0067 0.0068
+inbtojoint =   0.0000 -0.2438  0.0000
+bodytojoint = -0.0459  0.0513  0.0000
+pin = 0 0 -1

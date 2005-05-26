@@ -1,0 +1,100 @@
+# FILE: 23.sd
+#
+# This file contains the system description for the walking model.
+# It is a 23 DOF model.  Note that the rotational degrees
+# of freedom are given in Euler parameters and that sdst2ang() must
+# be called to convert these parameters to the normal 123 body-fixed
+# Euler angles.
+#
+# The values in this file came from four sources:
+#	Scott Delps Dissertation (SIMM)-  Total segment lengths
+# 	McConville et al. (1981)-  Mass, Center of Mass, Moment of Inertia
+#       Whitsett (See Ziegler's Dissertation)- Center of Mass of thigth & shank 
+#	Joint center experiments in our lab.
+#
+# Anthropometric and joint center data were taken for 5 subjects in the BEL 530
+# biomechanics lab.  The anthropometric data was input into regression equations
+# from McConville et al.  The joint center locations for the hip and back 
+# joints came from kinematic measures peformed in the lab (See Anderson's
+# dissertation for details).  Joint center information could have been used
+# for the other joints, but this would have meant scaling all the muscle
+# origin and insertion data from Delp.  So, the total lengths of the segments
+# of the lower extremity were taken straight from Delp.
+
+gravity = ? ? ?
+
+body = pelvis
+     mass = 11.150
+     inertia = 0.0973 0.0825 0.0548
+
+body = hat inb = pelvis joint = gimbal
+     mass = 32.413
+     inertia = 1.3960 0.7153 1.3552
+     bodyToJoint = 0.0000 -0.3202 0.0000
+     inbToJoint = 0.0000 0.1270 0.0000
+     pin =  0 0 1
+     pin =  1 0 0
+     pin =  0 1 0 
+
+body = rfemur inb = pelvis joint = gimbal
+     mass = 8.806
+     inertia = 0.1268 0.0332 0.1337
+     bodyToJoint =  0.0020  0.1715  0.0000
+     inbToJoint =   0.0000 -0.0700  0.0935
+     pin = 0 0 1
+     pin = 1 0 0
+     pin = 0 1 0
+
+body = rtibia inb = rfemur joint = pin
+     mass = 3.510
+     inertia = 0.0477 0.0048 0.0484
+     bodyToJoint = 0.0000 0.1862 0.0000
+     inbToJoint =  0.0033 -0.2294 0.0000
+     pin = -0.080909  0.040455  0.995900
+     
+body = rhindfoot inb = rtibia joint = ujoint
+     mass = 1.20
+     inertia =  0.001361 0.003709 0.003916
+     bodyToJoint = -0.035902 0.051347 -0.005539
+     inbToJoint =  0.00000 -0.243800  0.000000
+     pin =  -0.082186 -0.037209  0.995922
+     pin =   0.814756  0.577260 -0.054258
+
+body = rtoes inb = rhindfoot joint = pin
+     mass = 0.205126 
+     inertia = 0.000117 0.000179 0.000119
+     bodyToJoint = -0.026917 -0.018500 -0.005139
+     inbToJoint = 0.098032 -0.038000 0.018078
+     pin = -0.469472 0.000000 0.882948
+
+body = lfemur inb = pelvis joint = gimbal
+     mass = 8.806 
+     inertia = 0.1268 0.0332 0.1337
+     bodyToJoint =  0.0020  0.1715  0.0000
+     inbToJoint =   0.0000 -0.0700 -0.0935
+     pin =  0  0  1
+     pin = -1  0  0
+     pin =  0 -1  0
+
+body = ltibia inb = lfemur joint = pin
+     mass = 3.510 
+     inertia = 0.0477 0.0048 0.0484
+     bodyToJoint = 0.0000 0.1862 0.0000
+     inbToJoint =  0.0033 -0.2294 0.0000
+     pin =  0.080909 -0.040455  0.995900
+
+body = lhindfoot inb = ltibia joint = ujoint
+     mass = 1.20
+     inertia =  0.001361 0.003709 0.003916
+     bodyToJoint = -0.035902 0.051347  0.005539
+     inbToJoint =  0.00000 -0.243800  0.000000
+     pin =  0.082186  0.037209  0.995922
+     pin = -0.814756 -0.577260 -0.054258
+
+body = ltoes inb = lhindfoot joint = pin
+     mass = 0.205126 
+     inertia = 0.000117 0.000179 0.000119
+     bodyToJoint = -0.026917 -0.018500 0.005139
+     inbToJoint = 0.098032 -0.038000 -0.018078
+     pin =  0.469472 -0.000000 0.882948
+
