@@ -7,7 +7,6 @@
 #ifndef __rdMaterialSet_h__
 #define __rdMaterialSet_h__
 
-#include <RD/Simulation/rdSimulationDLL.h>
 #include "rdTools.h"
 #include "rdObject.h"
 #include "rdArrayPtrs.h"
