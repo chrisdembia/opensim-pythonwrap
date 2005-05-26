@@ -9,7 +9,7 @@
 
 // INCLUDES
 #include "rdToolsDLL.h"
-#include <RD/Security/rdSecurity.h>
+#include <NMBLTK/Security/rdSecurity.h>
 #include <iostream>
 
 using namespace std;
