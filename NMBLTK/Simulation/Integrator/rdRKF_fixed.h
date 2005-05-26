@@ -11,7 +11,7 @@
 
 // INCLUDES
 #include "rdIntegrator.h"
-#include <RD/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
 #include "rdRKF.h"
 
 

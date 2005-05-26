@@ -13,11 +13,11 @@
 #ifndef __rdBody_h__
 #define __rdBody_h__
 
-#include <RD/Tools/rdObject.h>
-#include <RD/Simulation/rdSimulationDLL.h>
-#include <RD/Tools/rdVisibleObject.h>
-#include <RD/Tools/rdPropertyDbl.h>
-#include <RD/Tools/rdPropertyDblArray.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdVisibleObject.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Tools/rdPropertyDblArray.h>
 
 #ifdef SWIG
 	#ifdef RDSIMULATION_API

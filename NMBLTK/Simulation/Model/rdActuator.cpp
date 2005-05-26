@@ -12,10 +12,10 @@
 // INCLUDES
 //=============================================================================
 #include "rdActuator.h"
-#include <RD/Tools/rdObject.h>
-#include <RD/Tools/rdMemory.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdMemory.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
 //#include <rdToolsTemplates.h>
 
 

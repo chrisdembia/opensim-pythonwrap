@@ -1,7 +1,7 @@
 // INCLUDES
 #include "suMarkerSet.h"
 #include "rdModel.h"
-#include <RD/Tools/suScaleSet.h>
+#include <NMBLTK/Tools/suScaleSet.h>
 #include "rdBody.h"
 
 using namespace std;

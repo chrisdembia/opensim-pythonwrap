@@ -16,14 +16,14 @@
 #include <fstream>
 #include <string.h>
 #include <math.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdMtx.h>
-#include <RD/Tools/rdMemory.h>
-#include <RD/Simulation/Model/rdModel.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMtx.h>
+#include <NMBLTK/Tools/rdMemory.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
 #include "rdSDFastDLL.h"
 #include "sdfast.h"
 #include "rdSDFast.h"
-#include <RD/Tools/suScaleSet.h>
+#include <NMBLTK/Tools/suScaleSet.h>
 
 //=============================================================================
 // STATICS

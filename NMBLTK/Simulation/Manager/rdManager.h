@@ -11,14 +11,14 @@
 
 
 // INCLUDES
-#include <RD/Tools/rdObject.h>
-#include <RD/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Control/rdControlSet.h>
-#include <RD/Simulation/Integrator/rdIntegRKF.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Control/rdControlSet.h>
+#include <NMBLTK/Simulation/Integrator/rdIntegRKF.h>
 
 
 //=============================================================================

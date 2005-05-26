@@ -9,7 +9,7 @@
 #ifndef __rdDerivCallback_h__
 #define __rdDerivCallback_h__
 //============================================================================
-#include <RD/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdObject.h>
 #include "rdModel.h"
 #include "rdCallback.h"
 

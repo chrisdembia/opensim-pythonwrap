@@ -9,7 +9,7 @@
 
 #include "rdIntegrator.h"
 #include <math.h>
-#include <RD/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMath.h>
 #include "rdRKF.h"
 
 

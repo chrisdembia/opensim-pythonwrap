@@ -10,13 +10,13 @@
 #define __rdModel_h__
 
 // INCLUDES
-#include <RD/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
 #include <iostream>
 #include <string>
-#include <RD/Tools/rdObject.h>
-#include <RD/Tools/rdStorage.h>
-#include <RD/Tools/rdArrayPtrs.h>
-#include <RD/Tools/rdNamedValueArray.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdStorage.h>
+#include <NMBLTK/Tools/rdArrayPtrs.h>
+#include <NMBLTK/Tools/rdNamedValueArray.h>
 #include "rdBodySet.h"
 
 class rdBody;

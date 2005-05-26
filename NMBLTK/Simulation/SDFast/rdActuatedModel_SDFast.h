@@ -13,11 +13,11 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdTools.h>
 #include "rdSDFastDLL.h"
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdActuatorSet.h>
-#include <RD/Simulation/Model/rdContactForceSet.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdActuatorSet.h>
+#include <NMBLTK/Simulation/Model/rdContactForceSet.h>
 #include "rdSDFast.h"
 
 

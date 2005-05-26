@@ -11,8 +11,8 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdIO.h>
-#include <RD/Tools/rdPropertyObjArray.h>
+#include <NMBLTK/Tools/rdIO.h>
+#include <NMBLTK/Tools/rdPropertyObjArray.h>
 #include "rdActuator.h"
 #include "rdContactForceSet.h"
 

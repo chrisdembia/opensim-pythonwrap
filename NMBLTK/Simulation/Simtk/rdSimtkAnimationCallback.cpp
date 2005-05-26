@@ -9,10 +9,10 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdMtx.h>
-#include <RD/Simulation/Model/rdIntegCallbackSet.h>
+#include <NMBLTK/Tools/rdMtx.h>
+#include <NMBLTK/Simulation/Model/rdIntegCallbackSet.h>
 #include "rdSimtkAnimationCallback.h"
-#include <RD/Tools/rdTransformChangeEvent.h>
+#include <NMBLTK/Tools/rdTransformChangeEvent.h>
 
 //=============================================================================
 // STATICS

@@ -8,8 +8,8 @@
 #ifndef __rdAnalysisFactory_h__
 #define __rdAnalysisFactory_h__
 
-#include <RD/Tools/rdArrayPtrs.h>
-#include <RD/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdArrayPtrs.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
 //=============================================================================
 //=============================================================================
 /**

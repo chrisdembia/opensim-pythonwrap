@@ -15,15 +15,15 @@
 #include <string>
 #include <math.h>
 #include <float.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdMtx.h>
-#include <RD/Tools/rdMemory.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdActuatorSet.h>
-#include <RD/Simulation/Model/rdActuator.h>
-#include <RD/Simulation/Model/rdAnalysis.h>
-#include <RD/Simulation/Model/rdIntegCallbackSet.h>
-#include <RD/Simulation/Model/rdDerivCallbackSet.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMtx.h>
+#include <NMBLTK/Tools/rdMemory.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdActuatorSet.h>
+#include <NMBLTK/Simulation/Model/rdActuator.h>
+#include <NMBLTK/Simulation/Model/rdAnalysis.h>
+#include <NMBLTK/Simulation/Model/rdIntegCallbackSet.h>
+#include <NMBLTK/Simulation/Model/rdDerivCallbackSet.h>
 #include "rdActuatedModel_SDFast.h"
 #include "rdActuatedModelIntegCallback.h"
 

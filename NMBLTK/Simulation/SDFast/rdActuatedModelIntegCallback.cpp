@@ -10,10 +10,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdContactForceSet.h>
-#include <RD/Actuators/rdSetPoint.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdContactForceSet.h>
+#include <NMBLTK/Actuators/rdSetPoint.h>
 #include "rdActuatedModel_SDFast.h"
 #include "rdActuatedModelIntegCallback.h"
 

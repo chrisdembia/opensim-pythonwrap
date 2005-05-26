@@ -11,9 +11,9 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdObject.h>
-#include <RD/Tools/rdPropertyBool.h>
-#include <RD/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdPropertyBool.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
 
 #include "rdCallback.h"
 #include "rdModel.h"

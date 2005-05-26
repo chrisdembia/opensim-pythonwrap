@@ -8,9 +8,9 @@
 #define __suMarkerSet_h__
 
 // INCLUDES
-#include <RD/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
 #include "suMarker.h"
-#include <RD/Tools/rdSet.h>
+#include <NMBLTK/Tools/rdSet.h>
 
 class suPipeline40;
 class rdStorage;

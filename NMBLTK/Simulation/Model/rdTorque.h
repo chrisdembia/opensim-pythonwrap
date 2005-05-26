@@ -9,11 +9,11 @@
 #ifndef __rdTorque_h__
 #define __rdTorque_h__
 
-#include <RD/Simulation/rdSimulationDLL.h>
-#include <RD/Tools/rdPropertyInt.h>
-#include <RD/Tools/rdPropertyDblArray.h>
-#include <RD/Tools/rdFunction.h>
-#include <RD/Tools/rdVectorFunction.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdPropertyInt.h>
+#include <NMBLTK/Tools/rdPropertyDblArray.h>
+#include <NMBLTK/Tools/rdFunction.h>
+#include <NMBLTK/Tools/rdVectorFunction.h>
 #include "rdModel.h"
 #include "rdActuator.h"
 

@@ -9,10 +9,10 @@
 
 
 // INCLUDES
-#include <RD/Tools/rdObject.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdIntegCallback.h>
-#include <RD/Tools/rdTransform.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdIntegCallback.h>
+#include <NMBLTK/Tools/rdTransform.h>
 
 //=============================================================================
 //=============================================================================

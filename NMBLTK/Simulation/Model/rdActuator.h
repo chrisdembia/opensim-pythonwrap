@@ -11,8 +11,8 @@
 
 
 #include "rdModel.h"
-#include <RD/Tools/rdObject.h>
-#include <RD/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
 
 
 //=============================================================================

@@ -12,9 +12,9 @@
 
 // INCLUDE
 #include "rdSDFastDLL.h"
-#include <RD/Tools/rdStorage.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Tools/rdNamedValueArray.h>
+#include <NMBLTK/Tools/rdStorage.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Tools/rdNamedValueArray.h>
 
 #ifdef SWIG
 	#ifdef RDSDFAST_API

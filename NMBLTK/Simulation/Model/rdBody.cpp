@@ -12,8 +12,8 @@
 
 #include <math.h>
 #include "rdBody.h"
-#include <RD/Tools/rdPropertyDbl.h>
-#include <RD/Tools/rdPropertyDblArray.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Tools/rdPropertyDblArray.h>
 
 
 using namespace std;

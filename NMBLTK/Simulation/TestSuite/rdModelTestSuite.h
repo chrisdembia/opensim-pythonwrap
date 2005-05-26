@@ -14,7 +14,7 @@
 // INCLUDE
 //============================================================================
 #include "rdModelTestSuiteDLL.h"
-#include <RD/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
 
 
 //=============================================================================

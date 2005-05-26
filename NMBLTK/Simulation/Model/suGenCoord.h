@@ -7,10 +7,10 @@
 #ifndef __suGenCoord_h__
 #define __suGenCoord_h__
 // INCLUDES
-#include <RD/Simulation/rdSimulationDLL.h>
-#include <RD/Tools/rdObject.h>
-#include <RD/Tools/rdPropertyObj.h>
-#include <RD/Tools/rdPropertyBool.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdPropertyObj.h>
+#include <NMBLTK/Tools/rdPropertyBool.h>
 
 class suRange;
 //=============================================================================

@@ -11,9 +11,9 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdIO.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdPropertyInt.h>
+#include <NMBLTK/Tools/rdIO.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdPropertyInt.h>
 #include "rdGeneralizedForce.h"
 
 

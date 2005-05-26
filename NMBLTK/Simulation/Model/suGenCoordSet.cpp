@@ -1,7 +1,7 @@
 #include "suGenCoordSet.h"
 #include "suGenCoord.h"
-#include <RD/Tools/suRange.h>
-#include <RD/Tools/rdSet.h>
+#include <NMBLTK/Tools/suRange.h>
+#include <NMBLTK/Tools/rdSet.h>
 //=============================================================================
 // DESTRUCTOR AND CONSTRUCTORS
 //=============================================================================

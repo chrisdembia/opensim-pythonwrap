@@ -14,11 +14,11 @@
 #include "rdModelTestSuiteDLL.h"
 #include <iostream>
 #include <string>
-#include <RD/Tools/rdMath.h>
-#include <RD/Simulation/Model/rdActuatorSet.h>
-#include <RD/Simulation/Model/rdContactForceSet.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Simulation/Model/rdActuatorSet.h>
+#include <NMBLTK/Simulation/Model/rdContactForceSet.h>
 #include "rdModelTestSuite.h"
-#include <RD/Simulation/Model/rdContactForceSet.h>
+#include <NMBLTK/Simulation/Model/rdContactForceSet.h>
 
 
 using namespace std;

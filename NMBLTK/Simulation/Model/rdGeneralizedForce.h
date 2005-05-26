@@ -10,8 +10,8 @@
 #define __rdGeneralizedForce_h__
 
 
-#include <RD/Simulation/rdSimulationDLL.h>
-#include <RD/Tools/rdPropertyInt.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdPropertyInt.h>
 #include "rdModel.h"
 #include "rdActuator.h"
 

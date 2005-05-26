@@ -12,9 +12,9 @@
 #define __rdAnalysis_h__
 
 #include "rdIntegCallback.h"
-#include <RD/Tools/rdPropertyBool.h>
-#include <RD/Tools/rdPropertyStr.h>
-#include <RD/Tools/rdPropertyInt.h>
+#include <NMBLTK/Tools/rdPropertyBool.h>
+#include <NMBLTK/Tools/rdPropertyStr.h>
+#include <NMBLTK/Tools/rdPropertyInt.h>
 
 class rdXMLDocument;
 

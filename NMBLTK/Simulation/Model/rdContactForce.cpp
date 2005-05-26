@@ -11,9 +11,9 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdMtx.h>
-#include <RD/Tools/rdPropertyDblArray.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMtx.h>
+#include <NMBLTK/Tools/rdPropertyDblArray.h>
 #include "rdContactForce.h"
 
 

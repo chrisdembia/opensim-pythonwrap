@@ -7,8 +7,8 @@
 // Contact: Frank C. Anderson, fca@RealisticDynamics.com
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "rdManager.h"
-#include <RD/Simulation/Control/rdControlConstant.h>
-#include <RD/Simulation/Control/rdControlLinear.h>
+#include <NMBLTK/Simulation/Control/rdControlConstant.h>
+#include <NMBLTK/Simulation/Control/rdControlLinear.h>
 
 
 using namespace std;

@@ -11,8 +11,8 @@
 
 // INCLUDES
 #include "rdIntegrator.h"
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Control/rdControlSet.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Control/rdControlSet.h>
 
 #ifdef SWIG
 	#ifdef RDSIMULATION_API

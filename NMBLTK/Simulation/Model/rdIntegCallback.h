@@ -11,7 +11,7 @@
 //=============================================================================
 //#include <rdObject.h>
 class rdModel;
-#include <RD/Tools/rdPropertyInt.h>
+#include <NMBLTK/Tools/rdPropertyInt.h>
 #include "rdCallback.h"
 
 

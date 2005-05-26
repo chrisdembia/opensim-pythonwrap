@@ -9,10 +9,10 @@
 
 
 // INCLUDES
-#include <RD/Simulation/rdSimulationDLL.h>
-#include <RD/Tools/rdObject.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdObject.h>
 #include "rdBody.h"
-#include <RD/Tools/rdSet.h>
+#include <NMBLTK/Tools/rdSet.h>
 
 #ifndef SWIG
 template class RDSIMULATION_API rdSet<rdBody>;

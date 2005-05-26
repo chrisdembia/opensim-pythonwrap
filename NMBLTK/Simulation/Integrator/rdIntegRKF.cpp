@@ -7,10 +7,10 @@
 // Contact: Frank C. Anderson, fca@RealisticDynamics.com
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "rdIntegrator.h"
-#include <RD/Tools/rdObject.h>
-#include <RD/Simulation/Model/rdIntegCallbackSet.h>
-#include <RD/Simulation/Model/rdAnalysisSet.h>
-#include <RD/Tools/rdException.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Simulation/Model/rdIntegCallbackSet.h>
+#include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
+#include <NMBLTK/Tools/rdException.h>
 #include "rdIntegRKF.h"
 
 

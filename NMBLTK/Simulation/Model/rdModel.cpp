@@ -11,13 +11,13 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdMemory.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdMtx.h>
-#include <RD/Security/rdSecurity.h>
-#include <RD/Tools/rdPropertyObj.h>
-#include <RD/Tools/rdPropertyObjArray.h>
-#include <RD/Tools/rdPropertyStr.h>
+#include <NMBLTK/Tools/rdMemory.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdMtx.h>
+#include <NMBLTK/Security/rdSecurity.h>
+#include <NMBLTK/Tools/rdPropertyObj.h>
+#include <NMBLTK/Tools/rdPropertyObjArray.h>
+#include <NMBLTK/Tools/rdPropertyStr.h>
 #include "rdBodySet.h"
 #include "rdModel.h"
 #include "rdBody.h"
@@ -28,7 +28,7 @@
 #include "rdIntegCallbackSet.h"
 #include "rdDerivCallback.h"
 #include "rdDerivCallbackSet.h"
-#include <RD/Tools/rdMaterialSet.h>
+#include <NMBLTK/Tools/rdMaterialSet.h>
 
 //=============================================================================
 // STATIC CONSTANTS

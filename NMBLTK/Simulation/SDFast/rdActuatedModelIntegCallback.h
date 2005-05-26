@@ -9,10 +9,10 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdIntegCallback.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdIntegCallback.h>
 #include "rdActuatedModel_SDFast.h"
 
 
