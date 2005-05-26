@@ -1,0 +1,251 @@
+               Enhancements in successive versions of CFSQP
+
+Version 2.5d : February 1998
+   1. Fixed a bug in which an incorrect offset into the mesh_pts[] 
+      array was computed for phase I. This bug only caused an error
+      for problems with both SR objectives and SR constraints, as 
+      well as an infeasible initial point.
+
+Version 2.5c : January 1998
+   1. Fixed a bug involving the indexing of the array istore[],
+      an integer array used to avoid repeating function evaluations at 
+      the same trial point in dir() and step1(). The bug could cause
+      access violations in dir(), or affect the line search by forcing 
+      the algorithm to skip the evaluation of a constraint or objective
+      when, in fact, it is necessary. (Thanks go to David Gay of Lucent
+      Technologies and Hans Mittelmann of Arizona State University
+      for uncovering this bug)
+   2. Added a globally defined character string (char cfsqp_version[])
+      indicating the current version of CFSQP (e.g., CFSQP 2.5c). 
+      (Thanks go to David Gay of Lucent Technologies for suggesting 
+      this)
+
+Version 2.5b : June 1997
+   1. Fixed a bug in which two global variables used in the FSQP-SR 
+      algorithm were not initialized for non-SR problems. This 
+      was a problem in the case when the same program called
+      CFSQP twice or more, first with an SR problem, followed later 
+      by a non-SR problem. Such a sequence of calls may have resulted
+      in an access violation (segmentation fault). (Thanks go to
+      Francois Delebecque of INRIA for pointing this out)
+
+Version 2.5a : May 1997
+   1. Fixed a sign mistake in the Lagrange multipliers estimates
+      returned from CFSQP for nonlinear equality constraints. (Thanks 
+      go to David Gay of Lucent Technologies for pointing out this 
+      error) 
+   2. If the initial point is optimal, the Lagrange multiplier
+      estimates for the nonlinear equality constraints are now
+      computed. (Thanks again go to David Gay for pointing out
+      this oversight)
+
+Version 2.5  : April 1997
+   1. Changed the line search criterion back to what it was for all
+      versions prior to Version 2.4. It was incorrectly changed for
+      Version 2.4.
+   2. Updated the FSQP-SR algorithm to include in the QPs those 
+      objectives and constraints which have non-zero multipliers
+      in the QP for d1 at the previous iterate.
+   3. Fixed error in logic involving penalty parameter updates
+      which could lead to the algorithm getting stuck at a point
+      when the search direction is essentially zero even though
+      nonlinear equality constraints may not be satisfied.
+   4. Fixed a bug loading iskip[] in dir() and accessing it in 
+      step1(). (Thanks go to Tunde McNabb of U. Penn for discovering
+      this bug)  
+   5. The incorrect constraint gradients were displayed during
+      Phase I for iprint=3, this was corrected.
+   6. More information is displayed when execution is halted due
+      to an error.
+
+Version 2.4a : April 1996
+   1. Fixed a bug introduced in Version 2.4 involving a missing 
+      parameter In four calls to gradcn() in update_omega().
+
+Version 2.4  : April 1996
+   1. Changed nonmonotone line search algorithm so that a decrease
+      in the objective function is required in at most three
+      iterations for all cases (this was previously the case only for 
+      problems with no nonlinear constraints). This was done for
+      uniformity sake. On the average, performance on test problems
+      is unaffected.
+   2. The FSQP-SR algorithm is now implemented in phase I as well
+      (generation of a feasible initial point) leading to significant 
+      savings in CPU time on problems with many ``sequentially related''
+      constraints.
+   3. The criterion for accepting a feasible initial point in
+      phase I has been modified. If a trial point in the line
+      search is feasible, it is accepted. (Thanks go to Capt.
+      Linda B. Smith of WPAFB for suggesting this improvement)
+   4. The printed value of SCV did not correspond to what the
+      manual claimed it to be. This has been corrected and renamed
+      to SNECV.
+   5. If only one objective function is present, an objective
+      multiplier equal to 1 is now returned. (Thanks go to Joao
+      Luis Cardoso Soares of Columbia University for pointing
+      out this oversight) 
+   6. We now exit with a normal termination, displaying all 
+      appropriate information, when the maximum number of iterations
+      have been reached.
+   7. Sample 2 has been modified so as to demonstrate the client
+      data feature first implemented in version 2.3.
+
+Version 2.3  : August 1995
+   1. Added a new void * argument to the cfsqp() call and pass the
+      argument back to the user-defined objective/constraint functions
+      (and gradient functions). This feature allows the user to pass
+      "client data". It is untouched by CFSQP. (Thanks go to Michael 
+      Tiller of U of Illinois at Urbana-Champaign for suggesting this)
+      NOTE: This feature adds a new argument to the CFSQP call, as
+      well as the objective and constraint (and gradient) function 
+      calls, thus programs written for previous versions will not be 
+      compatible with the new version.
+   2. A few of the parameters for the equality constraints part of
+      the algorithm were changed. Further, a flaw in this portion
+      of the algorithm was detected and fixed. These changes produced 
+      a great increase in performance on equality constrained problems.
+   3. The QP multipliers for linear equality constraints are now used
+      as the linear equality multiplier estimates instead of solving for
+      these as part of the least squares problem (thus saving some 
+      computation). (Thanks go to Adam Schwartz of UC Berkeley for 
+      suggesting this)
+   4. The Lagrange multipliers returned to the users main program
+      were incorrect for nonlinear equality constraints. This has 
+      been corrected. (Thanks go to Deng Wanhong of Nanyang 
+      Technological University, Singapore for pointing this out)
+   5. Fixed another (see v2.1 item 6 below) bug possibly causing a 
+      memory violation during the phase I computation of dtilde. 
+      (Thanks again to Adam Schwartz)
+   6. Fixed bug in dir() causing iact[] to be referenced out of
+      bounds. (Thanks again to Adam Schwartz)
+   7. For iprint>=1, the appropriate information is now displayed at 
+      the final iterate even if termination was caused by some reason
+      other than the stopping criterion being satisfied. (Thanks
+      again to Adam Schwartz)
+   8. Avoid a possible divide by zero in the computation of rho^g
+      (FSQP-NL, i.e. mode B=1, only). (Thanks go to Ales Krajnc of 
+      University Ljubljana for pointing this out)
+   9. Fixed bug in hessian() which affected problems with nonlinear
+      equality constraints when using the FSQP-NL algorithm (mode B=1).
+  10. Fixed bug in dir() which affected mini-max problems (i.e. nf>1).
+      
+Version 2.2a : April 1995
+   1. Fixed bug introduced in version 2.2 that in some cases
+      caused CFSQP to ignore simple bounds on the last variable.
+      (Thanks go to Laszlo Ast, of TU Budapest, Hungary)
+
+Version 2.2  : January 1995
+   1. Allow for the case when nf=0 and neqn>0. That is, the
+      user no longer has to supply a "dummy" constant objective
+      function when attempting to find a feasible point for 
+      a set of constraints that includes nonlinear equality
+      constraints.
+   2. Fixed small bug in sbout1().
+   (Thanks go to Jian Zhou for help with both of these updates)
+
+Version 2.1  : November 1994
+   1. Changed the algorithm to avoid an unnecessary computation
+      of d1 in mode 1 (nonmonotone line search). The sequence
+      of iterates is unaffected.
+   2. We now only require the number of linear equality constraints 
+      (versus the total number of equality constraints) to be less 
+      than the number of variables.
+   3. When a numerical equivalence of iterates error occurs, all
+      information is now displayed (for iprint>0) instead of simply
+      terminating with an error message.
+   4. The number of iterations is now internally maintained even
+      when iprint=0. (Thanks to the suggestion by A. Foussier of
+      Dassault Aviation)
+   5. Improved ANSI compatibility of prototypes. (Thanks go to
+      Tomas Schonthal of the Lund Institue of Technology for originally
+      pointing out the problem)
+   6. Fixed bug possibly causing a crash on some problems when loading 
+      the integer array iw[] for the phase I (generation of feasible 
+      initial point) computation of dtilde (Thanks go to Vivek Sharma 
+      of U. of Minnesota for reporting this problem)
+   7. Initialized a variable that may be undefined in some cases in
+      dir. On a few specific machines this bug caused the program to
+      crash. (Thanks go to Jan Thorbecke of the Delft University of
+      Technology for pointing out this problem)
+   8. Removed several unused variables.
+   9. Various other small errors were corrected.
+
+Version 2.0  : February 1994
+   1. Implementation of new algorithm to efficiently handle problems
+      with many sequentially related objectives or constraints.
+   2. Implementation of newer, more sophisticated, internal data
+      structures.
+   3. Split main header file and declared all CFSQP functions
+      as static in order to avoid clashes with user-defined functions.
+      (Thanks go to Martin Wauchope of CRA, Australia for suggestions
+      leading to this change, among other things)
+      Additionally, to reduce the file number count, we manually 
+      included the main header file in cfsqp.c. The only header now
+      used with CFSQP is a small one that is included in the
+      user's main program.  
+   4. Added a test whether the new iterate is too close to the
+      previous iterate (avoids possible divide by zero).
+   5. In the algorithm FSQP-NL, do not increase Ck if rhol is equal
+      to 1. (see manual for definitions)
+   6. Global logical variable x_is_new added to indicate to the 
+      user when the value of x sent to user-defined functions has been
+      changed within CFSQP.
+   7. Many portability problems were removed, as well as memory
+      management problems corrected, unused or initialized variables 
+      taken care of, and ANSI definition mistakes corrected all due to 
+      Greg Anderson from Intel. (Thanks also go to Steven Drucker
+      of MIT for testing a pre-release version)
+   8. Other minor bugs removed.
+
+Version 1.2b : June 1993                                            
+   1. Changes were made to improve ANSI compatibility.              
+      (Thanks go to Martin Wauchope of CRA, Australia and Robert
+      Wolpert of Duke)      
+
+Version 1.2a : May 1993					       
+   1. A bug was fixed in dir() that under certain circumstances     
+      caused a segmentation fault during phase 1.		       
+   2. Another bug was removed from cfsqp() that led to the Hessian  
+      not being initialized at the start of phase 2.	       
+      (Thanks go to H. Gotoda of the University of Tokyo)           
+
+Version 1.2  : May 1993					       
+   1. The option is added to force constraints to be checked before 
+      objectives during the line search (C=2 in the mode            
+      specification). This option is useful for problems where the  
+      objective is not well defined outside the feasible set.       
+   2. Three additional parameters are added that allow the user to  
+      control three pre-selected stopping criteria different from   
+      the default stopping criteria used by CFSQP (see user's manual
+      for details).                                                 
+   3. A bug was fixed that caused failures when the given initial   
+      point did not satisfy the linear constraints. (Thanks go to   
+      Ioannis Androulakis of Purdue University)		       
+   4. Minor bugs in some fprintf() statements were removed (Thanks  
+      got to Scott Stark of Delaware)			       
+
+Version 1.1  : April 1993                                            
+    1. ANSI compilers are now supported through conditional function  
+       declarations and definitions.                                  
+    2. Provisions are added to allow printing of information at       
+       iterations that are a multiple of 10, instead of at every      
+       iteration.                                                     
+    3. A small bug is fixed in the check() function. (Thanks go to    
+       Martin Wauchope)                                               
+    4. A possible difficulty in the matrix freeing routine free_dm()  
+       is taken care of. (Thanks again to Martin Wauchope)            
+    5. All calls to the error() function had an error in their        
+       list, this was removed. (Thanks go to Kurt Alonso)             
+    6. Other small bugs that appeared while converting to ANSI        
+       were fixed.                                                    
+                    
+Version 1.0  : March 1993
+    1. Provisions are added to the memory allocation utilities so that
+       when a vector (matrix) of length (dimension) 0 is created, a
+       NULL pointer will not be returned. (Thanks go to Samer Takriti
+       of the University of Michigan for pointing out this error.)
+    2. Header file modified to allow compilation on some machines,
+       where malloc.h is not available.
+
+Version 0.99 : January 1993
+    Functionally (essentially) identical to FSQP Version 3.1
