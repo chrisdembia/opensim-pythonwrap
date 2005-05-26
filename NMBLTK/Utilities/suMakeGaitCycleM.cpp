@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdStorage.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdStorage.h>
 
 
 const int LENGTH = rdObject_NAME_LENGTH;
