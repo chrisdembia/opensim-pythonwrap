@@ -14,7 +14,6 @@
 #include <NMBLTK/Tools/rdMemory.h>
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdMtx.h>
-#include <NMBLTK/Security/rdSecurity.h>
 #include <NMBLTK/Tools/rdPropertyObj.h>
 #include <NMBLTK/Tools/rdPropertyObjArray.h>
 #include <NMBLTK/Tools/rdPropertyStr.h>
@@ -140,13 +139,6 @@ setNull()
 void rdModel::
 init()
 {
-	// CHECK LICENSE
-	long securityStatus = rdSecurity::VerifyAuthorization();
-	if(securityStatus<0) {
-		rdSecurity::PrintAuthorizationStatus(securityStatus);
-		exit(0);
-	}
-
 	// CALLBACK SETS
 	_analysisSet = new rdAnalysisSet(this);
 	_integCallbackSet = new rdIntegCallbackSet(this);
