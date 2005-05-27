@@ -16,18 +16,18 @@
 #include <string.h>
 #include <math.h>
 #include <float.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdSprings.h>
-#include <RD/Simulation/SDFast/sdfast.h>
-#include <RD/Simulation/Model/rdBody.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdSprings.h>
+#include <NMBLTK/Simulation/SDFast/sdfast.h>
+#include <NMBLTK/Simulation/Model/rdBody.h>
 #include "rdBlock.h"
-#include <RD/Simulation/Control/rdControlConstant.h>
-#include <RD/Simulation/Control/rdControlLinear.h>
-#include <RD/Simulation/Control/rdControlLinearNode.h>
-#include <RD/Simulation/Control/rdControlSet.h>
-#include <RD/Simulation/Model/rdForce.h>
-#include <RD/Simulation/Model/rdGeneralizedForce.h>
+#include <NMBLTK/Simulation/Control/rdControlConstant.h>
+#include <NMBLTK/Simulation/Control/rdControlLinear.h>
+#include <NMBLTK/Simulation/Control/rdControlLinearNode.h>
+#include <NMBLTK/Simulation/Control/rdControlSet.h>
+#include <NMBLTK/Simulation/Model/rdForce.h>
+#include <NMBLTK/Simulation/Model/rdGeneralizedForce.h>
 
 using namespace std;
 

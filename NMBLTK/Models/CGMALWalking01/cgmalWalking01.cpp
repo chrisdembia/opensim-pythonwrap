@@ -10,11 +10,11 @@
 #include <string.h>
 #include <math.h>
 #include <float.h>
-#include <RD/Tools/rdMath.h>
-#include <RD/Simulation/Model/rdBody.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdSprings.h>
-#include <RD/Simulation/SDFast/sdfast.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Simulation/Model/rdBody.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdSprings.h>
+#include <NMBLTK/Simulation/SDFast/sdfast.h>
 #include "cgmalWalking01.h"
 
 

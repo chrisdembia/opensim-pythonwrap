@@ -13,10 +13,10 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <RD/Simulation/SDFast/rdSDFastDLL.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/SDFast/rdSDFast.h>
-#include <RD/Simulation/SDFast/rdActuatedModel_SDFast.h>
+#include <NMBLTK/Simulation/SDFast/rdSDFastDLL.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/SDFast/rdSDFast.h>
+#include <NMBLTK/Simulation/SDFast/rdActuatedModel_SDFast.h>
 
 
 //=============================================================================

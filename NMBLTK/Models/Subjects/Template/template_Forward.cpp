@@ -1,20 +1,20 @@
 // su_Template__Forward.cpp
 
 #include <string>
-#include <RD/Tools/rdMath.h>
-#include <RD/Tools/rdIO.h>
-#include <RD/Simulation/Manager/rdManager.h>
-#include <RD/Simulation/Control/rdControlLinear.h>
-#include <RD/Simulation/Control/rdControlSet.h>
-#include <SU/Analyses/suKinematics.h>
-#include <SU/Analyses/suPointKinematics.h>
-#include <SU/Analyses/suActuation.h>
-#include <SU/Analyses/suContact.h>
-#include <SU/Analyses/suLinearSpring.h>
-#include <SU/Analyses/suActuatorGeneralizedForces.h>
-#include <SU/Analyses/suGeneralizedForces.h>
-#include <SU/Analyses/suBodyKinematics.h>
-#include <RD/Simulation/Model/rdAnalysisSet.h>
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdIO.h>
+#include <NMBLTK/Simulation/Manager/rdManager.h>
+#include <NMBLTK/Simulation/Control/rdControlLinear.h>
+#include <NMBLTK/Simulation/Control/rdControlSet.h>
+#include <NMBLTK/Analyses/suKinematics.h>
+#include <NMBLTK/Analyses/suPointKinematics.h>
+#include <NMBLTK/Analyses/suActuation.h>
+#include <NMBLTK/Analyses/suContact.h>
+#include <NMBLTK/Analyses/suLinearSpring.h>
+#include <NMBLTK/Analyses/suActuatorGeneralizedForces.h>
+#include <NMBLTK/Analyses/suGeneralizedForces.h>
+#include <NMBLTK/Analyses/suBodyKinematics.h>
+#include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
 #include "su_Template_.h"
 using namespace std;
 

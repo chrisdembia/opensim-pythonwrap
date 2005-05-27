@@ -17,9 +17,9 @@
 		it to your specific simulation.
 
 *******************************************************************************/
-#include <SU/Models/SIMMPipeline/4.0/suPipeline40/dp/universal.h>
-#include <SU/Models/SIMMPipeline/4.0/Pipeline40Workflow/model.h>
-#include <SU/Models/SIMMPipeline/4.0/Pipeline40Workflow/user_structs.h>
+#include <NMBLTK/Models/SIMMPipeline/4.0/suPipeline40/dp/universal.h>
+#include <NMBLTK/Models/SIMMPipeline/4.0/Pipeline40Workflow/model.h>
+#include <NMBLTK/Models/SIMMPipeline/4.0/Pipeline40Workflow/user_structs.h>
 
 /*************** DEFINES (for this file only) *********************************/
 
