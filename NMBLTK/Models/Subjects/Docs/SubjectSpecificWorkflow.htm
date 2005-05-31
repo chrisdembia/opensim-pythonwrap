@@ -14,18 +14,18 @@ name s26, n187):</title>
  <o:DocumentProperties>
   <o:Author>Ayman Habib</o:Author>
   <o:LastAuthor>Frank C. Anderson</o:LastAuthor>
-  <o:Revision>7</o:Revision>
-  <o:TotalTime>5072</o:TotalTime>
+  <o:Revision>8</o:Revision>
+  <o:TotalTime>5073</o:TotalTime>
   <o:LastPrinted>2005-01-25T20:03:00Z</o:LastPrinted>
   <o:Created>2005-02-01T23:18:00Z</o:Created>
-  <o:LastSaved>2005-05-17T18:41:00Z</o:LastSaved>
-  <o:Pages>3</o:Pages>
-  <o:Words>1318</o:Words>
-  <o:Characters>7517</o:Characters>
+  <o:LastSaved>2005-05-31T22:07:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>1319</o:Words>
+  <o:Characters>7519</o:Characters>
   <o:Company>Stanford University</o:Company>
   <o:Lines>62</o:Lines>
   <o:Paragraphs>15</o:Paragraphs>
-  <o:CharactersWithSpaces>9231</o:CharactersWithSpaces>
+  <o:CharactersWithSpaces>9233</o:CharactersWithSpaces>
   <o:Version>9.6926</o:Version>
  </o:DocumentProperties>
 </xml><![endif]--><!--[if gte mso 9]><xml>
@@ -238,9 +238,9 @@ ul
 <p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>This document is intended as a documentation of the steps
-that need to be taken by researchers trying to create and analyze subject specific
-simulations. The document is a work in progress and should be amended whenever
-new info that helps customize/improve the workflow becomes available.</p>
+that need to be taken by researchers trying to create and analyze subject
+specific simulations. The document is a work in progress and should be amended
+whenever new info that helps customize/improve the workflow becomes available.</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
@@ -248,17 +248,17 @@ new info that helps customize/improve the workflow becomes available.</p>
 
 <ol style='margin-top:0pt' start=1 type=1>
  <li class=MsoNormal style='mso-list:l4 level1 lfo3;tab-stops:list 36.0pt'>Subject
-     specific motion capture data is obtained from one of the collaborating hospitals/centers
-     and preprocessed to match the assumptions in the workflow, this
-     preprocessing is not yet covered in this document. </li>
+     specific motion capture data is obtained from one of the collaborating
+     hospitals/centers and preprocessed to match the assumptions in the
+     workflow, this preprocessing is not yet covered in this document. </li>
  <li class=MsoNormal style='mso-list:l4 level1 lfo3;tab-stops:list 36.0pt'>Motion
      capture data is used to scale a standard nominal model (that has been
      tested and validated) to match the size of the subject. We’ll call it
      subject-model. (<a href="#runDarrylsScripts">step</a>)</li>
  <li class=MsoNormal style='mso-list:l4 level1 lfo3;tab-stops:list 36.0pt'>Inverse
      kinematics is used to calculate joint kinematics that best reproduce
-     experimental data using the subject-model. This is done by minimizing the weighted
-     sum of errors in a set of markers for each frame of the motion. (<a
+     experimental data using the subject-model. This is done by minimizing the
+     weighted sum of errors in a set of markers for each frame of the motion. (<a
      href="#runDarrylsScripts">step</a>)</li>
  <li class=MsoNormal style='mso-list:l4 level1 lfo3;tab-stops:list 36.0pt'>The
      motion that results from inverse kinematics will generally be not
@@ -573,11 +573,11 @@ in the proper directory for simulation.<o:p></o:p></span></h3>
  <li class=MsoNormal style='mso-list:l5 level1 lfo15;tab-stops:list 36.0pt'><a
      name=extractControls>Run the executable </a>that extracts controls from
      the xxxcmc.mot file in the subject directory as follows: <b
-     style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'>$RDI_INSTALL/Bin/rdConvertStorageToControls_D.exe
+     style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'>$RDI_INSTALL/Bin/convertStorageToControls_VC71D.exe
      xxxcmc.mot glut_med1_r_exc 92 xxxcmc.ctr. </i></b>This will generate a
      file of muscle excitations xxxcmc.ctr in the subject directory. You can
-     also use pre-built executable from ($RDI_INSTALL/Bin/$Arch/rdConvertStorageToControls_D.exe)
-     instead.</li>
+     also use pre-built executable from
+     ($RDI_INSTALL/Bin/$Arch/rdConvertStorageToControls_D.exe) instead.</li>
  <li class=MsoNormal style='mso-list:l5 level1 lfo15;tab-stops:list 36.0pt'><a
      name=generateDyn>Start SIMM4.0 and </a>open the files xxx.jnt &amp;
      xxx.msl from step 1. (Some bone files may be missing though this does not
@@ -597,9 +597,8 @@ in the proper directory for simulation.<o:p></o:p></span></h3>
  <li class=MsoNormal style='mso-list:l5 level1 lfo15;tab-stops:list 36.0pt'><span
      style='mso-bookmark:buildsimulator'>Build the executable </span>using <b
      style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'>devenv
-     suxxx.sln /build Debug /project suxxx.vcproj</i> </b>in the subject
-     directory, this creates an executable suxxx.exe. (for vc6.0 use ??
-     instead).</li>
+     suxxx.sln /build Debug /project suxxx.vcproj</i> </b>in the subject directory,
+     this creates an executable suxxx.exe. (for vc6.0 use ?? instead).</li>
  <li class=MsoNormal style='mso-list:l5 level1 lfo15;tab-stops:list 36.0pt'><a
      name=runAndAnalyze>Run the executable </a>generated in previous step in
      the subject directory. Analysis results are stored under the Results
