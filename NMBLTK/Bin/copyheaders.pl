@@ -15,8 +15,8 @@ use vars qw/*name *dir *prune/;
 sub buildHeadersHash;
 sub findRelativePath;
 
-$destDir = $ENV{'RDI_DEV'}.'/IncludeDev/';
-$srcDir = $ENV{'RDI_DEV'}.'/Source/Native';
+$destDir = $ENV{'RDI_DEV'}.'/Include/';
+$srcDir = $ENV{'RDI_DEV'}.'/Source';
 
 @donotCopy = ('CVS', 'CVSROOT', 'Repository', 'Entries', 'Root', 'makefile', 'VisualStudio', 'Bin', 'Release', 'Debug');
 
