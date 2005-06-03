@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="suStorageSubtract"
+	ProjectGUID="{ED424443-73AE-4155-BAD7-24813C0A8F89}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -21,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				PrecompiledHeaderFile=".\Debug/suStorageSubtract.pch"
@@ -35,21 +36,22 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="rdTools_D.lib odbc32.lib odbccp32.lib"
-				OutputFile="Debug/storageSubtract_D.exe"
-				LinkIncremental="2"
+				OutputFile="../storageSubtract_VC71D.exe"
+				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Debug/storageSubtractD.pdb"
-				SubSystem="1"/>
+				ProgramDatabaseFile=".\Debug/storageSubtract_VC6D.pdb"
+				SubSystem="1"
+				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Debug/suStorageSubtract.tlb"/>
+				TypeLibraryName=".\Debug/suStorageSubtract.tlb"
+				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Updating libraries..."
-				CommandLine="$(RDI_INSTALL)\Bin\cpl D"/>
+				CommandLine="&quot;$(RDI_INSTALL)&quot;\Bin\cpl D"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -79,12 +81,13 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="2"
 				InlineFunctionExpansion="1"
-				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Release/suStorageSubtract.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
@@ -95,23 +98,23 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="rdTools.lib odbc32.lib odbccp32.lib"
-				OutputFile="../storageSubtract.exe"
+				OutputFile="../storageSubtract_VC71.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release/storageSubtract.pdb"
-				SubSystem="1"/>
+				ProgramDatabaseFile=".\Release/storageSubtract_VC6.pdb"
+				SubSystem="1"
+				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Release/suStorageSubtract.tlb"/>
+				TypeLibraryName=".\Release/suStorageSubtract.tlb"
+				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Updating libraries..."
-				CommandLine="$(RDI_INSTALL)\Bin\cpl"/>
+				CommandLine="&quot;$(RDI_INSTALL)&quot;\Bin\cpl"/>
 			<Tool
-				Name="VCPreBuildEventTool"
-				Description="Updating .h files..."/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -138,6 +141,21 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;f90;for;f;fpp">
 			<File
 				RelativePath="..\storageSubtract.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter

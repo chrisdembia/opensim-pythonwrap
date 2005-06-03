@@ -3,9 +3,9 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="suPipeline40"
-	ProjectGUID="{386A90A0-7AF8-4908-9386-CE94716BC5A0}"
-	RootNamespace="suPipeline40"
-	Keyword="Win32Proj">
+	ProjectGUID="{B770CFD2-058C-44FF-962F-830BCEC3315E}"
+	SccProjectName=""
+	SccLocalPath="">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
@@ -13,32 +13,35 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory=".\Debug"
+			IntermediateDirectory=".\Debug"
 			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/EHs
-"
 				Optimization="0"
-				AdditionalIncludeDirectories="., dp"
+				AdditionalIncludeDirectories=".\dp"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_POSIX_;RDSDFAST_EXPORTS"
-				MinimalRebuild="TRUE"
-				ExceptionHandling="FALSE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderFile=".\Debug/suPipeline40.pch"
+				AssemblerListingLocation=".\Debug/"
+				ObjectFile=".\Debug/"
+				ProgramDataBaseFileName=".\Debug/"
 				BrowseInformation="1"
-				WarningLevel="4"
-				Detect64BitPortabilityProblems="TRUE"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
-				ShowIncludes="FALSE"/>
+				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/suPipeline40_D.lib"/>
+				OutputFile="Debug\suPipeline40_D.lib"
+				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -50,7 +53,9 @@
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -62,28 +67,35 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory=".\Release"
+			IntermediateDirectory=".\Release"
 			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/EHs
-"
-				AdditionalIncludeDirectories="., dp"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_POSIX_;RDSDFAST_EXPORTS"
-				ExceptionHandling="FALSE"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories=".\dp"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;RDSDFAST_EXPORTS"
+				StringPooling="TRUE"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="0"
-				WarningLevel="4"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				EnableFunctionLevelLinking="TRUE"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderFile=".\Release/suPipeline40.pch"
+				AssemblerListingLocation=".\Release/"
+				ObjectFile=".\Release/"
+				ProgramDataBaseFileName=".\Release/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="rdSDFast.lib"
-				OutputFile="$(OutDir)/suPipeline40.lib"/>
+				OutputFile=".\Release\suPipeline40.lib"
+				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -95,7 +107,9 @@
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -111,138 +125,557 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;f90;for;f;fpp">
 			<File
-				RelativePath=".\constraint.c">
-			</File>
-			<File
-				RelativePath=".\contact.c">
-			</File>
-			<File
-				RelativePath=".\cylinder_wrap.c">
-			</File>
-			<File
-				RelativePath=".\ellipsoid_wrap.c">
-			</File>
-			<File
-				RelativePath=".\gcvspl.c">
-			</File>
-			<File
-				RelativePath=".\gmc.c">
-			</File>
-			<File
-				RelativePath=".\impact.c">
-			</File>
-			<File
-				RelativePath=".\invert.c">
-			</File>
-			<File
-				RelativePath=".\lcp_solver.c">
-			</File>
-			<File
-				RelativePath=".\lmdif_c.c">
-			</File>
-			<File
-				RelativePath=".\mathtools.c">
-			</File>
-			<File
-				RelativePath=".\object.c">
-			</File>
-			<File
-				RelativePath=".\output.c">
-			</File>
-			<File
-				RelativePath=".\pipetools.c">
-			</File>
-			<File
-				RelativePath=".\readmuscles.c">
-			</File>
-			<File
-				RelativePath=".\readtools.c">
+				RelativePath="constraint.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						ShowIncludes="FALSE"/>
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\sdmassmat.c">
+				RelativePath="contact.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\simm_init_40.c">
+				RelativePath="cylinder_wrap.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\sphere_wrap.c">
+				RelativePath="ellipsoid_wrap.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\spring_based.c">
+				RelativePath="gcvspl.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\suPipeline40-helper.cpp">
+				RelativePath="gmc.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\suPipeline40.cpp">
+				RelativePath="impact.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\torus_wrap.c">
+				RelativePath="invert.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\wrapping.c">
+				RelativePath="lcp_solver.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="lmdif_c.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="mathtools.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="object.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="output.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="pipetools.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="readmuscles.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="readtools.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="sdmassmat.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="simm_init_40.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="sphere_wrap.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="spring_based.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="suPipeline40-helper.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="suPipeline40.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="torus_wrap.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="wrapping.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			Filter="h;hpp;hxx;hm;inl;fi;fd">
 			<File
-				RelativePath=".\basic.h">
+				RelativePath="basic.h">
 			</File>
 			<File
-				RelativePath=".\dp.h">
+				RelativePath="dp.h">
 			</File>
 			<File
-				RelativePath=".\f2c.h">
+				RelativePath="f2c.h">
 			</File>
 			<File
-				RelativePath=".\functions.h">
+				RelativePath="functions.h">
 			</File>
 			<File
-				RelativePath=".\gcvspl.h">
+				RelativePath="gcvspl.h">
 			</File>
 			<File
-				RelativePath=".\macros.h">
+				RelativePath="macros.h">
 			</File>
 			<File
-				RelativePath=".\mathtools.h">
+				RelativePath="mathtools.h">
 			</File>
 			<File
-				RelativePath=".\object.h">
+				RelativePath="object.h">
 			</File>
 			<File
-				RelativePath=".\pipesolid.h">
+				RelativePath="pipesolid.h">
 			</File>
 			<File
-				RelativePath=".\simm_init_40.h">
+				RelativePath="simm_init_40.h">
 			</File>
 			<File
-				RelativePath=".\structs.h">
+				RelativePath="structs.h">
 			</File>
 			<File
-				RelativePath=".\suPipeline40-helper.h">
+				RelativePath="suPipeline40-helper.h">
 			</File>
 			<File
-				RelativePath=".\suPipeline40.h">
+				RelativePath="suPipeline40.h">
 			</File>
 			<File
-				RelativePath=".\universal_40.h">
+				RelativePath="universal_40.h">
 			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 		</Filter>
 	</Files>
 	<Globals>

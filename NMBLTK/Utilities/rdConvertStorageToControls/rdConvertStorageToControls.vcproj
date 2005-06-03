@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="rdConvertStorageToControls"
-	ProjectGUID="{36660936-72E0-4F3C-9C34-CF175A8FFA75}"
+	ProjectGUID="{80A1DF7F-D955-432E-8DD5-063A275322C4}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -39,7 +39,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="rdTools_D.lib rdSimulation_D.lib odbc32.lib odbccp32.lib"
-				OutputFile="../rdConvertStorageToControls_D.exe"
+				OutputFile="../convertStorageToControls_VC71D.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
@@ -99,10 +99,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="rdTools.lib rdSimulation.lib odbc32.lib odbccp32.lib"
-				OutputFile="../rdConvertStorageToControls.exe"
+				OutputFile="../convertStorageToControls_VC71.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release/rdConvertStorageToControls.pdb"
+				ProgramDatabaseFile=".\Release/convertStorageToControls_VC6.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool

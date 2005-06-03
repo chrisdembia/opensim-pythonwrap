@@ -3,8 +3,9 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="rdSimplifyControls"
-	ProjectGUID="{F0000775-F9C5-4CD0-A37C-360087986980}"
-	Keyword="Win32Proj">
+	ProjectGUID="{A3FF7269-7ABC-4AC9-8E3D-EC8DE185A56C}"
+	SccProjectName=""
+	SccLocalPath="">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
@@ -12,34 +13,42 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory=".\Debug"
+			IntermediateDirectory=".\Debug"
 			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
-				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderFile=".\Debug/rdSimplifyControls.pch"
+				AssemblerListingLocation=".\Debug/"
+				ObjectFile=".\Debug/"
+				ProgramDataBaseFileName=".\Debug/"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
+				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="rdTools_D.lib rdSimulation_D.lib"
-				OutputFile="$(OutDir)/rdSimplifyControls_D.exe"
-				LinkIncremental="2"
+				AdditionalDependencies="rdTools_D.lib rdSimulation_D.lib odbc32.lib odbccp32.lib"
+				OutputFile=",,/simplifyControls_VC71D.exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(OutDir)/rdSimplifyControls.pdb"
+				ProgramDatabaseFile=".\Debug/simplifyControls_VC6D.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCMIDLTool"
+				TypeLibraryName=".\Debug/rdSimplifyControls.tlb"
+				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -47,7 +56,9 @@
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -61,32 +72,42 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory=".\Release"
+			IntermediateDirectory=".\Release"
 			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				StringPooling="TRUE"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="0"
+				EnableFunctionLevelLinking="TRUE"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderFile=".\Release/rdSimplifyControls.pch"
+				AssemblerListingLocation=".\Release/"
+				ObjectFile=".\Release/"
+				ProgramDataBaseFileName=".\Release/"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="rdTools.lib rdSimulation.lib"
-				OutputFile="$(OutDir)/rdSimplifyControls.exe"
+				AdditionalDependencies="rdTools.lib rdSimulation.lib odbc32.lib odbccp32.lib"
+				OutputFile="../simplifyControls_VC71.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="TRUE"
+				SuppressStartupBanner="TRUE"
+				ProgramDatabaseFile=".\Release/simplifyControls_VC6.pdb"
 				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
 				TargetMachine="1"/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCMIDLTool"
+				TypeLibraryName=".\Release/rdSimplifyControls.tlb"
+				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -94,7 +115,9 @@
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -112,21 +135,33 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;f90;for;f;fpp">
 			<File
 				RelativePath="..\rdSimplifyControls.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			Filter="h;hpp;hxx;hm;inl;fi;fd">
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
 	</Files>
 	<Globals>

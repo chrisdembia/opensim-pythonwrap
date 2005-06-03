@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="suSlider"
+	ProjectGUID="{D516CB16-4A60-4CE9-B984-2103D4C9BA3A}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -10,6 +11,71 @@
 			Name="Win32"/>
 	</Platforms>
 	<Configurations>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory=".\Release"
+			IntermediateDirectory=".\Release"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;RDSDFAST_EXPORTS"
+				StringPooling="TRUE"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="TRUE"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderFile=".\Release/suSlider.pch"
+				AssemblerListingLocation=".\Release/"
+				ObjectFile=".\Release/"
+				ProgramDataBaseFileName=".\Release/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="rdTools.lib rdSimulation.lib rdSDFast.lib odbc32.lib odbccp32.lib"
+				OutputFile=".\Release/suSlider.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				ProgramDatabaseFile=".\Release/suSlider.pdb"
+				ImportLibrary=".\Release/suSlider.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Release/suSlider.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Updating libraries..."
+				CommandLine="&quot;$(RDI_INSTALL)&quot;\Bin\cpl"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\Debug"
@@ -36,25 +102,26 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="rdTools_D.lib rdSimulation_D.lib rdSDFast_D.lib odbc32.lib odbccp32.lib"
 				OutputFile="Debug/suSlider_D.dll"
-				LinkIncremental="2"
+				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Debug/suSliderD.pdb"
-				ImportLibrary=".\Debug/suSlider_D.lib"/>
+				ProgramDatabaseFile=".\Debug/suSlider_D.pdb"
+				ImportLibrary=".\Debug/suSlider_D.lib"
+				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="_DEBUG"
 				MkTypLibCompatible="TRUE"
 				SuppressStartupBanner="TRUE"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/suSlider.tlb"/>
+				TypeLibraryName=".\Debug/suSlider.tlb"
+				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Updating libraries..."
-				CommandLine="$(RDI_INSTALL)\Bin\cpl D"/>
+				CommandLine="&quot;$(RDI_INSTALL)&quot;\Bin\cpl D"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -62,70 +129,6 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory=".\Release"
-			IntermediateDirectory=".\Release"
-			ConfigurationType="2"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
-			<Tool
-				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;RDSDFAST_EXPORTS"
-				StringPooling="TRUE"
-				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="TRUE"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderFile=".\Release/suSlider.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="rdTools.lib rdSimulation.lib rdSDFast.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\Release/suSlider.dll"
-				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release/suSlider.pdb"
-				ImportLibrary=".\Release/suSlider.lib"/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="TRUE"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\Release/suSlider.tlb"/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Updating libraries..."
-				CommandLine="$(RDI_INSTALL)\Bin\cpl"/>
-			<Tool
-				Name="VCPreBuildEventTool"
-				Description="Updating .h files..."/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
 				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
@@ -147,15 +150,75 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
 				RelativePath="..\slider_dyn.c">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\slider_sar.c">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\suSlider.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\suSlider_sdufuncs.c">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter

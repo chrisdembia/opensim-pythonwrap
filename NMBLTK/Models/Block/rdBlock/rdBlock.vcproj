@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="rdBlock"
-	ProjectGUID="{E372EA34-D22C-4E7E-B5C8-2BC2401E873A}"
+	ProjectGUID="{3E63C105-9161-4976-B88F-05C8B8AB12AF}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -25,14 +25,14 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;RDSDFAST_EXPORTS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Debug/rdBlock.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
+				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="3"/>
+				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -103,7 +103,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="rdSecurity.lib rdTools.lib rdSimulation.lib rdSDFast.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="rdTools.lib rdSimulation.lib rdSDFast.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\Release/rdBlock.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -125,8 +125,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-				Description="Updating .h files..."/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
@@ -157,7 +156,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -169,6 +169,22 @@
 			</File>
 			<File
 				RelativePath="..\block_sar.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdBlock.cpp">
@@ -178,7 +194,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -190,6 +207,22 @@
 			</File>
 			<File
 				RelativePath="..\rdBlock_sdufuncs.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter

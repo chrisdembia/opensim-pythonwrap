@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="rdSQP"
-	ProjectGUID="{61ED0597-3DF5-4AB0-8955-FE0F25668D49}"
+	ProjectGUID="{AF2D74F6-1267-4AEC-A541-128F11D16624}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -60,8 +60,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-				Description="Updating .h files..."/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
@@ -95,9 +94,10 @@
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
+				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="3"/>
+				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -163,7 +163,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSQP_EXPORTS;__STDC__;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -181,7 +182,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSQP_EXPORTS;__STDC__;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -199,7 +201,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSQP_EXPORTS;__STDC__;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 		</Filter>

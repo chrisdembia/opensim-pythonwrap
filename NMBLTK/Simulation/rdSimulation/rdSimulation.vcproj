@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="rdSimulation"
-	ProjectGUID="{61EE1193-EF58-484C-9F1A-D61A3B79DDAB}"
+	ProjectGUID="{D106376D-F7EB-4226-AFA2-FB4D7E475F40}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -40,7 +40,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xerces-c_2.lib rdSecurity.lib rdTools.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="xerces-c_2.lib rdTools.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\Release/rdSimulation.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -62,8 +62,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-				Description="Updating .h files..."/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
@@ -90,7 +89,6 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;RDSIMULATION_EXPORTS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -98,15 +96,15 @@
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
+				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="3"
-				CompileAs="0"/>
+				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="rdSecurity_D.lib rdTools_D.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="xerces-c_2D.lib rdTools_D.lib odbc32.lib odbccp32.lib"
 				OutputFile="Debug/rdSimulation_D.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -167,9 +165,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -187,9 +185,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -207,16 +205,30 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Model\rdAnalysisFactory.cpp">
-			</File>
-			<File
 				RelativePath="..\Model\rdAnalysisSet.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Model\rdBody.cpp">
@@ -233,9 +245,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -253,9 +265,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -273,9 +285,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -293,9 +305,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -313,9 +325,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -333,9 +345,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -353,9 +365,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -373,9 +385,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -393,9 +405,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -413,9 +425,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -433,9 +445,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -453,13 +465,30 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Model\rdDerivCallbackSet.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Model\rdForce.cpp">
@@ -476,9 +505,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -496,9 +525,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -516,9 +545,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -536,9 +565,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -556,9 +585,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -576,9 +605,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -596,9 +625,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -616,9 +645,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -636,9 +665,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -656,18 +685,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Simtk\rdSimtkAnimationCallback.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ShowIncludes="FALSE"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -685,9 +705,9 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -705,139 +725,129 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Model\suGenCoord.cpp">
+				RelativePath="..\Model\rdTorque.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\Model\rdActuator.h">
 			</File>
 			<File
-				RelativePath="..\Model\suGenCoordSet.cpp">
+				RelativePath="..\Model\rdActuatorSet.h">
 			</File>
 			<File
-				RelativePath="..\Model\suMarker.cpp">
+				RelativePath="..\Model\rdAnalysis.h">
 			</File>
 			<File
-				RelativePath="..\Model\suMarkerSet.cpp">
+				RelativePath="..\Model\rdAnalysisSet.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdBody.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdCallback.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdCallbackSet.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdContactForce.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdContactForceSet.h">
+			</File>
+			<File
+				RelativePath="..\Control\rdControl.h">
+			</File>
+			<File
+				RelativePath="..\Control\rdControlConstant.h">
+			</File>
+			<File
+				RelativePath="..\Control\rdController.h">
+			</File>
+			<File
+				RelativePath="..\Control\rdControlLinear.h">
+			</File>
+			<File
+				RelativePath="..\Control\rdControlLinearNode.h">
+			</File>
+			<File
+				RelativePath="..\Control\rdControlSet.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdDerivCallback.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdDerivCallbackSet.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdForce.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdGeneralizedForce.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdIntegCallback.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdIntegCallbackSet.h">
+			</File>
+			<File
+				RelativePath="..\Integrator\rdIntegrator.h">
+			</File>
+			<File
+				RelativePath="..\Integrator\rdIntegRKF.h">
+			</File>
+			<File
+				RelativePath="..\Manager\rdManager.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdModel.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdMuscle.h">
+			</File>
+			<File
+				RelativePath="..\Integrator\rdRKF.h">
+			</File>
+			<File
+				RelativePath="..\rdSimulationDLL.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdSprings.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdTorque.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
-			<Filter
-				Name="Header Files"
-				Filter="h;hpp;hxx;hm;inl">
-				<File
-					RelativePath="..\Model\rdActuator.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdActuatorSet.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdAnalysis.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdAnalysisFactory.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdAnalysisSet.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdBody.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdBodySet.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdCallback.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdCallbackSet.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdContactForce.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdContactForceSet.h">
-				</File>
-				<File
-					RelativePath="..\Control\rdControl.h">
-				</File>
-				<File
-					RelativePath="..\Control\rdControlConstant.h">
-				</File>
-				<File
-					RelativePath="..\Control\rdController.h">
-				</File>
-				<File
-					RelativePath="..\Control\rdControlLinear.h">
-				</File>
-				<File
-					RelativePath="..\Control\rdControlLinearNode.h">
-				</File>
-				<File
-					RelativePath="..\Control\rdControlSet.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdDerivCallback.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdDerivCallbackSet.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdForce.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdGeneralizedForce.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdIntegCallback.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdIntegCallbackSet.h">
-				</File>
-				<File
-					RelativePath="..\Integrator\rdIntegrator.h">
-				</File>
-				<File
-					RelativePath="..\Integrator\rdIntegRKF.h">
-				</File>
-				<File
-					RelativePath="..\Manager\rdManager.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdModel.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdMuscle.h">
-				</File>
-				<File
-					RelativePath="..\Integrator\rdRKF.h">
-				</File>
-				<File
-					RelativePath="..\Simtk\rdSimtkAnimationCallback.h">
-				</File>
-				<File
-					RelativePath="..\rdSimulationDLL.h">
-				</File>
-				<File
-					RelativePath="..\Model\rdSprings.h">
-				</File>
-				<File
-					RelativePath="..\Model\suGenCoord.h">
-				</File>
-				<File
-					RelativePath="..\Model\suGenCoordSet.h">
-				</File>
-				<File
-					RelativePath="..\Model\suMarker.h">
-				</File>
-				<File
-					RelativePath="..\Model\suMarkerSet.h">
-				</File>
-			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

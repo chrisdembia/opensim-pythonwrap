@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="rdConvertControls"
-	ProjectGUID="{04753976-46CC-4DF1-B71D-089D4F259A14}"
+	ProjectGUID="{4A6D353F-47FE-48F7-A51E-739475863054}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -39,10 +39,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="xerces-c_2.lib rdTools.lib rdSimulation.lib odbc32.lib odbccp32.lib"
-				OutputFile="../rdConvertControls.exe"
+				OutputFile="../convertControls_VC71.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release/rdConvertControls.pdb"
+				ProgramDatabaseFile=".\Release/convertControls_VC6.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -97,11 +97,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="xerces-c_2D.lib rdTools_D.lib rdSimulation_D.lib odbc32.lib odbccp32.lib"
-				OutputFile="../rdConvertControls_D.exe"
+				OutputFile="../convertControls_VC71D.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Debug/rdConvertControls_D.pdb"
+				ProgramDatabaseFile=".\Debug/convertControls_VC6D.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool

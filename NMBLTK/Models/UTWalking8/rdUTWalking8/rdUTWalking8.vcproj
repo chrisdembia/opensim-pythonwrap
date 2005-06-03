@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="rdUTWalking8"
-	ProjectGUID="{19536F18-D1D1-4D7A-AFBE-43B80575A327}"
+	ProjectGUID="{4358BCAF-DB25-4CE1-80B0-E75EFCC7192C}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -25,25 +25,23 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;RDSDFAST_EXPORTS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Debug/rdUTWalking8.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
+				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="3"/>
+				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="rdTools_D.lib rdSimulation_D.lib rdSDFast_D.lib rdUTWalking8_ftn_D.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="rdTools_D.lib rdSimulation_D.lib rdSDFast_D.lib odbc32.lib odbccp32.lib"
 				OutputFile="Debug/rdUTWalking8_D.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="C:\Program Files\Intel\Fortran\Compiler80\Ia32\lib"
-				IgnoreAllDefaultLibraries="FALSE"
-				IgnoreDefaultLibraryNames=""
+				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/rdUTWalking8_D.pdb"
 				SubSystem="2"
 				ImportLibrary=".\Debug/rdUTWalking8_D.lib"
@@ -106,11 +104,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="rdTools.lib rdSimulation.lib rdSDFast.lib rdUTWalking8_ftn.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="rdTools.lib rdSimulation.lib rdSDFast.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\Release/rdUTWalking8.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="C:\Program Files\Intel\Fortran\Compiler80\Ia32\lib"
 				ProgramDatabaseFile=".\Release/rdUTWalking8.pdb"
 				SubSystem="2"
 				ImportLibrary=".\Release/rdUTWalking8.lib"
@@ -130,8 +127,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-				Description="Updating .h files..."/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
@@ -155,6 +151,9 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;f90;for;f;fpp">
 			<File
+				RelativePath="..\23skgspec.f">
+			</File>
+			<File
 				RelativePath="..\cylinder.c">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -162,7 +161,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -180,7 +180,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -191,6 +192,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\musmodel.f">
+			</File>
+			<File
 				RelativePath="..\rdUTWalking8.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -198,7 +202,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -210,9 +215,47 @@
 			</File>
 			<File
 				RelativePath="..\rdUTWalking8_sdufuncs.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdUTWalkingIntegCallback.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\sdtransform.f">
+			</File>
+			<File
+				RelativePath="..\str_funcs.f">
 			</File>
 			<File
 				RelativePath="..\utModel_dyn.c">
@@ -222,7 +265,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -234,6 +278,46 @@
 			</File>
 			<File
 				RelativePath="..\utModel_sar.c">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSDFAST_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\w23force.f">
+			</File>
+			<File
+				RelativePath="..\w23intl.f">
+			</File>
+			<File
+				RelativePath="..\w23moddat.f">
+			</File>
+			<File
+				RelativePath="..\w23newynode.f">
+			</File>
+			<File
+				RelativePath="..\w23parameters.f">
+			</File>
+			<File
+				RelativePath="..\w23ref_intl.f">
+			</File>
+			<File
+				RelativePath="..\w23sforce.f">
+			</File>
+			<File
+				RelativePath="..\w23xbound.f">
 			</File>
 		</Filter>
 		<Filter
@@ -267,8 +351,5 @@
 		</Filter>
 	</Files>
 	<Globals>
-		<Global
-			Name="INTEL_FORTRAN_EXTRACTED"
-			Value="1"/>
 	</Globals>
 </VisualStudioProject>

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="rdTools"
-	ProjectGUID="{326DB847-E557-41EA-B961-372F69851373}"
+	ProjectGUID="{34826F50-9624-4680-A857-C9E1ACF9C1A9}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -29,14 +29,15 @@
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
+				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="3"/>
+				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xerces-c_2D.lib rdSecurity_D.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="xerces-c_2D.lib odbc32.lib odbccp32.lib"
 				OutputFile="Debug/rdTools_D.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -87,7 +88,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				PreprocessorDefinitions="WIN32;PLATFORM_WIN32;_USRDLL;RDTOOLS_EXPORTS;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;RDTOOLS_EXPORTS"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -102,7 +103,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="xerces-c_2.lib rdSecurity.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="xerces-c_2.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\Release/rdTools.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -124,8 +125,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-				Description="Updating .h files..."/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
@@ -156,7 +156,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -168,6 +169,22 @@
 			</File>
 			<File
 				RelativePath="..\rd1to3VectorGCVSpline.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdBodyConstraint.cpp">
@@ -177,7 +194,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -195,7 +213,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -213,7 +232,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -231,7 +251,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -249,7 +270,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -267,7 +289,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -285,7 +308,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -303,7 +327,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -315,9 +340,60 @@
 			</File>
 			<File
 				RelativePath="..\rdMaterial.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\rdMaterialManager.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdMaterialSet.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdMath.cpp">
@@ -327,7 +403,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -345,7 +422,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -363,7 +441,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -381,7 +460,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -393,6 +473,22 @@
 			</File>
 			<File
 				RelativePath="..\rdObservable.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdPlane.cpp">
@@ -402,7 +498,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -420,7 +517,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -438,7 +536,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -450,9 +549,41 @@
 			</File>
 			<File
 				RelativePath="..\rdPropertyBool.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdPropertyBoolArray.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdPropertyDbl.cpp">
@@ -462,7 +593,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -474,6 +606,22 @@
 			</File>
 			<File
 				RelativePath="..\rdPropertyDblArray.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdPropertyInt.cpp">
@@ -483,7 +631,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -501,7 +650,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -513,12 +663,60 @@
 			</File>
 			<File
 				RelativePath="..\rdPropertyObj.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdPropertyObjArray.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdPropertySet.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdPropertyStr.cpp">
@@ -528,7 +726,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -540,6 +739,22 @@
 			</File>
 			<File
 				RelativePath="..\rdPropertyStrArray.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdSignal.cpp">
@@ -549,7 +764,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -567,7 +783,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -585,7 +802,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -603,7 +821,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -621,7 +840,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -639,7 +859,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -657,7 +878,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -669,21 +891,98 @@
 			</File>
 			<File
 				RelativePath="..\rdToolsTemplates.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdTransform.cpp">
-			</File>
-			<File
-				RelativePath="..\rdTransformChangeEvent.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdVectorFunction.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdVisibleObject.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdVisibleProperties.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\rdXMLDocument.cpp">
@@ -693,7 +992,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -711,7 +1011,8 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
@@ -722,13 +1023,42 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\suRange.cpp">
-			</File>
-			<File
 				RelativePath="..\suScale.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\suScaleSet.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -744,10 +1074,10 @@
 				RelativePath="..\rdArray.h">
 			</File>
 			<File
-				RelativePath="..\rdBodyConstraint.h">
+				RelativePath="..\rdArrayPtrs.h">
 			</File>
 			<File
-				RelativePath="..\rdEvent.h">
+				RelativePath="..\rdBodyConstraint.h">
 			</File>
 			<File
 				RelativePath="..\rdException.h">
@@ -777,6 +1107,9 @@
 				RelativePath="..\rdMaterialManager.h">
 			</File>
 			<File
+				RelativePath="..\rdMaterialSet.h">
+			</File>
+			<File
 				RelativePath="..\rdMath.h">
 			</File>
 			<File
@@ -786,13 +1119,13 @@
 				RelativePath="..\rdMtx.h">
 			</File>
 			<File
-				RelativePath="..\rdNamedObjectArray.h">
-			</File>
-			<File
 				RelativePath="..\rdNamedValueArray.h">
 			</File>
 			<File
 				RelativePath="..\rdObject.h">
+			</File>
+			<File
+				RelativePath="..\rdObservable.h">
 			</File>
 			<File
 				RelativePath="..\rdPlane.h">
@@ -837,6 +1170,9 @@
 				RelativePath="..\rdPropertyStrArray.h">
 			</File>
 			<File
+				RelativePath="..\rdSet.h">
+			</File>
+			<File
 				RelativePath="..\rdSignal.h">
 			</File>
 			<File
@@ -864,12 +1200,6 @@
 				RelativePath="..\rdTransform.h">
 			</File>
 			<File
-				RelativePath="..\rdTransformChangeEvent.h">
-			</File>
-			<File
-				RelativePath="..\rdTriangle.h">
-			</File>
-			<File
 				RelativePath="..\rdVectorFunction.h">
 			</File>
 			<File
@@ -883,9 +1213,6 @@
 			</File>
 			<File
 				RelativePath="..\rdXMLNode.h">
-			</File>
-			<File
-				RelativePath="..\suRange.h">
 			</File>
 			<File
 				RelativePath="..\suScale.h">

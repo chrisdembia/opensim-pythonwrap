@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="suPipeline40Workflow"
-	ProjectGUID="{257E2F9A-3825-45CB-A3CB-B72B1DF68298}"
+	ProjectGUID="{AE7172A6-E138-4118-94AA-C4E4CBEC2E1B}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -24,7 +24,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\suPipeline40,..\..\suPipeline40\dp"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_POSIX_;RDSDFAST_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
