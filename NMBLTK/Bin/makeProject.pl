@@ -23,6 +23,7 @@ chomp($subjectName);
 	"template.h" => $suCapSubjectName.".h",
 	"template.cpp" => $suCapSubjectName.".cpp",
 	"template_Forward.cpp" => $suCapSubjectName."_Forward.cpp",
+	"template_Perturb.cpp" => $suCapSubjectName."_Perturb.cpp",
 	"sdufuncs_darryl.c" => "sdufuncs_darryl.c"
 );
 my $templateDir = $ENV{RDI_INSTALL}.'/Template/';
