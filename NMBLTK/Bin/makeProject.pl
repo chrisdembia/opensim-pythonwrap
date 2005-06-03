@@ -33,6 +33,11 @@ if (mkdir('Results',0777)==0){
 }
 print "Created directory Results to save analysis results\n";
 
+if (mkdir('ResultsPerturbed',0777)==0){
+	print "Err : $!. Directory could not be created\n"; 
+}
+print "Created directory ResultsPerturbed to save perturbation analysis results\n";
+
 while ( my ($key, $value) = each(%filemap) ) {
 		my $templateFile = $templateDir.$key;
 		my $subjectFile = $value;
