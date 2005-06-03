@@ -179,7 +179,7 @@ int main(int argc,char *argv[])
 	manager.setFinalTime(tf);
 
 	// Integrator settings
-	int maxSteps = 2000;
+	int maxSteps = 4000;
 	rdIntegRKF *integ = manager.getIntegrator();
 	integ->setMaximumNumberOfSteps(maxSteps);
 	integ->setUseConstantDT(false);
@@ -244,23 +244,23 @@ int main(int argc,char *argv[])
 
 	// Print
 	double dt = -1.0;
-	xStore->print("Results/_template__controls.sto");
-	yStore->print("Results/_template__states.sto");
+	xStore->print("ResultsPerturbed/_template__controls.sto");
+	yStore->print("ResultsPerturbed/_template__states.sto");
 	rdAnalysisSet *analysisSet = model.getAnalysisSet();
 	for(i=0; i< analysisSet->getSize(); i++)
-		analysisSet->getAnalysis(i)->printResults((char*)prefix.c_str(),"Results",dt);
+		analysisSet->getAnalysis(i)->printResults((char*)prefix.c_str(),"ResultsPerturbed",dt);
 
 	
 	// Unperturbed point kinematics
 	if(pointKinOn) {
-		kinR0->printResults("_template__R0","Results");
-		kinR1->printResults("_template__R1","Results");
-		kinR2->printResults("_template__R2","Results");
-		kinR3->printResults("_template__R3","Results");
-		kinL0->printResults("_template__L0","Results");
-		kinL1->printResults("_template__L1","Results");
-		kinL2->printResults("_template__L2","Results");
-		kinL3->printResults("_template__L3","Results");
+		kinR0->printResults("_template__R0","ResultsPerturbed");
+		kinR1->printResults("_template__R1","ResultsPerturbed");
+		kinR2->printResults("_template__R2","ResultsPerturbed");
+		kinR3->printResults("_template__R3","ResultsPerturbed");
+		kinL0->printResults("_template__L0","ResultsPerturbed");
+		kinL1->printResults("_template__L1","ResultsPerturbed");
+		kinL2->printResults("_template__L2","ResultsPerturbed");
+		kinL3->printResults("_template__L3","ResultsPerturbed");
 	}
 	// Corrective spring forces
 	rdDerivCallbackSet *derivSet = model.getDerivCallbackSet();
@@ -295,7 +295,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	cout<<"\n\nEngaging corrective springs...\n\n";
 
 	// Normalization factors for spring coefficients
-	rdStorage *storeKinetic = new rdStorage("./_template_cmc_grf.sto");
+	rdStorage *storeKinetic = new rdStorage("./_template_cmc_grf.mot");
 	int grfRYIndex,grfLYIndex;
 	bool notFound;
 	char *tok;
@@ -353,7 +353,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	rdGCVSpline *scaleLSpline = new rdGCVSpline(3,n,grfTime,&scaleL[0]);
 
 	// R0
-	rdStorage storeR0("./Results/_template__R0_PointKinematics__pos.sto");
+	rdStorage storeR0("./ResultsPerturbed/_template__R0_PointKinematics__pos.sto");
 	storeR0.pad(10);
 	t = x = y = z = NULL;
 	n = storeR0.getTimeColumn(t);
@@ -365,7 +365,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	cout<<"\n\nvector result = "<<result<<endl<<endl;
 	delete[] t; delete[] x;  delete[] y;  delete[] z;
 	// VR0
-	rdStorage storeVR0("./Results/_template__R0_PointKinematics__vel.sto");
+	rdStorage storeVR0("./ResultsPerturbed/_template__R0_PointKinematics__vel.sto");
 	storeVR0.pad(10);
 	t = x = y = z = NULL;
 	n = storeVR0.getTimeColumn(t);
@@ -382,7 +382,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	aModel->addDerivCallback(sprR0);
 
 	// R1
-	rdStorage storeR1("./Results/_template__R1_PointKinematics__pos.sto");
+	rdStorage storeR1("./ResultsPerturbed/_template__R1_PointKinematics__pos.sto");
 	storeR1.pad(10);
 	t = x = y = z = NULL;
 	n = storeR1.getTimeColumn(t);
@@ -392,7 +392,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	rd1to3VectorGCVSpline *vectorR1 = new rd1to3VectorGCVSpline(3,n,t,x,y,z);
 	delete[] t; delete[] x;  delete[] y;  delete[] z;
 	// VR1
-	rdStorage storeVR1("./Results/_template__R1_PointKinematics__vel.sto");
+	rdStorage storeVR1("./ResultsPerturbed/_template__R1_PointKinematics__vel.sto");
 	storeVR1.pad(10);
 	t = x = y = z = NULL;
 	n = storeVR1.getTimeColumn(t);
@@ -408,7 +408,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	aModel->addDerivCallback(sprR1);
 
 	// R2
-	rdStorage storeR2("./Results/_template__R2_PointKinematics__pos.sto");
+	rdStorage storeR2("./ResultsPerturbed/_template__R2_PointKinematics__pos.sto");
 	storeR2.pad(10);
 	t = x = y = z = NULL;
 	n = storeR2.getTimeColumn(t);
@@ -418,7 +418,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	rd1to3VectorGCVSpline *vectorR2 = new rd1to3VectorGCVSpline(3,n,t,x,y,z);
 	delete[] t; delete[] x;  delete[] y;  delete[] z;
 	// VR2
-	rdStorage storeVR2("./Results/_template__R2_PointKinematics__vel.sto");
+	rdStorage storeVR2("./ResultsPerturbed/_template__R2_PointKinematics__vel.sto");
 	storeVR2.pad(10);
 	t = x = y = z = NULL;
 	n = storeVR2.getTimeColumn(t);
@@ -434,7 +434,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	aModel->addDerivCallback(sprR2);
 
 	// R3
-	rdStorage storeR3("./Results/_template__R3_PointKinematics__pos.sto");
+	rdStorage storeR3("./ResultsPerturbed/_template__R3_PointKinematics__pos.sto");
 	storeR3.pad(10);
 	t = x = y = z = NULL;
 	n = storeR3.getTimeColumn(t);
@@ -444,7 +444,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	rd1to3VectorGCVSpline *vectorR3 = new rd1to3VectorGCVSpline(3,n,t,x,y,z);
 	delete[] t; delete[] x;  delete[] y;  delete[] z;
 	// VR3
-	rdStorage storeVR3("./Results/_template__R3_PointKinematics__vel.sto");
+	rdStorage storeVR3("./ResultsPerturbed/_template__R3_PointKinematics__vel.sto");
 	storeVR3.pad(10);
 	t = x = y = z = NULL;
 	n = storeVR3.getTimeColumn(t);
@@ -460,7 +460,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	aModel->addDerivCallback(sprR3);
 
 	// L0
-	rdStorage storeL0("./Results/_template__L0_PointKinematics__pos.sto");
+	rdStorage storeL0("./ResultsPerturbed/_template__L0_PointKinematics__pos.sto");
 	storeL0.pad(10);
 	t = x = y = z = NULL;
 	n = storeL0.getTimeColumn(t);
@@ -470,7 +470,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	rd1to3VectorGCVSpline *vectorL0 = new rd1to3VectorGCVSpline(3,n,t,x,y,z);
 	delete[] t; delete[] x;  delete[] y;  delete[] z;
 	// VL0
-	rdStorage storeVL0("./Results/_template__L0_PointKinematics__vel.sto");
+	rdStorage storeVL0("./ResultsPerturbed/_template__L0_PointKinematics__vel.sto");
 	storeVL0.pad(10);
 	t = x = y = z = NULL;
 	n = storeVL0.getTimeColumn(t);
@@ -486,7 +486,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	aModel->addDerivCallback(sprL0);
 
 	// L1
-	rdStorage storeL1("./Results/_template__L1_PointKinematics__pos.sto");
+	rdStorage storeL1("./ResultsPerturbed/_template__L1_PointKinematics__pos.sto");
 	storeL1.pad(10);
 	t = x = y = z = NULL;
 	n = storeL1.getTimeColumn(t);
@@ -496,7 +496,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	rd1to3VectorGCVSpline *vectorL1 = new rd1to3VectorGCVSpline(3,n,t,x,y,z);
 	delete[] t; delete[] x;  delete[] y;  delete[] z;
 	// VL1
-	rdStorage storeVL1("./Results/_template__L1_PointKinematics__vel.sto");
+	rdStorage storeVL1("./ResultsPerturbed/_template__L1_PointKinematics__vel.sto");
 	storeVL1.pad(10);
 	t = x = y = z = NULL;
 	n = storeVL1.getTimeColumn(t);
@@ -512,7 +512,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	aModel->addDerivCallback(sprL1);
 
 	// L2
-	rdStorage storeL2("./Results/_template__L2_PointKinematics__pos.sto");
+	rdStorage storeL2("./ResultsPerturbed/_template__L2_PointKinematics__pos.sto");
 	storeL2.pad(10);
 	t = x = y = z = NULL;
 	n = storeL2.getTimeColumn(t);
@@ -522,7 +522,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	rd1to3VectorGCVSpline *vectorL2 = new rd1to3VectorGCVSpline(3,n,t,x,y,z);
 	delete[] t; delete[] x;  delete[] y;  delete[] z;
 	// VL2
-	rdStorage storeVL2("./Results/_template__L2_PointKinematics__vel.sto");
+	rdStorage storeVL2("./ResultsPerturbed/_template__L2_PointKinematics__vel.sto");
 	storeVL2.pad(10);
 	t = x = y = z = NULL;
 	n = storeVL2.getTimeColumn(t);
@@ -538,7 +538,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	aModel->addDerivCallback(sprL2);
 
 	// L3
-	rdStorage storeL3("./Results/_template__L3_PointKinematics__pos.sto");
+	rdStorage storeL3("./ResultsPerturbed/_template__L3_PointKinematics__pos.sto");
 	storeL3.pad(10);
 	t = x = y = z = NULL;
 	n = storeL3.getTimeColumn(t);
@@ -548,7 +548,7 @@ void engageCorrectiveSprings(rdModel *aModel)
 	rd1to3VectorGCVSpline *vectorL3 = new rd1to3VectorGCVSpline(3,n,t,x,y,z);
 	delete[] t; delete[] x;  delete[] y;  delete[] z;
 	// VL3
-	rdStorage storeVL3("./Results/_template__L3_PointKinematics__vel.sto");
+	rdStorage storeVL3("./ResultsPerturbed/_template__L3_PointKinematics__vel.sto");
 	storeVL3.pad(10);
 	t = x = y = z = NULL;
 	n = storeVL3.getTimeColumn(t);
