@@ -11,10 +11,8 @@
 //=============================================================================
 #include "rdActuators.h"
 #include <NMBLTK/Tools/rdMath.h>
-#include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Tools/rdPropertyDbl.h>
 #include <NMBLTK/Tools/rdStorage.h>
-#include <NMBLTK/Simulation/Model/rdModel.h>
 #include <NMBLTK/Simulation/Model/rdGeneralizedForce.h>
 
 

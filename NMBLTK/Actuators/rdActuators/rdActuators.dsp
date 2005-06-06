@@ -106,6 +106,10 @@ PostBuild_Cmds=$(RDI_INSTALL)\Bin\cpl D
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\JointMoment.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\rdActuators.cpp
 # End Source File
 # Begin Source File
@@ -132,6 +136,10 @@ SOURCE=..\rdSetPoint.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\JointMoment.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\rdActuators.h
