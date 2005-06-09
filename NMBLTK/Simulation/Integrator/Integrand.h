@@ -19,7 +19,7 @@
 //=============================================================================
 /**
  * This abstract base class specifies the interface for an integrand.
- * An integrad is simply a function, or vector-valued fuction, that is
+ * An integrad is a function, or vector-valued fuction, that is
  * integrated.
  *
  * The assumped context is that of a simulation in time.  That is,
@@ -67,7 +67,11 @@ class RDSIMULATION_API Integrand
 // DATA
 //=============================================================================
 public:
-	enum status { NORMAL=0, NAN=1, ERROR=2 };
+	/** Enumeration of the computation return status values. */
+	enum Status
+	{
+		NORMAL, NAN, ERR
+	};
 
 //=============================================================================
 // METHODS
@@ -76,12 +80,12 @@ public:
 	// CONSTRUCTION
 	//--------------------------------------------------------------------------
 public:
-	Integrand();
-	virtual ~Integrand();
+	Integrand() {};
+	virtual ~Integrand() {};
 
-	virtual int getSize() const;
-	virtual status compute(double t,double y[],double dydt[]);
-	virtual status computeJacobian(double t,double y[],double *dydtdy);
+	virtual int getSize() const = 0;
+	virtual Status compute(double t,double y[],double dydt[]) = 0;
+	virtual Status computeJacobian(double t,double y[],double *dydtdy);
 
 //=============================================================================
 };	// END class Integrand
