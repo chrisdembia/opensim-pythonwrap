@@ -1,6 +1,6 @@
 // rdRKF.cpp
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//	Copyright 2000 Realistic Dynamics, Inc.
+// Copyright 2000 Realistic Dynamics, Inc.
 // All rights reserved.
 //
 // Please do not read, copy, distribute, or use without permission.
