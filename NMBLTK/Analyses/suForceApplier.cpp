@@ -740,6 +740,19 @@ setStorageCapacityIncrements(int aIncrement)
 	_appliedForceStore->setCapacityIncrement(aIncrement);
 }
 
+//-----------------------------------------------------------------------------
+// RESET
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Reset the applied force storage
+ *
+ */
+void suForceApplier::
+reset()
+{
+	_appliedForceStore->reset();
+}
 
 //=============================================================================
 // CALLBACKS

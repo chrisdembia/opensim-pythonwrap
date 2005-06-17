@@ -98,7 +98,7 @@ public:
 	bool getRecordUnperturbedForces();
 	rdStorage* getUnperturbedForceStorage();
 	rdStorage* getPerturbedForceStorage();
-	void reset();
+	virtual void reset(); 
 	int getStep();
 	
 	//--------------------------------------------------------------------------

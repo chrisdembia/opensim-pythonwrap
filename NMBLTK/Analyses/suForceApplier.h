@@ -115,6 +115,8 @@ public:
 
 	rdStorage* getAppliedForceStorage();
 	void setStorageCapacityIncrements(int aIncrement);
+
+	virtual void reset(); 
 	
 	//--------------------------------------------------------------------------
 	// CALLBACKS
