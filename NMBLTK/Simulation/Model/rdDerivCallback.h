@@ -88,7 +88,10 @@ public:
 		applyActuation(double aT,double *aX,double *aY);
 	virtual void
 		computeDerivatives(double aT,double *aX,double *aY,double *aDY);
-
+	//--------------------------------------------------------------------------
+	// UTILITY
+	//--------------------------------------------------------------------------
+	virtual void reset() { };
 //=============================================================================
 };	// END of class rdDerivCallback
 //=============================================================================
