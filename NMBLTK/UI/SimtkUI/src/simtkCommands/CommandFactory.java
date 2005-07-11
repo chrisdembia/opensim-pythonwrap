@@ -81,6 +81,7 @@ public class CommandFactory {
     insertCommand(new SimtkVisHideNormalsCommand());
     insertCommand(new SimtkVisShowAxesCommand());
     insertCommand(new SimtkVisHideAxesCommand());
+    insertCommand(new SimtkObjectVisibilityCommand());
     // Properties
     insertCommand(new SimtkObjectReviewCommand());
     insertCommand(new SimtkObjectExportCommand());
@@ -116,7 +117,7 @@ public class CommandFactory {
     return _instance;
   }
   /**
-   * CommandFactory default constructor made private 
+   * CommandFactory default constructor made private
    */
   private CommandFactory() {
   }
