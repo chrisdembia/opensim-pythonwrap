@@ -168,4 +168,28 @@ public class SimtkVisRep {
       ((vtkActor)(_attachedActors.get(i))).SetOrientation(jOrient);
     }
   }
+
+  public void setColor(double[] newColor)
+  {
+    getGeomActor().GetProperty().SetColor(newColor);
+
+    getBboxActor().GetProperty().SetColor(newColor);
+
+    for (int i=0; i <_attachedActors.size(); i++){
+      ((vtkActor)(_attachedActors.get(i))).GetProperty().SetColor(newColor);
+      ((vtkActor)(_attachedActors.get(i))).GetProperty().SetColor(newColor);
+    }
+  }
+
+  public void setOpacity(double newOpacity)
+  {
+    getGeomActor().GetProperty().SetOpacity(newOpacity);
+
+    getBboxActor().GetProperty().SetOpacity(newOpacity);
+
+    for (int i=0; i <_attachedActors.size(); i++){
+      ((vtkActor)(_attachedActors.get(i))).GetProperty().SetOpacity(newOpacity);
+      ((vtkActor)(_attachedActors.get(i))).GetProperty().SetOpacity(newOpacity);
+    }
+  }
 }

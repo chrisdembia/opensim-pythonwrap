@@ -31,7 +31,6 @@ import simtkModel.rdModel;
 import simtkModel.rdObject;
 import simtkModel.rdVisibleObject;
 import simtkModel.rdVisibleProperties;
-import simtksuS26Pkg.rdActuatedModel_SDFast;
 import simtkui.SimDlgGetName;
 import simtkui.SimtkApp;
 import simtkui.edit.SimtkObjectViewerDlg;
@@ -484,9 +483,12 @@ public class SimtkDB extends Observable {
 
     SimtkSimEnv simEnv = (SimEnvName==null)? createNewSimEnv() : getSimtkSimEnv(SimEnvName);
     simEnv.contactForceSet = newContactSet;
-    for(int i=0; i < newContactSet.getSize(); i++)
-      ((rdActuatedModel_SDFast)simEnv.getModel()).getContactForceSet().append(newContactSet.get(i));
-    SimtkUpdateTreeEvent ev = new SimtkUpdateTreeEvent(simEnv);
+    /**
+     * @todo Fix this to use reflection
+     */
+ /*   for(int i=0; i < newContactSet.getSize(); i++)
+      ((rdActuatedModel_SDFast)simEnv.getModel()).getContactForceSet().append(newContactSet.get(i)); */
+    SimtkUpdateTreeEvent ev = new SimtkUpdateTreeEvent(simEnv); 
    setChanged();
    this.notifyObservers(ev);
    return success;

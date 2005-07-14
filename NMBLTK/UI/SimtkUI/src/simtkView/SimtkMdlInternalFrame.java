@@ -48,10 +48,7 @@ import simtkModel.suMarker;
 import simtkModel.suMarkerSet;
 import simtkModel.suSetMarkers;
 import simtkUtils.SimtkValidateName;
-import simtkView.animation.SimtkAnimation;
-import simtkView.animation.SimtkAnimationAvailableEvent;
-import simtkView.animation.SimtkContinuousAnimation;
-import simtkView.animation.SimtkDiscreteAnimation;
+import simtkView.animation.*;
 import simtkui.SimDlgGetName;
 import simtkui.SimtkApp;
 import simtkuiEvents.SimtkSimEnvStateChangeEvent;
@@ -141,7 +138,7 @@ public class SimtkMdlInternalFrame
   JSlider jAnimationSlider = new JSlider();
   JPanel jAnimationPanel = new JPanel();
   JButton jPauseButton = new JButton();
-  //JButton jRewindButton = new JButton();
+  JButton jRewindButton = new JButton();
   JSlider jSpeedSlider = new JSlider();
   JButton jKeyFrameButton = new JButton();
 
@@ -150,6 +147,8 @@ public class SimtkMdlInternalFrame
   ImageIcon image3;
   ImageIcon image4;
   ImageIcon image5;
+  ImageIcon image6;
+  ImageIcon image7;
   Border border2;
   //JButton jSaveAnimationButton = new JButton();
   JCheckBox jUseCameraButton = new JCheckBox();
@@ -196,7 +195,7 @@ public class SimtkMdlInternalFrame
     jAnimationType.setModel(new DefaultComboBoxModel(animationTypeStrings));
     registerAnimation(animation, true);
    //jAutoRecordButton.setSelected(animation.getAutoKeyFrames());
-    //enableAnimationPanel(false);
+    enableAnimationPanel(false);
 
     // For now we'll use a geometry file to build a vtkActor
     // Setup the XML file reader, we generally expect to have many files one per bone/segment/body
@@ -236,7 +235,7 @@ public class SimtkMdlInternalFrame
    * displayObjects
    */
   public void displayObjects() {
-    for (int i = 0; i < _mdl.getNB(); i++) {
+    for (int i = 0; i < _mdl.getNB()+1; i++) {
       // For each visible object, get geometry, read it and display it into a vtkActor then add to modelAssembly
       rdBody nextBody = _mdl.getBody(i);
 //      vtkAssembly bodyAssembly = new vtkAssembly();
@@ -391,7 +390,7 @@ public class SimtkMdlInternalFrame
    * @param vObject rdVisibleObject
    * @return SimtkVisRep that conatins vtkActors as well as state of what's currently displayed
    */
-  Vector getActorsForVisibleObject(rdVisibleObject vObject)
+  public Vector getActorsForVisibleObject(rdVisibleObject vObject)
   {
     if (_visibleObjects2VisRepMap.containsKey(vObject)){
       return (Vector) _visibleObjects2VisRepMap.get(vObject);
@@ -612,7 +611,11 @@ public class SimtkMdlInternalFrame
    image4 = new ImageIcon(simtkui.SimtkApp.class.getResource(
      "camera.gif"));
    image5 = new ImageIcon(simtkView.SimtkMdlInternalFrame.class.getResource(
-     "pause.gif"));
+      "pause.gif"));
+ image6 = new ImageIcon(simtkView.SimtkMdlInternalFrame.class.getResource(
+   "rewind.gif"));
+    image7 = new ImageIcon(simtkView.SimtkMdlInternalFrame.class.getResource(
+      "clear.gif"));
 
     jSimenvToolBar.setBorder(border1);
     jStatusLabel.setToolTipText("");
@@ -670,22 +673,26 @@ public class SimtkMdlInternalFrame
         jPauseButton_actionPerformed(e);
       }
     });
-    /*
-    jRewindButton.setPreferredSize(new Dimension(55, 23));
-    jRewindButton.setText("Rew");
+
+    jRewindButton.setPreferredSize(new Dimension(25, 25));
+    jRewindButton.setToolTipText("");
+    jRewindButton.setActionCommand("");
+    jRewindButton.setIcon(image6);
+    jRewindButton.setText("");
     jRewindButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(ActionEvent e) {
         jRewindButton_actionPerformed(e);
       }
     });
-*/
+
+    jAnimationPanel.setAlignmentX((float) 0.5);
+    jAnimationPanel.setAlignmentY((float) 0.5);
     jAnimationPanel.setBorder(border2);
     jAnimationPanel.setMinimumSize(new Dimension(444, 39));
     jAnimationPanel.setPreferredSize(new Dimension(300, 39));
     jAnimationSlider.setMajorTickSpacing(10);
     jAnimationSlider.setMinorTickSpacing(1);
     jAnimationSlider.setPaintLabels(false);
-    jAnimationSlider.setPaintTicks(false);
     jAnimationSlider.setPaintTrack(true);
     jAnimationSlider.setFont(new java.awt.Font("Dialog", 0, 8));
     jAnimationSlider.setMaximumSize(new Dimension(32767, 24));
@@ -699,8 +706,9 @@ public class SimtkMdlInternalFrame
     jSpeedSlider.setMinimum(0);
     jSpeedSlider.setMinorTickSpacing(0);
     jSpeedSlider.setPaintLabels(false);
+    jSpeedSlider.setPaintTicks(true);
     jSpeedSlider.setMaximumSize(new Dimension(50, 24));
-    jSpeedSlider.setPreferredSize(new Dimension(30, 24));
+    jSpeedSlider.setPreferredSize(new Dimension(50, 24));
 
     /*
      jSaveAnimationButton.setToolTipText("");
@@ -728,8 +736,9 @@ public class SimtkMdlInternalFrame
     jAnimationSpeedLabel.setText("Speed:");
     jClearButton.setMaximumSize(new Dimension(40, 23));
     jClearButton.setMinimumSize(new Dimension(40, 23));
-    jClearButton.setPreferredSize(new Dimension(60, 23));
-    jClearButton.setText("Clear");
+    jClearButton.setPreferredSize(new Dimension(25, 25));
+    jClearButton.setText("");
+    jClearButton.setIcon(image7);
     jClearButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(ActionEvent e) {
         jClearButton_actionPerformed(e);
@@ -744,12 +753,12 @@ public class SimtkMdlInternalFrame
     _cameraMenu.add(jMenuItemNewCam);
     this.getContentPane().add(jSimenvToolBar, BorderLayout.NORTH);
     //jAnimationPanel.add(jSaveAnimationButton, null);
-    //jAnimationPanel.add(jClearButton, null);
+    jAnimationPanel.add(jClearButton, null);
     jAnimationPanel.add(jBackwardButton, null);
     jAnimationPanel.add(jPlayButton, null);
     jAnimationPanel.add(jFwdButton, null);
     jAnimationPanel.add(jPauseButton, null);
-    //jAnimationPanel.add(jRewindButton, null);
+    jAnimationPanel.add(jRewindButton, null);
     jAnimationPanel.add(jAnimationSlider, null);
     jAnimationPanel.add(jUseCameraButton, null);
     jAnimationPanel.add(jAnimationSpeedLabel, null);
@@ -787,9 +796,18 @@ public class SimtkMdlInternalFrame
       if (newState == SimtkSimEnv.READY &&  oldState == SimtkSimEnv.STARTED) {
         progressBar.setVisible(false);
       }
+      else if (newState == SimtkSimEnv.STARTED) {
+        progressBar.setVisible(true);
+      }
+
+      jStatusLabel.setText("Status:"+_env.getStatusString());
     }
-    jStatusLabel.setText("Status:"+_env.getStatusString());
-    jOperationLabel.setText(_env.getInfoString());
+    else if (arg instanceof SimtkAnimationTimeChangeEvent){
+      double animationTime = ((SimtkAnimationTimeChangeEvent) arg).getTime();
+      jOperationLabel.setText("Animation time="+animationTime);
+    }
+    if (_env.getStatus()!= SimtkSimEnv.PLAYBACK)
+      jOperationLabel.setText(_env.getInfoString());
     _simStartCommand.update(o, arg);
     _simStopCommand.update(o, arg);
     if (_env.getDeterministicProgress()==false)
@@ -909,10 +927,12 @@ public class SimtkMdlInternalFrame
   }
 
   void jBackwardButton_actionPerformed(ActionEvent e) {
+    _env.setStatus(SimtkSimEnv.PLAYBACK);
     animation.goBack();
   }
 
   void jFwdButton_actionPerformed(ActionEvent e) {
+    _env.setStatus(SimtkSimEnv.PLAYBACK);
     animation.advance();
   }
 
@@ -926,10 +946,12 @@ public class SimtkMdlInternalFrame
   }
 
   void jPauseButton_actionPerformed(ActionEvent e) {
+    _env.setStatus(SimtkSimEnv.PLAYBACK);
     animation.pause();
   }
 
   void jRewindButton_actionPerformed(ActionEvent e) {
+    _env.setStatus(SimtkSimEnv.PLAYBACK);
     animation.rewind();
   }
 
@@ -941,7 +963,8 @@ public class SimtkMdlInternalFrame
     jAnimationSlider.setEnabled(newState);
     jPauseButton.setEnabled(newState);
     //jSaveAnimationButton.setEnabled(newState);
-    //jRewindButton.setEnabled(newState);
+    jRewindButton.setEnabled(newState);
+    jClearButton.setEnabled(newState);
     jSpeedSlider.setEnabled(newState);
   }
 

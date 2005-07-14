@@ -54,6 +54,11 @@ public class SimtkAnimationFrame {
     this.simulationTime = simulationTime;
   }
 
+  public double getSimulationTime()
+  {
+    return simulationTime;
+  }
+
   public void setCamera(vtkCamera avtkCamera)
   {
      double[] currentPos = avtkCamera.GetPosition();
@@ -76,20 +81,33 @@ public class SimtkAnimationFrame {
    */
   public void setOn(vtkRenderer renderer, boolean useSavedCamera)
   {
-    if (useSavedCamera){
+    if (useSavedCamera) {
       renderer.GetActiveCamera().SetPosition(pos.pos);
       renderer.GetActiveCamera().SetFocalPoint(pos.foc);
       renderer.GetActiveCamera().SetClippingRange(pos.cr[0], pos.cr[1]);
       renderer.GetActiveCamera().SetDistance(pos.distance);
+      // Lights need to be updated as well otherwise backside of current view stays black!
+      vtkLightCollection Lights = renderer.GetLights();
+      int n = Lights.GetNumberOfItems();
+      vtkLight Light;
+
+      Lights.InitTraversal();
+      for (int i = 0; i < n; i++) {
+        Light = Lights.GetNextItem();
+        Light.SetPosition(pos.pos);
+        Light.SetFocalPoint(pos.foc);
+        Light.Modified();
+      }
     }
     actorMap aMap = map;
     vtkActorCollection actors = renderer.GetActors();
     actors.InitTraversal();
-    for (int i = 0; i < actors.GetNumberOfItems(); i++){
+    for (int i = 0; i < actors.GetNumberOfItems(); i++) {
       vtkActor anActor = actors.GetNextActor();
 
-      double[] savedActorTranslations = (double[])aMap.getTranslations4Actor(anActor);
-      double[] savedActorRotations = (double[])aMap.getRotations4Actor(anActor);
+      double[] savedActorTranslations = (double[]) aMap.getTranslations4Actor(
+          anActor);
+      double[] savedActorRotations = (double[]) aMap.getRotations4Actor(anActor);
       if (savedActorRotations != null)
         anActor.SetOrientation(savedActorRotations);
       if (savedActorRotations != null)

@@ -10,6 +10,7 @@ import javax.swing.event.ChangeEvent;
 import vtk.vtkJPEGWriter;
 import vtk.vtkRenderer;
 import vtk.vtkWindowToImageFilter;
+import simtkui.*;
 
 public class SimtkDiscreteAnimation
     extends SimtkAnimation {
@@ -29,13 +30,13 @@ public class SimtkDiscreteAnimation
   private void gotoFrame(int frame, boolean useSavedCamera) {
   	if (keyFrames.size() <= frame)
   		return;
-  	
+
     SimtkAnimationFrame nextFrame = (SimtkAnimationFrame) keyFrames.get(frame);
     nextFrame.setOn(renderer, useSavedCamera);
     sliderModel.setValue(frame);
 
     renderer.GetRenderWindow().Render();
-    if (frame == 0) {
+    /*if (frame == 0) {
       SimtkAnimationBoundsReached updateEvent = new SimtkAnimationBoundsReached(this, true);
       setChanged();
       this.notifyObservers(updateEvent);
@@ -45,6 +46,11 @@ public class SimtkDiscreteAnimation
       setChanged();
       this.notifyObservers(updateEvent);
     }
+    else {*/
+      SimtkAnimationTimeChangeEvent timechangeEvent = new SimtkAnimationTimeChangeEvent(this, nextFrame.getSimulationTime());
+      setChanged();
+     this.notifyObservers(timechangeEvent);
+    //}
   }
 
   /**
@@ -52,12 +58,15 @@ public class SimtkDiscreteAnimation
    *
    */
   public void addFrame(double simulationTime) {
+    if (simulationTime==0.0)// Frame before simulation begins, has no time associated
+      return;
     super.addFrame(simulationTime);
     /**
      * This works only when we're not interpolating anything, otherwise
      * number of actual frames is normally much larger than number of key frames
      */
     numFrames = keyFrames.size();
+    currentFrame = numFrames-1;
     sliderModel.removeChangeListener(this);
     sliderModel.setMaximum(numFrames - 1);
     sliderModel.setValue(numFrames - 1);
@@ -92,24 +101,30 @@ public class SimtkDiscreteAnimation
   }
   public void playBack() {
 
-    // If already at the end, restart.
-    if (currentFrame == numFrames - 1)
+    // If already at or near the end, restart.
+    if (currentFrame >= numFrames - 5)
       currentFrame = 0;
-    //renderer.GetRenderWindow().DoubleBufferOn();
 
     displayTimer = new Timer(animationSpeed, new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-       //renderer.GetRenderWindow().SetSwapBuffers(1);
-       gotoFrame(currentFrame, useCamera);
-        if (currentFrame < numFrames - 1)
-          currentFrame++;
-        else {
+       int skipFrames = 1;
+       if (animationSpeed < 48){
+         skipFrames = 5 - animationSpeed/12;
+       }
+        if (currentFrame+skipFrames < numFrames){
+          currentFrame += skipFrames;
+          gotoFrame(currentFrame, useCamera);
+        }
+       else {
      	  displayTimer.stop();
+          SimtkApp.displayDebugMessage("displayTimer.stop()\n");
+
     	  inPlayBackMode = false;
         }
       }
     });
     displayTimer.start();
+    SimtkApp.displayDebugMessage("displayTimer.start()\n");
     inPlayBackMode = true;
   }
 

@@ -51,6 +51,16 @@ public class rdVisibleObject extends rdObject {
     this(ModelJNI.new_rdVisibleObject__SWIG_3(rdVisibleObject.getCPtr(aVisibleObject)), true);
   }
 
+  public rdObject copy() {
+    long cPtr = ModelJNI.rdVisibleObject_copy__SWIG_0(swigCPtr);
+    return (cPtr == 0) ? null : new rdObject(cPtr, false);
+  }
+
+  public rdObject copy(SWIGTYPE_p_DOMElement aElement) {
+    long cPtr = ModelJNI.rdVisibleObject_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    return (cPtr == 0) ? null : new rdObject(cPtr, false);
+  }
+
   public void setNumGeometryFiles(int n) {
     ModelJNI.rdVisibleObject_setNumGeometryFiles(swigCPtr, n);
   }

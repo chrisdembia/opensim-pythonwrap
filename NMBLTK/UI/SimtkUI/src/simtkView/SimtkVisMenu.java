@@ -34,6 +34,7 @@ public class SimtkVisMenu extends JMenu {
       "Gouraud-Shaded",
       "BoundingBox",
       "None",
+      "Color & Effects"
   };
   // These are grouped in pairs that are mutually exclusive
   private final String contextDependentProperties[] = {
@@ -47,7 +48,8 @@ public class SimtkVisMenu extends JMenu {
       "SimtkVisFlatShadedCmd",
       "SimtkVisGouraudShadedCmd",
       "SimtkVisBoundingBoxCmd",
-      "SimtkVisNoneCmd"
+      "SimtkVisNoneCmd",
+      "SimtkObjectVisibilityCmd"
   };
   private final String correspondingOptionalCommands[] = {
       "SimtkVisShowNormalsCmd",
@@ -128,7 +130,7 @@ public class SimtkVisMenu extends JMenu {
               HashMap params = new HashMap(4);
               params.put("ModelName", _mdlName);
               params.put("Object", _selectedObject);
-
+              params.put("ObjectName", _selectedObject.getName());
               changeDisplayCommand.setCommandParams(params);
               ExecutionManager.enQueueCommand(changeDisplayCommand);
             }

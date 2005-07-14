@@ -1,66 +1,78 @@
 package simtkView;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.GridLayout;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import vtk.*;
+import simtkui.guiUtilities.*;
+import javax.swing.event.*;
+import java.util.*;
 
-public class SimtkVisibilityControlDlg extends JFrame{
-  GridLayout gridLayout2 = new GridLayout();
-  JPanel jPanel1 = new JPanel();
-  JPanel jPanel2 = new JPanel();
-  JPanel jPanel3 = new JPanel();
-  JPanel jPanel4 = new JPanel();
-  JPanel jPanel5 = new JPanel();
-  JPanel jPanel6 = new JPanel();
-  JPanel jPanel7 = new JPanel();
-  JLabel ObjectNameLabel = new JLabel();
-  JLabel ObjectName = new JLabel();
-  JComboBox RepresentationComboBox = new JComboBox();
-  JLabel SurfaceRepLabel = new JLabel();
+public class SimtkVisibilityControlDlg extends SimtkJDialog implements ChangeListener {
+  JPanel jControlPanel = new JPanel();
   JSlider OpacitySlider = new JSlider();
   JLabel OpacityLabel = new JLabel();
   JButton CancelButton = new JButton();
-  JButton OKButton = new JButton();
-  JCheckBox NormalsCheckBox = new JCheckBox();
-  JCheckBox BoundingBoxCheckBox = new JCheckBox();
+  JButton CloseButton = new JButton();
   JButton ColorButton = new JButton();
-  JButton Apply = new JButton();
-  public SimtkVisibilityControlDlg() {
+  JPanel jVisibilityControlPanel = new JPanel();
+  TitledBorder titledBorder1;
+  BorderLayout borderLayout1 = new BorderLayout();
+  Vector actors;
+  vtkActor representativeActor;
+  vtkPanel window;
+  /** Support/model for opacity slider */
+  BoundedRangeModel opacitySlider = new DefaultBoundedRangeModel();
+  Border border1;
+  double saveOpacity;
+  Color saveColor;
+  FlowLayout flowLayout1 = new FlowLayout();
+  FlowLayout flowLayout2 = new FlowLayout();
+
+  public SimtkVisibilityControlDlg(Vector objActors, vtkPanel window) {
+
+    actors = objActors;
+    this.window = window;
+    representativeActor = ((SimtkVisRep) actors.get(0)).getGeomActor();
+    saveOpacity = representativeActor.GetProperty().GetOpacity();
+    double[] dColorComponents;
+    dColorComponents = representativeActor.GetProperty().GetColor();
+    saveColor = new Color( (float) dColorComponents[0],
+                            (float) dColorComponents[1],
+                            (float) dColorComponents[2]);
     try {
       jbInit();
     }
     catch(Exception e) {
       e.printStackTrace();
     }
+
   }
   private void jbInit() throws Exception {
-    gridLayout2.setColumns(1);
-    gridLayout2.setRows(7);
-    gridLayout2.setVgap(0);
+    border1 = BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151));
+    ColorButton.addActionListener(new SimtkVisibilityControlDlg_ColorButton_actionAdapter(this));
+    OpacitySlider.setPaintTicks(true);
+    OpacitySlider.setLayout(flowLayout1);
+    CancelButton.addActionListener(new SimtkVisibilityControlDlg_CancelButton_actionAdapter(this));
+    CloseButton.addActionListener(new SimtkVisibilityControlDlg_CloseButton_actionAdapter(this));
+    CloseButton.setToolTipText("");
+    CloseButton.setActionCommand("Close");
+    jControlPanel.add(CloseButton, null);
+    jControlPanel.add(CancelButton, null);
     this.setDefaultCloseOperation(HIDE_ON_CLOSE);
     this.setEnabled(true);
     this.setForeground(Color.black);
-    this.setState(Frame.NORMAL);
     this.setTitle("Visibilty Control");
-    this.getContentPane().setLayout(gridLayout2);
-    ObjectNameLabel.setText("Object Name:");
-    ObjectName.setToolTipText("");
-    ObjectName.setText("");
-    RepresentationComboBox.setMinimumSize(new Dimension(100, 19));
-    RepresentationComboBox.setPreferredSize(new Dimension(100, 19));
-    SurfaceRepLabel.setToolTipText("");
-    SurfaceRepLabel.setText("Representation");
+    this.getContentPane().setLayout(borderLayout1);
+    this.getContentPane().add(jControlPanel, BorderLayout.SOUTH);
+    jVisibilityControlPanel.add(OpacityLabel, null);
+    jVisibilityControlPanel.add(OpacitySlider, null);
+    jVisibilityControlPanel.add(ColorButton, null);
+    titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Visibility Control");
     OpacitySlider.setMajorTickSpacing(0);
-    OpacitySlider.setMaximum(80);
+    OpacitySlider.setMaximum(100);
     OpacitySlider.setMinimum(0);
     OpacitySlider.setMinorTickSpacing(0);
     OpacitySlider.setPaintTrack(true);
@@ -70,34 +82,103 @@ public class SimtkVisibilityControlDlg extends JFrame{
     OpacityLabel.setToolTipText("");
     OpacityLabel.setText("Opacity:");
     CancelButton.setText("Cancel");
-    OKButton.setText("OK");
-    NormalsCheckBox.setToolTipText("");
-    NormalsCheckBox.setText("Normals");
-    BoundingBoxCheckBox.setToolTipText("");
-    BoundingBoxCheckBox.setText("BoundingBox");
+    CloseButton.setText("Close");
     ColorButton.setToolTipText("");
-    ColorButton.setText("Surface Color");
-    Apply.setToolTipText("");
-    Apply.setText("Apply");
-    this.getContentPane().add(jPanel1, null);
-    jPanel1.add(ObjectNameLabel, null);
-    jPanel1.add(ObjectName, null);
-    this.getContentPane().add(jPanel2, null);
-    jPanel2.add(SurfaceRepLabel, null);
-    jPanel2.add(RepresentationComboBox, null);
-    jPanel4.add(BoundingBoxCheckBox, null);
-    jPanel4.add(NormalsCheckBox, null);
-    this.getContentPane().add(jPanel5, null);
-    jPanel5.add(OpacityLabel, null);
-    jPanel5.add(OpacitySlider, null);
-    jPanel5.add(ColorButton, null);
-    this.getContentPane().add(jPanel4, null);
-    this.getContentPane().add(jPanel6, null);
-    jPanel6.add(jPanel3, null);
-    this.getContentPane().add(jPanel7, null);
-    jPanel7.add(Apply, null);
-    jPanel7.add(OKButton, null);
-    jPanel7.add(CancelButton, null);
+    ColorButton.setActionCommand("Surface Color ");
+    ColorButton.setText("Surface Color...");
+    jVisibilityControlPanel.setBorder(border1);
+    jVisibilityControlPanel.setLayout(flowLayout2);
+    this.getContentPane().add(jVisibilityControlPanel,  BorderLayout.CENTER);
+    double opacityValue = representativeActor.GetProperty().GetOpacity();
+    opacitySlider.setValue((int)(opacityValue*100));
+    OpacitySlider.getModel().addChangeListener(this);
   }
 
+  void ColorButton_actionPerformed(ActionEvent e) {
+    Color newColor = JColorChooser.showDialog(this, "Object Color",
+                                              saveColor);
+    if (newColor == null) // user cancelled
+      return;
+    float[] colorComponents = newColor.getRGBComponents(null);
+    double[] dColorComponents = new double[3];
+   for (int i=0; i <3; i++)
+     dColorComponents[i] = colorComponents[i];
+   for(int i=0; i < actors.size(); i++){
+      ((SimtkVisRep) actors.get(i)).setColor(dColorComponents);
+    }
+  }
+
+  /**
+   * stateChanged
+   *
+   * @param e ChangeEvent
+   */
+  public void stateChanged(ChangeEvent e) {
+    // Opacity slider
+    BoundedRangeModel theSlider = (BoundedRangeModel) e.getSource();
+    if (theSlider.getValueIsAdjusting())
+      return;
+    int newOpacity = theSlider.getValue();
+    for(int i=0; i < actors.size(); i++){
+       ((SimtkVisRep) actors.get(i)).setOpacity((double)newOpacity/100.0);
+     }
+    window.Render();
+  }
+
+  void CancelButton_actionPerformed(ActionEvent e) {
+    float colorComponents[];
+    colorComponents = saveColor.getRGBColorComponents(null);
+    double[] dColorComponents = new double[3];
+    for (int i=0; i <3; i++)
+      dColorComponents[i] = colorComponents[i];
+
+    for(int i=0; i < actors.size(); i++){
+      ((SimtkVisRep) actors.get(i)).setOpacity(saveOpacity);
+      ((SimtkVisRep) actors.get(i)).setColor(dColorComponents);
+    }
+    window.Render();
+
+  }
+
+  void CloseButton_actionPerformed(ActionEvent e) {
+    this.dispose();
+  }
+
+
+
 }
+
+class SimtkVisibilityControlDlg_ColorButton_actionAdapter implements java.awt.event.ActionListener {
+  SimtkVisibilityControlDlg adaptee;
+
+  SimtkVisibilityControlDlg_ColorButton_actionAdapter(SimtkVisibilityControlDlg adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.ColorButton_actionPerformed(e);
+  }
+}
+
+class SimtkVisibilityControlDlg_CancelButton_actionAdapter implements java.awt.event.ActionListener {
+  SimtkVisibilityControlDlg adaptee;
+
+  SimtkVisibilityControlDlg_CancelButton_actionAdapter(SimtkVisibilityControlDlg adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.CancelButton_actionPerformed(e);
+    adaptee.dispose();
+  }
+}
+
+class SimtkVisibilityControlDlg_CloseButton_actionAdapter implements java.awt.event.ActionListener {
+  SimtkVisibilityControlDlg adaptee;
+
+  SimtkVisibilityControlDlg_CloseButton_actionAdapter(SimtkVisibilityControlDlg adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.CloseButton_actionPerformed(e);
+  }
+}
+

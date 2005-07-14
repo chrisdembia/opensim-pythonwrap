@@ -280,6 +280,7 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
     plot.addLegend(newDataSet.getDataSetIndex(), newDataSet.getLegend());
     newDataSet.showPlot();
     plotListModel.add(plotListModel.getSize(), newDataSet.getLegend());
+    jPrintPlotButton.setEnabled(true);
     _mapNamesToDatasets.put(newDataSet.getLegend(), newDataSet);
     plot.setTitle(jTitleText.getText());
     plot.repaint();

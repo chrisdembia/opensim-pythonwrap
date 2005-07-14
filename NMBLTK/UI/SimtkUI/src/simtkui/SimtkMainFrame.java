@@ -34,7 +34,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.text.PlainDocument;
 
-import org.jpf.toolbox.Boot;
+//import org.jpf.toolbox.Boot;
 
 import simtkCommands.CommandFactory;
 import simtkCommands.CommandFactoryException;
@@ -318,7 +318,7 @@ public class SimtkMainFrame extends JFrame implements Observer {
        */
       public void actionPerformed(ActionEvent e) {
         try {
-          Boot.main(null);
+          //Boot.main(null);
         }
         catch (Throwable ex) {
         }

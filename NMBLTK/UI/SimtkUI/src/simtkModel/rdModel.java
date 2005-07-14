@@ -707,18 +707,18 @@ public class rdModel extends rdObject {
     return ModelJNI.rdModel_getContactPower(swigCPtr, aID);
   }
 
-  public SWIGTYPE_p_rdAnalysisSet getAnalysisSet() {
+  public rdAnalysisSet getAnalysisSet() {
     long cPtr = ModelJNI.rdModel_getAnalysisSet(swigCPtr);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_rdAnalysisSet(cPtr, false);
+    return (cPtr == 0) ? null : new rdAnalysisSet(cPtr, false);
   }
 
   public void addAnalysis(rdAnalysis aAnalysis) {
     ModelJNI.rdModel_addAnalysis(swigCPtr, rdAnalysis.getCPtr(aAnalysis));
   }
 
-  public SWIGTYPE_p_rdIntegCallbackSet getIntegCallbackSet() {
+  public rdIntegCallbackSet getIntegCallbackSet() {
     long cPtr = ModelJNI.rdModel_getIntegCallbackSet(swigCPtr);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_rdIntegCallbackSet(cPtr, false);
+    return (cPtr == 0) ? null : new rdIntegCallbackSet(cPtr, false);
   }
 
   public void addIntegCallback(rdIntegCallback aCallback) {

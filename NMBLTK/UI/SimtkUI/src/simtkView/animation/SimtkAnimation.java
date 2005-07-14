@@ -56,7 +56,7 @@ public abstract class SimtkAnimation
   BoundedRangeModel speedModel = new DefaultBoundedRangeModel();
   /** Timer object for playback of animation to keep the GUI live and control animation speed */
   Timer displayTimer;
-  final static int SPEED = 10;
+  final static int SPEED = 50;
 
 
   final static int DEFAULT_FRAMES = 200;
@@ -80,12 +80,12 @@ public abstract class SimtkAnimation
   public SimtkAnimation(vtkRenderer renderer) {
     reset(true);
     this.renderer = renderer;
+    animationSpeed = SPEED;
+    sliderModel.setValue(SPEED);
     sliderModel.addChangeListener(this);
     speedModel.setMaximum(100);
     speedModel.setMinimum(0);
     speedModel.addChangeListener(this);
-    animationSpeed = SPEED;
-    // autoKeyFrames = true;
     useCamera = true;
   }
 

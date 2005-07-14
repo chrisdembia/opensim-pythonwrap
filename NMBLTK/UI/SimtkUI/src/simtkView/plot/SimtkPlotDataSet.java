@@ -89,7 +89,7 @@ public class SimtkPlotDataSet
       SimtkSimEnvStateChangeEvent evnt = (SimtkSimEnvStateChangeEvent) arg;
       int oldState = evnt.getOldState();
       int newState = evnt.getNewState();
-      if (oldState == SimtkSimEnv.READY && newState == SimtkSimEnv.STARTED) {
+      if ((oldState == SimtkSimEnv.READY ||  oldState == SimtkSimEnv.PLAYBACK) && newState == SimtkSimEnv.STARTED) {
         _plot.clear(_dataSetIndex);
         _lastTime=0.0;
       }
