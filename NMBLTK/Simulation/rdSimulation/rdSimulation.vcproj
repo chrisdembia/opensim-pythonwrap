@@ -694,6 +694,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\Simtk\rdSimtkAnimationCallback.cpp">
+			</File>
+			<File
 				RelativePath="..\rdSimulationDLL.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -752,6 +755,12 @@
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\Model\suMarker.cpp">
+			</File>
+			<File
+				RelativePath="..\Model\suMarkerSet.cpp">
 			</File>
 		</Filter>
 		<Filter
