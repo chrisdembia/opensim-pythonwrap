@@ -928,6 +928,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\rdTransformChangeEvent.cpp">
+			</File>
+			<File
 				RelativePath="..\rdVectorFunction.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1021,6 +1024,9 @@
 						Optimization="2"
 						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\suRange.cpp">
 			</File>
 			<File
 				RelativePath="..\suScale.cpp">
