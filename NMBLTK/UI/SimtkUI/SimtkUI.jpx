@@ -29,16 +29,16 @@
   <property category="sys" name="JDK" value="java version 1.4.2_01-b06"/>
   <property category="sys" name="JvmVersion" value="1.2"/>
   <property category="sys" name="LastTag" value="0"/>
-  <property category="sys" name="Libraries" value="Untitled;JBCL;jpfsupport;vis"/>
+  <property category="sys" name="Libraries" value="plotting"/>
   <property category="sys" name="MakeStable" value="0"/>
   <property category="sys" name="OutPath" value="classes"/>
-  <property category="sys" name="SourcePath" value="src;test;../../../../../../../../../VTK/vtkbin/java;../../../../../../../../Work/JPFSrc/demo/jpf-demo-src-0.2/source-boot;src/source-boot;../../../../../../../../../Downloads/beans/jars;../../../../../../../../../Downloads/beans/code/part2/VisBeanSuite"/>
+  <property category="sys" name="SourcePath" value="src;test;../../../../../../../../VTK/vtkbin/java;src/source-boot"/>
   <property category="sys" name="TestPath" value="test"/>
   <property category="sys" name="Title" value="UI for Simtk Prototype"/>
   <property category="sys" name="TitleLabel" value="Title:"/>
   <property category="sys" name="Version" value="1.0"/>
   <property category="sys" name="VersionLabel" value="@version"/>
-  <property category="sys" name="WorkingDirectory" value="../../../../../../../../../Work/nmbl_2/data/s26"/>
+  <property category="sys" name="WorkingDirectory" value="../../../../../../../../Work/nmbl_2/data/s26"/>
   <property category="sys" name="uidesign.size.simtkView.SimtkVisibilityControlDlg" value="293,202"/>
   <property category="sys" name="uidesign.size.simtkui.SimDlgModelName" value="237,80"/>
   <file path="src/simtkCommands/SimtkFileOpenIF.java"/>
