@@ -8,7 +8,6 @@
  * interface file instead. 
  * ----------------------------------------------------------------------------- */
 
-
 #ifdef __cplusplus
 template<class T> class SwigValueWrapper {
     T *tt;
@@ -79,53 +78,53 @@ void SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionCodes code, const c
 #endif
 
 
-#include <RD/Tools/rdToolsDLL.h>
-#include <RD/Simulation/rdSimulationDLL.h>
-#include <RD/Tools/rdException.h>
-#include <RD/Tools/rdArray.h>
-#include <RD/Tools/rdArrayPtrs.h>
-#include <RD/Tools/rdProperty.h>
-#include <RD/Tools/rdPropertySet.h>
-#include <RD/Tools/rdObject.h>
-#include <RD/Tools/rdMaterial.h>
-#include <RD/Tools/rdVisibleProperties.h>
-#include <RD/Tools/rdTransform.h>
-#include <RD/Tools/rdVisibleObject.h>
+#include <NMBLTK/Tools/rdToolsDLL.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <NMBLTK/Tools/rdException.h>
+#include <NMBLTK/Tools/rdArray.h>
+#include <NMBLTK/Tools/rdArrayPtrs.h>
+#include <NMBLTK/Tools/rdProperty.h>
+#include <NMBLTK/Tools/rdPropertySet.h>
+#include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdMaterial.h>
+#include <NMBLTK/Tools/rdVisibleProperties.h>
+#include <NMBLTK/Tools/rdTransform.h>
+#include <NMBLTK/Tools/rdVisibleObject.h>
 
-#include <RD/Tools/rdSet.h>
-#include <RD/Simulation/Model/rdBody.h>
-#include <RD/Simulation/Model/rdBodySet.h>
+#include <NMBLTK/Tools/rdSet.h>
+#include <NMBLTK/Simulation/Model/rdBody.h>
+#include <NMBLTK/Simulation/Model/rdBodySet.h>
 
-#include <RD/Tools/rdMaterialSet.h>
+#include <NMBLTK/Tools/rdMaterialSet.h>
 
-#include <RD/Simulation/Model/rdActuator.h>
-#include <RD/Simulation/Model/rdActuatorSet.h>
+#include <NMBLTK/Simulation/Model/rdActuator.h>
+#include <NMBLTK/Simulation/Model/rdActuatorSet.h>
 
-#include <RD/Simulation/Model/rdContactForceSet.h>
+#include <NMBLTK/Simulation/Model/rdContactForceSet.h>
 
-#include <RD/Tools/rdStateVector.h>
-#include <RD/Tools/rdStorage.h>
+#include <NMBLTK/Tools/rdStateVector.h>
+#include <NMBLTK/Tools/rdStorage.h>
 
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Control/rdControl.h>
-#include <RD/Simulation/Control/rdControlSet.h>
-#include <RD/Simulation/Control/rdControlConstant.h>
-#include <RD/Simulation/Control/rdControlLinear.h>
-#include <RD/Simulation/Integrator/rdRKF.h>
-#include <RD/Simulation/Integrator/rdIntegRKF.h>
-#include <RD/Simulation/Manager/rdManager.h>
-#include <RD/Simulation/Model/rdCallback.h>
-#include <RD/Simulation/Model/rdCallbackSet.h>
-#include <RD/Simulation/Model/rdIntegCallback.h>
-#include <RD/Simulation/Simtk/rdSimtkAnimationCallback.h>
-#include <RD/Simulation/Model/rdAnalysis.h>
-#include <RD/Simulation/Model/rdAnalysisFactory.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Control/rdControl.h>
+#include <NMBLTK/Simulation/Control/rdControlSet.h>
+#include <NMBLTK/Simulation/Control/rdControlConstant.h>
+#include <NMBLTK/Simulation/Control/rdControlLinear.h>
+#include <NMBLTK/Simulation/Integrator/rdRKF.h>
+#include <NMBLTK/Simulation/Integrator/rdIntegRKF.h>
+#include <NMBLTK/Simulation/Manager/rdManager.h>
+#include <NMBLTK/Simulation/Model/rdCallback.h>
+#include <NMBLTK/Simulation/Model/rdCallbackSet.h>
+#include <NMBLTK/Simulation/Model/rdIntegCallback.h>
+#include <NMBLTK/Simulation/Simtk/rdSimtkAnimationCallback.h>
+#include <NMBLTK/Simulation/Model/rdAnalysis.h>
+#include <NMBLTK/Simulation/Model/rdAnalysisFactory.h>
 
-#include <RD/Simulation/Model/suMarker.h>
-#include <RD/Simulation/Model/suMarkerSet.h>
-#include <RD/Tools/suRange.h>
-#include <RD/Tools/suScale.h>
-#include <RD/Tools/suScaleSet.h>
+#include <NMBLTK/Simulation/Model/suMarker.h>
+#include <NMBLTK/Simulation/Model/suMarkerSet.h>
+#include <NMBLTK/Tools/suRange.h>
+#include <NMBLTK/Tools/suScale.h>
+#include <NMBLTK/Tools/suScaleSet.h>
 
 
 
