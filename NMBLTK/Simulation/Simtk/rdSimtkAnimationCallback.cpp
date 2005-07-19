@@ -167,9 +167,6 @@ step(double *aXPrev,double *aYPrev,int aStep,double aDT,double aT,
 		body->setTransform(*_transforms[i]);
 		body->notifyObservers(*xformChangeEvnt);
 		delete xformChangeEvnt;
-/*		if (i==0){
-			printf("body 0: t=%lf %lf %lf, r=%lf %lf %lf\n",t[0], t[1], t[2], rot[0], rot[1], rot[2]);
-		}*/
 	}
 	return (0);
 }

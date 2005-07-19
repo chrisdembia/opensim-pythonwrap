@@ -139,6 +139,7 @@ setNull()
 void rdModel::
 init()
 {
+
 	// CALLBACK SETS
 	_analysisSet = new rdAnalysisSet(this);
 	_integCallbackSet = new rdIntegCallbackSet(this);
@@ -242,7 +243,7 @@ setBodyName(int aIndex,const string &aName)
 {
 	// CHECK
 	if(aIndex<0) return;
-	if(aIndex>=getNB()) return;
+	if(aIndex>getNB()+1) return;
 
 	_b.get(aIndex)->setName(aName);
 }
@@ -260,7 +261,7 @@ getBodyName(int aIndex) const
 {
 	if(aIndex==getGroundID()) return("ground");
 	if(aIndex<0) return("");
-	if(aIndex>=getNB()) return("");
+	if(aIndex>=getNB()+1) return(""); // Account for ground
 
 	return(_b.get(aIndex)->getName());
 }
@@ -272,9 +273,9 @@ getBodyName(int aIndex) const
 rdBody *rdModel::
 getBody(int aIndex) const
 {
-	if(aIndex<0 || aIndex>=getNB()) 
+	if(aIndex<0 || aIndex>getNB()) 
 		return(NULL);
-	// Ground maybe special but we'll try to treat it as the rest for now
+	// Ground maybe special but we'll try to treat it as the rest for now. (body _nb) 
 	int sz = _b.getSize();
 	return _b[aIndex];
 
@@ -289,10 +290,11 @@ getBody(int aIndex) const
 void rdModel::
 constructBodies()
 {
-	for(int i=0;i<_nb;i++) {
+	for(int i=0;i<=_nb;i++) {	// Changed loop into _nb+1 to have an actual ground body
 		rdBody *nextBody = new rdBody();
 		_b.append( nextBody );
 	}
+	_b[_nb]->setName("Ground Body");
 }
 
 //_____________________________________________________________________________
@@ -352,7 +354,7 @@ getVisibleObjectByName(const string &aName) const
 {
 	bool found = false;
 	rdVisibleObject *foundObject = NULL;
-	for(int i=0; (i<getNB()) && (!found) ;i++){
+	for(int i=0; (i<=getNB()) && (!found) ;i++){
 		if(aName == getBodyName(i)) {
 			found = true;
 			foundObject = getBody(i);

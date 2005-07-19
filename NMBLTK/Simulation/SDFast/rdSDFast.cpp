@@ -211,9 +211,9 @@ constructNames()
 	char name[rdObject::NAME_LENGTH];
 
 	// BODIES
-	_bNames = rdMemory::NewArrayOfStrings(getNB(),rdObject::NAME_LENGTH);
+	//unused _bNames = rdMemory::NewArrayOfStrings(getNB()+1,rdObject::NAME_LENGTH);
 	for(i=0;i<getNB();i++) {
-		sprintf(name,"Body_%d",i);
+		sprintf(name,"Body_%d",i); // Ground is body 0
 		setBodyName(i,name);
 	}
 
