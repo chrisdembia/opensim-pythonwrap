@@ -8,8 +8,12 @@
 // INCLUDES
 //=============================================================================
 
-#include <suPipeline40Workflow.h>
+#include <NMBLTK/Models/SIMMPipeline/4.0/Pipeline40Workflow/suPipeline40Workflow.h>
 #include "suS26.h"
+#include <NMBLTK/Simulation/Control/rdControlConstant.h>
+#include <NMBLTK/Simulation/Control/rdControlLinear.h>
+#include <NMBLTK/Simulation/Control/rdControlLinearNode.h>
+#include <NMBLTK/Simulation/Control/rdControlSet.h>
 
 //=============================================================================
 // CONSTRUCTOR(S) AND DESTRUCTOR

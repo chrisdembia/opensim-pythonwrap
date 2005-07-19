@@ -1,6 +1,5 @@
 // suS26_Forward.cpp
 
-#include <stdafx.h>
 #include <string>
 #include <rdMath.h>
 #include <rdIO.h>
