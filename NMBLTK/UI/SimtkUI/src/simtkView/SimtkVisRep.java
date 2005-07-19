@@ -152,20 +152,36 @@ public class SimtkVisRep {
     Model.free_doubleArray(orient);
 
     getGeomActor().SetPosition(jPos);
-    getGeomActor().SetOrientation(jOrient);
+    getGeomActor().SetOrientation(0., 0., 0.);
+    getGeomActor().RotateX(jOrient[0]);
+    getGeomActor().RotateY(jOrient[1]);
+    getGeomActor().RotateZ(jOrient[2]);
+
 
     getBboxActor().SetPosition(jPos);
-    getBboxActor().SetOrientation(jOrient);
+    getBboxActor().SetOrientation(0., 0., 0.);
+   getBboxActor().RotateX(jOrient[0]);
+   getBboxActor().RotateY(jOrient[1]);
+   getBboxActor().RotateZ(jOrient[2]);
 
     getNormalsActor().SetPosition(jPos);
-    getNormalsActor().SetOrientation(jOrient);
+    getNormalsActor().SetOrientation(0., 0., 0.);
+   getNormalsActor().RotateX(jOrient[0]);
+   getNormalsActor().RotateY(jOrient[1]);
+   getNormalsActor().RotateZ(jOrient[2]);
 
     getAxesActor().SetPosition(jPos);
-    getAxesActor().SetOrientation(jOrient);
+    getAxesActor().SetOrientation(0., 0., 0.);
+   getAxesActor().RotateX(jOrient[0]);
+   getAxesActor().RotateY(jOrient[1]);
+   getAxesActor().RotateZ(jOrient[2]);
 
     for (int i=0; i <_attachedActors.size(); i++){
       ((vtkActor)(_attachedActors.get(i))).SetPosition(jPos);
-      ((vtkActor)(_attachedActors.get(i))).SetOrientation(jOrient);
+      ((vtkActor)(_attachedActors.get(i))).SetOrientation(0., 0., 0.);
+      ((vtkActor)(_attachedActors.get(i))).RotateX(jOrient[0]);
+      ((vtkActor)(_attachedActors.get(i))).RotateY(jOrient[1]);
+      ((vtkActor)(_attachedActors.get(i))).RotateZ(jOrient[2]);
     }
   }
 

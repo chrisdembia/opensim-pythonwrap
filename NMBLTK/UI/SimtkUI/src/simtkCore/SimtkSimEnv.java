@@ -1,31 +1,15 @@
 package simtkCore;
 
-import java.io.File;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Observable;
-import java.util.Vector;
+import java.io.*;
+import java.util.*;
 
 import javax.swing.Timer;
 
-import simtkModel.rdActuatorSet;
-import simtkModel.rdArrayStr;
-import simtkModel.rdContactForceSet;
-import simtkModel.rdControlSet;
-import simtkModel.rdIntegRKF;
-import simtkModel.rdManager;
-import simtkModel.rdModel;
-import simtkModel.rdObject;
-import simtkModel.rdSimtkAnimationCallback;
-import simtkModel.rdStorage;
-import simtkModel.suMarkerSet;
-import simtkUtils.SwingWorker;
-import simtkView.SimtkMdlInternalFrame;
-import simtkView.SimtkViewDB;
-import simtkui.SimtkApp;
-import simtkui.SimtkStoragePreferences;
-import simtkuiEvents.SimtkSimEnvStateChangeEvent;
-import simtkuiEvents.SimtkSimulationEvent;
+import simtkModel.*;
+import simtkUtils.*;
+import simtkView.*;
+import simtkui.*;
+import simtkuiEvents.*;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -70,6 +54,7 @@ public class SimtkSimEnv extends Observable {
   // Hashtable to hold objects that do not belong to the model but can be provided by users (e.g. markers)
   // the name modelObjects is due to the fact that they would show under the model subtree.
   private Hashtable _modelObjects = new Hashtable(4);
+  private Hashtable _availableData = new Hashtable(4);
 
   /** The follwoing enums describe the status of the simulation environment with regard to ability to start simulation */
   public static final int NOT_READY = 1;
@@ -402,9 +387,10 @@ public class SimtkSimEnv extends Observable {
   public void getAvailableQuantities(Vector plotQuantitiesModel) {
     if (manager == null || manager.getIntegrator()==null)
       return;
-    rdStorage kinematicsStorage = manager.getIntegrator().getStateStorage();
+/*    rdStorage kinematicsStorage = manager.getIntegrator().getStateStorage();
     if (kinematicsStorage == null)
       return;
+
     rdArrayStr columnLabels = kinematicsStorage.getColumnLabelsArray();
     for (int i=0; i < columnLabels.getSize(); i++){
       String fullName = name+"."+columnLabels.getitem(i);
@@ -422,7 +408,22 @@ public class SimtkSimEnv extends Observable {
       if (plotQuantitiesModel.contains(fullName))
         continue;
       plotQuantitiesModel.addElement(fullName);
-    }
+    }*/
+    rdArrayStr columnLabels;
+    Enumeration allStorages = _availableData.elements();
+    if (allStorages != null){
+     int idx = 0;
+     while (allStorages.hasMoreElements()) {
+       rdStorage nextStorage = (rdStorage) allStorages.nextElement();
+       columnLabels = nextStorage.getColumnLabelsArray();
+       for (int i=0; i < columnLabels.getSize(); i++){
+         String fullName = name+"."+nextStorage.getName()+"."+columnLabels.getitem(i);
+         if (plotQuantitiesModel.contains(fullName))
+           continue;
+         plotQuantitiesModel.addElement(fullName);
+       }
+     }
+   }
   }
 
   /**
@@ -450,41 +451,47 @@ public class SimtkSimEnv extends Observable {
   public boolean getDataValues(String xName, String yName, Vector xValues,
                                Vector yValues, double startTime) {
     // Search available rdStorage(s) for one containing both labels and whn found collect data
-    if (manager == null || manager.getIntegrator()==null)
-      return false;
-    rdStorage useStorage;
-    for (int storageIndex=0; storageIndex < 2; storageIndex++){
-      if (storageIndex==0)
-        useStorage = manager.getIntegrator().getStateStorage();
-      else if (storageIndex ==1){
-        useStorage = manager.getIntegrator().getControlStorage();
+    String storageName = xName.substring(0, xName.lastIndexOf("."));
+    rdStorage useStorage = (rdStorage) _availableData.get(storageName);
+    if (useStorage!=null){
+      String bareXName = xName.substring(xName.lastIndexOf(".") + 1);
+      String bareYName = yName.substring(yName.lastIndexOf(".") + 1);
+      int startRowIndex = useStorage.findIndex(0, startTime);
+      int xIndex = useStorage.getColumnIndex(bareXName);
+      int yIndex = useStorage.getColumnIndex(bareYName);
+      double  xVal, yVal;
+      for (int i = startRowIndex; i < useStorage.getSize(); i++) {
+        // Assumption if name is not found then it's time. This assumption is valid only
+        // because user selects from a provided list of quantitiies
+        if (xIndex == -1)
+          xVal = useStorage.getStateVector(i).getTime();
+        else
+          xVal = useStorage.getStateVector(i).getData().getitem(xIndex);
+
+        yVal = useStorage.getStateVector(i).getData().getitem(yIndex);
+
+        xValues.add( new Double(xVal));
+        yValues.add( new Double(yVal));
+        simtkui.SimtkApp.displayDebugMessage("(x, y)="+xVal+", "+yVal+"\n");
       }
-      else
-        return false;
-      if (useStorage == null)
-        return false;
-      int rowIndex = useStorage.findIndex(0, startTime);
-      SimtkApp.displayDebugMessage("Found index = "+rowIndex+" time="+startTime+"\n");
-      if (rowIndex==-1)
-        return false;
-      int xIndex = useStorage.getColumnIndex(xName);
-      int yIndex = useStorage.getColumnIndex(yName);
-      if ( (xIndex != -1 || xName.equals("time")) && yIndex != -1) {
-        for (int i = rowIndex; i < useStorage.getSize(); i++) {
-          if (xIndex != -1)
-            xValues.add(
-                        new Double(useStorage.getStateVector(i).getData().
-                                   getitem(xIndex)));
-          else
-            xValues.add(
-                        new Double(useStorage.getStateVector(i).getTime()));
-          yValues.add(
-                      new Double(useStorage.getStateVector(i).getData().
-                                 getitem(yIndex)));
-        }
-        return true;
-      }
+      return true;
     }
     return false;
+  }
+
+  /**
+   * addStorage
+   *
+   * @param newStorage rdStorage
+   * @return boolean true if success else false
+   */
+  public boolean addStorage(rdStorage newStorage) {
+    _availableData.put(newStorage.getName(), newStorage);
+    return true;
+  }
+
+  public Enumeration getAvailableStorages()
+  {
+    return _availableData.elements();
   }
 }

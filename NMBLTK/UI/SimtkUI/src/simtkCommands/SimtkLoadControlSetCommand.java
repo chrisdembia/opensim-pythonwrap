@@ -55,7 +55,6 @@ public class SimtkLoadControlSetCommand
    */
   public boolean execute() {
     boolean success = false;
-    String _fileName = null;
 
     String simenvName = (String) _cmdParams.get("EnvName");
     // Cache environment for later use

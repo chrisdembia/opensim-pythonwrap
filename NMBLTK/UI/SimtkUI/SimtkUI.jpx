@@ -38,8 +38,9 @@
   <property category="sys" name="TitleLabel" value="Title:"/>
   <property category="sys" name="Version" value="1.0"/>
   <property category="sys" name="VersionLabel" value="@version"/>
-  <property category="sys" name="WorkingDirectory" value="../../../../../../../../Work/nmbl_2/data/s26"/>
+  <property category="sys" name="WorkingDirectory" value="../../../../../../../../Work/DemoFiles"/>
   <property category="sys" name="uidesign.size.simtkView.SimtkVisibilityControlDlg" value="293,202"/>
+  <property category="sys" name="uidesign.size.simtkView.plot.SimtkPtPlotDialog" value="405,391"/>
   <property category="sys" name="uidesign.size.simtkui.SimDlgModelName" value="237,80"/>
   <file path="src/simtkCommands/SimtkFileOpenIF.java"/>
   <file path="src/simtkui/SimtkPropMenu.java"/>

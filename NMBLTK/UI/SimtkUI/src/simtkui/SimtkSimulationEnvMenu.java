@@ -26,6 +26,7 @@ public class SimtkSimulationEnvMenu extends SimtkJMenu {
       "SimtkLoadControlSetCmd",
       "SimtkLoadContactSetCmd",
       "SimtkLoadActuatorSetCmd",
+      "SimtkLoadStorageCmd"
   };
   private String _simEnvName = null;
   public SimtkSimulationEnvMenu(String menuName, String simEnvName) {

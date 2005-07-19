@@ -114,6 +114,8 @@ public class SimtkSimulationStartCommand
           currentEnv.setStatus(SimtkSimEnv.STARTED);
           currentEnv.getAnimationTimer().start();
           currentEnv.setProgressRange(mgr.getInitialTime(), mgr.getFinalTime());
+          currentEnv.addStorage(mgr.getIntegrator().getStateStorage());
+          currentEnv.addStorage(mgr.getIntegrator().getControlStorage());
           mgr.integrate();
         //}
         if (currentEnv.getStoragePreferences().getPStatesStore()){

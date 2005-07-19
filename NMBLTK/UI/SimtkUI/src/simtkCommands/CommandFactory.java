@@ -101,6 +101,8 @@ public class CommandFactory {
     insertCommand(new SimtkLoadControlSetCommand());
     insertCommand(new SimtkLoadContactSetCommand());
     insertCommand(new SimtkLoadActuatorSetCommand());
+    insertCommand(new SimtkLoadStorageCommand());
+
     // Undo/Redo
     insertCommand(new SimtkUndoLastCommand());
     insertCommand(new SimtkRedoLastCommand());

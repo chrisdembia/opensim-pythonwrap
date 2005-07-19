@@ -34,7 +34,7 @@ public class SimtkPlotDataSet
     _xName = xName;
     _yName = yName;
     _env = env;
-    if (xName.equalsIgnoreCase("time")) {
+    if (xName.endsWith(".time")) {
       _timeDependent = true;
       _env.addObserver(this);
     }

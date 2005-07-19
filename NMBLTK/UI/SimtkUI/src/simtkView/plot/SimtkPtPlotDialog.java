@@ -1,15 +1,5 @@
 package simtkView.plot;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.print.PrinterJob;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -17,21 +7,6 @@ import java.util.Vector;
 
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -42,6 +17,9 @@ import ptolemy.plot.Plot;
 import simtkCore.SimtkDB;
 import simtkCore.SimtkSimEnv;
 import simtkui.guiUtilities.SimtkJDialog;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
 
 public class SimtkPtPlotDialog extends SimtkJDialog{
   private Plot plot = new Plot();   // The plot box with all plotting capabilities
@@ -91,6 +69,10 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
   TitledBorder titledBorder8;
   JCheckBox jCheckBoxGrid = new JCheckBox();
   JCheckBox jCheckBoxStems = new JCheckBox();
+  JButton SelectXButton = new JButton();
+  JButton SelectYButton = new JButton();
+  JPopupMenu xPopup = new SimtkPlotQuantitySelector();
+  JPopupMenu yPopup = new SimtkPlotQuantitySelector();
 
   public SimtkPtPlotDialog() {
     try {
@@ -211,6 +193,10 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
     jCheckBoxStems.addActionListener(new SimtkPtPlotDialog_jCheckBoxStems_actionAdapter(this));
     jComboBoxX.setPreferredSize(new Dimension(100, 19));
     jComboBoxY.setPreferredSize(new Dimension(100, 19));
+    SelectXButton.setText("Select-X");
+    SelectXButton.addMouseListener(new SimtkPtPlotDialog_SelectXButton_mouseAdapter(this));
+    SelectYButton.setText("Select-Y");
+    SelectYButton.addMouseListener(new SimtkPtPlotDialog_SelectYButton_mouseAdapter(this));
     this.getContentPane().add(jSplitPane1,  BorderLayout.CENTER);
     jSplitPane1.add(plot, JSplitPane.TOP);
     jSplitPane1.add(jPlotControlPanel, JSplitPane.BOTTOM);
@@ -232,6 +218,8 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     jPanel2.add(jYAxisLabel,              new GridBagConstraints(0, 1, 1, 1, 0.3, 0.5
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(SelectXButton, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jPlotControlPanel.add(jPlotCommandsPanel,  BorderLayout.SOUTH);
     jPanel1.add(jPanel3,            new GridBagConstraints(0, 0, 2, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
@@ -243,6 +231,8 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     jPanel3.add(jCheckBoxStems,       new GridBagConstraints(1, 1, 1, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(SelectYButton, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jSplitPane1.setDividerLocation(250);
 
   }
@@ -360,6 +350,19 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
      plot.setImpulses(checkBox.isSelected());
      plot.repaint();
   }
+
+  void SelectXButton_mouseReleased(MouseEvent e) {
+    if(e.isPopupTrigger()) {
+        xPopup.show(e.getComponent(),
+                         e.getX(), e.getY());
+  }
+}
+
+void SelectYButton_mouseReleased(MouseEvent e) {
+  if(e.isPopupTrigger()) {
+      yPopup.show(e.getComponent(),
+                       e.getX(), e.getY());
+}
 }
 
 /*
@@ -436,4 +439,30 @@ class SimtkPtPlotDialog_jCheckBoxStems_actionAdapter implements java.awt.event.A
   public void actionPerformed(ActionEvent e) {
     adaptee.jCheckBoxStems_actionPerformed(e);
   }
+}
+
+class SimtkPtPlotDialog_SelectXButton_mouseAdapter extends java.awt.event.MouseAdapter {
+  SimtkPtPlotDialog adaptee;
+
+  SimtkPtPlotDialog_SelectXButton_mouseAdapter(SimtkPtPlotDialog adaptee) {
+    this.adaptee = adaptee;
+  }
+
+  public void mouseReleased(MouseEvent e) {
+    adaptee.SelectXButton_mouseReleased(e);
+  }
+}
+
+class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseAdapter {
+  SimtkPtPlotDialog adaptee;
+
+  SimtkPtPlotDialog_SelectYButton_mouseAdapter(SimtkPtPlotDialog adaptee) {
+    this.adaptee = adaptee;
+  }
+
+  public void mouseReleased(MouseEvent e) {
+    adaptee.SelectYButton_mouseReleased(e);
+  }
+}
+
 }

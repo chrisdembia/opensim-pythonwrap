@@ -11,35 +11,17 @@ package simtkCore;
  * wrapper that can be loaded separately. This way the code doesn't have to import the simtkBlock package.
  * Ayman 03/24/04.
  */
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Toolkit;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Observable;
-import java.util.Vector;
+import java.lang.reflect.*;
+import java.util.*;
 
-import javax.swing.tree.TreeModel;
+import java.awt.*;
+import javax.swing.tree.*;
 
-import simtkCommands.SimtkVisChangeCommand;
-import simtkModel.rdActuatorSet;
-import simtkModel.rdContactForceSet;
-import simtkModel.rdControlSet;
-import simtkModel.rdModel;
-import simtkModel.rdObject;
-import simtkModel.rdVisibleObject;
-import simtkModel.rdVisibleProperties;
-import simtkui.SimDlgGetName;
-import simtkui.SimtkApp;
-import simtkui.edit.SimtkObjectViewerDlg;
-import simtkuiEvents.SimtkCloseModelEvent;
-import simtkuiEvents.SimtkModelRedisplayEvent;
-import simtkuiEvents.SimtkNewModelEvent;
-import simtkuiEvents.SimtkNewSimEnvEvent;
-import simtkuiEvents.SimtkUpdateTreeEvent;
-import simtkuiEvents.SimtkVisibilityChangeEvent;
+import simtkCommands.*;
+import simtkModel.*;
+import simtkui.*;
+import simtkui.edit.*;
+import simtkuiEvents.*;
 /**
  * <p>Title: SimtkDB</p>
  *
@@ -488,7 +470,7 @@ public class SimtkDB extends Observable {
      */
  /*   for(int i=0; i < newContactSet.getSize(); i++)
       ((rdActuatedModel_SDFast)simEnv.getModel()).getContactForceSet().append(newContactSet.get(i)); */
-    SimtkUpdateTreeEvent ev = new SimtkUpdateTreeEvent(simEnv); 
+    SimtkUpdateTreeEvent ev = new SimtkUpdateTreeEvent(simEnv);
    setChanged();
    this.notifyObservers(ev);
    return success;
@@ -569,5 +551,20 @@ public class SimtkDB extends Observable {
       SimtkSimEnv env = (SimtkSimEnv)envs.nextElement();
       env.getAvailableQuantities(plotQuantitiesModel);
     }
+  }
+
+  /**
+   * addSorage
+   *
+   * @param newStorage rdStorage
+   * @param simenvName String
+   * @return boolean
+   */
+  public boolean addSorage(rdStorage newStorage, String simenvName) {
+    boolean success = true;
+
+    SimtkSimEnv simEnv = (simenvName==null)? createNewSimEnv() : getSimtkSimEnv(simenvName);
+    return simEnv.addStorage(newStorage);
+
   }
 }
