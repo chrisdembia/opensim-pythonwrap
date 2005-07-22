@@ -1,40 +1,19 @@
 package simtkui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
 import java.io.File;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import simtkCore.SimtkSimEnv;
-import simtkModel.Model;
-import simtkModel.SWIGTYPE_p_double;
-import simtkModel.rdControl;
-import simtkModel.rdControlSet;
+import simtkModel.*;
 import simtkui.guiUtilities.SimtkJDialog;
-
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.*;
 
 public class SimtkSimulationSetupDlg extends SimtkJDialog {
   JPanel jMainPanel = new JPanel();
@@ -133,7 +112,11 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
   JButton jRemoveAnalysisBtn = new JButton();
   JPanel jAnalysisListPanel = new JPanel();
   TitledBorder titledBorder10;
+  rdArrayAnalysis analyses;
   JTable jAnalysisTable = new JTable();
+  BorderLayout borderLayout5 = new BorderLayout();
+  JScrollPane jScrollPane2 = new JScrollPane();
+  JTextArea jAnalysisDescriptionTextArea = new JTextArea();
 
   public SimtkSimulationSetupDlg(SimtkSimEnv simEnvironment) {
     super();
@@ -206,18 +189,21 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
    jGravityTable.setModel(new SimtkArrayTableModel(gravityTableData, gColumnNames));
 
    // Analyses is a table with model in rdAnalysisFactory
-/*
-   System.loadLibrary("suAnalysesBasic_D");
-   rdAnalysisFactory.getInstance().registerAnalysis(new simtkAnalyses.suKinematics());
-   rdArrayAnalysis analyses = rdAnalysisFactory.getInstance().getRegisteredAnalyses();
+   suAnalysisFactory analysisFactory = suAnalysisFactory.getInstance(simenv.getModel());
+
+   analyses = analysisFactory.getRegisteredAnalyses();
    Object[][] analysisTableData = new Object[analyses.getSize()][2];
-   for(int i=0; i < analyses.getSize(); i++){
+   for (int i=0; i < analyses.getSize(); i++){
      analysisTableData[i][0] = analyses.get(i).getName();
-     analysisTableData[i][1] = "No";
+     analysisTableData[i][1] = new Boolean(analyses.get(i).getOn());
    }
    String[] aColumnNames = new String[]{"Name", "Enabled"};
    jAnalysisTable.setModel(new SimtkArrayTableModel(analysisTableData, aColumnNames));
-      */
+   ListSelectionModel analysisSelectionModel = new DefaultListSelectionModel();
+   analysisSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+   jAnalysisTable.setSelectionModel(analysisSelectionModel);
+   jAnalysisTable.getSelectionModel().addListSelectionListener(new ListSelectionHandler(analyses, jAnalysisDescriptionTextArea));
+
   }
 
    private void jbInit() throws Exception {
@@ -371,8 +357,19 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
     jCustomizeAnalysisBtn.setActionCommand("jButton1");
     jCustomizeAnalysisBtn.setText("Customize");
     jIncludeAnalysisBtn.setText("Add");
+    jIncludeAnalysisBtn.addActionListener(new SimtkSimulationSetupDlg_jIncludeAnalysisBtn_actionAdapter(this));
     jRemoveAnalysisBtn.setText("Remove");
+    jRemoveAnalysisBtn.addActionListener(new SimtkSimulationSetupDlg_jRemoveAnalysisBtn_actionAdapter(this));
     jAnalysisListPanel.setBorder(titledBorder10);
+    jAnalysisListPanel.setLayout(borderLayout5);
+    jScrollPane2.setMinimumSize(new Dimension(23, 200));
+    jScrollPane2.setPreferredSize(new Dimension(2, 200));
+    jScrollPane2.setRequestFocusEnabled(true);
+    jAnalysisDescriptionTextArea.setEditable(false);
+    jAnalysisDescriptionTextArea.setText("Description");
+    jAnalysisTable.setMaximumSize(new Dimension(100, 100));
+    jAnalysisTable.setMinimumSize(new Dimension(100, 100));
+    jAnalysisTable.setPreferredSize(new Dimension(100, 100));
     jPanel1.add(jIncludeAnalysisBtn, null);
     jPanel1.add(jRemoveAnalysisBtn, null);
     jStorageStatePanel.add(jStoreStatesCheckBox, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
@@ -443,7 +440,9 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
     jTabbedPane1.add(jMainPanel,  "Simulation Setup");
     jMainPanel.add(jSimulationSetupPanel, BorderLayout.CENTER);
     jAnalysisPanel.add(jAnalysisListPanel, BorderLayout.CENTER);
-    jAnalysisListPanel.add(jAnalysisTable, null);
+    jAnalysisListPanel.add(jAnalysisTable,  BorderLayout.CENTER);
+    jAnalysisListPanel.add(jScrollPane2,  BorderLayout.SOUTH);
+    jScrollPane2.getViewport().add(jAnalysisDescriptionTextArea, null);
     this.setModal(true);
    }
 
@@ -505,6 +504,14 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
    }
    simenv.getModel().setGravity(newGravityVector);
    Model.free_doubleArray(newGravityVector);
+
+   // Analysis
+   for (int i=0; i < analyses.getSize(); i++){
+     if (analyses.get(i).getOn()){
+       simenv.getModel().addAnalysis(analyses.get(i));
+     }
+   }
+
     this.dispose();
   }
 
@@ -540,6 +547,40 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
 
   void jGravityCheckBox_itemStateChanged(ItemEvent e) {
     gravityState = (e.getStateChange() == ItemEvent.SELECTED);
+  }
+
+
+  class ListSelectionHandler implements ListSelectionListener {
+    rdArrayAnalysis   analyses;
+    JTextArea         descriptionArea;
+    int               selectedIndex;
+
+    public ListSelectionHandler(rdArrayAnalysis analyses, JTextArea descriptionArea)
+    {
+      this.analyses = analyses;
+      this.descriptionArea = descriptionArea;
+    }
+      public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()){
+          selectedIndex = e.getFirstIndex();
+          rdAnalysis currentAnalysis = analyses.get(selectedIndex);
+          descriptionArea.setText(currentAnalysis.getDescription());
+        }
+      }
+      public int getSelectedIndex()
+      {
+        return selectedIndex;
+      }
+  }
+
+  void jIncludeAnalysisBtn_actionPerformed(ActionEvent e) {
+    analyses.get(jAnalysisTable.getSelectedRow()).setOn(true);
+    jAnalysisTable.setValueAt(new Boolean(true), jAnalysisTable.getSelectedRow(), 1);
+  }
+
+  void jRemoveAnalysisBtn_actionPerformed(ActionEvent e) {
+    analyses.get(jAnalysisTable.getSelectedRow()).setOn(false);
+    jAnalysisTable.setValueAt(new Boolean(false), jAnalysisTable.getSelectedRow(), 1);
   }
 
 }
@@ -618,5 +659,27 @@ class SimtkSimulationSetupDlg_jGravityCheckBox_itemAdapter implements java.awt.e
   }
   public void itemStateChanged(ItemEvent e) {
     adaptee.jGravityCheckBox_itemStateChanged(e);
+  }
+}
+
+class SimtkSimulationSetupDlg_jIncludeAnalysisBtn_actionAdapter implements java.awt.event.ActionListener {
+  SimtkSimulationSetupDlg adaptee;
+
+  SimtkSimulationSetupDlg_jIncludeAnalysisBtn_actionAdapter(SimtkSimulationSetupDlg adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.jIncludeAnalysisBtn_actionPerformed(e);
+  }
+}
+
+class SimtkSimulationSetupDlg_jRemoveAnalysisBtn_actionAdapter implements java.awt.event.ActionListener {
+  SimtkSimulationSetupDlg adaptee;
+
+  SimtkSimulationSetupDlg_jRemoveAnalysisBtn_actionAdapter(SimtkSimulationSetupDlg adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.jRemoveAnalysisBtn_actionPerformed(e);
   }
 }

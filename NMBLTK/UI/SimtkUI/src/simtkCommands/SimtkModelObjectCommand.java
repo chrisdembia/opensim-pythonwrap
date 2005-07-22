@@ -3,9 +3,12 @@ package simtkCommands;
 import simtkCore.SimtkDB;
 import simtkModel.rdModel;
 import simtkModel.*;
-
+/**
+ * @todo getrid of obj and fix Model's getObjectByName
+ */
 abstract public class SimtkModelObjectCommand
     extends SimtkModelCommand implements SimtkModelObjectCommandIF{
+  rdObject   object;
   public SimtkModelObjectCommand() {
   }
 
@@ -19,6 +22,8 @@ abstract public class SimtkModelObjectCommand
     String objName = (String) _cmdParams.get("ObjectName");
     if (objName==null)
       return null;
+    if (object != null)
+      return object;
     rdObject obj = getModel().getVisibleObjectByName(objName);
     return obj;
   }
@@ -33,5 +38,6 @@ abstract public class SimtkModelObjectCommand
   {
       if (getModel() != null)
         addCommandParam("ObjectName", Object.getName());
+      object = Object;
   }
 }

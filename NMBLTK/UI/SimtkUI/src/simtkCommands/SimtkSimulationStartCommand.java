@@ -15,6 +15,7 @@ import simtkUtils.FileUtils;
 import simtkUtils.SwingWorker;
 import simtkui.SimtkApp;
 import simtkuiEvents.SimtkSimEnvSimulationTimeChange;
+import javax.swing.*;
 
 public class SimtkSimulationStartCommand
     extends SimtkCommand{
@@ -22,7 +23,6 @@ public class SimtkSimulationStartCommand
    * SimtkSimulationStartCommand. Default constructor used to add entries to command
    * table and set initial availability
    */
-
   public SimtkSimulationStartCommand() {
     super();
     putValue(Action.NAME, "Start");
@@ -110,14 +110,14 @@ public class SimtkSimulationStartCommand
        * @return Object
        */
       public Object construct() {
-        //synchronized(this){
-          currentEnv.setStatus(SimtkSimEnv.STARTED);
-          currentEnv.getAnimationTimer().start();
-          currentEnv.setProgressRange(mgr.getInitialTime(), mgr.getFinalTime());
-          currentEnv.addStorage(mgr.getIntegrator().getStateStorage());
-          currentEnv.addStorage(mgr.getIntegrator().getControlStorage());
-          mgr.integrate();
-        //}
+        currentEnv.removeStorage(mgr.getIntegrator().getControlStorage());
+        currentEnv.removeStorage(mgr.getIntegrator().getStateStorage());
+        currentEnv.setStatus(SimtkSimEnv.STARTED);// This triggers other gui changes thru observers
+        currentEnv.getAnimationTimer().start();
+        currentEnv.setProgressRange(mgr.getInitialTime(), mgr.getFinalTime());
+        currentEnv.addStorage(mgr.getIntegrator().getControlStorage(), true);
+        currentEnv.addStorage(mgr.getIntegrator().getStateStorage(), true);
+        mgr.integrate();
         if (currentEnv.getStoragePreferences().getPStatesStore()){
           String fullpath = FileUtils.makeFileName(currentEnv.getStoragePreferences().getStorageDirectory(),
                                                    currentEnv.getStoragePreferences().getPStatesStorageFile());
@@ -133,7 +133,6 @@ public class SimtkSimulationStartCommand
                                                   currentEnv.getStoragePreferences().getControlsStorageFile());
          mgr.getIntegrator().getControlStorage().print(fullpath, .01, "w");
         }
-
         currentEnv.setSimulationThread(null);
         currentEnv.setStatus(SimtkSimEnv.READY);
         currentEnv.getAnimationTimer().stop();

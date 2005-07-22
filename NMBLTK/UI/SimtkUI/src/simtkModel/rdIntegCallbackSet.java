@@ -12,7 +12,7 @@ package simtkModel;
 public class rdIntegCallbackSet extends rdCallbackSet {
   private long swigCPtr;
 
-  
+  /*
   public  rdIntegCallbackSet(long cPtr, boolean cMemoryOwn) {
     super(ModelJNI.SWIGrdIntegCallbackSetTordCallbackSet(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
@@ -59,5 +59,5 @@ public class rdIntegCallbackSet extends rdCallbackSet {
   public void end(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_void aClientData) {
     ModelJNI.rdIntegCallbackSet_end(swigCPtr, aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_void.getCPtr(aClientData));
   }
-
+ */
 }

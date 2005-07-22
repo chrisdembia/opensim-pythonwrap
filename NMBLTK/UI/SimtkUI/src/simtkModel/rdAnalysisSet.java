@@ -12,7 +12,7 @@ package simtkModel;
 public class rdAnalysisSet extends rdIntegCallbackSet {
   private long swigCPtr;
 
-  
+  /*
   public  rdAnalysisSet(long cPtr, boolean cMemoryOwn) {
     super(ModelJNI.SWIGrdAnalysisSetTordIntegCallbackSet(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
@@ -51,5 +51,5 @@ public class rdAnalysisSet extends rdIntegCallbackSet {
   public void printResults(String aBaseName, String aPath, double aDT, String aExtension) {
     ModelJNI.rdAnalysisSet_printResults(swigCPtr, aBaseName, aPath, aDT, aExtension);
   }
-
+*/
 }

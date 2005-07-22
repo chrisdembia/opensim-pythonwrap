@@ -21,6 +21,21 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * <p>Title: UI for Simtk Prototype</p>
+ *
+ * <p>Description: UI for Simtk Prototype</p>
+ *
+ * <p>Copyright: Copyright (c) 2004</p>
+ *
+ * <p>Company: Stanford University</p>
+ * @author Ayman Habib
+ * @version 1.0
+ * Plotting Dialog, low level plotting is provided by ptolemy.plot package from
+ * UCBerkeley.
+ *
+ * @todo perform cleanup on dialog exit as well
+ */
 public class SimtkPtPlotDialog extends SimtkJDialog{
   private Plot plot = new Plot();   // The plot box with all plotting capabilities
   JSplitPane jSplitPane1 = new JSplitPane();
@@ -218,8 +233,8 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     jPanel2.add(jYAxisLabel,              new GridBagConstraints(0, 1, 1, 1, 0.3, 0.5
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(SelectXButton, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    /*jPanel2.add(SelectXButton, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));*/
     jPlotControlPanel.add(jPlotCommandsPanel,  BorderLayout.SOUTH);
     jPanel1.add(jPanel3,            new GridBagConstraints(0, 0, 2, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
@@ -231,9 +246,18 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     jPanel3.add(jCheckBoxStems,       new GridBagConstraints(1, 1, 1, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(SelectYButton, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    /*jPanel2.add(SelectYButton, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));*/
     jSplitPane1.setDividerLocation(250);
+
+    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+              jClearPlotButton_actionPerformed(null);
+              we.getWindow().dispose();
+        }
+    });
+
 
   }
 
@@ -257,11 +281,11 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
 
     String xName = (String) jComboBoxX.getSelectedItem();
     String yName = (String) jComboBoxY.getSelectedItem();
-    String envName = xName.substring(0, xName.indexOf("."));
+    String envName = xName.substring(0, xName.indexOf(":"));
     SimtkSimEnv simEnv = SimtkDB.getInstance().getSimtkSimEnv(envName);
    // Strip out the leading environment name
-    xName = xName.substring(xName.indexOf(".")+1);
-    yName = yName.substring(yName.indexOf(".")+1);
+    xName = xName.substring(xName.indexOf(":")+1);
+    yName = yName.substring(yName.indexOf(":")+1);
     SimtkPlotDataSet newDataSet = new SimtkPlotDataSet(simEnv, xName, yName);
     // Fix this as indices might not be in sequence due to deletion
     int newDataSetIndex = getNextAvailableIndex();
@@ -312,7 +336,7 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
       plot.removeLegend(index);
       plot.clear(index);
       plotListModel.removeElement((String) selectedForDeletion[i]);
-
+      _mapNamesToDatasets.remove((String) selectedForDeletion[i]);
     }
   }
 

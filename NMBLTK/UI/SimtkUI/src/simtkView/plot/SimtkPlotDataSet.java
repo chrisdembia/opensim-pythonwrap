@@ -25,6 +25,7 @@ public class SimtkPlotDataSet
   String _xName;
   String _yName;
   SimtkSimEnv _env;
+  String _storageName;
   int _dataSetIndex = -1;
   boolean _timeDependent;
   double _lastTime;
@@ -34,14 +35,14 @@ public class SimtkPlotDataSet
     _xName = xName;
     _yName = yName;
     _env = env;
-    if (xName.endsWith(".time")) {
+    if (env.isTimeDependent(xName)) {
       _timeDependent = true;
       _env.addObserver(this);
     }
   }
 
   public String getLegend() {
-    return _xName + " vs. " + _yName;
+    return _xName + " vs. " + _yName.substring(_yName.lastIndexOf(":")+1);
   }
 
   public boolean isTimeDependent() {
@@ -89,12 +90,13 @@ public class SimtkPlotDataSet
       SimtkSimEnvStateChangeEvent evnt = (SimtkSimEnvStateChangeEvent) arg;
       int oldState = evnt.getOldState();
       int newState = evnt.getNewState();
-      if ((oldState == SimtkSimEnv.READY ||  oldState == SimtkSimEnv.PLAYBACK) && newState == SimtkSimEnv.STARTED) {
+      if (/*(oldState == SimtkSimEnv.READY ||  oldState == SimtkSimEnv.PLAYBACK) &&*/ newState == SimtkSimEnv.STARTED) {
         _plot.clear(_dataSetIndex);
         _lastTime=0.0;
       }
     }
     if (env.getStatus() == SimtkSimEnv.STARTED) {
+      // Find out where the simulation is.
       double time = env.getAnimationCallback().getCurrentTime();
       Vector xValues = new Vector();
       Vector yValues = new Vector();
@@ -104,9 +106,9 @@ public class SimtkPlotDataSet
         double xValue = ( (Double) xValues.get(i)).doubleValue();
         _plot.addPoint(_dataSetIndex, xValue, yValue, true);
 
-        _lastTime = time;
-        _plot.repaint();
       }
+      _lastTime = time;
+      _plot.repaint();
     }
   }
 

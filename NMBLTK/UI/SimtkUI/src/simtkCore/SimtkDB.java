@@ -556,15 +556,15 @@ public class SimtkDB extends Observable {
   /**
    * addSorage
    *
-   * @param newStorage rdStorage
+   * @param addStorage rdStorage
    * @param simenvName String
    * @return boolean
    */
-  public boolean addSorage(rdStorage newStorage, String simenvName) {
+  public boolean addStorage(rdStorage newStorage, String simenvName) {
     boolean success = true;
 
     SimtkSimEnv simEnv = (simenvName==null)? createNewSimEnv() : getSimtkSimEnv(simenvName);
-    return simEnv.addStorage(newStorage);
+    return simEnv.addStorage(newStorage, false);
 
   }
 }

@@ -87,6 +87,7 @@ public class CommandFactory {
     insertCommand(new SimtkObjectExportCommand());
     insertCommand(new SimtkObjectEditCommand());
     insertCommand(new SimtkGrapherCommand());
+    insertCommand(new SimtkEditPlotCommand());
     // Test
     insertCommand(new SimtkTestCommand());
     // Scripting

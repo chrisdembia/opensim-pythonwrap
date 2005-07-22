@@ -55,6 +55,7 @@ public class SimtkSimEnv extends Observable {
   // the name modelObjects is due to the fact that they would show under the model subtree.
   private Hashtable _modelObjects = new Hashtable(4);
   private Hashtable _availableData = new Hashtable(4);
+  private Hashtable _timeVaryingData = new Hashtable(4);
 
   /** The follwoing enums describe the status of the simulation environment with regard to ability to start simulation */
   public static final int NOT_READY = 1;
@@ -178,9 +179,9 @@ public class SimtkSimEnv extends Observable {
   {
     if (status != STARTED){ // recompute status on the fly based on availability of model, controls, ..
       if (getControlSet()==null || getModel()==null)
-        status = NOT_READY;
+        setStatus(NOT_READY);
       else
-        status = READY;
+        setStatus(READY);
     }
     return status;
   }
@@ -385,9 +386,9 @@ public class SimtkSimEnv extends Observable {
    * @param plotQuantitiesModel DefaultListModel
    */
   public void getAvailableQuantities(Vector plotQuantitiesModel) {
-    if (manager == null || manager.getIntegrator()==null)
+/*    if (manager == null || manager.getIntegrator()==null)
       return;
-/*    rdStorage kinematicsStorage = manager.getIntegrator().getStateStorage();
+    rdStorage kinematicsStorage = manager.getIntegrator().getStateStorage();
     if (kinematicsStorage == null)
       return;
 
@@ -417,7 +418,7 @@ public class SimtkSimEnv extends Observable {
        rdStorage nextStorage = (rdStorage) allStorages.nextElement();
        columnLabels = nextStorage.getColumnLabelsArray();
        for (int i=0; i < columnLabels.getSize(); i++){
-         String fullName = name+"."+nextStorage.getName()+"."+columnLabels.getitem(i);
+         String fullName = name+":"+nextStorage.getName()+":"+columnLabels.getitem(i);
          if (plotQuantitiesModel.contains(fullName))
            continue;
          plotQuantitiesModel.addElement(fullName);
@@ -450,17 +451,18 @@ public class SimtkSimEnv extends Observable {
    */
   public boolean getDataValues(String xName, String yName, Vector xValues,
                                Vector yValues, double startTime) {
-    // Search available rdStorage(s) for one containing both labels and whn found collect data
-    String storageName = xName.substring(0, xName.lastIndexOf("."));
+    // Assume storage comes from xName
+    String storageName = xName.substring(0, xName.lastIndexOf(":"));
     rdStorage useStorage = (rdStorage) _availableData.get(storageName);
     if (useStorage!=null){
-      String bareXName = xName.substring(xName.lastIndexOf(".") + 1);
-      String bareYName = yName.substring(yName.lastIndexOf(".") + 1);
+      String bareXName = xName.substring(xName.lastIndexOf(":") + 1);
+      String bareYName = yName.substring(yName.lastIndexOf(":") + 1);
       int startRowIndex = useStorage.findIndex(0, startTime);
       int xIndex = useStorage.getColumnIndex(bareXName);
       int yIndex = useStorage.getColumnIndex(bareYName);
       double  xVal, yVal;
-      for (int i = startRowIndex; i < useStorage.getSize(); i++) {
+      int numRows = useStorage.getSize();
+      for (int i = startRowIndex; i < numRows; i++) {
         // Assumption if name is not found then it's time. This assumption is valid only
         // because user selects from a provided list of quantitiies
         if (xIndex == -1)
@@ -472,11 +474,30 @@ public class SimtkSimEnv extends Observable {
 
         xValues.add( new Double(xVal));
         yValues.add( new Double(yVal));
-        simtkui.SimtkApp.displayDebugMessage("(x, y)="+xVal+", "+yVal+"\n");
       }
+      simtkui.SimtkApp.displayInfoMessage("Adding rows from "+startRowIndex+" to "+numRows+"\n");
       return true;
     }
     return false;
+  }
+
+  public boolean addStorage(rdStorage newStorage, boolean timeVarying) {
+    if (_timeVaryingData.get(newStorage.getName())== null){
+      _timeVaryingData.put(newStorage.getName(), new Boolean(timeVarying));
+      return addStorage(newStorage);
+    }
+    else
+      return false;
+  }
+  /**
+   * addStorage
+   *
+   * @param newStorage rdStorage
+   * @return boolean true if success else false
+   */
+  private boolean addStorage(rdStorage newStorage) {
+    _availableData.put(newStorage.getName(), newStorage);
+    return true;
   }
 
   /**
@@ -485,13 +506,24 @@ public class SimtkSimEnv extends Observable {
    * @param newStorage rdStorage
    * @return boolean true if success else false
    */
-  public boolean addStorage(rdStorage newStorage) {
-    _availableData.put(newStorage.getName(), newStorage);
-    return true;
+  public void removeStorage(rdStorage toRemoveStorage) {
+    _availableData.remove(toRemoveStorage.getName());
+    _timeVaryingData.remove(toRemoveStorage.getName());
+    return;
   }
-
   public Enumeration getAvailableStorages()
   {
     return _availableData.elements();
+  }
+
+  /**
+   * isTimeDependent
+   *
+   * @param xName String
+   * @return boolean true if xName corresponds to atime varying quantity
+   */
+  public boolean isTimeDependent(String xName) {
+    String storageName = xName.substring(0, xName.lastIndexOf(":"));
+    return ((Boolean)_timeVaryingData.get(storageName)).booleanValue();
   }
 }

@@ -14,22 +14,6 @@ import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.BorderFactory;
-import javax.swing.DebugGraphics;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JToolBar;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.text.PlainDocument;
@@ -51,6 +35,8 @@ import simtkuiEvents.SimtkNewModelEvent;
 import simtkuiEvents.SimtkNewSimEnvEvent;
 import simtkuiEvents.SimtkSimulationEvent;
 import simtkuiEvents.SimtkUpdateTreeEvent;
+import simtkCommands.*;
+import javax.swing.*;
 /**
  * <p>Title: UI for Simtk Prototype</p>
  * <p>Description: UI for Simtk Prototype</p>
@@ -136,6 +122,8 @@ public class SimtkMainFrame extends JFrame implements Observer {
   JMenuItem jWorkflowMenuitem = new JMenuItem();
   JMenuItem jPlotMenuitem = new JMenuItem();
   Border border2;
+  JScrollPane jModelTreeScroll = new JScrollPane();
+  JTree jTree1 = new JTree();
   //Construct the frame
   public SimtkMainFrame() {
     enableEvents(AWTEvent.WINDOW_EVENT_MASK);
@@ -155,6 +143,7 @@ public class SimtkMainFrame extends JFrame implements Observer {
       jbInit();
       SimtkApp.setStatusBar(statusBar);
       jSimDBTree.initialize();
+      jSimDBTree.addCustomCommands();
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -384,8 +373,9 @@ public class SimtkMainFrame extends JFrame implements Observer {
 
     getContentPane().add(jSplitPane1, BorderLayout.CENTER);
     jSplitPane1.add(jSplitPane2, JSplitPane.TOP);
-    jSplitPane2.add(jSimDBTree, JSplitPane.LEFT);
+    //jSplitPane2.add(jSimDBTree, JSplitPane.LEFT);
     jSplitPane2.add(jMainPane, JSplitPane.RIGHT);
+    jSplitPane2.add(jModelTreeScroll, JSplitPane.LEFT);
     jMainPane.getViewport().add(modelDesktopPane);
     jSplitPane1.add(jBottomPane, JSplitPane.BOTTOM);
     jBottomPane.addTab("Messages", jMessagePane);
@@ -409,6 +399,7 @@ public class SimtkMainFrame extends JFrame implements Observer {
     jPluginsMenu.add(jPlotMenuitem);
     */
     this.getContentPane().add(jToolBar, BorderLayout.NORTH);
+    jModelTreeScroll.getViewport().add(jSimDBTree, null);
     jSplitPane1.setDividerLocation(600);
     jSplitPane2.setDividerLocation(150);
 

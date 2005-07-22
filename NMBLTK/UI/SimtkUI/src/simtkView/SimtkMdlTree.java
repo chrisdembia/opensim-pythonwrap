@@ -1,29 +1,17 @@
 package simtkView;
 
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.util.Vector;
+import java.util.*;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.tree.*;
 
-import simtkCommands.SimtkCommand;
-import simtkCommands.SimtkEnvCommand;
-import simtkCommands.SimtkModelCommand;
-import simtkCore.SimtkDB;
-import simtkCore.SimtkSimEnv;
-import simtkModel.rdManager;
-import simtkModel.rdModel;
-import simtkModel.rdObject;
-import simtkModel.rdVisibleObject;
-import simtkui.SimtkPropMenu;
-import simtkui.SimtkSimulationEnvMenu;
-import simtkui.SimtkSimulationMenu;
-import simtkui.guiUtilities.SimtkJMenuFactory;
+import simtkCommands.*;
+import simtkCore.*;
+import simtkModel.*;
+import simtkui.*;
+import simtkui.guiUtilities.*;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -142,6 +130,8 @@ public class SimtkMdlTree extends JTree {
             ((SimtkEnvCommand) cmd).setEnv(getSimEnv(selPath));
           if (cmd instanceof SimtkModelCommand)
             ((SimtkModelCommand) cmd).setModel(getSimEnv(selPath).getModel());
+          if (cmd instanceof SimtkModelObjectCommand)
+            ((SimtkModelObjectCommand) cmd).setObject((rdObject)selObj);
           _popup.add(new JMenuItem(cmd));
         }
       }
@@ -187,5 +177,16 @@ public class SimtkMdlTree extends JTree {
       }
     }
     return null;
+  }
+
+  /**
+   * addCustomCommands registers special purpose commands associated with individual classes
+   */
+  public void addCustomCommands() {
+    SimtkCommand[] customCommands = new SimtkCommand[1];
+    String[]         customCommandClasses = new String[1];
+    customCommands[0] = new SimtkEditPlotCommand();
+    customCommandClasses[0] = "simtkModel.rdControl";
+    registerCustomCommands(customCommandClasses, customCommands);
   }
 }

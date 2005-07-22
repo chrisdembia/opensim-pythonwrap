@@ -86,7 +86,7 @@ public class SimtkLoadStorageCommand
 
     rdStorage newStorage = new rdStorage(_fileName);
     // What if the controlSet cant be constructed?
-    success = SimtkDB.getInstance().addSorage(newStorage, simenvName);
+    success = SimtkDB.getInstance().addStorage(newStorage, simenvName);
 
     env.setStatus(SimtkSimEnv.READY);
     env.setDeterministicProgress(true);

@@ -57,8 +57,8 @@ public class rdAnalysisFactory {
     return ModelJNI.rdAnalysisFactory_toString(swigCPtr);
   }
 
-  public rdAnalysisSet getRegisteredAnalyses() {
-    return new rdAnalysisSet(ModelJNI.rdAnalysisFactory_getRegisteredAnalyses(swigCPtr), false);
+  public rdArrayAnalysis getRegisteredAnalyses() {
+    return new rdArrayAnalysis(ModelJNI.rdAnalysisFactory_getRegisteredAnalyses(swigCPtr), false);
   }
 
 }

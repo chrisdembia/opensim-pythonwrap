@@ -190,8 +190,15 @@ public class SimtkDBTreeModel extends DefaultTreeModel{
    rdControlSet cs = simEnvironment.getSimulationManager().getControlSet();
 
    DefaultMutableTreeNode controlNode;
-   if (cs != null)
+   if (cs != null){
      controlNode = new DefaultMutableTreeNode(cs, true);
+     // Create nodes for individual controls
+     int controlSetSize = cs.getSize();
+     for(int i=0; i < controlSetSize; i++){
+       DefaultMutableTreeNode singleControlNode = new DefaultMutableTreeNode(cs.get(i), true);
+       controlNode.add(singleControlNode);
+     }
+   }
     else
       controlNode = new DefaultMutableTreeNode("No ControlSet", true);
 
