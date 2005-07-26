@@ -14,6 +14,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
+import simtkCore.*;
 
 public class SimtkSimulationSetupDlg extends SimtkJDialog {
   JPanel jMainPanel = new JPanel();
@@ -203,6 +204,13 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
    analysisSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
    jAnalysisTable.setSelectionModel(analysisSelectionModel);
    jAnalysisTable.getSelectionModel().addListSelectionListener(new ListSelectionHandler(analyses, jAnalysisDescriptionTextArea));
+   jAnalysisTable.addMouseListener(new MouseAdapter(){
+       public void mouseClicked(MouseEvent e){
+        if (e.getClickCount() == 2){
+           jCustomizeAnalysisBtn_actionPerformed(null);
+           }
+        }
+       } );
 
   }
 
@@ -356,6 +364,7 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
     jAnalysisPanel.setDebugGraphicsOptions(0);
     jCustomizeAnalysisBtn.setActionCommand("jButton1");
     jCustomizeAnalysisBtn.setText("Customize");
+    jCustomizeAnalysisBtn.addActionListener(new SimtkSimulationSetupDlg_jCustomizeAnalysisBtn_actionAdapter(this));
     jIncludeAnalysisBtn.setText("Add");
     jIncludeAnalysisBtn.addActionListener(new SimtkSimulationSetupDlg_jIncludeAnalysisBtn_actionAdapter(this));
     jRemoveAnalysisBtn.setText("Remove");
@@ -367,6 +376,7 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
     jScrollPane2.setRequestFocusEnabled(true);
     jAnalysisDescriptionTextArea.setEditable(false);
     jAnalysisDescriptionTextArea.setText("Description");
+    jAnalysisTable.setAutoscrolls(true);
     jAnalysisTable.setMaximumSize(new Dimension(100, 100));
     jAnalysisTable.setMinimumSize(new Dimension(100, 100));
     jAnalysisTable.setPreferredSize(new Dimension(100, 100));
@@ -583,6 +593,11 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
     jAnalysisTable.setValueAt(new Boolean(false), jAnalysisTable.getSelectedRow(), 1);
   }
 
+  void jCustomizeAnalysisBtn_actionPerformed(ActionEvent e) {
+    rdAnalysis analysis = analyses.get(jAnalysisTable.getSelectedRow());
+    SimtkDB.getInstance().editObject(null, analysis);
+  }
+
 }
 
 class SimtkSimulationSetupDlg_jOkButton_actionAdapter implements java.awt.event.ActionListener {
@@ -681,5 +696,16 @@ class SimtkSimulationSetupDlg_jRemoveAnalysisBtn_actionAdapter implements java.a
   }
   public void actionPerformed(ActionEvent e) {
     adaptee.jRemoveAnalysisBtn_actionPerformed(e);
+  }
+}
+
+class SimtkSimulationSetupDlg_jCustomizeAnalysisBtn_actionAdapter implements java.awt.event.ActionListener {
+  SimtkSimulationSetupDlg adaptee;
+
+  SimtkSimulationSetupDlg_jCustomizeAnalysisBtn_actionAdapter(SimtkSimulationSetupDlg adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.jCustomizeAnalysisBtn_actionPerformed(e);
   }
 }

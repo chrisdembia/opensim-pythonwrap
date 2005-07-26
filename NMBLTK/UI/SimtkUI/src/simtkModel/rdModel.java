@@ -716,6 +716,14 @@ public class rdModel extends rdObject {
     ModelJNI.rdModel_addAnalysis(swigCPtr, rdAnalysis.getCPtr(aAnalysis));
   }
 
+  public int getNumAnalyses() {
+    return ModelJNI.rdModel_getNumAnalyses(swigCPtr);
+  }
+
+  public rdAnalysis getAnalysis(int index) {
+    return new rdAnalysis(ModelJNI.rdModel_getAnalysis(swigCPtr, index), false);
+  }
+
   public SWIGTYPE_p_rdIntegCallbackSet getIntegCallbackSet() {
     long cPtr = ModelJNI.rdModel_getIntegCallbackSet(swigCPtr);
     return (cPtr == 0) ? null : new SWIGTYPE_p_rdIntegCallbackSet(cPtr, false);

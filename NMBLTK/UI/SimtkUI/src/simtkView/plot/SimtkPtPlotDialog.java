@@ -20,6 +20,7 @@ import simtkui.guiUtilities.SimtkJDialog;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import simtkCommands.*;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -71,10 +72,6 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
   TitledBorder titledBorder7;
   GridBagLayout gridBagLayout2 = new GridBagLayout();
   GridBagLayout gridBagLayout1 = new GridBagLayout();
-  JComboBox jComboBoxX = new JComboBox();
-  JComboBox jComboBoxY = new JComboBox();
-  JLabel jXaxisLabel = new JLabel();
-  JLabel jYAxisLabel = new JLabel();
   JLabel jPlotTitle = new JLabel();
   JTextField jTitleText = new JTextField();
   Hashtable _mapNamesToDatasets = new Hashtable();
@@ -86,8 +83,10 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
   JCheckBox jCheckBoxStems = new JCheckBox();
   JButton SelectXButton = new JButton();
   JButton SelectYButton = new JButton();
-  JPopupMenu xPopup = new SimtkPlotQuantitySelector();
-  JPopupMenu yPopup = new SimtkPlotQuantitySelector();
+  JTextField jXTextField = new JTextField();
+  JTextField jYTextField = new JTextField();
+  JPopupMenu xPopup = new SimtkPlotQuantitySelector(jXTextField);
+  JPopupMenu yPopup = new SimtkPlotQuantitySelector(jYTextField);
 
   public SimtkPtPlotDialog() {
     try {
@@ -105,8 +104,8 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
     Object[] plotQuantitiesArray = plotQuantities.toArray();
     plotQuantitiesModelX = new DefaultComboBoxModel(plotQuantitiesArray);
     plotQuantitiesModelY = new DefaultComboBoxModel(plotQuantitiesArray);
-    jComboBoxX.setModel(plotQuantitiesModelX);
-    jComboBoxY.setModel(plotQuantitiesModelY);
+    //jComboBoxX.setModel(plotQuantitiesModelX);
+    //jComboBoxY.setModel(plotQuantitiesModelY);
     jDeletePlotButton.setEnabled(plotListModel.getSize()>0);
     jPrintPlotButton.setEnabled(plotListModel.getSize()>0);
     jAddPlotButton.setEnabled(plotQuantitiesModelX.getSize()>0);
@@ -191,9 +190,6 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
     jPanel2.setLayout(gridBagLayout1);
     jPlotControlPanel.setMinimumSize(new Dimension(360, 120));
     jPlotControlPanel.setPreferredSize(new Dimension(360, 120));
-    jXaxisLabel.setText("X-Axis:");
-    jYAxisLabel.setToolTipText("");
-    jYAxisLabel.setText("Y-Axis:");
     jPlotTitle.setHorizontalAlignment(SwingConstants.RIGHT);
     jPlotTitle.setText("Plot Title");
     jTitleText.setText("Plot Title goes here");
@@ -206,12 +202,20 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
     jCheckBoxGrid.addActionListener(new SimtkPtPlotDialog_jCheckBoxGrid_actionAdapter(this));
     jCheckBoxStems.setText("Stems");
     jCheckBoxStems.addActionListener(new SimtkPtPlotDialog_jCheckBoxStems_actionAdapter(this));
-    jComboBoxX.setPreferredSize(new Dimension(100, 19));
-    jComboBoxY.setPreferredSize(new Dimension(100, 19));
     SelectXButton.setText("Select-X");
     SelectXButton.addMouseListener(new SimtkPtPlotDialog_SelectXButton_mouseAdapter(this));
     SelectYButton.setText("Select-Y");
     SelectYButton.addMouseListener(new SimtkPtPlotDialog_SelectYButton_mouseAdapter(this));
+    jXTextField.setMinimumSize(new Dimension(180, 20));
+    jXTextField.setPreferredSize(new Dimension(180, 20));
+    jXTextField.setToolTipText("");
+    jXTextField.setEditable(false);
+    jXTextField.setMargin(new Insets(1, 5, 2, 4));
+    jXTextField.setText("");
+    jYTextField.setMinimumSize(new Dimension(180, 20));
+    jYTextField.setPreferredSize(new Dimension(180, 20));
+    jYTextField.setEditable(false);
+    jYTextField.setText("");
     this.getContentPane().add(jSplitPane1,  BorderLayout.CENTER);
     jSplitPane1.add(plot, JSplitPane.TOP);
     jSplitPane1.add(jPlotControlPanel, JSplitPane.BOTTOM);
@@ -225,16 +229,8 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
     jPanel1.add(jPanel2,        new GridBagConstraints(0, 1, 2, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     jScrollPane1.getViewport().add(jPlotList, null);
-    jPanel2.add(jComboBoxX,                       new GridBagConstraints(1, 0, 1, 1, 1.0, 0.5
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(jComboBoxY,                    new GridBagConstraints(1, 1, 1, 1, 1.0, 0.5
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(jXaxisLabel,                  new GridBagConstraints(0, 0, 1, 1, 0.3, 0.5
-            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(jYAxisLabel,              new GridBagConstraints(0, 1, 1, 1, 0.3, 0.5
-            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-    /*jPanel2.add(SelectXButton, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));*/
+    jPanel2.add(SelectXButton,  new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jPlotControlPanel.add(jPlotCommandsPanel,  BorderLayout.SOUTH);
     jPanel1.add(jPanel3,            new GridBagConstraints(0, 0, 2, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
@@ -246,8 +242,12 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     jPanel3.add(jCheckBoxStems,       new GridBagConstraints(1, 1, 1, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-    /*jPanel2.add(SelectYButton, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));*/
+    jPanel2.add(SelectYButton,  new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jXTextField,   new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jYTextField,  new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jSplitPane1.setDividerLocation(250);
 
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -279,8 +279,8 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
 
   void jAddPlotButton_actionPerformed(ActionEvent e) {
 
-    String xName = (String) jComboBoxX.getSelectedItem();
-    String yName = (String) jComboBoxY.getSelectedItem();
+    String xName = (String) jXTextField.getText();
+    String yName = (String) jYTextField.getText();
     String envName = xName.substring(0, xName.indexOf(":"));
     SimtkSimEnv simEnv = SimtkDB.getInstance().getSimtkSimEnv(envName);
    // Strip out the leading environment name
@@ -488,5 +488,4 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
     adaptee.SelectYButton_mouseReleased(e);
   }
 }
-
 }

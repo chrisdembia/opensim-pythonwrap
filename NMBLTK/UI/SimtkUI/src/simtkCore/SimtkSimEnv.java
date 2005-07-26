@@ -475,7 +475,7 @@ public class SimtkSimEnv extends Observable {
         xValues.add( new Double(xVal));
         yValues.add( new Double(yVal));
       }
-      simtkui.SimtkApp.displayInfoMessage("Adding rows from "+startRowIndex+" to "+numRows+"\n");
+//      simtkui.SimtkApp.displayInfoMessage("Adding rows from "+startRowIndex+" to "+numRows+"\n");
       return true;
     }
     return false;
@@ -526,4 +526,36 @@ public class SimtkSimEnv extends Observable {
     String storageName = xName.substring(0, xName.lastIndexOf(":"));
     return ((Boolean)_timeVaryingData.get(storageName)).booleanValue();
   }
+
+  /**
+   * removeStorageDynamicStorages
+   */
+  public void removeDynamicStorages() {
+    int nAnalyses = getModel().getNumAnalyses();
+    for (int i=0; i < nAnalyses; i++){
+      rdAnalysis nextAnalysis = getModel().getAnalysis(i);
+      String analysisName = nextAnalysis.getName();
+      String analysisType = nextAnalysis.getType();
+      rdArrayStorage storages = nextAnalysis.getStorageList();
+      for (int j=0; j < storages.getSize(); j++){
+        removeStorage(storages.get(j));
+      }
+    }
+  }
+
+  /**
+   * addStorageDynamicStorages
+   */
+  public void addDynamicStorages() {
+    int nAnalyses = getModel().getNumAnalyses();
+    for (int i=0; i < nAnalyses; i++){
+      rdAnalysis nextAnalysis = getModel().getAnalysis(i);
+      String analysisName = nextAnalysis.getName();
+      String analysisType = nextAnalysis.getType();
+      rdArrayStorage storages = nextAnalysis.getStorageList();
+      for (int j=0; j < storages.getSize(); j++){
+        addStorage(storages.get(j), true);
+      }
+    }
+ }
 }

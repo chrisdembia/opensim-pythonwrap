@@ -12,7 +12,7 @@ package simtkModel;
 public class rdSimtkAnimationCallback extends rdIntegCallback {
   private long swigCPtr;
 
-
+  
   public  rdSimtkAnimationCallback(long cPtr, boolean cMemoryOwn) {
     super(ModelJNI.SWIGrdSimtkAnimationCallbackTordIntegCallback(cPtr), cMemoryOwn);
     swigCPtr = cPtr;

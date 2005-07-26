@@ -16,6 +16,7 @@ import simtkUtils.SwingWorker;
 import simtkui.SimtkApp;
 import simtkuiEvents.SimtkSimEnvSimulationTimeChange;
 import javax.swing.*;
+import simtkModel.*;
 
 public class SimtkSimulationStartCommand
     extends SimtkCommand{
@@ -117,7 +118,19 @@ public class SimtkSimulationStartCommand
         currentEnv.setProgressRange(mgr.getInitialTime(), mgr.getFinalTime());
         currentEnv.addStorage(mgr.getIntegrator().getControlStorage(), true);
         currentEnv.addStorage(mgr.getIntegrator().getStateStorage(), true);
-        mgr.integrate();
+        // Add storages from analyses
+       int nAnalyses = currentEnv.getModel().getNumAnalyses();
+       for (int i=0; i < nAnalyses; i++){
+         rdAnalysis nextAnalysis = currentEnv.getModel().getAnalysis(i);
+         String analysisName = nextAnalysis.getName();
+         String analysisType = nextAnalysis.getType();
+         rdArrayStorage storages = nextAnalysis.getStorageList();
+         for (int j=0; j < storages.getSize(); j++){
+           storages.get(j).reset(0);
+           currentEnv.addStorage(storages.get(j), true);
+         }
+       }
+       mgr.integrate();
         if (currentEnv.getStoragePreferences().getPStatesStore()){
           String fullpath = FileUtils.makeFileName(currentEnv.getStoragePreferences().getStorageDirectory(),
                                                    currentEnv.getStoragePreferences().getPStatesStorageFile());
