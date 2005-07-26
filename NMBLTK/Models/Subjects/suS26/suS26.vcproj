@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="suS26"
+	Name="suS26Gui"
 	ProjectGUID="{5F9CEDF5-44AB-430C-9D50-DFED2A255FEF}"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -14,12 +14,12 @@
 			Name="Debug|Win32"
 			OutputDirectory="Debug"
 			IntermediateDirectory="Debug"
-			ConfigurationType="1"
+			ConfigurationType="2"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\SIMMPipeline\4.0\suPipeline40\dp"
+				AdditionalIncludeDirectories="..\..\SIMMPipeline\4.0\suPipeline40\dp;..\..\SIMMPipeline\4.0\Pipeline40Workflow"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;RDSDFAST_EXPORTS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -34,16 +34,18 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="suPipeline40Workflow_D.lib suPipeline40_D.lib suAnalyses_D.lib rdSimulation_D.lib rdSDFast_D.lib rdTools_D.lib acpp_D.lib"
-				OutputFile="suS26.exe"
+				OutputFile="Debug/suS26Gui_D.dll"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/suS26.pdb"
-				SubSystem="1"
+				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				Description="Updating libraries..."
+				CommandLine="&quot;$(RDI_INSTALL)&quot;\Bin\cpl D"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -131,7 +133,7 @@
 				RelativePath=".\suS26.cpp">
 			</File>
 			<File
-				RelativePath=".\suS26_Forward.cpp">
+				RelativePath=".\suS26JNI_wrap.cxx">
 			</File>
 		</Filter>
 		<Filter

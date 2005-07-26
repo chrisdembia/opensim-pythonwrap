@@ -218,8 +218,8 @@ beginpoints
    -0.023676874867    -0.033997773112    -0.015966796731 segment tibia_r
 endpoints
 max_force   1288.000000000000
-optimal_fiber_length      0.073022755587
-tendon_slack_length      0.327689615697
+optimal_fiber_length      0.073022967653
+tendon_slack_length      0.327690567343
 pennation_angle     15.000000000000
 endmuscle
 
@@ -230,8 +230,8 @@ beginpoints
     0.001566492066    -0.063034988016    -0.009570287463 segment tibia_r
 endpoints
 max_force    410.000000000000
-optimal_fiber_length      0.181331219740
-tendon_slack_length      0.236362087422
+optimal_fiber_length      0.181331742310
+tendon_slack_length      0.236362768583
 pennation_angle      5.000000000000
 endmuscle
 
@@ -242,8 +242,8 @@ beginpoints
    -0.019091622050    -0.045934116299     0.027984728047 segment tibia_r
 endpoints
 max_force    896.000000000000
-optimal_fiber_length      0.098979097949
-tendon_slack_length      0.309650205511
+optimal_fiber_length      0.098979388698
+tendon_slack_length      0.309651115101
 pennation_angle      0.000000000000
 endmuscle
 
@@ -254,8 +254,8 @@ beginpoints
    -0.019091622050    -0.045934116299     0.027984728047 segment tibia_r
 endpoints
 max_force    804.000000000000
-optimal_fiber_length      0.154183152933
-tendon_slack_length      0.089123209788
+optimal_fiber_length      0.154183739991
+tendon_slack_length      0.089123549128
 pennation_angle     23.000000000000
 endmuscle
 
@@ -268,8 +268,8 @@ beginpoints
     0.019825915206    -0.068534027871    -0.020560208361 segment tibia_r
 endpoints
 max_force    156.000000000000
-optimal_fiber_length      0.464701268038
-tendon_slack_length      0.089365628469
+optimal_fiber_length      0.464701209121
+tendon_slack_length      0.089365617139
 pennation_angle      0.000000000000
 endmuscle
 
@@ -336,8 +336,8 @@ beginpoints
     0.004895287705    -0.039733418540     0.024231674140 segment tibia_r
 endpoints
 max_force    233.000000000000
-optimal_fiber_length      0.085664668795
-tendon_slack_length      0.383236676190
+optimal_fiber_length      0.085664564747
+tendon_slack_length      0.383236210711
 pennation_angle      3.000000000000
 endmuscle
 
@@ -359,8 +359,8 @@ beginpoints
     0.004895287705    -0.068207675358    -0.018602093279 segment tibia_r
 endpoints
 max_force    162.000000000000
-optimal_fiber_length      0.317067869391
-tendon_slack_length      0.126106538962
+optimal_fiber_length      0.317068122286
+tendon_slack_length      0.126106639545
 pennation_angle      3.000000000000
 endmuscle
 
@@ -472,8 +472,8 @@ beginpoints
     0.010486589213     0.037873053603    -0.000866660266 segment patella_r
 endpoints
 max_force   1169.000000000000
-optimal_fiber_length      0.104033282473
-tendon_slack_length      0.282897522514
+optimal_fiber_length      0.104032700545
+tendon_slack_length      0.282895940077
 pennation_angle      5.000000000000
 endmuscle
 
@@ -486,8 +486,8 @@ beginpoints
     0.005459959673     0.038566381815    -0.014733224514 segment patella_r
 endpoints
 max_force   1294.000000000000
-optimal_fiber_length      0.081219778005
-tendon_slack_length      0.114985303692
+optimal_fiber_length      0.081218762314
+tendon_slack_length      0.114983865748
 pennation_angle      5.000000000000
 endmuscle
 
@@ -499,8 +499,8 @@ beginpoints
     0.005026629540     0.041599692744    -0.000519996159 segment patella_r
 endpoints
 max_force   1365.000000000000
-optimal_fiber_length      0.079671881307
-tendon_slack_length      0.124544550089
+optimal_fiber_length      0.079670903664
+tendon_slack_length      0.124543021820
 pennation_angle      3.000000000000
 endmuscle
 
@@ -513,8 +513,8 @@ beginpoints
     0.008926600735     0.036659729231     0.012219909744 segment patella_r
 endpoints
 max_force   1871.000000000000
-optimal_fiber_length      0.076597590333
-tendon_slack_length      0.143164543837
+optimal_fiber_length      0.076596835681
+tendon_slack_length      0.143163133356
 pennation_angle      5.000000000000
 endmuscle
 
@@ -525,8 +525,8 @@ beginpoints
     0.000000000000     0.026866468231    -0.004593299407 segment calcn_r
 endpoints
 max_force   1558.000000000000
-optimal_fiber_length      0.048859550391
-tendon_slack_length      0.317587077544
+optimal_fiber_length      0.048859659765
+tendon_slack_length      0.317587788475
 pennation_angle     17.000000000000
 endmuscle
 
@@ -537,8 +537,8 @@ beginpoints
     0.000000000000     0.026866468231    -0.004593299407 segment calcn_r
 endpoints
 max_force    683.000000000000
-optimal_fiber_length      0.052069775477
-tendon_slack_length      0.309164291893
+optimal_fiber_length      0.052069893173
+tendon_slack_length      0.309164990714
 pennation_angle      8.000000000000
 endmuscle
 
@@ -756,8 +756,8 @@ beginpoints
    -0.023676874867    -0.033997773112     0.015966796731 segment tibia_l
 endpoints
 max_force   1288.000000000000
-optimal_fiber_length      0.073022755587
-tendon_slack_length      0.327689615697
+optimal_fiber_length      0.073022967653
+tendon_slack_length      0.327690567343
 pennation_angle     15.000000000000
 endmuscle
 
@@ -768,8 +768,8 @@ beginpoints
     0.001566492066    -0.063034988016     0.009570287463 segment tibia_l
 endpoints
 max_force    410.000000000000
-optimal_fiber_length      0.181331219740
-tendon_slack_length      0.236362087422
+optimal_fiber_length      0.181331742310
+tendon_slack_length      0.236362768583
 pennation_angle      5.000000000000
 endmuscle
 
@@ -780,8 +780,8 @@ beginpoints
    -0.019091622050    -0.045934116299    -0.027984728047 segment tibia_l
 endpoints
 max_force    896.000000000000
-optimal_fiber_length      0.098979097949
-tendon_slack_length      0.309650205511
+optimal_fiber_length      0.098979388698
+tendon_slack_length      0.309651115101
 pennation_angle      0.000000000000
 endmuscle
 
@@ -792,8 +792,8 @@ beginpoints
    -0.019091622050    -0.045934116299    -0.027984728047 segment tibia_l
 endpoints
 max_force    804.000000000000
-optimal_fiber_length      0.154183152933
-tendon_slack_length      0.089123209788
+optimal_fiber_length      0.154183739991
+tendon_slack_length      0.089123549128
 pennation_angle     23.000000000000
 endmuscle
 
@@ -806,8 +806,8 @@ beginpoints
     0.019825915206    -0.068534027871     0.020560208361 segment tibia_l
 endpoints
 max_force    156.000000000000
-optimal_fiber_length      0.464701268038
-tendon_slack_length      0.089365628469
+optimal_fiber_length      0.464701209121
+tendon_slack_length      0.089365617139
 pennation_angle      0.000000000000
 endmuscle
 
@@ -874,8 +874,8 @@ beginpoints
     0.004895287705    -0.039733418540    -0.024231674140 segment tibia_l
 endpoints
 max_force    233.000000000000
-optimal_fiber_length      0.085664668795
-tendon_slack_length      0.383236676190
+optimal_fiber_length      0.085664564747
+tendon_slack_length      0.383236210711
 pennation_angle      3.000000000000
 endmuscle
 
@@ -897,8 +897,8 @@ beginpoints
     0.004895287705    -0.068207675358     0.018602093279 segment tibia_l
 endpoints
 max_force    162.000000000000
-optimal_fiber_length      0.317067869391
-tendon_slack_length      0.126106538962
+optimal_fiber_length      0.317068122286
+tendon_slack_length      0.126106639545
 pennation_angle      3.000000000000
 endmuscle
 
@@ -1010,8 +1010,8 @@ beginpoints
     0.010486589213     0.037873053603     0.000866660266 segment patella_l
 endpoints
 max_force   1169.000000000000
-optimal_fiber_length      0.104033282473
-tendon_slack_length      0.282897522514
+optimal_fiber_length      0.104032700545
+tendon_slack_length      0.282895940077
 pennation_angle      5.000000000000
 endmuscle
 
@@ -1024,8 +1024,8 @@ beginpoints
     0.005459959673     0.038566381815     0.014733224514 segment patella_l
 endpoints
 max_force   1294.000000000000
-optimal_fiber_length      0.081219778005
-tendon_slack_length      0.114985303692
+optimal_fiber_length      0.081218762314
+tendon_slack_length      0.114983865748
 pennation_angle      5.000000000000
 endmuscle
 
@@ -1037,8 +1037,8 @@ beginpoints
     0.005026629540     0.041599692744     0.000519996159 segment patella_l
 endpoints
 max_force   1365.000000000000
-optimal_fiber_length      0.079671881307
-tendon_slack_length      0.124544550089
+optimal_fiber_length      0.079670903664
+tendon_slack_length      0.124543021820
 pennation_angle      3.000000000000
 endmuscle
 
@@ -1051,8 +1051,8 @@ beginpoints
     0.008926600735     0.036659729231    -0.012219909744 segment patella_l
 endpoints
 max_force   1871.000000000000
-optimal_fiber_length      0.076597590333
-tendon_slack_length      0.143164543837
+optimal_fiber_length      0.076596835681
+tendon_slack_length      0.143163133356
 pennation_angle      5.000000000000
 endmuscle
 
@@ -1063,8 +1063,8 @@ beginpoints
     0.000000000000     0.026866468231     0.004593299407 segment calcn_l
 endpoints
 max_force   1558.000000000000
-optimal_fiber_length      0.048859550391
-tendon_slack_length      0.317587077544
+optimal_fiber_length      0.048859659765
+tendon_slack_length      0.317587788475
 pennation_angle     17.000000000000
 endmuscle
 
@@ -1075,8 +1075,8 @@ beginpoints
     0.000000000000     0.026866468231     0.004593299407 segment calcn_l
 endpoints
 max_force    683.000000000000
-optimal_fiber_length      0.052069775477
-tendon_slack_length      0.309164291893
+optimal_fiber_length      0.052069893173
+tendon_slack_length      0.309164990714
 pennation_angle      8.000000000000
 endmuscle
 

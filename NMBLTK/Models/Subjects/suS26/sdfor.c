@@ -1,10 +1,10 @@
 /*******************************************************************************
 
-   C:\Work\New\S26\dynsim\src\sdfor.c
+   C:\cygwin\home\fca\Projects\SU\WorkflowTesting\S26\dynsim\src\sdfor.c
 
-   Created by SIMM 4.0 (from joint file C:\Work\WorkFlow_Darryl\data\s26\s26.jnt)
+   Created by SIMM 4.0 (from joint file C:\cygwin\home\fca\Projects\SU\WorkflowTesting\S26\s26.jnt)
 
-   Time of creation: 01/18/2005 03:31:52 PM
+   Time of creation: 05/18/2005 02:35:17 PM
 
    Description: This file contains the routines needed to perform a forward
       dynamics simulation of an SD/FAST model. The specific routines that it
@@ -41,9 +41,6 @@ static double knee_r_tx_data[][2] =
 {19.3313070000,-0.0049862823},
 {28.0851060000,-0.0051138064},
 {87.1732520000,-0.0049862823},
-{120.0000000000,-0.0048165560},
-{120.0000000000,-0.0048165560},
-{120.0000000000,-0.0048165560},
 {120.0000000000,-0.0048165560}
 };
 
@@ -55,9 +52,6 @@ static double knee_r_ty_data[][2] =
 {-20.0000000000,-0.3647738445},
 {-10.0000000000,-0.3638564053},
 {9.1185410000,-0.3626307065},
-{120.0000000000,-0.3633059417},
-{120.0000000000,-0.3633059417},
-{120.0000000000,-0.3633059417},
 {120.0000000000,-0.3633059417}
 };
 
@@ -115,9 +109,6 @@ static double knee_l_tx_data[][2] =
 {19.3313070000,-0.0049862823},
 {28.0851060000,-0.0051138064},
 {87.1732520000,-0.0049862823},
-{120.0000000000,-0.0048165560},
-{120.0000000000,-0.0048165560},
-{120.0000000000,-0.0048165560},
 {120.0000000000,-0.0048165560}
 };
 
@@ -129,9 +120,6 @@ static double knee_l_ty_data[][2] =
 {-20.0000000000,-0.3647738445},
 {-10.0000000000,-0.3638564053},
 {9.1185410000,-0.3626307065},
-{120.0000000000,-0.3633059417},
-{120.0000000000,-0.3633059417},
-{120.0000000000,-0.3633059417},
 {120.0000000000,-0.3633059417}
 };
 
@@ -214,7 +202,7 @@ void init_qs(void)
    sdm->q[calcn_r_tx].joint = ground_calcn_rp;
    sdm->q[calcn_r_tx].axis = 0;
    sdm->q[calcn_r_tx].conversion = 1.0000000000;
-   sdm->q[calcn_r_tx].initial_value = 0.0000000000;
+   sdm->q[calcn_r_tx].initial_value = 0.8224406250;
    sdm->q[calcn_r_tx].initial_velocity = 0.0;
    sdm->q[calcn_r_tx].range_start = -5.0000000000;
    sdm->q[calcn_r_tx].range_end = 5.0000000000;
@@ -233,7 +221,7 @@ void init_qs(void)
    sdm->q[calcn_r_ty].joint = ground_calcn_rp;
    sdm->q[calcn_r_ty].axis = 1;
    sdm->q[calcn_r_ty].conversion = 1.0000000000;
-   sdm->q[calcn_r_ty].initial_value = 0.0100000000;
+   sdm->q[calcn_r_ty].initial_value = 0.0605866149;
    sdm->q[calcn_r_ty].initial_velocity = 0.0;
    sdm->q[calcn_r_ty].range_start = -1.0000000000;
    sdm->q[calcn_r_ty].range_end = 2.0000000000;
@@ -252,7 +240,7 @@ void init_qs(void)
    sdm->q[calcn_r_tz].joint = ground_calcn_rp;
    sdm->q[calcn_r_tz].axis = 2;
    sdm->q[calcn_r_tz].conversion = 1.0000000000;
-   sdm->q[calcn_r_tz].initial_value = 0.0914200000;
+   sdm->q[calcn_r_tz].initial_value = -0.5985705738;
    sdm->q[calcn_r_tz].initial_velocity = 0.0;
    sdm->q[calcn_r_tz].range_start = -3.0000000000;
    sdm->q[calcn_r_tz].range_end = 3.0000000000;
@@ -271,7 +259,7 @@ void init_qs(void)
    sdm->q[calcn_r_r1].joint = ground_calcn_rp;
    sdm->q[calcn_r_r1].axis = 3;
    sdm->q[calcn_r_r1].conversion = 57.2957795131;
-   sdm->q[calcn_r_r1].initial_value = 0.0000000000;
+   sdm->q[calcn_r_r1].initial_value = -9.6437034197;
    sdm->q[calcn_r_r1].initial_velocity = 0.0;
    sdm->q[calcn_r_r1].range_start = -360.0000000000;
    sdm->q[calcn_r_r1].range_end = 360.0000000000;
@@ -290,7 +278,7 @@ void init_qs(void)
    sdm->q[calcn_r_r2].joint = ground_calcn_rp;
    sdm->q[calcn_r_r2].axis = 4;
    sdm->q[calcn_r_r2].conversion = 57.2957795131;
-   sdm->q[calcn_r_r2].initial_value = 0.0000000000;
+   sdm->q[calcn_r_r2].initial_value = 16.8170391398;
    sdm->q[calcn_r_r2].initial_velocity = 0.0;
    sdm->q[calcn_r_r2].range_start = -360.0000000000;
    sdm->q[calcn_r_r2].range_end = 360.0000000000;
@@ -309,7 +297,7 @@ void init_qs(void)
    sdm->q[calcn_r_r3].joint = ground_calcn_rp;
    sdm->q[calcn_r_r3].axis = 5;
    sdm->q[calcn_r_r3].conversion = 57.2957795131;
-   sdm->q[calcn_r_r3].initial_value = 0.0000000000;
+   sdm->q[calcn_r_r3].initial_value = 0.7101393907;
    sdm->q[calcn_r_r3].initial_velocity = 0.0;
    sdm->q[calcn_r_r3].range_start = -360.0000000000;
    sdm->q[calcn_r_r3].range_end = 360.0000000000;
@@ -328,7 +316,7 @@ void init_qs(void)
    sdm->q[calcn_l_tx].joint = ground_calcn_lp;
    sdm->q[calcn_l_tx].axis = 0;
    sdm->q[calcn_l_tx].conversion = 1.0000000000;
-   sdm->q[calcn_l_tx].initial_value = 0.0000000000;
+   sdm->q[calcn_l_tx].initial_value = 0.3089339803;
    sdm->q[calcn_l_tx].initial_velocity = 0.0;
    sdm->q[calcn_l_tx].range_start = -5.0000000000;
    sdm->q[calcn_l_tx].range_end = 5.0000000000;
@@ -347,7 +335,7 @@ void init_qs(void)
    sdm->q[calcn_l_ty].joint = ground_calcn_lp;
    sdm->q[calcn_l_ty].axis = 1;
    sdm->q[calcn_l_ty].conversion = 1.0000000000;
-   sdm->q[calcn_l_ty].initial_value = 0.0100000000;
+   sdm->q[calcn_l_ty].initial_value = 0.1363681265;
    sdm->q[calcn_l_ty].initial_velocity = 0.0;
    sdm->q[calcn_l_ty].range_start = -1.0000000000;
    sdm->q[calcn_l_ty].range_end = 2.0000000000;
@@ -366,7 +354,7 @@ void init_qs(void)
    sdm->q[calcn_l_tz].joint = ground_calcn_lp;
    sdm->q[calcn_l_tz].axis = 2;
    sdm->q[calcn_l_tz].conversion = 1.0000000000;
-   sdm->q[calcn_l_tz].initial_value = -0.0914200000;
+   sdm->q[calcn_l_tz].initial_value = -0.8113755765;
    sdm->q[calcn_l_tz].initial_velocity = 0.0;
    sdm->q[calcn_l_tz].range_start = -3.0000000000;
    sdm->q[calcn_l_tz].range_end = 3.0000000000;
@@ -385,7 +373,7 @@ void init_qs(void)
    sdm->q[calcn_l_r1].joint = ground_calcn_lp;
    sdm->q[calcn_l_r1].axis = 3;
    sdm->q[calcn_l_r1].conversion = 57.2957795131;
-   sdm->q[calcn_l_r1].initial_value = 0.0000000000;
+   sdm->q[calcn_l_r1].initial_value = -0.4313309688;
    sdm->q[calcn_l_r1].initial_velocity = 0.0;
    sdm->q[calcn_l_r1].range_start = -360.0000000000;
    sdm->q[calcn_l_r1].range_end = 360.0000000000;
@@ -404,7 +392,7 @@ void init_qs(void)
    sdm->q[calcn_l_r2].joint = ground_calcn_lp;
    sdm->q[calcn_l_r2].axis = 4;
    sdm->q[calcn_l_r2].conversion = 57.2957795131;
-   sdm->q[calcn_l_r2].initial_value = 0.0000000000;
+   sdm->q[calcn_l_r2].initial_value = 2.4274532130;
    sdm->q[calcn_l_r2].initial_velocity = 0.0;
    sdm->q[calcn_l_r2].range_start = -360.0000000000;
    sdm->q[calcn_l_r2].range_end = 360.0000000000;
@@ -423,7 +411,7 @@ void init_qs(void)
    sdm->q[calcn_l_r3].joint = ground_calcn_lp;
    sdm->q[calcn_l_r3].axis = 5;
    sdm->q[calcn_l_r3].conversion = 57.2957795131;
-   sdm->q[calcn_l_r3].initial_value = 0.0000000000;
+   sdm->q[calcn_l_r3].initial_value = -32.6265157184;
    sdm->q[calcn_l_r3].initial_velocity = 0.0;
    sdm->q[calcn_l_r3].range_start = -360.0000000000;
    sdm->q[calcn_l_r3].range_end = 360.0000000000;
@@ -442,7 +430,7 @@ void init_qs(void)
    sdm->q[pelvis_tz].joint = ground_pelvis;
    sdm->q[pelvis_tz].axis = 0;
    sdm->q[pelvis_tz].conversion = 1.0000000000;
-   sdm->q[pelvis_tz].initial_value = 0.0000000000;
+   sdm->q[pelvis_tz].initial_value = -0.7858843468;
    sdm->q[pelvis_tz].initial_velocity = 0.0;
    sdm->q[pelvis_tz].range_start = -3.0000000000;
    sdm->q[pelvis_tz].range_end = 3.0000000000;
@@ -461,7 +449,7 @@ void init_qs(void)
    sdm->q[pelvis_tx].joint = ground_pelvis;
    sdm->q[pelvis_tx].axis = 1;
    sdm->q[pelvis_tx].conversion = 1.0000000000;
-   sdm->q[pelvis_tx].initial_value = 0.1200000000;
+   sdm->q[pelvis_tx].initial_value = 0.7681461520;
    sdm->q[pelvis_tx].initial_velocity = 0.0;
    sdm->q[pelvis_tx].range_start = -5.0000000000;
    sdm->q[pelvis_tx].range_end = 5.0000000000;
@@ -480,7 +468,7 @@ void init_qs(void)
    sdm->q[pelvis_ty].joint = ground_pelvis;
    sdm->q[pelvis_ty].axis = 2;
    sdm->q[pelvis_ty].conversion = 1.0000000000;
-   sdm->q[pelvis_ty].initial_value = 0.9300000000;
+   sdm->q[pelvis_ty].initial_value = 0.8210080752;
    sdm->q[pelvis_ty].initial_velocity = 0.0;
    sdm->q[pelvis_ty].range_start = -1.0000000000;
    sdm->q[pelvis_ty].range_end = 2.0000000000;
@@ -499,7 +487,7 @@ void init_qs(void)
    sdm->q[pelvis_tilt].joint = ground_pelvis;
    sdm->q[pelvis_tilt].axis = 3;
    sdm->q[pelvis_tilt].conversion = 57.2957795131;
-   sdm->q[pelvis_tilt].initial_value = 0.0000000000;
+   sdm->q[pelvis_tilt].initial_value = -3.6003821897;
    sdm->q[pelvis_tilt].initial_velocity = 0.0;
    sdm->q[pelvis_tilt].range_start = -90.0000000000;
    sdm->q[pelvis_tilt].range_end = 90.0000000000;
@@ -518,7 +506,7 @@ void init_qs(void)
    sdm->q[pelvis_list].joint = ground_pelvis;
    sdm->q[pelvis_list].axis = 4;
    sdm->q[pelvis_list].conversion = 57.2957795131;
-   sdm->q[pelvis_list].initial_value = 0.0000000000;
+   sdm->q[pelvis_list].initial_value = -5.8568092204;
    sdm->q[pelvis_list].initial_velocity = 0.0;
    sdm->q[pelvis_list].range_start = -90.0000000000;
    sdm->q[pelvis_list].range_end = 90.0000000000;
@@ -537,7 +525,7 @@ void init_qs(void)
    sdm->q[pelvis_rotation].joint = ground_pelvis;
    sdm->q[pelvis_rotation].axis = 5;
    sdm->q[pelvis_rotation].conversion = 57.2957795131;
-   sdm->q[pelvis_rotation].initial_value = 0.0000000000;
+   sdm->q[pelvis_rotation].initial_value = 15.8066516217;
    sdm->q[pelvis_rotation].initial_velocity = 0.0;
    sdm->q[pelvis_rotation].range_start = -90.0000000000;
    sdm->q[pelvis_rotation].range_end = 90.0000000000;
@@ -556,7 +544,7 @@ void init_qs(void)
    sdm->q[hip_flexion_r].joint = hip_r;
    sdm->q[hip_flexion_r].axis = 0;
    sdm->q[hip_flexion_r].conversion = 57.2957795131;
-   sdm->q[hip_flexion_r].initial_value = 0.0000000000;
+   sdm->q[hip_flexion_r].initial_value = 25.8737480691;
    sdm->q[hip_flexion_r].initial_velocity = 0.0;
    sdm->q[hip_flexion_r].range_start = -120.0000000000;
    sdm->q[hip_flexion_r].range_end = 120.0000000000;
@@ -575,7 +563,7 @@ void init_qs(void)
    sdm->q[hip_adduction_r].joint = hip_r;
    sdm->q[hip_adduction_r].axis = 1;
    sdm->q[hip_adduction_r].conversion = 57.2957795131;
-   sdm->q[hip_adduction_r].initial_value = 0.0000000000;
+   sdm->q[hip_adduction_r].initial_value = -3.7037298510;
    sdm->q[hip_adduction_r].initial_velocity = 0.0;
    sdm->q[hip_adduction_r].range_start = -120.0000000000;
    sdm->q[hip_adduction_r].range_end = 120.0000000000;
@@ -594,7 +582,7 @@ void init_qs(void)
    sdm->q[hip_rotation_r].joint = hip_r;
    sdm->q[hip_rotation_r].axis = 2;
    sdm->q[hip_rotation_r].conversion = 57.2957795131;
-   sdm->q[hip_rotation_r].initial_value = 0.0000000000;
+   sdm->q[hip_rotation_r].initial_value = 2.6163878626;
    sdm->q[hip_rotation_r].initial_velocity = 0.0;
    sdm->q[hip_rotation_r].range_start = -120.0000000000;
    sdm->q[hip_rotation_r].range_end = 120.0000000000;
@@ -613,7 +601,7 @@ void init_qs(void)
    sdm->q[knee_r_tx].joint = knee_r;
    sdm->q[knee_r_tx].axis = 0;
    sdm->q[knee_r_tx].conversion = 1.0000000000;
-   sdm->q[knee_r_tx].initial_value = -0.0041283461;
+   sdm->q[knee_r_tx].initial_value = -0.0001393298;
    sdm->q[knee_r_tx].initial_velocity = 0.0;
    sdm->q[knee_r_tx].range_start = -99999.9;
    sdm->q[knee_r_tx].range_end = 99999.9;
@@ -632,7 +620,7 @@ void init_qs(void)
    sdm->q[knee_r_ty].joint = knee_r;
    sdm->q[knee_r_ty].axis = 1;
    sdm->q[knee_r_ty].conversion = 1.0000000000;
-   sdm->q[knee_r_ty].initial_value = -0.3631356301;
+   sdm->q[knee_r_ty].initial_value = -0.3652948939;
    sdm->q[knee_r_ty].initial_velocity = 0.0;
    sdm->q[knee_r_ty].range_start = -99999.9;
    sdm->q[knee_r_ty].range_end = 99999.9;
@@ -651,7 +639,7 @@ void init_qs(void)
    sdm->q[knee_angle_r].joint = knee_r;
    sdm->q[knee_angle_r].axis = 2;
    sdm->q[knee_angle_r].conversion = 57.2957795131;
-   sdm->q[knee_angle_r].initial_value = 0.0000000000;
+   sdm->q[knee_angle_r].initial_value = -24.4459917413;
    sdm->q[knee_angle_r].initial_velocity = 0.0;
    sdm->q[knee_angle_r].range_start = -120.0000000000;
    sdm->q[knee_angle_r].range_end = 10.0000000000;
@@ -670,7 +658,7 @@ void init_qs(void)
    sdm->q[tib_pat_r_tx].joint = tib_pat_r;
    sdm->q[tib_pat_r_tx].axis = 0;
    sdm->q[tib_pat_r_tx].conversion = 1.0000000000;
-   sdm->q[tib_pat_r_tx].initial_value = 0.0404677117;
+   sdm->q[tib_pat_r_tx].initial_value = 0.0376632531;
    sdm->q[tib_pat_r_tx].initial_velocity = 0.0;
    sdm->q[tib_pat_r_tx].range_start = -99999.9;
    sdm->q[tib_pat_r_tx].range_end = 99999.9;
@@ -689,7 +677,7 @@ void init_qs(void)
    sdm->q[tib_pat_r_ty].joint = tib_pat_r;
    sdm->q[tib_pat_r_ty].axis = 1;
    sdm->q[tib_pat_r_ty].conversion = 1.0000000000;
-   sdm->q[tib_pat_r_ty].initial_value = -0.0185205052;
+   sdm->q[tib_pat_r_ty].initial_value = -0.0177295965;
    sdm->q[tib_pat_r_ty].initial_velocity = 0.0;
    sdm->q[tib_pat_r_ty].range_start = -99999.9;
    sdm->q[tib_pat_r_ty].range_end = 99999.9;
@@ -708,7 +696,7 @@ void init_qs(void)
    sdm->q[tib_pat_r_r3].joint = tib_pat_r;
    sdm->q[tib_pat_r_r3].axis = 2;
    sdm->q[tib_pat_r_r3].conversion = 57.2957795131;
-   sdm->q[tib_pat_r_r3].initial_value = -0.0669882444;
+   sdm->q[tib_pat_r_r3].initial_value = 14.6341919443;
    sdm->q[tib_pat_r_r3].initial_velocity = 0.0;
    sdm->q[tib_pat_r_r3].range_start = -99999.9;
    sdm->q[tib_pat_r_r3].range_end = 99999.9;
@@ -727,7 +715,7 @@ void init_qs(void)
    sdm->q[ankle_angle_r].joint = ankle_r;
    sdm->q[ankle_angle_r].axis = 0;
    sdm->q[ankle_angle_r].conversion = 57.2957795131;
-   sdm->q[ankle_angle_r].initial_value = 0.0000000000;
+   sdm->q[ankle_angle_r].initial_value = 1.7528466690;
    sdm->q[ankle_angle_r].initial_velocity = 0.0;
    sdm->q[ankle_angle_r].range_start = -90.0000000000;
    sdm->q[ankle_angle_r].range_end = 90.0000000000;
@@ -784,7 +772,7 @@ void init_qs(void)
    sdm->q[hip_flexion_l].joint = hip_l;
    sdm->q[hip_flexion_l].axis = 0;
    sdm->q[hip_flexion_l].conversion = 57.2957795131;
-   sdm->q[hip_flexion_l].initial_value = 0.0000000000;
+   sdm->q[hip_flexion_l].initial_value = -10.6028914189;
    sdm->q[hip_flexion_l].initial_velocity = 0.0;
    sdm->q[hip_flexion_l].range_start = -120.0000000000;
    sdm->q[hip_flexion_l].range_end = 120.0000000000;
@@ -803,7 +791,7 @@ void init_qs(void)
    sdm->q[hip_adduction_l].joint = hip_l;
    sdm->q[hip_adduction_l].axis = 1;
    sdm->q[hip_adduction_l].conversion = 57.2957795131;
-   sdm->q[hip_adduction_l].initial_value = 0.0000000000;
+   sdm->q[hip_adduction_l].initial_value = -7.5159335047;
    sdm->q[hip_adduction_l].initial_velocity = 0.0;
    sdm->q[hip_adduction_l].range_start = -120.0000000000;
    sdm->q[hip_adduction_l].range_end = 120.0000000000;
@@ -822,7 +810,7 @@ void init_qs(void)
    sdm->q[hip_rotation_l].joint = hip_l;
    sdm->q[hip_rotation_l].axis = 2;
    sdm->q[hip_rotation_l].conversion = 57.2957795131;
-   sdm->q[hip_rotation_l].initial_value = 0.0000000000;
+   sdm->q[hip_rotation_l].initial_value = 10.6294062857;
    sdm->q[hip_rotation_l].initial_velocity = 0.0;
    sdm->q[hip_rotation_l].range_start = -120.0000000000;
    sdm->q[hip_rotation_l].range_end = 120.0000000000;
@@ -841,7 +829,7 @@ void init_qs(void)
    sdm->q[knee_l_tx].joint = knee_l;
    sdm->q[knee_l_tx].axis = 0;
    sdm->q[knee_l_tx].conversion = 1.0000000000;
-   sdm->q[knee_l_tx].initial_value = -0.0041283461;
+   sdm->q[knee_l_tx].initial_value = -0.0001935345;
    sdm->q[knee_l_tx].initial_velocity = 0.0;
    sdm->q[knee_l_tx].range_start = -99999.9;
    sdm->q[knee_l_tx].range_end = 99999.9;
@@ -860,7 +848,7 @@ void init_qs(void)
    sdm->q[knee_l_ty].joint = knee_l;
    sdm->q[knee_l_ty].axis = 1;
    sdm->q[knee_l_ty].conversion = 1.0000000000;
-   sdm->q[knee_l_ty].initial_value = -0.3631356301;
+   sdm->q[knee_l_ty].initial_value = -0.3652533365;
    sdm->q[knee_l_ty].initial_velocity = 0.0;
    sdm->q[knee_l_ty].range_start = -99999.9;
    sdm->q[knee_l_ty].range_end = 99999.9;
@@ -879,7 +867,7 @@ void init_qs(void)
    sdm->q[knee_angle_l].joint = knee_l;
    sdm->q[knee_angle_l].axis = 2;
    sdm->q[knee_angle_l].conversion = 57.2957795131;
-   sdm->q[knee_angle_l].initial_value = 0.0000000000;
+   sdm->q[knee_angle_l].initial_value = -24.1150548979;
    sdm->q[knee_angle_l].initial_velocity = 0.0;
    sdm->q[knee_angle_l].range_start = -120.0000000000;
    sdm->q[knee_angle_l].range_end = 10.0000000000;
@@ -898,7 +886,7 @@ void init_qs(void)
    sdm->q[tib_pat_l_tx].joint = tib_pat_l;
    sdm->q[tib_pat_l_tx].axis = 0;
    sdm->q[tib_pat_l_tx].conversion = 1.0000000000;
-   sdm->q[tib_pat_l_tx].initial_value = 0.0404677117;
+   sdm->q[tib_pat_l_tx].initial_value = 0.0377105276;
    sdm->q[tib_pat_l_tx].initial_velocity = 0.0;
    sdm->q[tib_pat_l_tx].range_start = -99999.9;
    sdm->q[tib_pat_l_tx].range_end = 99999.9;
@@ -917,7 +905,7 @@ void init_qs(void)
    sdm->q[tib_pat_l_ty].joint = tib_pat_l;
    sdm->q[tib_pat_l_ty].axis = 1;
    sdm->q[tib_pat_l_ty].conversion = 1.0000000000;
-   sdm->q[tib_pat_l_ty].initial_value = -0.0185205052;
+   sdm->q[tib_pat_l_ty].initial_value = -0.0177402176;
    sdm->q[tib_pat_l_ty].initial_velocity = 0.0;
    sdm->q[tib_pat_l_ty].range_start = -99999.9;
    sdm->q[tib_pat_l_ty].range_end = 99999.9;
@@ -936,7 +924,7 @@ void init_qs(void)
    sdm->q[tib_pat_l_r3].joint = tib_pat_l;
    sdm->q[tib_pat_l_r3].axis = 2;
    sdm->q[tib_pat_l_r3].conversion = 57.2957795131;
-   sdm->q[tib_pat_l_r3].initial_value = -0.0669882444;
+   sdm->q[tib_pat_l_r3].initial_value = 14.5720617760;
    sdm->q[tib_pat_l_r3].initial_velocity = 0.0;
    sdm->q[tib_pat_l_r3].range_start = -99999.9;
    sdm->q[tib_pat_l_r3].range_end = 99999.9;
@@ -955,7 +943,7 @@ void init_qs(void)
    sdm->q[ankle_angle_l].joint = ankle_l;
    sdm->q[ankle_angle_l].axis = 0;
    sdm->q[ankle_angle_l].conversion = 57.2957795131;
-   sdm->q[ankle_angle_l].initial_value = 0.0000000000;
+   sdm->q[ankle_angle_l].initial_value = 7.4637914327;
    sdm->q[ankle_angle_l].initial_velocity = 0.0;
    sdm->q[ankle_angle_l].range_start = -60.0000000000;
    sdm->q[ankle_angle_l].range_end = 60.0000000000;
@@ -974,7 +962,7 @@ void init_qs(void)
    sdm->q[subtalar_angle_l].joint = subtalar_l;
    sdm->q[subtalar_angle_l].axis = 0;
    sdm->q[subtalar_angle_l].conversion = 57.2957795131;
-   sdm->q[subtalar_angle_l].initial_value = 0.0000000000;
+   sdm->q[subtalar_angle_l].initial_value = -0.0000000000;
    sdm->q[subtalar_angle_l].initial_velocity = 0.0;
    sdm->q[subtalar_angle_l].range_start = -90.0000000000;
    sdm->q[subtalar_angle_l].range_end = 90.0000000000;
@@ -993,7 +981,7 @@ void init_qs(void)
    sdm->q[mtp_angle_l].joint = mtp_l;
    sdm->q[mtp_angle_l].axis = 0;
    sdm->q[mtp_angle_l].conversion = 57.2957795131;
-   sdm->q[mtp_angle_l].initial_value = 0.0000000000;
+   sdm->q[mtp_angle_l].initial_value = -0.0000000000;
    sdm->q[mtp_angle_l].initial_velocity = 0.0;
    sdm->q[mtp_angle_l].range_start = -60.0000000000;
    sdm->q[mtp_angle_l].range_end = 60.0000000000;
@@ -1012,7 +1000,7 @@ void init_qs(void)
    sdm->q[lumbar_extension].joint = back;
    sdm->q[lumbar_extension].axis = 0;
    sdm->q[lumbar_extension].conversion = 57.2957795131;
-   sdm->q[lumbar_extension].initial_value = 0.0000000000;
+   sdm->q[lumbar_extension].initial_value = -5.6188571416;
    sdm->q[lumbar_extension].initial_velocity = 0.0;
    sdm->q[lumbar_extension].range_start = -90.0000000000;
    sdm->q[lumbar_extension].range_end = 90.0000000000;
@@ -1031,7 +1019,7 @@ void init_qs(void)
    sdm->q[lumbar_bending].joint = back;
    sdm->q[lumbar_bending].axis = 1;
    sdm->q[lumbar_bending].conversion = 57.2957795131;
-   sdm->q[lumbar_bending].initial_value = 0.0000000000;
+   sdm->q[lumbar_bending].initial_value = 9.0920417642;
    sdm->q[lumbar_bending].initial_velocity = 0.0;
    sdm->q[lumbar_bending].range_start = -90.0000000000;
    sdm->q[lumbar_bending].range_end = 90.0000000000;
@@ -1050,7 +1038,7 @@ void init_qs(void)
    sdm->q[lumbar_rotation].joint = back;
    sdm->q[lumbar_rotation].axis = 2;
    sdm->q[lumbar_rotation].conversion = 57.2957795131;
-   sdm->q[lumbar_rotation].initial_value = 0.0000000000;
+   sdm->q[lumbar_rotation].initial_value = -13.7560514481;
    sdm->q[lumbar_rotation].initial_velocity = 0.0;
    sdm->q[lumbar_rotation].range_start = -90.0000000000;
    sdm->q[lumbar_rotation].range_end = 90.0000000000;
@@ -1248,7 +1236,7 @@ void init_segments(void)
    sdm->body_segment[torso+1].output = dpYes;
    sdgetmass(torso, &(sdm->body_segment[torso+1].mass));
    sdgetiner(torso, sdm->body_segment[torso+1].inertia);
-   sdm->body_segment[torso+1].mass_center[0] = 0.000000;
+   sdm->body_segment[torso+1].mass_center[0] = -0.026000;
    sdm->body_segment[torso+1].mass_center[1] = 0.277331;
    sdm->body_segment[torso+1].mass_center[2] = 0.000000;
    sdm->body_segment[torso+1].contactable = dpNo;
