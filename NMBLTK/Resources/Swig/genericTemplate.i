@@ -40,7 +40,14 @@
 #include <NMBLTK/Simulation/Model/rdIntegCallback.h>
 #include <NMBLTK/Simulation/Simtk/rdSimtkAnimationCallback.h>
 #include <NMBLTK/Simulation/Model/rdAnalysis.h>
+#include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
 #include <NMBLTK/Simulation/Model/rdAnalysisFactory.h>
+
+#include <NMBLTK/Analyses/suAnalysisFactory.h>
+#include <NMBLTK/Analyses/suActuation.h>
+#include <NMBLTK/Analyses/suIndAcc.h>
+#include <NMBLTK/Analyses/suKinematics.h>
+#include <NMBLTK/Analyses/suGeneralizedForces.h>
 
 #include <NMBLTK/Simulation/Model/suMarker.h>
 #include <NMBLTK/Simulation/Model/suMarkerSet.h>
@@ -154,10 +161,19 @@
 %include <NMBLTK/Simulation/Model/rdCallbackSet.h>
 %include <NMBLTK/Simulation/Model/rdIntegCallback.h>
 %include <NMBLTK/Simulation/Simtk/rdSimtkAnimationCallback.h>
-
+%template(rdArrayStorage) rdArrayPtrs<rdStorage>;
 %include <NMBLTK/Simulation/Model/rdAnalysis.h>
 %template(rdArrayAnalysis) rdArrayPtrs<rdAnalysis>;
+%template(rdSetAnalysis) rdSet<rdAnalysis>;
 %include <NMBLTK/Simulation/Model/rdAnalysisFactory.h>
+
+%include <NMBLTK/Analyses/suAnalysesDLL.h>
+%include <NMBLTK/Analyses/suAnalysisFactory.h>
+%include <NMBLTK/Analyses/suKinematics.h>
+%include <NMBLTK/Analyses/suActuation.h>
+%include <NMBLTK/Analyses/suIndAcc.h>
+%include <NMBLTK/Analyses/suGeneralizedForces.h>
+
 %template(rdArrayBool) rdArray<bool>;
 %template(rdArrayDouble) rdArray<double>;
 %template(rdArrayInt) rdArray<int>;
