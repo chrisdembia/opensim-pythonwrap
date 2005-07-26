@@ -196,16 +196,19 @@ allocateStorage()
 	_aStore = new rdStorage(1000,"Accelerations");
 	_aStore->setDescription(getDescription());
 	_aStore->setColumnLabels(getColumnLabels());
+	_storageList.append(_aStore);
 
 	// VELOCITIES
 	_vStore = new rdStorage(1000,"Speeds");
 	_vStore->setDescription(getDescription());
 	_vStore->setColumnLabels(getColumnLabels());
+	_storageList.append(_vStore);
 
 	// POSITIONS
 	_pStore = new rdStorage(1000,"Coordinates");
 	_pStore->setDescription(getDescription());
 	_pStore->setColumnLabels(getColumnLabels());
+	_storageList.append(_pStore);
 }
 
 
@@ -583,4 +586,9 @@ printResults(const char *aBaseName,const char *aDir,double aDT,
 	return(0);
 }
 
+
+rdArrayPtrs<rdStorage>& suKinematics::getStorageList()
+{
+	return _storageList;
+}
 

@@ -9,13 +9,18 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
+#include "suAnalysesDLL.h"
+#ifdef SWIG
+	#ifdef SUANALYSES_API
+		#undef SUANALYSES_API
+		#define SUANALYSES_API
+	#endif
+#endif
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
 #include <NMBLTK/Simulation/Model/rdAnalysis.h>
-#include "suAnalysesDLL.h"
-
 
 const int suPointKinematicsNAME_LENGTH = 256;
 const int suPointKinematicsBUFFER_LENGTH = 2048;
@@ -41,9 +46,15 @@ private:
 	char _buffer[suPointKinematicsBUFFER_LENGTH];
 	char _tmp[suPointKinematicsBUFFER_LENGTH];
 protected:
-	int _body;
-	double _point[3];
-	char _pointName[suPointKinematicsNAME_LENGTH];
+	// Properties
+	rdPropertyInt _bodyProp;
+	rdPropertyDblArray _pointProp;
+	rdPropertyStr _pointNameProp;
+	// References
+	int &_body;
+	rdArray<double>& _point;
+	std::string &_pointName;
+
 	double *_dy;
 	double *_kin;
 	rdStorage *_pStore;
@@ -54,15 +65,32 @@ protected:
 // METHODS
 //=============================================================================
 public:
-	suPointKinematics(rdModel *aModel);
+	suPointKinematics(rdModel *aModel=0);
+	suPointKinematics(const std::string &aFileName);
+	suPointKinematics(DOMElement *aElement);
+	// Copy constrctor and virtual copy 
+	suPointKinematics(const suPointKinematics &aObject);
+	virtual rdObject* copy() const;
+	virtual rdObject* copy(DOMElement *aElement) const;
 	virtual ~suPointKinematics();
 private:
 	void setNull();
+	void setupProperties();
 	void constructDescription();
 	void constructColumnLabels();
 	void allocateStorage();
 	void deleteStorage();
+	//--------------------------------------------------------------------------
+	// CONSTRUCTION
+	//--------------------------------------------------------------------------
+public:
 
+	//--------------------------------------------------------------------------
+	// OPERATORS
+	//--------------------------------------------------------------------------
+#ifndef SWIG
+	suPointKinematics& operator=(const suPointKinematics &aPointKinematics);
+#endif
 public:
 	//--------------------------------------------------------------------------
 	// GET AND SET

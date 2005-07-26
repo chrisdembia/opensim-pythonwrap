@@ -44,7 +44,10 @@ suPointKinematics::~suPointKinematics()
  * @param aModel Model for which the analyses are to be recorded.
  */
 suPointKinematics::suPointKinematics(rdModel *aModel) :
-	rdAnalysis(aModel)
+rdAnalysis(aModel),
+_body(_bodyProp.getValueInt()),
+_point((rdArray<double>&)_pointProp.getValueDblArray()),
+_pointName(_pointNameProp.getValueStr())
 {
 	// NULL
 	setNull();
@@ -64,6 +67,98 @@ suPointKinematics::suPointKinematics(rdModel *aModel) :
 //=============================================================================
 // CONSTRUCTION METHODS
 //=============================================================================
+//=============================================================================
+// rdObject Overrides
+//=============================================================================
+//_____________________________________________________________________________
+/**
+ * Construct an object from file.
+ *
+ * The object is constructed from the root element of the XML document.
+ * The type of object is the tag name of the XML root element.
+ *
+ * @param aFileName File name of the document.
+ */
+suPointKinematics::suPointKinematics(const std::string &aFileName):
+rdAnalysis(aFileName),
+_body(_bodyProp.getValueInt()),
+_point((rdArray<double>&)_pointProp.getValueDblArray()),
+_pointName(_pointNameProp.getValueStr())
+{
+	setNull();
+
+	// Serialize from XML
+	updateFromXMLNode();
+
+	// CONSTRUCT DESCRIPTION AND LABELS
+	constructDescription();
+	constructColumnLabels();
+
+	// STORAGE
+	allocateStorage();
+}
+//_____________________________________________________________________________
+/**
+ * Construct an object from an DOMElement.
+ */
+suPointKinematics::suPointKinematics(DOMElement *aElement):
+rdAnalysis(aElement),
+_body(_bodyProp.getValueInt()),
+_point((rdArray<double>&)_pointProp.getValueDblArray()),
+_pointName(_pointNameProp.getValueStr())
+{
+	setNull();
+
+	// Serialize from XML
+	updateFromXMLNode();
+
+	// CONSTRUCT DESCRIPTION AND LABELS
+	constructDescription();
+	constructColumnLabels();
+
+	// STORAGE
+	allocateStorage();
+}
+
+// Copy constrctor and virtual copy 
+//_____________________________________________________________________________
+/**
+ * Copy constructor.
+ *
+ */
+suPointKinematics::suPointKinematics(const suPointKinematics &aPointKinematics):
+rdAnalysis(aPointKinematics),
+_body(_bodyProp.getValueInt()),
+_point((rdArray<double>&)_pointProp.getValueDblArray()),
+_pointName(_pointNameProp.getValueStr())
+{
+	setNull();
+	// COPY TYPE AND NAME
+	*this = aPointKinematics;
+}
+//_____________________________________________________________________________
+/**
+ * Clone
+ *
+ */
+rdObject* suPointKinematics::copy() const
+{
+	suPointKinematics *object = new suPointKinematics(*this);
+	return(object);
+
+}
+//_____________________________________________________________________________
+/**
+ * Instantiate from DOMElement
+ *
+ */
+rdObject* suPointKinematics::copy(DOMElement *aElement) const
+{
+	suPointKinematics *object = new suPointKinematics(aElement);
+	*object = *this;
+	object->updateFromXMLNode();
+	return(object);
+}
 //_____________________________________________________________________________
 /**
  * SetNull().
@@ -83,7 +178,29 @@ setNull()
 	setName("PointKinematics");
 	setBody(_model->getGroundID());
 	setPoint(point);
-	setPointName("");
+	setPointName("Point4Kinematics");
+}
+//=============================================================================
+// OPERATORS
+//=============================================================================
+//-----------------------------------------------------------------------------
+// ASSIGNMENT
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Assign this object to the values of another.
+ *
+ * @return Reference to this object.
+ */
+suPointKinematics& suPointKinematics::
+operator=(const suPointKinematics &aPointKinematics)
+{
+	// BASE CLASS
+	rdAnalysis::operator=(aPointKinematics);
+	_body = aPointKinematics._body;
+	_point = aPointKinematics._point;
+	_pointName = aPointKinematics._pointName;
+	return(*this);
 }
 //_____________________________________________________________________________
 /**
@@ -276,8 +393,7 @@ getPoint(double rPoint[3])
 void suPointKinematics::
 setPointName(const char *aName)
 {
-	strncpy(_pointName,aName,NAME_LENGTH);
-	_pointName[NAME_LENGTH-1] = NULL;
+	_pointName = string(aName);
 	constructColumnLabels();
 	if(_aStore!=NULL) _aStore->setColumnLabels(getColumnLabels());
 	if(_vStore!=NULL) _vStore->setColumnLabels(getColumnLabels());
@@ -292,7 +408,7 @@ setPointName(const char *aName)
 const char* suPointKinematics::
 getPointName()
 {
-	return(_pointName);
+	return(_pointName.c_str());
 }
 
 //-----------------------------------------------------------------------------
@@ -370,15 +486,15 @@ record(double aT,double *aX,double *aY)
 	double origin[] = { 0.0, 0.0, 0.0 };
 
 	// POSITION
-	_model->getPosition(_body,_point,vec);
+	_model->getPosition(_body,_point.get(),vec);
 	_pStore->append(aT,3,vec);
 
 	// VELOCITY
-	_model->getVelocity(_body,_point,vec);
+	_model->getVelocity(_body,_point.get(),vec);
 	_vStore->append(aT,3,vec);
 
 	// ACCELERATIONS
-	_model->getAcceleration(_body,_point,vec);
+	_model->getAcceleration(_body,_point.get(),vec);
 	_aStore->append(aT,3,vec);
 
 	return(0);

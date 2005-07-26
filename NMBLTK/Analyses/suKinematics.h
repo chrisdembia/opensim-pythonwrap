@@ -74,6 +74,7 @@ public:
 	rdStorage* getAccelerationStorage();
 	rdStorage* getVelocityStorage();
 	rdStorage* getPositionStorage();
+
 	// MODEL
 	virtual void setModel(rdModel *aModel);
 
@@ -101,6 +102,8 @@ public:
 	virtual int
 		printResults(const char *aBaseName,const char *aDir=NULL,
 		double aDT=-1.0,const char *aExtension=".sto");
+
+	virtual rdArrayPtrs<rdStorage>& getStorageList();
 
 //=============================================================================
 };	// END of class suKinematics

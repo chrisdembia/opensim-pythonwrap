@@ -260,6 +260,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\suAnalysisFactory.cpp">
+			</File>
+			<File
 				RelativePath="..\suBodyIndAcc.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -730,6 +733,9 @@
 			</File>
 			<File
 				RelativePath="..\suAnalysesDLL.h">
+			</File>
+			<File
+				RelativePath="..\suAnalysisFactory.h">
 			</File>
 			<File
 				RelativePath="..\suBodyIndAcc.h">
