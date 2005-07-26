@@ -530,6 +530,9 @@ public:
 	//--------------------------------------------------------------------------
 	rdAnalysisSet *getAnalysisSet();
 	void addAnalysis(rdAnalysis *aAnalysis);
+	// Added to support recovering the analyses from the Gui
+	int  getNumAnalyses() const;
+	rdAnalysis& getAnalysis(const int index) const;
 
 	//--------------------------------------------------------------------------
 	// INTEGRATION CALLBACKS

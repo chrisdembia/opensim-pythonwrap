@@ -15,7 +15,7 @@
 #include <NMBLTK/Tools/rdPropertyBool.h>
 #include <NMBLTK/Tools/rdPropertyStr.h>
 #include <NMBLTK/Tools/rdPropertyInt.h>
-
+#include <NMBLTK/Tools/rdArrayPtrs.h>
 class rdXMLDocument;
 
 
@@ -48,7 +48,8 @@ private:
 	/** Step interval at which analysis results are stored. */
 	rdPropertyInt _storageIntervalProp;
 	int &_storageInterval;
-
+protected:
+	rdArrayPtrs<rdStorage> _storageList;
 //=============================================================================
 // METHODS
 //=============================================================================
@@ -90,6 +91,7 @@ public:
 	void setStorageInterval(int aInterval);
 	int getStorageInterval() const;
 
+	virtual rdArrayPtrs<rdStorage>& getStorageList();
 	//--------------------------------------------------------------------------
 	// ANALYSIS
 	//--------------------------------------------------------------------------

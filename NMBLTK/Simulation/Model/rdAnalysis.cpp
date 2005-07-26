@@ -193,6 +193,8 @@ setNull()
 	_inDegrees=true;
 	/** Step interval at which analysis results are stored. */
 	_storageInterval=1;
+
+	_storageList.setMemoryOwner(false);
 }
 //=============================================================================
 // OPERATORS
@@ -354,3 +356,7 @@ printResults(const char *aBaseName,const char *aDir,double aDT,
 	return(0);
 }
 
+rdArrayPtrs<rdStorage>& rdAnalysis::getStorageList()
+{
+	return _storageList;
+}

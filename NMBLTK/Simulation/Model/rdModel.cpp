@@ -1310,6 +1310,15 @@ addAnalysis(rdAnalysis *aAnalysis)
 	_analysisSet->append(aAnalysis);
 }
 
+int  rdModel::getNumAnalyses() const
+{
+	return (_analysisSet ? _analysisSet->getSize(): 0);
+}
+
+rdAnalysis& rdModel::getAnalysis(const int index) const
+{
+	return (*_analysisSet->getAnalysis(index));
+}
 
 //=============================================================================
 // INTEGRATION CALLBACKS
