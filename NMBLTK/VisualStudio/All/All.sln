@@ -97,15 +97,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "suStorageSubtract", "..\..\
 		{34826F50-9624-4680-A857-C9E1ACF9C1A9} = {34826F50-9624-4680-A857-C9E1ACF9C1A9}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rdModelDll", "..\..\Simulation\rdModelDll\rdModelDll\rdModelDll.vcproj", "{C9CB3FBB-C64B-49EA-A49C-53A7061B7417}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "suS26Gui", "..\..\Models\Subjects\suS26Gui\suS26.vcproj", "{5F9CEDF5-44AB-430C-9D50-DFED2A255FEF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AE7172A6-E138-4118-94AA-C4E4CBEC2E1B} = {AE7172A6-E138-4118-94AA-C4E4CBEC2E1B}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -192,14 +183,6 @@ Global
 		{ED424443-73AE-4155-BAD7-24813C0A8F89}.Debug.Build.0 = Debug|Win32
 		{ED424443-73AE-4155-BAD7-24813C0A8F89}.Release.ActiveCfg = Release|Win32
 		{ED424443-73AE-4155-BAD7-24813C0A8F89}.Release.Build.0 = Release|Win32
-		{C9CB3FBB-C64B-49EA-A49C-53A7061B7417}.Debug.ActiveCfg = Debug|Win32
-		{C9CB3FBB-C64B-49EA-A49C-53A7061B7417}.Debug.Build.0 = Debug|Win32
-		{C9CB3FBB-C64B-49EA-A49C-53A7061B7417}.Release.ActiveCfg = Release|Win32
-		{C9CB3FBB-C64B-49EA-A49C-53A7061B7417}.Release.Build.0 = Release|Win32
-		{5F9CEDF5-44AB-430C-9D50-DFED2A255FEF}.Debug.ActiveCfg = Debug|Win32
-		{5F9CEDF5-44AB-430C-9D50-DFED2A255FEF}.Debug.Build.0 = Debug|Win32
-		{5F9CEDF5-44AB-430C-9D50-DFED2A255FEF}.Release.ActiveCfg = Release|Win32
-		{5F9CEDF5-44AB-430C-9D50-DFED2A255FEF}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
