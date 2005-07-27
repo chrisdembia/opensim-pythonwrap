@@ -113,14 +113,24 @@ public class SimtkSimulationStartCommand
       public Object construct() {
         currentEnv.removeStorage(mgr.getIntegrator().getControlStorage());
         currentEnv.removeStorage(mgr.getIntegrator().getStateStorage());
-        currentEnv.setStatus(SimtkSimEnv.STARTED);// This triggers other gui changes thru observers
+        int nAnalyses = currentEnv.getModel().getNumAnalyses();
+       for (int i=0; i < nAnalyses; i++){
+         rdAnalysis nextAnalysis = currentEnv.getModel().getAnalysis(i);
+         String analysisName = nextAnalysis.getName();
+         String analysisType = nextAnalysis.getType();
+         rdArrayStorage storages = nextAnalysis.getStorageList();
+         for (int j=0; j < storages.getSize(); j++){
+           storages.get(j).reset(0);
+           currentEnv.removeStorage(storages.get(j));
+         }
+       }
+       currentEnv.setStatus(SimtkSimEnv.STARTED);// This triggers other gui changes thru observers
         currentEnv.getAnimationTimer().start();
         currentEnv.setProgressRange(mgr.getInitialTime(), mgr.getFinalTime());
         currentEnv.addStorage(mgr.getIntegrator().getControlStorage(), true);
         currentEnv.addStorage(mgr.getIntegrator().getStateStorage(), true);
         // Add storages from analyses
-       int nAnalyses = currentEnv.getModel().getNumAnalyses();
-       for (int i=0; i < nAnalyses; i++){
+        for (int i=0; i < nAnalyses; i++){
          rdAnalysis nextAnalysis = currentEnv.getModel().getAnalysis(i);
          String analysisName = nextAnalysis.getName();
          String analysisType = nextAnalysis.getType();
