@@ -159,6 +159,10 @@ public class SimtkSimulationStartCommand
         currentEnv.setSimulationThread(null);
         currentEnv.setStatus(SimtkSimEnv.READY);
         currentEnv.getAnimationTimer().stop();
+        for (int i=0; i < nAnalyses; i++){
+          rdAnalysis nextAnalysis = currentEnv.getModel().getAnalysis(i);
+          nextAnalysis.printResults(".", nextAnalysis.getName()+i, -1.0, ".sto");
+        }
 
         return null;
       }
@@ -190,7 +194,8 @@ public class SimtkSimulationStartCommand
     String simenvName = (String) _cmdParams.get("EnvName");
     if (simenvName==null)
       return false;
-   return (SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.READY);
+   return (SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.READY ||
+           SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.PLAYBACK);
   }
 
   /**

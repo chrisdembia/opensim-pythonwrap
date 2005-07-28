@@ -177,12 +177,12 @@ public class SimtkSimEnv extends Observable {
    */
    synchronized public int getStatus()
   {
-    if (status != STARTED){ // recompute status on the fly based on availability of model, controls, ..
+/*    if (status != STARTED){ // recompute status on the fly based on availability of model, controls, ..
       if (getControlSet()==null || getModel()==null)
         setStatus(NOT_READY);
       else
         setStatus(READY);
-    }
+    }*/
     return status;
   }
 

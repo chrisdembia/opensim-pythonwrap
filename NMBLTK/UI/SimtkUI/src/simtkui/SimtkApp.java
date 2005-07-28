@@ -53,7 +53,7 @@ public class SimtkApp {
   							 "Application.Menus.Help.Label",
   							 "Application.Menus.Test.Show",
 							 "Application.Directories.Persistent"};
-  String[] defaultPropValues={"Nmbl Application",
+  String[] defaultPropValues={"NIMBLE Application",
   							  "Help",
 							  "True",
 							  "True"};

@@ -137,22 +137,9 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
   private void setDialogValues() {
     // Control Frame
     rdControlSet controlSet = simenv.getControlSet();
-    int tiIndex = controlSet.getIndex("ti", 0);
-    rdControl tiControl = (tiIndex==-1)?null:controlSet.get("ti");
-    double tiValue = 0.0;
-    if (tiControl != null) {
-      tiValue = tiControl.getControlValue(0.0);
-    }
-    jTiValue.setText(String.valueOf(tiValue));
-
-
-    double tfValue=1.0;
-    int tfIndex = controlSet.getIndex("tf", 0);
-    rdControl tfControl = (tfIndex==-1)?null:simenv.getControlSet().get("tf");
-    if (tfControl != null) {
-     tfValue = tfControl.getControlValue(0.0);
-    }
-    jTfValue.setText(String.valueOf(tfValue));
+    rdControl firstControl = controlSet.get(0);
+    jTiValue.setText(String.valueOf(firstControl.getFirstTime()));
+    jTfValue.setText(String.valueOf(firstControl.getLastTime()));
 
    // Storage frame
    SimtkStoragePreferences currentStoragePrefs = simenv.getStoragePreferences();

@@ -1,6 +1,8 @@
 package simtksuS26Pkg;
 
 import simtkModel.*;
+import simtkCommands.*;
+import simtkCore.*;
 public class suS26Loader extends suS26 {
 
     static {
@@ -13,6 +15,11 @@ public class suS26Loader extends suS26 {
 	*/
     public suS26Loader(){
       super("C:\\Work\\DemoFiles\\params.txt", null);
+      rdVisibleObject obj = this.getVisibleObjectByName("calcn_rp");
+      obj.getVisibleProperties().setDisplayPreference(0);
+      obj = this.getVisibleObjectByName("calcn_lp");
+      obj.getVisibleProperties().setDisplayPreference(0);
+
 	};
 
 	/**

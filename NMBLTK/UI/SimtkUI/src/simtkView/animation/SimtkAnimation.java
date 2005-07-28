@@ -121,7 +121,7 @@ public abstract class SimtkAnimation
       SimtkSimEnvStateChangeEvent evnt = (SimtkSimEnvStateChangeEvent) arg;
       int oldState = evnt.getOldState();
       int newState = evnt.getNewState();
-      if (oldState == SimtkSimEnv.READY && newState == SimtkSimEnv.STARTED) {
+      if (newState == SimtkSimEnv.STARTED) {
         reset(true);
         SimtkAnimationAvailableEvent updateEvent = new
             SimtkAnimationAvailableEvent(this, false);
