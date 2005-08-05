@@ -12,7 +12,7 @@ package simtkModel;
 public class rdSimtkAnimationCallback extends rdIntegCallback {
   private long swigCPtr;
 
-  
+
   public  rdSimtkAnimationCallback(long cPtr, boolean cMemoryOwn) {
     super(ModelJNI.SWIGrdSimtkAnimationCallbackTordIntegCallback(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
@@ -49,6 +49,14 @@ public class rdSimtkAnimationCallback extends rdIntegCallback {
 
   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_void aClientData) {
     return ModelJNI.rdSimtkAnimationCallback_step(swigCPtr, SWIGTYPE_p_double.getCPtr(aXPrev), SWIGTYPE_p_double.getCPtr(aYPrev), aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_void.getCPtr(aClientData));
+  }
+
+  public void getMutex() {
+    ModelJNI.rdSimtkAnimationCallback_getMutex(swigCPtr);
+  }
+
+  public void releaseMutex() {//62671
+    ModelJNI.rdSimtkAnimationCallback_releaseMutex(swigCPtr);
   }
 
 }

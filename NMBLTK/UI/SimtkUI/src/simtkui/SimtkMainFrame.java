@@ -109,6 +109,8 @@ public class SimtkMainFrame extends JFrame implements Observer {
   JButton jUndoButton = new JButton();
   JButton jRedoButton = new JButton();
   JMenuItem jNewEnvMenuItem = new JMenuItem();
+  JMenuItem jSetwdMenuItem = new JMenuItem();
+
   JMenuItem jFlushScriptMenuitem = new JMenuItem();
 
   SimtkCommand _undoCommand = null;
@@ -238,6 +240,7 @@ public class SimtkMainFrame extends JFrame implements Observer {
     jMessagePane.setPreferredSize(new Dimension(21, 21));
     jMessagePane.setToolTipText("");
     jNewEnvMenuItem.setAction(CommandFactory.getCommand("SimtkFileNewSimEnvCmd"));
+    jSetwdMenuItem.setAction(CommandFactory.getCommand("SimtkChangeWorkingDirCmd"));
     jModelByNameMenuItem.setAction(CommandFactory.getCommand("SimtkFileOpenByNameCmd"));
     jModelBrowseMenuItem.setAction(CommandFactory.getCommand("SimtkFileBrowseForModelCmd"));
     jMessageArea.setOpaque(true);
@@ -356,6 +359,7 @@ public class SimtkMainFrame extends JFrame implements Observer {
     jPlotMenuitem.setAction(invokePlotCmd);
 
     jMenuFile.add(jNewEnvMenuItem);
+    jMenuFile.add(jSetwdMenuItem);
     jMenuFile.add(jModelByNameMenuItem);
     jMenuFile.add(jModelBrowseMenuItem);
     jMenuFile.add(jSaveModelMenuItem);

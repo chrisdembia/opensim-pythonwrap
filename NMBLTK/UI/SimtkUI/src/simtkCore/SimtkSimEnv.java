@@ -61,8 +61,10 @@ public class SimtkSimEnv extends Observable {
   public static final int NOT_READY = 1;
   public static final int LOADING = 2;
   public static final int READY = 3;
-  public static final int STARTED = 4;
-  public static final int PLAYBACK = 5;
+  public static final int RUNNING = 4;
+  public static final int READY_HAS_RESULTS = 5;
+  public static final int PLAYBACK = 6;
+
 
   public SimtkSimEnv(String name) {
     status=NOT_READY;
@@ -165,6 +167,7 @@ public class SimtkSimEnv extends Observable {
         this.status=status;
       }
     }
+    //System.out.println(getStatus());
     if (changed)
       update(evnt);
 
@@ -232,16 +235,18 @@ public class SimtkSimEnv extends Observable {
     int safeStatus;
     synchronized(this) { safeStatus = status; };
     switch(safeStatus){
-      case 1:
-       return "NOT_READY";
-      case 2:
-       return "LOADING ...";
-      case 3:
-        return "READY";
-      case 4:
-        return "STARTED";
-      case 5:
-        return "PLAYBACK";
+      case NOT_READY:
+       return "Not Ready";
+      case LOADING:
+       return "Loading ...";
+      case READY:
+        return "Ready";
+      case RUNNING:
+        return "Running ...";
+      case READY_HAS_RESULTS:
+        return "Ready, Results Available";
+      case PLAYBACK:
+        return "Play back";
     }
     return "undefined!";
   }
@@ -254,12 +259,11 @@ public class SimtkSimEnv extends Observable {
   public String getInfoString() {
     int safeStatus;
     synchronized(this) { safeStatus = status; };
-    if (safeStatus==STARTED){
-      currentTime = animationCallback.getCurrentTime();
+    if (safeStatus==RUNNING){
       _infoStatus= "t="+String.valueOf(currentTime);
     }
     else if (safeStatus==PLAYBACK){
-      _infoStatus= "t="+String.valueOf(animationCallback.getCurrentTime());
+      _infoStatus= "t="+String.valueOf(currentTime);
     }
     return _infoStatus;
   }
@@ -289,7 +293,6 @@ public class SimtkSimEnv extends Observable {
     synchronized(this) {
       _infoStatus = newMessage;
     }
-    update(null);
   }
 
   /**
@@ -312,7 +315,9 @@ public class SimtkSimEnv extends Observable {
   public int getProgressPercentage() {
     if (_rangeEnd==_rangeStart)
       return 0;
-    return (int) ((currentTime - _rangeStart)/(_rangeEnd - _rangeStart)*100.0);
+    int progress = (int) ((currentTime - _rangeStart)/(_rangeEnd - _rangeStart)*100.0);
+    //System.out.println("Progress="+progress);
+    return progress;
   }
 
   public void setDeterministicProgress(boolean aCanMeasureProgress)
@@ -558,4 +563,17 @@ public class SimtkSimEnv extends Observable {
       }
     }
  }
+
+  /**
+   * setSimulationTime
+   *
+   * @param d double is the cached value of simulation time thru the animation callback
+   */
+  public void setSimulationTime(double d) {
+    currentTime = d;
+  }
+
+  public double getSimulationTime() {
+    return currentTime;
+  }
 }

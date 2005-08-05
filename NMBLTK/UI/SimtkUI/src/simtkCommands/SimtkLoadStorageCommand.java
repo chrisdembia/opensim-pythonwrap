@@ -78,9 +78,9 @@ public class SimtkLoadStorageCommand
       _fileName = (String) _cmdParams.get("FileName");
 
     env.setInfoString("Start reading storage file");
-    env.setStatus(SimtkSimEnv.LOADING);
     env.setDeterministicProgress(false);
-    // Get frame for associated internalframe
+    env.setStatus(SimtkSimEnv.LOADING);
+     // Get frame for associated internalframe
     SimtkMdlInternalFrame mdlFrame = env.getAssociatedFrame();
     mdlFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
@@ -88,9 +88,9 @@ public class SimtkLoadStorageCommand
     // What if the controlSet cant be constructed?
     success = SimtkDB.getInstance().addStorage(newStorage, simenvName);
 
-    env.setStatus(SimtkSimEnv.READY);
-    env.setDeterministicProgress(true);
     env.setInfoString("Done reading stoarge file");
+    env.setDeterministicProgress(true);
+    env.setStatus(SimtkSimEnv.READY);
     env.setPreferredDirectory(new File(_fileName).getParentFile());
     mdlFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 

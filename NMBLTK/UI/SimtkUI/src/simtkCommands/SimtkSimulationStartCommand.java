@@ -124,7 +124,7 @@ public class SimtkSimulationStartCommand
            currentEnv.removeStorage(storages.get(j));
          }
        }
-       currentEnv.setStatus(SimtkSimEnv.STARTED);// This triggers other gui changes thru observers
+       currentEnv.setStatus(SimtkSimEnv.RUNNING);// This triggers other gui changes thru observers
         currentEnv.getAnimationTimer().start();
         currentEnv.setProgressRange(mgr.getInitialTime(), mgr.getFinalTime());
         currentEnv.addStorage(mgr.getIntegrator().getControlStorage(), true);
@@ -161,7 +161,7 @@ public class SimtkSimulationStartCommand
         currentEnv.getAnimationTimer().stop();
         for (int i=0; i < nAnalyses; i++){
           rdAnalysis nextAnalysis = currentEnv.getModel().getAnalysis(i);
-          nextAnalysis.printResults(".", nextAnalysis.getName()+i, -1.0, ".sto");
+          nextAnalysis.printResults("s26", null, -1.0, ".sto");
         }
 
         return null;

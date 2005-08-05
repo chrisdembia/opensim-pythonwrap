@@ -66,6 +66,8 @@ public class CommandFactory {
     insertCommand(new SimtkSnapShotCommand());
     insertCommand(new SimtkFileSaveCommand());
     insertCommand(new SimtkFileHelpCommand());
+    insertCommand(new SimtkSetWorkingDirCommand());
+
     // Plugins
     /*
     insertCommand(new SimtkWorkFlowCommand());

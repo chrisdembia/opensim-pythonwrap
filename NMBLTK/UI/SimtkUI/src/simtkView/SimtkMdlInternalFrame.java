@@ -64,6 +64,8 @@ import vtk.vtkProp3D;
 import vtk.vtkProperty;
 import vtk.vtkSphereSource;
 import vtk.vtkXMLPolyDataReader;
+import simtkuiEvents.*;
+import simtkCore.*;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -156,6 +158,7 @@ public class SimtkMdlInternalFrame
   String[] animationTypeStrings={"Frames", "Manual"};
   JLabel jAnimationSpeedLabel = new JLabel();
   JButton jClearButton = new JButton();
+
   public SimtkMdlInternalFrame(SimtkSimEnv env) {
     // Create window
     super(env.getName(),
@@ -457,7 +460,7 @@ public class SimtkMdlInternalFrame
                              vObject.getVisibleProperties().getShowAxes());
       }
     }
-    _renWin.Render();
+   _renWin.Render();
   }
 
   /**
@@ -468,7 +471,9 @@ public class SimtkMdlInternalFrame
   public void updateDisplay() {
 
    Enumeration e = _visibleObjects2VisRepMap.keys();
-
+   // getMutex and releaseMutex are used to make sure xforms are obtained from the same callback step
+   _env.getAnimationCallback().getMutex();
+   _env.setSimulationTime(_env.getAnimationCallback().getCurrentTime());
    while (e.hasMoreElements()){
      Object obj = e.nextElement();
      if (obj instanceof rdBody){
@@ -504,7 +509,8 @@ public class SimtkMdlInternalFrame
    }
    _renWin.Render();
    if (animation instanceof SimtkDiscreteAnimation)
-     animation.addFrame(_env.getCurrentTime());
+     animation.addFrame(_env.getSimulationTime());
+   _env.getAnimationCallback().releaseMutex();
  }
  /**
   * recreateDisplay
@@ -793,14 +799,19 @@ public class SimtkMdlInternalFrame
       SimtkSimEnvStateChangeEvent evnt = (SimtkSimEnvStateChangeEvent) arg;
       int oldState = evnt.getOldState();
       int newState = evnt.getNewState();
-      if (newState == SimtkSimEnv.READY &&  oldState == SimtkSimEnv.STARTED) {
+      if (newState == SimtkSimEnv.READY &&  oldState == SimtkSimEnv.RUNNING) {
         progressBar.setVisible(false);
       }
-      else if (newState == SimtkSimEnv.STARTED) {
+      else if (newState == SimtkSimEnv.RUNNING) {
         progressBar.setVisible(true);
       }
-
-      jStatusLabel.setText("Status:"+_env.getStatusString());
+      else if (oldState == SimtkSimEnv.LOADING) {
+        progressBar.setVisible(false);
+      }
+      else if (newState == SimtkSimEnv.LOADING) {
+       progressBar.setVisible(true);
+     }
+     jStatusLabel.setText("Status:"+_env.getStatusString());
     }
     else if (arg instanceof SimtkAnimationTimeChangeEvent){
       double animationTime = ((SimtkAnimationTimeChangeEvent) arg).getTime();

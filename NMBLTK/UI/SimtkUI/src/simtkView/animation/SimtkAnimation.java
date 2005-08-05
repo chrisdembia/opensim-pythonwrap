@@ -121,14 +121,14 @@ public abstract class SimtkAnimation
       SimtkSimEnvStateChangeEvent evnt = (SimtkSimEnvStateChangeEvent) arg;
       int oldState = evnt.getOldState();
       int newState = evnt.getNewState();
-      if (newState == SimtkSimEnv.STARTED) {
+      if (newState == SimtkSimEnv.RUNNING) {
         reset(true);
         SimtkAnimationAvailableEvent updateEvent = new
             SimtkAnimationAvailableEvent(this, false);
         setChanged();
         this.notifyObservers(updateEvent);
       }
-      if (oldState == SimtkSimEnv.STARTED && newState == SimtkSimEnv.READY) {
+      if (oldState == SimtkSimEnv.RUNNING && newState == SimtkSimEnv.READY) {
         SimtkAnimationAvailableEvent updateEvent = new
             SimtkAnimationAvailableEvent(this, true);
         setChanged();

@@ -58,7 +58,7 @@ public class SimtkPlotDataSet
   }
 
   public boolean getDataValues(Vector xValues, Vector yValues) {
-    _lastTime = _env.getAnimationCallback().getCurrentTime();
+    _lastTime = _env.getSimulationTime();
     return _env.getDataValues(_xName, _yName, xValues, yValues);
   }
 
@@ -90,14 +90,14 @@ public class SimtkPlotDataSet
       SimtkSimEnvStateChangeEvent evnt = (SimtkSimEnvStateChangeEvent) arg;
       int oldState = evnt.getOldState();
       int newState = evnt.getNewState();
-      if (/*(oldState == SimtkSimEnv.READY ||  oldState == SimtkSimEnv.PLAYBACK) &&*/ newState == SimtkSimEnv.STARTED) {
+      if (/*(oldState == SimtkSimEnv.READY ||  oldState == SimtkSimEnv.PLAYBACK) &&*/ newState == SimtkSimEnv.RUNNING) {
         _plot.clear(_dataSetIndex);
         _lastTime=0.0;
       }
     }
-    if (env.getStatus() == SimtkSimEnv.STARTED) {
+    if (env.getStatus() == SimtkSimEnv.RUNNING) {
       // Find out where the simulation is.
-      double time = env.getAnimationCallback().getCurrentTime();
+      double time = env.getSimulationTime();
       Vector xValues = new Vector();
       Vector yValues = new Vector();
       getDataValuesSinceTime(xValues, yValues);

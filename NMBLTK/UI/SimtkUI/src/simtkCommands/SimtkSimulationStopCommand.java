@@ -61,7 +61,7 @@ public class SimtkSimulationStopCommand
     String simenvName = (String) _cmdParams.get("EnvName");
     if (simenvName==null)
       return false;
-   return (SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.STARTED);
+   return (SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.RUNNING);
   }
 
   /**
