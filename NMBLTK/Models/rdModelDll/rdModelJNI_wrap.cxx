@@ -8,6 +8,7 @@
  * interface file instead. 
  * ----------------------------------------------------------------------------- */
 
+
 #ifdef __cplusplus
 template<class T> class SwigValueWrapper {
     T *tt;
@@ -25940,6 +25941,46 @@ JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdSimtkAnimationCallback_1step(J
     }
     jresult = (jint)result; 
     return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdSimtkAnimationCallback_1getMutex(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    rdSimtkAnimationCallback *arg1 = (rdSimtkAnimationCallback *) 0 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdSimtkAnimationCallback **)&jarg1; 
+    {
+        try {
+            (arg1)->getMutex();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdSimtkAnimationCallback_1releaseMutex(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    rdSimtkAnimationCallback *arg1 = (rdSimtkAnimationCallback *) 0 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdSimtkAnimationCallback **)&jarg1; 
+    {
+        try {
+            (arg1)->releaseMutex();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
 }
 
 
