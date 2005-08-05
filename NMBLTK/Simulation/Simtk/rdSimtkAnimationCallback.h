@@ -25,7 +25,7 @@
  */
 class RDSIMULATION_API rdSimtkAnimationCallback : public rdIntegCallback
 {
-
+static bool _busy;
 //=============================================================================
 // DATA
 //=============================================================================
@@ -64,7 +64,10 @@ public:
 	virtual int
 		step(double *aXPrev,double *aYPrev,int aStep,double aDT,double aT,
 		double *aX,double *aY,void *aClientData=NULL);
-
+	// Handle _busy flag to make sure all xforms are read for the same time step
+	// by keeping mutual exclusion access to the xforms
+	void getMutex();
+	void releaseMutex();
 //=============================================================================
 };	// END of class rdSimtkAnimationCallback
 //=============================================================================

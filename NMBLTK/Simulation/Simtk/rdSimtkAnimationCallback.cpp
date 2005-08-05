@@ -18,7 +18,7 @@
 // STATICS
 //=============================================================================
 
-
+bool rdSimtkAnimationCallback::_busy = false;
 //=============================================================================
 // CONSTRUCTOR(S) AND DESTRUCTOR
 //=============================================================================
@@ -129,6 +129,10 @@ int rdSimtkAnimationCallback::
 step(double *aXPrev,double *aYPrev,int aStep,double aDT,double aT,
 	double *aX,double *aY,void *aClientData)
 {
+	if(_busy)
+		return 0;
+
+	getMutex();
 	_currentTime = aT;
 	// CHECK STEP INTERVAL
 	if((aStep% getStepInterval())!=0) return 0;
@@ -162,11 +166,24 @@ step(double *aXPrev,double *aYPrev,int aStep,double aDT,double aT,
 		// Initialize xform to identity
 		_transforms[i]->setOrientation(rot);
 		_transforms[i]->setPosition(t);
-		// Create a transform change event and notify observers
+		/* Create a transform change event and notify observers
 		rdTransformChangeEvent	*xformChangeEvnt = new rdTransformChangeEvent(*body);
 		body->setTransform(*_transforms[i]);
 		body->notifyObservers(*xformChangeEvnt);
-		delete xformChangeEvnt;
+		delete xformChangeEvnt;*/
 	}
+	releaseMutex();
 	return (0);
+}
+void rdSimtkAnimationCallback::getMutex()
+{
+	while(_busy)
+		;
+	_busy = true;
+	return;
+}
+
+void rdSimtkAnimationCallback::releaseMutex()
+{
+	_busy = false;
 }
