@@ -71,7 +71,8 @@ public class SimtkSimulationSetupCommand
     String simenvName = (String) _cmdParams.get("EnvName");
     if (simenvName==null)
       return true;
-   return (SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.READY);
+   return (SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.READY||
+           SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.PLAYBACK);
   }
 
   /**

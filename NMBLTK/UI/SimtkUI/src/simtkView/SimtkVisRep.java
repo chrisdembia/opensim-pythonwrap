@@ -27,6 +27,10 @@ public class SimtkVisRep {
   private vtkActor _normalsActor;
   private vtkAssembly _axesActor;
   private Vector _attachedActors;
+  SWIGTYPE_p_double pos = Model.new_doubleArray(3);
+  SWIGTYPE_p_double orient =  Model.new_doubleArray(3);
+  double[] jPos = new double[3];
+  double[] jOrient = new double[3];
 
   public SimtkVisRep() {
     _geomActor = null;
@@ -137,10 +141,6 @@ public class SimtkVisRep {
    * @param xform rdTransform
    */
   public void setTransform(rdTransform xform) {
-    SWIGTYPE_p_double pos = Model.new_doubleArray(3);
-    SWIGTYPE_p_double orient =  Model.new_doubleArray(3);
-    double[] jPos = new double[3];
-    double[] jOrient = new double[3];
     xform.getPosition(pos);
     xform.getOrientation(orient);
     for (int i=0; i < 3; i++){
@@ -148,15 +148,11 @@ public class SimtkVisRep {
       jOrient[i] = Model.doubleArray_get(orient, i);
     }
 
-    Model.free_doubleArray(pos);
-    Model.free_doubleArray(orient);
-
     getGeomActor().SetPosition(jPos);
     getGeomActor().SetOrientation(0., 0., 0.);
     getGeomActor().RotateX(jOrient[0]);
     getGeomActor().RotateY(jOrient[1]);
     getGeomActor().RotateZ(jOrient[2]);
-
 
     getBboxActor().SetPosition(jPos);
     getBboxActor().SetOrientation(0., 0., 0.);
@@ -175,7 +171,7 @@ public class SimtkVisRep {
    getAxesActor().RotateX(jOrient[0]);
    getAxesActor().RotateY(jOrient[1]);
    getAxesActor().RotateZ(jOrient[2]);
-
+   
     for (int i=0; i <_attachedActors.size(); i++){
       ((vtkActor)(_attachedActors.get(i))).SetPosition(jPos);
       ((vtkActor)(_attachedActors.get(i))).SetOrientation(0., 0., 0.);
