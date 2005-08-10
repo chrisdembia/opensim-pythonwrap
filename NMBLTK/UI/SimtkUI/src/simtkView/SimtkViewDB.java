@@ -38,12 +38,26 @@ final public class SimtkViewDB implements Observer{
   static SimtkMdlInternalFrame _currentFrame=null;
 
   static {
-    System.loadLibrary("vtkCommonJava");
-    System.loadLibrary("vtkFilteringJava");
-    System.loadLibrary("vtkIOJava");
-    System.loadLibrary("vtkImagingJava");
-    System.loadLibrary("vtkGraphicsJava");
-    System.loadLibrary("vtkRenderingJava");
+		System.loadLibrary("vtkCommon"); 
+		System.loadLibrary("vtkCommonJava"); 
+		System.loadLibrary("vtkFiltering"); 
+		System.loadLibrary("vtkFilteringJava"); 
+		System.loadLibrary("vtkfreetype"); 
+		System.loadLibrary("vtkexpat"); 
+		System.loadLibrary("vtkjpeg"); 
+		System.loadLibrary("vtkzlib"); 
+		System.loadLibrary("vtktiff"); 
+		System.loadLibrary("vtkpng"); 
+		System.loadLibrary("vtkftgl"); 
+	    System.loadLibrary("vtkDICOMParser"); 
+ 	    System.loadLibrary("vtkIO"); 
+	    System.loadLibrary("vtkIOJava"); 
+	    System.loadLibrary("vtkImaging"); 
+	    System.loadLibrary("vtkGraphics"); 
+	    System.loadLibrary("vtkGraphicsJava"); 
+	    System.loadLibrary("vtkRendering"); 
+	    System.loadLibrary("vtkRenderingJava"); 
+	    System.loadLibrary("vtkHybrid"); 
     try {
       System.loadLibrary("vtkHybridJava");
     } catch (Throwable e) {
