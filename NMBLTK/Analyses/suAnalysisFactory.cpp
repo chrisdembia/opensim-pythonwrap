@@ -35,9 +35,6 @@ suAnalysisFactory::suAnalysisFactory(rdModel *aModel)
 	analysis = new suKinematics(aModel);
 	analysis->setOn(false);
 	registerAnalysis(analysis);
-	analysis = new suIndAcc(aModel);
-	analysis->setOn(false);
-	registerAnalysis(analysis);
 	analysis = new suGeneralizedForces(aModel);
 	analysis->setOn(false);
 	registerAnalysis(analysis);
