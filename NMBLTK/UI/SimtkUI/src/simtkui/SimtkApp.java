@@ -71,6 +71,12 @@ public class SimtkApp {
     JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
     // Initialize C++ components
+    System.loadLibrary("xerces-c_2_4_0");
+    System.loadLibrary("rdTools_D");
+    System.loadLibrary("rdSimulation_D");
+    System.loadLibrary("suCFSQP_D");
+    System.loadLibrary("rdSQP_D");
+    System.loadLibrary("suAnalyses_D");
     System.loadLibrary("rdModelDll");
 
   }
