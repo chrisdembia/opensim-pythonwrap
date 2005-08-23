@@ -39,9 +39,7 @@ public class SimtkVisibleProperties extends rdVisibleProperties {
       _vtpProperty.SetInterpolationToGouraud();
     else if (pref == rdVisibleProperties.PhongShaded)
       _vtpProperty.SetInterpolationToPhong();
-    else if (pref == rdVisibleProperties.None ||
-             pref == rdVisibleProperties.BoundingBox ||
-             pref == rdVisibleProperties.SolidFill) {
+    else if (pref == rdVisibleProperties.SolidFill) {
             SimtkApp.displayWarningMessage(
                 "SimtkVisibleProperties: DisplayPreference " +
                 aProp.getDisplayPreference() +
