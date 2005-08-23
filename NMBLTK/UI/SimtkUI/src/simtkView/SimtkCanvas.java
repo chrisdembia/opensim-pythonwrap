@@ -73,7 +73,7 @@ public class SimtkCanvas extends vtkCanvas {
     // Removed the default antialiasing as it slows down rendering, users can still
     // force increasing Antialiasing level
     //rw.SetAAFrames(ANTIALIASING_DEFAULT);
-    rw.DoubleBufferOn();
+    rw.DoubleBufferOff();
     rw.SetSwapBuffers(1);
     GetRenderer().SetBackground(.6, 0., .2);
     setInteractorStyle(new vtkInteractorStyleTerrain());
@@ -93,7 +93,7 @@ public class SimtkCanvas extends vtkCanvas {
     winVisMenu.add(backgroundMenuItem);
     _viewMenu.add(winVisMenu);
     _viewMenu.add(_mouseStyleMenu);
-   }
+    }
 
   /**
    * create_mouseStyleMenu: Adds cascade popup for interactor style
