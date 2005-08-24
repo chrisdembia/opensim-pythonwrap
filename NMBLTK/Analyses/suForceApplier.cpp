@@ -777,6 +777,7 @@ applyActuation(double aT,double *aX,double *aY)
 	double posBodyCOMGlobal[3];
 	double posPointRelBodyCOMGlobal[3];
 	double posPointRelBodyCOMLocal[3];
+	double treal = aT*_model->getTimeNormConstant();
 	
 	if(_model==NULL) {
 		printf("suForceApplier.applyActuation: WARN- no model.\n");
@@ -787,18 +788,11 @@ applyActuation(double aT,double *aX,double *aY)
 	if((aT>=getStartTime()) && (aT<getEndTime())){
 
 		if(_forceFunction!=NULL) {
-			const rdArray<double> &forceArray = _forceFunction->evaluate(aT*_model->getTimeNormConstant());
-//			cout<<aT*_model->getTimeNormConstant()<<": "<<forceArray<<endl;
-			for(i=0;i<3;i++){
-				force[i] = forceArray.get(i);
-			}
+			_forceFunction->evaluate(&treal,force);
 			setForce(force);
 		}
 		if(_pointFunction!=NULL) {
-			const rdArray<double> &pointArray = _pointFunction->evaluate(aT*_model->getTimeNormConstant());
-			for(i=0;i<3;i++){
-				point[i] = pointArray.get(i);
-			}
+			_pointFunction->evaluate(&treal,point);
 			setPoint(point);
 		}
 

@@ -3,6 +3,21 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
+Project: "TestIntegrator"=..\..\Simulation\Integrator\TestIntegrator\TestIntegrator.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name rdSimulation
+    End Project Dependency
+}}}
+
+###############################################################################
+
 Project: "rdActuators"=..\..\Actuators\rdActuators\rdActuators.dsp - Package Owner=<4>
 
 Package=<5>
@@ -83,6 +98,21 @@ Package=<5>
 
 Package=<4>
 {{{
+}}}
+
+###############################################################################
+
+Project: "rdToolsTest"=..\..\Tools\Test\rdToolsTest\rdToolsTest.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name rdTools
+    End Project Dependency
 }}}
 
 ###############################################################################

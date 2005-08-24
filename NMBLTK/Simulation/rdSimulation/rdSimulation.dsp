@@ -205,6 +205,14 @@ SOURCE=..\Model\rdModel.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\Model\rdModelIntegrand.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\Model\rdModelIntegrandForActuators.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\Model\rdMuscle.cpp
 # End Source File
 # Begin Source File
@@ -223,10 +231,18 @@ SOURCE=..\Model\rdSprings.cpp
 
 SOURCE=..\Model\rdTorque.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=..\Model\VectorFunctionForActuators.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\Integrator\Integrand.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\Model\rdActuator.h
@@ -329,6 +345,14 @@ SOURCE=..\Model\rdModel.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\Model\rdModelIntegrand.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Model\rdModelIntegrandForactuators.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\Model\rdMuscle.h
 # End Source File
 # Begin Source File
@@ -346,6 +370,10 @@ SOURCE=..\Model\rdSprings.h
 # Begin Source File
 
 SOURCE=..\Model\rdTorque.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Model\VectorFunctionForActuators.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

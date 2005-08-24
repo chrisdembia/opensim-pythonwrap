@@ -554,7 +554,7 @@ getParameterValue(int aI) const
  * case the parameters of that control node are changed.
  *
  * @param aT Time at which to set the control.
- * @return Control value.
+ * @param aX Control value.
  */
 void rdControlLinear::
 setControlValue(double aT,double aX)
@@ -601,9 +601,11 @@ setControlValue(double aT,double aX)
  *
  * @param aT Time at which to get the control.
  * @return Control value.  If the value of the curve is not defined,
- * rdMath::NAN is returned.  If aT is before the first control node, the value
- * of the first control node is returned.  If aT is after the last control
- * node, the value of the last control node is returned.
+ * rdMath::NAN is returned.  If the control is set to extrapolate,
+ * getExtraplate, and the time is before the first node or
+ * after the last node, then an extrapolation is performed to determin
+ * the value of the control curve.  Otherwise, the value of either the
+ * first control node or last control node is returned.
  */
 double rdControlLinear::
 getControlValue(double aT)
@@ -643,15 +645,7 @@ getControlValue(double aT)
 			v1 = _nodes[i]->getValue();
 			t2 = _nodes[i+1]->getTime();
 			v2 = _nodes[i+1]->getValue();
-
-			double dt = t2 - t1;
-			if(fabs(dt)<rdMath::ZERO) {
-				value = v1;
-			} else {
-				double dv = v2 - v1;
-				double m = dv / dt;
-				value = v1 + m*(aT-t1);
-			}
+			value = rdMath::Interpolate(t1,v1,t2,v2,aT);
 
 		// STEPS
 		} else {
@@ -681,16 +675,8 @@ extrapolateBefore(double aT) const
 	t1 = _nodes[0]->getTime();
 	v1 = _nodes[0]->getValue();
 	t2 = _nodes[1]->getTime();
-	
-	double dt = t2 - t1;
-	double value;
-	if(fabs(dt) < rdMath::ZERO) {
-		value = v1;
-	} else {
-		v2 = _nodes[1]->getValue();
-		double m = (v2-v1) / dt;
-		value = v1 + m*(aT-t1);
-	}
+	v2 = _nodes[1]->getValue();
+	double value = rdMath::Interpolate(t1,v1,t2,v2,aT);
 
 	return(value);
 }
@@ -717,16 +703,345 @@ extrapolateAfter(double aT) const
 	t1 = _nodes[n1]->getTime();
 	v1 = _nodes[n1]->getValue();
 	t2 = _nodes[n2]->getTime();
-	
-	double dt = t2 - t1;
-	double value;
-	if(fabs(dt) < rdMath::ZERO) {
-		value = v1;
+	v2 = _nodes[n2]->getValue();
+	double value = rdMath::Interpolate(t1,v1,t2,v2,aT);
+
+	return(value);
+}
+
+//-----------------------------------------------------------------------------
+// CONTROL VALUE MINIMUM
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Set the minimum value of this control curve at time aT.
+ *
+ * This method adds a set of control parameters at the specified time unless
+ * the specified time equals the time of an existing control node, in which
+ * case the parameters of that control node are changed.
+ *
+ * @param aT Time at which to set the control.
+ * @param aMin Minimum allowed control value.
+ */
+void rdControlLinear::
+setControlValueMin(double aT,double aMin)
+{
+	rdControlLinearNode node(aT,0.0,getDefaultParameterMin(),getDefaultParameterMax());
+	node.setMin(aMin);
+	int lower = _nodes.searchBinary(node);
+
+	// NO NODE
+	if(lower<0) {
+		_nodes.insert(0, (rdControlLinearNode*)node.copy() );
+
+	// CHECK NODE
 	} else {
-		v2 = _nodes[n2]->getValue();
-		double m = (v2-v1) / dt;
-		value = v2 + m*(aT-t2);
+
+		int upper = lower + 1;
+
+		// EQUAL TO LOWER NODE
+		if( (*_nodes[lower]) == node) {
+			_nodes[lower]->setTime(aT);
+			_nodes[lower]->setMin(aMin);
+
+		// NOT AT END OF ARRAY
+		} else if(upper<_nodes.getSize()) {
+
+			// EQUAL TO UPPER NODE
+			if( (*_nodes[upper]) == node) {
+				_nodes[upper]->setTime(aT);
+				_nodes[upper]->setMin(aMin);
+
+			// NOT EQUAL
+			} else {
+				_nodes.insert(upper, (rdControlLinearNode*)node.copy() );
+			}
+
+		// AT END OF ARRAY
+		} else {
+			_nodes.append( (rdControlLinearNode*)node.copy() );
+		}
 	}
+}
+//_____________________________________________________________________________
+/**
+ * Get the minimum allowed value of this control at time aT.
+ *
+ * @param aT Time at which to get the control.
+ * @return Minimum allowed control value.  If the value of the curve is not defined,
+ * rdMath::NAN is returned.  If the control is set to extrapolate,
+ * getExtraplate, and the time is before the first node or
+ * after the last node, then an extrapolation is performed to determin
+ * the value of the control curve.  Otherwise, the value of either the
+ * first control node or last control node is returned.
+ */
+double rdControlLinear::
+getControlValueMin(double aT)
+{
+	// CHECK SIZE
+	int size = _nodes.getSize();
+	if(size<=0) return(rdMath::NAN);
+
+	// GET NODE
+	_searchNode.setTime(aT);
+	int i = _nodes.searchBinary(_searchNode);
+
+	// BEFORE FIRST
+	double t1,v1,t2,v2;
+	double value;
+	if(i<0) {
+		if(getExtrapolate()) {
+			value = extrapolateMinBefore(aT);
+		} else {
+			value = _nodes[0]->getMin();
+		}
+
+	// AFTER LAST
+	} else if(i>=(size-1)) {
+		if(getExtrapolate()) {
+			value = extrapolateMinAfter(aT);
+		} else {
+			value = _nodes.getLast()->getMin();
+		}
+
+	// IN BETWEEN
+	} else {
+
+		// LINEAR INTERPOLATION
+		if(!_useSteps) {
+			t1 = _nodes[i]->getTime();
+			v1 = _nodes[i]->getMin();
+			t2 = _nodes[i+1]->getTime();
+			v2 = _nodes[i+1]->getMin();
+			value = rdMath::Interpolate(t1,v1,t2,v2,aT);
+
+		// STEPS
+		} else {
+			value = _nodes[i+1]->getMin();
+		}
+	}
+
+	return(value);
+}
+//_____________________________________________________________________________
+/**
+ * Extrapolate the value of the control curve before the first node.
+ *
+ * Currently, simple linear extrapolation using the first two nodes is
+ * used.
+ *
+ * @param aT Time at which to evalute the control curve.
+ * @return Extrapolated value of the control curve.
+ */
+double rdControlLinear::
+extrapolateMinBefore(double aT) const
+{
+	if(_nodes.getSize()<=0) return(rdMath::NAN);
+	if(_nodes.getSize()==1) return(_nodes[0]->getMin());
+
+	double t1,v1,t2,v2;
+	t1 = _nodes[0]->getTime();
+	v1 = _nodes[0]->getMin();
+	t2 = _nodes[1]->getTime();
+	v2 = _nodes[1]->getMin();
+	double value = rdMath::Interpolate(t1,v1,t2,v2,aT);
+
+	return(value);
+}
+//_____________________________________________________________________________
+/**
+ * Extrapolate the value of the control curve after the last node.
+ *
+ * Currently, simple linear extrapolation using the last two nodes is
+ * used.
+ *
+ * @param aT Time at which to evalute the control curve.
+ * @return Extrapolated value of the control curve.
+ */
+double rdControlLinear::
+extrapolateMinAfter(double aT) const
+{
+	int size = _nodes.getSize();
+	if(size<=0) return(rdMath::NAN);
+	if(size==1) return(_nodes[0]->getMin());
+
+	int n1 = size - 2;
+	int n2 = size - 1;
+	double t1,v1,t2,v2;
+	t1 = _nodes[n1]->getTime();
+	v1 = _nodes[n1]->getMin();
+	t2 = _nodes[n2]->getTime();
+	v2 = _nodes[n2]->getMin();
+	double value = rdMath::Interpolate(t1,v1,t2,v2,aT);
+
+	return(value);
+}
+
+
+//-----------------------------------------------------------------------------
+// CONTROL VALUE MAXIMUM
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Set the maximum value of this control curve at time aT.
+ *
+ * This method adds a set of control parameters at the specified time unless
+ * the specified time equals the time of an existing control node, in which
+ * case the parameters of that control node are changed.
+ *
+ * @param aT Time at which to set the control.
+ * @param aMax Maximum allowed control value.
+ */
+void rdControlLinear::
+setControlValueMax(double aT,double aMax)
+{
+	rdControlLinearNode node(aT,0.0,getDefaultParameterMin(),getDefaultParameterMax());
+	node.setMax(aMax);
+	int lower = _nodes.searchBinary(node);
+
+	// NO NODE
+	if(lower<0) {
+		_nodes.insert(0, (rdControlLinearNode*)node.copy() );
+
+	// CHECK NODE
+	} else {
+
+		int upper = lower + 1;
+
+		// EQUAL TO LOWER NODE
+		if( (*_nodes[lower]) == node) {
+			_nodes[lower]->setTime(aT);
+			_nodes[lower]->setMax(aMax);
+
+		// NOT AT END OF ARRAY
+		} else if(upper<_nodes.getSize()) {
+
+			// EQUAL TO UPPER NODE
+			if( (*_nodes[upper]) == node) {
+				_nodes[upper]->setTime(aT);
+				_nodes[upper]->setMax(aMax);
+
+			// NOT EQUAL
+			} else {
+				_nodes.insert(upper, (rdControlLinearNode*)node.copy() );
+			}
+
+		// AT END OF ARRAY
+		} else {
+			_nodes.append( (rdControlLinearNode*)node.copy() );
+		}
+	}
+}
+//_____________________________________________________________________________
+/**
+ * Get the maximum allowed value of this control at time aT.
+ *
+ * @param aT Time at which to get the control.
+ * @return Maximum allowed control value.  If the value of the curve is not defined,
+ * rdMath::NAN is returned.  If the control is set to extrapolate,
+ * getExtraplate, and the time is before the first node or
+ * after the last node, then an extrapolation is performed to determin
+ * the value of the control curve.  Otherwise, the value of either the
+ * first control node or last control node is returned.
+ */
+double rdControlLinear::
+getControlValueMax(double aT)
+{
+	// CHECK SIZE
+	int size = _nodes.getSize();
+	if(size<=0) return(rdMath::NAN);
+
+	// GET NODE
+	_searchNode.setTime(aT);
+	int i = _nodes.searchBinary(_searchNode);
+
+	// BEFORE FIRST
+	double t1,v1,t2,v2;
+	double value;
+	if(i<0) {
+		if(getExtrapolate()) {
+			value = extrapolateMaxBefore(aT);
+		} else {
+			value = _nodes[0]->getMax();
+		}
+
+	// AFTER LAST
+	} else if(i>=(size-1)) {
+		if(getExtrapolate()) {
+			value = extrapolateMaxAfter(aT);
+		} else {
+			value = _nodes.getLast()->getMax();
+		}
+
+	// IN BETWEEN
+	} else {
+
+		// LINEAR INTERPOLATION
+		if(!_useSteps) {
+			t1 = _nodes[i]->getTime();
+			v1 = _nodes[i]->getMax();
+			t2 = _nodes[i+1]->getTime();
+			v2 = _nodes[i+1]->getMax();
+			value = rdMath::Interpolate(t1,v1,t2,v2,aT);
+
+		// STEPS
+		} else {
+			value = _nodes[i+1]->getMax();
+		}
+	}
+
+	return(value);
+}
+//_____________________________________________________________________________
+/**
+ * Extrapolate the value of the control curve before the first node.
+ *
+ * Currently, simple linear extrapolation using the first two nodes is
+ * used.
+ *
+ * @param aT Time at which to evalute the control curve.
+ * @return Extrapolated value of the control curve.
+ */
+double rdControlLinear::
+extrapolateMaxBefore(double aT) const
+{
+	if(_nodes.getSize()<=0) return(rdMath::NAN);
+	if(_nodes.getSize()==1) return(_nodes[0]->getMax());
+
+	double t1,v1,t2,v2;
+	t1 = _nodes[0]->getTime();
+	v1 = _nodes[0]->getMax();
+	t2 = _nodes[1]->getTime();
+	v2 = _nodes[1]->getMax();
+	double value = rdMath::Interpolate(t1,v1,t2,v2,aT);
+
+	return(value);
+}
+//_____________________________________________________________________________
+/**
+ * Extrapolate the value of the control curve after the last node.
+ *
+ * Currently, simple linear extrapolation using the last two nodes is
+ * used.
+ *
+ * @param aT Time at which to evalute the control curve.
+ * @return Extrapolated value of the control curve.
+ */
+double rdControlLinear::
+extrapolateMaxAfter(double aT) const
+{
+	int size = _nodes.getSize();
+	if(size<=0) return(rdMath::NAN);
+	if(size==1) return(_nodes[0]->getMax());
+
+	int n1 = size - 2;
+	int n2 = size - 1;
+	double t1,v1,t2,v2;
+	t1 = _nodes[n1]->getTime();
+	v1 = _nodes[n1]->getMax();
+	t2 = _nodes[n2]->getTime();
+	v2 = _nodes[n2]->getMax();
+	double value = rdMath::Interpolate(t1,v1,t2,v2,aT);
 
 	return(value);
 }

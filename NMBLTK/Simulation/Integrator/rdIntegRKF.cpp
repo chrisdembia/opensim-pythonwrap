@@ -8,8 +8,6 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "rdIntegrator.h"
 #include <NMBLTK/Tools/rdObject.h>
-#include <NMBLTK/Simulation/Model/rdIntegCallbackSet.h>
-#include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
 #include <NMBLTK/Tools/rdException.h>
 #include "rdIntegRKF.h"
 
@@ -31,32 +29,10 @@ using namespace std;
  * Constructs an rdIntegRKF based on the specified model and integration
  * tolerance.
  */
-rdIntegRKF::rdIntegRKF(rdModel *aModel,double aTol,double aTolFine)
-	: rdRKF(aModel,aTol,aTolFine), _tArray(0.0), _dtArray(0.0)
+rdIntegRKF::rdIntegRKF(Integrand *aIntegrand,double aTol,double aTolFine)
+	: rdRKF(aIntegrand,aTol,aTolFine), _tArray(0.0), _dtArray(0.0)
 {
 	setNull();
-
-	// CHECK FOR NON-NULL MODEL
-	if(_model==NULL) return;
-
-	// ALLOCATE CONTROLS
-	int nx = _model->getNX();
-	if(nx>0) {
-		_x = new double[nx];
-		_xPrev = new double[nx];
-	}
-
-	// ALLOCATE STATES
-	int ny = _model->getNY();
-	if(ny>0) {
-		_yPrev = new double[ny];
-	}
-
-	// ALLOCATE PSEUDOSTATES
-	int nyp = _model->getNYP();
-	if(nyp>0) {
-		_yp = new double[nyp];
-	}
 }
 
 //_____________________________________________________________________________
@@ -65,13 +41,6 @@ rdIntegRKF::rdIntegRKF(rdModel *aModel,double aTol,double aTolFine)
  */
 rdIntegRKF::~rdIntegRKF()
 {
-	// CONTROLS
-	if(_x!=NULL)  { delete []_x;  _x=NULL; }
-	if(_xPrev!=NULL)  { delete []_xPrev;  _xPrev=NULL; }
-
-	// STATES AND PSEUDOSTATES
-	if(_yPrev!=NULL)  { delete []_yPrev;  _yPrev=NULL; }
-	if(_yp!=NULL)  { delete []_yp;  _yp=NULL; }
 }
 
 
@@ -86,7 +55,6 @@ rdIntegRKF::~rdIntegRKF()
 void rdIntegRKF::
 setNull()
 {
-	_controller = NULL;
 	_status = rdRKF_NORMAL;
 	_steps = 0;
 	_trys = 0;
@@ -94,19 +62,11 @@ setNull()
 	_halt = false;
 	_dtMax = 1.0;
 	_dtMin = 1.0e-8;
-	_x = NULL;
-	_xPrev = NULL;
-	_yPrev = NULL;
-	_yp = NULL;
 	_specifiedDT = false;
 	_constantDT = false;
 	_dt = 1.0e-4;
 	_tArray.setSize(0);
 	_dtArray.setSize(0);
-	_controlStorage = NULL;
-	_stateStorage = NULL;
-	_pseudoStorage = NULL;
-
 }
 
 
@@ -523,101 +483,6 @@ resetTimeAndDTArrays(double aTime)
 	_dtArray.setSize(size);
 }
 
-//-----------------------------------------------------------------------------
-// CONTROL STORAGE
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the storage buffer for the integration controls.
- */
-void rdIntegRKF::
-setControlStorage(rdStorage *aStorage)
-{
-	_controlStorage = aStorage;
-}
-//_____________________________________________________________________________
-/**
- * Get the storage buffer for the integration controls.
- */
-rdStorage* rdIntegRKF::
-getControlStorage()
-{
-	return(_controlStorage);
-}
-
-//-----------------------------------------------------------------------------
-// STATE STORAGE
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the storage buffer for the integration states.
- */
-void rdIntegRKF::
-setStateStorage(rdStorage *aStorage)
-{
-	_stateStorage = aStorage;
-}
-//_____________________________________________________________________________
-/**
- * Get the storage buffer for the integration states.
- */
-rdStorage* rdIntegRKF::
-getStateStorage()
-{
-	return(_stateStorage);
-}
-
-//-----------------------------------------------------------------------------
-// PSEUDOSTATE STORAGE
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the storage for the pseudostates.
- */
-void rdIntegRKF::
-setPseudoStateStorage(rdStorage *aStorage)
-{
-	_pseudoStorage = aStorage;
-}
-//_____________________________________________________________________________
-/**
- * Get the storage for the pseudostates.
- */
-rdStorage* rdIntegRKF::
-getPseudoStateStorage()
-{
-	return(_pseudoStorage);
-}
-
-//-----------------------------------------------------------------------------
-// CONTROLLER
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set a controller for this integration.
- * If one is set, the controller will be called each integration step to
- * determine a set of controls for controlling the current model.
- *
- * @param aController Controller.  To remove the controller, set the
- * controller to NULL.
- */
-void rdIntegRKF::
-setController(rdController *aController)
-{
-	_controller = aController;
-}
-//_____________________________________________________________________________
-/**
- * Get the dynamic filter.
- *
- * @return Controller set for this model.  If no controller is set NULL is
- * returned.
- */
-rdController* rdIntegRKF::
-getController()
-{
-	return(_controller);
-}
 //_____________________________________________________________________________
 /**
  * Get the name of the integrator
@@ -630,6 +495,7 @@ toString() const
 {
 	return (_displayName);
 }
+
 //=============================================================================
 // INTERRUPT
 //=============================================================================
@@ -677,15 +543,13 @@ bool rdIntegRKF::checkHalt()
  *
  * @param ti Initial time.
  * @param tf Final time.
- * @param controlSet Controls.
  * @param y States.
  * @param dtFirst Size of the first time step.
  * @return true on successful completion of the integration, false otherwise.
  * Use getStatus() to querry the nature of the error.
  */
 bool rdIntegRKF::
-integrate(double ti,double tf,rdControlSet &controlSet,double *y,
-	double dtFirst)
+integrate(double ti,double tf,double *y,double dtFirst)
 {
 	// CLEAR ANY INTERRUPT
 	// Halts must arrive during an integration.
@@ -694,11 +558,11 @@ integrate(double ti,double tf,rdControlSet &controlSet,double *y,
 	// INITIALIZATIONS
 	_steps = _trys = 0;
 	_status = rdRKF_NORMAL;
-	double t=ti,dt=dtFirst,dtPrev=dtFirst;
-	double tReal = t * _model->getTimeNormConstant();
-	int nx = _model->getNX();
-	int ny = _model->getNY();
-	int nyp = _model->getNYP();
+	double t,dt,dtPrev;
+	t=ti;
+	dt=dtFirst;
+	if(dt>_dtMax) dt = _dtMax;
+	dtPrev=dt;
 
 	// CHECK SPECIFIED DT STEPPING
 	char tmp[rdObject::NAME_LENGTH];
@@ -727,51 +591,19 @@ integrate(double ti,double tf,rdControlSet &controlSet,double *y,
 		}
 	}
 
-	// SET
-	_model->setTime(t);
-	_model->setStates(y);
-
-	// INITIAL CONTROLS
-	if(_controller!=NULL) {
-		_controller->computeControls(dt,t,y,controlSet);
+	// SET FIRST DT
+	if(_constantDT) {
+		dt = _dt;
+	} else if(_specifiedDT) {
+		dt = _dtArray[tArrayStep];
 	}
-	controlSet.getControlValues(ti,_x);
-	_model->setControls(_x);
-
-	// INITIALIZE PREVIOUS CONTROL AND STATE VALUES
-	memcpy(_xPrev,_x,nx*sizeof(double));
-	memcpy(_yPrev,y,ny*sizeof(double));
-
-	// STORE STARTING CONTROLS
-	if(_controlStorage!=NULL) {
-		// ONLY IF NO CONTROLS WERE PREVIOUSLY STORED
-		if(_controlStorage->getLastStateVector()==NULL) {
-			_controlStorage->store(_steps,tReal,nx,_x);
-		}
+	if((t+dt)>tf) {
+		dt = tf - t;
 	}
 
-	// STORE STARTING STATES
-	if(_stateStorage!=NULL) {
-		// ONLY IF NO STATES WERE PREVIOUSLY STORED
-		if(_stateStorage->getLastStateVector()==NULL) {
-			_stateStorage->store(_steps,tReal,ny,y);
-		}
-	}
 
-	// STORE STARTING PSEUDOSTATES
-	if(_pseudoStorage!=NULL) {
-		// ONLY IF NO STATES WERE PREVIOUSLY STORED
-		if(_pseudoStorage->getLastStateVector()==NULL) {
-			_model->getPseudoStates(_yp);
-			_pseudoStorage->store(_steps,tReal,nyp,_yp);
-		}
-	}
-
-	// ANALYSES & INTEGRATION CALLBACKS
-	rdIntegCallbackSet *callbackSet = _model->getIntegCallbackSet();
-	rdAnalysisSet *analysisSet = _model->getAnalysisSet();
-	if(callbackSet!=NULL) callbackSet->begin(_steps,dt,t,_x,y);
-	if(analysisSet!=NULL) analysisSet->begin(_steps,dt,t,_x,y);
+	// INITIALIZE HOOK
+	_integrand->initialize(_steps,dt,ti,tf,y);
 
 
 	// TIME LOOP
@@ -794,10 +626,10 @@ integrate(double ti,double tf,rdControlSet &controlSet,double *y,
 
 		// STEP
 		if(_specifiedDT||_constantDT) {
-			_status = stepFixed(dt,t,controlSet,y);
+			_status = stepFixed(dt,t,y);
 			//_status = stepFixed(dt,t,_x,y);
 		} else {
-			_status = step(dt,t,controlSet,y);
+			_status = step(dt,t,y);
 			//_status = step(dt,t,_x,y);
 		}
 		_trys++;
@@ -806,87 +638,46 @@ integrate(double ti,double tf,rdControlSet &controlSet,double *y,
 		// SUCCESSFUL INTEGRATION
 		if((_status==rdRKF_NORMAL)||(_status==rdRKF_FINE)) {
 
-				// INCREMENT TIME AND STEPS
-				t += dt;
-				dtPrev = dt;
-				if(_specifiedDT) {
-					tArrayStep++;
-				} else {
-					_tArray.append(t);
-					_dtArray.append(dtPrev);
-				}
-				tReal = t * _model->getTimeNormConstant();
-				_steps++;
+			// INCREMENT TIME AND STEPS
+			t += dt;
+			dtPrev = dt;
+			if(_specifiedDT) {
+				tArrayStep++;
+			} else {
+				_tArray.append(t);
+				_dtArray.append(dtPrev);
+			}
+			_steps++;
 
-				// FINE ACCURACY- DOUBLE DT
-				if((_status==rdRKF_FINE)&&(dt<_dtMax)) {
-					dt*=2.0;
-					if(dt>_dtMax) dt=_dtMax;
-				}
+			// FINE ACCURACY- DOUBLE DT
+			if((_status==rdRKF_FINE)&&(dt<_dtMax)) {
+				dt*=2.0;
+				if(dt>_dtMax) dt=_dtMax;
+			}
 
-				// GET THE CONTROLS AT THE NEW TIME t
-				if(_controller!=NULL) {
-					_controller->computeControls(dt,t,y,controlSet);
-				}
-				controlSet.getControlValues(t,_x);
+			// PROCESS-AFTER-STEP HOOK
+			_integrand->processAfterStep(_steps,dt,t,y);
 
-				// STORE CONTROLS
-				if(_controlStorage!=NULL) {
-					if(t<tf) {
-						_controlStorage->store(_steps,tReal,nx,_x);
-					} else {
-						_controlStorage->append(tReal,nx,_x);
-					}
-				}
-
-				// STORE STATES
-				if(_stateStorage!=NULL) {
-					if(t<tf) {
-						_stateStorage->store(_steps,tReal,ny,y);
-					} else {
-						_stateStorage->append(tReal,ny,y);
-					}
-				}
-
-				// ANALYSES & INTEGRATION CALLBACKS
-				if(callbackSet!=NULL)
-					callbackSet->step(_xPrev,_yPrev,_steps,dtPrev,t,_x,y);
-				if(analysisSet!=NULL)
-					analysisSet->step(_xPrev,_yPrev,_steps,dtPrev,t,_x,y);
-
-				// STORE PSEUDOSTATES
-				if(_pseudoStorage!=NULL) {
-					_model->getPseudoStates(_yp);
-					if(t<tf) {
-						_pseudoStorage->store(_steps,tReal,nyp,_yp);
-					} else {
-						_pseudoStorage->append(tReal,nyp,_yp);
-					}
-				}
-
-				// UPDATE PREVIOUS CONTROL AND STATE VALUES
-				memcpy(_xPrev,_x,_model->getNX()*sizeof(double));
-				memcpy(_yPrev,y,_model->getNY()*sizeof(double));
 
 		// POOR ACCURACY OR NOT A NUMBER- HALVE DT
 		} else if((_status==rdRKF_POOR)||(_status==rdRKF_NAN)) {
-				if(_status==rdRKF_NAN) {
-					printf("rdIntegRKF.integrate:  NAN error encountered.\n");
-				}
-				dt *= 0.5;
-				if(dt<_dtMin) {
-					printf("rdIntegRKF.integrate:  dt below minimum allowed value.\n");
-					break;
-				}
+			if(_status==rdRKF_NAN) {
+				printf("rdIntegRKF.integrate:  NAN error encountered.\n");
+			}
+			dt *= 0.5;
+			if(dt<_dtMin) {
+				printf("rdIntegRKF.integrate:  dt below minimum allowed value.\n");
+				break;
+			}
 	
 		// ERROR
 		} else if(_status==rdRKF_ERROR) {
-				printf("rdIntegRKF.integrate:  Error encountered.\n");
-				break;
+			printf("rdIntegRKF.integrate:  Error encountered.\n");
+			break;
 
 		// DEFAULT
 		} else {
-				printf("rdIntegRKF.integrate:  unrecognized return status.\n");
+			printf("rdIntegRKF.integrate:  unrecognized return status.\n");
 		}
 
 		// CHECK FOR TOO MANY STEPS
@@ -900,12 +691,13 @@ integrate(double ti,double tf,rdControlSet &controlSet,double *y,
 		if(checkHalt()) break;
 	}
 
-	// MODEL ENDING CALLBACK
-	if(callbackSet!=NULL) callbackSet->end(_steps,dtPrev,t,_x,y);
-	if(analysisSet!=NULL) analysisSet->end(_steps,dtPrev,t,_x,y);
-
 	// CLEAR ANY INTERRUPT
 	clearHalt();
+
+
+	// FINALIZE HOOK
+	_integrand->finalize(_steps,t,y);
+
 
 	// RETURN
 	printf("\t\tsteps=%d\ttrys=%d\n",_steps,_trys);

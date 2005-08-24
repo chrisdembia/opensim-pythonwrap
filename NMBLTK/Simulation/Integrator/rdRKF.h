@@ -11,8 +11,7 @@
 
 // INCLUDES
 #include "rdIntegrator.h"
-#include <NMBLTK/Simulation/Model/rdModel.h>
-#include <NMBLTK/Simulation/Control/rdControlSet.h>
+#include "Integrand.h"
 
 #ifdef SWIG
 	#ifdef RDSIMULATION_API
@@ -20,16 +19,6 @@
 		#define RDSIMULATION_API
 	#endif
 #endif
-
-// EXPORTED CONSTANTS
-/*
-extern RDSIMULATION_API const int rdRKF_NORMAL;
-extern RDSIMULATION_API const int rdRKF_FINE;
-extern RDSIMULATION_API const int rdRKF_POOR;
-extern RDSIMULATION_API const int rdRKF_NAN;
-extern RDSIMULATION_API const int rdRKF_ERROR;
-extern RDSIMULATION_API const int rdRKF_TOO_MANY_STEPS;
-*/
 
 //=============================================================================
 //=============================================================================
@@ -58,18 +47,12 @@ public:
 		rdRKF_TOO_MANY_STEPS=-70
 	};
 protected:
+	/** Integrand. */
+	Integrand *_integrand;
 	/** Integration tolerance. */
 	double _tol;
 	/** Integration fine tolerance. */
 	double _tolFine;
-	/** Dynamic model. */
-	rdModel *_model;
-	/** Number of controls. */
-	int _nx;
-	/** Controls at time t. */
-	double *_x;
-	/** Number of states. */
-	int _ny;
 	/** Work arrays for computing the new states. */
 	double *_yv,*_ye,*_dy;
 	double *_k1,*_k2,*_k3,*_k4,*_k5,*_k6;
@@ -81,7 +64,7 @@ protected:
 	// CONSTRUCTION
 	//--------------------------------------------------------------------------
 public:
-	rdRKF(rdModel *aModel,double aTol=1.0e-4,double aTolFine=-1.0);
+	rdRKF(Integrand *aIntegrand,double aTol=1.0e-4,double aTolFine=-1.0);
 	virtual ~rdRKF();
 
 	//--------------------------------------------------------------------------
@@ -96,9 +79,7 @@ private:
 	//--------------------------------------------------------------------------
 public:
 	// MODEL
-	rdModel* getModel();
-	// NUMBER OF STATES
-	int getNY();
+	Integrand* getIntegrand();
 	// TOLERANCE
 	void setTolerance(double aTol,double aTolFine=-1.0);
 	double getTolerance();
@@ -108,10 +89,8 @@ public:
 	//--------------------------------------------------------------------------
 	// INTEGRATION
 	//--------------------------------------------------------------------------
-	int step(double dt,double t,rdControlSet &x,double *y);
-	int step(double dt,double t,double *x,double *y);
-	int stepFixed(double dt,double t,rdControlSet &x,double *y);
-	int stepFixed(double dt,double t,double *x,double *y);
+	int step(double dt,double t,double *y);
+	int stepFixed(double dt,double t,double *y);
 
 //=============================================================================
 };	// END class rdRKF

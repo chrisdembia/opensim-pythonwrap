@@ -1357,110 +1357,41 @@ estimateGroundForces(double dt,double t,double *x,double *y,double aFrc[][3])
 //=============================================================================
 //_____________________________________________________________________________
 /**
- * Compute the derivatives of the states.
+ * Compute the derivatives of the auxiliary states.  The auxiliary states
+ * are any integrated variables that are not the coordinates or speeds.
+ *
+ * @param dydt Array of the time derivatives of the auxiliary states.  The
+ * auxiliary state derivatives should start at the beginning of the dydt
+ * array.
  */
-int rdUTWalking8::
-deriv(double t,double *xt,double *y,double *dy)
+void rdUTWalking8::
+computeAuxiliaryDerivatives(double *dydt)
 {
-	int i;
-	int ny = getNY();
-	int nq = getNQ();
-	int nu = getNU();
-
-	// SET CONFIGURATION
-	set(t,xt,y);
-	_derivCallbackSet->set(t,xt,y);
-
-	// ACTUATOR FORCES
-	computeActuation();
-	_derivCallbackSet->computeActuation(t,xt,y);
-	applyActuatorForces();
-	_derivCallbackSet->applyActuation(t,xt,y);
-
-	// CONTACT
-	computeContact();
-	_derivCallbackSet->computeContact(t,xt,y);
-	if(_allowApplyContactForces)
-		applyContactForces();
-	_derivCallbackSet->applyContact(t,xt,y);
-
-	// COMPUTE ACCELERATIONS
-	double dqdt[NQ],dudt[NU];
-	computeAccelerations(dqdt,dudt);
-	//for(i=0;i<getNU();i++) {
-	//	printf("dudt[%d] = %lf\n",i,dudt[i]);
-	//}
-
-
 	// BASE
-	_actuatorSet.computeStateDerivatives(&dy[nq+nu]);
-	// _contactSet.computeStateDerivatives(&dy[??]);
+	_actuatorSet.computeStateDerivatives(dydt);
 
 	// UT MODEL ADOT
 	double adot[NX];
+	int imsf = rdActuatedModel_SDFast::getNY();
 	int iatv = rdActuatedModel_SDFast::getNY() + NX;
-	mmatvdot_(&NX,xt,&y[iatv],&_tcRise,&_tcFall,adot);
+	mmatvdot_(&NX,&_xUT[0],&_y[iatv],&_tcRise,&_tcFall,adot);
 
 	// UT MODEL FDOT AND EDOT
 	double fdot[NX];
 	double edot[NI];
 	getactuatorlengths_(_actlen);
 	getactuatorvelocities_(_actsv);
-	int imsf = rdActuatedModel_SDFast::getNY();
-	mmfdot_(&NX,_actlen,_actsv,&y[imsf],&y[iatv],xt,fdot,edot);
-
+	mmfdot_(&NX,_actlen,_actsv,&_y[imsf],&_y[iatv],&_xUT[0],fdot,edot);
 
 	// ASSIGN DERIVATIVES ----
 	// CLAY -- left off here.
-	for(i=0;i<nq;i++) dy[i] = dqdt[i];
-	for(i=0;i<nu;i++) dy[nq+i] = dudt[i];
-	for(i=0;i<NX;i++)  dy[imsf+i] = fdot[i];
-	for(i=0;i<NX;i++)  dy[iatv+i] = adot[i];
-	for(i=0;i<NI;i++)  dy[iatv+NX+i] = edot[i];
-	_derivCallbackSet->computeDerivatives(t,xt,y,dy);
-
-	// NORMALIZE BY THE FINAL TIME
-	for(i=0;i<ny;i++) dy[i] *= getTimeNormConstant();
-
-	return(0);
-}
-//_____________________________________________________________________________
-/**
- * Compute the derivatives of the states.
- *
- * Note that the accelerations returned by this method are in real time!
- */
-int rdUTWalking8::
-deriv(double t,double *xt,double *y,double *dqdt,double *dudt)
-{
-	// SET
-	set(t,xt,y);
-	_derivCallbackSet->set(t,xt,y);
-
-	// ACTUATION
-	computeActuation();
-	_derivCallbackSet->computeActuation(t,xt,y);
-	applyActuatorForces();
-	_derivCallbackSet->applyActuation(t,xt,y);
-
-	// CONTACT
-	computeContact();
-	_derivCallbackSet->computeContact(t,xt,y);
-	if(_allowApplyContactForces)
-		applyContactForces();
-	_derivCallbackSet->applyContact(t,xt,y);
-
-	// DERIVATIVES OF GEN. COORDINATES AND SPEEDS
-	computeAccelerations(dqdt,dudt);
-
-	// NORMALIZE BY THE FINAL TIME
 	int i;
-	int nq = getNQ();
-	int nu = getNU();
-	for(i=0;i<nq;i++) dqdt[i] *= getTimeNormConstant();
-	for(i=0;i<nu;i++) dudt[i] *= getTimeNormConstant();
-
-	return(0);
+	int I1 = imsf - getNQ() - getNU();
+	int I2 = I1 + NX;
+	int I3 = I2 + NX;
+	for(i=0;i<NX;i++)  dydt[i+I1] = fdot[i];
+	for(i=0;i<NX;i++)  dydt[i+I2] = adot[i];
+	for(i=0;i<NI;i++)  dydt[i+I3] = edot[i];
 }
 
 

@@ -141,6 +141,11 @@ public:
 	// Ccontrol Value
 	virtual double getControlValue(double aT=0.0) = 0;
 	virtual void setControlValue(double aT,double aX) = 0;
+	virtual double getControlValueMin(double aT=0.0) = 0;
+	virtual void setControlValueMin(double aT,double aX) = 0;
+	virtual double getControlValueMax(double aT=0.0) = 0;
+	virtual void setControlValueMax(double aT,double aX) = 0;
+
 
 	// Convenience methods to get first and last time.
 	virtual const double getFirstTime() const;

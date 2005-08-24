@@ -302,20 +302,16 @@ applyActuation(double aT,double *aX,double *aY)
 
 		// Calculate Euler angles to rotate from current orientation to nominal orientation,
 		//  expressed in current body reference frame
-		rdArray<double> nomEulerArray(0.0);
+		double time = aT*_model->getTimeNormConstant(); 
 		double nomDirCos[9];
 		double curDirCos[9];
 		double difDirCos[9];
-		double difAng[3];  
-		nomEulerArray = _posFunction->evaluate(aT*_model->getTimeNormConstant());
-	
-double eulerAngle[3];
-eulerAngle[0] = nomEulerArray.get(0);
-eulerAngle[1] = nomEulerArray.get(1);
-eulerAngle[2] = nomEulerArray.get(2);
+		double difAng[3];
+		double eulerAngle[3];
+		_posFunction->evaluate(&time,eulerAngle);
 
-		_model->convertAnglesToDirectionCosines(nomEulerArray.get(0),nomEulerArray.get(1),
-			nomEulerArray.get(2), nomDirCos);
+		_model->convertAnglesToDirectionCosines(eulerAngle[0],eulerAngle[1],
+			eulerAngle[2], nomDirCos);
 		_model->getDirectionCosines(_body, curDirCos);
 		rdMtx::Transpose(3,3,curDirCos,curDirCos);
 		rdMtx::Multiply(3,3,3,curDirCos,nomDirCos,difDirCos);
@@ -323,14 +319,12 @@ eulerAngle[2] = nomEulerArray.get(2);
 
 		// Calculate difference between current angular velocity and nominal ang velocity,
 		//  expressed in body-fixed 1-2-3 rotational velocities
-		rdArray<double> nomAngVelArray(0.0);
-		double* nomAngVel;
+		double nomAngVel[3];
 		double curAngVel[3];
 		double difAngVel[3];
 		double difQDot[3];
 		double eulerTransform[9];
-		nomAngVelArray = _velFunction->evaluate(aT*_model->getTimeNormConstant()); //NEEDS TO BE IN GLOBAL COORDS
-		nomAngVel = nomAngVelArray.get();
+		_velFunction->evaluate(&time,nomAngVel); //NEEDS TO BE IN GLOBAL COORDS
 		_model->getAngularVelocity(_body,curAngVel);  //EXPRESSED IN GLOBAL COORDS
 		rdMtx::Subtract(3,1,curAngVel,nomAngVel,difAngVel);
 //		rdMtx::Subtract(3,1,nomAngVel,curAngVel,difAngVel);

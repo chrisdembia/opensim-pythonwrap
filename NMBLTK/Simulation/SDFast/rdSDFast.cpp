@@ -11,10 +11,8 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <stdlib.h>
-#include <stdio.h>
-#include <fstream>
-#include <string.h>
+#include <iostream>
+#include <string>
 #include <math.h>
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdMtx.h>
@@ -612,7 +610,7 @@ scale(const suScaleSet& aScaleSet)
 }
 //_____________________________________________________________________________
 /**
- * Dump model description ot a text file
+ * Dump model description to a text file
  *
  * @param aCallback Pointer to the derivative callback to add.
  */
@@ -1584,7 +1582,25 @@ computeGeneralizedForces(double aDUDT[],double rF[]) const
 {
 	sdcomptrq(aDUDT,rF);
 }
-
+//_____________________________________________________________________________
+/**
+ * Compute the reaction forces and torques at all the joints in the model.
+ *
+ * It is necessary to call computeAccelerations() before this method
+ * to get valid results.  This method is expensive to call, beyond the
+ * expense of computing the accelerations.  So, this method should be
+ * called as infrequently as possible.
+ *
+ * @param rForces Matrix of reaction forces.  The size should be
+ * at least NumberOfJoints x 3.
+ * @param rTorques Matrix of reaction torques.  The size should be
+ * at least NumberOfJoints x 3.
+ */
+void rdSDFast::
+computeReactions(double rForces[][3],double rTorques[][3]) const
+{
+	sdreac(rForces,rTorques);
+}
 
 
 //=============================================================================

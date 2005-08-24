@@ -76,7 +76,7 @@ protected:
 // METHODS
 //=============================================================================
 public:
-	suContact(rdModel *aModel, int *aResultantForcePointGroups=NULL);
+	suContact(rdModel *aModel,int *aResultantForcePointGroups=NULL);
 	virtual ~suContact();
 private:
 	void setNull();

@@ -133,8 +133,8 @@ setEqual(const rd1to3VectorGCVSpline &aVectorSpline)
 rdObject* rd1to3VectorGCVSpline::
 copy() const
 {
-	rd1to3VectorGCVSpline *vectorSpline = new rd1to3VectorGCVSpline(*this);
-	return(vectorSpline);
+	rd1to3VectorGCVSpline *func = new rd1to3VectorGCVSpline(*this);
+	return(func);
 }
 
 //_____________________________________________________________________________
@@ -290,17 +290,16 @@ updateBoundingBox()
  * this function or its derivatives.
  * @return Value of the function or one of its derivatives.
  */
-const rdArray<double>& rd1to3VectorGCVSpline::
-evaluate(double aX)
+void rd1to3VectorGCVSpline::
+evaluate(const double *aX,double *rY)
 {
 	if(_splineY0->getDegree()>=0) {
-		_value[0] = _splineY0->evaluate(0,aX);
-		_value[1] = _splineY1->evaluate(0,aX);
-		_value[2] = _splineY2->evaluate(0,aX);
+		rY[0] = _splineY0->evaluate(0,aX[0]);
+		rY[1] = _splineY1->evaluate(0,aX[0]);
+		rY[2] = _splineY2->evaluate(0,aX[0]);
 	} else {
-		_value[0] = _value[1] = _value[2] = 0.0;
+		rY[0] = rY[1] = rY[2] = 0.0;
 	}
-
-	return(_value);
 }
+
 

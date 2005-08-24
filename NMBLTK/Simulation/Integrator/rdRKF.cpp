@@ -10,20 +10,11 @@
 #include "rdIntegrator.h"
 #include <math.h>
 #include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdException.h>
 #include "rdRKF.h"
 
+using namespace std;
 
-//============================================================================
-// EXPORTED CONSTANTS
-//============================================================================
-/*
-extern RDSIMULATION_API const int rdRKF_NORMAL = 20;
-extern RDSIMULATION_API const int rdRKF_FINE = 30;
-extern RDSIMULATION_API const int rdRKF_POOR = -40;
-extern RDSIMULATION_API const int rdRKF_NAN = -50;
-extern RDSIMULATION_API const int rdRKF_ERROR = -60;
-extern RDSIMULATION_API const int rdRKF_TOO_MANY_STEPS = -70;
-*/
 //============================================================================
 // INTERNAL TOLERANCE CONSTANTS
 //============================================================================
@@ -77,19 +68,23 @@ const double CY4	= -2.000000e-1;
 //_____________________________________________________________________________
 /**
  * Default constructor.
+ *
+ * @param aIntegrand Integrand
+ * @param aTol Error tolerance.  If the estimated error is greater than
+ * aTol, the integration step size is halved.
+ * @param aTolFine Fine tolerance.  If the estimated error is less than
+ * aFineTol, the integration step size is doubled.
  */
-rdRKF::rdRKF(rdModel *aModel,double aTol,double aTolFine)
+rdRKF::rdRKF(Integrand *aIntegrand,double aTol,double aTolFine)
 {
 	// MODEL
-	_ny = 0;
-	_model = aModel;
-	if(_model != NULL) {
-		_nx = _model->getNX();
-		_ny = _model->getNY();
+	_integrand = aIntegrand;
+	if(_integrand == NULL) {
+		string msg = "rdRKF.rdRKF: ERR- Null integrand.\n";
+		throw rdException(msg,__FILE__,__LINE__);
 	}
 
 	// ARRAY POINTERS
-	_x = NULL;
 	_yv = _ye = _dy = NULL;
 	_k1 = _k2 = _k3 = _k4 = _k5 = _k6 = NULL;
 
@@ -125,16 +120,16 @@ rdRKF::~rdRKF()
 int rdRKF::
 allocateMemory()
 {
-	if(_nx>0) _x = new double[_nx];
-	_yv = new double[_ny];
-	_ye = new double[_ny];
-	_dy = new double[_ny];
-	_k1 = new double[_ny];
-	_k2 = new double[_ny];
-	_k3 = new double[_ny];
-	_k4 = new double[_ny];
-	_k5 = new double[_ny];
-	_k6 = new double[_ny];
+	int size = _integrand->getSize();
+	_yv = new double[size];
+	_ye = new double[size];
+	_dy = new double[size];
+	_k1 = new double[size];
+	_k2 = new double[size];
+	_k3 = new double[size];
+	_k4 = new double[size];
+	_k5 = new double[size];
+	_k6 = new double[size];
 
 	return(0);
 }
@@ -145,7 +140,6 @@ allocateMemory()
 int rdRKF::
 freeMemory()
 {
-	if(_x!=NULL) { delete []_x;  _x = NULL; }
 	if(_yv!=NULL) { delete []_yv;  _yv = NULL; }
 	if(_ye!=NULL) { delete []_ye;  _ye = NULL; }
 	if(_dy!=NULL) { delete []_dy;  _dy = NULL; }
@@ -169,24 +163,12 @@ freeMemory()
 /**
  * Get the model.
  */
-rdModel* rdRKF::
-getModel()
+Integrand* rdRKF::
+getIntegrand()
 {
-	return(_model);
+	return(_integrand);
 }
 
-//-----------------------------------------------------------------------------
-// STATES
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Get the number of states being integrated.
- */
-int rdRKF::
-getNY()
-{
-	return(_ny);
-}
 
 //-----------------------------------------------------------------------------
 // TOLERANCE
@@ -270,7 +252,6 @@ getFineTolerance()
  *
  * @param dt Requested integration time step.
  * @param t Current time.
- * @param controlSet Controls.
  * @param y States.
  * @return rdRKF_NORMAL on a successful step, rdRKF_NAN if not-a-number is
  * encountered in any of the states, rdRKF_POOR if the integration error
@@ -278,73 +259,68 @@ getFineTolerance()
  * error is better than the specified fine tolerance.
  */
 int rdRKF::
-step(double dt,double t,rdControlSet &controlSet,double *y)
+step(double dt,double t,double *y)
 {
 	int i,offender;
 	double t2,yemax;
 
-	// CHECK FOR PROPER INITIALIZATION
-	if(_ny<1) {
-		printf("rkf:  ERROR- the number of states is less than 1.\n");
-		return(rdRKF_ERROR);
-	}
+	// SIZE
+	int size = _integrand->getSize();
+	//if(size<1) {
+	//	printf("rkf.step:  ERROR- the number of states is less than 1.\n");
+	//	return(rdRKF_ERROR);
+	//}
 
 	// ORDER 1
-	controlSet.getControlValues(t,_x);
-	_model->deriv(t,_x,y,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t,y,_dy);
+	for(i=0;i<size;i++) {
 		_k1[i] = dt*_dy[i];
 		_yv[i] = y[i] + _k1[i]*C22;
 	}
 	t2 = t + dt*C21;
 
 	// ORDER 2
-	controlSet.getControlValues(t2,_x);
-	_model->deriv(t2,_x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t2,_yv,_dy);
+	for(i=0;i<size;i++) {
 		_k2[i] = dt*_dy[i];
 		_yv[i] = y[i] + C32*_k1[i] + C33*_k2[i];
 	}
 	t2 = t + dt*C31;
 
 	// ORDER 3
-	controlSet.getControlValues(t2,_x);
-	_model->deriv(t2,_x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t2,_yv,_dy);
+	for(i=0;i<size;i++) {
 		_k3[i] =  dt*_dy[i];
 		_yv[i] = y[i] + C42*_k1[i] + C43*_k2[i] + C44*_k3[i];
 	}
 	t2 = t + dt*C41;
 
 	// ORDER 4
-	controlSet.getControlValues(t2,_x);
-	_model->deriv(t2,_x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t2,_yv,_dy);
+	for(i=0;i<size;i++) {
 		_k4[i] = dt*_dy[i];
 		_yv[i] = y[i] + C52*_k1[i] + C53*_k2[i] + C54*_k3[i] + C55*_k4[i];
 	}
 	t2 = t + dt;
 
 	// ORDER 5
-	controlSet.getControlValues(t2,_x);
-	_model->deriv(t2,_x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t2,_yv,_dy);
+	for(i=0;i<size;i++) {
 		_k5[i] = dt*_dy[i];
 		_yv[i] = y[i] + C62*_k1[i] + C63*_k2[i] + C64*_k3[i] + C65*_k4[i] + C66*_k5[i];
 	}
 	t2 = t + dt*C61;
 
 	// ORDER 6
-	controlSet.getControlValues(t2,_x);
-	_model->deriv(t2,_x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t2,_yv,_dy);
+	for(i=0;i<size;i++) {
 		_k6[i] = dt*_dy[i];
 	}
 
 
 	// GET MAX ERROR
 	offender = -1;
-	for(yemax=0.0,i=0;i<_ny;i++) {
+	for(yemax=0.0,i=0;i<size;i++) {
 
 		_ye[i] = CE1*_k1[i] + CE2*_k3[i] + CE3*_k4[i] + CE4*_k5[i] + CE5*_k6[i];
 
@@ -358,7 +334,8 @@ step(double dt,double t,rdControlSet &controlSet,double *y)
 
 		// NAN
 		} else {
-			printf("rdRKF.step: NAN in state %d\n",i);
+			printf("rdRKF.step: NAN in state %d at time %lf (dt=%lf).\n",
+				i,t,dt);
 			return(rdRKF_NAN);
 		}
 	}
@@ -370,119 +347,7 @@ step(double dt,double t,rdControlSet &controlSet,double *y)
 	}
 
 	// UPDATE STATES
-	for(i=0;i<_ny;i++) {
-		y[i] = y[i] + CY1*_k1[i] + CY2*_k3[i] + CY3*_k4[i] + CY4*_k5[i];
-	}
-
-	// FINE ACCURACY
-	if(yemax < _tolFine) {
-		return(rdRKF_FINE);
-	}
-
-	return(rdRKF_NORMAL);
-}
-
-//_____________________________________________________________________________
-/**
- * Step forward in time by dt.
- *
- * @param dt Requested integration time step.
- * @param t Current time.
- * @param x Controls.
- * @param y States.
- * @return rdRKF_NORMAL on a successful step, rdRKF_NAN if not-a-number is
- * encountered in any of the states, rdRKF_POOR if the integration error
- * is worse than the specified tolerance, or rdRKF_FINE if the integration
- * error is better than the specified fine tolerance.
- */
-int rdRKF::
-step(double dt,double t,double *x,double *y)
-{
-	int i,offender;
-	double t2,yemax;
-
-	// CHECK FOR PROPER INITIALIZATION
-	if(_ny<1) {
-		printf("rkf:  ERROR- the number of states is less than 1.\n");
-		return(rdRKF_ERROR);
-	}
-
-	// ORDER 1
-	_model->deriv(t,x,y,_dy);
-	for(i=0;i<_ny;i++) {
-		_k1[i] = dt*_dy[i];
-		_yv[i] = y[i] + _k1[i]*C22;
-	}
-	t2 = t + dt*C21;
-
-	// ORDER 2
-	_model->deriv(t2,x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
-		_k2[i] = dt*_dy[i];
-		_yv[i] = y[i] + C32*_k1[i] + C33*_k2[i];
-	}
-	t2 = t + dt*C31;
-
-	// ORDER 3
-	_model->deriv(t2,x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
-		_k3[i] =  dt*_dy[i];
-		_yv[i] = y[i] + C42*_k1[i] + C43*_k2[i] + C44*_k3[i];
-	}
-	t2 = t + dt*C41;
-
-	// ORDER 4
-	_model->deriv(t2,x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
-		_k4[i] = dt*_dy[i];
-		_yv[i] = y[i] + C52*_k1[i] + C53*_k2[i] + C54*_k3[i] + C55*_k4[i];
-	}
-	t2 = t + dt;
-
-	// ORDER 5
-	_model->deriv(t2,x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
-		_k5[i] = dt*_dy[i];
-		_yv[i] = y[i] + C62*_k1[i] + C63*_k2[i] + C64*_k3[i] + C65*_k4[i] + C66*_k5[i];
-	}
-	t2 = t + dt*C61;
-
-	// ORDER 6
-	_model->deriv(t2,x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
-		_k6[i] = dt*_dy[i];
-	}
-
-
-	// GET MAX ERROR
-	offender = -1;
-	for(yemax=0.0,i=0;i<_ny;i++) {
-
-		_ye[i] = CE1*_k1[i] + CE2*_k3[i] + CE3*_k4[i] + CE4*_k5[i] + CE5*_k6[i];
-
-		// GOOD NUMBER
-		if((_ye[i]<0.0) || (_ye[i]>=0.0)) {  
-			_ye[i] = fabs(_ye[i]);
-			if(_ye[i]>yemax) {
-				offender = i;
-				yemax = _ye[i];
-			}
-
-		// NAN
-		} else {
-			printf("rdRKF.step: NAN in state %d\n",i);
-			return(rdRKF_NAN);
-		}
-	}
-
-	// CHECK ERROR
-	if(yemax > _tol) {
-		//printf("rkf: error exceeded tolerance. offender = %d\n",offender);
-		return(rdRKF_POOR);
-	}
-
-	// UPDATE STATES
-	for(i=0;i<_ny;i++) {
+	for(i=0;i<size;i++) {
 		y[i] = y[i] + CY1*_k1[i] + CY2*_k3[i] + CY3*_k4[i] + CY4*_k5[i];
 	}
 
@@ -508,129 +373,55 @@ step(double dt,double t,double *x,double *y)
  * encountered in any of the states.
  */
 int rdRKF::
-stepFixed(double dt,double t,rdControlSet &controlSet,double *y)
+stepFixed(double dt,double t,double *y)
 {
 	int i;
 	double t2;
 
+	// SIZE
+	int size = _integrand->getSize();
+
 	// ORDER 1
-	controlSet.getControlValues(t,_x);
-	_model->deriv(t,_x,y,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t,y,_dy);
+	for(i=0;i<size;i++) {
 		_k1[i] = dt*_dy[i];
 		_yv[i] = y[i] + _k1[i]*C22;
 	}
 	t2 = t + dt*C21;
 
 	// ORDER 2
-	controlSet.getControlValues(t2,_x);
-	_model->deriv(t2,_x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t2,_yv,_dy);
+	for(i=0;i<size;i++) {
 		_k2[i] = dt*_dy[i];
 		_yv[i] = y[i] + C32*_k1[i] + C33*_k2[i];
 	}
 	t2 = t + dt*C31;
 
 	// ORDER 3
-	controlSet.getControlValues(t2,_x);
-	_model->deriv(t2,_x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t2,_yv,_dy);
+	for(i=0;i<size;i++) {
 		_k3[i] =  dt*_dy[i];
 		_yv[i] = y[i] + C42*_k1[i] + C43*_k2[i] + C44*_k3[i];
 	}
 	t2 = t + dt*C41;
 
 	// ORDER 4
-	controlSet.getControlValues(t2,_x);
-	_model->deriv(t2,_x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t2,_yv,_dy);
+	for(i=0;i<size;i++) {
 		_k4[i] = dt*_dy[i];
 		_yv[i] = y[i] + C52*_k1[i] + C53*_k2[i] + C54*_k3[i] + C55*_k4[i];
 	}
 	t2 = t + dt;
 
 	// ORDER 5
-	controlSet.getControlValues(t2,_x);
-	_model->deriv(t2,_x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
+	_integrand->compute(t2,_yv,_dy);
+	for(i=0;i<size;i++) {
 		_k5[i] = dt*_dy[i];
 		_yv[i] = y[i] + C62*_k1[i] + C63*_k2[i] + C64*_k3[i] + C65*_k4[i] + C66*_k5[i];
 	}
 
 	// UPDATE STATES
-	for(i=0;i<_ny;i++) {
-		y[i] = y[i] + CY1*_k1[i] + CY2*_k3[i] + CY3*_k4[i] + CY4*_k5[i];
-
-		// CHECK FOR NAN
-		if(!((y[i]<0.0)||(y[i]>=0.0))) {
-			printf("rdRKF_fixed.step: NAN in state %d\n",i);
-			return(rdRKF_NAN);
-		}
-	}
-
-	return(rdRKF_NORMAL);
-}
-
-//_____________________________________________________________________________
-/**
- * Step forward in time by dt.  This method does not estimate the integration
- * error and does not return any kind of integration status other than
- * rdRKF_NORMAL or rdRKF_NAN.
- *
- * @param dt Requested integration step.
- * @param t Current time.
- * @param x Controls.
- * @param y States.
- * @return rdRKF_NORMAL on a successful step, or rdRKF_NAN if not-a-number is
- * encountered in any of the states.
- */
-int rdRKF::
-stepFixed(double dt,double t,double *x,double *y)
-{
-	int i;
-	double t2;
-
-	// ORDER 1
-	_model->deriv(t,x,y,_dy);
-	for(i=0;i<_ny;i++) {
-		_k1[i] = dt*_dy[i];
-		_yv[i] = y[i] + _k1[i]*C22;
-	}
-	t2 = t + dt*C21;
-
-	// ORDER 2
-	_model->deriv(t2,x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
-		_k2[i] = dt*_dy[i];
-		_yv[i] = y[i] + C32*_k1[i] + C33*_k2[i];
-	}
-	t2 = t + dt*C31;
-
-	// ORDER 3
-	_model->deriv(t2,x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
-		_k3[i] =  dt*_dy[i];
-		_yv[i] = y[i] + C42*_k1[i] + C43*_k2[i] + C44*_k3[i];
-	}
-	t2 = t + dt*C41;
-
-	// ORDER 4
-	_model->deriv(t2,x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
-		_k4[i] = dt*_dy[i];
-		_yv[i] = y[i] + C52*_k1[i] + C53*_k2[i] + C54*_k3[i] + C55*_k4[i];
-	}
-	t2 = t + dt;
-
-	// ORDER 5
-	_model->deriv(t2,x,_yv,_dy);
-	for(i=0;i<_ny;i++) {
-		_k5[i] = dt*_dy[i];
-		_yv[i] = y[i] + C62*_k1[i] + C63*_k2[i] + C64*_k3[i] + C65*_k4[i] + C66*_k5[i];
-	}
-
-	// UPDATE STATES
-	for(i=0;i<_ny;i++) {
+	for(i=0;i<size;i++) {
 		y[i] = y[i] + CY1*_k1[i] + CY2*_k3[i] + CY3*_k4[i] + CY4*_k5[i];
 
 		// CHECK FOR NAN

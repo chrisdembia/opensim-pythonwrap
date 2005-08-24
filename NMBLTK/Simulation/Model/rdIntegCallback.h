@@ -42,7 +42,7 @@ class RDSIMULATION_API rdIntegCallback : public rdCallback
 //=============================================================================
 // DATA
 //=============================================================================
-private:
+protected:
 	/** Step interval. */
 	rdPropertyInt _stepIntervalProp;
 	int &_stepInterval;

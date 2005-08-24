@@ -3,7 +3,6 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="rdSimulation"
-	ProjectGUID="{D106376D-F7EB-4226-AFA2-FB4D7E475F40}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -150,9 +149,6 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
-			<File
-				RelativePath="..\Integrator\Integrand.cpp">
-			</File>
 			<File
 				RelativePath="..\Model\rdActuator.cpp">
 				<FileConfiguration
@@ -654,6 +650,46 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\Model\rdModelIntegrand.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\Model\rdModelIntegrandForActuators.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\Model\rdMuscle.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -692,9 +728,6 @@
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\Simtk\rdSimtkAnimationCallback.cpp">
 			</File>
 			<File
 				RelativePath="..\rdSimulationDLL.cpp">
@@ -757,10 +790,24 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Model\suMarker.cpp">
-			</File>
-			<File
-				RelativePath="..\Model\suMarkerSet.cpp">
+				RelativePath="..\Model\VectorFunctionForActuators.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;RDSIMULATION_EXPORTS;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -845,6 +892,12 @@
 				RelativePath="..\Model\rdModel.h">
 			</File>
 			<File
+				RelativePath="..\Model\rdModelIntegrand.h">
+			</File>
+			<File
+				RelativePath="..\Model\rdModelIntegrandForactuators.h">
+			</File>
+			<File
 				RelativePath="..\Model\rdMuscle.h">
 			</File>
 			<File
@@ -858,6 +911,9 @@
 			</File>
 			<File
 				RelativePath="..\Model\rdTorque.h">
+			</File>
+			<File
+				RelativePath="..\Model\VectorFunctionForActuators.h">
 			</File>
 		</Filter>
 		<Filter

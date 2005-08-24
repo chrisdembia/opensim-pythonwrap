@@ -33,9 +33,9 @@ suDecompInteg::~suDecompInteg()
 {
 	// DELETE STATE AND CONTROLS STORAGE OBJECTS
 	rdStorage *store;
-	store = _manager->getIntegrator()->getStateStorage();
+	store = _manager->getIntegrand()->getStateStorage();
 	if(store!=NULL) { delete store;  store=NULL; }
-	store = _manager->getIntegrator()->getControlStorage();
+	store = _manager->getIntegrand()->getControlStorage();
 	if(store!=NULL) { delete store;  store=NULL; }
 
 	// DELETE MEMBER VARIABLES
@@ -138,12 +138,10 @@ void suDecompInteg::
 constructManager()
 {
 	// NEW MANAGER WITH COPY OF NOMINAL CONTROLS
-	_manager = new rdManager(_model);
-	rdControlSet *x = _managerNom->getControlSet();
-	rdControlSet *xNew = new rdControlSet(*x);
-	x = _manager->getControlSet();
-	_manager->setControlSet(xNew);
-	if(x!=NULL) { delete x;  x=NULL; }
+	rdModelIntegrand *integrand = new rdModelIntegrand(_model);
+	_manager = new rdManager(integrand);
+	rdControlSet *x = _managerNom->getIntegrand()->getControlSet();
+	integrand->setControlSet(*x);
 
 	// REPLICATE INTEGRATOR SETTINGS
 	rdIntegRKF *integNom = _managerNom->getIntegrator();
@@ -162,7 +160,7 @@ constructContactAnalysis()
 {
 	// CONTACT
 	_contact = new suContact(_model);
-	_contact->setStorageInterval(_contactNom->getStorageInterval());
+	_contact->setStepInterval(_contactNom->getStepInterval());
 	_contact->setOn(true);
 	_model->addAnalysis(_contact);
 }
@@ -448,7 +446,7 @@ compute(double *aXPrev,double *aYPrev,
 	double tReal = aT * _model->getTimeNormConstant();
 
 	// GET CONTACT POINTS
-	int np = _managerNom->getModel()->getNP();
+	int np = _managerNom->getIntegrand()->getModel()->getNP();
 	rdStorage *pointsNom = _contactNom->getPointsStorage();
 
 	// DESIRED INITIAL TIME
@@ -476,7 +474,7 @@ compute(double *aXPrev,double *aYPrev,
 	_manager->setFinalTime(tf/tNormConst);
 
 	// INITIAL STATES
-	rdStorage *yStore = _managerNom->getIntegrator()->getStateStorage();
+	rdStorage *yStore = _managerNom->getIntegrand()->getStateStorage();
 	yStore->getDataAtTime(ti,_model->getNY(),_y);
 	_model->setInitialStates(_y);
 

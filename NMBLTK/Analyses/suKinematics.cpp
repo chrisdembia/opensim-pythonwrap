@@ -12,6 +12,7 @@
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdDerivCallbackSet.h>
 #include "suKinematics.h"
 
 using namespace std;
@@ -377,12 +378,27 @@ record(double aT,double *aX,double *aY)
 	int ny = _model->getNY();
 
 	// COMPUTE DERIVATIVES
-	_model->deriv(aT,aX,aY,_dy);
+	// ----------------------------------
+	// SET
+	_model->set(aT,aX,aY);
+	_model->getDerivCallbackSet()->set(aT,aX,aY);
 
-	// UN-NORMALIZE
-	int i;
-	double tNormConst = 1.0 / _model->getTimeNormConstant();
-	for(i=0;i<ny;i++) _dy[i] *= tNormConst;
+	// ACTUATION
+	_model->computeActuation();
+	_model->getDerivCallbackSet()->computeActuation(aT,aX,aY);
+	_model->applyActuatorForces();
+	_model->getDerivCallbackSet()->applyActuation(aT,aX,aY);
+
+	// CONTACT
+	_model->computeContact();
+	_model->getDerivCallbackSet()->computeContact(aT,aX,aY);
+	_model->applyContactForces();
+	_model->getDerivCallbackSet()->applyContact(aT,aX,aY);
+
+	// ACCELERATIONS
+	_model->computeAccelerations(_dy,&_dy[nq]);
+	// ----------------------------------
+
 
 	// CONVERT RESULTS TO ANGLES
 	memcpy(_y,aY,ny*sizeof(double));

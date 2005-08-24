@@ -292,11 +292,19 @@ SOURCE=..\rdXMLNode.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\RootSolver.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\suScale.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\suScaleSet.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\VectorFunctionUncoupledNxN.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -504,11 +512,19 @@ SOURCE=..\rdXMLNode.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\RootSolver.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\suScale.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\suScaleSet.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\VectorFunctionUncoupledNxN.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

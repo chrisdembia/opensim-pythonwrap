@@ -104,7 +104,7 @@ public:
 	// EVALUATION
 	//--------------------------------------------------------------------------
 	virtual void updateBoundingBox();
-	virtual const rdArray<double>& evaluate(double aX);
+	virtual void evaluate(const double *aX,double *rY);
 	//virtual const rdArray<double>&
 	//	evaluate(double aX,int aDerivOrder,const rdArray<int> &aDerivWRT);
 

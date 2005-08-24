@@ -88,6 +88,10 @@ private:
 	void copyData(const rdControlLinear &aControl);
 	double extrapolateBefore(double aT) const;
 	double extrapolateAfter(double aT) const;
+	double extrapolateMinBefore(double aT) const;
+	double extrapolateMinAfter(double aT) const;
+	double extrapolateMaxBefore(double aT) const;
+	double extrapolateMaxAfter(double aT) const;
 
 	//--------------------------------------------------------------------------
 	// OPERATORS
@@ -123,6 +127,11 @@ public:
 	// CONTROL VALUE
 	virtual void setControlValue(double aT,double aX);
 	virtual double getControlValue(double aT);
+	virtual double getControlValueMin(double aT=0.0);
+	virtual void setControlValueMin(double aT,double aX);
+	virtual double getControlValueMax(double aT=0.0);
+	virtual void setControlValueMax(double aT,double aX);
+
 	// NODE ARRAY
 #ifndef SWIG
 	const rdArrayPtrs<rdControlLinearNode>& getNodeArray() const;

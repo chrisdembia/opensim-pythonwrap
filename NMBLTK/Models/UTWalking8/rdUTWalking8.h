@@ -262,18 +262,11 @@ public:
 	void setAllowApplyContactForces(bool aTrueFalse);
 	bool getAllowApplyContactForces() const;
 
-
 	//--------------------------------------------------------------------------
 	// DERIVATIVES
 	//--------------------------------------------------------------------------
-	virtual int deriv(double t,double *xt,double *y,double *dy);
-	virtual int deriv(double t,double *xt,double *y,double *dqdt,double *dudt);
-
-	//--------------------------------------------------------------------------
-	// PERFORMANCE
-	//--------------------------------------------------------------------------
-	//int
-	//	computePerformance(double t,double *x,double *y,double *p,void *cd=NULL);
+	virtual void
+		computeAuxiliaryDerivatives(double *dydt);
 
 	//--------------------------------------------------------------------------
 	// UTILITY
@@ -286,20 +279,6 @@ public:
 	int draw(double t,double *x,double *y);
 	int draw(double t,double *x,double *y,double *sfrc,double *spnt);
 	void setMuson(int aMus,int aOnOff);
-
-	//--------------------------------------------------------------------------
-	// IO
-	//--------------------------------------------------------------------------
-	//virtual void store(double t,double *x,double *y);
-	//virtual void printStorage(const char *aPath=NULL,double aDT=-1.0);
-
-	//--------------------------------------------------------------------------
-	// CALLBACKS
-	//--------------------------------------------------------------------------
-	//virtual void
-	//	integStepCallback(double *xPrev,double *yPrev,
-	//	 int i,double dt,double t,double *x,double *y,
-	//	 void *cd=NULL);
 
 //=============================================================================
 };	// END of class rdUTWalking8

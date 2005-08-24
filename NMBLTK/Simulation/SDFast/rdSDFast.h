@@ -243,13 +243,13 @@ public:
 		getNetAppliedGeneralizedForce(int aU) const;
 	virtual void
 		computeGeneralizedForces(double aDUDT[],double rF[]) const;
+	virtual void
+		computeReactions(double rForces[][3],double rTorques[][3]) const;
 
 
 	//--------------------------------------------------------------------------
 	// EQUATIONS OF MOTION
 	//--------------------------------------------------------------------------
-	virtual int
-		computeAccelerations(double *dqdt,double *dudt);
 	virtual void
 		formMassMatrix(double *rI);
 	virtual void
@@ -263,6 +263,14 @@ public:
 	virtual void
 		formJacobianEuler(int aBody,double *rJE,
 		int aRefBody=-1) const;
+
+
+	//--------------------------------------------------------------------------
+	// DERIVATIVES
+	//--------------------------------------------------------------------------
+	virtual int
+		computeAccelerations(double *dqdt,double *dudt);
+
 
 	//--------------------------------------------------------------------------
 	// UTILITY

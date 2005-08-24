@@ -42,6 +42,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "suPipeline40Workflow", "..\
 		{BD627F1C-5FCF-4685-9DA6-93A7A06C33D4} = {BD627F1C-5FCF-4685-9DA6-93A7A06C33D4}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rdToolsTest", "..\..\Tools\Test\rdToolsTest\rdToolsTest.vcproj", "{3F825020-C52D-40D1-84BB-4BF1786E7511}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0592BB53-3572-4383-A659-064D274CE70A} = {0592BB53-3572-4383-A659-064D274CE70A}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -84,6 +89,10 @@ Global
 		{8609B262-E810-48EA-834C-ADF663BB1933}.Debug.Build.0 = Debug|Win32
 		{8609B262-E810-48EA-834C-ADF663BB1933}.Release.ActiveCfg = Release|Win32
 		{8609B262-E810-48EA-834C-ADF663BB1933}.Release.Build.0 = Release|Win32
+		{3F825020-C52D-40D1-84BB-4BF1786E7511}.Debug.ActiveCfg = Debug|Win32
+		{3F825020-C52D-40D1-84BB-4BF1786E7511}.Debug.Build.0 = Debug|Win32
+		{3F825020-C52D-40D1-84BB-4BF1786E7511}.Release.ActiveCfg = Release|Win32
+		{3F825020-C52D-40D1-84BB-4BF1786E7511}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

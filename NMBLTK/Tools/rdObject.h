@@ -9,7 +9,11 @@
 #ifndef __rdObject_h__
 #define __rdObject_h__
 
-#pragma warning( disable : 4786)
+#ifndef UNIX
+#pragma warning( disable : 4251 )
+#pragma warning( disable : 4786 )
+#pragma warning( disable : 4660 )
+#endif
 
 // INCLUDES
 #include <assert.h>
@@ -23,9 +27,6 @@
 
 
 // DISABLES MULTIPLE INSTANTIATION WARNINGS
-#ifndef UNIX
-#pragma warning( disable : 4660 )
-#endif
 
 
 // EXPORT LINE FOR MICROSOFT VISUAL C++

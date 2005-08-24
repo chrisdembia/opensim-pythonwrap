@@ -172,8 +172,29 @@ compute(double *aXPrev,double *aYPrev,int step,double dt,double t,
 	model->getGravity(g);
 
 	// COMPUTE THE NOMINAL SPRING ACCELERATIONS
-	double dqdt[rdUTWalking8_NQ],dudt[rdUTWalking8_NU],sacc[rdUTWalking8_NS][3],saccOpt[rdUTWalking8_NS][3];
-	model->deriv(t,xt,y,dqdt,dudt);
+	double dqdt[rdUTWalking8_NQ],dudt[rdUTWalking8_NU];
+	double sacc[rdUTWalking8_NS][3],saccOpt[rdUTWalking8_NS][3];
+	// ----------------------------------
+	// SET
+	_model->set(t,xt,y);
+	_model->getDerivCallbackSet()->set(t,xt,y);
+
+	// ACTUATION
+	_model->computeActuation();
+	_model->getDerivCallbackSet()->computeActuation(t,xt,y);
+	_model->applyActuatorForces();
+	_model->getDerivCallbackSet()->applyActuation(t,xt,y);
+
+	// CONTACT
+	_model->computeContact();
+	_model->getDerivCallbackSet()->computeContact(t,xt,y);
+	_model->applyContactForces();
+	_model->getDerivCallbackSet()->applyContact(t,xt,y);
+
+	// ACCELERATIONS
+	int nq = _model->getNQ();
+	_model->computeAccelerations(dqdt,dudt);
+	// ----------------------------------
 	for(i=0;i<np;i++) {
 		model->getAcceleration(model->getContactBodyB(i),getContactPoint(i),
 			sacc[i]);

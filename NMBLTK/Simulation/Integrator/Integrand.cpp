@@ -9,8 +9,9 @@
 
 using namespace std;
 
+
 //=============================================================================
-// REQUIRED METHODS
+// SIZE
 //=============================================================================
 //____________________________________________________________________________
 /**
@@ -31,6 +32,78 @@ getSize() const
 	return(0);
 }
 
+
+
+//=============================================================================
+// HOOKS
+//=============================================================================
+//____________________________________________________________________________
+/**
+ * Initialize the Integrand at the beginning of an integration.
+ *
+ * @param ti Initial time of the integration.
+ * @param tf Final time of the simulation.
+ * @param y Initial values of the states.
+ * @return Status of the initialization.
+ * @throws rdException All methods in this base class should be over-ridden.
+ */
+Integrand::Status Integrand::
+initialize(double ti,double tf,double y[])
+{
+	string msg = "Integrand.initialize: ERR- this method should ";
+	msg += "be over-ridden by derived classes.\n";
+
+	throw rdException(msg,__FILE__,__LINE__);
+
+	return(ERR);
+}
+//____________________________________________________________________________
+/**
+ * Perform any desired operations after the last successful integration step.
+ *
+ * @param step Step number.
+ * @param dt Time delta for the next integration step.
+ * @param t Current time of the integration.
+ * @param y Current values of the states.
+ * @return Status of the processing.
+ * @throws rdException All methods in this base class should be over-ridden.
+ */
+Integrand::Status Integrand::
+processAfterStep(int step,double dt,double t,double y[])
+{
+	string msg = "Integrand.processAfter Step: ERR- this method should ";
+	msg += "be over-ridden by derived classes.\n";
+
+	throw rdException(msg,__FILE__,__LINE__);
+
+	return(ERR);
+}
+//____________________________________________________________________________
+/**
+ * Finalize the integrand after an integration has completed (e.g., clean up).
+ *
+ * @param step Step number.
+ * @param t Time at which the integration completed.
+ * @param y Current values of the states.
+ * @return Status of the processing.
+ * @throws rdException All methods in this base class should be over-ridden.
+ */
+Integrand::Status Integrand::
+finalize(int step,double t,double y[])
+{
+	string msg = "Integrand.finalize: ERR- this method should ";
+	msg += "be over-ridden by derived classes.\n";
+
+	throw rdException(msg,__FILE__,__LINE__);
+
+	return(ERR);
+}
+
+
+
+//=============================================================================
+// COMPUTATION
+//=============================================================================
 //____________________________________________________________________________
 /**
  * Compute the integrand. The integrand is the time derivative of

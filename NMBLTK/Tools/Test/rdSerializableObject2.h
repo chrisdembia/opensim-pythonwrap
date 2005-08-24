@@ -9,10 +9,10 @@
 #ifndef __rdSerializableObject2_h__
 #define __rdSerializableObject2_h__
 
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdObject.h>
 
-// INCLUDES
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdObject.h>
+//extern template class RDTOOLS_API rdArray<double>;
 
 //=============================================================================
 //=============================================================================
@@ -48,7 +48,6 @@ private:
 	//--------------------------------------------------------------------------
 public:
 	rdSerializableObject2& operator=(const rdSerializableObject2 &aObject);
-
 
 //=============================================================================
 };	// END of class rdSerializableObject2

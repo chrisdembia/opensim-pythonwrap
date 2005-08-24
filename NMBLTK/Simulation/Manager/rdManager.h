@@ -13,11 +13,9 @@
 // INCLUDES
 #include <NMBLTK/Tools/rdObject.h>
 #include <NMBLTK/Simulation/rdSimulationDLL.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
-#include <NMBLTK/Simulation/Control/rdControlSet.h>
+#include <NMBLTK/Simulation/Model/rdModelIntegrand.h>
 #include <NMBLTK/Simulation/Integrator/rdIntegRKF.h>
 
 
@@ -37,19 +35,14 @@ private:
 	std::string _sessionName;
 	/** Model for which the simulation is performed. */
 	rdModel *_model;
-	/** Number of states. */
-	int _ny;
-	/** Array of states. */
-	double *_y;
-	/** Number of pseudostates. */
+	/** Array of integrated states. */
+	rdArray<double> _y;
+	/** Number of model pseudostates. */
 	int _nyp;
-	/** Array of pseudostates. */
-	double *_yp;
-	/** Control set for the simulation. */
-	rdControlSet *_controlSet;
-	/** Default control set for the simulation.  This control set is used
-	in the event the user specified control set is invalid for some reason. */
-	rdControlSet *_defaultControlSet;
+	/** Array of model pseudostates. */
+	rdArray<double> _yp;
+	/** Integrand for the model. */
+	rdModelIntegrand *_integrand;
 	/** Integrator. */
 	rdIntegRKF *_integ;
 	/** Initial time of the simulation. */
@@ -67,7 +60,7 @@ private:
 //=============================================================================
 public:
 	virtual ~rdManager();
-	rdManager(rdModel *model,rdControlSet *aControlSet=NULL);
+	rdManager(rdModelIntegrand *aIntegrand);
 	/** A Constructor that does not take a model or controlset */
 	rdManager();	
 
@@ -84,11 +77,12 @@ public:
 	void setSessionName(const std::string &name);
 	const std::string& getSessionName() const;
 	const std::string& toString() const;
-	void setModel(rdModel *model);
-	rdModel* getModel() const;
-	rdControlSet* setControlSet(rdControlSet *aControlSet);
-	rdControlSet* getControlSet() const;
+	// Integrand
+	void setIntegrand(rdModelIntegrand *aIntegrand);
+	rdModelIntegrand* getIntegrand() const;
+	// Integrator
 	rdIntegRKF* getIntegrator() const;
+	// Initial and final times
 	void setInitialTime(double aTI);
 	double getInitialTime() const;
 	void setFinalTime(double aTF);
@@ -104,15 +98,6 @@ public:
 	bool integrate();
 	bool integrate(int startIndex);
 	bool integrate(double startTime);
-
-	//--------------------------------------------------------------------------
-	// UTILITY
-	//--------------------------------------------------------------------------
-	rdControlSet* constructControlSet();
-
-	//--------------------------------------------------------------------------
-	// PRINT
-	//--------------------------------------------------------------------------
 
 
 //=============================================================================

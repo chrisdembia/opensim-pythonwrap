@@ -9,6 +9,7 @@
 #include "rdManager.h"
 #include <NMBLTK/Simulation/Control/rdControlConstant.h>
 #include <NMBLTK/Simulation/Control/rdControlLinear.h>
+#include <NMBLTK/Simulation/Model/rdModelIntegrand.h>
 
 
 using namespace std;
@@ -27,12 +28,7 @@ std::string rdManager::_displayName = "Simulator";
 rdManager::~rdManager()
 {
 	// DESTRUCTORS
-	if(_defaultControlSet!=NULL) {
-		delete _defaultControlSet; _defaultControlSet=NULL;
-	}
 	if(_integ!=NULL) { delete _integ; _integ=NULL; }
-	if(_y!=NULL) { delete []_y; _y=NULL; }
-	if(_yp!=NULL) { delete []_yp; _yp=NULL; }
 }
 
 
@@ -43,15 +39,17 @@ rdManager::~rdManager()
 /**
  * Construct a simulation manager.
  *
- * @param aModel Model used in the simulation.
- * @param aControlSet Control set used in the simulation.
+ * @param aIntegrand Integrand for the simulation.
  */
-rdManager::rdManager(rdModel *aModel,rdControlSet *aControlSet)
+rdManager::rdManager(rdModelIntegrand *aIntegrand) :
+	_y(0.0),
+	_yp(0.0)
 {
 	setNull();
 
-	// SET STATES
-	_model = aModel;
+	// INTEGRAND AND MODEL
+	_integrand = aIntegrand;
+	_model = _integrand->getModel();
 
 	//INTEGRATOR
 	constructIntegrator();
@@ -60,10 +58,6 @@ rdManager::rdManager(rdModel *aModel,rdControlSet *aControlSet)
 	if (_model==NULL)
 		return;
 
-	// CONTROLS
-	_defaultControlSet = constructControlSet();
-	setControlSet(aControlSet);
-
 	// STATES
 	constructStates();
 
@@ -71,19 +65,18 @@ rdManager::rdManager(rdModel *aModel,rdControlSet *aControlSet)
 	constructStorage();
 
 	// SESSION NAME
-	setSessionName(_controlSet->getName());
+	setSessionName(_model->getName());
 }
 //_____________________________________________________________________________
 /**
  * Construct a simulation manager.
  *
  */
-rdManager::rdManager()
+rdManager::rdManager() :
+	_y(0.0),
+	_yp(0.0)
 {
 	setNull();
-
-	_model = NULL;
-
 }
 
 //=============================================================================
@@ -98,12 +91,7 @@ setNull()
 {
 	_sessionName = "";
 	_model = NULL;
-	_ny = 0;
-	_y = NULL;
-	_nyp = 0;
-	_yp = NULL;
-	_controlSet = NULL;
-	_defaultControlSet = NULL;
+	_integrand = NULL;
 	_integ = NULL;
 	_ti = 0.0;
 	_tf = 1.0;
@@ -116,9 +104,8 @@ setNull()
 bool rdManager::
 constructStates()
 {
-	_ny = _model->getNY();        if(_ny>0)  _y = new double[_ny];
-	_nyp = _model->getNYP();      if(_nyp>0) _yp = new double[_nyp];
-
+	_y.setSize(_integrand->getSize());
+	_yp.setSize(_model->getNYP());
 	return(true);
 }
 //_____________________________________________________________________________
@@ -128,9 +115,7 @@ constructStates()
 bool rdManager::
 constructIntegrator()
 {
-
-	// CONSTRUCT THE INTEGRATOR
-	_integ = new rdIntegRKF(_model,1.0e-8);
+	_integ = new rdIntegRKF(_integrand,1.0e-8);
 
 	return(true);
 }
@@ -154,7 +139,7 @@ constructStorage()
 		columnLabels += _model->getControlName(i);
 	}
 	store->setColumnLabels(columnLabels.c_str());
-	_integ->setControlStorage(store);
+	_integrand->setControlStorage(store);
 
 	// STATES
 	int ny = _model->getNY();
@@ -165,7 +150,7 @@ constructStorage()
 		columnLabels += _model->getStateName(i);
 	}
 	store->setColumnLabels(columnLabels.c_str());
-	_integ->setStateStorage(store);
+	_integrand->setStateStorage(store);
 
 	// PSEUDO-STATES
 	int nyp = _model->getNYP();
@@ -176,9 +161,8 @@ constructStorage()
 		columnLabels += _model->getPseudoStateName(i);
 	}
 	store->setColumnLabels(columnLabels.c_str());
-	_integ->setPseudoStateStorage(store);
+	_integrand->setPseudoStateStorage(store);
 
-	
 	return(true);
 }
 
@@ -202,17 +186,17 @@ setSessionName(const string &aSessionName)
 	// STORAGE NAMES
 	string name;
 	rdStorage *store;
-	store = _integ->getControlStorage();
+	store = _integrand->getControlStorage();
 	if(store!=NULL) {
 		name = _sessionName + "_controls";
 		store->setName(name);
 	}
-	store = _integ->getStateStorage();
+	store = _integrand->getStateStorage();
 	if(store!=NULL) {
 		name = _sessionName + "_states";
 		store->setName(name);
 	}
-	store = _integ->getPseudoStateStorage();
+	store = _integrand->getPseudoStateStorage();
 	if(store!=NULL) {
 		name = _sessionName + "_pseudo";
 		store->setName(name);
@@ -240,39 +224,23 @@ toString() const
 }
 
 //-----------------------------------------------------------------------------
-// KEY MEMBER CLASSES
+// INTEGRAND
 //-----------------------------------------------------------------------------
 //_____________________________________________________________________________
 /**
- * Get the model.
- */
-rdModel* rdManager::
-getModel() const
-{
-	return(_model);
-}
-//_____________________________________________________________________________
-/**
- * Sets the model and initializes other entities that depend on it
- * In particular, the integrator and the controlSet.
+ * Sets the model integrand and initializes other entities that depend on it
  */
 void rdManager::
-setModel(rdModel *model)
+setIntegrand(rdModelIntegrand *aIntegrand)
 {
-	if (_model){
+	if(_integrand!=NULL){
 		// May need to issue a warning here that model was already set to avoid a leak.
 	}
-	_model = model;
+	_integrand = aIntegrand;
+	_model = _integrand->getModel();
 
 	//INTEGRATOR needs model, we'll construct it when model is set
 	constructIntegrator();
-
-	// CONTROLS
-	_defaultControlSet = constructControlSet();
-
-	if(_controlSet==NULL){
-		setControlSet(_defaultControlSet);
-	}
 
 	// STATES
 	constructStates();
@@ -281,63 +249,21 @@ setModel(rdModel *model)
 	constructStorage();
 
 	// SESSION NAME
-	setSessionName(_controlSet->getName());
-}
-//-----------------------------------------------------------------------------
-// CONTROLS
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set a control set for use during a dynamic simulation.
- * Note that the simulation manager does not delete the control set; the
- * caller is responsible for the memory management of the control set
- * object.  For this reason, a pointer to the previous user-specified
- * control set is returned so that the caller can delete the previous
- * user-specified control set if appropriate.
- *
- * @param aControlSet New control set for the simulation.
- * @return Previous user-specified control set; NULL is there was
- * no user-specified control set.
- */
-rdControlSet* rdManager::
-setControlSet(rdControlSet *aControlSet)
-{
-	// PREV
-	rdControlSet *prev = _controlSet;
-
-	// SET
-	if(aControlSet==NULL) {
-		_controlSet = _defaultControlSet;
-	} else {
-		_controlSet = aControlSet;
-	}
-
-	// CHECK FOR THE CORRECT NUMBER OF CONTROLS
-	int nx = _model->getNX();
-	int n = _controlSet->getSize();
-	if(n!=nx) {
-		printf("rdManager.constructControls: ERROR- incompatible number ");
-		printf("of controls: model=%d file=%d!\n",nx,n);
-		printf("Using default controls...\n");
-		_controlSet = _defaultControlSet;
-	}
-
-	if(prev==_defaultControlSet) return(NULL);
-	return(prev);
+	setSessionName(_model->getName());
 }
 //_____________________________________________________________________________
 /**
- * Get the control set.
- *
- * @return Current control set.  NULL is returned if a user-specified
- * control set is not currently set.
+ * Get the integrand.
  */
-rdControlSet* rdManager::
-getControlSet() const
+rdModelIntegrand* rdManager::
+getIntegrand() const
 {
-	if(_controlSet==_defaultControlSet) return(NULL);
-	return(_controlSet);
+	return(_integrand);
 }
+
+//-----------------------------------------------------------------------------
+// INTEGRATOR
+//-----------------------------------------------------------------------------
 //_____________________________________________________________________________
 /**
  * Get the integrator.
@@ -438,9 +364,9 @@ getFirstDT() const
 bool rdManager::
 initializeStates()
 {
-	_model->getInitialStates(_y);
-	_model->getInitialPseudoStates(_yp);
-	_model->setPseudoStates(_yp);
+	_integrand->getInitialStates(&_y[0]);
+	_model->getInitialPseudoStates(&_yp[0]);
+	_model->setPseudoStates(&_yp[0]);
 	return(true);
 }
 //_____________________________________________________________________________
@@ -448,15 +374,17 @@ initializeStates()
  * Initialize the states for integration.  This version sets the states
  * to the specified states and pseudostates.
  *
- * @param aY Specified states.
- * @param aYP Specified pseudostates.
+ * @param aY Specified integrated states.
+ * @param aYP Specified model pseudostates.
  * @return true when successful, false otherwise.
  */
 bool rdManager::
 initializeStates(double *aY,double *aYP)
 {
 	if(aY==NULL) return(false);
-	for(int i=0;i<_ny;i++) _y[i] = aY[i];
+
+	int size = _integrand->getSize();
+	for(int i=0;i<size;i++) _y[i] = aY[i];
 	if(aYP!=NULL) _model->setPseudoStates(aYP);
 	return(true);
 }
@@ -489,9 +417,9 @@ integrate()
 	// copy(_y)
 
 	// GET STORAGE
-	rdStorage *controlStorage = _integ->getControlStorage();
-	rdStorage *stateStorage = _integ->getStateStorage();
-	rdStorage *pseudoStorage = _integ->getPseudoStateStorage();
+	rdStorage *controlStorage = _integrand->getControlStorage();
+	rdStorage *stateStorage = _integrand->getStateStorage();
+	rdStorage *pseudoStorage = _integrand->getPseudoStateStorage();
 
 	// RESET STORAGE
 	if(controlStorage!=NULL) controlStorage->reset();
@@ -502,7 +430,7 @@ integrate()
 	initializeStates();
 
 	// INTEGRATE
-	bool submitted = _integ->integrate(_ti,_tf,*_controlSet,_y,_firstDT);
+	bool submitted = _integ->integrate(_ti,_tf,&_y[0],_firstDT);
 	return(submitted);
 }
 //_____________________________________________________________________________
@@ -518,9 +446,9 @@ bool rdManager::
 integrate(int aIndex)
 {
 	// GET STORAGE
-	rdStorage *controlStorage = _integ->getControlStorage();
-	rdStorage *stateStorage = _integ->getStateStorage();
-	rdStorage *pseudoStorage = _integ->getPseudoStateStorage();
+	rdStorage *controlStorage = _integrand->getControlStorage();
+	rdStorage *stateStorage = _integrand->getStateStorage();
+	rdStorage *pseudoStorage = _integrand->getPseudoStateStorage();
 
 	// RESET CONTROLS
 	if(controlStorage!=NULL){
@@ -550,7 +478,7 @@ integrate(int aIndex)
 	}
 
 	// INTEGRATE
-	bool submitted = _integ->integrate(t,_tf,*_controlSet,_y,_firstDT);
+	bool submitted = _integ->integrate(t,_tf,&_y[0],_firstDT);
 	return(submitted);
 }
 //_____________________________________________________________________________
@@ -580,9 +508,9 @@ integrate(double aStartTime)
 	double realTime = _model->getTimeNormConstant() * aStartTime;
 
 	// GET STORAGE
-	rdStorage *controlStorage = _integ->getControlStorage();
-	rdStorage *stateStorage = _integ->getStateStorage();
-	rdStorage *pseudoStorage = _integ->getPseudoStateStorage();
+	rdStorage *controlStorage = _integrand->getControlStorage();
+	rdStorage *stateStorage = _integrand->getStateStorage();
+	rdStorage *pseudoStorage = _integrand->getPseudoStateStorage();
 
 	// RESET CONTROLS
 	if(controlStorage!=NULL){
@@ -637,34 +565,7 @@ integrate(double aStartTime)
 	}
 
 	// INTEGRATE
-	bool submitted = _integ->integrate(t,_tf,*_controlSet,_y,dt);
+	bool submitted = _integ->integrate(t,_tf,&_y[0],dt);
 
 	return(submitted);
-}
-
-
-//=============================================================================
-// UTILITY
-//=============================================================================
-//_____________________________________________________________________________
-/**
- * Construct a control set for the model.  All the controls in the set
- * are constructed as rdControlLinear controls.
- */
-rdControlSet* rdManager::
-constructControlSet()
-{
-	int nx = _model->getNX();
-	rdControlSet *controlSet = new rdControlSet();
-	controlSet->setName(_model->getName());
-
-	rdArrayPtrs<rdControlLinearNode> array;
-	array.append( new rdControlLinearNode(0.0,0.0,0.0,1.0));
-
-	for(int i=0;i<nx;i++) {
-		rdControlLinear *control = new rdControlLinear(&array,_model->getControlName(i));
-		controlSet->append(control);
-	}
-
-	return(controlSet);
 }

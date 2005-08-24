@@ -49,8 +49,6 @@ protected:
 	/** Array containing maximum allowed values of the independent variables. */
 	rdArray<double> _maxX;
 
-
-
 //=============================================================================
 // METHODS
 //=============================================================================
@@ -100,8 +98,8 @@ public:
 	//--------------------------------------------------------------------------
 	// EVALUATE
 	//--------------------------------------------------------------------------
-	virtual void updateBoundingBox()=0;
-	virtual const rdArray<double>& evaluate(double aX)=0;
+	virtual void updateBoundingBox();
+	virtual void evaluate(const double *aX,double *rY)=0;
 	//virtual const rdArray<double>&
 	//	evaluate(double aX,int aDerivOrder,const rdArray<int> &aDerivWRT)=0;
 

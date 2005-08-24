@@ -573,8 +573,7 @@ void rdForce::
 updatePointA()
 {
 	double time = _model->getTime()*_model->getTimeNormConstant();
-	if(_pAFunction !=NULL)
-		_pA = _pAFunction->evaluate(time);
+	if(_pAFunction !=NULL) _pAFunction->evaluate(&time,&_pA[0]);
 }
 //_____________________________________________________________________________
 /**
@@ -585,8 +584,7 @@ void rdForce::
 updatePointB()
 {
 	double time = _model->getTime()*_model->getTimeNormConstant();
-	if(_pBFunction !=NULL)
-	_pB = _pBFunction->evaluate(time);
+	if(_pBFunction !=NULL) _pBFunction->evaluate(&time,&_pB[0]);
 }
 
 //=============================================================================

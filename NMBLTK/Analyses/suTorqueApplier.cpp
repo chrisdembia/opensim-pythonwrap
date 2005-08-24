@@ -227,7 +227,6 @@ void suTorqueApplier::
 constructDescription()
 {
 	char descrip[1024];
-	char tmp[2048];
 
 	strcpy(descrip,"\nThis file contains the torques ");
 	strcat(descrip,"that were applied to the body segment,\n");
@@ -510,6 +509,7 @@ applyActuation(double aT,double *aX,double *aY)
 	int i;
 	double torque[3] = {0,0,0};
 	const int ground = _model->getGroundID();
+	double treal = aT*_model->getTimeNormConstant();
 
 	if(_model==NULL) {
 		printf("suTorqueApplier.applyActuation: WARN- no model.\n");
@@ -520,10 +520,7 @@ applyActuation(double aT,double *aX,double *aY)
 	if((aT>=getStartTime()) && (aT<getEndTime())){
 
 		if(_torqueFunction!=NULL) {
-			const rdArray<double> &torqueArray = _torqueFunction->evaluate(aT*_model->getTimeNormConstant());
-			for(i=0;i<3;i++){
-				torque[i] = torqueArray.get(i);
-			}
+			_torqueFunction->evaluate(&treal,torque);
 			setTorque(torque);
 		}
 

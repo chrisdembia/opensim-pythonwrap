@@ -11,6 +11,7 @@
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdDerivCallbackSet.h>
 #include "suPointKinematics.h"
 
 
@@ -478,8 +479,27 @@ setStorageCapacityIncrements(int aIncrement)
 int suPointKinematics::
 record(double aT,double *aX,double *aY)
 {
-	// COMPUTE DERIVATIVES
-	_model->deriv(aT,aX,aY,_dy);
+	// COMPUTE ACCELERATIONS
+	// ----------------------------------
+	// SET
+	_model->set(aT,aX,aY);
+	_model->getDerivCallbackSet()->set(aT,aX,aY);
+
+	// ACTUATION
+	_model->computeActuation();
+	_model->getDerivCallbackSet()->computeActuation(aT,aX,aY);
+	_model->applyActuatorForces();
+	_model->getDerivCallbackSet()->applyActuation(aT,aX,aY);
+
+	// CONTACT
+	_model->computeContact();
+	_model->getDerivCallbackSet()->computeContact(aT,aX,aY);
+	_model->applyContactForces();
+	_model->getDerivCallbackSet()->applyContact(aT,aX,aY);
+
+	// ACCELERATIONS
+	_model->computeAccelerations(_dy,&_dy[_model->getNQ()]);
+	// ----------------------------------
 
 	// VARIABLES
 	double vec[3];

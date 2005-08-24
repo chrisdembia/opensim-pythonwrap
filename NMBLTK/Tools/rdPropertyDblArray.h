@@ -9,8 +9,10 @@
 #ifndef __rdPropertyDblArray_h__
 #define __rdPropertyDblArray_h__
 
+#ifndef UNIX
+#pragma warning( disable : 4251 )
+#endif
 
-// INCLUDES
 #include "rdTools.h"
 #include <string>
 #include "rdProperty.h"

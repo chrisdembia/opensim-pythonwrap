@@ -1561,82 +1561,19 @@ promoteControlsToStates(const double aX[],double aDT)
 //=============================================================================
 //_____________________________________________________________________________
 /**
- * Compute the derivatives of the states.
- */
-int rdActuatedModel_SDFast::
-deriv(double t,double *xt,double *y,double *dy)
-{
-	// TIME, CONTROLS, STATES
-	set(t,xt,y);
-	_derivCallbackSet->set(t,xt,y);
-
-	// ACTUATION
-	computeActuation();
-	_derivCallbackSet->computeActuation(t,xt,y);
-	applyActuatorForces();
-	_derivCallbackSet->applyActuation(t,xt,y);
-
-	// CONTACT
-	computeContact();
-	_derivCallbackSet->computeContact(t,xt,y);
-	applyContactForces();
-	_derivCallbackSet->applyContact(t,xt,y);
-
-	// DERIVATIVES
-	int i;
-	int ny = rdActuatedModel_SDFast::getNY();
-	for(i=0;i<ny;i++) dy[i] = 0.0;
-	computeAccelerations(&dy[0],&dy[getNQ()]);
-	int iAct = getNQ()+getNU();
-	if(iAct<rdActuatedModel_SDFast::getNY()) {
-		_actuatorSet.computeStateDerivatives(&dy[iAct]);
-	}
-
-	// NORMALIZE
-	double tnorm = getTimeNormConstant();
-	for(i=0;i<ny;i++) dy[i] *= tnorm;
-	_derivCallbackSet->computeDerivatives(t,xt,y,dy);
-
-	return(0);
-}
-//_____________________________________________________________________________
-/**
- * Compute the derivatives of the states.
+ * Compute the derivatives of the auxiliary states.  The auxiliary states
+ * are any integrated variables that are not the coordinates or speeds.
  *
- * @bug rdDerivCallbackSet::computeDerivatives() takes dy as an argument, but
- * here there is not dy.
+ * @param dydt Array of the time derivatives of the auxiliary states.  The
+ * auxiliary state derivatives should start at the beginning of the dydt
+ * array.
  */
-int rdActuatedModel_SDFast::
-deriv(double t,double *xt,double *y,double *dqdt,double *dudt)
+void rdActuatedModel_SDFast::
+computeAuxiliaryDerivatives(double *dydt)
 {
-	// SET CONFIGURATION
-	set(t,xt,y);
-	_derivCallbackSet->set(t,xt,y);
-
-	// ACTUATION
-	computeActuation();
-	_derivCallbackSet->computeActuation(t,xt,y);
-	applyActuatorForces();
-	_derivCallbackSet->applyActuation(t,xt,y);
-
-	// CONTACT
-	computeContact();
-	_derivCallbackSet->computeContact(t,xt,y);
-	applyContactForces();
-	_derivCallbackSet->applyContact(t,xt,y);
-
-	// DERIVATIVES
-	computeAccelerations(dqdt,dudt);
-
-	// NORMALIZE
-	int i;
-	double tnorm = getTimeNormConstant();
-	for(i=0;i<getNQ();i++) dqdt[i] *= tnorm;
-	for(i=0;i<getNU();i++) dudt[i] *= tnorm;
-	//BUG? _derivCallbackSet->computeDerivatives(t,xt,y,dudt);
-
-	return(0);
+	_actuatorSet.computeStateDerivatives(dydt);
 }
+
 
 
 //=============================================================================

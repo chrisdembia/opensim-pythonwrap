@@ -9,6 +9,7 @@
 
 
 // INCLUDES
+#include "rdMath.h"
 #include "rdVectorFunction.h"
 #include "rdPropertyDbl.h"
 
@@ -40,7 +41,8 @@ rdVectorFunction::rdVectorFunction() :
  * Default constructor.
  */
 rdVectorFunction::rdVectorFunction(int aNX, int aNY) :
-	_minX(0.0), _maxX(0.0)
+	_minX(rdMath::MINUS_INFINITY),
+	_maxX(rdMath::PLUS_INFINITY)
 {
 	setNull();
 	setNX(aNX);
@@ -54,7 +56,9 @@ rdVectorFunction::rdVectorFunction(int aNX, int aNY) :
  * @param aElement XML element.
  */
 rdVectorFunction::rdVectorFunction(DOMElement *aElement) :
-	rdObject(aElement), _minX(0.0), _maxX(0.0)
+	rdObject(aElement),
+	_minX(rdMath::MINUS_INFINITY),
+	_maxX(rdMath::PLUS_INFINITY)
 {
 	setNull();
 	updateFromXMLNode();
@@ -66,7 +70,9 @@ rdVectorFunction::rdVectorFunction(DOMElement *aElement) :
  * @param aVectorFunction Function to copy.
  */
 rdVectorFunction::rdVectorFunction(const rdVectorFunction &aVectorFunction) :
-	rdObject(aVectorFunction), _minX(0.0), _maxX(0.0)
+	rdObject(aVectorFunction),
+	_minX(rdMath::MINUS_INFINITY),
+	_maxX(rdMath::PLUS_INFINITY)
 {
 	setNull();
 
@@ -192,10 +198,9 @@ setMinX(const rdArray<double> &aMinX)
 {
 	if(aMinX.getSize()!=_nX) {
 		string msg = "rdVectorFunction.setMinX: ERR- ";
-		msg += "Array size does not.match number of variables.";
+		msg += "Array size does not match number of variables.";
 		throw( rdException(msg,__FILE__,__LINE__) );
 	}
-
 	_minX = aMinX;
 }
 //_____________________________________________________________________________
@@ -283,5 +288,18 @@ double rdVectorFunction::
 getMaxX(int aXIndex) const
 {
 	return(_maxX.get(aXIndex));
+}
+
+
+//_____________________________________________________________________________
+/**
+ * Update the bounding box for the abscissae.
+ *
+ * This method should be overrided as needed by derived classes.
+ */
+void rdVectorFunction::
+updateBoundingBox()
+{
+
 }
 

@@ -87,6 +87,11 @@ public:
 	// CONTROL VALUE
 	virtual void setControlValue(double aT,double aX);
 	virtual double getControlValue(double aT);
+	virtual double getControlValueMin(double aT=0.0);
+	virtual void setControlValueMin(double aT,double aX);
+	virtual double getControlValueMax(double aT=0.0);
+	virtual void setControlValueMax(double aT,double aX);
+
 
 //=============================================================================
 };	// END of class rdControlConstant

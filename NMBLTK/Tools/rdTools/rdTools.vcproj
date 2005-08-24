@@ -928,9 +928,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\rdTransformChangeEvent.cpp">
-			</File>
-			<File
 				RelativePath="..\rdVectorFunction.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1026,7 +1023,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\suRange.cpp">
+				RelativePath="..\RootSolver.cpp">
 			</File>
 			<File
 				RelativePath="..\suScale.cpp">
@@ -1065,6 +1062,9 @@
 						Optimization="2"
 						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDTOOLS_EXPORTS;$(NoInherit)"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\VectorFunctionUncoupledNxN.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -1221,10 +1221,16 @@
 				RelativePath="..\rdXMLNode.h">
 			</File>
 			<File
+				RelativePath="..\RootSolver.h">
+			</File>
+			<File
 				RelativePath="..\suScale.h">
 			</File>
 			<File
 				RelativePath="..\suScaleSet.h">
+			</File>
+			<File
+				RelativePath="..\VectorFunctionUncoupledNxN.h">
 			</File>
 		</Filter>
 		<Filter

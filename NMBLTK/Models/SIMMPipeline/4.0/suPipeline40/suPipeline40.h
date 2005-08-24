@@ -111,7 +111,7 @@ public:
 	virtual void applyActuatorForces();
 	virtual void setActuatorForce(int aID, double aForce);
 	virtual double getActuatorForce(int aID) const;
-	//GM40 virtual double getActuatorStress(int aID) const;
+	virtual double getActuatorStress(int aID) const;
 	virtual double getActuatorSpeed(int aID) const;
 	virtual double getActuatorPower(int aID) const;
 
@@ -120,9 +120,8 @@ public:
 	void applyContactForce(int aID);
 	void applyContactForces();
 
-
 	// DERIVATIVES
-	virtual int deriv(double t,double *xt,double *y,double *dy);
+	virtual void computeAuxiliaryDerivatives(double *dydt);
 	
 //=============================================================================
 };	// END of class suPipeline40

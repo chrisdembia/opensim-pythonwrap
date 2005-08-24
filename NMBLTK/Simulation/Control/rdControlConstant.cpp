@@ -400,8 +400,7 @@ getParameterValue(int aI) const
  * Set the value of this control at time aT.
  *
  * @param aT Time at which to set the control.
- * @return Control value.  For rdControlConstant, aT is not used since the
- * control has a constant, time-independent value.
+ * @param aX Control value.
  */
 void rdControlConstant::
 setControlValue(double aT,double aX)
@@ -421,3 +420,61 @@ getControlValue(double aT)
 {
 	return(_x);
 }
+
+//-----------------------------------------------------------------------------
+// CONTROL VALUE MIN
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Set the minimum allowed value of this control at time aT.
+ *
+ * @param aT Time.
+ * @param aMin Minimum control value.
+ */
+void rdControlConstant::
+setControlValueMin(double aT,double aMin)
+{
+	setDefaultParameterMin(aMin);
+}
+//_____________________________________________________________________________
+/**
+ * Get the minimum allowed value of this control at time aT.
+ *
+ * @param aT Time.
+ * @return Minimum control value.
+ */
+double rdControlConstant::
+getControlValueMin(double aT)
+{
+	return( getDefaultParameterMin() );
+}
+
+//-----------------------------------------------------------------------------
+// CONTROL VALUE MAX
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Set the maximum allowed value of this control at time aT.
+ *
+ * @param aT Time.
+ * @param aMax Maximum control value.
+ */
+void rdControlConstant::
+setControlValueMax(double aT,double aMax)
+{
+	setDefaultParameterMax(aMax);
+}
+//_____________________________________________________________________________
+/**
+ * Get the maxium allowed value of this control at time aT.
+ *
+ * @param aT Time.
+ * @return Maximum control value.
+ */
+double rdControlConstant::
+getControlValueMax(double aT)
+{
+	return( getDefaultParameterMax() );
+}
+
+

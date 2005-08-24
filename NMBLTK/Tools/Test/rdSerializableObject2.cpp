@@ -6,16 +6,16 @@
 // Please do not read, copy, distribute, or use without permission.
 // Contact: Frank C. Anderson, fc.anderson@RealisticDynamics.com
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdPropertyBool.h>
-#include <RD/Tools/rdPropertyInt.h>
-#include <RD/Tools/rdPropertyDbl.h>
-#include <RD/Tools/rdPropertyStr.h>
-#include <RD/Tools/rdPropertyObj.h>
-#include <RD/Tools/rdPropertyIntArray.h>
-#include <RD/Tools/rdPropertyDblArray.h>
-#include <RD/Tools/rdPropertyStrArray.h>
-#include <RD/Tools/rdPropertyObjArray.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdPropertyBool.h>
+#include <NMBLTK/Tools/rdPropertyInt.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
+#include <NMBLTK/Tools/rdPropertyStr.h>
+#include <NMBLTK/Tools/rdPropertyObj.h>
+#include <NMBLTK/Tools/rdPropertyIntArray.h>
+#include <NMBLTK/Tools/rdPropertyDblArray.h>
+#include <NMBLTK/Tools/rdPropertyStrArray.h>
+#include <NMBLTK/Tools/rdPropertyObjArray.h>
 #include "rdSerializableObject2.h"
 
 

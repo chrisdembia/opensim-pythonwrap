@@ -43,7 +43,7 @@ c      use ifport
       include 'w23params.h'
 
 
-c#ifndef UNIX
+#ifndef UNIX
   	interface to subroutine sdinit
      & [C,ALIAS:'_sdinit_'] ()
 	end
@@ -85,7 +85,7 @@ c#ifndef UNIX
 	real*8 aPoint(3)
 	real*8 rVel(3)
 	end
-c#endif
+#endif
 
 
 
@@ -975,7 +975,7 @@ c===========================================================================
 
       include "w23params.h"
 
-#ifndef UNIX
+c#ifndef UNIX
 	interface to subroutine sdstate
      & [C,ALIAS:'_sdstate_'] (aT,aQ,aU)
 	real*8 aT [REFERENCE]
@@ -988,7 +988,7 @@ c===========================================================================
 	real*8 aQAng(*)
 	real*8 rQ(*)
 	end
-#endif
+c#endif
 
       integer i,n
 
@@ -1267,7 +1267,7 @@ c============================================================================
 
       include "w23params.h"
 
-#ifndef UNIX
+c#ifndef UNIX
 	interface to subroutine sdang2st
      & [C,ALIAS:'_sdang2st_'] (aQAng,rQ)
 	real*8 aQAng(*)
@@ -1279,7 +1279,7 @@ c============================================================================
 	real*8 aQ(*)
 	real*8 rQAng(*)
 	end
-#endif
+c#endif
 
       integer n
 
@@ -1464,7 +1464,7 @@ c===========================================================================
 
       include "w23params.h"
 
-#ifndef UNIX
+c#ifndef UNIX
 	interface to subroutine sdstate
      & [C,ALIAS:'_sdstate_'] (aT,aQ,aU)
 	real*8 aT [REFERENCE]
@@ -1491,7 +1491,7 @@ c===========================================================================
 	integer*4 aBody2 [REFERENCE]
 	real*8 rVec2(3)
 	end
-#endif
+c#endif
 
       integer i,n
 
@@ -1761,7 +1761,7 @@ c============================================================================
       include "w23params.h"
 
 
-#ifndef UNIX
+c#ifndef UNIX
 	interface to subroutine sdang2st
      & [C,ALIAS:'_sdang2st_'] (aQAng,rQ)
 	real*8 aQAng(*)
@@ -1773,7 +1773,7 @@ c============================================================================
 	real*8 aQ(*)
 	real*8 rQAng(*)
 	end
-#endif
+c#endif
 
 
       integer n
@@ -1963,7 +1963,7 @@ c===========================================================================
       include "w23params.h"
 
 
-#ifndef UNIX
+c#ifndef UNIX
 	interface to subroutine sdstate
      & [C,ALIAS:'_sdstate_'] (aT,aQ,aU)
 	real*8 aT [REFERENCE]
@@ -1983,7 +1983,7 @@ c===========================================================================
 	real*8 aPoint(3)
 	real*8 rVel(3)
 	end
-#endif
+c#endif
 
       integer i,n
 

@@ -6,7 +6,8 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #ifndef __suScale_h__
 #define __suScale_h__
-// INCLUDES
+
+
 #include "rdTools.h"
 #include "rdObject.h"
 #include "rdPropertyStr.h"

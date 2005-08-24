@@ -534,9 +534,11 @@ double rdGCVSpline::
 evaluate(int aDerivOrder,double aX,double aY,double aZ)
 {
 	// NOT A NUMBER
-	if(_coefficients==NULL) return(rdMath::NAN);
-	if(aX<getMinX()) return(rdMath::NAN);
-	if(aX>getMaxX()) return(rdMath::NAN);
+	// The following seemingly innocent line cost 70% of the compute time
+	// for this method.  It was constructing and destructing an rdArray<double>
+	//if(_coefficients==NULL) return(rdMath::NAN);
+	if(aX<_x[0]) return(rdMath::NAN);
+	if(aX>_x.getLast()) return(rdMath::NAN);
 	if(aDerivOrder<0) return(rdMath::NAN);
 
 	// EVALUATE
@@ -545,7 +547,7 @@ evaluate(int aDerivOrder,double aX,double aY,double aZ)
 		value = 0.0;
 	} else {
 		value = splder(aDerivOrder,_halfOrder,getSize(),aX,
-			_x.get(),_coefficients.get(),&_knotIndex,_workEval.get());
+			&_x[0],&_coefficients[0],&_knotIndex,&_workEval[0]);
 	}
 
 	return(value);

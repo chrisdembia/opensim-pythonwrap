@@ -61,6 +61,8 @@ public:
 	static int
 		FitParabola(double aX1,double aY1,double aX2,double aY2,
 		double aX3,double aY3,double *rC0,double *rC1,double *rC2);
+	static double
+		Interpolate(double aX1,double aY1,double aX2,double aY2,double aX);
 
 	//--------------------------------------------------------------------------
 	// GEOMETRY

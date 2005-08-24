@@ -19,8 +19,9 @@
 #include <string.h>
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdTools.h>
-#include <NMBLTK/Simulation/Model/rdModel.h>
 #include <NMBLTK/Tools/rdStorage.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdDerivCallbackSet.h>
 #include "suGeneralizedForces.h"
 
 //=============================================================================
@@ -268,7 +269,26 @@ record(double aT,double *aX,double *aY)
 	double grav[3];
 
 	// COMPUTE ACCELERATIONS OF GENERALIZED COORDINATES
-	_model->deriv(aT,aX,aY,_dqdt, _dudt);
+	// ----------------------------------
+	// SET
+	_model->set(aT,aX,aY);
+	_model->getDerivCallbackSet()->set(aT,aX,aY);
+
+	// ACTUATION
+	_model->computeActuation();
+	_model->getDerivCallbackSet()->computeActuation(aT,aX,aY);
+	_model->applyActuatorForces();
+	_model->getDerivCallbackSet()->applyActuation(aT,aX,aY);
+
+	// CONTACT
+	_model->computeContact();
+	_model->getDerivCallbackSet()->computeContact(aT,aX,aY);
+	_model->applyContactForces();
+	_model->getDerivCallbackSet()->applyContact(aT,aX,aY);
+
+	// ACCELERATIONS
+	_model->computeAccelerations(_dqdt,_dudt);
+	// ----------------------------------
 
 	// INITIALIZE ZERO VECTOR
 	for(int y=0; y<ny; y++){

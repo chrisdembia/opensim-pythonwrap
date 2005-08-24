@@ -40,8 +40,6 @@ public:
 	// GET AND SET
 	//--------------------------------------------------------------------------
 	virtual void initPipeline(const std::string &workpath, const std::string &paramfile);
-	// DERIVATIVES
-	virtual int deriv(double t,double *xt,double *y,double *dy);
 
 //=============================================================================
 };	// END of class suPipeline40Workflow

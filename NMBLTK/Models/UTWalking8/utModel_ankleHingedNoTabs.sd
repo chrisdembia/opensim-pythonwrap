@@ -1,0 +1,70 @@
+# File:  utModel_ankleHinged.sd
+#
+# This system description describes the UT model except that the right
+# tibia is the first body, rather than the pelvis, and articulates with 
+# the ground with a ujoint.
+
+gravity = 0.0 -9.81 0.0
+
+
+body=rtibiainb=$groundjoint=ujoint
+mass=3.51
+inertia=0.04770.00480.0484
+pin=0.8147560.57726-0.054258
+pin=-0.082186-0.0372090.995922
+
+body=rfemurinb =rtibiajoint=pin
+mass=8.806
+inertia=0.12680.03320.1337
+inbToJoint=00.18620
+bodyToJoint=0.0033-0.22940
+pin=-0.0809090.0404550.9959
+
+body=pelvisinb = rfemur joint = gimbal
+mass=11.15
+inertia=0.09730.08250.0548
+inbToJoint=0.0020.17150
+bodyToJoint=0-0.070.0935
+pin=010
+pin=100
+pin=001
+
+body=lfemurinb=pelvisjoint=gimbal
+mass=8.806
+inertia=0.12680.03320.1337
+bodyToJoint=0.0020.17150
+inbToJoint=0-0.07-0.0935
+pin=001
+pin=-100
+pin=0-10
+
+body=ltibiainb=lfemurjoint=pin
+mass=3.51
+inertia=0.04770.00480.0484
+bodyToJoint=00.18620
+inbToJoint=0.0033-0.22940
+pin=0.080909-0.0404550.9959
+
+body=lhindfootinb=ltibiajoint=ujoint
+mass=1.2
+inertia=0.0013610.0037090.003916
+bodyToJoint=-0.0359020.0513470.005539
+inbToJoint=0-0.24380
+pin=0.0821860.0372090.995922
+pin=-0.814756-0.57726-0.054258
+
+body=ltoesinb=lhindfootjoint=pin
+mass=0.205126
+inertia=0.0001170.0001790.000119
+bodyToJoint=-0.026917-0.01850.005139
+inbToJoint=0.098032-0.038-0.018078
+pin=0.46947200.882948
+
+body=hatinb=pelvisjoint=gimbal
+mass=32.413
+inertia=1.3960.71531.3552
+bodyToJoint=0-0.32020
+inbToJoint=00.1270
+pin=001
+pin=100
+pin=010

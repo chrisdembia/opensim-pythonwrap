@@ -15,9 +15,7 @@
 #include <NMBLTK/Tools/rdArray.h>
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/rdMath.h>
-#include <NMBLTK/Simulation/Model/rdModel.h>
-#include <NMBLTK/Simulation/Control/rdControlSet.h>
-#include <NMBLTK/Simulation/Control/rdController.h>
+#include "Integrand.h"
 #include "rdRKF.h"
 
 
@@ -47,8 +45,6 @@ class RDSIMULATION_API rdIntegRKF
 // DATA
 //=============================================================================
 private:
-	/** Controller for the simulation. */
-	rdController *_controller;
 	/** Status of the integration. */
 	int _status;
 	/** Number of integration steps successfully taken. */
@@ -63,14 +59,6 @@ private:
 	double _dtMin;
 	/** Maximum step size. */
 	double _dtMax;
-	/** Array of control values at the current time. */
-	double *_x;
-	/** Array of control values at the previous integration time step. */
-	double *_xPrev;
-	/** Array of state values at the previous integration time step. */
-	double *_yPrev;
-	/** Array of pseudo states. */
-	double *_yp;
 	/** Flag to indicate whether or not specified integration time steps
 	should be used.  The specified integration time steps are held in _tVec.
 	If _tVec does not contain time steps appropriate for the integration,
@@ -86,12 +74,6 @@ private:
 	rdArray<double> _tArray;
 	/** Vector of integration time step deltas. */
 	rdArray<double> _dtArray;
-	/** Storage for the controls. */
-	rdStorage *_controlStorage;
-	/** Storage for the states. */
-	rdStorage *_stateStorage;
-	/** Storage for the pseudostates. */
-	rdStorage *_pseudoStorage;
 	/** Name to be shown by the UI */
 	static std::string _displayName;
 
@@ -99,7 +81,7 @@ private:
 // METHODS
 //=============================================================================
 public:
-	rdIntegRKF(rdModel *aModel=NULL,
+	rdIntegRKF(Integrand *aIntegrand,
 		double aTol=1.0e-4,double aTolFine=-1.0);
 	virtual ~rdIntegRKF();
 private:
@@ -140,26 +122,13 @@ public:
 	int getTimeArrayStep(double aTime);
 	void printTimeArray(const char *aFileName=NULL);
 	void resetTimeAndDTArrays(double aTime);
-	// CONTROL STORAGE
-	void setControlStorage(rdStorage *aStorage);
-	rdStorage* getControlStorage();
-	// STATE STORAGE
-	void setStateStorage(rdStorage *aStorage);
-	rdStorage* getStateStorage();
-	// PSEUDO-STATE STORAGE
-	void setPseudoStateStorage(rdStorage *aStorage);
-	rdStorage* getPseudoStateStorage();
-	// CONTROLLER
-	void setController(rdController *aController);
-	rdController* getController();
 	// NAME
 	const std::string& toString() const;
 
 	//--------------------------------------------------------------------------
 	//	INTEGRATION
 	//--------------------------------------------------------------------------
-	bool integrate(double ti,double tf,rdControlSet &x,double *y,
-				double dtFirst=1.0e-3);
+	bool integrate(double ti,double tf,double *y,double dtFirst=1.0e-3);
 
 	//--------------------------------------------------------------------------
 	//	INTERRUPT

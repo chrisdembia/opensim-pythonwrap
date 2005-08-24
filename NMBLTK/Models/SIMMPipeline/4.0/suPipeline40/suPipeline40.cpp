@@ -895,11 +895,28 @@ getActuatorForce(int aID) const
 /**
  * Get the stress in a particular actuator.
  */
-//double suPipeline40::
-//getActuatorStress(int aID) const
-//{
-//
-//}
+double suPipeline40::
+getActuatorStress(int aID) const
+{
+	int na = rdActuatedModel_SDFast::getNA();
+
+	double stress;
+
+	// RD
+	if(aID<na) {
+		stress = rdActuatedModel_SDFast::getActuatorStress(aID);
+
+	// Pipeline
+	} else {
+		int iDP = aID - na;
+		double force,fom;
+		force = sdm->muscles[iDP].force;
+		fom = *sdm->muscles[iDP].max_isometric_force;
+		stress = force / fom;
+	}
+
+	return(stress);
+}
 //_____________________________________________________________________________
 /**
  * Get the speed at which a particular actuator force is applied.
@@ -1151,56 +1168,38 @@ applyContactForces()
 //=============================================================================
 //_____________________________________________________________________________
 /**
- * Compute the derivatives of the states.
+ * Compute the derivatives of the auxiliary states.  The auxiliary states
+ * are any integrated variables that are not the coordinates or speeds.
+ *
+ * @param dydt Array of the time derivatives of the auxiliary states.  The
+ * auxiliary state derivatives should start at the beginning of the dydt
+ * array.
  */
-int suPipeline40::
-deriv(double t,double *xt,double *y,double *dy)
+void suPipeline40::
+computeAuxiliaryDerivatives(double *dydt)
 {
-	int i,j;
+	_actuatorSet.computeStateDerivatives(dydt);
 
-	// TIME, CONTROLS, STATES
-	set(t,xt,y);
-	_derivCallbackSet->set(t,xt,y);
-
-	// ACTUATION
-	computeActuation();
-	_derivCallbackSet->computeActuation(t,xt,y);
-	applyActuatorForces();
-	_derivCallbackSet->applyActuation(t,xt,y);
-
-	// CONTACT
-	computeContact();
-	_derivCallbackSet->computeContact(t,xt,y);
-	applyContactForces();
-	_derivCallbackSet->applyContact(t,xt,y);
-
-	// DERIVATIVES
-	computeAccelerations(&dy[0],&dy[getNQ()]);
-	// ActuatorSet
-	int iAct = getNQ()+getNU();
-	_actuatorSet.computeStateDerivatives(&dy[iAct]);
-	// Pipeline Muscles 
+	// Pipeline Muscles
 	if(getIncludePipelineActuators()) {
 		int err=0;
 		double param[1] = { -1.0 };
+		double t = getTime();
+
+		calc_muscle_derivatives(t,_dpd->y,_dpd->dy,param,&err);
+
+		int i;
 		int nq = getNQ();
 		int nu = getNU();
 		int nqnu = nq + nu;
 		int ny = suPipeline40::getNY();
 		int nyBase = rdActuatedModel_SDFast::getNY();
-		calc_muscle_derivatives(t,_dpd->y,_dpd->dy,param,&err);
-		for(i=nyBase,j=nqnu;i<ny;i++,j++) dy[i] = _dpd->dy[j];
-	}
-	// Normalize
-	double timeNormConst = getTimeNormConstant();
-	for(i=0;i<getNY();i++) {
-		dy[i] = dy[i] * timeNormConst;
-	}
-	_derivCallbackSet->computeDerivatives(t,xt,y,dy);
+		int nAuxPipeline = ny - nyBase;
+		int nAuxBase = nyBase - nqnu;
 
-	return(0);
+		for(i=0;i<nAuxPipeline;i++) dydt[i+nAuxBase] = _dpd->dy[i+nqnu];
+	}
 }
-
 
 
 

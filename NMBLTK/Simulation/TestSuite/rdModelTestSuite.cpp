@@ -1048,35 +1048,6 @@ TestDerivatives(rdModel *aModel)
 	fprintf(_outFPT,"\n-------------------------------------\n");
 
 
-	// TIME
-	double t = aModel->getTime();
-
-	// CONTROLS
-	rdArray<double> x(0.02);  x.setSize(aModel->getNX());
-	aModel->getControls(&x[0]);
-
-
-	// DERIVATIVES
-	aModel->deriv(t,&x[0],&yi[0],dqdt,dudt);
-
-	fprintf(_outFPT,"\n\nGeneralized Coordinate    dqdt\n"
-		"-------------------------------------");
-
-	for (i=0;i<aModel->getNQ();i++)
-		fprintf(_outFPT,"\n     %4d             %12.4e",i,dqdt[i]);
-
-	fprintf(_outFPT,"\n-------------------------------------\n");
-
-	fprintf(_outFPT,"\n\nGeneralized Speed    dudt\n"
-		"-------------------------------------");
-
-	for (i=0;i<aModel->getNU();i++)
-		fprintf(_outFPT,"\n   %4d          %12.4e",i,dudt[i]);
-
-	fprintf(_outFPT,"\n-------------------------------------\n");
-
-
-
 	delete dqdt;
 	delete dudt;
 

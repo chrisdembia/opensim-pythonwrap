@@ -838,7 +838,7 @@ getForce() const
 double rdActuator::
 getStress() const
 {
-	return(_force/_area);
+	return(fabs(_force/_optimalForce));
 }
 
 //-----------------------------------------------------------------------------

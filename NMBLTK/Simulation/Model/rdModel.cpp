@@ -139,7 +139,6 @@ setNull()
 void rdModel::
 init()
 {
-
 	// CALLBACK SETS
 	_analysisSet = new rdAnalysisSet(this);
 	_integCallbackSet = new rdIntegCallbackSet(this);
@@ -243,7 +242,7 @@ setBodyName(int aIndex,const string &aName)
 {
 	// CHECK
 	if(aIndex<0) return;
-	if(aIndex>getNB()+1) return;
+	if(aIndex>=getNB()+1) return;
 
 	_b.get(aIndex)->setName(aName);
 }

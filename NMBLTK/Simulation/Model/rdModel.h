@@ -372,12 +372,12 @@ public:
 		getNetAppliedGeneralizedForce(int aU) const = 0; // DYN
 	virtual void
 		computeGeneralizedForces(double aDUDT[],double rF[]) const = 0; // DYN
+	virtual void
+		computeReactions(double rForces[][3],double rTorques[][3]) const = 0; // DYN
 
 	//--------------------------------------------------------------------------
 	// EQUATIONS OF MOTION
 	//--------------------------------------------------------------------------
-	virtual int
-		computeAccelerations(double *dqdt,double *dudt) = 0; // DYN
 	virtual void formMassMatrix(double *rI) = 0; // DYN
 	virtual void formEulerTransform(int aBody,double *rE) const = 0; // DYN
 	virtual void
@@ -394,13 +394,15 @@ public:
 		ComputeJacobianInverse(int aNJX,int aNU,const double *aJ,
 		const double *aI,double *rJInv); // DYN
 
+
 	//--------------------------------------------------------------------------
-	// INTEGRATION
+	// DERIVATIVES
 	//--------------------------------------------------------------------------
 	virtual int
-		deriv(double t,double *xt,double *y,double *dy) = 0; // DYN
-	virtual int
-		deriv(double t,double *xt,double *y,double *dqdt,double *dudt) = 0; // DYN
+		computeAccelerations(double *dqdt,double *dudt) = 0; // DYN
+	virtual void
+		computeAuxiliaryDerivatives(double *dydt) = 0;  // DYN
+
 
 	//--------------------------------------------------------------------------
 	// OPTIMIZATION

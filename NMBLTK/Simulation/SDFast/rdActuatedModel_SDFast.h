@@ -182,8 +182,7 @@ public:
 	//--------------------------------------------------------------------------
 	// DERIVATIVES
 	//--------------------------------------------------------------------------
-	int deriv(double t,double *xt,double *y,double *dy);
-	int deriv(double t,double *xt,double *y,double *dqdt,double *dudt);
+	virtual void computeAuxiliaryDerivatives(double *dydt);
 
 	//--------------------------------------------------------------------------
 	// CALLBACKS

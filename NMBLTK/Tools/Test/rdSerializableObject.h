@@ -11,8 +11,10 @@
 
 
 // INCLUDES
-#include <RD/Tools/rdTools.h>
-#include <RD/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdObject.h>
+
+//extern template class RDTOOLS_API rdArray<double>;
 
 //=============================================================================
 //=============================================================================

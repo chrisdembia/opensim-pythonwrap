@@ -43,6 +43,11 @@ suPipeline40Workflow(const std::string &aParametersFileName,
 	initPipeline("", aParametersFileName);
 }
 
+
+//_____________________________________________________________________________
+/**
+ * Initialize the SIMM Dynamics Pipeline.
+ */
 void suPipeline40Workflow::
 initPipeline(const std::string &workpath, const std::string &paramfile)
 {
@@ -72,12 +77,7 @@ initPipeline(const std::string &workpath, const std::string &paramfile)
    constructNames();
 }
 
-int suPipeline40Workflow::
-deriv(double t,double *xt,double *y,double *dy)
-{
-	int baseClassDeriv = suPipeline40::deriv(t, xt, y, dy);
-	return baseClassDeriv;
-}
+
 //=============================================================================
 // GET AND SET
 //=============================================================================

@@ -334,9 +334,7 @@ applyActuation(double aT,double *aX,double *aY)
 	double point[3] = {0,0,0};
 	double targetPos[3] = {0,0,0};
 	double targetVel[3] = {0,0,0};
-	rdArray<double> pointArray(0.0);
-	rdArray<double> posArray(0.0);	
-	rdArray<double> velArray(0.0);
+	double treal = aT*_model->getTimeNormConstant();
 	
 	if(_model==NULL) {
 		printf("suLinearSpring.applyActuation: WARN- no model.\n");
@@ -347,24 +345,15 @@ applyActuation(double aT,double *aX,double *aY)
 	if((aT>=getStartTime()) && (aT<getEndTime())){
 
 		if(_pointFunction!=NULL) {
-			pointArray = _pointFunction->evaluate(aT*_model->getTimeNormConstant());
-			for(i=0;i<3;i++){
-				point[i] = pointArray.get(i);
-			}
+			_pointFunction->evaluate(&treal,point);
 			setPoint(point);
 		}
 
 		if(_posFunction!=NULL) {
-			posArray = _posFunction->evaluate(aT*_model->getTimeNormConstant());
-			for(i=0;i<3;i++){
-				targetPos[i] = posArray.get(i);
-			}
+			_posFunction->evaluate(&treal,targetPos);
 		}
 		if(_velFunction!=NULL) {
-			velArray = _velFunction->evaluate(aT*_model->getTimeNormConstant());
-			for(i=0;i<3;i++){
-				targetVel[i] = velArray.get(i);
-			}
+			_velFunction->evaluate(&treal,targetVel);
 		}
 
 		// GET GLOBAL POSITION AND VELOCITY

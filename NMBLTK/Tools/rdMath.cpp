@@ -162,6 +162,31 @@ FitParabola(double aX1,double aY1,double aX2,double aY2,double aX3,double aY3,
 	return(0);
 }
 
+//_____________________________________________________________________________
+/**
+ * Linearly interpolate or extrapolate given two points.
+ *
+ * @param aX1 X coordinate of point 1.
+ * @param aY1 Y coordinate of point 1.
+ * @param aX2 X coordinate of point 2.
+ * @param aY2 Y coordinate of point 2.
+ * @param aX X coordinate whose corresponding Y coordinate is desired.
+ * @return Y value corresponding to aX.
+ */
+double rdMath::
+Interpolate(double aX1,double aY1,double aX2,double aY2,double aX)
+{
+	double y;
+	double dx = aX2 - aX1;
+	if(fabs(dx)<rdMath::ZERO) {
+		y = aY1;
+	} else {
+		double dy = aY2 - aY1;
+		double m = dy / dx;
+		y = aY1 + m*(aX-aX1);
+	}
+	return(y);
+}
 
 
 //=============================================================================

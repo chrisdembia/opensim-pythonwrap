@@ -853,6 +853,7 @@ void rdContactForce::
 computeVelocities()
 {
 	if(_model==NULL) return;
+	double time = _model->getTime()*_model->getTimeNormConstant();
 
 	// VELOCITY
 	int i;
@@ -860,22 +861,12 @@ computeVelocities()
 	if(_vAFunction == NULL){
 		_model->getVelocity(_bA,&_pA[0],va);
 	} else {
-		rdArray<double> vAArray(0.0);
-		double* vA;
-		vAArray = _vAFunction->evaluate(_model->getTime()*_model->getTimeNormConstant());
-		vA = vAArray.get();
-		for(i=0;i<3;i++)
-			va[i] = vA[i];
+		_vAFunction->evaluate(&time,va);
 	}
 	if(_vBFunction == NULL){
 		_model->getVelocity(_bB,&_pB[0],vb);
 	} else {
-		rdArray<double> vBArray(0.0);
-		double* vB;
-		vBArray = _vBFunction->evaluate(_model->getTime()*_model->getTimeNormConstant());
-		vB = vBArray.get();
-		for(i=0;i<3;i++)
-			vb[i] = vB[i];
+		_vBFunction->evaluate(&time,vb);
 	}
 	rdMtx::Subtract(1,3,vb,va,v);
 	_model->transform(_model->getGroundID(),v,_bA,v);
