@@ -12,7 +12,7 @@ package simtkModel;
 public class rdSimtkAnimationCallback extends rdIntegCallback {
   private long swigCPtr;
 
-
+  
   public  rdSimtkAnimationCallback(long cPtr, boolean cMemoryOwn) {
     super(ModelJNI.SWIGrdSimtkAnimationCallbackTordIntegCallback(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
@@ -55,7 +55,7 @@ public class rdSimtkAnimationCallback extends rdIntegCallback {
     ModelJNI.rdSimtkAnimationCallback_getMutex(swigCPtr);
   }
 
-  public void releaseMutex() {//62671
+  public void releaseMutex() {
     ModelJNI.rdSimtkAnimationCallback_releaseMutex(swigCPtr);
   }
 

@@ -14,6 +14,7 @@ import simtkModel.rdBody;
 import simtkModel.rdControlSet;
 import simtkModel.rdModel;
 import simtkModel.rdObject;
+import simtkModel.*;
 
 /**
  * SimtkDBTree is the holder of the abstract Tree representation of the models
@@ -181,30 +182,33 @@ public class SimtkDBTreeModel extends DefaultTreeModel{
 
      }*/
    }
-   // Create nodes for Integrator and Controls
-   DefaultMutableTreeNode simManagerNode = new DefaultMutableTreeNode("Simulation Manager", true);
-   insertNodeInto(simManagerNode, simenvNode, 2);
+   if (simEnvironment.getSimulationManager() != null && simEnvironment.getSimulationManager().getIntegrand()!= null){
+	   // Create nodes for Integrator and Controls
+	   DefaultMutableTreeNode simManagerNode = new DefaultMutableTreeNode("Simulation Manager", true);
+	   insertNodeInto(simManagerNode, simenvNode, 2);
 
-   DefaultMutableTreeNode managerNode = new DefaultMutableTreeNode(simEnvironment.getSimulationManager(), true);
-   insertNodeInto(managerNode, simManagerNode, 0);
-   rdControlSet cs = simEnvironment.getSimulationManager().getControlSet();
+	   DefaultMutableTreeNode managerNode = new DefaultMutableTreeNode(simEnvironment.getSimulationManager(), true);
+	   insertNodeInto(managerNode, simManagerNode, 0);
+           rdModelIntegrand integrand = simEnvironment.getSimulationManager().getIntegrand();
+	   rdControlSet cs = integrand.getControlSet();
 
-   DefaultMutableTreeNode controlNode;
-   if (cs != null){
-     controlNode = new DefaultMutableTreeNode(cs, true);
-     // Create nodes for individual controls
-     int controlSetSize = cs.getSize();
-     for(int i=0; i < controlSetSize; i++){
-       DefaultMutableTreeNode singleControlNode = new DefaultMutableTreeNode(cs.get(i), true);
-       controlNode.add(singleControlNode);
-     }
-   }
-    else
-      controlNode = new DefaultMutableTreeNode("No ControlSet", true);
+	   DefaultMutableTreeNode controlNode;
+	   if (cs != null){
+	     controlNode = new DefaultMutableTreeNode(cs, true);
+	     // Create nodes for individual controls
+	     int controlSetSize = cs.getSize();
+	     for(int i=0; i < controlSetSize; i++){
+	       DefaultMutableTreeNode singleControlNode = new DefaultMutableTreeNode(cs.get(i), true);
+	       controlNode.add(singleControlNode);
+	     }
+	   }
+	    else
+	      controlNode = new DefaultMutableTreeNode("No ControlSet", true);
 
-   insertNodeInto(controlNode, managerNode, 0);
-   DefaultMutableTreeNode integratorNode = new DefaultMutableTreeNode(simEnvironment.getSimulationManager().getIntegrator(), true);
-   insertNodeInto(integratorNode, managerNode, 1);
+	   insertNodeInto(controlNode, managerNode, 0);
+	   DefaultMutableTreeNode integratorNode = new DefaultMutableTreeNode(simEnvironment.getSimulationManager().getIntegrator(), true);
+	   insertNodeInto(integratorNode, managerNode, 1);
+  }
   // Tell listeners to update their status
    reload();
  }

@@ -12,7 +12,7 @@ package simtkModel;
 public class rdStorage extends rdObject {
   private long swigCPtr;
 
-
+  
   public  rdStorage(long cPtr, boolean cMemoryOwn) {
     super(ModelJNI.SWIGrdStorageTordObject(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
@@ -118,16 +118,16 @@ public class rdStorage extends rdObject {
     return ModelJNI.rdStorage_getTimeColumn(swigCPtr, SWIGTYPE_p_p_double.getCPtr(rTimes), aStateIndex);
   }
 
-  public int getData(int aTimeIndex, int aStateIndex, SWIGTYPE_p_double rValue) {
-    return ModelJNI.rdStorage_getData__SWIG_0(swigCPtr, aTimeIndex, aStateIndex, SWIGTYPE_p_double.getCPtr(rValue));
-  }
-
   public int getData(int aTimeIndex, int aStateIndex, int aN, SWIGTYPE_p_double rData) {
     return ModelJNI.rdStorage_getData__SWIG_1(swigCPtr, aTimeIndex, aStateIndex, aN, SWIGTYPE_p_double.getCPtr(rData));
   }
 
   public int getData(int aTimeIndex, int aN, SWIGTYPE_p_p_double rData) {
     return ModelJNI.rdStorage_getData__SWIG_2(swigCPtr, aTimeIndex, aN, SWIGTYPE_p_p_double.getCPtr(rData));
+  }
+
+  public int getData(int aTimeIndex, int aN, SWIGTYPE_p_double rData) {
+    return ModelJNI.rdStorage_getData__SWIG_3(swigCPtr, aTimeIndex, aN, SWIGTYPE_p_double.getCPtr(rData));
   }
 
   public int getDataAtTime(double aTime, int aN, SWIGTYPE_p_p_double rData) {

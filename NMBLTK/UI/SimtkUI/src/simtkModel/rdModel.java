@@ -479,8 +479,8 @@ public class rdModel extends rdObject {
     ModelJNI.rdModel_computeGeneralizedForces(swigCPtr, SWIGTYPE_p_double.getCPtr(aDUDT), SWIGTYPE_p_double.getCPtr(rF));
   }
 
-  public int computeAccelerations(SWIGTYPE_p_double dqdt, SWIGTYPE_p_double dudt) {
-    return ModelJNI.rdModel_computeAccelerations(swigCPtr, SWIGTYPE_p_double.getCPtr(dqdt), SWIGTYPE_p_double.getCPtr(dudt));
+  public void computeReactions(SWIGTYPE_p_a_3__double rForces, SWIGTYPE_p_a_3__double rTorques) {
+    ModelJNI.rdModel_computeReactions(swigCPtr, SWIGTYPE_p_a_3__double.getCPtr(rForces), SWIGTYPE_p_a_3__double.getCPtr(rTorques));
   }
 
   public void formMassMatrix(SWIGTYPE_p_double rI) {
@@ -511,12 +511,12 @@ public class rdModel extends rdObject {
     return ModelJNI.rdModel_ComputeJacobianInverse(aNJX, aNU, SWIGTYPE_p_double.getCPtr(aJ), SWIGTYPE_p_double.getCPtr(aI), SWIGTYPE_p_double.getCPtr(rJInv));
   }
 
-  public int deriv(double t, SWIGTYPE_p_double xt, SWIGTYPE_p_double y, SWIGTYPE_p_double dy) {
-    return ModelJNI.rdModel_deriv__SWIG_0(swigCPtr, t, SWIGTYPE_p_double.getCPtr(xt), SWIGTYPE_p_double.getCPtr(y), SWIGTYPE_p_double.getCPtr(dy));
+  public int computeAccelerations(SWIGTYPE_p_double dqdt, SWIGTYPE_p_double dudt) {
+    return ModelJNI.rdModel_computeAccelerations(swigCPtr, SWIGTYPE_p_double.getCPtr(dqdt), SWIGTYPE_p_double.getCPtr(dudt));
   }
 
-  public int deriv(double t, SWIGTYPE_p_double xt, SWIGTYPE_p_double y, SWIGTYPE_p_double dqdt, SWIGTYPE_p_double dudt) {
-    return ModelJNI.rdModel_deriv__SWIG_1(swigCPtr, t, SWIGTYPE_p_double.getCPtr(xt), SWIGTYPE_p_double.getCPtr(y), SWIGTYPE_p_double.getCPtr(dqdt), SWIGTYPE_p_double.getCPtr(dudt));
+  public void computeAuxiliaryDerivatives(SWIGTYPE_p_double dydt) {
+    ModelJNI.rdModel_computeAuxiliaryDerivatives(swigCPtr, SWIGTYPE_p_double.getCPtr(dydt));
   }
 
   public void promoteControlsToStates(SWIGTYPE_p_double aX, double aDT) {

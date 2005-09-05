@@ -113,4 +113,20 @@ public class rdControlConstant extends rdControl {
     return ModelJNI.rdControlConstant_getControlValue(swigCPtr, aT);
   }
 
+  public double getControlValueMin(double aT) {
+    return ModelJNI.rdControlConstant_getControlValueMin(swigCPtr, aT);
+  }
+
+  public void setControlValueMin(double aT, double aX) {
+    ModelJNI.rdControlConstant_setControlValueMin(swigCPtr, aT, aX);
+  }
+
+  public double getControlValueMax(double aT) {
+    return ModelJNI.rdControlConstant_getControlValueMax(swigCPtr, aT);
+  }
+
+  public void setControlValueMax(double aT, double aX) {
+    ModelJNI.rdControlConstant_setControlValueMax(swigCPtr, aT, aX);
+  }
+
 }

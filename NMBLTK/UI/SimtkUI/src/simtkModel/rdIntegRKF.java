@@ -39,8 +39,8 @@ public class rdIntegRKF extends rdRKF {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
-  public rdIntegRKF(rdModel aModel, double aTol, double aTolFine) {
-    this(ModelJNI.new_rdIntegRKF(rdModel.getCPtr(aModel), aTol, aTolFine), true);
+  public rdIntegRKF(Integrand aIntegrand, double aTol, double aTolFine) {
+    this(ModelJNI.new_rdIntegRKF(Integrand.getCPtr(aIntegrand), aTol, aTolFine), true);
   }
 
   public void setMinDT(double aMin) {
@@ -131,48 +131,12 @@ public class rdIntegRKF extends rdRKF {
     ModelJNI.rdIntegRKF_resetTimeAndDTArrays(swigCPtr, aTime);
   }
 
-  public void setControlStorage(rdStorage aStorage) {
-    ModelJNI.rdIntegRKF_setControlStorage(swigCPtr, rdStorage.getCPtr(aStorage));
-  }
-
-  public rdStorage getControlStorage() {
-    long cPtr = ModelJNI.rdIntegRKF_getControlStorage(swigCPtr);
-    return (cPtr == 0) ? null : new rdStorage(cPtr, false);
-  }
-
-  public void setStateStorage(rdStorage aStorage) {
-    ModelJNI.rdIntegRKF_setStateStorage(swigCPtr, rdStorage.getCPtr(aStorage));
-  }
-
-  public rdStorage getStateStorage() {
-    long cPtr = ModelJNI.rdIntegRKF_getStateStorage(swigCPtr);
-    return (cPtr == 0) ? null : new rdStorage(cPtr, false);
-  }
-
-  public void setPseudoStateStorage(rdStorage aStorage) {
-    ModelJNI.rdIntegRKF_setPseudoStateStorage(swigCPtr, rdStorage.getCPtr(aStorage));
-  }
-
-  public rdStorage getPseudoStateStorage() {
-    long cPtr = ModelJNI.rdIntegRKF_getPseudoStateStorage(swigCPtr);
-    return (cPtr == 0) ? null : new rdStorage(cPtr, false);
-  }
-
-  public void setController(SWIGTYPE_p_rdController aController) {
-    ModelJNI.rdIntegRKF_setController(swigCPtr, SWIGTYPE_p_rdController.getCPtr(aController));
-  }
-
-  public SWIGTYPE_p_rdController getController() {
-    long cPtr = ModelJNI.rdIntegRKF_getController(swigCPtr);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_rdController(cPtr, false);
-  }
-
   public String toString() {
     return ModelJNI.rdIntegRKF_toString(swigCPtr);
   }
 
-  public boolean integrate(double ti, double tf, rdControlSet x, SWIGTYPE_p_double y, double dtFirst) {
-    return ModelJNI.rdIntegRKF_integrate(swigCPtr, ti, tf, rdControlSet.getCPtr(x), SWIGTYPE_p_double.getCPtr(y), dtFirst);
+  public boolean integrate(double ti, double tf, SWIGTYPE_p_double y, double dtFirst) {
+    return ModelJNI.rdIntegRKF_integrate(swigCPtr, ti, tf, SWIGTYPE_p_double.getCPtr(y), dtFirst);
   }
 
   public void halt() {

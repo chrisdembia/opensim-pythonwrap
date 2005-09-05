@@ -37,6 +37,7 @@ public class SimtkSimEnv extends Observable {
   rdContactForceSet contactForceSet=null;
   rdActuatorSet actuatorSet=null;
   suMarkerSet markerSet=null;
+  rdModelIntegrand integrand = null;
 
   private String _infoStatus="";
   private String name;
@@ -70,8 +71,6 @@ public class SimtkSimEnv extends Observable {
     status=NOT_READY;
     this.name = name;
     storagePrefs = new SimtkStoragePreferences();
-    if (manager==null)
-      manager = new rdManager(null,null);
   }
 
   public String getName() {
@@ -80,10 +79,10 @@ public class SimtkSimEnv extends Observable {
   public void setModel(rdModel aModel)
   {
     model = aModel;
-    manager.setModel(aModel);
-    if (manager.getControlSet()==null){
-      controlSet = null;
-    }
+
+    integrand = new rdModelIntegrand(model);
+    controlSet = integrand.getControlSet();
+    manager = new rdManager(integrand);
     animationCallback = new rdSimtkAnimationCallback(aModel);
  }
 
@@ -104,8 +103,9 @@ public class SimtkSimEnv extends Observable {
   public void createSimulationManager() {
     if (model==null)
       return;
-    controlSet = null;
-    manager = new rdManager(model,controlSet);
+    integrand = new rdModelIntegrand(model);
+    controlSet = integrand.getControlSet();
+    manager = new rdManager(integrand);
   }
 
   public String toString()
@@ -128,11 +128,11 @@ public class SimtkSimEnv extends Observable {
    * @return Object
    */
   public rdControlSet getControlSet() {
-    return manager.getControlSet();
+    return manager.getIntegrand().getControlSet();
   }
 
   public void setControlSet(rdControlSet aControlSet) {
-    manager.setControlSet(aControlSet);
+    manager.getIntegrand().setControlSet(aControlSet);
   }
 
   public void setSimulationThread(SwingWorker thread)
