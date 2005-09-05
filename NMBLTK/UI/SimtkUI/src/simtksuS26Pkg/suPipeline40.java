@@ -163,6 +163,10 @@ public class suPipeline40 extends rdActuatedModel_SDFast {
     return suS26ModuleJNI.suPipeline40_getActuatorForce(swigCPtr, aID);
   }
 
+  public double getActuatorStress(int aID) {
+    return suS26ModuleJNI.suPipeline40_getActuatorStress(swigCPtr, aID);
+  }
+
   public double getActuatorSpeed(int aID) {
     return suS26ModuleJNI.suPipeline40_getActuatorSpeed(swigCPtr, aID);
   }
@@ -183,8 +187,8 @@ public class suPipeline40 extends rdActuatedModel_SDFast {
     suS26ModuleJNI.suPipeline40_applyContactForces(swigCPtr);
   }
 
-  public int deriv(double t, SWIGTYPE_p_double xt, SWIGTYPE_p_double y, SWIGTYPE_p_double dy) {
-    return suS26ModuleJNI.suPipeline40_deriv(swigCPtr, t, SWIGTYPE_p_double.getCPtr(xt), SWIGTYPE_p_double.getCPtr(y), SWIGTYPE_p_double.getCPtr(dy));
+  public void computeAuxiliaryDerivatives(SWIGTYPE_p_double dydt) {
+    suS26ModuleJNI.suPipeline40_computeAuxiliaryDerivatives(swigCPtr, SWIGTYPE_p_double.getCPtr(dydt));
   }
 
 }

@@ -531,7 +531,7 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
 
   void jBrowseStorageDir_actionPerformed(ActionEvent e) {
     // Show directory browse dialog
-    JFileChooser jFileChooser1 = new JFileChooser();
+    JFileChooser jFileChooser1 = new JFileChooser(System.getProperty("user.dir"));
     jFileChooser1.setDialogTitle("Browse for directory to save storage files");
     jFileChooser1.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     jFileChooser1.setVisible(true);

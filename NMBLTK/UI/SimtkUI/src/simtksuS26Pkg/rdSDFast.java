@@ -291,8 +291,8 @@ public class rdSDFast extends rdModel {
     suS26ModuleJNI.rdSDFast_computeGeneralizedForces(swigCPtr, SWIGTYPE_p_double.getCPtr(aDUDT), SWIGTYPE_p_double.getCPtr(rF));
   }
 
-  public int computeAccelerations(SWIGTYPE_p_double dqdt, SWIGTYPE_p_double dudt) {
-    return suS26ModuleJNI.rdSDFast_computeAccelerations(swigCPtr, SWIGTYPE_p_double.getCPtr(dqdt), SWIGTYPE_p_double.getCPtr(dudt));
+  public void computeReactions(SWIGTYPE_p_a_3__double rForces, SWIGTYPE_p_a_3__double rTorques) {
+    suS26ModuleJNI.rdSDFast_computeReactions(swigCPtr, SWIGTYPE_p_a_3__double.getCPtr(rForces), SWIGTYPE_p_a_3__double.getCPtr(rTorques));
   }
 
   public void formMassMatrix(SWIGTYPE_p_double rI) {
@@ -313,6 +313,10 @@ public class rdSDFast extends rdModel {
 
   public void formJacobianEuler(int aBody, SWIGTYPE_p_double rJE, int aRefBody) {
     suS26ModuleJNI.rdSDFast_formJacobianEuler(swigCPtr, aBody, SWIGTYPE_p_double.getCPtr(rJE), aRefBody);
+  }
+
+  public int computeAccelerations(SWIGTYPE_p_double dqdt, SWIGTYPE_p_double dudt) {
+    return suS26ModuleJNI.rdSDFast_computeAccelerations(swigCPtr, SWIGTYPE_p_double.getCPtr(dqdt), SWIGTYPE_p_double.getCPtr(dudt));
   }
 
   public void transform(int aBody1, SWIGTYPE_p_double aVec1, int aBody2, SWIGTYPE_p_double rVec2) {

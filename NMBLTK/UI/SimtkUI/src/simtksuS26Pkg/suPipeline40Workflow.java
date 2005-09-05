@@ -47,8 +47,4 @@ public class suPipeline40Workflow extends suPipeline40 {
     suS26ModuleJNI.suPipeline40Workflow_initPipeline(swigCPtr, workpath, paramfile);
   }
 
-  public int deriv(double t, SWIGTYPE_p_double xt, SWIGTYPE_p_double y, SWIGTYPE_p_double dy) {
-    return suS26ModuleJNI.suPipeline40Workflow_deriv(swigCPtr, t, SWIGTYPE_p_double.getCPtr(xt), SWIGTYPE_p_double.getCPtr(y), SWIGTYPE_p_double.getCPtr(dy));
-  }
-
 }

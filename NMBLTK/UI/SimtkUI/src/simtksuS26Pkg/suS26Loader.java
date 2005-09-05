@@ -14,7 +14,7 @@ public class suS26Loader extends suS26 {
 	* Default no-param constructor
 	*/
     public suS26Loader(){
-      super("C:\\Work\\DemoFiles\\params.txt", null);
+      super("params.txt", null);
       rdVisibleObject obj = this.getVisibleObjectByName("calcn_rp");
       obj.getVisibleProperties().setDisplayPreference(0);
       obj = this.getVisibleObjectByName("calcn_lp");

@@ -130,7 +130,6 @@ public class rdStorage extends rdObject {
     return suS26ModuleJNI.rdStorage_getData__SWIG_2(swigCPtr, aTimeIndex, aN, SWIGTYPE_p_p_double.getCPtr(rData));
   }
 
-
   public int getDataAtTime(double aTime, int aN, SWIGTYPE_p_p_double rData) {
     return suS26ModuleJNI.rdStorage_getDataAtTime__SWIG_0(swigCPtr, aTime, aN, SWIGTYPE_p_p_double.getCPtr(rData));
   }

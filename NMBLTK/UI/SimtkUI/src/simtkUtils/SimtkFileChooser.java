@@ -14,9 +14,8 @@ public class SimtkFileChooser {
 
   public static String getFile(String title, String description, String extension)
   {
-    boolean gotFile;
     // Show filechooser to browse for directory, file to open
-    JFileChooser jFileChooser1 = new JFileChooser();
+    JFileChooser jFileChooser1 = new JFileChooser(System.getProperty("user.dir"));
     jFileChooser1.setDialogTitle(title);
      if (SimtkApp.getProperty("Application.Directories.Persistent").equalsIgnoreCase("True")){
       jFileChooser1.setCurrentDirectory(new File(SimtkApp.getProperty("Application.CurrentDirectory")));
@@ -28,6 +27,7 @@ public class SimtkFileChooser {
         JFileChooser.APPROVE_OPTION)
       return null;
      SimtkApp.setProperty("Application.CurrentDirectory", jFileChooser1.getSelectedFile().getParent());
+     System.setProperty("user.dir", jFileChooser1.getSelectedFile().getParent());
     return jFileChooser1.getSelectedFile().getAbsolutePath();
   }
 }

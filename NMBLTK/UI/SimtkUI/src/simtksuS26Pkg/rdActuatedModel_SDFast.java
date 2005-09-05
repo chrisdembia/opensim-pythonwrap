@@ -309,12 +309,8 @@ public class rdActuatedModel_SDFast extends rdSDFast {
     suS26ModuleJNI.rdActuatedModel_SDFast_promoteControlsToStates(swigCPtr, SWIGTYPE_p_double.getCPtr(aX), aDT);
   }
 
-  public int deriv(double t, SWIGTYPE_p_double xt, SWIGTYPE_p_double y, SWIGTYPE_p_double dy) {
-    return suS26ModuleJNI.rdActuatedModel_SDFast_deriv__SWIG_0(swigCPtr, t, SWIGTYPE_p_double.getCPtr(xt), SWIGTYPE_p_double.getCPtr(y), SWIGTYPE_p_double.getCPtr(dy));
-  }
-
-  public int deriv(double t, SWIGTYPE_p_double xt, SWIGTYPE_p_double y, SWIGTYPE_p_double dqdt, SWIGTYPE_p_double dudt) {
-    return suS26ModuleJNI.rdActuatedModel_SDFast_deriv__SWIG_1(swigCPtr, t, SWIGTYPE_p_double.getCPtr(xt), SWIGTYPE_p_double.getCPtr(y), SWIGTYPE_p_double.getCPtr(dqdt), SWIGTYPE_p_double.getCPtr(dudt));
+  public void computeAuxiliaryDerivatives(SWIGTYPE_p_double dydt) {
+    suS26ModuleJNI.rdActuatedModel_SDFast_computeAuxiliaryDerivatives(swigCPtr, SWIGTYPE_p_double.getCPtr(dydt));
   }
 
 }
