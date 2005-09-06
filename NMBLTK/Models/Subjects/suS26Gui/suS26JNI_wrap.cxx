@@ -11449,22 +11449,18 @@ JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1computeGeneral
 }
 
 
-JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1computeAccelerations(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
-    jint jresult = 0 ;
+JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1computeReactions(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
     rdModel *arg1 = (rdModel *) 0 ;
-    double *arg2 = (double *) 0 ;
-    double *arg3 = (double *) 0 ;
-    int result;
+    double (*arg2)[3] ;
+    double (*arg3)[3] ;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdModel **)&jarg1; 
-    arg2 = *(double **)&jarg2; 
-    arg3 = *(double **)&jarg3; 
-    result = (int)(arg1)->computeAccelerations(arg2,arg3);
+    arg2 = *(double (**)[3])&jarg2; 
+    arg3 = *(double (**)[3])&jarg3; 
+    ((rdModel const *)arg1)->computeReactions((double (*)[3])arg2,(double (*)[3])arg3);
     
-    jresult = (jint)result; 
-    return jresult;
 }
 
 
@@ -11595,51 +11591,35 @@ JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1ComputeJacobia
 }
 
 
-JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1deriv_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4, jlong jarg5) {
+JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1computeAccelerations(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
     jint jresult = 0 ;
     rdModel *arg1 = (rdModel *) 0 ;
-    double arg2 ;
+    double *arg2 = (double *) 0 ;
     double *arg3 = (double *) 0 ;
-    double *arg4 = (double *) 0 ;
-    double *arg5 = (double *) 0 ;
     int result;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdModel **)&jarg1; 
-    arg2 = (double)jarg2; 
+    arg2 = *(double **)&jarg2; 
     arg3 = *(double **)&jarg3; 
-    arg4 = *(double **)&jarg4; 
-    arg5 = *(double **)&jarg5; 
-    result = (int)(arg1)->deriv(arg2,arg3,arg4,arg5);
+    result = (int)(arg1)->computeAccelerations(arg2,arg3);
     
     jresult = (jint)result; 
     return jresult;
 }
 
 
-JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1deriv_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6) {
-    jint jresult = 0 ;
+JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1computeAuxiliaryDerivatives(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
     rdModel *arg1 = (rdModel *) 0 ;
-    double arg2 ;
-    double *arg3 = (double *) 0 ;
-    double *arg4 = (double *) 0 ;
-    double *arg5 = (double *) 0 ;
-    double *arg6 = (double *) 0 ;
-    int result;
+    double *arg2 = (double *) 0 ;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdModel **)&jarg1; 
-    arg2 = (double)jarg2; 
-    arg3 = *(double **)&jarg3; 
-    arg4 = *(double **)&jarg4; 
-    arg5 = *(double **)&jarg5; 
-    arg6 = *(double **)&jarg6; 
-    result = (int)(arg1)->deriv(arg2,arg3,arg4,arg5,arg6);
+    arg2 = *(double **)&jarg2; 
+    (arg1)->computeAuxiliaryDerivatives(arg2);
     
-    jresult = (jint)result; 
-    return jresult;
 }
 
 
@@ -12443,6 +12423,41 @@ JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1addAnalysis(JN
     arg2 = *(rdAnalysis **)&jarg2; 
     (arg1)->addAnalysis(arg2);
     
+}
+
+
+JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1getNumAnalyses(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jint jresult = 0 ;
+    rdModel *arg1 = (rdModel *) 0 ;
+    int result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModel **)&jarg1; 
+    result = (int)((rdModel const *)arg1)->getNumAnalyses();
+    
+    jresult = (jint)result; 
+    return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdModel_1getAnalysis(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+    jlong jresult = 0 ;
+    rdModel *arg1 = (rdModel *) 0 ;
+    int arg2 ;
+    rdAnalysis *result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModel **)&jarg1; 
+    arg2 = (int)jarg2; 
+    {
+        rdAnalysis &_result_ref = ((rdModel const *)arg1)->getAnalysis(arg2);
+        result = (rdAnalysis *) &_result_ref;
+    }
+    
+    *(rdAnalysis **)&jresult = result; 
+    return jresult;
 }
 
 
@@ -15720,22 +15735,18 @@ JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdSDFast_1computeGenera
 }
 
 
-JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdSDFast_1computeAccelerations(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
-    jint jresult = 0 ;
+JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdSDFast_1computeReactions(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
     rdSDFast *arg1 = (rdSDFast *) 0 ;
-    double *arg2 = (double *) 0 ;
-    double *arg3 = (double *) 0 ;
-    int result;
+    double (*arg2)[3] ;
+    double (*arg3)[3] ;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdSDFast **)&jarg1; 
-    arg2 = *(double **)&jarg2; 
-    arg3 = *(double **)&jarg3; 
-    result = (int)(arg1)->computeAccelerations(arg2,arg3);
+    arg2 = *(double (**)[3])&jarg2; 
+    arg3 = *(double (**)[3])&jarg3; 
+    ((rdSDFast const *)arg1)->computeReactions((double (*)[3])arg2,(double (*)[3])arg3);
     
-    jresult = (jint)result; 
-    return jresult;
 }
 
 
@@ -15817,6 +15828,25 @@ JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdSDFast_1formJacobianE
     arg4 = (int)jarg4; 
     ((rdSDFast const *)arg1)->formJacobianEuler(arg2,arg3,arg4);
     
+}
+
+
+JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdSDFast_1computeAccelerations(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
+    jint jresult = 0 ;
+    rdSDFast *arg1 = (rdSDFast *) 0 ;
+    double *arg2 = (double *) 0 ;
+    double *arg3 = (double *) 0 ;
+    int result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdSDFast **)&jarg1; 
+    arg2 = *(double **)&jarg2; 
+    arg3 = *(double **)&jarg3; 
+    result = (int)(arg1)->computeAccelerations(arg2,arg3);
+    
+    jresult = (jint)result; 
+    return jresult;
 }
 
 
@@ -17303,51 +17333,16 @@ JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdActuatedModel_1SDFast
 }
 
 
-JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdActuatedModel_1SDFast_1deriv_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4, jlong jarg5) {
-    jint jresult = 0 ;
+JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdActuatedModel_1SDFast_1computeAuxiliaryDerivatives(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
     rdActuatedModel_SDFast *arg1 = (rdActuatedModel_SDFast *) 0 ;
-    double arg2 ;
-    double *arg3 = (double *) 0 ;
-    double *arg4 = (double *) 0 ;
-    double *arg5 = (double *) 0 ;
-    int result;
+    double *arg2 = (double *) 0 ;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdActuatedModel_SDFast **)&jarg1; 
-    arg2 = (double)jarg2; 
-    arg3 = *(double **)&jarg3; 
-    arg4 = *(double **)&jarg4; 
-    arg5 = *(double **)&jarg5; 
-    result = (int)(arg1)->deriv(arg2,arg3,arg4,arg5);
+    arg2 = *(double **)&jarg2; 
+    (arg1)->computeAuxiliaryDerivatives(arg2);
     
-    jresult = (jint)result; 
-    return jresult;
-}
-
-
-JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_rdActuatedModel_1SDFast_1deriv_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6) {
-    jint jresult = 0 ;
-    rdActuatedModel_SDFast *arg1 = (rdActuatedModel_SDFast *) 0 ;
-    double arg2 ;
-    double *arg3 = (double *) 0 ;
-    double *arg4 = (double *) 0 ;
-    double *arg5 = (double *) 0 ;
-    double *arg6 = (double *) 0 ;
-    int result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdActuatedModel_SDFast **)&jarg1; 
-    arg2 = (double)jarg2; 
-    arg3 = *(double **)&jarg3; 
-    arg4 = *(double **)&jarg4; 
-    arg5 = *(double **)&jarg5; 
-    arg6 = *(double **)&jarg6; 
-    result = (int)(arg1)->deriv(arg2,arg3,arg4,arg5,arg6);
-    
-    jresult = (jint)result; 
-    return jresult;
 }
 
 
@@ -17884,6 +17879,23 @@ JNIEXPORT jdouble JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_suPipeline40_1getAct
 }
 
 
+JNIEXPORT jdouble JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_suPipeline40_1getActuatorStress(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+    jdouble jresult = 0 ;
+    suPipeline40 *arg1 = (suPipeline40 *) 0 ;
+    int arg2 ;
+    double result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(suPipeline40 **)&jarg1; 
+    arg2 = (int)jarg2; 
+    result = (double)((suPipeline40 const *)arg1)->getActuatorStress(arg2);
+    
+    jresult = (jdouble)result; 
+    return jresult;
+}
+
+
 JNIEXPORT jdouble JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_suPipeline40_1getActuatorSpeed(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
     jdouble jresult = 0 ;
     suPipeline40 *arg1 = (suPipeline40 *) 0 ;
@@ -17953,26 +17965,16 @@ JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_suPipeline40_1applyCont
 }
 
 
-JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_suPipeline40_1deriv(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4, jlong jarg5) {
-    jint jresult = 0 ;
+JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_suPipeline40_1computeAuxiliaryDerivatives(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
     suPipeline40 *arg1 = (suPipeline40 *) 0 ;
-    double arg2 ;
-    double *arg3 = (double *) 0 ;
-    double *arg4 = (double *) 0 ;
-    double *arg5 = (double *) 0 ;
-    int result;
+    double *arg2 = (double *) 0 ;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(suPipeline40 **)&jarg1; 
-    arg2 = (double)jarg2; 
-    arg3 = *(double **)&jarg3; 
-    arg4 = *(double **)&jarg4; 
-    arg5 = *(double **)&jarg5; 
-    result = (int)(arg1)->deriv(arg2,arg3,arg4,arg5);
+    arg2 = *(double **)&jarg2; 
+    (arg1)->computeAuxiliaryDerivatives(arg2);
     
-    jresult = (jint)result; 
-    return jresult;
 }
 
 
@@ -18051,29 +18053,6 @@ JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_suPipeline40Workflow_1i
     
     delete arg2; 
     delete arg3; 
-}
-
-
-JNIEXPORT jint JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_suPipeline40Workflow_1deriv(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4, jlong jarg5) {
-    jint jresult = 0 ;
-    suPipeline40Workflow *arg1 = (suPipeline40Workflow *) 0 ;
-    double arg2 ;
-    double *arg3 = (double *) 0 ;
-    double *arg4 = (double *) 0 ;
-    double *arg5 = (double *) 0 ;
-    int result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(suPipeline40Workflow **)&jarg1; 
-    arg2 = (double)jarg2; 
-    arg3 = *(double **)&jarg3; 
-    arg4 = *(double **)&jarg4; 
-    arg5 = *(double **)&jarg5; 
-    result = (int)(arg1)->deriv(arg2,arg3,arg4,arg5);
-    
-    jresult = (jint)result; 
-    return jresult;
 }
 
 

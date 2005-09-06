@@ -44,79 +44,40 @@
 */
 //=============================================================================
 
-
-
-static double	coms[16][3] = {
-						{0.086666026551,     0.025999807965,		0.000000},// 0 calcn_rp 
-						{0.086666026551,     0.025999807965,		0.000000},// 1 calcn_lp             
-						{-0.061272880771,    0.000000,				0.000000},// 2 pelvis
-						{0.000000,			-0.155964671962,		0.000000},// 3 femur_r
-						{0.000000,			-0.152325035757,		0.000000},// 4 tibia_r
-						{0.000000,			0.000000,				0.000000},// 5 patella_r
-						{0.000000,			0.000000,				0.000000},// 6 talus_r
-						{0.086666026551,     0.025999807965,		0.000000},// 7 calcn_r
-						{0.029986445187,     0.005199961593,		-0.015166554646},// 8 toes_r
-						{0.000000,			-0.155964671962,		0.000000},// 9 femur_l
-						{0.000000,			-0.152325035757,		0.000000},//10 tibia_l
-						{0.000000,			0.000000,				0.000000},//11 patella_l
-						{0.000000,			0.000000,				0.000000},//12 talus_l
-						{0.086666026551,	0.025999807965,			0.000000},//13 calcn_l
-						{0.029986445187,	0.005199961593,			0.015166554646},//14 toes_l
-						{-0.025999807965,	0.277331284963,			0.000000} //15 torso
-}; 
-
 static char* geomFileNames[] =
 { 
-	"S26//bones//foot.vtp",
-	"S26//bones//l_foot.vtp",
-	"S26//bones//sacrum.vtp",
-	"S26//bones//pelvis.vtp",
-	"S26//bones//l_pelvis.vtp",
-	"S26//bones//femur.vtp",
-	"S26//bones//tibia.vtp",
-	"S26//bones//fibula.vtp",
-	"S26//bones//pat.vtp",
-	"S26//bones//talus.vtp",
-	"S26//bones//foot.vtp",
-	"S26//bones//bofoot.vtp",
-	"S26//bones//l_femur.vtp",
-	"S26//bones//l_tibia.vtp",
-	"S26//bones//l_fibula.vtp",
-	"S26//bones//l_patella.vtp",
-	"S26//bones//l_talus.vtp",
-	"S26//bones//l_foot.vtp",
-	"S26//bones//l_bofoot.vtp",
-	"S26//bones//hat_spine.vtp",
-	"S26//bones//hat_jaw.vtp",
-	"S26//bones//hat_skull.vtp",
-	"S26//bones//hat_ribs.vtp"
+	"bones//foot.vtp",
+	"bones//l_foot.vtp",
+	"bones//sacrum.vtp",
+	"bones//pelvis.vtp",
+	"bones//l_pelvis.vtp",
+	"bones//femur.vtp",
+	"bones//tibia.vtp",
+	"bones//fibula.vtp",
+	"bones//pat.vtp",
+	"bones//talus.vtp",
+	"bones//foot.vtp",
+	"bones//bofoot.vtp",
+	"bones//l_femur.vtp",
+	"bones//l_tibia.vtp",
+	"bones//l_fibula.vtp",
+	"bones//l_patella.vtp",
+	"bones//l_talus.vtp",
+	"bones//l_foot.vtp",
+	"bones//l_bofoot.vtp",
+	"bones//hat_spine.vtp",
+	"bones//hat_jaw.vtp",
+	"bones//hat_skull.vtp",
+	"bones//hat_ribs.vtp"
 };
-static char* groundGeomFileName = "S26//bones//Cube.vtp";
+static char* groundGeomFileName = "bones//Cube.vtp";
 
 static int numGeomFiles[] =
 {
 	1, 1, 3, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 4
 };
 
-static double	scales[16][3] = {
-{0.866660265508    , 0.866660265508    , 0.866660265508},// 0 calcn_rp 
-{0.866660265508    , 0.866660265508    , 0.866660265508},// 1 calcn_lp  
-{0.866660265508    , 0.866660265508    , 0.866660265508},// 2 pelvis
-{0.917439246834    , 0.917439246834    , 0.917439246834},// 3 femur_r
-{0.815881284182    , 0.815881284182    , 0.815881284182},// 4 tibia_r
-{0.866660265508    , 0.866660265508    , 0.866660265508},// 5 patella_r
-{0.815881284182    , 0.815881284182    , 0.815881284182},// 6 talus_r
-{0.866660265508    , 0.866660265508    , 0.866660265508},// 7 calcn_r
-{0.866660265508    , 0.866660265508    , 0.866660265508},// 8 toes_r
-{0.917439246834    , 0.917439246834    , 0.917439246834},// 9 femur_l
-{0.815881284182    , 0.815881284182    , 0.815881284182},//10 tibia_l
-{0.866660265508    , 0.866660265508    , 0.866660265508},//11 patella_l
-{0.815881284182    , 0.815881284182    , 0.815881284182},//12 talus_l
-{0.866660265508    , 0.866660265508    , 0.866660265508},//13 calcn_l
-{0.866660265508    , 0.866660265508    , 0.866660265508},//14 toes_l
-{0.866660265508    , 0.866660265508    , 0.866660265508} //15 torso
-};
-
+#include "s26_geom.h"
 //=============================================================================
 // CONSTRUCTOR(S) AND DESTRUCTOR
 //=============================================================================
@@ -175,8 +136,9 @@ constructGeometry()
 		currentBody->setNumGeometryFiles(numFiles);
 		// Set actual file names
 		for(int subSegment=0; subSegment<numFiles; subSegment++, curIndex++){
-			fullFileName = new char[strlen(resourceDirectory)+strlen(geomFileNames[curIndex])+1];
+			fullFileName = new char[strlen(resourceDirectory)+strlen(geomFileNames[curIndex])+3];
 			strcpy(fullFileName, resourceDirectory);
+			strcat(fullFileName, "//");
 			strcat(fullFileName, geomFileNames[curIndex]);
 			currentBody->setGeometryFileName(subSegment, fullFileName);
 			delete[] fullFileName;
@@ -184,10 +146,12 @@ constructGeometry()
 		currentBody->setScaleFactors(scales[i]);
 		currentBody->setCenterOfMass(coms[i]);
 	}
+
 	rdBody *groundBody = getBody(getNB());
 	groundBody->setNumGeometryFiles(1);
-	fullFileName = new char[strlen(resourceDirectory)+strlen(groundGeomFileName)+1];
+	fullFileName = new char[strlen(resourceDirectory)+strlen(groundGeomFileName)+3];
 	strcpy(fullFileName, resourceDirectory);
+	strcat(fullFileName, "//");
 	strcat(fullFileName, groundGeomFileName);
 	groundBody->setGeometryFileName(0, fullFileName);
 	delete[] fullFileName;
