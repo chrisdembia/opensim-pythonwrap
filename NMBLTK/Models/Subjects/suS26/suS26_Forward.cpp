@@ -1,20 +1,21 @@
 // suS26_Forward.cpp
 
 #include <string>
-#include <rdMath.h>
-#include <rdIO.h>
-#include <rdManager.h>
-#include <rdControlLinear.h>
-#include <rdControlSet.h>
-#include <rdModelTestSuite.h>
-#include <suKinematics.h>
-#include <suPointKinematics.h>
-#include <suActuation.h>
-#include <suContact.h>
-#include <suLinearSpring.h>
-#include <suS26.h>
-#include "suActuatorGeneralizedForces.h"
-#include "suGeneralizedForces.h"
+#include <NMBLTK/Tools/rdMath.h>
+#include <NMBLTK/Tools/rdIO.h>
+#include <NMBLTK/Simulation/Manager/rdManager.h>
+#include <NMBLTK/Simulation/Control/rdControlLinear.h>
+#include <NMBLTK/Simulation/Control/rdControlSet.h>
+#include <NMBLTK/Analyses/suKinematics.h>
+#include <NMBLTK/Analyses/suPointKinematics.h>
+#include <NMBLTK/Analyses/suActuation.h>
+#include <NMBLTK/Analyses/suContact.h>
+#include <NMBLTK/Analyses/suLinearSpring.h>
+#include <NMBLTK/Analyses/suActuatorGeneralizedForces.h>
+#include <NMBLTK/Analyses/suGeneralizedForces.h>
+#include <NMBLTK/Analyses/suBodyKinematics.h>
+#include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
+#include "suS26.h"
 using namespace std;
 
 int main()
@@ -70,7 +71,10 @@ int main()
 
 	// SIMULATION SETUP----
 	// Manager
-	rdManager manager(&model,&controlSet);
+	rdModelIntegrand integrand(&model);
+	integrand.setControlSet(controlSet);
+
+	rdManager manager(&integrand);
 	manager.setSessionName("s26");
 
 	// Initial and final times
@@ -100,9 +104,9 @@ int main()
 
 	// RESULTS
 	// Storage
-	rdStorage *yStore = integ->getStateStorage();
-	rdStorage *ypStore = integ->getPseudoStateStorage();
-	rdStorage *xStore = integ->getControlStorage();
+	rdStorage *yStore = integrand.getStateStorage();
+	rdStorage *ypStore = integrand.getPseudoStateStorage();
+	rdStorage *xStore = integrand.getControlStorage();
 
 	// Print
 	double dt = -1.0;
@@ -112,5 +116,6 @@ int main()
 	kin->printResults((char*)prefix.c_str(),"Data",dt);
 	actuation->printResults((char*)prefix.c_str(),"Data",dt);
 	contact->printResults((char*)prefix.c_str(),"Data",dt);
+
 	return(0);
 }
