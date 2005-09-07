@@ -1,7 +1,5 @@
 package simtkCommands;
 
-import simtkCore.SimtkDB;
-import simtkModel.rdModel;
 import simtkModel.*;
 /**
  * @todo getrid of obj and fix Model's getObjectByName

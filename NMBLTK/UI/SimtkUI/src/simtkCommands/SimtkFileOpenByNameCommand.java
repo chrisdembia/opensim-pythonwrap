@@ -104,7 +104,6 @@ public class SimtkFileOpenByNameCommand extends SimtkEnvCommand implements Simtk
    */
   synchronized public boolean addModelByName(String modelClassName, String SimEnvName) throws
       ClassNotFoundException, IllegalAccessException, InstantiationException {
-    boolean success = true;
     /*
      * Create an instance of the class.
      *
