@@ -5,6 +5,7 @@
 #ifndef __VectorFunctionForActuators_h__
 #define __VectorFunctionForActuators_h__
 
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Tools/rdArray.h>
 #include <NMBLTK/Tools/VectorFunctionUncoupledNxN.h>

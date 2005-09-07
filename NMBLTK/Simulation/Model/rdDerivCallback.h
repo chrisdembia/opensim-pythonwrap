@@ -9,6 +9,8 @@
 #ifndef __rdDerivCallback_h__
 #define __rdDerivCallback_h__
 //============================================================================
+
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
 #include <NMBLTK/Tools/rdObject.h>
 #include "rdModel.h"
 #include "rdCallback.h"

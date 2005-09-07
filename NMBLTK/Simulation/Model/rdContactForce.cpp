@@ -856,7 +856,6 @@ computeVelocities()
 	double time = _model->getTime()*_model->getTimeNormConstant();
 
 	// VELOCITY
-	int i;
 	double va[3],vb[3],v[3];
 	if(_vAFunction == NULL){
 		_model->getVelocity(_bA,&_pA[0],va);
