@@ -20,7 +20,7 @@
 #include "rdFunction.h"
 
 
-template class RDTOOLS_API rdArray<double>;
+//template class RDTOOLS_API rdArray<double>;
 
 
 //=============================================================================
