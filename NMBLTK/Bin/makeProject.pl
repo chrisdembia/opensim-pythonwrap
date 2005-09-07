@@ -16,15 +16,23 @@ my $suCapSubjectName = "su".$CapSubjectName;
 
 chomp($subjectName);
 %filemap = (
-	"template.vcproj" => $suCapSubjectName.".vcproj",
 	"template.sln" => $suCapSubjectName.".sln",
 	"template.dsw" => $suCapSubjectName.".dsw",
-	"template.dsp" => $suCapSubjectName.".dsp",
 	"template.h" => $suCapSubjectName.".h",
 	"template.cpp" => $suCapSubjectName.".cpp",
-	"template_Forward.cpp" => $suCapSubjectName."_Forward.cpp",
-	"template_Perturb.cpp" => $suCapSubjectName."_Perturb.cpp",
 	"sdufuncs_darryl.c" => "sdufuncs_darryl.c"
+# Project and source files to support running CMC
+	"template_CMC.cpp" => $suCapSubjectName."_CMC.cpp",
+	"template_CMC.vcproj" => $suCapSubjectName."_CMC.vcproj",
+	"template_CMC.dsp" => $suCapSubjectName."_CMC.dsp",
+# Project and source files to support forward simulation
+	"template_Forward.cpp" => $suCapSubjectName."_Forward.cpp",
+	"template_Forward.vcproj" => $suCapSubjectName."_Forward.vcproj",
+	"template_Forward.dsp" => $suCapSubjectName."_Forward.dsp",
+# Project and source files to support forward simulation with perturbations
+	"template_Perturb.cpp" => $suCapSubjectName."_Perturb.cpp",
+	"template_Perturb.vcproj" => $suCapSubjectName."_Perturb.vcproj",
+	"template_Perturb.dsp" => $suCapSubjectName."_Perturb.dsp",
 );
 my $templateDir = $ENV{RDI_INSTALL}.'/Template/';
 
