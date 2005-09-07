@@ -189,10 +189,6 @@ SOURCE=..\Model\rdIntegCallbackSet.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Integrator\rdIntegrator.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\Integrator\rdIntegRKF.cpp
 # End Source File
 # Begin Source File
