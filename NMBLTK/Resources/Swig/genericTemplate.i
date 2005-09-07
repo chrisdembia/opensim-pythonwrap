@@ -32,8 +32,10 @@
 #include <NMBLTK/Simulation/Control/rdControlSet.h>
 #include <NMBLTK/Simulation/Control/rdControlConstant.h>
 #include <NMBLTK/Simulation/Control/rdControlLinear.h>
+#include <NMBLTK/Simulation/Integrator/Integrand.h>
 #include <NMBLTK/Simulation/Integrator/rdRKF.h>
 #include <NMBLTK/Simulation/Integrator/rdIntegRKF.h>
+#include <NMBLTK/Simulation/Model/rdModelIntegrand.h>
 #include <NMBLTK/Simulation/Manager/rdManager.h>
 #include <NMBLTK/Simulation/Model/rdCallback.h>
 #include <NMBLTK/Simulation/Model/rdCallbackSet.h>
@@ -153,6 +155,8 @@
 %include <NMBLTK/Simulation/Control/rdControlConstant.h>
 %include <NMBLTK/Simulation/Control/rdControlLinear.h>
 
+%include <NMBLTK/Simulation/Integrator/Integrand.h>
+%include <NMBLTK/Simulation/Model/rdModelIntegrand.h>
 %include <NMBLTK/Simulation/Integrator/rdRKF.h>
 %include <NMBLTK/Simulation/Integrator/rdIntegRKF.h>
 %include <NMBLTK/Simulation/Manager/rdManager.h>
