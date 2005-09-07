@@ -111,8 +111,10 @@ void SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionCodes code, const c
 #include <NMBLTK/Simulation/Control/rdControlSet.h>
 #include <NMBLTK/Simulation/Control/rdControlConstant.h>
 #include <NMBLTK/Simulation/Control/rdControlLinear.h>
+#include <NMBLTK/Simulation/Integrator/Integrand.h>
 #include <NMBLTK/Simulation/Integrator/rdRKF.h>
 #include <NMBLTK/Simulation/Integrator/rdIntegRKF.h>
+#include <NMBLTK/Simulation/Model/rdModelIntegrand.h>
 #include <NMBLTK/Simulation/Manager/rdManager.h>
 #include <NMBLTK/Simulation/Model/rdCallback.h>
 #include <NMBLTK/Simulation/Model/rdCallbackSet.h>
@@ -17487,31 +17489,27 @@ JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModel_1computeGeneralizedForce
 }
 
 
-JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdModel_1computeAccelerations(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
-    jint jresult = 0 ;
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModel_1computeReactions(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
     rdModel *arg1 = (rdModel *) 0 ;
-    double *arg2 = (double *) 0 ;
-    double *arg3 = (double *) 0 ;
-    int result;
+    double (*arg2)[3] ;
+    double (*arg3)[3] ;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdModel **)&jarg1; 
-    arg2 = *(double **)&jarg2; 
-    arg3 = *(double **)&jarg3; 
+    arg2 = *(double (**)[3])&jarg2; 
+    arg3 = *(double (**)[3])&jarg3; 
     {
         try {
-            result = (int)(arg1)->computeAccelerations(arg2,arg3);
+            ((rdModel const *)arg1)->computeReactions((double (*)[3])arg2,(double (*)[3])arg3);
             
         }
         catch (rdException) {
             jclass clazz = jenv->FindClass("simtkModel/rdException");
             jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
+            return;
         }
     }
-    jresult = (jint)result; 
-    return jresult;
 }
 
 
@@ -17705,25 +17703,21 @@ JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdModel_1ComputeJacobianInverse(
 }
 
 
-JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdModel_1deriv_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4, jlong jarg5) {
+JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdModel_1computeAccelerations(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
     jint jresult = 0 ;
     rdModel *arg1 = (rdModel *) 0 ;
-    double arg2 ;
+    double *arg2 = (double *) 0 ;
     double *arg3 = (double *) 0 ;
-    double *arg4 = (double *) 0 ;
-    double *arg5 = (double *) 0 ;
     int result;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdModel **)&jarg1; 
-    arg2 = (double)jarg2; 
+    arg2 = *(double **)&jarg2; 
     arg3 = *(double **)&jarg3; 
-    arg4 = *(double **)&jarg4; 
-    arg5 = *(double **)&jarg5; 
     {
         try {
-            result = (int)(arg1)->deriv(arg2,arg3,arg4,arg5);
+            result = (int)(arg1)->computeAccelerations(arg2,arg3);
             
         }
         catch (rdException) {
@@ -17737,37 +17731,25 @@ JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdModel_1deriv_1_1SWIG_10(JNIEnv
 }
 
 
-JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdModel_1deriv_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6) {
-    jint jresult = 0 ;
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModel_1computeAuxiliaryDerivatives(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
     rdModel *arg1 = (rdModel *) 0 ;
-    double arg2 ;
-    double *arg3 = (double *) 0 ;
-    double *arg4 = (double *) 0 ;
-    double *arg5 = (double *) 0 ;
-    double *arg6 = (double *) 0 ;
-    int result;
+    double *arg2 = (double *) 0 ;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdModel **)&jarg1; 
-    arg2 = (double)jarg2; 
-    arg3 = *(double **)&jarg3; 
-    arg4 = *(double **)&jarg4; 
-    arg5 = *(double **)&jarg5; 
-    arg6 = *(double **)&jarg6; 
+    arg2 = *(double **)&jarg2; 
     {
         try {
-            result = (int)(arg1)->deriv(arg2,arg3,arg4,arg5,arg6);
+            (arg1)->computeAuxiliaryDerivatives(arg2);
             
         }
         catch (rdException) {
             jclass clazz = jenv->FindClass("simtkModel/rdException");
             jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
+            return;
         }
     }
-    jresult = (jint)result; 
-    return jresult;
 }
 
 
@@ -19703,6 +19685,106 @@ JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdControl_1setControlValue(JNIEn
     {
         try {
             (arg1)->setControlValue(arg2,arg3);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jdouble JNICALL Java_simtkModel_ModelJNI_rdControl_1getControlValueMin(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
+    jdouble jresult = 0 ;
+    rdControl *arg1 = (rdControl *) 0 ;
+    double arg2 = (double) 0.0 ;
+    double result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControl **)&jarg1; 
+    arg2 = (double)jarg2; 
+    {
+        try {
+            result = (double)(arg1)->getControlValueMin(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    jresult = (jdouble)result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdControl_1setControlValueMin(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3) {
+    rdControl *arg1 = (rdControl *) 0 ;
+    double arg2 ;
+    double arg3 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControl **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = (double)jarg3; 
+    {
+        try {
+            (arg1)->setControlValueMin(arg2,arg3);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jdouble JNICALL Java_simtkModel_ModelJNI_rdControl_1getControlValueMax(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
+    jdouble jresult = 0 ;
+    rdControl *arg1 = (rdControl *) 0 ;
+    double arg2 = (double) 0.0 ;
+    double result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControl **)&jarg1; 
+    arg2 = (double)jarg2; 
+    {
+        try {
+            result = (double)(arg1)->getControlValueMax(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    jresult = (jdouble)result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdControl_1setControlValueMax(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3) {
+    rdControl *arg1 = (rdControl *) 0 ;
+    double arg2 ;
+    double arg3 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControl **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = (double)jarg3; 
+    {
+        try {
+            (arg1)->setControlValueMax(arg2,arg3);
             
         }
         catch (rdException) {
@@ -21710,6 +21792,106 @@ JNIEXPORT jdouble JNICALL Java_simtkModel_ModelJNI_rdControlConstant_1getControl
 }
 
 
+JNIEXPORT jdouble JNICALL Java_simtkModel_ModelJNI_rdControlConstant_1getControlValueMin(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
+    jdouble jresult = 0 ;
+    rdControlConstant *arg1 = (rdControlConstant *) 0 ;
+    double arg2 = (double) 0.0 ;
+    double result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControlConstant **)&jarg1; 
+    arg2 = (double)jarg2; 
+    {
+        try {
+            result = (double)(arg1)->getControlValueMin(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    jresult = (jdouble)result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdControlConstant_1setControlValueMin(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3) {
+    rdControlConstant *arg1 = (rdControlConstant *) 0 ;
+    double arg2 ;
+    double arg3 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControlConstant **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = (double)jarg3; 
+    {
+        try {
+            (arg1)->setControlValueMin(arg2,arg3);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jdouble JNICALL Java_simtkModel_ModelJNI_rdControlConstant_1getControlValueMax(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
+    jdouble jresult = 0 ;
+    rdControlConstant *arg1 = (rdControlConstant *) 0 ;
+    double arg2 = (double) 0.0 ;
+    double result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControlConstant **)&jarg1; 
+    arg2 = (double)jarg2; 
+    {
+        try {
+            result = (double)(arg1)->getControlValueMax(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    jresult = (jdouble)result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdControlConstant_1setControlValueMax(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3) {
+    rdControlConstant *arg1 = (rdControlConstant *) 0 ;
+    double arg2 ;
+    double arg3 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControlConstant **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = (double)jarg3; 
+    {
+        try {
+            (arg1)->setControlValueMax(arg2,arg3);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
 JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_get_1rdControlLinear_1DEFAULT_1NODE(JNIEnv *jenv, jclass jcls) {
     jlong jresult = 0 ;
     rdControlLinearNode result;
@@ -22288,6 +22470,106 @@ JNIEXPORT jdouble JNICALL Java_simtkModel_ModelJNI_rdControlLinear_1getControlVa
 }
 
 
+JNIEXPORT jdouble JNICALL Java_simtkModel_ModelJNI_rdControlLinear_1getControlValueMin(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
+    jdouble jresult = 0 ;
+    rdControlLinear *arg1 = (rdControlLinear *) 0 ;
+    double arg2 = (double) 0.0 ;
+    double result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControlLinear **)&jarg1; 
+    arg2 = (double)jarg2; 
+    {
+        try {
+            result = (double)(arg1)->getControlValueMin(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    jresult = (jdouble)result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdControlLinear_1setControlValueMin(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3) {
+    rdControlLinear *arg1 = (rdControlLinear *) 0 ;
+    double arg2 ;
+    double arg3 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControlLinear **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = (double)jarg3; 
+    {
+        try {
+            (arg1)->setControlValueMin(arg2,arg3);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jdouble JNICALL Java_simtkModel_ModelJNI_rdControlLinear_1getControlValueMax(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
+    jdouble jresult = 0 ;
+    rdControlLinear *arg1 = (rdControlLinear *) 0 ;
+    double arg2 = (double) 0.0 ;
+    double result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControlLinear **)&jarg1; 
+    arg2 = (double)jarg2; 
+    {
+        try {
+            result = (double)(arg1)->getControlValueMax(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    jresult = (jdouble)result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdControlLinear_1setControlValueMax(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3) {
+    rdControlLinear *arg1 = (rdControlLinear *) 0 ;
+    double arg2 ;
+    double arg3 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdControlLinear **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = (double)jarg3; 
+    {
+        try {
+            (arg1)->setControlValueMax(arg2,arg3);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
 JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdControlLinear_1getNodeArray(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong jresult = 0 ;
     rdControlLinear *arg1 = (rdControlLinear *) 0 ;
@@ -22378,6 +22660,803 @@ JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdControlLinear_1simplify(JNIEnv
     {
         try {
             (arg1)->simplify((rdPropertySet const &)*arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_delete_1Integrand(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    Integrand *arg1 = (Integrand *) 0 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(Integrand **)&jarg1; 
+    {
+        try {
+            delete arg1;
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_Integrand_1getSize(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jint jresult = 0 ;
+    Integrand *arg1 = (Integrand *) 0 ;
+    int result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(Integrand **)&jarg1; 
+    {
+        try {
+            result = (int)((Integrand const *)arg1)->getSize();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    jresult = (jint)result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_Integrand_1setInitialStates(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3) {
+    Integrand *arg1 = (Integrand *) 0 ;
+    double arg2 ;
+    double *arg3 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(Integrand **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = *(double **)&jarg3; 
+    {
+        try {
+            (arg1)->setInitialStates(arg2,(double const (*))arg3);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_Integrand_1getInitialStates(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+    Integrand *arg1 = (Integrand *) 0 ;
+    double *arg2 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(Integrand **)&jarg1; 
+    arg2 = *(double **)&jarg2; 
+    {
+        try {
+            ((Integrand const *)arg1)->getInitialStates(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_Integrand_1compute(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4) {
+    Integrand *arg1 = (Integrand *) 0 ;
+    double arg2 ;
+    double *arg3 ;
+    double *arg4 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(Integrand **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = *(double **)&jarg3; 
+    arg4 = *(double **)&jarg4; 
+    {
+        try {
+            (arg1)->compute(arg2,arg3,arg4);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_Integrand_1computeJacobian(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4) {
+    Integrand *arg1 = (Integrand *) 0 ;
+    double arg2 ;
+    double *arg3 ;
+    double *arg4 = (double *) 0 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(Integrand **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = *(double **)&jarg3; 
+    arg4 = *(double **)&jarg4; 
+    {
+        try {
+            (arg1)->computeJacobian(arg2,arg3,arg4);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_Integrand_1initialize(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jlong jarg3, jdouble jarg4, jdouble jarg5, jlong jarg6) {
+    Integrand *arg1 = (Integrand *) 0 ;
+    int arg2 ;
+    double *arg3 = 0 ;
+    double arg4 ;
+    double arg5 ;
+    double *arg6 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(Integrand **)&jarg1; 
+    arg2 = (int)jarg2; 
+    arg3 = *(double **)&jarg3;
+    if(!arg3) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "double & reference is null");
+        return ;
+    }
+    arg4 = (double)jarg4; 
+    arg5 = (double)jarg5; 
+    arg6 = *(double **)&jarg6; 
+    {
+        try {
+            (arg1)->initialize(arg2,*arg3,arg4,arg5,arg6);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_Integrand_1processAfterStep(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jlong jarg3, jdouble jarg4, jlong jarg5) {
+    Integrand *arg1 = (Integrand *) 0 ;
+    int arg2 ;
+    double *arg3 = 0 ;
+    double arg4 ;
+    double *arg5 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(Integrand **)&jarg1; 
+    arg2 = (int)jarg2; 
+    arg3 = *(double **)&jarg3;
+    if(!arg3) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "double & reference is null");
+        return ;
+    }
+    arg4 = (double)jarg4; 
+    arg5 = *(double **)&jarg5; 
+    {
+        try {
+            (arg1)->processAfterStep(arg2,*arg3,arg4,arg5);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_Integrand_1finalize(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jdouble jarg3, jlong jarg4) {
+    Integrand *arg1 = (Integrand *) 0 ;
+    int arg2 ;
+    double arg3 ;
+    double *arg4 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(Integrand **)&jarg1; 
+    arg2 = (int)jarg2; 
+    arg3 = (double)jarg3; 
+    arg4 = *(double **)&jarg4; 
+    {
+        try {
+            (arg1)->finalize(arg2,arg3,arg4);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_new_1rdModelIntegrand(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong jresult = 0 ;
+    rdModel *arg1 = (rdModel *) 0 ;
+    rdModelIntegrand *result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModel **)&jarg1; 
+    {
+        try {
+            result = (rdModelIntegrand *)new rdModelIntegrand(arg1);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    *(rdModelIntegrand **)&jresult = result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_delete_1rdModelIntegrand(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    {
+        try {
+            delete arg1;
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1getSize(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jint jresult = 0 ;
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    int result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    {
+        try {
+            result = (int)((rdModelIntegrand const *)arg1)->getSize();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    jresult = (jint)result; 
+    return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1getModel(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong jresult = 0 ;
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdModel *result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    {
+        try {
+            result = (rdModel *)(arg1)->getModel();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    *(rdModel **)&jresult = result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1setControlSet(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdControlSet *arg2 = 0 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = *(rdControlSet **)&jarg2;
+    if(!arg2) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "rdControlSet const & reference is null");
+        return ;
+    }
+    {
+        try {
+            (arg1)->setControlSet((rdControlSet const &)*arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1getControlSet(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong jresult = 0 ;
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdControlSet *result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    {
+        try {
+            result = (rdControlSet *)(arg1)->getControlSet();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    *(rdControlSet **)&jresult = result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1setControlStorage(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdStorage *arg2 = (rdStorage *) 0 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = *(rdStorage **)&jarg2; 
+    {
+        try {
+            (arg1)->setControlStorage(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1getControlStorage(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong jresult = 0 ;
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdStorage *result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    {
+        try {
+            result = (rdStorage *)(arg1)->getControlStorage();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    *(rdStorage **)&jresult = result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1setStateStorage(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdStorage *arg2 = (rdStorage *) 0 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = *(rdStorage **)&jarg2; 
+    {
+        try {
+            (arg1)->setStateStorage(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1getStateStorage(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong jresult = 0 ;
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdStorage *result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    {
+        try {
+            result = (rdStorage *)(arg1)->getStateStorage();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    *(rdStorage **)&jresult = result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1setPseudoStateStorage(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdStorage *arg2 = (rdStorage *) 0 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = *(rdStorage **)&jarg2; 
+    {
+        try {
+            (arg1)->setPseudoStateStorage(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1getPseudoStateStorage(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong jresult = 0 ;
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdStorage *result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    {
+        try {
+            result = (rdStorage *)(arg1)->getPseudoStateStorage();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    *(rdStorage **)&jresult = result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1setController(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdController *arg2 = (rdController *) 0 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = *(rdController **)&jarg2; 
+    {
+        try {
+            (arg1)->setController(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1getController(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong jresult = 0 ;
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdController *result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    {
+        try {
+            result = (rdController *)(arg1)->getController();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    *(rdController **)&jresult = result; 
+    return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1constructControlSet(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong jresult = 0 ;
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    rdControlSet *result;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    {
+        try {
+            result = (rdControlSet *)((rdModelIntegrand const *)arg1)->constructControlSet();
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return NULL;
+        }
+    }
+    *(rdControlSet **)&jresult = result; 
+    return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1convertStatesIntegrandToModel(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    double arg2 ;
+    double *arg3 ;
+    double *arg4 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = *(double **)&jarg3; 
+    arg4 = *(double **)&jarg4; 
+    {
+        try {
+            (arg1)->convertStatesIntegrandToModel(arg2,(double const (*))arg3,arg4);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1convertStatesModelToIntegrand(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    double *arg2 ;
+    double *arg3 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = *(double **)&jarg2; 
+    arg3 = *(double **)&jarg3; 
+    {
+        try {
+            ((rdModelIntegrand const *)arg1)->convertStatesModelToIntegrand((double const (*))arg2,arg3);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1setInitialStates(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    double arg2 ;
+    double *arg3 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = *(double **)&jarg3; 
+    {
+        try {
+            (arg1)->setInitialStates(arg2,(double const (*))arg3);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1getInitialStates(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    double *arg2 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = *(double **)&jarg2; 
+    {
+        try {
+            ((rdModelIntegrand const *)arg1)->getInitialStates(arg2);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1compute(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3, jlong jarg4) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    double arg2 ;
+    double *arg3 ;
+    double *arg4 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = (double)jarg2; 
+    arg3 = *(double **)&jarg3; 
+    arg4 = *(double **)&jarg4; 
+    {
+        try {
+            (arg1)->compute(arg2,arg3,arg4);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1initialize(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jlong jarg3, jdouble jarg4, jdouble jarg5, jlong jarg6) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    int arg2 ;
+    double *arg3 = 0 ;
+    double arg4 ;
+    double arg5 ;
+    double *arg6 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = (int)jarg2; 
+    arg3 = *(double **)&jarg3;
+    if(!arg3) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "double & reference is null");
+        return ;
+    }
+    arg4 = (double)jarg4; 
+    arg5 = (double)jarg5; 
+    arg6 = *(double **)&jarg6; 
+    {
+        try {
+            (arg1)->initialize(arg2,*arg3,arg4,arg5,arg6);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1processAfterStep(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jlong jarg3, jdouble jarg4, jlong jarg5) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    int arg2 ;
+    double *arg3 = 0 ;
+    double arg4 ;
+    double *arg5 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = (int)jarg2; 
+    arg3 = *(double **)&jarg3;
+    if(!arg3) {
+        SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "double & reference is null");
+        return ;
+    }
+    arg4 = (double)jarg4; 
+    arg5 = *(double **)&jarg5; 
+    {
+        try {
+            (arg1)->processAfterStep(arg2,*arg3,arg4,arg5);
+            
+        }
+        catch (rdException) {
+            jclass clazz = jenv->FindClass("simtkModel/rdException");
+            jenv->ThrowNew(clazz, "Native Exception");
+            return;
+        }
+    }
+}
+
+
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdModelIntegrand_1finalize(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jdouble jarg3, jlong jarg4) {
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
+    int arg2 ;
+    double arg3 ;
+    double *arg4 ;
+    
+    (void)jenv;
+    (void)jcls;
+    arg1 = *(rdModelIntegrand **)&jarg1; 
+    arg2 = (int)jarg2; 
+    arg3 = (double)jarg3; 
+    arg4 = *(double **)&jarg4; 
+    {
+        try {
+            (arg1)->finalize(arg2,arg3,arg4);
             
         }
         catch (rdException) {
@@ -22523,14 +23602,14 @@ JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_get_1rdRKF_1rdRKF_1TOO_1MANY_1ST
 
 JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_new_1rdRKF(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3) {
     jlong jresult = 0 ;
-    rdModel *arg1 = (rdModel *) 0 ;
+    Integrand *arg1 = (Integrand *) 0 ;
     double arg2 = (double) 1.0e-4 ;
     double arg3 = (double) -1.0 ;
     rdRKF *result;
     
     (void)jenv;
     (void)jcls;
-    arg1 = *(rdModel **)&jarg1; 
+    arg1 = *(Integrand **)&jarg1; 
     arg2 = (double)jarg2; 
     arg3 = (double)jarg3; 
     {
@@ -22569,17 +23648,17 @@ JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_delete_1rdRKF(JNIEnv *jenv, jcla
 }
 
 
-JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdRKF_1getModel(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdRKF_1getIntegrand(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong jresult = 0 ;
     rdRKF *arg1 = (rdRKF *) 0 ;
-    rdModel *result;
+    Integrand *result;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdRKF **)&jarg1; 
     {
         try {
-            result = (rdModel *)(arg1)->getModel();
+            result = (Integrand *)(arg1)->getIntegrand();
             
         }
         catch (rdException) {
@@ -22588,31 +23667,7 @@ JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdRKF_1getModel(JNIEnv *jenv, j
             return NULL;
         }
     }
-    *(rdModel **)&jresult = result; 
-    return jresult;
-}
-
-
-JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1getNY(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-    jint jresult = 0 ;
-    rdRKF *arg1 = (rdRKF *) 0 ;
-    int result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdRKF **)&jarg1; 
-    {
-        try {
-            result = (int)(arg1)->getNY();
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    jresult = (jint)result; 
+    *(Integrand **)&jresult = result; 
     return jresult;
 }
 
@@ -22711,49 +23766,12 @@ JNIEXPORT jdouble JNICALL Java_simtkModel_ModelJNI_rdRKF_1getFineTolerance(JNIEn
 }
 
 
-JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1step_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3, jlong jarg4, jlong jarg5) {
-    jint jresult = 0 ;
-    rdRKF *arg1 = (rdRKF *) 0 ;
-    double arg2 ;
-    double arg3 ;
-    rdControlSet *arg4 = 0 ;
-    double *arg5 = (double *) 0 ;
-    int result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdRKF **)&jarg1; 
-    arg2 = (double)jarg2; 
-    arg3 = (double)jarg3; 
-    arg4 = *(rdControlSet **)&jarg4;
-    if(!arg4) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "rdControlSet & reference is null");
-        return 0;
-    }
-    arg5 = *(double **)&jarg5; 
-    {
-        try {
-            result = (int)(arg1)->step(arg2,arg3,*arg4,arg5);
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    jresult = (jint)result; 
-    return jresult;
-}
-
-
-JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1step_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3, jlong jarg4, jlong jarg5) {
+JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1step(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3, jlong jarg4) {
     jint jresult = 0 ;
     rdRKF *arg1 = (rdRKF *) 0 ;
     double arg2 ;
     double arg3 ;
     double *arg4 = (double *) 0 ;
-    double *arg5 = (double *) 0 ;
     int result;
     
     (void)jenv;
@@ -22762,10 +23780,9 @@ JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1step_1_1SWIG_11(JNIEnv *j
     arg2 = (double)jarg2; 
     arg3 = (double)jarg3; 
     arg4 = *(double **)&jarg4; 
-    arg5 = *(double **)&jarg5; 
     {
         try {
-            result = (int)(arg1)->step(arg2,arg3,arg4,arg5);
+            result = (int)(arg1)->step(arg2,arg3,arg4);
             
         }
         catch (rdException) {
@@ -22779,49 +23796,12 @@ JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1step_1_1SWIG_11(JNIEnv *j
 }
 
 
-JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1stepFixed_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3, jlong jarg4, jlong jarg5) {
-    jint jresult = 0 ;
-    rdRKF *arg1 = (rdRKF *) 0 ;
-    double arg2 ;
-    double arg3 ;
-    rdControlSet *arg4 = 0 ;
-    double *arg5 = (double *) 0 ;
-    int result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdRKF **)&jarg1; 
-    arg2 = (double)jarg2; 
-    arg3 = (double)jarg3; 
-    arg4 = *(rdControlSet **)&jarg4;
-    if(!arg4) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "rdControlSet & reference is null");
-        return 0;
-    }
-    arg5 = *(double **)&jarg5; 
-    {
-        try {
-            result = (int)(arg1)->stepFixed(arg2,arg3,*arg4,arg5);
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    jresult = (jint)result; 
-    return jresult;
-}
-
-
-JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1stepFixed_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3, jlong jarg4, jlong jarg5) {
+JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1stepFixed(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3, jlong jarg4) {
     jint jresult = 0 ;
     rdRKF *arg1 = (rdRKF *) 0 ;
     double arg2 ;
     double arg3 ;
     double *arg4 = (double *) 0 ;
-    double *arg5 = (double *) 0 ;
     int result;
     
     (void)jenv;
@@ -22830,10 +23810,9 @@ JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1stepFixed_1_1SWIG_11(JNIE
     arg2 = (double)jarg2; 
     arg3 = (double)jarg3; 
     arg4 = *(double **)&jarg4; 
-    arg5 = *(double **)&jarg5; 
     {
         try {
-            result = (int)(arg1)->stepFixed(arg2,arg3,arg4,arg5);
+            result = (int)(arg1)->stepFixed(arg2,arg3,arg4);
             
         }
         catch (rdException) {
@@ -22849,14 +23828,14 @@ JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdRKF_1stepFixed_1_1SWIG_11(JNIE
 
 JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_new_1rdIntegRKF(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3) {
     jlong jresult = 0 ;
-    rdModel *arg1 = (rdModel *) NULL ;
+    Integrand *arg1 = (Integrand *) 0 ;
     double arg2 = (double) 1.0e-4 ;
     double arg3 = (double) -1.0 ;
     rdIntegRKF *result;
     
     (void)jenv;
     (void)jcls;
-    arg1 = *(rdModel **)&jarg1; 
+    arg1 = *(Integrand **)&jarg1; 
     arg2 = (double)jarg2; 
     arg3 = (double)jarg3; 
     {
@@ -23437,190 +24416,6 @@ JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1resetTimeAndDTArrays
 }
 
 
-JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1setControlStorage(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-    rdIntegRKF *arg1 = (rdIntegRKF *) 0 ;
-    rdStorage *arg2 = (rdStorage *) 0 ;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdIntegRKF **)&jarg1; 
-    arg2 = *(rdStorage **)&jarg2; 
-    {
-        try {
-            (arg1)->setControlStorage(arg2);
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return;
-        }
-    }
-}
-
-
-JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1getControlStorage(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-    jlong jresult = 0 ;
-    rdIntegRKF *arg1 = (rdIntegRKF *) 0 ;
-    rdStorage *result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdIntegRKF **)&jarg1; 
-    {
-        try {
-            result = (rdStorage *)(arg1)->getControlStorage();
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    *(rdStorage **)&jresult = result; 
-    return jresult;
-}
-
-
-JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1setStateStorage(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-    rdIntegRKF *arg1 = (rdIntegRKF *) 0 ;
-    rdStorage *arg2 = (rdStorage *) 0 ;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdIntegRKF **)&jarg1; 
-    arg2 = *(rdStorage **)&jarg2; 
-    {
-        try {
-            (arg1)->setStateStorage(arg2);
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return;
-        }
-    }
-}
-
-
-JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1getStateStorage(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-    jlong jresult = 0 ;
-    rdIntegRKF *arg1 = (rdIntegRKF *) 0 ;
-    rdStorage *result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdIntegRKF **)&jarg1; 
-    {
-        try {
-            result = (rdStorage *)(arg1)->getStateStorage();
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    *(rdStorage **)&jresult = result; 
-    return jresult;
-}
-
-
-JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1setPseudoStateStorage(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-    rdIntegRKF *arg1 = (rdIntegRKF *) 0 ;
-    rdStorage *arg2 = (rdStorage *) 0 ;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdIntegRKF **)&jarg1; 
-    arg2 = *(rdStorage **)&jarg2; 
-    {
-        try {
-            (arg1)->setPseudoStateStorage(arg2);
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return;
-        }
-    }
-}
-
-
-JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1getPseudoStateStorage(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-    jlong jresult = 0 ;
-    rdIntegRKF *arg1 = (rdIntegRKF *) 0 ;
-    rdStorage *result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdIntegRKF **)&jarg1; 
-    {
-        try {
-            result = (rdStorage *)(arg1)->getPseudoStateStorage();
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    *(rdStorage **)&jresult = result; 
-    return jresult;
-}
-
-
-JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1setController(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-    rdIntegRKF *arg1 = (rdIntegRKF *) 0 ;
-    rdController *arg2 = (rdController *) 0 ;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdIntegRKF **)&jarg1; 
-    arg2 = *(rdController **)&jarg2; 
-    {
-        try {
-            (arg1)->setController(arg2);
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return;
-        }
-    }
-}
-
-
-JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1getController(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-    jlong jresult = 0 ;
-    rdIntegRKF *arg1 = (rdIntegRKF *) 0 ;
-    rdController *result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdIntegRKF **)&jarg1; 
-    {
-        try {
-            result = (rdController *)(arg1)->getController();
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    *(rdController **)&jresult = result; 
-    return jresult;
-}
-
-
 JNIEXPORT jstring JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1toString(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jstring jresult = 0 ;
     rdIntegRKF *arg1 = (rdIntegRKF *) 0 ;
@@ -23648,14 +24443,13 @@ JNIEXPORT jstring JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1toString(JNIEnv *
 }
 
 
-JNIEXPORT jboolean JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1integrate(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3, jlong jarg4, jlong jarg5, jdouble jarg6) {
+JNIEXPORT jboolean JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1integrate(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdouble jarg3, jlong jarg4, jdouble jarg5) {
     jboolean jresult = 0 ;
     rdIntegRKF *arg1 = (rdIntegRKF *) 0 ;
     double arg2 ;
     double arg3 ;
-    rdControlSet *arg4 = 0 ;
-    double *arg5 = (double *) 0 ;
-    double arg6 = (double) 1.0e-3 ;
+    double *arg4 = (double *) 0 ;
+    double arg5 = (double) 1.0e-3 ;
     bool result;
     
     (void)jenv;
@@ -23663,16 +24457,11 @@ JNIEXPORT jboolean JNICALL Java_simtkModel_ModelJNI_rdIntegRKF_1integrate(JNIEnv
     arg1 = *(rdIntegRKF **)&jarg1; 
     arg2 = (double)jarg2; 
     arg3 = (double)jarg3; 
-    arg4 = *(rdControlSet **)&jarg4;
-    if(!arg4) {
-        SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "rdControlSet & reference is null");
-        return 0;
-    }
-    arg5 = *(double **)&jarg5; 
-    arg6 = (double)jarg6; 
+    arg4 = *(double **)&jarg4; 
+    arg5 = (double)jarg5; 
     {
         try {
-            result = (bool)(arg1)->integrate(arg2,arg3,*arg4,arg5,arg6);
+            result = (bool)(arg1)->integrate(arg2,arg3,arg4,arg5);
             
         }
         catch (rdException) {
@@ -23770,19 +24559,17 @@ JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_delete_1rdManager(JNIEnv *jenv, 
 }
 
 
-JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_new_1rdManager_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_new_1rdManager_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong jresult = 0 ;
-    rdModel *arg1 = (rdModel *) 0 ;
-    rdControlSet *arg2 = (rdControlSet *) NULL ;
+    rdModelIntegrand *arg1 = (rdModelIntegrand *) 0 ;
     rdManager *result;
     
     (void)jenv;
     (void)jcls;
-    arg1 = *(rdModel **)&jarg1; 
-    arg2 = *(rdControlSet **)&jarg2; 
+    arg1 = *(rdModelIntegrand **)&jarg1; 
     {
         try {
-            result = (rdManager *)new rdManager(arg1,arg2);
+            result = (rdManager *)new rdManager(arg1);
             
         }
         catch (rdException) {
@@ -23905,17 +24692,17 @@ JNIEXPORT jstring JNICALL Java_simtkModel_ModelJNI_rdManager_1toString(JNIEnv *j
 }
 
 
-JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdManager_1setModel(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdManager_1setIntegrand(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
     rdManager *arg1 = (rdManager *) 0 ;
-    rdModel *arg2 = (rdModel *) 0 ;
+    rdModelIntegrand *arg2 = (rdModelIntegrand *) 0 ;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdManager **)&jarg1; 
-    arg2 = *(rdModel **)&jarg2; 
+    arg2 = *(rdModelIntegrand **)&jarg2; 
     {
         try {
-            (arg1)->setModel(arg2);
+            (arg1)->setIntegrand(arg2);
             
         }
         catch (rdException) {
@@ -23927,17 +24714,17 @@ JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdManager_1setModel(JNIEnv *jenv
 }
 
 
-JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdManager_1getModel(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdManager_1getIntegrand(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong jresult = 0 ;
     rdManager *arg1 = (rdManager *) 0 ;
-    rdModel *result;
+    rdModelIntegrand *result;
     
     (void)jenv;
     (void)jcls;
     arg1 = *(rdManager **)&jarg1; 
     {
         try {
-            result = (rdModel *)((rdManager const *)arg1)->getModel();
+            result = (rdModelIntegrand *)((rdManager const *)arg1)->getIntegrand();
             
         }
         catch (rdException) {
@@ -23946,57 +24733,7 @@ JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdManager_1getModel(JNIEnv *jen
             return NULL;
         }
     }
-    *(rdModel **)&jresult = result; 
-    return jresult;
-}
-
-
-JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdManager_1setControlSet(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-    jlong jresult = 0 ;
-    rdManager *arg1 = (rdManager *) 0 ;
-    rdControlSet *arg2 = (rdControlSet *) 0 ;
-    rdControlSet *result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdManager **)&jarg1; 
-    arg2 = *(rdControlSet **)&jarg2; 
-    {
-        try {
-            result = (rdControlSet *)(arg1)->setControlSet(arg2);
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    *(rdControlSet **)&jresult = result; 
-    return jresult;
-}
-
-
-JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdManager_1getControlSet(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-    jlong jresult = 0 ;
-    rdManager *arg1 = (rdManager *) 0 ;
-    rdControlSet *result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdManager **)&jarg1; 
-    {
-        try {
-            result = (rdControlSet *)((rdManager const *)arg1)->getControlSet();
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    *(rdControlSet **)&jresult = result; 
+    *(rdModelIntegrand **)&jresult = result; 
     return jresult;
 }
 
@@ -24287,30 +25024,6 @@ JNIEXPORT jboolean JNICALL Java_simtkModel_ModelJNI_rdManager_1integrate_1_1SWIG
         }
     }
     jresult = (jboolean)result; 
-    return jresult;
-}
-
-
-JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdManager_1constructControlSet(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-    jlong jresult = 0 ;
-    rdManager *arg1 = (rdManager *) 0 ;
-    rdControlSet *result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdManager **)&jarg1; 
-    {
-        try {
-            result = (rdControlSet *)(arg1)->constructControlSet();
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    *(rdControlSet **)&jresult = result; 
     return jresult;
 }
 
@@ -36837,6 +37550,22 @@ JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_SWIGrdControlLinearTordControl(
     (void)jenv;
     (void)jcls;
     *(rdControl **)&baseptr = *(rdControlLinear **)&jarg1;
+    return baseptr;
+}
+
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_SWIGIntegrandTordObject(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(rdObject **)&baseptr = *(Integrand **)&jarg1;
+    return baseptr;
+}
+
+JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_SWIGrdModelIntegrandToIntegrand(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(Integrand **)&baseptr = *(rdModelIntegrand **)&jarg1;
     return baseptr;
 }
 
