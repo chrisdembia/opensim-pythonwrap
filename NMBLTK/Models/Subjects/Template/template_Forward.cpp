@@ -65,7 +65,10 @@ int main()
 
 	// SIMULATION SETUP----
 	// Manager
-	rdManager manager(&model,&controlSet);
+	rdModelIntegrand integrand(&model);
+	integrand.setControlSet(controlSet);
+
+	rdManager manager(&integrand);
 	manager.setSessionName("_template_");
 
 	// Initial and final times
@@ -95,9 +98,9 @@ int main()
 
 	// RESULTS
 	// Storage
-	rdStorage *yStore = integ->getStateStorage();
-	rdStorage *ypStore = integ->getPseudoStateStorage();
-	rdStorage *xStore = integ->getControlStorage();
+	rdStorage *yStore = integrand.getStateStorage();
+	rdStorage *ypStore = integrand.getPseudoStateStorage();
+	rdStorage *xStore = integrand.getControlStorage();
 
 	// Print
 	double dt = -1.0;

@@ -166,7 +166,10 @@ int main(int argc,char *argv[])
 	
 	// SIMULATION SETUP----
 	// Manager
-	rdManager manager(&model,&controlSet);
+	rdModelIntegrand integrand(&model);
+	integrand.setControlSet(controlSet);
+
+	rdManager manager(&integrand);
 	manager.setSessionName("_template_");
 
 	// Initial and final times
@@ -238,9 +241,9 @@ int main(int argc,char *argv[])
 
 	// RESULTS
 	// Storage
-	rdStorage *yStore = integ->getStateStorage();
-	rdStorage *ypStore = integ->getPseudoStateStorage();
-	rdStorage *xStore = integ->getControlStorage();
+	rdStorage *yStore = integrand.getStateStorage();
+	rdStorage *ypStore = integrand.getPseudoStateStorage();
+	rdStorage *xStore = integrand.getControlStorage();
 
 	// Print
 	double dt = -1.0;
@@ -361,7 +364,8 @@ void engageCorrectiveSprings(rdModel *aModel)
 	storeR0.getDataColumn(1,y);
 	storeR0.getDataColumn(2,z);
 	rd1to3VectorGCVSpline *vectorR0 = new rd1to3VectorGCVSpline(3,n,t,x,y,z);
-	const rdArray<double> &result = vectorR0->evaluate(t[0]);
+	rdArray<double> result(0.0, 3);
+	vectorR0->evaluate(&t[0], &result[0]);
 	cout<<"\n\nvector result = "<<result<<endl<<endl;
 	delete[] t; delete[] x;  delete[] y;  delete[] z;
 	// VR0
