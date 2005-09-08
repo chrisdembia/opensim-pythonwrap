@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="su_Template__Forward"
+	SccProjectName=""
+	SccLocalPath=""
+	Keyword="Win32Proj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="Debug"
+			IntermediateDirectory=".\Debug"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="   /Zm1000       -DCMAKE_INTDIR=\&quot;Debug\&quot;"
+				AdditionalIncludeDirectories="$(RDI_INSTALL)\Include;$(RDI_INSTALL)\Include\Vendors;$(RDI_INSTALL)\Include\Vendors\xerces-c-src2_4_0\src;$(RDI_INSTALL)\Include\dp;"
+				BasicRuntimeChecks="1"
+				DebugInformationFormat="3"
+				ExceptionHandling="TRUE"
+				InlineFunctionExpansion="0"
+				Optimization="0"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,RDSDFAST_EXPORTS,"
+				AssemblerListingLocation="Debug"
+				ObjectFile="Debug\"
+				ProgramDatabaseFileName="$(OutDir)/su_Template__Forward.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="$(RDI_INSTALL)\Include;$(RDI_INSTALL)\Include\Vendors;$(RDI_INSTALL)\Include\Vendors\xerces-c-src2_4_0\src;$(RDI_INSTALL)\Include\dp;"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,RDSDFAST_EXPORTS," />
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386 /STACK:10000000 /machine:I386 /INCREMENTAL:YES"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib xerces-c_2D.lib rdTools.lib rdSimulation.lib acpp.lib rdSDFast.lib suPipeline40Workflow.lib suPipeline40.lib suAnalyses.lib "
+				OutputFile="Debug\su_Template__Forward.exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="$(NMBL_INSTALL)\bin\$(INTDIR),$(NMBL_INSTALL)\bin\,$(RDI_INSTALL)\Lib\VC71\$(INTDIR),$(RDI_INSTALL)\Lib\VC71\"
+				ProgramDatabaseFile="$(OutDir)\su_Template__Forward.pdb"
+				GenerateDebugInformation="TRUE"
+				SubSystem="1"
+				StackReserveSize="10000000"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="Release"
+			IntermediateDirectory=".\Release"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="   /Zm1000     /D NDEBUG   /D NDEBUG -DCMAKE_INTDIR=\&quot;Release\&quot;"
+				AdditionalIncludeDirectories="$(RDI_INSTALL)\Include;$(RDI_INSTALL)\Include\Vendors;$(RDI_INSTALL)\Include\Vendors\xerces-c-src2_4_0\src;$(RDI_INSTALL)\Include\dp;"
+				ExceptionHandling="TRUE"
+				InlineFunctionExpansion="1"
+				Optimization="2"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="TRUE"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS,"
+				AssemblerListingLocation="Release"
+				ObjectFile="Release\"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="$(RDI_INSTALL)\Include;$(RDI_INSTALL)\Include\Vendors;$(RDI_INSTALL)\Include\Vendors\xerces-c-src2_4_0\src;$(RDI_INSTALL)\Include\dp;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS," />
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386 /STACK:10000000 /machine:I386 /INCREMENTAL:YES"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib xerces-c_2.lib rdTools.lib rdSimulation.lib acpp.lib rdSDFast.lib suPipeline40Workflow.lib suPipeline40.lib suAnalyses.lib "
+				OutputFile="Release\su_Template__Forward.exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="$(NMBL_INSTALL)\bin\$(INTDIR),$(NMBL_INSTALL)\bin\,$(RDI_INSTALL)\Lib\VC71\$(INTDIR),$(RDI_INSTALL)\Lib\VC71\"
+				ProgramDatabaseFile="$(OutDir)\su_Template__Forward.pdb"
+				SubSystem="1"
+				StackReserveSize="10000000"/>
+		</Configuration>
+	</Configurations>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="">
+			<File
+				RelativePath=".\su_Template__Forward.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\_template__dyn.c">
+			</File>
+			<File
+				RelativePath=".\_template__sar.c">
+			</File>
+			<File
+				RelativePath=".\sdufuncs_darryl.c">
+			</File>
+			<File
+				RelativePath=".\su_Template_.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\dynsim\src\sdfor.c">
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="">
+			<File
+				RelativePath=".\su_Template_.h">
+			</File>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
