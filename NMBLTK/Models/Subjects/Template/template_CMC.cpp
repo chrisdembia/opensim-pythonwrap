@@ -45,7 +45,7 @@ extern "C" {
 	void computeConstrainedCoords(dpModelStruct* sdm,double* y);
 }
 
-int main()
+int main(int argc,char **argv)
 {
 	int i;
 	rdIO::SetPrecision(16);
@@ -62,7 +62,7 @@ int main()
 	string controlsName = prefix + "cmc.ctr";
 
 	// MODEL----
-	std::string parmFile="./paramsrea.txt";
+	std::string parmFile="./params.txt";
 	su_Template_ model(parmFile);
 
 	// Initial states
@@ -129,10 +129,10 @@ int main()
 
 	// OPTIMIZATION TARGET
 	int na = model.getNA();
-	rdActuatorForceTargetFast target(na,&controller);
-	// Select Target per user preference any param should trigger the faster, less robust one
+	// Select Target per user preference. Param 'f' or 'F' should trigger the faster, less robust one
 	rdActuatorForceTargetFast fTarget(na,&controller);
 	rdActuatorForceTarget target(na,&controller);
+	bool useFastTarget=(argc==2 && (*argv[1]=='f' || *argv[1]=='F'));
 	if ( useFastTarget)
 		controller.setOptimizationTarget(&fTarget);
 	else
