@@ -293,7 +293,7 @@ evaluate(const double *aX,double *rF)
 	// Integration
 	_integrator->integrate(_ti,_tf,&y[0],0.000001);
 
-	// Muscle forces
+	// Actuator forces
 	rdArray<double> yModel(0.0,nyModel);
 	_integrand->convertStatesIntegrandToModel(_tf,&y[0],&yModel[0]);
 	model->setStates(&yModel[0]);
