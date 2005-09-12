@@ -47,7 +47,7 @@ suPointKinematics::~suPointKinematics()
 suPointKinematics::suPointKinematics(rdModel *aModel) :
 rdAnalysis(aModel),
 _body(_bodyProp.getValueInt()),
-_point((rdArray<double>&)_pointProp.getValueDblArray()),
+_point(_pointProp.getValueDblArray()),
 _pointName(_pointNameProp.getValueStr())
 {
 	// NULL
@@ -83,7 +83,7 @@ _pointName(_pointNameProp.getValueStr())
 suPointKinematics::suPointKinematics(const std::string &aFileName):
 rdAnalysis(aFileName),
 _body(_bodyProp.getValueInt()),
-_point((rdArray<double>&)_pointProp.getValueDblArray()),
+_point(_pointProp.getValueDblArray()),
 _pointName(_pointNameProp.getValueStr())
 {
 	setNull();
@@ -105,7 +105,7 @@ _pointName(_pointNameProp.getValueStr())
 suPointKinematics::suPointKinematics(DOMElement *aElement):
 rdAnalysis(aElement),
 _body(_bodyProp.getValueInt()),
-_point((rdArray<double>&)_pointProp.getValueDblArray()),
+_point(_pointProp.getValueDblArray()),
 _pointName(_pointNameProp.getValueStr())
 {
 	setNull();
@@ -130,7 +130,7 @@ _pointName(_pointNameProp.getValueStr())
 suPointKinematics::suPointKinematics(const suPointKinematics &aPointKinematics):
 rdAnalysis(aPointKinematics),
 _body(_bodyProp.getValueInt()),
-_point((rdArray<double>&)_pointProp.getValueDblArray()),
+_point(_pointProp.getValueDblArray()),
 _pointName(_pointNameProp.getValueStr())
 {
 	setNull();
@@ -167,10 +167,10 @@ rdObject* suPointKinematics::copy(DOMElement *aElement) const
 void suPointKinematics::
 setNull()
 {
-	double point[] = { 0.0, 0.0, 0.0 };
 
 	// POINTERS
 	_dy = NULL;
+	_kin = NULL;
 	_pStore = NULL;
 	_vStore = NULL;
 	_aStore = NULL;
@@ -178,8 +178,12 @@ setNull()
 	// OTHER VARIABLES
 	setName("PointKinematics");
 	setBody(_model->getGroundID());
+
+	// POINT INFORMATION
+	_point.setSize(3);
+	double point[] = { 0.0, 0.0, 0.0 };
 	setPoint(point);
-	setPointName("Point4Kinematics");
+	setPointName("NONAME");
 }
 //=============================================================================
 // OPERATORS

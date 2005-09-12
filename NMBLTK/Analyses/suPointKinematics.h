@@ -50,9 +50,10 @@ protected:
 	rdPropertyInt _bodyProp;
 	rdPropertyDblArray _pointProp;
 	rdPropertyStr _pointNameProp;
+
 	// References
 	int &_body;
-	rdArray<double>& _point;
+	rdArray<double> &_point;
 	std::string &_pointName;
 
 	double *_dy;
