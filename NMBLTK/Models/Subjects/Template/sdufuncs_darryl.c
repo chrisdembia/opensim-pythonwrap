@@ -26,6 +26,7 @@
 /* Tolerances and Integration parameters. */
 #define ASSEMBLY_TOL 1e-7
 
+
 /*************** STATIC GLOBAL VARIABLES (for this file only) *****************/
 static char* fiberlength_suffix = "_mlen";
 static char* excitation_suffix = "_exc";
@@ -623,7 +624,8 @@ void set_up_kinetics_input(char filename[], MotionData** data)
 
    	// DT - We need to spline fit the ground reaction data so that it is a continuous function
 	// Also spline fit the q data since the virtual feet motion is prescribed
-    grfCutoffFrequency = 40;
+	//grfCutoffFrequency = 40;
+	grfCutoffFrequency = 400;  // 2005_06_30 Increased by Clay (was 40).
 	kinCutoffFrequency = 40;
 	resplineFitQData(sdm,*data,kinCutoffFrequency);
 	resplineFitExtForces(sdm,*data,grfCutoffFrequency);
@@ -668,7 +670,8 @@ void init_gaitsim(dpModelStruct* sdm, MotionData* data,double t,double *y) {
 			sdpres(sdm->q[i].joint,sdm->q[i].axis,0);
 	}
 
-	// Set the generalized coordinates and generalized speeds to the initial values in the motion file
+	// Set the generalized coordinates and generalized speeds
+	//to the initial values in the motion file
 	setInitStates(sdm,data,y,t);
 
 	// Set the initial muscle states
@@ -676,13 +679,32 @@ void init_gaitsim(dpModelStruct* sdm, MotionData* data,double t,double *y) {
 
 	// Pipeline reader by default classifies activations as excitations
 	// Use this to set the initial activation states
-	for (j=0; j<sdm->num_muscles; j++)
-		sdm->muscles[j].dynamic_activation=data->musc_excitations[j]->y[frame];
+	// Clay (2005_07_17)- Added if statements to handle situations where no excitations
+	// were specified in motion file.
+	for (j=0; j<sdm->num_muscles; j++) {
+		if(data->musc_excitations!=NULL) {
+			if(data->musc_excitations[j] != NULL) {
+				sdm->muscles[j].dynamic_activation = data->musc_excitations[j]->y[frame];
+			}
+		} else {
+			sdm->muscles[j].dynamic_activation = 0.01;
+		}
+	}
 
 	// Now scan for setting the other states - the initial fiber lengths
+	// Clay (2005_07_17)- Added initialization to optimal fiber length when there isn't
+	// any fiber lengths in the motion file.
+	//sdinit();
+	//sdstate(0.0,&y[0],&y[sdm->nq]);
+	for(j=0;j<sdm->num_muscles;j++) {
+		//check_wrapping_points(&sdm->muscles[j], y);
+		//calc_muscle_tendon_force(&sdm->muscles[j], sdm->muscles[j].dynamic_activation);
+		//printf("muscle fiber length = %lf\n",sdm->muscles[j].fiber_length);
+		sdm->muscles[j].fiber_length = 1.4 * (*sdm->muscles[j].optimal_fiber_length);
+	}
 	for (j=0; j<data->num_elements; j++) {
 		if ((mus = name_is_muscle(data->elementnames[j], sdm, fiberlength_suffix)) != -1)
-			sdm->muscles[mus].fiber_length=data->motiondata[j][frame];
+			sdm->muscles[mus].fiber_length = data->motiondata[j][frame];
 	}
 
    	// DT - Motion data file reader classifies muscle activations as excitations in a forward simulations
@@ -847,10 +869,12 @@ void setInitStates(dpModelStruct* sdm,MotionData* data,double y[],double t) {
 				y[i] = 0.;
 //				y[i+sdm->nq] = 0.;
 			}
-			if (data->u_data[i]->defined)
-				y[i+sdm->nq] = data->u_data[i]->y[0]/sdm->q[i].conversion;
-			else
-				y[i+sdm->nq] = 0.;
+			y[i+sdm->nq] = 0.0;
+			// CLAY- Added if statement to handle case where there is no u_data.
+			if(data->u_data[i]!=NULL) {
+				if (data->u_data[i]->defined)
+					y[i+sdm->nq] = data->u_data[i]->y[0]/sdm->q[i].conversion;
+			}
 		}
 	}
 	computeConstrainedCoords(sdm,y);
@@ -864,8 +888,14 @@ void computeConstrainedCoords(dpModelStruct* sdm,double* y) {
 		if (sdm->q[i].type == dpConstrainedQ) {
 			q_ind_value = y[sdm->q[i].q_ind] * sdm->q[sdm->q[i].q_ind].conversion;
 			y[i] = interpolate_spline(q_ind_value,sdm->q[i].constraint_func,zeroth,0.0,0.0) / sdm->q[i].conversion;
-			u_ind_value = y[sdm->nq+sdm->q[i].q_ind];
-			y[i+sdm->nq] = u_ind_value * interpolate_spline(q_ind_value,sdm->q[i].constraint_func,first,0.0,0.0) / sdm->q[i].conversion;
+			// 2005_06_30 Clay-  Units were not in degrees but in radians.  Old line is commented out.
+			// Now, correctly multiplying by the conversion factor.
+			//u_ind_value = y[sdm->nq+sdm->q[i].q_ind];
+			u_ind_value = y[sdm->nq+sdm->q[i].q_ind] * sdm->q[sdm->q[i].q_ind].conversion;
+			// 2005_06_30 Clay- The generalized speed should be sent in to the interpolate_spline method (u_ind_value).  This
+			// was not being done.  Old line is commented out.  The interpolate_spline expression is now correct I believe.
+			//y[i+sdm->nq] = u_ind_value * interpolate_spline(q_ind_value,sdm->q[i].constraint_func,first,0.0,0.0) / sdm->q[i].conversion;
+			y[i+sdm->nq] = interpolate_spline(q_ind_value,sdm->q[i].constraint_func,first,u_ind_value,0.0) / sdm->q[i].conversion;
 	    }
    }
 }

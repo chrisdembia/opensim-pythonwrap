@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdControlSet name="suPipeline40">
+	<defaults>
+		<rdControlLinear name="default">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min>       0.000000000000 </default_min>
+			<default_max>       1.000000000000 </default_max>
+			<use_steps> false </use_steps>
+			<nodes/>
+		</rdControlLinear>
+		<rdControlLinearNode name="default">
+			<t>       0.000000000000 </t>
+			<x>       0.000000000000 </x>
+			<min>       0.000000000000 </min>
+			<max>       1.000000000000 </max>
+		</rdControlLinearNode>
+		<rdCMC_Joint name="default">
+			<on> false </on>
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<active> false false false </active>
+			<weight>       1.000000000000       1.000000000000       1.000000000000 </weight>
+			<kp>       1.000000000000       1.000000000000       1.000000000000 </kp>
+			<kv>       1.000000000000       1.000000000000       1.000000000000 </kv>
+			<ka>       1.000000000000       1.000000000000       1.000000000000 </ka>
+			<r0>       0.000000000000       0.000000000000       0.000000000000 </r0>
+			<r1>       0.000000000000       0.000000000000       0.000000000000 </r1>
+			<r2>       0.000000000000       0.000000000000       0.000000000000 </r2>
+			<qid> -1 </qid>
+		</rdCMC_Joint>
+	</defaults>
+	<objects>
+		<rdControlLinear name="rect_fem_l.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min>       0.000000000000 </default_min>
+			<default_max>       1.000000000000 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<rdControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> 0.0 </min>
+					<max> 1.0 </max>
+				</rdControlLinearNode>
+				<rdControlLinearNode name="">
+					<t> 0.33 </t>
+					<x> 0.0 </x>
+					<min> 0.2 </min>
+					<max> 1.0 </max>
+				</rdControlLinearNode>
+				<rdControlLinearNode name="">
+					<t> 0.42 </t>
+					<x> 0.0 </x>
+					<min> 0.2 </min>
+					<max> 1.0 </max>
+				</rdControlLinearNode>
+				<rdControlLinearNode name="">
+					<t> 0.91 </t>
+					<x> 0.0 </x>
+					<min> 0.0 </min>
+					<max> 1.0 </max>
+				</rdControlLinearNode>
+				<rdControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> 0.0 </min>
+					<max> 1.0 </max>
+				</rdControlLinearNode>
+			</nodes>
+		</rdControlLinear>
+	</objects>
+</rdControlSet>
+
