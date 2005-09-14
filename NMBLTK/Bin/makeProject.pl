@@ -20,21 +20,21 @@ chomp($subjectName);
 	"template.dsw" => $suCapSubjectName.".dsw",
 	"template.h" => $suCapSubjectName.".h",
 	"template.cpp" => $suCapSubjectName.".cpp",
-	"sdufuncs_darryl.c" => "sdufuncs_darryl.c"
+	"sdufuncs_darryl.c" => "sdufuncs_darryl.c",
 # Project and source files to support running CMC
+	"template.trk" => $subjectName.".trk",
+	"template_constraints.ctr" => $subjectName."_constraints.ctr",
 	"template_CMC.cpp" => $suCapSubjectName."_CMC.cpp",
 	"template_CMC.vcproj" => $suCapSubjectName."_CMC.vcproj",
-	"template_CMC.dsp" => $suCapSubjectName."_CMC.dsp",
 # Project and source files to support forward simulation
 	"template_Forward.cpp" => $suCapSubjectName."_Forward.cpp",
 	"template_Forward.vcproj" => $suCapSubjectName."_Forward.vcproj",
-	"template_Forward.dsp" => $suCapSubjectName."_Forward.dsp",
 # Project and source files to support forward simulation with perturbations
 	"template_Perturb.cpp" => $suCapSubjectName."_Perturb.cpp",
 	"template_Perturb.vcproj" => $suCapSubjectName."_Perturb.vcproj",
-	"template_Perturb.dsp" => $suCapSubjectName."_Perturb.dsp",
+	"CMakeLists.txt" => "CMakeLists.txt"
 );
-my $templateDir = $ENV{RDI_INSTALL}.'/Template/';
+my $templateDir = $ENV{NMBL_INSTALL}.'/Template/';
 
 if (mkdir('Results',0777)==0){
 	print "Err : $!. Directory could not be created\n"; 
@@ -67,6 +67,6 @@ while ( my ($key, $value) = each(%filemap) ) {
 		close(SUBJECT_FH);
 	}
 	else {
-		die "Cannot find template file";
+		die "Cannot find template file $templateFile";
 	}
 };
