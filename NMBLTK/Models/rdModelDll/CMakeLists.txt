@@ -19,7 +19,7 @@ INCLUDE_DIRECTORIES(${NMBLApp_SOURCE_DIR}
 SET(EXPORT_MACRO RD${UKIT}_EXPORTS)
 
 LINK_LIBRARIES( rdTools rdSimulation suAnalyses
-		debug xerces-c_2D optimized xerces-c_2)
+		xerces-c_2)
 
 ADD_LIBRARY(rd${KIT} SHARED SOURCE_FILES) 
 
