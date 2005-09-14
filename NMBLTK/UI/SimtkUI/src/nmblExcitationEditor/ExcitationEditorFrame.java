@@ -42,6 +42,9 @@ public class ExcitationEditorFrame extends JFrame{
   BorderLayout borderLayout4 = new BorderLayout();
   JSplitPane jSplitPane1 = new JSplitPane();
   int numPlots=0;
+  JButton jResetAxesBtn = new JButton();
+  double[] xRange= new double[]{1e30, -1e30};
+  double[] yRange= new double[]{1e30, -1e30};
 
   public ExcitationEditorFrame() {
     try {
@@ -152,9 +155,23 @@ public class ExcitationEditorFrame extends JFrame{
         jTree1_mousePressed(e);
       }
     });
+    jResetAxesBtn.setToolTipText("");
+    jResetAxesBtn.setText("Reset Axes");
+    jResetAxesBtn.addActionListener(new ActionListener(){
+      /**
+       * actionPerformed
+       *
+       * @param e ActionEvent
+       */
+      public void actionPerformed(ActionEvent e) {
+        // pad bounds and reset axes
+        resetPlotAxes();
+      }
+    });
     jEditPlotControlPanel.add(jOkButton, null);
     jEditPlotControlPanel.add(jUndoLastEditButton, null);
     jEditPlotControlPanel.add(jRedoButton, null);
+    jEditPlotControlPanel.add(jResetAxesBtn, null);
     jEditPlotControlPanel.add(jEditQtySelectionPanel, null);
     jEditQtySelectionPanel.add(jEditQtyLabel, null);
     jEditQtySelectionPanel.add(jEditQtyComboBox, null);
@@ -206,11 +223,34 @@ public class ExcitationEditorFrame extends JFrame{
     plot.setMarksStyle("dots");
     int numNodes = aControl.getNumParameters();
     for (int i=0; i < numNodes; i++){
-      plot.addPoint(numPlots, aControl.getParameterTime(i), aControl.getParameterValue(i), true);
+      double x = aControl.getParameterTime(i);
+      double y = aControl.getParameterValue(i);
+      plot.addPoint(numPlots, x, y, true);
+      // Maintain xRange and yRange for axes control
+      if (x < xRange[0])
+        xRange[0] = x;
+      else if (x > xRange[1])
+        xRange[1] = x;
+      if (y < yRange[0])
+         yRange[0] = y;
+       else if (y > yRange[1])
+         yRange[1] = y;
    }
+   //plot.addPointWithErrorBars(numPlots, 0.5, .3, .2, .5, false);
+
    numPlots++;
+   resetPlotAxes();
   }
 
+  private void resetPlotAxes() {
+    double xmin = xRange[0] - (xRange[1] - xRange[0]) * 0.05;
+    double xmax = xRange[1] + (xRange[1] - xRange[0]) * 0.05;
+    double ymin = yRange[0] - (yRange[1] - yRange[0]) * 0.05;
+    double ymax = yRange[1] + (yRange[1] - yRange[0]) * 0.05;
+    plot.setXRange(xmin, xmax);
+    plot.setYRange(ymin, ymax);
+    plot.repaint();
+  }
   public class DlgTreeModel extends DefaultTreeModel{
 
     DefaultMutableTreeNode _root = null;
@@ -306,8 +346,11 @@ public class ExcitationEditorFrame extends JFrame{
            Object selObj = selNode.getUserObject();
            if (selObj instanceof rdControl){
              rdControl selrdObj = (rdControl) selObj;
-             editQtyComboBoxModel.addElement(selObj);
-             loadControlIntoPlot(selrdObj);
+             // Don't add the same control more than once
+             if (editQtyComboBoxModel.getIndexOf(selObj)==-1){
+               editQtyComboBoxModel.addElement(selObj);
+               loadControlIntoPlot(selrdObj);
+             }
            }
          }
         }
@@ -342,6 +385,8 @@ public class ExcitationEditorFrame extends JFrame{
       jTree1.handleMousePressed(e);
     }
   }
+
+
   /*
 
   public class LeafOnlyTreeSelectionModel

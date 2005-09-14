@@ -1,13 +1,11 @@
 package simtksuS26Pkg;
 
 import simtkModel.*;
-import simtkCommands.*;
-import simtkCore.*;
 public class suS26Loader extends suS26 {
 
     static {
 		System.loadLibrary("rdModelDll");
-		System.loadLibrary("suS26Gui_D");
+		System.loadLibrary("suS26Gui");
 		RegisterTypes();
     }
     /**
