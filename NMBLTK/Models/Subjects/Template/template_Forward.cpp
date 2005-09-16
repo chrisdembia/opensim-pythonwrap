@@ -77,6 +77,13 @@ int main()
 	double ti = control->getFirstTime();
 	double tf = control->getLastTime();
 	cout<<endl<<endl<<"ti="<<ti<<" tf="<<tf<<endl<<endl;
+
+	// Read actual initial states from CMC and load them into model along with associated time
+	rdStorage initialStateStorage("_template__initialStates.sto");
+	ti = initialStateStorage.getFirstTime();
+	initialStateStorage.getDataAtTime(ti, model.getNY(), &yi[0]);
+	model.setInitialStates(&yi[0]);
+
 	manager.setInitialTime(ti);
 	manager.setFinalTime(tf);
 

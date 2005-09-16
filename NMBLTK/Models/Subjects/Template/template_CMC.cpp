@@ -28,6 +28,7 @@
 using namespace std;
 
 int extractCoordinates(su_Template_& model, const char *reaOutputFilename);
+int recordInitialStates(double actualInitialTime ,double *states, su_Template_& model);
 
 extern "C" {
 
@@ -164,8 +165,8 @@ int main(int argc,char **argv)
 	//========================
 	
 	// INITIAL AND FINAL TIMES
-	//double ti = qStore.getFirstTime() + 1.0e-3;
-	double ti = 0.35;
+	double ti = qStore.getFirstTime() + 1.0e-2;
+	//double ti = 0.35;
 	double tf = qStore.getLastTime() - 2.0e-2;
 	//double tf = ti + 0.100;
 	cout<<endl<<endl<<"ti="<<ti<<" tf="<<tf<<endl<<endl;
@@ -183,6 +184,10 @@ int main(int argc,char **argv)
 
 	// COMPUTE INITIAL STATES----
 	controller.computeInitialStates(ti,&yi[0]);
+
+	// Save "computed" initial time and corresponding intial states
+	recordInitialStates(ti,&yi[0],model);
+
 	cout<<"\n\nNew initial time = "<<ti<<".\n";
 	model.setInitialStates(&yi[0]);
 	cout<<"\n\nInitial States:\n";
@@ -332,4 +337,28 @@ int extractCoordinates(su_Template_& model, const char *reaOutputFilename)
 	uCompleteStore.print("_template_rea_u.sto");
 	return 0;
 
+}
+
+//_____________________________________________________________________________
+/**
+ * recordInitialStates records initial states after muscles reach equlibrium state
+ * saves all states along with the time associated with them to 
+ * reproduce exact initialization when running forward simulation.
+ */
+int recordInitialStates(double actualInitialTime ,double *states, su_Template_& model)
+{
+	rdStorage *fileStore = new rdStorage();
+	int ny = model.getNY();
+	string columnLabels = "time";
+	rdStateVector initialStates(actualInitialTime, ny, states);
+	int i;
+	for(i=0;i<ny;i++) {
+		string qName = model.getStateName(i);
+		columnLabels += "\t";
+		columnLabels += qName;
+	}
+	fileStore->setColumnLabels(columnLabels.c_str());
+	fileStore->append(initialStates);
+	fileStore->print("_template__initialStates.sto");
+	return 0;
 }
