@@ -643,10 +643,15 @@ setStates(const double aY[])
 	// LOCAL ARRAY
 	int i;
 	int nunq = getNQ()+getNU();
-	int iDP = rdActuatedModel_SDFast::getNY();
-	// q and u
 	for(i=0;i<nunq;i++)  _dpd->y[i] = aY[i];
+
+	// BASE
+	rdActuatedModel_SDFast::setStates(aY);
+	if(!getIncludePipelineActuators()) return;
+
+
 	// pipeline actuator states
+	int iDP = rdActuatedModel_SDFast::getNY();
 	int na = suPipeline40::getNY() - rdActuatedModel_SDFast::getNY();
 	for(i=0;i<na;i++) {
 		_dpd->y[i+nunq] = aY[iDP+i];
@@ -656,9 +661,6 @@ setStates(const double aY[])
 	//for(i=0;i<suPipeline40::getNY();i++) {
 	//	cout<<"suPipeline40.setStates: y["<<i<<"]= "<<aY[i]<<endl;
 	//}
-
-	// BASE
-	rdActuatedModel_SDFast::setStates(aY);
 
 	// PIPELINE
 	assign_muscle_states(sdm,_t,_dpd->y);
@@ -678,6 +680,7 @@ getStates(double rY[]) const
 
 	// BASE
 	rdActuatedModel_SDFast::getStates(rY);
+	if(!getIncludePipelineActuators()) return;
 
 	// LOCAL
 	int i;
