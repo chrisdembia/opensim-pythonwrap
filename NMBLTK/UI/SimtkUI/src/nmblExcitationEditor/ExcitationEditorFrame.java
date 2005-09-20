@@ -10,8 +10,8 @@ import javax.swing.tree.*;
 import ptolemy.plot.*;
 import simtkModel.*;
 import simtkUtils.*;
-import simtkui.guiUtilities.*;
 import simtkui.*;
+import simtkui.guiUtilities.*;
 
 public class ExcitationEditorFrame extends JFrame{
 
@@ -23,6 +23,8 @@ public class ExcitationEditorFrame extends JFrame{
   BorderLayout borderLayout2 = new BorderLayout();
   JPanel jEditQtySelectionPanel = new JPanel();
   DefaultComboBoxModel editQtyComboBoxModel = new DefaultComboBoxModel();
+
+  Vector dataSetIndices = new Vector();
   JLabel jEditQtyLabel = new JLabel();
   JButton jUndoLastEditButton = new JButton();
   JPanel jPlotPanel = new JPanel();
@@ -41,10 +43,18 @@ public class ExcitationEditorFrame extends JFrame{
   JControlsTree jTree1 = new JControlsTree(editableQtyTreeModel, mapControlSetsToFiles);
   BorderLayout borderLayout4 = new BorderLayout();
   JSplitPane jSplitPane1 = new JSplitPane();
-  int numPlots=0;
   JButton jResetAxesBtn = new JButton();
   double[] xRange= new double[]{1e30, -1e30};
   double[] yRange= new double[]{1e30, -1e30};
+  BorderLayout borderLayout5 = new BorderLayout();
+  JPanel jPanel2 = new JPanel();
+  JPanel jStatusBar = new JPanel();
+  BorderLayout borderLayout6 = new BorderLayout();
+  JLabel jLeftStatusLabel = new JLabel();
+  JLabel jRightStatusLabel = new JLabel();
+  Hashtable mapComboBoxModel2PlotIndex = new Hashtable();
+  JMenu jMenu2 = new JMenu();
+  JMenuItem jMenuItemHowTo = new JMenuItem("How to use");
 
   public ExcitationEditorFrame() {
     try {
@@ -88,7 +98,7 @@ public class ExcitationEditorFrame extends JFrame{
     plot.setXLabel("time");
     plot.setXLog(false);
     plot.setYLabel("Excitation");
-    jEditQtyComboBox.setMaximumRowCount(2);
+    jEditQtyComboBox.setMaximumRowCount(5);
     jEditQtyComboBox.setModel(editQtyComboBoxModel);
     jEditQtyComboBox.addActionListener(new ActionListener(){
       /**
@@ -100,12 +110,14 @@ public class ExcitationEditorFrame extends JFrame{
         // Get qty selected and find index in editQtyComboBoxModel, make corresponding plot editable
         JComboBox cb = (JComboBox)e.getSource();
         rdControl selectedControl = (rdControl)cb.getSelectedItem();
+        if (selectedControl==null)
+          return;
         // Find index
-        int idx = editQtyComboBoxModel.getIndexOf(selectedControl);
-        plot.setEditable(idx);
+        int plotIndex = ((Integer)mapComboBoxModel2PlotIndex.get(selectedControl)).intValue();
+        plot.setEditable(plotIndex);
       }
     });
-    jOkButton.setText("OK");
+    jOkButton.setText("Update");
     jOkButton.addActionListener(new ActionListener(){
       /**
        * actionPerformed
@@ -144,7 +156,8 @@ public class ExcitationEditorFrame extends JFrame{
       editableQtyTreeModel.addControlSet(newSet);
       }
     });
-    jSaveControlMenuItem.setText("Save");
+    jSaveControlMenuItem.setActionCommand("Save");
+    jSaveControlMenuItem.setText("Save All");
     jSaveControlMenuItem.addActionListener(new ExcitationEditorFrame_jSaveControlMenuItem_actionAdapter(this));
     jPanel1.setLayout(borderLayout4);
     jTree1.addMouseListener(new MouseAdapter() {
@@ -168,13 +181,21 @@ public class ExcitationEditorFrame extends JFrame{
         resetPlotAxes();
       }
     });
-    jEditPlotControlPanel.add(jOkButton, null);
-    jEditPlotControlPanel.add(jUndoLastEditButton, null);
-    jEditPlotControlPanel.add(jRedoButton, null);
-    jEditPlotControlPanel.add(jResetAxesBtn, null);
-    jEditPlotControlPanel.add(jEditQtySelectionPanel, null);
-    jEditQtySelectionPanel.add(jEditQtyLabel, null);
-    jEditQtySelectionPanel.add(jEditQtyComboBox, null);
+    jEditPlotControlPanel.setLayout(borderLayout5);
+    jLeftStatusLabel.setText("");
+    jStatusBar.setLayout(borderLayout6);
+    jLeftStatusLabel.setText("");
+    jMenu2.setText("Help");
+    jMenu2.add(jMenuItemHowTo);
+    jEditPlotControlPanel.add(jPanel2,  BorderLayout.CENTER);
+    jPanel2.add(jResetAxesBtn, null);
+    jPanel2.add(jOkButton, null);
+    jPanel2.add(jUndoLastEditButton, null);
+    jPanel2.add(jRedoButton, null);
+    jPanel2.add(jEditQtySelectionPanel, null);
+    jPanel2.add(jEditQtyLabel, null);
+    jPanel2.add(jEditQtyComboBox, null);
+    jEditPlotControlPanel.add(jStatusBar,  BorderLayout.SOUTH);
     this.getContentPane().add(jSplitPane1,  BorderLayout.CENTER);
     jSplitPane1.add(jScrollPane1, JSplitPane.LEFT);
     jSplitPane1.add(jPlotPanel, JSplitPane.RIGHT);
@@ -183,9 +204,17 @@ public class ExcitationEditorFrame extends JFrame{
     jPanel1.add(jTree1,  BorderLayout.CENTER);
     this.getContentPane().add(jEditPlotControlPanel,  BorderLayout.SOUTH);
     jMenuBar1.add(jMenu1);
+    jMenuBar1.add(jMenu2);
     jMenu1.add(jLoadControlMenuItem);
     jMenu1.add(jSaveControlMenuItem);
+    jStatusBar.add(jLeftStatusLabel,  BorderLayout.EAST);
+    jStatusBar.add(jRightStatusLabel, BorderLayout.WEST);
 //    jTree1.setSelectionModel(new LeafOnlyTreeSelectionModel());
+    jMenuItemHowTo.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        jMenuItemHowTo_actionPerformed(e);
+      }
+    });
 
   }
 
@@ -204,8 +233,9 @@ public class ExcitationEditorFrame extends JFrame{
     int numPlots = editQtyComboBoxModel.getSize();
     for (int i=0; i < numPlots; i++){
       rdControl control = (rdControl) editQtyComboBoxModel.getElementAt(i);
+      int plotIndex = ((Integer)mapComboBoxModel2PlotIndex.get(control)).intValue();
       // get data for plot i and set it in control
-      double[][] data = plot.getData(i);
+      double[][] data = plot.getData(plotIndex);
       // Modify control from data, assume no change in number of nodes
       int numNodes = control.getNumParameters();
       for (int j = 0; j < numNodes; j++) {
@@ -218,14 +248,15 @@ public class ExcitationEditorFrame extends JFrame{
    *
    * @param aControl is the control to be edited visually
    */
-  private void loadControlIntoPlot(rdControl aControl) {
-    plot.addLegend(numPlots, aControl.getName());
+  private int loadControlIntoPlot(rdControl aControl) {
     plot.setMarksStyle("dots");
     int numNodes = aControl.getNumParameters();
+    int availableIndex = getAvailablePlotIndex();
+    plot.addLegend(availableIndex, aControl.getName());
     for (int i=0; i < numNodes; i++){
       double x = aControl.getParameterTime(i);
       double y = aControl.getParameterValue(i);
-      plot.addPoint(numPlots, x, y, true);
+      plot.addPoint(availableIndex, x, y, true);
       // Maintain xRange and yRange for axes control
       if (x < xRange[0])
         xRange[0] = x;
@@ -238,8 +269,24 @@ public class ExcitationEditorFrame extends JFrame{
    }
    //plot.addPointWithErrorBars(numPlots, 0.5, .3, .2, .5, false);
 
-   numPlots++;
-   resetPlotAxes();
+    resetPlotAxes();
+
+   return availableIndex;
+  }
+
+  /**
+   * getAvailablePlotIndex
+   * traverse the map to plot indices and find first available one
+   * @return int
+   */
+  private int getAvailablePlotIndex() {
+    Integer[] indexArray = new  Integer[mapComboBoxModel2PlotIndex.values().size()];
+    Arrays.sort( mapComboBoxModel2PlotIndex.values().toArray( indexArray) ) ;
+    for (int i=0; i < indexArray.length; i++){
+      if (indexArray[i].intValue() > i)
+        return i;
+    }
+    return indexArray.length;
   }
 
   private void resetPlotAxes() {
@@ -348,8 +395,31 @@ public class ExcitationEditorFrame extends JFrame{
              rdControl selrdObj = (rdControl) selObj;
              // Don't add the same control more than once
              if (editQtyComboBoxModel.getIndexOf(selObj)==-1){
+               int index = loadControlIntoPlot(selrdObj); // This has to be done first
+               mapComboBoxModel2PlotIndex.put(selObj, new Integer(index));
                editQtyComboBoxModel.addElement(selObj);
-               loadControlIntoPlot(selrdObj);
+             }
+           }
+         }
+        }
+     });
+     _popup.add(new AbstractAction("Remove"){
+       public void actionPerformed(ActionEvent e) {
+         for (int i = 0; i < selected.length; i++) {
+           int pathlength = selected[i].getPathCount();
+           DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) selected[i].
+               getPathComponent(pathlength - 1);
+           Object selObj = selNode.getUserObject();
+           if (selObj instanceof rdControl){
+             rdControl selrdObj = (rdControl) selObj;
+             // Don't add the same control more than once
+             int index = editQtyComboBoxModel.getIndexOf(selObj);
+             if (index!=-1){
+                 int plotIndex = ((Integer) mapComboBoxModel2PlotIndex.get(selObj)).intValue();
+                 plot.clear(plotIndex);
+                 plot.removeLegend(plotIndex);
+                 mapComboBoxModel2PlotIndex.remove(selObj);
+                 editQtyComboBoxModel.removeElementAt(index);
              }
            }
          }
@@ -384,6 +454,13 @@ public class ExcitationEditorFrame extends JFrame{
     if (e.isPopupTrigger()) {
       jTree1.handleMousePressed(e);
     }
+  }
+
+  void jMenuItemHowTo_actionPerformed(ActionEvent e) {
+    // pop up a help dialog
+    excitationEditortHelpDialog helpDlg = new excitationEditortHelpDialog(this);
+    helpDlg.pack();
+    helpDlg.show();
   }
 
 
