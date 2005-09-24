@@ -13,7 +13,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import ptolemy.plot.Plot;
 import simtkCore.SimtkDB;
 import simtkCore.SimtkSimEnv;
 import simtkui.guiUtilities.SimtkJDialog;
@@ -21,6 +20,9 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import simtkCommands.*;
+import ptolemy.plot.*;
+import java.util.*;
+import ptolemy.plot.Plot;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -38,7 +40,10 @@ import simtkCommands.*;
  * @todo perform cleanup on dialog exit as well
  */
 public class SimtkPtPlotDialog extends SimtkJDialog{
-  private Plot plot = new Plot();   // The plot box with all plotting capabilities
+  Vector plots = new Vector(); // The plot box with all plotting capabilities
+  Vector plotIndices = new Vector(); // The plot box with all plotting capabilities
+  int  currentPlotIndex = 0;
+  Plot currentPlot = new Plot();
   JSplitPane jSplitPane1 = new JSplitPane();
   JPanel jPlotControlPanel = new JPanel();
   FlowLayout flowLayout1 = new FlowLayout();
@@ -75,27 +80,44 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
   JLabel jPlotTitle = new JLabel();
   JTextField jTitleText = new JTextField();
   Hashtable _mapNamesToDatasets = new Hashtable();
-  JPanel jPanel3 = new JPanel();
-  GridBagLayout gridBagLayout3 = new GridBagLayout();
   Border border8;
   TitledBorder titledBorder8;
-  JCheckBox jCheckBoxGrid = new JCheckBox();
-  JCheckBox jCheckBoxStems = new JCheckBox();
   JButton SelectXButton = new JButton();
   JButton SelectYButton = new JButton();
   JTextField jXTextField = new JTextField();
   JTextField jYTextField = new JTextField();
   JPopupMenu xPopup = new SimtkPlotQuantitySelector(jXTextField);
   JPopupMenu yPopup = new SimtkPlotQuantitySelector(jYTextField);
+  JPanel jPlotGridPanel = new JPanel();
+  GridLayout gridLayout1 = new GridLayout();
+  JPanel jGridPanel = new JPanel();
+  JLabel jGridSizeLabel = new JLabel();
+  JSpinner jSpinnerY = new JSpinner(new SpinnerNumberModel(1, 1, 5, 1));
+  JSpinner jSpinnerX = new JSpinner(new SpinnerNumberModel(1, 1, 5, 1));
+  JButton jModifyGrid = new JButton();
+  int numPlots = 1;
+  JLabel jCurrentPlotLabel = new JLabel();
+  JComboBox jCurrentPlotComboBox = new JComboBox();
+  JMenuBar jMenuBar1 = new JMenuBar();
+  JMenu jMenu1 = new JMenu();
+  JMenuItem jMenuItem1 = new JMenuItem();
+  JMenuItem jMenuItem2 = new JMenuItem();
+  JMenu jMenu2 = new JMenu();
+  JMenuItem jMenuItem3 = new JMenuItem();
+  GridBagLayout gridBagLayout3 = new GridBagLayout();
+  JLabel jLegendLabel = new JLabel();
+  JTextField jLegendText = new JTextField();
 
   public SimtkPtPlotDialog() {
+    plotIndices.add(new Integer("1"));
+    plots.add(currentPlot);
     try {
       jbInit();
     }
     catch(Exception e) {
       e.printStackTrace();
     }
-    plot.clear(true);
+    currentPlot.clear(true);
     jPlotList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     jPlotList.setModel(plotListModel);
     //Get quantities available for plotting from the environment
@@ -117,8 +139,9 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
          }
       }
     });
+    /*
     jCheckBoxGrid.setSelected(plot.getGrid());
-    jCheckBoxStems.setSelected(plot.getImpulses());
+    jCheckBoxStems.setSelected(plot.getImpulses());*/
     jTitleText.addFocusListener(new FocusListener(){
       /**
        * focusGained
@@ -137,8 +160,8 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
         // Invoked when editing title is done
         JTextField textSource = (JTextField)e.getSource();
         if (textSource == jTitleText){
-          plot.setTitle(jTitleText.getText());
-          plot.repaint();
+          currentPlot.setTitle(jTitleText.getText());
+          currentPlot.repaint();
         }
       }
     });
@@ -157,14 +180,43 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
     border6 = BorderFactory.createLineBorder(new Color(127, 157, 185),2);
     titledBorder6 = new TitledBorder(BorderFactory.createEmptyBorder(),"Y axis");
     border7 = new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151));
-    titledBorder7 = new TitledBorder(new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151)),"Plot Quantities");
+    titledBorder7 = new TitledBorder(new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151)),"Current plot properties");
     border8 = BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151));
     titledBorder8 = new TitledBorder(border8,"Plot Options");
-    plot.setLayout(flowLayout1);
+    currentPlot.setLayout(flowLayout1);
     jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
     jSplitPane1.setOneTouchExpandable(true);
     jAddPlotButton.setText("Add Plot");
-    jAddPlotButton.addActionListener(new SimtkPtPlotDialog_jAddPlotButton_actionAdapter(this));
+    jAddPlotButton.addActionListener(new ActionListener(){
+      /**
+       * actionPerformed
+       *
+       * @param e ActionEvent
+       */
+      public void actionPerformed(ActionEvent e) {
+        String xName = (String) jXTextField.getText();
+        String yName = (String) jYTextField.getText();
+        String envName = xName.substring(0, xName.indexOf(":"));
+        SimtkSimEnv simEnv = SimtkDB.getInstance().getSimtkSimEnv(envName);
+       // Strip out the leading environment name
+        xName = xName.substring(xName.indexOf(":")+1);
+        yName = yName.substring(yName.indexOf(":")+1);
+        SimtkPlotDataSet newDataSet = new SimtkPlotDataSet(simEnv, xName, yName, jLegendText.getText(), currentPlotIndex);
+        // Fix this as indices might not be in sequence due to deletion
+        int newDataSetIndex = getNextAvailableIndex();
+        newDataSet.setDataSetIndex(newDataSetIndex);
+        newDataSet.setPlot(currentPlot);
+        jLegendText.setText(newDataSet.getLegend());
+        currentPlot.addLegend(newDataSet.getDataSetIndex(), newDataSet.getLegend());
+        newDataSet.showPlot();
+        plotListModel.add(plotListModel.getSize(), newDataSet.getLegend());
+        jPrintPlotButton.setEnabled(true);
+        _mapNamesToDatasets.put(newDataSet.getLegend(), newDataSet);
+        currentPlot.setTitle(jTitleText.getText());
+        currentPlot.repaint();
+      }
+    });
+
     jPlotControlPanel.setLayout(borderLayout2);
     jClearPlotButton.setToolTipText("");
     jClearPlotButton.setText("Clear");
@@ -188,23 +240,23 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
     jPanel2.setPreferredSize(new Dimension(180, 100));
     jPanel2.setToolTipText("");
     jPanel2.setLayout(gridBagLayout1);
-    jPlotControlPanel.setMinimumSize(new Dimension(360, 120));
-    jPlotControlPanel.setPreferredSize(new Dimension(360, 120));
+    jPlotControlPanel.setMinimumSize(new Dimension(360, 200));
+    jPlotControlPanel.setPreferredSize(new Dimension(360, 200));
     jPlotTitle.setHorizontalAlignment(SwingConstants.RIGHT);
-    jPlotTitle.setText("Plot Title");
+    jPlotTitle.setHorizontalTextPosition(SwingConstants.RIGHT);
+    jPlotTitle.setText("Plot-Box Title");
     jTitleText.setText("Plot Title goes here");
     this.setTitle("Plotting");
-    jPanel3.setLayout(gridBagLayout3);
-    jPanel3.setBorder(titledBorder8);
-    jPanel3.setMinimumSize(new Dimension(180, 100));
-    jPanel3.setPreferredSize(new Dimension(180, 100));
-    jCheckBoxGrid.setText("Grid");
-    jCheckBoxGrid.addActionListener(new SimtkPtPlotDialog_jCheckBoxGrid_actionAdapter(this));
-    jCheckBoxStems.setText("Stems");
-    jCheckBoxStems.addActionListener(new SimtkPtPlotDialog_jCheckBoxStems_actionAdapter(this));
-    SelectXButton.setText("Select-X");
+
+    SelectXButton.setMaximumSize(new Dimension(73, 23));
+    SelectXButton.setMinimumSize(new Dimension(73, 23));
+    SelectXButton.setPreferredSize(new Dimension(73, 23));
+    SelectXButton.setToolTipText("");
+    SelectXButton.setMnemonic('0');
+    SelectXButton.setText("X-axis ...");
     SelectXButton.addMouseListener(new SimtkPtPlotDialog_SelectXButton_mouseAdapter(this));
-    SelectYButton.setText("Select-Y");
+    SelectYButton.setMaximumSize(new Dimension(73, 23));
+    SelectYButton.setText("Y-axis...");
     SelectYButton.addMouseListener(new SimtkPtPlotDialog_SelectYButton_mouseAdapter(this));
     jXTextField.setMinimumSize(new Dimension(180, 20));
     jXTextField.setPreferredSize(new Dimension(180, 20));
@@ -216,38 +268,103 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
     jYTextField.setPreferredSize(new Dimension(180, 20));
     jYTextField.setEditable(false);
     jYTextField.setText("");
+    jPlotGridPanel.setLayout(gridLayout1);
+    jGridPanel.setLayout(gridBagLayout3);
+    jGridSizeLabel.setToolTipText("");
+    jGridSizeLabel.setText("Grid Layout:");
+    jGridPanel.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Grid Control"));
+    jSpinnerX.setBorder(BorderFactory.createEtchedBorder());
+    jSpinnerX.setEnabled(false);
+    jSpinnerY.setBorder(BorderFactory.createEtchedBorder());
+    jSpinnerY.setEnabled(false);
+    jModifyGrid.setText("Modify");
+    jModifyGrid.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        jModifyGrid_actionPerformed(e);
+      }
+    });
+    jCurrentPlotLabel.setToolTipText("");
+    jCurrentPlotLabel.setText("  Current Plot-Box:");
+    jMenu1.setText("Template");
+    jMenuItem1.setText("Load...");
+    jMenuItem2.setText("save...");
+    jMenu2.setText("Report");
+    jMenuItem3.setText("html");
+    jCurrentPlotComboBox.setEnabled(true);
+    jCurrentPlotComboBox.setFont(new java.awt.Font("MS Sans Serif", 0, 11));
+    jCurrentPlotComboBox.setForeground(Color.black);
+    jCurrentPlotComboBox.setBorder(BorderFactory.createEtchedBorder());
+    jCurrentPlotComboBox.setDoubleBuffered(false);
+    jCurrentPlotComboBox.setEditable(false);
+    jCurrentPlotComboBox.setSelectedIndex(-1);
+    jCurrentPlotComboBox.setModel(new DefaultComboBoxModel(plotIndices){
+      /**
+       * setSelectedItem
+       *
+       * @param anItem Object
+       */
+      public void setSelectedItem(Object anItem) {
+        super.setSelectedItem(anItem);
+        currentPlot = (Plot) plots.get(((Integer)anItem).intValue()-1);
+        currentPlotIndex = ((Integer)anItem).intValue()-1;
+      }
+    });
+    jLegendLabel.setToolTipText("");
+    jLegendLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    jLegendLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
+    jLegendLabel.setText("Legend");
+    jLegendText.setText("Legend goes here");
     this.getContentPane().add(jSplitPane1,  BorderLayout.CENTER);
-    jSplitPane1.add(plot, JSplitPane.TOP);
     jSplitPane1.add(jPlotControlPanel, JSplitPane.BOTTOM);
     jPlotCommandsPanel.add(jAddPlotButton, null);
     jPlotCommandsPanel.add(jDeletePlotButton, null);
     jPlotCommandsPanel.add(jClearPlotButton, null);
     jPlotCommandsPanel.add(jPrintPlotButton, null);
+    jSplitPane1.add(jPlotGridPanel, JSplitPane.TOP);
+    jPlotGridPanel.add(currentPlot, null);
+    this.getContentPane().add(jPlotCommandsPanel, BorderLayout.SOUTH);
     jPlotControlPanel.add(jPanel1,  BorderLayout.CENTER);
-    jPanel1.add(jScrollPane1,       new GridBagConstraints(2, 0, 1, 2, 1.0, 1.0
-            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
-    jPanel1.add(jPanel2,        new GridBagConstraints(0, 1, 2, 1, 1.0, 1.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+    jPanel1.add(jScrollPane1,                              new GridBagConstraints(1, 0, 2, 2, 1.0, 1.0
+            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 100, 0));
     jScrollPane1.getViewport().add(jPlotList, null);
-    jPanel2.add(SelectXButton,  new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    jPlotControlPanel.add(jPlotCommandsPanel,  BorderLayout.SOUTH);
-    jPanel1.add(jPanel3,            new GridBagConstraints(0, 0, 2, 1, 1.0, 1.0
+    jPanel1.add(jPanel2,   new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
-    jPanel3.add(jPlotTitle,             new GridBagConstraints(0, 0, 1, 1, 0.5, 1.0
-            ,GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0, 5, 0, 0), 0, 0));
-    jPanel3.add(jTitleText,          new GridBagConstraints(1, 0, 2, 1, 1.0, 1.0
-            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel3.add(jCheckBoxGrid,         new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel3.add(jCheckBoxStems,       new GridBagConstraints(1, 1, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(SelectYButton,  new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+    jPanel1.add(jGridPanel,                                      new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
+    jGridPanel.add(jGridSizeLabel,     new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 13, 5, 0), 0, 0));
+    jGridPanel.add(jSpinnerY,       new GridBagConstraints(2, 0, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
+    jGridPanel.add(jModifyGrid,     new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
+    jGridPanel.add(jCurrentPlotLabel,     new GridBagConstraints(5, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
+    jGridPanel.add(jCurrentPlotComboBox,      new GridBagConstraints(6, 0, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
+    jGridPanel.add(jSpinnerX,   new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
+    jPanel2.add(SelectXButton,           new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(jXTextField,   new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+    jPanel2.add(SelectYButton,           new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jYTextField,            new GridBagConstraints(1, 3, 2, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(jYTextField,  new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jPlotTitle,     new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    jPanel2.add(jTitleText,  new GridBagConstraints(1, 0, 2, 1, 1.0, 1.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jLegendLabel,    new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    jPanel2.add(jXTextField,  new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jLegendText,  new GridBagConstraints(2, 1, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jMenuBar1.add(jMenu1);
+    jMenuBar1.add(jMenu2);
+    jMenu1.add(jMenuItem1);
+    jMenu1.add(jMenuItem2);
+    jMenu2.add(jMenuItem3);
+    this.setJMenuBar(jMenuBar1);
     jSplitPane1.setDividerLocation(250);
 
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -267,13 +384,13 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
       SimtkPlotDataSet dataSet = (SimtkPlotDataSet) enum.nextElement();
       dataSet.cleanup();
       int index = dataSet.getDataSetIndex();
-      plot.removeLegend(index);
-      plot.clear(index);
+      currentPlot.removeLegend(index);
+      currentPlot.clear(index);
       plotListModel.removeElement(dataSet.getLegend());
     }
 
-    plot.clear(true);
-    plot.repaint();
+    currentPlot.clear(true);
+    currentPlot.repaint();
     _mapNamesToDatasets.clear();
   }
 
@@ -286,18 +403,19 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
    // Strip out the leading environment name
     xName = xName.substring(xName.indexOf(":")+1);
     yName = yName.substring(yName.indexOf(":")+1);
-    SimtkPlotDataSet newDataSet = new SimtkPlotDataSet(simEnv, xName, yName);
+    SimtkPlotDataSet newDataSet = new SimtkPlotDataSet(simEnv, xName, yName, jLegendText.getText(), currentPlotIndex);
     // Fix this as indices might not be in sequence due to deletion
     int newDataSetIndex = getNextAvailableIndex();
     newDataSet.setDataSetIndex(newDataSetIndex);
-    newDataSet.setPlot(plot);
-    plot.addLegend(newDataSet.getDataSetIndex(), newDataSet.getLegend());
+    newDataSet.setPlot(currentPlot);
+    jLegendText.setText(newDataSet.getLegend());
+    currentPlot.addLegend(newDataSet.getDataSetIndex(), newDataSet.getLegend());
     newDataSet.showPlot();
     plotListModel.add(plotListModel.getSize(), newDataSet.getLegend());
     jPrintPlotButton.setEnabled(true);
     _mapNamesToDatasets.put(newDataSet.getLegend(), newDataSet);
-    plot.setTitle(jTitleText.getText());
-    plot.repaint();
+    currentPlot.setTitle(jTitleText.getText());
+    currentPlot.repaint();
   }
   public int getNextAvailableIndex()
   {
@@ -333,8 +451,9 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
       SimtkPlotDataSet dataSet = (SimtkPlotDataSet) _mapNamesToDatasets.get((String) selectedForDeletion[i]);
       dataSet.cleanup();
       int index = dataSet.getDataSetIndex();
-      plot.removeLegend(index);
-      plot.clear(index);
+      Plot ownerPlot = (Plot) plots.get(dataSet.getPlotBoxIndex());
+      ownerPlot.removeLegend(index);
+      ownerPlot.clear(index);
       plotListModel.removeElement((String) selectedForDeletion[i]);
       _mapNamesToDatasets.remove((String) selectedForDeletion[i]);
     }
@@ -343,7 +462,7 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
   void jPrintPlotButton_actionPerformed(ActionEvent e) {
     PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet();
     PrinterJob job = PrinterJob.getPrinterJob();
-    job.setPrintable(plot);
+    job.setPrintable(currentPlot);
     if (job.printDialog(aset)) {
         try {
             job.print(aset);
@@ -357,22 +476,16 @@ public class SimtkPtPlotDialog extends SimtkJDialog{
 
 
   void jUpdatePlotButton_actionPerformed(ActionEvent e) {
-    plot.setGrid(jCheckBoxGrid.isSelected());
-    plot.setImpulses(jCheckBoxStems.isSelected());
-    plot.setTitle(jTitleText.getText());
-    plot.repaint();
+    /*plot.setGrid(jCheckBoxGrid.isSelected());
+    plot.setImpulses(jCheckBoxStems.isSelected());*/
+    currentPlot.setTitle(jTitleText.getText());
+    currentPlot.repaint();
   }
 
   void jCheckBoxGrid_actionPerformed(ActionEvent e) {
-    JCheckBox checkBox = (JCheckBox)e.getSource();
-     plot.setGrid(checkBox.isSelected());
-     plot.repaint();
   }
 
   void jCheckBoxStems_actionPerformed(ActionEvent e) {
-    JCheckBox checkBox = (JCheckBox)e.getSource();
-     plot.setImpulses(checkBox.isSelected());
-     plot.repaint();
   }
 
   void SelectXButton_mouseReleased(MouseEvent e) {
@@ -403,19 +516,6 @@ class SimtkPtPlotDialog_jClearPlotButton_actionAdapter implements java.awt.event
   }
 }
 /*
- * Add plot callback class
- */
-class SimtkPtPlotDialog_jAddPlotButton_actionAdapter implements java.awt.event.ActionListener {
-  SimtkPtPlotDialog adaptee;
-
-  SimtkPtPlotDialog_jAddPlotButton_actionAdapter(SimtkPtPlotDialog adaptee) {
-    this.adaptee = adaptee;
-  }
-  public void actionPerformed(ActionEvent e) {
-    adaptee.jAddPlotButton_actionPerformed(e);
-  }
-}
-/*
  * Delete plot callback class
  */
 class SimtkPtPlotDialog_jDeletePlotButton_actionAdapter implements java.awt.event.ActionListener {
@@ -443,28 +543,6 @@ class SimtkPtPlotDialog_jPrintPlotButton_actionAdapter implements java.awt.event
   }
 }
 
-class SimtkPtPlotDialog_jCheckBoxGrid_actionAdapter implements java.awt.event.ActionListener {
-  SimtkPtPlotDialog adaptee;
-
-  SimtkPtPlotDialog_jCheckBoxGrid_actionAdapter(SimtkPtPlotDialog adaptee) {
-    this.adaptee = adaptee;
-  }
-  public void actionPerformed(ActionEvent e) {
-    adaptee.jCheckBoxGrid_actionPerformed(e);
-  }
-}
-
-class SimtkPtPlotDialog_jCheckBoxStems_actionAdapter implements java.awt.event.ActionListener {
-  SimtkPtPlotDialog adaptee;
-
-  SimtkPtPlotDialog_jCheckBoxStems_actionAdapter(SimtkPtPlotDialog adaptee) {
-    this.adaptee = adaptee;
-  }
-  public void actionPerformed(ActionEvent e) {
-    adaptee.jCheckBoxStems_actionPerformed(e);
-  }
-}
-
 class SimtkPtPlotDialog_SelectXButton_mouseAdapter extends java.awt.event.MouseAdapter {
   SimtkPtPlotDialog adaptee;
 
@@ -488,4 +566,45 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
     adaptee.SelectYButton_mouseReleased(e);
   }
 }
+
+  void jModifyGrid_actionPerformed(ActionEvent e) {
+    JButton source = (JButton) e.getSource();
+    if (source.getText()=="Modify"){
+      jSpinnerX.setEnabled(true);
+      jSpinnerY.setEnabled(true);
+      source.setText("Apply");
+    }
+    else if (source.getText()=="Apply"){
+      jSpinnerX.setEnabled(false);
+      jSpinnerY.setEnabled(false);
+      source.setText("Modify");
+      int desiredRows =((Integer)jSpinnerX.getValue()).intValue();
+      int desiredColumns =((Integer)jSpinnerY.getValue()).intValue();
+      if (desiredRows*desiredColumns < numPlots){
+        // Warn that some plot will be removed.
+        for (int i =desiredRows*desiredColumns; i < numPlots; i++){
+          Plot nextPlot = (Plot)plots.get(i);
+          jPlotGridPanel.remove(nextPlot);
+          ((DefaultComboBoxModel)jCurrentPlotComboBox.getModel()).removeElementAt(desiredRows*desiredColumns);
+        }
+        numPlots = desiredRows*desiredColumns;
+        gridLayout1 = new GridLayout(desiredRows, desiredColumns);
+        jPlotGridPanel.setLayout(gridLayout1);
+      }
+      else {
+        gridLayout1 = new GridLayout(desiredRows, desiredColumns);
+        jPlotGridPanel.setLayout(gridLayout1);
+        for (int i = numPlots; i < desiredRows * desiredColumns; i++) {
+          Plot newPlot = new Plot();
+          jPlotGridPanel.add(newPlot);
+          plots.add(newPlot);
+          ( (DefaultComboBoxModel) jCurrentPlotComboBox.getModel()).addElement(new
+              Integer(i + 1));
+          numPlots++;
+        }
+      }
+      jPlotGridPanel.repaint();
+    }
+  }
+
 }

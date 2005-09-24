@@ -1,12 +1,10 @@
 package simtkView.plot;
 
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Vector;
+import java.util.*;
 
-import ptolemy.plot.Plot;
-import simtkCore.SimtkSimEnv;
-import simtkuiEvents.SimtkSimEnvStateChangeEvent;
+import ptolemy.plot.*;
+import simtkCore.*;
+import simtkuiEvents.*;
 
 /**
  * <p>Title: </p>
@@ -26,12 +24,20 @@ public class SimtkPlotDataSet
   String _yName;
   SimtkSimEnv _env;
   String _storageName;
+  String _legend;
   int _dataSetIndex = -1;
   boolean _timeDependent;
   double _lastTime;
   Plot _plot;
+  int _plotBoxIndex;
 
-  public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName) {
+  public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName, String legend, int plotBoxIndex) {
+    this(env, xName, yName);
+    setLegend(legend);
+    _plotBoxIndex = plotBoxIndex;
+  }
+
+ public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName) {
     _xName = xName;
     _yName = yName;
     _env = env;
@@ -39,16 +45,29 @@ public class SimtkPlotDataSet
       _timeDependent = true;
       _env.addObserver(this);
     }
+    setLegend(_xName + " vs. " + _yName.substring(_yName.lastIndexOf(":")+1));
+  }
+
+  /**
+   * setLegend
+   *
+   * @param string String
+   */
+  public void setLegend(String string) {
+    _legend = string;
   }
 
   public String getLegend() {
-    return _xName + " vs. " + _yName.substring(_yName.lastIndexOf(":")+1);
+    return _legend;
   }
 
   public boolean isTimeDependent() {
     return _timeDependent;
   }
 
+  public int getPlotBoxIndex() {
+    return _plotBoxIndex;
+  }
   public void setDataSetIndex(int index) {
     _dataSetIndex = index;
   }
