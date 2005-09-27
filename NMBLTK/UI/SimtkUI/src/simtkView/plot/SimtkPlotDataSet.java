@@ -1,8 +1,8 @@
 package simtkView.plot;
 
+import java.io.*;
 import java.util.*;
 
-import ptolemy.plot.*;
 import simtkCore.*;
 import simtkuiEvents.*;
 
@@ -23,18 +23,19 @@ public class SimtkPlotDataSet
   String _xName;
   String _yName;
   SimtkSimEnv _env;
-  String _storageName;
   String _legend;
-  int _dataSetIndex = -1;
+  int _dataSetIndexInFigure = -1;
   boolean _timeDependent;
   double _lastTime;
-  Plot _plot;
-  int _plotBoxIndex;
+  NmblFigure _figure;
+  int _figureIndex;      // index of Figure to shich the dataset will be plotted
+  static public final String DEFAULT_LEGEND="Plot Legend";
 
-  public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName, String legend, int plotBoxIndex) {
+  public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName, String legend, int figureIndex) {
     this(env, xName, yName);
-    setLegend(legend);
-    _plotBoxIndex = plotBoxIndex;
+    if (legend != DEFAULT_LEGEND)
+      setLegend(legend);
+    _figureIndex = figureIndex;
   }
 
  public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName) {
@@ -65,15 +66,15 @@ public class SimtkPlotDataSet
     return _timeDependent;
   }
 
-  public int getPlotBoxIndex() {
-    return _plotBoxIndex;
+  public int getFigureIndex() {
+    return _figureIndex;
   }
   public void setDataSetIndex(int index) {
-    _dataSetIndex = index;
+    _dataSetIndexInFigure = index;
   }
 
   public int getDataSetIndex() {
-    return _dataSetIndex;
+    return _dataSetIndexInFigure;
   }
 
   public boolean getDataValues(Vector xValues, Vector yValues) {
@@ -110,7 +111,7 @@ public class SimtkPlotDataSet
       int oldState = evnt.getOldState();
       int newState = evnt.getNewState();
       if (/*(oldState == SimtkSimEnv.READY ||  oldState == SimtkSimEnv.PLAYBACK) &&*/ newState == SimtkSimEnv.RUNNING) {
-        _plot.clear(_dataSetIndex);
+        _figure.clear(_dataSetIndexInFigure);
         _lastTime=0.0;
       }
     }
@@ -123,11 +124,11 @@ public class SimtkPlotDataSet
       for (int i = 0; i < xValues.size(); i++) {
         double yValue = ( (Double) yValues.get(i)).doubleValue();
         double xValue = ( (Double) xValues.get(i)).doubleValue();
-        _plot.addPoint(_dataSetIndex, xValue, yValue, true);
+        _figure.addPoint(_dataSetIndexInFigure, xValue, yValue, true);
 
       }
       _lastTime = time;
-      _plot.repaint();
+      _figure.repaint();
     }
   }
 
@@ -137,8 +138,8 @@ public class SimtkPlotDataSet
    *
    * @param plot Plot
    */
-  public void setPlot(Plot plot) {
-    _plot = plot;
+  public void setPlot(NmblFigure plot) {
+    _figure = plot;
   }
 
   public void showPlot()
@@ -151,7 +152,7 @@ public class SimtkPlotDataSet
       for (int i = 0; i < xValues.size(); i++) {
         double yValue = ( (Double) yValues.get(i)).doubleValue();
         double xValue = ( (Double) xValues.get(i)).doubleValue();
-        _plot.addPoint(_dataSetIndex, xValue, yValue, !first);
+        _figure.addPoint(_dataSetIndexInFigure, xValue, yValue, !first);
         first = false;
       }
     }
@@ -164,5 +165,27 @@ public class SimtkPlotDataSet
     // If a dataSet is time dependent, remove it from env. observers
     if (_timeDependent)
       _env.deleteObserver(this);
+  }
+
+  /**
+   * Encode
+   *
+   * @return String
+   */
+  public String Encode() {
+    return "[Fig. "+(_figureIndex+1)+"]."+_legend;
+  }
+
+  /**
+   * write
+   *
+   * @param fout PrintWriter
+   */
+  public void write(PrintWriter fout) {
+    fout.println("\t\t\t<plot>");
+    fout.println("\t\t\t<qty xName=\"" + _xName + "\" yName=\""+_yName+"\"/>");
+    fout.println("\t\t\t<legend value=\"" + _legend + "\"/>");
+    fout.println("\t\t\t<FigureId value=\"" + _figureIndex + "\"/>");
+    fout.println("\t\t\t</plot>");
   }
 }
