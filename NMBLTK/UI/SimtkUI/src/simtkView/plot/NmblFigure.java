@@ -1,9 +1,9 @@
 package simtkView.plot;
 
-import ptolemy.plot.*;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import javax.swing.*;
+
+import ptolemy.plot.*;
 
 public class NmblFigure extends Plot{
   BorderLayout borderLayout1 = new BorderLayout();
@@ -38,5 +38,4 @@ public class NmblFigure extends Plot{
   {
     this.setGrid(grid);
   }
-
 }

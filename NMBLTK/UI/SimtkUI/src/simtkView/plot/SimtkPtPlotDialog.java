@@ -59,7 +59,7 @@ public class SimtkPtPlotDialog extends JDialog{
   TitledBorder titledBorder3;
   Border border4;
   TitledBorder titledBorder4;
-  JPanel jPanel2 = new JPanel();
+  JPanel jCurrentFigurePanel = new JPanel();
   Border border5;
   TitledBorder titledBorder5;
   Border border6;
@@ -94,9 +94,20 @@ public class SimtkPtPlotDialog extends JDialog{
   JMenuItem jLoadTemplateMenuItem = new JMenuItem();
   JMenuItem jSaveTemplateMenuItem = new JMenuItem();
   GridBagLayout gridBagLayout3 = new GridBagLayout();
-  JLabel jLegendLabel = new JLabel();
   JTextField jLegendText = new JTextField();
-  NmblPlotTemplateXMLParser _parser; // Parser for template files
+  NmblPlotTemplateXMLParser _parser;
+  JLabel jXLabel = new JLabel();
+  JLabel jYLabel = new JLabel();
+  JTextField jXLabelValue = new JTextField();
+  JTextField jYLabelValue = new JTextField();
+  JPanel jPanel2 = new JPanel();
+  GridBagLayout gridBagLayout4 = new GridBagLayout();
+  Border border9;
+  TitledBorder titledBorder9;
+  JLabel jLegendLabel = new JLabel();
+  JLabel jLabelLegend = new JLabel();
+  JLabel jLabel1 = new JLabel();
+  JButton jApplyTitleChangesButton = new JButton();
 
   public SimtkPtPlotDialog() {
     plotIndices.add(new Integer("1"));
@@ -131,31 +142,12 @@ public class SimtkPtPlotDialog extends JDialog{
     });
     /*
     jCheckBoxGrid.setSelected(plot.getGrid());
-    jCheckBoxStems.setSelected(plot.getImpulses());*/
-    jTitleText.addFocusListener(new FocusListener(){
-      /**
-       * focusGained
-       *
-       * @param e FocusEvent
-       */
-      public void focusGained(FocusEvent e) {
-      }
-
-      /**
-       * focusLost
-       *
-       * @param e FocusEvent
-       */
-      public void focusLost(FocusEvent e) {
-        // Invoked when editing title is done
-        JTextField textSource = (JTextField)e.getSource();
-        if (textSource == jTitleText){
-          currentFigure.setTitle(jTitleText.getText());
-          currentFigure.repaint();
-        }
-      }
-    });
+    jCheckBoxStems.setSelected(plot.getImpulses());
+    jTitleText.addFocusListener(new textFieldsFocusListener());
+    jXLabelValue.addFocusListener(new textFieldsFocusListener());
+    jYLabelValue.addFocusListener(new textFieldsFocusListener());*/
    }
+
   private void jbInit() throws Exception {
     titledBorder1 = new TitledBorder(BorderFactory.createEmptyBorder(),"");
     border1 = new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(178, 178, 178));
@@ -170,9 +162,11 @@ public class SimtkPtPlotDialog extends JDialog{
     border6 = BorderFactory.createLineBorder(new Color(127, 157, 185),2);
     titledBorder6 = new TitledBorder(BorderFactory.createEmptyBorder(),"Y axis");
     border7 = new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151));
-    titledBorder7 = new TitledBorder(new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151)),"Current plot properties");
+    titledBorder7 = new TitledBorder(new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151)),"Current Figure");
     border8 = BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151));
     titledBorder8 = new TitledBorder(border8,"Plot Options");
+    border9 = BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151));
+    titledBorder9 = new TitledBorder(border9,"Current plot");
     currentFigure.setLayout(flowLayout1);
     jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
     jSplitPane1.setOneTouchExpandable(true);
@@ -191,24 +185,12 @@ public class SimtkPtPlotDialog extends JDialog{
        // Strip out the leading environment name
         xName = xName.substring(xName.indexOf(":")+1);
         yName = yName.substring(yName.indexOf(":")+1);
-        SimtkPlotDataSet newDataSet = new SimtkPlotDataSet(simEnv, xName, yName, jLegendText.getText(), currentFigureIndex);
-        if (legendExists(newDataSet.getLegend(), currentFigure)){
-          JOptionPane.showMessageDialog(SimtkPtPlotDialog.this,
-          "Legend "+newDataSet.getLegend()+" is already in use in current Figure, please change it and retry",
-          "NMBL Error", JOptionPane.WARNING_MESSAGE);
-          return;
-        }
-        // Fix this as indices might not be in sequence due to deletion
-        int newDataSetIndex = getNextAvailableIndex(currentFigureIndex);
-        newDataSet.setDataSetIndex(newDataSetIndex);
-        newDataSet.setPlot(currentFigure);
-        jLegendText.setText(newDataSet.getLegend());
-        currentFigure.addLegend(newDataSet.getDataSetIndex(), newDataSet.getLegend());
-        newDataSet.showPlot();
-        plotListModel.add(plotListModel.getSize(), newDataSet.Encode());
-        jPrintPlotButton.setEnabled(true);
-        _mapNamesToDatasets.put(newDataSet.Encode(), newDataSet);
+        String userLegend = jLegendText.getText();
+        addDataSet(currentFigureIndex, xName, yName, userLegend);
+        jLegendText.setText(SimtkPlotDataSet.DEFAULT_LEGEND);
         currentFigure.setTitle(jTitleText.getText());
+        currentFigure.setXLabel(jXLabelValue.getText());
+        currentFigure.setYLabel(jYLabelValue.getText());
         currentFigure.repaint();
       }
     });
@@ -216,7 +198,30 @@ public class SimtkPtPlotDialog extends JDialog{
     jPlotControlPanel.setLayout(borderLayout2);
     jClearPlotButton.setToolTipText("");
     jClearPlotButton.setText("Clear");
-    jClearPlotButton.addActionListener(new SimtkPtPlotDialog_jClearPlotButton_actionAdapter(this));
+    jClearPlotButton.addActionListener(new ActionListener(){
+      /**
+       * actionPerformed
+       *
+       * @param e ActionEvent
+       */
+      public void actionPerformed(ActionEvent e) {
+        Enumeration enum = _mapNamesToDatasets.elements();
+        while (enum.hasMoreElements()) {
+          SimtkPlotDataSet dataSet = (SimtkPlotDataSet) enum.nextElement();
+          if (dataSet.getFigureIndex()!= currentFigureIndex)
+            continue;
+          dataSet.cleanup();
+          int index = dataSet.getDataSetIndex();
+          currentFigure.removeLegend(index);
+          currentFigure.clear(index);
+          plotListModel.removeElement(dataSet.Encode());
+          _mapNamesToDatasets.remove(dataSet.Encode());
+        }
+        currentFigure.clear(true);
+        currentFigure.repaint();
+      }
+    });
+
     jPlotList.setBorder(titledBorder1);
     jPlotList.setPreferredSize(new Dimension(180, 100));
     jDeletePlotButton.setText("Delete Plot");
@@ -231,11 +236,11 @@ public class SimtkPtPlotDialog extends JDialog{
     jScrollPane1.setMaximumSize(new Dimension(100, 200));
     jScrollPane1.setMinimumSize(new Dimension(33, 48));
     jScrollPane1.setPreferredSize(new Dimension(100, 200));
-    jPanel2.setBorder(titledBorder7);
-    jPanel2.setMinimumSize(new Dimension(180, 100));
-    jPanel2.setPreferredSize(new Dimension(180, 100));
-    jPanel2.setToolTipText("");
-    jPanel2.setLayout(gridBagLayout1);
+    jCurrentFigurePanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151)),"Current Figure"));
+    jCurrentFigurePanel.setMinimumSize(new Dimension(180, 100));
+    jCurrentFigurePanel.setPreferredSize(new Dimension(180, 100));
+    jCurrentFigurePanel.setToolTipText("");
+    jCurrentFigurePanel.setLayout(gridBagLayout1);
     jPlotControlPanel.setMinimumSize(new Dimension(360, 200));
     jPlotControlPanel.setPreferredSize(new Dimension(360, 200));
     jPlotTitle.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -269,6 +274,7 @@ public class SimtkPtPlotDialog extends JDialog{
     jGridSizeLabel.setToolTipText("");
     jGridSizeLabel.setText("Grid Layout:");
     jGridPanel.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Grid Control"));
+    jGridPanel.setPreferredSize(new Dimension(211, 60));
     jSpinnerX.setBorder(BorderFactory.createEtchedBorder());
     jSpinnerX.setEnabled(false);
     jSpinnerY.setBorder(BorderFactory.createEtchedBorder());
@@ -309,18 +315,34 @@ public class SimtkPtPlotDialog extends JDialog{
        */
       public void setSelectedItem(Object anItem) {
         super.setSelectedItem(anItem);
-        currentFigure = (NmblFigure) figures.get(((Integer)anItem).intValue()-1);
-        currentFigureIndex = ((Integer)anItem).intValue()-1;
+        setCurrentFigure(((Integer)anItem).intValue()-1);
       }
     });
-    jLegendLabel.setToolTipText("");
-    jLegendLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-    jLegendLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
-    jLegendLabel.setText("Legend");
     jLegendText.setText(SimtkPlotDataSet.DEFAULT_LEGEND);
     flowLayout1.setAlignment(FlowLayout.LEFT);
+    jXLabel.setText("X-Label");
+    jYLabel.setText("Y-Label");
+    jXLabelValue.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        jXLabelValue_actionPerformed(e);
+      }
+    });
+    jXLabelValue.setToolTipText("");
+    jXLabelValue.setText("X-Label");
+    jYLabelValue.setText("Y-Label");
+    jPanel2.setLayout(gridBagLayout4);
+    jPanel2.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Current Pllot"));
+    jLabel1.setText("Legend");
+    jApplyTitleChangesButton.setText("Update");
+    jApplyTitleChangesButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        jApplyFigTitleChanges_actionPerformed(e);
+      }
+    });
     this.getContentPane().add(jSplitPane1,  BorderLayout.CENTER);
     jSplitPane1.add(jPlotControlPanel, JSplitPane.BOTTOM);
+    jPlotCommandsPanel.add(jCurrentPlotLabel, null);
+    jPlotCommandsPanel.add(jCurrentPlotComboBox, null);
     jPlotCommandsPanel.add(jAddPlotButton, null);
     jPlotCommandsPanel.add(jDeletePlotButton, null);
     jPlotCommandsPanel.add(jClearPlotButton, null);
@@ -329,41 +351,49 @@ public class SimtkPtPlotDialog extends JDialog{
     jPlotGridPanel.add(currentFigure, null);
     this.getContentPane().add(jPlotCommandsPanel, BorderLayout.SOUTH);
     jPlotControlPanel.add(jPanel1,  BorderLayout.CENTER);
-    jPanel1.add(jScrollPane1,                              new GridBagConstraints(1, 0, 2, 2, 1.0, 1.0
+    jPanel1.add(jScrollPane1,                               new GridBagConstraints(1, 0, 2, 3, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 100, 0));
     jScrollPane1.getViewport().add(jPlotList, null);
-    jPanel1.add(jPanel2,   new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
-    jPanel1.add(jGridPanel,                                      new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
+    jPanel1.add(jCurrentFigurePanel,        new GridBagConstraints(0, 1, 1, 1, 1.0, 0.7
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 0, 5), 0, 0));
+    jPanel1.add(jGridPanel,                                                   new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     jGridPanel.add(jGridSizeLabel,     new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 13, 5, 0), 0, 0));
     jGridPanel.add(jSpinnerY,       new GridBagConstraints(2, 0, 1, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
     jGridPanel.add(jModifyGrid,     new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
-    jGridPanel.add(jCurrentPlotLabel,     new GridBagConstraints(5, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
-    jGridPanel.add(jCurrentPlotComboBox,      new GridBagConstraints(6, 0, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
     jGridPanel.add(jSpinnerX,   new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
-    jPanel2.add(SelectXButton,           new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+    jPanel1.add(jPanel2,   new GridBagConstraints(0, 2, 1, 1, 1.0, 0.7
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
+    jPanel2.add(jLegendText,                  new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(SelectXButton,         new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(SelectYButton,           new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+    jPanel2.add(SelectYButton,          new GridBagConstraints(0, 2, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(jYTextField,            new GridBagConstraints(1, 3, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(jPlotTitle,     new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
+    jPanel2.add(jXTextField,     new GridBagConstraints(1, 1, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jYTextField,      new GridBagConstraints(1, 2, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jLabel1,   new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+    jCurrentFigurePanel.add(jPlotTitle,                           new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    jPanel2.add(jTitleText,  new GridBagConstraints(1, 0, 2, 1, 1.0, 1.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(jLegendLabel,    new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+    jCurrentFigurePanel.add(jTitleText,                      new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 150, 0));
+    jCurrentFigurePanel.add(jYLabel,                new GridBagConstraints(0, 2, 1, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    jPanel2.add(jXTextField,  new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(jLegendText,  new GridBagConstraints(2, 1, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jCurrentFigurePanel.add(jXLabelValue,            new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 150, 0));
+    jCurrentFigurePanel.add(jYLabelValue,       new GridBagConstraints(1, 2, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 150, 0));
+    jCurrentFigurePanel.add(jXLabel,               new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+    jCurrentFigurePanel.add(jApplyTitleChangesButton,     new GridBagConstraints(2, 1, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jMenuBar1.add(jMenu1);
     jMenu1.add(jLoadTemplateMenuItem);
     jMenu1.add(jSaveTemplateMenuItem);
@@ -382,45 +412,8 @@ public class SimtkPtPlotDialog extends JDialog{
   }
 
   void jClearPlotButton_actionPerformed(ActionEvent e) {
-    Enumeration enum = _mapNamesToDatasets.elements();
-    while (enum.hasMoreElements()) {
-      SimtkPlotDataSet dataSet = (SimtkPlotDataSet) enum.nextElement();
-      dataSet.cleanup();
-      int index = dataSet.getDataSetIndex();
-      currentFigure.removeLegend(index);
-      currentFigure.clear(index);
-      plotListModel.removeElement(dataSet.Encode());
-    }
-
-    currentFigure.clear(true);
-    currentFigure.repaint();
-    _mapNamesToDatasets.clear();
   }
 
-  void jAddPlotButton_actionPerformed(ActionEvent e) {
-
-    String xName = (String) jXTextField.getText();
-    String yName = (String) jYTextField.getText();
-    String envName = xName.substring(0, xName.indexOf(":"));
-    SimtkSimEnv simEnv = SimtkDB.getInstance().getSimtkSimEnv(envName);
-   // Strip out the leading environment name
-    xName = xName.substring(xName.indexOf(":")+1);
-    yName = yName.substring(yName.indexOf(":")+1);
-    SimtkPlotDataSet newDataSet = new SimtkPlotDataSet(simEnv, xName, yName, jLegendText.getText(), currentFigureIndex);
-    // Fix this as indices might not be in sequence due to deletion
-    int newDataSetIndex = getNextAvailableIndex(currentFigureIndex);
-    newDataSet.setDataSetIndex(newDataSetIndex);
-    newDataSet.setPlot(currentFigure);
-    jLegendText.setText(newDataSet.getLegend());
-
-    currentFigure.addLegend(newDataSet.getDataSetIndex(), newDataSet.getLegend());
-    newDataSet.showPlot();
-    plotListModel.add(plotListModel.getSize(), newDataSet.Encode());
-    jPrintPlotButton.setEnabled(true);
-    _mapNamesToDatasets.put(newDataSet.Encode(), newDataSet);
-    currentFigure.setTitle(jTitleText.getText());
-    currentFigure.repaint();
-  }
   public int getNextAvailableIndex(int figureIndex)
   {
     int availableIndex=0;
@@ -513,19 +506,6 @@ void SelectYButton_mouseReleased(MouseEvent e) {
 }
 
 /*
- * Clear all plots callback
- */
-class SimtkPtPlotDialog_jClearPlotButton_actionAdapter implements java.awt.event.ActionListener {
-  SimtkPtPlotDialog adaptee;
-
-  SimtkPtPlotDialog_jClearPlotButton_actionAdapter(SimtkPtPlotDialog adaptee) {
-    this.adaptee = adaptee;
-  }
-  public void actionPerformed(ActionEvent e) {
-    adaptee.jClearPlotButton_actionPerformed(e);
-  }
-}
-/*
  * Delete plot callback class
  */
 class SimtkPtPlotDialog_jDeletePlotButton_actionAdapter implements java.awt.event.ActionListener {
@@ -606,6 +586,11 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
     return (figure.getLegendDataset(aLegend)!= -1);
   }
 
+  public NmblFigure getFigure(int onebasedIndex)
+  {
+    return (NmblFigure) figures.get(onebasedIndex-1);
+  }
+
   /**
    * Save current configuration of plots into a template file
    * @param e ActionEvent
@@ -658,20 +643,22 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
       NmblFigure nextFigure = (NmblFigure) figures.get(i);
       fout.println("\t\t<Figure id=\""+(i+1)+"\" title=\""+nextFigure.getTitle()+"\">");
       fout.println("\t\t<grid value=\""+nextFigure.getGrid()+"\"/>");
-      fout.println("\t\t<xLabel>\""+nextFigure.getXLabel()+"\"</xLabel>");
-      fout.println("\t\t<yLabel>\""+nextFigure.getYLabel()+"\"</yLabel>");
+      fout.println("\t\t<xLabel>"+nextFigure.getXLabel()+"</xLabel>");
+      fout.println("\t\t<yLabel>"+nextFigure.getYLabel()+"</yLabel>");
       fout.println("\t\t<xRange min=\""+nextFigure.getXRange()[0] +"\" max=\""+nextFigure.getXRange()[1] +"\"/>");
       fout.println("\t\t<yRange min=\""+nextFigure.getYRange()[0] +"\" max=\""+nextFigure.getYRange()[1] +"\"/>");
+      fout.println("\t\t<plots>");
+      Enumeration dataSets=_mapNamesToDatasets.elements();
+      // Traverse the list of all datasets and write them, each will reference a figure by its id
+      while (dataSets.hasMoreElements()){
+        SimtkPlotDataSet nextPlot = (SimtkPlotDataSet) dataSets.nextElement();
+        if (nextPlot.getFigureIndex()!= i)
+          continue;
+        nextPlot.write(fout);
+      }
+      fout.println("\t\t</plots>");
       fout.println("\t\t</Figure>");
     }
-    fout.println("\t\t<plots>");
-    Enumeration dataSets=_mapNamesToDatasets.elements();
-    // Traverse the list of all datasets and write them, each will reference a figure by its id
-    while (dataSets.hasMoreElements()){
-      SimtkPlotDataSet nextPlot = (SimtkPlotDataSet) dataSets.nextElement();
-      nextPlot.write(fout);
-    }
-    fout.println("\t\t</plots>");
 
   }
 
@@ -780,6 +767,113 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
         numFigures++;
       }
     }
+  }
+
+  void jXLabelValue_actionPerformed(ActionEvent e) {
+
+  }
+
+  /**
+   * addDataSet
+   *
+   * @param currentFigureId int
+   * @param qtyXName String
+   * @param qtyYName String
+   * @param legend String
+   */
+  public void addDataSet(int zeroBasedCurrentFigureId, String xName, String yName,
+                         String userLegend) {
+    /**
+     * FIXME: find a general mechanism for handling SimEnv by querying the user for what env. to use.
+     */
+    SimtkSimEnv simEnv = SimtkDB.getInstance().getSimtkSimEnv("SimEnv1");
+    int saveCurrentFigureIndex = currentFigureIndex;
+    currentFigureIndex = zeroBasedCurrentFigureId;
+   SimtkPlotDataSet newDataSet = new SimtkPlotDataSet(simEnv, xName, yName, userLegend, currentFigureIndex);
+   currentFigure = (NmblFigure) figures.get(currentFigureIndex);
+   if (legendExists(newDataSet.getLegend(), currentFigure)){
+     JOptionPane.showMessageDialog(SimtkPtPlotDialog.this,
+     "Legend "+newDataSet.getLegend()+" is already in use in current Figure, please change it and retry",
+     "NMBL Error", JOptionPane.WARNING_MESSAGE);
+     // Restore current figure set from the UI so that it is consistent with the dialog
+     currentFigureIndex = saveCurrentFigureIndex;
+     currentFigure = (NmblFigure) figures.get(currentFigureIndex);
+     return;
+   }
+   // Fix this as indices might not be in sequence due to deletion
+   int newDataSetIndex = getNextAvailableIndex(currentFigureIndex);
+   newDataSet.setDataSetIndex(newDataSetIndex);
+   newDataSet.setPlot(currentFigure);
+   //jLegendText.setText(newDataSet.getLegend());
+   currentFigure.addLegend(newDataSet.getDataSetIndex(), newDataSet.getLegend());
+   newDataSet.showPlot();
+   plotListModel.add(plotListModel.getSize(), newDataSet.Encode());
+   jPrintPlotButton.setEnabled(true);
+   _mapNamesToDatasets.put(newDataSet.Encode(), newDataSet);
+   // Restore current figure set from the UI so that it is consistent with the dialog
+   currentFigureIndex = saveCurrentFigureIndex;
+   currentFigure = (NmblFigure) figures.get(currentFigureIndex);
+ }
+
+  private void setCurrentFigure(int zeroBasedIndex)
+  {
+    currentFigure = (NmblFigure) figures.get(zeroBasedIndex);
+    currentFigureIndex = zeroBasedIndex;
+    jTitleText.setText(currentFigure.getTitle());
+    jXLabelValue.setText(currentFigure.getXLabel());
+    jYLabelValue.setText(currentFigure.getYLabel());
+  }
+
+  public void updateUIWithCurrentFigure()
+  {
+    setCurrentFigure(currentFigureIndex);
+  }
+  /**
+   * Class to handle text fields modifications
+   * <p>Title: UI for Simtk Prototype</p>
+   * <p>Description: UI for Simtk Prototype</p>
+   * <p>Copyright: Copyright (c) 2004</p>
+   * <p>Company: Stanford University</p>
+   * @author not attributable
+   * @version 1.0
+   */
+  private class textFieldsFocusListener implements FocusListener
+  {
+      /**
+       * focusGained
+       *
+       * @param e FocusEvent
+       */
+      public void focusGained(FocusEvent e) {
+      }
+
+      /**
+       * focusLost
+       *
+       * @param e FocusEvent
+       */
+      public void focusLost(FocusEvent e) {
+        // Invoked when editing title is done
+        JTextField textSource = (JTextField)e.getSource();
+        if (textSource == jTitleText){
+          currentFigure.setTitle(jTitleText.getText());
+        }
+        else if (textSource == jXLabelValue){
+          currentFigure.setXLabel(jXLabelValue.getText());
+        }
+        else if (textSource == jYLabelValue){
+          currentFigure.setYLabel(jYLabelValue.getText());
+        }
+        currentFigure.repaint();
+      }
+    }
+
+  void jApplyFigTitleChanges_actionPerformed(ActionEvent e) {
+    currentFigure.setTitle(jTitleText.getText());
+    currentFigure.setXLabel(jXLabelValue.getText());
+    currentFigure.setYLabel(jYLabelValue.getText());
+    updateUIWithCurrentFigure();
+    currentFigure.repaint();
   }
 
 }

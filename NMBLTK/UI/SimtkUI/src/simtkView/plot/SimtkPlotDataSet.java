@@ -29,11 +29,11 @@ public class SimtkPlotDataSet
   double _lastTime;
   NmblFigure _figure;
   int _figureIndex;      // index of Figure to shich the dataset will be plotted
-  static public final String DEFAULT_LEGEND="Plot Legend";
+  static public final String DEFAULT_LEGEND="Default: x vs. y";
 
   public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName, String legend, int figureIndex) {
     this(env, xName, yName);
-    if (legend != DEFAULT_LEGEND)
+    if (!legend.equals(DEFAULT_LEGEND) )
       setLegend(legend);
     _figureIndex = figureIndex;
   }
@@ -185,7 +185,6 @@ public class SimtkPlotDataSet
     fout.println("\t\t\t<plot>");
     fout.println("\t\t\t<qty xName=\"" + _xName + "\" yName=\""+_yName+"\"/>");
     fout.println("\t\t\t<legend value=\"" + _legend + "\"/>");
-    fout.println("\t\t\t<FigureId value=\"" + _figureIndex + "\"/>");
     fout.println("\t\t\t</plot>");
   }
 }
