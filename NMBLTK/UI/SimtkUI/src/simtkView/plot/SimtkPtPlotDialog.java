@@ -14,6 +14,7 @@ import javax.swing.event.*;
 
 import com.microstar.xml.*;
 import simtkCore.*;
+import simtkUtils.*;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -597,7 +598,11 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
    */
   void jSaveTemplateMenuItem_actionPerformed(ActionEvent e) {
     try {
-        OutputStream fout = new FileOutputStream("template.xml");
+      String fileName = SimtkFileChooser.getFile("Select file to save template to", "xml", "*.xml");
+      if (fileName == null)
+        return;
+      fileName = fileName+".xml";
+        OutputStream fout = new FileOutputStream(fileName);
         write(new OutputStreamWriter(fout));
     } catch (IOException ex) {
         JOptionPane.showMessageDialog(this,
@@ -675,8 +680,12 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
 
   void jLoadTemplateMenuItem_actionPerformed(ActionEvent e) {
     try {
-         read(new URL("file", null, "C://Work//TestFiles"),
-             new FileInputStream("template.xml"));
+      String fileName = SimtkFileChooser.getFile("Select template file to load", "xml", "*.xml");
+      File templateFileFullPath = new File(fileName);
+      if (fileName == null)
+        return;
+         read(new URL("file", null, templateFileFullPath.getParent()),
+             new FileInputStream(templateFileFullPath.getName()));
     }
     catch (FileNotFoundException ex) {
     }
@@ -722,18 +731,6 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
             ex.printStackTrace();
         }
     }
-  }
-  public void parse(URL base, InputStream input) throws Exception {
-      parse(base, new InputStreamReader(input));
-  }
-
-  /** Parse the given stream as a PlotML file.
-   *  A variety of exceptions might be thrown if the parsed
-   *  data does not represent a valid PlotML file.
-   *  @param reader The stream from which to read XML.
-   *  @exception Exception If the parser fails.
-   */
-  public void parse(URL base, Reader reader) throws Exception {
   }
 
   /**
@@ -787,6 +784,10 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
      * FIXME: find a general mechanism for handling SimEnv by querying the user for what env. to use.
      */
     SimtkSimEnv simEnv = SimtkDB.getInstance().getSimtkSimEnv("SimEnv1");
+    if (simEnv==null){
+      simtkui.SimtkApp.displayWarningMessage("No Simulation environment SimEnv1 to bind template.");
+      return;
+    }
     int saveCurrentFigureIndex = currentFigureIndex;
     currentFigureIndex = zeroBasedCurrentFigureId;
    SimtkPlotDataSet newDataSet = new SimtkPlotDataSet(simEnv, xName, yName, userLegend, currentFigureIndex);

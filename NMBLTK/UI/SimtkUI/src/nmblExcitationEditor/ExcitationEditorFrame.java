@@ -30,7 +30,6 @@ public class ExcitationEditorFrame extends JFrame{
   EditablePlot plot = new EditablePlot();
   JComboBox jEditQtyComboBox = new JComboBox();
   BorderLayout borderLayout1 = new BorderLayout();
-  JButton jOkButton = new JButton();
   BorderLayout borderLayout3 = new BorderLayout();
   JMenu jMenu1 = new JMenu();
   JMenuItem jLoadControlMenuItem = new JMenuItem();
@@ -120,18 +119,14 @@ public class ExcitationEditorFrame extends JFrame{
         plot.setEditable(plotIndex);
       }
     });
+    /*
     jOkButton.setText("Update");
     jOkButton.addActionListener(new ActionListener(){
-      /**
-       * actionPerformed
-       *
-       * @param e ActionEvent
-       */
       public void actionPerformed(ActionEvent e) {
         updateObjects();
       }
     });
-
+    */
     this.getContentPane().setLayout(borderLayout3);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     this.setJMenuBar(jMenuBar1);
@@ -169,6 +164,13 @@ public class ExcitationEditorFrame extends JFrame{
        */
       public void actionPerformed(ActionEvent e) {
         updateObjects();
+        // Cycle thru the list of control sets and write to corresponding files
+        Enumeration controlSets = mapControlSetsToFiles.keys();
+        while(controlSets.hasMoreElements()){
+          rdControlSet nextSet = (rdControlSet) controlSets.nextElement();
+          String fileName = (String) mapControlSetsToFiles.get(nextSet);
+          nextSet.print(fileName);
+        }
       }
     });
 
@@ -202,7 +204,6 @@ public class ExcitationEditorFrame extends JFrame{
     jMenu2.add(jMenuItemHowTo);
     jEditPlotControlPanel.add(jPanel2,  BorderLayout.CENTER);
     jPanel2.add(jResetAxesBtn, null);
-    jPanel2.add(jOkButton, null);
     jPanel2.add(jUndoLastEditButton, null);
     jPanel2.add(jRedoButton, null);
     jPanel2.add(jEditQtySelectionPanel, null);
@@ -228,6 +229,7 @@ public class ExcitationEditorFrame extends JFrame{
         jMenuItemHowTo_actionPerformed(e);
       }
     });
+    jSplitPane1.setDividerLocation(80);
 
   }
 
@@ -383,6 +385,8 @@ public class ExcitationEditorFrame extends JFrame{
      if (selPath==null)
        return;
      final TreePath[] selected = getSelectionPaths();
+     if (selected==null)
+       return;
      _popup.removeAll();
      if (selected.length==1){
        int pathlength = selected[0].getPathCount();
@@ -399,6 +403,7 @@ public class ExcitationEditorFrame extends JFrame{
             * @param e ActionEvent
             */
            public void actionPerformed(ActionEvent e) {
+             updateObjects();
              selrdObj.print(fileName);
            }
          });
@@ -410,55 +415,74 @@ public class ExcitationEditorFrame extends JFrame{
            */
           public void actionPerformed(ActionEvent e) {
             String newFileName = getSaveAsFileName(fileName);
-            if (newFileName != null)
+            if (newFileName != null){
+              updateObjects();
               selrdObj.print(newFileName);
+            }
           }
         });
       }
      }
-     _popup.add(new AbstractAction("Edit"){
-       public void actionPerformed(ActionEvent e) {
-         for (int i = 0; i < selected.length; i++) {
-           int pathlength = selected[i].getPathCount();
-           DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) selected[i].
-               getPathComponent(pathlength - 1);
-           Object selObj = selNode.getUserObject();
-           if (selObj instanceof rdControl){
-             rdControl selrdObj = (rdControl) selObj;
-             subControlSignal subControl = new subControlSignal(selrdObj, EDIT_VALUE);
-             // Don't add the same control more than once
-             if (editQtyComboBoxModel.getIndexOf(subControl)==-1){
-               int index = loadControlIntoPlot(selrdObj, EDIT_VALUE); // This has to be done first
-               mapComboBoxModel2PlotIndex.put(subControl, new Integer(index));
-               editQtyComboBoxModel.addElement(subControl);
-               // Repeat for min and max
-               index = loadControlIntoPlot(selrdObj, EDIT_MINIMUM);
-               subControl = new subControlSignal(selrdObj, EDIT_MINIMUM);
-               mapComboBoxModel2PlotIndex.put(subControl, new Integer(index));
-               editQtyComboBoxModel.addElement(subControl);
-               index = loadControlIntoPlot(selrdObj, EDIT_MAXIMUM);
-               subControl = new subControlSignal(selrdObj, EDIT_MAXIMUM);
-               mapComboBoxModel2PlotIndex.put(subControl, new Integer(index));
-               editQtyComboBoxModel.addElement(subControl);
+     boolean controlSelected = false;
+     for (int i = 0; i < selected.length; i++) {
+       int pathlength = selected[i].getPathCount();
+       DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) selected[i].
+           getPathComponent(pathlength - 1);
+       Object selObj = selNode.getUserObject();
+       if (selObj instanceof rdControl) {
+         controlSelected = true;
+         break;
+       }
+     }
+     if (controlSelected) {// Show Edit & Remove only if at least one control was selected
+       _popup.add(new AbstractAction("Edit") {
+         public void actionPerformed(ActionEvent e) {
+           for (int i = 0; i < selected.length; i++) {
+             int pathlength = selected[i].getPathCount();
+             DefaultMutableTreeNode selNode = (DefaultMutableTreeNode)
+                 selected[i].
+                 getPathComponent(pathlength - 1);
+             Object selObj = selNode.getUserObject();
+             if (selObj instanceof rdControl) {
+               rdControl selrdObj = (rdControl) selObj;
+               subControlSignal subControl = new subControlSignal(selrdObj,
+                   EDIT_VALUE);
+               // Don't add the same control more than once
+               if (editQtyComboBoxModel.getIndexOf(subControl) == -1) {
+                 int index = loadControlIntoPlot(selrdObj, EDIT_VALUE); // This has to be done first
+                 mapComboBoxModel2PlotIndex.put(subControl, new Integer(index));
+                 editQtyComboBoxModel.addElement(subControl);
+                 // Repeat for min and max
+                 index = loadControlIntoPlot(selrdObj, EDIT_MINIMUM);
+                 subControl = new subControlSignal(selrdObj, EDIT_MINIMUM);
+                 mapComboBoxModel2PlotIndex.put(subControl, new Integer(index));
+                 editQtyComboBoxModel.addElement(subControl);
+                 index = loadControlIntoPlot(selrdObj, EDIT_MAXIMUM);
+                 subControl = new subControlSignal(selrdObj, EDIT_MAXIMUM);
+                 mapComboBoxModel2PlotIndex.put(subControl, new Integer(index));
+                 editQtyComboBoxModel.addElement(subControl);
+               }
              }
            }
          }
-        }
-     });
-     _popup.add(new AbstractAction("Remove"){
-       public void actionPerformed(ActionEvent e) {
-         for (int i = 0; i < selected.length; i++) {
-           int pathlength = selected[i].getPathCount();
-           DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) selected[i].
-               getPathComponent(pathlength - 1);
-           Object selObj = selNode.getUserObject();
-           if (selObj instanceof rdControl){
-             rdControl selrdObj = (rdControl) selObj;
-             // Don't add the same control more than once
-             subControlSignal controlVal = new subControlSignal(selrdObj, EDIT_VALUE);
-             int index = editQtyComboBoxModel.getIndexOf(controlVal);
-             if (index!=-1){
-                 int plotIndex = ((Integer) mapComboBoxModel2PlotIndex.get(controlVal)).intValue();
+       });
+       _popup.add(new AbstractAction("Remove") {
+         public void actionPerformed(ActionEvent e) {
+           for (int i = 0; i < selected.length; i++) {
+             int pathlength = selected[i].getPathCount();
+             DefaultMutableTreeNode selNode = (DefaultMutableTreeNode)
+                 selected[i].
+                 getPathComponent(pathlength - 1);
+             Object selObj = selNode.getUserObject();
+             if (selObj instanceof rdControl) {
+               rdControl selrdObj = (rdControl) selObj;
+               // Don't add the same control more than once
+               subControlSignal controlVal = new subControlSignal(selrdObj,
+                   EDIT_VALUE);
+               int index = editQtyComboBoxModel.getIndexOf(controlVal);
+               if (index != -1) {
+                 int plotIndex = ( (Integer) mapComboBoxModel2PlotIndex.get(
+                     controlVal)).intValue();
                  plot.clear(plotIndex);
                  plot.removeLegend(plotIndex);
                  mapComboBoxModel2PlotIndex.remove(controlVal);
@@ -466,7 +490,8 @@ public class ExcitationEditorFrame extends JFrame{
                  // Repeat for min and max
                  controlVal = new subControlSignal(selrdObj, EDIT_MINIMUM);
                  index = editQtyComboBoxModel.getIndexOf(controlVal);
-                 plotIndex = ((Integer) mapComboBoxModel2PlotIndex.get(controlVal)).intValue();
+                 plotIndex = ( (Integer) mapComboBoxModel2PlotIndex.get(
+                     controlVal)).intValue();
                  plot.clear(plotIndex);
                  plot.removeLegend(plotIndex);
                  mapComboBoxModel2PlotIndex.remove(controlVal);
@@ -479,11 +504,12 @@ public class ExcitationEditorFrame extends JFrame{
                  plot.removeLegend(plotIndex);
                  mapComboBoxModel2PlotIndex.remove(controlVal);
                  editQtyComboBoxModel.removeElementAt(index);
+               }
              }
            }
          }
-        }
-     });
+       });
+     }
      _popup.show((Component) e.getSource(), e.getX(), e.getY());
     }
     private String getSaveAsFileName(String oldName){
@@ -596,6 +622,19 @@ public class ExcitationEditorFrame extends JFrame{
     public String getSub()
     {
       return _sub;
+    }
+    public boolean equals(Object obj)
+    {
+      boolean returnValue = false;
+      if (obj instanceof subControlSignal){
+        subControlSignal other = (subControlSignal) obj;
+        returnValue = (other.getControl()==_control)&& _sub.equals(other.getSub());
+      }
+      return returnValue;
+    }
+    public int hashCode()
+    {
+      return _control.hashCode();
     }
   }
 }

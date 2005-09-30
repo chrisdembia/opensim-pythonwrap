@@ -43,7 +43,9 @@ public class excitationEditortHelpDialog
     jEditorPane1.setPreferredSize(new Dimension(400, 111));
     jEditorPane1.setText("Use file/open to load controls file. \nIndividual controls show in " +
     "the tree on the left.\nUse right mouse click on tree entries to select " +
-    "controls you want to edit.\nMultiple slections are possible.\nTo edit an individual control, select it " +
+    "controls you want to edit.\nMultiple slections are possible.\n"+
+    "Val., Min., Max. all show by default as editable plots.\n"+
+    "To edit an individual control, select it " +
     "by name from the drop down at the bottom of the dialog and drag the " +
     "right mouse over the plotting window from left to right.\nRemember to save control file before exiting\n");
     this.getContentPane().add(panel1, null);

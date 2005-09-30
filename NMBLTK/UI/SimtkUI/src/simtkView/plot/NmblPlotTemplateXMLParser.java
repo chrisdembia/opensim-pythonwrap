@@ -61,6 +61,7 @@ public class NmblPlotTemplateXMLParser extends HandlerBase {
             int rows = (Integer.valueOf(rowsString)).intValue();
             String columnsString = (String)_attributes.get("columns");
             int columns = (Integer.valueOf(columnsString)).intValue();
+            if (columns==0) columns=1;
             _dlg.setGridSize(rows, columns);
             _dlg.repaint();
           }
