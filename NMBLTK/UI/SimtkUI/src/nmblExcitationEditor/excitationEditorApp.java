@@ -12,7 +12,7 @@ public class excitationEditorApp {
     JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
     // Initialize C++ components
-    System.loadLibrary("xerces-c_2_4_0");
+    System.loadLibrary("xerces-c_2_4_0D");
     System.loadLibrary("rdTools");
     System.loadLibrary("rdSimulation");
     System.loadLibrary("suCFSQP");

@@ -24,7 +24,6 @@ public class ExcitationEditorFrame extends JFrame{
   JPanel jEditQtySelectionPanel = new JPanel();
   DefaultComboBoxModel editQtyComboBoxModel = new DefaultComboBoxModel();
 
-  Vector dataSetIndices = new Vector();
   JLabel jEditQtyLabel = new JLabel();
   JButton jUndoLastEditButton = new JButton();
   JPanel jPlotPanel = new JPanel();
@@ -55,6 +54,10 @@ public class ExcitationEditorFrame extends JFrame{
   Hashtable mapComboBoxModel2PlotIndex = new Hashtable();
   JMenu jMenu2 = new JMenu();
   JMenuItem jMenuItemHowTo = new JMenuItem("How to use");
+
+  private static String EDIT_MINIMUM = "Min.";
+  private static String EDIT_MAXIMUM = "Max.";
+  private static String EDIT_VALUE = "Val.";
 
   public ExcitationEditorFrame() {
     try {
@@ -109,7 +112,7 @@ public class ExcitationEditorFrame extends JFrame{
       public void actionPerformed(ActionEvent e) {
         // Get qty selected and find index in editQtyComboBoxModel, make corresponding plot editable
         JComboBox cb = (JComboBox)e.getSource();
-        rdControl selectedControl = (rdControl)cb.getSelectedItem();
+        subControlSignal selectedControl = (subControlSignal)cb.getSelectedItem();
         if (selectedControl==null)
           return;
         // Find index
@@ -158,7 +161,17 @@ public class ExcitationEditorFrame extends JFrame{
     });
     jSaveControlMenuItem.setActionCommand("Save");
     jSaveControlMenuItem.setText("Save All");
-    jSaveControlMenuItem.addActionListener(new ExcitationEditorFrame_jSaveControlMenuItem_actionAdapter(this));
+    jSaveControlMenuItem.addActionListener(new ActionListener(){
+      /**
+       * actionPerformed
+       *
+       * @param e ActionEvent
+       */
+      public void actionPerformed(ActionEvent e) {
+        updateObjects();
+      }
+    });
+
     jPanel1.setLayout(borderLayout4);
     jTree1.addMouseListener(new MouseAdapter() {
       public void mousePressed(MouseEvent e) {
@@ -223,7 +236,6 @@ public class ExcitationEditorFrame extends JFrame{
   }
 
   void jSaveControlMenuItem_actionPerformed(ActionEvent e) {
-    updateObjects();
     // iterate thru map and save controlSets to their corresponding file
   }
 
@@ -232,14 +244,27 @@ public class ExcitationEditorFrame extends JFrame{
     // Cycle thru plots thru editQtyComboBoxModel
     int numPlots = editQtyComboBoxModel.getSize();
     for (int i=0; i < numPlots; i++){
-      rdControl control = (rdControl) editQtyComboBoxModel.getElementAt(i);
-      int plotIndex = ((Integer)mapComboBoxModel2PlotIndex.get(control)).intValue();
+      subControlSignal subControl = (subControlSignal) editQtyComboBoxModel.getElementAt(i);
+      int plotIndex = ((Integer)mapComboBoxModel2PlotIndex.get(subControl)).intValue();
       // get data for plot i and set it in control
       double[][] data = plot.getData(plotIndex);
       // Modify control from data, assume no change in number of nodes
+      rdControl control = (rdControl) subControl.getControl();
       int numNodes = control.getNumParameters();
-      for (int j = 0; j < numNodes; j++) {
-        control.setParameterValue(j, data[1][j]);
+      if (subControl.getSub().equals(EDIT_VALUE)){
+        for (int j = 0; j < numNodes; j++) {
+          control.setParameterValue(j, data[1][j]);
+        }
+      }
+      else if (subControl.getSub().equals(EDIT_MINIMUM)){
+        for (int j = 0; j < numNodes; j++) {
+          control.setParameterMin(j, data[1][j]);
+        }
+      }
+      else {
+        for (int j = 0; j < numNodes; j++) {
+          control.setParameterMax(j, data[1][j]);
+        }
       }
     }
   }
@@ -248,14 +273,21 @@ public class ExcitationEditorFrame extends JFrame{
    *
    * @param aControl is the control to be edited visually
    */
-  private int loadControlIntoPlot(rdControl aControl) {
+  private int loadControlIntoPlot(rdControl aControl, String sub) {
     plot.setMarksStyle("dots");
     int numNodes = aControl.getNumParameters();
     int availableIndex = getAvailablePlotIndex();
-    plot.addLegend(availableIndex, aControl.getName());
+    subControlSignal sControl = new subControlSignal(aControl, sub);
+    plot.addLegend(availableIndex, sControl.toString());
     for (int i=0; i < numNodes; i++){
       double x = aControl.getParameterTime(i);
-      double y = aControl.getParameterValue(i);
+      double y;
+      if (sub.equals(EDIT_MINIMUM))
+        y = aControl.getParameterMin(i);
+      else if (sub.equals(EDIT_MAXIMUM))
+        y = aControl.getParameterMax(i);
+      else
+        y = aControl.getParameterValue(i);
       plot.addPoint(availableIndex, x, y, true);
       // Maintain xRange and yRange for axes control
       if (x < xRange[0])
@@ -393,11 +425,21 @@ public class ExcitationEditorFrame extends JFrame{
            Object selObj = selNode.getUserObject();
            if (selObj instanceof rdControl){
              rdControl selrdObj = (rdControl) selObj;
+             subControlSignal subControl = new subControlSignal(selrdObj, EDIT_VALUE);
              // Don't add the same control more than once
-             if (editQtyComboBoxModel.getIndexOf(selObj)==-1){
-               int index = loadControlIntoPlot(selrdObj); // This has to be done first
-               mapComboBoxModel2PlotIndex.put(selObj, new Integer(index));
-               editQtyComboBoxModel.addElement(selObj);
+             if (editQtyComboBoxModel.getIndexOf(subControl)==-1){
+               int index = loadControlIntoPlot(selrdObj, EDIT_VALUE); // This has to be done first
+               mapComboBoxModel2PlotIndex.put(subControl, new Integer(index));
+               editQtyComboBoxModel.addElement(subControl);
+               // Repeat for min and max
+               index = loadControlIntoPlot(selrdObj, EDIT_MINIMUM);
+               subControl = new subControlSignal(selrdObj, EDIT_MINIMUM);
+               mapComboBoxModel2PlotIndex.put(subControl, new Integer(index));
+               editQtyComboBoxModel.addElement(subControl);
+               index = loadControlIntoPlot(selrdObj, EDIT_MAXIMUM);
+               subControl = new subControlSignal(selrdObj, EDIT_MAXIMUM);
+               mapComboBoxModel2PlotIndex.put(subControl, new Integer(index));
+               editQtyComboBoxModel.addElement(subControl);
              }
            }
          }
@@ -413,12 +455,29 @@ public class ExcitationEditorFrame extends JFrame{
            if (selObj instanceof rdControl){
              rdControl selrdObj = (rdControl) selObj;
              // Don't add the same control more than once
-             int index = editQtyComboBoxModel.getIndexOf(selObj);
+             subControlSignal controlVal = new subControlSignal(selrdObj, EDIT_VALUE);
+             int index = editQtyComboBoxModel.getIndexOf(controlVal);
              if (index!=-1){
-                 int plotIndex = ((Integer) mapComboBoxModel2PlotIndex.get(selObj)).intValue();
+                 int plotIndex = ((Integer) mapComboBoxModel2PlotIndex.get(controlVal)).intValue();
                  plot.clear(plotIndex);
                  plot.removeLegend(plotIndex);
-                 mapComboBoxModel2PlotIndex.remove(selObj);
+                 mapComboBoxModel2PlotIndex.remove(controlVal);
+                 editQtyComboBoxModel.removeElementAt(index);
+                 // Repeat for min and max
+                 controlVal = new subControlSignal(selrdObj, EDIT_MINIMUM);
+                 index = editQtyComboBoxModel.getIndexOf(controlVal);
+                 plotIndex = ((Integer) mapComboBoxModel2PlotIndex.get(controlVal)).intValue();
+                 plot.clear(plotIndex);
+                 plot.removeLegend(plotIndex);
+                 mapComboBoxModel2PlotIndex.remove(controlVal);
+                 editQtyComboBoxModel.removeElementAt(index);
+                 controlVal = new subControlSignal(selrdObj, EDIT_MAXIMUM);
+                 index = editQtyComboBoxModel.getIndexOf(controlVal);
+                 plotIndex = ( (Integer) mapComboBoxModel2PlotIndex.get(
+                     controlVal)).intValue();
+                 plot.clear(plotIndex);
+                 plot.removeLegend(plotIndex);
+                 mapComboBoxModel2PlotIndex.remove(controlVal);
                  editQtyComboBoxModel.removeElementAt(index);
              }
            }
@@ -514,15 +573,29 @@ public class ExcitationEditorFrame extends JFrame{
 }
 
 */
-}
+  private class subControlSignal
+  {
+    rdObject _control;
+    String _sub;
 
-class ExcitationEditorFrame_jSaveControlMenuItem_actionAdapter implements java.awt.event.ActionListener {
-  ExcitationEditorFrame adaptee;
-
-  ExcitationEditorFrame_jSaveControlMenuItem_actionAdapter(ExcitationEditorFrame adaptee) {
-    this.adaptee = adaptee;
-  }
-  public void actionPerformed(ActionEvent e) {
-    adaptee.jSaveControlMenuItem_actionPerformed(e);
+    private subControlSignal()
+    {};
+    public subControlSignal(rdControl control, String sub)
+    {
+      _control = control;
+      _sub = sub;
+    }
+    public String toString()
+    {
+      return _sub+_control.toString();
+    }
+    public rdObject getControl()
+    {
+      return _control;
+    }
+    public String getSub()
+    {
+      return _sub;
+    }
   }
 }
