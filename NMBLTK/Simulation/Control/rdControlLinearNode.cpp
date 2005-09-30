@@ -310,6 +310,7 @@ void rdControlLinearNode::
 setValue(double aValue)
 {
 	_x = aValue;
+	_propX.setUseDefault(false);
 }
 //_____________________________________________________________________________
 /**
@@ -338,7 +339,11 @@ void rdControlLinearNode::
 setMin(double aMin)
 {
 	_min = aMin;
-	if(_min>_max) _max = _min;
+	_propMin.setUseDefault(false);
+	if(_min>_max){
+		_max = _min;
+		_propMax.setUseDefault(false);
+	}
 }
 //_____________________________________________________________________________
 /**
@@ -367,7 +372,11 @@ void rdControlLinearNode::
 setMax(double aMax)
 {
 	_max = aMax;
-	if(_max<_min) _min = _max;
+	_propMax.setUseDefault(false);
+	if(_max<_min){
+		_min = _max;
+		_propMin.setUseDefault(false);
+	}
 }
 //_____________________________________________________________________________
 /**
