@@ -37,6 +37,7 @@ import simtkuiEvents.SimtkSimulationEvent;
 import simtkuiEvents.SimtkUpdateTreeEvent;
 import simtkCommands.*;
 import javax.swing.*;
+import java.util.*;
 /**
  * <p>Title: UI for Simtk Prototype</p>
  * <p>Description: UI for Simtk Prototype</p>
@@ -109,7 +110,7 @@ public class SimtkMainFrame extends JFrame implements Observer {
   JButton jUndoButton = new JButton();
   JButton jRedoButton = new JButton();
   JMenuItem jNewEnvMenuItem = new JMenuItem();
-  JMenuItem jSetwdMenuItem = new JMenuItem();
+  JMenuItem jLoadDemoEnvMenuItem = new JMenuItem();
 
   JMenuItem jFlushScriptMenuitem = new JMenuItem();
 
@@ -240,7 +241,40 @@ public class SimtkMainFrame extends JFrame implements Observer {
     jMessagePane.setPreferredSize(new Dimension(21, 21));
     jMessagePane.setToolTipText("");
     jNewEnvMenuItem.setAction(CommandFactory.getCommand("SimtkFileNewSimEnvCmd"));
-    jSetwdMenuItem.setAction(CommandFactory.getCommand("SimtkChangeWorkingDirCmd"));
+    jLoadDemoEnvMenuItem.setAction(new AbstractAction(){
+      /**
+       * actionPerformed
+       *
+       * @param e ActionEvent
+       */
+      public void actionPerformed(ActionEvent e) {
+        {
+          // instantiate and push SimtkFileOpenByNameCmd
+          try {
+            SimtkFileOpenByNameCommand loadModelCmd = (
+                SimtkFileOpenByNameCommand) CommandFactory.getCommand(
+                "SimtkFileOpenByNameCmd");
+            HashMap parms = new HashMap();
+            parms.put("EnvName", "SimEnv1");
+            parms.put("FileName", "simtksuS26Pkg.suS26Loader");
+            loadModelCmd.setCommandParams(parms);
+            ExecutionManager.enQueueCommand(loadModelCmd);
+            SimtkLoadControlSetCommand loadControlsCmd = (
+                SimtkLoadControlSetCommand) CommandFactory.getCommand(
+                "SimtkLoadControlSetCmd");
+            HashMap parms2 = new HashMap();
+            parms2.put("EnvName", "SimEnv1");
+            parms2.put("FileName", "C:\\Work\\DemoFiles\\s26cmc.ctr");
+            loadControlsCmd.setCommandParams(parms2);
+            ExecutionManager.enQueueCommand(loadControlsCmd);
+          }
+          catch (CommandFactoryException ex) {
+          }
+
+        }
+      }
+    });
+    jLoadDemoEnvMenuItem.setText("Load Demo");
     jModelByNameMenuItem.setAction(CommandFactory.getCommand("SimtkFileOpenByNameCmd"));
     jModelBrowseMenuItem.setAction(CommandFactory.getCommand("SimtkFileBrowseForModelCmd"));
     jMessageArea.setOpaque(true);
@@ -359,7 +393,7 @@ public class SimtkMainFrame extends JFrame implements Observer {
     jPlotMenuitem.setAction(invokePlotCmd);
 
     jMenuFile.add(jNewEnvMenuItem);
-    jMenuFile.add(jSetwdMenuItem);
+    jMenuFile.add(jLoadDemoEnvMenuItem);
     jMenuFile.add(jModelByNameMenuItem);
     jMenuFile.add(jModelBrowseMenuItem);
     jMenuFile.add(jSaveModelMenuItem);
