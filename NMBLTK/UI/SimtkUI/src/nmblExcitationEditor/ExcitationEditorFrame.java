@@ -634,7 +634,7 @@ public class ExcitationEditorFrame extends JFrame{
     }
     public int hashCode()
     {
-      return _control.hashCode();
+      return _control.hashCode()+_sub.hashCode();
     }
   }
 }

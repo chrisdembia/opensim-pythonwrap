@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import ptolemy.plot.*;
+import java.util.*;
 
 public class NmblFigure extends Plot{
   BorderLayout borderLayout1 = new BorderLayout();
@@ -34,8 +35,16 @@ public class NmblFigure extends Plot{
     jFigureLabel.setText(astring);
   }
 
-  public void setGrid(boolean grid)
+  public double[][] getData(int plotIndex)
   {
-    this.setGrid(grid);
+    Vector pts = (Vector)_points.elementAt(plotIndex);
+    int size = pts.size();
+    double[][] result = new double[2][size];
+    for (int j = 0; j < size; j++) {
+        PlotPoint pt = (PlotPoint)pts.elementAt(j);
+        result[0][j] = pt.x;
+        result[1][j] = pt.y;
+    }
+    return result;
   }
 }

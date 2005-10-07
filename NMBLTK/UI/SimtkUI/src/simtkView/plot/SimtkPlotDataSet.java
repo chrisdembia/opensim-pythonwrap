@@ -30,15 +30,17 @@ public class SimtkPlotDataSet
   NmblFigure _figure;
   int _figureIndex;      // index of Figure to shich the dataset will be plotted
   static public final String DEFAULT_LEGEND="Default: x vs. y";
+  boolean _connect;
+  String _marks;
 
-  public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName, String legend, int figureIndex) {
-    this(env, xName, yName);
+  public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName, String legend, int figureIndex, boolean connect, String marks) {
+    this(env, xName, yName, connect, marks);
     if (!legend.equals(DEFAULT_LEGEND) )
       setLegend(legend);
     _figureIndex = figureIndex;
   }
 
- public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName) {
+ public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName, boolean connect, String marks) {
     _xName = xName;
     _yName = yName;
     _env = env;
@@ -47,6 +49,8 @@ public class SimtkPlotDataSet
       _env.addObserver(this);
     }
     setLegend(_xName + " vs. " + _yName.substring(_yName.lastIndexOf(":")+1));
+    _connect = connect;
+    _marks = marks;
   }
 
   /**
@@ -124,7 +128,7 @@ public class SimtkPlotDataSet
       for (int i = 0; i < xValues.size(); i++) {
         double yValue = ( (Double) yValues.get(i)).doubleValue();
         double xValue = ( (Double) xValues.get(i)).doubleValue();
-        _figure.addPoint(_dataSetIndexInFigure, xValue, yValue, true);
+        _figure.addPoint(_dataSetIndexInFigure, xValue, yValue, _connect);
 
       }
       _lastTime = time;
@@ -149,10 +153,11 @@ public class SimtkPlotDataSet
 
     if (getDataValues(xValues, yValues)) {
       boolean first = true;
+      _figure.setMarksStyle(_marks, _dataSetIndexInFigure);
       for (int i = 0; i < xValues.size(); i++) {
         double yValue = ( (Double) yValues.get(i)).doubleValue();
         double xValue = ( (Double) xValues.get(i)).doubleValue();
-        _figure.addPoint(_dataSetIndexInFigure, xValue, yValue, !first);
+        _figure.addPoint(_dataSetIndexInFigure, xValue, yValue, _connect?(!first):false);
         first = false;
       }
     }
@@ -187,4 +192,5 @@ public class SimtkPlotDataSet
     fout.println("\t\t\t<legend value=\"" + _legend + "\"/>");
     fout.println("\t\t\t</plot>");
   }
+
 }

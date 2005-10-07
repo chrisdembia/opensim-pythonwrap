@@ -116,6 +116,10 @@ public class NmblPlotTemplateXMLParser extends HandlerBase {
          else if (elementName.equals("legend")){
            _legend = (String)_attributes.get("value");
           }
+          else if (elementName.equals("showGrid")){
+            String toShowGrid = (String)_attributes.get("value");
+            _currentFigure.setGrid(toShowGrid.equalsIgnoreCase("true"));
+           }
       } catch (Exception ex) {
           if (ex instanceof XmlException) {
               throw (XmlException)ex;
@@ -157,7 +161,7 @@ public class NmblPlotTemplateXMLParser extends HandlerBase {
     else if (elementName.equals("plot")){
       // Make dataset using current _qtyX, _qtyY, _legend and add it to current Figure
       if (_currentFigure != null){
-        _dlg.addDataSet(_currentFigureId-1, _qtyX, _qtyY, _legend);
+        _dlg.addDataSet(_currentFigureId-1, _qtyX, _qtyY, _legend, true, "points");
       }
     }
     else if (elementName.equals("nmblPlotTemplate")){
