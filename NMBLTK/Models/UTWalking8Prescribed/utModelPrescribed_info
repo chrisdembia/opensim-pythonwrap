@@ -1,0 +1,74 @@
+SD/FAST Information File: utModelPrescribed.sd
+Generated 08-Oct-2005 16:46:14 by SD/FAST, Kane's formulation
+(sdfast B.2.8 #30123) on machine ID unknown
+
+ROADMAP (utModelPrescribed.sd)
+
+Bodies        Inb
+No  Name      body Joint type  Coords q         Multipliers
+--- --------- ---- ----------- ---------------- -----------------------
+ -1 $ground                                    |
+  0 pelvis     -1  Sixdof        0   1   2     |
+                   ...           3   4   5  23 |
+  1 hat         0  Gimbal        6?  7?  8?    |  0p  1p  2p
+  2 rfemur      0  Gimbal        9? 10? 11?    |  3p  4p  5p
+  3 rtibia      2  Pin          12?            |  6p
+  4 rhindfoot   3  U-joint      13? 14?        |  7p  8p
+  5 rtoes       4  Pin          15?            |  9p
+  6 lfemur      0  Gimbal       16? 17? 18?    | 10p 11p 12p
+  7 ltibia      6  Pin          19?            | 13p
+  8 lhindfoot   7  U-joint      20? 21?        | 14p 15p
+  9 ltoes       8  Pin          22?            | 16p
+
+
+STATE INDEX TO JOINT/AXIS MAP (utModelPrescribed.sd)
+
+ Index
+  q|u   Joint  Axis   Joint type    Axis type    Joint Name
+ -----  -----  ----   -----------   ----------   ----------
+  0|24      0     0   Sixdof        translate    
+  1|25      .     1   .             translate 
+  2|26      .     2   .             translate 
+  3|27      .     3   .             quaternion
+  4|28      .     4   .             quaternion
+  5|29      .     5   .             quaternion
+  6|30      1     0?  Gimbal        rotate       
+  7|31      .     1?  .             rotate    
+  8|32      .     2?  .             rotate    
+  9|33      2     0?  Gimbal        rotate       
+ 10|34      .     1?  .             rotate    
+ 11|35      .     2?  .             rotate    
+ 12|36      3     0?  Pin           rotate       
+ 13|37      4     0?  U-joint       rotate       
+ 14|38      .     1?  .             rotate    
+ 15|39      5     0?  Pin           rotate       
+ 16|40      6     0?  Gimbal        rotate       
+ 17|41      .     1?  .             rotate    
+ 18|42      .     2?  .             rotate    
+ 19|43      7     0?  Pin           rotate       
+ 20|44      8     0?  U-joint       rotate       
+ 21|45      .     1?  .             rotate    
+ 22|46      9     0?  Pin           rotate       
+ 23|        0     6   Sixdof        4th quat  
+   
+
+SYSTEM PARAMETERS (utModelPrescribed.sd)
+
+Parameter  Value  Description
+
+nbod          10  no. bodies (also, no. of tree joints)
+njnt          10  total number of joints (tree+loop)
+ndof          23  no. degrees of freedom allowed by tree joints
+nloop          0  no. loop joints
+nldof          0  no. degrees of freedom allowed by loop joints
+
+nq            24  no. position coordinates in state (tree joints)
+nu            23  no. rate coordinates in state (tree joints)
+nlq            0  no. position coordinates describing loop joints
+nlu            0  no. rate coordinates describing loop joints
+
+nc            17  total no. constraints defined
+nlc            0  no. loop joint constraints
+npresc        17  no. prescribed motion constraints
+nuserc         0  no. user constraints
+
