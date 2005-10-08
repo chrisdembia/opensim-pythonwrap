@@ -173,14 +173,5 @@ RegisterTypes()
 	rdObject::RegisterType(rdControlLinearNode());
 	rdObject::RegisterType(rdControlLinear());
 	rdObject::RegisterType(rdControlSet());
-	rdActuatedModel_SDFast::RegisterTypes();
 	rdObject::RegisterType(rdControlConstant());
-	rdObject::RegisterType(rdForce());
-	rdObject::RegisterType(rdGeneralizedForce());
-	rdObject::RegisterType(suMarker());
-	rdObject::RegisterType(suMarkerSet());
-
-	rdObject::RegisterType(suScale());
-	rdObject::RegisterType(suScaleSet());
-
 }

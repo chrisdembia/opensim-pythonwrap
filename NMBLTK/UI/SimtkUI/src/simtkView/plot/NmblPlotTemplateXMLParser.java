@@ -108,6 +108,7 @@ public class NmblPlotTemplateXMLParser extends HandlerBase {
            _qtyX = null;
            _qtyY = null;
            _legend = null;
+           _filters = new Vector();
          }
          else if (elementName.equals("qty")){
            _qtyX = (String)_attributes.get("xName");
@@ -119,6 +120,20 @@ public class NmblPlotTemplateXMLParser extends HandlerBase {
           else if (elementName.equals("showGrid")){
             String toShowGrid = (String)_attributes.get("value");
             _currentFigure.setGrid(toShowGrid.equalsIgnoreCase("true"));
+           }
+           else if (elementName.equals("filter")){
+             String filterType = (String)_attributes.get("name");
+             if (filterType.equals("rectify")){
+               _filters.add(new NmblPlotRectifyFilter());
+             }
+             else if (filterType.equals("scale")){
+               String scaleValue = (String)_attributes.get("value");
+               _filters.add(new NmblPlotScaleFilter(new Double(scaleValue).doubleValue()));
+             }
+             else if (filterType.equals("offset")){
+               String offsetValue = (String)_attributes.get("value");
+               _filters.add(new NmblPlotOffsetFilter(new Double(offsetValue).doubleValue()));
+             }
            }
       } catch (Exception ex) {
           if (ex instanceof XmlException) {
@@ -161,7 +176,7 @@ public class NmblPlotTemplateXMLParser extends HandlerBase {
     else if (elementName.equals("plot")){
       // Make dataset using current _qtyX, _qtyY, _legend and add it to current Figure
       if (_currentFigure != null){
-        _dlg.addDataSet(_currentFigureId-1, _qtyX, _qtyY, _legend, true, "points");
+        _dlg.addDataSet(_currentFigureId-1, _qtyX, _qtyY, _legend, true, "points", _filters);
       }
     }
     else if (elementName.equals("nmblPlotTemplate")){
@@ -230,4 +245,6 @@ public class NmblPlotTemplateXMLParser extends HandlerBase {
   private int _currentFigureId = -1;
 
   private String _qtyX, _qtyY, _legend;
+
+  private Vector _filters;
 }

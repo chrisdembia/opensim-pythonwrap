@@ -32,6 +32,7 @@ public class SimtkPlotDataSet
   static public final String DEFAULT_LEGEND="Default: x vs. y";
   boolean _connect;
   String _marks;
+  ArrayList _dataFilters = new ArrayList();
 
   public SimtkPlotDataSet(SimtkSimEnv env, String xName, String yName, String legend, int figureIndex, boolean connect, String marks) {
     this(env, xName, yName, connect, marks);
@@ -154,13 +155,28 @@ public class SimtkPlotDataSet
     if (getDataValues(xValues, yValues)) {
       boolean first = true;
       _figure.setMarksStyle(_marks, _dataSetIndexInFigure);
+      double[] yData = getRawData(yValues);
+      yData = applyFiltersToData(yData);
       for (int i = 0; i < xValues.size(); i++) {
-        double yValue = ( (Double) yValues.get(i)).doubleValue();
         double xValue = ( (Double) xValues.get(i)).doubleValue();
+        double yValue = yData[i];
         _figure.addPoint(_dataSetIndexInFigure, xValue, yValue, _connect?(!first):false);
         first = false;
       }
     }
+  }
+
+  /**
+   * getRawData
+   *
+   * @param yValues Vector
+   * @return double[]
+   */
+  private double[] getRawData(Vector yValues) {
+    double[] toReturn = new double[yValues.size()];
+    for(int i=0; i < yValues.size(); i++)
+      toReturn[i] = ((Double)yValues.get(i)).doubleValue();
+    return toReturn;
   }
 
   /**
@@ -190,7 +206,24 @@ public class SimtkPlotDataSet
     fout.println("\t\t\t<plot>");
     fout.println("\t\t\t<qty xName=\"" + _xName + "\" yName=\""+_yName+"\"/>");
     fout.println("\t\t\t<legend value=\"" + _legend + "\"/>");
+    for (int i=0; i < _dataFilters.size(); i++){
+      NmblPlotDataFilter nextFilter = (NmblPlotDataFilter) _dataFilters.get(i);
+      nextFilter.write(fout);
+    }
     fout.println("\t\t\t</plot>");
   }
-
+  public void addFilter(NmblPlotDataFilter aFilter)
+  {
+    _dataFilters.add(aFilter);
+  }
+  public double[] applyFiltersToData(double[] data)
+  {
+    double[]  xformed = new double[data.length];
+    System.arraycopy(data, 0, xformed, 0, data.length);
+    for (int i=0; i < _dataFilters.size(); i++){
+      NmblPlotDataFilter nextFilter = (NmblPlotDataFilter) _dataFilters.get(i);
+      xformed = nextFilter.convertData(xformed);
+    }
+    return xformed;
+  }
 }

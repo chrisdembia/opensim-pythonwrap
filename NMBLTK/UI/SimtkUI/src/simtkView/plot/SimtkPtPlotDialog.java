@@ -31,7 +31,7 @@ import simtkUtils.*;
  *
  * @todo perform cleanup on dialog exit as well
  */
-public class SimtkPtPlotDialog extends JDialog{
+public class SimtkPtPlotDialog extends JSimtkDialog{
   Vector figures = new Vector(); // The plot box with all plotting capabilities
   Vector plotIndices = new Vector(); // The plot box with all plotting capabilities
   int  currentFigureIndex = 0;
@@ -123,10 +123,10 @@ public class SimtkPtPlotDialog extends JDialog{
   JLabel MarksLabel = new JLabel();
   JComboBox jMarksComboBox = new JComboBox();
   JLabel jLabel2 = new JLabel();
-  JTextField jTextField1 = new JTextField();
+  JTextField jScaleTextField = new JTextField();
   JLabel jLabel3 = new JLabel();
-  JTextField jTextField2 = new JTextField();
-  JCheckBox jCheckBox1 = new JCheckBox();
+  JTextField jOffsetTextField = new JTextField();
+  JCheckBox jRectifyCheckBox = new JCheckBox();
 
   public SimtkPtPlotDialog() {
     plotIndices.add(new Integer("1"));
@@ -211,7 +211,23 @@ public class SimtkPtPlotDialog extends JDialog{
         xName = xName.substring(xName.indexOf(":")+1);
         yName = yName.substring(yName.indexOf(":")+1);
         String userLegend = jLegendText.getText();
-        addDataSet(currentFigureIndex, xName, yName, userLegend, jConnectCheckBox.isSelected(), (String) jMarksComboBox.getSelectedItem());
+        Vector filters = new Vector();
+        // Get filters and add them to dataSet
+        if (jRectifyCheckBox.isSelected()) {
+          NmblPlotRectifyFilter filter = new NmblPlotRectifyFilter();
+          filters.add(filter);
+        }
+        if (!jScaleTextField.getText().equals("1.0")) {
+          NmblPlotScaleFilter filter = new NmblPlotScaleFilter(new Double(
+              jScaleTextField.getText()).doubleValue());
+          filters.add(filter);
+        }
+        if (!jOffsetTextField.getText().equals("0.0")) {
+          NmblPlotOffsetFilter filter = new NmblPlotOffsetFilter(new Double(
+              jOffsetTextField.getText()).doubleValue());
+          filters.add(filter);
+        }
+        addDataSet(currentFigureIndex, xName, yName, userLegend, jConnectCheckBox.isSelected(), (String) jMarksComboBox.getSelectedItem(), filters);
         jLegendText.setText(SimtkPlotDataSet.DEFAULT_LEGEND);
         currentFigure.setTitle(jTitleText.getText());
         currentFigure.setXLabel(jXLabelValue.getText());
@@ -281,8 +297,8 @@ public class SimtkPtPlotDialog extends JDialog{
     jScrollPane1.setMinimumSize(new Dimension(33, 48));
     jScrollPane1.setPreferredSize(new Dimension(100, 200));
     jCurrentFigurePanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151)),"Current Figure"));
-    jCurrentFigurePanel.setMinimumSize(new Dimension(180, 100));
-    jCurrentFigurePanel.setPreferredSize(new Dimension(180, 100));
+    jCurrentFigurePanel.setMinimumSize(new Dimension(180, 150));
+    jCurrentFigurePanel.setPreferredSize(new Dimension(180, 120));
     jCurrentFigurePanel.setToolTipText("");
     jCurrentFigurePanel.setLayout(gridBagLayout1);
     jPlotControlPanel.setMaximumSize(new Dimension(360, 200));
@@ -420,11 +436,12 @@ public class SimtkPtPlotDialog extends JDialog{
     jLabel2.setText("Scale: ");
     jLabel3.setToolTipText("");
     jLabel3.setText("Offset: ");
-    jTextField1.setText("");
-    jTextField2.setToolTipText("");
-    jTextField2.setText("");
-    jCheckBox1.setToolTipText("");
-    jCheckBox1.setText("Rectify");
+    jScaleTextField.setText("1.0");
+    jOffsetTextField.setToolTipText("");
+    jOffsetTextField.setText("0.0");
+    jRectifyCheckBox.setToolTipText("");
+    jRectifyCheckBox.setText("Rectify");
+    jPlotTypeTabbedPane.setPreferredSize(new Dimension(329, 150));
     this.getContentPane().add(jSplitPane1,  BorderLayout.CENTER);
     jSplitPane1.add(jPlotControlPanel, JSplitPane.BOTTOM);
     jPlotCommandsPanel.add(jCurrentPlotLabel, null);
@@ -459,8 +476,8 @@ public class SimtkPtPlotDialog extends JDialog{
     jGridPanel.add(jSpinnerX,   new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
     // Add tabbed pane with different tabs for different contexts
-    jPanel1.add(jPlotTypeTabbedPane,      new GridBagConstraints(0, 3, 3, 2, 1.0, 0.7
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
+    jPanel1.add(jPlotTypeTabbedPane,        new GridBagConstraints(0, 3, 3, 3, 1.0, 0.7
+            ,GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
     jPlotTypeTabbedPane.add(jCurrentPlotPropPanel,  "Analysis Plot");
 
     jCurrentPlotPropPanel.add(jLegendText,                                new GridBagConstraints(1, 0, 2, 1, 1.0, 1.0
@@ -483,17 +500,17 @@ public class SimtkPtPlotDialog extends JDialog{
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jCurrentPlotPropPanel.add(jLabel2,  new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    jCurrentPlotPropPanel.add(jTextField1, new GridBagConstraints(4, 1, 1, 1, 1.0, 1.0
+    jCurrentPlotPropPanel.add(jScaleTextField, new GridBagConstraints(4, 1, 1, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 20), 0, 0));
     jCurrentPlotPropPanel.add(jLabel3,  new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    jCurrentPlotPropPanel.add(jTextField2,  new GridBagConstraints(4, 2, 1, 1, 1.0, 1.0
+    jCurrentPlotPropPanel.add(jOffsetTextField,  new GridBagConstraints(4, 2, 1, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 20), 0, 0));
-    jCurrentPlotPropPanel.add(jCheckBox1,  new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
+    jCurrentPlotPropPanel.add(jRectifyCheckBox,  new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jPlotTypeTabbedPane.add(jMusclePlotsPanel,   "Moment Plot");
     jPlotTypeTabbedPane.add(jFiberPlotsPanel,  "Fiber Plot");
-    jCurrentFigurePanel.add(jPlotTitle,                            new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
+    jCurrentFigurePanel.add(jPlotTitle,                              new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     jCurrentFigurePanel.add(jTitleText,                       new GridBagConstraints(1, 0, 2, 1, 1.0, 1.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 150, 0));
@@ -860,7 +877,7 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
    * @param legend String
    */
   public void addDataSet(int zeroBasedCurrentFigureId, String xName, String yName,
-                         String userLegend, boolean connect, String marks) {
+                         String userLegend, boolean connect, String marks, Vector filters) {
     /**
      * FIXME: find a general mechanism for handling SimEnv by querying the user for what env. to use.
      */
@@ -872,6 +889,10 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
     int saveCurrentFigureIndex = currentFigureIndex;
     currentFigureIndex = zeroBasedCurrentFigureId;
    SimtkPlotDataSet newDataSet = new SimtkPlotDataSet(simEnv, xName, yName, userLegend, currentFigureIndex, connect, marks);
+   // Add filters to dataset
+   for(int i=0; i < filters.size(); i++)
+     newDataSet.addFilter((NmblPlotDataFilter) filters.get(i));
+
    currentFigure = (NmblFigure) figures.get(currentFigureIndex);
    if (legendExists(newDataSet.getLegend(), currentFigure)){
      JOptionPane.showMessageDialog(SimtkPtPlotDialog.this,
@@ -882,7 +903,6 @@ class SimtkPtPlotDialog_SelectYButton_mouseAdapter extends java.awt.event.MouseA
      currentFigure = (NmblFigure) figures.get(currentFigureIndex);
      return;
    }
-   // Fix this as indices might not be in sequence due to deletion
    int newDataSetIndex = getNextAvailableIndex(currentFigureIndex);
    newDataSet.setDataSetIndex(newDataSetIndex);
    newDataSet.setPlot(currentFigure);

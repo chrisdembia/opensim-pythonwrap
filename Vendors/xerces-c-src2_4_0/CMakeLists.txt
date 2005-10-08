@@ -1,3 +1,4 @@
 #-----------------------------------------------------------------------------
-
-SUBDIRS(CFSQP MotionAnalysis xerces-c-src2_4_0)
+IF(WIN32)
+SUBDIRS(Projects)
+ENDIF(WIN32)
