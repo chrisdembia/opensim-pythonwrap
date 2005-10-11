@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding = "Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="suPipeline40"
-	ProjectGUID="{B770CFD2-058C-44FF-962F-830BCEC3315E}"
 	SccProjectName=""
-	SccLocalPath="">
+	SccLocalPath=""
+	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
@@ -13,668 +13,388 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory="Debug"
+			IntermediateDirectory="suPipeline40.dir\Debug"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions=" /W3 /Zm1000 /GX /GR /MDd /Zi /Od  -DCMAKE_INTDIR=\&quot;Debug\&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Tools&quot;;"
+				BasicRuntimeChecks="1"
+				ExceptionHandling="FALSE"
+				InlineFunctionExpansion="0"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\dp"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_POSIX_;RDSDFAST_EXPORTS"
-				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Debug/suPipeline40.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
-				BrowseInformation="1"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="4"
-				CompileAs="0"/>
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,RDSDFAST_EXPORTS,_POSIX_,"
+				AssemblerListingLocation="Debug"
+				ObjectFile="$(IntDir)\"
+				ProgramDatabaseFileName="C:/Documents and Settings/ahabib/nmbltkBuild/nmbltk/Trunk/VC71/$(OutDir)/suPipeline40_D.pdb"
+/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="Debug\suPipeline40_D.lib"
-				SuppressStartupBanner="TRUE"/>
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Tools&quot;;"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,RDSDFAST_EXPORTS,_POSIX_," />
 			<Tool
 				Name="VCMIDLTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Updating libraries..."
-				CommandLine="&quot;$(RDI_INSTALL)&quot;\Bin\cpl D"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCLibrarianTool"
+				OutputFile="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)\suPipeline40_D.lib."/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release"
-			IntermediateDirectory=".\Release"
+			OutputDirectory="Release"
+			IntermediateDirectory="suPipeline40.dir\Release"
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
+				AdditionalOptions=" /W3 /Zm1000 /GX /GR /MD /O2 /D NDEBUG /MD /O2 /D NDEBUG -DCMAKE_INTDIR=\&quot;Release\&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Tools&quot;;"
+				ExceptionHandling="FALSE"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories=".\dp"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_POSIX_;RDSDFAST_EXPORTS"
-				StringPooling="TRUE"
+				Optimization="2"
 				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="TRUE"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Release/suPipeline40.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
-				CompileAs="0"/>
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS,_POSIX_,"
+				AssemblerListingLocation="Release"
+				ObjectFile="$(IntDir)\"
+/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile=".\Release\suPipeline40.lib"
-				SuppressStartupBanner="TRUE"/>
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Tools&quot;;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS,_POSIX_," />
 			<Tool
 				Name="VCMIDLTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Updating libraries..."
-				CommandLine="&quot;$(RDI_INSTALL)&quot;\Bin\cpl"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)\suPipeline40.lib."/>
+		</Configuration>
+		<Configuration
+			Name="MinSizeRel|Win32"
+			OutputDirectory="MinSizeRel"
+			IntermediateDirectory="suPipeline40.dir\MinSizeRel"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /W3 /Zm1000 /GX /GR /MD /O1 /D NDEBUG -DCMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Tools&quot;;"
+				ExceptionHandling="FALSE"
+				InlineFunctionExpansion="1"
+				Optimization="1"
+				RuntimeLibrary="2"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS,_POSIX_,"
+				AssemblerListingLocation="MinSizeRel"
+				ObjectFile="$(IntDir)\"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"/>
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Tools&quot;;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS,_POSIX_," />
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)\suPipeline40.lib."/>
+		</Configuration>
+		<Configuration
+			Name="RelWithDebInfo|Win32"
+			OutputDirectory="RelWithDebInfo"
+			IntermediateDirectory="suPipeline40.dir\RelWithDebInfo"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /W3 /Zm1000 /GX /GR /MD /Zi /O2 /D NDEBUG -DCMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Tools&quot;;"
+				ExceptionHandling="FALSE"
+				InlineFunctionExpansion="1"
+				Optimization="2"
+				RuntimeLibrary="2"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS,_POSIX_,"
+				AssemblerListingLocation="RelWithDebInfo"
+				ObjectFile="$(IntDir)\"
+				ProgramDatabaseFileName="C:/Documents and Settings/ahabib/nmbltkBuild/nmbltk/Trunk/VC71/$(OutDir)/suPipeline40.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Tools&quot;;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS,_POSIX_," />
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)\suPipeline40.lib."/>
 		</Configuration>
 	</Configurations>
-	<References>
-	</References>
 	<Files>
+			<File
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\CMakeLists.txt">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule suPipeline40.vcproj.cmake"
+					CommandLine="&quot;C:\Program Files\CMake 2.2\bin\cmake.exe&quot; -H&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot; -B&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;
+
+"
+					AdditionalDependencies="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\CMakeLists.txt&quot;;&quot;C:\Program Files\CMake 2.2\share\CMake\Templates\CMakeWindowsSystemConfig.cmake&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\CMakeLists.txt&quot;;"
+					Outputs="suPipeline40.vcproj.cmake"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule suPipeline40.vcproj.cmake"
+					CommandLine="&quot;C:\Program Files\CMake 2.2\bin\cmake.exe&quot; -H&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot; -B&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;
+
+"
+					AdditionalDependencies="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\CMakeLists.txt&quot;;&quot;C:\Program Files\CMake 2.2\share\CMake\Templates\CMakeWindowsSystemConfig.cmake&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\CMakeLists.txt&quot;;"
+					Outputs="suPipeline40.vcproj.cmake"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MinSizeRel|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule suPipeline40.vcproj.cmake"
+					CommandLine="&quot;C:\Program Files\CMake 2.2\bin\cmake.exe&quot; -H&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot; -B&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;
+
+"
+					AdditionalDependencies="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\CMakeLists.txt&quot;;&quot;C:\Program Files\CMake 2.2\share\CMake\Templates\CMakeWindowsSystemConfig.cmake&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\CMakeLists.txt&quot;;"
+					Outputs="suPipeline40.vcproj.cmake"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="RelWithDebInfo|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule suPipeline40.vcproj.cmake"
+					CommandLine="&quot;C:\Program Files\CMake 2.2\bin\cmake.exe&quot; -H&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot; -B&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;
+
+"
+					AdditionalDependencies="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\CMakeLists.txt&quot;;&quot;C:\Program Files\CMake 2.2\share\CMake\Templates\CMakeWindowsSystemConfig.cmake&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\CMakeLists.txt&quot;;"
+					Outputs="suPipeline40.vcproj.cmake"/>
+				</FileConfiguration>
+			</File>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;f90;for;f;fpp">
+			Filter="">
 			<File
-				RelativePath="constraint.c">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\suPipeline40-helper.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MinSizeRel|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="RelWithDebInfo|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="contact.c">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\suPipeline40.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MinSizeRel|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="RelWithDebInfo|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="cylinder_wrap.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\constraint.c">
 			</File>
 			<File
-				RelativePath="ellipsoid_wrap.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\contact.c">
 			</File>
 			<File
-				RelativePath="gcvspl.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\cylinder_wrap.c">
 			</File>
 			<File
-				RelativePath="gmc.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\ellipsoid_wrap.c">
 			</File>
 			<File
-				RelativePath="impact.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\gcvspl.c">
 			</File>
 			<File
-				RelativePath="invert.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\gmc.c">
 			</File>
 			<File
-				RelativePath="lcp_solver.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\impact.c">
 			</File>
 			<File
-				RelativePath="lmdif_c.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\invert.c">
 			</File>
 			<File
-				RelativePath="mathtools.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\lcp_solver.c">
 			</File>
 			<File
-				RelativePath="object.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\lmdif_c.c">
 			</File>
 			<File
-				RelativePath="output.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\mathtools.c">
 			</File>
 			<File
-				RelativePath="pipetools.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\object.c">
 			</File>
 			<File
-				RelativePath="readmuscles.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\output.c">
 			</File>
 			<File
-				RelativePath="readtools.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\pipetools.c">
 			</File>
 			<File
-				RelativePath="sdmassmat.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\readmuscles.c">
 			</File>
 			<File
-				RelativePath="simm_init_40.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\readtools.c">
 			</File>
 			<File
-				RelativePath="sphere_wrap.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\sdmassmat.c">
 			</File>
 			<File
-				RelativePath="spring_based.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\simm_init_40.c">
 			</File>
 			<File
-				RelativePath="suPipeline40-helper.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\sphere_wrap.c">
 			</File>
 			<File
-				RelativePath="suPipeline40.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\spring_based.c">
 			</File>
 			<File
-				RelativePath="torus_wrap.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\torus_wrap.c">
 			</File>
 			<File
-				RelativePath="wrapping.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\wrapping.c">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;fi;fd">
+			Filter="">
 			<File
-				RelativePath="basic.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\basic.h">
 			</File>
 			<File
-				RelativePath="dp.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp.h">
 			</File>
 			<File
-				RelativePath="f2c.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\f2c.h">
 			</File>
 			<File
-				RelativePath="functions.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\functions.h">
 			</File>
 			<File
-				RelativePath="gcvspl.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\gcvspl.h">
 			</File>
 			<File
-				RelativePath="macros.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\macros.h">
 			</File>
 			<File
-				RelativePath="mathtools.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\mathtools.h">
 			</File>
 			<File
-				RelativePath="object.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\object.h">
 			</File>
 			<File
-				RelativePath="pipesolid.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\pipesolid.h">
 			</File>
 			<File
-				RelativePath="simm_init_40.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\simm_init_40.h">
 			</File>
 			<File
-				RelativePath="structs.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\structs.h">
 			</File>
 			<File
-				RelativePath="suPipeline40-helper.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\suPipeline40-helper.h">
 			</File>
 			<File
-				RelativePath="suPipeline40.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\suPipeline40.h">
 			</File>
 			<File
-				RelativePath="universal_40.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\universal_40.h">
 			</File>
 		</Filter>
 	</Files>

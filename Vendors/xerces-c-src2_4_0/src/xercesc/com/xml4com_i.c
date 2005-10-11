@@ -6,9 +6,9 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Tue Jul 12 14:35:09 2005
+/* at Mon Oct 10 16:57:10 2005
  */
-/* Compiler settings for \cygwin\home\Ayman\Nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src\xercesc\com\xml4com.idl:
+/* Compiler settings for \Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src\xercesc\com\xml4com.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 

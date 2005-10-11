@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding = "Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="suS26Gui"
-	ProjectGUID="{5F9CEDF5-44AB-430C-9D50-DFED2A255FEF}"
+	Name="suS26"
+	SccProjectName=""
+	SccLocalPath=""
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -13,141 +14,325 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
-			ConfigurationType="2"
+			IntermediateDirectory="suS26.dir\Debug"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions=" /W3 /Zm1000 /GX /GR /MDd /Zi /Od  -DCMAKE_INTDIR=\&quot;Debug\&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\Pipeline40Workflow&quot;;"
+				BasicRuntimeChecks="1"
+				ExceptionHandling="FALSE"
+				InlineFunctionExpansion="0"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\SIMMPipeline\4.0\suPipeline40\dp;..\..\SIMMPipeline\4.0\Pipeline40Workflow"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;RDSDFAST_EXPORTS"
-				MinimalRebuild="TRUE"
-				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"
-				ShowIncludes="FALSE"/>
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,RDSDFAST_EXPORTS,"
+				AssemblerListingLocation="Debug"
+				ObjectFile="$(IntDir)\"
+				ProgramDatabaseFileName="C:/Documents and Settings/ahabib/nmbltkBuild/nmbltk/Trunk/VC71/$(OutDir)/suS26_D.pdb"
+/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="suPipeline40Workflow_D.lib suPipeline40_D.lib suAnalyses_D.lib rdSimulation_D.lib rdSDFast_D.lib rdTools_D.lib acpp_D.lib"
-				OutputFile="Debug/suS26Gui_D.dll"
-				LinkIncremental="2"
-				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(OutDir)/suS26.pdb"
-				SubSystem="2"
-				TargetMachine="1"/>
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\Pipeline40Workflow&quot;;"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,RDSDFAST_EXPORTS," />
 			<Tool
 				Name="VCMIDLTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Updating libraries..."
-				CommandLine="&quot;$(RDI_INSTALL)&quot;\Bin\cpl D"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386 /STACK:10000000 /machine:I386 /INCREMENTAL:YES"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib rdTools_D.lib rdSimulation_D.lib rdSDFast_D.lib suPipeline40Workflow_D.lib suPipeline40_D.lib suAnalyses_D.lib acpp_D.lib rdSimulation_D.lib rdSQP_D.lib suCFSQP_D.lib xerces-c_2D.lib "
+				OutputFile="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\Debug\suS26.exe"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\Build\Win32\VC7\$(OutDir)\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\Build\Win32\VC7\$(OutDir)\&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\&quot;"
+				ProgramDatabaseFile="C:/Documents and Settings/ahabib/nmbltkBuild/nmbltk/Trunk/VC71/$(OutDir)\suS26.pdb"
+				GenerateDebugInformation="TRUE"
+				SubSystem="1"
+				StackReserveSize="10000000"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			IntermediateDirectory="suS26.dir\Release"
 			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="4"
-				UsePrecompiledHeader="0"
+				AdditionalOptions=" /W3 /Zm1000 /GX /GR /MD /O2 /D NDEBUG /MD /O2 /D NDEBUG -DCMAKE_INTDIR=\&quot;Release\&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\Pipeline40Workflow&quot;;"
+				ExceptionHandling="FALSE"
+				InlineFunctionExpansion="1"
+				Optimization="2"
+				RuntimeLibrary="2"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS,"
+				AssemblerListingLocation="Release"
+				ObjectFile="$(IntDir)\"
+/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/suS26.exe"
-				LinkIncremental="1"
-				GenerateDebugInformation="TRUE"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="1"/>
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\Pipeline40Workflow&quot;;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS," />
 			<Tool
 				Name="VCMIDLTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386 /STACK:10000000 /machine:I386 /INCREMENTAL:YES"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib rdTools.lib rdSimulation.lib rdSDFast.lib suPipeline40Workflow.lib suPipeline40.lib suAnalyses.lib acpp.lib rdSimulation.lib rdSQP.lib suCFSQP.lib rdTools.lib xerces-c_2.lib "
+				OutputFile="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\Release\suS26.exe"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\Build\Win32\VC7\$(OutDir)\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\Build\Win32\VC7\$(OutDir)\&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\&quot;"
+				ProgramDatabaseFile="C:/Documents and Settings/ahabib/nmbltkBuild/nmbltk/Trunk/VC71/$(OutDir)\suS26.pdb"
+				SubSystem="1"
+				StackReserveSize="10000000"/>
+		</Configuration>
+		<Configuration
+			Name="MinSizeRel|Win32"
+			OutputDirectory="MinSizeRel"
+			IntermediateDirectory="suS26.dir\MinSizeRel"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /W3 /Zm1000 /GX /GR /MD /O1 /D NDEBUG -DCMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\Pipeline40Workflow&quot;;"
+				ExceptionHandling="FALSE"
+				InlineFunctionExpansion="1"
+				Optimization="1"
+				RuntimeLibrary="2"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS,"
+				AssemblerListingLocation="MinSizeRel"
+				ObjectFile="$(IntDir)\"
+/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
+				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\Pipeline40Workflow&quot;;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS," />
 			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386 /STACK:10000000 /machine:I386 /INCREMENTAL:YES"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib rdTools.lib rdSimulation.lib rdSDFast.lib suPipeline40Workflow.lib suPipeline40.lib suAnalyses.lib acpp.lib rdSimulation.lib rdSQP.lib suCFSQP.lib rdTools.lib xerces-c_2.lib "
+				OutputFile="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\MinSizeRel\suS26.exe"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\Build\Win32\VC7\$(OutDir)\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\Build\Win32\VC7\$(OutDir)\&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\&quot;"
+				ProgramDatabaseFile="C:/Documents and Settings/ahabib/nmbltkBuild/nmbltk/Trunk/VC71/$(OutDir)\suS26.pdb"
+				SubSystem="1"
+				StackReserveSize="10000000"/>
+		</Configuration>
+		<Configuration
+			Name="RelWithDebInfo|Win32"
+			OutputDirectory="RelWithDebInfo"
+			IntermediateDirectory="suS26.dir\RelWithDebInfo"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /W3 /Zm1000 /GX /GR /MD /Zi /O2 /D NDEBUG -DCMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\Pipeline40Workflow&quot;;"
+				ExceptionHandling="FALSE"
+				InlineFunctionExpansion="1"
+				Optimization="2"
+				RuntimeLibrary="2"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS,"
+				AssemblerListingLocation="RelWithDebInfo"
+				ObjectFile="$(IntDir)\"
+				ProgramDatabaseFileName="C:/Documents and Settings/ahabib/nmbltkBuild/nmbltk/Trunk/VC71/$(OutDir)/suS26.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\src&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\suPipeline40\dp&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\SIMMPipeline\4.0\Pipeline40Workflow&quot;;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,RDSDFAST_EXPORTS," />
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386 /STACK:10000000 /machine:I386 /INCREMENTAL:YES"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib rdTools.lib rdSimulation.lib rdSDFast.lib suPipeline40Workflow.lib suPipeline40.lib suAnalyses.lib acpp.lib rdSimulation.lib rdSQP.lib suCFSQP.lib rdTools.lib xerces-c_2.lib "
+				OutputFile="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\RelWithDebInfo\suS26.exe"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\Build\Win32\VC7\$(OutDir)\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\Vendors\xerces-c-src2_4_0\Build\Win32\VC7\$(OutDir)\&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\$(OutDir)&quot;,&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\VC71\&quot;"
+				ProgramDatabaseFile="C:/Documents and Settings/ahabib/nmbltkBuild/nmbltk/Trunk/VC71/$(OutDir)\suS26.pdb"
+				GenerateDebugInformation="TRUE"
+				SubSystem="1"
+				StackReserveSize="10000000"/>
 		</Configuration>
 	</Configurations>
-	<References>
-	</References>
 	<Files>
+			<File
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\CMakeLists.txt">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule suS26.vcproj.cmake"
+					CommandLine="&quot;C:\Program Files\CMake 2.2\bin\cmake.exe&quot; -H&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot; -B&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;
+
+"
+					AdditionalDependencies="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\CMakeLists.txt&quot;;&quot;C:\Program Files\CMake 2.2\share\CMake\Templates\CMakeWindowsSystemConfig.cmake&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\CMakeLists.txt&quot;;"
+					Outputs="suS26.vcproj.cmake"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule suS26.vcproj.cmake"
+					CommandLine="&quot;C:\Program Files\CMake 2.2\bin\cmake.exe&quot; -H&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot; -B&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;
+
+"
+					AdditionalDependencies="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\CMakeLists.txt&quot;;&quot;C:\Program Files\CMake 2.2\share\CMake\Templates\CMakeWindowsSystemConfig.cmake&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\CMakeLists.txt&quot;;"
+					Outputs="suS26.vcproj.cmake"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MinSizeRel|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule suS26.vcproj.cmake"
+					CommandLine="&quot;C:\Program Files\CMake 2.2\bin\cmake.exe&quot; -H&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot; -B&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;
+
+"
+					AdditionalDependencies="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\CMakeLists.txt&quot;;&quot;C:\Program Files\CMake 2.2\share\CMake\Templates\CMakeWindowsSystemConfig.cmake&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\CMakeLists.txt&quot;;"
+					Outputs="suS26.vcproj.cmake"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="RelWithDebInfo|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule suS26.vcproj.cmake"
+					CommandLine="&quot;C:\Program Files\CMake 2.2\bin\cmake.exe&quot; -H&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot; -B&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk&quot;
+
+"
+					AdditionalDependencies="&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\CMakeLists.txt&quot;;&quot;C:\Program Files\CMake 2.2\share\CMake\Templates\CMakeWindowsSystemConfig.cmake&quot;;&quot;C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\CMakeLists.txt&quot;;"
+					Outputs="suS26.vcproj.cmake"/>
+				</FileConfiguration>
+			</File>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			Filter="">
 			<File
-				RelativePath=".\s26_dyn.c">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\suS26.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MinSizeRel|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="RelWithDebInfo|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\s26_sar.c">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\suS26_Forward.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MinSizeRel|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="RelWithDebInfo|Win32">
+					<Tool
+					Name="VCCLCompilerTool"
+					AdditionalOptions=" /TP "
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\sdfor.c">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\s26_dyn.c">
 			</File>
 			<File
-				RelativePath=".\sdufuncs_darryl.c">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\s26_sar.c">
 			</File>
 			<File
-				RelativePath=".\suS26.cpp">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\sdfor.c">
 			</File>
 			<File
-				RelativePath=".\suS26JNI_wrap.cxx">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\sdufuncs_darryl.c">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			Filter="">
 			<File
-				RelativePath=".\suS26.h">
+				RelativePath="C:\Documents and Settings\ahabib\nmbltkBuild\nmbltk\Trunk\NMBLTK\Models\Subjects\suS26\suS26.h">
 			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 		</Filter>
 	</Files>
 	<Globals>
