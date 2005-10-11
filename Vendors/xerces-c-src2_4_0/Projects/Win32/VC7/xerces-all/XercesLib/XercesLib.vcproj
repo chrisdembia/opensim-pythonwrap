@@ -115,9 +115,7 @@
 				TargetEnvironment="1"
 				TypeLibraryName=".\..\..\..\..\..\Build\Win32\VC7\Debug/XercesLib.tlb"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-				Description="Update Libraries"
-				CommandLine="&quot;$(RDI_INSTALL)&quot;\Bin\cpl D"/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
