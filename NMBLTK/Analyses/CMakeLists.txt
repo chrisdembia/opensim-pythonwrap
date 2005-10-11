@@ -11,7 +11,9 @@ INCLUDE_DIRECTORIES(${NMBLApp_SOURCE_DIR}
 
 SET(EXPORT_MACRO SU${UKIT}_EXPORTS)
 
-LINK_LIBRARIES( rdTools	rdSimulation rdSQP)
+LINK_LIBRARIES( debug rdTools_D optimized rdTools
+				debug rdSimulation_D optimized rdSimulation
+				debug rdSQP_D optimized rdSQP)
 
 ADD_LIBRARY(su${KIT} SHARED ${SOURCE_FILES} ${INCLUDE_FILES}) 
 
