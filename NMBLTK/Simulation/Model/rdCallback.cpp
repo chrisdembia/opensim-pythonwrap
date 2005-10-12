@@ -12,6 +12,7 @@
 // INCLUDES
 //=============================================================================
 #include <NMBLTK/Tools/rdObject.h>
+#include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdPropertyBool.h>
 #include <NMBLTK/Tools/rdPropertyDbl.h>
 
@@ -137,8 +138,8 @@ setNull()
 	setupProperties();
 	_on = true;
 	_model = NULL;
-	_startTime = 0.0;
-	_endTime = 1.0;
+	_startTime = rdMath::MINUS_INFINITY;
+	_endTime = rdMath::PLUS_INFINITY;
 }
 
 //_____________________________________________________________________________
