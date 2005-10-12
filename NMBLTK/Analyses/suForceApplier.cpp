@@ -320,8 +320,6 @@ setNull()
 	_body = 0;	
 	_point[0] = _point[1] = _point[2] = 0.0;
 	_force[0] = _force[1] = _force[2] = 0.0;
-	setStartTime(0.0);
-	setEndTime(1.0);
 	_forceFunction = NULL;
 	_pointFunction = NULL;
 	_forceStorage = NULL;
