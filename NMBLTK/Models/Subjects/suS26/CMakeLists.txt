@@ -11,8 +11,6 @@ INCLUDE_DIRECTORIES(${NMBLApp_SOURCE_DIR}
 		    ${NMBLApp_SOURCE_DIR}/NMBLTK/Models/SIMMPipeline/4.0/Pipeline40Workflow
 )
 
-SET(EXPORT_MACRO "RDSDFAST_EXPORTS")
-
 LINK_LIBRARIES( rdTools rdSimulation rdSDFast suPipeline40Workflow suPipeline40 suAnalyses acpp)
 
 ADD_EXECUTABLE(su${KIT} ${SOURCE_FILES} ${INCLUDE_FILES}) 
