@@ -313,6 +313,82 @@ getScaleFactor()
 	return(_scaleFactor);
 }
 
+//-----------------------------------------------------------------------------
+// COMPUTE POSITION AND VELOCITY FUNCTIONS 
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Compute the position and velocity functions used as references for 
+ * calculating spring forces. This method takes the time histories of a point's
+ * position and velocity in the inertial frame and converts them to the local
+ * (body) frame.
+ *
+ * @param 
+ */
+void suLinearSpring::
+computePositionVelocityFunctions(rdStorage *_posVelStorage)
+{
+	//Extract columns of data from storage
+	double *time=0;
+	double *posPoint_x_global=0, *posPoint_y_global=0, *posPoint_z_global=0;
+	double *posBody_x_global=0, *posBody_y_global=0, *posBody_z_global=0;
+	double *velBody_x_global=0, *velBody_y_global=0, *velBody_z_global=0;
+	string colName;
+
+	int n;
+	n = _posVelStorage->getTimeColumn(time);
+	colName = "posPoint_x";
+	n = _posVelStorage->getDataColumn(colName,posPoint_x_global);
+	colName = "posPoint_y";
+	n = _posVelStorage->getDataColumn(colName,posPoint_y_global);
+	colName = "posPoint_z";
+	n = _posVelStorage->getDataColumn(colName,posPoint_z_global);
+	colName = "posBody_x";
+	n = _posVelStorage->getDataColumn(colName,posBody_x_global);
+	colName = "posBody_y";
+	n = _posVelStorage->getDataColumn(colName,posBody_y_global);
+	colName = "posBody_z";
+	n = _posVelStorage->getDataColumn(colName,posBody_z_global);
+	colName = "velBody_x";
+	n = _posVelStorage->getDataColumn(colName,velBody_x_global);
+	colName = "velBody_y";
+	n = _posVelStorage->getDataColumn(colName,velBody_y_global);
+	colName = "velBody_z";
+	n = _posVelStorage->getDataColumn(colName,velBody_z_global);
+
+	//Spline-fit the position and velocity terms, in the inertial frame. Will
+	//need these for computing spring forces.
+	rd1to3VectorGCVSpline *_pointFunction = 
+		new rd1to3GCVSpline(3,n,posPoint_x_global,posPoint_y_global,posPoint_z_global);
+	rd1to3VectorGCVSpline *_velFunction = 
+		new rd1to3GCVSpline(3,n,velPoint_x_global,velPoint_y_global,velPoint_z_global);
+
+	//Compute position and velocity of point in local (body) frame and fit to
+	//spline. Will also need these for computing spring forces.
+	int i;
+	double *posPoint_x_local=0, *posPoint_y_local=0, *posPoint_z_local=0;
+	double posPoint_wrt_body_global[3];
+	double posPoint_wrt_body_local[3];
+
+	for (i=0;i<n;i++)	{
+		posPoint_wrt_body_global[0] = posBody_x_global[i]-posPoint_x_global[i];
+		posPoint_wrt_body_global[1] = posBody_y_global[i]-posPoint_y_global[i];
+		posPoint_wrt_body_global[2] = posBody_z_global[i]-posPoint_z_global[i];
+		
+		_model->transform(_model->getGroundID(),posPoint_wrt_body_global,
+			_body,posPoint_wrt_body_local);
+
+		posPoint_x_local[i] = posPoint_wrt_body_local[0];
+		posPoint_y_local[i] = posPoint_wrt_body_local[1];
+		posPoint_z_local[i] = posPoint_wrt_body_local[2];
+
+		// Not sure if same procedure would work for velocity. Is the "transform"
+		// function sufficient?
+	}
+	rd1to3VectorGCVSpline *posPoint_local = 
+		new rd1to3GCVSpline(3,n,posPoint_x_local,posPoint_y_local,posPoint_z_local);
+}
+
 
 
 //=============================================================================
