@@ -1,4 +1,4 @@
-// rd1to3VectorGCVSpline.cpp
+// rdVectorGCVSplineR1R3.cpp
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //	Copyright 2002
 // All rights reserved.
@@ -9,7 +9,7 @@
 
 // C++ INCLUDES
 #include "rdMath.h"
-#include "rd1to3VectorGCVSpline.h"
+#include "rdVectorGCVSplineR1R3.h"
 
 
 //=============================================================================
@@ -19,15 +19,15 @@
 /**
  * Destructor.
  */
-rd1to3VectorGCVSpline::~rd1to3VectorGCVSpline()
+rdVectorGCVSplineR1R3::~rdVectorGCVSplineR1R3()
 {
 }
 //_____________________________________________________________________________
 /**
  * Default constructor.
  */
-rd1to3VectorGCVSpline::
-rd1to3VectorGCVSpline() : _value(0.0)
+rdVectorGCVSplineR1R3::
+rdVectorGCVSplineR1R3() : _value(0.0)
 {
 	setNull();
 }
@@ -49,8 +49,8 @@ rd1to3VectorGCVSpline() : _value(0.0)
  * variance, the more the smoothing.  The smoothing parameter, p, in
  * Woltring (1986) is computed based on the error variance.
  */
-rd1to3VectorGCVSpline::
-rd1to3VectorGCVSpline(int aDegree,int aN,const double *aX,double *aY0,double *aY1,
+rdVectorGCVSplineR1R3::
+rdVectorGCVSplineR1R3(int aDegree,int aN,const double *aX,double *aY0,double *aY1,
 	double *aY2,const char *aName,double aErrorVariance) : _value(0.0)
 {
 	setNull();
@@ -66,8 +66,8 @@ rd1to3VectorGCVSpline(int aDegree,int aN,const double *aX,double *aY0,double *aY
  *
  * @param aElement XML element.
  */
-rd1to3VectorGCVSpline::
-rd1to3VectorGCVSpline(DOMElement *aElement) :
+rdVectorGCVSplineR1R3::
+rdVectorGCVSplineR1R3(DOMElement *aElement) :
 	rdVectorFunction(aElement), _value(0.0)
 {
 	setNull();
@@ -78,10 +78,10 @@ rd1to3VectorGCVSpline(DOMElement *aElement) :
  * Copy constructor.
  * All data members of the specified spline are copied.
  *
- * @param aSpline rd1to3VectorGCVSpline object to be copied.
+ * @param aSpline rdVectorGCVSplineR1R3 object to be copied.
  */
-rd1to3VectorGCVSpline::
-rd1to3VectorGCVSpline(const rd1to3VectorGCVSpline &aVectorSpline) :
+rdVectorGCVSplineR1R3::
+rdVectorGCVSplineR1R3(const rdVectorGCVSplineR1R3 &aVectorSpline) :
 	rdVectorFunction(aVectorSpline), _value(0.0)
 {
 	setEqual(aVectorSpline);
@@ -95,10 +95,10 @@ rd1to3VectorGCVSpline(const rd1to3VectorGCVSpline &aVectorSpline) :
 /**
  * Set all member variables to their NULL or default values.
  */
-void rd1to3VectorGCVSpline::
+void rdVectorGCVSplineR1R3::
 setNull()
 {
-	setType("rd1to3VectorGCVSpline");
+	setType("rdVectorGCVSplineR1R3");
 	_splineY0 = NULL;
 	_splineY1 = NULL;
 	_splineY2 = NULL;
@@ -112,8 +112,8 @@ setNull()
  * members defined in this class.  It does not, for example, make any changes
  * to data members of base classes.
  */
-void rd1to3VectorGCVSpline::
-setEqual(const rd1to3VectorGCVSpline &aVectorSpline)
+void rdVectorGCVSplineR1R3::
+setEqual(const rdVectorGCVSplineR1R3 &aVectorSpline)
 {
 	setNull();
 
@@ -130,10 +130,10 @@ setEqual(const rd1to3VectorGCVSpline &aVectorSpline)
  *
  * @return Pointer to a copy of this object.
  */
-rdObject* rd1to3VectorGCVSpline::
+rdObject* rdVectorGCVSplineR1R3::
 copy() const
 {
-	rd1to3VectorGCVSpline *func = new rd1to3VectorGCVSpline(*this);
+	rdVectorGCVSplineR1R3 *func = new rdVectorGCVSplineR1R3(*this);
 	return(func);
 }
 
@@ -143,20 +143,20 @@ copy() const
  * with a specified XML element node.   NOT FUNCTIONAL
  *
  * The copy is constructed by first using
- * rd1to3VectorGCVSpline::rd1to3VectorGCVSpline(DOMElement*) in order to establish the
+ * rdVectorGCVSplineR1R3::rdVectorGCVSplineR1R3(DOMElement*) in order to establish the
  * XML node.  Then, the assignment operator is used to set all
  * data members of the copy to the values of this object.  Finally, the
- * data members of the copy are updated using rd1to3VectorGCVSpline::updateObject().
+ * data members of the copy are updated using rdVectorGCVSplineR1R3::updateObject().
  *
  * @param aElement XML element. 
  * @return Pointer to a copy of this object modified by the specified
  * XML element.
  */
-rdObject* rd1to3VectorGCVSpline::
+rdObject* rdVectorGCVSplineR1R3::
 copy(DOMElement *aElement) const
 {
 	// CONSTRUCT FUNCTION BASED ON XML ELEMENT
-	rd1to3VectorGCVSpline *func = new rd1to3VectorGCVSpline(aElement);
+	rdVectorGCVSplineR1R3 *func = new rdVectorGCVSplineR1R3(aElement);
 
 	// ASSIGN DATA ACCORDING TO THIS ACTUATOR
 	*func = *this;
@@ -178,8 +178,8 @@ copy(DOMElement *aElement) const
  *
  * @return Reference to this object.
  */
-rd1to3VectorGCVSpline& rd1to3VectorGCVSpline::
-operator=(const rd1to3VectorGCVSpline &aVectorSpline)
+rdVectorGCVSplineR1R3& rdVectorGCVSplineR1R3::
+operator=(const rdVectorGCVSplineR1R3 &aVectorSpline)
 {
 	// BASE CLASS
 	rdVectorFunction::operator=(aVectorSpline);
@@ -204,7 +204,7 @@ operator=(const rd1to3VectorGCVSpline &aVectorSpline)
  * @param aDegree Degree of spline.  Legal values: 1 = linear, 3 = cubic,
  * 5 = qunitic, 7 = heptic.
  */
-void rd1to3VectorGCVSpline::
+void rdVectorGCVSplineR1R3::
 setDegree(int aDegree)
 {
 	_splineY0->setDegree(aDegree);
@@ -220,7 +220,7 @@ setDegree(int aDegree)
  * Get the individual splines in the vector.
  *
  */
-rdGCVSpline* rd1to3VectorGCVSpline::
+rdGCVSpline* rdVectorGCVSplineR1R3::
 getSplineY0() const
 {
 	return(_splineY0);
@@ -230,7 +230,7 @@ getSplineY0() const
  * Get the individual splines in the vector.
  *
  */
-rdGCVSpline* rd1to3VectorGCVSpline::
+rdGCVSpline* rdVectorGCVSplineR1R3::
 getSplineY1() const
 {
 	return(_splineY1);
@@ -240,7 +240,7 @@ getSplineY1() const
  * Get the individual splines in the vector.
  *
  */
-rdGCVSpline* rd1to3VectorGCVSpline::
+rdGCVSpline* rdVectorGCVSplineR1R3::
 getSplineY2() const
 {
 	return(_splineY2);
@@ -265,7 +265,7 @@ getSplineY2() const
  *
  * @see rdFunction
  */
-void rd1to3VectorGCVSpline::
+void rdVectorGCVSplineR1R3::
 updateBoundingBox()
 {
 	setMinX(0.0);
@@ -278,28 +278,50 @@ updateBoundingBox()
 }
 //_____________________________________________________________________________
 /**
+ * Evaluate this function given a value for the independent variable.  
+ *
+ * @param aX Vector of the independent variables.
+ * @param rY Vector of the resulting dependent variables.
+ */
+void rdVectorGCVSplineR1R3::
+evaluate(const double *aX,double *rY)
+{
+	rY[0] = _splineY0->evaluate(0,aX[0]);
+	rY[1] = _splineY1->evaluate(0,aX[0]);
+	rY[2] = _splineY2->evaluate(0,aX[0]);
+}
+//_____________________________________________________________________________
+/**
+ * Evaluate this function given a value for the independent variable.  
+ *
+ * @param aX Vector of the independent variables.
+ * @param rY Vector of the resulting dependent variables.
+ */
+void rdVectorGCVSplineR1R3::
+evaluate(const rdArray<double> &aX,rdArray<double> &rY)
+{
+	assert(aX.getSize()==1);
+	evaluate(&aX[0],&rY[0]);
+}
+//_____________________________________________________________________________
+/**
  * Evaluate this function or a derivative of this function given a value for the
  * independent variable.  
  *
- * @param aDerivOrder Derivative order.  If aDerivOrder == 0, the function
- * is evaluated.  Otherwise, if aDerivOrder > 0, the aDerivOrder'th
- * derivative of the function is evaluated.  For example, if aDerivOrder == 1,
- * the first derivative of the function is returned.  Negative values of
- * aDerivOrder (integrals of the function) are not supported.
- * @param aX Value of the x independent variable at which to evaluate
- * this function or its derivatives.
- * @return Value of the function or one of its derivatives.
+ * @param aX Vector of the independent variables.
+ * @param rY Vector of the resulting dependent variables.
+ * @param aDerivWRT
  */
-void rd1to3VectorGCVSpline::
-evaluate(const double *aX,double *rY)
+void rdVectorGCVSplineR1R3::
+evaluate(const rdArray<double> &aX,rdArray<double> &rY,
+			const rdArray<int> &aDerivWRT)
 {
-	if(_splineY0->getDegree()>=0) {
-		rY[0] = _splineY0->evaluate(0,aX[0]);
-		rY[1] = _splineY1->evaluate(0,aX[0]);
-		rY[2] = _splineY2->evaluate(0,aX[0]);
-	} else {
-		rY[0] = rY[1] = rY[2] = 0.0;
-	}
+	assert(aX.getSize()==1);
+
+	int derivOrder = aDerivWRT.getSize();
+	rY[0] = _splineY0->evaluate(derivOrder,aX[0]);
+	rY[1] = _splineY1->evaluate(derivOrder,aX[0]);
+	rY[2] = _splineY2->evaluate(derivOrder,aX[0]);
 }
 
 

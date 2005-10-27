@@ -82,8 +82,8 @@ solve(const rdArray<double> &ax,const rdArray<double> &bx,
 	// INITIALIZATIONS
 	a = ax;
 	b = bx;
-	_function->evaluate(&a[0],&fa[0]);
-	_function->evaluate(&b[0],&fb[0]);
+	_function->evaluate(a,fa);
+	_function->evaluate(b,fb);
 	c = a;
 	fc = fa;
 
@@ -171,7 +171,7 @@ solve(const rdArray<double> &ax,const rdArray<double> &bx,
 	 
 
 		// NEW FUNCTION EVALUATION
-		_function->evaluate(&b[0],&fb[0]);
+		_function->evaluate(b,fb);
 
 
 		// FINISHED?

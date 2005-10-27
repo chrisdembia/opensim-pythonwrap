@@ -47,35 +47,16 @@ protected:
 	rdVectorFunction* _pointFunction;
 	/** VectorFunction containing force to be applied (t,x,y,z). */
 	rdVectorFunction* _forceFunction;
-	/** rdStorage containing points of force application (t,x,y,z). */
-	rdStorage* _pointStorage;
-	/** rdStorage containing force to be applied (t,x,y,z). */
-	rdStorage* _forceStorage;
-	/** Flag to set reference frame of input resultant force points */
-	bool _inputPositionsInLocalFrame;
 	/** Flag to set reference frame of input force */
 	bool _inputForcesInGlobalFrame;
-	/** FunctionSet containing the force to be applied (t,x,y,z). */
-	rdFunctionSet* _forceSet;
-	/** FunctionSet containing the point where the force is applied (t,x,y,z). */
-	rdFunctionSet* _pointSet;
 	/** Storage for the force that was actually applied during the simulation */
 	rdStorage *_appliedForceStore;
-
-		
 
 //=============================================================================
 // METHODS
 //=============================================================================
 public:
 	suForceApplier(rdModel *aModel,int aBody);	
-	suForceApplier(rdModel *aModel,int aBody,double aPoint[3]);
-	suForceApplier(rdModel *aModel,int aBody,double aPoint[3],double aForce[3]);
-	suForceApplier(rdModel *aModel,int aBody,rdVectorFunction* aPointFunction,rdVectorFunction* aForceFunction);
-	suForceApplier(rdModel *aModel,int aBody,double aPoint[3],rdVectorFunction* aForceFunction);
-	suForceApplier(rdModel *aModel,int aBody,rdStorage* aPointStorage,rdStorage* aForceStorage);
-	suForceApplier(rdModel *aModel,int aBody,double aPoint[3],rdStorage* aForceStorage);
-	suForceApplier(rdModel *aModel,int aBody,rdFunctionSet* aPointSet,rdFunctionSet* aForceSet);
 	virtual ~suForceApplier();
 private:
 	void setNull();
@@ -94,22 +75,12 @@ public:
 	void getPoint(double rPoint[3]) const;
 	void setForce(double aForce[3]);
 	void getForce(double rPoint[3]) const;
+
 	void setForceFunction(rdVectorFunction* aForceFunction);
 	rdVectorFunction* getForceFunction() const;
 	void setPointFunction(rdVectorFunction* aPointFunction);
 	rdVectorFunction* getPointFunction() const;
-	void setForceStorage(rdStorage* aForceStorage);
-	rdStorage* getForceStorage() const;
-	void setPointStorage(rdStorage* aPointStorage);
-	rdStorage* getPointStorage() const;
 
-	void setForceSet(rdFunctionSet* aForceSet);
-	rdFunctionSet* getForceSet() const;
-	void setPointSet(rdFunctionSet* aPointSet);
-	rdFunctionSet* getPointSet() const;
-
-	void setInputPositionsInLocalFrame(bool aTrueFalse);
-	bool getInputPositionsInLocalFrame() const;
 	void setInputForcesInGlobalFrame(bool aTrueFalse);
 	bool getInputForcesInGlobalFrame() const;
 
@@ -118,6 +89,10 @@ public:
 
 	virtual void reset(); 
 	
+	void
+		computePointFunction(rdStorage *aQStore,rdStorage *aUStore,
+		rdVectorFunction &aPGlobal);
+
 	//--------------------------------------------------------------------------
 	// CALLBACKS
 	//--------------------------------------------------------------------------

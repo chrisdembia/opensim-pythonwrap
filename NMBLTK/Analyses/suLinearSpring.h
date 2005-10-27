@@ -37,12 +37,9 @@ class SUANALYSES_API suLinearSpring : public suForceApplier
 // DATA
 //=============================================================================
 protected:
-	/** VectorFunction containing desired position of point (t,x,y,z) expressed in
+	/** Vector function containing target trajectory of the point expressed in
 		the global reference frame. */
-	rdVectorFunction* _posFunction;
-	/** VectorFunction containing velcoity of point (t,x,y,z) expressed in 
-		the global reference frame. */
-	rdVectorFunction* _velFunction;
+	rdVectorFunction* _target;
 	/** Function containing values for the time-dependent scaling factor. */
 	rdFunction* _scaleFunction;
 	/** Scale factor that pre-multiplies the applied torque */
@@ -56,13 +53,6 @@ protected:
 //=============================================================================
 public:
 	suLinearSpring(rdModel *aModel,int aBody);	
-	suLinearSpring(rdModel *aModel,int aBody,double aPoint[3]);
-	suLinearSpring(rdModel *aModel,int aBody,double aPoint[3],
-		rdVectorFunction* aPosFunction,rdVectorFunction* aVelFunction,
-		double aK[3], double aB[3]);
-	suLinearSpring(rdModel *aModel,int aBody,rdVectorFunction* aPointFunction,
-		rdVectorFunction* aPosFunction,rdVectorFunction* aVelFunction,
-		double aK[3], double aB[3]);
 	virtual ~suLinearSpring();
 private:
 	void setNull();
@@ -71,10 +61,8 @@ public:
 	//--------------------------------------------------------------------------
 	// GET AND SET
 	//--------------------------------------------------------------------------
-	void setPosFunction(rdVectorFunction* aPosFunction);
-	rdVectorFunction* getPosFunction() const;
-	void setVelFunction(rdVectorFunction* aVelFunction);
-	rdVectorFunction* getVelFunction() const;
+	void setTarget(rdVectorFunction* aTarget);
+	rdVectorFunction* getTarget() const;
 	void setKValue(double aK[3]);
 	void getKValue(double aK[3]);
 	void setBValue(double aB[3]);
@@ -83,7 +71,6 @@ public:
 	rdFunction* getScaleFunction() const;
 	void setScaleFactor(double aScaleFactor);
 	double getScaleFactor();
-
 	
 	//--------------------------------------------------------------------------
 	// CALLBACKS

@@ -100,8 +100,9 @@ public:
 	//--------------------------------------------------------------------------
 	virtual void updateBoundingBox();
 	virtual void evaluate(const double *aX,double *rY)=0;
-	//virtual const rdArray<double>&
-	//	evaluate(double aX,int aDerivOrder,const rdArray<int> &aDerivWRT)=0;
+	virtual void evaluate(const rdArray<double> &aX,rdArray<double> &rY)=0;
+	virtual void evaluate(const rdArray<double> &aX,rdArray<double> &rY,
+		const rdArray<int> &aDerivWRT)=0;
 
 //=============================================================================
 };	// END class rdVectorFunction

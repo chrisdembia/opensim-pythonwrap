@@ -19,7 +19,7 @@
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
 #include <NMBLTK/Tools/rdVectorFunction.h>
-#include <NMBLTK/Tools/rdFunctionSet.h>
+#include <NMBLTK/Tools/rdVectorGCVSplineR1R3.h>
 #include "suForceApplier.h"
 
 
@@ -64,247 +64,6 @@ suForceApplier(rdModel *aModel,int aBody) :
 
 }
 
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external forces
- * during an integration.
- *
- * @param aModel Model for which external forces are to be applied.
- * @param aBody Body to which external forces are to be applied.
- * @param aPoint Point at which external forces are to be applied.  This point
- * can be expressed in either local or global coordinates, but be sure the
- * _inputPositionsInLocalFrame is set appropriately.
- */
-suForceApplier::
-suForceApplier(rdModel *aModel,int aBody,double aPoint[3]) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setPoint(aPoint);
-
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external forces
- * during an integration.
- *
- * @param aModel Model for which external forces are to be applied.
- * @param aBody Body to which external forces are to be applied.
- * @param aPoint Point at which external forces are to be applied.  This point
- * can be expressed in either local or global coordinates, but be sure the
- * _inputPositionsInLocalFrame is set appropriately.
- *
- * @param aForce Force to be applied expressed in global coordinates.  This force
- * can be expressed in either local or global coordinates, but be sure the
- * _inputForcesInGlobalFrame is set appropriately.
- */
-suForceApplier::
-suForceApplier(rdModel *aModel,int aBody,double aPoint[3],double aForce[3]) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setPoint(aPoint);
-	setForce(aForce);
-
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external forces
- * during an integration.
- *
- * @param aModel Model for which external forces are to be applied.
- * @param aBody Body to which external forces are to be applied.
- * @param aPointFunction containing (t,x,y,z) of points at which external
- * forces are to be applied.  These points can be expressed in either local or global
- * coordinates, but be sure the _inputPositionsInLocalFrame is set appropriately. If a 
- * NULL point set is sent in, the  force will be applied at the body COM.
- * @param aForceFunction containing (t,x,y,z) of force to be applied.  This force
- * can be expressed in either local or global coordinates, but be sure the
- * _inputForcesInGlobalFrame is set appropriately.
- */
-suForceApplier::
-suForceApplier(rdModel *aModel,int aBody,rdVectorFunction* aPointFunction,rdVectorFunction* aForceFunction) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	if(aPointFunction != NULL)
-		setPointFunction(aPointFunction);
-	setForceFunction(aForceFunction);
-
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external forces
- * during an integration.
- *
- * @param aModel Model for which external forces are to be applied.
- * @param aBody Body to which external forces are to be applied.
- * @param aPoint Point at which external forces are to be applied.  This point
- * can be expressed in either local or global coordinates, but be sure the
- * _inputPositionsInLocalFrame is set appropriately.
- *
- * @param aForceFunction containing (t,x,y,z) of force to be applied.  This force
- * can be expressed in either local or global coordinates, but be sure the
- * _inputForcesInGlobalFrame is set appropriately.
- */
-suForceApplier::
-suForceApplier(rdModel *aModel,int aBody,double aPoint[3],rdVectorFunction* aForceFunction) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setPoint(aPoint);
-	setForceFunction(aForceFunction);
-	
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external forces
- * during an integration.
- *
- * @param aModel Model for which external forces are to be applied.
- * @param aBody Body to which external forces are to be applied.
- * @param aPointStorage rdStorage containing (t,x,y,z) of points at which external
- * forces are to be applied.  These points can be expressed in either local or global
- * coordinates, but be sure the _inputPositionsInLocalFrame is set appropriately.
- *
- * @param aForceStorage rdStorage containing (t,x,y,z) of force to be applied.  This force
- * can be expressed in either local or global coordinates, but be sure the
- * _inputForcesInGlobalFrame is set appropriately.
- */
-suForceApplier::
-suForceApplier(rdModel *aModel,int aBody,rdStorage* aPointStorage,rdStorage* aForceStorage) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	if(aPointStorage != NULL)
-		setPointStorage(aPointStorage);
-	setForceStorage(aForceStorage);
-	
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external forces
- * during an integration.
- *
- * @param aModel Model for which external forces are to be applied.
- * @param aBody Body to which external forces are to be applied.
- * @param aPoint Point at which external forces are to be applied.  This point
- * can be expressed in either local or global coordinates, but be sure the
- * _inputPositionsInLocalFrame is set appropriately.
- * @param aForceStorage rdStorage containing (t,x,y,z) of force to be applied.  This force
- * can be expressed in either local or global coordinates, but be sure the
- * _inputForcesInGlobalFrame is set appropriately.
- */
-suForceApplier::
-suForceApplier(rdModel *aModel,int aBody,double aPoint[3],rdStorage* aForceStorage) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setPoint(aPoint);
-	setForceStorage(aForceStorage);
-	
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-}
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external forces
- * during an integration.
- *
- * @param aModel Model for which external forces are to be applied.
- * @param aBody Body to which external forces are to be applied.
- * @param aPointStorage rdStorage containing (t,x,y,z) of points at which external
- * forces are to be applied.  These points can be expressed in either local or global
- * coordinates, but be sure the _inputPositionsInLocalFrame is set appropriately.
- * @param aForceStorage rdStorage containing (t,x,y,z) of force to be applied.  This force
- * can be expressed in either local or global coordinates, but be sure the
- * _inputForcesInGlobalFrame is set appropriately.
- */
-suForceApplier::
-suForceApplier(rdModel *aModel,int aBody,rdFunctionSet* aPointSet,rdFunctionSet* aForceSet) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	if(aPointSet != NULL)
-		setPointSet(aPointSet);
-	setForceSet(aForceSet);
-	
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-
-}
-
 
 //=============================================================================
 // CONSTRUCTION METHODS
@@ -322,12 +81,7 @@ setNull()
 	_force[0] = _force[1] = _force[2] = 0.0;
 	_forceFunction = NULL;
 	_pointFunction = NULL;
-	_forceStorage = NULL;
-	_pointStorage = NULL;
-	_inputPositionsInLocalFrame = true;
 	_inputForcesInGlobalFrame = true;
-	_pointSet = NULL;
-	_forceSet = NULL;
 }
 
 //_____________________________________________________________________________
@@ -462,32 +216,6 @@ getPoint(double rPoint[3]) const
 //-----------------------------------------------------------------------------
 //_____________________________________________________________________________
 /**
- * Set whether the input positions are expressed in the local body coordinate 
- * frame.
- *
- * @param inputPosiitonsInLocalFrame flag indicates whether whether input forces
- * are expressed in the local body coordinate frame
- */
-void suForceApplier::
-setInputPositionsInLocalFrame(bool aTrueFalse)
-{
-	_inputPositionsInLocalFrame = aTrueFalse;
-}
-//_____________________________________________________________________________
-/**
- * Set whether the input positions are expressed in the local body coordinate 
- * frame.
- *
- * @return inputPositionsInLocalFrame Flag
- * @see setPointInLocalFrame()
- */
-bool suForceApplier::
-getInputPositionsInLocalFrame() const
-{
-	return(_inputPositionsInLocalFrame);
-}
-//_____________________________________________________________________________
-/**
  * Set whether the input forces are expressed in the global coordinate 
  * frame.
  *
@@ -597,117 +325,6 @@ getForceFunction() const
 {
 	return(_forceFunction);
 }
-
-//-----------------------------------------------------------------------------
-// POINTSTORAGE
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the rdStorage containing the (t,x,y,z) of the point at which the force
- * should be applied.
- *
- * @param aPointStorage rdStorage containing force application point function.
- */
-void suForceApplier::
-setPointStorage(rdStorage* aPointStorage)
-{
-	_pointStorage = aPointStorage;
-}
-//_____________________________________________________________________________
-/**
- * Get the rdStorage containing the (t,x,y,z) of the point at which the force
- * should be applied.
- *
- * @return aPointStorage.
- */
-rdStorage* suForceApplier::
-getPointStorage() const
-{
-	return(_pointStorage);
-}
-//-----------------------------------------------------------------------------
-// FORCESTORAGE
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the rdStorage containing the (t,x,y,z) of the force
- * to applied.
- *
- * @param aForceStorage rdStorage containing  the force to applied
- * in global coordinates.
- */
-void suForceApplier::
-setForceStorage(rdStorage* aForceStorage)
-{
-	_forceStorage = aForceStorage;
-}
-//_____________________________________________________________________________
-/**
- * Get the rdStoarge containing the (t,x,y,z) of the force
- * to applied.
- *
- * @return aForceStorage.
- */
-rdStorage* suForceApplier::
-getForceStorage() const
-{
-	return(_forceStorage);
-}
-//-----------------------------------------------------------------------------
-// POINT SET
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the vector function containing the (t,x,y,z) of the point at which the force
- * should be applied in the local coordinate frame.
- *
- * @param aPointFunction containing force application point function.
- */
-void suForceApplier::
-setPointSet(rdFunctionSet* aPointSet)
-{
-	_pointSet = aPointSet;
-}
-//_____________________________________________________________________________
-/**
- * Get the vector function containing the (t,x,y,z) of the point at which the force
- * should be applied in the local coordinate frame.
- *
- * @return aPointFunction.
- */
-rdFunctionSet* suForceApplier::
-getPointSet() const
-{
-	return(_pointSet);
-}
-//-----------------------------------------------------------------------------
-// FORCE SET
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the vector function containing the (t,x,y,z) of the force
- * to applied.
- *
- * @param aForceFunction containing function describing the force to applied
- * in global coordinates.
- */
-void suForceApplier::
-setForceSet(rdFunctionSet* aForceSet)
-{
-	_forceSet = aForceSet;
-}
-//_____________________________________________________________________________
-/**
- * Get the vector function containing the (t,x,y,z) of the force
- * to applied.
- *
- * @return aForceFunction.
- */
-rdFunctionSet* suForceApplier::
-getForceSet() const
-{
-	return(_forceSet);
-}
 //-----------------------------------------------------------------------------
 // APPLIED FORCE STORAGE
 //-----------------------------------------------------------------------------
@@ -722,6 +339,7 @@ getAppliedForceStorage()
 {
 	return(_appliedForceStore);
 }
+
 //-----------------------------------------------------------------------------
 // STORAGE CAPACITY
 //-----------------------------------------------------------------------------
@@ -752,6 +370,73 @@ reset()
 	_appliedForceStore->reset();
 }
 
+
+
+//-----------------------------------------------------------------------------
+// COMPUTE POSITION AND VELOCITY FUNCTIONS 
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Compute the position and velocity functions that set the position and
+ * velocity of the point at which the linear spring applies its force.
+ * This method takes the time histories of a point's
+ * position and velocity in the inertial frame and converts them to the local
+ * (body) frame.
+ *
+ * @param aQStore Storage containing the time history of generalized
+ * coordinates for the model. Note that all generalized coordinates must
+ * be specified and in radians and Euler parameters.
+ * @param aUStore Stoarge containing the time history of generalized
+ * speeds for the model.  Note that all generalized speeds must
+ * be specified and in radians.
+ * @param aPStore Storage containing the time history of the position at
+ * which the force is to be applied in the global frame.
+ */
+void suForceApplier::
+computePointFunction(
+	rdStorage *aQStore,rdStorage *aUStore,rdVectorFunction &aPGlobal)
+{
+	int i;
+	int nq = _model->getNQ();
+	int nu = _model->getNU();
+	int size = aQStore->getSize();
+	int ground = _model->getGroundID();
+	rdArray<int> derivWRT(0,1);
+	rdArray<double> t(0.0,1);
+	rdArray<double> q(0.0,nq),u(0.0,nu);
+	rdArray<double> comGlobal(0.0,3),origin(0.0,3);
+	rdArray<double> pGlobal(0.0,3),pLocal(0.0,3);
+	rdArray<double> vGlobal(0.0,3),vLocal(0.0,3);
+	rdStorage pStore,vStore;
+	for(i=0;i<size;i++) {
+
+		// Set the model state
+		aQStore->getTime(i,*(&t[0]));
+		aQStore->getData(i,nq,&q[0]);
+		aUStore->getData(i,nu,&u[0]);
+		_model->setConfiguration(&q[0],&u[0]);
+
+		// Position
+		_model->getPosition(_body,&origin[0],&comGlobal[0]);
+		aPGlobal.evaluate(t,pGlobal);
+		rdMtx::Subtract(1,3,&pGlobal[0],&comGlobal[0],&pLocal[0]);
+		_model->transform(ground,&pLocal[0],_body,&pLocal[0]);
+		pStore.append(t[0],3,&pLocal[0]);
+
+	}
+
+	// CREATE POSITION FUNCTION
+	double *time=NULL;
+	double *p0=0,*p1=0,*p2=0;
+	size = pStore.getTimeColumn(time);
+	pStore.getDataColumn(0,p0);
+	pStore.getDataColumn(1,p1);
+	pStore.getDataColumn(2,p2);
+	rdVectorGCVSplineR1R3 *pFunc = new rdVectorGCVSplineR1R3(5,size,time,p0,p1,p2);
+	setPointFunction(pFunc);
+}
+
+
 //=============================================================================
 // CALLBACKS
 //=============================================================================
@@ -767,14 +452,10 @@ reset()
 void suForceApplier::
 applyActuation(double aT,double *aX,double *aY)
 {
-	int i;
 	double force[3] = {0,0,0};
 	double point[3] = {0,0,0};
 	const int ground = _model->getGroundID();
 	double posBodyCOMLocal[3] = {0,0,0};
-	double posBodyCOMGlobal[3];
-	double posPointRelBodyCOMGlobal[3];
-	double posPointRelBodyCOMLocal[3];
 	double treal = aT*_model->getTimeNormConstant();
 	
 	if(_model==NULL) {
@@ -792,37 +473,6 @@ applyActuation(double aT,double *aX,double *aY)
 		if(_pointFunction!=NULL) {
 			_pointFunction->evaluate(&treal,point);
 			setPoint(point);
-		}
-
-		if(_forceStorage!=NULL) {
-			_forceStorage->getDataAtTime(aT*_model->getTimeNormConstant(),3,force);
-			setForce(force);
-		}
-		if(_pointStorage!=NULL) {
-			_pointStorage->getDataAtTime(aT*_model->getTimeNormConstant(),3,point);
-			setPoint(point);
-		}
-
-		if(_forceSet!=NULL) {
-			for(i=0;i<3;i++){
-				force[i] =_forceSet->evaluate(i,0,aT*_model->getTimeNormConstant());
-			}
-			setForce(force);
-		}
-		if(_pointSet!=NULL) {
-			for(i=0;i<3;i++){
-				point[i] =_pointSet->evaluate(i,0,aT*_model->getTimeNormConstant());
-			}
-			setPoint(point);
-		}
-
-		if(_inputPositionsInLocalFrame == false){
-			_model->getPosition(_body,posBodyCOMLocal,posBodyCOMGlobal);
-			//cout<<"bodyGlobal = "<<posBodyCOMGlobal[0]<<", "<<posBodyCOMGlobal[1]<<", "<<posBodyCOMGlobal[2]<<endl;
-			rdMtx::Subtract(1,3,_point,posBodyCOMGlobal,posPointRelBodyCOMGlobal);
-			//cout<<"pointRelBodyGlobal = "<<posPointRelBodyCOMGlobal[0]<<", "<<posPointRelBodyCOMGlobal[1]<<", "<<posPointRelBodyCOMGlobal[2]<<endl;
-			_model->transform(ground,posPointRelBodyCOMGlobal,_body,posPointRelBodyCOMLocal);
-			setPoint(posPointRelBodyCOMLocal);
 		}
 
 		if(_inputForcesInGlobalFrame == false){

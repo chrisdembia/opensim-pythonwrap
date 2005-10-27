@@ -1,4 +1,4 @@
-// rd1to3VectorGCVSpline.h
+// rdVectorGCVSplineR1R3.h
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //	Copyright 2002
 // All rights reserved.
@@ -6,8 +6,8 @@
 // Authors: Frank C. Anderson
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-#ifndef __rd1to3VectorGCVSpline_h__
-#define __rd1to3VectorGCVSpline_h__
+#ifndef __rdVectorGCVSplineR1R3_h__
+#define __rdVectorGCVSplineR1R3_h__
 
 
 // INCLUDES
@@ -49,7 +49,7 @@
  *
  * @author Frank C. Anderson
  */
-class RDTOOLS_API rd1to3VectorGCVSpline : public rdVectorFunction
+class RDTOOLS_API rdVectorGCVSplineR1R3 : public rdVectorFunction
 {
 //=============================================================================
 // DATA
@@ -72,24 +72,24 @@ public:
 	//--------------------------------------------------------------------------
 	// CONSTRUCTION
 	//--------------------------------------------------------------------------
-	rd1to3VectorGCVSpline();
-	rd1to3VectorGCVSpline(int aDegree,int aN,const double *aTimes,double *aY0Values,
+	rdVectorGCVSplineR1R3();
+	rdVectorGCVSplineR1R3(int aDegree,int aN,const double *aTimes,double *aY0Values,
 		double *aY1Values,double *aY2Values,const char *aName=NULL,
 		double aErrorVariance=0.0);
-	rd1to3VectorGCVSpline(DOMElement *aElement);
-	rd1to3VectorGCVSpline(const rd1to3VectorGCVSpline &aVectorSpline);
-	virtual ~rd1to3VectorGCVSpline();
+	rdVectorGCVSplineR1R3(DOMElement *aElement);
+	rdVectorGCVSplineR1R3(const rdVectorGCVSplineR1R3 &aVectorSpline);
+	virtual ~rdVectorGCVSplineR1R3();
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 private:
 	void setNull();
-	void setEqual(const rd1to3VectorGCVSpline &aSpline);
+	void setEqual(const rdVectorGCVSplineR1R3 &aSpline);
 
 	//--------------------------------------------------------------------------
 	// OPERATORS
 	//--------------------------------------------------------------------------
 public:
-	rd1to3VectorGCVSpline& operator=(const rd1to3VectorGCVSpline &aVectorSpline);
+	rdVectorGCVSplineR1R3& operator=(const rdVectorGCVSplineR1R3 &aVectorSpline);
 
 	//--------------------------------------------------------------------------
 	// SET AND GET
@@ -105,12 +105,13 @@ public:
 	//--------------------------------------------------------------------------
 	virtual void updateBoundingBox();
 	virtual void evaluate(const double *aX,double *rY);
-	//virtual const rdArray<double>&
-	//	evaluate(double aX,int aDerivOrder,const rdArray<int> &aDerivWRT);
+	virtual void evaluate(const rdArray<double> &aX,rdArray<double> &rY);
+	virtual void evaluate(const rdArray<double> &aX,rdArray<double> &rY,
+		const rdArray<int> &aDerivWRT);
 
 //=============================================================================
-};	// END class rd1to3VectorGCVSpline
+};	// END class rdVectorGCVSplineR1R3
 //=============================================================================
 //=============================================================================
 
-#endif  // __rd1to3VectorGCVSpline_h__
+#endif  // __rdVectorGCVSplineR1R3_h__

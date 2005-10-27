@@ -196,6 +196,33 @@ evaluate(const double *aX,double *rY)
 		// parabolic test function
 		//rY[i] = sum *aX[i]*aX[i]*aX[i] - sum*root*root*root; 
 	}
-
 }
+//_____________________________________________________________________________
+/**
+ * Evaluate the vector function.
+ *
+ * @param aX Array of abscissae.
+ * @param aY Array of resulting function values.
+ */
+void ExampleVectorFunctionUncoupledNxN::
+evaluate(const rdArray<double> &aX,rdArray<double> &rY)
+{
+	evaluate(&aX[0],&rY[0]);
+}
+//_____________________________________________________________________________
+/**
+ * Evaluate this function or a derivative of this function given a value for the
+ * independent variable.  
+ *
+ * @param aX Vector of the independent variables.
+ * @param rY Vector of the resulting dependent variables.
+ * @param aDerivWRT
+ */
+void ExampleVectorFunctionUncoupledNxN::
+evaluate(const rdArray<double> &aX,rdArray<double> &rY,
+			const rdArray<int> &aDerivWRT)
+{
+	cout<<"\nExampleVectorFunctionUncoupledNxN.evalute(x,y,derivWRT): not implemented.\n";
+}
+
 

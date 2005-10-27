@@ -18,6 +18,10 @@
 #include <NMBLTK/Tools/rdVectorFunction.h>
 #include "suLinearSpring.h"
 
+
+using namespace std;
+
+
 //=============================================================================
 // CONSTRUCTOR(S) AND DESTRUCTOR
 //=============================================================================
@@ -47,100 +51,13 @@ suLinearSpring(rdModel *aModel,int aBody) :
 
 //_____________________________________________________________________________
 /**
- * Construct a derivative callback instance for applying external forces
- * during an integration.
- *
- * @param aModel Model for which external forces are to be applied.
- * @param aBody Body to which external forces are to be applied.
- * @param aPoint Point at which external forces are to be applied.  This point
- * can be expressed in either local or global coordinates, but be sure the
- * _inputPositionsInLocalFrame is set appropriately.
- */
-suLinearSpring::
-suLinearSpring(rdModel *aModel,int aBody,double aPoint[3]) :
-	suForceApplier(aModel,aBody)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setPoint(aPoint);
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external forces
- * during an integration.
- *
- * @param aModel Model for which external forces are to be applied.
- * @param aBody Body to which external forces are to be applied.
- * @param aPoint Point at which external forces are to be applied.  This point
- * can be expressed in either local or global coordinates, but be sure the
- * _inputPositionsInLocalFrame is set appropriately.
- * @param aForce Force to be applied expressed in global coordinates.
- */
-suLinearSpring::
-suLinearSpring(rdModel *aModel,int aBody,double aPoint[3],
-	rdVectorFunction* aPosFunction,rdVectorFunction* aVelFunction, 
-		double aK[3], double aB[3]) :
-		suForceApplier(aModel,aBody)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setPoint(aPoint);
-	setPosFunction(aPosFunction);
-	setVelFunction(aVelFunction);
-	setKValue(aK);
-	setBValue(aB);
-
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external forces
- * during an integration.
- *
- * @param aModel Model for which external forces are to be applied.
- * @param aBody Body to which external forces are to be applied.
- * @param aPointFunction containing (t,x,y,z) of points at which external
- * forces are to be applied.  These points can be expressed in either local or global
- * coordinates, but be sure the _inputPositionsInLocalFrame is set appropriately. If a 
- * NULL point set is sent in, the  force will be applied at the body COM.
- * @param aForceFunction containing (t,x,y,z) of force to be applied expressed
- * in global coordinates.
- */
-suLinearSpring::
-suLinearSpring(rdModel *aModel,int aBody,rdVectorFunction* aPointFunction,
-	rdVectorFunction* aPosFunction,rdVectorFunction* aVelFunction,double aK[3],
-	double aB[3]) :
-	suForceApplier(aModel,aBody)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setPointFunction(aPointFunction);
-	setPosFunction(aPosFunction);
-	setVelFunction(aVelFunction);
-	setKValue(aK);
-	setBValue(aB);
-
-}
-
-
-
-//_____________________________________________________________________________
-/**
  * Set member variables to approprate NULL values.
  */
 void suLinearSpring::
 setNull()
 {
 	setType("suLinearSpring");
-	_posFunction = NULL;
-	_velFunction = NULL;
+	_target = NULL;
 	_scaleFunction = NULL;
 	_scaleFactor = 1.0;
 }
@@ -160,9 +77,9 @@ setNull()
  * @param aPosFunction containing force application point function.
  */
 void suLinearSpring::
-setPosFunction(rdVectorFunction* aPosFunction)
+setTarget(rdVectorFunction* aPosFunction)
 {
-	_posFunction = aPosFunction;
+	_target = aPosFunction;
 }
 //_____________________________________________________________________________
 /**
@@ -172,36 +89,9 @@ setPosFunction(rdVectorFunction* aPosFunction)
  * @return rPosFunction.
  */
 rdVectorFunction* suLinearSpring::
-getPosFunction() const
+getTarget() const
 {
-	return(_posFunction);
-}
-//-----------------------------------------------------------------------------
-// VELOCITY FUNCTION
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the vector function containing the (t,x,y,z) of the velocity that should
- * be corrected towards, expressed in the global ref frame.
- *
- * @param aVelFunction 
- */
-void suLinearSpring::
-setVelFunction(rdVectorFunction* aVelFunction)
-{
-	_velFunction = aVelFunction;
-}
-//_____________________________________________________________________________
-/**
- * Get the vector function containing the (t,x,y,z) of the velocity that should
- * be corrected towards, expressed in the global ref frame.
- *
- * @return rVelFunction.
- */
-rdVectorFunction* suLinearSpring::
-getVelFunction() const
-{
-	return(_velFunction);
+	return(_target);
 }
 
 //-----------------------------------------------------------------------------
@@ -313,84 +203,6 @@ getScaleFactor()
 	return(_scaleFactor);
 }
 
-//-----------------------------------------------------------------------------
-// COMPUTE POSITION AND VELOCITY FUNCTIONS 
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Compute the position and velocity functions used as references for 
- * calculating spring forces. This method takes the time histories of a point's
- * position and velocity in the inertial frame and converts them to the local
- * (body) frame.
- *
- * @param 
- */
-void suLinearSpring::
-computePositionVelocityFunctions(rdStorage *_posVelStorage)
-{
-	//Extract columns of data from storage
-	double *time=0;
-	double *posPoint_x_global=0, *posPoint_y_global=0, *posPoint_z_global=0;
-	double *posBody_x_global=0, *posBody_y_global=0, *posBody_z_global=0;
-	double *velBody_x_global=0, *velBody_y_global=0, *velBody_z_global=0;
-	string colName;
-
-	int n;
-	n = _posVelStorage->getTimeColumn(time);
-	colName = "posPoint_x";
-	n = _posVelStorage->getDataColumn(colName,posPoint_x_global);
-	colName = "posPoint_y";
-	n = _posVelStorage->getDataColumn(colName,posPoint_y_global);
-	colName = "posPoint_z";
-	n = _posVelStorage->getDataColumn(colName,posPoint_z_global);
-	colName = "posBody_x";
-	n = _posVelStorage->getDataColumn(colName,posBody_x_global);
-	colName = "posBody_y";
-	n = _posVelStorage->getDataColumn(colName,posBody_y_global);
-	colName = "posBody_z";
-	n = _posVelStorage->getDataColumn(colName,posBody_z_global);
-	colName = "velBody_x";
-	n = _posVelStorage->getDataColumn(colName,velBody_x_global);
-	colName = "velBody_y";
-	n = _posVelStorage->getDataColumn(colName,velBody_y_global);
-	colName = "velBody_z";
-	n = _posVelStorage->getDataColumn(colName,velBody_z_global);
-
-	//Spline-fit the position and velocity terms, in the inertial frame. Will
-	//need these for computing spring forces.
-	rd1to3VectorGCVSpline *_pointFunction = 
-		new rd1to3GCVSpline(3,n,posPoint_x_global,posPoint_y_global,posPoint_z_global);
-	rd1to3VectorGCVSpline *_velFunction = 
-		new rd1to3GCVSpline(3,n,velPoint_x_global,velPoint_y_global,velPoint_z_global);
-
-	//Compute position and velocity of point in local (body) frame and fit to
-	//spline. Will also need these for computing spring forces.
-	int i;
-	double *posPoint_x_local=0, *posPoint_y_local=0, *posPoint_z_local=0;
-	double posPoint_wrt_body_global[3];
-	double posPoint_wrt_body_local[3];
-
-	for (i=0;i<n;i++)	{
-		posPoint_wrt_body_global[0] = posBody_x_global[i]-posPoint_x_global[i];
-		posPoint_wrt_body_global[1] = posBody_y_global[i]-posPoint_y_global[i];
-		posPoint_wrt_body_global[2] = posBody_z_global[i]-posPoint_z_global[i];
-		
-		_model->transform(_model->getGroundID(),posPoint_wrt_body_global,
-			_body,posPoint_wrt_body_local);
-
-		posPoint_x_local[i] = posPoint_wrt_body_local[0];
-		posPoint_y_local[i] = posPoint_wrt_body_local[1];
-		posPoint_z_local[i] = posPoint_wrt_body_local[2];
-
-		// Not sure if same procedure would work for velocity. Is the "transform"
-		// function sufficient?
-	}
-	rd1to3VectorGCVSpline *posPoint_local = 
-		new rd1to3GCVSpline(3,n,posPoint_x_local,posPoint_y_local,posPoint_z_local);
-}
-
-
-
 //=============================================================================
 // CALLBACKS
 //=============================================================================
@@ -406,11 +218,25 @@ computePositionVelocityFunctions(rdStorage *_posVelStorage)
 void suLinearSpring::
 applyActuation(double aT,double *aX,double *aY)
 {
+	//CALCULATE FORCE AND APPLY
+	double dx[3],dv[3];
+	double force[3];
+	double scaleFactor;
+
 	int i;
-	double point[3] = {0,0,0};
-	double targetPos[3] = {0,0,0};
-	double targetVel[3] = {0,0,0};
-	double treal = aT*_model->getTimeNormConstant();
+	int ground = _model->getGroundID();
+	rdArray<int> derivWRT(0,1);
+	rdArray<double> origin(0.0,3);
+	rdArray<double> vcomGlobal(0.0,3);
+	rdArray<double> treal(0.0,1);
+	rdArray<double> pLocal(0.0,3);
+	rdArray<double> vLocal(0.0,3);
+	rdArray<double> pTarget(0.0,3);
+	rdArray<double> vTarget(0.0,3);
+	rdArray<double> pGlobal(0.0,3);
+	rdArray<double> vGlobal(0.0,3);
+	
+	treal[0] = aT*_model->getTimeNormConstant();
 	
 	if(_model==NULL) {
 		printf("suLinearSpring.applyActuation: WARN- no model.\n");
@@ -421,61 +247,39 @@ applyActuation(double aT,double *aX,double *aY)
 	if((aT>=getStartTime()) && (aT<getEndTime())){
 
 		if(_pointFunction!=NULL) {
-			_pointFunction->evaluate(&treal,point);
-			setPoint(point);
+			_pointFunction->evaluate(treal,pLocal);
+			_pointFunction->evaluate(treal,vLocal,derivWRT);
+			setPoint(&pLocal[0]);
 		}
 
-		if(_posFunction!=NULL) {
-			_posFunction->evaluate(&treal,targetPos);
-		}
-		if(_velFunction!=NULL) {
-			_velFunction->evaluate(&treal,targetVel);
+		if(_target!=NULL) {
+			_target->evaluate(treal,pTarget);
+			_target->evaluate(treal,vTarget,derivWRT);
+		} else {
+			cout<<"\nsuLinearSpring.applyActuation:  WARN- no target has been set.\n";
 		}
 
 		// GET GLOBAL POSITION AND VELOCITY
-		const int ground = _model->getGroundID();
-		double posBodyCOMLocal[3] = {0,0,0};
-		double posBodyCOMGlobal[3];
-		double posPointRelBodyCOMGlobal[3];
-		double posPointRelBodyCOMLocal[3];
-		double pointGlobal[3];
-		double velGlobal[3];
+		_model->getPosition(_body,&pLocal[0],&pGlobal[0]);
+		_model->getVelocity(_body,&origin[0],&vcomGlobal[0]);
+		_model->transform(_body,&vLocal[0],ground,&vLocal[0]);
+		rdMtx::Add(1,3,&vcomGlobal[0],&vLocal[0],&vGlobal[0]);
 
-		if(_inputPositionsInLocalFrame == false){
-			for(i=0;i<3;i++){
-				pointGlobal[i] = _point[i];
-			}
-			_model->getPosition(_body,posBodyCOMLocal,posBodyCOMGlobal);
-			rdMtx::Subtract(1,3,_point,posBodyCOMGlobal,posPointRelBodyCOMGlobal);
-			_model->transform(ground,posPointRelBodyCOMGlobal,_body,posPointRelBodyCOMLocal);
-			setPoint(posPointRelBodyCOMLocal);
-		} else {
-			_model->getPosition(_body,_point,pointGlobal);
-		}
-		_model->getVelocity(_body,_point,velGlobal);
-
-		//CALCULATE FORCE AND APPLY
-		double difPos[3];
-		double difVel[3];
-		double force[3];
-		double scaleFactor;
-
+	
 		if(_scaleFunction != NULL){
 			scaleFactor = _scaleFunction->evaluate(0,aT*_model->getTimeNormConstant());
 			setScaleFactor(scaleFactor);
 		}
-//		rdMtx::Subtract(1,3,targetPos,pointGlobal,difPos);
-//		rdMtx::Subtract(1,3,targetVel,velGlobal,difVel);
-		rdMtx::Subtract(1,3,pointGlobal,targetPos,difPos);
-		rdMtx::Subtract(1,3,velGlobal,targetVel,difVel);
+		rdMtx::Subtract(1,3,&pTarget[0],&pGlobal[0],dx);
+		rdMtx::Subtract(1,3,&vTarget[0],&vGlobal[0],dv);
 
 		for(i=0;i<3;i++){
-			force[i] = _scaleFactor*(-_k[i]*difPos[i] - _b[i]*difVel[i]);
+			force[i] = _scaleFactor*(_k[i]*dx[i] + _b[i]*dv[i]);
 		}
 		setForce(force);
-		_model->applyForce(_body,_point,_force);
-		_appliedForceStore->append(aT,3,_force);
+		_model->applyForce(_body,&pLocal[0],force);
 
+		_appliedForceStore->append(aT,3,_force);
 	}	
 }
 

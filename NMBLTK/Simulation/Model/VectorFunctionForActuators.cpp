@@ -304,4 +304,30 @@ evaluate(const double *aX,double *rF)
 		rF[i] = model->getActuatorForce(i) - _f[i];
 	}
 }
+//_____________________________________________________________________________
+/**
+ * Evaluate the vector function.
+ *
+ * @param aX Array of controls.
+ * @param aF Array of actuator force differences.
+ */
+void VectorFunctionForActuators::
+evaluate(const rdArray<double> &aX,rdArray<double> &rF)
+{
+	evaluate(&aX[0],&rF[0]);
+}
+//_____________________________________________________________________________
+/**
+ * Evaluate the vector function.
+ *
+ * @param aX Array of controls.
+ * @param aF Array of actuator force differences.
+ */
+void VectorFunctionForActuators::
+evaluate(const rdArray<double> &aX,rdArray<double> &rF,
+			const rdArray<int> &aDerivWRT)
+{
+	cout<<"\n\nVectorFunctionForActuators.evaluate:  ";
+	cout<<"Stupid Head! What are you trying to do?\n\n";
+}
 

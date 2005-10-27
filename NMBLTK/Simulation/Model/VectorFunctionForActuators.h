@@ -89,6 +89,9 @@ public:
 	// EVALUATE
 	//--------------------------------------------------------------------------
 	virtual void evaluate(const double *aX,double *aY);
+	virtual void evaluate(const rdArray<double> &aX,rdArray<double> &rY);
+	virtual void evaluate(const rdArray<double> &aX,rdArray<double> &rY,
+		const rdArray<int> &aDerivWRT);
 
 //=============================================================================
 };	// END class VectorFunctionForActuators
