@@ -60,6 +60,8 @@ setNull()
 	_target = NULL;
 	_scaleFunction = NULL;
 	_scaleFactor = 1.0;
+	_k[0] = _k[1] = _k[2] = 0.0;
+	_b[0] = _b[1] = _b[2] = 0.0;
 }
 
 //=============================================================================
@@ -228,6 +230,7 @@ applyActuation(double aT,double *aX,double *aY)
 	rdArray<int> derivWRT(0,1);
 	rdArray<double> origin(0.0,3);
 	rdArray<double> vcomGlobal(0.0,3);
+	rdArray<double> vpGlobal(0.0,3),vLocalGlobal(0.0,3);
 	rdArray<double> treal(0.0,1);
 	rdArray<double> pLocal(0.0,3);
 	rdArray<double> vLocal(0.0,3);
@@ -261,9 +264,9 @@ applyActuation(double aT,double *aX,double *aY)
 
 		// GET GLOBAL POSITION AND VELOCITY
 		_model->getPosition(_body,&pLocal[0],&pGlobal[0]);
-		_model->getVelocity(_body,&origin[0],&vcomGlobal[0]);
-		_model->transform(_body,&vLocal[0],ground,&vLocal[0]);
-		rdMtx::Add(1,3,&vcomGlobal[0],&vLocal[0],&vGlobal[0]);
+		_model->getVelocity(_body,&pLocal[0],&vpGlobal[0]);
+		_model->transform(_body,&vLocal[0],ground,&vLocalGlobal[0]);
+		rdMtx::Add(1,3,&vpGlobal[0],&vLocalGlobal[0],&vGlobal[0]);
 
 	
 		if(_scaleFunction != NULL){
