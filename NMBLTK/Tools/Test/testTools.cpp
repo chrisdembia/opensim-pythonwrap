@@ -125,6 +125,11 @@ void TestRootSolver()
 	cout<<endl<<endl<<"-------------"<<endl;
 	cout<<"roots:\n";
 	cout<<roots<<endl<<endl;
+	bool success = true;
+	for (int i=0; i <= 100 && success; i++){
+		success = (i*0.01 == roots[i]);
+	}
+	exit(success?1:0);
 }
 
 //_____________________________________________________________________________
