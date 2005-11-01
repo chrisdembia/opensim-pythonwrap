@@ -45,8 +45,7 @@ void TestProperty();
 void TestPropertySet();
 void TestSerialization();
 void TestSignal();
-void TestRootSolver();
-
+int TestRootSolver();
 //_____________________________________________________________________________
 /**
  * Test the rdTools library.
@@ -92,9 +91,8 @@ int main(int argc, char* argv[])
 	//TestSignal();
 
 	// ROOT SOLVER
-	TestRootSolver();
 
-	return(0);
+	return(TestRootSolver());
 }
 
 
@@ -102,7 +100,7 @@ int main(int argc, char* argv[])
 /**
  * Test the RootSolver class.
  */
-void TestRootSolver()
+int TestRootSolver()
 {
 	// CONSTRUCT THE UNCOUPLED VECTOR FUNCTION
 	int N = 101;
@@ -127,9 +125,9 @@ void TestRootSolver()
 	cout<<roots<<endl<<endl;
 	bool success = true;
 	for (int i=0; i <= 100 && success; i++){
-		success = (i*0.01 == roots[i]);
+		success = (fabs(i*0.01 - roots[i])<1e-6);
 	}
-	exit(success?1:0);
+	return(success?0:1);
 }
 
 //_____________________________________________________________________________
