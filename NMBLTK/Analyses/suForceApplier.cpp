@@ -409,7 +409,6 @@ computePointFunction(
 	rdArray<double> vGlobal(0.0,3),vLocal(0.0,3);
 	rdStorage pStore,vStore;
 	for(i=0;i<size;i++) {
-
 		// Set the model state
 		aQStore->getTime(i,*(&t[0]));
 		aQStore->getData(i,nq,&q[0]);
@@ -422,18 +421,26 @@ computePointFunction(
 		rdMtx::Subtract(1,3,&pGlobal[0],&comGlobal[0],&pLocal[0]);
 		_model->transform(ground,&pLocal[0],_body,&pLocal[0]);
 		pStore.append(t[0],3,&pLocal[0]);
-
 	}
 
 	// CREATE POSITION FUNCTION
 	double *time=NULL;
 	double *p0=0,*p1=0,*p2=0;
+	int padSize = size / 2;
+	if(padSize>100) padSize = 100;
+	pStore.pad(padSize);
 	size = pStore.getTimeColumn(time);
 	pStore.getDataColumn(0,p0);
 	pStore.getDataColumn(1,p1);
 	pStore.getDataColumn(2,p2);
-	rdVectorGCVSplineR1R3 *pFunc = new rdVectorGCVSplineR1R3(5,size,time,p0,p1,p2);
+	rdVectorGCVSplineR1R3 *pFunc = new rdVectorGCVSplineR1R3(3,size,time,p0,p1,p2);
 	setPointFunction(pFunc);
+
+	for(i=0;i<size;i++) {
+		aQStore->getTime(i,*(&t[0]));
+		pFunc->evaluate(t,pLocal);
+		pFunc->evaluate(t,vLocal,derivWRT);
+	}
 }
 
 
