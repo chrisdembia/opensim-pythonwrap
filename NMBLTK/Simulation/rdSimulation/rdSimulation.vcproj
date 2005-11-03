@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation,C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Model,C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Control,C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Integrator,C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Manager"
+				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;RDSIMULATION_EXPORTS"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
