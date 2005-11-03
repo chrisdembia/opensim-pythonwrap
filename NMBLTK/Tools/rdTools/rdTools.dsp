@@ -112,10 +112,6 @@ SOURCE=..\gcvspl.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\rd1to3VectorGCVSpline.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\rdBodyConstraint.cpp
 # End Source File
 # Begin Source File
@@ -276,6 +272,10 @@ SOURCE=..\rdVectorFunction.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\rdVectorGCVSplineR1R3.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\rdVisibleObject.cpp
 # End Source File
 # Begin Source File
@@ -313,10 +313,6 @@ SOURCE=..\VectorFunctionUncoupledNxN.cpp
 # Begin Source File
 
 SOURCE=..\gcvspl.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\rd1to3VectorGCVSpline.h
 # End Source File
 # Begin Source File
 
@@ -493,6 +489,10 @@ SOURCE=..\rdTransform.h
 # Begin Source File
 
 SOURCE=..\rdVectorFunction.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\rdVectorGCVSplineR1R3.h
 # End Source File
 # Begin Source File
 
