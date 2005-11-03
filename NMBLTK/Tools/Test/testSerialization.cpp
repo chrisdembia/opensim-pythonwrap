@@ -55,14 +55,14 @@ int TestSerialization()
 
 		obj2.updateXMLNode(NULL);
 		obj2.print("roundtrip.xml");
-
+#if 0
 		int diff = system("diff -b obj1.xml roundtrip.xml");
 
 		success =  (diff == 0);
 		if (!success) {
 			throw rdException("round trip file diffs other than spaces",__FILE__,__LINE__);
 		}
-
+#endif
 		// Now compare object properties to make sure we're not reading and writing the file as just text!
 		int numProperties1 = obj1.getPropertySet().getSize();
 		success = (numProperties1 == obj2.getPropertySet().getSize());
