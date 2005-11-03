@@ -2118,32 +2118,13 @@ pad(int aPadSize)
 	double *time=NULL;
 	int n = getTimeColumn(time);
 
-	// DETERMINE MINIMUM DT
-	int i,j;
-	double dt, dtmin = rdMath::PLUS_INFINITY;
-	for(i=1;i<n;i++) {
-		dt = time[i] - time[i-1];
-		if(dt<dtmin) dtmin = dt;
-	}
-	if(dtmin<rdMath::ZERO) {
-		cout<<"rdStorage.lowpassFIR: storage cannot be resampled.\n"<<endl;
-		return;
-	}
-
-	// RESAMPLE
-	//resample(dtmin,5);
-	//int size = getSize();
-	//if(size<=aPadSize) {
-	//	cout<<"rdStorage.lowpassFIR: too few data points to filter.\n";
-	//	return;
-	//}
-
 	// PAD THE TIME COLUMN
 	delete[] time;  time = NULL;
 	int size = getTimeColumn(time);
 	double *paddedTime = rdSignal::Pad(aPadSize,size,time);
 
 	// PAD EACH COLUMN
+	int i,j;
 	int nc = getSmallestNumberOfStates();
 	double *signal=NULL;
 	double **paddedSignals = new double*[nc];
