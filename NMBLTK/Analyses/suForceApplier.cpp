@@ -426,7 +426,7 @@ computePointFunction(
 	// CREATE POSITION FUNCTION
 	double *time=NULL;
 	double *p0=0,*p1=0,*p2=0;
-	int padSize = size / 2;
+	int padSize = size / 4;
 	if(padSize>100) padSize = 100;
 	pStore.pad(padSize);
 	size = pStore.getTimeColumn(time);
