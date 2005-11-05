@@ -37,11 +37,14 @@ class SUANALYSES_API suLinearSpring : public suForceApplier
 // DATA
 //=============================================================================
 protected:
-	/** Vector function containing target trajectory of the point expressed in
-		the global reference frame. */
-	rdVectorFunction* _target;
+	/** Vector function containing the target position of the point expressed
+	in the global reference frame. */
+	rdVectorFunction *_targetPosition;
+	/** Vector function containing the target velocity of the point expressed
+	in  the global reference frame. */
+	rdVectorFunction *_targetVelocity;
 	/** Function containing values for the time-dependent scaling factor. */
-	rdFunction* _scaleFunction;
+	rdFunction *_scaleFunction;
 	/** Scale factor that pre-multiplies the applied torque */
 	double _scaleFactor;
 	double _k[3];
@@ -61,8 +64,10 @@ public:
 	//--------------------------------------------------------------------------
 	// GET AND SET
 	//--------------------------------------------------------------------------
-	void setTarget(rdVectorFunction* aTarget);
-	rdVectorFunction* getTarget() const;
+	void setTargetPosition(rdVectorFunction* aTargetVelocity);
+	rdVectorFunction* getTargetPosition() const;
+	void setTargetVelocity(rdVectorFunction* aTargetVelocity);
+	rdVectorFunction* getTargetVelocity() const;
 	void setKValue(double aK[3]);
 	void getKValue(double aK[3]);
 	void setBValue(double aB[3]);
@@ -72,6 +77,13 @@ public:
 	void setScaleFactor(double aScaleFactor);
 	double getScaleFactor();
 	
+	//--------------------------------------------------------------------------
+	// UTILITY
+	//--------------------------------------------------------------------------
+	void
+		computePointAndTargetFunctions(rdStorage *aQStore,rdStorage *aUStore,
+		rdVectorFunction &aPGlobal);
+
 	//--------------------------------------------------------------------------
 	// CALLBACKS
 	//--------------------------------------------------------------------------

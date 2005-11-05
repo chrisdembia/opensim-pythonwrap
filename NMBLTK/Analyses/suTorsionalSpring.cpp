@@ -15,6 +15,7 @@
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdMtx.h>
 #include <NMBLTK/Tools/rdTools.h>
+#include <NMBLTK/Tools/rdVectorGCVSplineR1R3.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
 #include <NMBLTK/Tools/rdFunctionSet.h>
 #include "suTorsionalSpring.h"
@@ -35,58 +36,16 @@ suTorsionalSpring::~suTorsionalSpring()
  * during an integration.
  *
  * @param aModel Model for which external torques are to be applied.
- */
-suTorsionalSpring::
-suTorsionalSpring(rdModel *aModel) : 
-	suTorqueApplier(aModel)
-{
-	setNull();
-
-	// BASE-CLASS MEMBER VARIABLES
-	setType("suTorsionalSpring");
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external torques
- * during an integration.
- *
- * @param aModel Model for which external torques are to be applied.
  * @param aBody Body to which external torques are to be applied.
  */
 suTorsionalSpring::
 suTorsionalSpring(rdModel *aModel,int aBody) : 
-	suTorqueApplier(aModel)
+	suTorqueApplier(aModel,aBody)
 {
 	setNull();
 
 	// MEMBER VARIABLES
 	setBody(aBody);
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external torques
- * during an integration.
- *
- * @param aModel Model for which external torques are to be applied.
- * @param aBody Body to which external torques are to be applied.
- * @param aTorque Torque to be applied expressed in global coordinates.
- */
-suTorsionalSpring::
-suTorsionalSpring(rdModel *aModel,int aBody,rdVectorFunction *aPosFunction,
-		rdVectorFunction *aVelFunction, double aK[3], double aB[3]) : 
-	suTorqueApplier(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setPosFunction(aPosFunction);
-	setVelFunction(aVelFunction);
-	setKValue(aK);
-	setBValue(aB);
-
 }
 
 //_____________________________________________________________________________
@@ -97,8 +56,8 @@ void suTorsionalSpring::
 setNull()
 {
 	setType("suTorsionalSpring");
-	_posFunction = NULL;
-	_velFunction = NULL;
+	_targetPosition = NULL;
+	_targetVelocity = NULL;
 	_k[0] = _k[1] = _k[2] = 0.0;
 	_b[0] = _b[1] = _b[2] = 0.0;
 	_scaleFunction = NULL;
@@ -108,7 +67,6 @@ setNull()
 //=============================================================================
 // GET AND SET
 //=============================================================================
-
 //-----------------------------------------------------------------------------
 // POSITION VECTOR FUNCTION
 //-----------------------------------------------------------------------------
@@ -120,9 +78,9 @@ setNull()
  * the body in the intertial reference frame.
  */
 void suTorsionalSpring::
-setPosFunction(rdVectorFunction* aPosFunction)
+setTargetPosition(rdVectorFunction* aPosFunction)
 {
-	_posFunction = aPosFunction;
+	_targetPosition = aPosFunction;
 }
 //_____________________________________________________________________________
 /**
@@ -131,9 +89,9 @@ setPosFunction(rdVectorFunction* aPosFunction)
  * @return aPosFunction.
  */
 rdVectorFunction* suTorsionalSpring::
-getPosFunction() const
+getTargetPosition() const
 {
-	return(_posFunction);
+	return(_targetPosition);
 }
 
 //-----------------------------------------------------------------------------
@@ -147,9 +105,9 @@ getPosFunction() const
  * the body in the intertial reference frame.
  */
 void suTorsionalSpring::
-setVelFunction(rdVectorFunction* aVelFunction)
+setTargetVelocity(rdVectorFunction* aVelFunction)
 {
-	_velFunction = aVelFunction;
+	_targetVelocity = aVelFunction;
 }
 //_____________________________________________________________________________
 /**
@@ -158,9 +116,9 @@ setVelFunction(rdVectorFunction* aVelFunction)
  * @return aVelFunction.
  */
 rdVectorFunction* suTorsionalSpring::
-getVelFunction() const
+getTargetVelocity() const
 {
-	return(_velFunction);
+	return(_targetVelocity);
 }
 
 //-----------------------------------------------------------------------------
@@ -274,6 +232,81 @@ getScaleFactor()
 
 
 //=============================================================================
+// UTILITY
+//=============================================================================
+//_____________________________________________________________________________
+/**
+ * Compute the target orientation and angular velocity of the body.
+ * A spring force is applied based on the difference between the body's
+ * actual orientation and angular velocities and corresponding target
+ * values.  The target orientation and angular velocity are computed
+ * with respect to the global frame.
+ *
+ * @param aQStore Storage containing the time history of generalized
+ * coordinates for the model. Note that all generalized coordinates must
+ * be specified and in radians and Euler parameters.
+ * @param aUStore Stoarge containing the time history of generalized
+ * speeds for the model.  Note that all generalized speeds must
+ * be specified and in radians.
+ */
+void suTorsionalSpring::
+computeTargetFunctions(rdStorage *aQStore,rdStorage *aUStore)
+{
+	int i;
+	int nq = _model->getNQ();
+	int nu = _model->getNU();
+	double t;
+	rdArray<double> q(0.0,nq),u(0.0,nu);
+	double dirCos[9],ang[3],angVel[3];
+	rdStorage angStore,angVelStore;
+
+	// CREATE THE TARGET POSITION AND VELOCITY FUNCTIONS
+	int size = aQStore->getSize();
+	for(i=0;i<size;i++) {
+		// Set the model state
+		aQStore->getTime(i,t);
+		aQStore->getData(i,nq,&q[0]);
+		aUStore->getData(i,nu,&u[0]);
+		_model->setConfiguration(&q[0],&u[0]);
+
+		// Get global position and velocity
+		_model->getDirectionCosines(_body,dirCos);
+		_model->convertDirectionCosinesToAngles(dirCos,&ang[0],&ang[1],&ang[2]);
+		_model->getAngularVelocity(_body,angVel);
+
+		// Append to storage
+		angStore.append(t,3,ang);
+		angVelStore.append(t,3,angVel);
+	}
+
+	// CREATE TARGET FUNCTIONS
+	// Position
+	size = angStore.getSize();
+	int padSize = size / 4;
+	if(padSize>100) padSize = 100;
+	double *time=NULL;
+	double *pg0=0,*pg1=0,*pg2=0;
+	angStore.pad(padSize);
+	size = angStore.getTimeColumn(time);
+	angStore.getDataColumn(0,pg0);
+	angStore.getDataColumn(1,pg1);
+	angStore.getDataColumn(2,pg2);
+	rdVectorGCVSplineR1R3 *angFunc = new rdVectorGCVSplineR1R3(3,size,time,pg0,pg1,pg2);
+	setTargetPosition(angFunc);
+	// Velocity
+	if(time!=NULL) { delete[] time; time=NULL; }
+	double *vg0=0,*vg1=0,*vg2=0;
+	angVelStore.pad(padSize);
+	size = angVelStore.getTimeColumn(time);
+	angVelStore.getDataColumn(0,vg0);
+	angVelStore.getDataColumn(1,vg1);
+	angVelStore.getDataColumn(2,vg2);
+	rdVectorGCVSplineR1R3 *angVelFunc = new rdVectorGCVSplineR1R3(3,size,time,vg0,vg1,vg2);
+	setTargetVelocity(angVelFunc);
+}
+
+
+//=============================================================================
 // CALLBACKS
 //=============================================================================
 //_____________________________________________________________________________
@@ -308,11 +341,11 @@ applyActuation(double aT,double *aX,double *aY)
 		double difDirCos[9];
 		double difAng[3];
 		double eulerAngle[3];
-		_posFunction->evaluate(&time,eulerAngle);
+		_targetPosition->evaluate(&time,eulerAngle);
 
 		_model->convertAnglesToDirectionCosines(eulerAngle[0],eulerAngle[1],
-			eulerAngle[2], nomDirCos);
-		_model->getDirectionCosines(_body, curDirCos);
+			eulerAngle[2],nomDirCos);
+		_model->getDirectionCosines(_body,curDirCos);
 		rdMtx::Transpose(3,3,curDirCos,curDirCos);
 		rdMtx::Multiply(3,3,3,curDirCos,nomDirCos,difDirCos);
 		_model->convertDirectionCosinesToAngles(difDirCos,&difAng[0],&difAng[1],&difAng[2]);
@@ -324,7 +357,7 @@ applyActuation(double aT,double *aX,double *aY)
 		double difAngVel[3];
 		double difQDot[3];
 		double eulerTransform[9];
-		_velFunction->evaluate(&time,nomAngVel); //NEEDS TO BE IN GLOBAL COORDS
+		_targetVelocity->evaluate(&time,nomAngVel); //NEEDS TO BE IN GLOBAL COORDS
 		_model->getAngularVelocity(_body,curAngVel);  //EXPRESSED IN GLOBAL COORDS
 		rdMtx::Subtract(3,1,curAngVel,nomAngVel,difAngVel);
 //		rdMtx::Subtract(3,1,nomAngVel,curAngVel,difAngVel);

@@ -36,30 +36,6 @@ suTorqueApplier::~suTorqueApplier()
  * during an integration.
  *
  * @param aModel Model for which external torques are to be applied.
- */
-suTorqueApplier::
-suTorqueApplier(rdModel *aModel) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// BASE-CLASS MEMBER VARIABLES
-	setType("suTorqueApplier");
-
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external torques
- * during an integration.
- *
- * @param aModel Model for which external torques are to be applied.
  * @param aBody Body to which external torques are to be applied.
  */
 suTorqueApplier::
@@ -79,126 +55,6 @@ suTorqueApplier(rdModel *aModel,int aBody) :
 	constructColumnLabels();
 }
 
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external torques
- * during an integration.
- *
- * @param aModel Model for which external torques are to be applied.
- * @param aBody Body to which external torques are to be applied.
- * @param aTorque Torque to be applied.  This torque can be expressed in 
- *  either global or local coordinates, but be sure that _inputTorquesInGlobalFrame
- *  is set correctly.
- */
-suTorqueApplier::
-suTorqueApplier(rdModel *aModel,int aBody,double aTorque[3]) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setTorque(aTorque);
-
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external torques
- * during an integration.
- *
- * @param aModel Model for which external torques are to be applied.
- * @param aBody Body to which external torques are to be applied.
- * @param aTorqueFunction Vector function containing (t,x,y,z) of torque to be applied.  
- *  This torque can be expressed in either global or local coordinates, but be sure 
- *  that _inputTorquesInGlobalFrame is set correctly.
- */
-suTorqueApplier::
-suTorqueApplier(rdModel *aModel,int aBody,rdVectorFunction* aTorqueFunction) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setTorqueFunction(aTorqueFunction);
-
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-
-}
-
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external torques
- * during an integration. 
- *
- * @param aModel Model for which external torques are to be applied.
- * @param aBody Body to which external torques are to be applied.
- * @param aTorqueStorage rdStorage containing (t,x,y,z) of torque to be applied.  
- *  This torque can be expressed in either global or local coordinates, but be sure 
- *  that _inputTorquesInGlobalFrame is set correctly.
- */
-suTorqueApplier::
-suTorqueApplier(rdModel *aModel,int aBody,rdStorage* aTorqueStorage) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setTorqueStorage(aTorqueStorage);
-
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-}
-//_____________________________________________________________________________
-/**
- * Construct a derivative callback instance for applying external torques
- * during an integration.
- *
- * @param aModel Model for which external torques are to be applied.
- * @param aBody Body to which external torques are to be applied.
- * @param aTorqueFunction Vector function containing (t,x,y,z) of torque to be applied.  
- *  This torque can be expressed in either global or local coordinates, but be sure 
- *  that _inputTorquesInGlobalFrame is set correctly.
- */
-suTorqueApplier::
-suTorqueApplier(rdModel *aModel,int aBody,rdFunctionSet* aTorqueSet) :
-	rdDerivCallback(aModel)
-{
-	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
-	setTorqueSet(aTorqueSet);
-
-	// STORAGE
-	allocateStorage();
-
-	// DESCRIPTION AND LABELS
-	constructDescription();
-	constructColumnLabels();
-
-}
-
 //=============================================================================
 // CONSTRUCTION METHODS
 //=============================================================================
@@ -212,12 +68,9 @@ setNull()
 	setType("suTorqueApplier");
 	_body = 0;	
 	_torque[0] = _torque[1] = _torque[2] = 0.0;
-	setStartTime(0.0);
-	setEndTime(1.0);
 	_torqueFunction = NULL;
-	_torqueStorage = NULL;
-	_torqueSet = NULL;
 	_inputTorquesInGlobalFrame = true;
+	_appliedTorqueStore = NULL;
 }
 //_____________________________________________________________________________
 /**
@@ -373,64 +226,6 @@ getTorqueFunction() const
 	return(_torqueFunction);
 }
 
-
-//-----------------------------------------------------------------------------
-// TORQUESTORAGE
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the rdStorage containing the (t,x,y,z) of the torque
- * to applied.
- *
- * @param aTorqueStorage rdStorage containing  the torque to applied
- * in global coordinates.
- */
-void suTorqueApplier::
-setTorqueStorage(rdStorage* aTorqueStorage)
-{
-	_torqueStorage = aTorqueStorage;
-}
-//_____________________________________________________________________________
-/**
- * Get the rdStoarge containing the (t,x,y,z) of the torque
- * to applied.
- *
- * @return aTorqueStorage.
- */
-rdStorage* suTorqueApplier::
-getTorqueStorage() const
-{
-	return(_torqueStorage);
-}
-//-----------------------------------------------------------------------------
-// TORQUE SET
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the vector function containing the (t,x,y,z) of the torque
- * to applied.
- *
- * @param aTorqueFunction Vector function describing the torque to applied
- * in global coordinates.
- */
-void suTorqueApplier::
-setTorqueSet(rdFunctionSet* aTorqueSet)
-{
-	_torqueSet = aTorqueSet;
-}
-//_____________________________________________________________________________
-/**
- * Get the vector function containing the (t,x,y,z) of the torque
- * to applied.
- *
- * @return rTorqueFunction.
- */
-rdFunctionSet* suTorqueApplier::
-getTorqueSet() const
-{
-	return(_torqueSet);
-}
-
 //-----------------------------------------------------------------------------
 // APPLIED TORQUE STORAGE
 //-----------------------------------------------------------------------------
@@ -506,7 +301,6 @@ getInputTorquesInGlobalFrame() const
 void suTorqueApplier::
 applyActuation(double aT,double *aX,double *aY)
 {
-	int i;
 	double torque[3] = {0,0,0};
 	const int ground = _model->getGroundID();
 	double treal = aT*_model->getTimeNormConstant();
@@ -523,19 +317,7 @@ applyActuation(double aT,double *aX,double *aY)
 			_torqueFunction->evaluate(&treal,torque);
 			setTorque(torque);
 		}
-
-		if(_torqueSet!=NULL) {
-			for(i=0;i<3;i++){
-				torque[i] =_torqueSet->evaluate(i,0,aT*_model->getTimeNormConstant());
-			}
-			setTorque(torque);
-		}
-
-		if(_torqueStorage!=NULL) {
-			_torqueStorage->getDataAtTime(aT*_model->getTimeNormConstant(),3,torque);
-			setTorque(torque);
-		}
-		
+	
 		if(_inputTorquesInGlobalFrame == false){
 			_model->applyTorqueBodyLocal(_body,_torque);
 		} else {

@@ -42,27 +42,16 @@ protected:
 	double _torque[3];
 	/** Vector function containing torque to be applied (t,x,y,z). */
 	rdVectorFunction* _torqueFunction;
-	/** rdStorage containing torque to be applied (t,x,y,z). */
-	rdStorage* _torqueStorage;	
-	/** FunctionSet containing torque to be applied (t,x,y,z). */
-	rdFunctionSet* _torqueSet;
-	/** Storage for the torque that was actually applied during the simulation */
-	rdStorage *_appliedTorqueStore;
 	/** Flag to set reference frame of input torque */
 	bool _inputTorquesInGlobalFrame;
-
-
+	/** Storage for the torque that was actually applied during the simulation */
+	rdStorage *_appliedTorqueStore;
 
 //=============================================================================
 // METHODS
 //=============================================================================
 public:
-	suTorqueApplier(rdModel *aModel);	
 	suTorqueApplier(rdModel *aModel,int aBody);
-	suTorqueApplier(rdModel *aModel,int aBody,double aTorque[3]);
-	suTorqueApplier(rdModel *aModel,int aBody,rdVectorFunction* aTorqueFunction);
-	suTorqueApplier(rdModel *aModel,int aBody,rdStorage* aTorqueStorage);
-	suTorqueApplier(rdModel *aModel,int aBody,rdFunctionSet* aTorqueSet);
 	virtual ~suTorqueApplier();
 private:
 	void setNull();
@@ -79,18 +68,15 @@ public:
 	int getBody() const;
 	void setTorque(double aTorque[3]);
 	void getTorque(double rPoint[3]) const;
+
 	void setTorqueFunction(rdVectorFunction* aTorqueFunction);
 	rdVectorFunction* getTorqueFunction() const;
-	void setTorqueStorage(rdStorage* aTorqueStorage);
-	rdStorage* getTorqueStorage() const;
-	void setTorqueSet(rdFunctionSet* aTorqueSet);
-	rdFunctionSet* getTorqueSet() const;
+
 	rdStorage* getAppliedTorqueStorage();
 	void setStorageCapacityIncrements(int aIncrement);
+
 	void setInputTorquesInGlobalFrame(bool aTrueFalse);
 	bool getInputTorquesInGlobalFrame() const;
-
-
 	
 	//--------------------------------------------------------------------------
 	// CALLBACKS

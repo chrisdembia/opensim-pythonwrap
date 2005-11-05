@@ -39,13 +39,12 @@ class SUANALYSES_API suTorsionalSpring : public suTorqueApplier
 // DATA
 //=============================================================================
 protected:
-	/** Vector function containing nominal Euler angles of body. */
-	rdVectorFunction* _posFunction;
-	/** Vector function containing nominal angular velocity of body, expressed
-		 in global coordinates. */
-	rdVectorFunction* _velFunction;
+	/** Vector function containing target orientation of the body. */
+	rdVectorFunction *_targetPosition;
+	/** Vector function containing target angular velocity of the body. */
+	rdVectorFunction *_targetVelocity;
 	/** Function containing values for the time-dependent torque scaling factor. */
-	rdFunction* _scaleFunction;
+	rdFunction *_scaleFunction;
 	/** Scale factor that pre-multiplies the applied torque */
 	double _scaleFactor;
 	double _k[3];
@@ -55,10 +54,7 @@ protected:
 // METHODS
 //=============================================================================
 public:
-	suTorsionalSpring(rdModel *aModel);	
 	suTorsionalSpring(rdModel *aModel,int aBody);
-	suTorsionalSpring(rdModel *aModel,int aBody,rdVectorFunction *aPosFunction,
-		rdVectorFunction *aVelFunction, double aK[3], double aB[3]);
 	virtual ~suTorsionalSpring();
 private:
 	void setNull();
@@ -67,19 +63,25 @@ public:
 	//--------------------------------------------------------------------------
 	// GET AND SET
 	//--------------------------------------------------------------------------
-	void setPosFunction(rdVectorFunction* aPosFunction);
-	rdVectorFunction* getPosFunction() const;
-	void setVelFunction(rdVectorFunction* aVelFunction);
-	rdVectorFunction* getVelFunction() const;
+	void setTargetPosition(rdVectorFunction* aPosFunction);
+	rdVectorFunction* getTargetPosition() const;
+	void setTargetVelocity(rdVectorFunction* aVelFunction);
+	rdVectorFunction* getTargetVelocity() const;
 	void setKValue(double aK[3]);
 	void getKValue(double aK[3]);
 	void setBValue(double aB[3]);
 	void getBValue(double aB[3]);
+
 	void setScaleFunction(rdFunction* _scaleFunction);
 	rdFunction* getScaleFunction() const;
+
 	void setScaleFactor(double aScaleFactor);
 	double getScaleFactor();
 
+	//--------------------------------------------------------------------------
+	// UTILITY
+	//--------------------------------------------------------------------------
+	void computeTargetFunctions(rdStorage *aQStore,rdStorage *aUStore);
 	
 	//--------------------------------------------------------------------------
 	// CALLBACKS
