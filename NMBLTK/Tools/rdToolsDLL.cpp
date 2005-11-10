@@ -11,6 +11,8 @@
 #include "rdToolsDLL.h"
 #include <iostream>
 
+#ifdef WIN32
+
 using namespace std;
 
 
@@ -52,3 +54,4 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 
     return(TRUE);
 }
+#endif

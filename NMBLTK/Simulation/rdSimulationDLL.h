@@ -10,7 +10,7 @@
 #define __rdSimulationDLL_h__
 
 // UNIX PLATFORM
-#ifdef UNIX
+#ifndef WIN32
 
 #define RDSIMULATION_API
 

@@ -13,6 +13,7 @@
 //=============================================================================
 #include "rdActuatorsDLL.h"
 
+#ifdef WIN32
 
 //=============================================================================
 // DLL Main Entry Point
@@ -39,4 +40,4 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 
     return TRUE;
 }
-
+#endif

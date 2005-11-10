@@ -13,7 +13,7 @@
 
 // IMPORT AND EXPORT
 // UNIX
-#ifdef UNIX
+#ifndef WIN32
 
 	#define RDTOOLS_API
 

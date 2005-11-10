@@ -11,7 +11,7 @@
 
 
 // UNIX PLATFORM
-#ifdef UNIX
+#ifndef WIN32
 
 #define RDSDFAST_API
 

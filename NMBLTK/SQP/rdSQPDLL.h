@@ -10,7 +10,7 @@
 #define __rdSQPDLL_h__
 
 // UNIX PLATFORM
-#ifdef UNIX
+#ifndef WIN32
 
 #define RDSQP_API
 

@@ -10,7 +10,7 @@
 #define __rdActuatorsDLL_h__
 
 // UNIX PLATFORM
-#ifdef UNIX
+#ifndef WIN32
 
 #define RDACTUATORS_API
 

@@ -10,7 +10,7 @@
 #define __rdManagerDLL_h__
 
 // UNIX
-#ifdef UNIX
+#ifndef WIN32
 
 #define RDMANAGER_API
 

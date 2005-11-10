@@ -1,7 +1,7 @@
 // sdfast.h
 #include <stdio.h>
 
-#ifdef UNIX
+#ifndef WIN32
 #define __stdcall
 #endif
 

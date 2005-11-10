@@ -4,7 +4,7 @@
 
 
 // UNIX PLATFORM
-#ifdef UNIX
+#ifndef WIN32
 
 #define SUCFSQP_API 
 

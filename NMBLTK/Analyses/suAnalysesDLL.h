@@ -6,7 +6,7 @@
 #define __suAnalysesDLL_h__
 
 // UNIX PLATFORM
-#ifdef UNIX
+#ifndef WIN32
 
 #define SUANALYSES_API
 
