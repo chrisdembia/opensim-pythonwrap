@@ -16,13 +16,6 @@
 #include <NMBLTK/Tools/rdSet.h>
 
 
-// EXPORT LINE FOR MICROSOFT VISUAL C++
-#ifndef SWIG
-#ifndef UNIX
-//template class RDTOOLS_API rdArray<int>;
-#endif
-#endif
-
 template class RDSIMULATION_API rdSet<rdControl>;
 
 

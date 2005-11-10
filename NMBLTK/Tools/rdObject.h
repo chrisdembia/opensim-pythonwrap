@@ -9,7 +9,7 @@
 #ifndef __rdObject_h__
 #define __rdObject_h__
 
-#ifndef UNIX
+#ifdef WIN32
 #pragma warning( disable : 4251 )
 #pragma warning( disable : 4786 )
 #pragma warning( disable : 4660 )
@@ -30,7 +30,7 @@
 
 
 // EXPORT LINE FOR MICROSOFT VISUAL C++
-#ifndef UNIX
+#ifdef WIN32
 #ifndef SWIG
 template class RDTOOLS_API rdArrayPtrs<rdObject>;
 #endif

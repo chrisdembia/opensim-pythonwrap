@@ -24,7 +24,7 @@
 #endif
 
 #ifndef SWIG
-#ifndef UNIX
+#ifdef WIN32
 template class RDTOOLS_API rdArrayPtrs<rdProperty>;
 #endif
 #endif

@@ -13,7 +13,7 @@ class rdObject;
 
 
 // EXPORT LINE FOR MICROSOFT VISUAL C++
-#ifndef UNIX
+#ifdef WIN32
 #ifndef SWIG
 template class RDTOOLS_API rdArrayPtrs<rdObject>;
 #endif

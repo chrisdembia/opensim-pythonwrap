@@ -30,7 +30,7 @@
 #include "rdMaterial.h"
 
 
-#ifndef UNIX
+#ifdef WIN32
 
 extern template class RDTOOLS_API rdArray<bool>;
 extern template class RDTOOLS_API rdArray<int>;
@@ -42,7 +42,7 @@ extern template class RDTOOLS_API rdNamedValueArray<double>;
 
 extern template class RDTOOLS_API rdSet<rdMaterial>;
 
-#endif  // UNIX
+#endif  // WIN32
 
 
 #endif  // __rdToolsTemplates_h__

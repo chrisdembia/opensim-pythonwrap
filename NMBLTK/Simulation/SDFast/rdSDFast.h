@@ -22,7 +22,7 @@
 		#define RDSDFAST_API
 	#endif
 #endif
-#ifndef UNIX
+#ifdef WIN32
   #ifndef SWIG
 	//template class RDTOOLS_API rdNamedValueArray<double>;
 	//template class RDTOOLS_API rdNamedValueArray<int>;

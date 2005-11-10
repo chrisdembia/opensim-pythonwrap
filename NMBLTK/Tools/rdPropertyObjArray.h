@@ -17,7 +17,7 @@
 #include "rdProperty.h"
 
 
-#ifndef UNIX
+#ifdef WIN32
 template class RDTOOLS_API rdArrayPtrs<rdObject>;
 #endif
 

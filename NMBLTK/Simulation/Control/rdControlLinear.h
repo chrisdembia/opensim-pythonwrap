@@ -19,13 +19,6 @@
 #include "rdControlLinearNode.h"
 
 
-// EXPORT LINE FOR MICROSOFT VISUAL C++
-#ifndef UNIX
-//template class RDTOOLS_API rdArray<int>;
-//template class RDSIMULATION_API rdArrayPtrs<rdControlLinearNode>;
-#endif
-
-
 //=============================================================================
 //=============================================================================
 /**

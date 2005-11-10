@@ -13,7 +13,7 @@
 #include "rdException.h"
 
 
-#ifndef UNIX
+#ifdef WIN32
 #pragma warning( disable : 4251 )
 #endif
 

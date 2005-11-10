@@ -25,15 +25,6 @@ class rdObject;
 	#endif
 #endif
 
-#ifndef SWIG
-#ifndef UNIX
-//template class RDTOOLS_API rdArray<bool>;
-//template class RDTOOLS_API rdArray<int>;
-//template class RDTOOLS_API rdArray<double>;
-//template class RDTOOLS_API rdArray<std::string>;
-#endif
-#endif
-
 //=============================================================================
 //=============================================================================
 /**

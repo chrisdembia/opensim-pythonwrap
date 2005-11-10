@@ -20,7 +20,7 @@
 
 
 
-#ifndef UNIX
+#ifdef WIN32
 
 template class RDTOOLS_API rdArray<bool>;
 template class RDTOOLS_API rdArray<int>;
@@ -32,7 +32,7 @@ template class RDTOOLS_API rdNamedValueArray<double>;
 
 template class RDTOOLS_API rdSet<rdMaterial>;
 
-#endif  // UNIX
+#endif  // WIN32
 
 
 typedef rdArray<bool> rdArrayBool;
