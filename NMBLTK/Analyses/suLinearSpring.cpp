@@ -427,7 +427,7 @@ applyActuation(double aT,double *aX,double *aY)
 		setForce(force);
 		_model->applyForce(_body,&pLocal[0],force);
 
-		_appliedForceStore->append(aT,3,_force);
+		//_appliedForceStore->append(aT,3,_force);
 	}	
 }
 

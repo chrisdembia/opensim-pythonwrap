@@ -379,7 +379,7 @@ applyActuation(double aT,double *aX,double *aY)
 		// Apply torque to body
 		setTorque(torque);
 		_model->applyTorque(_body,_torque);
-		_appliedTorqueStore->append(aT,3,_torque);
+		//_appliedTorqueStore->append(aT,3,_torque);
 
 	}	
 }
