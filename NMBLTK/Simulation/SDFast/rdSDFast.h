@@ -246,6 +246,11 @@ public:
 	virtual void
 		computeReactions(double rForces[][3],double rTorques[][3]) const;
 
+	//--------------------------------------------------------------------------
+	// PRESCRIBED MOTION
+	//--------------------------------------------------------------------------
+	virtual void
+		prescribeMotion(int aJoint,int aAxis,int aPrescribed);
 
 	//--------------------------------------------------------------------------
 	// EQUATIONS OF MOTION

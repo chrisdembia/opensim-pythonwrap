@@ -43,6 +43,9 @@ void sdpointf(int aBody,double aPoint[3],double aForce[3]);
 void __stdcall SDHINGET(int *aJoint,int *aAxis,double *aF);
 void sdhinget_(int *aJoint,int *aAxis,double *aF);
 void sdhinget(int aJoint,int aAxis,double aF);
+void __stdcall SDPRES(int *aJoint,int *aAxis,int *aPrescribed);
+void sdpres_(int *aJoint,int *aAxis,int *aPrescribed);
+void sdpres(int aJoint,int aAxis,int aPrescribed);
 
 // CALCULATE DERIVATIVES
 void __stdcall SDDERIV(double *dqdt,double *dudt);

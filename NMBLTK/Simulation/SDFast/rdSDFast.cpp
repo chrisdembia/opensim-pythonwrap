@@ -1604,6 +1604,24 @@ computeReactions(double rForces[][3],double rTorques[][3]) const
 
 
 //=============================================================================
+// PRESCRIBED MOTION
+//=============================================================================
+//_____________________________________________________________________________
+/**
+ * Turn on or off the prescribed motion of a joint axis.
+ *
+ * @param aJoint Number of the joint.
+ * @param aAxis Axis number of the specified joint.
+ * @param aPrescribed 0 turns prescribed motion off, 1 turns it on.
+ */
+void rdSDFast::
+prescribeMotion(int aJoint,int aAxis,int aPrescribed)
+{
+	sdpres(aJoint,aAxis,aPrescribed);
+}
+
+
+//=============================================================================
 // EQUATIONS OF MOTION
 //=============================================================================
 //_____________________________________________________________________________

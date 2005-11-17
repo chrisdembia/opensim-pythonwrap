@@ -376,6 +376,12 @@ public:
 		computeReactions(double rForces[][3],double rTorques[][3]) const = 0; // DYN
 
 	//--------------------------------------------------------------------------
+	// PRESCRIBED MOTION
+	//--------------------------------------------------------------------------
+	virtual void
+		prescribeMotion(int aJoint,int aAxis,int aPrescribed) = 0;  // DYN
+
+	//--------------------------------------------------------------------------
 	// EQUATIONS OF MOTION
 	//--------------------------------------------------------------------------
 	virtual void formMassMatrix(double *rI) = 0; // DYN
