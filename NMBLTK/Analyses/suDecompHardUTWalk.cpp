@@ -146,7 +146,7 @@ compute(double *aXPrev,double *aYPrev,int step,double dt,double t,
 	// SET CONFIGURATION
 	model->set(t,xt,y);
 
-	// GROUND SPRINGS
+	// Figure out which springs are in contact with the ground
 	int np = model->getNP();
 	double svel[rdUTWalking8_NS][3];
 	double spos[rdUTWalking8_NS][3];
