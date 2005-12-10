@@ -43,9 +43,7 @@ suTorsionalSpring(rdModel *aModel,int aBody) :
 	suTorqueApplier(aModel,aBody)
 {
 	setNull();
-
-	// MEMBER VARIABLES
-	setBody(aBody);
+	setType("suTorsionalSpring");
 }
 
 //_____________________________________________________________________________
@@ -55,13 +53,13 @@ suTorsionalSpring(rdModel *aModel,int aBody) :
 void suTorsionalSpring::
 setNull()
 {
-	setType("suTorsionalSpring");
 	_targetPosition = NULL;
 	_targetVelocity = NULL;
 	_k[0] = _k[1] = _k[2] = 0.0;
 	_b[0] = _b[1] = _b[2] = 0.0;
 	_scaleFunction = NULL;
 	_scaleFactor = 1.0;
+	_storeTorques = false;
 }
 
 //=============================================================================
@@ -230,6 +228,33 @@ getScaleFactor()
 	return(_scaleFactor);
 }
 
+//-----------------------------------------------------------------------------
+// STORE TORQUES
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Set whether or not to store the applied torques.
+ *
+ * @param aTrueFalse If true, store the torques.  If false, do not store
+ * the torques.
+ */
+void suTorsionalSpring::
+setStoreTorques(bool aTrueFalse)
+{
+	_storeTorques = aTrueFalse;
+}
+//_____________________________________________________________________________
+/**
+ * Set whether or not to store the applied torques.
+ *
+ * @return Whether or not the applied torques are being stored.
+ */
+bool suTorsionalSpring::
+getStoreTorques()
+{
+	return(_storeTorques);
+}
+
 
 //=============================================================================
 // UTILITY
@@ -379,7 +404,7 @@ applyActuation(double aT,double *aX,double *aY)
 		// Apply torque to body
 		setTorque(torque);
 		_model->applyTorque(_body,_torque);
-		//_appliedTorqueStore->append(aT,3,_torque);
+		if(_storeTorques) _appliedTorqueStore->append(aT,3,_torque);
 
 	}	
 }

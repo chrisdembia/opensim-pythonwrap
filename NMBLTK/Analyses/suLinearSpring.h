@@ -47,9 +47,12 @@ protected:
 	rdFunction *_scaleFunction;
 	/** Scale factor that pre-multiplies the applied torque */
 	double _scaleFactor;
+	/** Stiffness. */
 	double _k[3];
+	/** Damping. */
 	double _b[3];
-
+	/** Flag indicating whether or not to store the applied forces. */
+	bool _storeForces;
 
 //=============================================================================
 // METHODS
@@ -76,7 +79,9 @@ public:
 	rdFunction* getScaleFunction() const;
 	void setScaleFactor(double aScaleFactor);
 	double getScaleFactor();
-	
+	void setStoreForces(bool aTrueFalse);
+	bool getStoreForces();
+
 	//--------------------------------------------------------------------------
 	// UTILITY
 	//--------------------------------------------------------------------------

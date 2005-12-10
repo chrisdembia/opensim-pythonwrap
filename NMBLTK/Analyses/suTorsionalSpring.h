@@ -47,8 +47,12 @@ protected:
 	rdFunction *_scaleFunction;
 	/** Scale factor that pre-multiplies the applied torque */
 	double _scaleFactor;
+	/** Stiffness. */
 	double _k[3];
+	/** Damping. */
 	double _b[3];
+	/** Flag indicating whether or not to store the applied torques. */
+	bool _storeTorques;
 
 //=============================================================================
 // METHODS
@@ -71,12 +75,12 @@ public:
 	void getKValue(double aK[3]);
 	void setBValue(double aB[3]);
 	void getBValue(double aB[3]);
-
 	void setScaleFunction(rdFunction* _scaleFunction);
 	rdFunction* getScaleFunction() const;
-
 	void setScaleFactor(double aScaleFactor);
 	double getScaleFactor();
+	void setStoreTorques(bool aTrueFalse);
+	bool getStoreTorques();
 
 	//--------------------------------------------------------------------------
 	// UTILITY
