@@ -25,10 +25,10 @@ using namespace std;
  * @param aModel Model on which the analysis is to be performed.
  */
 rdAnalysis::rdAnalysis(rdModel *aModel):
-rdIntegCallback(aModel),
-_inDegrees(_inDegreesProp.getValueBool()),
-_labels(_labelsProp.getValueStr()),
-_storageInterval(_storageIntervalProp.getValueInt())
+	rdIntegCallback(aModel),
+	_inDegrees(_inDegreesProp.getValueBool()),
+	_labels(_labelsProp.getValueStr()),
+	_storageInterval(_storageIntervalProp.getValueInt())
 {
 	
 	setNull();
@@ -54,26 +54,6 @@ rdAnalysis::~rdAnalysis()
 {
 
 }
-//_____________________________________________________________________________
-//_____________________________________________________________________________
-/**
- * Connect properties to local pointers.
- */
-void rdAnalysis::setupProperties()
-{
-	_inDegreesProp.setName("InDegrees");
-	_propertySet.append( &_inDegreesProp );
-	/** Column labels. */
-	_labelsProp.setName("Labels");
-	_propertySet.append( &_labelsProp );
-	/** Step interval at which analysis results are stored. */
-	_storageIntervalProp.setName("StorageInterval");
-	_propertySet.append( &_storageIntervalProp );
-}
-
-//=============================================================================
-// rdObject Overrides
-//=============================================================================
 //_____________________________________________________________________________
 /**
  * Construct an object from file.
@@ -157,6 +137,8 @@ _storageInterval(_storageIntervalProp.getValueInt())
 	// COPY TYPE AND NAME
 	*this = aAnalysis;
 }
+
+//_____________________________________________________________________________
 /**
  * virtual copy constructor
  */
@@ -167,10 +149,11 @@ copy() const
 	rdAnalysis *object = new rdAnalysis(*this);
 	return(object);
 }
+
+//_____________________________________________________________________________
 /**
  * virtual copy constructor from DOMElement
  */
-
 rdObject* rdAnalysis::
 copy(DOMElement *aElement) const
 {
@@ -179,6 +162,7 @@ copy(DOMElement *aElement) const
 	object->updateFromXMLNode();
 	return(object);
 }
+
 //_____________________________________________________________________________
 /**
  * Set all member variables to their null or default values.
@@ -196,6 +180,24 @@ setNull()
 
 	_storageList.setMemoryOwner(false);
 }
+//_____________________________________________________________________________
+/**
+ * Connect properties to local pointers.
+ */
+void rdAnalysis::setupProperties()
+{
+	_inDegreesProp.setName("InDegrees");
+	_propertySet.append( &_inDegreesProp );
+	/** Column labels. */
+	_labelsProp.setName("Labels");
+	_propertySet.append( &_labelsProp );
+	/** Step interval at which analysis results are stored. */
+	_storageIntervalProp.setName("StorageInterval");
+	_propertySet.append( &_storageIntervalProp );
+}
+
+
+
 //=============================================================================
 // OPERATORS
 //=============================================================================
