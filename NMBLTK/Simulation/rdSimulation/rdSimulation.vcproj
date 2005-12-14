@@ -150,6 +150,9 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
+				RelativePath="..\Model\Investigation.cpp">
+			</File>
+			<File
 				RelativePath="..\Model\rdActuator.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -795,6 +798,9 @@
 			Filter="h;hpp;hxx;hm;inl">
 			<File
 				RelativePath="..\Integrator\Integrand.h">
+			</File>
+			<File
+				RelativePath="..\Model\Investigation.h">
 			</File>
 			<File
 				RelativePath="..\Model\rdActuator.h">
