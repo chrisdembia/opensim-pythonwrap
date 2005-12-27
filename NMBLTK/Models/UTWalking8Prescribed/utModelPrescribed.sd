@@ -23,6 +23,9 @@
 #
 # The posibility to prescribe each joint has been added.
 #
+# This model has been modified so that all the joints have 3 DOFs and the
+# axes of the joints are all aligned in the neutral position
+#
 
 gravity = ? ? ?
 
@@ -35,69 +38,79 @@ body = hat inb = pelvis joint = gimbal  prescribed = 0? 0? 0?
      inertia = 1.3960 0.7153 1.3552
      bodyToJoint = 0.0000 -0.3202 0.0000
      inbToJoint = 0.0000 0.1270 0.0000
-     pin =  0 0 1
-     pin =  1 0 0
-     pin =  0 1 0 
+     pin =  0? 0? 1?
+     pin =  1? 0? 0?
+     pin =  0? 1? 0? 
 
 body = rfemur inb = pelvis joint = gimbal  prescribed = 0? 0? 0?
      mass = 8.806
      inertia = 0.1268 0.0332 0.1337
      bodyToJoint =  0.0020  0.1715  0.0000
      inbToJoint =   0.0000 -0.0700  0.0935
-     pin = 0 0 1
-     pin = 1 0 0
-     pin = 0 1 0
+     pin =  0? 0? 1?
+     pin =  1? 0? 0?
+     pin =  0? 1? 0?
 
-body = rtibia inb = rfemur joint = pin  prescribed = 0?
+body = rtibia inb = rfemur joint = gimbal  prescribed = 0? 0? 0?
      mass = 3.510
      inertia = 0.0477 0.0048 0.0484
      bodyToJoint = 0.0000 0.1862 0.0000
      inbToJoint =  0.0033 -0.2294 0.0000
-     pin = -0.080909  0.040455  0.995900
+     pin =  0? 0? 1?
+     pin =  1? 0? 0?
+     pin =  0? 1? 0?
      
-body = rhindfoot inb = rtibia joint = ujoint  prescribed = 0? 0?
+body = rhindfoot inb = rtibia joint = gimbal  prescribed = 0? 0? 0?
      mass = 1.20
      inertia =  0.001361 0.003709 0.003916
      bodyToJoint = -0.035902 0.051347 -0.005539
      inbToJoint =  0.00000 -0.243800  0.000000
-     pin =  -0.082186 -0.037209  0.995922
-     pin =   0.814756  0.577260 -0.054258
+     pin =  0? 0? 1?
+     pin =  1? 0? 0?
+     pin =  0? 1? 0?
 
-body = rtoes inb = rhindfoot joint = pin  prescribed = 0?
+body = rtoes inb = rhindfoot joint = gimbal  prescribed = 0? 0? 0?
      mass = 0.205126 
      inertia = 0.000117 0.000179 0.000119
      bodyToJoint = -0.026917 -0.018500 -0.005139
      inbToJoint = 0.098032 -0.038000 0.018078
-     pin = -0.469472 0.000000 0.882948
+     pin =  0? 0? 1?
+     pin =  1? 0? 0?
+     pin =  0? 1? 0?
 
 body = lfemur inb = pelvis joint = gimbal  prescribed = 0? 0? 0?
      mass = 8.806 
      inertia = 0.1268 0.0332 0.1337
      bodyToJoint =  0.0020  0.1715  0.0000
      inbToJoint =   0.0000 -0.0700 -0.0935
-     pin =  0  0  1
-     pin = -1  0  0
-     pin =  0 -1  0
+     pin =  0?  0?  1?
+     pin = -1?  0?  0?
+     pin =  0? -1?  0?
 
-body = ltibia inb = lfemur joint = pin  prescribed = 0?
+body = ltibia inb = lfemur joint = gimbal  prescribed = 0? 0? 0?
      mass = 3.510 
      inertia = 0.0477 0.0048 0.0484
      bodyToJoint = 0.0000 0.1862 0.0000
      inbToJoint =  0.0033 -0.2294 0.0000
-     pin =  0.080909 -0.040455  0.995900
+     pin =  0?  0?  1?
+     pin = -1?  0?  0?
+     pin =  0? -1?  0?
 
-body = lhindfoot inb = ltibia joint = ujoint  prescribed = 0? 0?
+body = lhindfoot inb = ltibia joint = gimbal  prescribed = 0? 0? 0?
      mass = 1.20
      inertia =  0.001361 0.003709 0.003916
      bodyToJoint = -0.035902 0.051347  0.005539
      inbToJoint =  0.00000 -0.243800  0.000000
-     pin =  0.082186  0.037209  0.995922
-     pin = -0.814756 -0.577260 -0.054258
+     pin =  0?  0?  1?
+     pin = -1?  0?  0?
+     pin =  0? -1?  0?
 
-body = ltoes inb = lhindfoot joint = pin  prescribed = 0?
+body = ltoes inb = lhindfoot joint = gimbal  prescribed = 0? 0? 0?
      mass = 0.205126 
      inertia = 0.000117 0.000179 0.000119
      bodyToJoint = -0.026917 -0.018500 0.005139
      inbToJoint = 0.098032 -0.038000 -0.018078
-     pin =  0.469472 -0.000000 0.882948
+     pin =  0?  0?  1?
+     pin = -1?  0?  0?
+     pin =  0? -1?  0?
 
