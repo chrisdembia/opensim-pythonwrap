@@ -697,7 +697,8 @@ constructBodies()
 //_____________________________________________________________________________
 /**
  * Set the vector directed from a body's center of mass to its joint.  The
- * body's joint is always the joint that that body has with its inboard body.
+ * body's joint is always the joint that that body has with its inboard body,
+ * that is, the body specified should be the outboard body of the joint of interest.
  *
  * @param aBody Body ID.
  * @param aBTJ Vector from the center of mass of the body to its joint with
@@ -715,6 +716,7 @@ setBodyToJointBodyLocal(int aBody,const double aBTJ[3])
 /**
  * Get the vector directed from a body's center of mass to its joint.  The
  * body's joint is always the joint that that body has with its inboard body.
+ * that is, the body specified should be the outboard body of the joint of interest.
  *
  * @param aBody Body ID.
  * @param rBTJ Vector from the center of mass of the body to its joint with
@@ -730,6 +732,7 @@ getBodyToJointBodyLocal(int aBody,double rBTJ[3]) const
 /**
  * For a specifited body, set the vector directed from the center of mass of
  * the body's inboard body to the body's joint with the inboard body.
+ * that is, the body specified should be the outboard body of the joint of interest.
  *
  * @param aBody Body ID.
  * @param aBTJ Vector from the center of mass of the body's inboard body
@@ -748,6 +751,7 @@ setInboardToJointBodyLocal(int aBody,const double aITJ[3])
 /**
  * For a specifited body, get the vector directed from the center of mass of
  * the body's inboard body to the body's joint with the inboard body.
+ * that is, the body specified should be the outboard body of the joint of interest.
  *
  * @param aBody Body ID.
  * @param rBTJ Vector from the center of mass of the body's inboard body
@@ -759,6 +763,43 @@ getInboardToJointBodyLocal(int aBody,double rITJ[3]) const
 {
 	sdgetitj(aBody,rITJ);
 }
+//_____________________________________________________________________________
+/**
+ * Set the vector describing the pin axis direction.  The
+ * body's joint is always the joint that that body has with its inboard body.
+ * that is, the body specified should be the outboard body of the joint of interest.
+ *
+ * @param aBody Body ID.
+ * @param aPinNumber Number of the pin within the body's joint to be set.
+ * @param aPin Vector describing the pin axis direction. This vector is expressed in
+ * the local frame of aBody.
+ */
+void rdSDFast::
+setPin(int aBody,int aPinNumber,const double aPin[3])
+{
+	double pin[3];
+	memcpy(pin,aPin,3*sizeof(double));
+	sdpin(aBody,aPinNumber,pin);
+	sdinit();
+}
+//_____________________________________________________________________________
+/**
+ * Set the vector describing the pin axis direction.  The
+ * body's joint is always the joint that that body has with its inboard body.
+ * that is, the body specified should be the outboard body of the joint of interest.
+ *
+ * @param aBody Body ID.
+ * @param aPinNumber Number of the pin within the body's joint to be set.
+ * @param rPin Vector describing the pin axis direction. This vector is expressed in
+ * the local frame of aBody.
+ */
+void rdSDFast::
+getPin(int aBody,int aPinNumber,double rPin[3]) const
+{
+	sdgetpin(aBody,aPinNumber,rPin);
+}
+
+//_____________________________________________________________________________
 
 //-----------------------------------------------------------------------------
 // INERTIA PARAMETERS

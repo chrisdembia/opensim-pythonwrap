@@ -61,6 +61,12 @@ suDecompHardUTWalkNoCompPrescribed::~suDecompHardUTWalkNoCompPrescribed()
 	if(_yTmp!=NULL) { delete[] _yTmp;  _yTmp=NULL; }
 	if(_xsSprMap!=NULL) { delete[] _xsSprMap;  _xsSprMap=NULL; }
 	if(_xsXYZMap!=NULL) { delete[] _xsXYZMap;  _xsXYZMap=NULL; }
+	if(_prescribedSpringPositionStorage!=NULL) 
+		{delete[] _prescribedSpringPositionStorage; _prescribedSpringPositionStorage=NULL; }
+	if(_prescribedSpringVelocityStorage!=NULL) 
+		{delete[] _prescribedSpringVelocityStorage; _prescribedSpringVelocityStorage=NULL; }
+	if(_prescribedSpringForceStorage!=NULL) 
+		{delete[] _prescribedSpringForceStorage; _prescribedSpringForceStorage=NULL; }
 }
 //_____________________________________________________________________________
 /**
@@ -88,6 +94,7 @@ suDecompHardUTWalkNoCompPrescribed::suDecompHardUTWalkNoCompPrescribed(rdUTWalki
 
 	// BODY CONSTRAINTS
 	clearBodyConstraints();
+
 }
 
 
@@ -111,6 +118,11 @@ setNull()
 	_yCopy = NULL;
 	_yTmp = NULL;
 	_x = NULL;
+	_prescribedContact = false;
+	_prescribedSpringPositionStorage = NULL;
+	_prescribedSpringVelocityStorage = NULL;
+	_prescribedSpringForceStorage = NULL;
+
 }
 
 
@@ -131,6 +143,73 @@ getContactPoint(int aIndex)
 {
 	_model->getContactPointB(aIndex,_point);
 	return(_point);
+}
+//_____________________________________________________________________________
+/**
+ * Set whether the contact will be prescribed and set the storages that should be
+ * used to read in the required values.
+ *
+ * @param aPrescribedContact flag indicates whether contact will be prescribed
+ * @param aPrescribedSpringPositionStorage contains the prescribed spring postions
+ * @param aPrescribedSpringVelocityStorage contains the prescribed spring velocities
+ * @param aPrescribedSpringForceStorage contains the prescribed spring forces
+ */
+void suDecompHardUTWalkNoCompPrescribed::
+setPrescribedContact(bool aTrueFalse, 
+		rdStorage *aPrescribedSpringPositionStorage,
+		rdStorage *aPrescribedSpringVelocityStorage,
+		rdStorage *aPrescribedSpringForceStorage)
+{
+	_prescribedContact = aTrueFalse;
+	_prescribedSpringPositionStorage = aPrescribedSpringPositionStorage;
+	_prescribedSpringVelocityStorage = aPrescribedSpringVelocityStorage;
+	_prescribedSpringForceStorage = aPrescribedSpringForceStorage;
+
+}
+//_____________________________________________________________________________
+/**
+ * Get whether the contact will be prescribed.
+ *
+ * @return aPrescribedContact flag
+ * @see setPrescribedContact()
+ */
+bool suDecompHardUTWalkNoCompPrescribed::
+getPrescribedContact() const
+{
+	return(_prescribedContact);
+}
+//_____________________________________________________________________________
+/**
+ * Get the prescribed spring postions storage.
+ *
+ * @return Prescribed spring postions storage.
+ */
+rdStorage* suDecompHardUTWalkNoCompPrescribed::
+getPrescribedSpringPositionStorage()
+{
+	return(_prescribedSpringPositionStorage);
+}
+//_____________________________________________________________________________
+/**
+ * Get the prescribed spring velocity storage.
+ *
+ * @return Prescribed spring velocity storage.
+ */
+rdStorage* suDecompHardUTWalkNoCompPrescribed::
+getPrescribedSpringVelocityStorage()
+{
+	return(_prescribedSpringVelocityStorage);
+}
+//_____________________________________________________________________________
+/**
+ * Get the prescribed spring forces storage.
+ *
+ * @return Prescribed spring forces storage.
+ */
+rdStorage* suDecompHardUTWalkNoCompPrescribed::
+getPrescribedSpringForceStorage()
+{
+	return(_prescribedSpringForceStorage);
 }
 
 
@@ -158,11 +237,29 @@ compute(double *aXPrev,double *aYPrev,int step,double dt,double t,
 
 	// GROUND SPRINGS
 	int np = model->getNP();
+	int s,n,I;
 	double svel[rdUTWalking8Prescribed_NS][3];
 	double spos[rdUTWalking8Prescribed_NS][3];
 	double sfrc[rdUTWalking8Prescribed_NS][3];
-	model->computeSpringPointKinematics(svel,spos);
-	model->computeGroundForces(svel,spos,sfrc);
+	double *sposPrescribed = new double[6*rdUTWalking8Prescribed_NS];
+	double *svelPrescribed = new double[6*rdUTWalking8Prescribed_NS];
+	double *sfrcPrescribed = new double[6*rdUTWalking8Prescribed_NS];
+	_prescribedSpringPositionStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,sposPrescribed);
+	_prescribedSpringVelocityStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,svelPrescribed);
+	_prescribedSpringForceStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,sfrcPrescribed);
+	if(_prescribedContact){
+		for(s=0;s<rdUTWalking8Prescribed_NS;s++){
+			for(n=3;n<6;n++){
+				I = rdMtx::ComputeIndex(s,6,n);
+				spos[s][n-3] = sposPrescribed[I];
+				svel[s][n-3] = svelPrescribed[I];
+				sfrc[s][n-3] = sfrcPrescribed[I];
+			}
+		}
+	} else {
+		model->computeSpringPointKinematics(svel,spos);
+		model->computeGroundForces(svel,spos,sfrc);
+	}
 	model->updateGroundZeros(svel,spos,sfrc);
 	model->limitGroundForces(sfrc);
 
