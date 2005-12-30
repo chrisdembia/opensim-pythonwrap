@@ -277,6 +277,9 @@ public:
 	virtual void getBodyToJointBodyLocal(int aBody,double rBTJ[3]) const = 0;
 	virtual void setInboardToJointBodyLocal(int aBody,const double aBTJ[3]) = 0;
 	virtual void getInboardToJointBodyLocal(int aBody,double rBTJ[3]) const = 0;
+	virtual void setPin(int aBody,int aPinNumber,const double aPin[3]) = 0;
+	virtual void getPin(int aBody,int aPinNumber,double rPin[3]) const = 0;
+	virtual void getJointInfo(int aJoint,int rInfo[50],int rSlider[6]) const = 0;
 
 	//--------------------------------------------------------------------------
 	// INERTIA	// DYN

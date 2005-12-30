@@ -784,7 +784,7 @@ setPin(int aBody,int aPinNumber,const double aPin[3])
 }
 //_____________________________________________________________________________
 /**
- * Set the vector describing the pin axis direction.  The
+ * Get the vector describing the pin axis direction.  The
  * body's joint is always the joint that that body has with its inboard body.
  * that is, the body specified should be the outboard body of the joint of interest.
  *
@@ -797,6 +797,19 @@ void rdSDFast::
 getPin(int aBody,int aPinNumber,double rPin[3]) const
 {
 	sdgetpin(aBody,aPinNumber,rPin);
+}
+//_____________________________________________________________________________
+/**
+ * Get information about a specified joint.
+ *
+ * @param aJoint Joint ID.
+ * @param rInfo Vector containing joint information.
+ * @param rSlider Vector containing slider information
+ */
+void rdSDFast::
+getJointInfo(int aJoint,int rInfo[50],int rSlider[6]) const
+{
+	sdjnt(aJoint,rInfo,rSlider);
 }
 
 //_____________________________________________________________________________

@@ -154,6 +154,7 @@ public:
 	virtual void getInboardToJointBodyLocal(int aBody,double rITJ[3]) const;
 	virtual void setPin(int aBody,int aPinNumber,const double aPin[3]);
 	virtual void getPin(int aBody,int aPinNumber,double rPin[3]) const;
+	virtual void getJointInfo(int aJoint,int rInfo[50],int rSlider[6]) const;
 
 	// INERTIA
 	virtual double
