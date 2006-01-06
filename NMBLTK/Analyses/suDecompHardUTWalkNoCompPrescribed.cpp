@@ -244,10 +244,10 @@ compute(double *aXPrev,double *aYPrev,int step,double dt,double t,
 	double *sposPrescribed = new double[6*rdUTWalking8Prescribed_NS];
 	double *svelPrescribed = new double[6*rdUTWalking8Prescribed_NS];
 	double *sfrcPrescribed = new double[6*rdUTWalking8Prescribed_NS];
-	_prescribedSpringPositionStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,sposPrescribed);
-	_prescribedSpringVelocityStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,svelPrescribed);
-	_prescribedSpringForceStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,sfrcPrescribed);
 	if(_prescribedContact){
+		_prescribedSpringPositionStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,sposPrescribed);
+		_prescribedSpringVelocityStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,svelPrescribed);
+		_prescribedSpringForceStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,sfrcPrescribed);
 		for(s=0;s<rdUTWalking8Prescribed_NS;s++){
 			for(n=3;n<6;n++){
 				I = rdMtx::ComputeIndex(s,6,n);
