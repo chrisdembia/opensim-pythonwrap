@@ -458,7 +458,7 @@ c FIND PELVIS Y, PELVIS 0z, 0subtalar, AND 0toe
 
       print*,'Initializing positions...'
 
-      call init1(y)
+ccc      call init1(y)
 
 
 
@@ -466,7 +466,7 @@ c ASSIGN VELOCITIES
 
 c   angular: HipY, Ank, Sub
 
-      call init2(y)
+ccc      call init2(y)
 
 c   translational: Pelvis X, Y, Z 
 
