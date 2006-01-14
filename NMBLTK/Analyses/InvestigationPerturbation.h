@@ -43,6 +43,51 @@ private:
 	/** Name of the states file. */
 	rdPropertyStr _yFileNameProp;
 	std::string &_yFileName;
+	/** Time of right heel strike. */
+	rdPropertyDbl _rHeelStrikeProp;
+	double &_rHeelStrike;
+	/** Time of right foot flat. */
+	rdPropertyDbl _rFootFlatProp;
+	double &_rFootFlat;
+	/** Time of right heel off. */
+	rdPropertyDbl _rHeelOffProp;
+	double &_rHeelOff;
+	/** Time of right toe off. */
+	rdPropertyDbl _rToeOffProp;
+	double &_rToeOff;
+	/** Time of left heel strike. */
+	rdPropertyDbl _lHeelStrikeProp;
+	double &_lHeelStrike;
+	/** Time of left foot flat. */
+	rdPropertyDbl _lFootFlatProp;
+	double &_lFootFlat;
+	/** Time of left heel off. */
+	rdPropertyDbl _lHeelOffProp;
+	double &_lHeelOff;
+	/** Time of left toe off. */
+	rdPropertyDbl _lToeOffProp;
+	double &_lToeOff;
+
+	// CORRECTIVE SPRING PARAMETERS
+	/** Rise time for scaling functions. */
+	rdPropertyDbl _tauProp;
+	double &_tau;
+	/** Stiffness for linear corrective springs. */
+	rdPropertyDblArray _kLinProp;
+	rdArray<double> &_kLin;
+	/** Damping for linear corrective springs. */
+	rdPropertyDblArray _bLinProp;
+	rdArray<double> &_bLin;
+	/** Stiffness for torsional corrective springs. */
+	rdPropertyDblArray _kTorProp;
+	rdArray<double> &_kTor;
+	/** Damping for torsional corrective springs. */
+	rdPropertyDblArray _bTorProp;
+	rdArray<double> &_bTor;
+
+	// INVESTIGATION PARAMETERS
+
+
 
 	// WORK VARIABLES
 	/** Control set. */

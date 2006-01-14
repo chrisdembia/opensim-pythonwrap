@@ -6,6 +6,7 @@
 //=============================================================================
 #include "InvestigationPerturbation.h"
 #include <NMBLTK/Tools/rdIO.h>
+#include <NMBLTK/Tools/rdVectorGCVSplineR1R3.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
 #include <NMBLTK/Simulation/Model/rdDerivCallbackSet.h>
 #include <NMBLTK/Simulation/Control/rdControlLinear.h>
@@ -45,7 +46,20 @@ InvestigationPerturbation::InvestigationPerturbation() :
 	_copFileName(_copFileNameProp.getValueStr()),
 	_qFileName(_qFileNameProp.getValueStr()),
 	_uFileName(_uFileNameProp.getValueStr()),
-	_yFileName(_yFileNameProp.getValueStr())
+	_yFileName(_yFileNameProp.getValueStr()),
+	_rHeelStrike(_rHeelStrikeProp.getValueDbl()),
+	_rFootFlat(_rFootFlatProp.getValueDbl()),
+	_rHeelOff(_rHeelOffProp.getValueDbl()),
+	_rToeOff(_rToeOffProp.getValueDbl()),
+	_lHeelStrike(_lHeelStrikeProp.getValueDbl()),
+	_lFootFlat(_lFootFlatProp.getValueDbl()),
+	_lHeelOff(_lHeelOffProp.getValueDbl()),
+	_lToeOff(_lToeOffProp.getValueDbl()),
+	_tau(_tauProp.getValueDbl()),
+	_kLin(_kLinProp.getValueDblArray()),
+	_bLin(_bLinProp.getValueDblArray()),
+	_kTor(_kTorProp.getValueDblArray()),
+	_bTor(_bTorProp.getValueDblArray())
 {
 	setType("InvestigationPerturbation");
 	setNull();
@@ -65,7 +79,20 @@ InvestigationPerturbation::InvestigationPerturbation(const string &aFileName):
 	_copFileName(_copFileNameProp.getValueStr()),
 	_qFileName(_qFileNameProp.getValueStr()),
 	_uFileName(_uFileNameProp.getValueStr()),
-	_yFileName(_yFileNameProp.getValueStr())
+	_yFileName(_yFileNameProp.getValueStr()),
+	_rHeelStrike(_rHeelStrikeProp.getValueDbl()),
+	_rFootFlat(_rFootFlatProp.getValueDbl()),
+	_rHeelOff(_rHeelOffProp.getValueDbl()),
+	_rToeOff(_rToeOffProp.getValueDbl()),
+	_lHeelStrike(_lHeelStrikeProp.getValueDbl()),
+	_lFootFlat(_lFootFlatProp.getValueDbl()),
+	_lHeelOff(_lHeelOffProp.getValueDbl()),
+	_lToeOff(_lToeOffProp.getValueDbl()),
+	_tau(_tauProp.getValueDbl()),
+	_kLin(_kLinProp.getValueDblArray()),
+	_bLin(_bLinProp.getValueDblArray()),
+	_kTor(_kTorProp.getValueDblArray()),
+	_bTor(_bTorProp.getValueDblArray())
 {
 	setType("InvestigationPerturbation");
 	setNull();
@@ -81,7 +108,20 @@ InvestigationPerturbation::InvestigationPerturbation(DOMElement *aElement):
 	_copFileName(_copFileNameProp.getValueStr()),
 	_qFileName(_qFileNameProp.getValueStr()),
 	_uFileName(_uFileNameProp.getValueStr()),
-	_yFileName(_yFileNameProp.getValueStr())
+	_yFileName(_yFileNameProp.getValueStr()),
+	_rHeelStrike(_rHeelStrikeProp.getValueDbl()),
+	_rFootFlat(_rFootFlatProp.getValueDbl()),
+	_rHeelOff(_rHeelOffProp.getValueDbl()),
+	_rToeOff(_rToeOffProp.getValueDbl()),
+	_lHeelStrike(_lHeelStrikeProp.getValueDbl()),
+	_lFootFlat(_lFootFlatProp.getValueDbl()),
+	_lHeelOff(_lHeelOffProp.getValueDbl()),
+	_lToeOff(_lToeOffProp.getValueDbl()),
+	_tau(_tauProp.getValueDbl()),
+	_kLin(_kLinProp.getValueDblArray()),
+	_bLin(_bLinProp.getValueDblArray()),
+	_kTor(_kTorProp.getValueDblArray()),
+	_bTor(_bTorProp.getValueDblArray())
 {
 	setType("InvestigationPerturbation");
 	setNull();
@@ -130,7 +170,20 @@ InvestigationPerturbation(const InvestigationPerturbation &aInvestigation):
 	_copFileName(_copFileNameProp.getValueStr()),
 	_qFileName(_qFileNameProp.getValueStr()),
 	_uFileName(_uFileNameProp.getValueStr()),
-	_yFileName(_yFileNameProp.getValueStr())
+	_yFileName(_yFileNameProp.getValueStr()),
+	_rHeelStrike(_rHeelStrikeProp.getValueDbl()),
+	_rFootFlat(_rFootFlatProp.getValueDbl()),
+	_rHeelOff(_rHeelOffProp.getValueDbl()),
+	_rToeOff(_rToeOffProp.getValueDbl()),
+	_lHeelStrike(_lHeelStrikeProp.getValueDbl()),
+	_lFootFlat(_lFootFlatProp.getValueDbl()),
+	_lHeelOff(_lHeelOffProp.getValueDbl()),
+	_lToeOff(_lToeOffProp.getValueDbl()),
+	_tau(_tauProp.getValueDbl()),
+	_kLin(_kLinProp.getValueDblArray()),
+	_bLin(_bLinProp.getValueDblArray()),
+	_kTor(_kTorProp.getValueDblArray()),
+	_bTor(_bTorProp.getValueDblArray())
 {
 	setNull();
 	*this = aInvestigation;
@@ -166,11 +219,24 @@ void InvestigationPerturbation::
 setNull()
 {
 	setupProperties();
-	_controlSet = 0;
-	_copStore = 0;
-	_qStore = 0;
-	_uStore = 0;
-	_yStore = 0;
+
+	// POINTERS
+	_controlSet = NULL;
+	_copStore = NULL;
+	_qStore = NULL;
+	_uStore = NULL;
+	_yStore = NULL;
+
+	// FOOT CONTACT EVENTS
+	_rHeelStrike = _rFootFlat =_rHeelOff = _rToeOff = 0.0;
+	_lHeelStrike = _lFootFlat =_lHeelOff = _lToeOff = 0.0;
+
+	// CORRECTIVE SPRING PARAMETERS
+	_tau = 0.001;
+	_kLin[0] = _kLin[1] = _kLin[2] = 5000000.0;
+	_bLin[0] = _bLin[1] = _bLin[2] = 1500.0;
+	_kTor[0] = _kTor[1] = _kTor[2] = 100000.0;
+	_bTor[0] = _bTor[1] = _bTor[2] = 1000.0;
 }
 //_____________________________________________________________________________
 /**
@@ -178,6 +244,7 @@ setNull()
  */
 void InvestigationPerturbation::setupProperties()
 {
+	// INPUT FILE NAMES
 	_controlsFileNameProp.setName("controls_file_name");
 	_propertySet.append( &_controlsFileNameProp );
 
@@ -192,6 +259,48 @@ void InvestigationPerturbation::setupProperties()
 
 	_yFileNameProp.setName("states_file_name");
 	_propertySet.append( &_yFileNameProp );
+
+	// FOOT CONTACT EVENT TIMES
+	_rHeelStrikeProp.setName("r_heel_strike");
+	_propertySet.append( &_rHeelStrikeProp );
+
+	_rFootFlatProp.setName("r_foot_flat");
+	_propertySet.append( &_rFootFlatProp );
+
+	_rHeelOffProp.setName("r_heel_off");
+	_propertySet.append( &_rHeelOffProp );
+
+	_rToeOffProp.setName("r_toe_off");
+	_propertySet.append( &_rToeOffProp );
+
+	_lHeelStrikeProp.setName("l_heel_strike");
+	_propertySet.append( &_lHeelStrikeProp );
+
+	_lFootFlatProp.setName("l_foot_flat");
+	_propertySet.append( &_lFootFlatProp );
+
+	_lHeelOffProp.setName("l_heel_off");
+	_propertySet.append( &_lHeelOffProp );
+
+	_lToeOffProp.setName("l_toe_off");
+	_propertySet.append( &_lToeOffProp );
+
+
+	// CORRECTIVE SPRING PARAMETERS
+	_tauProp.setName("scaling_rise_time");
+	_propertySet.append( &_tauProp );
+
+	_kLinProp.setName("corrective_spring_linear_stiffness");
+	_propertySet.append( &_kLinProp );
+
+	_bLinProp.setName("corrective_spring_linear_damping");
+	_propertySet.append( &_bLinProp );
+
+	_kTorProp.setName("corrective_spring_torsional_stiffness");
+	_propertySet.append( &_kTorProp );
+
+	_bTorProp.setName("corrective_spring_torsional_damping");
+	_propertySet.append( &_bTorProp );
 
 }
 
@@ -228,8 +337,6 @@ void InvestigationPerturbation::
 setModel(rdModel *aModel)
 {
 	_model = aModel;
-
-
 }
 
 
@@ -289,6 +396,36 @@ void InvestigationPerturbation::run()
 	kin->setOn(true);
 
 	// SETUP SIMULATION
+	// Manager
+	rdModelIntegrand integrand(_model);
+	integrand.setControlSet(*_controlSet);
+	rdManager manager(&integrand);
+	manager.setSessionName(getName());
+
+	// Initial and final times
+	// If the times lie outside the range for which control values are
+	// available, the initial and final times are altered.
+	int first = 0;
+	rdControlLinear *control = (rdControlLinear*)_controlSet->get(first);
+	if(control==NULL) {
+		cout<<"\n\nError- There are no controls.\n\n";
+		exit(-1);
+	}
+	double ti = control->getFirstTime();
+	double tf = control->getLastTime();
+	if(_ti<ti) {
+		cout<<"\n\nControls not available at "<<_ti<<".  ";
+		cout<<"Changing initial time to "<<ti<<".";
+		_ti = ti;
+	}
+	if(tf<_tf) {
+		cout<<"\n\nControls not available at "<<_tf<<".  ";
+		cout<<"Changing final time to "<<tf<<".";
+		_tf = tf;
+	}
+
+	cout<<"\n\nPerforming perturbations from ti="<<_ti<<" to tf="<<_tf<<endl<<endl;
+
 
 
 }
@@ -300,14 +437,101 @@ void InvestigationPerturbation::run()
 void InvestigationPerturbation::
 constructCorrectiveSprings()
 {
+	// SCALING FUNCTIONS FOR SPRINGS
+	double tScale,dtScale=0.001;
+	double tiScale = _qStore->getFirstTime();
+	double tfScale = _qStore->getLastTime();
+	double value1,value2;
+	rdArray<double> timeScale(0.0);
+	rdArray<double> rLinearScale(0.0),rTorsionalScale(0.0);
+	rdArray<double> lLinearScale(0.0),lTorsionalScale(0.0);
+	for(tScale=tiScale;tScale<=tfScale;tScale+=dtScale) {
+		// time
+		timeScale.append(tScale);
+		// rLinear
+		value1 = rdMath::SigmaUp(_tau,_rHeelStrike,tScale);
+		value2 = rdMath::SigmaDn(_tau,_rToeOff,tScale);
+		rLinearScale.append(value1+value2-1.0);
+		// rTorsional
+		value1 = rdMath::SigmaUp(_tau,_rFootFlat,tScale);
+		value2 = rdMath::SigmaDn(_tau,_rHeelOff,tScale);
+		rTorsionalScale.append(value1+value2-1.0);
+		// lLinear
+		value1 = rdMath::SigmaUp(_tau,_lHeelStrike,tScale);
+		value2 = rdMath::SigmaDn(_tau,_lToeOff,tScale);
+		lLinearScale.append(value1+value2-1.0);
+		// lTorsional
+		value1 = rdMath::SigmaUp(_tau,_lFootFlat,tScale);
+		value2 = rdMath::SigmaDn(_tau,_lHeelOff,tScale);
+		lTorsionalScale.append(value1+value2-1.0);
+	}
+	// Create Splines
+	rdGCVSpline *rScaleTranslationalSpline = new rdGCVSpline(3,timeScale.getSize(),&timeScale[0],&rLinearScale[0]);
+	rScaleTranslationalSpline->setName("Right_Translational");
+	rdGCVSpline *rScaleTorsionalSpline = new rdGCVSpline(3,timeScale.getSize(),&timeScale[0],&rTorsionalScale[0]);
+	rScaleTorsionalSpline->setName("Right_Torsional");
+	rdGCVSpline *lScaleTranslationalSpline = new rdGCVSpline(3,timeScale.getSize(),&timeScale[0],&lLinearScale[0]);
+	lScaleTranslationalSpline->setName("Left_Translational");
+	rdGCVSpline *lScaleTorsionalSpline = new rdGCVSpline(3,timeScale.getSize(),&timeScale[0],&lTorsionalScale[0]);
+	lScaleTorsionalSpline->setName("Left_Torsional");
 
+	// CONSTRUCT SPRINGS
+	rdVectorGCVSplineR1R3 *cop;
+	int size = _copStore->getSize();
+	double *t=0,*x=0,*y=0,*z=0;
+	_copStore->getTimeColumn(t);
 
+	// LINEAR
+	// right
+	string colName;
+	colName = "ground_force_px_r";
+	_copStore->getDataColumn(colName,x);
+	colName = "ground_force_py_r";
+	_copStore->getDataColumn(colName,y);
+	colName = "ground_force_pz_r";
+	_copStore->getDataColumn(colName,z);
+	cop = new rdVectorGCVSplineR1R3(5,size,t,x,y,z);
+	suLinearSpring *rLin = new suLinearSpring(_model,_model->getBodyIndex("calcn_r"));
+	rLin->computePointAndTargetFunctions(_qStore,_uStore,*cop);
+	rLin->setKValue(&_kLin[0]);
+	rLin->setBValue(&_bLin[0]);
+	rLin->setScaleFunction(rScaleTranslationalSpline);
+	rdStorage *rLinStore = rLin->getAppliedForceStorage();
+	_model->addDerivCallback(rLin);
+	// left linear
+	colName = "ground_force_px_l";
+	_copStore->getDataColumn(colName,x);
+	colName = "ground_force_py_l";
+	_copStore->getDataColumn(colName,y);
+	colName = "ground_force_pz_l";
+	_copStore->getDataColumn(colName,z);
+	cop = new rdVectorGCVSplineR1R3(5,size,t,x,y,z);
+	suLinearSpring *lLin = new suLinearSpring(_model,_model->getBodyIndex("calcn_l"));
+	lLin->computePointAndTargetFunctions(_qStore,_uStore,*cop);
+	lLin->setKValue(&_kLin[0]);
+	lLin->setBValue(&_bLin[0]);
+	lLin->setScaleFunction(lScaleTranslationalSpline);
+	rdStorage *lLinStore = lLin->getAppliedForceStorage();
+	_model->addDerivCallback(lLin);
 
-
-
+	// TORSIONAL
+	// right
+	suTorsionalSpring *rTrq = new suTorsionalSpring(_model,_model->getBodyIndex("calcn_r"));
+	rTrq->computeTargetFunctions(_qStore,_uStore);
+	rTrq->setKValue(&_kTor[0]);
+	rTrq->setBValue(&_bTor[0]);
+	rTrq->setScaleFunction(rScaleTorsionalSpline);
+	rdStorage *rTrqStore = rTrq->getAppliedTorqueStorage();
+	_model->addDerivCallback(rTrq);
+	// left
+	suTorsionalSpring *lTrq = new suTorsionalSpring(_model,_model->getBodyIndex("calcn_l"));
+	lTrq->computeTargetFunctions(_qStore,_uStore);
+	lTrq->setKValue(&_kTor[0]);
+	lTrq->setBValue(&_bTor[0]);
+	lTrq->setScaleFunction(lScaleTorsionalSpline);
+	rdStorage *lTrqStore = lTrq->getAppliedTorqueStorage();
+	_model->addDerivCallback(lTrq);
 }
-
-
 
 
 //=============================================================================
