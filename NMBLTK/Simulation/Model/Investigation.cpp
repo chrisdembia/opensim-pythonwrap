@@ -25,7 +25,13 @@ Investigation::~Investigation()
  * Default constructor.
  */
 Investigation::Investigation():
-	_outputPrecision(_outputPrecisionProp.getValueInt())
+	_outputPrecision(_outputPrecisionProp.getValueInt()),
+	_ti(_tiProp.getValueDbl()),
+	_tf(_tfProp.getValueDbl()),
+	_maxSteps(_maxStepsProp.getValueInt()),
+	_maxDT(_maxDTProp.getValueDbl()),
+	_errorTolerance(_errorToleranceProp.getValueDbl()),
+	_fineTolerance(_fineToleranceProp.getValueDbl())
 {
 	setType("Investigation");
 	setNull();
@@ -41,7 +47,13 @@ Investigation::Investigation():
  */
 Investigation::Investigation(const string &aFileName):
 	rdObject(aFileName),
-	_outputPrecision(_outputPrecisionProp.getValueInt())
+	_outputPrecision(_outputPrecisionProp.getValueInt()),
+	_ti(_tiProp.getValueDbl()),
+	_tf(_tfProp.getValueDbl()),
+	_maxSteps(_maxStepsProp.getValueInt()),
+	_maxDT(_maxDTProp.getValueDbl()),
+	_errorTolerance(_errorToleranceProp.getValueDbl()),
+	_fineTolerance(_fineToleranceProp.getValueDbl())
 {
 	setType("Investigation");
 	setNull();
@@ -53,7 +65,13 @@ Investigation::Investigation(const string &aFileName):
  */
 Investigation::Investigation(DOMElement *aElement):
 	rdObject(aElement),
-	_outputPrecision(_outputPrecisionProp.getValueInt())
+	_outputPrecision(_outputPrecisionProp.getValueInt()),
+	_ti(_tiProp.getValueDbl()),
+	_tf(_tfProp.getValueDbl()),
+	_maxSteps(_maxStepsProp.getValueInt()),
+	_maxDT(_maxDTProp.getValueDbl()),
+	_errorTolerance(_errorToleranceProp.getValueDbl()),
+	_fineTolerance(_fineToleranceProp.getValueDbl())
 {
 	setType("Investigation");
 	setNull();
@@ -97,7 +115,13 @@ Investigation::Investigation(DOMElement *aElement):
  */
 Investigation::Investigation(const Investigation &aInvestigation):
 	rdObject(aInvestigation),
-	_outputPrecision(_outputPrecisionProp.getValueInt())
+	_outputPrecision(_outputPrecisionProp.getValueInt()),
+	_ti(_tiProp.getValueDbl()),
+	_tf(_tfProp.getValueDbl()),
+	_maxSteps(_maxStepsProp.getValueInt()),
+	_maxDT(_maxDTProp.getValueDbl()),
+	_errorTolerance(_errorToleranceProp.getValueDbl()),
+	_fineTolerance(_fineToleranceProp.getValueDbl())
 {
 	setNull();
 	*this = aInvestigation;
@@ -110,8 +134,15 @@ void Investigation::
 setNull()
 {
 	setupProperties();
+
 	_model = 0;
 	_outputPrecision = 8;
+	_ti = 0.0;
+	_tf = 1.0;
+	_maxSteps = 20000;
+	_maxDT = 1.0;
+	_errorTolerance = 1.0e-3;
+	_fineTolerance = 1.0e-5;
 }
 //_____________________________________________________________________________
 /**
@@ -121,6 +152,25 @@ void Investigation::setupProperties()
 {
 	_outputPrecisionProp.setName("output_precision");
 	_propertySet.append( &_outputPrecisionProp );
+
+	_tiProp.setName("initial_time");
+	_propertySet.append( &_tiProp );
+
+	_tfProp.setName("final_time");
+	_propertySet.append( &_tfProp );
+
+	_maxStepsProp.setName("maximum_number_of_integrator_steps");
+	_propertySet.append( &_maxStepsProp );
+
+	_maxDTProp.setName("maximum_integrator_step_size");
+	_propertySet.append( &_maxDTProp );
+
+	_errorToleranceProp.setName("integrator_error_tolerance");
+	_propertySet.append( &_errorToleranceProp );
+
+	_fineToleranceProp.setName("integrator_fine_tolerance");
+	_propertySet.append( &_fineToleranceProp );
+
 }
 
 

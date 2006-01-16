@@ -9,6 +9,7 @@
 #include <NMBLTK/Tools/rdVectorGCVSplineR1R3.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
 #include <NMBLTK/Simulation/Model/rdDerivCallbackSet.h>
+#include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
 #include <NMBLTK/Simulation/Control/rdControlLinear.h>
 #include <NMBLTK/Simulation/Control/rdControlSet.h>
 #include <NMBLTK/Analyses/suKinematics.h>
@@ -21,6 +22,7 @@
 #include <NMBLTK/Analyses/suActuatorPerturbationIndependent.h>
 
 using namespace std;
+
 
 //=============================================================================
 // CONSTRUCTOR(S) AND DESTRUCTOR
@@ -42,6 +44,9 @@ InvestigationPerturbation::~InvestigationPerturbation()
  * Default constructor.
  */
 InvestigationPerturbation::InvestigationPerturbation() :
+	_pertWindow(_pertWindowProp.getValueDbl()),
+	_pertIncrement(_pertIncrementProp.getValueDbl()),
+	_pertDF(_pertDFProp.getValueDbl()),
 	_controlsFileName(_controlsFileNameProp.getValueStr()),
 	_copFileName(_copFileNameProp.getValueStr()),
 	_qFileName(_qFileNameProp.getValueStr()),
@@ -75,6 +80,9 @@ InvestigationPerturbation::InvestigationPerturbation() :
  */
 InvestigationPerturbation::InvestigationPerturbation(const string &aFileName):
 	Investigation(aFileName),
+	_pertWindow(_pertWindowProp.getValueDbl()),
+	_pertIncrement(_pertIncrementProp.getValueDbl()),
+	_pertDF(_pertDFProp.getValueDbl()),
 	_controlsFileName(_controlsFileNameProp.getValueStr()),
 	_copFileName(_copFileNameProp.getValueStr()),
 	_qFileName(_qFileNameProp.getValueStr()),
@@ -104,6 +112,9 @@ InvestigationPerturbation::InvestigationPerturbation(const string &aFileName):
  */
 InvestigationPerturbation::InvestigationPerturbation(DOMElement *aElement):
 	Investigation(aElement),
+	_pertWindow(_pertWindowProp.getValueDbl()),
+	_pertIncrement(_pertIncrementProp.getValueDbl()),
+	_pertDF(_pertDFProp.getValueDbl()),
 	_controlsFileName(_controlsFileNameProp.getValueStr()),
 	_copFileName(_copFileNameProp.getValueStr()),
 	_qFileName(_qFileNameProp.getValueStr()),
@@ -166,6 +177,9 @@ InvestigationPerturbation::InvestigationPerturbation(DOMElement *aElement):
 InvestigationPerturbation::
 InvestigationPerturbation(const InvestigationPerturbation &aInvestigation):
 	Investigation(aInvestigation),
+	_pertWindow(_pertWindowProp.getValueDbl()),
+	_pertIncrement(_pertIncrementProp.getValueDbl()),
+	_pertDF(_pertDFProp.getValueDbl()),
 	_controlsFileName(_controlsFileNameProp.getValueStr()),
 	_copFileName(_copFileNameProp.getValueStr()),
 	_qFileName(_qFileNameProp.getValueStr()),
@@ -351,7 +365,7 @@ void InvestigationPerturbation::run()
 {
 	cout<<"Running investigation "<<getName()<<".\n";
 
-	int i;
+	// SET OUTPUT PRECISION
 	rdIO::SetPrecision(_outputPrecision);
 
 	// REGISTER TYPES
@@ -375,6 +389,21 @@ void InvestigationPerturbation::run()
 	// States
 	_yStore = new rdStorage(_yFileName.c_str());
 
+	// CHECK FOR A MODEL
+	if(_model==NULL) {
+		string msg = "ERROR- A model has not been set.";
+		cout<<endl<<msg<<endl;
+		throw(rdException(msg,__FILE__,__LINE__));
+	}
+
+	// ASSIGN NUMBERS OF THINGS
+	int ny = _model->getNY();
+	int nq = _model->getNQ();
+	int nu = _model->getNU();
+	int na = _model->getNA();
+	int nb = _model->getNB();
+	int numBodyKinCols = 6*nb + 3;
+
 	// CONVERT Qs AND Us TO RADIANS AND QUATERNIONS
 	_model->convertDegreesToRadians(_qStore);
 	_model->convertAnglesToQuaternions(_qStore);
@@ -394,6 +423,10 @@ void InvestigationPerturbation::run()
 	_model->addAnalysis(kin);
 	kin->getPositionStorage()->setWriteSIMMHeader(true);		
 	kin->setOn(true);
+	// Actuation
+	suActuation *actuation = new suActuation(_model);
+	_model->addAnalysis(actuation);
+	actuation->setOn(true);
 
 	// SETUP SIMULATION
 	// Manager
@@ -401,7 +434,6 @@ void InvestigationPerturbation::run()
 	integrand.setControlSet(*_controlSet);
 	rdManager manager(&integrand);
 	manager.setSessionName(getName());
-
 	// Initial and final times
 	// If the times lie outside the range for which control values are
 	// available, the initial and final times are altered.
@@ -413,22 +445,235 @@ void InvestigationPerturbation::run()
 	}
 	double ti = control->getFirstTime();
 	double tf = control->getLastTime();
+	// Check initial time.
 	if(_ti<ti) {
 		cout<<"\n\nControls not available at "<<_ti<<".  ";
 		cout<<"Changing initial time to "<<ti<<".";
 		_ti = ti;
 	}
+	// Check final time.
 	if(tf<_tf) {
 		cout<<"\n\nControls not available at "<<_tf<<".  ";
 		cout<<"Changing final time to "<<tf<<".";
 		_tf = tf;
 	}
+	manager.setInitialTime(_ti);
+	manager.setFinalTime(_tf);
+	cout<<"\n\nPerforming perturbations over the range ti=";
+	cout<<_ti<<" to tf="<<_tf<<endl<<endl;
 
-	cout<<"\n\nPerforming perturbations from ti="<<_ti<<" to tf="<<_tf<<endl<<endl;
+	// Integrator settings
+	rdIntegRKF *integ = manager.getIntegrator();
+	integ->setMaximumNumberOfSteps(_maxSteps);
+	integ->setMaxDT(_maxDT);
+	integ->setTolerance(_errorTolerance);
+	integ->setFineTolerance(_fineTolerance);
+
+	// Pertubation callback
+	suActuatorPerturbationIndependent *perturbation = 
+		new suActuatorPerturbationIndependent(_model);
+	_model->addDerivCallback(perturbation);
 
 
+	// RESULT VARIABLES
+	int i,m,endIndex;
+	char fileName[rdObject::NAME_LENGTH];
+	double PXBody,PYBody,PZBody;
+	rdArray<double> PFXBody(0.0,na),PFYBody(0.0,na),PFZBody(0.0,na);
+	int indexCOMX = numBodyKinCols - 3;
+	int indexCOMY = numBodyKinCols - 2;
+	int indexCOMZ = numBodyKinCols - 1;
+	rdArray<double> lastRowPerturbedKin(0.0,numBodyKinCols);
+	rdArray<double> lastRowPerturbedVel(0.0,numBodyKinCols);
+	rdArray<double> rowUnperturbedKin(0.0,numBodyKinCols);
+	rdArray<double> rowUnperturbedVel(0.0,numBodyKinCols);
+	rdArray<double> rowUnperturbedForces(0.0,na);
+	rdArray<double> daXdf(0.0,na),deltaAX(0.0,na);
+	rdArray<double> daYdf(0.0,na),deltaAY(0.0,na);
+	rdArray<double> daZdf(0.0,na),deltaAZ(0.0,na);
+	for(i=0;i<na;i++)	{
+		PFXBody[i] = PFYBody[i] = PFZBody[i] = 0.0;
+		daXdf[i] = daYdf[i] = daZdf[i] = 0.0;
+		deltaAX[i] = deltaAY[i] = deltaAZ[i] = 0,0;
+	}
 
+	// Storage objects for results
+	rdStorage *perturbedPos;
+	rdStorage daXdfStore,deltaAXStore,PFXBodyStore;
+	rdStorage daYdfStore,deltaAYStore,PFYBodyStore;
+	rdStorage daZdfStore,deltaAZStore,PFZBodyStore;
+	string columnLabels = "time";
+	for(i=0;i<na;i++)	{
+		columnLabels += "\t";
+		columnLabels += _model->getActuatorName(i);
+	}
+
+	daXdfStore.setName("daXdf");
+	daXdfStore.setColumnLabels(columnLabels.c_str());
+	deltaAXStore.setName("deltaAX");
+	deltaAXStore.setColumnLabels(columnLabels.c_str());
+	PFXBodyStore.setName("PFXBody");
+	PFXBodyStore.setColumnLabels(columnLabels.c_str());
+	daYdfStore.setName("daYdf");
+	daYdfStore.setColumnLabels(columnLabels.c_str());
+	deltaAYStore.setName("deltaAY");
+	deltaAYStore.setColumnLabels(columnLabels.c_str());
+	PFYBodyStore.setName("PFYBody");
+	PFYBodyStore.setColumnLabels(columnLabels.c_str());
+	daZdfStore.setName("daZdf");
+	daZdfStore.setColumnLabels(columnLabels.c_str());
+	deltaAZStore.setName("deltaAZ");
+	deltaAZStore.setColumnLabels(columnLabels.c_str());
+	PFZBodyStore.setName("PFZBody");
+	PFZBodyStore.setColumnLabels(columnLabels.c_str());
+
+	// Storage objects for unperturbed data
+	rdStorage *unperturbedPos=0,*unperturbedVel=0,*unperturbedAcc=0;
+	rdStorage *unperturbedFrc=0;
+
+
+	//********************************************************************
+	// LOOP
+	//********************************************************************
+	int index;
+	double tiPert,tfPert;
+	double lastPertTime = _tf - _pertWindow;
+	rdArray<double> yi(0.0,ny);
+	for(tiPert=_ti;tiPert<=lastPertTime;tiPert+=_pertIncrement) {
+
+		// SET INITIAL AND FINAL TIME AND THE INITIAL STATES
+		index = _yStore->findIndex(tiPert);
+		_yStore->getTime(index,tiPert);
+		_yStore->getData(index,ny,&yi[0]);
+		tfPert = tiPert + _pertWindow;
+		manager.setInitialTime(tiPert);
+		manager.setFinalTime(tfPert);
+		_model->setInitialStates(&yi[0]);
+
+		// RESET ANALYSES
+		kin->getPositionStorage()->reset();
+		kin->getVelocityStorage()->reset();
+		kin->getAccelerationStorage()->reset();
+		actuation->getForceStorage()->reset();
+
+		// INTEGRATE (1)
+		integ->setUseSpecifiedDT(false);
+		perturbation->setOn(false);
+		cout<<"\n\nUnperturbed integration (1) from "<<tiPert<<" to "<<tfPert<<endl;
+		manager.integrate();
+		_model->getAnalysisSet()->printResults("Gc05g1_unpert","Results");
+		
+		// INTEGRATE (2) - Record unperturbed muscle forces
+		integ->setUseSpecifiedDT(true);
+		perturbation->setOn(true);
+		perturbation->getUnperturbedForceStorage()->reset(); 
+		perturbation->setRecordUnperturbedForces(true);
+		cout<<"\nUnperturbed integration 2 to record forces and kinematics\n";
+		manager.integrate();
+		perturbation->setRecordUnperturbedForces(false);
+
+		// COPY UNPERTURBED DATA
+		if(unperturbedPos!=0) { delete unperturbedPos;  unperturbedPos=0; }
+		if(unperturbedVel!=0) { delete unperturbedVel;  unperturbedVel=0; }
+		if(unperturbedAcc!=0) { delete unperturbedAcc;  unperturbedAcc=0; }
+		if(unperturbedFrc!=0) { delete unperturbedFrc;  unperturbedFrc=0; }
+		unperturbedPos = new rdStorage(*kin->getPositionStorage());
+		unperturbedVel = new rdStorage(*kin->getVelocityStorage());
+		unperturbedAcc = new rdStorage(*kin->getAccelerationStorage());
+		unperturbedFrc = new rdStorage(*actuation->getForceStorage());
+
+		// Get unperturbed kinmatics
+		endIndex = unperturbedPos->getSize() - 1;
+		unperturbedPos->getData(endIndex,numBodyKinCols,&rowUnperturbedKin[0]);
+		PXBody = rowUnperturbedKin[indexCOMX];
+		PYBody = rowUnperturbedKin[indexCOMY];
+		PZBody = rowUnperturbedKin[indexCOMZ];
+
+		// Get unperturbed forces
+		unperturbedFrc->getData(0,na,&rowUnperturbedForces[0]);
+
+		// Loop over muscles
+		//int tib_ant_l = _model->getActuatorIndex("tib_ant_l");
+		//for (m=tib_ant_l;m<=tib_ant_l;m++)	{
+		for (m=0;m<na;m++)	{
+
+			// Set up pertubation callback
+			cout<<"\nPerturbation of muscle "<<_model->getActuatorName(m)<<" ("<<m<<") in loop"<<endl;
+			rdDerivCallbackSet *callbackSet = _model->getDerivCallbackSet();
+			for(i=0;i<callbackSet->getSize();i++)	{
+				rdDerivCallback *callback = callbackSet->getDerivCallback(i);
+				if(callback == NULL) continue;
+				callback->reset();
+			}
+			perturbation->reset(); 
+			perturbation->setActuator(m); 
+			perturbation->setPerturbation(suActuatorPerturbationIndependent::DELTA,+_pertDF);
+
+			// Integrate
+ 			manager.integrate();
+
+			// Get perturbed kinematics
+			perturbedPos = kin->getPositionStorage();
+			endIndex = perturbedPos->getSize() - 1;
+			perturbedPos->getData(endIndex,numBodyKinCols,&lastRowPerturbedKin[0]);
+			PFXBody[m] = lastRowPerturbedKin[indexCOMX];
+			PFYBody[m] = lastRowPerturbedKin[indexCOMY];
+			PFZBody[m] = lastRowPerturbedKin[indexCOMZ];
+
+			// Compute derivatives
+			daXdf[m] = 2*(PFXBody[m]-PXBody)/(_pertDF*_pertWindow*_pertWindow);
+			deltaAX[m] = rowUnperturbedForces[m] *daXdf[m];
+			daYdf[m] = 2*(PFYBody[m]-PYBody)/(_pertDF*_pertWindow*_pertWindow);
+			deltaAY[m] = rowUnperturbedForces[m] *daYdf[m];
+			daZdf[m] = 2*(PFZBody[m]-PZBody)/(_pertDF*_pertWindow*_pertWindow);
+			deltaAZ[m] = rowUnperturbedForces[m] *daZdf[m];
+
+			cout << "muscle:\t"<<m<<"\tforce:\t"<<rowUnperturbedForces[m]<<endl;
+			printf("PFXBody:\t%.16f\tPXBody:\t%.16f\tdifference:\t%.16f\n",
+				PFXBody[m],PXBody,PFXBody[m]-PXBody);
+			printf("daXdf:\t%.16f\tdeltaAX:\t%.16f\n",daXdf[m],deltaAX[m]);
+
+			printf("PFYBody:\t%.16f\tPYBody:\t%.16f\tdifference:\t%.16f\n",
+				PFYBody[m],PYBody,PFYBody[m]-PYBody);
+			printf("daYdf:\t%.16f\tdeltaAY:\t%.16f\n",daYdf[m],deltaAY[m]);
+
+		} //end muscle loop
+
+		// Append to storage objects
+		daXdfStore.append(tiPert,na,&daXdf[0]);
+		deltaAXStore.append(tiPert,na,&deltaAX[0]);
+		PFXBodyStore.append(tiPert,na,&PFXBody[0]);
+		daYdfStore.append(tiPert,na,&daYdf[0]);
+		deltaAYStore.append(tiPert,na,&deltaAY[0]);
+		PFYBodyStore.append(tiPert,na,&PFYBody[0]);
+		daZdfStore.append(tiPert,na,&daZdf[0]);
+		deltaAZStore.append(tiPert,na,&deltaAZ[0]);
+		PFZBodyStore.append(tiPert,na,&PFZBody[0]);
+
+		// Print results
+		sprintf(fileName,"./ResultsPerturbed/daXdf_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);
+		daXdfStore.print(fileName);
+		sprintf(fileName,"./ResultsPerturbed/deltaAX_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);
+		deltaAXStore.print(fileName);
+		sprintf(fileName,"./ResultsPerturbed/PFXBody_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);
+		PFXBodyStore.print(fileName);
+		sprintf(fileName,"./ResultsPerturbed/daYdf_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);
+		daYdfStore.print(fileName);
+		sprintf(fileName,"./ResultsPerturbed/deltaAY_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);
+		deltaAYStore.print(fileName);
+		sprintf(fileName,"./ResultsPerturbed/PFYBody_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);
+		PFYBodyStore.print(fileName);
+		sprintf(fileName,"./ResultsPerturbed/daZdf_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);
+		daZdfStore.print(fileName);
+		sprintf(fileName,"./ResultsPerturbed/deltaAZ_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);
+		deltaAZStore.print(fileName);
+		sprintf(fileName,"./ResultsPerturbed/PFZBody_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);
+		PFZBodyStore.print(fileName);
+
+	} // end time loop
+	//***************************************************************************
 }
+
 
 //_____________________________________________________________________________
 /**

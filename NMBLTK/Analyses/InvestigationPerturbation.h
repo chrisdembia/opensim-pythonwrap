@@ -28,6 +28,15 @@ class SUANALYSES_API InvestigationPerturbation: public Investigation
 // MEMBER VARIABLES
 //=============================================================================
 private:
+	/** Perturbation time window. */
+	rdPropertyDbl _pertWindowProp;
+	double &_pertWindow;
+	/** Time increment between perturbation windows. */
+	rdPropertyDbl _pertIncrementProp;
+	double &_pertIncrement;
+	/** Magnitude of perturbation. */
+	rdPropertyDbl _pertDFProp;
+	double &_pertDF;
 	/** Name of the controls file. */
 	rdPropertyStr _controlsFileNameProp;
 	std::string &_controlsFileName;

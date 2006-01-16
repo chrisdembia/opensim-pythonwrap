@@ -29,11 +29,27 @@ protected:
 	/** Pointer to the model being investigated. */
 	rdModel *_model;
 
-	// PROPERTIES
 	/** Output precision. */
 	rdPropertyInt _outputPrecisionProp;
 	int &_outputPrecision;
-
+	/** Initial time for the investigation. */
+	rdPropertyDbl _tiProp;
+	double &_ti;
+	/** Final time for the investigation. */
+	rdPropertyDbl _tfProp;
+	double &_tf;
+	/** Maximum number of steps for the integrator. */
+	rdPropertyInt _maxStepsProp;
+	int &_maxSteps;
+	/** Maximum integration step size. */
+	rdPropertyDbl _maxDTProp;
+	double &_maxDT;
+	/** Integrator error tolerance. */
+	rdPropertyDbl _errorToleranceProp;
+	double &_errorTolerance;
+	/** Integrator find tolerance. */
+	rdPropertyDbl _fineToleranceProp;
+	double &_fineTolerance;
 
 //=============================================================================
 // METHODS
