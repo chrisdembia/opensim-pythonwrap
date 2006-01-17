@@ -23,13 +23,13 @@
 #include <NMBLTK/Simulation/SDFast/rdActuatedModel_SDFast.h>
 
 // NUMBERS OF THINGS
-const int rdUTWalking8Prescribed_NQ = 24;
-const int rdUTWalking8Prescribed_NU = 23;
+const int rdUTWalking8Prescribed_NQ = 34;
+const int rdUTWalking8Prescribed_NU = 33;
 const int rdUTWalking8Prescribed_NB = 10;
 const int rdUTWalking8Prescribed_NJ = 17;
 const int rdUTWalking8Prescribed_NX = 54;
 const int rdUTWalking8Prescribed_NA = 71;
-const int rdUTWalking8Prescribed_NY = 425;
+const int rdUTWalking8Prescribed_NY = 445;
 const int rdUTWalking8Prescribed_NYP = 20;
 const int rdUTWalking8Prescribed_NN = 15;
 const int rdUTWalking8Prescribed_NS = 10;
