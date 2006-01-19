@@ -198,3 +198,18 @@ constructGeometry()
 }
 
 
+
+//=============================================================================
+// STATIC METHOD FOR CREATING THIS MODEL
+//=============================================================================
+extern "C" {
+
+RDSDFAST_API rdModel* CreateModel()
+{
+	cgmalWalking01 *model = new cgmalWalking01();
+	return(model);
+}
+
+}
+
+

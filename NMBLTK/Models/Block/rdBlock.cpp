@@ -194,3 +194,21 @@ RegisterTypes()
 	rdObject::RegisterType(rdGeneralizedForce());
 
 }
+
+
+//=============================================================================
+// STATIC METHOD FOR CREATING THIS MODEL
+//=============================================================================
+extern "C" {
+
+RDSDFAST_API rdModel* CreateModel()
+{
+	rdBlock *model = new rdBlock();
+	return(model);
+}
+
+}
+
+
+
+
