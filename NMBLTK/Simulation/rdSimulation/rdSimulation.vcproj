@@ -153,6 +153,9 @@
 				RelativePath="..\Model\Investigation.cpp">
 			</File>
 			<File
+				RelativePath="..\Model\LoadModel.cpp">
+			</File>
+			<File
 				RelativePath="..\Model\rdActuator.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -801,6 +804,9 @@
 			</File>
 			<File
 				RelativePath="..\Model\Investigation.h">
+			</File>
+			<File
+				RelativePath="..\Model\LoadModel.h">
 			</File>
 			<File
 				RelativePath="..\Model\rdActuator.h">

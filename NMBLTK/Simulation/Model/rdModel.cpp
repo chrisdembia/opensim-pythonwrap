@@ -1385,3 +1385,68 @@ addDerivCallback(rdDerivCallback *aCallback)
 	aCallback->setModel(this);
 	_derivCallbackSet->append(aCallback);
 }
+
+
+//=============================================================================
+// PRINT
+//=============================================================================
+//_____________________________________________________________________________
+/**
+ * Print some basic information about the model.
+ *
+ * @param aOStream Output stream.
+ */
+void rdModel::
+printBasicInfo(std::ostream &aOStream) const
+{
+	aOStream<<"             MODEL: "<<getName()<<"\n";
+	aOStream<<"            bodies: "<<getNB()<<"\n";
+	aOStream<<"    coordinates(q): "<<getNQ()<<"\n";
+	aOStream<<"         speeds(u): "<<getNU()<<"\n";
+	aOStream<<"         actuators: "<<getNA()<<"\n";
+	aOStream<<"          contacts: "<<getNP()<<"\n";
+	aOStream<<"     pseudo-states: "<<getNYP()<<"\n";
+	aOStream<<"            states: "<<getNY()<<"\n";
+}
+//_____________________________________________________________________________
+/**
+ * Print detailed information about the model.
+ *
+ * @param aOStream Output stream.
+ */
+void rdModel::
+printDetailedInfo(std::ostream &aOStream) const
+{
+	int i,n;
+
+	aOStream<<"MODEL: "<<getName()<<"\n";
+
+	n = getNB();
+	aOStream<<"\nBODIES ("<<n<<")\n";
+	for(i=0;i<n;i++) aOStream<<"body["<<i<<"] = "<<getBodyName(i)<<"\n";
+
+	n = getNQ();
+	aOStream<<"\nGENERALIZED COORDINATES ("<<n<<")\n";
+	for(i=0;i<n;i++) aOStream<<"q["<<i<<"] = "<<getCoordinateName(i)<<"\n";
+
+	n = getNU();
+	aOStream<<"\nGENERALIZED SPEEDS ("<<n<<")\n";
+	for(i=0;i<n;i++) aOStream<<"u["<<i<<"] = "<<getSpeedName(i)<<"\n";
+
+	n = getNA();
+	aOStream<<"\nACTUATORS ("<<n<<")\n";
+	for(i=0;i<n;i++) aOStream<<"actuator["<<i<<"] = "<<getActuatorName(i)<<"\n";
+
+	n = getNP();
+	aOStream<<"\nCONTACTS ("<<n<<")\n";
+
+	n = getNYP();
+	aOStream<<"\nPSEUDO-STATES ("<<n<<")\n";
+	for(i=0;i<n;i++) aOStream<<"yp["<<i<<"] = "<<getPseudoStateName(i)<<"\n";
+
+	n = getNY();
+	aOStream<<"\nSTATES ("<<n<<")\n";
+	for(i=0;i<n;i++) aOStream<<"y["<<i<<"] = "<<getStateName(i)<<"\n";
+}
+
+

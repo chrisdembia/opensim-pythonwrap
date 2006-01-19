@@ -557,6 +557,12 @@ public:
 	rdDerivCallbackSet *getDerivCallbackSet();
 	void addDerivCallback(rdDerivCallback *aCallback);
 
+	//--------------------------------------------------------------------------
+	// PRINT
+	//--------------------------------------------------------------------------
+	void printBasicInfo(std::ostream &aOStream) const;
+	void printDetailedInfo(std::ostream &aOStream) const;
+
 //=============================================================================
 };	// END of class rdModel
 //=============================================================================
