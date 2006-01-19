@@ -1,7 +1,7 @@
 // Investigation.h
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//#ifndef __Investigation_h__
-//#define __Investigation_h__
+#ifndef __Investigation_h__
+#define __Investigation_h__
 
 #include <NMBLTK/Tools/rdObject.h>
 #include <NMBLTK/Tools/rdPropertyBool.h>
@@ -96,6 +96,6 @@ public:
 //=============================================================================
 //=============================================================================
 
-//#endif // __Investigation_h__
+#endif // __Investigation_h__
 
 

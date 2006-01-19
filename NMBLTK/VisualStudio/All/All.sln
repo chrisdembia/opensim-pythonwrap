@@ -101,6 +101,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rdToolsTest", "..\..\Tools\
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Perturb", "..\..\Applications\Perturb\Perturb.vcproj", "{9BAF69D7-FED7-482E-B224-4892BCCC7BCC}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -191,6 +195,10 @@ Global
 		{3F825020-C52D-40D1-84BB-4BF1786E7511}.Debug.Build.0 = Debug|Win32
 		{3F825020-C52D-40D1-84BB-4BF1786E7511}.Release.ActiveCfg = Release|Win32
 		{3F825020-C52D-40D1-84BB-4BF1786E7511}.Release.Build.0 = Release|Win32
+		{9BAF69D7-FED7-482E-B224-4892BCCC7BCC}.Debug.ActiveCfg = Debug|Win32
+		{9BAF69D7-FED7-482E-B224-4892BCCC7BCC}.Debug.Build.0 = Debug|Win32
+		{9BAF69D7-FED7-482E-B224-4892BCCC7BCC}.Release.ActiveCfg = Release|Win32
+		{9BAF69D7-FED7-482E-B224-4892BCCC7BCC}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

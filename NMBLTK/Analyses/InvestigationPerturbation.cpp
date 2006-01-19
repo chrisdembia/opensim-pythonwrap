@@ -247,9 +247,13 @@ setNull()
 
 	// CORRECTIVE SPRING PARAMETERS
 	_tau = 0.001;
+	_kLin.setSize(3);
 	_kLin[0] = _kLin[1] = _kLin[2] = 5000000.0;
+	_bLin.setSize(3);
 	_bLin[0] = _bLin[1] = _bLin[2] = 1500.0;
+	_kTor.setSize(3);
 	_kTor[0] = _kTor[1] = _kTor[2] = 100000.0;
+	_bTor.setSize(3);
 	_bTor[0] = _bTor[1] = _bTor[2] = 1000.0;
 }
 //_____________________________________________________________________________
