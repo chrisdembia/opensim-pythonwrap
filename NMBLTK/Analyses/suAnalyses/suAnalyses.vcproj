@@ -428,6 +428,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\suDecompHardUTWalkNoCompPrescribed.cpp">
+			</File>
+			<File
 				RelativePath="..\suDecompInteg.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -498,6 +501,9 @@
 						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;SUANALYSES_EXPORTS;$(NoInherit)"
 						BasicRuntimeChecks="3"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\suDecompTargetNoCompPrescribed.cpp">
 			</File>
 			<File
 				RelativePath="..\suDecompTaylor.cpp">
@@ -771,6 +777,9 @@
 				RelativePath="..\suDecompHardUTWalkNoComp.h">
 			</File>
 			<File
+				RelativePath="..\suDecompHardUTWalkNoCompPrescribed.h">
+			</File>
+			<File
 				RelativePath="..\suDecompInteg.h">
 			</File>
 			<File
@@ -781,6 +790,9 @@
 			</File>
 			<File
 				RelativePath="..\suDecompTargetNoComp.h">
+			</File>
+			<File
+				RelativePath="..\suDecompTargetNoCompPrescribed.h">
 			</File>
 			<File
 				RelativePath="..\suDecompTaylor.h">
