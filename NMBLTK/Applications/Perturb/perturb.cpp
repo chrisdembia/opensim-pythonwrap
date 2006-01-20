@@ -17,7 +17,6 @@ using namespace std;
  */
 int main(int argc,char **argv)
 {
-
 	// REGISTER TYPES
 	rdObject::RegisterType(InvestigationPerturbation());
 
@@ -37,20 +36,22 @@ int main(int argc,char **argv)
 	InvestigationPerturbation perturb(setupFileName);
 
 	// LOAD MODEL
-	rdModel *model1 = LoadModel(modelName);
-	if(model1!=NULL) {
-		cout<<"-----------------------------------------------------------------------\n";
-		cout<<"Loaded library  "<<modelName<<"\n";
-		cout<<"-----------------------------------------------------------------------\n";
-		model1->printBasicInfo(cout);
-		cout<<"-----------------------------------------------------------------------\n\n";
+	rdModel *model = LoadModel(modelName);
+	if(model==NULL) {
+		cout<<"\nperturb:  ERROR- failed to load model.\n";
+		exit(-1);
 	}
+	cout<<"-----------------------------------------------------------------------\n";
+	cout<<"Loaded library  "<<modelName<<"\n";
+	cout<<"-----------------------------------------------------------------------\n";
+	model->printBasicInfo(cout);
+	cout<<"-----------------------------------------------------------------------\n\n";
 
 	// RUN
 	cout<<"Running..."<<endl<<endl;
 	//perturb.setModel(model);
 	//perturb.run();
 
-	//
 	return(0);
 }
+
