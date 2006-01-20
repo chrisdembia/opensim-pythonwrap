@@ -4,6 +4,7 @@
 // INCLUDE
 #include <string>
 #include <iostream>
+#include <NMBLTK/Tools/rdMtx.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
 #include <NMBLTK/Simulation/Model/LoadModel.h>
 #include <NMBLTK/Analyses/InvestigationPerturbation.h>
@@ -32,30 +33,16 @@ int main(int argc,char **argv)
 	}
 
 	// CONSTRUCT INVESTIGATION
-	//InvestigationPerturbation perturb;
-	//perturb.print("defaultPertubation.xml");
 	cout<<"Loading perturbation setup file "<<setupFileName<<".\n\n";
 	InvestigationPerturbation perturb(setupFileName);
-	perturb.print("test2.xml");
 
-	// LOAD A MODEL
+	// LOAD MODEL
 	rdModel *model1 = LoadModel(modelName);
 	if(model1!=NULL) {
 		cout<<"-----------------------------------------------------------------------\n";
 		cout<<"Loaded library  "<<modelName<<"\n";
 		cout<<"-----------------------------------------------------------------------\n";
-		model1->printDetailedInfo(cout);
-		cout<<"-----------------------------------------------------------------------\n\n";
-	}
-
-	// LOAD ANOTHER MODEL
-	modelName = "cgmalWalking01_D";
-	rdModel *model2 = LoadModel(modelName);
-	if(model2!=NULL) {
-		cout<<"-----------------------------------------------------------------------\n";
-		cout<<"Loaded library  "<<modelName<<"\n";
-		cout<<"-----------------------------------------------------------------------\n";
-		model2->printBasicInfo(cout);
+		model1->printBasicInfo(cout);
 		cout<<"-----------------------------------------------------------------------\n\n";
 	}
 
@@ -64,5 +51,6 @@ int main(int argc,char **argv)
 	//perturb.setModel(model);
 	//perturb.run();
 
+	//
 	return(0);
 }
