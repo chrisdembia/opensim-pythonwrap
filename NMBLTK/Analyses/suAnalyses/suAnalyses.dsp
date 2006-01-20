@@ -26,6 +26,7 @@ CFG=suAnalyses - Win32 Debug
 # PROP Scc_ProjName ""
 # PROP Scc_LocalPath ""
 CPP=cl.exe
+F90=df.exe
 MTL=midl.exe
 RSC=rc.exe
 
@@ -42,7 +43,6 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-F90=df.exe
 # ADD BASE F90 /compile_only /dll /nologo /warn:nofileopt
 # ADD F90 /compile_only /dll /nologo /threads /warn:nofileopt
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SUANALYSES_EXPORTS" /YX /FD /c
@@ -76,7 +76,6 @@ PostBuild_Cmds=$(RDI_INSTALL)\Bin\cpl
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-F90=df.exe
 # ADD BASE F90 /check:bounds /compile_only /debug:full /dll /nologo /traceback /warn:argument_checking /warn:nofileopt
 # ADD F90 /check:bounds /compile_only /dbglibs /debug:none /dll /nologo /threads /traceback /warn:argument_checking /warn:nofileopt
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SUANALYSES_EXPORTS" /YX /FD /GZ /c
@@ -106,6 +105,10 @@ PostBuild_Cmds=$(RDI_INSTALL)\Bin\cpl D
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;f90;for;f;fpp"
+# Begin Source File
+
+SOURCE=..\InvestigationPerturbation.cpp
+# End Source File
 # Begin Source File
 
 SOURCE=..\suActuation.cpp
@@ -242,6 +245,10 @@ SOURCE=..\suTorsionalSpring.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl;fi;fd"
+# Begin Source File
+
+SOURCE=..\InvestigationPerturbation.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\suActuation.h

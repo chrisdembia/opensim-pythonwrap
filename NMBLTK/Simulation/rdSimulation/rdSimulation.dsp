@@ -105,6 +105,14 @@ PostBuild_Cmds=$(RDI_INSTALL)\Bin\cpl D
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\Model\Investigation.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\Model\LoadModel.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\Model\rdActuator.cpp
 # End Source File
 # Begin Source File
@@ -238,6 +246,14 @@ SOURCE=..\Model\VectorFunctionForActuators.cpp
 # Begin Source File
 
 SOURCE=..\Integrator\Integrand.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Model\Investigation.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Model\LoadModel.h
 # End Source File
 # Begin Source File
 
