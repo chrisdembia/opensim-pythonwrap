@@ -34,6 +34,7 @@ int main(int argc,char **argv)
 	// CONSTRUCT INVESTIGATION
 	cout<<"Loading perturbation setup file "<<setupFileName<<".\n\n";
 	InvestigationPerturbation perturb(setupFileName);
+	perturb.print("check.xml");
 
 	// LOAD MODEL
 	rdModel *model = LoadModel(modelName);
@@ -49,8 +50,8 @@ int main(int argc,char **argv)
 
 	// RUN
 	cout<<"Running..."<<endl<<endl;
-	//perturb.setModel(model);
-	//perturb.run();
+	perturb.setModel(model);
+	perturb.run();
 
 	return(0);
 }

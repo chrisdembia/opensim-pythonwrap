@@ -195,7 +195,7 @@ void DP_MainStartup_Workflow(DP_Data *dpd,const char *workpath,const char *param
    set_initial_conditions(&dpd->t,dpd->y,dpd->dy);
 
 
-	printf("\n\nsuPipeline40-helper:\n");
+	//printf("\n\nsuPipeline40Workflow-helper:\n");
 	int i;
 	//printf("q's and u's should be initialized now...\n");
 	//for(i=0;i<sdm->neq;i++) {

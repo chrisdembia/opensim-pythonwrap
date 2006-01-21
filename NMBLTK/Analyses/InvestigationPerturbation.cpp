@@ -262,6 +262,34 @@ setNull()
  */
 void InvestigationPerturbation::setupProperties()
 {
+	// PERTURBATION PARAMETERS
+	_pertWindowProp.setName("perturbation_time_window");
+	_propertySet.append( &_pertWindowProp );
+
+	_pertIncrementProp.setName("perturbation_time_increment");
+	_propertySet.append( &_pertIncrementProp );
+
+	_pertDFProp.setName("perturbation_size");
+	_propertySet.append( &_pertDFProp);
+
+
+	// CORRECTIVE SPRING PARAMETERS
+	_tauProp.setName("scaling_rise_time");
+	_propertySet.append( &_tauProp );
+
+	_kLinProp.setName("corrective_spring_linear_stiffness");
+	_propertySet.append( &_kLinProp );
+
+	_bLinProp.setName("corrective_spring_linear_damping");
+	_propertySet.append( &_bLinProp );
+
+	_kTorProp.setName("corrective_spring_torsional_stiffness");
+	_propertySet.append( &_kTorProp );
+
+	_bTorProp.setName("corrective_spring_torsional_damping");
+	_propertySet.append( &_bTorProp );
+
+
 	// INPUT FILE NAMES
 	_controlsFileNameProp.setName("controls_file_name");
 	_propertySet.append( &_controlsFileNameProp );
@@ -277,6 +305,7 @@ void InvestigationPerturbation::setupProperties()
 
 	_yFileNameProp.setName("states_file_name");
 	_propertySet.append( &_yFileNameProp );
+
 
 	// FOOT CONTACT EVENT TIMES
 	_rHeelStrikeProp.setName("r_heel_strike");
@@ -302,24 +331,6 @@ void InvestigationPerturbation::setupProperties()
 
 	_lToeOffProp.setName("l_toe_off");
 	_propertySet.append( &_lToeOffProp );
-
-
-	// CORRECTIVE SPRING PARAMETERS
-	_tauProp.setName("scaling_rise_time");
-	_propertySet.append( &_tauProp );
-
-	_kLinProp.setName("corrective_spring_linear_stiffness");
-	_propertySet.append( &_kLinProp );
-
-	_bLinProp.setName("corrective_spring_linear_damping");
-	_propertySet.append( &_bLinProp );
-
-	_kTorProp.setName("corrective_spring_torsional_stiffness");
-	_propertySet.append( &_kTorProp );
-
-	_bTorProp.setName("corrective_spring_torsional_damping");
-	_propertySet.append( &_bTorProp );
-
 }
 
 
