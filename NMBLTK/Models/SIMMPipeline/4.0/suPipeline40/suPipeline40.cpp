@@ -146,8 +146,8 @@ constructInitialStates()
 	int nqnu = getNQ() + getNU();
 	int nyAct = rdActuatedModel_SDFast::getNY() - nqnu;
 	int nyDP = sdm->neq - nqnu;
-	cout<<"suPipeline40.constructInitialStates:  ny="<<ny;
-	cout<<" nyAct="<<nyAct<<" nyDP="<<nyDP<<endl;
+	//cout<<"suPipeline40.constructInitialStates:  ny="<<ny;
+	//cout<<" nyAct="<<nyAct<<" nyDP="<<nyDP<<endl;
 
 	// INITIALIZE
 	_yi.setSize(ny);
@@ -169,26 +169,26 @@ constructInitialStates()
 void suPipeline40::
 constructNames()
 {
-	printf("suPipeline40.constructControlNames: \n");
+	//printf("suPipeline40.constructControlNames: \n");
 
 	// NAME
 	setName("suPipeline40");
 	
 	// BODIES
-	printf("suPipeline40.constructNames: nb = %d\n",getNB());
+	//printf("suPipeline40.constructNames: nb = %d\n",getNB());
 	int i;
 	for(i=0;i<getNB();i++) {	// Use i+1 since SIMM has a segment for ground but RDI does not! -Ayman 11/04
 		setBodyName(i,sdm->body_segment[i+1].name);
 	}
 
 	// GENERALIZED COORDINATES
-	printf("suPipeline40.constructNames: nq = %d\n",getNQ());
+	//printf("suPipeline40.constructNames: nq = %d\n",getNQ());
 	for(i=0;i<getNQ();i++) {
 		setCoordinateName(i,sdm->q[i].name);
 	}
 
 	// GENERALIZED SPEEDS
-	printf("suPipeline40.constructNames: nu = %d\n",getNU());
+	//printf("suPipeline40.constructNames: nu = %d\n",getNU());
 	char name[100];
 	for(i=0;i<getNU();i++) {
 		sprintf(name, "%s",sdm->q[i].name);

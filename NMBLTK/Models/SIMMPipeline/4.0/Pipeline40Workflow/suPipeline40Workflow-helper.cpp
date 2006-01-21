@@ -197,10 +197,10 @@ void DP_MainStartup_Workflow(DP_Data *dpd,const char *workpath,const char *param
 
 	printf("\n\nsuPipeline40-helper:\n");
 	int i;
-	printf("q's and u's should be initialized now...\n");
-	for(i=0;i<sdm->neq;i++) {
-		printf("dpd->y[%d]=\t%lf\n",i,dpd->y[i]);
-	}
+	//printf("q's and u's should be initialized now...\n");
+	//for(i=0;i<sdm->neq;i++) {
+	//	printf("dpd->y[%d]=\t%lf\n",i,dpd->y[i]);
+	//}
 
    
    init_motion();
@@ -215,10 +215,10 @@ void DP_MainStartup_Workflow(DP_Data *dpd,const char *workpath,const char *param
  	//sdstate( dpd->t, dpd->y, &dpd->y[sdm->nq] );
 	init_muscle_states(sdm,dpd->y);
 
-	printf("muscles states should be initialized now...\n");
-	for(i=0;i<sdm->neq;i++) {
-		printf("dpd->y[%d]=\t%lf\n",i,dpd->y[i]);
-	}
+	//printf("muscles states should be initialized now...\n");
+	//for(i=0;i<sdm->neq;i++) {
+	//	printf("dpd->y[%d]=\t%lf\n",i,dpd->y[i]);
+	//}
 	//*********************************************************************
 
 
