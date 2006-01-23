@@ -11,7 +11,7 @@
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/SQP/rdFSQP.h>
 #include <NMBLTK/Tools/rdPointConstraint.h>
-#include "suDecompHardUTWalk.h"
+#include "suDecompHard.h"
 #include "suDecompTarget.h"
 
 
@@ -32,7 +32,7 @@ suDecompTarget::~suDecompTarget()
  * Constructor.
  */
 suDecompTarget::suDecompTarget(int aNX,int aNC,
-	suDecompHardUTWalk *aAnalysis) :
+	suDecompHard *aAnalysis) :
 	rdOptimizationTarget(aNX)
 {
 	// MODEL

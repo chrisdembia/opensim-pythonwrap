@@ -14,6 +14,7 @@
 #include <NMBLTK/Tools/rdBodyConstraint.h>
 #include "suAnalyses.h"
 #include "suDecomp.h"
+#include "suDecompHard.h"
 
 
 //=============================================================================
@@ -22,7 +23,7 @@
  * A class for computing a decomposition by hard constraints for the
  * UT Walking Model or classes derived from the UT Walking Model.
  */
-class SUANALYSES_API suDecompHardUTWalk : public suDecomp
+class SUANALYSES_API suDecompHardUTWalk : public suDecompHard
 {
 //=============================================================================
 // DATA

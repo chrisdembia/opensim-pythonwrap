@@ -58,7 +58,7 @@ suDecompHardUTWalk::~suDecompHardUTWalk()
  * rdUTWalking8 model.
  */
 suDecompHardUTWalk::suDecompHardUTWalk(rdUTWalking8 *aModel) :
-	suDecomp(aModel)
+	suDecompHard(aModel)
 {
 	setNull();
 

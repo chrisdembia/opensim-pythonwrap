@@ -13,7 +13,7 @@
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/SQP/rdFSQP.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
-#include "suDecompHardUTWalk.h"
+#include "suDecompHard.h"
 
 
 
@@ -30,7 +30,7 @@ class suDecompTarget : public rdOptimizationTarget
 // DATA
 //==============================================================================
 private:
-	suDecompHardUTWalk *_analysis;
+	suDecompHard *_analysis;
 
 //==============================================================================
 // METHODS
@@ -40,7 +40,7 @@ public:
 	// CONSTRUCTION
 	//---------------------------------------------------------------------------
 	virtual ~suDecompTarget();
-	suDecompTarget(int aNX,int aNC,suDecompHardUTWalk *aAnalysis);
+	suDecompTarget(int aNX,int aNC,suDecompHard *aAnalysis);
 
 	//---------------------------------------------------------------------------
 	// SET AND GET

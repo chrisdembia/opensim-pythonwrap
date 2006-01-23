@@ -392,6 +392,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\suDecompHard.cpp">
+			</File>
+			<File
 				RelativePath="..\suDecompHardUTWalk.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -769,6 +772,9 @@
 			</File>
 			<File
 				RelativePath="..\suDecomp.h">
+			</File>
+			<File
+				RelativePath="..\suDecompHard.h">
 			</File>
 			<File
 				RelativePath="..\suDecompHardUTWalk.h">
