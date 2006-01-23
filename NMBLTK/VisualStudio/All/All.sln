@@ -103,6 +103,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rdToolsTest", "..\..\Tools\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Perturb", "..\..\Applications\Perturb\Perturb.vcproj", "{9BAF69D7-FED7-482E-B224-4892BCCC7BCC}"
 	ProjectSection(ProjectDependencies) = postProject
+		{6EB9FC4D-39ED-4AF9-B449-A0E62632FE17} = {6EB9FC4D-39ED-4AF9-B449-A0E62632FE17}
+		{D106376D-F7EB-4226-AFA2-FB4D7E475F40} = {D106376D-F7EB-4226-AFA2-FB4D7E475F40}
 	EndProjectSection
 EndProject
 Global
