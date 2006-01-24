@@ -1,4 +1,4 @@
-// su_Template_.cpp
+// _Template_.cpp
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Author:  Frank C. Anderson
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -9,7 +9,7 @@
 //=============================================================================
 
 #include <NMBLTK/Models/SIMMPipeline/4.0/Pipeline40Workflow/suPipeline40Workflow.h>
-#include "su_Template_.h"
+#include "_Template_.h"
 
 //=============================================================================
 // CONSTRUCTOR(S) AND DESTRUCTOR
@@ -18,14 +18,14 @@
 /**
  * Destructor.
  */
-su_Template_::~su_Template_()
+_Template_::~_Template_()
 {
 }
 //_____________________________________________________________________________
 /**
  * Default constructor.
  */
-su_Template_::su_Template_(const std::string &aParametersFileName,rdContactForceSet *aContacts) :
+_Template_::_Template_(const std::string &aParametersFileName,rdContactForceSet *aContacts) :
 	suPipeline40Workflow(aParametersFileName,aContacts)
 {
 	setNull();
@@ -39,7 +39,7 @@ su_Template_::su_Template_(const std::string &aParametersFileName,rdContactForce
 /**
  * Set member variables to their appropriate null values.
  */
-void su_Template_::
+void _Template_::
 setNull()
 {
 }

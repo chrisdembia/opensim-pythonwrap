@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="su_Template_"
+	Name="_Template_"
 	ProjectGUID="{5F9CEDF5-44AB-430C-9D50-DFED2A255FEF}"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -14,16 +14,18 @@
 			Name="Debug|Win32"
 			OutputDirectory="Debug"
 			IntermediateDirectory="Debug"
-			ConfigurationType="1"
+			ConfigurationType="2"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(RDI_INSTALL)/Include/dp"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;RDSDFAST_EXPORTS"
-				MinimalRebuild="TRUE"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS"
+				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				BufferSecurityCheck="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -34,10 +36,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="suPipeline40Workflow_D.lib suPipeline40_D.lib suAnalyses_D.lib rdSimulation_D.lib rdSDFast_D.lib rdTools_D.lib acpp_D.lib"
-				OutputFile="su_Template_.exe"
+				OutputFile="../_Template__D.dll"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(OutDir)/su_Template_.pdb"
+				ProgramDatabaseFile="$(OutDir)/_Template_.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -65,12 +67,12 @@
 			Name="Release|Win32"
 			OutputDirectory="Release"
 			IntermediateDirectory="Release"
-			ConfigurationType="1"
+			ConfigurationType="2"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="4"
+				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS"
+				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -79,7 +81,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/su_Template_.exe"
+				OutputFile="../_Template_.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
@@ -116,22 +118,19 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\_template__dyn.c">
-			</File>
-			<File
-				RelativePath=".\_template__sar.c">
-			</File>
-			<File
 				RelativePath=".\dynsim\src\sdfor.c">
 			</File>
 			<File
 				RelativePath=".\sdufuncs_darryl.c">
 			</File>
 			<File
-				RelativePath=".\su_Template_.cpp">
+				RelativePath=".\_template__dyn.c">
 			</File>
 			<File
-				RelativePath=".\su_Template__Forward.cpp">
+				RelativePath=".\_template__sar.c">
+			</File>
+			<File
+				RelativePath=".\_Template_.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -139,7 +138,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\su_Template_.h">
+				RelativePath=".\_Template_.h">
 			</File>
 		</Filter>
 		<Filter
