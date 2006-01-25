@@ -36,7 +36,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="suPipeline40Workflow_D.lib suPipeline40_D.lib suAnalyses_D.lib rdSimulation_D.lib rdSDFast_D.lib rdTools_D.lib acpp_D.lib"
-				OutputFile="../_Template__D.dll"
+				OutputFile="./_Template__D.dll"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/_Template_.pdb"
@@ -82,7 +82,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="suPipeline40Workflow.lib suPipeline40.lib suAnalyses.lib rdSimulation.lib rdSDFast.lib rdTools.lib acpp.lib"
-				OutputFile="../_Template_.dll"
+				OutputFile="./_Template_.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
