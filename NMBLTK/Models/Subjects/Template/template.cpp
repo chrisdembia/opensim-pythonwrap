@@ -25,8 +25,10 @@ _Template_::~_Template_()
 /**
  * Default constructor.
  */
-_Template_::_Template_(const std::string &aParametersFileName,rdContactForceSet *aContacts) :
-	suPipeline40Workflow(aParametersFileName,aContacts)
+_Template_::
+_Template_(const std::string &aParametersFileName,
+	rdActuatorSet *aActuators,rdContactForceSet *aContacts) :
+	suPipeline40Workflow(aParametersFileName,aActuators,aContacts)
 {
 	setNull();
 }
@@ -43,3 +45,19 @@ void _Template_::
 setNull()
 {
 }
+
+
+//=============================================================================
+// STATIC METHOD FOR CREATING THIS MODEL
+//=============================================================================
+extern "C" {
+
+RDSDFAST_API rdModel* CreateModel()
+{
+	_Template_ *model = new _Template_("params.txt");
+	return(model);
+}
+
+}
+
+
