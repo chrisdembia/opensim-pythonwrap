@@ -24,10 +24,10 @@ my $CapSubjectName = "\u$subjectName";
 
 chomp($subjectName);
 %filemap = (
-	"template.sln" => $CapSubjectName.".sln",
-	"template.vcproj" => $CapSubjectName.".vcproj",
-	"template.h" => $CapSubjectName.".h",
-	"template.cpp" => $CapSubjectName.".cpp",
+	"template.sln" => $subjectName.".sln",
+	"template.vcproj" => $subjectName.".vcproj",
+	"template.h" => $subjectName.".h",
+	"template.cpp" => $subjectName.".cpp",
 	"sdufuncs_darryl.c" => "sdufuncs_darryl.c",
 );
 my $templateDir = $ENV{NMBL_INSTALL}.'/Template/';
@@ -42,7 +42,7 @@ while ( my ($key, $value) = each(%filemap) ) {
 		while(<TEMPL_FH>){
 			$nextLine = $_;
 			$nextLine =~ s/_template_/$subjectName/g;
-			$nextLine =~ s/_Template_/$CapSubjectName/g;
+			$nextLine =~ s/_Template_/$subjectName/g;
 			print SUBJECT_FH $nextLine;
 		}
 		close(SUBJECT_FH);
