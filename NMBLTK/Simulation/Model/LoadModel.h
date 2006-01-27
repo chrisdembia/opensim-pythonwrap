@@ -9,6 +9,7 @@
 
 
 RDSIMULATION_API rdModel* LoadModel(const std::string &aModelLibraryName); 
+RDSIMULATION_API rdModel* LoadModel(int argc,char **argv);
 
 
 #endif // __Investigation_h__
