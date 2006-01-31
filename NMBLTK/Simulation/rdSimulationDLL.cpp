@@ -12,7 +12,8 @@
 // INCLUDES
 //=============================================================================
 #include "rdSimulationDLL.h"
-#include <stdio.h>
+#include <iostream>
+#include <NMBLTK/Simulation/Model/RegisterTypes.h>
 
 
 #ifdef WIN32
@@ -33,9 +34,11 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 	{
 		case DLL_PROCESS_ATTACH:
 			//printf("rdSimulation.DllMain: process attach.\n");
+			RegisterTypes();
 			break;
 		case DLL_THREAD_ATTACH:
 			//printf("rdSimulation.DllMain: thread attach.\n");
+			RegisterTypes();
 			break;
 		case DLL_THREAD_DETACH:
 			//printf("rdSimulation.DllMain: thread detach.\n");

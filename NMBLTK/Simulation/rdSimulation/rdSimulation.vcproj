@@ -776,6 +776,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\Model\RegisterTypes.cpp">
+			</File>
+			<File
 				RelativePath="..\Model\VectorFunctionForActuators.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -903,6 +906,9 @@
 			</File>
 			<File
 				RelativePath="..\Model\rdTorque.h">
+			</File>
+			<File
+				RelativePath="..\Model\RegisterTypes.h">
 			</File>
 			<File
 				RelativePath="..\Model\VectorFunctionForActuators.h">

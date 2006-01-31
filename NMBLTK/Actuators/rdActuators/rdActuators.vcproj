@@ -262,6 +262,9 @@
 						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;RDACTUATORS_EXPORTS;$(NoInherit)"/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath="..\RegisterTypes.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -283,6 +286,9 @@
 			</File>
 			<File
 				RelativePath="..\rdSetPoint.h">
+			</File>
+			<File
+				RelativePath="..\RegisterTypes.h">
 			</File>
 		</Filter>
 		<Filter
