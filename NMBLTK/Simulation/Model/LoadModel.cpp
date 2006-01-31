@@ -163,7 +163,6 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 		cout<<"ERROR- library for model "<<modelLibraryName<<" could not be loaded.\n\n";
 		return(NULL);
 	}
-	cout<<"Loaded library "<<modelLibraryName<<".\n";
 
 	// CREATE MODEL
 	rdModel *model = NULL;
@@ -214,11 +213,9 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 			cout<<"ERROR- function CreateModel_ActuatorsContacts() was not found in library "<<modelLibraryName<<".\n\n";
 			return(NULL);
 		}
-		cout<<"Found function CreateModel_ActuatorsContacts.\n";
 
 		// CREATE THE MODEL
 		model = createModelFunction(actuatorSet,contactForceSet);
-		cout<<"Made call to CreateModel_ActuatorsContacts.\n";
 		if(model==NULL) {
 			cout<<"ERROR- model "<<modelLibraryName<<" was not created.\n\n";
 			return(NULL);
