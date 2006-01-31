@@ -112,6 +112,10 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 		} else if((option=="-ModelLibrary")||(option=="-ML")) {
 			if((i+1)>=argc) continue;
 			if(modelLibraryName=="") modelLibraryName = argv[i+1];
+
+		} else if((option=="-Library")||(option=="-L")) {
+			// DO NOTHING
+			// -Library is a valid option.  Just not acting on it here.
 		
 		} else {
 			cout<<"WARN- "<<option<<" is an unknown option.\n";

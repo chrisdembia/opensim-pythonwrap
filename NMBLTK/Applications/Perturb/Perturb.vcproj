@@ -31,7 +31,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="rdTools_D.lib rdSimulation_D.lib suAnalyses_D.lib"
+				AdditionalDependencies="rdTools_D.lib rdSimulation_D.lib rdActuators_D.lib suAnalyses_D.lib"
 				OutputFile="$(OutDir)/perturb_D.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
