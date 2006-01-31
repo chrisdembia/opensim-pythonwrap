@@ -196,19 +196,48 @@ RegisterTypes()
 }
 
 
+
+extern "C" {
+
 //=============================================================================
 // STATIC METHOD FOR CREATING THIS MODEL
 //=============================================================================
-extern "C" {
-
-RDSDFAST_API rdModel* CreateModel()
+//_____________________________________________________________________________
+/**
+ * Default constructor.
+ */
+RDSDFAST_API rdModel*
+CreateModel()
 {
 	rdBlock *model = new rdBlock();
 	return(model);
 }
 
+//_____________________________________________________________________________
+/**
+ * Deserialization from file.
+ */
+RDSDFAST_API rdModel*
+CreateModel_File(const string &aModelFile)
+{
+	cout<<"rdBlock.CreatModel_File()- not yet implemented.\n";
+	return(NULL);
 }
 
+//_____________________________________________________________________________
+/**
+ * Constructor for an actuator set and a contact set.
+ */
+RDSDFAST_API rdModel*
+CreateModel_ActuatorsContacts(rdActuatorSet *aActuatorSet,rdContactForceSet *aContactSet)
+{
+	rdActuatorSet *actSet = (rdActuatorSet*)aActuatorSet;
+	rdContactForceSet *ctxSet = (rdContactForceSet*)aContactSet;
+	rdBlock *model = new rdBlock(actSet,ctxSet);
+	return(model);
+}
+
+}
 
 
 

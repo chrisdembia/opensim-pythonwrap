@@ -15,6 +15,8 @@
 //=============================================================================
 #include <NMBLTK/Simulation/SDFast/rdSDFastDLL.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdActuatorSet.h>
+#include <NMBLTK/Simulation/Model/rdContactForceSet.h>
 #include <NMBLTK/Simulation/SDFast/rdSDFast.h>
 #include <NMBLTK/Simulation/SDFast/rdActuatedModel_SDFast.h>
 
@@ -56,7 +58,9 @@ private:
 //=============================================================================
 extern "C" {
 RDSDFAST_API rdModel* CreateModel();
+RDSDFAST_API rdModel* CreateModel_File(const std::string &aModelFile);
+RDSDFAST_API rdModel* CreateModel_ActuatorsContacts(rdActuatorSet *aActuatorSet,rdContactForceSet *aContactSet);
+//RDSDFAST_API rdModel* CreateModel_ParamsActuatorsContacts(const std::string &aParamsFile,rdActuatorSet *aActuatorSet,rdContactForceSet *aContactSet);
 }
-
 
 #endif // #ifndef __rdBlock_h__
