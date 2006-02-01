@@ -42,6 +42,9 @@ private:
 //=============================================================================
 extern "C" {
 RDSDFAST_API rdModel* CreateModel();
+RDSDFAST_API rdModel* CreateModel_File(const std::string &aModelFile);
+RDSDFAST_API rdModel* CreateModel_ActuatorsContacts(rdActuatorSet *aActuatorSet,rdContactForceSet *aContactSet);
+RDSDFAST_API rdModel* CreateModel_ParamsActuatorsContacts(const std::string &aParamsFile,rdActuatorSet *aActuatorSet,rdContactForceSet *aContactSet);
 }
 
 
