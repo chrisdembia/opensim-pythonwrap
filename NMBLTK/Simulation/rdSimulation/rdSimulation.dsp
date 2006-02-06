@@ -237,6 +237,10 @@ SOURCE=..\Model\rdTorque.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\Model\RegisterTypes.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\Model\VectorFunctionForActuators.cpp
 # End Source File
 # End Group
@@ -382,6 +386,10 @@ SOURCE=..\Model\rdSprings.h
 # Begin Source File
 
 SOURCE=..\Model\rdTorque.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Model\RegisterTypes.h
 # End Source File
 # Begin Source File
 

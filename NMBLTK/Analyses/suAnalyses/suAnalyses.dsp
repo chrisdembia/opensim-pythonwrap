@@ -163,6 +163,10 @@ SOURCE=..\suDecomp.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\suDecompHard.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\suDecompHardUTWalk.cpp
 # End Source File
 # Begin Source File
@@ -300,6 +304,10 @@ SOURCE=..\suContact.h
 # Begin Source File
 
 SOURCE=..\suDecomp.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\suDecompHard.h
 # End Source File
 # Begin Source File
 
