@@ -18,7 +18,7 @@ using namespace std;
  * The purpose of this routine is to register all class types exported by
  * the rdSimulation library.
  */
-RDSIMULATION_API void RegisterTypes_rdActuators()
+RDACTUATORS_API void RegisterTypes_rdActuators()
 {
 	cout<<"RegisterTypes_rdActuators:  \n";
 
