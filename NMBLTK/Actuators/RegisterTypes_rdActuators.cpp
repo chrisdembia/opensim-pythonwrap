@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <NMBLTK/Tools/rdObject.h>
-#include "RegisterTypes.h"
+#include "RegisterTypes_rdActuators.h"
 #include "rdGeneralizedForceAtv.h"
 #include "rdLinearSetPoint.h"
 #include "rdPolynomialSetPoint.h"
@@ -18,9 +18,9 @@ using namespace std;
  * The purpose of this routine is to register all class types exported by
  * the rdSimulation library.
  */
-RDSIMULATION_API void RegisterTypes()
+RDSIMULATION_API void RegisterTypes_rdActuators()
 {
-	cout<<"rdActuators.RegisterTypes:  \n";
+	cout<<"RegisterTypes_rdActuators:  \n";
 
 	rdObject::RegisterType( rdGeneralizedForceAtv() );
 	rdObject::RegisterType( rdLinearSetPoint() );

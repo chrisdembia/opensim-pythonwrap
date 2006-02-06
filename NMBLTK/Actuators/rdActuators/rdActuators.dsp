@@ -132,10 +132,6 @@ SOURCE=..\rdPolynomialSetPoint.cpp
 
 SOURCE=..\rdSetPoint.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=..\RegisterTypes.cpp
-# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -167,10 +163,6 @@ SOURCE=..\rdPolynomialSetPoint.h
 # Begin Source File
 
 SOURCE=..\rdSetPoint.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\RegisterTypes.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
