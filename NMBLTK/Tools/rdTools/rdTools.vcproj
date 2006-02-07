@@ -1007,6 +1007,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\RegisterTypes_rdTools.cpp">
+			</File>
+			<File
 				RelativePath="..\RootSolver.cpp">
 			</File>
 			<File
@@ -1203,6 +1206,9 @@
 			</File>
 			<File
 				RelativePath="..\rdXMLNode.h">
+			</File>
+			<File
+				RelativePath="..\RegisterTypes_rdTools.h">
 			</File>
 			<File
 				RelativePath="..\RootSolver.h">

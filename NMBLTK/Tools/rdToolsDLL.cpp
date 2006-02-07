@@ -10,6 +10,7 @@
 // INCLUDES
 #include "rdToolsDLL.h"
 #include <iostream>
+#include "RegisterTypes_rdTools.h"
 
 #ifdef WIN32
 
@@ -35,6 +36,7 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 			cout<<"This product includes software developed by the\n";
 			cout<<"Apache Software Foundation (http://www.apache.org/).\n";
 			cout<<"-------------------------------------------------------\n\n\n";
+			RegisterTypes_rdTools();
 			break;
 
 		case DLL_THREAD_ATTACH:
@@ -43,6 +45,7 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 			cout<<"This product includes software developed by the\n";
 			cout<<"Apache Software Foundation (http://www.apache.org/).\n";
 			cout<<"-------------------------------------------------------\n\n\n";
+			RegisterTypes_rdTools();
 			break;
 
 		case DLL_THREAD_DETACH:
