@@ -1,11 +1,11 @@
-// RegisterTypes.cpp
+// RegisterTypes_rdSimulation.cpp
 // author: Frank C. Anderson
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #include <string>
 #include <iostream>
 #include <NMBLTK/Tools/rdObject.h>
-#include "RegisterTypes.h"
+#include "RegisterTypes_rdSimulation.h"
 #include "rdActuatorSet.h"
 #include "rdContactForceSet.h"
 #include "rdForce.h"
@@ -24,9 +24,9 @@ using namespace std;
  * The purpose of this routine is to register all class types exported by
  * the rdSimulation library.
  */
-RDSIMULATION_API void RegisterTypes()
+RDSIMULATION_API void RegisterTypes_rdSimulation()
 {
-	cout<<"rdSimulation.RegisterTypes:  \n";
+	cout<<"RegisterTypes_rdSimulation:  \n";
 
 	//rdObject::RegisterType( rdManager() );
 

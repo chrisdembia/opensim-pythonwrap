@@ -558,6 +558,12 @@ public:
 	void addDerivCallback(rdDerivCallback *aCallback);
 
 	//--------------------------------------------------------------------------
+	// FOR RRA - ADDED BY CHAND, 2/3/2006
+	//--------------------------------------------------------------------------
+	virtual void setIncludePipelineActuators(bool include);
+	virtual void computeConstrainedCoordinates(double* y);
+
+	//--------------------------------------------------------------------------
 	// PRINT
 	//--------------------------------------------------------------------------
 	void printBasicInfo(std::ostream &aOStream) const;

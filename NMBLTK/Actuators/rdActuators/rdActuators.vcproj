@@ -263,7 +263,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\RegisterTypes.cpp">
+				RelativePath="..\RegisterTypes_rdActuators.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -288,7 +288,7 @@
 				RelativePath="..\rdSetPoint.h">
 			</File>
 			<File
-				RelativePath="..\RegisterTypes.h">
+				RelativePath="..\RegisterTypes_rdActuators.h">
 			</File>
 		</Filter>
 		<Filter

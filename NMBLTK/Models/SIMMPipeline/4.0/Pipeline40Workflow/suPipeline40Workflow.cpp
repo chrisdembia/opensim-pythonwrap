@@ -81,3 +81,19 @@ initPipeline(const std::string &workpath, const std::string &paramfile)
 //=============================================================================
 // GET AND SET
 //=============================================================================
+
+
+//=============================================================================
+// FOR RRA - ADDED BY CHAND, 2/3/2006
+//=============================================================================
+//_____________________________________________________________________________
+/**
+ * Compute the constrained coordinates for a simulation.
+ *
+ * @param y Array of states containing all coordinates.
+ */
+void suPipeline40Workflow::
+computeConstrainedCoordinates(double* y)
+{
+	computeConstrainedCoords(sdm,y);
+}

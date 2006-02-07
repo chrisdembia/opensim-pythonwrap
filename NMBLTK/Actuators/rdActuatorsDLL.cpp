@@ -12,7 +12,7 @@
 // INCLUDES
 //=============================================================================
 #include "rdActuatorsDLL.h"
-#include "RegisterTypes.h"
+#include "RegisterTypes_rdActuators.h"
 
 #ifdef WIN32
 
@@ -30,10 +30,10 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     switch (ul_reason_for_call)
 	{
 		case DLL_PROCESS_ATTACH:
-			RegisterTypes();
+			RegisterTypes_rdActuators();
 			break;
 		case DLL_THREAD_ATTACH:
-			RegisterTypes();
+			RegisterTypes_rdActuators();
 			break;
 		case DLL_THREAD_DETACH:
 			break;

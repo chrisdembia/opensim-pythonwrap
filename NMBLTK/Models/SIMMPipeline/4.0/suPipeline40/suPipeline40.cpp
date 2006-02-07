@@ -722,11 +722,11 @@ getState(int aIndex) const
  * @param aTrueFalse  Specifies to use pipeline actuators is true; specifies
  * not to use pipeline actuators if false.
  */
-void suPipeline40::
+/*void suPipeline40::
 setIncludePipelineActuators(bool aTrueFalse)
 {
 	_includePipelineActuators = aTrueFalse;
-}
+}*/
 //_____________________________________________________________________________
 /**
  * Get whether or not to include the SIMM pipeline actuators.
@@ -1202,6 +1202,21 @@ computeAuxiliaryDerivatives(double *dydt)
 
 		for(i=0;i<nAuxPipeline;i++) dydt[i+nAuxBase] = _dpd->dy[i+nqnu];
 	}
+}
+
+//=============================================================================
+// FOR RRA - ADDED BY CHAND, 2/3/2006
+//=============================================================================
+//_____________________________________________________________________________
+/**
+ * Set whether to include pipeline actuators.
+ *
+ * @param include Boolean variable which tells whether to include pipeline actuators.
+ */
+void suPipeline40::
+setIncludePipelineActuators(bool include)
+{
+	_includePipelineActuators = include;
 }
 
 

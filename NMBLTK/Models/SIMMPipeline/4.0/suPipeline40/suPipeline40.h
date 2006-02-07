@@ -103,7 +103,7 @@ public:
 	//SCALING
 	virtual bool scale(const suScaleSet& aScaleSet);
 	// ACTUATION
-	void setIncludePipelineActuators(bool aTrueFalse);
+	//void setIncludePipelineActuators(bool aTrueFalse);
 	bool getIncludePipelineActuators() const;
 	virtual void computeActuation();
 	//virtual void computeActuatorStateDerivatives(double rDY[]);
@@ -122,7 +122,10 @@ public:
 
 	// DERIVATIVES
 	virtual void computeAuxiliaryDerivatives(double *dydt);
-	
+
+	// FOR RRA - ADDED BY CHAND, 2/3/2006
+	virtual void setIncludePipelineActuators(bool include);
+
 //=============================================================================
 };	// END of class suPipeline40
 //=============================================================================

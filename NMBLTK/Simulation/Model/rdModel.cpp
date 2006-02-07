@@ -1386,6 +1386,30 @@ addDerivCallback(rdDerivCallback *aCallback)
 	_derivCallbackSet->append(aCallback);
 }
 
+//=============================================================================
+// FOR RRA - ADDED BY CHAND, 2/3/2006
+//=============================================================================
+//_____________________________________________________________________________
+/**
+ * Set whether to include pipeline actuators.
+ *
+ * @param include Boolean variable which tells whether to include pipeline actuators.
+ */
+void rdModel::
+setIncludePipelineActuators(bool include)
+{ // Do nothing
+}
+
+//_____________________________________________________________________________
+/**
+ * Compute the constrained coordinates for a simulation.
+ *
+ * @param y Array of states containing all coordinates.
+ */
+void rdModel::
+computeConstrainedCoordinates(double* y)
+{ // Do nothing
+}
 
 //=============================================================================
 // PRINT
