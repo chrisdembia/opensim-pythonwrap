@@ -269,7 +269,7 @@ void DP_MainStartup_Workflow(DP_Data *dpd,const char *workpath,const char *param
       print_state(dpd->y,dpd->dy);
 
    }
-   print_state_2_file(dpd->y, dpd->dy, sdm);
+   //print_state_2_file(dpd->y, dpd->dy, sdm);
 }
 
 void print_state_2_file(double y[], double dy[], dpModelStruct* sdmp)
