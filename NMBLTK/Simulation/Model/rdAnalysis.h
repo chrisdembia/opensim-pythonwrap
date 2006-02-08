@@ -31,7 +31,7 @@ class rdXMLDocument;
 class RDSIMULATION_API rdAnalysis: public rdIntegCallback
 {
 public:
-	enum { DESCRIP_LENGTH=8192 };
+	//enum { DESCRIP_LENGTH=8192 };
 
 //=============================================================================
 // DATA

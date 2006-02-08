@@ -9,6 +9,7 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
+#include <string>
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Tools/rdStorage.h>
@@ -33,8 +34,8 @@ class SUANALYSES_API suContact : public rdAnalysis
 // DATA
 //=============================================================================
 private:
-	char _scalarLabels[DESCRIP_LENGTH];
-	char _resultantForcePointLabels[DESCRIP_LENGTH];
+	std::string _scalarLabels;
+	std::string _resultantForcePointLabels;
 	/** Array containing group assignemnts for each contact point in resultant
 		 force point calc **/
 	int *_resultantForcePointGroupAssignements;
@@ -89,8 +90,8 @@ public:
 	//--------------------------------------------------------------------------
 	// GET AND SET
 	//--------------------------------------------------------------------------
-	const char* getScalarColumnLabels() const;
-	const char* getResultantForcePointColumnLabels() const;
+	std::string getScalarColumnLabels();
+	std::string getResultantForcePointColumnLabels();
 	rdStorage* getPointsStorage() const;
 	rdStorage* getVelocityStorage() const;
 	rdStorage* getForceStorage() const;

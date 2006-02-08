@@ -137,26 +137,26 @@ setNull()
 void suContact::
 constructDescription()
 {
-	char descrip[DESCRIP_LENGTH];
+	string descrip = "";
 
 	// DESCRIPTION
-	strcpy(descrip,"\nThis file contains the contact quantities generated ");
-	strcat(descrip,"during a simulation.\n");
-	strcat(descrip,"All quantities are expressed in the global frame.\n");
-	strcat(descrip,"The units are S.I. (seconds, Newtons, meters, etc.).");
+	descrip = "\nThis file contains the contact quantities generated ";
+	descrip += "during a simulation.\n";
+	descrip += "All quantities are expressed in the global frame.\n";
+	descrip += "The units are S.I. (seconds, Newtons, meters, etc.).";
 
 	// BODY ID'S
 	int i,id;
 	int nb = _model->getNB();
-	char tmp[DESCRIP_LENGTH];
-	strcat(descrip,"\n\nBody ID's:\n");
+	char tmp[rdObject::NAME_LENGTH];
+	descrip += "\n\nBody ID's:\n";
 	for(i=0;i<nb;i++) {
 		if(_model->getGroundID()==0) id = i+1;
 		else id = i;
 		sprintf(tmp,"%4d\t%s\n",id,_model->getBodyName(i).c_str());
-		strcat(descrip,tmp);
+		descrip += tmp;
 	}
-	strcat(descrip,"\n");
+	descrip += "\n";
 
 	setDescription(descrip);
 }
@@ -167,55 +167,54 @@ constructDescription()
 void suContact::
 constructColumnLabels(int nResultantForcePointgroups)
 {
-	char labels[DESCRIP_LENGTH];
+	string labels = "Time";
 
 	// VECTOR LABELS
 	int nb = _model->getNB();
 	int a,b,p;
-	char tmp[DESCRIP_LENGTH];
+	char tmp[rdObject::NAME_LENGTH];
 	int np = _model->getNP();
-	strcpy(labels,"Time");
 	for(p=0;p<np;p++) {
 
 		// BODY A
 		a = _model->getContactBodyA(p);
 		sprintf(tmp,"\t%d_A_%s_x",p,_model->getBodyName(a).c_str());
-		strcat(labels,tmp);
+		labels += tmp;
 		sprintf(tmp,"\t%d_A_%s_y",p,_model->getBodyName(a).c_str());
-		strcat(labels,tmp);
+		labels += tmp;
 		sprintf(tmp,"\t%d_A_%s_z",p,_model->getBodyName(a).c_str());
-		strcat(labels,tmp);
+		labels += tmp;
 
 		// BODY B
 		b = _model->getContactBodyB(p);
 		sprintf(tmp,"\t%d_B_%s_x",p,_model->getBodyName(b).c_str());
-		strcat(labels,tmp);
+		labels += tmp;
 		sprintf(tmp,"\t%d_B_%s_y",p,_model->getBodyName(b).c_str());
-		strcat(labels,tmp);
+		labels += tmp;
 		sprintf(tmp,"\t%d_B_%s_z",p,_model->getBodyName(b).c_str());
-		strcat(labels,tmp);
+		labels += tmp;
 	}
-	setColumnLabels(labels);
+	setColumnLabels(labels.c_str());
 
 	// SCALAR LABELS
-	strcpy(_scalarLabels,"Time");
+	_scalarLabels = "Time";
 	for(p=0;p<np;p++) {
 		a = _model->getContactBodyA(p);
 		b = _model->getContactBodyB(p);
 		sprintf(tmp,"\t%d_%s_%s",
 			p,_model->getBodyName(a).c_str(),_model->getBodyName(b).c_str());
-		strcat(_scalarLabels,tmp);
+		_scalarLabels += tmp;
 	}
 
 	// RESULTANT FORCE POINT LABELS
-	strcpy(_resultantForcePointLabels,"Time");
+	_resultantForcePointLabels = "Time";
 	for(p=0;p<nResultantForcePointgroups;p++) {
 		sprintf(tmp,"\tresultantForcePoint_Group_%d_x",p);
-		strcat(_resultantForcePointLabels,tmp);
+		_resultantForcePointLabels = tmp;
 		sprintf(tmp,"\tresultantForcePoint_Group_%d_y",p);
-		strcat(_resultantForcePointLabels,tmp);
+		_resultantForcePointLabels = tmp;
 		sprintf(tmp,"\tresultantForcePoint_Group_%d_z",p);
-		strcat(_resultantForcePointLabels,tmp);
+		_resultantForcePointLabels = tmp;
 	}
 }
 //_____________________________________________________________________________
@@ -242,23 +241,23 @@ allocateStorage()
 
 	// POWERS
 	_pwrStore = new rdStorage(1000,"ContactPowers");
-	_pwrStore->setDescription(getDescription());
-	_pwrStore->setColumnLabels(getScalarColumnLabels());
+	_pwrStore->setDescription(getDescription().c_str());
+	_pwrStore->setColumnLabels(getScalarColumnLabels().c_str());
 
 	// RESULTANT FORCE POINT
 	_resultantForcePointsStore = new rdStorage(1000,"ContactResultantForcePoint");
 	_resultantForcePointsStore->setDescription(getDescription());
-	_resultantForcePointsStore->setColumnLabels(getResultantForcePointColumnLabels());
+	_resultantForcePointsStore->setColumnLabels(getResultantForcePointColumnLabels().c_str());
 
 	// TOTAL FORCE
 	_totFStore = new rdStorage(1000,"ContactTotalForces");
 	_totFStore->setDescription(getDescription());
-	_totFStore->setColumnLabels(getResultantForcePointColumnLabels());
+	_totFStore->setColumnLabels(getResultantForcePointColumnLabels().c_str());
 		
 	// TOTAL TORQUE
 	_totTorqueStore = new rdStorage(1000,"ContactTotalTorques");
 	_totTorqueStore->setDescription(getDescription());
-	_totTorqueStore->setColumnLabels(getResultantForcePointColumnLabels());
+	_totTorqueStore->setColumnLabels(getResultantForcePointColumnLabels().c_str());
 }
 
 
@@ -294,8 +293,8 @@ deleteStorage()
  *
  * @return Column labels for scalar variables.
  */
-const char* suContact::
-getScalarColumnLabels() const
+string suContact::
+getScalarColumnLabels()
 {
 	return(_scalarLabels);
 }
@@ -305,8 +304,8 @@ getScalarColumnLabels() const
  *
  * @return Column labels for resultant force point groups.
  */
-const char* suContact::
-getResultantForcePointColumnLabels() const
+string suContact::
+getResultantForcePointColumnLabels()
 {
 	return(_resultantForcePointLabels);
 }

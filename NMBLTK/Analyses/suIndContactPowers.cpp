@@ -7,14 +7,15 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <string>
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdMtx.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
 #include "suIndContactPowers.h"
+
+using namespace std;
+
 
 //=============================================================================
 // CONSTANTS
@@ -94,13 +95,13 @@ setNull()
 void suIndContactPowers::
 constructDescription()
 {
-	char descrip[DESCRIP_LENGTH];
+	string descrip;
 
-	strcpy(descrip,"\nThis file contains the powers delivered to contact");
-	strcat(descrip," elements\nby the individual actuators of a model");
-	strcat(descrip," during a simulation.\n");
-	strcat(descrip,"\nUnits are S.I. units (second, meters, Newtons, ...)");
-	strcat(descrip,"\n\n");
+	descrip = "\nThis file contains the powers delivered to contact";
+	descrip += " elements\nby the individual actuators of a model";
+	descrip += " during a simulation.\n";
+	descrip += "\nUnits are S.I. units (second, meters, Newtons, ...)";
+	descrip += "\n\n";
 
 	setDescription(descrip);
 }
@@ -112,22 +113,22 @@ constructDescription()
 void suIndContactPowers::
 constructColumnLabels()
 {
-	char labels[DESCRIP_LENGTH];
-	char tmp[DESCRIP_LENGTH];
+	string labels;
+	char tmp[rdObject::NAME_LENGTH];
 
 	// GET GENERALIZED SPEED NAMES
 	int i,a,b;
-	strcpy(labels,"Time");
+	labels = "Time";
 	for(i=0;i<_model->getNP();i++) {
 		a = _model->getContactBodyA(i);
 		b = _model->getContactBodyB(i);
 		sprintf(tmp,"\t%d_%s_%s",i,
 			_model->getBodyName(a).c_str(),_model->getBodyName(b).c_str());
-		strcat(labels,tmp);
+		labels += tmp;
 	}
-	strcat(labels,"\tTotal\n");
+	labels += "\tTotal\n";
 
-	setColumnLabels(labels);
+	setColumnLabels(labels.c_str());
 }
 
 //_____________________________________________________________________________
