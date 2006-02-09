@@ -1,0 +1,319 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ACPP - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP560.tmp" with contents
+[
+/nologo /MTd /w /W0 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR"debug/" /Fp"debug/ACPP.pch" /YX /Fo"debug/" /Fd"debug/" /FD /GZ /c 
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\acpp\src\alloca.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\acpp\src\cccp.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\acpp\src\obstack.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\acpp\src\version.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\acpp\src\y.tab.c"
+]
+Creating command line "cl.exe @C:\TEMP\RSP560.tmp" 
+Creating command line "link.exe -lib /nologo /out:"..\lib\acpp.lib"  .\debug\alloca.obj .\debug\cccp.obj .\debug\obstack.obj .\debug\version.obj .\debug\y.tab.obj "
+<h3>Output Window</h3>
+Compiling...
+alloca.c
+cccp.c
+obstack.c
+version.c
+y.tab.c
+C:\Users\Simm\acppTest\acpp\src\cexp.y(364) : note C6311: d:\program files\microsoft visual studio\vc98\include\stdio.h(212) : see previous definition of 'NULL'
+Creating library...
+<h3>
+--------------------Configuration: qhull - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP561.tmp" with contents
+[
+/nologo /MTd /W1 /Gm /GR /GX /ZI /Od /I "..\..\QHull\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR"obj/" /Fp"debug/qhull.pch" /YX /Fo"obj/" /Fd"obj/" /FD /GZ /c 
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\geom.c"
+]
+Creating command line "cl.exe @C:\TEMP\RSP561.tmp" 
+Creating temporary file "C:\TEMP\RSP562.tmp" with contents
+[
+/nologo /MTd /w /W0 /Gm /GR /GX /ZI /Od /I "..\..\QHull\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR"debug/" /Fp"debug/qhull.pch" /YX /Fo"debug/" /Fd"debug/" /FD /GZ /c 
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\geom2.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\global.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\io.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\mem.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\merge.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\poly.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\poly2.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\qhull.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\qset.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\rbox.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\stat.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\qhull\src\user.c"
+]
+Creating command line "cl.exe @C:\TEMP\RSP562.tmp" 
+Creating temporary file "C:\TEMP\RSP563.tmp" with contents
+[
+/nologo /out:"..\lib\qhull.lib" 
+.\obj\geom.obj
+.\debug\geom2.obj
+.\debug\global.obj
+.\debug\io.obj
+.\debug\mem.obj
+.\debug\merge.obj
+.\debug\poly.obj
+.\debug\poly2.obj
+.\debug\qhull.obj
+.\debug\qset.obj
+.\debug\rbox.obj
+.\debug\stat.obj
+.\debug\user.obj
+]
+Creating command line "link.exe -lib @C:\TEMP\RSP563.tmp"
+<h3>Output Window</h3>
+Compiling...
+geom.c
+Compiling...
+geom2.c
+global.c
+io.c
+mem.c
+merge.c
+poly.c
+poly2.c
+qhull.c
+qset.c
+rbox.c
+stat.c
+user.c
+Creating library...
+geom2.obj : warning LNK4006: _qh_rand already defined in rbox.obj; second definition ignored
+geom2.obj : warning LNK4006: _qh_srand already defined in rbox.obj; second definition ignored
+<h3>
+--------------------Configuration: solid - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP564.tmp" with contents
+[
+/nologo /MTd /w /W0 /Gm /GR /GX /ZI /Od /I "include" /I "..\QHull\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "USING_STD_NAMESPACE" /D "QHULL" /FR"debug/" /Fp"debug/solid.pch" /YX /Fo"debug/" /Fd"debug/" /FD /GZ /c 
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\BBoxTree.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Box.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\C-api.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Complex.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Cone.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Convex.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Cylinder.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Endpoint.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Object.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\pipesolid.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Polygon.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Polyhedron.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Polytope.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Response.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\RespTable.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Simplex.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Sphere.cpp"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\SOLID\src\Transform.cpp"
+]
+Creating command line "cl.exe @C:\TEMP\RSP564.tmp" 
+Creating temporary file "C:\TEMP\RSP565.tmp" with contents
+[
+/nologo /out:"..\lib\solid.lib" 
+.\debug\BBoxTree.obj
+.\debug\Box.obj
+".\debug\C-api.obj"
+.\debug\Complex.obj
+.\debug\Cone.obj
+.\debug\Convex.obj
+.\debug\Cylinder.obj
+.\debug\Endpoint.obj
+.\debug\Object.obj
+.\debug\pipesolid.obj
+.\debug\Polygon.obj
+.\debug\Polyhedron.obj
+.\debug\Polytope.obj
+.\debug\Response.obj
+.\debug\RespTable.obj
+.\debug\Simplex.obj
+.\debug\Sphere.obj
+.\debug\Transform.obj
+]
+Creating command line "link.exe -lib @C:\TEMP\RSP565.tmp"
+<h3>Output Window</h3>
+Compiling...
+BBoxTree.cpp
+Box.cpp
+C-api.cpp
+Complex.cpp
+Cone.cpp
+Convex.cpp
+Cylinder.cpp
+Endpoint.cpp
+Object.cpp
+pipesolid.cpp
+Polygon.cpp
+Polyhedron.cpp
+Polytope.cpp
+Response.cpp
+RespTable.cpp
+Simplex.cpp
+Sphere.cpp
+Transform.cpp
+Creating library...
+<h3>
+--------------------Configuration: SIMMdll - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP566.bat" with contents
+[
+@echo off
+cd ..\dynsim\src
+..\..\sdfast\sdfast model.sd
+..\..\sdfast\sdfast -gl -lc
+]
+Creating command line "C:\TEMP\RSP566.bat"
+Creating temporary file "C:\TEMP\RSP567.tmp" with contents
+[
+/nologo /MTd /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SIMMDLL_EXPORTS" /FR"Debug/" /Fp"Debug/SIMMdll.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\assigns.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\constraint.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\contact.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\cylinder_wrap.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\derivs.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\dllmain.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\ellipsoid_wrap.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\gcvspl.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\gmc.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\impact.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\inits.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\invert.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\lcp_solver.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\lmdif_c.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\mathtools.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\model_d.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\model_s.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\object.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\output.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\pipetools.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\readmuscles.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\readtools.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\sdlib.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\sdufuncs.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\sphere_wrap.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\spring_based.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\torus_wrap.c"
+"D:\Users\Customers\UMarylandMcQuade\data032204\newsimulation\dynsim\src\wrapping.c"
+]
+Creating command line "cl.exe @C:\TEMP\RSP567.tmp" 
+Running SD/FAST...
+Creating temporary file "C:\TEMP\RSP568.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib acpp.lib solid.lib qhull.lib /nologo /dll /incremental:yes /pdb:"Debug/simulation.pdb" /debug /machine:I386 /nodefaultlib:"libc" /out:"..\simulation.dll" /implib:"Debug/simulation.lib" /pdbtype:sept /libpath:"..\lib" 
+.\Debug\assigns.obj
+.\Debug\constraint.obj
+.\Debug\contact.obj
+.\Debug\cylinder_wrap.obj
+.\Debug\derivs.obj
+.\Debug\dllmain.obj
+.\Debug\ellipsoid_wrap.obj
+.\Debug\gcvspl.obj
+.\Debug\gmc.obj
+.\Debug\impact.obj
+.\Debug\inits.obj
+.\Debug\invert.obj
+.\Debug\lcp_solver.obj
+.\Debug\lmdif_c.obj
+.\Debug\mathtools.obj
+.\Debug\model_d.obj
+.\Debug\model_s.obj
+.\Debug\object.obj
+.\Debug\output.obj
+.\Debug\pipetools.obj
+.\Debug\readmuscles.obj
+.\Debug\readtools.obj
+.\Debug\sdlib.obj
+.\Debug\sdufuncs.obj
+.\Debug\sphere_wrap.obj
+.\Debug\spring_based.obj
+.\Debug\torus_wrap.obj
+.\Debug\wrapping.obj
+\Users\Customers\UMarylandMcQuade\data032204\newsimulation\lib\acpp.lib
+\Users\Customers\UMarylandMcQuade\data032204\newsimulation\lib\qhull.lib
+\Users\Customers\UMarylandMcQuade\data032204\newsimulation\lib\solid.lib
+]
+Creating command line "link.exe @C:\TEMP\RSP568.tmp"
+<h3>Output Window</h3>
+Compiling...
+assigns.c
+constraint.c
+contact.c
+cylinder_wrap.c
+derivs.c
+dllmain.c
+ellipsoid_wrap.c
+gcvspl.c
+gmc.c
+impact.c
+inits.c
+invert.c
+lcp_solver.c
+lmdif_c.c
+mathtools.c
+model_d.c
+model_s.c
+object.c
+output.c
+pipetools.c
+readmuscles.c
+readtools.c
+sdlib.c
+sdufuncs.c
+sphere_wrap.c
+spring_based.c
+torus_wrap.c
+wrapping.c
+Linking...
+   Creating library Debug/simulation.lib and object Debug/simulation.exp
+Creating temporary file "C:\TEMP\RSP56C.tmp" with contents
+[
+/nologo /o"Debug/SIMMdll.bsc" 
+.\Debug\assigns.sbr
+.\Debug\constraint.sbr
+.\Debug\contact.sbr
+.\Debug\cylinder_wrap.sbr
+.\Debug\derivs.sbr
+.\Debug\dllmain.sbr
+.\Debug\ellipsoid_wrap.sbr
+.\Debug\gcvspl.sbr
+.\Debug\gmc.sbr
+.\Debug\impact.sbr
+.\Debug\inits.sbr
+.\Debug\invert.sbr
+.\Debug\lcp_solver.sbr
+.\Debug\lmdif_c.sbr
+.\Debug\mathtools.sbr
+.\Debug\model_d.sbr
+.\Debug\model_s.sbr
+.\Debug\object.sbr
+.\Debug\output.sbr
+.\Debug\pipetools.sbr
+.\Debug\readmuscles.sbr
+.\Debug\readtools.sbr
+.\Debug\sdlib.sbr
+.\Debug\sdufuncs.sbr
+.\Debug\sphere_wrap.sbr
+.\Debug\spring_based.sbr
+.\Debug\torus_wrap.sbr
+.\Debug\wrapping.sbr]
+Creating command line "bscmake.exe @C:\TEMP\RSP56C.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+simulation.dll - 0 error(s), 2 warning(s)
+</pre>
+</body>
+</html>

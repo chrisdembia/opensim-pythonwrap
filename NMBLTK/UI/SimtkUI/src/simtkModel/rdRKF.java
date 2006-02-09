@@ -39,13 +39,17 @@ public class rdRKF {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
-  public rdRKF(Integrand aIntegrand, double aTol, double aTolFine) {
-    this(ModelJNI.new_rdRKF(Integrand.getCPtr(aIntegrand), aTol, aTolFine), true);
+  public rdRKF(rdModel aModel, double aTol, double aTolFine) {
+    this(ModelJNI.new_rdRKF(rdModel.getCPtr(aModel), aTol, aTolFine), true);
   }
 
-  public Integrand getIntegrand() {
-    long cPtr = ModelJNI.rdRKF_getIntegrand(swigCPtr);
-    return (cPtr == 0) ? null : new Integrand(cPtr, false);
+  public rdModel getModel() {
+    long cPtr = ModelJNI.rdRKF_getModel(swigCPtr);
+    return (cPtr == 0) ? null : new rdModel(cPtr, false);
+  }
+
+  public int getNY() {
+    return ModelJNI.rdRKF_getNY(swigCPtr);
   }
 
   public void setTolerance(double aTol, double aTolFine) {
@@ -64,12 +68,20 @@ public class rdRKF {
     return ModelJNI.rdRKF_getFineTolerance(swigCPtr);
   }
 
-  public int step(double dt, double t, SWIGTYPE_p_double y) {
-    return ModelJNI.rdRKF_step(swigCPtr, dt, t, SWIGTYPE_p_double.getCPtr(y));
+  public int step(double dt, double t, rdControlSet x, SWIGTYPE_p_double y) {
+    return ModelJNI.rdRKF_step__SWIG_0(swigCPtr, dt, t, rdControlSet.getCPtr(x), SWIGTYPE_p_double.getCPtr(y));
   }
 
-  public int stepFixed(double dt, double t, SWIGTYPE_p_double y) {
-    return ModelJNI.rdRKF_stepFixed(swigCPtr, dt, t, SWIGTYPE_p_double.getCPtr(y));
+  public int step(double dt, double t, SWIGTYPE_p_double x, SWIGTYPE_p_double y) {
+    return ModelJNI.rdRKF_step__SWIG_1(swigCPtr, dt, t, SWIGTYPE_p_double.getCPtr(x), SWIGTYPE_p_double.getCPtr(y));
+  }
+
+  public int stepFixed(double dt, double t, rdControlSet x, SWIGTYPE_p_double y) {
+    return ModelJNI.rdRKF_stepFixed__SWIG_0(swigCPtr, dt, t, rdControlSet.getCPtr(x), SWIGTYPE_p_double.getCPtr(y));
+  }
+
+  public int stepFixed(double dt, double t, SWIGTYPE_p_double x, SWIGTYPE_p_double y) {
+    return ModelJNI.rdRKF_stepFixed__SWIG_1(swigCPtr, dt, t, SWIGTYPE_p_double.getCPtr(x), SWIGTYPE_p_double.getCPtr(y));
   }
 
   // enums and constants

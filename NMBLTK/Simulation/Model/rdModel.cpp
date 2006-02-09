@@ -166,6 +166,74 @@ setupProperties()
 
 
 //=============================================================================
+// OPERATORS
+//=============================================================================
+//-----------------------------------------------------------------------------
+// ASSIGNMENT
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Assign this object to the values of another.  The XML-associated variable
+ * members are not copied-- the XML nodes and/or document must be generated
+ * anew for a copied object.
+ *
+ * @return Reference to this object.
+ * @see updateXMLNode()
+ * @see generateXMLNode()
+ */
+rdModel& rdModel::operator=(const rdModel &aModel)
+{
+	_b = aModel._b;
+	_materialSet = aModel._materialSet;
+
+	for (int i = 0; i < 3; i++)
+		_g[i] = aModel._g[i];
+
+	_t = aModel._t;
+	_tNormConst = aModel._tNormConst;;
+	_nb = aModel._nb;
+
+	// unused: _bNames;
+
+	if (aModel._analysisSet)
+	{
+		if (!_analysisSet)
+			_analysisSet = new rdAnalysisSet(this);
+		for (i = 0; i < aModel._analysisSet->getSize(); i++)
+		{
+			rdAnalysis* anAnalysis = new rdAnalysis(aModel.getAnalysis(i));
+			addAnalysis(anAnalysis);
+		}
+	}
+
+	if (aModel._integCallbackSet)
+	{
+		if (!_integCallbackSet)
+			_integCallbackSet = new rdIntegCallbackSet(this);
+		for (i = 0; i < aModel._integCallbackSet->getSize(); i++)
+		{
+			rdIntegCallback* integ = new rdIntegCallback(aModel.getIntegCallback(i));
+			addIntegCallback(integ);
+		}
+	}
+
+	if (aModel._derivCallbackSet)
+	{
+		if (!_derivCallbackSet)
+			_derivCallbackSet = new rdDerivCallbackSet(this);
+		for (i = 0; i < aModel._derivCallbackSet->getSize(); i++)
+		{
+			rdDerivCallback* deriv = new rdDerivCallback(*(aModel._derivCallbackSet->getDerivCallback(i)));
+			addDerivCallback(deriv);
+		}
+	}
+
+	_modelDescriptionFileName = aModel._modelDescriptionFileName;
+
+	return *this;
+}
+
+//=============================================================================
 // GET AND SET
 //=============================================================================
 //-----------------------------------------------------------------------------
@@ -1333,6 +1401,13 @@ getIntegCallbackSet()
 {
 	return(_integCallbackSet);
 }
+
+rdIntegCallback& rdModel::getIntegCallback(const int index) const
+{
+	return (*_integCallbackSet->getIntegCallback(index));
+}
+
+
 //_____________________________________________________________________________
 /**
  * Add an integration callback to the model

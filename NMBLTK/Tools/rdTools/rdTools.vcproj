@@ -25,6 +25,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WIN32;_USRDLL;RDTOOLS_EXPORTS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
 				PrecompiledHeaderFile=".\Debug/rdTools.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
@@ -92,6 +93,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Release/rdTools.pch"
 				AssemblerListingLocation=".\Release/"
@@ -1013,6 +1015,9 @@
 				RelativePath="..\RootSolver.cpp">
 			</File>
 			<File
+				RelativePath="..\simmNatCubicSpline.cpp">
+			</File>
+			<File
 				RelativePath="..\suScale.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1212,6 +1217,9 @@
 			</File>
 			<File
 				RelativePath="..\RootSolver.h">
+			</File>
+			<File
+				RelativePath="..\simmNatCubicSpline.h">
 			</File>
 			<File
 				RelativePath="..\suScale.h">

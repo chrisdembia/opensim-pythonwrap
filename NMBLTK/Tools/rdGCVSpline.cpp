@@ -46,7 +46,8 @@ rdGCVSpline() :
 	_weights(_propWeights.getValueDblArray()),
 	_coefficients(_propCoefficients.getValueDblArray()),
 	_wk(_propWk.getValueDblArray()),
-	_workEval(0.0)
+	_workEval(0.0),
+	_y(0.0)
 {
 	setNull();
 }
@@ -77,7 +78,8 @@ rdGCVSpline(int aDegree,int aN,const double *aX,const double *aF,
 	_weights(_propWeights.getValueDblArray()),
 	_coefficients(_propCoefficients.getValueDblArray()),
 	_wk(_propWk.getValueDblArray()),
-	_workEval(0.0)
+	_workEval(0.0),
+	_y(0.0)
 {
 	setNull();
 
@@ -104,6 +106,10 @@ rdGCVSpline(int aDegree,int aN,const double *aX,const double *aF,
 	_x.setSize(0);
 	_x.append(aN,aX);
 
+	// DEPENDENT VALUES
+	_y.setSize(0);
+	_y.append(aN,aF);
+
 	// WEIGHTS
 	int i;
 	_weights.setSize(_x.getSize());
@@ -121,13 +127,8 @@ rdGCVSpline(int aDegree,int aN,const double *aX,const double *aF,
 	_errorVariance = aErrorVariance;
 	int nwk = _x.getSize() + 6*(_x.getSize()*_halfOrder+1);
 	_wk.setSize(nwk);
-	double *f = new double[_x.getSize()];
-	memcpy(f,aF,_x.getSize()*sizeof(double));
-	gcvspl(_x.get(),f,_weights.get(),_halfOrder,_x.getSize(),
+	gcvspl(_x.get(),_y.get(),_weights.get(),_halfOrder,_x.getSize(),
 		_coefficients.get(),_errorVariance,_wk.get(),ierr);
-
-	// CLEANUP
-	delete[] f;
 }
 //_____________________________________________________________________________
 /**
@@ -144,7 +145,8 @@ rdGCVSpline(DOMElement *aElement) :
 	_weights(_propWeights.getValueDblArray()),
 	_coefficients(_propCoefficients.getValueDblArray()),
 	_wk(_propWk.getValueDblArray()),
-	_workEval(0.0)
+	_workEval(0.0),
+	_y(0.0)
 {
 	setNull();
 	updateFromXMLNode();
@@ -165,7 +167,8 @@ rdGCVSpline(const rdGCVSpline &aSpline) :
 	_weights(_propWeights.getValueDblArray()),
 	_coefficients(_propCoefficients.getValueDblArray()),
 	_wk(_propWk.getValueDblArray()),
-	_workEval(0.0)
+	_workEval(0.0),
+	_y(0.0)
 {
 	setEqual(aSpline);
 }
@@ -294,6 +297,7 @@ setEqual(const rdGCVSpline &aSpline)
 
 	// ALLOCATE ARRAYS
 	_x = aSpline._x;
+	_y = aSpline._y;
 	_weights = aSpline._weights;
 	_coefficients = aSpline._coefficients;
 	_wk = aSpline._wk;
@@ -511,6 +515,17 @@ updateBoundingBox()
 	setMaxX(_x.getLast());
 }
 
+void rdGCVSpline::scaleY(double aScaleFactor)
+{
+	for (int i = 0; i < _y.getSize(); i++)
+		_y[i] *= aScaleFactor;
+
+	// Recalculate the coefficients
+	int ierr=0;
+	gcvspl(_x.get(),_y.get(),_weights.get(),_halfOrder,_x.getSize(),
+		_coefficients.get(),_errorVariance,_wk.get(),ierr);
+}
+
 //_____________________________________________________________________________
 /**
  * Evaluate this function or a derivative of this function given a set of
@@ -551,5 +566,13 @@ evaluate(int aDerivOrder,double aX,double aY,double aZ)
 	}
 
 	return(value);
+}
+
+void rdGCVSpline::writeSIMM(ofstream& out, int functionIndex) const
+{
+	out << "beginfunction f" << functionIndex << endl;
+	for (int i = 0; i < _x.getSize(); i++)
+		out << "(" << _x[i] << ", " << _y[i] << ")" << endl;
+	out << "endfunction" << endl << endl;
 }
 

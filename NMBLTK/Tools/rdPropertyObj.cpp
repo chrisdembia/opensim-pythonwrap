@@ -36,6 +36,7 @@ rdPropertyObj::
 rdPropertyObj(const string &aName,const rdObject &aValue) :
 rdProperty(rdProperty::Obj,aName)
 {
+	setName(aName);
 	_value = aValue.copy();
 	_value->setName(aName);
 }

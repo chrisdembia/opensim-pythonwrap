@@ -1,11 +1,34 @@
-// rdTransform.h
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Copyright 2004 Stanford University
-// All rights reserved.
-//
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #ifndef __rdTransform_h__
 #define __rdTransform_h__
+
+// rdTransform.h
+// Authors: Ayman Habib, Peter Loan
+/*
+ * Copyright (c) 2005, Stanford University. All rights reserved. 
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions
+ * are met: 
+ *  - Redistributions of source code must retain the above copyright 
+ *    notice, this list of conditions and the following disclaimer. 
+ *  - Redistributions in binary form must reproduce the above copyright 
+ *    notice, this list of conditions and the following disclaimer in the 
+ *    documentation and/or other materials provided with the distribution. 
+ *  - Neither the name of the Stanford University nor the names of its 
+ *    contributors may be used to endorse or promote products derived 
+ *    from this software without specific prior written permission. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * POSSIBILITY OF SUCH DAMAGE. 
+ */
 
 #include "rdTools.h"
 #include "rdObject.h"
@@ -18,14 +41,14 @@ class rdMtx;
 /**
  * Class rdTransform is intended to represent transformations for rd platform
  *
+ * @authors Ayman Habib, Peter Loan
  * @version 1.0
- * @author Ayman Habib
  */
 class RDTOOLS_API rdTransform: public rdObject
 {
 public:
 	enum AxisName {
-		X=0, Y=1, Z=2, NoAxis=-1
+		X=0, Y=1, Z=2, W=3, NoAxis=-1
 	};
 	// Translation is not accounted for here in RotationOrder
 	// In all cases I've seen so far it's done either first or last
@@ -58,8 +81,8 @@ public:
 	rdTransform();
 	// Copy constructor
 	rdTransform(const rdTransform &aTransform);
-	// Construct a transform to rotate around a vector with specified angle
-	rdTransform(const double aAngle, double aVector[3]);
+	// Construct a transform to rotate around an arbitrary axis with specified angle
+	rdTransform(const double r, const AnglePreference preference, const double axis[3]);
 	virtual ~rdTransform();
 	rdObject* copy() const;
 
@@ -93,6 +116,12 @@ public:
 	void translateY(const double t);
 	void translateZ(const double t);
 	void translate(const double t[3]);
+
+	void transformPoint(double pt[3]) const;
+	void transformPoint(rdArray<double>& pt) const;
+	void transformVector(double vec[3]) const;
+
+	double* getMatrix() { return &_matrix4[0][0]; } // Pete
 	//--------------------------------------------------------------------------
 	// XML
 	//--------------------------------------------------------------------------

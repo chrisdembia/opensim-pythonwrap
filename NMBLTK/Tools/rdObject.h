@@ -37,6 +37,7 @@ template class RDTOOLS_API rdArrayPtrs<rdObject>;
 #endif
 
 typedef std::map<std::string, rdObject*, std::less<std::string> > stringsToObjects;
+typedef std::map<std::string, bool, std::less<std::string> > defaultsReadFromFile;
 
 
 // CONSTANTS
@@ -75,10 +76,18 @@ private:
 	static rdArrayPtrs<rdObject> _Types;
 
 	static rdArray<XMLCh *> _typeNames;
-	/** A Hash map that maps an std::string& to the corresponding default object.
-	*/
+	/** 
+	 * A Hash map that maps an std::string& to the corresponding default object.
+	 */
 	static stringsToObjects _mapTypesToDefaultObjects;
-
+	/**
+	 * A Hash map that maps an std::string& to the flag specifying if default objects are user specified in file
+	 */
+	static defaultsReadFromFile	_defaultsReadFromFile;
+	/**
+	 * Global flag to indicate if all registered objects are written in the defaults section
+	 */
+	static bool _serializeAllDefaults;
 	/**
 	* A pointer to the observable object implementation. Null if not needed to minimize
 	* memory overhead 
@@ -195,7 +204,7 @@ private:
 	// IO
 	//--------------------------------------------------------------------------
 public:
-	void print(const std::string &aFileName);
+	bool print(const std::string &aFileName);
 	// Observable Interface
 	//--------------------------------------------------------------------------
 	// Manage Observers
@@ -265,10 +274,44 @@ protected:
 	};
 public:
 	virtual void update(const rdObject& aObject, rdEvent& aEvent) {};
-
+	/* Static functions to specify and query if all registered objects are written 
+	 * to the defaults section of output files rather than only those 
+	 * explicitly specified by the user in input files */
+	static void setSerializeAllDefaults(bool aBoolean)
+	{
+		_serializeAllDefaults = aBoolean;
+	}
+	static bool getSerializeAllDefaults()
+	{
+		return _serializeAllDefaults;
+	}
 //=============================================================================
 };	// END of class rdObject
 //=============================================================================
 //=============================================================================
+/**
+ * Add public static method declaration in class derived from an abstract
+ * parent to assist in downcasting objects of the parent type to the 
+ * derived type.
+ */
+#define NMBLTK_DERIVED(Derived,Parent) \
+    static bool isA(const Parent& p)                        \
+        { return dynamic_cast<const Derived*>(&p) != 0; }   \
+    static const Derived& downcast(const Parent& p)         \
+        { return dynamic_cast<const Derived&>(p); }         \
+    static Derived& downcast(Parent& p)                     \
+        { return dynamic_cast<Derived&>(p); }
+
+/**
+ * This is like NMBLTK_DERIVED except it allows for an intermediate
+ * "helper" class between Derived and Parent.
+ */
+#define NMBLTK_DERIVED2(Derived,Helper,Parent) \
+    static bool isA(const Parent& p)                                        \
+        { return Helper::isA(p); }                                          \
+    static const Derived& downcast(const Parent& p)                         \
+        { return reinterpret_cast<const Derived&>(Helper::downcast(p)); }   \
+    static Derived& downcast(Parent& p)                                     \
+        { return reinterpret_cast<Derived&>(Helper::downcast(p)); }
 
 #endif //__rdObject_h__

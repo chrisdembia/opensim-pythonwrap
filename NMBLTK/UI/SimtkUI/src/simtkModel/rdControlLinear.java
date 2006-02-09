@@ -125,22 +125,6 @@ public class rdControlLinear extends rdControl {
     return ModelJNI.rdControlLinear_getControlValue(swigCPtr, aT);
   }
 
-  public double getControlValueMin(double aT) {
-    return ModelJNI.rdControlLinear_getControlValueMin(swigCPtr, aT);
-  }
-
-  public void setControlValueMin(double aT, double aX) {
-    ModelJNI.rdControlLinear_setControlValueMin(swigCPtr, aT, aX);
-  }
-
-  public double getControlValueMax(double aT) {
-    return ModelJNI.rdControlLinear_getControlValueMax(swigCPtr, aT);
-  }
-
-  public void setControlValueMax(double aT, double aX) {
-    ModelJNI.rdControlLinear_setControlValueMax(swigCPtr, aT, aX);
-  }
-
   public SWIGTYPE_p_rdArrayPtrsTrdControlLinearNode_t getNodeArray() {
     return new SWIGTYPE_p_rdArrayPtrsTrdControlLinearNode_t(ModelJNI.rdControlLinear_getNodeArray(swigCPtr), false);
   }

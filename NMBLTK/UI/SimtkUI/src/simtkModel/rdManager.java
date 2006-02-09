@@ -35,8 +35,8 @@ public class rdManager {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
-  public rdManager(rdModelIntegrand aIntegrand) {
-    this(ModelJNI.new_rdManager__SWIG_0(rdModelIntegrand.getCPtr(aIntegrand)), true);
+  public rdManager(rdModel model, rdControlSet aControlSet) {
+    this(ModelJNI.new_rdManager__SWIG_0(rdModel.getCPtr(model), rdControlSet.getCPtr(aControlSet)), true);
   }
 
   public rdManager() {
@@ -55,13 +55,23 @@ public class rdManager {
     return ModelJNI.rdManager_toString(swigCPtr);
   }
 
-  public void setIntegrand(rdModelIntegrand aIntegrand) {
-    ModelJNI.rdManager_setIntegrand(swigCPtr, rdModelIntegrand.getCPtr(aIntegrand));
+  public void setModel(rdModel model) {
+    ModelJNI.rdManager_setModel(swigCPtr, rdModel.getCPtr(model));
   }
 
-  public rdModelIntegrand getIntegrand() {
-    long cPtr = ModelJNI.rdManager_getIntegrand(swigCPtr);
-    return (cPtr == 0) ? null : new rdModelIntegrand(cPtr, false);
+  public rdModel getModel() {
+    long cPtr = ModelJNI.rdManager_getModel(swigCPtr);
+    return (cPtr == 0) ? null : new rdModel(cPtr, false);
+  }
+
+  public rdControlSet setControlSet(rdControlSet aControlSet) {
+    long cPtr = ModelJNI.rdManager_setControlSet(swigCPtr, rdControlSet.getCPtr(aControlSet));
+    return (cPtr == 0) ? null : new rdControlSet(cPtr, false);
+  }
+
+  public rdControlSet getControlSet() {
+    long cPtr = ModelJNI.rdManager_getControlSet(swigCPtr);
+    return (cPtr == 0) ? null : new rdControlSet(cPtr, false);
   }
 
   public rdIntegRKF getIntegrator() {
@@ -111,6 +121,11 @@ public class rdManager {
 
   public boolean integrate(double startTime) {
     return ModelJNI.rdManager_integrate__SWIG_2(swigCPtr, startTime);
+  }
+
+  public rdControlSet constructControlSet() {
+    long cPtr = ModelJNI.rdManager_constructControlSet(swigCPtr);
+    return (cPtr == 0) ? null : new rdControlSet(cPtr, false);
   }
 
 }

@@ -78,7 +78,7 @@ rdFunction::rdFunction(const rdFunction &aFunction) :
 	_minZ(_propMinZ.getValueDbl()),
 	_maxZ(_propMaxZ.getValueDbl())
 {
-	setNull();
+	setupProperties();
 
 	// ASSIGN
 	setEqual(aFunction);

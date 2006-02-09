@@ -93,10 +93,6 @@ public class rdAnalysis extends rdIntegCallback {
     return ModelJNI.rdAnalysis_getStorageInterval(swigCPtr);
   }
 
-  public rdArrayStorage getStorageList() {
-    return new rdArrayStorage(ModelJNI.rdAnalysis_getStorageList(swigCPtr), false);
-  }
-
   public boolean proceed(int aStep) {
     return ModelJNI.rdAnalysis_proceed(swigCPtr, aStep);
   }

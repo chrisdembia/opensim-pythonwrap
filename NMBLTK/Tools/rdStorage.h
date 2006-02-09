@@ -100,7 +100,7 @@ public:
 	// GET AND SET
 	//--------------------------------------------------------------------------
 	// SIZE
-	int getSize() { return(_storage.getSize()); }
+	int getSize() const { return(_storage.getSize()); }
 	// STATEVECTOR
 	int getSmallestNumberOfStates();
 	rdStateVector* getStateVector(int aTimeIndex) const;

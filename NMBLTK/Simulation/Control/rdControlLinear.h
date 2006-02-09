@@ -138,6 +138,8 @@ public:
 	virtual void
 		simplify(const rdPropertySet &aProperties);
 
+	NMBLTK_DERIVED(rdControlLinear, rdControl)
+
 //=============================================================================
 };	// END of class rdControlLinear
 //=============================================================================

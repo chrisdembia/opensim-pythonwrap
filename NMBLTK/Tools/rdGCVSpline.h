@@ -95,6 +95,10 @@ protected:
 	an evaluation. */
 	int _knotIndex;
 
+	/** Y (dependent) values of the function. These are called aF in the
+	constructor and are stored here so that the function can be scaled
+	later on. */
+	rdArray<double> _y;
 
 //=============================================================================
 // METHODS
@@ -137,6 +141,8 @@ public:
 	int getNW() const;
 	const double* getWorkArray();
 	const rdArray<double>& getCoefficients() const;
+	virtual int getNumberOfPoints() const { return _x.getSize(); }
+	virtual void scaleY(double aScaleFactor);
 
 	//--------------------------------------------------------------------------
 	// EVALUATION
@@ -144,6 +150,10 @@ public:
 	virtual void updateBoundingBox();
 	virtual double
 		evaluate(int aDerivOrder,double aX=0.0,double aY=0.0,double aZ=0.0);
+
+	virtual void writeSIMM(std::ofstream& out, int functionIndex) const;
+
+	NMBLTK_DERIVED(rdGCVSpline, rdFunction)
 
 //=============================================================================
 };	// END class rdGCVSpline

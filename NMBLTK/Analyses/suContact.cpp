@@ -7,9 +7,8 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <iostream>
+#include <string>
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdMtx.h>
 #include <NMBLTK/Tools/rdTools.h>

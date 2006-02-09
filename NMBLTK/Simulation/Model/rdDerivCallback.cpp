@@ -42,6 +42,18 @@ rdDerivCallback::rdDerivCallback(rdModel *aModel) :
 	setNull();
 }
 
+//_____________________________________________________________________________
+/**
+ * Copy Constructor.
+ *
+ */
+rdDerivCallback::rdDerivCallback(const rdDerivCallback &aDerivCallback):
+rdCallback(aDerivCallback)
+{
+	setNull();
+	*this = aDerivCallback;
+}
+
 //=============================================================================
 // CONSTRUCTION
 //=============================================================================
@@ -55,6 +67,27 @@ setNull()
 	setType("rdDerivCallback");
 }
 
+
+//=============================================================================
+// OPERATORS
+//=============================================================================
+//-----------------------------------------------------------------------------
+// ASSIGNMENT
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Assign this object to the values of another.
+ *
+ * @return Reference to this object.
+ */
+rdDerivCallback& rdDerivCallback::
+operator=(const rdDerivCallback &aObject)
+{
+	// BASE CLASS
+	rdCallback::operator=(aObject);
+
+	return(*this);
+}
 
 //=============================================================================
 // GET AND SET

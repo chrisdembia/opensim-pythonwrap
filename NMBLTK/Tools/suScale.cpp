@@ -17,7 +17,8 @@ suScale::~suScale(void)
  */
 suScale::suScale():
 _segmentName(_propSegmentName.getValueStr()),
-_scaleFactors(_propScaleFactors.getValueDblArray())
+_scaleFactors(_propScaleFactors.getValueDblArray()),
+_apply(_propApply.getValueBool())
 {
 	setNull();
 	updateFromXMLNode();
@@ -31,7 +32,8 @@ _scaleFactors(_propScaleFactors.getValueDblArray())
 suScale::suScale(const suScale &aScale) :
 rdObject(aScale),
 _segmentName(_propSegmentName.getValueStr()),
-_scaleFactors(_propScaleFactors.getValueDblArray())
+_scaleFactors(_propScaleFactors.getValueDblArray()),
+_apply(_propApply.getValueBool())
 {
 	setNull();
 
@@ -47,7 +49,21 @@ _scaleFactors(_propScaleFactors.getValueDblArray())
 suScale::suScale(DOMElement *aElement) :
 rdObject(aElement),
 _segmentName(_propSegmentName.getValueStr()),
-_scaleFactors(_propScaleFactors.getValueDblArray())
+_scaleFactors(_propScaleFactors.getValueDblArray()),
+_apply(_propApply.getValueBool())
+{
+	setNull();
+	updateFromXMLNode();
+}
+//_____________________________________________________________________________
+/**
+ * Constructor of a scaleSet from a file.
+ */
+suScale::suScale(const string& scaleFileName):
+rdObject(scaleFileName),
+_segmentName(_propSegmentName.getValueStr()),
+_scaleFactors(_propScaleFactors.getValueDblArray()),
+_apply(_propApply.getValueBool())
 {
 	setNull();
 	updateFromXMLNode();
@@ -100,6 +116,7 @@ operator=(const suScale &aScale)
 	// BASE CLASS
 	_segmentName = aScale.getSegmentName();
 	aScale.getScaleFactors(_scaleFactors);
+	_apply = aScale.getApply();
 
 	return(*this);
 }
@@ -130,6 +147,10 @@ setupProperties()
 	_propSegmentName.setValue("unnamed_segment");
 	_propertySet.append( &_propSegmentName );
 
+	// whether or not to apply the scale
+	_propApply.setName("apply");
+	_propApply.setValue(true);
+	_propertySet.append(&_propApply);
 }
 //=============================================================================
 // GET AND SET
@@ -158,7 +179,7 @@ getScaleFactors(rdArray<double>& aScaleFactors) const
  * Set segment name
  */
 void suScale::
-setSegmentName(string& aSegmentName)
+setSegmentName(const string& aSegmentName)
 {
 	_segmentName = aSegmentName;
 }

@@ -11,6 +11,9 @@
 
 
 // INCLUDES
+#include <stdlib.h>
+#include <stdio.h>
+#include <fstream>
 #include "rdTools.h"
 #include "rdObject.h"
 #include "rdPropertyDbl.h"
@@ -105,8 +108,12 @@ public:
 	// EVALUATE
 	//--------------------------------------------------------------------------
 	virtual void updateBoundingBox() = 0;
+	virtual int getNumberOfPoints() const = 0;
 	virtual double
 		evaluate(int aDerivOrder,double aX=0.0,double aY=0.0,double aZ=0.0) = 0;
+	virtual void scaleY(double aScaleFactor) = 0;
+
+	virtual void writeSIMM(std::ofstream& out, int functionIndex) const = 0;
 
 //=============================================================================
 };	// END class rdFunction

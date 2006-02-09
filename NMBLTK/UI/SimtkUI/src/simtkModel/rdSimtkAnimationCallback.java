@@ -51,12 +51,4 @@ public class rdSimtkAnimationCallback extends rdIntegCallback {
     return ModelJNI.rdSimtkAnimationCallback_step(swigCPtr, SWIGTYPE_p_double.getCPtr(aXPrev), SWIGTYPE_p_double.getCPtr(aYPrev), aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_void.getCPtr(aClientData));
   }
 
-  public void getMutex() {
-    ModelJNI.rdSimtkAnimationCallback_getMutex(swigCPtr);
-  }
-
-  public void releaseMutex() {
-    ModelJNI.rdSimtkAnimationCallback_releaseMutex(swigCPtr);
-  }
-
 }

@@ -93,6 +93,8 @@ public:
 	virtual void setControlValueMax(double aT,double aX);
 
 
+	NMBLTK_DERIVED(rdControlConstant, rdControl)
+
 //=============================================================================
 };	// END of class rdControlConstant
 //=============================================================================

@@ -51,11 +51,11 @@ public class SimtkSimulationErrChkCommand
     SimtkSimEnv currentEnv = SimtkDB.getInstance().getSimtkSimEnv(simenvName);
     rdManager mgr = currentEnv.getSimulationManager();
     // We have to have a model
-    if (mgr.getIntegrand().getModel()==null){
+    if (mgr.getModel()==null){
       SimtkApp.displayInfoMessage("No model in current Simulation Environment");
       success = false;
     }
-    else if (mgr.getIntegrand().getControlSet()==null){
+    else if (mgr.getControlSet()==null){
       SimtkApp.displayInfoMessage("No Control Set in current Simulation Environment");
       success = false;
     }

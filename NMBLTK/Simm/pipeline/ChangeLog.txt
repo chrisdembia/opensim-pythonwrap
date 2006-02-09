@@ -1,0 +1,316 @@
+-----------------------------------------------------------------------
+  ChangeLog.txt - changes to Dynamics Pipeline since version 1.1
+-----------------------------------------------------------------------
+
+--------------------------------
+Changes in version 3.0.2
+--------------------------------
+
+- Changed settings for compilation of model.sd to not automatically
+  invoke Order(n) option of SD/FAST.
+
+- Fixed a memory leak in the rigid-body contact detection code (in the
+  function compute_contact_forces()).
+
+- Fixed a bug in calc_hinge_torques() which caused incorrect calculation
+  of hinge torques when external forces were applied to the model.
+
+- Fixed a bug in calc_hinge_torques() which caused incorrect calculation
+  of hinge torques for gencoords which used "negative" kinematic
+  functions.
+
+- Fixed a bug in calc_moment_arms() which caused incorrect calculation
+  of moment arms for gencoords which used "negative" kinematic
+  functions.
+
+- Added support for modeling planar joints in which the rotation axis
+  is equal to y cross x, as well as x cross y.
+
+- When the "save dynamics" command is performed in SIMM, gencoords that
+  are locked are now fixed at their current values in the dynamics code.
+
+- There are now warning messages printed to the console when a kinetics
+  file contains incomplete data for prescribing the motion of a gencoord.
+
+- There are now warning messages printed to the console when the simulation
+  detects that all gencoords are prescribed and it is assuming an inverse
+  dynamics analysis.
+
+- Fixed a bug in main() which would occasionally reset the initial muscle
+  states to zero, depending on the muscle model used.
+
+- Rewrote the integrate() function to work more efficiently when collision
+  detection is turned on. The integrator now has two minimum step sizes,
+  one for reducing integratio errors and the other for finding contact
+  times.
+
+- Improved several of the muscle models so that they now calculate correct
+  muscle states for muscles with zero tendon slack length.
+
+- The GCV spline code has been improved to support smoothing. Any column of
+  data in a kinetics file can now be smoothed by specifying a cutoff
+  frequency in the column label (e.g., hip_flexion_gcv_10). As before, the
+  suffix "_gcv" with no specified frequency causes no smoothing to be performed.
+
+
+--------------------------------
+Changes in version 3.0.1
+--------------------------------
+
+- Fixed a bug which caused external forces specified in the ground frame
+  to be applied to the point of intersection with the force matte, rather
+  than the original point of application.
+
+- Added support for specifying the direction of gravity in a SIMM joint
+  file, and using this information to correctly specify the gravity
+  vector in model.sd.
+
+- Fixed a bug in calc_hinge_torques() so that the function now takes into
+  account externally applied forces when calculating net hinge torques.
+
+- Corrected the settings in the Visual C++ project files so that the
+  SOLID collision detection code runs properly in Release mode.
+
+- Fixed a bug in handle_impacts() which caused the simulation to sometimes
+  crash when using collision detection on a model with muscles.
+
+- Fixed a bug in the call to sdstate() in main(), changing the "dy" to "y".
+
+- Added code to main() (including a call to calc_derivatives()) so that
+  the first frame of data in the output kinetics file and output motion
+  file contain correct values.
+
+- Replaced the splineType "gcv_spline" with "gcv_spline_3" and "gcv_spline_5",
+  so that GCV splines can be constructed with 3rd or 5th order functions.
+
+--------------------------------
+Changes in version 3.0
+--------------------------------
+
+- Redesigned the simulation environment so that both forward and inverse
+  dynamics simulations are performed with the same 'forward' dynamics code.
+  Inverse dynamics is now performed by prescribing the motion of all
+  gencoords while integrating the equations of motion. This not only
+  produces smooth joint torques that can be put directly back into a forward
+  simulation to produce the same motion, but it makes it easier to do
+  this since both simulations use the same code.
+
+- The folder structure and Visual C++ project files have been modified
+  significantly. Forward and inverse projects have been merged into
+  a single project called 'pipeline,' and there are no longer separate
+  subfolders for the forward and inverse source code.
+
+- Added support to kinetics files for specifying several more types of
+  data: time, gencoord torques, gencoord values, gencoord velocities, and
+  gencoord accelerations.
+
+- Added support to kinetics files for spline-fitting any column of data,
+  using either a third-order spline or a fifth-order spline. If present,
+  the 'time' data column is used as the X variable for the splines, thus
+  allowing unevenly spaced time frames of data. The fifth-order spline uses
+  a generalized cross-validation method, and can be customized to provide
+  data smoothing as well as simple spline fitting.
+
+- Added code to detect when all gencoords are being prescribed (with values
+  in the kinetics file) and recognize this as an 'inverse' dynamics analysis.
+  In this case, the simulation starting time, ending time, and step size are
+  automatically adjusted to match the data in the kinetics file.
+
+- Added 'force mattes,' which are objects that transform external forces
+  expressed in the ground reference frame into the frame of the body segment
+  to which they are applied. This allows you, for example, to specify force
+  plate forces in the ground frame in the kinetics file, but apply them to
+  the foot segments as appropriate.
+
+- Added two new output options for saving simulation data to motion files:
+  muscle moment arms, and total joint torques produced by all the muscles.
+
+- Added code to write to an output kinetics file 'time,' and all external forces
+  and torques that were applied during the simulation.
+
+- Changed the integration parameters in the parameters file to be: starting
+  time, ending time, and step size. You can now start a simulation at a time
+  other than zero, and you do not need to calculate how many time steps there
+  will be in the simulation.
+
+--------------------------------
+Changes in version 2.1.2
+--------------------------------
+
+- Fixed a bug in the code that calculates muscle moment arms so that they
+  are computed correctly for gencoords that are used in kinematic constraint
+  functions that are not linear with slope = 1.0.
+
+- The PDF version of the Dynamics Pipeline manual has been updated to correct
+  the description of how to specify external forces in a kinetics file
+  Section 6.2).
+
+--------------------------------
+Changes in version 2.1.1
+--------------------------------
+
+- Added code to a forward simulation that computes moment arms for the
+  muscles, and writes them to the output motion file.
+
+- The "output_muscles" option in forparams.txt has been replaced with
+  five separate options. You can now output, individually, the activations,
+  lengths, forces, moment arms, and joint torques of the muscles during
+  a forward simulation.
+
+- Fixed a bug in the creation of a motion file for a forward simulation
+  in which the number of number of datarows was wrong.
+
+- Implemented SIMM "constraints" (as created in the Constraint Editor)
+  in dynamic simulations. All constraints except the ellipsoid have
+  been implemented.
+
+- Fixed a bug which caused a forward simulation to crash when reading a
+  muscle file if the file contained more than ten dynamic muscle parameters.
+
+- A forward simulation now checks to make sure that all muscle parameters
+  used in a muscle model have been properly defined for all of the muscles
+  using that model.
+
+--------------------------------
+Changes in version 2.1
+--------------------------------
+
+- Updated the muscle wrapping library (wrap.lib) so that it is now
+  consistent with SIMM 3.2.
+
+- Added support for constraint objects, as used in SIMM 3.2
+
+- Updated the Project Settings for the forward and inverse projects so that
+  they can be compiled in Release Mode.
+
+- Fixed a bug in spring_based.c which prevented the forward simulation
+  from compiling if the model did not contain a segment named "ground."
+
+- Fixed a bug in set_up_motion_file() that started the motion range at -1
+  instead of 0.
+
+
+--------------------------------
+Changes in version 2.0.1
+--------------------------------
+
+- Fixed a bug which caused forward simulations to improperly
+  calculate muscle attachment point locations when the model
+  contained inverse joints. An inverse joint is one which is
+  defined A->B in SIMM, but is defined B->A in SD/FAST because
+  segment B has to be defined before segment A.
+
+- Segment mass parameters are now written to invparams.txt so
+  you can change them without recompiling the simulation (formerly
+  this was possible only in a forward simulation).
+
+- The code to read the muscle file has been updated to read the
+  new muscle parameters (the "visible" keyword and muscle point
+  ranges for wrap objects).
+
+- Fixed a bug which caused some DOFs in init_qs() to be initialized
+  improperly.
+
+- Muscle models 2 and 3 have been changed so that the excitation
+  level of the muscle is taken from its data structure, rather than
+  being re-calculated inside the derivs function.
+
+- The init_motion() function in invmain.c has been improved to
+  better handle models with closed loops (for which you do not
+  need to specify all of the gencoord values to perform an
+  inverse simulation). The old code would give an error if the
+  inverse kinetics file did not contain data for all unconstrained
+  gencoords.
+
+
+--------------------------------
+Changes in version 2.0
+--------------------------------
+
+- The Visual C++ workspace and project files for a forward dynamics
+  simulation have been modified significantly. To upgrade a previous
+  version of the Pipeline simulation to version 2.0, you should start
+  by creating a new simulation environment using SIMM 3.0 and Dynamics
+  Pipeline 2.0. Then merge your old source files into sdfor/src in the
+  new environment. If you have made any changes to the SIMM2.0-generated
+  source files, such as formain.c, carefully merge your modifications
+  into the new environment.
+ 
+- Added a rigid-body contact detection algorithm. This new algorithm is
+  a general-purpose algorithm that handles rigid contact between
+  arbitrarily-shaped polyhedra. Please read Section 7.2 of the Dynamics
+  Pipeline manual for a complete description of this code.
+
+- Added a spring-based contact detection algorithm. This new algorithm
+  models contact between bodies as compression of a non-linear spring.
+  Please read Section 7.3 of the Dynamics Pipeline manual for a complete
+  description of this code.
+
+- Many options have been added to forparams.txt. You can now specify
+  initial values and velocities for the gencoords, as well as masses and
+  inertias of the body segments. You can also specify several output
+  options that control the writing of simulation variables to the motion
+  file.
+
+- Added code to write out more simulation variables to the motion file.
+  This code, when activated by the appropriate parameter in forparams.txt,
+  will write out muscle forces, joint contact forces, impact forces,
+  resting contact forces, and several other variables to the motion file.
+  This code is located in output.c
+
+- All of the muscle models have been enhanced to check if the appropriate
+  muscle parameters have been defined for all muscles which use that
+  model. If they are not, an error is reported.
+
+- SIMM now correctly models (and writes to model.sd) joints which have
+  constant rotations in front of actual degrees of freedom. For some
+  joint types (e.g., cylindrical joints), SIMM would ignore the rotation
+  and write an incorrect joint to model.sd. SIMM now either writes out
+  a correct joint or prints an error indicating that the resulting joint
+  type is not one that SD/FAST can model. 
+
+- Fixed a bug in interpolate_spline() that caused the function to
+  incorrectly extrapolate a spline function.
+
+
+--------------------------------
+Changes in version 1.2
+--------------------------------
+
+ - Added SIMM's ellipsoid, cylinder, and sphere wrapping algorithms
+   The new muscle wrapping algorithms have been put into the library
+   libwrap.a, so that your dynamics simulations can use the same
+   muscle wrapping that SIMM uses.
+
+ - Rewrote formain.c to use a parameters file for getting filenames
+   The forward simulation now opens the file forparams.txt, which contains
+   the names of all simulation input and output files, as well as other
+   parameters such as verbose output.
+
+ - Added code to formain.c to detect force file and apply forces from it
+   You can now add external forces to your simulation simply by creating
+   a kinetics file containing the forces, and adding the line
+   "kinetics_file name_of_file" to your forparams.txt file.
+
+ - Rewrote invmain.c to use a parameters file for getting filenames
+   The inverse simulation now opens the file invparams.txt, which contains
+   the names of all simulation input and output files, as well as other
+   parameters such as verbose output.
+
+ - Changed formain.c to write initial position to motion file
+   Previously, the first frame of data in the output motion file was the
+   the system state after the first integration step. This bug has been
+   fixed so that the initial position of the model is now the first frame
+   of data.
+
+ - Changed load_motion_data() to load_kinetics_data() and added argument
+   The name change should make more clear the difference between a SIMM
+   motion file, which is created by a forward simulation, and a kinetics
+   file, which contains gencoord position, velocity, and acceleration data.
+
+ - Improved accuracy of DEG_TO_RAD and RAD_TO_DEG
+   These constants were increased to 15 significant digits.
+
+ - Took some file I/O code out of main() in formain.c and put into functions
+
+ - Collected all math functions into mathtools.c and invert.c

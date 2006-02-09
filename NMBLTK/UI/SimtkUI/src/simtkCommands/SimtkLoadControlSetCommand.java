@@ -55,6 +55,7 @@ public class SimtkLoadControlSetCommand
    */
   public boolean execute() {
     boolean success = false;
+    String _fileName = null;
 
     String simenvName = (String) _cmdParams.get("EnvName");
     // Cache environment for later use
@@ -77,8 +78,8 @@ public class SimtkLoadControlSetCommand
       _fileName = (String) _cmdParams.get("FileName");
 
     env.setInfoString("Start reading control file");
-    env.setDeterministicProgress(false);
     env.setStatus(SimtkSimEnv.LOADING);
+    env.setDeterministicProgress(false);
     // Get frame for associated internalframe
     SimtkMdlInternalFrame mdlFrame = env.getAssociatedFrame();
     mdlFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -87,9 +88,9 @@ public class SimtkLoadControlSetCommand
     // What if the controlSet cant be constructed?
     success = SimtkDB.getInstance().addControlSet(newControlSet, simenvName);
 
-    env.setInfoString("Done reading control file");
     env.setStatus(SimtkSimEnv.READY);
     env.setDeterministicProgress(true);
+    env.setInfoString("Done reading control file");
     env.setPreferredDirectory(new File(_fileName).getParentFile());
     mdlFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 

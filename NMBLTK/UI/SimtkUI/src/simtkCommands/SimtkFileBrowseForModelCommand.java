@@ -49,7 +49,7 @@ public class SimtkFileBrowseForModelCommand
 
     if (!_cmdParams.containsKey("FileName")) {
       // Show filechooser to browse for directory, type .class
-      JFileChooser jFileChooser1 = new JFileChooser(System.getProperty("user.dir"));
+      JFileChooser jFileChooser1 = new JFileChooser();
       jFileChooser1.setDialogTitle("Browse for directory of model class file");
       GenericFileFilter filter = new GenericFileFilter("class", "*.class");
       jFileChooser1.setFileFilter(filter);
@@ -119,6 +119,7 @@ public class SimtkFileBrowseForModelCommand
    */
   synchronized public boolean addModelByName(String modelClassName, String SimEnvName) throws
       ClassNotFoundException, IllegalAccessException, InstantiationException {
+    boolean success = true;
     /*
      * Create an instance of the class.
      *

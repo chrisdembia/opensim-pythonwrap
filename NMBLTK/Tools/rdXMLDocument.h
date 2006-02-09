@@ -75,7 +75,7 @@ public:
 	//--------------------------------------------------------------------------
 	// IO
 	//--------------------------------------------------------------------------
-	void print(const std::string &aFileName=NULL);
+	bool print(const std::string &aFileName=NULL);
 private:
 	static void CreateFormatter(std::ostream *aOstream=&std::cout);
 	void printDeclaration();

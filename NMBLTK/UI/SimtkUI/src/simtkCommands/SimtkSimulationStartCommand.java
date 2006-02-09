@@ -11,12 +11,10 @@ import simtkCore.SimtkSimEnv;
 import simtkModel.rdControl;
 import simtkModel.rdControlSet;
 import simtkModel.rdManager;
-import simtkModel.rdModelIntegrand;
 import simtkUtils.FileUtils;
 import simtkUtils.SwingWorker;
 import simtkui.SimtkApp;
 import simtkuiEvents.SimtkSimEnvSimulationTimeChange;
-import simtkModel.*;
 
 public class SimtkSimulationStartCommand
     extends SimtkCommand{
@@ -24,6 +22,7 @@ public class SimtkSimulationStartCommand
    * SimtkSimulationStartCommand. Default constructor used to add entries to command
    * table and set initial availability
    */
+
   public SimtkSimulationStartCommand() {
     super();
     putValue(Action.NAME, "Start");
@@ -62,9 +61,9 @@ public class SimtkSimulationStartCommand
     final SimtkSimEnv currentEnv = SimtkDB.getInstance().getSimtkSimEnv(simenvName);
     final rdManager mgr = currentEnv.getSimulationManager();
     // Set model again as it might have changed
-    final rdModelIntegrand integrand = mgr.getIntegrand();
+    mgr.setModel(currentEnv.getModel());
 
-    rdControlSet controlSet = mgr.getIntegrand().getControlSet();
+    rdControlSet controlSet = mgr.getControlSet();
     // Get initial time
     int tiIndex = controlSet.getIndex("ti", 0);
     rdControl tiControl = (tiIndex==-1)?null:controlSet.get("ti");
@@ -97,12 +96,11 @@ public class SimtkSimulationStartCommand
        * @param e ActionEvent
        */
       public void actionPerformed(ActionEvent e) {
-        SimtkDB.getInstance().updateModelDisplay(mgr.getIntegrand().getModel());
+        SimtkDB.getInstance().updateModelDisplay(mgr.getModel());
         SimtkSimEnvSimulationTimeChange evnt = new SimtkSimEnvSimulationTimeChange(currentEnv);
         currentEnv.update(evnt);
         }
     });
-    timer.setInitialDelay(0);
     currentEnv.setAnimationTimer(timer);
 
     SwingWorker workerThread = new SwingWorker() {
@@ -112,54 +110,31 @@ public class SimtkSimulationStartCommand
        * @return Object
        */
       public Object construct() {
-        currentEnv.removeStorage(mgr.getIntegrand().getControlStorage());
-        currentEnv.removeStorage(mgr.getIntegrand().getStateStorage());
-        int nAnalyses = currentEnv.getModel().getNumAnalyses();
-       for (int i=0; i < nAnalyses; i++){
-         rdAnalysis nextAnalysis = currentEnv.getModel().getAnalysis(i);
-         rdArrayStorage storages = nextAnalysis.getStorageList();
-         for (int j=0; j < storages.getSize(); j++){
-           storages.get(j).reset(0);
-           currentEnv.removeStorage(storages.get(j));
-         }
-       }
-       currentEnv.setStatus(SimtkSimEnv.RUNNING);// This triggers other gui changes thru observers
-        currentEnv.getAnimationTimer().start();
-        currentEnv.setProgressRange(mgr.getInitialTime(), mgr.getFinalTime());
-        currentEnv.addStorage(mgr.getIntegrand().getControlStorage(), true);
-        currentEnv.addStorage(mgr.getIntegrand().getStateStorage(), true);
-        // Add storages from analyses
-        for (int i=0; i < nAnalyses; i++){
-         rdAnalysis nextAnalysis = currentEnv.getModel().getAnalysis(i);
-         rdArrayStorage storages = nextAnalysis.getStorageList();
-         for (int j=0; j < storages.getSize(); j++){
-           storages.get(j).reset(0);
-           currentEnv.addStorage(storages.get(j), true);
-         }
-       }
-       mgr.integrate();
+        //synchronized(this){
+          currentEnv.setStatus(SimtkSimEnv.STARTED);
+          currentEnv.getAnimationTimer().start();
+          currentEnv.setProgressRange(mgr.getInitialTime(), mgr.getFinalTime());
+          mgr.integrate();
+        //}
         if (currentEnv.getStoragePreferences().getPStatesStore()){
           String fullpath = FileUtils.makeFileName(currentEnv.getStoragePreferences().getStorageDirectory(),
                                                    currentEnv.getStoragePreferences().getPStatesStorageFile());
-          mgr.getIntegrand().getPseudoStateStorage().print(fullpath, .01, "w");
+          mgr.getIntegrator().getPseudoStateStorage().print(fullpath, .01, "w");
         }
         if (currentEnv.getStoragePreferences().getStatesStore()){
           String fullpath = FileUtils.makeFileName(currentEnv.getStoragePreferences().getStorageDirectory(),
                                                    currentEnv.getStoragePreferences().getStatesStorageFile());
-          mgr.getIntegrand().getStateStorage().print(fullpath, .01, "w");
+          mgr.getIntegrator().getStateStorage().print(fullpath, .01, "w");
         }
         if (currentEnv.getStoragePreferences().getControlsStore()){
           String fullpath = FileUtils.makeFileName(currentEnv.getStoragePreferences().getStorageDirectory(),
                                                   currentEnv.getStoragePreferences().getControlsStorageFile());
-         mgr.getIntegrand().getControlStorage().print(fullpath, .01, "w");
+         mgr.getIntegrator().getControlStorage().print(fullpath, .01, "w");
         }
+
         currentEnv.setSimulationThread(null);
         currentEnv.setStatus(SimtkSimEnv.READY);
         currentEnv.getAnimationTimer().stop();
-        for (int i=0; i < nAnalyses; i++){
-          rdAnalysis nextAnalysis = currentEnv.getModel().getAnalysis(i);
-          nextAnalysis.printResults("s26", null, -1.0, ".sto");
-        }
 
         return null;
       }
@@ -191,8 +166,7 @@ public class SimtkSimulationStartCommand
     String simenvName = (String) _cmdParams.get("EnvName");
     if (simenvName==null)
       return false;
-   return (SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.READY ||
-           SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.PLAYBACK);
+   return (SimtkDB.getInstance().getSimtkSimEnv(simenvName).getStatus()==SimtkSimEnv.READY);
   }
 
   /**

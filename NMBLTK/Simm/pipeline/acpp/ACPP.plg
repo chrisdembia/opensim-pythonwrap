@@ -1,0 +1,39 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ACPP - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP456.tmp" with contents
+[
+/nologo /MLd /w /W0 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR"debug/" /Fp"debug/ACPP.pch" /YX /Fo"debug/" /Fd"debug/" /FD /GZ /c 
+"D:\Users\Simm\Resources\pipeline\forward\acpp\src\y.tab.c"
+]
+Creating command line "cl.exe @C:\TEMP\RSP456.tmp" 
+Creating command line "link.exe -lib /nologo /out:"..\lib\acpp.lib"  .\debug\alloca.obj .\debug\cccp.obj .\debug\obstack.obj .\debug\version.obj .\debug\y.tab.obj "
+<h3>Output Window</h3>
+Compiling...
+y.tab.c
+cexp.y(246) : warning C4013: 'strncmp' undefined; assuming extern returning int
+cexp.y(372) : warning C4013: 'parse_escape' undefined; assuming extern returning int
+cexp.y(376) : warning C4013: 'lookup' undefined; assuming extern returning int
+cexp.y(524) : warning C4013: 'warning' undefined; assuming extern returning int
+cexp.y(563) : warning C4013: 'error' undefined; assuming extern returning int
+cexp.y(622) : warning C4013: 'yyparse' undefined; assuming extern returning int
+cexp.y(167) : warning C4018: '<=' : signed/unsigned mismatch
+cexp.y(173) : warning C4018: '>=' : signed/unsigned mismatch
+cexp.y(179) : warning C4018: '<' : signed/unsigned mismatch
+cexp.y(185) : warning C4018: '>' : signed/unsigned mismatch
+cexp.y(1229) : warning C4102: 'yyerrlab' : unreferenced label
+cexp.y(1001) : warning C4102: 'yynewstate' : unreferenced label
+Creating library...
+
+
+
+<h3>Results</h3>
+acpp.lib - 0 error(s), 12 warning(s)
+</pre>
+</body>
+</html>

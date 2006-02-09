@@ -67,6 +67,7 @@ protected:
 public:
 	rdDerivCallback(rdModel *aModel);
 	virtual ~rdDerivCallback();
+	rdDerivCallback(const rdDerivCallback &aDerivCallback);
 private:
 	void setNull();
 
@@ -74,6 +75,7 @@ private:
 	// GET AND SET
 	//--------------------------------------------------------------------------
 public:
+	rdDerivCallback& operator=(const rdDerivCallback &aObject);
 
 	//--------------------------------------------------------------------------
 	// CALLBACKS

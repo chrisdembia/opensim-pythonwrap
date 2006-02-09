@@ -3094,7 +3094,7 @@ JNIEXPORT jlong JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_new_1rdTransform_1_1SW
     return jresult;
 }
 
-
+/*
 JNIEXPORT jlong JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_new_1rdTransform_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jdouble jarg1, jlong jarg2) {
     jlong jresult = 0 ;
     double arg1 ;
@@ -3110,7 +3110,7 @@ JNIEXPORT jlong JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_new_1rdTransform_1_1SW
     *(rdTransform **)&jresult = result; 
     return jresult;
 }
-
+*/
 
 JNIEXPORT void JNICALL Java_simtksuS26Pkg_suS26ModuleJNI_delete_1rdTransform(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     rdTransform *arg1 = (rdTransform *) 0 ;

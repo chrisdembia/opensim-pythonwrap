@@ -17,9 +17,7 @@
 #include "rdPropertyInt.h"
 #include "rdPropertyStr.h"
 
-
 using namespace std;
-
 
 //=============================================================================
 // STATICS
@@ -28,6 +26,9 @@ rdArrayPtrs<rdObject> rdObject::_Types;
 rdArray<XMLCh *> rdObject::_typeNames(0);
 
 stringsToObjects rdObject::_mapTypesToDefaultObjects;
+defaultsReadFromFile	rdObject::_defaultsReadFromFile;
+bool rdObject::_serializeAllDefaults=false;
+
 #include <vector>
 #include <algorithm>  // Include algorithms
 
@@ -38,6 +39,17 @@ static vector<std::string> recognizedTypes;
 //============================================================================
 const string rdObject::DEFAULT_NAME(rdObjectDEFAULT_NAME);
 static const bool rdObject_DEBUG = false;
+
+void stripExtraWhiteSpace(std::string &aBuffer)
+{
+	int front = aBuffer.find_first_not_of(" \t\r\n");
+	if (front > 0)
+		aBuffer.erase(0, front);
+
+	int back = aBuffer.find_last_not_of(" \t\r\n");
+	if (back < aBuffer.size() - 1)
+		aBuffer.erase(back + 1);
+}
 
 
 //=============================================================================
@@ -79,7 +91,7 @@ rdObject::rdObject(const string &aFileName)
 	// CREATE DOCUMENT
 	_document = new rdXMLDocument(aFileName);
 
-	try {
+	//try {
 	// CONSTRUCT BASED ON ROOT ELEMENT
 	DOMDocument *doc = _document->getDOMDocument();
 	if(doc==0) {
@@ -98,10 +110,10 @@ rdObject::rdObject(const string &aFileName)
 	buildTypeNamesTable();
 	// UPDATE OBJECT
 	updateFromXMLNode();
-	}
-	catch(rdException &x) {
-		x.print(cout);
-	}
+	//}
+	//catch(rdException &x) {
+		//x.print(cout);
+	//}
 }
 //_____________________________________________________________________________
 /**
@@ -490,6 +502,12 @@ RegisterType(const rdObject &aObject)
 		printf("rdObject.RegisterType: ERR- no type name has been set.\n");
 		return;
 	}
+	// Keep track if the object being registered originated from a file vs. programmatically
+	// for future use in the deserialization code.
+	if (aObject._node!= 0)
+		_defaultsReadFromFile[aObject.getType()] = true;
+	else
+		_defaultsReadFromFile[aObject.getType()] = false;
 
 	// REPLACE IF A MATCHING TYPE IS ALREADY REGISTERED
 	int i;
@@ -651,6 +669,7 @@ updateFromXMLNode()
 			value = rdXMLNode::GetStr(elmt);
 			if(value!=NULL) {
 				string valueStr = value;
+				stripExtraWhiteSpace(valueStr);
 				property->setValue(valueStr);
 				property->setUseDefault(false);
 				delete[] value;
@@ -659,6 +678,7 @@ updateFromXMLNode()
 
 		// Obj
 		case(rdProperty::Obj) : {
+			property->setUseDefault(true);
 			rdObject &object = property->getValueObj();
 			elmt = object.getXMLNode();
 
@@ -707,7 +727,11 @@ updateFromXMLNode()
 					// GET ELEMENT
 					elmt = (DOMElement*) list->item(j);
 					if(elmt==NULL) continue;
-
+					// Make sure this is not the default
+					DOMNode *parent = elmt->getParentNode();
+					char *parentName = XMLString::transcode(parent->getNodeName());
+					if (string(parentName)=="defaults")
+						continue;
 					// NAME ATTRIBUTE
 					char *elmtName =
 						rdXMLNode::GetAttribute(elmt,"name");
@@ -724,16 +748,22 @@ updateFromXMLNode()
 
 				// WAS A NODE NOT FOUND?
 				if(objNode==NULL) {
-					cout<<"rdObject.updateFromXMLNode: ERROR- could not find node ";
-					cout<<objName<<" of type "<<objType<<"."<<endl;
+					if (rdObject_DEBUG) {
+						cout<<"rdObject.updateFromXMLNode: ERROR- could not find node ";
+						cout<<objName<<" of type "<<objType<<"."<<endl;
+					}
 					break;
 				}
-				
+
+				property->setUseDefault(false);
 				// CONSTRUCT TEMPORARY OBJECT BASED ON NODE
-				rdObject *objTmp = object.copy(objNode);
+				//rdObject *objTmp = object.copy(objNode);
+				object.setXMLNode(objNode);
+				//set default values
+				object.updateFromXMLNode();
 
 				// USE EQUALITY OPERATOR
-				object = (*objTmp);
+				//object = (*objTmp);
 
 
 				// Set inlining attributes on final object
@@ -744,10 +774,10 @@ updateFromXMLNode()
 				}
 
 				// SET THE XML NODE
-				object.setXMLNode(objTmp->getXMLNode());
+				//object.setXMLNode(objTmp->getXMLNode());
 
 				// CLEAN UP
-				delete objTmp;
+				//delete objTmp;
 
 			}
 			break; }
@@ -761,9 +791,9 @@ updateFromXMLNode()
 			if(elmt!=NULL) {
 				property->setUseDefault(false);
 				n = rdXMLNode::GetBoolArray(elmt,value);
+				property->setValue(n,value);
+				if(n>0) delete[] value;
 			}
-			property->setValue(n,value);
-			if(n>0) delete[] value;
 			break; }
 
 		// IntArray
@@ -775,23 +805,27 @@ updateFromXMLNode()
 			if(elmt!=NULL) {
 				property->setUseDefault(false);
 				n = rdXMLNode::GetIntArray(elmt,value);
+				// Moved setting and cleanup inside the if block so that values set by constructor are kept 
+				// if property is not specified in the xml file
+				property->setValue(n,value);
+				if(n>0) delete[] value;
 			}
-			property->setValue(n,value);
-			if(n>0) delete[] value;
 			break; }
 
 		// DblArray
 		case(rdProperty::DblArray) : {
-			property->setUseDefault(true);
+			property->setUseDefault(true);	// Indicate not read from file
 			int n=0;
 			double *value=NULL;
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			if(elmt!=NULL) {
 				property->setUseDefault(false);
 				n = rdXMLNode::GetDblArray(elmt,value);
+				// Moved setting and cleanup inside the if block so that values set by constructor are kept 
+				// if property is not specified in the xml file
+				property->setValue(n,value);
+				if(n>0) delete[] value;
 			}
-			property->setValue(n,value);
-			if(n>0) delete[] value;
 			break; }
 
 		// StrArray
@@ -803,13 +837,16 @@ updateFromXMLNode()
 			if(elmt!=NULL) {
 				property->setUseDefault(false);
 				n = rdXMLNode::GetStrArray(elmt,value);
+				// Moved setting and cleanup inside the if block so that values set by constructor are kept 
+				// if property is not specified in the xml file
+				property->setValue(n,value);
+				if(n>0) delete[] value;
 			}
-			property->setValue(n,value);
-			if(n>0) delete[] value;
 			break; }
 
 		// ObjArray
 		case(rdProperty::ObjArray) : {
+			property->setUseDefault(true);
 
 			// CLEAR EXISTING OBJECT ARRAY
 			rdArrayPtrs<rdObject> &objArray = property->getValueObjArray();
@@ -818,8 +855,10 @@ updateFromXMLNode()
 			// GET ENCLOSING ELEMENT
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			if(elmt==NULL) {
-				cout<<"rdObject.updateFromXMLNode: ERR- failed to find element ";
-				cout<<name<<endl;
+				if (rdObject_DEBUG) {
+					cout<<"rdObject.updateFromXMLNode: ERR- failed to find element ";
+					cout<<name<<endl;
+				}
 				break;
 			}
 
@@ -830,7 +869,7 @@ updateFromXMLNode()
 			DOMElement *objElmt;
 			DOMNodeList *list;
 			rdObject *defaultObject,*object;
-#if 1
+
 			// LOOP THROUGH SUPPORTED OBJECT TYPES
 			list = elmt->getChildNodes();
 			listLength = list->getLength();
@@ -889,6 +928,7 @@ updateFromXMLNode()
 						continue;
 					}
 					
+					property->setUseDefault(false);
 
 					// CONSTRUCT THE OBJECT BASED ON THE ELEMENT
 					object = defaultObject->copy(objElmt);
@@ -906,88 +946,6 @@ updateFromXMLNode()
 					}
 				}
 				
-#else
-			for(i=0;i<_Types.getSize();i++) {
-
-				// GET DEFAULT OBJECT
-				defaultObject = _Types.get(i);
-				if(defaultObject==NULL) continue;
-
-				// GET ELEMENTS
-				tagName = _typeNames.get(i);
-				list = elmt->getElementsByTagName(tagName);
-				listLength = list->getLength();
-				if(listLength>0) {
-					if(rdObject_DEBUG) {
-						cout<<"rdObject.updateFromXMLNode: while updating ";
-						cout<<"object array "<<name<<" for object "<<_name<<","<<endl;
-						cout<<"\tfound "<<listLength<<" elements of type ";
-						cout<<defaultObject->getType()<<"."<<endl;
-					}
-				}
-
-				// CONSTRUCT
-				for(j=0;j<listLength;j++) {
-
-					// GET ELEMENT
-					objElmt = (DOMElement*) list->item(j);
-					if(objElmt==NULL) continue;
-
-					// If object is from non-inlined, detect it and set attributes
-					// However we need to do that on the finalized object as copying
-					// does not keep track of XML related issues
-					//-----------Begin inline support---------------------------
-					// Collect inlining attributes
-					char *fileAttrib = rdXMLNode::GetAttribute(objElmt, "file");
-					bool inLinedObject = true;
-					DOMElement *refNode;
-					rdXMLDocument *childDocument;
-					if ((fileAttrib!=NULL) && (strlen(fileAttrib)>0)){
-						// Change _node to refer to the root of the external file
-						refNode = objElmt;
-						childDocument = new rdXMLDocument(fileAttrib);
-						objElmt = childDocument->getDOMDocument()->getDocumentElement();
-						inLinedObject = false;
-					}
-					if(fileAttrib!=NULL) delete[] fileAttrib;
-					//-----------End inline support---------------------
-					// CHECK THAT THE ELEMENT IS AN IMMEDIATE CHILD
-					DOMNode *parent = objElmt->getParentNode();
-					if( (parent!=elmt) && (parent!=NULL) && (_node!=NULL) &&
-						 (parent->getOwnerDocument()==_node->getOwnerDocument()) ) {
-						if(rdObject_DEBUG) {
-							char *elmtName,*parentName,*nodeName;
-							elmtName = XMLString::transcode(objElmt->getNodeName());
-							parentName = XMLString::transcode(parent->getNodeName());
-							nodeName = XMLString::transcode(elmt->getNodeName());
-							cout<<"rdObject.updateFromXMLNode: "<<elmtName;
-							cout<<" is a child of "<<parentName<<", not of ";
-							cout<<nodeName<<endl;
-							delete[] elmtName;
-							delete[] parentName;
-							delete[] nodeName;
-						}
-						continue;
-					}
-					
-
-					// CONSTRUCT THE OBJECT BASED ON THE ELEMENT
-					object = defaultObject->copy(objElmt);
-
-					// Set inlining attributes on final object
-					if (!inLinedObject){
-						object->_inLined = inLinedObject;
-						object->_refNode = refNode;
-						object->_document = childDocument;
-					}
-
-					// ADD
-					if(object!=NULL) {
-						objArray.append(object);
-					}
-				}
-			}
-#endif
 			break; }
 
 		// NOT RECOGNIZED
@@ -1038,7 +996,7 @@ updateDefaultObjectsFromXMLNode()
 		// GET DEFAULT OBJECT
 		defaultObject = _Types.get(i);
 		if(defaultObject==NULL) continue;
-		if(!isValidDefaultType(defaultObject)) continue;
+		if(!isValidDefaultType(defaultObject)) continue; // unused
 
 		// GET ELEMENT
 		const string &type = defaultObject->getType();
@@ -1142,7 +1100,8 @@ updateXMLNode(DOMElement *aParent)
 		rdXMLNode::RemoveChildren(elmt);
 		for(i=0;i<_Types.getSize();i++) {
 			rdObject *defaultObject = _Types.get(i);
-			if( isValidDefaultType(defaultObject) ) {
+			if( isValidDefaultType(defaultObject) && 
+				(rdObject::getSerializeAllDefaults() || _defaultsReadFromFile[defaultObject->getType()])) {
 				defaultObject->setXMLNode(NULL);
 				defaultObject->updateXMLNode(elmt);
 			}
@@ -1538,14 +1497,14 @@ getOffLineFileName() const
  * @param aFileName File name.  If the file name is NULL, which is the
  * default, the object is printed to standard out.  
  */
-void rdObject::
+bool rdObject::
 print(const string &aFileName)
 {
 	//	if(_node==NULL) 
 	// Check removed per Clay so that users don't have to manually call
 	// updateXMLNode for subsequent saves.  Ayman 5/07/04.
 	updateXMLNode(NULL);
-	if(_document==NULL) return;
-	_document->print(aFileName);
+	if(_document==NULL) return false;
+	return _document->print(aFileName);
 }
 

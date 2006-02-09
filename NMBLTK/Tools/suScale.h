@@ -13,6 +13,7 @@
 #include "rdPropertyStr.h"
 #include "rdPropertyDblArray.h"
 #include "rdPropertyDbl.h"
+#include "rdPropertyBool.h"
 
 //=============================================================================
 /*
@@ -32,10 +33,13 @@ protected:
 	rdPropertyDblArray	_propScaleFactors;
 	/** Name of object to scale */
 	rdPropertyStr		_propSegmentName;
+	/** Whether or not to apply this scale */
+	rdPropertyBool		_propApply;
 
 	// REFERENCES
-	rdArray<double>&	_scaleFactors;	
-	std::string&		_segmentName;	
+	rdArray<double>&	_scaleFactors;
+	std::string&		_segmentName;
+	bool&					_apply;
 
 //=============================================================================
 // METHODS
@@ -47,6 +51,7 @@ public:
 	suScale();
 	suScale(const suScale &aMarker);
 	suScale(DOMElement *aElement);
+	suScale( const std::string& scaleFileName);
 	virtual ~suScale(void);
 	virtual rdObject* copy(DOMElement *aElement) const;
 	virtual rdObject* copy() const;
@@ -67,8 +72,9 @@ public:
 	//--------------------------------------------------------------------------
 	void getScaleFactors(rdArray<double>& aScaleFactors) const;
 	const std::string& getSegmentName() const;
-	void setSegmentName(std::string& aSegmentName);
+	void setSegmentName(const std::string& aSegmentName);
 	void setScaleFactors(rdArray<double>& aScaleFactors);
-
+	bool getApply(void) const { return _apply; }
+	void setApply(bool state) { _apply = state; }
 };
 #endif

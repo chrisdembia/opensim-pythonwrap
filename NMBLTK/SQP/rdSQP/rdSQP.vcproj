@@ -39,11 +39,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib suCFSQP.lib rdTools.lib"
-				OutputFile=".\Release/rdSQP.dll"
+				OutputFile="./Release/rdSQP.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release/rdSQP.pdb"
-				ImportLibrary=".\Release/rdSQP.lib"
+				ProgramDatabaseFile="./Release/rdSQP.pdb"
+				ImportLibrary="./Release/rdSQP.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"

@@ -102,9 +102,6 @@ public:
 	virtual ~rdModel();
 private: // Not implemented
 	rdModel(const rdModel& aModel);
-#ifndef SWIG
-	rdModel& operator=(const rdModel &aModel);
-#endif
 	void setNull();
 	virtual void init();	
 	void setupProperties();
@@ -112,6 +109,9 @@ protected:
 	/* Register types to be used when reading an rdActuatedModel_SDFast object
 	from xml file. */
 	static void RegisterTypes();
+#ifndef SWIG
+	rdModel& operator=(const rdModel &aModel);
+#endif
 
 public:
 	//--------------------------------------------------------------------------
@@ -550,6 +550,7 @@ public:
 	//--------------------------------------------------------------------------
 	rdIntegCallbackSet* getIntegCallbackSet();
 	void addIntegCallback(rdIntegCallback *aCallback);
+	rdIntegCallback& getIntegCallback(const int index) const;
 
 	//--------------------------------------------------------------------------
 	// DERIVATIVE CALLBACKS

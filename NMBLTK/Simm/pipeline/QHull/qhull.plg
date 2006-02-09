@@ -1,0 +1,59 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: qhull - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP2C6.tmp" with contents
+[
+/nologo /MLd /W1 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"obj/qhull.pch" /YX /Fo"obj/" /Fd"obj/" /FD /GZ  /c 
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\geom.c"
+]
+Creating command line "cl.exe @C:\TEMP\RSP2C6.tmp" 
+Creating temporary file "C:\TEMP\RSP2C7.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"obj/qhull.pch" /YX /Fo"obj/" /Fd"obj/" /FD /GZ  /c 
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\geom2.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\global.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\io.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\mem.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\merge.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\poly.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\poly2.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\qhull.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\qset.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\rbox.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\stat.c"
+"D:\Users\DynamicsPipeline2.0\forward\QHull\src\user.c"
+]
+Creating command line "cl.exe @C:\TEMP\RSP2C7.tmp" 
+Creating command line "link.exe -lib /nologo /out:"..\lib\qhull.lib"  .\obj\geom.obj .\obj\geom2.obj .\obj\global.obj .\obj\io.obj .\obj\mem.obj .\obj\merge.obj .\obj\poly.obj .\obj\poly2.obj .\obj\qhull.obj .\obj\qset.obj .\obj\rbox.obj .\obj\stat.obj .\obj\user.obj "
+<h3>Output Window</h3>
+Compiling...
+geom.c
+Compiling...
+geom2.c
+global.c
+io.c
+mem.c
+merge.c
+poly.c
+poly2.c
+qhull.c
+qset.c
+rbox.c
+stat.c
+user.c
+Creating library...
+geom2.obj : warning LNK4006: _qh_rand already defined in rbox.obj; second definition ignored
+geom2.obj : warning LNK4006: _qh_srand already defined in rbox.obj; second definition ignored
+
+
+
+<h3>Results</h3>
+qhull.lib - 0 error(s), 2 warning(s)
+</pre>
+</body>
+</html>

@@ -123,22 +123,6 @@ public class rdControl extends rdObject {
     ModelJNI.rdControl_setControlValue(swigCPtr, aT, aX);
   }
 
-  public double getControlValueMin(double aT) {
-    return ModelJNI.rdControl_getControlValueMin(swigCPtr, aT);
-  }
-
-  public void setControlValueMin(double aT, double aX) {
-    ModelJNI.rdControl_setControlValueMin(swigCPtr, aT, aX);
-  }
-
-  public double getControlValueMax(double aT) {
-    return ModelJNI.rdControl_getControlValueMax(swigCPtr, aT);
-  }
-
-  public void setControlValueMax(double aT, double aX) {
-    ModelJNI.rdControl_setControlValueMax(swigCPtr, aT, aX);
-  }
-
   public double getFirstTime() {
     return ModelJNI.rdControl_getFirstTime(swigCPtr);
   }

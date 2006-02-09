@@ -323,12 +323,12 @@ getFileName() const
  *
  * @param aFileName File name of the document to which to print
  */
-void rdXMLDocument::
+bool rdXMLDocument::
 print(const string &aFileName)
 {
 	if(_document==NULL) {
 		printf("rdXMLDocument.print: WARN- no document.\n");
-		return;
+		return false;
 	}
 
 	// Standard Out
@@ -342,10 +342,10 @@ print(const string &aFileName)
 	// File
 	} else {
 		ofstream out(aFileName.c_str());
-		if(!out) {
+		if(out.good() == false) {
 			printf("rdXMLDocument.print: Could not open file %s\n",
 				aFileName.c_str());
-			return;
+			return false;
 		}
 		CreateFormatter(&out);
 		printDeclaration();
@@ -353,6 +353,7 @@ print(const string &aFileName)
 		(*_Formatter) << chLF;
 		out << flush;
 	}
+	return true;
 }
 //_____________________________________________________________________________
 /**

@@ -4733,7 +4733,7 @@ JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_new_1rdTransform_1_1SWIG_11(JNI
     return jresult;
 }
 
-
+/*
 JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_new_1rdTransform_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jdouble jarg1, jlong jarg2) {
     jlong jresult = 0 ;
     double arg1 ;
@@ -4758,7 +4758,7 @@ JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_new_1rdTransform_1_1SWIG_12(JNI
     *(rdTransform **)&jresult = result; 
     return jresult;
 }
-
+*/
 
 JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_delete_1rdTransform(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     rdTransform *arg1 = (rdTransform *) 0 ;
@@ -27374,28 +27374,6 @@ JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdArrayStorage_1searchBinary(JNI
     {
         try {
             result = (int)((rdArrayPtrs<rdStorage > const *)arg1)->searchBinary((rdStorage const &)*arg2,arg3,arg4,arg5);
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    jresult = (jint)result; 
-    return jresult;
-}
-
-
-JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_get_1rdAnalysis_1DESCRIP_1LENGTH(JNIEnv *jenv, jclass jcls) {
-    jint jresult = 0 ;
-    int result;
-    
-    (void)jenv;
-    (void)jcls;
-    {
-        try {
-            result = (int)rdAnalysis::DESCRIP_LENGTH;
             
         }
         catch (rdException) {
