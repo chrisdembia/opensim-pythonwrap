@@ -280,7 +280,7 @@ void simmInverseKinematicsTarget::setPrescribedCoordinates(int aIndex)
 
 //_____________________________________________________________________________
 /**
- * getComputedMarkerLocations returns current marker locations for debugging and display purposes
+ * getComputedMarkerLocations returns current commputed (model) marker locations for debugging and display purposes
  */
 void simmInverseKinematicsTarget::getComputedMarkerLocations(rdArray<double> &aMarkerLocations) const
 {
@@ -291,6 +291,22 @@ void simmInverseKinematicsTarget::getComputedMarkerLocations(rdArray<double> &aM
 		aMarkerLocations.append(_markers[i]->computedPosition[0]);
 		aMarkerLocations.append(_markers[i]->computedPosition[1]);
 		aMarkerLocations.append(_markers[i]->computedPosition[2]);
+	}
+}
+
+//_____________________________________________________________________________
+/**
+ * getExperimentalMarkerLocations returns current experimental marker locations for debugging and display purposes
+ */
+void simmInverseKinematicsTarget::getExperimentalMarkerLocations(rdArray<double> &aMarkerLocations) const
+{
+	aMarkerLocations.setSize(0);
+
+	for (int i = 0; i < _markers.getSize(); i++)
+	{
+		aMarkerLocations.append(_markers[i]->experimentalPosition[0]);
+		aMarkerLocations.append(_markers[i]->experimentalPosition[1]);
+		aMarkerLocations.append(_markers[i]->experimentalPosition[2]);
 	}
 }
 

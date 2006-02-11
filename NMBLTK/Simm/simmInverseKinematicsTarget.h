@@ -99,6 +99,7 @@ public:
 	void setIndexToSolve(int aIndex, double* qGuess);
 	void setPrescribedCoordinates(int aIndex);
 	void getComputedMarkerLocations(rdArray<double> &aMarkerLocations) const;
+	void getExperimentalMarkerLocations(rdArray<double> &aMarkerLocations) const;
 	void getPrescribedQValues(rdArray<double>& aQValues) const;
 	void getUnconstrainedCoordinateNames(rdArray<const std::string*>& aNameArray);
 	void getPrescribedCoordinateNames(rdArray<const std::string*>& aNameArray);

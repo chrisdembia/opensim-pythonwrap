@@ -2303,7 +2303,7 @@ void simmKinematicsEngine::solveFrames(const simmIKTrialParams& aIKOptions, rdSt
 	// At every step we use experimental data as a starting guess 
 	rdArray<double> unconstrainedQGuess(0.0, unconstrainedCoordinateNames.getSize());	// Initial guess and work array
 	rdArray<double> unconstrainedQSol(0.0, unconstrainedCoordinateNames.getSize());	// Solution array
-	rdArray<double> computedMarkerLocations(0.0, markerNames.getSize() * 3);
+	rdArray<double> experimentalMarkerLocations(0.0, markerNames.getSize() * 3);
 
 	int startFrame = 0, endFrame = 1;
 	double currentTime;
@@ -2359,8 +2359,8 @@ void simmKinematicsEngine::solveFrames(const simmIKTrialParams& aIKOptions, rdSt
 		/* ... then, optionally, computed marker locations. */
 		if (aIKOptions.getIncludeMarkers())
 		{
-			target->getComputedMarkerLocations(computedMarkerLocations);
-			qsAndMarkersArray.append(computedMarkerLocations);
+			target->getExperimentalMarkerLocations(experimentalMarkerLocations);
+			qsAndMarkersArray.append(experimentalMarkerLocations);
 		}
 
 		inputData.getTime(index, currentTime);
@@ -2419,7 +2419,7 @@ void simmKinematicsEngine::moveMarkersToCloud(simmMarkerData& aMarkerData)
 }
 
 /* Remove all markers from the model that are not in the passed-in list. */
-int simmKinematicsEngine::deleteUnusedMarkers(const rdArrayPtrs<string>& aMarkerNames)
+int simmKinematicsEngine::deleteUnusedMarkers(const rdArray<string>& aMarkerNames)
 {
 	int numDeleted = 0;
 

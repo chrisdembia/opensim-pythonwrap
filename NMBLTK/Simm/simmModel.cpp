@@ -353,7 +353,7 @@ void simmModel::moveMarkersToCloud(simmMarkerData& aMarkerData)
 	getSimmKinematicsEngine().moveMarkersToCloud(aMarkerData);
 }
 
-int simmModel::deleteUnusedMarkers(const rdArrayPtrs<string>& aMarkerNames)
+int simmModel::deleteUnusedMarkers(const rdArray<string>& aMarkerNames)
 {
 	return getSimmKinematicsEngine().deleteUnusedMarkers(aMarkerNames);
 }

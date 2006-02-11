@@ -63,7 +63,7 @@ private:
 	int _originalNumFrames;
 	std::string _fileName;
 	simmUnits _units;
-	rdArrayPtrs<std::string> _markerNames;
+	rdArray<std::string> _markerNames;
 	rdArrayPtrs<simmMarkerFrame> _frames;
 
 //=============================================================================
@@ -85,7 +85,7 @@ public:
 	int getMarkerIndex(const std::string& aName) const;
 	const simmUnits& getUnits() const { return _units; }
 	void convertToUnits(const simmUnits& aUnits);
-	const rdArrayPtrs<std::string>& getMarkerNames() const { return _markerNames; }
+	const rdArray<std::string>& getMarkerNames() const { return _markerNames; }
 
 	void peteTest() const;
 

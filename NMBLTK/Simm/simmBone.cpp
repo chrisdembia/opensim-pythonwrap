@@ -183,9 +183,9 @@ simmBone& simmBone::operator=(const simmBone &aBone)
  */
 void simmBone::setup(simmKinematicsEngine* aEngine)
 {
+#ifdef BUILD_GUI
 	int index;
 
-#ifdef BUILD_GUI
 	/* Each VTK file needs its own reader, which owns the
 	 * poly data in the VTK file. The simmBone destructor
 	 * calls vtkXMLPolyDataReader::Delete() to free this

@@ -48,7 +48,7 @@ using namespace std;
 simmMarkerData::simmMarkerData() :
 	_numFrames(0),
 	_numMarkers(0),
-	_markerNames(NULL),
+	_markerNames(""),
 	_frames(NULL)
 {
 }
@@ -56,7 +56,7 @@ simmMarkerData::simmMarkerData() :
 simmMarkerData::simmMarkerData(string& aFileName) :
 	_numFrames(0),
 	_numMarkers(0),
-	_markerNames(NULL),
+	_markerNames(""),
 	_frames(NULL)
 {
 
@@ -318,8 +318,7 @@ void simmMarkerData::readTRCFileHeader(ifstream &in, string& aFileName, simmMark
          break;
 #endif
       }
-		string *markerName = new string(buffer);
-		data._markerNames.append(markerName);
+		data._markerNames.append(buffer);
       markersRead++;
    }
 
@@ -577,7 +576,7 @@ void simmMarkerData::averageFrames(double aThreshold, double aStartTime, double 
 
 			if (!pt.isVisible())
 			{
-				cout << "___WARNING___: marker " << *_markerNames[i] << " is missing in frames " << startUserIndex
+				cout << "___WARNING___: marker " << _markerNames[i] << " is missing in frames " << startUserIndex
 					  << " to " << endUserIndex << ". Coordinates will be set to NAN." << endl;
 			}
 			else if (maxX[i] - minX[i] > threshold ||
@@ -587,7 +586,7 @@ void simmMarkerData::averageFrames(double aThreshold, double aStartTime, double 
 				double maxDim = maxX[i] - minX[i];
 				maxDim = MAX(maxDim, (maxY[i] - minY[i]));
 				maxDim = MAX(maxDim, (maxZ[i] - minZ[i]));
-				cout << "___WARNING___: movement of marker " << *_markerNames[i] << " in " << _fileName
+				cout << "___WARNING___: movement of marker " << _markerNames[i] << " in " << _fileName
 					  << " is " << maxDim << " (threshold = " << threshold << ")" << endl;
 			}
 		}
@@ -627,9 +626,9 @@ double simmMarkerData::takeMeasurement(const simmMeasurement& aMeasurement) cons
 		pair.getMarkerNames(name1, name2);
 		for (int j = 0; j < _markerNames.getSize(); j++)
 		{
-			if (*_markerNames[j] == *name1)
+			if (_markerNames[j] == *name1)
 				marker1 = j;
-			if (*_markerNames[j] == *name2)
+			if (_markerNames[j] == *name2)
 				marker2 = j;
 		}
 		if (marker1 >= 0 && marker2 >= 0)
@@ -672,9 +671,9 @@ void simmMarkerData::makeRdStorage(rdStorage& aStorage)
 	string columnLabels;
 	for (int i = 0; i < _numMarkers; i++)
 	{
-		columnLabels += *_markerNames[i] + "_tx	";
-		columnLabels += *_markerNames[i] + "_ty	";
-		columnLabels += *_markerNames[i] + "_tz	";
+		columnLabels += _markerNames[i] + "_tx	";
+		columnLabels += _markerNames[i] + "_ty	";
+		columnLabels += _markerNames[i] + "_tz	";
 	}
 	aStorage.setColumnLabels(columnLabels.c_str());
 
@@ -710,7 +709,7 @@ int simmMarkerData::getMarkerIndex(const string& aName) const
 {
 	for (int i = 0; i < _markerNames.getSize(); i++)
 	{
-		if (*_markerNames[i] == aName)
+		if (_markerNames[i] == aName)
 			return i;
 	}
 
@@ -747,7 +746,7 @@ void simmMarkerData::peteTest() const
 	cout << "      units: " << _units.getLabel() << endl;
 
 	for (int i = 0; i < _numMarkers; i++)
-		cout << "      marker " << i << ": " << _markerNames[i]->c_str() << endl;
+		cout << "      marker " << i << ": " << _markerNames[i].c_str() << endl;
 
 	for (int i = 0; i < _numFrames; i++)
 		_frames[i]->peteTest();

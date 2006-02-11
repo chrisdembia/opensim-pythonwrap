@@ -245,13 +245,13 @@ void simmBody::deleteMarker(const simmMarker* aMarker)
 }
 
 /* Remove all markers from the body that are not in the passed-in list. */
-int simmBody::deleteUnusedMarkers(const rdArrayPtrs<string>& aMarkerNames)
+int simmBody::deleteUnusedMarkers(const rdArray<string>& aMarkerNames)
 {
 	for (int i = 0, numDeleted = 0; i < _markers.getSize(); i++)
 	{
 		for (int j = 0; j < aMarkerNames.getSize(); j++)
 		{
-			if (*aMarkerNames[j] == _markers[i]->getName())
+			if (aMarkerNames[j] == _markers[i]->getName())
 				break;
 		}
 		if (j == aMarkerNames.getSize())

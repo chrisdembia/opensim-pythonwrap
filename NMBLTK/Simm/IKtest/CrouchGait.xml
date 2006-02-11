@@ -44,6 +44,7 @@
             <BodyScaleSet>
                <bodyScale name="skull"> <axes>X Y Z</axes> </bodyScale>
                <bodyScale name="OT_head"> <axes>X Y Z</axes> </bodyScale>
+               <bodyScale name="neckhead"> <axes>X Y Z</axes> </bodyScale>
             </BodyScaleSet>
          </measurement>
          <measurement name="torso height">
@@ -58,7 +59,7 @@
                <bodyScale name="lumbar3"> <axes>X Y</axes> </bodyScale>
                <bodyScale name="lumbar4"> <axes>X Y</axes> </bodyScale>
                <bodyScale name="lumbar5"> <axes>X Y</axes> </bodyScale>
-               <bodyScale name="thorax"> <axes>X Y</axes> </bodyScale>
+               <bodyScale name="torso"> <axes>X Y</axes> </bodyScale>
                <bodyScale name="cerv1"> <axes>X Y</axes> </bodyScale>
                <bodyScale name="cerv2"> <axes>X Y</axes> </bodyScale>
                <bodyScale name="cerv3"> <axes>X Y</axes> </bodyScale>
@@ -70,6 +71,31 @@
                <bodyScale name="clavicle_l"> <axes>X Y</axes> </bodyScale>
                <bodyScale name="clavicle_marker_l"> <axes>X Y</axes> </bodyScale>
                <bodyScale name="scapula_l"> <axes>X Y</axes> </bodyScale>
+            </BodyScaleSet>
+         </measurement>
+         <measurement name="torso width">
+            <apply>true</apply> <!-- set to false to not use this measurement -->
+            <MarkerPairSet>
+               <markerPair> <markers>R.Shoulder L.Shoulder</markers> </markerPair>
+            </MarkerPairSet>
+            <BodyScaleSet>
+               <bodyScale name="lumbar1"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="lumbar2"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="lumbar3"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="lumbar4"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="lumbar5"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="torso"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="cerv1"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="cerv2"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="cerv3"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="cerv4"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="cerv5"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="clavicle_r"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="clavicle_marker_r"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="scapula_r"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="clavicle_l"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="clavicle_marker_l"> <axes>Z</axes> </bodyScale>
+               <bodyScale name="scapula_l"> <axes>Z</axes> </bodyScale>
             </BodyScaleSet>
          </measurement>
          <measurement name="upper arm length">
@@ -102,31 +128,6 @@
                <bodyScale name="wflex_l"> <axes>X Y Z</axes> </bodyScale>
                <bodyScale name="hand_r"> <axes>X Y Z</axes> </bodyScale>
                <bodyScale name="hand_l"> <axes>X Y Z</axes> </bodyScale>
-            </BodyScaleSet>
-         </measurement>
-         <measurement name="torso width">
-            <apply>true</apply> <!-- set to false to not use this measurement -->
-            <MarkerPairSet>
-               <markerPair> <markers>R.Shoulder L.Shoulder</markers> </markerPair>
-            </MarkerPairSet>
-            <BodyScaleSet>
-               <bodyScale name="lumbar1"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="lumbar2"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="lumbar3"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="lumbar4"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="lumbar5"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="thorax"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="cerv1"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="cerv2"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="cerv3"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="cerv4"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="cerv5"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="clavicle_r"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="clavicle_marker_r"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="scapula_r"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="clavicle_l"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="clavicle_marker_l"> <axes>Z</axes> </bodyScale>
-               <bodyScale name="scapula_l"> <axes>Z</axes> </bodyScale>
             </BodyScaleSet>
          </measurement>
          <measurement name="pelvis width">
@@ -200,6 +201,13 @@
             </BodyScaleSet>
          </measurement>
       </MeasurementSet>
+	  <ScaleSet>
+	     <suScale>
+			<scales> 1.00000000 1.00000000 1.00000000 </scales>
+			<segment> torso </segment>
+			<apply> false </apply>
+		 </suScale>
+      </ScaleSet>
       <scalingOrder>measurements manualScale</scalingOrder> <!-- order of scaling -->
       <markerFile>init100.trc</markerFile>
       <timeRange>0.0 0.25</timeRange>
@@ -257,25 +265,35 @@
 			<locked>false</locked>
 			<weight>0.01</weight>
 		</coordinate>
+		<coordinate name="elbow_flex_r">
+			<value>1.0</value>
+			<locked>false</locked>
+		</coordinate>
+		<coordinate name="elbow_flex_l">
+			<value>1.0</value>
+			<locked>false</locked>
+		</coordinate>
       </CoordinateSet>
       <IKTrialSet>
          <IKTrial name="first walking trial">
             <inputMarkerFile>walk1.trc</inputMarkerFile>
             <inputAnalogFile>walk1.anc</inputAnalogFile>
             <inputCoordinateFile>walk1_IN.mot</inputCoordinateFile>
-            <timeRange>0.5 1.5</timeRange>
+            <timeRange>0.5 2.5</timeRange>
             <kinematicsSmoothing>10.0</kinematicsSmoothing>
             <groundReactionSmoothing>1000.0</groundReactionSmoothing>
             <outputMotionFile>walk1.mot</outputMotionFile>
+            <includeMarkers>true</includeMarkers>
             <notes>first walking trial</notes>
          </IKTrial>
          <IKTrial name = "second walking trial">
             <inputMarkerFile>walk2.trc</inputMarkerFile>
             <inputAnalogFile>walk2.anc</inputAnalogFile>
-            <timeRange>0.185 0.205</timeRange>
+            <timeRange>0.0 2.0</timeRange>
             <kinematicsSmoothing>10.0</kinematicsSmoothing>
             <groundReactionSmoothing>1000.0</groundReactionSmoothing>
             <outputMotionFile>walk2.mot</outputMotionFile>
+            <includeMarkers>true</includeMarkers>
             <notes>second walking trial</notes>
          </IKTrial>
       </IKTrialSet>

@@ -119,7 +119,7 @@ public:
 	simmMarker* getMarker(int index) const;
 	int deleteAllMarkers();
 	void deleteMarker(const simmMarker* aMarker);
-	int deleteUnusedMarkers(const rdArrayPtrs<std::string>& aMarkerNames);
+	int deleteUnusedMarkers(const rdArray<std::string>& aMarkerNames);
 	void scale(rdArray<double>& aScaleFactors);
 
 	void addMarker(simmMarker* aMarker);
