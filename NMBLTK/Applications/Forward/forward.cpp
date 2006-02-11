@@ -21,8 +21,6 @@ using namespace std;
  */
 int main(int argc,char **argv)
 {
-
-	/*
 	// INTERPRET COMMAND LINE
 	int i;
 	string option = "";
@@ -33,12 +31,11 @@ int main(int argc,char **argv)
 	}
 	for(i=1;i<(argc-1);i++) {
 		option = argv[i];
-		if(option == "-Setup") {
+		if((option=="-Setup")||(option=="-S")) {
 			setupFileName = argv[i+1];
 			break;
 		}
 	}
-	*/
 
 	// LOAD MODEL
 	rdModel *model = LoadModel(argc,argv);
@@ -54,11 +51,20 @@ int main(int argc,char **argv)
 
 	
 	// ANALYSIS SET
+	if(setupFileName=="") {
+		cout<<"\n\nforward: ERROR- A setup file must be specified using the ";
+		cout<<"-Setup command line option.\n\n";
+
+	}
+	rdAnalysisSet *analysisSet = new rdAnalysisSet(setupFileName);
+	analysisSet->print("check.xml");
+
+	/* EMPTY ANALYSIS FOR CREATING A DEFAULT SETUP FILE
 	rdAnalysisSet *analysisSet = new rdAnalysisSet();
 	analysisSet->setName("test");
 	rdObject::setSerializeAllDefaults(true);
 	analysisSet->append( new suKinematics() );
-	analysisSet->print("default_analysis_set.xml");
+	analysisSet->print("default_analysis_set.xml"); */
 
 
 	/*

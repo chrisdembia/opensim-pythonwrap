@@ -12,8 +12,6 @@
 				1 
 			</StepInterval>
 			<InDegrees> true </InDegrees>
-			<Labels> Unassigned </Labels>
-			<StorageInterval> 1 </StorageInterval>
 		</suKinematics>
 	</objects>
 </rdAnalysisSet>
