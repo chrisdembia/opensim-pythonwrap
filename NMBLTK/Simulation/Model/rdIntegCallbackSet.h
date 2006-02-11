@@ -25,14 +25,15 @@
  * @author Frank C. Anderson
  * @version 1.0
  */
-class RDSIMULATION_API rdIntegCallbackSet : public rdCallbackSet 
+class RDSIMULATION_API rdIntegCallbackSet : public rdSet<rdCallback>
 {
 
 //=============================================================================
 // DATA
 //=============================================================================
-public:
 protected:
+	/** Model on which the callbacks have been set. */
+	rdModel *_model;
 
 //=============================================================================
 // METHODS
@@ -50,6 +51,9 @@ public:
 	//--------------------------------------------------------------------------
 	// GET AND SET
 	//--------------------------------------------------------------------------
+	void setModel(rdModel *aModel);
+	rdModel* getModel();
+	void setOn(bool aTrueFalse);
 	rdIntegCallback* getIntegCallback(int aIndex) const;
 
 	//--------------------------------------------------------------------------

@@ -58,12 +58,6 @@ public:
 	rdModel* getModel();
 	void setOn(bool aTrueFalse);
 
-/**
-	void makeIntegCallbacksConsecutive();
-	void listIntegCallbacks();
-*/
-
-
 //=============================================================================
 };	// END of class rdCallbackSet
 //=============================================================================

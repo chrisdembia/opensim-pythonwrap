@@ -1384,7 +1384,7 @@ int  rdModel::getNumAnalyses() const
 
 rdAnalysis& rdModel::getAnalysis(const int index) const
 {
-	return (*_analysisSet->getAnalysis(index));
+	return (*_analysisSet->get(index));
 }
 
 //=============================================================================

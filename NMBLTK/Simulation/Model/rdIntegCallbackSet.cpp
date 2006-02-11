@@ -36,11 +36,12 @@ rdIntegCallbackSet::~rdIntegCallbackSet()
 /**
  * Construct an empty callback set for a model.
  */
-rdIntegCallbackSet::rdIntegCallbackSet(rdModel *aModel) :
-	rdCallbackSet(aModel)
+rdIntegCallbackSet::rdIntegCallbackSet(rdModel *aModel)
 {
-	// NULL
+	setType("rdIntegCallbackSet");
 	setNull();
+
+	_model = aModel;
 }
 
 
@@ -54,17 +55,49 @@ rdIntegCallbackSet::rdIntegCallbackSet(rdModel *aModel) :
 void rdIntegCallbackSet::
 setNull()
 {
-	// TYPE
-	setType("rdIntegCallbackSet");
-
-	// MODEL 
-	//_model = NULL;
+	_model = NULL;
 }
 
 
 //=============================================================================
 // GET AND SET
 //=============================================================================
+//-----------------------------------------------------------------------------
+// MODEL
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Get a pointer to the model which is actuated.
+ *
+ * @return Pointer to the model.
+ */
+rdModel* rdIntegCallbackSet::
+getModel()
+{
+	return(_model);
+}
+
+//-----------------------------------------------------------------------------
+// ON & OFF
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Set all the callbacks either on or off.
+ *
+ * @param aTrueFalse Arguement that, if true, results in all callbacks
+ * being turned on; if false, all callbacks are turned off.
+ */
+void rdIntegCallbackSet::
+setOn(bool aTrueFalse)
+{
+	int i;
+	rdCallback *callback;
+	for(i=0;i<getSize();i++) {
+		callback = get(i);
+		if(callback==NULL) continue;
+		callback->setOn(aTrueFalse);
+	}
+}
 //-----------------------------------------------------------------------------
 // INTEGRATION CALLBACK
 //-----------------------------------------------------------------------------
@@ -111,7 +144,6 @@ begin(int aStep,double aDT,double aT,double *aX,double *aY,void *aClientData)
 		callback->begin(aStep,aDT,aT,aX,aY,aClientData);
 	}
 }
-
 //_____________________________________________________________________________
 /**
  * Call the step method for all integration callbacks.  This method is called
@@ -139,7 +171,6 @@ step(double *aXPrev,double *aYPrev,int aStep,double aDT,double aT,
 		callback->step(aXPrev,aYPrev,aStep,aDT,aT,aX,aY,aClientData);
 	}
 }
-
 //_____________________________________________________________________________
 /**
  * Call the end method for all integration callbacks.  This method is called

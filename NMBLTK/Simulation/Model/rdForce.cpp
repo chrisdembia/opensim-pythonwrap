@@ -62,7 +62,7 @@ rdForce::rdForce(int aBodyA,int aBodyB,int aNX,int aNY,int aNYP) :
 }
 //_____________________________________________________________________________
 /**
- * Construct an actuator from file.
+ * Construct from a DOM element.
  *
  * @param aFileName Name of the file.
  */

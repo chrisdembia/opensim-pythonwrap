@@ -8,7 +8,7 @@
 // INCLUDES
 //=============================================================================
 #include "suAnalysesDLL.h"
-#include <stdio.h>
+#include "RegisterTypes_suAnalyses.h"
 
 #ifdef WIN32
 
@@ -27,8 +27,10 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     switch (ul_reason_for_call)
 	{
 		case DLL_PROCESS_ATTACH:
+			RegisterTypes_suAnalyses();
 			break;
 		case DLL_THREAD_ATTACH:
+			RegisterTypes_suAnalyses();
 			break;
 		case DLL_THREAD_DETACH:
 			break;

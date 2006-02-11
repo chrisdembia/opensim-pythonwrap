@@ -11,8 +11,9 @@
 
 
 // INCLUDES
+#include <string>
+#include <NMBLTK/Tools/rdSet.h>
 #include "rdModel.h"
-#include "rdIntegCallbackSet.h"
 #include "rdAnalysis.h"
 
 
@@ -25,14 +26,14 @@
  * @author Frank C. Anderson
  * @version 1.0
  */
-class RDSIMULATION_API rdAnalysisSet : public rdIntegCallbackSet 
+class RDSIMULATION_API rdAnalysisSet : public rdSet<rdAnalysis>
 {
-
 //=============================================================================
 // DATA
 //=============================================================================
-public:
 protected:
+	/** Model on which the callbacks have been set. */
+	rdModel *_model;
 
 //=============================================================================
 // METHODS
@@ -42,7 +43,12 @@ protected:
 	//--------------------------------------------------------------------------
 public:
 	rdAnalysisSet(rdModel *aModel=0);
+	rdAnalysisSet(const std::string &aFileName);
+	rdAnalysisSet(DOMElement *aElement);
+	rdAnalysisSet(const rdAnalysisSet &aSet);
 	virtual ~rdAnalysisSet();
+	virtual rdObject* copy() const;
+	virtual rdObject* copy(DOMElement *aElement) const;
 private:
 	void setNull();
 public:
@@ -50,7 +56,22 @@ public:
 	//--------------------------------------------------------------------------
 	// GET AND SET
 	//--------------------------------------------------------------------------
-	rdAnalysis* getAnalysis(int aIndex) const;
+	void setModel(rdModel *aModel);
+	rdModel* getModel();
+	void setOn(bool aTrueFalse);
+
+	//--------------------------------------------------------------------------
+	// CALLBACKS
+	//--------------------------------------------------------------------------
+	virtual void
+		begin(int aStep,double aDT,double aT,
+		double *aX,double *aY,void *aClientData=NULL);
+	virtual void
+		step(double *aXPrev,double *aYPrev,int aStep,double aDT,double aT,
+		double *aX,double *aY,void *aClientData=NULL);
+	virtual void
+		end(int aStep,double aDT,double aT,
+		double *aX,double *aY,void *aClientData=NULL);
 
 	//--------------------------------------------------------------------------
 	// RESULTS

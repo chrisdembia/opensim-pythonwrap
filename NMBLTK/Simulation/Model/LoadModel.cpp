@@ -117,6 +117,10 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 			// DO NOTHING
 			// -Library is a valid option.  Just not acting on it here.
 		
+		} else if((option=="-Setup")||(option=="-S")) {
+			// DO NOTHING
+			// -Setup is a valid option.  Just not acting on it here.
+		
 		} else {
 			cout<<"WARN- "<<option<<" is an unknown option.\n";
 		}
@@ -242,9 +246,6 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 			return(NULL);
 		}
 	}
-
-	
-	cout<<"Returning to main.\n";
 
 	return(model);
 }

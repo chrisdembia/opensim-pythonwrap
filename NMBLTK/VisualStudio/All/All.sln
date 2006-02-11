@@ -102,6 +102,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Perturb", "..\..\Applicatio
 		{D106376D-F7EB-4226-AFA2-FB4D7E475F40} = {D106376D-F7EB-4226-AFA2-FB4D7E475F40}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Forward", "..\..\Applications\Forward\Forward.vcproj", "{0E8208A8-0BEF-4E80-817D-A16F6FDBF557}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6EB9FC4D-39ED-4AF9-B449-A0E62632FE17} = {6EB9FC4D-39ED-4AF9-B449-A0E62632FE17}
+		{D106376D-F7EB-4226-AFA2-FB4D7E475F40} = {D106376D-F7EB-4226-AFA2-FB4D7E475F40}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -192,6 +198,10 @@ Global
 		{9BAF69D7-FED7-482E-B224-4892BCCC7BCC}.Debug.Build.0 = Debug|Win32
 		{9BAF69D7-FED7-482E-B224-4892BCCC7BCC}.Release.ActiveCfg = Release|Win32
 		{9BAF69D7-FED7-482E-B224-4892BCCC7BCC}.Release.Build.0 = Release|Win32
+		{0E8208A8-0BEF-4E80-817D-A16F6FDBF557}.Debug.ActiveCfg = Debug|Win32
+		{0E8208A8-0BEF-4E80-817D-A16F6FDBF557}.Debug.Build.0 = Debug|Win32
+		{0E8208A8-0BEF-4E80-817D-A16F6FDBF557}.Release.ActiveCfg = Release|Win32
+		{0E8208A8-0BEF-4E80-817D-A16F6FDBF557}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

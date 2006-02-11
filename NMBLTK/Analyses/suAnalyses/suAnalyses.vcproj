@@ -149,10 +149,16 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;f90;for;f;fpp">
 			<File
+				RelativePath="..\InvestigationForward.cpp">
+			</File>
+			<File
 				RelativePath="..\InvestigationPerturbation.cpp">
 			</File>
 			<File
 				RelativePath="..\rdAnalysisFactory.cpp">
+			</File>
+			<File
+				RelativePath="..\RegisterTypes_suAnalyses.cpp">
 			</File>
 			<File
 				RelativePath="..\suActuation.cpp">
@@ -711,7 +717,13 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;fi;fd">
 			<File
+				RelativePath="..\InvestigationForward.h">
+			</File>
+			<File
 				RelativePath="..\InvestigationPerturbation.h">
+			</File>
+			<File
+				RelativePath="..\RegisterTypes_suAnalyses.h">
 			</File>
 			<File
 				RelativePath="..\suActuation.h">

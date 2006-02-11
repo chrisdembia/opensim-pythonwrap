@@ -64,6 +64,8 @@ rdControlSet::rdControlSet(const string &aFileName) :
 //_____________________________________________________________________________
 /**
  * Copy constructor.
+ *
+ * @param aSet Analysis set to be copied.
  */
 rdControlSet::rdControlSet(const rdControlSet &aSet) :
 	rdSet<rdControl>(aSet),

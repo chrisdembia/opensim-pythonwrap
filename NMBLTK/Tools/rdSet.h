@@ -72,12 +72,25 @@ rdSet() :
 }
 //_____________________________________________________________________________
 /**
- * Construct a set from file.
+ * Construct from file.
  *
  * @param aFileName Name of the file.
  */
 rdSet(const std::string &aFileName) :
 	rdObject(aFileName),
+	_objects((rdArrayPtrs<T>&)_propObjects.getValueObjArray())
+{
+	setNull();
+	updateFromXMLNode();
+}
+//_____________________________________________________________________________
+/**
+ * Construct from a DOM element.
+ *
+ * @param aElement DOM element.
+ */
+rdSet(DOMElement *aElement) :
+	rdObject(aElement),
 	_objects((rdArrayPtrs<T>&)_propObjects.getValueObjArray())
 {
 	setNull();

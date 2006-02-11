@@ -9,6 +9,7 @@
 #include <NMBLTK/Tools/rdPropertyInt.h>
 #include <NMBLTK/Tools/rdArrayPtrs.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
 class rdXMLDocument;
 
 
@@ -29,6 +30,10 @@ protected:
 	/** Pointer to the model being investigated. */
 	rdModel *_model;
 
+	// SERIALIZED PROPERTIES
+	/** Set of analyses to be run. */
+	rdPropertyObj _analysisSetProp;
+	rdAnalysisSet &_analysisSet;
 	/** Output precision. */
 	rdPropertyInt _outputPrecisionProp;
 	int &_outputPrecision;
@@ -58,11 +63,10 @@ protected:
 	// CONSTRUCTION
 	//--------------------------------------------------------------------------
 public:
+	virtual ~Investigation();
 	Investigation();
 	Investigation(const std::string &aFileName);
 	Investigation(DOMElement *aElement);
-	virtual ~Investigation();
-	// Copy constrctor and virtual copy 
 	Investigation(const Investigation &aObject);
 private:
 	void setNull();

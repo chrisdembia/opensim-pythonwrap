@@ -28,6 +28,7 @@ class SUANALYSES_API InvestigationPerturbation: public Investigation
 // MEMBER VARIABLES
 //=============================================================================
 private:
+	// PERTURBATION PARAMETERS
 	/** Perturbation time window. */
 	rdPropertyDbl _pertWindowProp;
 	double &_pertWindow;
@@ -94,10 +95,6 @@ private:
 	rdPropertyDblArray _bTorProp;
 	rdArray<double> &_bTor;
 
-	// INVESTIGATION PARAMETERS
-
-
-
 	// WORK VARIABLES
 	/** Control set. */
 	rdControlSet *_controlSet;
@@ -143,7 +140,6 @@ public:
 	//--------------------------------------------------------------------------
 	// GET AND SET
 	//--------------------------------------------------------------------------
-	virtual void setModel(rdModel *aModel);
 
 	//--------------------------------------------------------------------------
 	// INTERFACE

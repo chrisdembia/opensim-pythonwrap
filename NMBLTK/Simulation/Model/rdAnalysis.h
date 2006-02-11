@@ -41,13 +41,10 @@ private:
 	rdPropertyBool _inDegreesProp;
 	bool &_inDegrees;
 
+	// WORK ARRAYS
 	/** Column labels. */
-	rdPropertyStr _labelsProp;
-	std::string &_labels;
+	std::string _labels;
 
-	/** Step interval at which analysis results are stored. */
-	rdPropertyInt _storageIntervalProp;
-	int &_storageInterval;
 protected:
 	rdArrayPtrs<rdStorage> _storageList;
 //=============================================================================
@@ -64,7 +61,6 @@ public:
 	rdAnalysis(const std::string &aFileName);
 	rdAnalysis(DOMElement *aElement);
 	virtual ~rdAnalysis();
-	// Copy constrctor and virtual copy 
 	rdAnalysis(const rdAnalysis &aObject);
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;

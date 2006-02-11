@@ -39,11 +39,8 @@ rdCallbackSet::~rdCallbackSet()
  */
 rdCallbackSet::rdCallbackSet(rdModel *aModel)
 {
-	// NULL
+	setType("rdCallbackSet");
 	setNull();
-
-	// MODEL
-	_model = aModel;
 }
 
 
@@ -57,10 +54,6 @@ rdCallbackSet::rdCallbackSet(rdModel *aModel)
 void rdCallbackSet::
 setNull()
 {
-	// TYPE
-	setType("rdCallbackSet");
-
-	// MODEL
 	_model = NULL;
 }
 

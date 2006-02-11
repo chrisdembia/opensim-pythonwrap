@@ -26,9 +26,7 @@ using namespace std;
  */
 rdAnalysis::rdAnalysis(rdModel *aModel):
 	rdIntegCallback(aModel),
-	_inDegrees(_inDegreesProp.getValueBool()),
-	_labels(_labelsProp.getValueStr()),
-	_storageInterval(_storageIntervalProp.getValueInt())
+	_inDegrees(_inDegreesProp.getValueBool())
 {
 	
 	setNull();
@@ -65,13 +63,10 @@ rdAnalysis::~rdAnalysis()
  */
 rdAnalysis::rdAnalysis(const string &aFileName):
 rdIntegCallback(aFileName),
-_inDegrees(_inDegreesProp.getValueBool()),
-_labels(_labelsProp.getValueStr()),
-_storageInterval(_storageIntervalProp.getValueInt())
+_inDegrees(_inDegreesProp.getValueBool())
 {
-	// NULL STATES
+	setType("rdAnalysis");
 	setNull();
-	// Serialize from XML
 	updateFromXMLNode();
 }
 //_____________________________________________________________________________
@@ -80,13 +75,10 @@ _storageInterval(_storageIntervalProp.getValueInt())
  */
 rdAnalysis::rdAnalysis(DOMElement *aElement):
 rdIntegCallback(aElement),
-_inDegrees(_inDegreesProp.getValueBool()),
-_labels(_labelsProp.getValueStr()),
-_storageInterval(_storageIntervalProp.getValueInt())
+_inDegrees(_inDegreesProp.getValueBool())
 {
-	// NULL STATES
+	setType("rdAnalysis");
 	setNull();
-
 	updateFromXMLNode();
 }
 //_____________________________________________________________________________
@@ -127,14 +119,10 @@ _storageInterval(_storageIntervalProp.getValueInt())
  */
 rdAnalysis::rdAnalysis(const rdAnalysis &aAnalysis):
 rdIntegCallback(aAnalysis),
-_inDegrees(_inDegreesProp.getValueBool()),
-_labels(_labelsProp.getValueStr()),
-_storageInterval(_storageIntervalProp.getValueInt())
+_inDegrees(_inDegreesProp.getValueBool())
 {
-	// NULL MEMBER VARIABLES
+	setType("rdAnalysis");
 	setNull();
-
-	// COPY TYPE AND NAME
 	*this = aAnalysis;
 }
 
@@ -171,13 +159,7 @@ void rdAnalysis::
 setNull()
 {
 	setupProperties();
-
-	setType("rdAnalysis");
-
 	_inDegrees=true;
-	/** Step interval at which analysis results are stored. */
-	_storageInterval=1;
-
 	_storageList.setMemoryOwner(false);
 }
 //_____________________________________________________________________________
@@ -188,12 +170,6 @@ void rdAnalysis::setupProperties()
 {
 	_inDegreesProp.setName("InDegrees");
 	_propertySet.append( &_inDegreesProp );
-	/** Column labels. */
-	_labelsProp.setName("Labels");
-	_propertySet.append( &_labelsProp );
-	/** Step interval at which analysis results are stored. */
-	_storageIntervalProp.setName("StorageInterval");
-	_propertySet.append( &_storageIntervalProp );
 }
 
 
@@ -215,10 +191,6 @@ operator=(const rdAnalysis &aAnalysis)
 
 	// Data members
 	_inDegrees = aAnalysis._inDegrees;
-
-	_labels = aAnalysis._labels;
-
-	_storageInterval = aAnalysis._storageInterval;
 
 	return(*this);
 }
@@ -297,29 +269,6 @@ getColumnLabels() const
 	return(_labels.c_str());
 }
 
-//-----------------------------------------------------------------------------
-// STORAGE INTERVAL
-//-----------------------------------------------------------------------------
-//_____________________________________________________________________________
-/**
- * Set the storage interval.
- */
-void rdAnalysis::
-setStorageInterval(int aInterval)
-{
-	_storageInterval = aInterval;
-}
-//_____________________________________________________________________________
-/**
- * Get the storage interval.
- */
-int rdAnalysis::
-getStorageInterval() const
-{
-	return(_storageInterval);
-}
-
-
 
 //=============================================================================
 // ANALYSIS
@@ -327,13 +276,16 @@ getStorageInterval() const
 //_____________________________________________________________________________
 /**
  * Return whether or not to proceed with this analysis.
+ * The analysis will not proceed (i.e., returns false) if either the
+ * analysis is turned off or if aStep is not an even multiple of
+ * the step interval set @see rdStepCallback.
  *
  * @return True or False.
  */
 bool rdAnalysis::
 proceed(int aStep)
 {
-	return(getOn() && ((aStep%_storageInterval)==0));
+	return(getOn() && ((aStep%_stepInterval)==0));
 }
 //=============================================================================
 // IO

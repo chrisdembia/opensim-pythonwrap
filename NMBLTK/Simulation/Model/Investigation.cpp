@@ -25,6 +25,7 @@ Investigation::~Investigation()
  * Default constructor.
  */
 Investigation::Investigation():
+	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
@@ -47,6 +48,7 @@ Investigation::Investigation():
  */
 Investigation::Investigation(const string &aFileName):
 	rdObject(aFileName),
+	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
@@ -65,6 +67,7 @@ Investigation::Investigation(const string &aFileName):
  */
 Investigation::Investigation(DOMElement *aElement):
 	rdObject(aElement),
+	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
@@ -115,6 +118,7 @@ Investigation::Investigation(DOMElement *aElement):
  */
 Investigation::Investigation(const Investigation &aInvestigation):
 	rdObject(aInvestigation),
+	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
@@ -150,6 +154,10 @@ setNull()
  */
 void Investigation::setupProperties()
 {
+	rdAnalysisSet *analysisSet = new rdAnalysisSet();
+	_analysisSetProp.setValue(*analysisSet);
+	_analysisSetProp.setName("analysis_set");
+
 	_outputPrecisionProp.setName("output_precision");
 	_propertySet.append( &_outputPrecisionProp );
 
@@ -192,6 +200,13 @@ operator=(const Investigation &aInvestigation)
 
 	// MEMEBER VARIABLES
 	_model = aInvestigation._model;
+	_analysisSet = aInvestigation._analysisSet;
+	_outputPrecision = aInvestigation._outputPrecision;
+	_ti = aInvestigation._ti;
+	_tf = aInvestigation._tf;
+	_maxSteps = aInvestigation._maxSteps;
+	_errorTolerance = aInvestigation._errorTolerance;
+	_fineTolerance = aInvestigation._fineTolerance;
 
 	return(*this);
 }
@@ -211,6 +226,7 @@ void Investigation::
 setModel(rdModel *aModel)
 {
 	_model = aModel;
+	_analysisSet.setModel(_model);
 }
 //_____________________________________________________________________________
 /**
