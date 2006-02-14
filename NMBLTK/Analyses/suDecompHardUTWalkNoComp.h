@@ -28,6 +28,14 @@ class SUANALYSES_API suDecompHardUTWalkNoComp : public suDecompNoComp
 // DATA
 //=============================================================================
 public:
+	/** Flag to set whether contact will be prescribed */
+	bool _prescribedContact;
+	/** Storage for the prescribed spring positions */
+	rdStorage *_prescribedSpringPositionStorage;
+	/** Storage for the prescribed spring velocities */
+	rdStorage *_prescribedSpringVelocityStorage;
+	/** Storage for the prescribed spring forces */
+	rdStorage *_prescribedSpringForceStorage;
 
 protected:
 	/** Force component index. */
@@ -68,7 +76,17 @@ private:
 	//--------------------------------------------------------------------------
 	// GET AND SET
 	//--------------------------------------------------------------------------
+private:
 	double* getContactPoint(int aIndex);
+public:
+	void setPrescribedContact(bool aTrueFalse, 
+		rdStorage *aPrescribedSpringPositionStorage,
+		rdStorage *aPrescribedSpringVelocityStorage,
+		rdStorage *aPrescribedSpringForceStorage);
+	bool getPrescribedContact() const;
+	rdStorage* getPrescribedSpringPositionStorage();
+	rdStorage* getPrescribedSpringVelocityStorage();
+	rdStorage* getPrescribedSpringForceStorage();
 
 	//--------------------------------------------------------------------------
 	// DECOMPOSITION
