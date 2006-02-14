@@ -31,9 +31,6 @@ protected:
 	rdModel *_model;
 
 	// SERIALIZED PROPERTIES
-	/** Set of analyses to be run. */
-	rdPropertyObj _analysisSetProp;
-	rdAnalysisSet &_analysisSet;
 	/** Output precision. */
 	rdPropertyInt _outputPrecisionProp;
 	int &_outputPrecision;
@@ -55,6 +52,9 @@ protected:
 	/** Integrator find tolerance. */
 	rdPropertyDbl _fineToleranceProp;
 	double &_fineTolerance;
+	/** Set of analyses to be run. */
+	rdPropertyObj _analysisSetProp;
+	rdAnalysisSet &_analysisSet;
 
 //=============================================================================
 // METHODS
@@ -87,6 +87,7 @@ public:
 	virtual rdModel* getModel() const;
 	void setOutputPrecision(int aPrecision);
 	int getOutputPrecision() const;
+	rdAnalysisSet& getAnalysisSet() const;
 
 	//--------------------------------------------------------------------------
 	// INTERFACE

@@ -39,6 +39,7 @@ InvestigationForward::~InvestigationForward()
  * Default constructor.
  */
 InvestigationForward::InvestigationForward() :
+	Investigation(),
 	_controlsFileName(_controlsFileNameProp.getValueStr()),
 	_initialStatesFileName(_initialStatesFileNameProp.getValueStr())
 {
@@ -55,6 +56,7 @@ InvestigationForward::InvestigationForward() :
  * @param aFileName File name of the document.
  */
 InvestigationForward::InvestigationForward(const string &aFileName) :
+	Investigation(aFileName),
 	_controlsFileName(_controlsFileNameProp.getValueStr()),
 	_initialStatesFileName(_initialStatesFileNameProp.getValueStr())
 {
@@ -67,6 +69,7 @@ InvestigationForward::InvestigationForward(const string &aFileName) :
  * Construct from a DOMElement.
  */
 InvestigationForward::InvestigationForward(DOMElement *aElement) :
+	Investigation(aElement),
 	_controlsFileName(_controlsFileNameProp.getValueStr()),
 	_initialStatesFileName(_initialStatesFileNameProp.getValueStr())
 {
@@ -112,9 +115,11 @@ InvestigationForward::InvestigationForward(DOMElement *aElement) :
  */
 InvestigationForward::
 InvestigationForward(const InvestigationForward &aInvestigation) :
+	Investigation(aInvestigation),
 	_controlsFileName(_controlsFileNameProp.getValueStr()),
 	_initialStatesFileName(_initialStatesFileNameProp.getValueStr())
 {
+	setType("InvestigationForward");
 	setNull();
 	*this = aInvestigation;
 }
@@ -150,6 +155,8 @@ setNull()
 {
 	setupProperties();
 
+	_controlsFileName = "";
+	_initialStatesFileName = "";
 }
 //_____________________________________________________________________________
 /**
@@ -157,6 +164,12 @@ setNull()
  */
 void InvestigationForward::setupProperties()
 {
+	// INPUT FILE NAMES
+	_controlsFileNameProp.setName("controls_file_name");
+	_propertySet.append( &_controlsFileNameProp );
+
+	_initialStatesFileNameProp.setName("initial_states_file_name");
+	_propertySet.append( &_initialStatesFileNameProp );
 
 }
 
@@ -178,6 +191,8 @@ operator=(const InvestigationForward &aInvestigation)
 	Investigation::operator=(aInvestigation);
 
 	// MEMEBER VARIABLES
+	_controlsFileName = aInvestigation._controlsFileName;
+	_initialStatesFileName = aInvestigation._initialStatesFileName;
 
 	return(*this);
 }
@@ -198,23 +213,65 @@ void InvestigationForward::run()
 {
 	cout<<"Running investigation "<<getName()<<".\n";
 
-	// SET OUTPUT PRECISION
-	rdIO::SetPrecision(_outputPrecision);
-
-	// INPUT
-	// Controls
-	cout<<"\n\nLoading controls from file "<<_controlsFileName<<".\n";
-	rdControlSet *controlSet = new rdControlSet(_controlsFileName);
-	cout<<"Found "<<controlSet->getSize()<<" controls.\n\n";
-	// Initial states
-	cout<<"\n\nLoading initial states from file "<<_initialStatesFileName<<".\n";
-	rdStorage *yiStore = new rdStorage(_initialStatesFileName.c_str());
-
 	// CHECK FOR A MODEL
 	if(_model==NULL) {
 		string msg = "ERROR- A model has not been set.";
 		cout<<endl<<msg<<endl;
 		throw(rdException(msg,__FILE__,__LINE__));
+	}
+
+	// SET OUTPUT PRECISION
+	rdIO::SetPrecision(_outputPrecision);
+
+	// INPUT
+	// Controls
+	rdControlSet *controlSet=NULL;
+	if(_controlsFileName!="") {
+		cout<<"\n\nLoading controls from file "<<_controlsFileName<<".\n";
+		controlSet = new rdControlSet(_controlsFileName);
+		cout<<"Found "<<controlSet->getSize()<<" controls.\n\n";
+	}
+	// Initial states
+	rdStorage *yiStore = NULL;
+	if(_initialStatesFileName!="") {
+		cout<<"\n\nLoading initial states from file "<<_initialStatesFileName<<".\n";
+		yiStore = new rdStorage(_initialStatesFileName.c_str());
+		cout<<"Found "<<yiStore->getSize()<<" state vectors with time stamps ranging\n";
+		cout<<"from "<<yiStore->getFirstTime()<<" to "<<yiStore->getLastTime()<<".\n";
+	}
+
+	// INITIAL AND FINAL TIMES
+	// From initial states...
+	double ti,tf;
+	int index = yiStore->findIndex(_ti);
+	if(index<0) {
+		_ti = yiStore->getFirstTime();
+		cout<<"\n\nWARN- The initial time set for the investigation precedes the first time\n";
+		cout<<"in the initial states file.  Setting the investigation to run at the first time\n";
+		cout<<"in the initial states file (ti = "<<_ti<<").\n\n";
+	} else {
+		yiStore->getTime(index,ti);
+		if(_ti!=ti) {
+			_ti = ti;
+			cout<<"\n"<<getName()<<": The initial time for the investigation has been set to "<<_ti<<endl;
+			cout<<"to agree exactly with the time stamp of the closest initial states in file ";
+			cout<<_initialStatesFileName<<".\n\n";
+		}
+	}
+	// Check controls...
+	int first = 0;
+	rdControl *control = controlSet->get(first);
+	ti = control->getFirstTime();
+	tf = control->getLastTime();
+	if(_ti<ti) {
+		cout<<"\n"<<getName()<<": WARN- The controls read in from file "<<_controlsFileName<<" did not\n";
+		cout<<"overlap the requested initial time of the simulation.  Controls are being extrapolated\n";
+		cout<<"rather than interpolated.\n";
+	}
+	if(_tf>tf) {
+		cout<<"\n"<<getName()<<": WARN- The controls read in from file "<<_controlsFileName<<" did not\n";
+		cout<<"overlap the requested final time of the simulation.  Controls are being extrapolated\n";
+		cout<<"rather than interpolated.\n";
 	}
 
 	// ASSIGN NUMBERS OF THINGS
@@ -225,20 +282,15 @@ void InvestigationForward::run()
 	int nb = _model->getNB();
 
 	// ADD ANALYSES
-	// Kinematics
-	suKinematics *kinAngles = new suKinematics(_model);
-	_model->addAnalysis(kinAngles);
-	kinAngles->getPositionStorage()->setWriteSIMMHeader(true);
-	kinAngles->setOn(true);
-	// Body kinematics
-	suBodyKinematics *kin = new suBodyKinematics(_model);
-	_model->addAnalysis(kin);
-	kin->getPositionStorage()->setWriteSIMMHeader(true);		
-	kin->setOn(true);
-	// Actuation
-	suActuation *actuation = new suActuation(_model);
-	_model->addAnalysis(actuation);
-	actuation->setOn(true);
+	rdAnalysis *analysis;
+	rdAnalysisSet &analysisSet = getAnalysisSet();
+	int i, size = analysisSet.getSize();
+	for(i=0;i<size;i++) {
+		analysis = analysisSet.get(i);
+		if(analysis==NULL) continue;
+		analysis->setModel(_model);
+		_model->addAnalysis(analysis);
+	}
 
 	// SETUP SIMULATION
 	// Manager
@@ -246,29 +298,6 @@ void InvestigationForward::run()
 	integrand.setControlSet(*controlSet);
 	rdManager manager(&integrand);
 	manager.setSessionName(getName());
-	// Initial and final times
-	// If the times lie outside the range for which control values are
-	// available, the initial and final times are altered.
-	int first = 0;
-	rdControlLinear *control = (rdControlLinear*)controlSet->get(first);
-	if(control==NULL) {
-		cout<<"\n\nError- There are no controls.\n\n";
-		exit(-1);
-	}
-	double ti = control->getFirstTime();
-	double tf = control->getLastTime();
-	// Check initial time.
-	if(_ti<ti) {
-		cout<<"\n\nControls not available at "<<_ti<<".  ";
-		cout<<"Changing initial time to "<<ti<<".";
-		_ti = ti;
-	}
-	// Check final time.
-	if(tf<_tf) {
-		cout<<"\n\nControls not available at "<<_tf<<".  ";
-		cout<<"Changing final time to "<<tf<<".";
-		_tf = tf;
-	}
 	manager.setInitialTime(_ti);
 	manager.setFinalTime(_tf);
 	cout<<"\n\nPerforming perturbations over the range ti=";
@@ -283,8 +312,6 @@ void InvestigationForward::run()
 
 	// SET INITIAL AND FINAL TIME AND THE INITIAL STATES
 	rdArray<double> yi(0.0,ny);
-	int index = yiStore->findIndex(_ti);
-	yiStore->getTime(index,_ti);
 	yiStore->getData(index,ny,&yi[0]);
 	manager.setInitialTime(_ti);
 	manager.setFinalTime(_tf);

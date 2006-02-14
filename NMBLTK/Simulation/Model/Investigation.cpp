@@ -25,14 +25,14 @@ Investigation::~Investigation()
  * Default constructor.
  */
 Investigation::Investigation():
-	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
 	_maxSteps(_maxStepsProp.getValueInt()),
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
-	_fineTolerance(_fineToleranceProp.getValueDbl())
+	_fineTolerance(_fineToleranceProp.getValueDbl()),
+	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setType("Investigation");
 	setNull();
@@ -48,14 +48,14 @@ Investigation::Investigation():
  */
 Investigation::Investigation(const string &aFileName):
 	rdObject(aFileName),
-	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
 	_maxSteps(_maxStepsProp.getValueInt()),
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
-	_fineTolerance(_fineToleranceProp.getValueDbl())
+	_fineTolerance(_fineToleranceProp.getValueDbl()),
+	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setType("Investigation");
 	setNull();
@@ -67,14 +67,14 @@ Investigation::Investigation(const string &aFileName):
  */
 Investigation::Investigation(DOMElement *aElement):
 	rdObject(aElement),
-	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
 	_maxSteps(_maxStepsProp.getValueInt()),
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
-	_fineTolerance(_fineToleranceProp.getValueDbl())
+	_fineTolerance(_fineToleranceProp.getValueDbl()),
+	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setType("Investigation");
 	setNull();
@@ -118,14 +118,14 @@ Investigation::Investigation(DOMElement *aElement):
  */
 Investigation::Investigation(const Investigation &aInvestigation):
 	rdObject(aInvestigation),
-	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
 	_maxSteps(_maxStepsProp.getValueInt()),
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
-	_fineTolerance(_fineToleranceProp.getValueDbl())
+	_fineTolerance(_fineToleranceProp.getValueDbl()),
+	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setNull();
 	*this = aInvestigation;
@@ -154,10 +154,6 @@ setNull()
  */
 void Investigation::setupProperties()
 {
-	rdAnalysisSet *analysisSet = new rdAnalysisSet();
-	_analysisSetProp.setValue(*analysisSet);
-	_analysisSetProp.setName("analysis_set");
-
 	_outputPrecisionProp.setName("output_precision");
 	_propertySet.append( &_outputPrecisionProp );
 
@@ -179,6 +175,10 @@ void Investigation::setupProperties()
 	_fineToleranceProp.setName("integrator_fine_tolerance");
 	_propertySet.append( &_fineToleranceProp );
 
+	rdAnalysisSet *analysisSet = new rdAnalysisSet();
+	_analysisSetProp.setValue(*analysisSet);
+	_analysisSetProp.setName("analysis_set");
+	_propertySet.append( &_analysisSetProp );
 }
 
 
@@ -258,4 +258,17 @@ int Investigation::
 getOutputPrecision() const
 {
 	return(_outputPrecision);
+}
+
+//-----------------------------------------------------------------------------
+// ANALYSIS SET
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Get the analysis set.
+ */
+rdAnalysisSet& Investigation::
+getAnalysisSet() const
+{
+	return(_analysisSet);
 }

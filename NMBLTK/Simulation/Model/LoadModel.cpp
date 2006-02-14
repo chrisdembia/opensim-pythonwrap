@@ -23,6 +23,9 @@ typedef rdModel* (*CREATEMODEL_ParamsActuatorsContacts)(const string&,rdActuator
 }
 
 
+static void PrintUsage(ostream &aOStream);
+
+
 //_____________________________________________________________________________
 /**
  * Load and create a model from a dynamically loaded library (DLL).
@@ -82,15 +85,9 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 		if(argv[i][0] != '-') continue;
 		option = argv[i];
 
-		if((argc<=1)||(option=="-help")||(option=="-h")||(option=="-Help")||(option=="-H")) {
-			cout<<"To load a model use the following command-line options:\n";
-			cout<<"\t-ModelLibrary or -ML  NameOfModelLibrary (do not include the library extension [e.g., .dll or .lib])\n";
-			cout<<"\t-ModelFile or -MF     NameOfModelDeserializationFile (including path)\n";
-			cout<<"\t-Actuators or -A      NameOfActuatorSet (including path)\n";
-			cout<<"\t-Contacts or -C       NameofContactSet (including path)\n";
-			cout<<"\t-Params or -P         NameOfPipelineParamsFile (including path)\n";
-			cout<<"\t-Library or -L        NameOfAdditionalLibraryToLoad (to load more than one library,\n";
-			cout<<"\t                      add as many -Library options as needed)\n";
+		if((argc<=1)||(option=="-help")||(option=="-h")||(option=="-Help")||(option=="-H")
+			||(option=="-usage")||(option=="-u")||(option=="-Usage")||(option=="-U")) {
+			PrintUsage(cout);
 			return(NULL);
 
 		} else if((option=="-Actuators")||(option=="-A")) {
@@ -249,4 +246,24 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 
 	return(model);
 }
+
+
+//_____________________________________________________________________________
+/**
+ * Print the usage for this application
+ */
+void PrintUsage(ostream &aOStream)
+{
+	aOStream<<"Options for LoadModel(int argc,char **argv):\n";
+	aOStream<<"\t-Help or -H           Print the options for LoadModel(int argc,char **argv)\n";
+	aOStream<<"\t-ModelLibrary or -ML  NameOfModelLibrary (do not include the library extension [e.g., .dll or .lib])\n";
+	aOStream<<"\t-ModelFile or -MF     NameOfModelDeserializationFile (including path)\n";
+	aOStream<<"\t-Actuators or -A      NameOfActuatorSet (including path)\n";
+	aOStream<<"\t-Contacts or -C       NameofContactSet (including path)\n";
+	aOStream<<"\t-Params or -P         NameOfPipelineParamsFile (including path)\n";
+	aOStream<<"\t-Library or -L        NameOfAdditionalLibraryToLoad (to load more than one library,\n";
+	aOStream<<"\t                      add as many -Library options as needed)\n";
+}
+
+
 
