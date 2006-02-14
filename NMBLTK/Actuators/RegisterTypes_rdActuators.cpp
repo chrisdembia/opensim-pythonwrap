@@ -9,6 +9,7 @@
 #include "rdGeneralizedForceAtv.h"
 #include "rdLinearSetPoint.h"
 #include "rdPolynomialSetPoint.h"
+#include "JointMoment.h"
 
 using namespace std;
 
@@ -25,5 +26,6 @@ RDACTUATORS_API void RegisterTypes_rdActuators()
 	rdObject::RegisterType( rdGeneralizedForceAtv() );
 	rdObject::RegisterType( rdLinearSetPoint() );
 	rdObject::RegisterType( rdPolynomialSetPoint() );
+	rdObject::RegisterType( JointMoment() );
 }
 
