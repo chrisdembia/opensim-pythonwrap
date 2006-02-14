@@ -77,13 +77,23 @@
 -->
 
 		<JointMoment name="actuator">
-			<QID> 0 </QID>
-			<rise_time> 0.01 </rise_time>
-			<fall_time> 0.01 </fall_time>
-			<optimal_force> 5000.0 </optimal_force>
-			<optimal_negative_force> 1000.0 </optimal_negative_force>
-		</rdGeneralizedForceAtv>
-
+			<QID>
+				0
+			</QID>
+			<rise_time>
+				0.01
+			</rise_time>
+			<fall_time>
+				0.01
+			</fall_time>
+			<optimal_force>
+				5000.0
+			</optimal_force>
+			<optimal_negative_force>
+				1000.0
+			</optimal_negative_force>
+		</JointMoment>
+		
 	</objects>
 
 </rdActuatorSet>

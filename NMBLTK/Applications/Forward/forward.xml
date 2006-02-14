@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InvestigationForward name="test">
+	<output_precision> 8 </output_precision>
+	<initial_time>0.0</initial_time>
+	<final_time>1.0</final_time>
+	<maximum_number_of_integrator_steps> 20000 </maximum_number_of_integrator_steps>
+	<maximum_integrator_step_size>1.0</maximum_integrator_step_size>
+	<integrator_error_tolerance>0.001</integrator_error_tolerance>
+	<integrator_fine_tolerance>0.00001</integrator_fine_tolerance>
+	<rdAnalysisSet name="">
+		<objects>
+			<suKinematics name="test">
+				<On>
+					 true 
+				</On>
+				<StartTime>
+					-1.0e-30 
+				</StartTime>
+				<EndTime>
+					1.0e30
+				</EndTime>
+				<StepInterval>
+					 1 
+				</StepInterval>
+				<InDegrees>
+					 true 
+				</InDegrees>
+			</suKinematics></objects>
+		
+	</rdAnalysisSet>
+	<controls_file_name> Unassigned </controls_file_name>
+	<initial_states_file_name> Unassigned </initial_states_file_name>
+</InvestigationForward>
+
