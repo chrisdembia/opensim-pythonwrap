@@ -68,6 +68,7 @@ rdSet() :
 	rdObject(),
 	_objects((rdArrayPtrs<T>&)_propObjects.getValueObjArray())
 {
+	setType("rdSet");
 	setNull();
 }
 //_____________________________________________________________________________
@@ -80,6 +81,7 @@ rdSet(const std::string &aFileName) :
 	rdObject(aFileName),
 	_objects((rdArrayPtrs<T>&)_propObjects.getValueObjArray())
 {
+	setType("rdSet");
 	setNull();
 	updateFromXMLNode();
 }
@@ -93,6 +95,7 @@ rdSet(DOMElement *aElement) :
 	rdObject(aElement),
 	_objects((rdArrayPtrs<T>&)_propObjects.getValueObjArray())
 {
+	setType("rdSet");
 	setNull();
 	updateFromXMLNode();
 }
@@ -134,7 +137,6 @@ private:
 void
 setNull()
 {
-	setType("rdSet");
 	setupProperties();
 	_objects.setSize(0);
 }
