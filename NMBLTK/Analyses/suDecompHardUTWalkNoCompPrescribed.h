@@ -55,20 +55,17 @@ private:
 	double *_yTmp;
 	/** Untouched copy of the model controls. */
 	double *_x;
-	/** Flag to set whether contact will be prescribed */
-	bool _prescribedContact;
-	/** Storage for the prescribed spring positions */
-	rdStorage *_prescribedSpringPositionStorage;
-	/** Storage for the prescribed spring velocities */
-	rdStorage *_prescribedSpringVelocityStorage;
 	/** Storage for the prescribed spring forces */
 	rdStorage *_prescribedSpringForceStorage;
+	/** Flag as to whether model is constrained to sagittal plane **/
+	bool _modelIsSagittal;
 
 //=============================================================================
 // METHODS
 //=============================================================================
 public:
-	suDecompHardUTWalkNoCompPrescribed(rdUTWalking8Prescribed *aModel);
+	suDecompHardUTWalkNoCompPrescribed(rdUTWalking8Prescribed *aModel, 
+		rdStorage *aPrescribedSpringForceStorage, bool aModelIsSagittal);
 	virtual ~suDecompHardUTWalkNoCompPrescribed();
 private:
 	void setNull();
@@ -77,13 +74,6 @@ private:
 	// GET AND SET
 	//--------------------------------------------------------------------------
 	double* getContactPoint(int aIndex);
-	void setPrescribedContact(bool aTrueFalse, 
-		rdStorage *aPrescribedSpringPositionStorage,
-		rdStorage *aPrescribedSpringVelocityStorage,
-		rdStorage *aPrescribedSpringForceStorage);
-	bool getPrescribedContact() const;
-	rdStorage* getPrescribedSpringPositionStorage();
-	rdStorage* getPrescribedSpringVelocityStorage();
 	rdStorage* getPrescribedSpringForceStorage();
 
 	//--------------------------------------------------------------------------

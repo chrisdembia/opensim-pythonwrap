@@ -17,9 +17,8 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <iostream>
+#include <string>
 #include <math.h>
 #include <float.h>
 #include <NMBLTK/Tools/rdTools.h>
@@ -61,10 +60,6 @@ suDecompHardUTWalkNoCompPrescribed::~suDecompHardUTWalkNoCompPrescribed()
 	if(_yTmp!=NULL) { delete[] _yTmp;  _yTmp=NULL; }
 	if(_xsSprMap!=NULL) { delete[] _xsSprMap;  _xsSprMap=NULL; }
 	if(_xsXYZMap!=NULL) { delete[] _xsXYZMap;  _xsXYZMap=NULL; }
-	if(_prescribedSpringPositionStorage!=NULL) 
-		{delete[] _prescribedSpringPositionStorage; _prescribedSpringPositionStorage=NULL; }
-	if(_prescribedSpringVelocityStorage!=NULL) 
-		{delete[] _prescribedSpringVelocityStorage; _prescribedSpringVelocityStorage=NULL; }
 	if(_prescribedSpringForceStorage!=NULL) 
 		{delete[] _prescribedSpringForceStorage; _prescribedSpringForceStorage=NULL; }
 }
@@ -73,8 +68,8 @@ suDecompHardUTWalkNoCompPrescribed::~suDecompHardUTWalkNoCompPrescribed()
  * Construct a hard-constraint decomposition analysis based on an
  * rdUTWalking8Prescribed model.
  */
-suDecompHardUTWalkNoCompPrescribed::suDecompHardUTWalkNoCompPrescribed(rdUTWalking8Prescribed *aModel) :
-	suDecompNoComp(aModel)
+suDecompHardUTWalkNoCompPrescribed::suDecompHardUTWalkNoCompPrescribed(rdUTWalking8Prescribed *aModel, 
+	rdStorage *aPrescribedSpringForceStorage, bool aModelIsSagittal) : suDecompNoComp(aModel)
 {
 	setNull();
 
@@ -94,6 +89,13 @@ suDecompHardUTWalkNoCompPrescribed::suDecompHardUTWalkNoCompPrescribed(rdUTWalki
 
 	// BODY CONSTRAINTS
 	clearBodyConstraints();
+
+	// SPRING FORCE STORAGE
+	_prescribedSpringForceStorage = aPrescribedSpringForceStorage;
+
+	// SET SAGITTAL
+	_modelIsSagittal = aModelIsSagittal;
+
 
 }
 
@@ -118,10 +120,7 @@ setNull()
 	_yCopy = NULL;
 	_yTmp = NULL;
 	_x = NULL;
-	_prescribedContact = false;
-	_prescribedSpringPositionStorage = NULL;
-	_prescribedSpringVelocityStorage = NULL;
-	_prescribedSpringForceStorage = NULL;
+	_modelIsSagittal = false;
 
 }
 
@@ -143,62 +142,6 @@ getContactPoint(int aIndex)
 {
 	_model->getContactPointB(aIndex,_point);
 	return(_point);
-}
-//_____________________________________________________________________________
-/**
- * Set whether the contact will be prescribed and set the storages that should be
- * used to read in the required values.
- *
- * @param aPrescribedContact flag indicates whether contact will be prescribed
- * @param aPrescribedSpringPositionStorage contains the prescribed spring postions
- * @param aPrescribedSpringVelocityStorage contains the prescribed spring velocities
- * @param aPrescribedSpringForceStorage contains the prescribed spring forces
- */
-void suDecompHardUTWalkNoCompPrescribed::
-setPrescribedContact(bool aTrueFalse, 
-		rdStorage *aPrescribedSpringPositionStorage,
-		rdStorage *aPrescribedSpringVelocityStorage,
-		rdStorage *aPrescribedSpringForceStorage)
-{
-	_prescribedContact = aTrueFalse;
-	_prescribedSpringPositionStorage = aPrescribedSpringPositionStorage;
-	_prescribedSpringVelocityStorage = aPrescribedSpringVelocityStorage;
-	_prescribedSpringForceStorage = aPrescribedSpringForceStorage;
-
-}
-//_____________________________________________________________________________
-/**
- * Get whether the contact will be prescribed.
- *
- * @return aPrescribedContact flag
- * @see setPrescribedContact()
- */
-bool suDecompHardUTWalkNoCompPrescribed::
-getPrescribedContact() const
-{
-	return(_prescribedContact);
-}
-//_____________________________________________________________________________
-/**
- * Get the prescribed spring postions storage.
- *
- * @return Prescribed spring postions storage.
- */
-rdStorage* suDecompHardUTWalkNoCompPrescribed::
-getPrescribedSpringPositionStorage()
-{
-	return(_prescribedSpringPositionStorage);
-}
-//_____________________________________________________________________________
-/**
- * Get the prescribed spring velocity storage.
- *
- * @return Prescribed spring velocity storage.
- */
-rdStorage* suDecompHardUTWalkNoCompPrescribed::
-getPrescribedSpringVelocityStorage()
-{
-	return(_prescribedSpringVelocityStorage);
 }
 //_____________________________________________________________________________
 /**
@@ -241,27 +184,14 @@ compute(double *aXPrev,double *aYPrev,int step,double dt,double t,
 	double svel[rdUTWalking8Prescribed_NS][3];
 	double spos[rdUTWalking8Prescribed_NS][3];
 	double sfrc[rdUTWalking8Prescribed_NS][3];
-	double *sposPrescribed = new double[6*rdUTWalking8Prescribed_NS];
-	double *svelPrescribed = new double[6*rdUTWalking8Prescribed_NS];
 	double *sfrcPrescribed = new double[6*rdUTWalking8Prescribed_NS];
-	if(_prescribedContact){
-		_prescribedSpringPositionStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,sposPrescribed);
-		_prescribedSpringVelocityStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,svelPrescribed);
-		_prescribedSpringForceStorage->getDataAtTime(t,6*rdUTWalking8Prescribed_NS,sfrcPrescribed);
-		for(s=0;s<rdUTWalking8Prescribed_NS;s++){
-			for(n=3;n<6;n++){
-				I = rdMtx::ComputeIndex(s,6,n);
-				spos[s][n-3] = sposPrescribed[I];
-				svel[s][n-3] = svelPrescribed[I];
-				sfrc[s][n-3] = sfrcPrescribed[I];
-			}
+	_prescribedSpringForceStorage->getDataAtTime(t*_model->getTimeNormConstant(),6*rdUTWalking8Prescribed_NS,sfrcPrescribed);
+	for(s=0;s<rdUTWalking8Prescribed_NS;s++){
+		for(n=3;n<6;n++){
+			I = rdMtx::ComputeIndex(s,6,n);
+			sfrc[s][n-3] = sfrcPrescribed[I];
 		}
-	} else {
-		model->computeSpringPointKinematics(svel,spos);
-		model->computeGroundForces(svel,spos,sfrc);
 	}
-	model->updateGroundZeros(svel,spos,sfrc);
-	model->limitGroundForces(sfrc);
 
 	// VARIABLE DECLARATIONS
 	int i,j;
@@ -269,35 +199,8 @@ compute(double *aXPrev,double *aYPrev,int step,double dt,double t,
 	double fs[rdUTWalking8Prescribed_NS][3];
 	double g[3];
 	model->getGravity(g);
-
-	// COMPUTE THE NOMINAL SPRING ACCELERATIONS
 	double dqdt[rdUTWalking8Prescribed_NQ],dudt[rdUTWalking8Prescribed_NU];
 	double sacc[rdUTWalking8Prescribed_NS][3],saccOpt[rdUTWalking8Prescribed_NS][3];
-	// ----------------------------------
-	// SET
-	_model->set(t,xt,y);
-	_model->getDerivCallbackSet()->set(t,xt,y);
-
-	// ACTUATION
-	_model->computeActuation();
-	_model->getDerivCallbackSet()->computeActuation(t,xt,y);
-	_model->applyActuatorForces();
-	_model->getDerivCallbackSet()->applyActuation(t,xt,y);
-
-	// CONTACT
-	_model->computeContact();
-	_model->getDerivCallbackSet()->computeContact(t,xt,y);
-	_model->applyContactForces();
-	_model->getDerivCallbackSet()->applyContact(t,xt,y);
-
-	// ACCELERATIONS
-	int nq = _model->getNQ();
-	_model->computeAccelerations(dqdt,dudt);
-	// ----------------------------------
-	for(i=0;i<np;i++) {
-		model->getAcceleration(model->getContactBodyB(i),getContactPoint(i),
-			sacc[i]);
-	}
 
 	// DETERMINE THE CONTROLS
 	determineControls(sfrc);
@@ -314,6 +217,7 @@ compute(double *aXPrev,double *aYPrev,int step,double dt,double t,
 		new suDecompTargetNoCompPrescribed(_nxs,getNumberConstraints(),this);
 	rdFSQP *sqp = new rdFSQP(decompTarget);
 	sqp->setMaxIterations(200);
+//	sqp->setMaxIterations(400);
 	sqp->setNonlinearEqualityConstraintTolerance(1.0e-4);
 	sqp->setConvergenceCriterion(1.0e-2);
 	sqp->setPrintLevel(0);
@@ -420,169 +324,350 @@ determineConstraints()
 
 	// RIGHT HINDFOOT
 	ibc = 0;
-	for(ipc=0,i=0;i<4;i++) {
 
-		if(!_contactEstablished[i]) continue;
+	if(_modelIsSagittal){
+	
+		for(ipc=0,i=0;i<4;i++) {
+	
+			// spring 0 hits before 1 and 2 hits before 3 - we only need to constrain foot based 
+			// on one rear spring and one fore spring
+			if(!_contactEstablished[i] || i==1 || i==2) continue;
 
-		// pc0
-		if(ipc==0) {
+			// pc0
+			if(ipc==0) {
+				_bc[ibc].setID(model->getContactBodyB(i));
+				pc[ipc] = _bc[ibc].getPC(ipc);
+				pc[ipc]->setID(i);
+				model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+				pc[ipc]->setPoint(p);
+				pc[ipc]->setC0(x);
+				pc[ipc]->setC1(y);
+			//	pc[ipc]->setC2(z);
+				ipc++;	
+
+			// pc1
+			} else if(ipc==1) {
+				pc[ipc] = _bc[ibc].getPC(ipc);
+				pc[ipc]->setID(i);
+				model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+				pc[ipc]->setPoint(p);
+				//_bc[ibc].constructConstraintsForPoint1();
+				pc[ipc]->setC0(y);
+				ipc++;
+	
+			// pc2
+			//} else if(ipc==2) {
+			//	pc[ipc] = _bc[ibc].getPC(ipc);
+			//	pc[ipc]->setID(i);
+			//	model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+			//	pc[ipc]->setPoint(p);
+			//	_bc[ibc].constructConstraintsForPoint2();
+			//	ipc++;
+
+			// NO MORE THAN 2 ON A BODY
+			} else {
+				printf("Enough constraints on body.\n");
+			}
+		}
+		rHindInContact = ipc;
+		if(ipc>0) ibc++;	
+
+		// RIGHT TOES
+		for(ipc=0,i=4;i<5;i++) {	
+
+			if(!_contactEstablished[i]) continue;
+
 			_bc[ibc].setID(model->getContactBodyB(i));
-			pc[ipc] = _bc[ibc].getPC(ipc);
-			pc[ipc]->setID(i);
+			pc[0] = _bc[ibc].getPC(ipc);
+			pc[0]->setID(i);
 			model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
-			pc[ipc]->setPoint(p);
-			pc[ipc]->setC0(x);
-			pc[ipc]->setC1(y);
-			pc[ipc]->setC2(z);
-			ipc++;
+			pc[ipc]->setPoint(p);	
+	
+			// THREE CONSTRAINT DIRECTIONS BECAUSE HINDFOOT IS NOT IN CONTACT
+			// Actually, when only one contact point on the hindfoot is in contact, the toe
+			// actually has three degrees of freedom because of the metatarsal joint.
+			// Therefore, it must be constrained in three directions.
+			if(rHindInContact<=1 ) {
+				pc[0]->setC0(x);
+				pc[0]->setC1(y);
+			//	pc[0]->setC2(z);
 
-		// pc1
-		} else if(ipc==1) {
-			pc[ipc] = _bc[ibc].getPC(ipc);
-			pc[ipc]->setID(i);
-			model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
-			pc[ipc]->setPoint(p);
-			_bc[ibc].constructConstraintsForPoint1();
+			// ONE CONSTRAINT DIRECTION ORTHOGONAL TO TO JOINT BECAUSE
+			// HINDFOOT IS IN CONTACT
+			} else {
+				double p2[3],p3[3],p4[3],c0[3];
+				model->getPosition(model->getContactBodyB(7),getContactPoint(7),p2);
+				model->getPosition(model->getContactBodyB(8),getContactPoint(8),p3);
+				model->getPosition(model->getContactBodyB(9),getContactPoint(9),p4);
+				double r23[3],r34[3];
+				rdMtx::Subtract(1,3,p3,p2,r23);
+				rdMtx::Subtract(1,3,p4,p3,r34);
+				rdMtx::CrossProduct(r23,r34,c0);
+				pc[0]->zeroConstraints();
+				pc[0]->setC0(c0);
+				pc[0]->normalizeConstraints();
+			}
 			ipc++;
-
-		// pc2
-		} else if(ipc==2) {
-			pc[ipc] = _bc[ibc].getPC(ipc);
-			pc[ipc]->setID(i);
-			model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
-			pc[ipc]->setPoint(p);
-			_bc[ibc].constructConstraintsForPoint2();
-			ipc++;
-
-		// NO MORE THAN 3 ON A BODY
-		} else {
-			printf("Enough constraints on body.\n");
 		}
+		if(ipc>0) ibc++;
 
-	}
-	rHindInContact = ipc;
-	if(ipc>0) ibc++;
+	} else {
 
-	// RIGHT TOES
-	for(ipc=0,i=4;i<5;i++) {
+		// RIGHT HINDFOOT
+		for(ipc=0,i=0;i<4;i++) {
+	
+			if(!_contactEstablished[i]) continue;
 
-		if(!_contactEstablished[i]) continue;
+			// pc0
+			if(ipc==0) {
+				_bc[ibc].setID(model->getContactBodyB(i));
+				pc[ipc] = _bc[ibc].getPC(ipc);
+				pc[ipc]->setID(i);
+				model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+				pc[ipc]->setPoint(p);
+				pc[ipc]->setC0(x);
+				pc[ipc]->setC1(y);
+				pc[ipc]->setC2(z);
+				ipc++;
 
-		_bc[ibc].setID(model->getContactBodyB(i));
-		pc[0] = _bc[ibc].getPC(ipc);
-		pc[0]->setID(i);
-		model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
-		pc[ipc]->setPoint(p);
+			// pc1
+			} else if(ipc==1) {
+				pc[ipc] = _bc[ibc].getPC(ipc);
+				pc[ipc]->setID(i);
+				model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+				pc[ipc]->setPoint(p);
+				_bc[ibc].constructConstraintsForPoint1();
+				ipc++;
 
-		// THREE CONSTRAINT DIRECTIONS BECAUSE HINDFOOT IS NOT IN CONTACT
-		// Actually, when only one contact point on the hindfoot is in contact, the toe
-		// actually has three degrees of freedom because of the metatarsal joint.
-		// Therefore, it must be constrained in three directions.
-		if(rHindInContact<=1) {
-			pc[0]->setC0(x);
-			pc[0]->setC1(y);
-			pc[0]->setC2(z);
+			// pc2
+			} else if(ipc==2) {
+				pc[ipc] = _bc[ibc].getPC(ipc);
+				pc[ipc]->setID(i);
+				model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+				pc[ipc]->setPoint(p);
+				_bc[ibc].constructConstraintsForPoint2();
+				ipc++;
 
-		// ONE CONSTRAINT DIRECTION ORTHOGONAL TO JOINT BECAUSE
-		// HINDFOOT IS IN CONTACT
-		} else {
-			double p2[3],p3[3],p4[3],c0[3];
-			model->getPosition(model->getContactBodyB(2),getContactPoint(2),p2);
-			model->getPosition(model->getContactBodyB(3),getContactPoint(3),p3);
-			model->getPosition(model->getContactBodyB(4),getContactPoint(4),p4);
-			double r23[3],r34[3];
-			rdMtx::Subtract(1,3,p3,p2,r23);
-			rdMtx::Subtract(1,3,p4,p3,r34);
-			rdMtx::CrossProduct(r23,r34,c0);
-			pc[0]->zeroConstraints();
-			pc[0]->setC0(c0);
-			pc[0]->normalizeConstraints();
+			// NO MORE THAN 3 ON A BODY
+			} else {
+				printf("Enough constraints on body.\n");
+			}
 		}
-		ipc++;
+		rHindInContact = ipc;
+		if(ipc>0) ibc++;
+
+		// RIGHT TOES
+		for(ipc=0,i=4;i<5;i++) {
+
+			if(!_contactEstablished[i]) continue;
+
+			_bc[ibc].setID(model->getContactBodyB(i));
+			pc[0] = _bc[ibc].getPC(ipc);
+			pc[0]->setID(i);
+			model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+			pc[ipc]->setPoint(p);
+
+			// THREE CONSTRAINT DIRECTIONS BECAUSE HINDFOOT IS NOT IN CONTACT
+			// Actually, when only one contact point on the hindfoot is in contact, the toe
+			// actually has three degrees of freedom because of the metatarsal joint.
+			// Therefore, it must be constrained in three directions.
+			if(rHindInContact<=1 ) {
+				pc[0]->setC0(x);
+				pc[0]->setC1(y);
+				pc[0]->setC2(z);
+
+			// ONE CONSTRAINT DIRECTION ORTHOGONAL TO TO JOINT BECAUSE
+			// HINDFOOT IS IN CONTACT
+			} else {
+				double p2[3],p3[3],p4[3],c0[3];
+				model->getPosition(model->getContactBodyB(7),getContactPoint(7),p2);
+				model->getPosition(model->getContactBodyB(8),getContactPoint(8),p3);
+				model->getPosition(model->getContactBodyB(9),getContactPoint(9),p4);
+				double r23[3],r34[3];
+				rdMtx::Subtract(1,3,p3,p2,r23);
+				rdMtx::Subtract(1,3,p4,p3,r34);
+				rdMtx::CrossProduct(r23,r34,c0);
+				pc[0]->zeroConstraints();
+				pc[0]->setC0(c0);
+				pc[0]->normalizeConstraints();
+			}
+			ipc++;
+		}
+		if(ipc>0) ibc++;
 	}
-	if(ipc>0) ibc++;
 
 	// LEFT HINDFOOT
-	for(ipc=0,i=5;i<9;i++) {
 
-		if(!_contactEstablished[i]) continue;
+	if(_modelIsSagittal){
+	
+		for(ipc=0,i=5;i<9;i++) {
+	
+			// spring 6 hits before 5 and 8 hits before 7 - we only need to constrain foot based 
+			// on one rear spring and one fore spring
+			if(!_contactEstablished[i] || i==5 || i==7) continue;
 
-		// pc0
-		if(ipc==0) {
+			// pc0
+			if(ipc==0) {
+				_bc[ibc].setID(model->getContactBodyB(i));
+				pc[ipc] = _bc[ibc].getPC(ipc);
+				pc[ipc]->setID(i);
+				model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+				pc[ipc]->setPoint(p);
+				pc[ipc]->setC0(x);
+				pc[ipc]->setC1(y);
+			//	pc[ipc]->setC2(z);
+				ipc++;	
+
+			// pc1
+			} else if(ipc==1) {
+				pc[ipc] = _bc[ibc].getPC(ipc);
+				pc[ipc]->setID(i);
+				model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+				pc[ipc]->setPoint(p);
+				//_bc[ibc].constructConstraintsForPoint1();
+				pc[ipc]->setC0(y);
+				ipc++;
+	
+			// pc2
+			//} else if(ipc==2) {
+			//	pc[ipc] = _bc[ibc].getPC(ipc);
+			//	pc[ipc]->setID(i);
+			//	model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+			//	pc[ipc]->setPoint(p);
+			//	_bc[ibc].constructConstraintsForPoint2();
+			//	ipc++;
+
+			// NO MORE THAN 2 ON A BODY
+			} else {
+				printf("Enough constraints on body.\n");
+			}
+		}
+		lHindInContact = ipc;
+		if(ipc>0) ibc++;	
+
+		// LEFT TOES
+		for(ipc=0,i=9;i<10;i++) {	
+
+			if(!_contactEstablished[i]) continue;
+
 			_bc[ibc].setID(model->getContactBodyB(i));
-			pc[ipc] = _bc[ibc].getPC(ipc);
-			pc[ipc]->setID(i);
+			pc[0] = _bc[ibc].getPC(ipc);
+			pc[0]->setID(i);
 			model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
-			pc[ipc]->setPoint(p);
-			pc[ipc]->setC0(x);
-			pc[ipc]->setC1(y);
-			pc[ipc]->setC2(z);
-			ipc++;
+			pc[ipc]->setPoint(p);	
+	
+			// THREE CONSTRAINT DIRECTIONS BECAUSE HINDFOOT IS NOT IN CONTACT
+			// Actually, when only one contact point on the hindfoot is in contact, the toe
+			// actually has three degrees of freedom because of the metatarsal joint.
+			// Therefore, it must be constrained in three directions.
+			if(lHindInContact<=1 ) {
+				pc[0]->setC0(x);
+				pc[0]->setC1(y);
+			//	pc[0]->setC2(z);
 
-		// pc1
-		} else if(ipc==1) {
-			pc[ipc] = _bc[ibc].getPC(ipc);
-			pc[ipc]->setID(i);
-			model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
-			pc[ipc]->setPoint(p);
-			_bc[ibc].constructConstraintsForPoint1();
+			// ONE CONSTRAINT DIRECTION ORTHOGONAL TO TO JOINT BECAUSE
+			// HINDFOOT IS IN CONTACT
+			} else {
+				double p2[3],p3[3],p4[3],c0[3];
+				model->getPosition(model->getContactBodyB(7),getContactPoint(7),p2);
+				model->getPosition(model->getContactBodyB(8),getContactPoint(8),p3);
+				model->getPosition(model->getContactBodyB(9),getContactPoint(9),p4);
+				double r23[3],r34[3];
+				rdMtx::Subtract(1,3,p3,p2,r23);
+				rdMtx::Subtract(1,3,p4,p3,r34);
+				rdMtx::CrossProduct(r23,r34,c0);
+				pc[0]->zeroConstraints();
+				pc[0]->setC0(c0);
+				pc[0]->normalizeConstraints();
+			}
 			ipc++;
-
-		// pc2
-		} else if(ipc==2) {
-			pc[ipc] = _bc[ibc].getPC(ipc);
-			pc[ipc]->setID(i);
-			model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
-			pc[ipc]->setPoint(p);
-			_bc[ibc].constructConstraintsForPoint2();
-			ipc++;
-
-		// NO MORE THAN 3 ON A BODY
-		} else {
-			printf("Enough constraints on body.\n");
 		}
-	}
-	lHindInContact = ipc;
-	if(ipc>0) ibc++;
+		if(ipc>0) ibc++;
 
-	// LEFT TOES
-	for(ipc=0,i=9;i<10;i++) {
+	} else {
 
-		if(!_contactEstablished[i]) continue;
+		// LEFT HINDFOOT
+		for(ipc=0,i=5;i<9;i++) {
+	
+			if(!_contactEstablished[i]) continue;
 
-		_bc[ibc].setID(model->getContactBodyB(i));
-		pc[0] = _bc[ibc].getPC(ipc);
-		pc[0]->setID(i);
-		model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
-		pc[ipc]->setPoint(p);
+			// pc0
+			if(ipc==0) {
+				_bc[ibc].setID(model->getContactBodyB(i));
+				pc[ipc] = _bc[ibc].getPC(ipc);
+				pc[ipc]->setID(i);
+				model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+				pc[ipc]->setPoint(p);
+				pc[ipc]->setC0(x);
+				pc[ipc]->setC1(y);
+				pc[ipc]->setC2(z);
+				ipc++;
 
-		// THREE CONSTRAINT DIRECTIONS BECAUSE HINDFOOT IS NOT IN CONTACT
-		// Actually, when only one contact point on the hindfoot is in contact, the toe
-		// actually has three degrees of freedom because of the metatarsal joint.
-		// Therefore, it must be constrained in three directions.
-		if(lHindInContact<=1 ) {
-			pc[0]->setC0(x);
-			pc[0]->setC1(y);
-			pc[0]->setC2(z);
+			// pc1
+			} else if(ipc==1) {
+				pc[ipc] = _bc[ibc].getPC(ipc);
+				pc[ipc]->setID(i);
+				model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+				pc[ipc]->setPoint(p);
+				_bc[ibc].constructConstraintsForPoint1();
+				ipc++;
 
-		// ONE CONSTRAINT DIRECTION ORTHOGONAL TO TO JOINT BECAUSE
-		// HINDFOOT IS IN CONTACT
-		} else {
-			double p2[3],p3[3],p4[3],c0[3];
-			model->getPosition(model->getContactBodyB(7),getContactPoint(7),p2);
-			model->getPosition(model->getContactBodyB(8),getContactPoint(8),p3);
-			model->getPosition(model->getContactBodyB(9),getContactPoint(9),p4);
-			double r23[3],r34[3];
-			rdMtx::Subtract(1,3,p3,p2,r23);
-			rdMtx::Subtract(1,3,p4,p3,r34);
-			rdMtx::CrossProduct(r23,r34,c0);
-			pc[0]->zeroConstraints();
-			pc[0]->setC0(c0);
-			pc[0]->normalizeConstraints();
+			// pc2
+			} else if(ipc==2) {
+				pc[ipc] = _bc[ibc].getPC(ipc);
+				pc[ipc]->setID(i);
+				model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+				pc[ipc]->setPoint(p);
+				_bc[ibc].constructConstraintsForPoint2();
+				ipc++;
+
+			// NO MORE THAN 3 ON A BODY
+			} else {
+				printf("Enough constraints on body.\n");
+			}
 		}
-		ipc++;
+		lHindInContact = ipc;
+		if(ipc>0) ibc++;
+
+		// LEFT TOES
+		for(ipc=0,i=9;i<10;i++) {
+
+			if(!_contactEstablished[i]) continue;
+
+			_bc[ibc].setID(model->getContactBodyB(i));
+			pc[0] = _bc[ibc].getPC(ipc);
+			pc[0]->setID(i);
+			model->getPosition(model->getContactBodyB(i),getContactPoint(i),p);
+			pc[ipc]->setPoint(p);
+
+			// THREE CONSTRAINT DIRECTIONS BECAUSE HINDFOOT IS NOT IN CONTACT
+			// Actually, when only one contact point on the hindfoot is in contact, the toe
+			// actually has three degrees of freedom because of the metatarsal joint.
+			// Therefore, it must be constrained in three directions.
+			if(lHindInContact<=1 ) {
+				pc[0]->setC0(x);
+				pc[0]->setC1(y);
+				pc[0]->setC2(z);
+
+			// ONE CONSTRAINT DIRECTION ORTHOGONAL TO TO JOINT BECAUSE
+			// HINDFOOT IS IN CONTACT
+			} else {
+				double p2[3],p3[3],p4[3],c0[3];
+				model->getPosition(model->getContactBodyB(7),getContactPoint(7),p2);
+				model->getPosition(model->getContactBodyB(8),getContactPoint(8),p3);
+				model->getPosition(model->getContactBodyB(9),getContactPoint(9),p4);
+				double r23[3],r34[3];
+				rdMtx::Subtract(1,3,p3,p2,r23);
+				rdMtx::Subtract(1,3,p4,p3,r34);
+				rdMtx::CrossProduct(r23,r34,c0);
+				pc[0]->zeroConstraints();
+				pc[0]->setC0(c0);
+				pc[0]->normalizeConstraints();
+			}
+			ipc++;
+		}
+		if(ipc>0) ibc++;
 	}
-	if(ipc>0) ibc++;
 
 //	printf("suDecompHardUTWalkNoCompPrescribed.determineConstraints: NC = %d\n",
 //		getNumberConstraints());
