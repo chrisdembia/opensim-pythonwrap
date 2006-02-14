@@ -8,6 +8,6 @@ LINK_LIBRARIES( debug xerces-c_2D optimized xerces-c_2
 		debug rdSimulation_D optimized rdSimulation
 		debug rdActuators_D optimized rdActuators
 		debug suAnalyses_D optimized suAnalyses)
-ADD_EXECUTABLE(perturb perturb.cpp)
+ADD_EXECUTABLE(forward forward.cpp)
 
-INSTALL_TARGETS(${NMBLApp_BINARY_DIR}/LibDev/ perturb)
+INSTALL_TARGETS(${NMBLApp_BINARY_DIR}/LibDev/ forward)

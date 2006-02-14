@@ -24,10 +24,10 @@
 #include <NMBLTK/SQP/rdFSQP.h>
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdStorage.h>
-#include "simmMacros.h"
-#include "simmKinematicsEngine.h"
-#include "simmMarker.h"
-#include "simmBody.h"
+#include <NMBLTK/Simulation/SIMM/simmMacros.h>
+#include <NMBLTK/Simulation/SIMM/simmKinematicsEngine.h>
+#include <NMBLTK/Simulation/SIMM/simmMarker.h>
+#include <NMBLTK/Simulation/SIMM/simmBody.h>
 #include "simmInverseKinematicsTarget.h"
 
 const double simmInverseKinematicsTarget::_perturbation=1e-3; 

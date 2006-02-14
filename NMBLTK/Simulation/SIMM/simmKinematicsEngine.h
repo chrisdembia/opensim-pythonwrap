@@ -55,6 +55,7 @@
 #include "simmUnits.h"
 #include "simmIKTrialParams.h"
 #include "simmSdfastInfo.h"
+#include "IKSolverInterface.h"
 
 class simmModel;
 
@@ -114,6 +115,7 @@ protected:
 
 	simmBody* _groundBody;
 
+	IKSolverInterface *IKSolver;
 //=============================================================================
 // METHODS
 //=============================================================================
@@ -202,6 +204,10 @@ public:
 	virtual rdArrayPtrs<simmBody>& getBodies() { return _bodies; }
 	virtual rdArrayPtrs<simmCoordinate>& getCoordinates() { return _coordinates; }
 
+	virtual void setIKSolver(IKSolverInterface& aSolver)
+	{
+		IKSolver= &aSolver;
+	}
 	//--------------------------------------------------------------------------
 	// NUMBERS
 	//--------------------------------------------------------------------------

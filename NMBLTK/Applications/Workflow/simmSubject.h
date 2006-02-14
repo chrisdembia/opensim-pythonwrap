@@ -32,15 +32,14 @@
 #include <fstream>
 #include <string>
 #include <math.h>
-#include <NMBLTK/Simulation/rdSimulationDLL.h>
 #include <NMBLTK/Tools/rdPropertyObj.h>
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/rdXMLDocument.h>
-#include "simmModel.h"
-#include "simmGenericModelParams.h"
-#include "simmScalingParams.h"
-#include "simmMarkerPlacementParams.h"
-#include "simmIKParams.h"
+#include <NMBLTK/Simulation/SIMM/simmModel.h>
+#include <NMBLTK/Simulation/SIMM/simmGenericModelParams.h>
+#include <NMBLTK/Simulation/SIMM/simmScalingParams.h>
+#include <NMBLTK/Simulation/SIMM/simmMarkerPlacementParams.h>
+#include <NMBLTK/Simulation/SIMM/simmIKParams.h>
 
 //=============================================================================
 //=============================================================================
@@ -52,7 +51,7 @@
  * @author Peter Loan
  * @version 1.0
  */
-class RDSIMULATION_API simmSubject : public rdObject  
+class simmSubject : public rdObject  
 {
 
 //=============================================================================
@@ -90,7 +89,7 @@ public:
 	virtual rdObject* copy(DOMElement *aElement) const;
 
 	simmSubject& operator=(const simmSubject &aSubject);
-   void simmSubject::copyData(const simmSubject &aSubject);
+    void simmSubject::copyData(const simmSubject &aSubject);
 
 	bool processModel();
 

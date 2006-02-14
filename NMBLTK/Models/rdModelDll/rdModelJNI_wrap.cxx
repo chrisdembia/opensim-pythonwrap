@@ -27692,53 +27692,6 @@ JNIEXPORT jstring JNICALL Java_simtkModel_ModelJNI_rdAnalysis_1getColumnLabels(J
     return jresult;
 }
 
-
-JNIEXPORT void JNICALL Java_simtkModel_ModelJNI_rdAnalysis_1setStorageInterval(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
-    rdAnalysis *arg1 = (rdAnalysis *) 0 ;
-    int arg2 ;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdAnalysis **)&jarg1; 
-    arg2 = (int)jarg2; 
-    {
-        try {
-            (arg1)->setStorageInterval(arg2);
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return;
-        }
-    }
-}
-
-
-JNIEXPORT jint JNICALL Java_simtkModel_ModelJNI_rdAnalysis_1getStorageInterval(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-    jint jresult = 0 ;
-    rdAnalysis *arg1 = (rdAnalysis *) 0 ;
-    int result;
-    
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(rdAnalysis **)&jarg1; 
-    {
-        try {
-            result = (int)((rdAnalysis const *)arg1)->getStorageInterval();
-            
-        }
-        catch (rdException) {
-            jclass clazz = jenv->FindClass("simtkModel/rdException");
-            jenv->ThrowNew(clazz, "Native Exception");
-            return NULL;
-        }
-    }
-    jresult = (jint)result; 
-    return jresult;
-}
-
-
 JNIEXPORT jlong JNICALL Java_simtkModel_ModelJNI_rdAnalysis_1getStorageList(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong jresult = 0 ;
     rdAnalysis *arg1 = (rdAnalysis *) 0 ;

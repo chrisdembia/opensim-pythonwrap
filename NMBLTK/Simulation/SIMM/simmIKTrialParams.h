@@ -39,9 +39,9 @@
 #include <NMBLTK/Tools/rdPropertyBool.h>
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/rdXMLDocument.h>
-#include "simmCoordinate.h"
 
 class simmModel;
+class simmCoordinate;
 
 //=============================================================================
 //=============================================================================

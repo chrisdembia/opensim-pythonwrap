@@ -26,7 +26,7 @@
 
 #include <NMBLTK/SQP/rdOptimizationTarget.h>
 #include <NMBLTK/Tools/rdArray.h>
-
+#include <NMBLTK/Simulation/SIMM/simmCoordinate.h>
 class simmKinematicsEngine;
 class simmMarker;
 class simmBody;
@@ -89,7 +89,7 @@ public:
 	//---------------------------------------------------------------------------
 	// CONSTRUCTION
 	//---------------------------------------------------------------------------
-	simmInverseKinematicsTarget::simmInverseKinematicsTarget(simmKinematicsEngine *aKE, rdStorage& aExperimentalDataStorage);
+	simmInverseKinematicsTarget(simmKinematicsEngine *aKE, rdStorage& aExperimentalDataStorage);
 
 	virtual ~simmInverseKinematicsTarget(void);
 
