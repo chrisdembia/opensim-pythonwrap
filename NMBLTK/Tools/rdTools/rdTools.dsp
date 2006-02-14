@@ -292,6 +292,10 @@ SOURCE=..\rdXMLNode.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\RegisterTypes_rdTools.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\RootSolver.cpp
 # End Source File
 # Begin Source File
@@ -509,6 +513,10 @@ SOURCE=..\rdXMLDocument.h
 # Begin Source File
 
 SOURCE=..\rdXMLNode.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\RegisterTypes_rdTools.h
 # End Source File
 # Begin Source File
 

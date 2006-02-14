@@ -111,6 +111,10 @@ SOURCE=..\InvestigationPerturbation.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\RegisterTypes_suAnalyses.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\suActuation.cpp
 # End Source File
 # Begin Source File
@@ -252,6 +256,10 @@ SOURCE=..\suTorsionalSpring.cpp
 # Begin Source File
 
 SOURCE=..\InvestigationPerturbation.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\RegisterTypes_suAnalyses.h
 # End Source File
 # Begin Source File
 

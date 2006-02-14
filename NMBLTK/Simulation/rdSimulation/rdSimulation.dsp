@@ -237,7 +237,7 @@ SOURCE=..\Model\rdTorque.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Model\RegisterTypes.cpp
+SOURCE=..\Model\RegisterTypes_rdSimulation.cpp
 # End Source File
 # Begin Source File
 
@@ -389,7 +389,7 @@ SOURCE=..\Model\rdTorque.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Model\RegisterTypes.h
+SOURCE=..\Model\RegisterTypes_rdSimulation.h
 # End Source File
 # Begin Source File
 
