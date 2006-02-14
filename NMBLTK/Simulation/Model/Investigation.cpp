@@ -226,7 +226,7 @@ void Investigation::
 setModel(rdModel *aModel)
 {
 	_model = aModel;
-	_analysisSet.setModel(_model);
+	//_analysisSet.setModel(_model);
 }
 //_____________________________________________________________________________
 /**

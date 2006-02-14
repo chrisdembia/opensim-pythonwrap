@@ -146,7 +146,7 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 		if(actuatorSet==NULL) {
 			cout<<"ERROR- actuator set "<<actuators<<" could not be constructed.\n\n";
 		} else {
-			cout<<"Constructed actuator set "<<actuators<<".\n";
+			cout<<"Constructed actuator set from file "<<actuators<<".\n";
 		}
 	}
 
@@ -157,7 +157,7 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 		if(contactForceSet==NULL) {
 			cout<<"ERROR- contact force set "<<contacts<<" could not be constructed.\n\n";
 		} else {
-			cout<<"Constructed contact force set "<<contacts<<".\n";
+			cout<<"Constructed contact force set from file "<<contacts<<".\n";
 		}
 	}
 
