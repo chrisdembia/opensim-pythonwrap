@@ -52,6 +52,8 @@ simmPathMatrix::simmPathMatrix(int size)
 		for (int i = 0; i < _size; i++)
 			_hashTable[i] = NULL;
 	}
+	else
+		_size = 0;
 }
 
 //_____________________________________________________________________________

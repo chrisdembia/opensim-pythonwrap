@@ -35,6 +35,7 @@
 #include <NMBLTK/Tools/rdPropertyObj.h>
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/rdXMLDocument.h>
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
 #include <NMBLTK/Simulation/SIMM/simmModel.h>
 #include <NMBLTK/Simulation/SIMM/simmGenericModelParams.h>
 #include <NMBLTK/Simulation/SIMM/simmScalingParams.h>
@@ -51,14 +52,14 @@
  * @author Peter Loan
  * @version 1.0
  */
-class simmSubject : public rdObject  
+class RDSIMULATION_API simmSubject : public rdObject  
 {
 
 //=============================================================================
 // DATA
 //=============================================================================
 private:
-	simmModel* _model;
+	// simmModel* _model;
 
 protected:
 	rdPropertyObj _genericModelParamsProp;
@@ -91,8 +92,31 @@ public:
 	simmSubject& operator=(const simmSubject &aSubject);
     void simmSubject::copyData(const simmSubject &aSubject);
 
-	bool processModel();
+	simmModel* createModel();
+	/* Query the subject for different parameters */
+	simmGenericModelParams& getGenericModelParams()
+	{
+		return _genericModelParams;
+	}
+	simmScalingParams& getScalingParams()
+	{
+		return _scalingParams;
+	}
 
+	simmMarkerPlacementParams& getMarkerPlacementParams()
+	{
+		return _markerPlacementParams;
+	}
+
+	simmIKParams& getIKParams()
+	{
+		return _IKParams;
+	}
+
+	bool isDefaultGenericModelParams() { return _genericModelParamsProp.getUseDefault(); }
+	bool isDefaultScalingParams() { return _scalingParamsProp.getUseDefault(); }
+	bool isDefaultMarkerPlacementParams() { return _markerPlacementParamsProp.getUseDefault(); }
+	bool isDefaultIKParams() { return _IKParamsProp.getUseDefault(); }
 	/* Register types to be used when reading a simmSubject object from xml file. */
 	static void registerTypes();
 

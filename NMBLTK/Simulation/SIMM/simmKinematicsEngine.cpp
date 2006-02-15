@@ -81,7 +81,8 @@ simmKinematicsEngine::simmKinematicsEngine() :
 	_path(0),
 	_model(NULL),
 	_sdfastInfo(),
-	_groundBody(NULL)
+	_groundBody(NULL),
+	_dIKSolver(0)
 {
 	// NULL
 	setNull();
@@ -101,7 +102,8 @@ simmKinematicsEngine::simmKinematicsEngine(const string &aFileName) :
 	_path(0),
 	_model(NULL),
 	_sdfastInfo(),
-	_groundBody(NULL)
+	_groundBody(NULL),
+	_dIKSolver(0)
 {
 	// NULL
 	setNull();
@@ -126,7 +128,8 @@ simmKinematicsEngine::simmKinematicsEngine(DOMElement *aElement) :
 	_path(0),
 	_model(NULL),
 	_sdfastInfo(),
-	_groundBody(NULL)
+	_groundBody(NULL),
+	_dIKSolver(0)
 {
 	// NULL
 	setNull();
@@ -150,7 +153,8 @@ simmKinematicsEngine::simmKinematicsEngine(const simmKinematicsEngine& aKE) :
 	_path(0),
 	_model(NULL),
 	_sdfastInfo(),
-	_groundBody(NULL)
+	_groundBody(NULL),
+	_dIKSolver(aKE._dIKSolver)
 {
 	// NULL
 	setNull();
@@ -2173,9 +2177,9 @@ void simmKinematicsEngine::solveInverseKinematics(const simmIKTrialParams& aIKOp
 	rdStorage outputStorage;
 	outputStorage.setName("InverseKinematicsResults");
 
-	assert(IKSolver);
+	assert(_dIKSolver);
 	// Solve the frames.
-	IKSolver->solveFrames(aIKOptions, inputStorage, outputStorage);
+	_dIKSolver->solveFrames(aIKOptions, inputStorage, outputStorage);
 
 	outputStorage.setWriteSIMMHeader(true);
 	outputStorage.print(aOutputFileName.c_str());
@@ -2191,9 +2195,9 @@ simmMotionData* simmKinematicsEngine::solveInverseKinematics(const simmIKTrialPa
 	rdStorage outputStorage;
 	outputStorage.setName(aMarkerData.getFileName());
 
-	assert(IKSolver);
+	assert(_dIKSolver);
 	// Solve the frames.
-	IKSolver->solveFrames(aIKOptions, inputStorage, outputStorage);
+	_dIKSolver->solveFrames(aIKOptions, inputStorage, outputStorage);
 
 	// Store the result in a simmMotionData object.
 	simmMotionData* outputMotionData = new simmMotionData(outputStorage);
@@ -2227,9 +2231,9 @@ simmMotionData* simmKinematicsEngine::solveInverseKinematics(const simmIKTrialPa
 	rdStorage outputStorage;
 	outputStorage.setName(aMarkerData.getFileName());
 
-	assert(IKSolver);
+	assert(_dIKSolver);
 	// Solve the frames.
-	IKSolver->solveFrames(aIKOptions, inputStorage, outputStorage);
+	_dIKSolver->solveFrames(aIKOptions, inputStorage, outputStorage);
 
 	// Store the result in a simmMotionData object.
 	simmMotionData* outputMotionData = new simmMotionData(outputStorage);

@@ -36,7 +36,7 @@
 #include <NMBLTK/Actuators/rdLinearSetPoint.h>
 #include <NMBLTK/Simulation/SIMM/simmKinematicsEngine.h>
 #include <NMBLTK/Simulation/SIMM/simmMarkerSet.h>
-#include <NMBLTK/Applications/Workflow/simmSubject.h>
+#include <NMBLTK/Simulation/SIMM/simmSubject.h>
 #include <NMBLTK/Simulation/SIMM/simmMarkerData.h>
 #include <NMBLTK/Simulation/SIMM/simmMotionData.h>
 
@@ -74,7 +74,6 @@ int main(int argc,char **argv)
 
 	// Construct model and read parameters file
 	simmSubject* subject = new simmSubject(argv[1]);
-	subject->processModel();
 	delete subject;
 }
 	

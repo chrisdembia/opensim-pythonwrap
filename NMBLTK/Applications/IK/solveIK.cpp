@@ -36,11 +36,12 @@
 #include <NMBLTK/Actuators/rdLinearSetPoint.h>
 #include <NMBLTK/Simulation/SIMM/simmKinematicsEngine.h>
 #include <NMBLTK/Simulation/SIMM/simmMarkerSet.h>
-#include <NMBLTK/Applications/Workflow/simmSubject.h>
+#include <NMBLTK/Simulation/SIMM/simmSubject.h>
 #include <NMBLTK/Simulation/SIMM/simmMarkerData.h>
 #include <NMBLTK/Simulation/SIMM/simmMotionData.h>
 
 #include <NMBLTK/Simulation/Model/rdAnalysis.h>
+#include "simmIKSolverImpl.h"
 
 using namespace std;
 
@@ -74,7 +75,23 @@ int main(int argc,char **argv)
 
 	// Construct model and read parameters file
 	simmSubject* subject = new simmSubject(argv[1]);
-	subject->processModel();
+	simmModel* model = subject->createModel();
+	if (!subject->getScalingParams().processModel(model))
+	{
+		cout << "===ERROR===: Unable to scale generic model." << endl;
+		return 0;
+	}
+	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
+	IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
+	engine.setIKSolver(ikSolver);
+	if (subject->getMarkerPlacementParams().processModel(model))
+	{
+		cout << "===ERROR===: Unable to place markers on model." << endl;
+		return 0;
+	}
+	subject->getIKParams().processModel(model);
+
 	delete subject;
+	delete ikSolver;
 }
 	

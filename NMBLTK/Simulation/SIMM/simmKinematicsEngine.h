@@ -115,7 +115,7 @@ protected:
 
 	simmBody* _groundBody;
 
-	IKSolverInterface *IKSolver;
+	IKSolverInterface *_dIKSolver;
 //=============================================================================
 // METHODS
 //=============================================================================
@@ -204,9 +204,9 @@ public:
 	virtual rdArrayPtrs<simmBody>& getBodies() { return _bodies; }
 	virtual rdArrayPtrs<simmCoordinate>& getCoordinates() { return _coordinates; }
 
-	virtual void setIKSolver(IKSolverInterface& aSolver)
+	virtual void setIKSolver(IKSolverInterface *aSolver)
 	{
-		IKSolver= &aSolver;
+		_dIKSolver= aSolver;
 	}
 	//--------------------------------------------------------------------------
 	// NUMBERS

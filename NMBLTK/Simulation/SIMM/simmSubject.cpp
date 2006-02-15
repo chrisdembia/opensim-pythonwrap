@@ -41,7 +41,6 @@ using namespace std;
  * Default constructor.
  */
 simmSubject::simmSubject() :
-	_model(NULL),
    _genericModelParamsProp(rdPropertyObj("", simmGenericModelParams())),
 	_genericModelParams((simmGenericModelParams&)_genericModelParamsProp.getValueObj()),
    _scalingParamsProp(rdPropertyObj("", simmScalingParams())),
@@ -60,7 +59,6 @@ simmSubject::simmSubject() :
  */
 simmSubject::simmSubject(const string &aFileName) :
    rdObject(aFileName),
-	_model(NULL),
    _genericModelParamsProp(rdPropertyObj("", simmGenericModelParams())),
 	_genericModelParams((simmGenericModelParams&)_genericModelParamsProp.getValueObj()),
    _scalingParamsProp(rdPropertyObj("", simmScalingParams())),
@@ -81,7 +79,6 @@ simmSubject::simmSubject(const string &aFileName) :
  */
 simmSubject::simmSubject(DOMElement *aElement) :
    rdObject(aElement),
-	_model(NULL),
    _genericModelParamsProp(rdPropertyObj("", simmGenericModelParams())),
 	_genericModelParams((simmGenericModelParams&)_genericModelParamsProp.getValueObj()),
    _scalingParamsProp(rdPropertyObj("", simmScalingParams())),
@@ -112,7 +109,6 @@ simmSubject::~simmSubject()
  */
 simmSubject::simmSubject(const simmSubject &aSubject) :
    rdObject(aSubject),
-	_model(NULL),
    _genericModelParamsProp(rdPropertyObj("", simmGenericModelParams())),
 	_genericModelParams((simmGenericModelParams&)_genericModelParamsProp.getValueObj()),
    _scalingParamsProp(rdPropertyObj("", simmScalingParams())),
@@ -162,7 +158,6 @@ rdObject* simmSubject::copy(DOMElement *aElement) const
 
 void simmSubject::copyData(const simmSubject &aSubject)
 {
-	_model = aSubject._model; // ????
 	_genericModelParams = aSubject._genericModelParams;
 	_scalingParams = aSubject._scalingParams;
 	_markerPlacementParams = aSubject._markerPlacementParams;
@@ -222,6 +217,7 @@ simmSubject& simmSubject::operator=(const simmSubject &aSubject)
 
 	return(*this);
 }
+#if 0
 
 bool simmSubject::processModel()
 {
@@ -295,6 +291,26 @@ bool simmSubject::processModel()
 	delete _model;
 
 	return true;
+}
+#endif
+
+simmModel* simmSubject::createModel()
+{
+	cout << "Processing subject " << getName() << endl;
+
+	/* Make the generic model. */
+	if (!_genericModelParamsProp.getUseDefault())
+	{
+		simmModel *model = _genericModelParams.processModel();
+		if (model==0)
+		{
+			cout << "===ERROR===: Unable to load generic model." << endl;
+			return 0;
+		}
+		else
+			return model;
+	}
+	return 0;
 }
 
 void simmSubject::peteTest() const
