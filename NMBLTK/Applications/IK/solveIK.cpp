@@ -84,7 +84,7 @@ int main(int argc,char **argv)
 	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
 	IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
 	engine.setIKSolver(ikSolver);
-	if (subject->getMarkerPlacementParams().processModel(model))
+	if (!subject->getMarkerPlacementParams().processModel(model))
 	{
 		cout << "===ERROR===: Unable to place markers on model." << endl;
 		return 0;

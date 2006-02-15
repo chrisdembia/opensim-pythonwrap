@@ -121,8 +121,8 @@ simmMotionData::simmMotionData(string& aFileName) :
 simmMotionData::simmMotionData(rdStorage& aData) :
 	_numRows(0),
 	_numColumns(0),
-	_keys(NULL),
-	_columnNames(NULL),
+	_keys(""),
+	_columnNames(""),
 	_rows(NULL),
 	_wrap(false),
 	_calcDerivatives(false),
