@@ -34,7 +34,7 @@
 #include "rdPropertyInt.h"
 #include "rdPropertyDbl.h"
 #include "rdPropertyDblArray.h"
-#include <NMBLTK/Simm/simmMacros.h>
+#include <NMBLTK/Simulation/SIMM/simmMacros.h>
 
 using namespace std;
 
