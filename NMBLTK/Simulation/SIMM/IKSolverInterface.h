@@ -1,11 +1,10 @@
 #ifndef __IKSolverInterface_h__
 #define __IKSolverInterface_h__
 
-
-#include <NMBLTK/Simulation/SIMM/simmKinematicsEngine.h>
-#include <NMBLTK/Tools/rdStorage.h>
-
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
 class simmIKTrialParams;
+class simmKinematicsEngine;
+class rdStorage;
 
 // IKSolverInterface.h
 // Author: Ayman Habib
