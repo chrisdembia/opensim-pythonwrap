@@ -57,15 +57,17 @@ private:
 	double *_x;
 	/** Storage for the prescribed spring forces */
 	rdStorage *_prescribedSpringForceStorage;
-	/** Flag as to whether model is constrained to sagittal plane **/
-	bool _modelIsSagittal;
+	/** Flag as to whether model is constrained to sagittal plane on right side **/
+	bool _modelIsSagittalR;
+	/** Flag as to whether model is constrained to sagittal plane on left side **/
+	bool _modelIsSagittalL;
 
 //=============================================================================
 // METHODS
 //=============================================================================
 public:
 	suDecompHardUTWalkNoCompPrescribed(rdUTWalking8Prescribed *aModel, 
-		rdStorage *aPrescribedSpringForceStorage, bool aModelIsSagittal);
+		rdStorage *aPrescribedSpringForceStorage, bool aModelIsSagittalR, bool aModelIsSagittalL);
 	virtual ~suDecompHardUTWalkNoCompPrescribed();
 private:
 	void setNull();

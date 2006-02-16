@@ -69,7 +69,7 @@ suDecompHardUTWalkNoCompPrescribed::~suDecompHardUTWalkNoCompPrescribed()
  * rdUTWalking8Prescribed model.
  */
 suDecompHardUTWalkNoCompPrescribed::suDecompHardUTWalkNoCompPrescribed(rdUTWalking8Prescribed *aModel, 
-	rdStorage *aPrescribedSpringForceStorage, bool aModelIsSagittal) : suDecompNoComp(aModel)
+	rdStorage *aPrescribedSpringForceStorage, bool aModelIsSagittalR, bool aModelIsSagittalL) : suDecompNoComp(aModel)
 {
 	setNull();
 
@@ -94,8 +94,8 @@ suDecompHardUTWalkNoCompPrescribed::suDecompHardUTWalkNoCompPrescribed(rdUTWalki
 	_prescribedSpringForceStorage = aPrescribedSpringForceStorage;
 
 	// SET SAGITTAL
-	_modelIsSagittal = aModelIsSagittal;
-
+	_modelIsSagittalR = aModelIsSagittalR;
+	_modelIsSagittalL = aModelIsSagittalL;
 
 }
 
@@ -120,8 +120,8 @@ setNull()
 	_yCopy = NULL;
 	_yTmp = NULL;
 	_x = NULL;
-	_modelIsSagittal = false;
-
+	_modelIsSagittalR = false;
+	_modelIsSagittalL = false;
 }
 
 
@@ -325,13 +325,13 @@ determineConstraints()
 	// RIGHT HINDFOOT
 	ibc = 0;
 
-	if(_modelIsSagittal){
+	if(_modelIsSagittalR){
 	
 		for(ipc=0,i=0;i<4;i++) {
 	
 			// spring 0 hits before 1 and 2 hits before 3 - we only need to constrain foot based 
 			// on one rear spring and one fore spring
-			if(!_contactEstablished[i] || i==1 || i==2) continue;
+			if(!_contactEstablished[i] || i==0 || i==3) continue;
 
 			// pc0
 			if(ipc==0) {
@@ -395,17 +395,18 @@ determineConstraints()
 			// ONE CONSTRAINT DIRECTION ORTHOGONAL TO TO JOINT BECAUSE
 			// HINDFOOT IS IN CONTACT
 			} else {
-				double p2[3],p3[3],p4[3],c0[3];
-				model->getPosition(model->getContactBodyB(7),getContactPoint(7),p2);
-				model->getPosition(model->getContactBodyB(8),getContactPoint(8),p3);
-				model->getPosition(model->getContactBodyB(9),getContactPoint(9),p4);
-				double r23[3],r34[3];
-				rdMtx::Subtract(1,3,p3,p2,r23);
-				rdMtx::Subtract(1,3,p4,p3,r34);
-				rdMtx::CrossProduct(r23,r34,c0);
-				pc[0]->zeroConstraints();
-				pc[0]->setC0(c0);
-				pc[0]->normalizeConstraints();
+			//	double p2[3],p3[3],p4[3],c0[3];
+			//	model->getPosition(model->getContactBodyB(7),getContactPoint(7),p2);
+			//	model->getPosition(model->getContactBodyB(8),getContactPoint(8),p3);
+			//	model->getPosition(model->getContactBodyB(9),getContactPoint(9),p4);
+			//	double r23[3],r34[3];
+			//	rdMtx::Subtract(1,3,p3,p2,r23);
+			//	rdMtx::Subtract(1,3,p4,p3,r34);
+			//	rdMtx::CrossProduct(r23,r34,c0);
+			//	pc[0]->zeroConstraints();
+			//	pc[0]->setC0(c0);
+				pc[0]->setC0(y);
+			//	pc[0]->normalizeConstraints();
 			}
 			ipc++;
 		}
@@ -498,13 +499,13 @@ determineConstraints()
 
 	// LEFT HINDFOOT
 
-	if(_modelIsSagittal){
+	if(_modelIsSagittalL){
 	
 		for(ipc=0,i=5;i<9;i++) {
 	
 			// spring 6 hits before 5 and 8 hits before 7 - we only need to constrain foot based 
 			// on one rear spring and one fore spring
-			if(!_contactEstablished[i] || i==5 || i==7) continue;
+			if(!_contactEstablished[i] || i==5 || i==8) continue;
 
 			// pc0
 			if(ipc==0) {
@@ -568,17 +569,18 @@ determineConstraints()
 			// ONE CONSTRAINT DIRECTION ORTHOGONAL TO TO JOINT BECAUSE
 			// HINDFOOT IS IN CONTACT
 			} else {
-				double p2[3],p3[3],p4[3],c0[3];
-				model->getPosition(model->getContactBodyB(7),getContactPoint(7),p2);
-				model->getPosition(model->getContactBodyB(8),getContactPoint(8),p3);
-				model->getPosition(model->getContactBodyB(9),getContactPoint(9),p4);
-				double r23[3],r34[3];
-				rdMtx::Subtract(1,3,p3,p2,r23);
-				rdMtx::Subtract(1,3,p4,p3,r34);
-				rdMtx::CrossProduct(r23,r34,c0);
-				pc[0]->zeroConstraints();
-				pc[0]->setC0(c0);
-				pc[0]->normalizeConstraints();
+			//	double p2[3],p3[3],p4[3],c0[3];
+			//	model->getPosition(model->getContactBodyB(7),getContactPoint(7),p2);
+			//	model->getPosition(model->getContactBodyB(8),getContactPoint(8),p3);
+			//	model->getPosition(model->getContactBodyB(9),getContactPoint(9),p4);
+			//	double r23[3],r34[3];
+			//	rdMtx::Subtract(1,3,p3,p2,r23);
+			//	rdMtx::Subtract(1,3,p4,p3,r34);
+			//	rdMtx::CrossProduct(r23,r34,c0);
+			//	pc[0]->zeroConstraints();
+			//	pc[0]->setC0(c0);
+				pc[0]->setC0(y);
+			//	pc[0]->normalizeConstraints();
 			}
 			ipc++;
 		}
