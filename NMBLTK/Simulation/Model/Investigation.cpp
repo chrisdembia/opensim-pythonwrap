@@ -32,6 +32,7 @@ Investigation::Investigation():
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
 	_fineTolerance(_fineToleranceProp.getValueDbl()),
+	_analysisSetProp(rdPropertyObj("analyses",rdAnalysisSet())),
 	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setType("Investigation");
@@ -55,6 +56,7 @@ Investigation::Investigation(const string &aFileName):
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
 	_fineTolerance(_fineToleranceProp.getValueDbl()),
+	_analysisSetProp(rdPropertyObj("analyses",rdAnalysisSet())),
 	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setType("Investigation");
@@ -74,6 +76,7 @@ Investigation::Investigation(DOMElement *aElement):
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
 	_fineTolerance(_fineToleranceProp.getValueDbl()),
+	_analysisSetProp(rdPropertyObj("analyses",rdAnalysisSet())),
 	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setType("Investigation");
@@ -125,6 +128,7 @@ Investigation::Investigation(const Investigation &aInvestigation):
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
 	_fineTolerance(_fineToleranceProp.getValueDbl()),
+	_analysisSetProp(rdPropertyObj("analyses",rdAnalysisSet())),
 	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setNull();
@@ -175,9 +179,6 @@ void Investigation::setupProperties()
 	_fineToleranceProp.setName("integrator_fine_tolerance");
 	_propertySet.append( &_fineToleranceProp );
 
-	rdAnalysisSet *analysisSet = new rdAnalysisSet();
-	_analysisSetProp.setValue(*analysisSet);
-	_analysisSetProp.setName("analysis_set");
 	_propertySet.append( &_analysisSetProp );
 }
 

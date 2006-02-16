@@ -9,7 +9,6 @@
 #include <NMBLTK/Simulation/Model/LoadModel.h>
 #include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
 #include <NMBLTK/Analyses/InvestigationForward.h>
-#include <NMBLTK/Analyses/suKinematics.h>
 
 
 using namespace std;

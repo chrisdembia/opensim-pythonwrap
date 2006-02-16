@@ -234,7 +234,7 @@ void InvestigationForward::run()
 	// Initial states
 	rdStorage *yiStore = NULL;
 	if(_initialStatesFileName!="") {
-		cout<<"\n\nLoading initial states from file "<<_initialStatesFileName<<".\n";
+		cout<<"\nLoading initial states from file "<<_initialStatesFileName<<".\n";
 		yiStore = new rdStorage(_initialStatesFileName.c_str());
 		cout<<"Found "<<yiStore->getSize()<<" state vectors with time stamps ranging\n";
 		cout<<"from "<<yiStore->getFirstTime()<<" to "<<yiStore->getLastTime()<<".\n";
@@ -283,10 +283,9 @@ void InvestigationForward::run()
 
 	// ADD ANALYSES
 	rdAnalysis *analysis;
-	rdAnalysisSet &analysisSet = getAnalysisSet();
-	int i, size = analysisSet.getSize();
+	int i, size = getAnalysisSet().getSize();
 	for(i=0;i<size;i++) {
-		analysis = analysisSet.get(i);
+		analysis = getAnalysisSet().get(i);
 		if(analysis==NULL) continue;
 		analysis->setModel(_model);
 		_model->addAnalysis(analysis);
@@ -318,7 +317,7 @@ void InvestigationForward::run()
 	_model->setInitialStates(&yi[0]);
 
 	// INTEGRATE
-	cout<<"\n\nUnperturbed integration (1) from "<<_ti<<" to "<<_tf<<endl;
+	cout<<"\n\nUnperturbed integration from "<<_ti<<" to "<<_tf<<endl;
 	manager.integrate();
 }
 

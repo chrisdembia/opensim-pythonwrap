@@ -12,7 +12,8 @@
 #include "rdTorque.h"
 #include "rdMuscle.h"
 #include "rdGeneralizedForce.h"
-#include <NMBLTK/Simulation/Manager/rdManager.h>
+#include "rdAnalysisSet.h"
+#include <NMBLTK/Simulation/Control/rdControlSet.h>
 #include <NMBLTK/Simulation/Control/rdControlConstant.h>
 #include <NMBLTK/Simulation/Control/rdControlLinear.h>
 
@@ -26,9 +27,7 @@ using namespace std;
  */
 RDSIMULATION_API void RegisterTypes_rdSimulation()
 {
-	cout<<"RegisterTypes_rdSimulation:  \n";
-
-	//rdObject::RegisterType( rdManager() );
+	cout<<"RegisterTypes_rdSimulation:\n";
 
 	rdObject::RegisterType( rdControlSet() );
 	rdObject::RegisterType( rdControlConstant() );
@@ -43,7 +42,7 @@ RDSIMULATION_API void RegisterTypes_rdSimulation()
 
 	rdObject::RegisterType( rdContactForceSet() );
 
-
+	rdObject::RegisterType( rdAnalysisSet() );
 	//rdObject::RegisterType( rdIntegCallbackSet() );
 	//rdObject::RegisterType( rdDerivCallbackSet() );
 

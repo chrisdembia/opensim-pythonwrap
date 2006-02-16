@@ -7,28 +7,18 @@
 	<maximum_integrator_step_size>1.0</maximum_integrator_step_size>
 	<integrator_error_tolerance>0.001</integrator_error_tolerance>
 	<integrator_fine_tolerance>0.00001</integrator_fine_tolerance>
-	<rdAnalysisSet name="">
+	<rdAnalysisSet name="test">
 		<objects>
 			<suKinematics name="test">
-				<On>
-					 true 
-				</On>
-				<StartTime>
-					-1.0e-30 
-				</StartTime>
-				<EndTime>
-					1.0e30
-				</EndTime>
-				<StepInterval>
-					 1 
-				</StepInterval>
-				<InDegrees>
-					 true 
-				</InDegrees>
-			</suKinematics></objects>
-		
+				<On> true </On>
+				<StartTime> -1.0e-30 </StartTime>
+				<EndTime> 1.0e30 </EndTime>
+				<StepInterval> 1 </StepInterval>
+				<InDegrees> true </InDegrees>
+			</suKinematics>
+		</objects>
 	</rdAnalysisSet>
-	<controls_file_name> Unassigned </controls_file_name>
-	<initial_states_file_name> Unassigned </initial_states_file_name>
+	<controls_file_name> block_controls.xml </controls_file_name>
+	<initial_states_file_name> block_states.sto </initial_states_file_name>
 </InvestigationForward>
 

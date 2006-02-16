@@ -173,7 +173,6 @@ public:
 #ifndef SWIG
 rdSet<T>& operator=(const rdSet<T> &aSet)
 {	
-		// BASE CLASS
 	rdObject::operator=(aSet);
 	_objects = aSet._objects;
 
