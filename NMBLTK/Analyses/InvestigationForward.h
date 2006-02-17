@@ -43,11 +43,10 @@ private:
 	// CONSTRUCTION
 	//--------------------------------------------------------------------------
 public:
+	virtual ~InvestigationForward();
 	InvestigationForward();
 	InvestigationForward(const std::string &aFileName);
 	InvestigationForward(DOMElement *aElement);
-	virtual ~InvestigationForward();
-	// Copy constrctor and virtual copy 
 	InvestigationForward(const InvestigationForward &aObject);
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
@@ -74,8 +73,6 @@ public:
 	// INTERFACE
 	//--------------------------------------------------------------------------
 	virtual void run();
-	virtual void printResults(const char *aBaseName,const char *aDir=NULL,
-		double aDT=-1.0,const char *aExtension=".sto");
 
 //=============================================================================
 };	// END of class InvestigationForward

@@ -32,7 +32,7 @@ Investigation::Investigation():
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
 	_fineTolerance(_fineToleranceProp.getValueDbl()),
-	_analysisSetProp(rdPropertyObj("analyses",rdAnalysisSet())),
+	_analysisSetProp(rdPropertyObj("Analyses",rdAnalysisSet())),
 	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setType("Investigation");
@@ -56,7 +56,7 @@ Investigation::Investigation(const string &aFileName):
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
 	_fineTolerance(_fineToleranceProp.getValueDbl()),
-	_analysisSetProp(rdPropertyObj("analyses",rdAnalysisSet())),
+	_analysisSetProp(rdPropertyObj("Analyses",rdAnalysisSet())),
 	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setType("Investigation");
@@ -76,7 +76,7 @@ Investigation::Investigation(DOMElement *aElement):
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
 	_fineTolerance(_fineToleranceProp.getValueDbl()),
-	_analysisSetProp(rdPropertyObj("analyses",rdAnalysisSet())),
+	_analysisSetProp(rdPropertyObj("Analyses",rdAnalysisSet())),
 	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setType("Investigation");
@@ -128,12 +128,34 @@ Investigation::Investigation(const Investigation &aInvestigation):
 	_maxDT(_maxDTProp.getValueDbl()),
 	_errorTolerance(_errorToleranceProp.getValueDbl()),
 	_fineTolerance(_fineToleranceProp.getValueDbl()),
-	_analysisSetProp(rdPropertyObj("analyses",rdAnalysisSet())),
+	_analysisSetProp(rdPropertyObj("Analyses",rdAnalysisSet())),
 	_analysisSet((rdAnalysisSet&)_analysisSetProp.getValueObj())
 {
 	setNull();
 	*this = aInvestigation;
 }
+//_____________________________________________________________________________
+/**
+ * Virtual copy constructor
+rdObject* Investigation::
+copy() const
+{
+	Investigation *object = new Investigation(*this);
+	return(object);
+}
+*/
+//_____________________________________________________________________________
+/**
+ * Virtual copy constructor from DOMElement
+rdObject* Investigation::
+copy(DOMElement *aElement) const
+{
+	Investigation *object = new Investigation(aElement);
+	*object = *this;
+	object->updateFromXMLNode();
+	return(object);
+}
+*/
 //_____________________________________________________________________________
 /**
  * Set all member variables to their null or default values.
@@ -179,9 +201,9 @@ void Investigation::setupProperties()
 	_fineToleranceProp.setName("integrator_fine_tolerance");
 	_propertySet.append( &_fineToleranceProp );
 
+	_analysisSetProp.setName("Analyses");
 	_propertySet.append( &_analysisSetProp );
 }
-
 
 
 //=============================================================================
@@ -201,13 +223,13 @@ operator=(const Investigation &aInvestigation)
 
 	// MEMEBER VARIABLES
 	_model = aInvestigation._model;
-	_analysisSet = aInvestigation._analysisSet;
 	_outputPrecision = aInvestigation._outputPrecision;
 	_ti = aInvestigation._ti;
 	_tf = aInvestigation._tf;
 	_maxSteps = aInvestigation._maxSteps;
 	_errorTolerance = aInvestigation._errorTolerance;
 	_fineTolerance = aInvestigation._fineTolerance;
+	_analysisSet = aInvestigation._analysisSet;
 
 	return(*this);
 }
@@ -272,4 +294,26 @@ rdAnalysisSet& Investigation::
 getAnalysisSet() const
 {
 	return(_analysisSet);
+}
+
+
+//=============================================================================
+// IO
+//=============================================================================
+//_____________________________________________________________________________
+/**
+ * Print the results of the analysis.
+ *
+ * @param aFileName File to which to print the data.
+ * @param aDT Time interval between results (linear interpolation is used).
+ * If not included as an argument or negative, all time steps are printed
+ * without interpolation.
+ * @param aExtension Extension for written files.
+ */
+void Investigation::
+printResults(const char *aBaseName,const char *aDir,double aDT,
+				 const char *aExtension)
+{
+	cout<<"Printing results of investigation "<<getName()<<".\n";
+	_model->getAnalysisSet()->printResults(aBaseName,aDir,aDT,aExtension);
 }

@@ -7,6 +7,8 @@
 #include <NMBLTK/Tools/rdObject.h>
 #include "RegisterTypes_suAnalyses.h"
 #include "suKinematics.h"
+#include "InvestigationPerturbation.h"
+#include "InvestigationForward.h"
 
 using namespace std;
 
@@ -18,6 +20,9 @@ using namespace std;
 SUANALYSES_API void RegisterTypes_suAnalyses()
 {
 	cout<<"RegisterTypes_suAnalyses:  \n";
+
+	rdObject::RegisterType( InvestigationPerturbation() );
+	rdObject::RegisterType( InvestigationForward() );
 
 	rdObject::RegisterType( suKinematics() );
 }

@@ -68,6 +68,9 @@ public:
 	Investigation(const std::string &aFileName);
 	Investigation(DOMElement *aElement);
 	Investigation(const Investigation &aObject);
+	//rdObject* copy() const;
+	//rdObject* copy(DOMElement *aElement) const;
+
 private:
 	void setNull();
 	void setupProperties();
@@ -94,7 +97,7 @@ public:
 	//--------------------------------------------------------------------------
 	virtual void run() = 0;
 	virtual void printResults(const char *aBaseName,const char *aDir=NULL,
-		double aDT=-1.0,const char *aExtension=".sto") = 0;
+		double aDT=-1.0,const char *aExtension=".sto");
 
 //=============================================================================
 };	// END of class Investigation

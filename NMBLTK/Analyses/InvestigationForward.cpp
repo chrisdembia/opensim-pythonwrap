@@ -146,6 +146,7 @@ copy(DOMElement *aElement) const
 	object->updateFromXMLNode();
 	return(object);
 }
+
 //_____________________________________________________________________________
 /**
  * Set all member variables to their null or default values.
@@ -172,7 +173,6 @@ void InvestigationForward::setupProperties()
 	_propertySet.append( &_initialStatesFileNameProp );
 
 }
-
 
 
 //=============================================================================
@@ -270,8 +270,9 @@ void InvestigationForward::run()
 	}
 	if(_tf>tf) {
 		cout<<"\n"<<getName()<<": WARN- The controls read in from file "<<_controlsFileName<<" did not\n";
-		cout<<"overlap the requested final time of the simulation.  Controls are being extrapolated\n";
-		cout<<"rather than interpolated.\n";
+		cout<<"overlap the requested final time of the simulation.  Changing the final time of the\n";
+		cout<<"forward integration from "<<_tf<<" to "<<tf<<".\n";
+		_tf = tf;
 	}
 
 	// ASSIGN NUMBERS OF THINGS
@@ -299,8 +300,6 @@ void InvestigationForward::run()
 	manager.setSessionName(getName());
 	manager.setInitialTime(_ti);
 	manager.setFinalTime(_tf);
-	cout<<"\n\nPerforming perturbations over the range ti=";
-	cout<<_ti<<" to tf="<<_tf<<endl<<endl;
 
 	// Integrator settings
 	rdIntegRKF *integ = manager.getIntegrator();
@@ -317,29 +316,11 @@ void InvestigationForward::run()
 	_model->setInitialStates(&yi[0]);
 
 	// INTEGRATE
-	cout<<"\n\nUnperturbed integration from "<<_ti<<" to "<<_tf<<endl;
+	cout<<"\n\nIntegrating from "<<_ti<<" to "<<_tf<<endl;
 	manager.integrate();
-}
 
 
-//=============================================================================
-// IO
-//=============================================================================
-//_____________________________________________________________________________
-/**
- * Print the results of the analysis.
- *
- * @param aFileName File to which to print the data.
- * @param aDT Time interval between results (linear interpolation is used).
- * If not included as an argument or negative, all time steps are printed
- * without interpolation.
- * @param aExtension Extension for written files.
- */
-void InvestigationForward::
-printResults(const char *aBaseName,const char *aDir,double aDT,
-				 const char *aExtension)
-{
-	cout<<"InvestigationForward.printResults: ";
-	cout<<"Printing results of investigation "<<getName()<<".\n";
-	_model->getAnalysisSet()->printResults(aBaseName,aDir,aDT,aExtension);
+	// PRINT RESULTS
+	printResults(getName().c_str(),"./Results");
 }
+

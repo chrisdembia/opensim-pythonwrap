@@ -5,10 +5,12 @@
 #include <string>
 #include <iostream>
 #include <NMBLTK/Tools/rdMtx.h>
+#include <NMBLTK/Tools/rdIO.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
 #include <NMBLTK/Simulation/Model/LoadModel.h>
 #include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
 #include <NMBLTK/Analyses/InvestigationForward.h>
+#include <NMBLTK/Analyses/suKinematics.h>
 
 
 using namespace std;
@@ -78,6 +80,27 @@ int main(int argc,char **argv)
 	model->printBasicInfo(cout);
 	cout<<"-----------------------------------------------------------------------\n\n";
 
+
+	// TEST COPYING AN ANALYSIS SET
+	rdAnalysisSet one;
+	one.setName("one");
+	suKinematics *kin1 = new suKinematics();
+	suKinematics *kin2 = new suKinematics();
+	one.append(kin1);
+	one.append(kin2);
+	one.print("one.xml");
+
+	kin2->setName("bald");
+	kin2->setOn(false);
+
+
+	rdAnalysisSet two;
+	two.setName("two");
+	two = one;
+
+	rdIO::SetScientific(true);
+	two.print("two.xml");
+
 	
 	// INVESTIGATION
 	// Construct
@@ -89,7 +112,6 @@ int main(int argc,char **argv)
 	// Run
 	cout<<"Running..."<<endl<<endl;
 	forward.run();
-
 
 	return(0);
 }
