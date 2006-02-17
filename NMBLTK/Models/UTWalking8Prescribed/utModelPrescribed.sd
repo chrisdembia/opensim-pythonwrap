@@ -29,9 +29,16 @@
 
 gravity = ? ? ?
 
-body = pelvis
+language = c
+
+body = pelvis inb = $ground joint = free prescribed = 0? 0? 0? 0? 0? 0?
      mass = 11.150
      inertia = 0.0973 0.0825 0.0548
+     bodyToJoint = 0.0000 0.0000 0.0000
+     inbToJoint = 0.0000 0.0000 0.0000
+     pin =  1? 0? 0?
+     pin =  0? 1? 0?
+     pin =  0? 0? 1?
 
 body = hat inb = pelvis joint = gimbal  prescribed = 0? 0? 0?
      mass = 32.413

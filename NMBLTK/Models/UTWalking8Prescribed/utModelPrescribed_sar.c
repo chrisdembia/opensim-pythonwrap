@@ -1,5 +1,5 @@
 /*
-Generated 27-Dec-2005 16:51:39 by SD/FAST, Kane's formulation
+Generated 15-Feb-2006 17:06:53 by SD/FAST, Kane's formulation
 (sdfast B.2.8 #30123) on machine ID unknown
 Copyright (c) 1990-1997 Symbolic Dynamics, Inc.
 Copyright (c) 1990-1997 Parametric Technology Corp.
@@ -15,7 +15,7 @@ FAR Supplement.  Symbolic Dynamics, Inc., Mountain View, CA 94041
 
 void sdposfunc(double vars[33],
     double param[1],
-    double resid[27])
+    double resid[33])
 {
     int i;
     double pos[34],vel[33];
@@ -31,7 +31,7 @@ void sdposfunc(double vars[33],
 
 void sdvelfunc(double vars[33],
     double param[35],
-    double resid[27])
+    double resid[33])
 {
 
     sdstate(param[34],param,vars);
@@ -41,7 +41,7 @@ void sdvelfunc(double vars[33],
 
 void sdstatfunc(double vars[33],
     double param[34],
-    double resid[60])
+    double resid[66])
 {
     double pos[34],qdotdum[34];
 
@@ -50,12 +50,12 @@ void sdstatfunc(double vars[33],
     sdumotion(param[33],pos,param);
     sduforce(param[33],pos,param);
     sdperr(resid);
-    sdderiv(qdotdum,&resid[27]);
+    sdderiv(qdotdum,&resid[33]);
 }
 
 void sdstdyfunc(double vars[66],
     double param[1],
-    double resid[87])
+    double resid[99])
 {
     double pos[34],qdotdum[34];
 
@@ -64,8 +64,8 @@ void sdstdyfunc(double vars[66],
     sdumotion(param[0],pos,&vars[33]);
     sduforce(param[0],pos,&vars[33]);
     sdperr(resid);
-    sdverr(&resid[27]);
-    sdderiv(qdotdum,&resid[54]);
+    sdverr(&resid[33]);
+    sdderiv(qdotdum,&resid[66]);
 }
 
 /* This routine is passed to the integrator. */
@@ -76,7 +76,7 @@ void sdmotfunc(double time,
     double param[1],
     int *status)
 {
-    double err[27];
+    double err[33];
     int i;
 
     sdstate(time,state,&state[34]);
@@ -85,13 +85,13 @@ void sdmotfunc(double time,
     sdderiv(dstate,&dstate[34]);
     *status = 1;
     sdverr(err);
-    for (i = 0; i < 27; i++) {
+    for (i = 0; i < 33; i++) {
         if (fabs(err[i]) > param[0]) {
             return;
         }
     }
     sdperr(err);
-    for (i = 0; i < 27; i++) {
+    for (i = 0; i < 33; i++) {
         if (fabs(err[i]) > param[0]) {
             return;
         }
@@ -109,18 +109,18 @@ void sdassemble(double time,
     int *fcnt,
     int *err)
 {
-    double perrs[27],param[1];
+    double perrs[33],param[1];
     int i;
-    double jw[891],dw[7200],rw[486];
-    int iw[240],rooterr;
+    double jw[1089],dw[8712],rw[528];
+    int iw[264],rooterr;
 
     sdgentime(&i);
-    if (i != 165119) {
+    if (i != 170640) {
         sdseterr(50,42);
     }
     param[0] = time;
     sdst2ang(state,state);
-    sdroot(sdposfunc,state,param,27,33,0,lock,tol,tol,maxevals,
+    sdroot(sdposfunc,state,param,33,33,0,lock,tol,tol,maxevals,
       jw,dw,rw,iw,perrs,fcnt,&rooterr);
     sdposfunc(state,param,perrs);
     *fcnt = *fcnt+1;
@@ -146,20 +146,20 @@ void sdinitvel(double time,
     int *fcnt,
     int *err)
 {
-    double verrs[27],param[35];
+    double verrs[33],param[35];
     int i;
-    double jw[891],dw[7200],rw[486];
-    int iw[240],rooterr;
+    double jw[1089],dw[8712],rw[528];
+    int iw[264],rooterr;
 
     sdgentime(&i);
-    if (i != 165119) {
+    if (i != 170640) {
         sdseterr(51,42);
     }
     for (i = 0; i < 34; i++) {
         param[i] = state[i];
     }
     param[34] = time;
-    sdroot(sdvelfunc,&state[34],param,27,33,0,lock,tol,tol,maxevals,
+    sdroot(sdvelfunc,&state[34],param,33,33,0,lock,tol,tol,maxevals,
       jw,dw,rw,iw,verrs,fcnt,&rooterr);
     sdvelfunc(&state[34],param,verrs);
     *fcnt = *fcnt+1;
@@ -185,11 +185,11 @@ void sdstatic(double time,
     int *fcnt,
     int *err)
 {
-    double resid[60],param[34],jw[1980],dw[17298],rw[717];
-    int iw[372],rooterr,i;
+    double resid[66],param[34],jw[2178],dw[19602],rw[759];
+    int iw[396],rooterr,i;
 
     sdgentime(&i);
-    if (i != 165119) {
+    if (i != 170640) {
         sdseterr(52,42);
     }
     for (i = 0; i < 33; i++) {
@@ -197,7 +197,7 @@ void sdstatic(double time,
     }
     param[33] = time;
     sdst2ang(state,state);
-    sdroot(sdstatfunc,state,param,60,33,33,lock,
+    sdroot(sdstatfunc,state,param,66,33,33,lock,
       ctol,tol,maxevals,jw,dw,rw,iw,resid,fcnt,&rooterr);
     sdstatfunc(state,param,resid);
     *fcnt = *fcnt+1;
@@ -224,12 +224,12 @@ void sdsteady(double time,
     int *fcnt,
     int *err)
 {
-    double resid[87],param[1],vars[66];
-    double jw[5742],dw[46818],rw[1203];
-    int iw[612],rooterr,i;
+    double resid[99],param[1],vars[66];
+    double jw[6534],dw[54450],rw[1287];
+    int iw[660],rooterr,i;
 
     sdgentime(&i);
-    if (i != 165119) {
+    if (i != 170640) {
         sdseterr(53,42);
     }
     param[0] = time;
@@ -237,7 +237,7 @@ void sdsteady(double time,
     for (i = 0; i < 33; i++) {
         vars[33+i] = state[34+i];
     }
-    sdroot(sdstdyfunc,vars,param,87,66,33,lock,
+    sdroot(sdstdyfunc,vars,param,99,66,33,lock,
       ctol,tol,maxevals,jw,dw,rw,iw,resid,fcnt,&rooterr);
     sdstdyfunc(vars,param,resid);
     *fcnt = *fcnt+1;
@@ -272,7 +272,7 @@ void sdmotion(double *time,
     int vintgerr,which,ferr,i;
 
     sdgentime(&i);
-    if (i != 165119) {
+    if (i != 170640) {
         sdseterr(54,42);
     }
     param[0] = ctol;
@@ -306,7 +306,7 @@ void sdfmotion(double *time,
     int ferr,i;
 
     sdgentime(&i);
-    if (i != 165119) {
+    if (i != 170640) {
         sdseterr(55,42);
     }
     param[0] = ctol;
