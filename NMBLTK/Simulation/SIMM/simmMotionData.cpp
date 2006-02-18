@@ -136,7 +136,8 @@ simmMotionData::simmMotionData(rdStorage& aData) :
 	const rdArray<string>& columnLabels = aData.getColumnLabelsArray();
 	//string* timeLabel = new string("time");
 	//_columnNames.append(timeLabel);
-	for (int i = 0; i < columnLabels.getSize(); i++)
+	int i;
+	for (i = 0; i < columnLabels.getSize(); i++)
 	{
 		string* name = new string(columnLabels[i]);
 		_columnNames.append(*name);
@@ -144,7 +145,7 @@ simmMotionData::simmMotionData(rdStorage& aData) :
 	_numColumns = _columnNames.getSize();
 
 	/* Get the data. */
-	for (int i = 0; i < aData.getSize(); i++)
+	for (i = 0; i < aData.getSize(); i++)
 	{
 		double* row = new double [_numColumns];
 		aData.getTime(i, row[0]);
@@ -504,6 +505,7 @@ void simmMotionData::addToRdStorage(rdStorage& aStorage, double startTime, doubl
 
 void simmMotionData::writeSIMMMotionFile(const string& aFileName, const string& aComment) const
 {
+	int i;
 	ofstream out;
 
 	out.open(aFileName.c_str());
@@ -526,7 +528,7 @@ void simmMotionData::writeSIMMMotionFile(const string& aFileName, const string& 
 	if (_keys.getSize() > 0)
 	{
 		out << "keys ";
-		for (int i = 0; i < MIN(2, _keys.getSize()); i++)
+		for (i = 0; i < MIN(2, _keys.getSize()); i++)
 			out << _keys[i] << " ";
 		out << endl;
 	}
@@ -538,7 +540,7 @@ void simmMotionData::writeSIMMMotionFile(const string& aFileName, const string& 
 		out << "calc_derivatives " << _timeStep << endl;
 	if (_showCursor)
 		out << "cursor " << _cursorColor[0] << " " << _cursorColor[1] << " " << _cursorColor[2] << endl;
-	for (int i = 0; i < _events.getSize(); i++)
+	for (i = 0; i < _events.getSize(); i++)
 	{
 		const double* color = _events[i]->getColor();
 		out << "event " << _events[i]->getTime() << " " << color[0] << " " << color[1] << " " << color[2] << endl;
@@ -547,13 +549,14 @@ void simmMotionData::writeSIMMMotionFile(const string& aFileName, const string& 
 		out << "sliding_time_scale" << endl;
 	out << "endheader" << endl << endl;
 
-	for (int i = 0; i < _columnNames.getSize(); i++)
+	for (i = 0; i < _columnNames.getSize(); i++)
 		out << _columnNames[i] << '\t';
 	out << endl;
 
-	for (int i = 0; i < _numRows; i++)
+	for (i = 0; i < _numRows; i++)
 	{
-		for (int j = 0; j < _numColumns; j++)
+		int j;
+		for (j = 0; j < _numColumns; j++)
 			out << _rows[i][j] << '\t';
 		out << endl;
 	}
@@ -572,10 +575,11 @@ void simmMotionData::peteTest() const
 	cout << "      range: " << _rangeMin << " to " << _rangeMax << endl;
 	cout << "      units: " << _units.getLabel() << endl;
 
-	for (int i = 0; i < _numColumns; i++)
+	int i;
+	for (i = 0; i < _numColumns; i++)
 		cout << "      column " << i << ": " << _columnNames[i].c_str() << endl;
 
-	for (int i = 0; i < _numRows; i++)
+	for (i = 0; i < _numRows; i++)
 	{
 		for (int j = 0; j < _numColumns; j++)
 			cout << (_rows[i])[j] << " ";

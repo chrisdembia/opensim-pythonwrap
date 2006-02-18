@@ -204,13 +204,14 @@ void simmBody::setup(simmKinematicsEngine* aEngine)
 	 * setup function for them (to read in the VTK
 	 * files, etc.).
 	 */
-	for (int i = 0; i < _bones.getSize(); i++)
+	int i;
+	for (i = 0; i < _bones.getSize(); i++)
 	{
 		if (sb = dynamic_cast<simmBone*>(_bones[i]))
 			sb->setup(aEngine);
 	}
 
-	for (int i = 0; i < 3; i++)
+	for (i = 0; i < 3; i++)
 		_scaleFactor[i] = 1.0;
 }
 

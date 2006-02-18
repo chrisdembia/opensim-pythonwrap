@@ -358,11 +358,12 @@ bool simmCoordinate::setValue(double value)
 	{
 		_value = value;
 
-		for (int i = 0; i < _jointList.getSize(); i++)
+		int i;
+		for (i = 0; i < _jointList.getSize(); i++)
 			_jointList[i]->invalidate();
 
 		int pListSize = _pathList.getSize();
-		for (int i = 0; i < pListSize; i++)
+		for (i = 0; i < pListSize; i++)
 			_pathList[i]->invalidate();
 
 		// Potential source of slowdown!

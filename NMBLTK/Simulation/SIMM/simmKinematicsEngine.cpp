@@ -780,12 +780,12 @@ void simmKinematicsEngine::initSdfastParameters(void)
 	for (i = 0; i < _joints.getSize(); i++)
    {
 		_joints[i]->_sdfastInfo.used = false;
-		_joints[i]->_sdfastInfo.name.clear();
+		_joints[i]->_sdfastInfo.name.erase(_joints[i]->_sdfastInfo.name.begin(),_joints[i]->_sdfastInfo.name.end());
 		_joints[i]->_sdfastInfo.type = dpUnknownJoint;
 		_joints[i]->_sdfastInfo.index = -1;
 		_joints[i]->_sdfastInfo.direction = simmStep::forward;
-		_joints[i]->_sdfastInfo.inbname.clear();
-		_joints[i]->_sdfastInfo.outbname.clear();
+		_joints[i]->_sdfastInfo.inbname.erase(_joints[i]->_sdfastInfo.inbname.begin(),_joints[i]->_sdfastInfo.inbname.end());
+		_joints[i]->_sdfastInfo.outbname.erase(_joints[i]->_sdfastInfo.outbname.begin(),_joints[i]->_sdfastInfo.outbname.end());
 		_joints[i]->_sdfastInfo.closesLoop = false;
 	}
 
@@ -814,8 +814,8 @@ void simmKinematicsEngine::initSdfastParameters(void)
 
       for (int j = 0; j < dofList.getSize(); j++)
       {
-			dofList[j]->_sdfastInfo.name.clear();
-			dofList[j]->_sdfastInfo.constraintName.clear();
+			dofList[j]->_sdfastInfo.name.erase(dofList[j]->_sdfastInfo.name.begin(),dofList[j]->_sdfastInfo.name.end());
+			dofList[j]->_sdfastInfo.constraintName.erase(dofList[j]->_sdfastInfo.constraintName.begin(),dofList[j]->_sdfastInfo.constraintName.end());
 			dofList[j]->_sdfastInfo.initialValue = 0.0;
 			dofList[j]->_sdfastInfo.constrained = true;
 			dofList[j]->_sdfastInfo.fixed = false;
@@ -899,7 +899,7 @@ void simmKinematicsEngine::makeDofSdfastNames(void)
 				const simmCoordinate* coord = dofList[j]->getCoordinate();
 				dofList[j]->_sdfastInfo.name = coord->getName();
 				convertString(dofList[j]->_sdfastInfo.name, true);
-            dofList[j]->_sdfastInfo.constraintName.clear();
+            dofList[j]->_sdfastInfo.constraintName.erase(dofList[j]->_sdfastInfo.constraintName.begin(),dofList[j]->_sdfastInfo.constraintName.end());
          }
          else
          {
@@ -2510,19 +2510,20 @@ void simmKinematicsEngine::writeSIMMJointFile(string& aFileName) const
    out << "\n/****************************************************/\n";
    out << "/*                     SEGMENTS                     */\n";
    out << "/****************************************************/\n";
-	for (int i = 0; i < _bodies.getSize(); i++)
+	int i;
+	for (i = 0; i < _bodies.getSize(); i++)
 		_bodies[i]->writeSIMM(out);
 
    out << "\n/****************************************************/\n";
    out << "/*                      JOINTS                      */\n";
    out << "/****************************************************/\n";
-	for (int i = 0; i < _joints.getSize(); i++)
+	for (i = 0; i < _joints.getSize(); i++)
 		_joints[i]->writeSIMM(out, functionIndex);
 
    out << "\n/****************************************************/\n";
    out << "/*                     GENCOORDS                    */\n";
    out << "/****************************************************/\n";
-	for (int i = 0; i < _coordinates.getSize(); i++)
+	for (i = 0; i < _coordinates.getSize(); i++)
 		_coordinates[i]->writeSIMM(out, functionIndex);
 
 #if 0

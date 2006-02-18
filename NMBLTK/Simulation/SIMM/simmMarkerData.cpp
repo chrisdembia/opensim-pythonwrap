@@ -669,7 +669,8 @@ void simmMarkerData::makeRdStorage(rdStorage& aStorage)
 
 	/* Make the column labels. */
 	string columnLabels;
-	for (int i = 0; i < _numMarkers; i++)
+	int i;
+	for (i = 0; i < _numMarkers; i++)
 	{
 		columnLabels += _markerNames[i] + "_tx	";
 		columnLabels += _markerNames[i] + "_ty	";
@@ -683,7 +684,7 @@ void simmMarkerData::makeRdStorage(rdStorage& aStorage)
 	int numColumns = _numMarkers * 3;
 	double* row = new double [numColumns];
 
-	for (int i = 0; i < _numFrames; i++)
+	for (i = 0; i < _numFrames; i++)
 	{
 		for (int j = 0, index = 0; j < _numMarkers; j++)
 		{
@@ -745,9 +746,10 @@ void simmMarkerData::peteTest() const
 	cout << "      fileName: " << _fileName << endl;
 	cout << "      units: " << _units.getLabel() << endl;
 
-	for (int i = 0; i < _numMarkers; i++)
+	int i;
+	for (i = 0; i < _numMarkers; i++)
 		cout << "      marker " << i << ": " << _markerNames[i].c_str() << endl;
 
-	for (int i = 0; i < _numFrames; i++)
+	for (i = 0; i < _numFrames; i++)
 		_frames[i]->peteTest();
 }

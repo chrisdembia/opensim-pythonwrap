@@ -1796,12 +1796,13 @@ void simmJoint::writeSIMM(ofstream& out, int& aFunctionIndex) const
 	char* translationLabels[] = {"tx", "ty", "tz"};
 	int* funcIndex = new int [_dofs.getSize()];
 
-	for (int i = 0; i < _dofs.getSize(); i++)
+	int i;
+	for (i = 0; i < _dofs.getSize(); i++)
 		funcIndex[i] = -1;
 
 	out << "beginjoint " << getName() << endl;
 	out << "segments " << _parentBody->getName() << " " << _childBody->getName() << endl;
-	for (int i = 0; i < _dofs.getSize(); i++)
+	for (i = 0; i < _dofs.getSize(); i++)
 	{
 		if (_dofs[i]->getType() == simmDof::Translational)
 		{
@@ -1839,7 +1840,7 @@ void simmJoint::writeSIMM(ofstream& out, int& aFunctionIndex) const
 	out << "order" << order << endl;
 	out << "endjoint" << endl << endl;
 
-	for (int i = 0; i < _dofs.getSize(); i++)
+	for (i = 0; i < _dofs.getSize(); i++)
 	{
 		if (funcIndex[i] >= 0)
 		{

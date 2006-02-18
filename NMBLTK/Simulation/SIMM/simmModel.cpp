@@ -732,7 +732,7 @@ double simmModel::getInitialPseudoState(const string &aName) const
 
 void simmModel::setPseudoStates(const double aYP[])
 {
-	return getKinematicsEngine().setPseudoStates(aYP);
+	getKinematicsEngine().setPseudoStates(aYP);
 }
 
 void simmModel::getPseudoStates(double rYP[]) const

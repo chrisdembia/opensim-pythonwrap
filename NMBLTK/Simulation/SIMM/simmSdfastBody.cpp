@@ -79,7 +79,7 @@ void simmSdfastBody::copyData(const simmSdfastBody &aSdfastBody)
  */
 simmSdfastBody::~simmSdfastBody(void)
 {
-	_name.clear();
+	_name.erase(_name.begin(),_name.end());
 }
 
 simmSdfastBody* simmSdfastBody::copy(void) const

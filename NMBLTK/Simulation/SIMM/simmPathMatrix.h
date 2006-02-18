@@ -27,8 +27,8 @@
 
 
 // INCLUDE
-#include <stdlib.h>
-#include <stdio.h>
+#include <string>
+#include <iostream>
 #include <fstream>
 #include <math.h>
 #include <vector>
@@ -56,9 +56,9 @@ class simmPathMatrix
 private:
 	int _size;
 	int _factor;
-	static const int cSizeFactor = 2;
-	static const int cHash1 = 27; // determined experimentally using a model
-	static const int cHash2 = 7;  // with regularly-spaced from/to pointers
+	static const int cSizeFactor;
+	static const int cHash1; // determined experimentally using a model
+	static const int cHash2;  // with regularly-spaced from/to pointers
 	std::vector<simmPath*> _hashTable;
 
 //=============================================================================

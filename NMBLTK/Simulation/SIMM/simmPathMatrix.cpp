@@ -33,7 +33,14 @@
 //=============================================================================
 // STATICS
 //=============================================================================
+const int simmPathMatrix::cSizeFactor = 2;
+const int simmPathMatrix::cHash1 = 27;
+const int simmPathMatrix::cHash2 = 7;
+
+
 using namespace std;
+
+
 
 //=============================================================================
 // CONSTRUCTOR(S) AND DESTRUCTOR
