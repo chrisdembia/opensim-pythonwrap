@@ -43,8 +43,11 @@ static const bool rdObject_DEBUG = false;
 void stripExtraWhiteSpace(std::string &aBuffer)
 {
 	int front = aBuffer.find_first_not_of(" \t\r\n");
-	if (front > 0)
+	if(front==-1) {
+		aBuffer = "";
+	} else if (front > 0) {
 		aBuffer.erase(0, front);
+	}
 
 	int back = aBuffer.find_last_not_of(" \t\r\n");
 	if (back < aBuffer.size() - 1)
