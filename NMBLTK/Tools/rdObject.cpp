@@ -667,7 +667,10 @@ updateFromXMLNode()
 			char *value;
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			value = rdXMLNode::GetStr(elmt);
-			if(value!=NULL) {
+			if(value==NULL) {
+				property->setValue("");
+				property->setUseDefault(false);
+			} else {
 				string valueStr = value;
 				stripExtraWhiteSpace(valueStr);
 				property->setValue(valueStr);

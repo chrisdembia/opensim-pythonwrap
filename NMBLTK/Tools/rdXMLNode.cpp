@@ -428,6 +428,7 @@ GetStr(const DOMNode *aNode)
 
 	// GET THE TEXT NODE
 	DOMText *textNode = GetTextNode(aNode);
+	if(textNode==NULL) return(NULL);
 
 	// GET VALUE
 	char *str = XMLString::transcode(textNode->getNodeValue());
