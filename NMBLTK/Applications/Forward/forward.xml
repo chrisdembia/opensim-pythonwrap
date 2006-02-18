@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <InvestigationForward name="test">
 	<defaults/>
+	<model_library>rdBlock_D</model_library>
+	<model_file> </model_file>
+	<actuator_set_file> block_actuators.xml </actuator_set_file>
+	<contact_force_set_file> block_contacts.xml </contact_force_set_file>
+	<params_file> </params_file>
+	<library_list> rdActuators_D suAnalyses_D </library_list>
+	<results_directory> ./Results </results_directory>
 	<output_precision> 8 </output_precision>
 	<initial_time>0.0</initial_time>
 	<final_time>10.0</final_time>

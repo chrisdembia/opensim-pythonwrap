@@ -31,6 +31,31 @@ protected:
 	rdModel *_model;
 
 	// SERIALIZED PROPERTIES
+	/** Name of the model library to load.  Do not include the library
+	extension (e.g., .dll or .lib). */
+	rdPropertyStr _modelLibraryProp;
+	std::string &_modelLibrary;
+	/** Name of the xml file used to deserialize or construct a model. */
+	rdPropertyStr _modelFileProp;
+	std::string &_modelFile;
+	/** Name of the xml file used to construct an actuator set for the
+	model. */
+	rdPropertyStr _actuatorSetFileProp;
+	std::string &_actuatorSetFile;
+	/** Name of the xml file used to construct a contact force set for the
+	model. */
+	rdPropertyStr _contactForceSetFileProp;
+	std::string &_contactForceSetFile;
+	/** Name of the params files used for a SIMM Pipeline model. */
+	rdPropertyStr _paramsFileProp;
+	std::string &_paramsFile;
+	/** List of additional libraries to load.  do not include the library
+	extensions (e.g., .dll or .lib). */
+	rdPropertyStrArray _libraryListProp;
+	rdArray<std::string> &_libraryList;
+	/** Directory used for writing results. */
+	rdPropertyStr _resultsDirProp;
+	std::string &_resultsDir;
 	/** Output precision. */
 	rdPropertyInt _outputPrecisionProp;
 	int &_outputPrecision;
@@ -91,6 +116,13 @@ public:
 	void setOutputPrecision(int aPrecision);
 	int getOutputPrecision() const;
 	rdAnalysisSet& getAnalysisSet() const;
+
+
+	//--------------------------------------------------------------------------
+	// MODEL LOADING
+	//--------------------------------------------------------------------------
+	constructCommandLineForLoadModel(rdArray<std::string> &args);
+	void loadModel();
 
 	//--------------------------------------------------------------------------
 	// INTERFACE

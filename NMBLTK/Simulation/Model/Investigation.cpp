@@ -6,6 +6,7 @@
 // INCLUDES
 //=============================================================================
 #include "Investigation.h"
+#include "LoadModel.h"
 
 using namespace std;
 
@@ -25,6 +26,13 @@ Investigation::~Investigation()
  * Default constructor.
  */
 Investigation::Investigation():
+	_modelLibrary(_modelLibraryProp.getValueStr()),
+	_modelFile(_modelFileProp.getValueStr()),
+	_actuatorSetFile(_actuatorSetFileProp.getValueStr()),
+	_contactForceSetFile(_contactForceSetFileProp.getValueStr()),
+	_paramsFile(_paramsFileProp.getValueStr()),
+	_libraryList(_libraryListProp.getValueStrArray()),
+	_resultsDir(_resultsDirProp.getValueStr()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
@@ -49,6 +57,13 @@ Investigation::Investigation():
  */
 Investigation::Investigation(const string &aFileName):
 	rdObject(aFileName),
+	_modelLibrary(_modelLibraryProp.getValueStr()),
+	_modelFile(_modelFileProp.getValueStr()),
+	_actuatorSetFile(_actuatorSetFileProp.getValueStr()),
+	_contactForceSetFile(_contactForceSetFileProp.getValueStr()),
+	_paramsFile(_paramsFileProp.getValueStr()),
+	_libraryList(_libraryListProp.getValueStrArray()),
+	_resultsDir(_resultsDirProp.getValueStr()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
@@ -69,6 +84,13 @@ Investigation::Investigation(const string &aFileName):
  */
 Investigation::Investigation(DOMElement *aElement):
 	rdObject(aElement),
+	_modelLibrary(_modelLibraryProp.getValueStr()),
+	_modelFile(_modelFileProp.getValueStr()),
+	_actuatorSetFile(_actuatorSetFileProp.getValueStr()),
+	_contactForceSetFile(_contactForceSetFileProp.getValueStr()),
+	_paramsFile(_paramsFileProp.getValueStr()),
+	_libraryList(_libraryListProp.getValueStrArray()),
+	_resultsDir(_resultsDirProp.getValueStr()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
@@ -121,6 +143,13 @@ Investigation::Investigation(DOMElement *aElement):
  */
 Investigation::Investigation(const Investigation &aInvestigation):
 	rdObject(aInvestigation),
+	_modelLibrary(_modelLibraryProp.getValueStr()),
+	_modelFile(_modelFileProp.getValueStr()),
+	_actuatorSetFile(_actuatorSetFileProp.getValueStr()),
+	_contactForceSetFile(_contactForceSetFileProp.getValueStr()),
+	_paramsFile(_paramsFileProp.getValueStr()),
+	_libraryList(_libraryListProp.getValueStrArray()),
+	_resultsDir(_resultsDirProp.getValueStr()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
 	_tf(_tfProp.getValueDbl()),
@@ -165,7 +194,15 @@ setNull()
 {
 	setupProperties();
 
-	_model = 0;
+	_model = NULL;
+	_modelLibrary = "";
+	_modelFile = "";
+	_actuatorSetFile = "";
+	_contactForceSetFile = "";
+	_paramsFile = "";
+	_libraryList.setSize(0);
+	_resultsDir = "./";
+
 	_outputPrecision = 8;
 	_ti = 0.0;
 	_tf = 1.0;
@@ -180,6 +217,27 @@ setNull()
  */
 void Investigation::setupProperties()
 {
+	_modelLibraryProp.setName("model_library");
+	_propertySet.append( &_modelLibraryProp );
+
+	_modelFileProp.setName("model_file");
+	_propertySet.append( &_modelFileProp );
+
+	_actuatorSetFileProp.setName("actuator_set_file");
+	_propertySet.append( &_actuatorSetFileProp );
+
+	_contactForceSetFileProp.setName("contact_force_set_file");
+	_propertySet.append( &_contactForceSetFileProp );
+
+	_paramsFileProp.setName("params_file");
+	_propertySet.append( &_paramsFileProp );
+
+	_libraryListProp.setName("library_list");
+	_propertySet.append( &_libraryListProp );
+
+	_resultsDirProp.setName("results_directory");
+	_propertySet.append( &_resultsDirProp );
+
 	_outputPrecisionProp.setName("output_precision");
 	_propertySet.append( &_outputPrecisionProp );
 
@@ -223,6 +281,15 @@ operator=(const Investigation &aInvestigation)
 
 	// MEMEBER VARIABLES
 	_model = aInvestigation._model;
+
+	_modelLibrary = aInvestigation._modelLibrary;
+	_modelFile = aInvestigation._modelFile;
+	_actuatorSetFile = aInvestigation._actuatorSetFile;
+	_contactForceSetFile = aInvestigation._contactForceSetFile;
+	_paramsFile = aInvestigation._paramsFile;
+	_libraryList = aInvestigation._libraryList;
+	_resultsDir = aInvestigation._resultsDir;
+
 	_outputPrecision = aInvestigation._outputPrecision;
 	_ti = aInvestigation._ti;
 	_tf = aInvestigation._tf;
@@ -249,7 +316,7 @@ void Investigation::
 setModel(rdModel *aModel)
 {
 	_model = aModel;
-	//_analysisSet.setModel(_model);
+	_analysisSet.setModel(_model);
 }
 //_____________________________________________________________________________
 /**
@@ -294,6 +361,59 @@ rdAnalysisSet& Investigation::
 getAnalysisSet() const
 {
 	return(_analysisSet);
+}
+
+//=============================================================================
+// LOAD MODEL
+//=============================================================================
+//_____________________________________________________________________________
+/**
+ * Load and construct a model based on the property settings of
+ * this investigation.
+ */
+void Investigation::
+loadModel()
+{
+	cout<<"Investigation "<<getName()<<" loading a model using the ";
+	cout<<"following command line:\n";
+
+	rdArray<string> args("");
+	constructCommandLineForLoadModel(args);
+
+	int i;
+	int argc = args.getSize();
+	if(argc==0) { setModel(NULL);  return; }
+	char **argv = new char*[argc];
+	for(i=0;i<argc;i++) {
+		argv[i] = args[i].c_str();
+	}
+
+	LoadModel(argc,argv);
+}
+//_____________________________________________________________________________
+/**
+ * Construct a command line for LoadModel().
+ */
+void Investigation::
+constructCommandLineForLoadModel(rdArray<string> &args)
+{
+	args.setSize(0);
+	args.append(getName());
+
+	if(_modelLibrary!="") {
+		args.append(" -ModelLibrary ";
+		args.append(_modelLibrary);
+	}
+
+	if(_modelFile!="") {
+		argc++;
+		argv += " -ModelFile " + _modelFile;
+	}
+
+	if(_actuatorSetFile!="") {
+		argc++;
+		argv += " -Actuators " + _actuatorSetFile; 
+	}
 }
 
 
