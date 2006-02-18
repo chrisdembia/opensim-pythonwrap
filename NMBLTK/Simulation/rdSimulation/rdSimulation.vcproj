@@ -152,13 +152,13 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\Model\nmblKinematicsEngine.cpp">
-			</File>
-			<File
 				RelativePath="..\Model\Investigation.cpp">
 			</File>
 			<File
 				RelativePath="..\Model\LoadModel.cpp">
+			</File>
+			<File
+				RelativePath="..\Model\nmblKinematicsEngine.cpp">
 			</File>
 			<File
 				RelativePath="..\Model\rdActuator.cpp">
@@ -784,6 +784,117 @@
 				RelativePath="..\Model\RegisterTypes_rdSimulation.cpp">
 			</File>
 			<File
+				RelativePath="..\Simm\simmBody.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmBodyScale.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmBone.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmConstant.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmCoordinate.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmDof.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmGenericModelParams.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmIKParams.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmIKTrialParams.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmIO.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmJoint.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmKinematicsEngine.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarker.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarkerData.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarkerFrame.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarkerPair.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarkerPlacementParams.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarkerSet.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMeasurement.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmModel.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMotionData.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMotionEvent.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMuscle.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMuscleGroup.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMusclePoint.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMuscleViaPoint.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmPath.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmPathMatrix.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmPoint.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmRotationDof.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmScalingParams.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmSdfastBody.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmSdfastInfo.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmStep.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmSubject.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmTranslationDof.cpp">
+			</File>
+			<File
+				RelativePath="..\Simm\simmUnits.cpp">
+			</File>
+			<File
 				RelativePath="..\Model\VectorFunctionForActuators.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -808,16 +919,22 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\Integrator\Integrand.h">
+				RelativePath="..\Simm\dp.h">
 			</File>
 			<File
-				RelativePath="..\Model\nmblKinematicsEngine.h">
+				RelativePath="..\Simm\IKSolverInterface.h">
+			</File>
+			<File
+				RelativePath="..\Integrator\Integrand.h">
 			</File>
 			<File
 				RelativePath="..\Model\Investigation.h">
 			</File>
 			<File
 				RelativePath="..\Model\LoadModel.h">
+			</File>
+			<File
+				RelativePath="..\Model\nmblKinematicsEngine.h">
 			</File>
 			<File
 				RelativePath="..\Model\rdActuator.h">
@@ -917,6 +1034,123 @@
 			</File>
 			<File
 				RelativePath="..\Model\RegisterTypes_rdSimulation.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmBody.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmBodyScale.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmBone.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmConstant.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmCoordinate.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmDof.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmGenericModelParams.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmIKParams.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmIKTrialParams.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmIO.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmJoint.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmKinematicsEngine.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMacros.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarker.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarkerData.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarkerFrame.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarkerPair.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarkerPlacementParams.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMarkerSet.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMeasurement.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmModel.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMotionData.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMotionEvent.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMuscle.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMuscleGroup.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMusclePoint.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmMuscleViaPoint.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmPath.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmPathMatrix.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmPoint.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmRotationDof.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmScalingParams.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmSdfastBody.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmSdfastInfo.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmStep.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmSubject.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmTranslationDof.h">
+			</File>
+			<File
+				RelativePath="..\Simm\simmUnits.h">
+			</File>
+			<File
+				RelativePath="..\Simm\suCoordinate.h">
 			</File>
 			<File
 				RelativePath="..\Model\VectorFunctionForActuators.h">
