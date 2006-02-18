@@ -385,7 +385,7 @@ loadModel()
 	if(argc==0) { setModel(NULL);  return; }
 	char **argv = new char*[argc];
 	for(i=0;i<argc;i++) {
-		argv[i] = args[i].c_str();
+		argv[i] = (char *)args[i].c_str();
 	}
 
 	LoadModel(argc,argv);
@@ -397,22 +397,23 @@ loadModel()
 void Investigation::
 constructCommandLineForLoadModel(rdArray<string> &args)
 {
+
 	args.setSize(0);
 	args.append(getName());
 
 	if(_modelLibrary!="") {
-		args.append(" -ModelLibrary ";
+		args.append(" -ModelLibrary ");
 		args.append(_modelLibrary);
 	}
 
 	if(_modelFile!="") {
-		argc++;
-		argv += " -ModelFile " + _modelFile;
+		args.append(" -ModelFile ");
+		args.append(_modelFile);
 	}
 
 	if(_actuatorSetFile!="") {
-		argc++;
-		argv += " -Actuators " + _actuatorSetFile; 
+		args.append(" -Actuators ");
+		args.append(_actuatorSetFile); 
 	}
 }
 

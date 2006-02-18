@@ -121,7 +121,7 @@ public:
 	//--------------------------------------------------------------------------
 	// MODEL LOADING
 	//--------------------------------------------------------------------------
-	constructCommandLineForLoadModel(rdArray<std::string> &args);
+	void constructCommandLineForLoadModel(rdArray<std::string> &args);
 	void loadModel();
 
 	//--------------------------------------------------------------------------
