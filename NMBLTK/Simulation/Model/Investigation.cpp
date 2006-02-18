@@ -77,6 +77,7 @@ Investigation::Investigation(const string &aFileName):
 	setType("Investigation");
 	setNull();
 	updateFromXMLNode();
+	loadModel();
 }
 //_____________________________________________________________________________
 /**
@@ -163,28 +164,7 @@ Investigation::Investigation(const Investigation &aInvestigation):
 	setNull();
 	*this = aInvestigation;
 }
-//_____________________________________________________________________________
-/**
- * Virtual copy constructor
-rdObject* Investigation::
-copy() const
-{
-	Investigation *object = new Investigation(*this);
-	return(object);
-}
-*/
-//_____________________________________________________________________________
-/**
- * Virtual copy constructor from DOMElement
-rdObject* Investigation::
-copy(DOMElement *aElement) const
-{
-	Investigation *object = new Investigation(aElement);
-	*object = *this;
-	object->updateFromXMLNode();
-	return(object);
-}
-*/
+
 //_____________________________________________________________________________
 /**
  * Set all member variables to their null or default values.
@@ -202,7 +182,6 @@ setNull()
 	_paramsFile = "";
 	_libraryList.setSize(0);
 	_resultsDir = "./";
-
 	_outputPrecision = 8;
 	_ti = 0.0;
 	_tf = 1.0;
@@ -379,6 +358,7 @@ loadModel()
 
 	rdArray<string> args("");
 	constructCommandLineForLoadModel(args);
+	cout<<args<<endl;
 
 	int i;
 	int argc = args.getSize();
@@ -388,7 +368,8 @@ loadModel()
 		argv[i] = (char *)args[i].c_str();
 	}
 
-	LoadModel(argc,argv);
+	rdModel *model = LoadModel(argc,argv);
+	setModel(model);
 }
 //_____________________________________________________________________________
 /**
@@ -397,23 +378,38 @@ loadModel()
 void Investigation::
 constructCommandLineForLoadModel(rdArray<string> &args)
 {
-
 	args.setSize(0);
 	args.append(getName());
 
 	if(_modelLibrary!="") {
-		args.append(" -ModelLibrary ");
+		args.append("-ModelLibrary");
 		args.append(_modelLibrary);
 	}
 
 	if(_modelFile!="") {
-		args.append(" -ModelFile ");
+		args.append("-ModelFile");
 		args.append(_modelFile);
 	}
 
 	if(_actuatorSetFile!="") {
-		args.append(" -Actuators ");
+		args.append("-Actuators");
 		args.append(_actuatorSetFile); 
+	}
+
+	if(_contactForceSetFile!="") {
+		args.append("-Contacts");
+		args.append(_contactForceSetFile);
+	}
+
+	if(_paramsFile!="") {
+		args.append("-Params");
+		args.append(_paramsFile);
+	}
+	int i;
+	int size = _libraryList.getSize();
+	for(i=0;i<size;i++) {
+		args.append("-Library");
+		args.append(_libraryList.get(i));
 	}
 }
 

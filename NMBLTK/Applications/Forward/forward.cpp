@@ -26,7 +26,7 @@ static void PrintUsage(ostream &aOStream);
  */
 int main(int argc,char **argv)
 {
-	// INTERPRET COMMAND LINE
+	// PARSE COMMAND LINE
 	int i;
 	string option = "";
 	string setupFileName = "";
@@ -59,7 +59,6 @@ int main(int argc,char **argv)
 
 	}
 
-
 	// ERROR CHECK
 	if(setupFileName=="") {
 		cout<<"\n\nforward.exe: ERROR- A setup file must be specified.\n";
@@ -67,9 +66,13 @@ int main(int argc,char **argv)
 		return(-1);
 	}
 
+	// CONSTRUCT
+	cout<<"Constructing investigation from setup file "<<setupFileName<<".\n\n";
+	InvestigationForward forward(setupFileName);
+	forward.print("check.xml");
 
-	// MODEL LOADING
-	rdModel *model = LoadModel(argc,argv);
+	// PRINT MODEL INFORMATION
+	rdModel *model = forward.getModel();
 	if(model==NULL) {
 		cout<<"\nperturb:  ERROR- failed to load model.\n";
 		exit(-1);
@@ -80,37 +83,7 @@ int main(int argc,char **argv)
 	model->printBasicInfo(cout);
 	cout<<"-----------------------------------------------------------------------\n\n";
 
-
-	// TEST COPYING AN ANALYSIS SET
-	rdAnalysisSet one;
-	one.setName("one");
-	suKinematics *kin1 = new suKinematics();
-	suKinematics *kin2 = new suKinematics();
-	one.append(kin1);
-	one.append(kin2);
-	one.print("one.xml");
-
-	kin2->setName("bald");
-	kin2->setOn(false);
-
-
-	rdAnalysisSet two;
-	two.setName("two");
-	two = one;
-
-	rdIO::SetScientific(true);
-	two.print("two.xml");
-
-	
-	// INVESTIGATION
-	// Construct
-	cout<<"Constructing investigation from setup file "<<setupFileName<<".\n\n";
-	InvestigationForward forward(setupFileName);
-	forward.print("check.xml");
-	// Set model
-	forward.setModel(model);
-	// Run
-	cout<<"Running..."<<endl<<endl;
+	// RUN
 	forward.run();
 
 	return(0);
@@ -128,14 +101,5 @@ void PrintUsage(ostream &aOStream)
 	aOStream<<"------              --------            --------------\n";
 	aOStream<<"-Help, -H                               Print the command-line options for forward.exe.\n";
 	aOStream<<"-PrintSetup, -PS                        Print a default setup file for forward.exe (default_forward.xml).\n";
-	aOStream<<"-ModelLibrary, -ML  ModelLibrary        Specify/Load a model.  Do not include the library extension\n";
-	aOStream<<"                                        (e.g., .dll or .lib).\n";
-	aOStream<<"-ModelFile, -MF     ModelFile           Specify an xml file for the model.\n";
-	aOStream<<"-Actuators, -A      ActuatorSet         Specify an xml file for an actuator set for the model.\n";
-	aOStream<<"-Contacts, -C       ContactSet          Specify an xml file for a contact set file the model.\n";
-	aOStream<<"-Params, -P         PipelineParamsFile  Specify a params file for a SIMM Pipeline model.\n";
-	aOStream<<"-Library, -L        LibraryToLoad       Load an additional library.  To load more than one library,\n";
-	aOStream<<"                                        use as many -Library options as needed.\n";
-	aOStream<<"                                        Do not include the library extension (e.g., .dll or .lib).\n";
 }
 
