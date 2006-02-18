@@ -300,6 +300,10 @@ SOURCE=..\RootSolver.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\simmNatCubicSpline.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\suScale.cpp
 # End Source File
 # Begin Source File
@@ -521,6 +525,10 @@ SOURCE=..\RegisterTypes_rdTools.h
 # Begin Source File
 
 SOURCE=..\RootSolver.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\simmNatCubicSpline.h
 # End Source File
 # Begin Source File
 

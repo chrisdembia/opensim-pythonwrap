@@ -113,6 +113,10 @@ SOURCE=..\Model\LoadModel.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\Model\nmblKinematicsEngine.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\Model\rdActuator.cpp
 # End Source File
 # Begin Source File
@@ -241,12 +245,168 @@ SOURCE=..\Model\RegisterTypes_rdSimulation.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\SIMM\simmBody.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmBodyScale.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmBone.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmConstant.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmCoordinate.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmDof.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmGenericModelParams.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmIKParams.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmIKTrialParams.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmIO.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmJoint.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmKinematicsEngine.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarker.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarkerData.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarkerFrame.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarkerPair.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarkerPlacementParams.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarkerSet.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMeasurement.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmModel.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMotionData.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMotionEvent.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMuscle.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMuscleGroup.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMusclePoint.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMuscleViaPoint.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmPath.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmPathMatrix.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmPoint.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmRotationDof.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmScalingParams.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmSdfastBody.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmSdfastInfo.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmStep.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmSubject.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmTranslationDof.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmUnits.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\Model\VectorFunctionForActuators.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\SIMM\dp.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\IKSolverInterface.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\Integrator\Integrand.h
@@ -258,6 +418,10 @@ SOURCE=..\Model\Investigation.h
 # Begin Source File
 
 SOURCE=..\Model\LoadModel.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Model\nmblKinematicsEngine.h
 # End Source File
 # Begin Source File
 
@@ -390,6 +554,162 @@ SOURCE=..\Model\rdTorque.h
 # Begin Source File
 
 SOURCE=..\Model\RegisterTypes_rdSimulation.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmBody.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmBodyScale.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmBone.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmConstant.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmCoordinate.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmDof.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmGenericModelParams.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmIKParams.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmIKTrialParams.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmIO.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmJoint.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmKinematicsEngine.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMacros.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarker.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarkerData.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarkerFrame.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarkerPair.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarkerPlacementParams.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMarkerSet.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMeasurement.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmModel.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMotionData.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMotionEvent.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMuscle.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMuscleGroup.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMusclePoint.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmMuscleViaPoint.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmPath.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmPathMatrix.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmPoint.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmRotationDof.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmScalingParams.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmSdfastBody.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmSdfastInfo.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmStep.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmSubject.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmTranslationDof.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\simmUnits.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\SIMM\suCoordinate.h
 # End Source File
 # Begin Source File
 
