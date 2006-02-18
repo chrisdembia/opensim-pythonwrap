@@ -2,7 +2,7 @@
 #define __simmIKSolverImpl_h__
 
 #include <NMBLTK/Simulation/SIMM/IKSolverInterface.h>
-#include <NMBLTK/Simulation/SIMM/simmKinematicsEngine.h>
+#include <NMBLTK/Simulation/Model/nmblKinematicsEngine.h>
 #include <NMBLTK/Tools/rdStorage.h>
 
 class simmIKTrialParams;
@@ -34,7 +34,7 @@ class simmIKTrialParams;
 class simmIKSolverImpl : public IKSolverInterface 
 {
 public:
-	simmIKSolverImpl(simmKinematicsEngine &aKinematicsEngine);
+	simmIKSolverImpl(nmblKinematicsEngine &aKinematicsEngine);
 	virtual void solveFrames(const simmIKTrialParams& aIKOptions, rdStorage& inputData, rdStorage& outputData);
 };
 

@@ -134,7 +134,7 @@ void simmDof::setup(simmKinematicsEngine* aEngine, simmJoint* aJoint)
 	/* Look up the coordinate by name in the kinematics
 	 * engine and store a pointer to it.
 	 */
-	_coordinate = aEngine->getCoordinate(_coordinateName);
+	_coordinate = dynamic_cast<simmCoordinate *> (aEngine->getCoordinate(_coordinateName));
 
 	/* _coordinate will be NULL if _coordinateName is not the
 	 * name of a valid model coordinate. This is OK, unless

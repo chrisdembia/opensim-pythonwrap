@@ -340,7 +340,7 @@ simmBody* simmKinematicsEngine::identifyGroundBody(void)
 	return NULL;
 }
 
-simmCoordinate* simmKinematicsEngine::getCoordinate(const string &aName) const
+suCoordinate* simmKinematicsEngine::getCoordinate(const string &aName) const
 {
 	for (int i = 0; i < _coordinates.getSize(); i++)
 	{
@@ -2391,7 +2391,7 @@ void simmKinematicsEngine::updateCoordinates(rdArrayPtrs<simmCoordinate>& aCoord
 {
 	for (int i = 0; i < aCoordinateArray.getSize(); i++)
 	{
-		simmCoordinate* modelCoordinate = getCoordinate(aCoordinateArray[i]->getName());
+		simmCoordinate* modelCoordinate = dynamic_cast<simmCoordinate *> (getCoordinate(aCoordinateArray[i]->getName()));
 		if (modelCoordinate)
 			modelCoordinate->updateFromCoordinate(*aCoordinateArray[i]);
 	}

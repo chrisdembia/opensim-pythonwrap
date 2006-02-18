@@ -13,6 +13,7 @@
 #include "rdTransform.h"
 #include "rdVectorGCVSplineR1R3.h"
 #include "suScale.h"
+#include "simmNatCubicSpline.h"
 
 using namespace std;
 
@@ -35,5 +36,6 @@ RDTOOLS_API void RegisterTypes_rdTools()
 	rdObject::RegisterType( rdVectorGCVSplineR1R3() );
 	//rdObject::RegisterType( RootSolver() );
 	rdObject::RegisterType( suScale() );
+	rdObject::RegisterType( simmNatCubicSpline() );
 }
 

@@ -64,16 +64,17 @@ int main(int argc,char **argv)
 	{
 		inName = argv[1];
 	}
-
-	rdObject::RegisterType(simmModel());
-	rdObject::RegisterType(simmKinematicsEngine());
-	rdObject::RegisterType(simmSubject());
-	simmModel::registerTypes();
-	simmKinematicsEngine::registerTypes();
-	simmSubject::registerTypes();
-
+	
 	// Construct model and read parameters file
 	simmSubject* subject = new simmSubject(argv[1]);
+	simmModel* model = subject->createModel();
+	if (!subject->getScalingParams().processModel(model))
+	{
+		cout << "===ERROR===: Unable to scale generic model." << endl;
+		return 0;
+	}
+
+	delete model;
 	delete subject;
 }
 	

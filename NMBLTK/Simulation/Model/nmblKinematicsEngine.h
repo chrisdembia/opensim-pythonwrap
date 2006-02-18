@@ -38,6 +38,7 @@
 #include <NMBLTK/Tools/rdObject.h>
 
 class suScaleSet;
+class suCoordinate;
 
 #ifdef SWIG
 	#ifdef RDSIMULATION_API
@@ -128,6 +129,7 @@ public:
 	virtual int getStateIndex(const std::string &aName) const = 0;
 	virtual int getPseudoStateIndex(const std::string &aName) const = 0;
 
+	virtual suCoordinate* getCoordinate(const std::string &aName) const = 0;
 	//--------------------------------------------------------------------------
 	// SET CURRENT TIME, CONTROLS, AND STATES
 	//--------------------------------------------------------------------------

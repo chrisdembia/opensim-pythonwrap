@@ -186,7 +186,7 @@ void simmMuscleViaPoint::setup(simmModel* model, simmKinematicsEngine* ke)
 	/* Look up the coordinate by name in the kinematics engine and
 	 * store a pointer to it.
 	 */
-	_coordinate = ke->getCoordinate(_coordinateName);
+	_coordinate = dynamic_cast<simmCoordinate *> (ke->getCoordinate(_coordinateName));
 }
 
 void simmMuscleViaPoint::peteTest() const

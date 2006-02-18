@@ -72,7 +72,7 @@ simmCoordinate::simmCoordinate() :
  * Constructor from an XML node
  */
 simmCoordinate::simmCoordinate(DOMElement *aElement) :
-   rdObject(aElement),
+   suCoordinate(aElement),
 	_defaultValue(_defaultValueProp.getValueDbl()),
    _valueStr(_valueStrProp.getValueStr()),
    _tolerance(_toleranceProp.getValueDbl()),
@@ -116,7 +116,7 @@ simmCoordinate::~simmCoordinate()
  * @param aCoordinate simmCoordinate to be copied.
  */
 simmCoordinate::simmCoordinate(const simmCoordinate &aCoordinate) :
-   rdObject(aCoordinate),
+   suCoordinate(aCoordinate),
 	_defaultValue(_defaultValueProp.getValueDbl()),
    _valueStr(_valueStrProp.getValueStr()),
    _tolerance(_toleranceProp.getValueDbl()),
@@ -269,7 +269,7 @@ void simmCoordinate::setupProperties(void)
 simmCoordinate& simmCoordinate::operator=(const simmCoordinate &aCoordinate)
 {
 	// BASE CLASS
-	rdObject::operator=(aCoordinate);
+	suCoordinate::operator=(aCoordinate);
 
 	copyData(aCoordinate);
 

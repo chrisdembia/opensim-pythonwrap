@@ -199,7 +199,7 @@ public:
 
 	void getUnlockedCoordinates(simmCoordinateArray& aUnlockedCoordinates) const;
 	virtual simmBody* getBody(const std::string &aName) const;
-	virtual simmCoordinate* getCoordinate(const std::string &aName) const;
+	virtual suCoordinate* getCoordinate(const std::string &aName) const;
 	virtual simmJoint* getJoint(int index) { return _joints[index]; }
 	virtual rdArrayPtrs<simmBody>& getBodies() { return _bodies; }
 	virtual rdArrayPtrs<simmCoordinate>& getCoordinates() { return _coordinates; }

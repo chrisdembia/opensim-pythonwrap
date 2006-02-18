@@ -279,14 +279,14 @@
             <inputMarkerFile>walk1.trc</inputMarkerFile>
             <inputAnalogFile>walk1.anc</inputAnalogFile>
             <inputCoordinateFile>walk1_IN.mot</inputCoordinateFile>
-            <timeRange>0.5 2.5</timeRange>
+            <timeRange>0.5 0.6</timeRange>
             <kinematicsSmoothing>10.0</kinematicsSmoothing>
             <groundReactionSmoothing>1000.0</groundReactionSmoothing>
             <outputMotionFile>walk1.mot</outputMotionFile>
             <includeMarkers>true</includeMarkers>
             <notes>first walking trial</notes>
          </IKTrial>
-         <IKTrial name = "second walking trial">
+         <!-- <IKTrial name = "second walking trial">
             <inputMarkerFile>walk2.trc</inputMarkerFile>
             <inputAnalogFile>walk2.anc</inputAnalogFile>
             <timeRange>0.0 2.0</timeRange>
@@ -295,7 +295,7 @@
             <outputMotionFile>walk2.mot</outputMotionFile>
             <includeMarkers>true</includeMarkers>
             <notes>second walking trial</notes>
-         </IKTrial>
+         </IKTrial> -->
       </IKTrialSet>
    </IKParameters>
 </Subject>

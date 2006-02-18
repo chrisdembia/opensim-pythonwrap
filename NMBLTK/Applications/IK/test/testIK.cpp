@@ -1,5 +1,5 @@
-// solveIK.cpp
-// Author: Peter Loan
+// testIK.cpp
+// Author: Ayman Habib based on Peter Loan's version
 /* Copyright (c) 2005, Stanford University and Peter Loan.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -25,6 +25,7 @@
 
 // INCLUDES
 #include <string>
+#include <direct.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/suScaleSet.h>
@@ -34,10 +35,13 @@
 #include <NMBLTK/Simulation/SIMM/simmSubject.h>
 #include <NMBLTK/Simulation/SIMM/simmMarkerData.h>
 #include <NMBLTK/Simulation/SIMM/simmMotionData.h>
-#include "simmIKSolverImpl.h"
+#include <NMBLTK/Applications/IK/simmIKSolverImpl.h>
 
 using namespace std;
 
+string filesToCompare[] = {
+							"walk1.mot"
+};
 //______________________________________________________________________________
 /**
  * Test program to read SIMM model elements from an XML file.
@@ -47,23 +51,14 @@ using namespace std;
  */
 int main(int argc,char **argv)
 {
-	// PARSE COMMAND LINE
-	string inName;
-	if (argc < 2)
-	{
-		printf("Usage: solveIK subject.xml\n");
-		exit(-1);
-	}
-	else
-	{
-		inName = argv[1];
-	}
 
+	char curPath[100];
+	
+	_getcwd(curPath, 90);
 	// Construct model and read parameters file
-	simmSubject* subject = new simmSubject(argv[1]);
+	simmSubject* subject = new simmSubject("CrouchGait.xml");
 	simmModel* model = subject->createModel();
-	rdObject *cpy = model->copy();
-	cpy->print("defaultsOldReg.xml");
+
 
 	if (!subject->getScalingParams().processModel(model))
 	{
@@ -82,5 +77,14 @@ int main(int argc,char **argv)
 
 	delete subject;
 	delete ikSolver;
+
+	/* Compare results with standard*/
+	bool success = true;
+	for (int i=0; i < 1 && success; i++){
+		string command = "cmp "+filesToCompare[i]+" "+"std_"+filesToCompare[i];
+		success = success && (system(command.c_str())==0);
+	}
+
+	return (success?0:1);
 }
 	

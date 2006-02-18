@@ -2,6 +2,8 @@
 #define __IKSolverInterface_h__
 
 #include <NMBLTK/Simulation/rdSimulationDLL.h>
+#include <iostream>
+
 class simmIKTrialParams;
 class simmKinematicsEngine;
 class rdStorage;
@@ -33,13 +35,16 @@ class rdStorage;
 class RDSIMULATION_API IKSolverInterface 
 {
 protected:
-	simmKinematicsEngine& _theKinematiceEngine;
+	nmblKinematicsEngine& _theKinematiceEngine;
 public:
-	IKSolverInterface(simmKinematicsEngine &aKinematicsEngine):
+	IKSolverInterface(nmblKinematicsEngine &aKinematicsEngine):
 	_theKinematiceEngine(aKinematicsEngine)
 	{
 	}
-	virtual void solveFrames(const simmIKTrialParams& aIKOptions, rdStorage& inputData, rdStorage& outputData) {};
+	virtual void solveFrames(const simmIKTrialParams& aIKOptions, rdStorage& inputData, rdStorage& outputData) 
+	{
+		std::cout<< "Error, IKSolverInterface::solveFrames() - not implemented.\n";
+	};
 };
 
 #endif // __IKSolverInterface_h__

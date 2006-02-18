@@ -8,15 +8,17 @@
 
 using namespace std;
 
-simmIKSolverImpl::simmIKSolverImpl(simmKinematicsEngine &aKinematicsEngine):
+simmIKSolverImpl::simmIKSolverImpl(nmblKinematicsEngine &aKinematicsEngine):
 IKSolverInterface(aKinematicsEngine)
 {
 }
 
 void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorage& inputData, rdStorage& outputData)
 {
+	// Here we know we're in SIMM implementation so we may convert to the concrete simmKinematicsEngine class
+	simmKinematicsEngine& engine = dynamic_cast<simmKinematicsEngine&> (_theKinematiceEngine);
 	// Build optimization target
-	simmInverseKinematicsTarget *target = new simmInverseKinematicsTarget(&_theKinematiceEngine, inputData);
+	simmInverseKinematicsTarget *target = new simmInverseKinematicsTarget(&engine, inputData);
 
 	// Instantiate the optimizer
 	rdFSQP *optimizer = new rdFSQP(target);
@@ -72,7 +74,7 @@ void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorag
 	// TODO: shouldn't have to search for coordinates by name
 	for (int i = 0; i < unconstrainedCoordinateNames.getSize(); i++)
 	{
-		const simmCoordinate* coord = _theKinematiceEngine.getCoordinate(*(unconstrainedCoordinateNames[i]));
+		suCoordinate* coord = _theKinematiceEngine.getCoordinate(*(unconstrainedCoordinateNames[i]));
 		optimizer->setLowerBound(i, coord->getRangeMin());
 		optimizer->setUpperBound(i, coord->getRangeMax());
 	}

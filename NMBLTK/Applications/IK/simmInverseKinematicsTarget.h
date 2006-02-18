@@ -48,6 +48,9 @@ class simmInverseKinematicsTarget : public rdOptimizationTarget
 // DATA
 //==============================================================================
 private:
+	/* We could make this into the abstract nmblKinematicsEngine but practically it's unlikely
+	 * that a different kinematics engine will work with this target.
+	 */
 	simmKinematicsEngine* _ke;
 
 	// Amount of perturbation used for derivative computation this should be an array

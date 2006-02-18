@@ -42,6 +42,7 @@
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/rdXMLDocument.h>
 #include <NMBLTK/Tools/rdFunction.h>
+#include "suCoordinate.h"
 #include "simmPath.h"
 
 class simmJoint;
@@ -55,7 +56,7 @@ class simmKinematicsEngine;
  * @author Peter Loan
  * @version 1.0
  */
-class RDSIMULATION_API simmCoordinate : public rdObject  
+class RDSIMULATION_API simmCoordinate : public suCoordinate  
 {
 //=============================================================================
 // DATA
@@ -149,8 +150,8 @@ public:
 	double getPDStiffness() const { return _PDStiffness; }
 	double getIKweight() const { return _IKweight; }
 	void getRange(double range[2]) const { range[0] = _range[0]; range[1] = _range[1]; }
-	double getRangeMin() const { return _range[0]; }
-	double getRangeMax() const { return _range[1]; }
+	virtual double getRangeMin() const { return _range[0]; }
+	virtual double getRangeMax() const { return _range[1]; }
 	void getKeys(std::string keys[]) const;
 	const rdArray<simmJoint*>& getJointList() const { return _jointList; }
 	const rdArray<simmPath*>& getPathList() const { return _pathList; }
