@@ -7,6 +7,11 @@
 #include <NMBLTK/Tools/rdObject.h>
 #include "RegisterTypes_suAnalyses.h"
 #include "suKinematics.h"
+#include "suActuation.h"
+#include "suPointKinematics.h"
+#include "suBodyKinematics.h"
+#include "suActuatorGeneralizedForces.h"
+
 #include "InvestigationPerturbation.h"
 #include "InvestigationForward.h"
 
@@ -25,5 +30,9 @@ SUANALYSES_API void RegisterTypes_suAnalyses()
 	rdObject::RegisterType( InvestigationForward() );
 
 	rdObject::RegisterType( suKinematics() );
+	rdObject::RegisterType( suActuation() );
+	rdObject::RegisterType( suPointKinematics() );
+	rdObject::RegisterType( suBodyKinematics() );
+	rdObject::RegisterType( suActuatorGeneralizedForces() );
 }
 

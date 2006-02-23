@@ -49,8 +49,20 @@ protected:
 // METHODS
 //=============================================================================
 public:
-	suGeneralizedForces(rdModel *aModel);
+	suGeneralizedForces(rdModel *aModel=0);
+	suGeneralizedForces(const std::string &aFileName);
+	suGeneralizedForces(DOMElement *aElement);
+	// Copy constrctor and virtual copy 
+	suGeneralizedForces(const suGeneralizedForces &aObject);
+	virtual rdObject* copy() const;
+	virtual rdObject* copy(DOMElement *aElement) const;
 	virtual ~suGeneralizedForces();
+	//--------------------------------------------------------------------------
+	// OPERATORS
+	//--------------------------------------------------------------------------
+#ifndef SWIG
+	suGeneralizedForces& operator=(const suGeneralizedForces &aGeneralizedForces);
+#endif
 private:
 	void constructDescription();
 	void constructColumnLabels();
@@ -68,6 +80,7 @@ public:
 	rdStorage* getActuatorGenForcesStorage();
 	rdStorage* getContactGenForcesStorage();
 
+	virtual void setModel(rdModel *aModel);
 	//--------------------------------------------------------------------------
 	// ANALYSIS
 	//--------------------------------------------------------------------------

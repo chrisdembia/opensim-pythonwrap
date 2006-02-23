@@ -60,6 +60,9 @@ suGeneralizedForces::suGeneralizedForces(rdModel *aModel) :
 {
 	setName("GeneralizedForces");
 
+	if (aModel==0)
+		return;
+
 	// ALLOCATE STATE VECTOR
 	_dqdt = new double[_model->getNQ()];
 	_dudt = new double[_model->getNU()];
@@ -68,6 +71,119 @@ suGeneralizedForces::suGeneralizedForces(rdModel *aModel) :
 	_velGenForces = new double[_model->getNU()];
 	_actuatorGenForces = new double[_model->getNU()];
 	_contactGenForces = new double[_model->getNU()];
+
+	// CONSTRUCT DESCRIPTION AND LABELS
+	constructDescription();
+	constructColumnLabels();
+
+	// STORAGE
+	allocateStorage();
+}
+//_____________________________________________________________________________
+/**
+ * Construct an object from file.
+ *
+ * The object is constructed from the root element of the XML document.
+ * The type of object is the tag name of the XML root element.
+ *
+ * @param aFileName File name of the document.
+ */
+suGeneralizedForces::
+suGeneralizedForces(const std::string &aFileName)
+{
+	//setNull();
+
+	// Serialize from XML
+	updateFromXMLNode();
+
+	/* The rest will be done by setModel().
+	// CONSTRUCT DESCRIPTION AND LABELS
+	constructDescription();
+	constructColumnLabels();
+
+	// STORAGE
+	allocateStorage();
+	*/
+}
+//_____________________________________________________________________________
+/**
+ * Construct an object from an DOMElement.
+ */
+suGeneralizedForces::suGeneralizedForces(DOMElement *aElement):
+rdAnalysis(aElement)
+{
+	//setNull();
+
+	// Serialize from XML
+	updateFromXMLNode();
+
+	/* The rest will be done by setModel().
+	// CONSTRUCT DESCRIPTION AND LABELS
+	constructDescription();
+	constructColumnLabels();
+
+	// STORAGE
+	allocateStorage();
+	*/
+}
+
+// Copy constrctor and virtual copy 
+//_____________________________________________________________________________
+/**
+ * Copy constructor.
+ *
+ */
+suGeneralizedForces::suGeneralizedForces(const suGeneralizedForces &aGeneralizedForces):
+rdAnalysis(aGeneralizedForces)
+{
+	//setNull();
+	// COPY TYPE AND NAME
+	*this = aGeneralizedForces;
+}
+//_____________________________________________________________________________
+/**
+ * Clone
+ *
+ */
+rdObject* suGeneralizedForces::copy() const
+{
+	suGeneralizedForces *object = new suGeneralizedForces(*this);
+	return(object);
+
+}
+//_____________________________________________________________________________
+/**
+ * Instantiate from DOMElement
+ *
+ */
+rdObject* suGeneralizedForces::copy(DOMElement *aElement) const
+{
+	suGeneralizedForces *object = new suGeneralizedForces(aElement);
+	*object = *this;
+	object->updateFromXMLNode();
+	return(object);
+}
+
+//_____________________________________________________________________________
+/**
+ * Set the model for which the suGeneralizedForces analysis is to be computed.
+ *
+ * @param aModel rdModel pointer
+ */
+void suGeneralizedForces::
+setModel(rdModel *aModel)
+{
+	rdAnalysis::setModel(aModel);
+
+	assert(_model);
+	// ALLOCATE STATE VECTOR
+	if (_dqdt!= 0) delete[] _dqdt;			_dqdt = new double[_model->getNQ()];
+	if (_dudt!= 0) delete[] _dudt;			_dudt = new double[_model->getNU()];
+	if (_zero_aY!= 0) delete[] _zero_aY;	_zero_aY = new double[_model->getNY()];
+	if (_gravGenForces!= 0) delete[] _gravGenForces;			_gravGenForces = new double[_model->getNU()];
+	if (_velGenForces!= 0) delete[] _velGenForces;			_velGenForces = new double[_model->getNU()];
+	if (_actuatorGenForces!= 0) delete[] _actuatorGenForces;			_actuatorGenForces = new double[_model->getNU()];
+	if (_contactGenForces!= 0) delete[] _contactGenForces;			_contactGenForces = new double[_model->getNU()];
 
 	// CONSTRUCT DESCRIPTION AND LABELS
 	constructDescription();
@@ -126,6 +242,25 @@ deleteStorage()
 	if(_contactGenForcesStore!=NULL) { delete _contactGenForcesStore;  _contactGenForcesStore=NULL; }
 }
 
+//=============================================================================
+// OPERATORS
+//=============================================================================
+//-----------------------------------------------------------------------------
+// ASSIGNMENT
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Assign this object to the values of another.
+ *
+ * @return Reference to this object.
+ */
+suGeneralizedForces& suGeneralizedForces::
+operator=(const suGeneralizedForces &aGeneralizedForces)
+{
+	// BASE CLASS
+	rdAnalysis::operator=(aGeneralizedForces);
+	return(*this);
+}
 
 //=============================================================================
 // GET AND SET

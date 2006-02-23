@@ -45,13 +45,20 @@ suBodyKinematics::~suBodyKinematics()
  * @param aModel Model for which the analyses are to be recorded.
  */
 suBodyKinematics::suBodyKinematics(rdModel *aModel, bool aInDegrees) :
-	rdAnalysis(aModel)
+	rdAnalysis(aModel),
+	_angVelInLocalFrame(_angVelInLocalFrameProp.getValueBool())
 {
-	setName("BodyKinematics");
+	 setName("BodyKinematics");
 	_angVelInLocalFrame = true;
 
 	// SET WHETHER OUTPUT IS IN DEGREES OR RADIANS
 	setInDegrees(aInDegrees);
+
+	// STORAGE
+	allocateStorage();
+
+	if (_model ==0)
+		return;
 
 	// ALLOCATE STATE VECTOR
 	_dy = new double[_model->getNY()];
@@ -61,10 +68,137 @@ suBodyKinematics::suBodyKinematics(rdModel *aModel, bool aInDegrees) :
 	constructDescription();
 	constructColumnLabels();
 
+}
+//_____________________________________________________________________________
+/**
+ * Construct an object from file.
+ *
+ * The object is constructed from the root element of the XML document.
+ * The type of object is the tag name of the XML root element.
+ *
+ * @param aFileName File name of the document.
+ */
+suBodyKinematics::suBodyKinematics(const std::string &aFileName):
+rdAnalysis(aFileName),
+_angVelInLocalFrame(_angVelInLocalFrameProp.getValueBool())
+{
+	setNull();
+
+	// Serialize from XML
+	updateFromXMLNode();
+
+	/* The rest will be done by setModel().
+	// CONSTRUCT DESCRIPTION AND LABELS
+	constructDescription();
+	constructColumnLabels();
+
 	// STORAGE
 	allocateStorage();
+	*/
+}
+//_____________________________________________________________________________
+/**
+ * Construct an object from an DOMElement.
+ */
+suBodyKinematics::suBodyKinematics(DOMElement *aElement):
+rdAnalysis(aElement),
+_angVelInLocalFrame(_angVelInLocalFrameProp.getValueBool())
+{
+	setNull();
+
+	// Serialize from XML
+	updateFromXMLNode();
+
+	/* The rest will be done by setModel().
+	// CONSTRUCT DESCRIPTION AND LABELS
+	constructDescription();
+	constructColumnLabels();
+
+	// STORAGE
+	allocateStorage();
+	*/
 }
 
+// Copy constrctor and virtual copy 
+//_____________________________________________________________________________
+/**
+ * Copy constructor.
+ *
+ */
+suBodyKinematics::suBodyKinematics(const suBodyKinematics &aBodyKinematics):
+rdAnalysis(aBodyKinematics),
+_angVelInLocalFrame(_angVelInLocalFrameProp.getValueBool())
+
+{
+	setNull();
+	// COPY TYPE AND NAME
+	*this = aBodyKinematics;
+}
+//_____________________________________________________________________________
+/**
+ * Clone
+ *
+ */
+rdObject* suBodyKinematics::copy() const
+{
+	suBodyKinematics *object = new suBodyKinematics(*this);
+	return(object);
+
+}
+//_____________________________________________________________________________
+/**
+ * Instantiate from DOMElement
+ *
+ */
+rdObject* suBodyKinematics::copy(DOMElement *aElement) const
+{
+	suBodyKinematics *object = new suBodyKinematics(aElement);
+	*object = *this;
+	object->updateFromXMLNode();
+	return(object);
+}
+//=============================================================================
+// OPERATORS
+//=============================================================================
+//-----------------------------------------------------------------------------
+// ASSIGNMENT
+//-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Assign this object to the values of another.
+ *
+ * @return Reference to this object.
+ */
+suBodyKinematics& suBodyKinematics::
+operator=(const suBodyKinematics &aBodyKinematics)
+{
+	// BASE CLASS
+	rdAnalysis::operator=(aBodyKinematics);
+	_angVelInLocalFrame = aBodyKinematics._angVelInLocalFrame;
+	return(*this);
+}
+
+//_____________________________________________________________________________
+/**
+ * SetNull().
+ */
+void suBodyKinematics::
+setNull()
+{
+
+	// POINTERS
+	_dy = 0;
+	_kin = 0;
+	_pStore = NULL;
+	_vStore = NULL;
+	_aStore = NULL;
+
+	// OTHER VARIABLES
+
+	//_bodyName = "ground";
+	//?_body
+	setName("BodyKinematics");
+}
 
 //=============================================================================
 // CONSTRUCTION METHODS
@@ -181,6 +315,31 @@ deleteStorage()
 //=============================================================================
 // GET AND SET
 //=============================================================================
+//_____________________________________________________________________________
+/**
+ * Set the model for which the body kinematics are to be computed.
+ *
+ * @param aModel rdModel pointer
+ */
+void suBodyKinematics::
+setModel(rdModel *aModel)
+{
+	rdAnalysis::setModel(aModel);
+
+	// ALLOCATIONS
+	if (_dy != 0)
+		delete[] _dy;
+	if (_kin != 0)
+		delete[] _kin;
+
+	_dy = new double[_model->getNY()];
+	_kin = new double[6*_model->getNB() + 3];
+
+	// DESCRIPTION AND LABELS
+	constructDescription();
+	constructColumnLabels();
+
+}
 
 //-----------------------------------------------------------------------------
 // STORAGE

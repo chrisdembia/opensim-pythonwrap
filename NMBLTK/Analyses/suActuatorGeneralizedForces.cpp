@@ -60,12 +60,14 @@ suActuatorGeneralizedForces::~suActuatorGeneralizedForces()
  * @param aNA Number of actuators in set 
  * @param aActuatorList An array containing the actuator numbers
  */
-suActuatorGeneralizedForces::suActuatorGeneralizedForces(rdModel *aModel,
-	const rdArray<int> &aActuatorList) : rdAnalysis(aModel),
-	_actuatorList(0)
+suActuatorGeneralizedForces::suActuatorGeneralizedForces(rdModel *aModel) : 
+rdAnalysis(aModel),
+_actuatorNames(_propActuatorNames.getValueStrArray()),
+_actuatorList(0)
 {
-	setName("ActuatorGeneralizedForces");
+	setNull();
 
+	/* The rest will be done when a model and actuator set are set
 	// ALLOCATE STATE VECTOR
 	_dqdt = new double[_model->getNQ()];
 	_dudt = new double[_model->getNU()];
@@ -78,6 +80,136 @@ suActuatorGeneralizedForces::suActuatorGeneralizedForces(rdModel *aModel,
 
 	// STORAGE
 	allocateStorage();
+	*/
+}
+suActuatorGeneralizedForces::
+suActuatorGeneralizedForces(const std::string &aFileName) :
+rdAnalysis(aFileName),
+_actuatorNames(_propActuatorNames.getValueStrArray()),
+_actuatorList(0)
+{
+	setNull();
+	// Serialize from XML
+	updateFromXMLNode();
+
+	setName("ActuatorGeneralizedForces");
+}
+
+suActuatorGeneralizedForces::
+suActuatorGeneralizedForces(DOMElement *aElement) :
+rdAnalysis(aElement),
+_actuatorNames(_propActuatorNames.getValueStrArray()),
+_actuatorList(0)
+{
+	setNull();
+
+	// Serialize from XML
+	updateFromXMLNode();
+
+}
+
+// Copy constrctor and virtual copy 
+//_____________________________________________________________________________
+/**
+ * Copy constructor.
+ *
+ */
+suActuatorGeneralizedForces::
+suActuatorGeneralizedForces(const suActuatorGeneralizedForces &aObject) :
+rdAnalysis(aObject),
+_actuatorNames(_propActuatorNames.getValueStrArray()),
+_actuatorList(0)
+{
+	setNull();
+
+	// COPY TYPE AND NAME
+	*this = aObject;
+}
+
+
+rdObject* suActuatorGeneralizedForces::
+copy() const
+{
+
+	suActuatorGeneralizedForces *object = new suActuatorGeneralizedForces(*this);
+	return(object);
+}
+
+rdObject* suActuatorGeneralizedForces::
+copy(DOMElement *aElement) const
+{
+	suActuatorGeneralizedForces *object = new suActuatorGeneralizedForces(aElement);
+	*object = *this;
+	object->updateFromXMLNode();
+	return(object);
+}
+//--------------------------------------------------------------------------
+// OPERATORS
+//--------------------------------------------------------------------------
+
+suActuatorGeneralizedForces& 
+suActuatorGeneralizedForces::operator=(const suActuatorGeneralizedForces &aActuatorGeneralizedForces)
+{
+	// BASE CLASS
+	rdAnalysis::operator=(aActuatorGeneralizedForces);
+	_actuatorNames = aActuatorGeneralizedForces._actuatorNames;
+	_actuatorList = aActuatorGeneralizedForces._actuatorList;
+	return(*this);
+}
+//_____________________________________________________________________________
+/**
+ * SetNull().
+ */
+void suActuatorGeneralizedForces::
+setNull()
+{
+
+	// POINTERS
+	_dqdt = NULL;
+	_dudt = NULL;
+	_actuatorList = NULL;
+	_actuatorGenForces = NULL;
+	_actuatorGenForcesStore = NULL;
+
+	// OTHER VARIABLES
+
+	setName("ActuatorGeneralizedForces");
+
+}
+//_____________________________________________________________________________
+/**
+ * rdAnalysis::setModel override
+ */
+void suActuatorGeneralizedForces::setModel(rdModel *aModel)
+{
+	rdAnalysis::setModel(aModel);
+	if (_dqdt != 0) delete[] _dqdt;	_dqdt = new double[_model->getNQ()];
+	if (_dudt != 0) delete[] _dudt;	_dudt = new double[_model->getNU()];
+	if (_actuatorGenForces != 0) delete[] _actuatorGenForces;	_actuatorGenForces = new double[_model->getNU()];
+
+	// CONSTRUCT DESCRIPTION AND LABELS
+	constructDescription();
+	constructColumnLabels();
+
+	// STORAGE
+	allocateStorage();
+
+}
+//_____________________________________________________________________________
+/**
+ * Select Actuators to be used, passed in by names as read from xml file.
+ * setModel() must be called first since the model performs the mapping and validation
+ * of names.
+ */
+void suActuatorGeneralizedForces::
+setActuatorList(const rdArray<std::string>& aActuatorNames)
+{
+	for(int i=0; i < aActuatorNames.getSize(); i++){
+		int actIndex = _model->getActuatorIndex(aActuatorNames.get(i));
+		if (actIndex != -1)
+			_actuatorList.append(actIndex);
+
+	}
 }
 
 //=============================================================================

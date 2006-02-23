@@ -39,18 +39,36 @@ protected:
 	double *_actuatorGenForces;
 	rdStorage *_actuatorGenForcesStore;
 
+	// Properties
+	rdPropertyStrArray	_propActuatorNames;
+	// REFERENCES
+	rdArray<std::string>&	_actuatorNames;	
 //=============================================================================
 // METHODS
 //=============================================================================
 public:
-	suActuatorGeneralizedForces(rdModel *aModel,const rdArray<int> &aActuatorList);
+	suActuatorGeneralizedForces(rdModel *aModel=0);
+	suActuatorGeneralizedForces(const std::string &aFileName);
+	suActuatorGeneralizedForces(DOMElement *aElement);
+	// Copy constrctor and virtual copy 
+	suActuatorGeneralizedForces(const suActuatorGeneralizedForces &aObject);
+	virtual rdObject* copy() const;
+	virtual rdObject* copy(DOMElement *aElement) const;
 	virtual ~suActuatorGeneralizedForces();
 private:
+	void setNull();
+	void setupProperties();
 	void constructDescription();
 	void constructColumnLabels();
 	void allocateStorage();
 
 public:
+	//--------------------------------------------------------------------------
+	// OPERATORS
+	//--------------------------------------------------------------------------
+#ifndef SWIG
+	suActuatorGeneralizedForces& operator=(const suActuatorGeneralizedForces &aActuatorGeneralizedForces);
+#endif
 	//--------------------------------------------------------------------------
 	// GET AND SET
 	//--------------------------------------------------------------------------
@@ -58,6 +76,8 @@ public:
 	void setStorageCapacityIncrements(int aIncrement);
 	rdStorage* getActuatorGenForcesStorage();
 
+	virtual void setModel(rdModel *aModel);
+	void setActuatorList(const rdArray<std::string>& aActuatorNames);
 	//--------------------------------------------------------------------------
 	// ANALYSIS
 	//--------------------------------------------------------------------------

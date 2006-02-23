@@ -40,28 +40,40 @@ suPointKinematics::~suPointKinematics()
 //_____________________________________________________________________________
 /**
  * Construct an suPointKinematics instance for recording the kinematics of
- * the bodies of a model during a simulation.
+ * the bodies of a model during a simulation. Also serves as a default constructor
  *
  * @param aModel Model for which the analyses are to be recorded.
  */
 suPointKinematics::suPointKinematics(rdModel *aModel) :
 rdAnalysis(aModel),
-_body(_bodyProp.getValueInt()),
+_bodyName(_bodyNameProp.getValueStr()),
 _point(_pointProp.getValueDblArray()),
-_pointName(_pointNameProp.getValueStr())
+_pointName(_pointNameProp.getValueStr()),
+_body(-1)
 {
 	// NULL
 	setNull();
 
+	// STORAGE
+	allocateStorage();
+
+	if (aModel==0)
+		return;
+
+	// Map name to index
+	_body = aModel->getBodyIndex(_bodyName);
+
 	// ALLOCATIONS
+	if (_dy != 0)
+		delete[] _dy;
+
 	_dy = new double[_model->getNY()];
 
 	// DESCRIPTION AND LABELS
 	constructDescription();
 	constructColumnLabels();
 
-	// STORAGE
-	allocateStorage();
+
 }
 
 
@@ -82,21 +94,24 @@ _pointName(_pointNameProp.getValueStr())
  */
 suPointKinematics::suPointKinematics(const std::string &aFileName):
 rdAnalysis(aFileName),
-_body(_bodyProp.getValueInt()),
+_bodyName(_bodyNameProp.getValueStr()),
 _point(_pointProp.getValueDblArray()),
-_pointName(_pointNameProp.getValueStr())
+_pointName(_pointNameProp.getValueStr()),
+_body(-1)
 {
 	setNull();
 
 	// Serialize from XML
 	updateFromXMLNode();
 
+	/* The rest will be done by setModel().
 	// CONSTRUCT DESCRIPTION AND LABELS
 	constructDescription();
 	constructColumnLabels();
 
 	// STORAGE
 	allocateStorage();
+	*/
 }
 //_____________________________________________________________________________
 /**
@@ -104,7 +119,7 @@ _pointName(_pointNameProp.getValueStr())
  */
 suPointKinematics::suPointKinematics(DOMElement *aElement):
 rdAnalysis(aElement),
-_body(_bodyProp.getValueInt()),
+_bodyName(_bodyNameProp.getValueStr()),
 _point(_pointProp.getValueDblArray()),
 _pointName(_pointNameProp.getValueStr())
 {
@@ -113,12 +128,14 @@ _pointName(_pointNameProp.getValueStr())
 	// Serialize from XML
 	updateFromXMLNode();
 
+	/* The rest will be done by setModel().
 	// CONSTRUCT DESCRIPTION AND LABELS
 	constructDescription();
 	constructColumnLabels();
 
 	// STORAGE
 	allocateStorage();
+	*/
 }
 
 // Copy constrctor and virtual copy 
@@ -129,9 +146,10 @@ _pointName(_pointNameProp.getValueStr())
  */
 suPointKinematics::suPointKinematics(const suPointKinematics &aPointKinematics):
 rdAnalysis(aPointKinematics),
-_body(_bodyProp.getValueInt()),
+_bodyName(_bodyNameProp.getValueStr()),
 _point(_pointProp.getValueDblArray()),
-_pointName(_pointNameProp.getValueStr())
+_pointName(_pointNameProp.getValueStr()),
+_body(aPointKinematics._body)
 {
 	setNull();
 	// COPY TYPE AND NAME
@@ -176,8 +194,10 @@ setNull()
 	_aStore = NULL;
 
 	// OTHER VARIABLES
+
+	//_bodyName = "ground";
+	//?_body
 	setName("PointKinematics");
-	setBody(_model->getGroundID());
 
 	// POINT INFORMATION
 	_point.setSize(3);
@@ -205,11 +225,12 @@ operator=(const suPointKinematics &aPointKinematics)
 	_body = aPointKinematics._body;
 	_point = aPointKinematics._point;
 	_pointName = aPointKinematics._pointName;
+	_bodyName = aPointKinematics._bodyName;
 	return(*this);
 }
 //_____________________________________________________________________________
 /**
- * Construct a description for the body kinematics files.
+ * Construct a description for the body kinematics files. (needs a model)
  */
 void suPointKinematics::
 constructDescription()
@@ -302,9 +323,52 @@ deleteStorage()
 //=============================================================================
 // GET AND SET
 //=============================================================================
+//_____________________________________________________________________________
+/**
+ * Set the model for which the point kinematics are to be computed.
+ *
+ * @param aModel rdModel pointer
+ */
+void suPointKinematics::
+setModel(rdModel *aModel)
+{
+	rdAnalysis::setModel(aModel);
+
+	// Map name to index
+	_body = aModel->getBodyIndex(_bodyName);
+
+	// ALLOCATIONS
+	if (_dy != 0)
+		delete[] _dy;
+
+	_dy = new double[_model->getNY()];
+
+	// DESCRIPTION AND LABELS
+	constructDescription();
+	constructColumnLabels();
+
+}
 //-----------------------------------------------------------------------------
 // BODY
 //-----------------------------------------------------------------------------
+//_____________________________________________________________________________
+/**
+ * Set the body for which the point kinematics are to be computed and the point on the body
+ * represented in local frame. Both params are required to avoid the limbo state where either body
+ * or point are undefined..
+ *
+ * @param aBody Body name
+ * @double[3] aPoint point coordinates
+ */
+void suPointKinematics::
+setBodyPoint(std::string& aBody, double aPoint[3])
+{
+	if (_model == 0)
+		return;
+	setBody(_model->getBodyIndex(aBody));
+	setPoint(aPoint);
+
+}
 //_____________________________________________________________________________
 /**
  * Set the body for which the induced accelerations are to be computed.

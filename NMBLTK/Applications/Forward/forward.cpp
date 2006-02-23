@@ -49,6 +49,7 @@ int main(int argc,char **argv)
 			investigation->setName("default");
 			rdObject::setSerializeAllDefaults(true);
 			investigation->print("default_forward.xml");
+			rdObject::setSerializeAllDefaults(false);
 			return(0);
 
 		// IDENTIFY SETUP FILE

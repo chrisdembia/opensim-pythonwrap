@@ -48,6 +48,12 @@ suActuation::suActuation(rdModel *aModel) :
 	// NULL
 	setNull();
 
+	// Description (doesn't need a model to set)
+	constructDescription();
+
+	// STORAGE
+	allocateStorage();
+
 	// CHECK MODEL
 	if(_model==NULL) return;
 
@@ -59,11 +65,7 @@ suActuation::suActuation(rdModel *aModel) :
 	_fsp = new double[_na];
 
 	// DESCRIPTION AND LABELS
-	constructDescription();
 	constructColumnLabels();
-
-	// STORAGE
-	allocateStorage();
 }
 //_____________________________________________________________________________
 /**

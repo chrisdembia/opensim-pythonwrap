@@ -43,16 +43,17 @@ public:
 	static const int NAME_LENGTH;
 	static const int BUFFER_LENGTH;
 private:
-	char _buffer[suPointKinematicsBUFFER_LENGTH];
-	char _tmp[suPointKinematicsBUFFER_LENGTH];
+	//char _buffer[suPointKinematicsBUFFER_LENGTH];
+	//char _tmp[suPointKinematicsBUFFER_LENGTH];
+	int	_body;
 protected:
 	// Properties
-	rdPropertyInt _bodyProp;
+	rdPropertyStr _bodyNameProp;
 	rdPropertyDblArray _pointProp;
 	rdPropertyStr _pointNameProp;
 
 	// References
-	int &_body;
+	std::string &_bodyName;
 	rdArray<double> &_point;
 	std::string &_pointName;
 
@@ -97,6 +98,7 @@ public:
 	// GET AND SET
 	//--------------------------------------------------------------------------
 	// BODY
+	void setBodyPoint(std::string& aBody, double aPoint[3]);
 	void setBody(int aBody);
 	int getBody();
 	// POINT
@@ -105,6 +107,9 @@ public:
 	// POINT NAME
 	void setPointName(const char *aName);
 	const char* getPointName();
+	// MODEL
+	virtual void setModel(rdModel *aModel);
+	
 	// STORAGE
 	void setStorageCapacityIncrements(int aIncrement);
 	rdStorage* getAccelerationStorage();

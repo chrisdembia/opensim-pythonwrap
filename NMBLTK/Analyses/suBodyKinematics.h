@@ -38,15 +38,32 @@ protected:
 	rdStorage *_pStore;
 	rdStorage *_vStore;
 	rdStorage *_aStore;
-	bool _angVelInLocalFrame;
+	/** Whether or not to write output of angles in degrees. */
+	rdPropertyBool _angVelInLocalFrameProp;
+	bool &_angVelInLocalFrame;
+
 
 //=============================================================================
 // METHODS
 //=============================================================================
 public:
-	suBodyKinematics(rdModel *aModel, bool aInDegrees=true);
+	suBodyKinematics(rdModel *aModel=0, bool aInDegrees=true);
+	suBodyKinematics(const std::string &aFileName);
+	suBodyKinematics(DOMElement *aElement);
+	// Copy constrctor and virtual copy 
+	suBodyKinematics(const suBodyKinematics &aObject);
+	virtual rdObject* copy() const;
+	virtual rdObject* copy(DOMElement *aElement) const;
 	virtual ~suBodyKinematics();
+	//--------------------------------------------------------------------------
+	// OPERATORS
+	//--------------------------------------------------------------------------
+#ifndef SWIG
+	suBodyKinematics& operator=(const suBodyKinematics &aBodyKinematics);
+#endif
 private:
+	void setNull();
+	void setupProperties();
 	void constructDescription();
 	void constructColumnLabels();
 	void allocateStorage();
@@ -64,6 +81,7 @@ public:
 	void setAngVelInLocalFrame(bool aTrueFalse);
 	bool getAngVelInLocalFrame();
 
+	virtual void setModel(rdModel *aModel);
 	//--------------------------------------------------------------------------
 	// ANALYSIS
 	//--------------------------------------------------------------------------
