@@ -141,3 +141,16 @@ void nmblKinematicsEngine::setNull()
 void nmblKinematicsEngine::setupProperties()
 {	
 }
+//=============================================================================
+// SOLVERS
+//=============================================================================
+// For Scaling
+void nmblKinematicsEngine::setScaler(ScalerInterface *aScaler)
+{
+	std::cout<< "Error, setScaler should be called on concrete kinematics engines.\n";
+}
+// For IK
+void nmblKinematicsEngine::setIKSolver(IKSolverInterface *aSolver)
+{
+	std::cout<< "Error, setIKSolver should be called on concrete kinematics engines.\n";
+}

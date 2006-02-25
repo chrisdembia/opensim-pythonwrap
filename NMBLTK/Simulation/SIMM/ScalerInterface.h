@@ -1,14 +1,15 @@
-#ifndef __IKSolverInterface_h__
-#define __IKSolverInterface_h__
+#ifndef __ScalerInterface_h__
+#define __ScalerInterface_h__
 
 #include <NMBLTK/Simulation/rdSimulationDLL.h>
-#include <iostream>
-
-class simmIKTrialParams;
+#include <NMBLTK/Tools/rdArray.h>
 class nmblKinematicsEngine;
-class rdStorage;
+class suBody;
+class suJoint;
+class suScaleSet;
+class simmScalingOptions;
 
-// IKSolverInterface.h
+// ScalerInterface.h
 // Author: Ayman Habib
 /* Copyright (c) 2005, Stanford University and Ayman Habib
  * 
@@ -32,21 +33,21 @@ class rdStorage;
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-class RDSIMULATION_API IKSolverInterface 
+class RDSIMULATION_API ScalerInterface 
 {
 protected:
 	nmblKinematicsEngine& _theKinematiceEngine;
 public:
-	IKSolverInterface(nmblKinematicsEngine &aKinematicsEngine):
-	_theKinematiceEngine(aKinematicsEngine)
+	ScalerInterface(nmblKinematicsEngine &aKinematicsEngine):
+		_theKinematiceEngine(aKinematicsEngine)
+		{}
+	virtual bool scaleModel(const suScaleSet& scaleSet)
 	{
-	}
-	virtual void solveFrames(const simmIKTrialParams& aIKOptions, rdStorage& inputData, rdStorage& outputData) 
-	{
-		std::cout<< "Error, IKSolverInterface::solveFrames() - not implemented.\n";
+		std::cout<< "Error, ScalerInterface::scaleModel() - not implemented.\n";
+		return false;
 	};
+	
 };
-
-#endif // __IKSolverInterface_h__
+#endif // __ScalerInterface_h__
 
 

@@ -103,7 +103,8 @@ simmKinematicsEngine::simmKinematicsEngine(const string &aFileName) :
 	_model(NULL),
 	_sdfastInfo(),
 	_groundBody(NULL),
-	_dIKSolver(0)
+	_dIKSolver(0),
+	_dScaler(0)
 {
 	// NULL
 	setNull();
@@ -129,7 +130,8 @@ simmKinematicsEngine::simmKinematicsEngine(DOMElement *aElement) :
 	_model(NULL),
 	_sdfastInfo(),
 	_groundBody(NULL),
-	_dIKSolver(0)
+	_dIKSolver(0),
+	_dScaler(0)
 {
 	// NULL
 	setNull();
@@ -154,7 +156,8 @@ simmKinematicsEngine::simmKinematicsEngine(const simmKinematicsEngine& aKE) :
 	_model(NULL),
 	_sdfastInfo(),
 	_groundBody(NULL),
-	_dIKSolver(aKE._dIKSolver)
+	_dIKSolver(aKE._dIKSolver),
+	_dScaler(aKE._dScaler)
 {
 	// NULL
 	setNull();
@@ -194,6 +197,8 @@ void simmKinematicsEngine::copyData(const simmKinematicsEngine &aKE)
 	_forceUnits = aKE._forceUnits;
 	_model = aKE._model;
 	_sdfastInfo = aKE._sdfastInfo;
+	_dIKSolver = aKE._dIKSolver;
+	_dScaler = aKE._dScaler;
 }
 
 simmKinematicsEngine& simmKinematicsEngine::operator=(const simmKinematicsEngine &aKE)
@@ -2964,26 +2969,11 @@ int simmKinematicsEngine::assemble(double aTime, double *rState, int *aLock, dou
 //--------------------------------------------------------------------------
 bool simmKinematicsEngine::scale(const suScaleSet& aScaleSet)
 {
-	int i, j;
 
-	for (i = 0; i < _bodies.getSize(); i++)
-	{
-		for (j = 0; j < aScaleSet.getSize(); j++)
-		{
-			suScale *aScale = aScaleSet.get(j);
-			if (_bodies[i]->getName() == aScale->getSegmentName())
-			{
-				rdArray<double> scaleFactors(1.0, 3);
-				aScale->getScaleFactors(scaleFactors);
-				_bodies[i]->scale(scaleFactors);
-			}
-		}
-	}
+	assert(_dScaler);
 
-	for (i = 0; i < _joints.getSize(); i++)
-		_joints[i]->scale(aScaleSet);
+	return _dScaler->scaleModel(aScaleSet);
 
-	return true;
 }
 
 //--------------------------------------------------------------------------

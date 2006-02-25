@@ -2,8 +2,8 @@ INCLUDE_DIRECTORIES(${NMBLApp_SOURCE_DIR}
 		    ${NMBLApp_SOURCE_DIR}/Vendors 		  
 		    ${NMBLApp_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src)
 
-FILE(GLOB SOURCE_FILES ../simmInverseKinematicsTarget.cpp ../simmIKSolverImpl.cpp testIK.cpp)
-FILE(GLOB INCLUDE_FILES ../simmInverseKinematicsTarget.h ../simmIKSolverImpl.h)
+FILE(GLOB SOURCE_FILES ../simm*.cpp  ../../Scale/simm*.cpp testIK.cpp)
+FILE(GLOB INCLUDE_FILES ../simm*.h ../../Scale/simm*.h)
 
 LINK_LIBRARIES( debug xerces-c_2D optimized xerces-c_2 
 		debug rdTools_D optimized rdTools
@@ -18,6 +18,7 @@ SET(TEST_FILES dynamic.xml markerSet.xml scaleSet.xml CrouchGait.xml walk1.trc i
 
 #
 # Copy files to run dir
+#
 FOREACH (dataFile ${TEST_FILES})
  ADD_CUSTOM_COMMAND(
     TARGET testIK
@@ -27,6 +28,6 @@ FOREACH (dataFile ${TEST_FILES})
     ${EXECUTABLE_OUTPUT_PATH}/Release)
  ENDFOREACH (dataFile) 
 
-ADD_TEST(testIK ${TEST_PATH}/test)
+ADD_TEST(testIK ${TEST_PATH}/testIK)
 
 INSTALL_TARGETS(${NMBLApp_BINARY_DIR}/LibDev/ testIK)

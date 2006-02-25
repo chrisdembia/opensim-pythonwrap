@@ -39,6 +39,8 @@
 
 class suScaleSet;
 class suCoordinate;
+class IKSolverInterface;
+class ScalerInterface;
 
 #ifdef SWIG
 	#ifdef RDSIMULATION_API
@@ -95,6 +97,11 @@ protected:
 	void setupProperties();
 
 public:
+	//--------------------------------------------------------------------------
+	// SOLVERS
+	//--------------------------------------------------------------------------
+	virtual void setIKSolver(IKSolverInterface *aSolver);
+	virtual void setScaler(ScalerInterface *aScaler);
 	//--------------------------------------------------------------------------
 	// NUMBERS
 	//--------------------------------------------------------------------------

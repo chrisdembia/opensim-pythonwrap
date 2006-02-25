@@ -56,6 +56,7 @@
 #include "simmIKTrialParams.h"
 #include "simmSdfastInfo.h"
 #include "IKSolverInterface.h"
+#include "ScalerInterface.h"
 
 class simmModel;
 
@@ -116,6 +117,8 @@ protected:
 	simmBody* _groundBody;
 
 	IKSolverInterface *_dIKSolver;
+
+	ScalerInterface *_dScaler;
 //=============================================================================
 // METHODS
 //=============================================================================
@@ -207,6 +210,10 @@ public:
 	virtual void setIKSolver(IKSolverInterface *aSolver)
 	{
 		_dIKSolver= aSolver;
+	}
+	virtual void setScaler(ScalerInterface *aScaler)
+	{
+		_dScaler = aScaler;
 	}
 	//--------------------------------------------------------------------------
 	// NUMBERS

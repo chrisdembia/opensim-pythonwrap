@@ -1,5 +1,5 @@
-// solveIK.cpp
-// Author: Peter Loan
+// testIK.cpp
+// Author: Ayman Habib based on Peter Loan's version
 /* Copyright (c) 2005, Stanford University and Peter Loan.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -25,6 +25,7 @@
 
 // INCLUDES
 #include <string>
+#include <direct.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/suScaleSet.h>
@@ -34,11 +35,18 @@
 #include <NMBLTK/Simulation/SIMM/simmSubject.h>
 #include <NMBLTK/Simulation/SIMM/simmMarkerData.h>
 #include <NMBLTK/Simulation/SIMM/simmMotionData.h>
+#include <NMBLTK/Applications/IK/simmIKSolverImpl.h>
 #include <NMBLTK/Applications/Scale/simmScalerImpl.h>
-#include "simmIKSolverImpl.h"
 
 using namespace std;
 
+string filesToCompare[] = {
+							"CrouchGaitSP.jnt",
+							"CrouchGaitSP.msl",
+							"CrouchGaitSP.xml",
+							"CrouchGaitScale.xml"
+
+};
 //______________________________________________________________________________
 /**
  * Test program to read SIMM model elements from an XML file.
@@ -48,51 +56,41 @@ using namespace std;
  */
 int main(int argc,char **argv)
 {
-	// PARSE COMMAND LINE
-	string inName;
-	if (argc < 2)
-	{
-		printf("Usage: solveIK subject.xml\n");
-		exit(-1);
-	}
-	else
-	{
-		inName = argv[1];
-	}
 
+	char curPath[100];
+	
+	_getcwd(curPath, 90);
 	// Construct model and read parameters file
-	simmSubject* subject = new simmSubject(argv[1]);
+	simmSubject* subject = new simmSubject("CrouchGait.xml");
 	simmModel* model = subject->createModel();
-
 	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
-	if (!subject->isDefaultScalingParams()){
-		ScalerInterface *scaler = new simmScalerImpl(engine);
-		engine.setScaler(scaler);
+	ScalerInterface *scaler = new simmScalerImpl(engine);
+	engine.setScaler(scaler);
 
-		if (!subject->getScalingParams().processModel(model))
-		{
-			cout << "===ERROR===: Unable to scale generic model." << endl;
-			return 0;
-		}
-		else {
-			cout << "Model scaled successfully." << endl;
-		}
-		delete scaler;
+
+	if (!subject->getScalingParams().processModel(model))
+	{
+		cout << "===ERROR===: Unable to scale generic model." << endl;
+		return 0;
 	}
 	IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
 	engine.setIKSolver(ikSolver);
-	if (!subject->isDefaultMarkerPlacementParams()){
-		if (!subject->getMarkerPlacementParams().processModel(model))
-		{
-			cout << "===ERROR===: Unable to place markers on model." << endl;
-			return 0;
-		}
+	if (!subject->getMarkerPlacementParams().processModel(model))
+	{
+		cout << "===ERROR===: Unable to place markers on model." << endl;
+		return 0;
 	}
-	if (!subject->isDefaultIKParams()){
-		subject->getIKParams().processModel(model);
-	}
+
 	delete subject;
 	delete ikSolver;
 
+	/* Compare results with standard*/
+	bool success = true;
+	for (int i=0; i < 4 && success; i++){
+		string command = "cmp "+filesToCompare[i]+" "+"std_"+filesToCompare[i];
+		success = success && (system(command.c_str())==0);
+	}
+
+	return (success?0:1);
 }
 	

@@ -833,7 +833,6 @@ bool simmModel::scale(const suScaleSet& aScaleSet)
 	// Scale the rest of the model
 	return getKinematicsEngine().scale(aScaleSet);
 
-	cout << "Scaled model " << getName() << endl;
 }
 
 //--------------------------------------------------------------------------

@@ -41,6 +41,8 @@
 #include <NMBLTK/Simulation/SIMM/simmMotionData.h>
 
 #include <NMBLTK/Simulation/Model/rdAnalysis.h>
+#include <NMBLTK/Applications/IK/simmIKSolverImpl.h>
+#include "simmScalerImpl.h"
 
 using namespace std;
 
@@ -93,13 +95,35 @@ int main(int argc,char **argv)
 	// Construct model and read parameters file
 	simmSubject* subject = new simmSubject(inName);
 	simmModel* model = subject->createModel();
-	if (!subject->getScalingParams().processModel(model))
-	{
-		cout << "===ERROR===: Unable to scale generic model." << endl;
-		return 0;
+	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
+	if (!subject->isDefaultScalingParams()){
+		ScalerInterface *scaler = new simmScalerImpl(engine);
+		engine.setScaler(scaler);
+		if (!subject->getScalingParams().processModel(model))
+		{
+			cout << "===ERROR===: Unable to scale generic model." << endl;
+			return 0;
+		}
+		else {
+			cout << "Scaled model "<< inName << "Successfully" << endl;
+		}
+		delete scaler;
 	}
 	else {
-		cout << "Scaled model "<< inName << "Successfully" << endl;
+			cout << "Scaling parameters not set. Model is not scaled." << endl;
+	}
+	if (!subject->isDefaultMarkerPlacementParams()){
+		IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
+		engine.setIKSolver(ikSolver);
+		if (!subject->getMarkerPlacementParams().processModel(model))
+		{
+			cout << "===ERROR===: Unable to place markers on model." << endl;
+			return 0;
+		}
+		delete ikSolver;
+	}
+	else {
+			cout << "Marker placement parameters not set. No markers have been moved." << endl;
 	}
 	delete model;
 	delete subject;
