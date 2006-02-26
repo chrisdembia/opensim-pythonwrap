@@ -27,11 +27,8 @@
 
 
 // INCLUDE
-#include <stdlib.h>
-#include <stdio.h>
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <NMBLTK/Simulation/rdSimulationDLL.h>
 #include <NMBLTK/Tools/rdArrayPtrs.h>
 #include "simmPoint.h"

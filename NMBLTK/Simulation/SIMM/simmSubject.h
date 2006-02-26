@@ -27,10 +27,8 @@
 
 
 // INCLUDE
-#include <stdlib.h>
-#include <stdio.h>
-#include <fstream>
-#include <string>
+#include <iostream>
+
 #include <math.h>
 #include <NMBLTK/Tools/rdPropertyObj.h>
 #include <NMBLTK/Tools/rdStorage.h>

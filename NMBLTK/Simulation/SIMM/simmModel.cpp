@@ -26,10 +26,8 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <stdlib.h>
-#include <stdio.h>
-#include <fstream>
-#include <string.h>
+#include <iostream>
+#include <string>
 #include <math.h>
 #include "simmModel.h"
 #include "simmKinematicsEngine.h"

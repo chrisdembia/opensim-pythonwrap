@@ -26,6 +26,7 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
+#include <fstream>
 #include <NMBLTK/Tools/rdMath.h>
 #include "simmMotionData.h"
 #include "simmIO.h"

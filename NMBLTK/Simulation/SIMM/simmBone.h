@@ -27,10 +27,7 @@
 
 
 // INCLUDE
-#include <stdlib.h>
-#include <stdio.h>
-#include <fstream>
-//#include <string>
+#include <iostream>
 #include <math.h>
 #include <NMBLTK/Simulation/rdSimulationDLL.h>
 #include <NMBLTK/Tools/rdPropertyStrArray.h>

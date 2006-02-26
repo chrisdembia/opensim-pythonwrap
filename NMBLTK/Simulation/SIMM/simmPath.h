@@ -27,9 +27,7 @@
 
 
 // INCLUDE
-#include <stdlib.h>
-#include <stdio.h>
-#include <fstream>
+#include <iostream>
 #include <math.h>
 #include <vector>
 #include <NMBLTK/Simulation/rdSimulationDLL.h>
