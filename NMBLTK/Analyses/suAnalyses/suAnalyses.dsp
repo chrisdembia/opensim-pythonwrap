@@ -107,6 +107,10 @@ PostBuild_Cmds=$(RDI_INSTALL)\Bin\cpl D
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;f90;for;f;fpp"
 # Begin Source File
 
+SOURCE=..\InvestigationForward.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\InvestigationPerturbation.cpp
 # End Source File
 # Begin Source File
@@ -253,6 +257,10 @@ SOURCE=..\suTorsionalSpring.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl;fi;fd"
+# Begin Source File
+
+SOURCE=..\InvestigationForward.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\InvestigationPerturbation.h
