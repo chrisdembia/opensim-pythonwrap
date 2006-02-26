@@ -15,11 +15,8 @@
 #ifndef UNIVERSAL_H
 #define UNIVERSAL_H
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <math.h>
 #include <float.h>
-#include <string.h>
 #include <malloc.h>
 
 #include <SIMM40/dp.h>

@@ -5,6 +5,7 @@
 //  ripped from pipeline and modified
 //
 //
+#include <fstream>
 #include <cassert>
 #include <stdexcept>
 #include <vector>

@@ -989,8 +989,8 @@ bool   suPipeline40::
 scale(const suScaleSet& aScaleSet)
 {
 	int i, j, k;
-	int info[50], slider[6], inbody, outbody, segment;
-	double itj[3], btj[3], segment_mass, inertia[3][3], pin[3], scale;
+	int info[50], slider[6], inbody, segment;
+	double segment_mass, inertia[3][3], pin[3], scale;
 	double *y;
 	dpMuscleStruct* ms;
 	dpBodyStruct* seg;
