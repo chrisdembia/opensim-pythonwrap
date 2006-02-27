@@ -14,7 +14,7 @@
  *****************************************************/
 
 
-#include <cstdio>
+#include <stdio.h>
 #include <math.h>
 
 void pmat(int m, int n, double y[]);
