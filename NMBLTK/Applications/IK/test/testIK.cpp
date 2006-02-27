@@ -36,6 +36,7 @@
 #include <NMBLTK/Simulation/SIMM/simmMarkerData.h>
 #include <NMBLTK/Simulation/SIMM/simmMotionData.h>
 #include <NMBLTK/Applications/IK/simmIKSolverImpl.h>
+#include <NMBLTK/Applications/Scale/simmScalerImpl.h>
 
 using namespace std;
 
@@ -55,17 +56,22 @@ int main(int argc,char **argv)
 	char curPath[100];
 	
 	_getcwd(curPath, 90);
+
 	// Construct model and read parameters file
 	simmSubject* subject = new simmSubject("CrouchGait.xml");
 	simmModel* model = subject->createModel();
 
 
+	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
+	ScalerInterface *scaler = new simmScalerImpl(engine);
+	engine.setScaler(scaler);
 	if (!subject->getScalingParams().processModel(model))
 	{
 		cout << "===ERROR===: Unable to scale generic model." << endl;
 		return 0;
 	}
-	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
+	delete scaler;
+
 	IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
 	engine.setIKSolver(ikSolver);
 	if (!subject->getMarkerPlacementParams().processModel(model))

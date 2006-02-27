@@ -279,7 +279,7 @@
             <inputMarkerFile>walk1.trc</inputMarkerFile>
             <inputAnalogFile>walk1.anc</inputAnalogFile>
             <inputCoordinateFile>walk1_IN.mot</inputCoordinateFile>
-            <timeRange>0.5 1.0</timeRange>
+            <timeRange>0.5 0.6</timeRange>
             <kinematicsSmoothing>10.0</kinematicsSmoothing>
             <groundReactionSmoothing>1000.0</groundReactionSmoothing>
             <outputMotionFile>walk1.mot</outputMotionFile>

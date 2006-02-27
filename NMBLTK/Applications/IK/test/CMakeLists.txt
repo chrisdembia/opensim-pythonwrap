@@ -25,7 +25,7 @@ FOREACH (dataFile ${TEST_FILES})
     COMMAND ${CMAKE_COMMAND}
     ARGS -E copy
     ${NMBLApp_SOURCE_DIR}/NMBLTK/Applications/IK/test/${dataFile}
-    ${EXECUTABLE_OUTPUT_PATH}/Release)
+    ${NMBLApp_BINARY_DIR}/NMBLTK/Applications/IK/test)
  ENDFOREACH (dataFile) 
 
 ADD_TEST(testIK ${TEST_PATH}/testIK)

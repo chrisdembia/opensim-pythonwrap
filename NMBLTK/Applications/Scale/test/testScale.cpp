@@ -60,6 +60,9 @@ int main(int argc,char **argv)
 	char curPath[100];
 	
 	_getcwd(curPath, 90);
+	std::ofstream findLocation;
+
+	findLocation.open("IamHere.txt");
 	// Construct model and read parameters file
 	simmSubject* subject = new simmSubject("CrouchGait.xml");
 	simmModel* model = subject->createModel();
@@ -89,7 +92,10 @@ int main(int argc,char **argv)
 	for (int i=0; i < 4 && success; i++){
 		string command = "cmp "+filesToCompare[i]+" "+"std_"+filesToCompare[i];
 		success = success && (system(command.c_str())==0);
+		findLocation << command << "i=" << i << std::endl;
 	}
+	findLocation.flush();
+	findLocation.close();
 
 	return (success?0:1);
 }
