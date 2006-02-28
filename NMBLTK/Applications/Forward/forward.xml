@@ -24,6 +24,29 @@
 				<StepInterval> 1 </StepInterval>
 				<InDegrees> true </InDegrees>
 			</suKinematics>
+			<suActuation name="Actuation">
+				<On> true </On>
+				<StartTime> -1000.00000000 </StartTime>
+				<EndTime> 1000.00000000 </EndTime>
+				<StepInterval> 1 </StepInterval>
+				<InDegrees> true </InDegrees>
+			</suActuation>
+			<suActuatorGeneralizedForces name="ActuatorGeneralizedForces">
+				<On> true </On>
+				<StartTime> 0.0</StartTime>
+				<EndTime> 10.00000000 </EndTime>
+				<StepInterval> 1 </StepInterval>
+				<InDegrees> true </InDegrees>
+				<ActuatorsList>actuator</ActuatorsList>
+			</suActuatorGeneralizedForces>
+			<suBodyKinematics name="BodyKinematics">
+				<On> true </On>
+				<StartTime> -10.00000000 </StartTime>
+				<EndTime> 100.00000000 </EndTime>
+				<StepInterval> 1 </StepInterval>
+				<InDegrees> true </InDegrees>
+				<AnglularVelocityLocal> true </AnglularVelocityLocal>
+			</suBodyKinematics>
 		</objects>
 	</rdAnalysisSet>
 	<controls_file_name> block_controls.xml </controls_file_name>

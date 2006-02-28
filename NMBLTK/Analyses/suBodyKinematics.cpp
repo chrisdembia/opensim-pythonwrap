@@ -48,17 +48,11 @@ suBodyKinematics::suBodyKinematics(rdModel *aModel, bool aInDegrees) :
 	rdAnalysis(aModel),
 	_angVelInLocalFrame(_angVelInLocalFrameProp.getValueBool())
 {
-	 setName("BodyKinematics");
-	_angVelInLocalFrame = true;
-
-	// SET WHETHER OUTPUT IS IN DEGREES OR RADIANS
-	setInDegrees(aInDegrees);
+	 setNull();
 
 	// STORAGE
 	allocateStorage();
 
-	_dy=0;
-	_kin=0;
 	if (_model ==0)
 		return;
 
@@ -197,9 +191,13 @@ setNull()
 
 	// OTHER VARIABLES
 
-	//_bodyName = "ground";
+	setType("suBodyKinematics");
 	//?_body
 	setName("BodyKinematics");
+
+	_angVelInLocalFrameProp.setName("AnglularVelocityLocal");
+	_angVelInLocalFrameProp.setValue(true);
+	_propertySet.append(&_angVelInLocalFrameProp);
 }
 
 //=============================================================================
@@ -341,6 +339,8 @@ setModel(rdModel *aModel)
 	constructDescription();
 	constructColumnLabels();
 
+	deleteStorage();
+	allocateStorage();
 }
 
 //-----------------------------------------------------------------------------

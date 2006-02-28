@@ -175,6 +175,12 @@ setNull()
 
 	setName("ActuatorGeneralizedForces");
 
+	setType("suActuatorGeneralizedForces");
+	rdArray<std::string> none("", 1);	
+	_propActuatorNames.setName("ActuatorsList");
+	_propActuatorNames.setValue(none);
+	_propertySet.append(&_propActuatorNames);
+
 }
 //_____________________________________________________________________________
 /**
@@ -194,6 +200,9 @@ void suActuatorGeneralizedForces::setModel(rdModel *aModel)
 	// STORAGE
 	allocateStorage();
 
+	// Map names to indices
+	setActuatorList(_actuatorNames);
+
 }
 //_____________________________________________________________________________
 /**
@@ -204,6 +213,7 @@ void suActuatorGeneralizedForces::setModel(rdModel *aModel)
 void suActuatorGeneralizedForces::
 setActuatorList(const rdArray<std::string>& aActuatorNames)
 {
+	_actuatorList.setSize(0);
 	for(int i=0; i < aActuatorNames.getSize(); i++){
 		int actIndex = _model->getActuatorIndex(aActuatorNames.get(i));
 		if (actIndex != -1)

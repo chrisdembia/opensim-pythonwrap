@@ -11,6 +11,10 @@
 #include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
 #include <NMBLTK/Analyses/InvestigationForward.h>
 #include <NMBLTK/Analyses/suKinematics.h>
+#include <NMBLTK/Analyses/suActuation.h>
+#include <NMBLTK/Analyses/suPointKinematics.h>
+#include <NMBLTK/Analyses/suBodyKinematics.h>
+#include <NMBLTK/Analyses/suActuatorGeneralizedForces.h>
 
 
 using namespace std;
@@ -66,7 +70,6 @@ int main(int argc,char **argv)
 		PrintUsage(cout);
 		return(-1);
 	}
-
 	// CONSTRUCT
 	cout<<"Constructing investigation from setup file "<<setupFileName<<".\n\n";
 	InvestigationForward forward(setupFileName);
