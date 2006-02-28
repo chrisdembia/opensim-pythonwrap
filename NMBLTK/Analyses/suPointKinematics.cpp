@@ -195,15 +195,26 @@ setNull()
 
 	// OTHER VARIABLES
 
-	//_bodyName = "ground";
+	// TYPE
+	setType("suPointKinematics");
 	//?_body
 	setName("PointKinematics");
 
 	// POINT INFORMATION
 	_point.setSize(3);
-	double point[] = { 0.0, 0.0, 0.0 };
-	setPoint(point);
-	setPointName("NONAME");
+	rdArray<double> zero3(0.0, 3);	
+
+	_bodyNameProp.setName("body_name");
+	_bodyNameProp.setValue("ground");
+	_propertySet.append( &_bodyNameProp );
+
+	_pointNameProp.setName("point_name");
+	_pointNameProp.setValue("NONAME");
+	_propertySet.append( &_pointNameProp );
+
+	_pointProp.setName("point");
+	_pointProp.setValue(zero3);
+	_propertySet.append( &_pointProp );
 }
 //=============================================================================
 // OPERATORS
