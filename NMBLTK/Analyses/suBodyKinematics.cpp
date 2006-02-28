@@ -57,6 +57,8 @@ suBodyKinematics::suBodyKinematics(rdModel *aModel, bool aInDegrees) :
 	// STORAGE
 	allocateStorage();
 
+	_dy=0;
+	_kin=0;
 	if (_model ==0)
 		return;
 
