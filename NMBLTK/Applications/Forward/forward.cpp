@@ -38,7 +38,7 @@ int main(int argc,char **argv)
 		PrintUsage(cout);
 		return(-1);
 	}
-	for(i=1;i<(argc-1);i++) {
+	for(i=1;i<argc;i++) {
 		option = argv[i];
 
 		// PRINT THE USAGE OPTIONS
@@ -58,7 +58,7 @@ int main(int argc,char **argv)
 
 		// IDENTIFY SETUP FILE
 		} else if((option=="-Setup")||(option=="-S")) {
-			setupFileName = argv[i+1];
+			if((i+1)<argc) setupFileName = argv[i+1];
 			break;
 		}
 
