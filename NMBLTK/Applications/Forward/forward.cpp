@@ -34,7 +34,7 @@ int main(int argc,char **argv)
 	int i;
 	string option = "";
 	string setupFileName = "";
-	if(argc<=2) {
+	if(argc<2) {
 		PrintUsage(cout);
 		return(-1);
 	}
