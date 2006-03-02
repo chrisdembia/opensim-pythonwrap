@@ -53,7 +53,7 @@ using namespace std;
  */
 RDSIMULATION_API void RegisterTypes_rdSimulation()
 {
-	cout<<"RegisterTypes_rdSimulation:\n";
+	cout<<"RegisterTypes_rdSimulation\n";
 
 	rdObject::RegisterType( rdControlSet() );
 	rdObject::RegisterType( rdControlConstant() );

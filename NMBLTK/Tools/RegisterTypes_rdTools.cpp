@@ -25,7 +25,7 @@ using namespace std;
  */
 RDTOOLS_API void RegisterTypes_rdTools()
 {
-	cout<<"RegisterTypes_rdTools:  \n";
+	cout<<"RegisterTypes_rdTools  \n";
 
 	rdObject::RegisterType( rdFunctionSet() );
 	rdObject::RegisterType( rdGCVSplineSet() );
