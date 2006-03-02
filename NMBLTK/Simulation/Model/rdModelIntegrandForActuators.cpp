@@ -283,6 +283,12 @@ releaseCoordinates()
 void rdModelIntegrandForActuators::
 convertStatesIntegrandToModel(double t,const double y[],double yModel[])
 {
+	// ERROR CHECK
+	if(_qSet==NULL) {
+		cout<<"ERROR- The desired generalized coordinate values have not been set.\n";
+		return;
+	}
+
 	int i;
 	int nq = _model->getNQ();
 	int nu = _model->getNU();
@@ -292,8 +298,12 @@ convertStatesIntegrandToModel(double t,const double y[],double yModel[])
 
 	if(_holdCoordinatesConstant) t = _holdTime;
 
-	 _qSet->evaluate(_qWork,0,t);
-	 _uSet->evaluate(_uWork,0,t);
+	_qSet->evaluate(_qWork,0,t);
+	if(_uSet!=NULL) {
+		_uSet->evaluate(_uWork,0,t);
+	} else {
+		_qSet->evaluate(_uWork,1,t);
+	}
 
 	for(i=0;i<nq;i++) yModel[i] = _qWork[i] + _qCorrections[i];
 	for(i=0;i<nu;i++) yModel[i+nq] = _uWork[i] + _uCorrections[i];
