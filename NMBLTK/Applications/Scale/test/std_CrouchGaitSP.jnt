@@ -2302,7 +2302,7 @@ endmaterial
 /*                     WORLD OBJECTS                */
 /****************************************************/
 beginworldobject floor
-filename floor1.asc
+filename floor_xy_plane.asc
 origin 0.0 0.0 0.0
 
 material mat2
