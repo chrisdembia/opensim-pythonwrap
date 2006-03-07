@@ -55,15 +55,94 @@ GetNumberOfParents(const DOMNode *aNode)
 //=============================================================================
 //_____________________________________________________________________________
 /**
- * Create a new element and add it as a child to a specified parent node.
+ * Create a new Comment and add it as a child to a specified parent node.
+ *
+ * @param aParent Node to which to add the child element.
+ * @param aComment to be associated with the element.
+ * @return Child element.  NULL is returned on an error.
+ */
+DOMNode* rdXMLNode::
+AppendNewCommentElement(DOMNode *aParent,const string &aComment)
+{
+	if(aParent==NULL) return(NULL);
+
+	// GET DOCUMENT
+	DOMDocument *doc;
+	bool parentIsDoc = (aParent->getNodeType()==DOMNode::DOCUMENT_NODE);
+	if(parentIsDoc) {
+		doc = (DOMDocument*)aParent;
+	} else {
+		doc = aParent->getOwnerDocument();
+	}
+	if(doc==NULL) return(NULL);
+
+	// DON'T ALLOW MORE THAN ONE ROOT
+	if(parentIsDoc && (doc->getDocumentElement()!=NULL)) {
+		printf("rdXMLNode.AddNewElement: ERROR- document already has root.\n");
+		return(NULL);
+	}
+
+	// CREATE text
+	XMLCh *commentText = XMLString::transcode(aComment.c_str());
+	if(commentText==NULL) return(NULL);
+
+	// CREATE NEW NODE
+	DOMComment *child = doc->createComment(commentText);  
+	delete[] commentText;
+
+	// DETERMINE LEVEL OF PARENT
+	int level = GetNumberOfParents(aParent);
+	if(level>TABLIMIT) level=TABLIMIT;
+
+	// LEADING SPACE
+	int i;
+	char space[TABLIMIT+1];
+	XMLCh *xmlSpace = NULL;
+	if(!parentIsDoc) {
+		if(aParent->hasChildNodes()) {
+			xmlSpace = XMLString::transcode("\t");
+			aParent->appendChild(doc->createTextNode(xmlSpace)); // can we append here?
+			if(xmlSpace!=NULL) delete[] xmlSpace;
+		} else {
+			strcpy(space,"\n");
+			for(i=0;i<level;i++) strcat(space,"\t");
+			xmlSpace = XMLString::transcode(space);
+			aParent->appendChild(doc->createTextNode(xmlSpace));
+			if(xmlSpace!=NULL) delete[] xmlSpace;
+		}
+	}
+
+	// ADD CHILD
+	if(child!=NULL) aParent->appendChild(child);
+
+	// TRAILING SPACE
+	if(!parentIsDoc) {
+		strcpy(space,"\n");
+		for(i=0;i<level-1;i++) strcat(space,"\t");
+		xmlSpace = XMLString::transcode(space);
+		aParent->appendChild(doc->createTextNode(xmlSpace));
+		if(xmlSpace!=NULL) delete[] xmlSpace;
+	}
+
+	return(child);
+}
+
+//_____________________________________________________________________________
+/**
+ * Create a new element and add it as a child to a specified parent node with comment.
+ * If comment needs to be specified but not name then "" should be passed for name.
  *
  * @param aParent Node to which to add the child element.
  * @param aTag Tag name of the element to be added.
  * @param aName Attribute name of the element.
+ * @param aComment comment to be associated with xml node.
  * @return Child element.  NULL is returned on an error.
  */
 DOMElement* rdXMLNode::
-AppendNewElement(DOMNode *aParent,const string &aTag,const string &aName)
+AppendNewElementWithComment(DOMNode *aParent,
+							const string &aTag,
+							const string &aName,
+							const string &aComment)
 {
 	if(aParent==NULL) return(NULL);
 
@@ -113,9 +192,25 @@ AppendNewElement(DOMNode *aParent,const string &aTag,const string &aName)
 		}
 	}
 
+	// Add Comment if needed
+	if (aComment!=""){
+		// CREATE text
+		XMLCh *commentText = XMLString::transcode(aComment.c_str());
+		if(commentText!=NULL){ 
+			// CREATE NEW NODE
+			DOMComment *commentNode = doc->createComment(commentText);  
+			aParent->appendChild(commentNode);
+		}
+		delete[] commentText;
+		// Add newline
+		strcpy(space,"\n");
+		for(i=0;i<level;i++) strcat(space,"\t");
+		xmlSpace = XMLString::transcode(space);
+		aParent->appendChild(doc->createTextNode(xmlSpace));
+		if(xmlSpace!=NULL) delete[] xmlSpace;
+	}
 	// ADD CHILD
 	if(child!=NULL) aParent->appendChild(child);
-
 	// TRAILING SPACE
 	if(!parentIsDoc) {
 		strcpy(space,"\n");
@@ -127,7 +222,6 @@ AppendNewElement(DOMNode *aParent,const string &aTag,const string &aName)
 
 	return(child);
 }
-
 //_____________________________________________________________________________
 /**
  * Remove all the children of a specified node.

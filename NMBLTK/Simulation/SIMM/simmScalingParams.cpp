@@ -177,42 +177,51 @@ void simmScalingParams::setNull()
 void simmScalingParams::setupProperties()
 {
 	_scalingOrderProp.setName("scalingOrder");
+	rdArray<string> sorder("");
+	_scalingOrderProp.setComment("Valid options are 'measurements', 'manualScale'");
+	_scalingOrderProp.setValue(sorder);
 	_propertySet.append(&_scalingOrderProp);
 
 	_measurementSetProp.setName("MeasurementSet");
 	rdArrayPtrs<rdObject> ms;
 	_measurementSetProp.setValue(ms);
+	_measurementSetProp.setComment("Measurements consist of 'MarkerPairSet' and 'BodyScaleSet'");
 	_propertySet.append(&_measurementSetProp);
 
 	_scaleSetProp.setName("ScaleSet");
 	rdArrayPtrs<rdObject> ss;
 	_scaleSetProp.setValue(ss);
+	_scaleSetProp.setComment("Scale factors to be used for manual(user controlled) scaling");
 	_propertySet.append(&_scaleSetProp);
 
 	_markerFileNameProp.setName("markerFile");
-	_propertySet.append(&_markerFileNameProp);
-
-	_markerFileNameProp.setName("markerFile");
+	_markerFileNameProp.setComment("Name of marker file *.trc for static pose");
 	_propertySet.append(&_markerFileNameProp);
 
 	const double defaultTimeRange[] = {-1.0, -1.0};
 	_timeRangeProp.setName("timeRange");
+	_timeRangeProp.setComment("Range of time in markers file to use for static pose solution");
 	_timeRangeProp.setValue(2, defaultTimeRange);
 	_propertySet.append(&_timeRangeProp);
 
 	_preserveMassDistProp.setName("preserveMassDistribution");
+	_preserveMassDistProp.setComment("Whether to preserve relative mass between segments");
 	_propertySet.append(&_preserveMassDistProp);
 
 	_outputJointFileNameProp.setName("outputJointFile");
+	_outputJointFileNameProp.setComment("name of SIMM joint file to write when done scaling.");
 	_propertySet.append(&_outputJointFileNameProp);
 
 	_outputMuscleFileNameProp.setName("outputMuscleFile");
+	_outputMuscleFileNameProp.setComment("name of SIMM muscle file to write when done scaling.");
 	_propertySet.append(&_outputMuscleFileNameProp);
 
 	_outputModelFileNameProp.setName("outputModelFile");
+	_outputModelFileNameProp.setComment("name of OpenSim xml file to write when done scaling.");
 	_propertySet.append(&_outputModelFileNameProp);
 
 	_outputScaleFileNameProp.setName("outputScaleFile");
+	_outputScaleFileNameProp.setComment("name of scales file to write when done scaling.");
 	_propertySet.append(&_outputScaleFileNameProp);
 }
 

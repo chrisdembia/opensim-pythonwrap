@@ -144,6 +144,7 @@ void simmGenericModelParams::setNull()
 void simmGenericModelParams::setupProperties()
 {
 	_fileNameProp.setName("filename");
+	_fileNameProp.setComment("name of xml file for nominal model"); 
 	_propertySet.append(&_fileNameProp);
 
 	_markerSetProp.setName("MarkerSet");

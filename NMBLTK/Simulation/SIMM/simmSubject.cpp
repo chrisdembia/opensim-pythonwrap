@@ -185,15 +185,19 @@ void simmSubject::setNull()
 void simmSubject::setupProperties()
 {
 	_genericModelParamsProp.setName("");
+	_genericModelParamsProp.setComment("File name for the nominal model.xml to use is specified here");
 	_propertySet.append(&_genericModelParamsProp);
 
 	_scalingParamsProp.setName("");
+	_scalingParamsProp.setComment("Parameters to control nominal model scaling go here.");
 	_propertySet.append(&_scalingParamsProp);
 
 	_markerPlacementParamsProp.setName("");
+	_markerPlacementParamsProp.setComment("Marker set to override default markers is specified here");
 	_propertySet.append(&_markerPlacementParamsProp);
 
 	_IKParamsProp.setName("");
+	_IKParamsProp.setComment("Parameters pertinent to solving IK are specified here");
 	_propertySet.append(&_IKParamsProp);
 }
 

@@ -78,6 +78,8 @@ private:
 	default property for initializing its value. */
 	bool _useDefault;
 protected:
+	/** Comment to be associated with property, shown for default objects only for efficiency */
+	std::string _comment;
 	/** String representation of property */
 	std::string _valueString;
 //=============================================================================
@@ -121,6 +123,9 @@ public:
 	void setName(const std::string &aName);
 	const std::string& getName() const;
 
+	// Comment
+	void setComment(const std::string &aComment) { _comment = aComment; };
+	const std::string& getComment() const { return _comment; };
 	// VALUE
 	// Textual representation
 	virtual const std::string &toString()=0;

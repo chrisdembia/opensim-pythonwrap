@@ -148,23 +148,28 @@ setupSerializedMembers()
 
 	// Bool
 	rdPropertyBool pBool("Test_Bool",true);
+	pBool.setComment("Comment on a boolean");
 	_propertySet.append(pBool.copy());
 
 	// Int
 	rdPropertyInt pInt("Test_Int",0);
+	pInt.setComment("Comment on a Int");
 	_propertySet.append(pInt.copy());
 
 	// Dbl
 	rdPropertyDbl pDbl("Test_Dbl",0.0);
+	pDbl.setComment("Comment on a Double");
 	_propertySet.append(pDbl.copy());
 
 	// Str
 	rdPropertyStr pStr("Test_Str","ABC");
+	pStr.setComment("Comment on a String");
 	_propertySet.append(pStr.copy());
 
 	// Obj
 	rdSerializableObject2 obj;
 	rdPropertyObj pObj("Test_Obj",obj);
+	pObj.setComment("Comment on an Object");
 	_propertySet.append(pObj.copy());
 
 	// IntArray
@@ -172,6 +177,7 @@ setupSerializedMembers()
 	arrayInt.setSize(4);
 	for(i=0;i<arrayInt.getSize();i++) arrayInt[i] = i;
 	rdPropertyIntArray pIntArray("Test_IntArray",arrayInt);
+	pIntArray.setComment("Comment on an int-array");
 	_propertySet.append(pIntArray.copy());
 
 	// DblArray
@@ -179,6 +185,7 @@ setupSerializedMembers()
 	arrayDbl.setSize(4);
 	for(i=0;i<arrayDbl.getSize();i++) arrayDbl[i] = (double)i;
 	rdPropertyDblArray pDblArray("Test_DblArray",arrayDbl);
+	pDblArray.setComment("Comment on a Dbl-array");
 	_propertySet.append(pDblArray.copy());
 
 	// StrArray
@@ -189,6 +196,7 @@ setupSerializedMembers()
 	arrayStr[2] = "ghi";
 	arrayStr[3] = "jkl";
 	rdPropertyStrArray pStrArray("Test_StrArray",arrayStr);
+	pStrArray.setComment("Comment on a str-array");
 	_propertySet.append(pStrArray.copy());
 
 	// ObjArray
@@ -201,6 +209,7 @@ setupSerializedMembers()
 	object.setName("Obj3");
 	arrayObj.append(object.copy());
 	rdPropertyObjArray pObjArray("Test_ObjArray",arrayObj);
+	pObjArray.setComment("Comment on Object Array");
 	_propertySet.append(pObjArray.copy());
 }
 

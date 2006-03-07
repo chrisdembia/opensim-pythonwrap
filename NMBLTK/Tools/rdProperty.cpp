@@ -50,6 +50,7 @@ rdProperty::rdProperty(const rdProperty &aProperty)
 {
 	setNull();
 	*this = aProperty;
+	_comment = aProperty.getComment();
 }
 //_____________________________________________________________________________
 /**
@@ -103,6 +104,7 @@ operator=(const rdProperty &aProperty)
 	setType(aProperty.getType());
 	setName(aProperty.getName());
 	setUseDefault(aProperty.getUseDefault());
+	_comment = aProperty.getComment();
 	return(*this);
 }
 

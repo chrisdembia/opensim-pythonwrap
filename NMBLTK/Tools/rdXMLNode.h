@@ -57,9 +57,13 @@ public:
 	//--------------------------------------------------------------------------
 	// ADD AND REMOVE NODES
 	//--------------------------------------------------------------------------
-	static DOMElement*
-		AppendNewElement(DOMNode *aParent,const std::string &aTag,
-		const std::string &aName="");
+	static DOMNode* 
+		AppendNewCommentElement(DOMNode *aParent,const std::string &aComment);
+	static DOMElement* 
+		AppendNewElementWithComment(DOMNode *aParent,
+							const std::string &aTag,
+							const std::string &aName="",
+							const std::string &aComment="");
 	static void
 		RemoveChildren(DOMNode *aNode);
 

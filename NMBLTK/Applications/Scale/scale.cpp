@@ -66,13 +66,9 @@ int main(int argc,char **argv)
 		PrintUsage(cout);
 		exit(-1);
 	}
-	else if (argc == 2)	// Assume subject file and do no more command line processsing
-	{
-		inName = argv[1];
-	}
 	else {		// Don't know maybe user needs help or have special needs
 		int i;
-		for(i=1;i<(argc-1);i++) {
+		for(i=1;i<=(argc-1);i++) {
 			option = argv[i];
 
 			// PRINT THE USAGE OPTIONS
@@ -80,53 +76,69 @@ int main(int argc,char **argv)
 				(option=="-usage")||(option=="-u")||(option=="-Usage")||(option=="-U")) {
 					PrintUsage(cout);
 					return(0);
-			// IDENTIFY SETUP FILE
-			} else if((option=="-SF")||(option=="-S")||(option=="-SubjectFile")) {
-				inName = argv[i+1];
-				break;
-			}
-			else {
-				cout << "Unrecognized option" << option << "on command line... Ignored" << endl;
+					// IDENTIFY SETUP FILE
+				} else if((option=="-SF")||(option=="-S")||(option=="-SubjectFile")) {
+					inName = argv[i+1];
+					break;
+				}
+				else if((option=="-PrintSetup")||(option=="-PS")) {
+					simmSubject *subject = new simmSubject();
+					subject->setName("default");
+					// Add in useful objects that may need to be instantiated
+					rdObject::setSerializeAllDefaults(true);
+					subject->print("default_subject.xml");
+					rdObject::setSerializeAllDefaults(false);
+					cout << "Created file default_subject.xml with default setup" << endl;
+					return(0); 
+				}
+				else {
+					cout << "Unrecognized option" << option << "on command line... Ignored" << endl;
 					PrintUsage(cout);
 					return(0);
-			}
+				}
 		}
 	}
-	// Construct model and read parameters file
-	simmSubject* subject = new simmSubject(inName);
-	simmModel* model = subject->createModel();
-	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
-	if (!subject->isDefaultScalingParams()){
-		ScalerInterface *scaler = new simmScalerImpl(engine);
-		engine.setScaler(scaler);
-		if (!subject->getScalingParams().processModel(model))
-		{
-			cout << "===ERROR===: Unable to scale generic model." << endl;
-			return 0;
+	try {
+		// Construct model and read parameters file
+		simmSubject* subject = new simmSubject(inName);
+		simmModel* model = subject->createModel();
+		simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
+		if (!subject->isDefaultScalingParams()){
+			ScalerInterface *scaler = new simmScalerImpl(engine);
+			engine.setScaler(scaler);
+			if (!subject->getScalingParams().processModel(model))
+			{
+				cout << "===ERROR===: Unable to scale generic model." << endl;
+				return 0;
+			}
+			else {
+				cout << "Scaled model "<< inName << "Successfully" << endl;
+			}
+			delete scaler;
 		}
 		else {
-			cout << "Scaled model "<< inName << "Successfully" << endl;
-		}
-		delete scaler;
-	}
-	else {
 			cout << "Scaling parameters not set. Model is not scaled." << endl;
-	}
-	if (!subject->isDefaultMarkerPlacementParams()){
-		IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
-		engine.setIKSolver(ikSolver);
-		if (!subject->getMarkerPlacementParams().processModel(model))
-		{
-			cout << "===ERROR===: Unable to place markers on model." << endl;
-			return 0;
 		}
-		delete ikSolver;
-	}
-	else {
+		if (!subject->isDefaultMarkerPlacementParams()){
+			IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
+			engine.setIKSolver(ikSolver);
+			if (!subject->getMarkerPlacementParams().processModel(model))
+			{
+				cout << "===ERROR===: Unable to place markers on model." << endl;
+				return 0;
+			}
+			delete ikSolver;
+		}
+		else {
 			cout << "Marker placement parameters not set. No markers have been moved." << endl;
+		}
+		delete model;
+		delete subject;
 	}
-	delete model;
-	delete subject;
+	catch(rdException &x) {
+		x.print(cout);
+	}
+
 }
 	
 //_____________________________________________________________________________
@@ -139,6 +151,7 @@ void PrintUsage(ostream &aOStream)
 	aOStream<<"Option              Argument            Action / Notes\n";
 	aOStream<<"------              --------            --------------\n";
 	aOStream<<"-Help, -H                               Print the command-line options for scale.exe.\n";
+	aOStream<<"-PrintSetup, -PS						   Generates a template Setup file to customize the scaling\n";
 	aOStream<<"-SubjectFile, -SF     SubjectFile       Specify an xml file for the subject that includes references\n";
 	aOStream<<"                                        to model's file, markers file and scaling parameters.\n";
 }

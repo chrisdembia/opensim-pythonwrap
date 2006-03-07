@@ -1072,7 +1072,7 @@ updateXMLNode(DOMElement *aParent)
 		_inLined=false;
 		
 		if (!_refNode){
-			_refNode = rdXMLNode::AppendNewElement(aParent, getType(),getName());
+			_refNode = rdXMLNode::AppendNewElementWithComment(aParent, getType(),getName());
 			rdXMLNode::SetAttribute(_refNode,"file",offLineFileName);
 		}
 		return;
@@ -1102,7 +1102,7 @@ updateXMLNode(DOMElement *aParent)
 		defaultsParent->removeChild(elmt);
 	// Root element- write valid defaults
 	} else if(aParent==NULL) {
-		if(elmt==NULL) elmt = rdXMLNode::AppendNewElement(_node,defaultsTag);
+		if(elmt==NULL) elmt = rdXMLNode::AppendNewElementWithComment(_node,defaultsTag);
 		rdXMLNode::RemoveChildren(elmt);
 		for(i=0;i<_Types.getSize();i++) {
 			rdObject *defaultObject = _Types.get(i);
@@ -1133,7 +1133,7 @@ updateXMLNode(DOMElement *aParent)
 			bool &value = property->getValueBool();
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			if((elmt==NULL) && (!property->getUseDefault())) {
-				elmt = rdXMLNode::AppendNewElement(_node,name);
+				elmt = rdXMLNode::AppendNewElementWithComment(_node, name, "", property->getComment());
 			}
 			rdXMLNode::SetBoolArray(elmt,1,&value);
 			break; }
@@ -1143,7 +1143,7 @@ updateXMLNode(DOMElement *aParent)
 			int &value = property->getValueInt();
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			if((elmt==NULL) && (!property->getUseDefault())) {
-				elmt = rdXMLNode::AppendNewElement(_node,name);
+				elmt= rdXMLNode::AppendNewElementWithComment(_node, name, "", property->getComment());
 			}
 			rdXMLNode::SetIntArray(elmt,1,&value);
 			break; }
@@ -1153,7 +1153,7 @@ updateXMLNode(DOMElement *aParent)
 			double &value = property->getValueDbl();
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			if((elmt==NULL) && (!property->getUseDefault())) {
-				elmt = rdXMLNode::AppendNewElement(_node,name);
+				elmt= rdXMLNode::AppendNewElementWithComment(_node, name, "", property->getComment());
 			}
 			rdXMLNode::SetDblArray(elmt,1,&value);
 			break; }
@@ -1164,13 +1164,16 @@ updateXMLNode(DOMElement *aParent)
 			char *str = (char *)value.c_str();
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			if((elmt==NULL) && (!property->getUseDefault())) {
-				elmt = rdXMLNode::AppendNewElement(_node,name);
+				elmt= rdXMLNode::AppendNewElementWithComment(_node, name, "", property->getComment());
 			}
 			rdXMLNode::SetStrArray(elmt,1,&str);
 			break; }
 
 		// Obj
 		case(rdProperty::Obj) : {
+			if (property->getComment()!=""){
+				rdXMLNode::AppendNewCommentElement(_node, property->getComment());
+			}
 			rdObject &object = property->getValueObj();
 			object.updateXMLNode(_node);
 			break; }
@@ -1180,7 +1183,7 @@ updateXMLNode(DOMElement *aParent)
 			rdArray<bool> &value = property->getValueBoolArray();
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			if((elmt==NULL) && (!property->getUseDefault())) {
-				elmt = rdXMLNode::AppendNewElement(_node,name);
+				elmt= rdXMLNode::AppendNewElementWithComment(_node, name, "", property->getComment());
 			}
 			rdXMLNode::SetBoolArray(elmt,value.getSize(),&value[0]);
 			break; }
@@ -1190,7 +1193,7 @@ updateXMLNode(DOMElement *aParent)
 			rdArray<int> &value = property->getValueIntArray();
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			if((elmt==NULL) && (!property->getUseDefault())) {
-				elmt = rdXMLNode::AppendNewElement(_node,name);
+				elmt= rdXMLNode::AppendNewElementWithComment(_node, name, "", property->getComment());
 			}
 			rdXMLNode::SetIntArray(elmt,value.getSize(),&value[0]);
 			break; }
@@ -1200,7 +1203,7 @@ updateXMLNode(DOMElement *aParent)
 			rdArray<double> &value = property->getValueDblArray();
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			if((elmt==NULL) && (!property->getUseDefault())) {
-				elmt = rdXMLNode::AppendNewElement(_node,name);
+				elmt= rdXMLNode::AppendNewElementWithComment(_node, name, "", property->getComment());
 			}
 			rdXMLNode::SetDblArray(elmt,value.getSize(),&value[0]);
 			break; }
@@ -1210,7 +1213,7 @@ updateXMLNode(DOMElement *aParent)
 			rdArray<string> &value = property->getValueStrArray();
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
 			if((elmt==NULL) && (!property->getUseDefault())) {
-				elmt = rdXMLNode::AppendNewElement(_node,name);
+				elmt= rdXMLNode::AppendNewElementWithComment(_node, name, "", property->getComment());
 			}
 			rdXMLNode::SetStrArray(elmt,value.getSize(),value.get());
 			break; }
@@ -1219,9 +1222,9 @@ updateXMLNode(DOMElement *aParent)
 		case(rdProperty::ObjArray) : {
 			rdArrayPtrs<rdObject> &value = property->getValueObjArray();
 			elmt = rdXMLNode::GetFirstChildElementByTagName(_node,name);
-			if(elmt==NULL) elmt = rdXMLNode::AppendNewElement(_node,name);
-			if((elmt==NULL) && (!property->getUseDefault())) {
-				elmt = rdXMLNode::AppendNewElement(_node,name);
+			if(elmt==NULL) elmt = elmt= rdXMLNode::AppendNewElementWithComment(_node, name, "", property->getComment());
+			if((elmt==NULL) && (!property->getUseDefault())) { // Is this ever used??
+				elmt= rdXMLNode::AppendNewElementWithComment(_node, name, "", property->getComment());
 			}
 			for(int j=0;j<value.getSize();j++) {
 				value.get(j)->updateXMLNode(elmt);
@@ -1291,7 +1294,7 @@ generateXMLNode(DOMElement *aParent)
 		}
 
 		// GENERATE NEW NODE
-		_node = rdXMLNode::AppendNewElement(aParent,getType(),getName());
+		_node = rdXMLNode::AppendNewElementWithComment(aParent,getType(),getName(),"");
 	}
 }
 
@@ -1362,8 +1365,8 @@ generateXMLDocument()
 	if (_document==NULL)
 		_document = new rdXMLDocument();
 	// NEW ROOT ELEMENT
-	_node = rdXMLNode::AppendNewElement(_document->getDOMDocument(),
-		getType(),getName());
+	_node = rdXMLNode::AppendNewElementWithComment(_document->getDOMDocument(),
+		getType(),getName(),"");
 
 }
 //_____________________________________________________________________________
@@ -1444,7 +1447,7 @@ setInlined(const bool aInLined, const char *aFileName)
 				// May need to remove other "space" siblings here as well
 
 				// create a refNode in parent document that has file name and object name
-				_refNode = rdXMLNode::AppendNewElement(aParent, getType(),getName());
+				_refNode = rdXMLNode::AppendNewElementWithComment(aParent, getType(),getName(),"");
 				rdXMLNode::SetAttribute(_refNode,"file",aFileName);
 				// Zero out _node and children nodes so they get regenerated as well
 				clearXMLNodes();
