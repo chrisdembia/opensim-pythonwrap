@@ -387,7 +387,7 @@ determineConstraints()
 			// Actually, when only one contact point on the hindfoot is in contact, the toe
 			// actually has three degrees of freedom because of the metatarsal joint.
 			// Therefore, it must be constrained in three directions.
-			if(rHindInContact<=1 ) {
+			if(rHindInContact<=0 ) {
 				pc[0]->setC0(x);
 				pc[0]->setC1(y);
 			//	pc[0]->setC2(z);
@@ -561,7 +561,7 @@ determineConstraints()
 			// Actually, when only one contact point on the hindfoot is in contact, the toe
 			// actually has three degrees of freedom because of the metatarsal joint.
 			// Therefore, it must be constrained in three directions.
-			if(lHindInContact<=1 ) {
+			if(lHindInContact<=0 ) {
 				pc[0]->setC0(x);
 				pc[0]->setC1(y);
 			//	pc[0]->setC2(z);
