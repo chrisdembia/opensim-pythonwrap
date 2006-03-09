@@ -164,6 +164,7 @@ void simmIKParams::setupProperties()
 	_propertySet.append(&_coordinateSetProp);
 
 	_IKTrialParamsSetProp.setName("IKTrialSet");
+	_IKTrialParamsSetProp.setComment("Trial paramaters, one block per trial");
 	rdArrayPtrs<rdObject> iktps;
 	_IKTrialParamsSetProp.setValue(iktps);
 	_propertySet.append(&_IKTrialParamsSetProp);

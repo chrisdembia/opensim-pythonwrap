@@ -321,6 +321,6 @@ void InvestigationForward::run()
 
 
 	// PRINT RESULTS
-	printResults(getName().c_str(),"./Results");
+	printResults(getName().c_str(),getResultsDir().c_str());
 }
 

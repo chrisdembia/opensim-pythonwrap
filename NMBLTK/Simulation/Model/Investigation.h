@@ -116,7 +116,13 @@ public:
 	void setOutputPrecision(int aPrecision);
 	int getOutputPrecision() const;
 	rdAnalysisSet& getAnalysisSet() const;
-
+	const std::string& getResultsDir() const {
+		return _resultsDir;
+	};
+	void setResultsDir(const std::string& aString)
+	{
+		_resultsDir = aString;
+	};
 
 	//--------------------------------------------------------------------------
 	// MODEL LOADING
