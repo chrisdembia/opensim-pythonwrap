@@ -1506,7 +1506,7 @@ void simmKinematicsEngine::writeSdfastQInitCode(ofstream& out)
 				out << "   sdm->q[" << dof->_sdfastInfo.name << "].constraint_num = -1;" << endl;
 				out << "   sdm->q[" << dof->_sdfastInfo.name << "].q_ind = -1;" << endl;
 			}
-
+			/* SIMM41
 			if (dof->_sdfastInfo.fixed || dof->_sdfastInfo.constrained)
 			{
 				out << "   sdm->q[" << dof->_sdfastInfo.name << "].output = dpNo;" << endl;
@@ -1517,7 +1517,7 @@ void simmKinematicsEngine::writeSdfastQInitCode(ofstream& out)
 				out << "   sdm->q[" << dof->_sdfastInfo.name << "].output = dpYes;" << endl;
 				out << "   sdm->q[" << dof->_sdfastInfo.name << "].pd_stiffness = " << coord->getPDStiffness() << ";" << endl;
 			}
-
+			*/
 			out << "   sdm->q[" << dof->_sdfastInfo.name << "].torque = 0.0;" << endl;
 			out << "" << endl;
 		}
@@ -2183,6 +2183,7 @@ void simmKinematicsEngine::solveInverseKinematics(const simmIKTrialParams& aIKOp
 	outputStorage.setName("InverseKinematicsResults");
 
 	assert(_dIKSolver);
+	
 	// Solve the frames.
 	_dIKSolver->solveFrames(aIKOptions, inputStorage, outputStorage);
 
@@ -2567,17 +2568,20 @@ void simmKinematicsEngine::writeSIMMJointFile(string& aFileName) const
    out << "/*                     WORLD OBJECTS                */\n";
    out << "/****************************************************/\n";
 
-	const char* gravity = _model->getGravityLabel();
+   // Use string so that == is not done on the pointer.
 
-   out << "beginworldobject floor\n";
-   if (gravity == "+X" || gravity == "-X")
+	string gravityString(_model->getGravityLabel());
+
+	out << "beginworldobject floor\n";
+   if (gravityString == "+X" || gravityString == "-X")
       out << "filename floor_yz_plane.asc\n";
-   else if (gravity == "+Y" || gravity == "-Y")
+   else if (gravityString == "+Y" || gravityString == "-Y")
       out << "filename floor_xz_plane.asc\n";
-   else if (gravity == "+Z" || gravity == "-Z")
+   else if (gravityString == "+Z" || gravityString == "-Z")
       out << "filename floor_xy_plane.asc\n";
    else
       out << "filename floor1.asc\n";
+
    out << "origin 0.0 0.0 0.0" << endl;
    out << "\nmaterial mat2\n";
 	/* The floor bone file is in meters, so scale it to fit this model. */

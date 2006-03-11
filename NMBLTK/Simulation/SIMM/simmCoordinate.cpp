@@ -481,7 +481,7 @@ void simmCoordinate::writeSIMM(ofstream& out, int& aFunctionIndex) const
 	out << "default_value " << _defaultValue << endl;
 	out << "range " << _range[0] << " " << _range[1] << endl;
 	out << "tolerance " << _tolerance << endl;
-	out << "pd_stiffness " << _PDStiffness << endl;
+	/* SIMM41 out << "pd_stiffness " << _PDStiffness << endl; */
 	if (_keys.getSize() > 0)
 	{
 		out << "keys ";
