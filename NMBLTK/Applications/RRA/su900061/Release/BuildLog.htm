@@ -1,0 +1,204 @@
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=Windows-1252">
+</head>
+<body>
+<pre>
+<table width=100% bgcolor=#CFCFE5><tr> <td> <font face=arial size=+3>
+Build Log
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
+<h3>------- Build started: Project: su900061, Configuration: Release|Win32 -------
+</h3>
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Command Lines
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>This edition of Visual C++ does not support the optimizing compiler.
+Creating temporary file "d:\programfiles\cimtj\rra\su900061\Release\RSP000099.rsp" with contents
+[
+/D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "RDSDFAST_EXPORTS" /D "_WINDLL" /D "_MBCS" /FD /EHsc /MD /GS /Fo"Release/" /Fd"Release/vc70.pdb" /W3 /c /Wp64 /Zi /TP
+.\su900061.cpp
+]
+Creating command line "cl.exe @d:\programfiles\cimtj\rra\su900061\Release\RSP000099.rsp /nologo"
+Creating temporary file "d:\programfiles\cimtj\rra\su900061\Release\RSP00009A.rsp" with contents
+[
+/D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "RDSDFAST_EXPORTS" /D "_WINDLL" /D "_MBCS" /FD /EHsc /MD /GS /Fo"Release/" /Fd"Release/vc70.pdb" /W3 /c /Wp64 /Zi /TC
+.\su900061_sar.c
+.\su900061_dyn.c
+.\sdufuncs_darryl.c
+.\dynsim\src\sdfor.c
+]
+Creating command line "cl.exe @d:\programfiles\cimtj\rra\su900061\Release\RSP00009A.rsp /nologo"
+Creating temporary file "d:\programfiles\cimtj\rra\su900061\Release\RSP00009B.rsp" with contents
+[
+/OUT:"./su900061.dll" /INCREMENTAL:NO /NOLOGO /DLL /DEBUG /PDB:"Release/su900061.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /MACHINE:X86 suPipeline40Workflow.lib suPipeline40.lib suAnalyses.lib rdSimulation.lib rdSDFast.lib rdTools.lib acpp.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib
+.\Release\sdfor.obj
+.\Release\sdufuncs_darryl.obj
+.\Release\su900061_dyn.obj
+.\Release\su900061_sar.obj
+.\Release\su900061.obj
+]
+Creating command line "link.exe @d:\programfiles\cimtj\rra\su900061\Release\RSP00009B.rsp"
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Output Window
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>Compiling...
+su900061.cpp
+Compiling...
+su900061_sar.c
+su900061_sar.c(25) : warning C4013: 'sdang2st' undefined; assuming extern returning int
+su900061_sar.c(26) : warning C4013: 'sdstate' undefined; assuming extern returning int
+su900061_sar.c(27) : warning C4013: 'sdumotion' undefined; assuming extern returning int
+su900061_sar.c(28) : warning C4013: 'sdperr' undefined; assuming extern returning int
+su900061_sar.c(37) : warning C4013: 'sdverr' undefined; assuming extern returning int
+su900061_sar.c(48) : warning C4013: 'sduforce' undefined; assuming extern returning int
+su900061_sar.c(50) : warning C4013: 'sdderiv' undefined; assuming extern returning int
+su900061_sar.c(84) : warning C4033: 'sdmotfunc' must return a value
+su900061_sar.c(90) : warning C4033: 'sdmotfunc' must return a value
+su900061_sar.c(109) : warning C4013: 'sdgentime' undefined; assuming extern returning int
+su900061_sar.c(111) : warning C4013: 'sdseterr' undefined; assuming extern returning int
+su900061_sar.c(114) : warning C4013: 'sdroot' undefined; assuming extern returning int
+su900061_sar.c(255) : warning C4013: 'sdvinteg' undefined; assuming extern returning int
+su900061_sar.c(283) : warning C4013: 'sdfinteg' undefined; assuming extern returning int
+su900061_dyn.c
+su900061_dyn.c(1576) : warning C4013: 'sdseterr' undefined; assuming extern returning int
+su900061_dyn.c(2445) : warning C4013: 'sdserialno' undefined; assuming extern returning int
+su900061_dyn.c(2472) : warning C4033: 'sdstate' must return a value
+su900061_dyn.c(4654) : warning C4013: 'sduperr' undefined; assuming extern returning int
+su900061_dyn.c(5746) : warning C4013: 'sduverr' undefined; assuming extern returning int
+su900061_dyn.c(5889) : warning C4033: 'sdqdot' must return a value
+su900061_dyn.c(5906) : warning C4033: 'sdu2qdot' must return a value
+su900061_dyn.c(5927) : warning C4033: 'sdpsstate' must return a value
+su900061_dyn.c(15461) : warning C4013: 'sdldudcomp' undefined; assuming extern returning int
+su900061_dyn.c(15494) : warning C4033: 'sdmassmat' must return a value
+su900061_dyn.c(15514) : warning C4033: 'sdfrcmat' must return a value
+su900061_dyn.c(15558) : warning C4013: 'sduconsfrc' undefined; assuming extern returning int
+su900061_dyn.c(15684) : warning C4033: 'sdequivht' must return a value
+su900061_dyn.c(15680) : warning C4101: 'tstareq' : unreferenced local variable
+su900061_dyn.c(16230) : warning C4033: 'sdfulltrq' must return a value
+su900061_dyn.c(17545) : warning C4033: 'sdcomptrq' must return a value
+su900061_dyn.c(17562) : warning C4033: 'sdmulttrq' must return a value
+su900061_dyn.c(17565) : warning C4013: 'sdfsmult' undefined; assuming extern returning int
+su900061_dyn.c(19709) : warning C4013: 'sduaerr' undefined; assuming extern returning int
+su900061_dyn.c(19769) : warning C4033: 'sdperr' must return a value
+su900061_dyn.c(20003) : warning C4033: 'sdverr' must return a value
+su900061_dyn.c(20237) : warning C4033: 'sdaerr' must return a value
+su900061_dyn.c(20466) : warning C4013: 'sdchkjaxis' undefined; assuming extern returning int
+su900061_dyn.c(20495) : warning C4033: 'sdpresacc' must return a value
+su900061_dyn.c(20499) : warning C4033: 'sdpresacc' must return a value
+su900061_dyn.c(20512) : warning C4033: 'sdpresvel' must return a value
+su900061_dyn.c(20516) : warning C4033: 'sdpresvel' must return a value
+su900061_dyn.c(20529) : warning C4033: 'sdprespos' must return a value
+su900061_dyn.c(20533) : warning C4033: 'sdprespos' must return a value
+su900061_dyn.c(20546) : warning C4033: 'sdgetht' must return a value
+su900061_dyn.c(20550) : warning C4033: 'sdgetht' must return a value
+su900061_dyn.c(20561) : warning C4033: 'sdhinget' must return a value
+su900061_dyn.c(20565) : warning C4033: 'sdhinget' must return a value
+su900061_dyn.c(20581) : warning C4013: 'sdchkbnum' undefined; assuming extern returning int
+su900061_dyn.c(20582) : warning C4033: 'sdpointf' must return a value
+su900061_dyn.c(20586) : warning C4033: 'sdpointf' must return a value
+su900061_dyn.c(20589) : warning C4033: 'sdpointf' must return a value
+su900061_dyn.c(20618) : warning C4033: 'sdbodyt' must return a value
+su900061_dyn.c(20622) : warning C4033: 'sdbodyt' must return a value
+su900061_dyn.c(20625) : warning C4033: 'sdbodyt' must return a value
+su900061_dyn.c(20712) : warning C4013: 'sdldubsl' undefined; assuming extern returning int
+su900061_dyn.c(20713) : warning C4013: 'sdldubsd' undefined; assuming extern returning int
+su900061_dyn.c(23165) : warning C4013: 'sdqrdcomp' undefined; assuming extern returning int
+su900061_dyn.c(20645) : warning C4101: 'dfk' : unreferenced local variable
+su900061_dyn.c(20646) : warning C4101: 'dlfc' : unreferenced local variable
+su900061_dyn.c(20647) : warning C4101: 'dltaufi' : unreferenced local variable
+su900061_dyn.c(20647) : warning C4101: 'dToutb' : unreferenced local variable
+su900061_dyn.c(20645) : warning C4101: 'dltc' : unreferenced local variable
+su900061_dyn.c(20648) : warning C4101: 'dltauto' : unreferenced local variable
+su900061_dyn.c(20647) : warning C4101: 'dltauti' : unreferenced local variable
+su900061_dyn.c(20647) : warning C4101: 'dTinb' : unreferenced local variable
+su900061_dyn.c(20647) : warning C4101: 'dltaufo' : unreferenced local variable
+su900061_dyn.c(20645) : warning C4101: 'dtk' : unreferenced local variable
+su900061_dyn.c(20645) : warning C4101: 'dlfci' : unreferenced local variable
+su900061_dyn.c(20645) : warning C4101: 'dltci' : unreferenced local variable
+su900061_dyn.c(23192) : warning C4013: 'sdldubslv' undefined; assuming extern returning int
+su900061_dyn.c(23212) : warning C4033: 'sdudot0' must return a value
+su900061_dyn.c(23227) : warning C4033: 'sdsetudot' must return a value
+su900061_dyn.c(23267) : warning C4033: 'sdudotm' must return a value
+su900061_dyn.c(23288) : warning C4033: 'sdderiv' must return a value
+su900061_dyn.c(23332) : warning C4013: 'sdqrbslv' undefined; assuming extern returning int
+su900061_dyn.c(23382) : warning C4033: 'sdresid' must return a value
+su900061_dyn.c(23426) : warning C4033: 'sdmult' must return a value
+su900061_dyn.c(23456) : warning C4033: 'sdreac' must return a value
+su900061_dyn.c(24655) : warning C4033: 'sdmom' must return a value
+su900061_dyn.c(24985) : warning C4033: 'sdsys' must return a value
+su900061_dyn.c(25540) : warning C4033: 'sdpos' must return a value
+su900061_dyn.c(25544) : warning C4033: 'sdpos' must return a value
+su900061_dyn.c(25574) : warning C4033: 'sdvel' must return a value
+su900061_dyn.c(25578) : warning C4033: 'sdvel' must return a value
+su900061_dyn.c(25607) : warning C4033: 'sdorient' must return a value
+su900061_dyn.c(25611) : warning C4033: 'sdorient' must return a value
+su900061_dyn.c(25646) : warning C4033: 'sdangvel' must return a value
+su900061_dyn.c(25650) : warning C4033: 'sdangvel' must return a value
+su900061_dyn.c(25676) : warning C4033: 'sdtrans' must return a value
+su900061_dyn.c(25679) : warning C4033: 'sdtrans' must return a value
+su900061_dyn.c(25683) : warning C4033: 'sdtrans' must return a value
+su900061_dyn.c(25686) : warning C4013: 'sdvcopy' undefined; assuming extern returning int
+su900061_dyn.c(25687) : warning C4033: 'sdtrans' must return a value
+su900061_dyn.c(25697) : warning C4033: 'sdtrans' must return a value
+su900061_dyn.c(25707) : warning C4033: 'sdtrans' must return a value
+su900061_dyn.c(25734) : warning C4033: 'sdrel2cart' must return a value
+su900061_dyn.c(25737) : warning C4033: 'sdrel2cart' must return a value
+su900061_dyn.c(25741) : warning C4033: 'sdrel2cart' must return a value
+su900061_dyn.c(25750) : warning C4013: 'sdvset' undefined; assuming extern returning int
+su900061_dyn.c(25752) : warning C4033: 'sdrel2cart' must return a value
+su900061_dyn.c(25766) : warning C4013: 'sdvcross' undefined; assuming extern returning int
+su900061_dyn.c(25767) : warning C4013: 'sdvadd' undefined; assuming extern returning int
+su900061_dyn.c(25781) : warning C4033: 'sdacc' must return a value
+su900061_dyn.c(25785) : warning C4033: 'sdacc' must return a value
+su900061_dyn.c(25817) : warning C4033: 'sdangacc' must return a value
+su900061_dyn.c(25821) : warning C4033: 'sdangacc' must return a value
+su900061_dyn.c(25853) : warning C4033: 'sdmass' must return a value
+su900061_dyn.c(25857) : warning C4033: 'sdmass' must return a value
+su900061_dyn.c(25875) : warning C4033: 'sdiner' must return a value
+su900061_dyn.c(25879) : warning C4033: 'sdiner' must return a value
+su900061_dyn.c(25930) : warning C4013: 'sdchkjnum' undefined; assuming extern returning int
+su900061_dyn.c(25931) : warning C4033: 'sdbtj' must return a value
+su900061_dyn.c(25962) : warning C4033: 'sditj' must return a value
+su900061_dyn.c(25992) : warning C4013: 'sdchkjpin' undefined; assuming extern returning int
+su900061_dyn.c(25993) : warning C4033: 'sdpin' must return a value
+su900061_dyn.c(26030) : warning C4033: 'sdpres' must return a value
+su900061_dyn.c(26076) : warning C4033: 'sdgetmass' must return a value
+su900061_dyn.c(26080) : warning C4033: 'sdgetmass' must return a value
+su900061_dyn.c(26091) : warning C4033: 'sdgetiner' must return a value
+su900061_dyn.c(26095) : warning C4033: 'sdgetiner' must return a value
+su900061_dyn.c(26114) : warning C4033: 'sdgetbtj' must return a value
+su900061_dyn.c(26127) : warning C4033: 'sdgetitj' must return a value
+su900061_dyn.c(26141) : warning C4033: 'sdgetpin' must return a value
+su900061_dyn.c(26160) : warning C4033: 'sdgetpres' must return a value
+su900061_dyn.c(26202) : warning C4033: 'sdjnt' must return a value
+su900061_dyn.c(26231) : warning C4013: 'sdchkucnum' undefined; assuming extern returning int
+su900061_dyn.c(26232) : warning C4033: 'sdcons' must return a value
+sdufuncs_darryl.c
+sdufuncs_darryl.c(83) : warning C4013: 'sdstate' undefined; assuming extern returning int
+sdufuncs_darryl.c(101) : warning C4013: 'sdderiv' undefined; assuming extern returning int
+sdufuncs_darryl.c(349) : warning C4013: 'sdhinget' undefined; assuming extern returning int
+sdufuncs_darryl.c(469) : warning C4013: 'sdassemble' undefined; assuming extern returning int
+sdufuncs_darryl.c(485) : warning C4013: 'sdinitvel' undefined; assuming extern returning int
+sdufuncs_darryl.c(534) : warning C4311: 'type cast' : pointer truncation from 'dpSplineFunction *' to 'int'
+sdufuncs_darryl.c(668) : warning C4013: 'sdpres' undefined; assuming extern returning int
+sdufuncs_darryl.c(755) : warning C4013: 'sdpos' undefined; assuming extern returning int
+sdufuncs_darryl.c(758) : warning C4013: 'sdtrans' undefined; assuming extern returning int
+sdufuncs_darryl.c(760) : warning C4013: 'sdpointf' undefined; assuming extern returning int
+sdufuncs_darryl.c(766) : warning C4013: 'sdbodyt' undefined; assuming extern returning int
+sdufuncs_darryl.c(826) : warning C4101: 'i' : unreferenced local variable
+sdufuncs_darryl.c(915) : warning C4267: '=' : conversion from 'size_t' to 'int', possible loss of data
+sdufuncs_darryl.c(924) : warning C4267: '=' : conversion from 'size_t' to 'int', possible loss of data
+sdufuncs_darryl.c(954) : warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+sdfor.c
+dynsim\src\sdfor.c(1102) : warning C4013: 'sdgetmass' undefined; assuming extern returning int
+dynsim\src\sdfor.c(1103) : warning C4013: 'sdgetiner' undefined; assuming extern returning int
+dynsim\src\sdfor.c(1259) : warning C4101: 'i' : unreferenced local variable
+dynsim\src\sdfor.c(1259) : warning C4101: 'numpts' : unreferenced local variable
+Generating Code...
+d:\programfiles\cimtj\rra\su900061\su900061_dyn.c(18090) : warning C4716: 'sdfsmult' : must return a value
+Linking...
+   Creating library ./su900061.lib and object ./su900061.exp
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Results
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
+Build log was saved at "file://d:\programfiles\cimtj\rra\su900061\Release\BuildLog.htm"
+su900061 - 0 error(s), 147 warning(s)</pre></table><table   width=100% height=20 bgcolor=#CFCFE5><tr><td><font face=arial size=+2>
+</font></table></body></html>

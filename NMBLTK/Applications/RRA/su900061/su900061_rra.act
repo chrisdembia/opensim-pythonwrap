@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdActuatorSet name="UNKNOWN">
+
+	<defaults>
+
+		<rdForce name="default">
+			<max_force> 10000.000 </max_force>
+			<min_force> -10000.000 </min_force>
+			<optimal_force> 1000.00000000 </optimal_force>
+			<body_A> 0 </body_A>
+			<point_A> 0.000 0.000 0.000 </point_A>
+			<direction_A> 1.000 0.000 0.000 </direction_A>
+			<body_B> 0 </body_B>
+			<point_B> 0.000 0.000 0.000 </point_B>
+		</rdForce>
+
+		<rdTorque name="default">
+			<max_force> 10000.000 </max_force>
+			<min_force> -10000.000 </min_force>
+			<optimal_force> 1000.00000000 </optimal_force>
+			<body_A> 0 </body_A>
+			<direction_A> 1.000 0.000 0.000 </direction_A>
+			<body_B> 0 </body_B>
+		</rdTorque>
+
+		<rdGeneralizedForce name="default">
+			<max_force> 10000.000 </max_force>
+			<min_force> -10000.000 </min_force>
+			<QID> -1 </QID>
+		</rdGeneralizedForce>
+
+	</defaults>
+
+	<objects>
+
+		<!-- Residuals -->
+
+		<rdForce name="FX">
+			<optimal_force> 1000.00000000 </optimal_force>
+			<body_A> -1 </body_A>
+			<point_A> 0.000 0.000 0.000 </point_A>
+			<direction_A> -1.000 0.000 0.000 </direction_A>
+			<body_B> 15 </body_B>
+			<point_B> 0.000 0.000 0.000 </point_B>
+		</rdForce>
+
+		<rdForce name="FY">
+			<optimal_force> 1000.00000000 </optimal_force>
+			<body_A> -1 </body_A>
+			<point_A> 0.000 0.000 0.000 </point_A>
+			<direction_A> 0.000 -1.000 0.000 </direction_A>
+			<body_B> 15 </body_B>
+			<point_B> 0.000 0.000 0.000 </point_B>
+		</rdForce>
+
+		<rdForce name="FZ">
+			<optimal_force> 1000.00000000 </optimal_force>
+			<body_A> -1 </body_A>
+			<point_A> 0.000 0.000 0.000 </point_A>
+			<direction_A> 0.000 0.000 -1.000 </direction_A>
+			<body_B> 15 </body_B>
+			<point_B> 0.000 0.000 0.000 </point_B>
+		</rdForce>
+
+		<rdTorque name="MX">
+			<optimal_force> 1000.00000000 </optimal_force>
+			<body_A> -1 </body_A>
+			<direction_A> -1.000 0.000 0.000 </direction_A>
+			<body_B> 15 </body_B>
+		</rdTorque>
+
+		<rdTorque name="MY">
+			<optimal_force> 1000.00000000 </optimal_force>
+			<body_A> -1 </body_A>
+			<direction_A> 0.000 -1.000 0.000 </direction_A>
+			<body_B> 15 </body_B>
+		</rdTorque>
+
+		<rdTorque name="MZ">
+			<optimal_force> 1000.00000000 </optimal_force>
+			<body_A> -1 </body_A>
+			<direction_A> 0.000 0.000 -1.000 </direction_A>
+			<body_B> 15 </body_B>
+		</rdTorque>
+
+
+		<!-- Right Leg -->
+
+		<rdGeneralizedForce name="hip_flexion_r">
+			<QID> 18 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+		<rdGeneralizedForce name="hip_adduction_r">
+			<QID> 19 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+		<rdGeneralizedForce name="hip_rotation_r">
+			<QID> 20 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+		<rdGeneralizedForce name="knee_angle_r">
+			<QID> 23 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+		<rdGeneralizedForce name="ankle_angle_r">
+			<QID> 27 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+
+		<!-- Left Leg -->
+
+		<rdGeneralizedForce name="hip_flexion_l">
+			<QID> 30 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+		<rdGeneralizedForce name="hip_adduction_l">
+			<QID> 31 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+		<rdGeneralizedForce name="hip_rotation_l">
+			<QID> 32 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+		<rdGeneralizedForce name="knee_angle_l">
+			<QID> 35 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+		<rdGeneralizedForce name="ankle_angle_l">
+			<QID> 39 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+
+		<!-- Back Joint -->
+
+		<rdGeneralizedForce name="lumbar_extension">
+			<QID> 42 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+		<rdGeneralizedForce name="lumbar_bending">
+			<QID> 43 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+		<rdGeneralizedForce name="lumbar_rotation">
+			<QID> 44 </QID>
+			<optimal_force> 1000.0 </optimal_force>
+		</rdGeneralizedForce>
+
+	</objects>
+
+</rdActuatorSet>
+
