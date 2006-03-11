@@ -324,13 +324,14 @@ void simmMarkerData::readTRCFileHeader(ifstream &in, string& aFileName, simmMark
       markersRead++;
    }
 
-   if (markersRead < data._numMarkers)
+	/* If we don't read the header, we'll throw meaningful exception and abort rather than crash the machine!! */
+  if (markersRead < data._numMarkers)
    {
-#if 0
-      if (gUseGlobalMessages)
-         gErrorBuffer += "Could not read all marker names in TRC file " + actualFileName + ".\n";
-      return smFormatError;
-#endif
+		string errorMessage;
+		errorMessage = "Could not read all marker names in TRC file " + aFileName + 
+			". Make sure there's exactly one tab per column & that Marker names are tab separated in header.\n";
+		throw rdException(errorMessage);
+
    }
 
    /* Store the position of the pointer into the file just before reading the
