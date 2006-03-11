@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Subject name="default">
+	<defaults/>
+	<!--File name for the nominal model.xml to use is specified here-->
+	<GenericModelParameters name="">
+		<!--name of xml file for nominal model-->
+		<filename> nominal_model_file_name.xml </filename>
+		<MarkerSet/>
+	</GenericModelParameters>
+	<!--Parameters to control nominal model scaling go here.-->
+	<ScalingParameters name="">
+		<!--Valid options are 'measurements', 'manualScale'-->
+		<scalingOrder> </scalingOrder>
+		<!--Measurements consist of 'MarkerPairSet' and 'BodyScaleSet'-->
+		<MeasurementSet/>
+		<!--Scale factors to be used for manual(user controlled) scaling-->
+		<ScaleSet/>
+		<!--Name of marker file *.trc for static pose-->
+		<markerFile> Unassigned </markerFile>
+		<!--Range of time in markers file to use for static pose solution-->
+		<timeRange>      -1.00000000      -1.00000000 </timeRange>
+		<!--Whether to preserve relative mass between segments-->
+		<preserveMassDistribution> false </preserveMassDistribution>
+		<!--name of SIMM joint file to write when done scaling.-->
+		<outputJointFile> Unassigned </outputJointFile>
+		<!--name of SIMM muscle file to write when done scaling.-->
+		<outputMuscleFile> Unassigned </outputMuscleFile>
+		<!--name of OpenSim xml file to write when done scaling.-->
+		<outputModelFile> Unassigned </outputModelFile>
+		<!--name of scales file to write when done scaling.-->
+		<outputScaleFile> Unassigned </outputScaleFile>
+	</ScalingParameters>
+	<!--Marker set to override default markers is specified here-->
+	<MarkerPlacementParameters name="">
+		<markerFile> Unassigned </markerFile>
+		<timeRange>      -1.00000000      -1.00000000 </timeRange>
+		<coordinateFile> Unassigned </coordinateFile>
+		<CoordinateSet/>
+		<MarkerSet/>
+		<outputJointFile> Unassigned </outputJointFile>
+		<outputMuscleFile> Unassigned </outputMuscleFile>
+		<outputModelFile> Unassigned </outputModelFile>
+		<outputMarkerFile> Unassigned </outputMarkerFile>
+		<outputMotionFile> Unassigned </outputMotionFile>
+	</MarkerPlacementParameters>
+	<!--Parameters pertinent to solving IK are specified here-->
+	<IKParameters name="">
+		<modelFile> Unassigned </modelFile>
+		<MarkerSet/>
+		<CoordinateSet/>
+		<IKTrialSet/>
+	</IKParameters>
+</Subject>
+

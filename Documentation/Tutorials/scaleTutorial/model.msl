@@ -1,0 +1,173 @@
+/****************************************************/
+/* Output muscle file made by SIMM 4.0     */
+/* Name of input muscle file: C:\Documents and Settings\All Users\Documents\SIMM4.0\Projects\Libraries\Resources\DemoModel\demoLeg.msl             */
+/****************************************************/
+
+
+begindynamicparameters
+timescale
+mass
+damping
+activation1
+activation2
+enddynamicparameters
+
+
+beginmuscle defaultmuscle
+beginactiveforcelengthcurve
+(-5.000000, 0.000000)
+( 0.000000, 0.000000)
+( 0.401000, 0.000000)
+( 0.402000, 0.000000)
+( 0.403500, 0.000000)
+( 0.527250, 0.226667)
+( 0.628750, 0.636667)
+( 0.718750, 0.856667)
+( 0.861250, 0.950000)
+( 1.045000, 0.993333)
+( 1.217500, 0.770000)
+( 1.438750, 0.246667)
+( 1.618750, 0.000000)
+( 1.620000, 0.000000)
+( 1.621000, 0.000000)
+( 2.200000, 0.000000)
+( 5.000000, 0.000000)
+endactiveforcelengthcurve
+beginpassiveforcelengthcurve
+(-5.000000, 0.000000)
+( 0.998000, 0.000000)
+( 0.999000, 0.000000)
+( 1.000000, 0.000000)
+( 1.100000, 0.035000)
+( 1.200000, 0.120000)
+( 1.300000, 0.260000)
+( 1.400000, 0.550000)
+( 1.500000, 1.170000)
+( 1.600000, 2.000000)
+( 1.601000, 2.000000)
+( 1.602000, 2.000000)
+( 5.000000, 2.000000)
+endpassiveforcelengthcurve
+begintendonforcelengthcurve
+(-10.000000, 0.000000)
+(-0.002000, 0.000000)
+(-0.001000, 0.000000)
+( 0.000000, 0.000000)
+( 0.001310, 0.010800)
+( 0.002810, 0.025700)
+( 0.004310, 0.043500)
+( 0.005810, 0.065200)
+( 0.007310, 0.091500)
+( 0.008810, 0.123000)
+( 0.010300, 0.161000)
+( 0.011800, 0.208000)
+( 0.012300, 0.227000)
+( 9.200000,345.000000)
+( 9.201000,345.000000)
+( 9.202000,345.000000)
+(20.000000,345.000000)
+endtendonforcelengthcurve
+beginforcevelocitycurve
+(-1.000000, 0.000000)
+(-0.950000, 0.010417)
+(-0.900000, 0.021739)
+(-0.850000, 0.034091)
+(-0.800000, 0.047619)
+(-0.750000, 0.062500)
+(-0.700000, 0.078947)
+(-0.650000, 0.097222)
+(-0.600000, 0.117647)
+(-0.550000, 0.140625)
+(-0.500000, 0.166667)
+(-0.450000, 0.196429)
+(-0.400000, 0.230769)
+(-0.350000, 0.270833)
+(-0.300000, 0.318182)
+(-0.250000, 0.375000)
+(-0.200000, 0.444444)
+(-0.150000, 0.531250)
+(-0.100000, 0.642857)
+(-0.050000, 0.791667)
+( 0.000000, 1.000000)
+( 0.050000, 1.482014)
+( 0.100000, 1.601571)
+( 0.150000, 1.655791)
+( 0.200000, 1.686739)
+( 0.250000, 1.706751)
+( 0.300000, 1.720753)
+( 0.350000, 1.731099)
+( 0.400000, 1.739055)
+( 0.450000, 1.745365)
+( 0.500000, 1.750490)
+( 0.550000, 1.754736)
+( 0.600000, 1.758312)
+( 0.650000, 1.761364)
+( 0.700000, 1.763999)
+( 0.750000, 1.766298)
+( 0.800000, 1.768321)
+( 0.850000, 1.770115)
+( 0.900000, 1.771717)
+( 0.950000, 1.773155)
+( 1.000000, 1.774455)
+endforcevelocitycurve
+pennation_angle  0.000
+min_thickness 0.00400
+max_thickness 0.01000
+visible yes
+max_contraction_velocity 10.00000
+excitation_format step_function
+muscle_model 4
+timescale 0.100000
+mass 0.002860
+damping 0.100000
+activation1 7.667000
+activation2 1.459854
+endmuscle
+
+
+beginmuscle glut_med1
+beginpoints
+-0.04080  0.03040  0.12090 segment pelvis
+-0.02180 -0.01170  0.05550 segment femur
+endpoints
+begingroups
+hip_abd hip_flex hip_inrot 
+endgroups
+max_force   546.000
+optimal_fiber_length 0.05350
+tendon_slack_length 0.07800
+pennation_angle  8.000
+activation  1.000
+visible yes
+beginexcitation time
+(0.000000, 0.100000)
+(0.400000, 0.000000)
+(0.800000, 1.000000)
+endexcitation
+endmuscle
+
+
+beginmuscle lat_gas
+beginpoints
+-0.01550 -0.39460  0.02720 segment femur
+-0.02540 -0.40180  0.02740 segment femur  ranges 1 knee_angle (  -44.12,    5.73)
+-0.02420 -0.04810  0.02350 segment tibia
+ 0.00440  0.03100 -0.00530 segment calcn
+endpoints
+begingroups
+knee_flex ankle_pf 
+endgroups
+max_force   488.000
+optimal_fiber_length 0.06400
+tendon_slack_length 0.38500
+pennation_angle  8.000
+activation  1.000
+visible yes
+beginexcitation time
+(0.000000, 1.000000)
+(0.600000, 0.500000)
+(0.800000, 0.000000)
+endexcitation
+endmuscle
+
+

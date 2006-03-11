@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suScaleSet name="ScaleSet">
+	<defaults>
+		<suScale name="default">
+			<scales>1.00000000       1.00000000       1.00000000</scales>
+			<segment>unnamed_segment</segment>
+		</suScale>
+	</defaults>
+	<objects>
+		<suScale name="">
+			<scales>5.0 1.0 1.0</scales>
+			<segment>toes</segment>
+		</suScale>
+	</objects>
+</suScaleSet>
