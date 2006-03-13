@@ -1,24 +1,34 @@
 // forward.cpp
-// author:  Frank C. Anderson
+// Author: Frank C. Anderson
+/* Copyright (c) 2006, Stanford University and Peter Loan.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including 
+ * without limitation the rights to use, copy, modify, merge, publish, 
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject
+ * to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included 
+ * in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 // INCLUDE
 #include <string>
 #include <iostream>
-#include <NMBLTK/Tools/rdMtx.h>
-#include <NMBLTK/Tools/rdIO.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
-#include <NMBLTK/Simulation/Model/LoadModel.h>
-#include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
 #include <NMBLTK/Analyses/InvestigationForward.h>
-#include <NMBLTK/Analyses/suKinematics.h>
-#include <NMBLTK/Analyses/suActuation.h>
-#include <NMBLTK/Analyses/suPointKinematics.h>
-#include <NMBLTK/Analyses/suBodyKinematics.h>
-#include <NMBLTK/Analyses/suActuatorGeneralizedForces.h>
-
 
 using namespace std;
-
 
 static void PrintUsage(ostream &aOStream);
 
@@ -70,6 +80,7 @@ int main(int argc,char **argv)
 		PrintUsage(cout);
 		return(-1);
 	}
+
 	// CONSTRUCT
 	cout<<"Constructing investigation from setup file "<<setupFileName<<".\n\n";
 	InvestigationForward forward(setupFileName);
@@ -101,9 +112,10 @@ int main(int argc,char **argv)
 void PrintUsage(ostream &aOStream)
 {
 	aOStream<<"\n\nforward.exe:\n\n";
-	aOStream<<"Option              Argument            Action / Notes\n";
-	aOStream<<"------              --------            --------------\n";
-	aOStream<<"-Help, -H                               Print the command-line options for forward.exe.\n";
-	aOStream<<"-PrintSetup, -PS                        Print a default setup file for forward.exe (default_forward.xml).\n";
+	aOStream<<"Option              Argument       Action / Notes\n";
+	aOStream<<"------              --------       --------------\n";
+	aOStream<<"-Help, -H                          Print the command-line options for forward.exe.\n";
+	aOStream<<"-PrintSetup, -PS                   Print a default setup file for forward.exe (default_forward.xml).\n";
+	aOStream<<"-Setup, -S          FileName       Specify the name of the setup file to use for this forward investigation.\n";
 }
 
