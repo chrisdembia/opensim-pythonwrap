@@ -22,11 +22,11 @@ scale 1.000000 1.000000 1.000000
 endsegment
 
 beginsegment pelvis
-mass 12.210506
+mass 12.706152
 masscenter -0.107921 -0.028329 0.000000
-inertia 0.094912 0.000000 0.000000
-        0.000000 0.120435 0.000000
-        0.000000 0.000000 0.120435
+inertia 0.097464 0.000000 0.000000
+        0.000000 0.123673 0.000000
+        0.000000 0.000000 0.123673
 bone pelvis_rv.asc
 bone pelvis_lv.asc
 bone sacrumv.asc
@@ -54,11 +54,11 @@ scale 1.208517 1.098205 1.098205
 endsegment
 
 beginsegment torso
-mass 22.603231
+mass 23.520735
 masscenter 0.013374 0.236524 0.000000
-inertia 0.370847 0.000000 0.000000
-        0.000000 0.261498 0.000000
-        0.000000 0.000000 0.370847
+inertia 0.380816 0.000000 0.000000
+        0.000000 0.268527 0.000000
+        0.000000 0.000000 0.380816
 bone lumbar1sm.asc
 bone lumbar2sm.asc
 bone lumbar3sm.asc
@@ -104,11 +104,11 @@ scale 0.922345 0.922345 1.097120
 endsegment
 
 beginsegment neckhead
-mass 5.205000
+mass 5.416280
 masscenter 0.028800 0.161501 0.000000
-inertia 0.030471 0.000000 0.000000
-        0.000000 0.020920 0.000000
-        0.000000 0.000000 0.028195
+inertia 0.031290 0.000000 0.000000
+        0.000000 0.021482 0.000000
+        0.000000 0.000000 0.028953
 bone cerv1sm.asc
 bone cerv2sm.asc
 bone cerv3sm.asc
@@ -166,11 +166,11 @@ scale 0.922345 0.922345 1.097120
 endsegment
 
 beginsegment humerus_r
-mass 1.039947
+mass 1.082160
 masscenter 0.000000 -0.131572 0.000000
-inertia 0.007642 0.000000 0.000000
-        0.000000 0.002636 0.000000
-        0.000000 0.000000 0.008578
+inertia 0.007847 0.000000 0.000000
+        0.000000 0.002707 0.000000
+        0.000000 0.000000 0.008809
 bone humerus_rv.asc
 marker R.Bicep	0.031993 -0.119973 0.000000 2.000000
 marker R.Tricep	-0.031993 -0.119973 0.000000 2.000000
@@ -194,22 +194,22 @@ scale 0.799822 0.799822 0.799822
 endsegment
 
 beginsegment ulna_r
-mass 0.592100
+mass 0.616134
 masscenter 0.000000 -0.119498 0.000000
-inertia 0.002912 0.000000 0.000000
-        0.000000 0.000608 0.000000
-        0.000000 0.000000 0.003158
+inertia 0.002990 0.000000 0.000000
+        0.000000 0.000624 0.000000
+        0.000000 0.000000 0.003243
 bone ulna_rv.asc
 marker R.Forearm	0.000000 -0.148722 0.000000 2.000000
 scale 0.991477 0.991477 0.991477
 endsegment
 
 beginsegment radius_r
-mass 0.592100
+mass 0.616134
 masscenter 0.000000 -0.119498 0.000000
-inertia 0.002912 0.000000 0.000000
-        0.000000 0.000608 0.000000
-        0.000000 0.000000 0.003158
+inertia 0.002990 0.000000 0.000000
+        0.000000 0.000624 0.000000
+        0.000000 0.000000 0.003243
 bone radius_rv.asc
 scale 0.991477 0.991477 0.991477
 endsegment
@@ -234,11 +234,11 @@ scale 0.991477 0.991477 0.991477
 endsegment
 
 beginsegment hand_r
-mass 0.445902
+mass 0.464002
 masscenter 0.000000 -0.067515 0.000000
-inertia 0.000877 0.000000 0.000000
-        0.000000 0.000538 0.000000
-        0.000000 0.000000 0.001317
+inertia 0.000900 0.000000 0.000000
+        0.000000 0.000552 0.000000
+        0.000000 0.000000 0.001353
 bone pisiform_rvs.asc
 bone lunate_rvs.asc
 bone scaphoid_rvs.asc
@@ -282,11 +282,11 @@ scale 0.922345 0.922345 1.097120
 endsegment
 
 beginsegment humerus_l
-mass 1.039947
+mass 1.082160
 masscenter 0.000000 -0.131572 0.000000
-inertia 0.007642 0.000000 0.000000
-        0.000000 0.002636 0.000000
-        0.000000 0.000000 0.008578
+inertia 0.007847 0.000000 0.000000
+        0.000000 0.002707 0.000000
+        0.000000 0.000000 0.008809
 bone humerus_lv.asc
 marker L.Bicep	0.031993 -0.119973 0.000000 2.000000
 marker L.Tricep	-0.031993 -0.119973 0.000000 2.000000
@@ -310,22 +310,22 @@ scale 0.799822 0.799822 0.799822
 endsegment
 
 beginsegment ulna_l
-mass 0.592100
+mass 0.616134
 masscenter 0.000000 -0.119498 0.000000
-inertia 0.002912 0.000000 0.000000
-        0.000000 0.000608 0.000000
-        0.000000 0.000000 0.003158
+inertia 0.002990 0.000000 0.000000
+        0.000000 0.000624 0.000000
+        0.000000 0.000000 0.003243
 bone ulna_lv.asc
 marker L.Forearm	0.000000 -0.148722 0.000000 2.000000
 scale 0.991477 0.991477 0.991477
 endsegment
 
 beginsegment radius_l
-mass 0.592100
+mass 0.616134
 masscenter 0.000000 -0.119498 0.000000
-inertia 0.002912 0.000000 0.000000
-        0.000000 0.000608 0.000000
-        0.000000 0.000000 0.003158
+inertia 0.002990 0.000000 0.000000
+        0.000000 0.000624 0.000000
+        0.000000 0.000000 0.003243
 bone radius_lv.asc
 scale 0.991477 0.991477 0.991477
 endsegment
@@ -350,11 +350,11 @@ scale 0.991477 0.991477 0.991477
 endsegment
 
 beginsegment hand_l
-mass 0.445902
+mass 0.464002
 masscenter 0.000000 -0.067515 0.000000
-inertia 0.000877 0.000000 0.000000
-        0.000000 0.000538 0.000000
-        0.000000 0.000000 0.001317
+inertia 0.000900 0.000000 0.000000
+        0.000000 0.000552 0.000000
+        0.000000 0.000000 0.001353
 bone pisiform_lvs.asc
 bone lunate_lvs.asc
 bone scaphoid_lvs.asc
@@ -387,11 +387,11 @@ scale 0.991477 0.991477 0.991477
 endsegment
 
 beginsegment femur_r
-mass 9.072753
+mass 9.441032
 masscenter 0.000000 -0.154344 0.000000
-inertia 0.161801 0.000000 0.000000
-        0.000000 0.033187 0.000000
-        0.000000 0.000000 0.161801
+inertia 0.166150 0.000000 0.000000
+        0.000000 0.034079 0.000000
+        0.000000 0.000000 0.166150
 bone femur_r.asc
 marker R.Knee	0.000000 -0.384522 0.047589 1.000000
 marker R.Knee.Lateral	0.000000 -0.384522 0.047589 1.000000
@@ -408,11 +408,11 @@ scale 0.951788 0.951788 0.951788
 endsegment
 
 beginsegment tibia_r
-mass 3.413004
+mass 3.551544
 masscenter 0.000000 -0.174582 0.000000
-inertia 0.031010 0.000000 0.000000
-        0.000000 0.005331 0.000000
-        0.000000 0.000000 0.032283
+inertia 0.031843 0.000000 0.000000
+        0.000000 0.005474 0.000000
+        0.000000 0.000000 0.033151
 bone tibia_r.asc
 bone fibula_r.asc
 marker R.Ankle	-0.005084 -0.416850 0.053885 2.000000
@@ -430,7 +430,7 @@ scale 1.016707 1.016707 1.016707
 endsegment
 
 beginsegment patella_r
-mass 0.102469
+mass 0.106628
 masscenter 0.001830 0.026841 0.000000
 inertia 0.000003 0.000000 0.000000
         0.000000 0.000016 0.000000
@@ -440,21 +440,21 @@ scale 1.016707 1.016707 1.016707
 endsegment
 
 beginsegment talus_r
-mass 0.033703
+mass 0.035071
 masscenter 0.004995 0.002089 0.000000
-inertia 0.000002 0.000000 0.000000
+inertia 0.000003 0.000000 0.000000
         0.000000 0.000001 0.000000
-        0.000000 0.000000 0.000002
+        0.000000 0.000000 0.000003
 bone talus_rv.asc
 scale 0.908136 0.908136 0.908136
 endsegment
 
 beginsegment foot_r
-mass 0.662820
+mass 0.689725
 masscenter 0.092507 0.014167 0.000000
-inertia 0.000750 0.000000 0.000000
-        0.000000 0.001908 0.000000
-        0.000000 0.000000 0.002213
+inertia 0.000770 0.000000 0.000000
+        0.000000 0.001960 0.000000
+        0.000000 0.000000 0.002272
 bone calcaneous_rv.asc
 bone navicular_rv.asc
 bone cuboid_rv.asc
@@ -485,11 +485,11 @@ scale 0.908136 0.908136 0.908136
 endsegment
 
 beginsegment toes_r
-mass 0.073023
+mass 0.075987
 masscenter 0.027880 -0.002361 0.009535
-inertia 0.000082 0.000000 0.000000
-        0.000000 0.000210 0.000000
-        0.000000 0.000000 0.000242
+inertia 0.000085 0.000000 0.000000
+        0.000000 0.000216 0.000000
+        0.000000 0.000000 0.000249
 bone prox_phalanx1_rvs.asc
 bone prox_phalanx2_rvs.asc
 bone prox_phalanx3_rvs.asc
@@ -508,11 +508,11 @@ scale 0.908136 0.908136 0.908136
 endsegment
 
 beginsegment femur_l
-mass 9.072753
+mass 9.441032
 masscenter 0.000000 -0.154344 0.000000
-inertia 0.161801 0.000000 0.000000
-        0.000000 0.033187 0.000000
-        0.000000 0.000000 0.161801
+inertia 0.166150 0.000000 0.000000
+        0.000000 0.034079 0.000000
+        0.000000 0.000000 0.166150
 bone femur_l.asc
 marker L.Knee	0.000000 -0.384522 -0.047589 1.000000
 marker L.Knee.Lateral	0.000000 -0.384522 -0.047589 1.000000
@@ -529,11 +529,11 @@ scale 0.951788 0.951788 0.951788
 endsegment
 
 beginsegment tibia_l
-mass 3.413004
+mass 3.551544
 masscenter 0.000000 -0.174582 0.000000
-inertia 0.031010 0.000000 0.000000
-        0.000000 0.005331 0.000000
-        0.000000 0.000000 0.032283
+inertia 0.031843 0.000000 0.000000
+        0.000000 0.005474 0.000000
+        0.000000 0.000000 0.033151
 bone tibia_l.asc
 bone fibula_l.asc
 marker L.Ankle	-0.005084 -0.416850 -0.053885 2.000000
@@ -551,7 +551,7 @@ scale 1.016707 1.016707 1.016707
 endsegment
 
 beginsegment patella_l
-mass 0.102469
+mass 0.106628
 masscenter 0.001830 0.026841 0.000000
 inertia 0.000003 0.000000 0.000000
         0.000000 0.000016 0.000000
@@ -561,21 +561,21 @@ scale 1.016707 1.016707 1.016707
 endsegment
 
 beginsegment talus_l
-mass 0.033703
+mass 0.035071
 masscenter 0.004995 0.002089 0.000000
-inertia 0.000002 0.000000 0.000000
+inertia 0.000003 0.000000 0.000000
         0.000000 0.000001 0.000000
-        0.000000 0.000000 0.000002
+        0.000000 0.000000 0.000003
 bone talus_lv.asc
 scale 0.908136 0.908136 0.908136
 endsegment
 
 beginsegment foot_l
-mass 0.662820
+mass 0.689725
 masscenter 0.092507 0.014167 0.000000
-inertia 0.000750 0.000000 0.000000
-        0.000000 0.001908 0.000000
-        0.000000 0.000000 0.002213
+inertia 0.000770 0.000000 0.000000
+        0.000000 0.001960 0.000000
+        0.000000 0.000000 0.002272
 bone calcaneous_lv.asc
 bone navicular_lv.asc
 bone cuboid_lv.asc
@@ -606,11 +606,11 @@ scale 0.908136 0.908136 0.908136
 endsegment
 
 beginsegment toes_l
-mass 0.073023
+mass 0.075987
 masscenter 0.027880 -0.002361 -0.009535
-inertia 0.000082 0.000000 0.000000
-        0.000000 0.000210 0.000000
-        0.000000 0.000000 0.000242
+inertia 0.000085 0.000000 0.000000
+        0.000000 0.000216 0.000000
+        0.000000 0.000000 0.000249
 bone prox_phalanx1_lvs.asc
 bone prox_phalanx2_lvs.asc
 bone prox_phalanx3_lvs.asc
@@ -1388,7 +1388,6 @@ begingencoord lower_torso_TX
 default_value 0.000000
 range -10.000000 10.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped no
 locked no
 active no
@@ -1398,7 +1397,6 @@ begingencoord lower_torso_TY
 default_value 0.000000
 range -10.000000 10.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped no
 locked no
 active no
@@ -1408,7 +1406,6 @@ begingencoord lower_torso_TZ
 default_value 0.969000
 range -10.000000 10.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped no
 locked no
 active no
@@ -1418,7 +1415,6 @@ begingencoord lower_torso_RX
 default_value 90.000000
 range -270.000000 270.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped no
 locked no
 active no
@@ -1428,7 +1424,6 @@ begingencoord lower_torso_RY
 default_value 0.000000
 range -270.000000 270.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped no
 locked no
 active no
@@ -1438,7 +1433,6 @@ begingencoord lower_torso_RZ
 default_value 0.000000
 range -270.000000 270.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped no
 locked no
 active no
@@ -1448,7 +1442,6 @@ begingencoord lumbar_roll
 default_value 0.000000
 range -45.000000 45.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1472,7 +1465,6 @@ begingencoord lumbar_yaw
 default_value 0.000000
 range -60.000000 60.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1496,7 +1488,6 @@ begingencoord lumbar_pitch
 default_value 0.000000
 range -45.000000 45.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1520,7 +1511,6 @@ begingencoord neck_roll
 default_value 0.000000
 range -40.000000 40.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1544,7 +1534,6 @@ begingencoord neck_yaw
 default_value 0.000000
 range -66.000000 66.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1568,7 +1557,6 @@ begingencoord neck_pitch
 default_value 0.000000
 range -50.000000 72.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1592,7 +1580,6 @@ begingencoord arm_add_r
 default_value 0.000000
 range -120.000000 90.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1616,7 +1603,6 @@ begingencoord arm_rot_r
 default_value 0.000000
 range -10.000000 10.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1640,7 +1626,6 @@ begingencoord arm_flex_r
 default_value 0.000000
 range -45.000000 90.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1664,7 +1649,6 @@ begingencoord elbow_flex_r
 default_value 0.000000
 range 0.000000 130.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1688,7 +1672,6 @@ begingencoord pro_sup_r
 default_value 60.000000
 range 50.000000 70.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1712,7 +1695,6 @@ begingencoord wrist_dev_r
 default_value 0.000000
 range -25.000000 35.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1736,7 +1718,6 @@ begingencoord wrist_flex_r
 default_value 0.000000
 range -70.000000 70.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1760,7 +1741,6 @@ begingencoord arm_add_l
 default_value 0.000000
 range -120.000000 90.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1784,7 +1764,6 @@ begingencoord arm_rot_l
 default_value 0.000000
 range -10.000000 10.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1808,7 +1787,6 @@ begingencoord arm_flex_l
 default_value 0.000000
 range -45.000000 90.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1832,7 +1810,6 @@ begingencoord elbow_flex_l
 default_value 0.000000
 range 0.000000 130.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1856,7 +1833,6 @@ begingencoord pro_sup_l
 default_value 60.000000
 range 50.000000 70.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1880,7 +1856,6 @@ begingencoord wrist_dev_l
 default_value 0.000000
 range -25.000000 35.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1904,7 +1879,6 @@ begingencoord wrist_flex_l
 default_value 0.000000
 range -70.000000 70.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1928,7 +1902,6 @@ begingencoord hip_add_r
 default_value 0.000000
 range -50.000000 20.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1952,7 +1925,6 @@ begingencoord hip_rot_r
 default_value 0.000000
 range -40.000000 40.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -1976,7 +1948,6 @@ begingencoord hip_flex_r
 default_value 0.000000
 range -11.000000 95.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2000,7 +1971,6 @@ begingencoord knee_flex_r
 default_value 0.000000
 range -10.000000 120.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2024,7 +1994,6 @@ begingencoord ankle_flex_r
 default_value 0.000000
 range -30.000000 30.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2048,7 +2017,6 @@ begingencoord subt_angle_r
 default_value 0.000000
 range -20.000000 20.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2072,7 +2040,6 @@ begingencoord toe_angle_r
 default_value 0.000000
 range -30.000000 30.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2096,7 +2063,6 @@ begingencoord hip_add_l
 default_value 0.000000
 range -50.000000 20.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2120,7 +2086,6 @@ begingencoord hip_rot_l
 default_value 0.000000
 range -40.000000 40.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2144,7 +2109,6 @@ begingencoord hip_flex_l
 default_value 0.000000
 range -11.000000 95.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2168,7 +2132,6 @@ begingencoord knee_flex_l
 default_value 0.000000
 range -10.000000 120.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2192,7 +2155,6 @@ begingencoord ankle_flex_l
 default_value 0.000000
 range -30.000000 30.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2216,7 +2178,6 @@ begingencoord subt_angle_l
 default_value 0.000000
 range -20.000000 20.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no
@@ -2240,7 +2201,6 @@ begingencoord toe_angle_l
 default_value 0.000000
 range -30.000000 30.000000
 tolerance 0.000000
-pd_stiffness 0.000000
 clamped yes
 locked no
 active no

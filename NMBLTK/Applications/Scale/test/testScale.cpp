@@ -68,7 +68,7 @@ int main(int argc,char **argv)
 	engine.setScaler(scaler);
 
 
-	if (!subject->getScalingParams().processModel(model))
+	if (!subject->getScalingParams().processModel(model, 75.0))
 	{
 		cout << "===ERROR===: Unable to scale generic model." << endl;
 		return 0;
@@ -90,6 +90,7 @@ int main(int argc,char **argv)
 		string command = "cmp "+filesToCompare[i]+" "+"std_"+filesToCompare[i];
 		success = success && (system(command.c_str())==0);
 	}
+	cout << "Path used = " << getenv("PATH") << endl;
 
 	return (success?0:1);
 }

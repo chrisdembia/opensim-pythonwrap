@@ -211,7 +211,7 @@
       <scalingOrder>measurements manualScale</scalingOrder> <!-- order of scaling -->
       <markerFile>init100.trc</markerFile>
       <timeRange>0.0 0.25</timeRange>
-      <preserveMassDistribution>true</preserveMassDistribution>
+      <preserveMassDistribution>false</preserveMassDistribution>
       <outputJointFile>CrouchGaitSP.jnt</outputJointFile> <!-- optional -->
       <outputMuscleFile>CrouchGaitSP.msl</outputMuscleFile> <!-- optional -->
       <outputModelFile>CrouchGaitSP.xml</outputModelFile> <!-- optional -->
