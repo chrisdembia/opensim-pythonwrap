@@ -41,7 +41,7 @@ public:
 	ScalerInterface(nmblKinematicsEngine &aKinematicsEngine):
 		_theKinematiceEngine(aKinematicsEngine)
 		{}
-	virtual bool scaleModel(const suScaleSet& scaleSet)
+	virtual bool scaleModel(const suScaleSet& scaleSet, bool aPreserveMassDist, double aFinalMass)
 	{
 		std::cout<< "Error, ScalerInterface::scaleModel() - not implemented.\n";
 		return false;

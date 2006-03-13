@@ -41,6 +41,10 @@ using namespace std;
  * Default constructor.
  */
 simmSubject::simmSubject() :
+	_mass(_massProp.getValueDbl()),
+	_height(_heightProp.getValueDbl()),
+	_age(_ageProp.getValueDbl()),
+	_notes(_notesProp.getValueStr()),
    _genericModelParamsProp(rdPropertyObj("", simmGenericModelParams())),
 	_genericModelParams((simmGenericModelParams&)_genericModelParamsProp.getValueObj()),
    _scalingParamsProp(rdPropertyObj("", simmScalingParams())),
@@ -59,6 +63,10 @@ simmSubject::simmSubject() :
  */
 simmSubject::simmSubject(const string &aFileName) :
    rdObject(aFileName),
+	_mass(_massProp.getValueDbl()),
+	_height(_heightProp.getValueDbl()),
+	_age(_ageProp.getValueDbl()),
+	_notes(_notesProp.getValueStr()),
    _genericModelParamsProp(rdPropertyObj("", simmGenericModelParams())),
 	_genericModelParams((simmGenericModelParams&)_genericModelParamsProp.getValueObj()),
    _scalingParamsProp(rdPropertyObj("", simmScalingParams())),
@@ -79,6 +87,10 @@ simmSubject::simmSubject(const string &aFileName) :
  */
 simmSubject::simmSubject(DOMElement *aElement) :
    rdObject(aElement),
+	_mass(_massProp.getValueDbl()),
+	_height(_heightProp.getValueDbl()),
+	_age(_ageProp.getValueDbl()),
+	_notes(_notesProp.getValueStr()),
    _genericModelParamsProp(rdPropertyObj("", simmGenericModelParams())),
 	_genericModelParams((simmGenericModelParams&)_genericModelParamsProp.getValueObj()),
    _scalingParamsProp(rdPropertyObj("", simmScalingParams())),
@@ -109,6 +121,10 @@ simmSubject::~simmSubject()
  */
 simmSubject::simmSubject(const simmSubject &aSubject) :
    rdObject(aSubject),
+	_mass(_massProp.getValueDbl()),
+	_height(_heightProp.getValueDbl()),
+	_age(_ageProp.getValueDbl()),
+	_notes(_notesProp.getValueStr()),
    _genericModelParamsProp(rdPropertyObj("", simmGenericModelParams())),
 	_genericModelParams((simmGenericModelParams&)_genericModelParamsProp.getValueObj()),
    _scalingParamsProp(rdPropertyObj("", simmScalingParams())),
@@ -158,6 +174,10 @@ rdObject* simmSubject::copy(DOMElement *aElement) const
 
 void simmSubject::copyData(const simmSubject &aSubject)
 {
+	_mass = aSubject._mass;
+	_height = aSubject._height;
+	_age = aSubject._age;
+	_notes = aSubject._notes;
 	_genericModelParams = aSubject._genericModelParams;
 	_scalingParams = aSubject._scalingParams;
 	_markerPlacementParams = aSubject._markerPlacementParams;
@@ -184,6 +204,21 @@ void simmSubject::setNull()
  */
 void simmSubject::setupProperties()
 {
+	_massProp.setName("mass");
+	_massProp.setValue(-1.0);
+	_propertySet.append(&_massProp);
+
+	_heightProp.setName("height");
+	_heightProp.setValue(-1.0);
+	_propertySet.append(&_heightProp);
+
+	_ageProp.setName("age");
+	_ageProp.setValue(-1.0);
+	_propertySet.append(&_ageProp);
+
+	_notesProp.setName("notes");
+	_propertySet.append(&_notesProp);
+
 	_genericModelParamsProp.setName("");
 	_genericModelParamsProp.setComment("File name for the nominal model.xml to use is specified here");
 	_propertySet.append(&_genericModelParamsProp);

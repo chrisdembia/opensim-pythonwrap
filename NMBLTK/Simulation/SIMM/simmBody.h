@@ -109,7 +109,7 @@ public:
 
    void setup(simmKinematicsEngine* aEngine);
 
-	double getMass() { return _mass; }
+	double getMass() const { return _mass; }
 	void getMassCenter(double vec[3]) { vec[0] = _massCenter[0]; vec[1] = _massCenter[1]; vec[2] = _massCenter[2]; }
 	const rdArray<double>& getInertia() { return _inertia; }
 	rdArrayPtrs<rdVisibleObject>& getBones() const { return _bones; }
@@ -118,7 +118,8 @@ public:
 	int deleteAllMarkers();
 	void deleteMarker(const simmMarker* aMarker);
 	int deleteUnusedMarkers(const rdArray<std::string>& aMarkerNames);
-	void scale(rdArray<double>& aScaleFactors);
+	void scale(rdArray<double>& aScaleFactors, bool aPreserveMassDist = false);
+	void scaleInertialProperties(rdArray<double>& aScaleFactors);
 
 	void addMarker(simmMarker* aMarker);
 	void writeSIMM(std::ofstream& out) const;
@@ -131,7 +132,6 @@ protected:
 private:
 	void setNull();
 	void setupProperties();
-	void scaleInertialProperties(rdArray<double>& aScaleFactors);
 //=============================================================================
 };	// END of class simmBody
 //=============================================================================

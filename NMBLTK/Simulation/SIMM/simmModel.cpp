@@ -833,6 +833,20 @@ bool simmModel::scale(const suScaleSet& aScaleSet)
 
 }
 
+bool simmModel::scale(const suScaleSet& aScaleSet, bool aPreserveMassDist, double aFinalMass)
+{
+	// Scale the muscles
+	simmMuscle* sm;
+	for (int i = 0; i < _muscles.getSize(); i++)
+	{
+		if (sm = dynamic_cast<simmMuscle*>(_muscles[i]))
+			sm->scale(aScaleSet);
+	}
+
+	// Scale the rest of the model
+	return getKinematicsEngine().scale(aScaleSet, aPreserveMassDist, aFinalMass);
+}
+
 //--------------------------------------------------------------------------
 // GRAVITY
 //--------------------------------------------------------------------------
@@ -878,6 +892,11 @@ void simmModel::getInboardToJointBodyLocal(int aBody, double rBTJ[3]) const
 //--------------------------------------------------------------------------
 // INERTIA
 //--------------------------------------------------------------------------
+double simmModel::getMass() const
+{
+	return getKinematicsEngine().getMass();
+}
+
 double simmModel::getMass(int aBody) const
 {
 	return getKinematicsEngine().getMass(aBody);

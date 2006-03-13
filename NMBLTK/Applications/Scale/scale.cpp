@@ -92,7 +92,7 @@ int main(int argc,char **argv)
 					return(0); 
 				}
 				else {
-					cout << "Unrecognized option" << option << "on command line... Ignored" << endl;
+					cout << "Unrecognized option " << option << " on command line... Ignored" << endl;
 					PrintUsage(cout);
 					return(0);
 				}
@@ -106,7 +106,7 @@ int main(int argc,char **argv)
 		if (!subject->isDefaultScalingParams()){
 			ScalerInterface *scaler = new simmScalerImpl(engine);
 			engine.setScaler(scaler);
-			if (!subject->getScalingParams().processModel(model))
+			if (!subject->getScalingParams().processModel(model, subject->getMass()))
 			{
 				cout << "===ERROR===: Unable to scale generic model." << endl;
 				return 0;

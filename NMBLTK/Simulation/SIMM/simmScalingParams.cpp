@@ -46,7 +46,7 @@ simmScalingParams::simmScalingParams() :
 	_scalingOrder(_scalingOrderProp.getValueStrArray()),
 	_measurementSet((rdArrayPtrs<simmMeasurement>&)_measurementSetProp.getValueObjArray()),
 	_scaleSet((rdArrayPtrs<suScale>&)_scaleSetProp.getValueObjArray()),
-   _markerFileName(_markerFileNameProp.getValueStr()),
+	_markerFileName(_markerFileNameProp.getValueStr()),
 	_timeRange(_timeRangeProp.getValueDblArray()),
 	_preserveMassDist(_preserveMassDistProp.getValueBool()),
 	_outputJointFileName(_outputJointFileNameProp.getValueStr()),
@@ -65,7 +65,7 @@ simmScalingParams::simmScalingParams(DOMElement *aElement) :
 	_scalingOrder(_scalingOrderProp.getValueStrArray()),
 	_measurementSet((rdArrayPtrs<simmMeasurement>&)_measurementSetProp.getValueObjArray()),
 	_scaleSet((rdArrayPtrs<suScale>&)_scaleSetProp.getValueObjArray()),
-   _markerFileName(_markerFileNameProp.getValueStr()),
+	_markerFileName(_markerFileNameProp.getValueStr()),
 	_timeRange(_timeRangeProp.getValueDblArray()),
 	_preserveMassDist(_preserveMassDistProp.getValueBool()),
 	_outputJointFileName(_outputJointFileNameProp.getValueStr()),
@@ -242,7 +242,7 @@ simmScalingParams& simmScalingParams::operator=(const simmScalingParams &aScalin
 	return(*this);
 }
 
-bool simmScalingParams::processModel(simmModel* aModel)
+bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 {
 	int i;
 	suScaleSet theScaleSet;
@@ -332,7 +332,7 @@ bool simmScalingParams::processModel(simmModel* aModel)
 		}
 
 		/* Now scale the model. */
-		aModel->scale(theScaleSet);
+		aModel->scale(theScaleSet, _preserveMassDist, aSubjectMass);
 
 		/* Write output files, if names specified by the user. */
 		if (!_outputJointFileNameProp.getUseDefault())

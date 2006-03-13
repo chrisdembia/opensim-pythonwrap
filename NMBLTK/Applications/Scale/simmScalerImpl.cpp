@@ -12,7 +12,7 @@ ScalerInterface(aKinematicsEngine)
 {
 }
 
-bool simmScalerImpl::scaleModel(const suScaleSet& aScaleSet)
+bool simmScalerImpl::scaleModel(const suScaleSet& aScaleSet, bool aPreserveMassDist, double aFinalMass)
 {
 
 	// Here we know we're in SIMM implementation so we may convert to the concrete simmKinematicsEngine class
@@ -33,12 +33,29 @@ bool simmScalerImpl::scaleModel(const suScaleSet& aScaleSet)
 			{
 				rdArray<double> scaleFactors(1.0, 3);
 				aScale->getScaleFactors(scaleFactors);
-				bodies[i]->scale(scaleFactors);	
+				bodies[i]->scale(scaleFactors, aPreserveMassDist);	
 			}
 		}
 	}
 
+	// Now that the masses of the individual bodies have
+	// been scaled (if aPreserveMassDist == false), get the
+	// total mass and compare it to aFinalMass in order to
+	// determine how much to scale the body masses again,
+	// so that the total model mass comes out to aFinalMass.
+	if (aFinalMass > 0.0)
+	{
+		double mass = engine.getMass();
+		if (mass > 0.0)
+		{
+			double factor = pow(aFinalMass / mass, 1.0 / 3.0);
+			rdArray<double> scaleFactor(factor, 3);
+			for (i = 0; i < bodies.getSize(); i++)
+				bodies[i]->scaleInertialProperties(scaleFactor);	
+		}
+	}
 
+	// Now scale the joints.
 	for (i = 0; i < engine.getNumJoints(); i++){
 		engine.getJoint(i)->scale(aScaleSet); 
 	}

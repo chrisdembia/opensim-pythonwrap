@@ -31,6 +31,8 @@
 
 #include <math.h>
 #include <NMBLTK/Tools/rdPropertyObj.h>
+#include <NMBLTK/Tools/rdPropertyStr.h>
+#include <NMBLTK/Tools/rdPropertyDbl.h>
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/rdXMLDocument.h>
 #include <NMBLTK/Simulation/rdSimulationDLL.h>
@@ -60,6 +62,19 @@ private:
 	// simmModel* _model;
 
 protected:
+
+	rdPropertyDbl _massProp;
+	double &_mass;
+
+	rdPropertyDbl _heightProp;
+	double &_height;
+
+	rdPropertyDbl _ageProp;
+	double &_age;
+
+	rdPropertyStr _notesProp;
+	std::string &_notes;
+
 	rdPropertyObj _genericModelParamsProp;
 	simmGenericModelParams &_genericModelParams;
 
@@ -96,6 +111,7 @@ public:
 	{
 		return _genericModelParams;
 	}
+
 	simmScalingParams& getScalingParams()
 	{
 		return _scalingParams;
@@ -110,6 +126,8 @@ public:
 	{
 		return _IKParams;
 	}
+
+	double getMass() const { return _mass; }
 
 	bool isDefaultGenericModelParams() { return _genericModelParamsProp.getUseDefault(); }
 	bool isDefaultScalingParams() { return _scalingParamsProp.getUseDefault(); }

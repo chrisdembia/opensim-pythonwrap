@@ -266,7 +266,7 @@ int simmBody::deleteUnusedMarkers(const rdArray<string>& aMarkerNames)
 	return numDeleted;
 }
 
-void simmBody::scale(rdArray<double>& aScaleFactors)
+void simmBody::scale(rdArray<double>& aScaleFactors, bool aPreserveMassDist)
 {
 	int i;
 
@@ -276,7 +276,8 @@ void simmBody::scale(rdArray<double>& aScaleFactors)
 		_scaleFactor[i] *= aScaleFactors[i];
 	}
 
-	scaleInertialProperties(aScaleFactors);
+	if (!aPreserveMassDist)
+		scaleInertialProperties(aScaleFactors);
 
 	simmBone* sb;
 	for (i = 0; i < _bones.getSize(); i++)

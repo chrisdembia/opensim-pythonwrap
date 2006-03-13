@@ -2973,10 +2973,34 @@ int simmKinematicsEngine::assemble(double aTime, double *rState, int *aLock, dou
 //--------------------------------------------------------------------------
 bool simmKinematicsEngine::scale(const suScaleSet& aScaleSet)
 {
+	int i, j;
+
+	for (i = 0; i < _bodies.getSize(); i++)
+	{
+		for (j = 0; j < aScaleSet.getSize(); j++)
+		{
+			suScale *aScale = aScaleSet.get(j);
+			if (_bodies[i]->getName() == aScale->getSegmentName())
+			{
+				rdArray<double> scaleFactors(1.0, 3);
+				aScale->getScaleFactors(scaleFactors);
+				_bodies[i]->scale(scaleFactors);
+			}
+		}
+	}
+
+	for (i = 0; i < _joints.getSize(); i++)
+		_joints[i]->scale(aScaleSet);
+
+	return true;
+}
+
+bool simmKinematicsEngine::scale(const suScaleSet& aScaleSet, bool aPreserveMassDist, double aFinalMass)
+{
 
 	assert(_dScaler);
 
-	return _dScaler->scaleModel(aScaleSet);
+	return _dScaler->scaleModel(aScaleSet, aPreserveMassDist, aFinalMass);
 
 }
 
@@ -3031,6 +3055,16 @@ void simmKinematicsEngine::getInboardToJointBodyLocal(int aBody, double rBTJ[3])
 //--------------------------------------------------------------------------
 // INERTIA
 //--------------------------------------------------------------------------
+double simmKinematicsEngine::getMass() const
+{
+	double totalMass = 0.0;
+
+	for (int i = 0; i < _bodies.getSize(); i++)
+		totalMass += _bodies[i]->getMass();
+
+	return totalMass;
+}
+
 double simmKinematicsEngine::getMass(int aBody) const
 {
 	// TODO

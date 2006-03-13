@@ -118,7 +118,7 @@ public:
 	simmScalingParams& operator=(const simmScalingParams &aScalingParams);
    void simmScalingParams::copyData(const simmScalingParams &aScalingParams);
 
-	bool processModel(simmModel* aModel);
+	bool processModel(simmModel* aModel, double aFinalMass = -1.0);
 
 	/* Register types to be used when reading a simmScalingParams object from xml file. */
 	static void registerTypes();

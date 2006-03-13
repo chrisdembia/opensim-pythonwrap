@@ -199,6 +199,7 @@ public:
 	// SCALE THE MODEL
 	//--------------------------------------------------------------------------
 	virtual bool scale(const suScaleSet& aScaleSet) = 0;
+	virtual bool scale(const suScaleSet& aScaleSet, bool aPreserveMassDist, double aFinalMass) = 0;
 
 	//--------------------------------------------------------------------------
 	// GRAVITY
@@ -218,6 +219,7 @@ public:
 	//--------------------------------------------------------------------------
 	// INERTIA	// DYN
 	//--------------------------------------------------------------------------
+	virtual double getMass() const = 0;
 	virtual double getMass(int aBody) const = 0;
 	virtual int getInertiaBodyLocal(int aBody, double rI[3][3]) const = 0;
 	virtual int	getInertiaBodyLocal(int aBody, double *rI) const = 0;
