@@ -45,7 +45,8 @@ RSC=rc.exe
 # PROP Target_Dir ""
 # ADD F90 /debug:none /libs:dll /threads
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "RDSIMULATION_EXPORTS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation" /I "C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Model" /I "C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Control" /I "C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Integrator" /I "C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Manager" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "RDSIMULATION_EXPORTS" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation" /I "C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Model" /I "C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Control" /I "C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Integrator" /I "C:\cygwin\home\fca\Dev\Source\Native\RD\Simulation\Manager" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "RDSIMULATION_EXPORTS" /FD /c
+# SUBTRACT CPP /YX
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"

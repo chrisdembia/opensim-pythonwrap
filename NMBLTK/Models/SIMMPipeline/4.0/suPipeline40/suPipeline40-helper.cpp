@@ -5,7 +5,6 @@
 //  ripped from pipeline and modified
 //
 //
-#include <fstream>
 #include <cassert>
 #include <stdexcept>
 #include <vector>
@@ -13,6 +12,7 @@
 #include <cstdio>
 #include <cstdarg>
 #include <climits>
+#include <fstream>
 #include "./suPipeline40.h"
 #include "./suPipeline40-helper.h"
 
@@ -174,7 +174,7 @@ void DP_MainStartup(DP_Data *dpd,const char *workpath,const char *paramfile)
 
   // copy workpath into current_dir
    {
-      assert( PATH_MAX < CHARBUFFER );
+      //assert( PATH_MAX < CHARBUFFER );
       size_t len = strlen( workpath );
 
       if ( CHARBUFFER < len )

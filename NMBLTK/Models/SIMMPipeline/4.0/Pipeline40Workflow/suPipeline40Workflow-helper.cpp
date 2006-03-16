@@ -131,7 +131,7 @@ void DP_MainStartup_Workflow(DP_Data *dpd,const char *workpath,const char *param
 
   // copy workpath into current_dir
    {
-      assert( PATH_MAX < CHARBUFFER );
+      //assert( PATH_MAX < CHARBUFFER );
       size_t len = strlen( workpath );
 
       if ( CHARBUFFER < len )

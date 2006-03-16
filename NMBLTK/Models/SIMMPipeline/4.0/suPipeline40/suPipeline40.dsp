@@ -44,7 +44,8 @@ RSC=rc.exe
 # ADD BASE F90 /compile_only /nologo /warn:nofileopt
 # ADD F90 /compile_only /nologo /warn:nofileopt
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I ".\dp" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "RDSDFAST_EXPORTS" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I ".\dp" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "RDSDFAST_EXPORTS" /FD /c
+# SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -74,7 +75,8 @@ PostBuild_Cmds=$(RDI_INSTALL)\Bin\cpl
 # ADD BASE F90 /check:bounds /compile_only /dbglibs /debug:full /nologo /traceback /warn:argument_checking /warn:nofileopt
 # ADD F90 /browser /check:bounds /compile_only /dbglibs /debug:full /nologo /traceback /warn:argument_checking /warn:nofileopt
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I ".\dp" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "_POSIX_" /D "RDSDFAST_EXPORTS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I ".\dp" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "RDSDFAST_EXPORTS" /FR /FD /GZ /c
+# SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -161,10 +163,6 @@ SOURCE=.\readmuscles.c
 # Begin Source File
 
 SOURCE=.\readtools.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\sdmassmat.c
 # End Source File
 # Begin Source File
 
@@ -255,5 +253,9 @@ SOURCE=.\suPipeline40.h
 SOURCE=.\universal_40.h
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\sdmassmat.c
+# End Source File
 # End Target
 # End Project
