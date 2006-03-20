@@ -34,6 +34,7 @@ _Template_(const std::string &aParametersFileName,
 	suPipeline40Workflow(aParametersFileName,aActuators,aContacts)
 {
 	setNull();
+	setName("_Template_");
 }
 
 
