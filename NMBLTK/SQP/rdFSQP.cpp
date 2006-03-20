@@ -7,6 +7,8 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
+#include <iostream>
+#include <string>
 #include <CFSQP/cfsqpusr.h>
 #include <NMBLTK/Tools/rdMath.h>
 #include <NMBLTK/Tools/rdMtx.h>
@@ -14,6 +16,7 @@
 #include "rdFSQP.h"
 #include "rdOptimizationTarget.h"
 
+using namespace std;
 
 //=============================================================================
 // EXPORTED STATIC CONSTANTS
@@ -741,4 +744,68 @@ dcdxFunc(int nparam,int j,double *x,double *dcdx,
 
 	// COMPUTE
 	target->computeConstraintGradient(x,j,dcdx);
+}
+
+//=============================================================================
+// PRINT
+//=============================================================================
+//______________________________________________________________________________
+/**
+ * Print the meaning of the value returned by computeOptimalControls().
+ */
+void rdFSQP::
+PrintInform(int aInform,ostream &aOStream)
+{
+	switch(aInform) {
+		case(0):
+			aOStream<<"rdFSQP(0): Normal termination.";
+			break;
+		case(1):
+			aOStream<<"rdFSQP(1): User-provided initial guess is infeasible ";
+			aOStream<<"for linear constraints\n";
+			aOStream<<"and CFSQP is unable to geerate a point satisfying these ";
+			aOStream<<"conditions.\n";
+			break;
+		case(2):
+			aOStream<<"rdFSQP(2): The user-provided initial guess is infeasible ";
+			aOStream<<"for non-linear inequality constraints\n";
+			aOStream<<"and linear constraints, and CFSQP is unable to generate ";
+			aOStream<<"a point satisfying these constraints.\n";
+			aOStream<<"This may be due to insucient accuracy of the QP solver.\n";
+			break;
+		case(3):
+			aOStream<<"rdFSQP(3): The maximum number of iterations has been ";
+			aOStream<<"reached before a solution was obtained.\n";
+			break;
+		case(4):
+			aOStream<<"rdFSQP(4): The line search failed to find a new iterate.";
+			aOStream<<" The step size was smaller than\n";
+			aOStream<<"the machine precision.\n";
+			break;
+		case(5):
+			aOStream<<"rdFSQP(5): Failure of the QP solver in attempting to construct d0.\n";
+			break;
+		case(6):
+			aOStream<<"rdSQP(6): Failure of the QP solver in attempting to construct d1.\n";
+			break;
+		case(7):
+			aOStream<<"rdSQP(7): Input data are not consistent.  Set the print level";
+			aOStream<<" greater than 0 for more information.\n";
+			break;
+		case(8):
+			aOStream<<"rdSQP(8): The new iterate is numerically equivalent to ";
+			aOStream<<"the previous iterate,\n";
+			aOStream<<"though the stopping criterion is not yet satisfied. ";
+			aOStream<<"Relaxing the stopping criterion\n";
+			aOStream<<"shouldsolve this problem.\n";
+			break;
+		case(9):
+			aOStream<<"rdSQP(9): One of the penalty parameters exceeded ";
+			aOStream<<"the largest allowed bound.\n";
+			aOStream<<"The algorithm is having trouble satisfying a non-linear ";
+			aOStream<<"equality constraint.\n";
+			break;
+		default:
+			aOStream<<"rdSQP("<<aInform<<"): Unrecognized inform value.\n";
+	}
 }
