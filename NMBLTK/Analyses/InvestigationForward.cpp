@@ -8,18 +8,12 @@
 #include <NMBLTK/Tools/rdIO.h>
 #include <NMBLTK/Tools/rdVectorGCVSplineR1R3.h>
 #include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdModelIntegrand.h>
 #include <NMBLTK/Simulation/Model/rdDerivCallbackSet.h>
 #include <NMBLTK/Simulation/Model/rdAnalysisSet.h>
 #include <NMBLTK/Simulation/Control/rdControlLinear.h>
 #include <NMBLTK/Simulation/Control/rdControlSet.h>
-#include <NMBLTK/Analyses/suKinematics.h>
-#include <NMBLTK/Analyses/suPointKinematics.h>
-#include <NMBLTK/Analyses/suBodyKinematics.h>
-#include <NMBLTK/Analyses/suActuation.h>
-#include <NMBLTK/Analyses/suContact.h>
-#include <NMBLTK/Analyses/suLinearSpring.h>
-#include <NMBLTK/Analyses/suTorsionalSpring.h>
-#include <NMBLTK/Analyses/suActuatorPerturbationIndependent.h>
+#include <NMBLTK/Simulation/Manager/rdManager.h>
 
 using namespace std;
 

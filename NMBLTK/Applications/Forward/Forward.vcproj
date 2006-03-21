@@ -32,7 +32,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="rdTools_D.lib rdSimulation_D.lib"
-				OutputFile="$(OutDir)/Forward.exe"
+				OutputFile="$(OutDir)/forward.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/Forward.pdb"
@@ -78,7 +78,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="rdTools.lib rdSimulation.lib"
-				OutputFile="$(OutDir)/Forward.exe"
+				OutputFile="$(OutDir)/forward.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
