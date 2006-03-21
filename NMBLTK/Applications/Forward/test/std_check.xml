@@ -91,12 +91,12 @@
 			<optimal_negative_force>    1000.00000000 </optimal_negative_force>
 		</JointMoment>
 	</defaults>
-	<model_library> rdBlock_D </model_library>
+	<model_library> rdBlock </model_library>
 	<model_file>  </model_file>
 	<actuator_set_file> block_actuators.xml </actuator_set_file>
 	<contact_force_set_file> block_contacts.xml </contact_force_set_file>
 	<params_file>  </params_file>
-	<library_list> rdActuators_D suAnalyses_D </library_list>
+	<library_list> rdActuators suAnalyses </library_list>
 	<results_directory> . </results_directory>
 	<output_precision> 8 </output_precision>
 	<initial_time>       0.00000000 </initial_time>
