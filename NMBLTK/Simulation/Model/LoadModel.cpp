@@ -28,6 +28,77 @@ static void PrintUsage(ostream &aOStream);
 
 //_____________________________________________________________________________
 /**
+ * A Wrapper around Window's LoadLibrary that implements library naming convention 
+ * and loading policy on windows which follows:
+ * If you're loading rdSimulation_D and other libraries that do not have a trailing _D
+ * an _D is apprended to the library file name. If loading of that fails, we revert to using
+ * the non _D file instead, if that fails we give error and return 0. Reciprocal treatment from
+ * release libraries is implemented. I tried to keep this function in the same file to try
+ * to localize platform specific code. -Ayman
+ * 
+ */
+
+RDSIMULATION_API
+HMODULE
+WINAPI
+LoadOpenSimLibrary(const char *lpLibFileName)
+{
+	string actualLibFileName(lpLibFileName);
+	string debugSuffix="_D";
+	char* locationOf_D=strstr(lpLibFileName, debugSuffix.c_str());
+	bool hasDebugSuffix = (locationOf_D!= 0) && (strcmp(locationOf_D, debugSuffix.c_str())==0);
+
+	HINSTANCE	libraryHandle;
+#ifdef _DEBUG
+	// if library name has no trailing _D try to append it and load
+	// find locaion of _D in lpLibFileName and make sure it's trailing
+	if (!hasDebugSuffix){
+		// Append _D to lpLibFileName;
+		cout << "WARNING: SUSPECT LOADING RELEASE LIB INTO DEBUG Simulation library." << endl;
+		cout << "Trying to load a debug version ..." << endl;
+		actualLibFileName = string(lpLibFileName)+debugSuffix;
+		// if that fails we'll try the one with no _D 
+		if ((libraryHandle = LoadLibrary(actualLibFileName.c_str()))==0){
+			cout << "Loading of Debug library " << actualLibFileName << "Failed. Trying lpLibFileName .." << endl;
+			// library with _D loading failed, try non _D version
+			actualLibFileName = string(lpLibFileName);
+			if ((libraryHandle = LoadLibrary(actualLibFileName.c_str()))==0){
+				cout << "Loaded library " << actualLibFileName << endl;
+			}
+			else
+				cout << "Failed to load either debug or release library " << actualLibFileName << endl;
+		}
+		else
+			cout << "Loaded library " << actualLibFileName << endl;
+	}
+#else
+	// Here we're in release mode, highly unlikely to have a trailing _D intentionally!
+	if (hasDebugSuffix){
+
+		// try stripping the trailing _D first 
+		cout << "WARNING: SUSPECT LOADING DEBUG LIB INTO RELEASE rdSimulation";
+		cout << "Trying ";
+		if ((libraryHandle = LoadLibrary(actualLibFileName.c_str()))==0){
+			*locationOf_D= '\0';	// Strip trailing _D and retry (can we do that with const!)
+			if ((libraryHandle = LoadLibrary(actualLibFileName.c_str()))==0){
+				cout << "Loaded library " << actualLibFileName << endl;
+			}
+			else
+				cout << "Failed to load either debug or release library " << actualLibFileName << endl;
+
+		}
+		else
+			cout << "Loaded library " << actualLibFileName << endl;
+
+	}
+	else
+		libraryHandle = LoadLibrary(actualLibFileName.c_str());
+#endif
+	return libraryHandle;
+}
+
+//_____________________________________________________________________________
+/**
  * Load and create a model from a dynamically loaded library (DLL).
  *
  * @param aModelLibraryName Name of the model DLL (e.g., rdBlock_D).  Do not
@@ -38,7 +109,7 @@ static void PrintUsage(ostream &aOStream);
 RDSIMULATION_API rdModel* LoadModel(const string &aModelLibraryName)
 {
 	// LOAD MODEL LIBRARY
-	HINSTANCE modelLibrary = LoadLibrary(aModelLibraryName.c_str());
+	HINSTANCE modelLibrary = LoadOpenSimLibrary(aModelLibraryName.c_str());
 	if(modelLibrary==NULL) {
 		cout<<"ERROR- library for model "<<aModelLibraryName<<" could not be loaded.\n\n";
 		return(NULL);
@@ -130,7 +201,7 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 		if((i+1)>=argc) break;  // no more arguments.
 		if((option=="-Library")||(option=="-L")) {
 			string libraryName = argv[i+1];
-			library = LoadLibrary(libraryName.c_str());
+			library = LoadOpenSimLibrary(libraryName.c_str());
 			if(library==NULL) {
 				cout<<"ERROR- library "<<value<<" could not be loaded.\n\n";
 			} else {
@@ -163,7 +234,7 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 
 
 	// LOAD MODEL LIBRARY
-	HINSTANCE modelLibrary = LoadLibrary(modelLibraryName.c_str());
+	HINSTANCE modelLibrary = LoadOpenSimLibrary(modelLibraryName.c_str());
 	if(modelLibrary==NULL) {
 		cout<<"ERROR- library for model "<<modelLibraryName<<" could not be loaded.\n\n";
 		return(NULL);
@@ -246,7 +317,6 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 
 	return(model);
 }
-
 
 //_____________________________________________________________________________
 /**
