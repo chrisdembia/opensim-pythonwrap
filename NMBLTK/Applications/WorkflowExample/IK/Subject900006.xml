@@ -115,10 +115,18 @@
 	</MarkerPlacementParameters>
 	<!--Parameters pertinent to solving IK are specified here-->
 	<IKParameters name="">
-		<modelFile> Unassigned </modelFile>
-		<MarkerSet />
-		<CoordinateSet />
+		<MarkerSet />	<!-- Extra markers and associated weights -->
+		<CoordinateSet /> <!-- Gencoords to treat as special -->
 		<!--Trial paramaters, one block per trial-->
-		<IKTrialSet />
+		<IKTrialSet>
+			<IKTrial name="first walking trial">
+				<inputMarkerFile>../900006_13.trc</inputMarkerFile>
+				<timeRange>0.125 1.0</timeRange>
+				<kinematicsSmoothing>10.0</kinematicsSmoothing>
+				<groundReactionSmoothing>1000.0</groundReactionSmoothing>
+				<outputMotionFile>walk1.mot</outputMotionFile>
+				<includeMarkers>true</includeMarkers>
+			</IKTrial>
+		</IKTrialSet>
 	</IKParameters>
 </Subject>
