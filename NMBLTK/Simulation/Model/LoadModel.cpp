@@ -28,7 +28,7 @@ static void PrintUsage(ostream &aOStream);
 
 //_____________________________________________________________________________
 /**
- * A Wrapper around Window's LoadLibrary that implements library naming
+ * A wrapper around Window's LoadLibrary that implements library naming
  * convention and loading policy on windows which follows:
  * If you're loading rdSimulation_D and other libraries that do not have a
  * trailing _D an _D is appended to the library file name.  If loading of that
@@ -39,6 +39,7 @@ static void PrintUsage(ostream &aOStream);
  *
  * @param lpLibFileName Name of the library without either the .lib or .dll
  * extension.
+ * @return Pointer to the loaded library, NULL on error.
  */
 
 RDSIMULATION_API
@@ -107,6 +108,42 @@ LoadOpenSimLibrary(const char *lpLibFileName)
 #endif
 	return libraryHandle;
 }
+
+
+//_____________________________________________________________________________
+/**
+ * A function for loading libraries specified in a command line.
+ * LoadOpenSimLibrary() is used to load each library.
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line arguments.
+ * @see LoadOpenSimLibrary()
+ */
+
+RDSIMULATION_API void 
+LoadOpenSimLibraries(int argc,char **argv)
+{
+	int i;
+	string option,value;
+	HINSTANCE library;
+	for(i=0;i<argc;i++) {
+		if(argv[i][0]!='-') continue;
+		option = argv[i];
+		if((i+1)>=argc) break;  // no more arguments.
+		if((option=="-Library")||(option=="-L")) {
+			string libraryName = argv[i+1];
+			library = LoadOpenSimLibrary(libraryName.c_str());
+			if(library==NULL) {
+				cout<<"ERROR- library "<<value<<" could not be loaded.\n\n";
+			} else {
+				i++;
+			}
+		}
+	}
+}
+
+
+
 
 //_____________________________________________________________________________
 /**
@@ -202,22 +239,6 @@ RDSIMULATION_API rdModel* LoadModel(int argc,char **argv)
 		
 		} else {
 			cout<<"WARN- "<<option<<" is an unknown option.\n";
-		}
-	}
-
-	// LOAD AUXILIARY LIBRARIES FIRST
-	for(i=0;i<argc;i++) {
-		if(argv[i][0]!='-') continue;
-		option = argv[i];
-		if((i+1)>=argc) break;  // no more arguments.
-		if((option=="-Library")||(option=="-L")) {
-			string libraryName = argv[i+1];
-			library = LoadOpenSimLibrary(libraryName.c_str());
-			if(library==NULL) {
-				cout<<"ERROR- library "<<value<<" could not be loaded.\n\n";
-			} else {
-				i++;
-			}
 		}
 	}
 
