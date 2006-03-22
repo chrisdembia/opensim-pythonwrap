@@ -1,6 +1,6 @@
 // rdToolsDLL.cpp
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//	Copyright 2000 Realistic Dynamics, Inc.
+//	Copyright 2000-2005 Realistic Dynamics, Inc.
 // All rights reserved.
 //
 // Please do not read, copy, distribute, or use without permission.
@@ -12,10 +12,9 @@
 #include <iostream>
 #include "RegisterTypes_rdTools.h"
 
-#ifdef WIN32
-
 using namespace std;
 
+#ifdef WIN32
 
 //=============================================================================
 // DLL Main Entry Point

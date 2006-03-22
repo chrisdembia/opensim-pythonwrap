@@ -3,12 +3,14 @@
 // Author:  Frank C. Anderson
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
 //=============================================================================
 // INCLUDES
 //=============================================================================
 #include "suAnalysesDLL.h"
+#include <iostream>
 #include "RegisterTypes_suAnalyses.h"
+
+using namespace std;
 
 #ifdef WIN32
 
@@ -27,10 +29,16 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     switch (ul_reason_for_call)
 	{
 		case DLL_PROCESS_ATTACH:
+			cout<<"\n-------------------------------------------------------\n";
+			cout<<"Library suAnalyses...\n";
 			RegisterTypes_suAnalyses();
+			cout<<"-------------------------------------------------------\n\n";
 			break;
 		case DLL_THREAD_ATTACH:
+			cout<<"\n-------------------------------------------------------\n";
+			cout<<"Library suAnalyses...\n";
 			RegisterTypes_suAnalyses();
+			cout<<"-------------------------------------------------------\n\n";
 			break;
 		case DLL_THREAD_DETACH:
 			break;

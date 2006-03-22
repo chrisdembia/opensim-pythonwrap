@@ -15,6 +15,7 @@
 #include <iostream>
 #include <NMBLTK/Simulation/Model/RegisterTypes_rdSimulation.h>
 
+using namespace std;
 
 #ifdef WIN32
 
@@ -33,18 +34,20 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     switch (ul_reason_for_call)
 	{
 		case DLL_PROCESS_ATTACH:
-			//printf("rdSimulation.DllMain: process attach.\n");
+			cout<<"\n-------------------------------------------------------\n";
+			cout<<"Library rdSimulation...\n";
 			RegisterTypes_rdSimulation();
+			cout<<"-------------------------------------------------------\n\n";
 			break;
 		case DLL_THREAD_ATTACH:
-			//printf("rdSimulation.DllMain: thread attach.\n");
+			cout<<"\n-------------------------------------------------------\n";
+			cout<<"Library rdSimulation...\n";
 			RegisterTypes_rdSimulation();
+			cout<<"-------------------------------------------------------\n\n";
 			break;
 		case DLL_THREAD_DETACH:
-			//printf("rdSimulation.DllMain: thread detach.\n");
 			break;
 		case DLL_PROCESS_DETACH:
-			//printf("rdSimulation.DllMain: process detach.\n");
 			break;
     }
 

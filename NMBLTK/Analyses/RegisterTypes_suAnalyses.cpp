@@ -24,7 +24,7 @@ using namespace std;
  */
 SUANALYSES_API void RegisterTypes_suAnalyses()
 {
-	cout<<"RegisterTypes_suAnalyses:  \n";
+	cout<<"RegisterTypes_suAnalyses\n";
 
 	rdObject::RegisterType( InvestigationPerturbation() );
 	rdObject::RegisterType( InvestigationForward() );

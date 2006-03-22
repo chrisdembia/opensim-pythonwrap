@@ -1,6 +1,6 @@
 // rdActuatorsDLL.cpp
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Copyright 2003 Realistic Dynamics, Inc.
+// Copyright 2003-2005 Realistic Dynamics, Inc.
 // All rights reserved.
 //
 // Please do not read, copy, distribute, or use without permission.
@@ -12,7 +12,10 @@
 // INCLUDES
 //=============================================================================
 #include "rdActuatorsDLL.h"
+#include <iostream>
 #include "RegisterTypes_rdActuators.h"
+
+using namespace std;
 
 #ifdef WIN32
 
@@ -30,10 +33,16 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     switch (ul_reason_for_call)
 	{
 		case DLL_PROCESS_ATTACH:
+			cout<<"\n-------------------------------------------------------\n";
+			cout<<"Library rdActuators...\n";
 			RegisterTypes_rdActuators();
+			cout<<"-------------------------------------------------------\n\n";
 			break;
 		case DLL_THREAD_ATTACH:
+			cout<<"\n-------------------------------------------------------\n";
+			cout<<"Library rdActuators...\n";
 			RegisterTypes_rdActuators();
+			cout<<"-------------------------------------------------------\n\n";
 			break;
 		case DLL_THREAD_DETACH:
 			break;

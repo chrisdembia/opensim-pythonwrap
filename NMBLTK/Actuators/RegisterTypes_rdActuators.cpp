@@ -21,7 +21,7 @@ using namespace std;
  */
 RDACTUATORS_API void RegisterTypes_rdActuators()
 {
-	cout<<"RegisterTypes_rdActuators:  \n";
+	cout<<"RegisterTypes_rdActuators\n";
 
 	rdObject::RegisterType( rdGeneralizedForceAtv() );
 	rdObject::RegisterType( rdLinearSetPoint() );
