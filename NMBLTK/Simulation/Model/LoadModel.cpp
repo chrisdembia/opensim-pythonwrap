@@ -51,11 +51,12 @@ LoadOpenSimLibrary(const char *lpLibFileName)
 	char* locationOf_D=strstr(lpLibFileName, debugSuffix.c_str());
 	bool hasDebugSuffix = (locationOf_D!= 0) && (strcmp(locationOf_D, debugSuffix.c_str())==0);
 
-	HINSTANCE	libraryHandle;
+	HINSTANCE libraryHandle = NULL;
 #ifdef _DEBUG
+	// NO _D SUFFIX
 	// if library name has no trailing _D try to append it and load
 	// find locaion of _D in lpLibFileName and make sure it's trailing
-	if (!hasDebugSuffix){
+	if (!hasDebugSuffix) {
 		// Append _D to lpLibFileName;
 		cout << "WARNING: SUSPECT LOADING RELEASE LIB INTO DEBUG Simulation library." << endl;
 		cout << "Trying to load a debug version ..." << endl;
@@ -73,8 +74,14 @@ LoadOpenSimLibrary(const char *lpLibFileName)
 		}
 		else
 			cout << "Loaded library " << actualLibFileName << endl;
+
+	// HAS _D SUFFIX
+	} else {
+		libraryHandle = LoadLibrary(actualLibFileName.c_str());
 	}
+
 #else
+	// HAS _D SUFFIX
 	// Here we're in release mode, highly unlikely to have a trailing _D intentionally!
 	if (hasDebugSuffix){
 
@@ -93,9 +100,10 @@ LoadOpenSimLibrary(const char *lpLibFileName)
 		else
 			cout << "Loaded library " << actualLibFileName << endl;
 
-	}
-	else
+	// NO _D SUFFIX
+	} else {
 		libraryHandle = LoadLibrary(actualLibFileName.c_str());
+	}
 #endif
 	return libraryHandle;
 }
