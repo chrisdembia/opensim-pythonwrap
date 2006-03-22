@@ -67,13 +67,15 @@ protected:
 	/** Maximum integration step size. */
 	rdPropertyDbl _maxDTProp;
 	double &_maxDT;
-	/** Integrator error tolerance. */
+	/** Integrator error tolerance. When the error is greater, the 
+	integrator step size is decreased. */
 	rdPropertyDbl _errorToleranceProp;
 	double &_errorTolerance;
-	/** Integrator find tolerance. */
+	/** Integrator fine tolerance. When the error is less, the
+	integrator step size is increased. */
 	rdPropertyDbl _fineToleranceProp;
 	double &_fineTolerance;
-	/** Set of analyses to be run. */
+	/** Set of analyses to be run during the investigation. */
 	rdPropertyObj _analysisSetProp;
 	rdAnalysisSet &_analysisSet;
 

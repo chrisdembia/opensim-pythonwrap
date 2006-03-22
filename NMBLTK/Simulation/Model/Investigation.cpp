@@ -191,45 +191,78 @@ setNull()
  */
 void Investigation::setupProperties()
 {
+	string comment;
+
+	comment = "Name of the model library to load. Do not include the library ";
+	comment += "extension (e.g., .dll or .lib).";
+	_modelLibraryProp.setComment(comment);
 	_modelLibraryProp.setName("model_library");
 	_propertySet.append( &_modelLibraryProp );
 
+	comment = "Name of the xml file used to deserialize or construct a model.";
+	_modelFileProp.setComment(comment);
 	_modelFileProp.setName("model_file");
 	_propertySet.append( &_modelFileProp );
 
+	comment = "Name of the xml file used to construct an actuator set for the model.";
+	_actuatorSetFileProp.setComment(comment);
 	_actuatorSetFileProp.setName("actuator_set_file");
 	_propertySet.append( &_actuatorSetFileProp );
 
+	comment = "Name of the xml file used to construct a contact force set for the model.";
+	_contactForceSetFileProp.setComment(comment);
 	_contactForceSetFileProp.setName("contact_force_set_file");
 	_propertySet.append( &_contactForceSetFileProp );
 
+	comment = "Name of the params files used to construct a SIMM Pipeline model.";
+	_paramsFileProp.setComment(comment);
 	_paramsFileProp.setName("params_file");
 	_propertySet.append( &_paramsFileProp );
 
+	comment = "Directory used for writing results.";
+	_resultsDirProp.setComment(comment);
 	_resultsDirProp.setName("results_directory");
 	_propertySet.append( &_resultsDirProp );
 
+	comment = "Output precision.";
+	_outputPrecisionProp.setComment(comment);
 	_outputPrecisionProp.setName("output_precision");
 	_propertySet.append( &_outputPrecisionProp );
 
+	comment = "Initial time for the investigation.";
+	_tiProp.setComment(comment);
 	_tiProp.setName("initial_time");
 	_propertySet.append( &_tiProp );
 
+	comment = "Final time for the investigation.";
+	_tfProp.setComment(comment);
 	_tfProp.setName("final_time");
 	_propertySet.append( &_tfProp );
 
+	comment = "Maximum number of steps for the integrator.";
+	_maxStepsProp.setComment(comment);
 	_maxStepsProp.setName("maximum_number_of_integrator_steps");
 	_propertySet.append( &_maxStepsProp );
 
+	comment = "Maximum integration step size.";
+	_maxDTProp.setComment(comment);
 	_maxDTProp.setName("maximum_integrator_step_size");
 	_propertySet.append( &_maxDTProp );
 
+	comment = "Integrator error tolerance. When the error is greater, the ";
+	comment += "integrator step size is decreased.";
+	_errorToleranceProp.setComment(comment);
 	_errorToleranceProp.setName("integrator_error_tolerance");
 	_propertySet.append( &_errorToleranceProp );
 
+	comment = "Integrator fine tolerance. When the error is less, the ";
+	comment += "integrator step size is increased.";
+	_fineToleranceProp.setComment(comment);
 	_fineToleranceProp.setName("integrator_fine_tolerance");
 	_propertySet.append( &_fineToleranceProp );
 
+	comment = "Set of analyses to be run during the investigation.";
+	_analysisSetProp.setComment(comment);
 	_analysisSetProp.setName("Analyses");
 	_propertySet.append( &_analysisSetProp );
 }

@@ -78,7 +78,8 @@ private:
 	default property for initializing its value. */
 	bool _useDefault;
 protected:
-	/** Comment to be associated with property, shown for default objects only for efficiency */
+	/** Comment to be associated with property, shown for default objects only
+	for efficiency. */
 	std::string _comment;
 	/** String representation of property */
 	std::string _valueString;
