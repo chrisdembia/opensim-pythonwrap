@@ -1,1 +1,1 @@
-SUBDIRS(Forward Perturb Scale IK)
+SUBDIRS(Forward Perturb Scale IK MkModel)
