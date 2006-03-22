@@ -329,7 +329,7 @@ determineConstraints()
 	
 		for(ipc=0,i=0;i<4;i++) {
 	
-			// spring 0 hits before 1 and 2 hits before 3 - we only need to constrain foot based 
+			// spring 0 hits before 1, and 2 hits before 3 - we only need to constrain foot based 
 			// on one rear spring and one fore spring
 			if(!_contactEstablished[i] || i==0 || i==3) continue;
 
