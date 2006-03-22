@@ -28,14 +28,17 @@ static void PrintUsage(ostream &aOStream);
 
 //_____________________________________________________________________________
 /**
- * A Wrapper around Window's LoadLibrary that implements library naming convention 
- * and loading policy on windows which follows:
- * If you're loading rdSimulation_D and other libraries that do not have a trailing _D
- * an _D is apprended to the library file name. If loading of that fails, we revert to using
- * the non _D file instead, if that fails we give error and return 0. Reciprocal treatment from
- * release libraries is implemented. I tried to keep this function in the same file to try
+ * A Wrapper around Window's LoadLibrary that implements library naming
+ * convention and loading policy on windows which follows:
+ * If you're loading rdSimulation_D and other libraries that do not have a
+ * trailing _D an _D is appended to the library file name.  If loading of that
+ * fails, we revert to using the non _D file instead, if that fails we give
+ * error and return 0. A reciprocal treatment for release libraries is
+ * implemented. I tried to keep this function in the same file to try
  * to localize platform specific code. -Ayman
- * 
+ *
+ * @param lpLibFileName Name of the library without either the .lib or .dll
+ * extension.
  */
 
 RDSIMULATION_API
