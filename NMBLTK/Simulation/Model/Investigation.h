@@ -49,10 +49,6 @@ protected:
 	/** Name of the params files used for a SIMM Pipeline model. */
 	rdPropertyStr _paramsFileProp;
 	std::string &_paramsFile;
-	/** List of additional libraries to load.  do not include the library
-	extensions (e.g., .dll or .lib). */
-	rdPropertyStrArray _libraryListProp;
-	rdArray<std::string> &_libraryList;
 	/** Directory used for writing results. */
 	rdPropertyStr _resultsDirProp;
 	std::string &_resultsDir;

@@ -31,7 +31,6 @@ Investigation::Investigation():
 	_actuatorSetFile(_actuatorSetFileProp.getValueStr()),
 	_contactForceSetFile(_contactForceSetFileProp.getValueStr()),
 	_paramsFile(_paramsFileProp.getValueStr()),
-	_libraryList(_libraryListProp.getValueStrArray()),
 	_resultsDir(_resultsDirProp.getValueStr()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
@@ -62,7 +61,6 @@ Investigation::Investigation(const string &aFileName):
 	_actuatorSetFile(_actuatorSetFileProp.getValueStr()),
 	_contactForceSetFile(_contactForceSetFileProp.getValueStr()),
 	_paramsFile(_paramsFileProp.getValueStr()),
-	_libraryList(_libraryListProp.getValueStrArray()),
 	_resultsDir(_resultsDirProp.getValueStr()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
@@ -90,7 +88,6 @@ Investigation::Investigation(DOMElement *aElement):
 	_actuatorSetFile(_actuatorSetFileProp.getValueStr()),
 	_contactForceSetFile(_contactForceSetFileProp.getValueStr()),
 	_paramsFile(_paramsFileProp.getValueStr()),
-	_libraryList(_libraryListProp.getValueStrArray()),
 	_resultsDir(_resultsDirProp.getValueStr()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
@@ -149,7 +146,6 @@ Investigation::Investigation(const Investigation &aInvestigation):
 	_actuatorSetFile(_actuatorSetFileProp.getValueStr()),
 	_contactForceSetFile(_contactForceSetFileProp.getValueStr()),
 	_paramsFile(_paramsFileProp.getValueStr()),
-	_libraryList(_libraryListProp.getValueStrArray()),
 	_resultsDir(_resultsDirProp.getValueStr()),
 	_outputPrecision(_outputPrecisionProp.getValueInt()),
 	_ti(_tiProp.getValueDbl()),
@@ -180,7 +176,6 @@ setNull()
 	_actuatorSetFile = "";
 	_contactForceSetFile = "";
 	_paramsFile = "";
-	_libraryList.setSize(0);
 	_resultsDir = "./";
 	_outputPrecision = 8;
 	_ti = 0.0;
@@ -210,9 +205,6 @@ void Investigation::setupProperties()
 
 	_paramsFileProp.setName("params_file");
 	_propertySet.append( &_paramsFileProp );
-
-	_libraryListProp.setName("library_list");
-	_propertySet.append( &_libraryListProp );
 
 	_resultsDirProp.setName("results_directory");
 	_propertySet.append( &_resultsDirProp );
@@ -266,7 +258,6 @@ operator=(const Investigation &aInvestigation)
 	_actuatorSetFile = aInvestigation._actuatorSetFile;
 	_contactForceSetFile = aInvestigation._contactForceSetFile;
 	_paramsFile = aInvestigation._paramsFile;
-	_libraryList = aInvestigation._libraryList;
 	_resultsDir = aInvestigation._resultsDir;
 
 	_outputPrecision = aInvestigation._outputPrecision;
@@ -404,12 +395,6 @@ constructCommandLineForLoadModel(rdArray<string> &args)
 	if(_paramsFile!="") {
 		args.append("-Params");
 		args.append(_paramsFile);
-	}
-	int i;
-	int size = _libraryList.getSize();
-	for(i=0;i<size;i++) {
-		args.append("-Library");
-		args.append(_libraryList.get(i));
 	}
 }
 
