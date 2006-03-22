@@ -449,6 +449,6 @@ void Investigation::
 printResults(const char *aBaseName,const char *aDir,double aDT,
 				 const char *aExtension)
 {
-	cout<<"Printing results of investigation "<<getName()<<".\n";
+	cout<<"Printing results of investigation "<<getName()<<" to "<<aDir<<".\n";
 	_model->getAnalysisSet()->printResults(aBaseName,aDir,aDT,aExtension);
 }
