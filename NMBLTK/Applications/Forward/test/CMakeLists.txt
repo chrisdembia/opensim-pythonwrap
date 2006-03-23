@@ -1,6 +1,6 @@
-INCLUDE_DIRECTORIES(${NMBLApp_SOURCE_DIR} 
-		    ${NMBLApp_SOURCE_DIR}/Vendors 		  
-		    ${NMBLApp_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src)
+INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} 
+		    ${OpenSim_SOURCE_DIR}/Vendors 		  
+		    ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src)
 
 
 LINK_LIBRARIES( debug rdTools_D optimized rdTools
@@ -24,8 +24,8 @@ FOREACH (dataFile ${TEST_FILES})
     TARGET testForward
     COMMAND ${CMAKE_COMMAND}
     ARGS -E copy
-    ${NMBLApp_SOURCE_DIR}/NMBLTK/Applications/Forward/test/${dataFile}
-    ${NMBLApp_BINARY_DIR}/NMBLTK/Applications/Forward/test)
+    ${OpenSim_SOURCE_DIR}/NMBLTK/Applications/Forward/test/${dataFile}
+    ${OpenSim_BINARY_DIR}/NMBLTK/Applications/Forward/test)
  ENDFOREACH (dataFile) 
 
 #
@@ -47,4 +47,4 @@ ENDIF (EXECUTABLE_OUTPUT_PATH)
 
 ADD_TEST(testForward ${TEST_PATH}/testForward)
 
-INSTALL_TARGETS(${NMBLApp_BINARY_DIR}/LibDev/ testForward)
+INSTALL_TARGETS(${OpenSim_BINARY_DIR}/LibDev/ testForward)

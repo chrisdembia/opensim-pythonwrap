@@ -10,10 +10,10 @@ SET(SOURCE_FILES rdActuatedModelIntegCallback.cpp
 
 FILE(GLOB INCLUDE_FILES *.h)
 
-INCLUDE_DIRECTORIES(${NMBLApp_SOURCE_DIR} 
-		    ${NMBLApp_SOURCE_DIR}/Vendors 
-		    ${NMBLApp_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src
-		    ${NMBLApp_SOURCE_DIR}/Tools)
+INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} 
+		    ${OpenSim_SOURCE_DIR}/Vendors 
+		    ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src
+		    ${OpenSim_SOURCE_DIR}/Tools)
 
 LINK_LIBRARIES( rdTools rdSimulation )
 				

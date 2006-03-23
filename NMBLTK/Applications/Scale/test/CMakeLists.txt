@@ -1,6 +1,6 @@
-INCLUDE_DIRECTORIES(${NMBLApp_SOURCE_DIR} 
-		    ${NMBLApp_SOURCE_DIR}/Vendors 		  
-		    ${NMBLApp_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src)
+INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} 
+		    ${OpenSim_SOURCE_DIR}/Vendors 		  
+		    ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src)
 
 FILE(GLOB SOURCE_FILES ../../IK/simm*.cpp  ../simm*.cpp testScale.cpp)
 FILE(GLOB INCLUDE_FILES ../../IK/simm*.h ../simm*.h)
@@ -23,8 +23,8 @@ FOREACH (dataFile ${TEST_FILES})
     TARGET testScale
     COMMAND ${CMAKE_COMMAND}
     ARGS -E copy
-    ${NMBLApp_SOURCE_DIR}/NMBLTK/Applications/Scale/test/${dataFile}
-    ${NMBLApp_BINARY_DIR}/NMBLTK/Applications/Scale/test)
+    ${OpenSim_SOURCE_DIR}/NMBLTK/Applications/Scale/test/${dataFile}
+    ${OpenSim_BINARY_DIR}/NMBLTK/Applications/Scale/test)
  ENDFOREACH (dataFile) 
 
 #
@@ -46,4 +46,4 @@ ENDIF (EXECUTABLE_OUTPUT_PATH)
 
 ADD_TEST(testScale ${TEST_PATH}/testScale)
 
-INSTALL_TARGETS(${NMBLApp_BINARY_DIR}/LibDev/ testScale)
+INSTALL_TARGETS(${OpenSim_BINARY_DIR}/LibDev/ testScale)

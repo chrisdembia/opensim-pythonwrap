@@ -6,10 +6,10 @@ SET(UKIT SIMULATION)
 FILE(GLOB SOURCE_FILES Control/*.cpp Integrator/*.cpp Manager/*.cpp Model/*.cpp Simtk/*.cpp SIMM/*.cpp *.cpp)
 FILE(GLOB INCLUDE_FILES Control/*.h Integrator/*.h Manager/*.h Model/*.h Simtk/*.h SIMM/*.h *.h)
 
-INCLUDE_DIRECTORIES(${NMBLApp_SOURCE_DIR} 
-		    ${NMBLApp_SOURCE_DIR}/Vendors 
-		    ${NMBLApp_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src
-		    ${NMBLApp_SOURCE_DIR}/Tools)
+INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} 
+		    ${OpenSim_SOURCE_DIR}/Vendors 
+		    ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src
+		    ${OpenSim_SOURCE_DIR}/Tools)
 
 SET(EXPORT_MACRO RD${UKIT}_EXPORTS)
 

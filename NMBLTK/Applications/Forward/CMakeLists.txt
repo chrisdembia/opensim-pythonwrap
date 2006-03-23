@@ -1,6 +1,6 @@
-INCLUDE_DIRECTORIES(${NMBLApp_SOURCE_DIR} 
-		    ${NMBLApp_SOURCE_DIR}/Vendors 		    
-		    ${NMBLApp_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src)
+INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} 
+		    ${OpenSim_SOURCE_DIR}/Vendors 		    
+		    ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src)
 
 
 LINK_LIBRARIES( debug rdTools_D optimized rdTools
@@ -9,7 +9,7 @@ LINK_LIBRARIES( debug rdTools_D optimized rdTools
 
 ADD_EXECUTABLE(forward forward.cpp)
 
-INSTALL_TARGETS(${NMBLApp_BINARY_DIR}/LibDev/ forward)
+INSTALL_TARGETS(${OpenSim_BINARY_DIR}/LibDev/ forward)
 #
 # Testing
 #
