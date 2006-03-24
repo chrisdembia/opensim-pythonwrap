@@ -25,7 +25,6 @@
 
 // INCLUDES
 #include <string>
-#include <direct.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/suScaleSet.h>
@@ -53,19 +52,14 @@ string filesToCompare[] = {
 int main(int argc,char **argv)
 {
 
-	char curPath[100];
-	
-	_getcwd(curPath, 90);
-
 	// Construct model and read parameters file
 	simmSubject* subject = new simmSubject("CrouchGait.xml");
 	simmModel* model = subject->createModel();
 
-
 	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
 	ScalerInterface *scaler = new simmScalerImpl(engine);
 	engine.setScaler(scaler);
-	if (!subject->getScalingParams().processModel(model))
+	if (!subject->getScalingParams().processModel(model, 75.0))
 	{
 		cout << "===ERROR===: Unable to scale generic model." << endl;
 		return 0;
