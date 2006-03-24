@@ -25,7 +25,6 @@
 
 // INCLUDES
 #include <string>
-#include <direct.h>
 #include <NMBLTK/Tools/rdTools.h>
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/suScaleSet.h>
@@ -57,9 +56,6 @@ string filesToCompare[] = {
 int main(int argc,char **argv)
 {
 
-	char curPath[100];
-	
-	_getcwd(curPath, 90);
 	// Construct model and read parameters file
 	simmSubject* subject = new simmSubject("CrouchGait.xml");
 	simmModel* model = subject->createModel();

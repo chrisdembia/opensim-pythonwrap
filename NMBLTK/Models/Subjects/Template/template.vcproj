@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="$(OPENSIM_INCLUDE_PATH)"
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,RDSDFAST_EXPORTS"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
@@ -35,6 +35,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="$(OPENSIM_LIB_PATH)\$(IntDir)"
 				AdditionalDependencies="suPipeline40Workflow_D.lib suPipeline40_D.lib suAnalyses_D.lib rdSimulation_D.lib rdSDFast_D.lib rdTools_D.lib acpp_D.lib"
 				OutputFile="./_Template__D.dll"
 				LinkIncremental="2"
@@ -71,6 +72,7 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="$(OPENSIM_INCLUDE_PATH)"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,RDSDFAST_EXPORTS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -81,6 +83,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="$(OPENSIM_LIB_PATH)\$(IntDir)"
 				AdditionalDependencies="suPipeline40Workflow.lib suPipeline40.lib suAnalyses.lib rdSimulation.lib rdSDFast.lib rdTools.lib acpp.lib"
 				OutputFile="./_Template_.dll"
 				LinkIncremental="1"
@@ -119,7 +122,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\dynsim\src\sdfor.c">
+				RelativePath=".\sdfor.c">
 			</File>
 			<File
 				RelativePath=".\sdufuncs_darryl.c">
@@ -132,6 +135,9 @@
 			</File>
 			<File
 				RelativePath=".\_Template_.cpp">
+			</File>
+			<File
+				RelativePath=".\sdlib.c">
 			</File>
 		</Filter>
 		<Filter

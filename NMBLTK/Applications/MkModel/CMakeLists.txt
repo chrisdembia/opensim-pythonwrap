@@ -9,4 +9,4 @@ LINK_LIBRARIES( debug rdTools_D optimized rdTools
 
 ADD_EXECUTABLE(mkModel mkModel.cpp)
 
-INSTALL_TARGETS(${OpenSim_BINARY_DIR}/LibDev/ mkModel)
+INSTALL_TARGETS(/bin/ mkModel)

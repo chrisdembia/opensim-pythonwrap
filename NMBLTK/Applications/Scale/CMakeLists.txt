@@ -12,7 +12,8 @@ LINK_LIBRARIES( debug xerces-c_2D optimized xerces-c_2
 
 ADD_EXECUTABLE(scale ${SOURCE_FILES} ${INCLUDE_FILES})
 
-INSTALL_TARGETS(${OpenSim_BINARY_DIR}/LibDev/ scale)
+INSTALL_TARGETS(/bin/ scale)
+
 #
 # Testing
 #

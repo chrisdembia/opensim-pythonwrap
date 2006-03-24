@@ -30,4 +30,3 @@ FOREACH (dataFile ${TEST_FILES})
 
 ADD_TEST(testIK ${TEST_PATH}/testIK)
 
-INSTALL_TARGETS(${OpenSim_BINARY_DIR}/LibDev/ testIK)

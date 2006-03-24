@@ -46,4 +46,3 @@ ENDIF (EXECUTABLE_OUTPUT_PATH)
 
 ADD_TEST(testScale ${TEST_PATH}/testScale)
 
-INSTALL_TARGETS(${OpenSim_BINARY_DIR}/LibDev/ testScale)

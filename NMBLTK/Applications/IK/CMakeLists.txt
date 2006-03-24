@@ -12,7 +12,7 @@ LINK_LIBRARIES( debug xerces-c_2D optimized xerces-c_2
 
 ADD_EXECUTABLE(solveIK ${SOURCE_FILES} ${INCLUDE_FILES})
 
-INSTALL_TARGETS(${OpenSim_BINARY_DIR}/LibDev/ solveIK)
+INSTALL_TARGETS(/bin/ solveIK)
 
 #
 # Testing

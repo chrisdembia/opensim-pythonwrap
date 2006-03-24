@@ -10,4 +10,4 @@ LINK_LIBRARIES( debug xerces-c_2D optimized xerces-c_2
 		debug suAnalyses_D optimized suAnalyses)
 ADD_EXECUTABLE(perturb perturb.cpp)
 
-INSTALL_TARGETS(${OpenSim_BINARY_DIR}/LibDev/ perturb)
+INSTALL_TARGETS(/bin/ perturb)

@@ -9,7 +9,7 @@ LINK_LIBRARIES( debug rdTools_D optimized rdTools
 
 ADD_EXECUTABLE(forward forward.cpp)
 
-INSTALL_TARGETS(${OpenSim_BINARY_DIR}/LibDev/ forward)
+INSTALL_TARGETS(/bin/ forward)
 #
 # Testing
 #

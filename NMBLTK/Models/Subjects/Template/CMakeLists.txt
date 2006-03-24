@@ -22,14 +22,13 @@ SET(SUBJECT_HEADERS su_Template_.h)
 ADD_DEFINITIONS(-DRDSDFAST_EXPORTS)
 
 LINK_LIBRARIES( debug xerces-c_2D optimized xerces-c_2 
-		rdTools
-		rdSimulation
-		acpp
-		rdSDFast
-		suPipeline40Workflow
-		suPipeline40
-		suAnalyses
-		
+				debug rdTools optimized rdTools_D
+				debug rdSimulation optimized rdSimulation_D
+				debug acpp optimized acpp_D
+				debug rdSDFast optimized rdSDFast_D
+				debug suPipeline40Workflow optimized suPipeline40Workflow_D
+				debug suPipeline40 optimized suPipeline40_D
+				debug suAnalyses optimized suAnalyses_D		
 )
 ADD_EXECUTABLE(su_Template__Forward su_Template__Forward.cpp ${SUBJECT_SOURCES} ${SUBJECT_HEADERS})
 

@@ -12,4 +12,5 @@ LINK_LIBRARIES( rdTools rdSimulation rdSDFast)
 
 ADD_LIBRARY(su${KIT} SHARED ${SOURCE_FILES} ${INCLUDE_FILES}) 
 
-
+INSTALL_TARGETS(/lib/ su${KIT})
+INSTALL_FILES(/include/NMBLTK/Models/${KIT} .h ${INCLUDE_FILES})
