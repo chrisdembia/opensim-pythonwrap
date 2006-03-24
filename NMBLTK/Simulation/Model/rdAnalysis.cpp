@@ -306,7 +306,7 @@ printResults(const char *aBaseName,const char *aDir,double aDT,
 				 const char *aExtension)
 {
 	printf("rdAnalysis.printResults: Printing results of analysis %s.\n",
-		getName());
+		getName().c_str());
 	return(0);
 }
 

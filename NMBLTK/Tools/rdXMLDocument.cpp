@@ -187,7 +187,7 @@ rdXMLDocument::rdXMLDocument(const string &aFileName)
 
 	} catch(...) {
 		printf("rdXMLDocument.rdXMLDocument: ERROR- exception while ");
-		printf("attempting to parse %s.\n",aFileName);
+		printf("attempting to parse %s.\n",aFileName.c_str());
 		return;
 	}
 

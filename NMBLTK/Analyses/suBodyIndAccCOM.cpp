@@ -182,7 +182,7 @@ constructDescription()
 	strcat(descrip,tmp);
 	strcat(descrip,"\nThe bodies in the COM calculation were: \n");
 	for(i=0;i<_aN;i++){
-		sprintf(tmp2,"%s ", _model->getBodyName(_aBodyList[i]));
+		sprintf(tmp2,"%s ", _model->getBodyName(_aBodyList[i]).c_str());
 		strcat(descrip,tmp2);
 	}
 	strcat(descrip,"\n");

@@ -543,7 +543,7 @@ compute(double *aXPrev,double *aYPrev,
 
 			// PERTURBED CONTACT RESULTS
 			sprintf(outName,"fs_%s_%.5lf_dt%.3lf_df%.3lf.sto",
-				_model->getActuatorName(c),tf,getIntegrationWindow(),
+				_model->getActuatorName(c).c_str(),tf,getIntegrationWindow(),
 				getPerturbation());
 			forces->print(outName);
 
@@ -568,7 +568,7 @@ compute(double *aXPrev,double *aYPrev,
 		// PRINT WINDOW
 		if(_printWindow) {
 			sprintf(outName,"fsm_%s_%.5lf_dt%.3lf_df%.3lf.sto",
-				_model->getActuatorName(c),tf,getIntegrationWindow(),
+				_model->getActuatorName(c).c_str(),tf,getIntegrationWindow(),
 				getPerturbation());
 			forces->print(outName);
 		}
