@@ -871,9 +871,9 @@ readDecomposition(char *aBaseName,char *aDir,char *aExtension)
 
 		// FORCE DECOMPOSITION
 		if(aExtension==NULL) {
-			sprintf(name,"%s/%s_%s",path,aBaseName,_cNames[c]);
+			sprintf(name,"%s/%s_%s",path,aBaseName,_cNames[c].c_str());
 		} else {
-			sprintf(name,"%s/%s_%s%s",path,aBaseName,_cNames[c],aExtension);
+			sprintf(name,"%s/%s_%s%s",path,aBaseName,_cNames[c].c_str(),aExtension);
 		}
 		_fStore[c] = new rdStorage(name);
 	}
