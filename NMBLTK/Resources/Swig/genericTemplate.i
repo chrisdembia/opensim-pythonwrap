@@ -57,6 +57,29 @@
 #include <NMBLTK/Tools/suScale.h>
 #include <NMBLTK/Tools/suScaleSet.h>
 
+	/* This group of headers added by KMS 3/22/06 */
+#include <NMBLTK/Simulation/Model/nmblKinematicsEngine.h>
+#include <NMBLTK/Simulation/SIMM/simmBody.h>
+#include <NMBLTK/Simulation/SIMM/simmBone.h>
+#include <NMBLTK/Simulation/SIMM/simmConstant.h>
+#include <NMBLTK/Simulation/SIMM/simmCoordinate.h>
+#include <NMBLTK/Simulation/SIMM/simmDof.h>
+#include <NMBLTK/Simulation/SIMM/simmJoint.h>
+#include <NMBLTK/Simulation/SIMM/simmKinematicsEngine.h>
+#include <NMBLTK/Simulation/SIMM/simmMarker.h>
+#include <NMBLTK/Simulation/SIMM/simmModel.h>
+#include <NMBLTK/Simulation/SIMM/simmMuscle.h>
+#include <NMBLTK/Simulation/SIMM/simmMuscleGroup.h>
+#include <NMBLTK/Simulation/SIMM/simmMusclePoint.h>
+#include <NMBLTK/Simulation/SIMM/simmMuscleViaPoint.h>
+#include <NMBLTK/Simulation/SIMM/simmPath.h>
+#include <NMBLTK/Simulation/SIMM/simmPathMatrix.h>
+#include <NMBLTK/Simulation/SIMM/simmPoint.h>
+#include <NMBLTK/Simulation/SIMM/simmRotationDof.h>
+#include <NMBLTK/Simulation/SIMM/simmStep.h>
+#include <NMBLTK/Simulation/SIMM/simmTranslationDof.h>
+#include <NMBLTK/Simulation/SIMM/simmUnits.h>
+
 %}
 
 /* This file is for creation/handling of arrays */
@@ -190,3 +213,26 @@
 %include <NMBLTK/Tools/suScale.h>
 %template(suSetScales) rdSet<suScale>;
 %include <NMBLTK/Tools/suScaleSet.h>
+
+	/* This group of headers added by KMS 3/22/06 */
+%include <NMBLTK/Simulation/Model/nmblKinematicsEngine.h>
+%include <NMBLTK/Simulation/SIMM/simmBody.h>
+%include <NMBLTK/Simulation/SIMM/simmBone.h>
+%include <NMBLTK/Simulation/SIMM/simmConstant.h>
+%include <NMBLTK/Simulation/SIMM/simmCoordinate.h>
+%include <NMBLTK/Simulation/SIMM/simmDof.h>
+%include <NMBLTK/Simulation/SIMM/simmJoint.h>
+%include <NMBLTK/Simulation/SIMM/simmKinematicsEngine.h>
+%include <NMBLTK/Simulation/SIMM/simmMarker.h>
+%include <NMBLTK/Simulation/SIMM/simmModel.h>
+%include <NMBLTK/Simulation/SIMM/simmMuscle.h>
+%include <NMBLTK/Simulation/SIMM/simmMuscleGroup.h>
+%include <NMBLTK/Simulation/SIMM/simmMusclePoint.h>
+%include <NMBLTK/Simulation/SIMM/simmMuscleViaPoint.h>
+%include <NMBLTK/Simulation/SIMM/simmPath.h>
+%include <NMBLTK/Simulation/SIMM/simmPathMatrix.h>
+%include <NMBLTK/Simulation/SIMM/simmPoint.h>
+%include <NMBLTK/Simulation/SIMM/simmRotationDof.h>
+%include <NMBLTK/Simulation/SIMM/simmStep.h>
+%include <NMBLTK/Simulation/SIMM/simmTranslationDof.h>
+%include <NMBLTK/Simulation/SIMM/simmUnits.h>
