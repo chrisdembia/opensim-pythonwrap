@@ -62,9 +62,11 @@ public:
 	simmPoint(const simmPoint& aPoint);
 	virtual ~simmPoint();
 	virtual rdObject* copy() const;
+#ifndef SWIG
 	simmPoint& operator=(const simmPoint &aPoint);
 	simmPoint& operator+=(const simmPoint &aPoint);
 	simmPoint& operator/=(double factor);
+#endif
 	void set(double x, double y, double z);
 	double* get() { return _location; }
 	bool isVisible() const;

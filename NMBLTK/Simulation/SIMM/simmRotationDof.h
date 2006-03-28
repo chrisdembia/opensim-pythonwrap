@@ -69,7 +69,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmRotationDof& operator=(const simmRotationDof &aDof);
+#endif
    void simmRotationDof::copyData(const simmRotationDof &aDof);
 
 	virtual void getAxis(double axis[3]) const;

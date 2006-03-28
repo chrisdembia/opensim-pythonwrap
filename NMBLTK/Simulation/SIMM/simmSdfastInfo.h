@@ -44,7 +44,7 @@
  * @author Peter Loan
  * @version 1.0
  */
-class simmSdfastInfo
+class RDSIMULATION_API simmSdfastInfo
 {
 
 //=============================================================================

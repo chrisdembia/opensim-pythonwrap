@@ -115,7 +115,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmScalingParams& operator=(const simmScalingParams &aScalingParams);
+#endif
    void simmScalingParams::copyData(const simmScalingParams &aScalingParams);
 
 	bool processModel(simmModel* aModel, double aFinalMass = -1.0);

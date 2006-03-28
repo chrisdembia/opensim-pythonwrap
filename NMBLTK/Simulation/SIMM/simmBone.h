@@ -80,7 +80,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmBone& operator=(const simmBone &aBone);
+#endif
    void simmBone::copyData(const simmBone &aBone);
 
    void setup(simmKinematicsEngine* aEngine);

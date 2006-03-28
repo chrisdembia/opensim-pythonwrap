@@ -97,7 +97,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 	void copyData(const simmModel &aModel);
+#ifndef SWIG
 	simmModel& operator=(const simmModel &aModel);
+#endif
 
 	int getNumberOfMuscles() const {	return _muscles.getSize(); }
 	rdObject* getMuscle(int index) { return _muscles.get(index); }

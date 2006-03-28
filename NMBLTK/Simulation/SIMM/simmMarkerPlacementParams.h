@@ -115,7 +115,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmMarkerPlacementParams& operator=(const simmMarkerPlacementParams &aMarkerPlacementParams);
+#endif
    void simmMarkerPlacementParams::copyData(const simmMarkerPlacementParams &aMarkerPlacementParams);
 
 	bool processModel(simmModel* aModel);

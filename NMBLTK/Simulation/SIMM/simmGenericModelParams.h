@@ -75,7 +75,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmGenericModelParams& operator=(const simmGenericModelParams &aGenericModelParams);
+#endif
 	void copyData(const simmGenericModelParams &aGenericModelParams);
 
 	simmModel* processModel();

@@ -81,7 +81,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmMusclePoint& operator=(const simmMusclePoint &aPoint);
+#endif
    void simmMusclePoint::copyData(const simmMusclePoint &aPoint);
 
 	rdArray<double>& getAttachment() const { return _attachment; }

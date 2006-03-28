@@ -104,7 +104,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmBody& operator=(const simmBody &aBody);
+#endif
    void simmBody::copyData(const simmBody &aBody);
 
    void setup(simmKinematicsEngine* aEngine);

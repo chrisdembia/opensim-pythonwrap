@@ -92,7 +92,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmIKParams& operator=(const simmIKParams &aIKParams);
+#endif
    void simmIKParams::copyData(const simmIKParams &aIKParams);
 
 	bool processModel(simmModel* aModel);

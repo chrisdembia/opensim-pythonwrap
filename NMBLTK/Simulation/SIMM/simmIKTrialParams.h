@@ -109,7 +109,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmIKTrialParams& operator=(const simmIKTrialParams &aIKTrialParams);
+#endif
    void simmIKTrialParams::copyData(const simmIKTrialParams &aIKTrialParams);
 
 	double getStartTime() const { return _timeRange[0]; }

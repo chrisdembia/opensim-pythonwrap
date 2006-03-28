@@ -69,7 +69,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmMarkerPair& operator=(const simmMarkerPair &aMarkerPair);
+#endif
 	void copyData(const simmMarkerPair &aMarkerPair);
 
 	void getMarkerNames(const std::string*& aName1, const std::string*& aName2) const;

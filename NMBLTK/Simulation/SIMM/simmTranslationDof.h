@@ -81,7 +81,9 @@ public:
 	virtual rdObject* copy(DOMElement *aElement) const;
 	virtual void updateFromXMLNode();
 
+#ifndef SWIG
 	simmTranslationDof& operator=(const simmTranslationDof &aDof);
+#endif
    void simmTranslationDof::copyData(const simmTranslationDof &aDof);
 
 	virtual void getAxis(double axis[3]) const;

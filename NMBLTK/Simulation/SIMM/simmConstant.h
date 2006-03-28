@@ -79,7 +79,9 @@ private:
 	// OPERATORS
 	//--------------------------------------------------------------------------
 public:
+#ifndef SWIG
 	simmConstant& operator=(const simmConstant &aConstant);
+#endif
 
 	//--------------------------------------------------------------------------
 	// SET AND GET

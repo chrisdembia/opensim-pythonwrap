@@ -133,7 +133,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmCoordinate& operator=(const simmCoordinate &aCoordinate);
+#endif
    void simmCoordinate::copyData(const simmCoordinate &aCoordinate);
 
    void addJointToList(simmJoint* aJoint) { _jointList.append(aJoint); }

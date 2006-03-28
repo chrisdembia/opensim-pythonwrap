@@ -84,7 +84,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmMarker& operator=(const simmMarker &aMarker);
+#endif
 	void copyData(const simmMarker &aMarker);
 	void updateFromMarker(const simmMarker &aMarker);
 

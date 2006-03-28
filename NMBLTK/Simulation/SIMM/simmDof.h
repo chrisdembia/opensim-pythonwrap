@@ -102,7 +102,9 @@ public:
 	virtual rdObject* copy(void) const = 0;
 	virtual rdObject* copy(DOMElement *aElement) const = 0;
 
+#ifndef SWIG
 	simmDof& operator=(const simmDof &aDof);
+#endif
    void simmDof::copyData(const simmDof &aDof);
 
 	virtual void setup(simmKinematicsEngine* aEngine, simmJoint* aJoint);

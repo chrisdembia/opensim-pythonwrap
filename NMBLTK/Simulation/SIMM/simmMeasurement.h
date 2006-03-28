@@ -82,7 +82,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmMeasurement& operator=(const simmMeasurement &aMeasurement);
+#endif
    void simmMeasurement::copyData(const simmMeasurement &aMeasurement);
 
 	int getNumMarkerPairs() const { return _markerPairSet.getSize(); }

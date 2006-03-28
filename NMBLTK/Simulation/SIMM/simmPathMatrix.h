@@ -46,7 +46,7 @@ class simmBody;
  * @author Peter Loan
  * @version 1.0
  */
-class simmPathMatrix
+class RDSIMULATION_API simmPathMatrix
 {
 
 //=============================================================================

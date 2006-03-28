@@ -72,7 +72,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmMotionEvent& operator=(const simmMotionEvent &aEvent);
+#endif
 	void copyData(const simmMotionEvent &aEvent);
 	void setName(std::string aName) { _name = aName; }
 	void setTime(double aTime) { _time = aTime; }

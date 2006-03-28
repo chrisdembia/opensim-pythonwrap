@@ -48,7 +48,7 @@ typedef std::vector<simmStep> JointPath;
  * @author Peter Loan
  * @version 1.0
  */
-class simmPath
+class RDSIMULATION_API simmPath
 {
 
 //=============================================================================

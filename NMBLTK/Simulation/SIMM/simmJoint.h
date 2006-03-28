@@ -109,7 +109,9 @@ public:
 
    void setup(simmKinematicsEngine* aEngine);
 
+#ifndef SWIG
 	simmJoint& operator=(const simmJoint &aJoint);
+#endif
    void copyData(const simmJoint &aJoint);
 
 	void invalidate() { _transformsValid = false; }

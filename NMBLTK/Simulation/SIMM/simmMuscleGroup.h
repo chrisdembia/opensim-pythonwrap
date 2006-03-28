@@ -71,7 +71,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmMuscleGroup& operator=(const simmMuscleGroup &aGroup);
+#endif
    void simmMuscleGroup::copyData(const simmMuscleGroup &aGroup);
 
    void setup(simmModel* aModel);

@@ -70,7 +70,9 @@ public:
 	virtual rdObject* copy() const;
 	virtual rdObject* copy(DOMElement *aElement) const;
 
+#ifndef SWIG
 	simmBodyScale& operator=(const simmBodyScale &aBodyScale);
+#endif
 	void copyData(const simmBodyScale &aBodyScale);
 
 	const rdArray<std::string>& getAxisNames() const { return _axisNames; }

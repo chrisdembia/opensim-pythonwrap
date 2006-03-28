@@ -43,7 +43,7 @@ class simmBody;
  * @author Peter Loan
  * @version 1.0
  */
-class simmSdfastBody
+class RDSIMULATION_API simmSdfastBody
 {
 
 //=============================================================================
@@ -70,7 +70,9 @@ public:
 	~simmSdfastBody(void);
 	simmSdfastBody* copy(void) const;
 
+#ifndef SWIG
 	simmSdfastBody& operator=(const simmSdfastBody &aSdfastBody);
+#endif
    void simmSdfastBody::copyData(const simmSdfastBody &aSdfastBody);
 
 //=============================================================================
