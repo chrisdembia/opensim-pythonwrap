@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Subject name="clay">
+	<defaults/>
+	<!--File name for the nominal model.xml to use is specified here-->
+	<GenericModelParameters name="">
+		<!--name of xml file for nominal model-->
+		<filename> nominalModel.xml </filename>
+		<MarkerSet/>
+	</GenericModelParameters>
+	<!--Parameters to control nominal model scaling go here.-->
+	<ScalingParameters name="">
+		<!--Valid options are 'measurements', 'manualScale'-->
+		<scalingOrder>manualScale</scalingOrder>
+		<!--Measurements consist of 'MarkerPairSet' and 'BodyScaleSet'-->
+		<MeasurementSet/>
+		<!--Scale factors to be used for manual(user controlled) scaling-->
+		<ScaleSet file="bigfoot.xml"/>
+		<markerFile> Unassigned </markerFile>
+		<timeRange>      -1.00000000      -1.00000000 </timeRange>
+		<!--Whether to preserve relative mass between segments-->
+		<preserveMassDistribution> false </preserveMassDistribution>
+		<!--name of SIMM joint file to write when done scaling.-->
+		<outputJointFile> clay_manual.jnt </outputJointFile>
+		<!--name of SIMM muscle file to write when done scaling.-->
+		<outputMuscleFile> clay_manual.msl </outputMuscleFile>
+		<!--name of OpenSim xml file to write when done scaling.-->
+		<outputModelFile> clay_bigfoot.xml </outputModelFile>
+		<!--name of scale file to write when done scaling.-->
+		<outputScaleFile> clay_scaleFactors.xml </outputScaleFile>
+	</ScalingParameters>
+	<!--Parameters pertinent to solving IK are specified here-->
+	<IKParameters name="">
+		<modelFile> Unassigned </modelFile>
+		<MarkerSet/>
+		<CoordinateSet/>
+		<IKTrialSet/>
+	</IKParameters>
+</Subject>
+

@@ -9,7 +9,7 @@
 	<objects>
 		<suScale name="">
 			<scales>5.0 1.0 1.0</scales>
-			<segment>toes</segment>
+			<segment>toes_r</segment>
 		</suScale>
 	</objects>
 </suScaleSet>
