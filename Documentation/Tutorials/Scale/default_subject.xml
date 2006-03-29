@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Subject name="default">
+<Subject name="clay">
 	<defaults/>
+	<mass>      -1.00000000 </mass>
+	<height>      -1.00000000 </height>
+	<age>      -1.00000000 </age>
+	<notes> Unassigned </notes>
 	<!--File name for the nominal model.xml to use is specified here-->
 	<GenericModelParameters name="">
 		<!--name of xml file for nominal model-->
-		<filename> nominal_model_file_name.xml </filename>
+		<filename> Unassigned </filename>
 		<MarkerSet/>
 	</GenericModelParameters>
 	<!--Parameters to control nominal model scaling go here.-->
@@ -48,6 +52,7 @@
 		<modelFile> Unassigned </modelFile>
 		<MarkerSet/>
 		<CoordinateSet/>
+		<!--Trial paramaters, one block per trial-->
 		<IKTrialSet/>
 	</IKParameters>
 </Subject>
