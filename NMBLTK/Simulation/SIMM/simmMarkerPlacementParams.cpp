@@ -304,6 +304,9 @@ bool simmMarkerPlacementParams::processModel(simmModel* aModel)
 		if (solvedStatic)
 			delete solvedStatic;
 
+		cout << "Press any key to continue.. " << endl;
+		cout.flush();
+		int c = getc( stdin );
 		return false;
 	}
 

@@ -310,6 +310,10 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 	  		 */
 			else if (_scalingOrder[i] == "manualScale")
 			{
+				if (_scaleSet.getSize()==0){
+					string message= "___WARNING___: Scale set is empty even though manual scale was selected.";
+					throw( rdException(message,__FILE__,__LINE__) );
+				}
 				for (int j = 0; j < _scaleSet.getSize(); j++)
 				{
 					if (_scaleSet[j]->getApply())
@@ -356,6 +360,9 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 	catch (rdException &x)
 	{
 		x.print(cout);
+		cout << "Press any key to continue.. " << endl;
+		cout.flush();
+		int c = getc( stdin );
 		return false;
 	}
 

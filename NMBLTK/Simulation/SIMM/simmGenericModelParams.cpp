@@ -185,6 +185,9 @@ simmModel* simmGenericModelParams::processModel()
 	catch (rdException &x)
 	{
 		x.print(cout);
+		cout << "Press any key to continue.. " << endl;
+		cout.flush();
+		int c = getc( stdin );
 		return NULL;
 	}
 
