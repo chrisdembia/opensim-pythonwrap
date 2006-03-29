@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Subject name="testSubject">
+<Subject name="subject001">
 	<defaults/>
 	<!--File name for the nominal model.xml to use is specified here-->
 	<GenericModelParameters name="">
@@ -9,24 +9,33 @@
 	</GenericModelParameters>
 	<!--Parameters to control nominal model scaling go here.-->
 	<ScalingParameters name="">
+
 		<!--Valid options are 'measurements', 'manualScale'-->
-		<scalingOrder>Manual</scalingOrder>
+		<scalingOrder>manualScale</scalingOrder>
+
 		<!--Measurements consist of 'MarkerPairSet' and 'BodyScaleSet'-->
 		<MeasurementSet/>
+
 		<!--Scale factors to be used for manual(user controlled) scaling-->
 		<ScaleSet file="hafxz.xml"/>
 		<markerFile> Unassigned </markerFile>
 		<timeRange>      -1.00000000      -1.00000000 </timeRange>
+
 		<!--Whether to preserve relative mass between segments-->
 		<preserveMassDistribution> false </preserveMassDistribution>
+
 		<!--name of SIMM joint file to write when done scaling.-->
 		<outputJointFile> scaleModelManually.jnt </outputJointFile>
+
 		<!--name of SIMM muscle file to write when done scaling.-->
 		<outputMuscleFile> scaleModelManually.msl </outputMuscleFile>
+
 		<!--name of OpenSim xml file to write when done scaling.-->
 		<outputModelFile> Unassigned </outputModelFile>
+
 		<!--name of scales file to write when done scaling.-->
 		<outputScaleFile> Unassigned </outputScaleFile>
+
 	</ScalingParameters>
 	<!--Marker set to override default markers is specified here-->
 	<MarkerPlacementParameters name="">
