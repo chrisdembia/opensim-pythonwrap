@@ -4,7 +4,7 @@
 	<!--File name for the nominal model.xml to use is specified here-->
 	<GenericModelParameters name="">
 		<!--name of xml file for nominal model-->
-		<filename> gait.xml </filename>
+		<filename> gait.sim </filename>
 		<MarkerSet/>
 	</GenericModelParameters>
 	<!--Parameters to control nominal model scaling go here.-->
@@ -42,7 +42,7 @@
 		<!--name of SIMM muscle file to write when done scaling.-->
 		<outputMuscleFile> subject001_meas.msl </outputMuscleFile>
 		<!--name of OpenSim xml file to write when done scaling.-->
-		<outputModelFile> subject001_meas.xml </outputModelFile>
+		<outputModelFile> subject001_meas.sim </outputModelFile>
 		<!--name of scales file to write when done scaling.-->
 		<outputScaleFile> subject001_scaleSet_meas.xml </outputScaleFile>
 	</ScalingParameters>
