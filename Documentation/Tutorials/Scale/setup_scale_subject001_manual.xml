@@ -14,19 +14,19 @@
 		<!--Measurements consist of 'MarkerPairSet' and 'BodyScaleSet'-->
 		<MeasurementSet/>
 		<!--Scale factors to be used for manual(user controlled) scaling-->
-		<ScaleSet file="bigfoot.xml"/>
+		<ScaleSet file="scaleSet_bigfoot.xml"/>
 		<markerFile> Unassigned </markerFile>
 		<timeRange>      -1.00000000      -1.00000000 </timeRange>
 		<!--Whether to preserve relative mass between segments-->
 		<preserveMassDistribution> false </preserveMassDistribution>
 		<!--name of SIMM joint file to write when done scaling.-->
-		<outputJointFile> clay_manual.jnt </outputJointFile>
+		<outputJointFile> subject001_manual.jnt </outputJointFile>
 		<!--name of SIMM muscle file to write when done scaling.-->
-		<outputMuscleFile> clay_manual.msl </outputMuscleFile>
+		<outputMuscleFile> subject001_manual.msl </outputMuscleFile>
 		<!--name of OpenSim xml file to write when done scaling.-->
-		<outputModelFile> clay_bigfoot.xml </outputModelFile>
+		<outputModelFile> subject001_manual.xml </outputModelFile>
 		<!--name of scale file to write when done scaling.-->
-		<outputScaleFile> clay_scaleFactors.xml </outputScaleFile>
+		<outputScaleFile> subject001_scaleFactors.xml </outputScaleFile>
 	</ScalingParameters>
 	<!--Parameters pertinent to solving IK are specified here-->
 	<IKParameters name="">
