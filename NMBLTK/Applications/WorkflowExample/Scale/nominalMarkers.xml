@@ -1,0 +1,21 @@
+<MarkerSet>
+    <marker name="midasis"> <weight>10.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="midhip"> <weight>10.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="knee_r"> <weight>10.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="knee_l"> <weight>10.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="ankle_r"> <weight>10.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="ankle_l"> <weight>10.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="asis_r"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="asis_l"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="psis_r"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="psis_l"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="epicondLat_r"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="epicondLat_l"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="malleolusLat_r"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="malleolusLat_l"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="heel_r"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="heel_l"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="neck"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="subclavicle_r"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+    <marker name="subclavicle_l"> <weight>0.000000</weight> <fixed>false</fixed> </marker>
+</MarkerSet>

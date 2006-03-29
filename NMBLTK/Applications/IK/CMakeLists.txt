@@ -5,10 +5,10 @@ INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR}
 FILE(GLOB SOURCE_FILES *.cpp ../Scale/simmScalerImpl.cpp)
 FILE(GLOB INCLUDE_FILES *.h  ../Scale/simmScalerImpl.h)
 
-LINK_LIBRARIES( debug xerces-c_2D optimized xerces-c_2 
-		debug rdTools_D optimized rdTools
-		debug rdSimulation_D optimized rdSimulation
-		debug rdSQP_D optimized rdSQP)
+LINK_LIBRARIES( debug xerces-c_2D optimized  xerces-c_2 
+		debug rdTools_d optimized rdTools
+		debug rdSimulation_d optimized rdSimulation
+		debug rdSQP_d optimized rdSQP)
 
 ADD_EXECUTABLE(solveIK ${SOURCE_FILES} ${INCLUDE_FILES})
 

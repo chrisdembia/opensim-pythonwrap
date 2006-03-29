@@ -3,16 +3,37 @@ SUBDIRS(SDFast)
 SET(KIT Simulation)
 SET(UKIT SIMULATION)
 
+##
+## Version stuff
+##
+SET(OPENSIM_RDSIMULATION_LIBRARY_NAME rd${KIT})
+SET(OPENSIM_RDSIMULATION_MAJOR_VERSION 0)
+SET(OPENSIM_RDSIMULATION_MINOR_VERSION 5)
+SET(OPENSIM_RDSIMULATION_BUILD_VERSION 1)
+SET(OPENSIM_RDSIMULATION_COPYRIGHT_YEARS "2005-6")
+# comma separated list of authors
+SET(OPENSIM_RDSIMULATION_AUTHORS  "Clay Anderson - Ayman Habib and Peter Loan") 
+
+ADD_DEFINITIONS(-DOPENSIM_RDSIMULATION_LIBRARY_NAME=${OPENSIM_RDSIMULATION_LIBRARY_NAME}
+-DOPENSIM_RDSIMULATION_MAJOR_VERSION=${OPENSIM_RDSIMULATION_MAJOR_VERSION}
+-DOPENSIM_RDSIMULATION_MINOR_VERSION=${OPENSIM_RDSIMULATION_MINOR_VERSION}
+-DOPENSIM_RDSIMULATION_BUILD_VERSION=${OPENSIM_RDSIMULATION_BUILD_VERSION}
+-DOPENSIM_RDSIMULATION_COPYRIGHT_YEARS="${OPENSIM_RDSIMULATION_COPYRIGHT_YEARS}"
+-DOPENSIM_RDSIMULATION_AUTHORS="${OPENSIM_RDSIMULATION_AUTHORS}"
+-DOPENSIM_RDSIMULATION_TYPE="shared")
+
 ## Name headers under individual directories so that INSTALL doesn't barf on them
 
-FILE(GLOB LOCAL_HEADERS *.h)
+SET(SIMULATION_SUBDIRS 
+.
+Control
+Integrator
+Manager
+Model
+Simtk
+SIMM
+)
 
-FILE(GLOB ControlHeaders Control/*.h)
-FILE(GLOB IntegratorHeaders Integrator/*.h)
-FILE(GLOB ManagerHeaders Manager/*.h)
-FILE(GLOB ModelHeaders Model/*.h)
-FILE(GLOB SimtkHeaders Simtk/*.h)
-FILE(GLOB SIMMHeaders SIMM/*.h)
 
 FILE(GLOB SOURCE_FILES Control/*.cpp Integrator/*.cpp Manager/*.cpp Model/*.cpp Simtk/*.cpp SIMM/*.cpp *.cpp)
 FILE(GLOB INCLUDE_FILES Control/*.h Integrator/*.h Manager/*.h Model/*.h Simtk/*.h SIMM/*.h *.h)
@@ -24,8 +45,8 @@ INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR}
 
 SET(EXPORT_MACRO RD${UKIT}_EXPORTS)
 
-LINK_LIBRARIES(debug rdTools_D optimized rdTools
-		debug xerces-c_2D optimized xerces-c_2)
+LINK_LIBRARIES(debug rdTools_d optimized rdTools
+		debug xerces-c_2D optimized  xerces-c_2)
 
 ADD_LIBRARY(rd${KIT} SHARED ${SOURCE_FILES} ${INCLUDE_FILES}) 
 
@@ -33,12 +54,10 @@ SET_TARGET_PROPERTIES(rd${KIT} PROPERTIES
    DEFINE_SYMBOL ${EXPORT_MACRO}
 )
 
+## install stuff
 INSTALL_TARGETS(/lib/ rd${KIT})
 
-INSTALL_FILES(/include/NMBLTK/Simulation .h ${LOCAL_HEADERS})
-INSTALL_FILES(/include/NMBLTK/Simulation/Control .h ${ControlHeaders})
-INSTALL_FILES(/include/NMBLTK/Simulation/Integrator .h ${IntegratorHeaders})
-INSTALL_FILES(/include/NMBLTK/Simulation/Manager .h ${ManagerHeaders})
-INSTALL_FILES(/include/NMBLTK/Simulation/Model .h ${ModelHeaders})
-INSTALL_FILES(/include/NMBLTK/Simulation/Simtk .h ${SimtkHeaders})
-INSTALL_FILES(/include/NMBLTK/Simulation/SIMM .h ${SIMMHeaders})
+FOREACH(dir ${SIMULATION_SUBDIRS})
+    FILE(GLOB HEADERS ${dir}/*.h)	# returns full pathnames
+	INSTALL_FILES(/include/NMBLTK/Simulation/${dir} .h ${HEADERS})
+ENDFOREACH(dir)

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MarkerSet>
+   <marker name="asis_r">
+      <body>pelvis</body>
+      <location>0.008500 0.009386 0.102397</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="asis_l">
+      <body>pelvis</body>
+      <location>0.008008 0.016053 -0.119279</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="midasis">
+      <body>pelvis</body>
+      <location>0.008254 0.012719 -0.008441</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="psis_r">
+      <body>pelvis</body>
+      <location>-0.167547 0.061144 0.025563</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="psis_l">
+      <body>pelvis</body>
+      <location>-0.168196 0.060979 -0.028293</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="hip_r">
+      <body>pelvis</body>
+      <location>-0.073409 -0.061694 0.059569</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="hip_l">
+      <body>pelvis</body>
+      <location>-0.073718 -0.057484 -0.080444</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="midhip">
+      <body>pelvis</body>
+      <location>-0.073564 -0.059589 -0.010438</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="epicondLat_r">
+      <body>femur_r</body>
+      <location>-0.055300 -0.325732 0.035150</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="epicondMed_r">
+      <body>femur_r</body>
+      <location>0.031541 -0.341017 -0.037794</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="thighwand_r">
+      <body>femur_r</body>
+      <location>0.054211 -0.193978 0.117865</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="upperleg1_r">
+      <body>femur_r</body>
+      <location>0.000781 -0.150188 0.091263</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="upperleg2_r">
+      <body>femur_r</body>
+      <location>-0.010174 -0.206701 0.081834</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="malleolusLat_r">
+      <body>tibia_r</body>
+      <location>-0.036058 -0.356868 0.015128</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="malleolusMedv_r">
+      <body>tibia_r</body>
+      <location>0.027878 -0.359023 -0.015503</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="shankwand_r">
+      <body>tibia_r</body>
+      <location>0.034542 -0.229168 0.113547</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="lowerleg1_r">
+      <body>tibia_r</body>
+      <location>0.009122 -0.250534 0.040843</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="knee_r">
+      <body>tibia_r</body>
+      <location>-0.004611 0.005294 0.005969</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="ankle_r">
+      <body>tibia_r</body>
+      <location>-0.001040 -0.356365 0.001722</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="toe_r">
+      <body>calcn_r</body>
+      <location>0.109236 -0.024694 0.007070</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="heel_r">
+      <body>calcn_r</body>
+      <location>-0.002629 0.044391 -0.011447</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="epicondLat_l">
+      <body>femur_l</body>
+      <location>-0.049509 -0.333483 -0.049134</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="epicondMed_l">
+      <body>femur_l</body>
+      <location>0.026246 -0.335106 0.038392</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="thighwand_l">
+      <body>femur_l</body>
+      <location>0.047370 -0.177940 -0.124051</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="upperleg1_l">
+      <body>femur_l</body>
+      <location>0.073919 -0.139663 -0.056593</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="upperleg2_l">
+      <body>femur_l</body>
+      <location>0.065787 -0.197096 -0.048299</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="malleolusLat_l">
+      <body>tibia_l</body>
+      <location>-0.019058 -0.355110 -0.033541</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="malleolusMedv_l">
+      <body>tibia_l</body>
+      <location>0.029684 -0.352460 0.015664</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="shankwand_l">
+      <body>tibia_l</body>
+      <location>-0.086833 -0.253699 -0.095934</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="lowerleg1_l">
+      <body>tibia_l</body>
+      <location>-0.032368 -0.261019 -0.038368</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="knee_l">
+      <body>tibia_l</body>
+      <location>-0.012314 -0.000706 -0.004949</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="ankle_l">
+      <body>tibia_l</body>
+      <location>0.010009 -0.353680 -0.011514</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="toe_l">
+      <body>calcn_l</body>
+      <location>0.147681 0.009091 0.003324</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="heel_l">
+      <body>calcn_l</body>
+      <location>0.012326 0.042386 0.023910</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="subclavicle_r">
+      <body>torso</body>
+      <location>0.033963 0.305770 0.056030</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="subclavicle_l">
+      <body>torso</body>
+      <location>0.041789 0.311096 -0.051822</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="neck">
+      <body>torso</body>
+      <location>-0.084014 0.353772 -0.000071</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="sternalnotch">
+      <body>torso</body>
+      <location>0.035389 0.307741 -0.001201</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+   <marker name="xyphoidprocess">
+      <body>torso</body>
+      <location>0.065001 0.210080 -0.006402</location>
+      <weight>1.000000</weight>
+      <fixed>false</fixed>
+   </marker>
+</MarkerSet>

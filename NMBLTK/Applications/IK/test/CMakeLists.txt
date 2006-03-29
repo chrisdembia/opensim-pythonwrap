@@ -5,10 +5,10 @@ INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR}
 FILE(GLOB SOURCE_FILES ../simm*.cpp  ../../Scale/simm*.cpp testIK.cpp)
 FILE(GLOB INCLUDE_FILES ../simm*.h ../../Scale/simm*.h)
 
-LINK_LIBRARIES( debug xerces-c_2D optimized xerces-c_2 
-		debug rdTools_D optimized rdTools
-		debug rdSimulation_D optimized rdSimulation
-		debug rdSQP_D optimized rdSQP)
+LINK_LIBRARIES( debug xerces-c_2D optimized  xerces-c_2 
+		debug rdTools_d optimized rdTools
+		debug rdSimulation_d optimized rdSimulation
+		debug rdSQP_d optimized rdSQP)
 
 # SET(EXECUTABLE_OUTPUT_PATH ${OpenSim_SOURCE_DIR}/NMBLTK/Applications/IK/test)
 
