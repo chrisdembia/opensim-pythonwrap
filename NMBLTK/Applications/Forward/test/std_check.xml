@@ -33,63 +33,6 @@
 			<optimal_force>       1.00000000 </optimal_force>
 			<QID> -1 </QID>
 		</rdGeneralizedForce>
-		<rdGeneralizedForceAtv name="default">
-			<area>       1.00000000 </area>
-			<min_force>  -10000.00000000 </min_force>
-			<max_force>   10000.00000000 </max_force>
-			<optimal_force>    1000.00000000 </optimal_force>
-			<QID> -1 </QID>
-			<rise_time>       0.01000000 </rise_time>
-			<fall_time>       0.05000000 </fall_time>
-		</rdGeneralizedForceAtv>
-		<rdLinearSetPoint name="default">
-			<area>       1.00000000 </area>
-			<min_force>  -10000.00000000 </min_force>
-			<max_force>   10000.00000000 </max_force>
-			<optimal_force>       1.00000000 </optimal_force>
-			<body_A> 0 </body_A>
-			<point_A>       0.00000000       0.00000000       0.00000000 </point_A>
-			<direction_A>       0.00000000       0.00000000       0.00000000 </direction_A>
-			<body_B> 0 </body_B>
-			<point_B>       0.00000000       0.00000000       0.00000000 </point_B>
-			<normal_A>       0.00000000       1.00000000       0.00000000 </normal_A>
-			<normal_B>       0.00000000       1.00000000       0.00000000 </normal_B>
-			<tangential_stiffness>     100.00000000 </tangential_stiffness>
-			<tangential_viscosity>       0.00000000 </tangential_viscosity>
-			<coefficient_of_friction>       0.00000000 </coefficient_of_friction>
-			<normal_stiffness>   10000.00000000 </normal_stiffness>
-			<normal_viscosity>       0.00000000 </normal_viscosity>
-		</rdLinearSetPoint>
-		<rdPolynomialSetPoint name="default">
-			<area>       1.00000000 </area>
-			<min_force>  -10000.00000000 </min_force>
-			<max_force>   10000.00000000 </max_force>
-			<optimal_force>       1.00000000 </optimal_force>
-			<body_A> 0 </body_A>
-			<point_A>       0.00000000       0.00000000       0.00000000 </point_A>
-			<direction_A>       0.00000000       0.00000000       0.00000000 </direction_A>
-			<body_B> 0 </body_B>
-			<point_B>       0.00000000       0.00000000       0.00000000 </point_B>
-			<normal_A>       0.00000000       1.00000000       0.00000000 </normal_A>
-			<normal_B>       0.00000000       1.00000000       0.00000000 </normal_B>
-			<tangential_stiffness>     100.00000000 </tangential_stiffness>
-			<tangential_viscosity>       0.00000000 </tangential_viscosity>
-			<coefficient_of_friction>       0.00000000 </coefficient_of_friction>
-			<normal_stiffness>    1000.00000000 </normal_stiffness>
-			<normal_viscosity>       0.00000000 </normal_viscosity>
-			<stiffness_power>       1.00000000 </stiffness_power>
-			<viscosity_power>       1.00000000 </viscosity_power>
-		</rdPolynomialSetPoint>
-		<JointMoment name="default">
-			<area>       1.00000000 </area>
-			<min_force>  -10000.00000000 </min_force>
-			<max_force>   10000.00000000 </max_force>
-			<optimal_force>    1000.00000000 </optimal_force>
-			<QID> -1 </QID>
-			<rise_time>       0.01000000 </rise_time>
-			<fall_time>       0.05000000 </fall_time>
-			<optimal_negative_force>    1000.00000000 </optimal_negative_force>
-		</JointMoment>
 	</defaults>
 	<model_library> rdBlock </model_library>
 	<model_file>  </model_file>
@@ -141,5 +84,6 @@
 	</rdAnalysisSet>
 	<controls_file_name> block_controls.xml </controls_file_name>
 	<initial_states_file_name> block_states.sto </initial_states_file_name>
+	<!--Set of analyses to be run during the investigation.-->
 </InvestigationForward>
 

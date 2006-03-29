@@ -27,9 +27,6 @@ string filesToCompare[] = {
 							"test_Kinematics_u.sto",
 							"test_Kinematics_dudt.sto",
 							"test_Kinematics_q.sto",
-							"test_Actuation_force.sto",
-							"test_Actuation_speed.sto",
-							"test_Actuation_power.sto",
 							"test_ActuatorGeneralizedForces.sto",
 							"test_BodyKinematics_vel.sto",
 							"test_BodyKinematics_acc.sto",
@@ -69,7 +66,7 @@ int main(int argc,char **argv)
 
 	/* Compare results with standard*/
 	bool success = true;
-	for (int i=0; i < 11 && success; i++){
+	for (int i=0; i < 8 && success; i++){
 		string command = "cmp "+filesToCompare[i]+" "+"std_"+filesToCompare[i];
 		success = success && (system(command.c_str())==0);
 	}
