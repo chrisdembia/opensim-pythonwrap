@@ -208,7 +208,7 @@
 			<apply> false </apply>
 		 </suScale>
       </ScaleSet>
-      <scalingOrder>measurements manualScale</scalingOrder> <!-- order of scaling -->
+      <scalingOrder>measurements manual</scalingOrder> <!-- order of scaling -->
       <markerFile>init100.trc</markerFile>
       <timeRange>0.0 0.25</timeRange>
       <preserveMassDistribution>true</preserveMassDistribution>

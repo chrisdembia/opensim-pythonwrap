@@ -13,7 +13,7 @@
 	</GenericModelParameters>
 	<!--Parameters to control nominal model scaling go here.-->
 	<ScalingParameters name="">
-		<!--Valid options are 'measurements', 'manualScale'-->
+		<!--Valid options are 'measurements', 'manual'-->
 		<scalingOrder>measurements</scalingOrder>
 		<!--Measurements consist of 'MarkerPairSet' and 'BodyScaleSet'-->
 		<MeasurementSet>

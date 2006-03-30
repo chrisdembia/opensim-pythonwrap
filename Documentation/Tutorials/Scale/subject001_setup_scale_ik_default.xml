@@ -14,8 +14,8 @@
 	<!--Parameters to control nominal model scaling go here.-->
 	<ScalingParameters name="">
 
-		<!--Valid options are 'measurements', 'manualScale'-->
-		<scalingOrder>manualScale</scalingOrder>
+		<!--Valid options are 'measurements', 'manual'-->
+		<scalingOrder>manual</scalingOrder>
 
 		<!--Measurements consist of 'MarkerPairSet' and 'BodyScaleSet'-->
 		<MeasurementSet/>

@@ -13,12 +13,13 @@
 	</GenericModelParameters>
 	<!--Parameters to control nominal model scaling go here.-->
 	<ScalingParameters name="">
-		<!--Valid options are 'measurements', 'manualScale'-->
-		<scalingOrder>manualScale</scalingOrder>
+		<!--Valid options are 'measurements', 'manual'-->
+		<scalingOrder>manual</scalingOrder>
 		<!--Measurements consist of 'MarkerPairSet' and 'BodyScaleSet'-->
 		<MeasurementSet/>
 		<!--Scale factors to be used for manual(user controlled) scaling-->
-		<ScaleSet file="subject001_scaleSet_bigfoot.xml"/>
+		<ScaleSet>		
+		</ScaleSet>
 		<markerFile> Unassigned </markerFile>
 		<timeRange>      -1.00000000      -1.00000000 </timeRange>
 		<!--Whether to preserve relative mass between segments-->
