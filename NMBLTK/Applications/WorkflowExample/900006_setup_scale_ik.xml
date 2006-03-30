@@ -4,7 +4,7 @@
 	<!--File name for the nominal model.xml to use is specified here-->
 	<GenericModelParameters name="">
 		<!--name of xml file for nominal model-->
-		<filename> nominal.xml</filename>
+		<filename> gait.sim</filename>
 		<MarkerSet file="nominalMarkers.xml" />
 	</GenericModelParameters>
 	<!--Parameters to control nominal model scaling go here.-->
