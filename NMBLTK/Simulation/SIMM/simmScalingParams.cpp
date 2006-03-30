@@ -178,7 +178,7 @@ void simmScalingParams::setupProperties()
 {
 	_scalingOrderProp.setName("scalingOrder");
 	rdArray<string> sorder("");
-	_scalingOrderProp.setComment("Valid options are 'measurements', 'manualScale'");
+	_scalingOrderProp.setComment("Valid options are 'measurements', 'manual' possibly in sequence");
 	_scalingOrderProp.setValue(sorder);
 	_propertySet.append(&_scalingOrderProp);
 
@@ -308,7 +308,7 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 			/* For manual scales, just copy the XYZ scale factors from
 		  	 * the manual scale into theScaleSet.
 	  		 */
-			else if (_scalingOrder[i] == "manualScale")
+			else if (_scalingOrder[i] == "manual")
 			{
 				if (_scaleSet.getSize()==0){
 					string message= "___WARNING___: Scale set is empty even though manual scale was selected.";
