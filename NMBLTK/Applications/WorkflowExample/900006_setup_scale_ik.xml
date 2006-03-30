@@ -100,9 +100,9 @@
 		<!--name of SIMM muscle file to write when done scaling.-->
 		<outputMuscleFile> 900006.msl </outputMuscleFile>
 		<!--name of OpenSim xml file to write when done scaling.-->
-		<outputModelFile> 900006.xml </outputModelFile>
+		<outputModelFile> 900006.sim </outputModelFile>
 		<!--name of scales file to write when done scaling.-->
-		<outputScaleFile> 900006_scaleSet.xml </outputScaleFile>
+		<outputScaleFile> 900006_scaleSet_applied.xml </outputScaleFile>
 	</ScalingParameters>
 	<!--Marker set to override default markers is specified here-->
 	<MarkerPlacementParameters name="">
@@ -110,7 +110,7 @@
 		<timeRange> 0.00833  2.00000 </timeRange>
 		<outputJointFile> 900006Moved.jnt </outputJointFile>
 		<outputMuscleFile> 900006Moved.msl </outputMuscleFile>
-		<outputModelFile> 900006Moved.xml </outputModelFile>
+		<outputModelFile> 900006Moved.sim </outputModelFile>
 		<outputMarkerFile> 900006MovedMarkers.xml </outputMarkerFile>
 		<outputMotionFile> 900006Moved.mot </outputMotionFile>
 	</MarkerPlacementParameters>
