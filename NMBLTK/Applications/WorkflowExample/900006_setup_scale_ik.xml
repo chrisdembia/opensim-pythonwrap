@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Subject name="Subject900006">
+<Subject name="900006">
 	<mass> 45.5 </mass>
 	<!--File name for the nominal model.xml to use is specified here-->
 	<GenericModelParameters name="">
@@ -90,29 +90,29 @@
 		<!--Scale factors to be used for manual(user controlled) scaling-->
 		<ScaleSet />
 		<!--Name of marker file *.trc for static pose-->
-		<markerFile> ../900006/900006_2.trc</markerFile>
+		<markerFile> 900006_2.trc </markerFile>
 		<!--Range of time in markers file to use for static pose solution-->
-		<timeRange>0.00833  2.00000</timeRange>
+		<timeRange> 0.00833 2.00000</timeRange>
 		<!--Whether to preserve relative mass between segments-->
 		<preserveMassDistribution> true </preserveMassDistribution>
 		<!--name of SIMM joint file to write when done scaling.-->
-		<outputJointFile> scaled900006.jnt </outputJointFile>
+		<outputJointFile> 900006.jnt </outputJointFile>
 		<!--name of SIMM muscle file to write when done scaling.-->
-		<outputMuscleFile> scaled900006.msl </outputMuscleFile>
+		<outputMuscleFile> 900006.msl </outputMuscleFile>
 		<!--name of OpenSim xml file to write when done scaling.-->
-		<outputModelFile> scaled900006.xml </outputModelFile>
+		<outputModelFile> 900006.xml </outputModelFile>
 		<!--name of scales file to write when done scaling.-->
-		<outputScaleFile> 900006Scales.xml </outputScaleFile>
+		<outputScaleFile> 900006_scaleSet.xml </outputScaleFile>
 	</ScalingParameters>
 	<!--Marker set to override default markers is specified here-->
 	<MarkerPlacementParameters name="">
-		<markerFile> ../900006/900006_2.trc </markerFile>
-		<timeRange>0.00833  2.00000</timeRange>
-		<outputJointFile> scaled900006Moved.jnt</outputJointFile>
-		<outputMuscleFile> scaled900006Moved.msl</outputMuscleFile>
-		<outputModelFile> scaled900006Moved.xml</outputModelFile>
-		<outputMarkerFile> scaled900006MovedMarkers.xml</outputMarkerFile>
-		<outputMotionFile> scaled900006Moved.mot</outputMotionFile>
+		<markerFile> 900006_2.trc </markerFile>
+		<timeRange> 0.00833  2.00000 </timeRange>
+		<outputJointFile> 900006Moved.jnt </outputJointFile>
+		<outputMuscleFile> 900006Moved.msl </outputMuscleFile>
+		<outputModelFile> 900006Moved.xml </outputModelFile>
+		<outputMarkerFile> 900006MovedMarkers.xml </outputMarkerFile>
+		<outputMotionFile> 900006Moved.mot </outputMotionFile>
 	</MarkerPlacementParameters>
 	<!--Parameters pertinent to solving IK are specified here-->
 	<IKParameters name="">
