@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Subject name="testSubject">
 	<defaults/>
+	<mass> 50.0 </mass>
+	<height> 1.8 </height>
+	<age> 24 </age>
+	<notes> This file is the setup file for the scale tutorial. </notes>
 	<!--File name for the nominal model.xml to use is specified here-->
 	<GenericModelParameters name="">
 		<!--name of xml file for nominal model-->

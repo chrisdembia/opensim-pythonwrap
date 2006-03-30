@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Subject name="clay">
 	<defaults/>
+	<mass> 50.0 </mass>
+	<height> 1.8 </height>
+	<age> 24 </age>
+	<notes> This file is the setup file for the scale tutorial. </notes>
 	<!--File name for the nominal model.xml to use is specified here-->
 	<GenericModelParameters name="">
 		<!--name of xml file for nominal model-->
-		<filename> nominalModel.xml </filename>
+		<filename> gait.sim </filename>
 		<MarkerSet/>
 	</GenericModelParameters>
 	<!--Parameters to control nominal model scaling go here.-->
@@ -14,7 +18,7 @@
 		<!--Measurements consist of 'MarkerPairSet' and 'BodyScaleSet'-->
 		<MeasurementSet/>
 		<!--Scale factors to be used for manual(user controlled) scaling-->
-		<ScaleSet file="scaleSet_bigfoot.xml"/>
+		<ScaleSet file="subject001_scaleSet_bigfoot.xml"/>
 		<markerFile> Unassigned </markerFile>
 		<timeRange>      -1.00000000      -1.00000000 </timeRange>
 		<!--Whether to preserve relative mass between segments-->

@@ -7,7 +7,7 @@
 		</suScale>
 	</defaults>
 	<objects>
-		<suScale name="">
+		<suScale name="toes_r">
 			<scales>5.0 1.0 1.0</scales>
 			<segment>toes_r</segment>
 		</suScale>
