@@ -266,6 +266,9 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 
 	try
 	{
+		/* Keep track if any scaling ends up being applied or not due to mssing file, markers etc.
+		 * If none is applied a STRONGER warning is warranted since it's likely a problem */
+		bool anyScalingDone = false;
 		/* Make adjustments to theScaleSet, in the user-specified order. */
 		for (i = 0; i < _scalingOrder.getSize(); i++)
 		{
@@ -296,6 +299,7 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 						{
 							scaleFactor = staticPoseLength / modelLength;
 							_measurementSet[j]->applyScaleFactor(scaleFactor, theScaleSet);
+							anyScalingDone = true;
 							cout << "Measurement " << _measurementSet[j]->getName() << ": model = " << modelLength << ", static pose = " << staticPoseLength << endl;
 						}
 						else
@@ -326,6 +330,7 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 							if (theScaleSet[k]->getSegmentName() == bodyName)
 								theScaleSet[k]->setScaleFactors(factors);
 						}
+						anyScalingDone = true;
 					}
 				}
 			}
@@ -335,6 +340,9 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 			}
 		}
 
+		if (!anyScalingDone){
+			cout << "___WARNING___: NO SCALING HAS BEEN APPLIED TO " << aModel->getName() << endl;
+		}
 		/* Now scale the model. */
 		aModel->scale(theScaleSet, _preserveMassDist, aSubjectMass);
 
