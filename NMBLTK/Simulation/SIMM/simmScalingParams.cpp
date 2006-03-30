@@ -360,7 +360,7 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 	catch (rdException &x)
 	{
 		x.print(cout);
-		cout << "Press any key to continue.. " << endl;
+		cout << "Press Return to continue. " << endl;
 		cout.flush();
 		int c = getc( stdin );
 		return false;
