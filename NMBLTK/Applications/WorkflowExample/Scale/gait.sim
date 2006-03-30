@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<simmModel name="3D Gait Model">
+<simmModel name="Gait3D">
 	<gravity>0.0 -9.80665 0.0</gravity>
 	<Muscles>
 		<muscle name="glut_med1_r">
