@@ -144,10 +144,11 @@ void simmGenericModelParams::setNull()
 void simmGenericModelParams::setupProperties()
 {
 	_fileNameProp.setName("filename");
-	_fileNameProp.setComment("name of xml file for nominal model"); 
+	_fileNameProp.setComment("Name of xml file for nominal model"); 
 	_propertySet.append(&_fileNameProp);
 
 	_markerSetProp.setName("MarkerSet");
+	_markerSetProp.setComment("Name of xml file specifying Markers used by the gaitlab.");
 	rdArrayPtrs<rdObject> markers;
 	_markerSetProp.setValue(markers);
 	_propertySet.append(&_markerSetProp);
