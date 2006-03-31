@@ -100,7 +100,7 @@
 		<!--name of SIMM muscle file to write when done scaling.-->
 		<outputMuscleFile> 900006.msl </outputMuscleFile>
 		<!--name of OpenSim xml file to write when done scaling.-->
-		<outputModelFile> 900006.sim </outputModelFile>
+		<outputModelFile> 900006_scaledOnly.sim </outputModelFile>
 		<!--name of scales file to write when done scaling.-->
 		<outputScaleFile> 900006_scaleSet_applied.xml </outputScaleFile>
 	</ScalingParameters>
@@ -108,11 +108,11 @@
 	<MarkerPlacementParameters name="">
 		<markerFile> 900006_2.trc </markerFile>
 		<timeRange> 0.00833  2.00000 </timeRange>
-		<outputJointFile> 900006Moved.jnt </outputJointFile>
-		<outputMuscleFile> 900006Moved.msl </outputMuscleFile>
-		<outputModelFile> 900006Moved.sim </outputModelFile>
-		<outputMarkerFile> 900006MovedMarkers.xml </outputMarkerFile>
-		<outputMotionFile> 900006Moved.mot </outputMotionFile>
+		<outputJointFile> 900006.jnt </outputJointFile>
+		<!-- Name of the new model file after scaling and marker placement. This file will not be written if a name is not specfied.  -->
+		<outputModelFile> 900006.sim </outputModelFile>
+		<outputMarkerFile> 900006_markers.xml </outputMarkerFile>
+		<outputMotionFile> 900006_markers.mot </outputMotionFile>
 	</MarkerPlacementParameters>
 	<!--Parameters pertinent to solving IK are specified here-->
 	<IKParameters name="">
