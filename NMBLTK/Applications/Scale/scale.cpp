@@ -77,7 +77,11 @@ int main(int argc,char **argv)
 					PrintUsage(cout);
 					return(0);
 					// IDENTIFY SETUP FILE
-				} else if((option=="-SF")||(option=="-S")||(option=="-SubjectFile")) {
+				} else if((option=="-S")||(option=="-Setup")) {
+					if (argv[i+1]==0){
+						PrintUsage(cout);
+						return(0);
+					}
 					inName = argv[i+1];
 					break;
 				}
@@ -148,10 +152,10 @@ int main(int argc,char **argv)
 void PrintUsage(ostream &aOStream)
 {
 	aOStream<<"\n\nscale.exe:\n\n";
-	aOStream<<"Option              Argument            Action / Notes\n";
-	aOStream<<"------              --------            --------------\n";
-	aOStream<<"-Help, -H                               Print the command-line options for scale.exe.\n";
-	aOStream<<"-PrintSetup, -PS						   Generates a template Setup file to customize the scaling\n";
-	aOStream<<"-SubjectFile, -SF     SubjectFile       Specify an xml file for the subject that includes references\n";
-	aOStream<<"                                        to model's file, markers file and scaling parameters.\n";
+	aOStream<<"Option              Argument     Action / Notes\n";
+	aOStream<<"------              --------     --------------\n";
+	aOStream<<"-Help, -H                        Print the command-line options for scale.exe.\n";
+	aOStream<<"-PrintSetup, -PS                 Generates a template Setup file to customize scaling\n";
+	aOStream<<"-Setup, -S         SubjectFile   Specify an xml subject file that includes\n";
+	aOStream<<"                                 references to model's file, markers file and scaling parameters.\n";
 }
