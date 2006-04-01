@@ -28,6 +28,7 @@
 //=============================================================================
 #include "simmSubject.h"
 
+const double simmSubject::DefaultMass=-1.0;
 //=============================================================================
 // STATICS
 //=============================================================================
@@ -205,7 +206,7 @@ void simmSubject::setNull()
 void simmSubject::setupProperties()
 {
 	_massProp.setName("mass");
-	_massProp.setValue(-1.0);
+	_massProp.setValue(simmSubject::DefaultMass);
 	_propertySet.append(&_massProp);
 
 	_heightProp.setName("height");
@@ -359,4 +360,13 @@ void simmSubject::peteTest() const
 	_scalingParams.peteTest();
 	_markerPlacementParams.peteTest();
 	_IKParams.peteTest();
+}
+
+/**
+ * Check if MarkerPlacementParams settings in file are different from defaults
+ */
+bool simmSubject::isDefaultMarkerPlacementParams() const
+{ 
+	
+	return (_markerPlacementParams.isDefault()); 
 }

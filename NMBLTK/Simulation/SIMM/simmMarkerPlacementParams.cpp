@@ -355,3 +355,10 @@ void simmMarkerPlacementParams::peteTest() const
 	cout << "      outputMarkerFile: " << _outputMarkerFileName << endl;
 	cout << "      outputMotionFile: " << _outputMotionFileName << endl;
 }
+/**
+ * Check if the values in an instance of simmMarkerPlacementParams are different from those put by default.
+ */
+bool simmMarkerPlacementParams::isDefault() const
+{
+	return (_markerFileName=="Unassigned");
+}

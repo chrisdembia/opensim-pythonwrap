@@ -27,6 +27,7 @@
 // INCLUDES
 //=============================================================================
 #include <NMBLTK/Tools/suScaleSet.h>
+#include "simmSubject.h"
 #include "simmScalingParams.h"
 #include "simmMarkerData.h"
 
@@ -248,6 +249,9 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 	suScaleSet theScaleSet;
 	rdArray<double> unity(1.0, 3);
 
+	if (aSubjectMass == simmSubject::DefaultMass){
+		cout << "___WARNING___: Subject mass was not specified, assuming " << simmSubject::DefaultMass << endl;
+	}
 	cout << endl << "Step 2: Scaling generic model" << endl;
 
 	rdArrayPtrs<simmBody>& bodies = aModel->getBodies();

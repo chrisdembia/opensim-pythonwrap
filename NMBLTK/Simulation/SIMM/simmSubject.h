@@ -133,7 +133,7 @@ public:
 
 	bool isDefaultGenericModelParams() { return _genericModelParamsProp.getUseDefault(); }
 	bool isDefaultScalingParams() { return _scalingParamsProp.getUseDefault(); }
-	bool isDefaultMarkerPlacementParams() { return _markerPlacementParamsProp.getUseDefault(); }
+	bool isDefaultMarkerPlacementParams() const;
 	bool isDefaultIKParams() { return _IKParamsProp.getUseDefault(); }
 	/* Register types to be used when reading a simmSubject object from xml file. */
 	static void registerTypes();
@@ -145,6 +145,9 @@ protected:
 private:
 	void setNull();
 	void setupProperties();
+public:
+	/** Default value for subject mass if not specified in file */
+	static const double DefaultMass;
 //=============================================================================
 };	// END of class simmSubject
 //=============================================================================

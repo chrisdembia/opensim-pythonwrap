@@ -124,6 +124,7 @@ public:
 
 	void peteTest() const;
 
+	bool isDefault() const;
 protected:
 
 private:
