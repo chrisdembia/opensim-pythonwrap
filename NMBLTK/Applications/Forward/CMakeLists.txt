@@ -8,7 +8,7 @@ LINK_LIBRARIES( debug rdTools_d optimized rdTools
 		debug suAnalyses_d optimized suAnalyses)
 
 ADD_EXECUTABLE(forward forward.cpp)
-
+        
 INSTALL_TARGETS(/bin/ forward)
 #
 # Testing

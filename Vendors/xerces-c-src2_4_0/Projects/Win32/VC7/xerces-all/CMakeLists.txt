@@ -27,11 +27,34 @@ IF(WIN32)
         ARGS -E copy
         ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/Build/Win32/VC7/Debug/xerces-c_2_4_0D.dll
         ${EXECUTABLE_OUTPUT_PATH}/Debug/xerces-c_2_4_0D.dll)
+    ## Essentially installation stuff
+	ADD_CUSTOM_COMMAND(
+        TARGET xerces-c_2
+        COMMAND ${CMAKE_COMMAND}
+        ARGS -E copy
+        ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/Build/Win32/VC7/Release/xerces-c_2.lib
+        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2.lib)
+	ADD_CUSTOM_COMMAND(
+        TARGET xerces-c_2
+        COMMAND ${CMAKE_COMMAND}
+        ARGS -E copy
+        ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/Build/Win32/VC7/Release/xerces-c_2_4_0.dll
+        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2_4_0.dll)
+	ADD_CUSTOM_COMMAND(
+        TARGET xerces-c_2D
+        COMMAND ${CMAKE_COMMAND}
+        ARGS -E copy
+        ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/Build/Win32/VC7/Debug/xerces-c_2D.lib
+        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2D.lib)
+	ADD_CUSTOM_COMMAND(
+        TARGET xerces-c_2D
+        COMMAND ${CMAKE_COMMAND}
+        ARGS -E copy
+        ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/Build/Win32/VC7/Debug/xerces-c_2_4_0D.dll
+        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2_4_0D.dll)
 ENDIF(WIN32)
 
 
-INSTALL_TARGETS(/lib/ xerces-c_2)
-INSTALL_TARGETS(/lib/ xerces-c_2D)
 
 #---- There must be a better way than repeating this for every directory
 # ---- but GLOB_RECURSE flattened the list which is bad and mailing list up to 

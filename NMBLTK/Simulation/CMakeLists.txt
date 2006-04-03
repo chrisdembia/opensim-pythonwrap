@@ -55,7 +55,7 @@ SET_TARGET_PROPERTIES(rd${KIT} PROPERTIES
 )
 
 ## install stuff
-INSTALL_TARGETS(/lib/ rd${KIT})
+INSTALL_TARGETS(/lib/ RUNTIME_DIRECTORY /lib rd${KIT})
 
 FOREACH(dir ${SIMULATION_SUBDIRS})
     FILE(GLOB HEADERS ${dir}/*.h)	# returns full pathnames
