@@ -29,10 +29,17 @@ chomp($subjectName);
 	"template.h" => $subjectName.".h",
 	"template.cpp" => $subjectName.".cpp",
 	"sdufuncs_darryl.c" => "sdufuncs_darryl.c",
+	"sdlib.c" => "sdlib.c"
 );
-my $templateDir = $ENV{NMBL_INSTALL}.'/Template/';
+my $templateDir = $ENV{OPENSIM_TEMPLATE_DIR};
 
+if (!($templateDir)){
+	die "\nTemplate directory for creating projects is not set.\nPlease set the environment variable OPENSIM_TEMPLATE_DIR\nto point to the directory name ending in 'Template' in your installation\n";
+}
+my $lastchar = substr($templateDir, -1);
 
+if (!($lastchar eq '/')) {$templateDir .= "/";}
+	
 while ( my ($key, $value) = each(%filemap) ) {
 		my $templateFile = $templateDir.$key;
 		my $subjectFile = $value;

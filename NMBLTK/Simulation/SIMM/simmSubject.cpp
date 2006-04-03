@@ -207,10 +207,12 @@ void simmSubject::setupProperties()
 {
 	_massProp.setName("mass");
 	_massProp.setValue(simmSubject::DefaultMass);
+	_massProp.setComment("Mass of the subject in kgs.");
 	_propertySet.append(&_massProp);
 
 	_heightProp.setName("height");
 	_heightProp.setValue(-1.0);
+	_heightProp.setComment("Height of the subject in cms.");
 	_propertySet.append(&_heightProp);
 
 	_ageProp.setName("age");
@@ -218,10 +220,11 @@ void simmSubject::setupProperties()
 	_propertySet.append(&_ageProp);
 
 	_notesProp.setName("notes");
+	_notesProp.setComment("Save record-keeping info. here.");
 	_propertySet.append(&_notesProp);
 
 	_genericModelParamsProp.setName("");
-	_genericModelParamsProp.setComment("File name for the nominal model.xml to use is specified here");
+	_genericModelParamsProp.setComment("File name for the (nominal model).sim to use is specified here.");
 	_propertySet.append(&_genericModelParamsProp);
 
 	_scalingParamsProp.setName("");
@@ -229,11 +232,11 @@ void simmSubject::setupProperties()
 	_propertySet.append(&_scalingParamsProp);
 
 	_markerPlacementParamsProp.setName("");
-	_markerPlacementParamsProp.setComment("Marker set to override default markers is specified here");
+	_markerPlacementParamsProp.setComment("Parameters needed to move model's marker locations to match recorded ones from a static trial.");
 	_propertySet.append(&_markerPlacementParamsProp);
 
 	_IKParamsProp.setName("");
-	_IKParamsProp.setComment("Parameters pertinent to solving IK are specified here");
+	_IKParamsProp.setComment("Parameters pertinent to solving IK are specified here.");
 	_propertySet.append(&_IKParamsProp);
 }
 
@@ -368,5 +371,5 @@ void simmSubject::peteTest() const
 bool simmSubject::isDefaultMarkerPlacementParams() const
 { 
 	
-	return (_markerPlacementParams.isDefault()); 
+	return (_markerPlacementParamsProp.getUseDefault()==true || _markerPlacementParams.isDefault()); 
 }
