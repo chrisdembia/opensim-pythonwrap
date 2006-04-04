@@ -76,7 +76,7 @@ public:
 	static int ComputeNumberOfSteps(double aTI,double aTF,double aDT);
 	static char* ReadCharacters(FILE *aFP,int aNChar);
 	static FILE* OpenFile(const char *aFileName,const char *aMode);
-
+	static int makeDir(const char *aDirName);
 //=============================================================================
 };	// END CLASS rdIO
 //=============================================================================

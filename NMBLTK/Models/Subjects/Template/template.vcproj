@@ -35,9 +35,9 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="$(OPENSIM_LIB_PATH)\$(IntDir)"
-				AdditionalDependencies="suPipeline40Workflow_D.lib suPipeline40_D.lib suAnalyses_D.lib rdSimulation_D.lib rdSDFast_D.lib rdTools_D.lib acpp_D.lib"
-				OutputFile="./_Template__D.dll"
+				AdditionalLibraryDirectories="$(OPENSIM_LIB_PATH)"
+				AdditionalDependencies="suPipeline40Workflow_d.lib suPipeline40_d.lib suAnalyses_d.lib rdSimulation_d.lib rdSDFast_d.lib rdTools_d.lib acpp_d.lib"
+				OutputFile="./_Template__d.dll"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/_Template_.pdb"
@@ -83,7 +83,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="$(OPENSIM_LIB_PATH)\$(IntDir)"
+				AdditionalLibraryDirectories="$(OPENSIM_LIB_PATH)"
 				AdditionalDependencies="suPipeline40Workflow.lib suPipeline40.lib suAnalyses.lib rdSimulation.lib rdSDFast.lib rdTools.lib acpp.lib"
 				OutputFile="./_Template_.dll"
 				LinkIncremental="1"

@@ -567,7 +567,8 @@ void InvestigationPerturbation::run()
 		perturbation->setOn(false);
 		cout<<"\n\nUnperturbed integration (1) from "<<tiPert<<" to "<<tfPert<<endl;
 		manager.integrate();
-		_model->getAnalysisSet()->printResults("Gc05g1_unpert","Results");
+		rdIO::makeDir(getResultsDir().c_str());
+		_model->getAnalysisSet()->printResults("Gc05g1_unpert",getResultsDir().c_str());
 		
 		// INTEGRATE (2) - Record unperturbed muscle forces
 		integ->setUseSpecifiedDT(true);
@@ -657,6 +658,7 @@ void InvestigationPerturbation::run()
 		PFZBodyStore.append(tiPert,na,&PFZBody[0]);
 
 		// Print results
+		rdIO::makeDir("ResultsPerturbed");
 		sprintf(fileName,"./ResultsPerturbed/daXdf_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);
 		daXdfStore.print(fileName);
 		sprintf(fileName,"./ResultsPerturbed/deltaAX_dt_%.3f_df_%.3lf.sto",_pertWindow,_pertDF);

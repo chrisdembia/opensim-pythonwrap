@@ -12,7 +12,7 @@
 #include "rdTools.h"
 #include <time.h>
 #include "rdIO.h"
-
+#include <direct.h>
 
 // CONSTANTS
 const int rdIO::STRLEN = rdIO_STRLEN;
@@ -436,5 +436,14 @@ OpenFile(const char *aFileName,const char *aMode)
 
 	return(fp);
 }
-
+//_____________________________________________________________________________
+/**
+ * Create a directory. Potentially platform dependent.
+  * @return int 0 on success, EEXIST or other error condition
+*/
+int rdIO::
+makeDir(const char *aDirName)
+{
+	return _mkdir(aDirName);
+}
 

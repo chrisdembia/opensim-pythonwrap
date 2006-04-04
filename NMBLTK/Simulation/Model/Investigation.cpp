@@ -7,6 +7,7 @@
 //=============================================================================
 #include "Investigation.h"
 #include "LoadModel.h"
+#include <NMBLTK/Tools/rdIO.h>	
 
 using namespace std;
 
@@ -450,5 +451,6 @@ printResults(const char *aBaseName,const char *aDir,double aDT,
 				 const char *aExtension)
 {
 	cout<<"Printing results of investigation "<<getName()<<" to "<<aDir<<".\n";
+	rdIO::makeDir(aDir);
 	_model->getAnalysisSet()->printResults(aBaseName,aDir,aDT,aExtension);
 }
