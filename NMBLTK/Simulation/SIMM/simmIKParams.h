@@ -97,7 +97,7 @@ public:
 #endif
    void simmIKParams::copyData(const simmIKParams &aIKParams);
 
-	bool processModel(simmModel* aModel);
+	bool solveIK(IKSolverInterface *aSolver,simmModel* aModel);
 
 	/* Register types to be used when reading a simmIKParams object from xml file. */
 	static void registerTypes();

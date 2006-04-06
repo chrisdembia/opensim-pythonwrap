@@ -185,7 +185,7 @@ simmIKParams& simmIKParams::operator=(const simmIKParams &aIKParams)
 	return(*this);
 }
 
-bool simmIKParams::processModel(simmModel* aModel)
+bool simmIKParams::solveIK(IKSolverInterface *aSolver,simmModel* aModel)
 {
 	cout << endl << "Step 4: Solving IK trials" << endl;
 
@@ -221,6 +221,9 @@ bool simmIKParams::processModel(simmModel* aModel)
 		int c = getc( stdin );
 		return false;
 	}
+
+	// SET IK SOLVER
+	aModel->getKinematicsEngine().setIKSolver(aSolver);
 
 	/* Update the markers. */
 	aModel->updateMarkers(_markerSet);

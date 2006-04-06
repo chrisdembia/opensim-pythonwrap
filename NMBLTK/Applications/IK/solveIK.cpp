@@ -1,4 +1,4 @@
-// solveIK.cpp
+// ik.cpp
 // Author: Peter Loan
 /* Copyright (c) 2005, Stanford University and Peter Loan.
  * 
@@ -54,7 +54,7 @@ int main(int argc,char **argv)
 	string option = "";
 	if (argc < 2)
 	{
-		printf("Usage: solveIK -SF subject.xml\n");
+		PrintUsage(cout);
 		exit(-1);
 	}
 	else {		// Don't know maybe user needs help or have special needs
@@ -68,7 +68,7 @@ int main(int argc,char **argv)
 					PrintUsage(cout);
 					return(0);
 					// IDENTIFY SETUP FILE
-				} else if((option=="-SF")||(option=="-S")||(option=="-SubjectFile")) {
+				} else if((option=="-Setup")||(option=="-S")) {
 					inName = argv[i+1];
 					break;
 				}
@@ -125,9 +125,8 @@ int main(int argc,char **argv)
 	}
 
 	IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
-	engine.setIKSolver(ikSolver);
 	if (!subject->isDefaultIKParams()){
-		subject->getIKParams().processModel(model);
+		subject->getIKParams().solveIK(ikSolver,model);
 	}
 	else {
 			cout << "Inverse kinematics parameters not set. IK was not solved." << endl;
@@ -142,12 +141,12 @@ int main(int argc,char **argv)
  */
 void PrintUsage(ostream &aOStream)
 {
-	aOStream<<"\n\nsolveIK.exe:\n\n";
-	aOStream<<"Option              Argument            Action / Notes\n";
-	aOStream<<"------              --------            --------------\n";
-	aOStream<<"-Help, -H                               Print the command-line options for scale.exe.\n";
-	aOStream<<"-PrintSetup, -PS						   Generates a template Setup file to customize the scaling\n";
-	aOStream<<"-SubjectFile, -SF     SubjectFile       Specify an xml file for the subject that includes references\n";
-	aOStream<<"                                        to model's file, markers file and scaling parameters.\n";
+	aOStream<<"\n\nik.exe:\n\n";
+	aOStream<<"Option             Argument         Action / Notes\n";
+	aOStream<<"------             --------         --------------\n";
+	aOStream<<"-Help, -H                           Print the command-line options for scale.exe.\n";
+	aOStream<<"-PrintSetup, -PS                    Generates a template Setup file to customize the scaling\n";
+	aOStream<<"-Setup, -S         SetupFile        Specify an xml setupfile that specifies an OpenSim model,\n";
+	aOStream<<"                                    a marker file, and scaling parameters.\n";
 }
 	

@@ -73,7 +73,7 @@ int main(int argc,char **argv)
 		cout << "===ERROR===: Unable to place markers on model." << endl;
 		return 0;
 	}
-	subject->getIKParams().processModel(model);
+	subject->getIKParams().solveIK(ikSolver,model);
 
 	delete subject;
 	delete ikSolver;

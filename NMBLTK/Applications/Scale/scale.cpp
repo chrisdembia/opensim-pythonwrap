@@ -152,10 +152,10 @@ int main(int argc,char **argv)
 void PrintUsage(ostream &aOStream)
 {
 	aOStream<<"\n\nscale.exe:\n\n";
-	aOStream<<"Option              Argument     Action / Notes\n";
-	aOStream<<"------              --------     --------------\n";
-	aOStream<<"-Help, -H                        Print the command-line options for scale.exe.\n";
-	aOStream<<"-PrintSetup, -PS                 Generates a template Setup file to customize scaling\n";
-	aOStream<<"-Setup, -S         SubjectFile   Specify an xml subject file that includes\n";
-	aOStream<<"                                 references to model's file, markers file and scaling parameters.\n";
+	aOStream<<"Option            Argument      Action / Notes\n";
+	aOStream<<"------            --------      --------------\n";
+	aOStream<<"-Help, -H                       Print the command-line options for scale.exe.\n";
+	aOStream<<"-PrintSetup, -PS                Generates a template Setup file to customize scaling\n";
+	aOStream<<"-Setup, -S        SetupFile     Specify an xml setup file that specifies an OpenSim model,\n";
+	aOStream<<"                                a marker file, and scaling parameters.\n";
 }
