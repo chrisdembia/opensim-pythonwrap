@@ -96,9 +96,9 @@
 		<!--Whether to preserve relative mass between segments-->
 		<preserveMassDistribution> true </preserveMassDistribution>
 		<!--name of SIMM joint file to write when done scaling.-->
-		<outputJointFile> 900006.jnt </outputJointFile>
+		<outputJointFile> 900006_scaledOnly.jnt </outputJointFile>
 		<!--name of SIMM muscle file to write when done scaling.-->
-		<outputMuscleFile> 900006.msl </outputMuscleFile>
+		<outputMuscleFile> 900006_scaledOnly.msl </outputMuscleFile>
 		<!--name of OpenSim xml file to write when done scaling.-->
 		<outputModelFile> 900006_scaledOnly.sim </outputModelFile>
 		<!--name of scales file to write when done scaling.-->
@@ -122,11 +122,11 @@
 		<!--Trial paramaters, one block per trial-->
 		<IKTrialSet>
 			<IKTrial name="first trial">
-				<inputMarkerFile> 900006_walk13.trc </inputMarkerFile>
+				<inputMarkerFile> 900006_13.trc </inputMarkerFile>
 				<timeRange> 0.125 1.0 </timeRange>
 				<kinematicsSmoothing> 10.0 </kinematicsSmoothing>
 				<groundReactionSmoothing> 1000.0 </groundReactionSmoothing>
-				<outputMotionFile> 900006_walk13.mot </outputMotionFile>
+				<outputMotionFile> 900006_13.mot </outputMotionFile>
 				<includeMarkers> true </includeMarkers>
 			</IKTrial>
 		</IKTrialSet>
