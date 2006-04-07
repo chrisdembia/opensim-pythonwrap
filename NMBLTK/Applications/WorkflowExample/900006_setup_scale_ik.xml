@@ -116,9 +116,9 @@
 	</MarkerPlacementParameters>
 	<!--Parameters pertinent to solving IK are specified here-->
 	<IKParameters name="">
-		<modelFile> 900006.sim </modelFile>
+		<!-- <modelFile> 900006.sim </modelFile> -->
 		<MarkerSet />
-		<CoordinateSet />
+		<CoordinateSet> 900006_13.mot </CoordinateSet>
 		<!--Trial paramaters, one block per trial-->
 		<IKTrialSet>
 			<IKTrial name="first trial">
