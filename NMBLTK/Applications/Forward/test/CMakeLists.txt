@@ -11,7 +11,6 @@ ADD_EXECUTABLE(testForward testForward.cpp)
 
 SET(TEST_FILES forward.xml block_actuators.xml block_contacts.xml block_controls.xml block_states.sto
 	std_check.xml std_test_Kinematics_u.sto std_test_Kinematics_dudt.sto std_test_Kinematics_q.sto
-	std_test_Actuation_force.sto std_test_Actuation_speed.sto std_test_Actuation_power.sto
 	std_test_ActuatorGeneralizedForces.sto std_test_BodyKinematics_vel.sto 
 	std_test_BodyKinematics_acc.sto std_test_BodyKinematics_pos.sto
 )
