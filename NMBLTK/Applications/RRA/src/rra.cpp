@@ -39,7 +39,9 @@ using namespace std;
 void ParseCommandLine(int argc, char **argv,
 					  string &prefix, string &trackingFileName,
 					  double perturb[12],
-					  bool &computingCorrections);
+					  bool &computingCorrections,
+					  double &torsox, double &torsoz,
+					  double &lumbext, double &lumbbend);
 
 //_____________________________________________________________________________
 /**
@@ -58,7 +60,12 @@ int main(int argc,char **argv)
 	string prefix, trackingFileName;
 	double perturb[12] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 	bool computingCorrections;
-	ParseCommandLine(argc, argv, prefix, trackingFileName, perturb, computingCorrections);
+	double txweight, tzweight, leweight, lbweight;
+	ParseCommandLine(argc, argv, prefix, trackingFileName, perturb,
+		computingCorrections, txweight, tzweight, leweight, lbweight);
+
+	bool changeTorso = (txweight != 0.0 || tzweight != 0.0);
+	bool changeBack  = (leweight != 0.0 || lbweight != 0.0);
 
 
 	//=======================
@@ -89,31 +96,107 @@ int main(int argc,char **argv)
 
 
 	//============================
-	// ALTER INERTIAL PARAMETERS
+	// ALTER TORSO AND BACK
 	//============================
 
-	// Add RRA perturbations to user perturbations
+	// Load desired trajectories
+	string kineticsFileName;
+	if (changeBack) kineticsFileName = prefix + "_corrected_by_RRA.mot";
+	else kineticsFileName = prefix + ".mot";
+	rdStorage fileStore2(kineticsFileName.c_str());
+
+	// Perform corrections suggested by RRA if user said to do so
 	rdArray<double> btj(0.0);
 	btj.setSize(3);
 	int iTorso = model->getBodyIndex("torso");
-	string rraPerturbFileName = prefix + ".txt";
-	ifstream rraPerturbFile;
-	rraPerturbFile.open(rraPerturbFileName.c_str());
-	// If file is valid, read and incorporate torso COM alterations
-	if(!rraPerturbFile.fail())
+	if (changeTorso || changeBack)
 	{
-		double changeTx, changeTz;
-		rraPerturbFile >> changeTx >> changeTz;
-		perturb[0] += changeTx;
-		perturb[2] += changeTz;
+		string rraCorrectFileName = prefix + "_corrected_by_RRA.txt";
+		ifstream rraCorrectFile;
+		rraCorrectFile.open(rraCorrectFileName.c_str());
+		// If file is valid, read and incorporate alterations
+		if(!rraCorrectFile.fail())
+		{
+			if (changeTorso) // Incorporate torso COM alterations
+			{
+				double changeTx, changeTz;
+				rraCorrectFile >> changeTx >> changeTz;
+				model->getBodyToJointBodyLocal(iTorso,&btj[0]);
+				btj[0] += txweight * changeTx;
+				btj[2] += tzweight * changeTz;
+				model->setBodyToJointBodyLocal(iTorso,&btj[0]);
+				cout << "Torso center of mass has been altered.\n";
+			}
+			if (changeBack) // Incorporate back angle alterations
+			{
+				// Read correction arrays from file
+				rdArray<double> lExtCorr(0.0);
+				lExtCorr.setSize(fileStore2.getSize());
+				rdArray<double> lBendCorr(0.0);
+				lBendCorr.setSize(fileStore2.getSize());
+				// Assumption: lExtCorr is listed as an array with
+				// one number per line in the correction file, and
+				// the size of the array is equal to
+				// fileStore2.getSize(); lBendCorr is listed right
+				// after lExtCorr and also has the same format and
+				// size
+				for (i = 0; i < fileStore2.getSize(); i++)
+				{
+					rraCorrectFile >> lExtCorr[i];
+				}
+				for (i = 0; i < fileStore2.getSize(); i++)
+				{
+					rraCorrectFile >> lBendCorr[i];
+				}
+
+				// Temporarily convert to radians for corrections below
+				model->convertDegreesToRadians(&fileStore2);
+
+				// Initialize data arrays
+				double *lExtData = 0, *lBendData = 0;
+
+				// Note: trajectory angles are in radians
+				int lExtIndex = fileStore2.getColumnIndex("lumbar_extension");
+				int lBendIndex = fileStore2.getColumnIndex("lumbar_bending");
+				fileStore2.getDataColumn(lExtIndex, lExtData);
+				fileStore2.getDataColumn(lBendIndex, lBendData);
+
+				if (leweight != 0.0)
+				{
+					for (i = 0; i < fileStore2.getSize(); i++)
+					{
+						lExtCorr[i] = lExtData[i] + leweight * lExtCorr[i];
+					}
+					fileStore2.setDataColumn(lExtIndex, lExtCorr);
+				}
+				if (lbweight != 0.0)
+				{
+					for (i = 0; i < fileStore2.getSize(); i++)
+					{
+						lBendCorr[i] = lBendData[i] + lbweight * lBendCorr[i];
+					}
+					fileStore2.setDataColumn(lBendIndex, lBendCorr);
+				}
+
+				// Convert back to degrees now that corrections are done
+				model->convertRadiansToDegrees(&fileStore2);
+
+				cout << "Back angles have been altered.\n";
+			}
+		}
+		else
+		{
+			cout << "Unexpected end-of-file in " << rraCorrectFileName.c_str() << "\n";
+		}
+		rraCorrectFile.close();
 	}
 	else
 	{
-		cout << "No torso COM alterations suggested by RRA." << "\n";
+		cout << "Not applying any corrections in this pass of RRA." << "\n";
 	}
-	rraPerturbFile.close();
     
-	// Alter the center of mass of the torso if user and/or RRA said so
+	// Alter the center of mass of the torso if
+	// user specified an alteration amount
 	for(i = 0; i < 3; i++)
 	{
 		if (perturb[i] != 0.0)
@@ -124,8 +207,8 @@ int main(int argc,char **argv)
 		}
 	}
 	
-	// Write message for torso center of mass perturbation if there was any
-	if (perturb[0] != 0.0 || perturb[1] != 0.0 || perturb[2] != 0.0)
+	// Print out new torso center of mass coordinates if they were changed
+	if (perturb[0] != 0.0 || perturb[1] != 0.0 || perturb[2] != 0.0 || changeTorso)
 	{
 		cout << "Changed torso COM to " << "("
 			 << btj[0] << ", " << btj[1] << ", " << btj[2] << ").\n\n";
@@ -135,14 +218,6 @@ int main(int argc,char **argv)
 	//=====================================
 	// COMPUTE TRAJECTORIES FROM .MOT FILE
 	//=====================================
-
-	// Load desired trajectories
-	string kineticsFileName = prefix + ".mot";
-	
-	//rdStorage fileStore(kineticsFileName.c_str());
-	//string stofile = "s26ik_q.sto";
-	//rdStorage fileStore2(stofile.c_str());
-	rdStorage fileStore2(kineticsFileName.c_str());
 
 	int nq = model->getNQ();
 
@@ -587,18 +662,26 @@ int main(int argc,char **argv)
 	// Print
 	double dt = 0.005;
 	rdAnalysisSet *analysisSet = model->getAnalysisSet();
-	string stoFileName;
-	stoFileName= "Results/" + prefix + "_controls.sto";
+	string stoFileName, newprefix;
+	if (changeTorso || changeBack) // some correction is being used
+	{
+		newprefix = prefix + "_corrected_by_RRA";
+	}
+	else
+	{
+		newprefix = prefix;
+	}
+	stoFileName= "Results/" + newprefix + "_controls.sto";
 	xStore->print(stoFileName.c_str(),dt);
-	stoFileName= "Results/" + prefix + "_states.sto";
+	stoFileName= "Results/" + newprefix + "_states.sto";
 	yStore->print(stoFileName.c_str(),dt);
-	analysisSet->printResults(prefix.c_str(),"Results",dt);
+	analysisSet->printResults(newprefix.c_str(),"Results",dt);
 
 	// Print ground reaction force and torque application results
-	rightForceApp->printResults(prefix.c_str(), "Results", dt);
-	rightTorqueApp->printResults(prefix.c_str(), "Results", dt);
-	leftForceApp->printResults(prefix.c_str(), "Results", dt);
-	leftTorqueApp->printResults(prefix.c_str(), "Results", dt);
+	rightForceApp->printResults(newprefix.c_str(), "Results", dt);
+	rightTorqueApp->printResults(newprefix.c_str(), "Results", dt);
+	leftForceApp->printResults(newprefix.c_str(), "Results", dt);
+	leftTorqueApp->printResults(newprefix.c_str(), "Results", dt);
 
 
 	// COMPUTE NEEDED DC OFFSETS
@@ -638,7 +721,7 @@ int main(int argc,char **argv)
 	}
 
 	// Print residuals out to a file
-	stoFileName = "Results/" + prefix + "_residuals.sto";
+	stoFileName = "Results/" + newprefix + "_residuals.sto";
 	residuals.print(stoFileName.c_str(),dt);
 
 	// Now actually compute the DC offsets like we promised
@@ -651,7 +734,7 @@ int main(int argc,char **argv)
 
 	// Write the average residuals (DC offsets) out to a file
 	ofstream residualFile;
-	stoFileName = "Results/" + prefix + "_avgResiduals.txt";
+	stoFileName = "Results/" + newprefix + "_avgResiduals.txt";
 	residualFile.open (stoFileName.c_str());
 	residualFile << "Average Residuals:\n\n";
 	residualFile << "FX average = " << ave[iFX] << "\n";
@@ -689,10 +772,14 @@ int main(int argc,char **argv)
 	double torsoMomentArm = sqrt(rx*rx + ry*ry + rz*rz);
 	double torsoTorque = torsoWeight * torsoMomentArm;
 
-	// Boolean flags for whether or not to perform each correction
-	bool txOkay = true, tzOkay = true;
+	// Boolean flags for whether or not each correction is within
+	// a reasonable threshold amount (+/- 10 degrees for angles,
+	// +/- 10 cm for distances)
+	bool txOkay = true, tzOkay = true, leOkay = true, lbOkay = true;
 
-	// Compute torso center-of-mass corrections
+	// COMPUTE TORSO CENTER OF MASS CORRECTION AMOUNTS
+
+	double txOutput = 0.0, tzOutput = 0.0;
 	double dTx =  ave[iMZ] / torsoWeight;
 	double dTz = -ave[iMX] / torsoWeight;
 	if (dTx < -0.1 || dTx > 0.1)
@@ -708,32 +795,94 @@ int main(int argc,char **argv)
 		tzOkay = false;
 	}
 
-	// If data cannot be corrected, say so and exit
-	if (!txOkay && !tzOkay)
+	if (txOkay) txOutput = dTx;
+	if (tzOkay) tzOutput = dTz;
+
+	// COMPUTE BACK ANGLE CORRECTION AMOUNTS
+
+	// Convert angles from degrees to radians for computations below
+	model->convertDegreesToRadians(&fileStore2);
+
+	// Compute back angle corrections
+	rdArray<double> lExtCorr(0.0);
+	lExtCorr.setSize(fileStore2.getSize());
+	rdArray<double> lBendCorr(0.0);
+	lBendCorr.setSize(fileStore2.getSize());
+	double *lExtData = 0, *lBendData = 0;
+
+	// Note: trajectory angles are in radians
+	int lExtIndex = fileStore2.getColumnIndex("lumbar_extension");
+	int lBendIndex = fileStore2.getColumnIndex("lumbar_bending");
+	fileStore2.getDataColumn(lExtIndex, lExtData);
+	fileStore2.getDataColumn(lBendIndex, lBendData);
+	double tenDegrees = 10.0 * PI / 180.0; // 10 degrees in radians
+	for (i = 0; i < fileStore2.getSize() && (leOkay || lbOkay); i++)
 	{
-		cout << "This data cannot be corrected." << endl;
-		cout << "I'm giving up!" << endl;
+		if (leOkay) lExtCorr[i] = -ave[iMZ] / torsoTorque / cos(lExtData[i]);
+		if (lExtCorr[i] < -tenDegrees || lExtCorr[i] > tenDegrees)
+		{
+			cout << "Lumbar extension needs to be changed too much." << endl;
+			cout << "Continuing without changing lumbar extension." << endl;
+			leOkay = false;
+		}
+		if (lbOkay) lBendCorr[i] = -ave[iMX] / torsoTorque / cos(lBendData[i]);
+		if (lBendCorr[i] < -tenDegrees || lBendCorr[i] > tenDegrees)
+		{
+			cout << "Lumbar bending needs to be changed too much." << endl;
+			cout << "Continuing without changing lumbar bending." << endl;
+			lbOkay = false;
+		}
 	}
 
-	// Write torso center-of-mass corrections to a file
-	double txOutput = txOkay ? dTx : 0.0;
-	double tzOutput = tzOkay ? dTz : 0.0;
-	if ((txOkay || tzOkay) && (txOutput != 0.0 || tzOutput != 0.0))
+	// Prepare to output all zeros for lumbar extension
+	// correction if any desired change was too high
+	if (!leOkay)
 	{
-		ofstream perturbFile;
-		stoFileName = prefix + "_corrected_by_RRA.txt";
-		perturbFile.open (stoFileName.c_str());
-		perturbFile << txOutput << "\n";
-		perturbFile << tzOutput << "\n";
-		perturbFile.close();
+		for (i = 0; i < fileStore2.getSize(); i++)
+		{
+			lExtCorr[i] = 0.0;
+		}
+	}
+	// Prepare to output all zeros for lumbar bending
+	// correction if any desired change was too high
+	if (!lbOkay)
+	{
+		for (i = 0; i < fileStore2.getSize(); i++)
+		{
+			lBendCorr[i] = 0.0;
+		}
 	}
 
-	// Write corrected trajectories out to a file
-	// Note: currently, this should be identical to the
-	//       original .mot file, since we are not changing
-	//       the back angles or any other kinematics
-	stoFileName = prefix + "_corrected_by_RRA.mot";
-	fileStore2.print(stoFileName.c_str());
+	// All angles are changed back to degrees
+	model->convertRadiansToDegrees(&fileStore2);
+
+	// Write torso COM and back angle corrections to a file
+	ofstream correctionFile;
+	stoFileName = newprefix + "_torso_corrected_by_RRA.txt";
+	correctionFile.open (stoFileName.c_str());
+	// Write torso x and z change amounts to file
+	correctionFile << txOutput << "\n";
+	correctionFile << tzOutput << "\n";
+	// Write lumbar extension change array to file
+	for (i = 0; i < fileStore2.getSize(); i++)
+	{
+		correctionFile << lExtCorr[i] << "\n";
+	}
+	// Write lumbar bending change array to file
+	for (i = 0; i < fileStore2.getSize(); i++)
+	{
+		correctionFile << lBendCorr[i] << "\n";
+	}
+	correctionFile.close();
+
+	// Note: even if torso and back angles are never altered,
+	// a corrections file is still written out for ease of automation
+
+	// If data cannot be corrected, say so
+	if (!txOkay && !tzOkay && !leOkay && !lbOkay)
+	{
+		cout << "This data cannot be corrected.\n";
+	}
 
 	return(0);
 }
@@ -749,11 +898,17 @@ int main(int argc,char **argv)
  * @param trackingFileName Name of file containing tracked coordinates.
  * @param perturb Array of perturbation amounts to be returned.
  * @param computingCorrections Flag indicating whether to run RRA corrections.
+ * @param torsox Number indicating how much to weight torso x change.
+ * @param torsoz Number indicating how much to weight torso z change.
+ * @param lumbext Number indicating how much to weight lumbar extension change.
+ * @param lumbbend Number indicating how much to weight lumbar bending change.
  */
 void ParseCommandLine(int argc, char **argv,
 					  string &prefix, string &trackingFileName,
 					  double perturb[12],
-					  bool &computingCorrections)
+					  bool &computingCorrections,
+					  double &torsox, double &torsoz,
+					  double &lumbext, double &lumbbend)
 {
 	// Create cushioned usage string to output in case of command line errors.
 	string usage =
@@ -763,9 +918,13 @@ void ParseCommandLine(int argc, char **argv,
 	usage += "                [-Library      <libraryFile>]\n";
 	usage += "                [-ModelFile    <modelFile>]\n";
 	usage += "                 -Params       <parameterFile>\n";
-	usage += "                 -Prefix   <prefix>\n";
-	usage += "                 -Tracking <trackingFile>\n";
-	usage += "                [-Correct  <yes|no>]\n";
+	usage += "                 -Prefix       <prefix>\n";
+	usage += "                 -Tracking     <trackingFile>\n";
+	usage += "                [-ComputeCorr  <yes|no>]\n";
+	usage += "                [-Torsox       amt]\n";
+	usage += "                [-Torsoz       amt]\n";
+	usage += "                [-Lumbext      amt]\n";
+	usage += "                [-Lumbbend     amt]\n";
 	usage += "                [-tx amt] [-ty amt] [-tz amt]\n";
 	usage += "                [-le amt] [-lb amt] [-lr amt]\n";
 	usage += "                [-rx amt] [-ry amt] [-rz amt]\n";
@@ -778,7 +937,7 @@ void ParseCommandLine(int argc, char **argv,
 	usage += "All angular perturbations should be in degrees.\n";
 	usage += "All distance perturbations should be in meters.\n";
 	usage += "\n";
-	usage += "Guide to first eight flags:\n";
+	usage += "Guide to flags:\n";
 	usage += "-ModelLibrary or -ML is for the model dll file\n";
 	usage += "-Actuators or -A is for the actuator set\n";
 	usage += "-Contacts or -C is for the contact set\n";
@@ -787,7 +946,11 @@ void ParseCommandLine(int argc, char **argv,
 	usage += "-Params or -P is for the parameter file\n";
 	usage += "-Prefix is the prefix for the kinetics file\n";
 	usage += "-Tracking is for the tracking file\n";
-	usage += "-Correct is for whether or not to run RRA corrections.\n";
+	usage += "-ComputeCorr is for whether or not to compute RRA corrections\n";
+	usage += "-Torsox indicates the weight of the torso x correction\n";
+	usage += "-Torsoz indicates the weight of the torso z correction\n";
+	usage += "-Lumbext indicates the weight of the lumbar extension correction\n";
+	usage += "-Lumbbend indicates the weight of the lumbar bending correction\n";
 	usage += "\n";
 	usage += "Guide to perturbation flags:\n";
 	usage += "-tx Torso center of mass x coordinate\n";
@@ -813,7 +976,7 @@ void ParseCommandLine(int argc, char **argv,
 	usage += "It perturbs the torso center of mass x values by -0.095\n";
 	usage += "and the torso center of mass y values by +0.01.\n";
 	usage += "The tracked coordinates are specified in s26_rra.trk.\n";
-	usage += "RRA corrections will be run on this data automatically.\n";
+	usage += "RRA corrections will be computed on this data.\n";
 	string cushion = "\n\n";
 	string cushionedUsage = cushion + usage + cushion;
 
@@ -827,16 +990,24 @@ void ParseCommandLine(int argc, char **argv,
 	}
 	else
 	{
-		// We only parse the perturbation flags and the prefix.
+		// Perturbation flags
 		string flags[12] =
 			{"-tx", "-ty", "-tz", "-le", "-lb", "-lr",
 			 "-rx", "-ry", "-rz", "-lx", "-ly", "-lz"};
-		// We ignore the flags for rdModel.
+
+		// We ignore the flags for rdModel
 		string modelFlags[12] =
 			{"-ModelLibrary", "-ML", "-Actuators", "-A", "-Contacts", "-C",
 			 "-Library", "-L", "-ModelFile", "-MF", "-Params", "-P"};
 		int numFlags = 12;
 		int numModelFlags = 12;
+
+		// Defaults
+		computingCorrections = true;
+		torsox = 0.0; torsoz = 0.0;
+		lumbext = 0.0, lumbbend = 0.0;
+
+		// Parse the flags
 		for(int i = 1; i < argc - 1; i += 2)
 		{
 			// If we see one of the rdModel flags, skip to the next flag.
@@ -861,18 +1032,68 @@ void ParseCommandLine(int argc, char **argv,
 			}
 			// If current argument is tracking flag, read tracking file name and skip
 			// to the next flag.
-			if (lowercase == "-tracking")
+			else if (lowercase == "-tracking")
 			{
 				trackingFileName = argv[i+1];
 				continue;
 			}
 			// If current argument is correction flag, read the yes/no and skip to the
 			// next flag.
-			if (lowercase == "-correct")
+			else if (lowercase == "-computecorr")
 			{
 				string yesno = argv[i+1];
 				transform(yesno.begin(), yesno.end(), yesno.begin(), tolower);
 				computingCorrections = (yesno == "no") ? false : true;
+				continue;
+			}
+			// If current argument is the torsox, torsoz, lumbext, or lumbbend flag,
+			// read the corresponding weight and skip to the next flag.
+			else if (lowercase == "-torsox")
+			{
+				int res = sscanf(argv[i+1], "%lg", &torsox);
+				if (res == 0)
+				{
+					cout << cushion;
+					cout << argv[i+1] << " is not a valid weight.";
+					cout << cushionedUsage;
+					exit(-1);
+				}
+				continue;
+			}
+			else if (lowercase == "-torsoz")
+			{
+				int res = sscanf(argv[i+1], "%lg", &torsoz);
+				if (res == 0)
+				{
+					cout << cushion;
+					cout << argv[i+1] << " is not a valid weight.";
+					cout << cushionedUsage;
+					exit(-1);
+				}
+				continue;
+			}
+			else if (lowercase == "-lumbext")
+			{
+				int res = sscanf(argv[i+1], "%lg", &lumbext);
+				if (res == 0)
+				{
+					cout << cushion;
+					cout << argv[i+1] << " is not a valid weight.";
+					cout << cushionedUsage;
+					exit(-1);
+				}
+				continue;
+			}
+			else if (lowercase == "-lumbbend")
+			{
+				int res = sscanf(argv[i+1], "%lg", &lumbbend);
+				if (res == 0)
+				{
+					cout << cushion;
+					cout << argv[i+1] << " is not a valid weight.";
+					cout << cushionedUsage;
+					exit(-1);
+				}
 				continue;
 			}
 			for(int j = 0; j < numFlags; j++)
