@@ -3,26 +3,28 @@
 
 //==============================================================================
 //==============================================================================
-#include <stdlib.h>
-#include <stdio.h>
-#include <RD/Tools/rdIO.h>
-#include <RD/Simulation/Model/rdModel.h>
-#include <RD/Simulation/Model/rdActuator.h>
-#include <RD/Simulation/Model/rdActuatorSet.h>
-#include <RD/Simulation/Model/rdContactForce.h>
-#include <RD/Simulation/Model/rdContactForceSet.h>
-#include <RD/Simulation/Model/rdForce.h>
-#include <RD/Simulation/Model/rdGeneralizedForce.h>
-#include <RD/Actuators/rdGeneralizedForceAtv.h>
-#include <RD/Actuators/rdLinearSetPoint.h>
-#include <RD/Actuators/rdPolynomialSetPoint.h>
-#include <RD/Simulation/Control/rdControlLinear.h>
-#include <RD/Simulation/Manager/rdManager.h>
-#include <RD/Models/Block/rdBlock.h>
-#include <SU/Analyses/suAnalyses.h>
-#include <SU/Analyses/suActuation.h>
-#include <SU/Analyses/suContact.h>
-#include <SU/Analyses/suKinematics.h>
+#include <iostream>
+#include <NMBLTK/Tools/rdIO.h>
+#include <NMBLTK/Simulation/Model/rdModel.h>
+#include <NMBLTK/Simulation/Model/rdActuator.h>
+#include <NMBLTK/Simulation/Model/rdActuatorSet.h>
+#include <NMBLTK/Simulation/Model/rdContactForce.h>
+#include <NMBLTK/Simulation/Model/rdContactForceSet.h>
+#include <NMBLTK/Simulation/Model/rdForce.h>
+#include <NMBLTK/Simulation/Model/rdGeneralizedForce.h>
+#include <NMBLTK/Actuators/rdGeneralizedForceAtv.h>
+#include <NMBLTK/Actuators/rdLinearSetPoint.h>
+#include <NMBLTK/Actuators/rdPolynomialSetPoint.h>
+#include <NMBLTK/Simulation/Control/rdControlConstant.h>
+#include <NMBLTK/Simulation/Control/rdControlLinear.h>
+#include <NMBLTK/Simulation/Control/rdControlSet.h>
+#include <NMBLTK/Simulation/Manager/rdManager.h>
+#include <NMBLTK/Models/Block/rdBlock.h>
+#include <NMBLTK/Analyses/suAnalyses.h>
+#include <NMBLTK/Analyses/suActuation.h>
+#include <NMBLTK/Analyses/suContact.h>
+#include <NMBLTK/Analyses/suKinematics.h>
+
 
 
 /** Some points:
@@ -79,6 +81,9 @@
 */
 
 
+using namespace std;
+
+
 //______________________________________________________________________________
 /**
  * Run a simulation with a falling block acted on by contact elements
@@ -87,162 +92,140 @@
 int main(int argc,char **argv)
 {
 	// SET OUTPUT PRECISION
-	rdIO::SetPrecision(16);
+	rdIO::SetPrecision(8);
 	rdIO::SetDigitsPad(-1);
 
 
 	//=======================
-	// ACTUATION AND CONTACT
+	// TYPE REGISTRATION
 	//=======================
-	// REGISTER ACTUATOR AND CONTACT TYPES
-	// Actuators
-	rdForce frc;
-	rdGeneralizedForce genFrc;
-	rdGeneralizedForceAtv genFrcAtv;
-	rdActuatorSet::RegisterType(frc);
-	rdActuatorSet::RegisterType(genFrc);
-	rdActuatorSet::RegisterType(genFrcAtv);
-	// Contacts
-	rdLinearSetPoint linearCtx;
-	rdPolynomialSetPoint polyCtx;
-	rdContactForceSet::RegisterType(linearCtx);
-	rdContactForceSet::RegisterType(polyCtx);
+	// CONTROLS
+	rdObject::RegisterType(rdControlConstant());
+	rdObject::RegisterType(rdControlLinear());
+	rdObject::RegisterType(rdControlLinearNode());
+	// ACTUATORS
+	rdObject::RegisterType(rdForce());
+	rdObject::RegisterType(rdGeneralizedForce());
+	rdObject::RegisterType(rdGeneralizedForceAtv());
+	// CONTACT FORCES
+	rdObject::RegisterType(rdLinearSetPoint());
+	rdObject::RegisterType(rdPolynomialSetPoint());
 
-	// WRITE DEFAULT ACTUATORS AND CONTACTS TO FILE
-	// These default files are simply a way of listing the available actutor
-	// and contact types and their available properties.
+	// WRITE DEFAULT FILES
+	// These default files are simply a way of listing the available actutor,
+	// contact, and control types and their available properties.
 	// Writing out these files is not necessary for executing a simulation.
-	rdActuatorSet defaultActuators;
-	defaultActuators.print("default.act");
-	rdContactForceSet defaultContacts;
-	defaultContacts.print("default.ctx");
-
-	// LOAD ACTUATOR SET AND CONTACT SET
-	rdActuatorSet *actuatorSet = new rdActuatorSet("fallingBlock.act");
-	rdContactForceSet *contactSet = new rdContactForceSet("fallingBlock.ctx");
+	rdControlSet defaultControls;  defaultControls.print("Data/default.ctr");
+	rdActuatorSet defaultActuators;  defaultActuators.print("Data/default.act");
+	rdContactForceSet defaultContacts;  defaultContacts.print("Data/default.ctx");
 
 
+	//=======================
+	// INPUT FILES
+	//=======================
+	rdActuatorSet actuatorSet("fallingBlock.act");
+	rdControlSet controlSet("fallingBlock.ctr");
+	rdContactForceSet contactSet("fallingBlock.ctx");
+
+	
 	//=======================
 	// MODEL
 	//=======================
 	// CONSTRUCT THE MODEL
-	rdBlock *model = new rdBlock(actuatorSet,contactSet);
+	rdBlock model(&actuatorSet,&contactSet);
 
 	// PRINT SOME MODEL INFORMATION
-	double mass = model->getMass(0);
-	int nx = model->getNX();
-	int ny = model->getNY();
-	int nyp = model->getNYP();
-	printf("mass = %lf\n",mass);
-	printf("model has %d controls, %d states, and %d pseudo-states.\n",
-		nx,ny,nyp);
+	int i;
+	int nb = model.getNB();
+	int nx = model.getNX();
+	int ny = model.getNY();
+	int nyp = model.getNYP();
+	cout<<"\n\nModel "<<model.getName()<<" has "<<nx<<" controls, ";
+	cout<<ny<<" states, and "<<nyp<<" pseudo-states.\n";
+	cout<<"\nThe control set has "<<controlSet.getSize(false)<<" controls in ";
+	cout<<"total and "<<controlSet.getSize(true)<<" model controls.\n";
+	cout<<"\nBodies:"<<endl;
+	for(i=0;i<nb;i++) {
+		cout<<model.getBodyName(i)<<" ("<<model.getMass(i)<<"kg)"<<endl;
+	}
 
 	// SET SOME INITIAL CONDITIONS
-	double *yi = new double[model->getNY()];
-	model->getInitialStates(yi);
+	rdArray<double> yi(0.0,ny);
+	model.getInitialStates(&yi[0]);
 	yi[1] = 0.25;	// Y Position
 	yi[7] = 1.0;	// X Velocity
 	yi[9] = 0.0;	// Z Velocity
-	model->setInitialStates(yi);
+	model.setInitialStates(&yi[0]);
 
 	// GRAVITY
 	double g[] = { 0.0, -2.0, 0.0 };
-	model->setGravity(g);
+	model.setGravity(g);
 
 
 	//=======================
 	// ANALYSES
 	//=======================
+	int stepInterval = 4;
 	// Kinematics
-	suKinematics *kin = new suKinematics(model);
-	model->addAnalysis(kin);
+	suKinematics *kin = new suKinematics(&model);
+	kin->setStepInterval(stepInterval);
+	model.addAnalysis(kin);
 	// Actuation
-	suActuation *actuation = new suActuation(model);
-	model->addAnalysis(actuation);
-	actuation->setOn(false);
+	suActuation *actuation = new suActuation(&model);
+	actuation->setStepInterval(stepInterval);
+	model.addAnalysis(actuation);
 	// Contact
-	suContact *contact = new suContact(model);
-	model->addAnalysis(contact);
+	suContact *contact = new suContact(&model);
+	contact->setStepInterval(stepInterval);
+	model.addAnalysis(contact);
 
 
 	//=======================
 	// SIMULATION
 	//=======================
-	// SIMULATION MANAGER
-	double ti = 0.0;
-	double tf = 10.0;
-	rdManager *manager = new rdManager(model);
-	manager->setSessionName("FallingBlock");
-	manager->setInitialTime(ti);
-	manager->setFinalTime(tf);
+	// INTEGRAND AND MANAGER
+	rdModelIntegrand *integrand = new rdModelIntegrand(&model);
+	integrand->setControlSet(controlSet);
+	rdManager manager(integrand);
 
-	// GENERATE SOME CONTROLS
-	const int nn = 5;
-	double tn[nn],xn[nn];
-	// muscle 1
-	tn[0] = 0.0;	xn[0] = 0.0;
-	tn[1] = 5.0;	xn[1] = 0.0;
-	tn[2] = 6.0;	xn[2] = 200.0;
-	tn[3] = 7.0;	xn[3] = 0.0;
-	tn[4] = tf;		xn[4] = 0.0;
-	rdControlLinear *m1 = new rdControlLinear(nn,tn,xn);
-	// muscle 2
-	tn[0] = 0.0;	xn[0] = 0.0;
-	tn[1] = 6.5;	xn[1] = 0.0;
-	tn[2] = 6.51;	xn[2] = 50.0;
-	tn[3] = 6.0;	xn[3] = 50.0;
-	tn[4] = tf;		xn[4] = 50.0;
-	rdControlLinear *m2 = new rdControlLinear(nn,tn,xn);
-	// set new controls
-	rdControls *controls = manager->getControls();
-	controls->setControl(0,m1);
-	controls->setControl(1,m2);
+	// INITIAL AND FINAL TIMES
+	rdControl *control;
+	double ti=0.0,tf=0.25;
+	control = controlSet.get("ti");
+	if(control!=NULL) ti = control->getControlValue();
+	control = controlSet.get("tf");
+	if(control!=NULL) tf = control->getControlValue();
+	manager.setInitialTime(ti);
+	manager.setFinalTime(tf);
 
 	// INTEGRATOR SETTINGS
-	int maxSteps = 5000;
-	rdIntegRKF *integ = manager->getIntegrator();
+	int maxSteps = 20000;
+	rdIntegRKF *integ = manager.getIntegrator();
 	integ->setMaximumNumberOfSteps(maxSteps);
-	integ->setMaxDT(1.0e-1);
-	integ->setTolerance(5.0e-8);
-	integ->setFineTolerance(5.0e-10);
-
-	// GET STORAGE
-	rdStorage *yStore = integ->getStateStorage();
-	rdStorage *ypStore = integ->getPseudoStateStorage();
-	rdStorage *xStore = integ->getControlStorage();
+	integ->setMaxDT(1.0e-2);
+	integ->setTolerance(1.0e-7);
+	integ->setFineTolerance(5.0e-9);
 
 	// INTEGRATE
-	// The following three integrations should produce identical
-	// results.
-	// 1: Integration.
-	manager->integrate();
-	yStore->print("Data/states1.sto");
-	integ->printTimeArray("Data/time1.sto");
-	integ->printDTArray("Data/dt1.sto");
+	cout<<"\n\nIntegrating from "<<ti<<" to "<<tf<<endl;
+	manager.integrate();
 
-	// 2: Repeat integration.
-	manager->integrate();
-	yStore->print("Data/states2.sto");
-	integ->printTimeArray("Data/time2.sto");
-	integ->printDTArray("Data/dt2.sto");
-
-	// 3: Repeat integration starting from intermediate time.
-	// This integration uses stored integration results.
-	manager->integrate(1.8769510300001);
-	yStore->print("Data/states3.sto");
-	integ->printTimeArray("Data/time3.sto");
-	integ->printDTArray("Data/dt3.sto");
 
 	//=======================
 	// RESULTS
 	//=======================
+	// GET STORAGE
+	rdStorage *yStore = integrand->getStateStorage();
+	rdStorage *ypStore = integrand->getPseudoStateStorage();
+	rdStorage *xStore = integrand->getControlStorage();
+
 	// PRINT
-	double dt = 0.05;
+	double dt = 0.005;
 	// Print results at a uniform time step.
 	xStore->print("Data/controls.sto",dt);
 	yStore->print("Data/states.sto",dt);
 	ypStore->print("Data/pseudo_states.sto",dt);
-	kin->printResults("fallingBlock","Data",dt);
+	kin->printResults("fallingBlock","Data");
 	// Print every time step that was recorded.
 	actuation->printResults("fallingBlock","Data");
 	contact->printResults("fallingBlock","Data");
@@ -251,16 +234,10 @@ int main(int argc,char **argv)
 	//=======================
 	// CLEANUP
 	//=======================
-	delete manager;
-	delete model;
-	delete kin;
-	delete contact;
-	delete actuation;
 	delete yStore;
 	delete ypStore;
 	delete xStore;
-	delete actuatorSet;
-	delete contactSet;
 
+	cout<<endl<<endl;
 	return(0);
 }
