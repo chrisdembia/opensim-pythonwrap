@@ -31,6 +31,7 @@ class simmKinematicsEngine;
 class simmMarker;
 class simmBody;
 class rdStorage;
+class simmModel;
 
 //=============================================================================
 /**
@@ -48,10 +49,7 @@ class simmInverseKinematicsTarget : public rdOptimizationTarget
 // DATA
 //==============================================================================
 private:
-	/* We could make this into the abstract nmblKinematicsEngine but practically it's unlikely
-	 * that a different kinematics engine will work with this target.
-	 */
-	simmKinematicsEngine* _ke;
+	simmModel& _model;
 
 	// Amount of perturbation used for derivative computation this should be an array
 	static const double _perturbation;
@@ -92,7 +90,7 @@ public:
 	//---------------------------------------------------------------------------
 	// CONSTRUCTION
 	//---------------------------------------------------------------------------
-	simmInverseKinematicsTarget(simmKinematicsEngine *aKE, rdStorage& aExperimentalDataStorage);
+	simmInverseKinematicsTarget(simmModel &aModel, rdStorage& aExperimentalDataStorage);
 
 	virtual ~simmInverseKinematicsTarget(void);
 
@@ -107,7 +105,7 @@ public:
 	void getUnconstrainedCoordinateNames(rdArray<const std::string*>& aNameArray);
 	void getPrescribedCoordinateNames(rdArray<const std::string*>& aNameArray);
 	void getOutputMarkerNames(rdArray<const std::string*>& aNameArray);
-
+	const simmModel& getModel() { return _model; };
 	//--------------------------------------------------------------------------
 	// REQUIRED OPTIMIZATION TARGET METHODS
 	//--------------------------------------------------------------------------

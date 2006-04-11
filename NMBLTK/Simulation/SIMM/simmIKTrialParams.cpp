@@ -215,215 +215,92 @@ simmIKTrialParams& simmIKTrialParams::operator=(const simmIKTrialParams &aIKTria
 	return(*this);
 }
 
-bool simmIKTrialParams::processTrial(simmModel& aModel, rdArrayPtrs<simmCoordinate>& aCoordinateSet)
+//_____________________________________________________________________________
+/**
+ * Get correct data for coordinate values (based on input coordinate file specification).
+ * If file is specified, then it's read, and any coordinate that's specified as "FromFile" 
+ * is updated from this file. N
+ OTE: Caller is responsible for freeing up the returned simmMotionData
+ *
+ * @param aModel simmModel to use. 
+ * @return Pointer to a simmMotionData.
+ */
+simmMotionData *simmIKTrialParams::getCoordinateValues(simmModel& aModel) const
 {
-	simmMotionData* coordinateValues = NULL;
-	simmMotionData* outputData = NULL;
-
-	cout << endl << "Processing IK trial: " << getName() << endl;
-
+	simmMotionData* outputMotionData=0;
 	/* Update the model with the coordinates specified
-	 * by the user in the IKParameters section. If "fromFile"
-	 * was specified as a value in aCoordinateSet, it will remain
-	 * that way in the model's coordinate array.
-	 */
-	aModel.updateCoordinates(aCoordinateSet);
+	* by the user in the IKParameters section. If "fromFile"
+	* was specified as a value in aCoordinateSet, it will remain
+	* that way in the model's coordinate array.
+	*/
 
-	try
+	if (!_inputCoordinateFileNameProp.getUseDefault())
 	{
-		if (!_inputCoordinateFileNameProp.getUseDefault())
+		simmMotionData* coordinateValues = new simmMotionData(_inputCoordinateFileName);
+
+		/* For each coordinate whose "value" field the user specified
+		* as "fromFile", read the value from the first frame in the
+		* coordinate file (a SIMM motion file) and use it to overwrite
+		* the "fromFile" specification. For coordinates whose "value"
+		* field is not "fromFile," remove that coordinate from the
+		* file by changing the column name to something that will
+		* not be recognized. This must be done because during IK,
+		* all coordinates that have data in the file will use that
+		* data, even if the coordinate was not specified "fromFile."
+		*/
+		if (coordinateValues->getNumColumns() > 0)
 		{
-			coordinateValues = new simmMotionData(_inputCoordinateFileName);
-
-			/* For each coordinate whose "value" field the user specified
-			 * as "fromFile", read the value from the first frame in the
-			 * coordinate file (a SIMM motion file) and use it to overwrite
-			 * the "fromFile" specification. For coordinates whose "value"
-			 * field is not "fromFile," remove that coordinate from the
-			 * file by changing the column name to something that will
-			 * not be recognized. This must be done because during IK,
-			 * all coordinates that have data in the file will use that
-			 * data, even if the coordinate was not specified "fromFile."
-			 */
-			if (coordinateValues->getNumColumns() > 0)
+			for (int i = 0; i < aModel.getCoordinates().getSize(); i++)
 			{
-				for (int i = 0; i < aModel.getCoordinates().getSize(); i++)
-				{
-					double value = coordinateValues->getValue(aModel.getCoordinates()[i]->getName(), 0);
+				double value = coordinateValues->getValue(aModel.getCoordinates()[i]->getName(), 0);
 
-					/* If the coordinate was not found in the file, NAN is returned. */
-					if (value == rdMath::NAN)
+				/* If the coordinate was not found in the file, NAN is returned. */
+				if (value == rdMath::NAN)
+				{
+					/* If fromFile was specified, report an error and reset
+					* the value field to 0.0.
+					*/
+					if (aModel.getCoordinates()[i]->getValueStr() == "fromFile")
 					{
-						/* If fromFile was specified, report an error and reset
-						 * the value field to 0.0.
-					    */
-						if (aModel.getCoordinates()[i]->getValueStr() == "fromFile")
-						{
-							aModel.getCoordinates()[i]->setValue(0.0);
-							string errorMessage = "Coordinate " + aModel.getCoordinates()[i]->getName() +
-								"specified as /'fromFile/', but no value found in " + _inputCoordinateFileName;
-							throw rdException(errorMessage);
-						}
+						aModel.getCoordinates()[i]->setValue(0.0);
+						string errorMessage = "Coordinate " + aModel.getCoordinates()[i]->getName() +
+							"specified as /'fromFile/', but no value found in " + _inputCoordinateFileName;
+						throw rdException(errorMessage);
+					}
+				}
+				else
+				{
+					/* If the coordinate was found in the file, and if fromFile
+					* was specified, initialize the coordinate's value to the
+					* value from the first row of data in the file.
+					*/
+					if (aModel.getCoordinates()[i]->getValueStr() == "fromFile")
+					{
+						bool lockedState = aModel.getCoordinates()[i]->isLocked();
+						aModel.getCoordinates()[i]->setLocked(false);
+						aModel.getCoordinates()[i]->setValue(value);
+						aModel.getCoordinates()[i]->setLocked(lockedState);
+						cout << "Values for coordinate " << aModel.getCoordinates()[i]->getName() << " will be read from " <<	_inputCoordinateFileName << endl;
 					}
 					else
 					{
-						/* If the coordinate was found in the file, and if fromFile
-						 * was specified, initialize the coordinate's value to the
-						 * value from the first row of data in the file.
-					    */
-						if (aModel.getCoordinates()[i]->getValueStr() == "fromFile")
-						{
-							bool lockedState = aModel.getCoordinates()[i]->isLocked();
-							aModel.getCoordinates()[i]->setLocked(false);
-							aModel.getCoordinates()[i]->setValue(value);
-							aModel.getCoordinates()[i]->setLocked(lockedState);
-							cout << "Values for coordinate " << aModel.getCoordinates()[i]->getName() << " will be read from " <<	_inputCoordinateFileName << endl;
-						}
-						else
-						{
-							/* The coordinate was found in the file, but fromFile was
-							 * not specified. Change the name of the column in the file
-							 * so it will be ignored by the IK.
-						    */
-							int columnIndex = coordinateValues->getColumnIndex(aModel.getCoordinates()[i]->getName());
-							if (columnIndex >= 0)
-								coordinateValues->setColumnLabel(columnIndex, string("ZZZZ"));
-						}
+						/* The coordinate was found in the file, but fromFile was
+						* not specified. Change the name of the column in the file
+						* so it will be ignored by the IK.
+						*/
+						int columnIndex = coordinateValues->getColumnIndex(aModel.getCoordinates()[i]->getName());
+						if (columnIndex >= 0)
+							coordinateValues->setColumnLabel(columnIndex, string("ZZZZ"));
 					}
 				}
 			}
 		}
-
-		/* Now perform the IK. */
-		simmMarkerData staticPose(_inputMarkerFileName);
-
-		/* Convert the marker data into the model's units. */
-		staticPose.convertToUnits(aModel.getLengthUnits());
-
-		if (coordinateValues)
-			outputData = aModel.solveInverseKinematics(*this, staticPose, *coordinateValues);
-		else
-			outputData = aModel.solveInverseKinematics(*this, staticPose);
-
-	}
-	catch (rdException &x)
-	{
-		x.print(cout);
-		cout << "Press Return to continue." << endl;
-		cout.flush();
-		int c = getc( stdin );
-		return false;
+		outputMotionData = coordinateValues;
 	}
 
-	if (!_outputMotionFileNameProp.getUseDefault())
-		outputData->writeSIMMMotionFile(_outputMotionFileName, _inputMarkerFileName);
-
-	return true;
+	return outputMotionData;
 }
-
-#if 0
-bool simmIKTrialParams::processTrial(simmModel& aModel, rdArrayPtrs<simmCoordinate>& aCoordinateSet)
-{
-	simmMotionData* coordinateValues = NULL;
-	simmMotionData* outputData = NULL;
-
-	cout << endl << "Processing IK trial: " << getName() << endl;
-
-	try
-	{
-		if (!_inputCoordinateFileNameProp.getUseDefault())
-		{
-			coordinateValues = new simmMotionData(_inputCoordinateFileName);
-
-			/* For each coordinate whose "value" field the user specified
-			 * as "fromFile", read the value from the first frame in the
-			 * coordinate file (a SIMM motion file) and use it to overwrite
-			 * the "fromFile" specification. For coordinates whose "value"
-			 * field is not "fromFile," remove that coordinate from the
-			 * file by changing the column name to something that will
-			 * not be recognized. This must be done because during IK,
-			 * all coordinates that have data in the file will use that
-			 * data, even if the coordinate was not specified "fromFile."
-			 */
-			if (coordinateValues->getNumColumns() > 0)
-			{
-				for (int i = 0; i < aCoordinateSet.getSize(); i++)
-				{
-					double value = coordinateValues->getValue(aCoordinateSet[i]->getName(), 0);
-
-					/* If the coordinate was not found in the file, NAN is returned. */
-					if (value == rdMath::NAN)
-					{
-						/* If fromFile was specified, report an error and reset
-						 * the value field to 0.0.
-					    */
-						if (aCoordinateSet[i]->getValueStr() == "fromFile")
-						{
-							aCoordinateSet[i]->setValue(0.0);
-							string errorMessage = "Coordinate " + aCoordinateSet[i]->getName() +
-								"specified as /'fromFile/', but no value found in " + _inputCoordinateFileName;
-							throw rdException(errorMessage);
-						}
-					}
-					else
-					{
-						/* If the coordinate was found in the file, and if fromFile
-						 * was specified, initialize the coordinate's value to the
-						 * value from the first row of data in the file.
-					    */
-						if (aCoordinateSet[i]->getValueStr() == "fromFile")
-						{
-							aCoordinateSet[i]->setValue(value);
-							cout << "Values for coordinate " << aCoordinateSet[i]->getName() << " will be read from " <<	_inputCoordinateFileName << endl;
-						}
-						else
-						{
-							/* The coordinate was found in the file, but fromFile was
-							 * not specified. Change the name of the column in the file
-							 * so it will be ignored by the IK.
-						    */
-							int columnIndex = coordinateValues->getColumnIndex(aCoordinateSet[i]->getName());
-							if (columnIndex >= 0)
-								coordinateValues->setColumnLabel(columnIndex, string("ZZZZ"));
-						}
-					}
-				}
-			}
-		}
-
-		/* Update the model with the coordinates specified
-		 * by the user in the IKParameters section.
-		 */
-		aModel.updateCoordinates(aCoordinateSet);
-
-		/* Now perform the IK. */
-		simmMarkerData staticPose(_inputMarkerFileName);
-
-		/* Convert the marker data into the model's units. */
-		staticPose.convertToUnits(aModel.getLengthUnits());
-
-		if (coordinateValues)
-			outputData = aModel.solveInverseKinematics(*this, staticPose, *coordinateValues);
-		else
-			outputData = aModel.solveInverseKinematics(*this, staticPose);
-
-	}
-	catch (rdException &x)
-	{
-		x.print(cout);
-		cout << "Press Return to continue. " << endl;
-		cout.flush();
-		int c = getc( stdin );
-		return false;
-	}
-
-	if (!_outputMotionFileNameProp.getUseDefault())
-		outputData->writeSIMMMotionFile(_outputMotionFileName, _inputMarkerFileName);
-
-	return true;
-}
-#endif
-
+		
 /* Find the range of frames that is between start time and end time
  * (inclusive). Return the indices of the bounding frames.
  */

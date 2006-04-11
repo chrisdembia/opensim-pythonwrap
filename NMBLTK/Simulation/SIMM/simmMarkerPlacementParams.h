@@ -122,9 +122,25 @@ public:
 
 	bool processModel(simmModel* aModel);
 
+
 	void peteTest() const;
 
 	bool isDefault() const;
+
+	rdArrayPtrs<simmMarker> &getMarkerSet() const
+	{
+		return _markerSet;
+	}
+	std::string &getStaticPoseFilename() const
+	{
+		return _markerFileName;
+	}
+	void getTimeRange(double& startTime, double &endTime) const
+	{
+		startTime = _timeRange[0];
+		endTime = _timeRange[1];
+	}
+	void writeOutputFiles(simmModel* aModel, rdStorage& aStorage) const;
 protected:
 
 private:

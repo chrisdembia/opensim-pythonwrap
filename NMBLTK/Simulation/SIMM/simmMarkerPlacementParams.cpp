@@ -289,7 +289,7 @@ bool simmMarkerPlacementParams::processModel(simmModel* aModel)
 		options.setEndTime(_timeRange[0]);
 		options.setIncludeMarkers(true);
 
-		solvedStatic = aModel->solveInverseKinematics(options, staticPose);
+		//solvedStatic = aModel->solveInverseKinematics(options, staticPose);
 
 		/* Now move the non-fixed markers on the model so that they are coincident
 		 * with the measured markers in the static pose. The model is already in
@@ -309,28 +309,6 @@ bool simmMarkerPlacementParams::processModel(simmModel* aModel)
 		int c = getc( stdin );
 		return false;
 	}
-
-	// write output files, if names specified by the user
-	if (!_outputJointFileNameProp.getUseDefault())
-		aModel->writeSIMMJointFile(_outputJointFileName);
-
-	if (!_outputMuscleFileNameProp.getUseDefault())
-		aModel->writeSIMMMuscleFile(_outputMuscleFileName);
-
-	if (!_outputModelFileNameProp.getUseDefault())
-	{
-		aModel->print(_outputModelFileName);
-		cout << "Wrote model file " << _outputModelFileName << " from model " << aModel->getName() << endl;
-	}
-
-	if (!_outputMarkerFileNameProp.getUseDefault())
-	{
-		aModel->writeMarkerFile(_outputMarkerFileName);
-		cout << "Wrote marker file " << _outputMarkerFileName << " from model " << aModel->getName() << endl;
-	}
-
-	if (!_outputMotionFileNameProp.getUseDefault())
-		solvedStatic->writeSIMMMotionFile(_outputMotionFileName, aModel->getName());
 
 	delete solvedStatic;
 
@@ -361,4 +339,34 @@ void simmMarkerPlacementParams::peteTest() const
 bool simmMarkerPlacementParams::isDefault() const
 {
 	return (_markerFileName=="Unassigned");
+}
+/**
+ * Write output simm and xml files if desired.
+ */
+
+void simmMarkerPlacementParams::writeOutputFiles(simmModel* aModel, rdStorage& aStorage) const
+{
+	// write output files, if names specified by the user
+	if (!_outputJointFileNameProp.getUseDefault())
+		aModel->writeSIMMJointFile(_outputJointFileName);
+
+	if (!_outputMuscleFileNameProp.getUseDefault())
+		aModel->writeSIMMMuscleFile(_outputMuscleFileName);
+
+	if (!_outputModelFileNameProp.getUseDefault())
+	{
+		aModel->print(_outputModelFileName);
+		cout << "Wrote model file " << _outputModelFileName << " from model " << aModel->getName() << endl;
+	}
+
+	if (!_outputMarkerFileNameProp.getUseDefault())
+	{
+		aModel->writeMarkerFile(_outputMarkerFileName);
+		cout << "Wrote marker file " << _outputMarkerFileName << " from model " << aModel->getName() << endl;
+	}
+	simmMotionData motionData(aStorage);
+	if (!_outputMotionFileNameProp.getUseDefault())
+		motionData.writeSIMMMotionFile(_outputMotionFileName, aModel->getName());
+
+
 }

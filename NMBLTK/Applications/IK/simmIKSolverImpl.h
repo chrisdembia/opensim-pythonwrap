@@ -5,7 +5,11 @@
 #include <NMBLTK/Simulation/Model/nmblKinematicsEngine.h>
 #include <NMBLTK/Tools/rdStorage.h>
 
+class rdOptimizationTarget;
+class rdFSQP;
+class simmIKParams;
 class simmIKTrialParams;
+class simmInverseKinematicsTarget;
 
 // simmIKSolverImpl.h
 // Author: Ayman Habib
@@ -34,7 +38,9 @@ class simmIKTrialParams;
 class simmIKSolverImpl : public IKSolverInterface 
 {
 public:
-	simmIKSolverImpl(nmblKinematicsEngine &aKinematicsEngine);
+	simmIKSolverImpl(simmInverseKinematicsTarget&	aOptimizationTarget,
+					const simmIKParams&		aIKParams);
+
 	virtual void solveFrames(const simmIKTrialParams& aIKOptions, rdStorage& inputData, rdStorage& outputData);
 };
 

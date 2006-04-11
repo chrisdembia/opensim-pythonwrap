@@ -7,6 +7,9 @@
 class simmIKTrialParams;
 class nmblKinematicsEngine;
 class rdStorage;
+class simmIKParams;
+class simmInverseKinematicsTarget;
+class rdFSQP;
 
 // IKSolverInterface.h
 // Author: Ayman Habib
@@ -34,11 +37,14 @@ class rdStorage;
 
 class RDSIMULATION_API IKSolverInterface 
 {
-protected:
-	nmblKinematicsEngine& _theKinematiceEngine;
+protected: 
+	simmInverseKinematicsTarget&	_ikTarget;
+	const simmIKParams&			_ikParams;
 public:
-	IKSolverInterface(nmblKinematicsEngine &aKinematicsEngine):
-	_theKinematiceEngine(aKinematicsEngine)
+	IKSolverInterface(simmInverseKinematicsTarget&	aOptimizationTarget,
+						const simmIKParams&		aIKParams):
+	_ikTarget(aOptimizationTarget),
+	_ikParams(aIKParams)
 	{
 	}
 	virtual void solveFrames(const simmIKTrialParams& aIKOptions, rdStorage& inputData, rdStorage& outputData) 

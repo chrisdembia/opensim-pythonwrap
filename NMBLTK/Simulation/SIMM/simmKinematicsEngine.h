@@ -183,9 +183,11 @@ public:
 	double calcDistance(rdArray<double>& aPoint1, const simmBody* aBody1, rdArray<double>& aPoint2, const simmBody* aBody2) const;
 	double calcDistance(const double aPoint1[3], const simmBody* aBody1, const double aPoint2[3], const simmBody* aBody2) const;
 	int getNumMarkers() const;
+/*Reorg
 	void solveInverseKinematics(const simmIKTrialParams& aIKOptions, const std::string aMarkerDataFileName, const std::string aOutputFileName);
 	simmMotionData* solveInverseKinematics(const simmIKTrialParams& aIKOptions, simmMarkerData& aMarkerData);
 	simmMotionData* solveInverseKinematics(const simmIKTrialParams& aIKOptions, simmMarkerData& aMarkerData, simmMotionData& aCoordinateData);
+*/
 	void moveMarkersToCloud(simmMarkerData& aMarkerData);
 	int deleteUnusedMarkers(const rdArray<std::string>& aMarkerNames);
 	int replaceMarkerSet(simmMarkerSet& aMarkerSet);

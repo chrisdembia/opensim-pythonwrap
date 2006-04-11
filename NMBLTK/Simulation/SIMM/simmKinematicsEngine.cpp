@@ -2171,7 +2171,7 @@ void simmKinematicsEngine::getUnlockedCoordinates(simmCoordinateArray& aUnlocked
 		if (!_coordinates[i]->isLocked())
 			aUnlockedCoordinates.append(_coordinates[i]);
 }
-
+/*Reorg
 void simmKinematicsEngine::solveInverseKinematics(const simmIKTrialParams& aIKOptions, const std::string aMarkerDataFileName, const std::string aOutputFileName)
 {
 	// Experimental marker and coordinate data
@@ -2214,23 +2214,23 @@ simmMotionData* simmKinematicsEngine::solveInverseKinematics(const simmIKTrialPa
 simmMotionData* simmKinematicsEngine::solveInverseKinematics(const simmIKTrialParams& aIKOptions, simmMarkerData& aMarkerData, simmMotionData& aCoordinateData)
 {
 
-	/* Convert experimental marker data to an rdStorage object. */
+	// Convert experimental marker data to an rdStorage object. 
 	rdStorage inputStorage;
 	aMarkerData.makeRdStorage(inputStorage);
 
-	/* Adjust the user-defined start and end times to make sure they are in the
-	 * range of the marker data. This must be done so that you only look in the
-	 * coordinate data for rows that will actually be solved.
-	 */
+	// Adjust the user-defined start and end times to make sure they are in the
+	// range of the marker data. This must be done so that you only look in the
+	// coordinate data for rows that will actually be solved.
+	//
 	double firstStateTime = inputStorage.getFirstTime();
 	double lastStateTime = inputStorage.getLastTime();
 	double startTime = MAX(firstStateTime, aIKOptions.getStartTime());
 	double endTime = MIN(lastStateTime, aIKOptions.getEndTime());
 
-	/* Add the coordinate data to the marker data. There must be a row of
-	 * corresponding coordinate data for every row of marker data that will
-	 * be solved, or it is a fatal error.
-	 */
+	// Add the coordinate data to the marker data. There must be a row of
+	// corresponding coordinate data for every row of marker data that will
+	// be solved, or it is a fatal error.
+	//
 	aCoordinateData.addToRdStorage(inputStorage, startTime, endTime);
 
 	// Set up output storage.
@@ -2246,7 +2246,7 @@ simmMotionData* simmKinematicsEngine::solveInverseKinematics(const simmIKTrialPa
 
 	return outputMotionData;
 }
-
+*/
 /* Set the local offset of each non-fixed marker so that in the model's
  * current pose the marker coincides with the marker's global position
  * in the passed-in simmMarkerData.

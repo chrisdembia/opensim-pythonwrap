@@ -74,6 +74,10 @@ public:
 	double getFrameTime() const { return _frameTime; }
 	void scale(double aScaleFactor);
 
+	simmMarkerFrame * copy()
+	{
+		return new simmMarkerFrame(*this);
+	}
 	void peteTest() const;
 
 private:

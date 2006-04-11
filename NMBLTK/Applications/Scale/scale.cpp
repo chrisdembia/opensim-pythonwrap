@@ -1,26 +1,26 @@
 // scale.cpp
 // Author: Ayman Habib
 /* Copyright (c) 2005, Stanford University and Ayman Habib.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including 
- * without limitation the rights to use, copy, modify, merge, publish, 
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject
- * to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included 
- * in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+* 
+* Permission is hereby granted, free of charge, to any person obtaining
+* a copy of this software and associated documentation files (the
+* "Software"), to deal in the Software without restriction, including 
+* without limitation the rights to use, copy, modify, merge, publish, 
+* distribute, sublicense, and/or sell copies of the Software, and to
+* permit persons to whom the Software is furnished to do so, subject
+* to the following conditions:
+* 
+* The above copyright notice and this permission notice shall be included 
+* in all copies or substantial portions of the Software.
+* 
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+* CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+* TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 
 
 // INCLUDES
@@ -43,6 +43,7 @@
 #include <NMBLTK/Simulation/Model/rdAnalysis.h>
 #include <NMBLTK/Applications/IK/simmIKSolverImpl.h>
 #include "simmScalerImpl.h"
+#include <NMBLTK/Applications/IK/simmInverseKinematicsTarget.h>
 
 using namespace std;
 
@@ -51,11 +52,11 @@ static void PrintUsage(ostream &aOStream);
 
 //______________________________________________________________________________
 /**
- * Test program to read SIMM model elements from an XML file.
- *
- * @param argc Number of command line arguments (should be 1).
- * @param argv Command line arguments:  simmReadXML inFile
- */
+* Test program to read SIMM model elements from an XML file.
+*
+* @param argc Number of command line arguments (should be 1).
+* @param argv Command line arguments:  simmReadXML inFile
+*/
 int main(int argc,char **argv)
 {
 	// PARSE COMMAND LINE
@@ -124,14 +125,48 @@ int main(int argc,char **argv)
 			cout << "Scaling parameters not set. Model is not scaled." << endl;
 		}
 		if (!subject->isDefaultMarkerPlacementParams()){
-			IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
-			engine.setIKSolver(ikSolver);
-			if (!subject->getMarkerPlacementParams().processModel(model))
-			{
-				cout << "===ERROR===: Unable to place markers on model." << endl;
-				return 0;
-			}
+			simmMarkerPlacementParams& params = subject->getMarkerPlacementParams();
+			// Update markers to correspond to those specified in IKParams block
+			model->updateMarkers(params.getMarkerSet());
+
+			/* Load the static pose marker file, and average all the
+			* frames in the user-specified time range.
+			*/
+			simmMarkerData staticPose(params.getStaticPoseFilename());
+			// Convert read trc fil into "common" rdStroage format
+			rdStorage inputStorage;
+			staticPose.makeRdStorage(inputStorage);
+			// Convert the marker data into the model's units.
+			double startTime, endTime;
+			params.getTimeRange(startTime, endTime);
+			staticPose.averageFrames(0.01, startTime, endTime);
+			staticPose.convertToUnits(model->getLengthUnits());
+
+			/* Delete any markers from the model that are not in the static
+			* pose marker file.
+			*/
+			model->deleteUnusedMarkers(staticPose.getMarkerNames());
+
+			/* Now solve the static pose. */
+			simmIKTrialParams options;
+			options.setStartTime(startTime);
+			options.setEndTime(endTime);
+			options.setIncludeMarkers(true);
+
+			// Convert read trc fil into "common" rdStroage format
+			staticPose.makeRdStorage(inputStorage);
+			// Create target
+			simmInverseKinematicsTarget *target = new simmInverseKinematicsTarget(*model, inputStorage);
+			// Create solver
+			simmIKSolverImpl *ikSolver = new simmIKSolverImpl(*target, subject->getIKParams());
+			// Solve
+			rdStorage	outputStorage;
+			ikSolver->solveFrames(options, inputStorage, outputStorage);
+			outputStorage.setWriteSIMMHeader(true);
+			outputStorage.print(options.getOutputMotionFilename().c_str());
+
 			delete ikSolver;
+			delete target;
 		}
 		else {
 			cout << "Marker placement parameters not set. No markers have been moved." << endl;
@@ -144,11 +179,11 @@ int main(int argc,char **argv)
 	}
 
 }
-	
+
 //_____________________________________________________________________________
 /**
- * Print the usage for this application
- */
+* Print the usage for this application
+*/
 void PrintUsage(ostream &aOStream)
 {
 	aOStream<<"\n\nscale.exe:\n\n";

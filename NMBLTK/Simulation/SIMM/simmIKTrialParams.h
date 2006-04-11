@@ -40,6 +40,7 @@
 
 class simmModel;
 class simmCoordinate;
+class simmMotionData;
 
 //=============================================================================
 //=============================================================================
@@ -124,11 +125,17 @@ public:
 	void setEndTime(double aTime) { _timeRange[1] = aTime; }
 	void setIncludeMarkers(bool aValue) { _includeMarkers = aValue; }
 	void findFrameRange(const rdStorage& aData, int& oStartFrame, int& oEndFrame) const;
-
-	bool processTrial(simmModel& aModel, rdArrayPtrs<simmCoordinate>& aCoordinateSet);
+	simmMotionData *getCoordinateValues(simmModel& aModel) const;
 
 	void peteTest() const;
-
+	std::string getMarkerDataFilename() const
+	{
+		return _inputMarkerFileName;
+	}
+	std::string getOutputMotionFilename() const
+	{
+		return _outputMotionFileName;
+	}
 protected:
 
 private:

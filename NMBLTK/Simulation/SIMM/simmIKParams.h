@@ -97,8 +97,31 @@ public:
 #endif
    void simmIKParams::copyData(const simmIKParams &aIKParams);
 
-	bool solveIK(IKSolverInterface *aSolver,simmModel* aModel);
+	//bool solveIK(IKSolverInterface *aSolver,simmModel* aModel);
+   rdArrayPtrs<simmMarker>& getMarkerSet()
+   {
+	   return _markerSet;
+   }
 
+	int getNumIKTrials()
+	{
+		return _IKTrialParamsSet.getSize();
+	}
+
+	simmIKTrialParams& getTrialParams(const int aIndex)
+	{
+		return (*(_IKTrialParamsSet.get(aIndex)));
+	}
+
+	rdArrayPtrs<simmCoordinate> &getCoordinateSet() const
+	{
+		return (_coordinateSet);
+	}
+
+	const std::string& getModelFileName() const
+	{
+		return _modelFileName;
+	}
 	/* Register types to be used when reading a simmIKParams object from xml file. */
 	static void registerTypes();
 

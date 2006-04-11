@@ -44,7 +44,9 @@
  * @author Peter Loan
  * @version 1.0
  */
-class simmMarkerData
+#include <NMBLTK/Simulation/rdSimulationDLL.h>
+
+class RDSIMULATION_API simmMarkerData
 {
 
 //=============================================================================

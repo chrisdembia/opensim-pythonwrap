@@ -184,7 +184,7 @@ simmIKParams& simmIKParams::operator=(const simmIKParams &aIKParams)
 
 	return(*this);
 }
-
+/*
 bool simmIKParams::solveIK(IKSolverInterface *aSolver,simmModel* aModel)
 {
 	cout << endl << "Step 4: Solving IK trials" << endl;
@@ -197,10 +197,10 @@ bool simmIKParams::solveIK(IKSolverInterface *aSolver,simmModel* aModel)
 
 	try
 	{
-		/* If the user specified a model file name,
-		 * delete the passed-in model and create a new
-		 * one from the file.
-		 */
+		// If the user specified a model file name,
+		// delete the passed-in model and create a new
+		// one from the file.
+		//
 		if (!_modelFileNameProp.getUseDefault())
 		{
 			simmModel* newModel = new simmModel(_modelFileName);
@@ -225,10 +225,10 @@ bool simmIKParams::solveIK(IKSolverInterface *aSolver,simmModel* aModel)
 	// SET IK SOLVER
 	aModel->getKinematicsEngine().setIKSolver(aSolver);
 
-	/* Update the markers. */
+	// Update the markers. 
 	aModel->updateMarkers(_markerSet);
 
-	/* Now perform the IK trials on the updated model. */
+	// Now perform the IK trials on the updated model. 
 	for (int i = 0; i < _IKTrialParamsSet.getSize(); i++)
 	{
 		if (_IKTrialParamsSet[i]->processTrial(*aModel, _coordinateSet))
@@ -239,7 +239,7 @@ bool simmIKParams::solveIK(IKSolverInterface *aSolver,simmModel* aModel)
 
 	return true;
 }
-
+*/
 void simmIKParams::peteTest() const
 {
 	int i;

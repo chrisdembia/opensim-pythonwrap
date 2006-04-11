@@ -3,25 +3,23 @@
 #include <NMBLTK/SQP/rdFSQP.h>
 #include <NMBLTK/Simulation/SIMM/simmIKTrialParams.h>
 #include <NMBLTK/Simulation/SIMM/simmKinematicsEngine.h>
+#include <NMBLTK/Simulation/SIMM/simmModel.h>
 #include "simmIKSolverImpl.h"
 #include "simmInverseKinematicsTarget.h"
 
 using namespace std;
 
-simmIKSolverImpl::simmIKSolverImpl(nmblKinematicsEngine &aKinematicsEngine):
-IKSolverInterface(aKinematicsEngine)
+simmIKSolverImpl::
+simmIKSolverImpl(simmInverseKinematicsTarget&	aOptimizationTarget,
+				 const simmIKParams&	aIKParams):
+IKSolverInterface(aOptimizationTarget, aIKParams)
 {
 }
 
 void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorage& inputData, rdStorage& outputData)
 {
-	// Here we know we're in SIMM implementation so we may convert to the concrete simmKinematicsEngine class
-	simmKinematicsEngine& engine = dynamic_cast<simmKinematicsEngine&> (_theKinematiceEngine);
-	// Build optimization target
-	simmInverseKinematicsTarget *target = new simmInverseKinematicsTarget(&engine, inputData);
-
 	// Instantiate the optimizer
-	rdFSQP *optimizer = new rdFSQP(target);
+	rdFSQP *optimizer = new rdFSQP(&_ikTarget);
 
 	// Set optimization convergence criteria/tolerance
 	// Enable some Debugging here if needed
@@ -31,15 +29,15 @@ void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorag
 
 	/* Get names for unconstrained Qs (ones that will be solved). */
 	rdArray<const string*> unconstrainedCoordinateNames(NULL);
-   target->getUnconstrainedCoordinateNames(unconstrainedCoordinateNames);
+   _ikTarget.getUnconstrainedCoordinateNames(unconstrainedCoordinateNames);
 
 	/* Get names for prescribed Qs (specified in input file). */
 	rdArray<const string*> prescribedCoordinateNames(NULL);
-   target->getPrescribedCoordinateNames(prescribedCoordinateNames);
+   _ikTarget.getPrescribedCoordinateNames(prescribedCoordinateNames);
 
 	/* Get names for markers used for solving. */
 	rdArray<const string*> markerNames(NULL);
-	target->getOutputMarkerNames(markerNames);
+	_ikTarget.getOutputMarkerNames(markerNames);
 
 	string resultsHeader = "time\t";
 	for (int i = 0; i < unconstrainedCoordinateNames.getSize(); i++)
@@ -72,9 +70,10 @@ void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorag
 
 	// Set the lower and upper bounds on the unconstrained Q array
 	// TODO: shouldn't have to search for coordinates by name
+	simmKinematicsEngine &eng = (simmKinematicsEngine&)_ikTarget.getModel().getSimmKinematicsEngine();
 	for (int i = 0; i < unconstrainedCoordinateNames.getSize(); i++)
 	{
-		suCoordinate* coord = _theKinematiceEngine.getCoordinate(*(unconstrainedCoordinateNames[i]));
+		suCoordinate* coord = eng.getCoordinate(*(unconstrainedCoordinateNames[i]));
 		optimizer->setLowerBound(i, coord->getRangeMin());
 		optimizer->setUpperBound(i, coord->getRangeMax());
 	}
@@ -112,11 +111,11 @@ void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorag
 		 * locked, it is an unconstrained coordinate and it is
 		 * variable in the IK solving.
 		 */
-		target->setPrescribedCoordinates(index);
+		_ikTarget.setPrescribedCoordinates(index);
 
 		// This sets the guess of unconstrained generalized coordinates 
 		// and marker data from recordedDataStorage
-		target->setIndexToSolve(index, &unconstrainedQGuess[0]);
+		_ikTarget.setIndexToSolve(index, &unconstrainedQGuess[0]);
 
 		// Invoke optimization mechanism to solve for Qs
 		int optimizerReturn = optimizer->computeOptimalControls(&unconstrainedQGuess[0], &unconstrainedQSol[0]);
@@ -126,13 +125,13 @@ void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorag
 
 		/* ... then prescribed Qs... */
 		rdArray<double> prescribedQValues(0.0);
-		target->getPrescribedQValues(prescribedQValues);
+		_ikTarget.getPrescribedQValues(prescribedQValues);
 		qsAndMarkersArray.append(prescribedQValues);
 
 		/* ... then, optionally, computed marker locations. */
 		if (aIKOptions.getIncludeMarkers())
 		{
-			target->getExperimentalMarkerLocations(experimentalMarkerLocations);
+			_ikTarget.getExperimentalMarkerLocations(experimentalMarkerLocations);
 			qsAndMarkersArray.append(experimentalMarkerLocations);
 		}
 
@@ -146,5 +145,5 @@ void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorag
 	}
 
 	delete optimizer;
-	//delete target; //TODO this causes the application to crash as it exits
+	//delete _ikTarget; //TODO this causes the application to crash as it exits
 }

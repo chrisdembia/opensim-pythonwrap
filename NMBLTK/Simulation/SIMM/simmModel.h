@@ -110,10 +110,11 @@ public:
 	void setKinematicsEngine(nmblKinematicsEngine& aKE);
 	nmblKinematicsEngine& getKinematicsEngine() const;
 	simmKinematicsEngine& getSimmKinematicsEngine() const;
-
+/*
 	void solveInverseKinematics(const simmIKTrialParams& aIKOptions, const std::string aMarkerDataFileName, const std::string aOutputFileName);
 	simmMotionData* solveInverseKinematics(const simmIKTrialParams& aIKOptions, simmMarkerData& aMarkerData);
 	simmMotionData* solveInverseKinematics(const simmIKTrialParams& aIKOptions, simmMarkerData& aMarkerData, simmMotionData& aCoordinateData);
+*/
 	void moveMarkersToCloud(simmMarkerData& aMarkerData);
 	int deleteUnusedMarkers(const rdArray<std::string>& aMarkerNames);
 	int replaceMarkerSet(simmMarkerSet& aMarkerSet);

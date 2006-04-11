@@ -724,7 +724,7 @@ void simmMarkerData::convertToUnits(const simmUnits& aUnits)
 {
 	double scaleFactor = _units.convertTo(aUnits);
 
-	if (scaleFactor != rdMath::NAN)
+	if (scaleFactor != rdMath::NAN && scaleFactor != 1.0)
 	{
 		/* Scale all marker locations by the conversion factor. */
 		for (int i = 0; i < _frames.getSize(); i++)

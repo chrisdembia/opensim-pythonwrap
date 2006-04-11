@@ -36,6 +36,7 @@
 #include <NMBLTK/Simulation/SIMM/simmMotionData.h>
 #include <NMBLTK/Applications/IK/simmIKSolverImpl.h>
 #include <NMBLTK/Applications/Scale/simmScalerImpl.h>
+#include <NMBLTK/Applications/IK/simmInverseKinematicsTarget.h>
 
 using namespace std;
 
@@ -69,16 +70,53 @@ int main(int argc,char **argv)
 		cout << "===ERROR===: Unable to scale generic model." << endl;
 		return 0;
 	}
-	IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
-	engine.setIKSolver(ikSolver);
-	if (!subject->getMarkerPlacementParams().processModel(model))
-	{
-		cout << "===ERROR===: Unable to place markers on model." << endl;
-		return 0;
-	}
+	if (!subject->isDefaultMarkerPlacementParams()){
+		simmMarkerPlacementParams& markerPlacementParams = subject->getMarkerPlacementParams();
+		// Update markers to correspond to those specified in IKParams block
+		model->updateMarkers(markerPlacementParams.getMarkerSet());
 
+
+		/**
+		* Load the static pose marker file, and average all the
+		* frames in the user-specified time range.
+		*/
+		simmMarkerData staticPose(markerPlacementParams.getStaticPoseFilename());
+		// Convert read trc fil into "common" rdStroage format
+		rdStorage inputStorage;
+		// Convert read trc fil into "common" rdStroage format
+		staticPose.makeRdStorage(inputStorage);
+		// Convert the marker data into the model's units.
+		double startTime, endTime;
+		markerPlacementParams.getTimeRange(startTime, endTime);
+		staticPose.averageFrames(0.01, startTime, endTime);
+		staticPose.convertToUnits(model->getLengthUnits());
+
+		/* Delete any markers from the model that are not in the static
+		* pose marker file.
+		*/
+		model->deleteUnusedMarkers(staticPose.getMarkerNames());
+
+		/* Now solve the static pose, by faking it as an IKTrial */
+		simmIKTrialParams options;
+		options.setStartTime(startTime);
+		options.setEndTime(endTime);
+		options.setIncludeMarkers(true);
+
+		// Create target
+		simmInverseKinematicsTarget *target = new simmInverseKinematicsTarget(*model, inputStorage);
+		// Create solver
+		simmIKSolverImpl *ikSolver = new simmIKSolverImpl(*target, subject->getIKParams());
+		// Solve
+		rdStorage	outputStorage;
+		ikSolver->solveFrames(options, inputStorage, outputStorage);
+
+		delete ikSolver;
+		delete target;
+	}
+	else {
+		cout << "Marker placement parameters not set. No markers have been moved." << endl;
+	}
 	delete subject;
-	delete ikSolver;
 
 	/* Compare results with standard*/
 	bool success = true;

@@ -330,22 +330,6 @@ void simmModel::setup()
 
 	cout << "Created model " << getName() << " from file " << _fileName << endl;
 }
-
-void simmModel::solveInverseKinematics(const simmIKTrialParams& aIKOptions, const string aMarkerDataFileName, const string aOutputFileName)
-{
-	getSimmKinematicsEngine().solveInverseKinematics(aIKOptions, aMarkerDataFileName, aOutputFileName);
-}
-
-simmMotionData* simmModel::solveInverseKinematics(const simmIKTrialParams& aIKOptions, simmMarkerData& aMarkerData)
-{
-	return getSimmKinematicsEngine().solveInverseKinematics(aIKOptions, aMarkerData);
-}
-
-simmMotionData* simmModel::solveInverseKinematics(const simmIKTrialParams& aIKOptions, simmMarkerData& aMarkerData, simmMotionData& aCoordinateData)
-{
-	return getSimmKinematicsEngine().solveInverseKinematics(aIKOptions, aMarkerData, aCoordinateData);
-}
-
 void simmModel::moveMarkersToCloud(simmMarkerData& aMarkerData)
 {
 	getSimmKinematicsEngine().moveMarkersToCloud(aMarkerData);

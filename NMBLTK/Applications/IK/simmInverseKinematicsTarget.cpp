@@ -28,6 +28,7 @@
 #include <NMBLTK/Simulation/SIMM/simmKinematicsEngine.h>
 #include <NMBLTK/Simulation/SIMM/simmMarker.h>
 #include <NMBLTK/Simulation/SIMM/simmBody.h>
+#include <NMBLTK/Simulation/SIMM/simmModel.h>
 #include "simmInverseKinematicsTarget.h"
 
 const double simmInverseKinematicsTarget::_perturbation=1e-3; 
@@ -47,13 +48,17 @@ static bool debug = false; // used for debugging
 */
 static bool calcDerivs = true; 
 
-simmInverseKinematicsTarget::simmInverseKinematicsTarget(simmKinematicsEngine *aKE, rdStorage& aExperimentalDataStorage):
-_ke(aKE),
+simmInverseKinematicsTarget::simmInverseKinematicsTarget(simmModel &aModel, rdStorage& aExperimentalDataStorage):
+_model(aModel),
 _experimentalDataStorage(aExperimentalDataStorage),
 _markers(NULL),
 _unconstrainedQs(NULL),
 _prescribedQs(NULL)
 {
+	// Mark these arrays as not owned so that we don't free the model's Qs 
+	_unconstrainedQs.setMemoryOwner(false);
+	_prescribedQs.setMemoryOwner(false);
+
 	buildMarkerMap(aExperimentalDataStorage.getColumnLabelsArray());
 	buildCoordinateMap(aExperimentalDataStorage.getColumnLabelsArray());
 
@@ -102,7 +107,7 @@ simmInverseKinematicsTarget::
 int simmInverseKinematicsTarget::computePerformance(double *x, double *p)
 {
 	int i;
-
+	simmKinematicsEngine& ke = _model.getSimmKinematicsEngine();
 	// Assemble model in new configuration
 	// x contains values only for independent/unconstrained states
 	for (i = 0; i < _numUnconstrainedQs; i++)
@@ -145,7 +150,7 @@ int simmInverseKinematicsTarget::computePerformance(double *x, double *p)
 			_markers[i]->marker->getOffset(_markers[i]->computedPosition);
 
 			// transform local marker to world frame
-			_ke->convertPoint(_markers[i]->computedPosition, _markers[i]->body, _ke->getGroundBodyPtr());
+			ke.convertPoint(_markers[i]->computedPosition, _markers[i]->body, ke.getGroundBodyPtr());
 
 			err = 0.0;
 			for (int j = 0; j < 3; j++)
@@ -332,7 +337,7 @@ void simmInverseKinematicsTarget::buildMarkerMap(const rdArray<string>& aNameArr
 {
 	_markers.setSize(0);
 
-	simmBodyArray& bodies = _ke->getBodyArray();
+	simmBodyArray& bodies = _model.getSimmKinematicsEngine().getBodyArray();
 
 	for (int i = 0; i < aNameArray.getSize(); i++)
 	{
@@ -382,7 +387,7 @@ void simmInverseKinematicsTarget::buildMarkerMap(const rdArray<string>& aNameArr
 void simmInverseKinematicsTarget::buildCoordinateMap(const rdArray<string>& aNameArray)
 {
 	// The unconstrained Qs are the unlocked coordinates in the kinematics engine.
-	_ke->getUnlockedCoordinates(_unconstrainedQs);
+	_model.getSimmKinematicsEngine().getUnlockedCoordinates(_unconstrainedQs);
 	_numUnconstrainedQs = _unconstrainedQs.getSize();
 
 	_unconstrainedQsIndices = new int[_numUnconstrainedQs];
@@ -408,8 +413,8 @@ void simmInverseKinematicsTarget::buildCoordinateMap(const rdArray<string>& aNam
 #endif
 
 	_numPrescribedQs = 0;
-	_prescribedQsIndices = new int[_ke->getNumCoordinates()];
-	rdArrayPtrs<simmCoordinate>& coords = _ke->getCoordinates();
+	_prescribedQsIndices = new int[_model.getKinematicsEngine().getNumCoordinates()];
+	rdArrayPtrs<simmCoordinate>& coords = _model.getSimmKinematicsEngine().getCoordinates();
 	for (int i = 0; i < coords.getSize(); i++)
 	{
 		if (coords[i]->isLocked())

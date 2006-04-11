@@ -29,13 +29,13 @@
 #include <NMBLTK/Tools/rdStorage.h>
 #include <NMBLTK/Tools/suScaleSet.h>
 #include <NMBLTK/Simulation/SIMM/simmModel.h>
-#include <NMBLTK/Simulation/SIMM/simmKinematicsEngine.h>
 #include <NMBLTK/Simulation/SIMM/simmMarkerSet.h>
 #include <NMBLTK/Simulation/SIMM/simmSubject.h>
 #include <NMBLTK/Simulation/SIMM/simmMarkerData.h>
 #include <NMBLTK/Simulation/SIMM/simmMotionData.h>
 #include <NMBLTK/Applications/Scale/simmScalerImpl.h>
 #include "simmIKSolverImpl.h"
+#include "simmInverseKinematicsTarget.h"
 
 using namespace std;
 
@@ -93,46 +93,73 @@ int main(int argc,char **argv)
 	simmSubject* subject = new simmSubject(inName);
 	simmModel* model = subject->createModel();
 
-	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
-	if (!subject->isDefaultScalingParams()){
-		ScalerInterface *scaler = new simmScalerImpl(engine);
-		engine.setScaler(scaler);
-		if (!subject->getScalingParams().processModel(model))
-		{
-			cout << "===ERROR===: Unable to scale generic model." << endl;
-			return 0;
-		}
-		else {
-			cout << "Scaled model "<< inName << "Successfully" << endl;
-		}
-		delete scaler;
-	}
-	else {
-		cout << "Scaling parameters not set. Model is not scaled." << endl;
-	}
-	if (!subject->isDefaultMarkerPlacementParams()){
-		IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
-		engine.setIKSolver(ikSolver);
-		if (!subject->getMarkerPlacementParams().processModel(model))
-		{
-			cout << "===ERROR===: Unable to place markers on model." << endl;
-			return 0;
-		}
-		delete ikSolver;
-	}
-	else {
-		cout << "Marker placement parameters not set. No markers have been moved." << endl;
-	}
-
-	IKSolverInterface *ikSolver = new simmIKSolverImpl(engine);
 	if (!subject->isDefaultIKParams()){
-		subject->getIKParams().solveIK(ikSolver,model);
+		//  If model needs to be created anew, do it here.
+		if (subject->getIKParams().getModelFileName()!="Unassigned"){
+			delete model;
+			model = new simmModel(subject->getIKParams().getModelFileName());
+			model->setup();
+		}
+		else // Warn model used without scaling or marker placement
+			cout << "Inverse kinematics model name not set. Using " << inName << " as model file "<< endl;
+
+		// Update markers to correspond to those specified in IKParams block
+		model->updateMarkers(subject->getIKParams().getMarkerSet());
+		// Initialize coordinates based on user input
+		model->updateCoordinates(subject->getIKParams().getCoordinateSet());
+		/* Now perform the IK trials on the updated model. */
+		for (int i = 0; i < subject->getIKParams().getNumIKTrials(); i++)
+		{
+			// Get trial params
+			simmIKTrialParams& trialParams = subject->getIKParams().getTrialParams(i);
+			// Handle coordinates file
+			simmMotionData* coordinateValues = trialParams.getCoordinateValues(*model);
+
+			// Setup IK problem for trial
+			// We need simmInverseKinematicsTarget, iksolver (simmIKSolverImpl)
+			// Create simmMarkerData Object from trc file of experimental motion data
+			simmMarkerData motionTrialData(trialParams.getMarkerDataFilename());
+			motionTrialData.convertToUnits(model->getLengthUnits());
+
+			rdStorage inputStorage;
+			// Convert read trc fil into "common" rdStroage format
+			motionTrialData.makeRdStorage(inputStorage);
+			if (coordinateValues != 0) {
+				/* Adjust the user-defined start and end times to make sure they are in the
+				* range of the marker data. This must be done so that you only look in the
+				* coordinate data for rows that will actually be solved.
+				*/
+				double firstStateTime = inputStorage.getFirstTime();
+				double lastStateTime = inputStorage.getLastTime();
+				double startTime = max<double>(firstStateTime, trialParams.getStartTime());
+				double endTime = min<double>(lastStateTime, trialParams.getEndTime());
+
+				/* Add the coordinate data to the marker data. There must be a row of
+				* corresponding coordinate data for every row of marker data that will
+				* be solved, or it is a fatal error.
+				*/
+				coordinateValues->addToRdStorage(inputStorage, startTime, endTime);
+			}
+			// Create target
+			simmInverseKinematicsTarget *target = new simmInverseKinematicsTarget(*model, inputStorage);
+			// Create solver
+			simmIKSolverImpl *ikSolver = new simmIKSolverImpl(*target, subject->getIKParams());
+			// Solve
+			rdStorage	outputStorage;
+			ikSolver->solveFrames(trialParams, inputStorage, outputStorage);
+			outputStorage.setWriteSIMMHeader(true);
+			outputStorage.print(trialParams.getOutputMotionFilename().c_str());
+
+			delete coordinateValues;
+			delete ikSolver;
+			delete target;
+		}
+
 	}
 	else {
 			cout << "Inverse kinematics parameters not set. IK was not solved." << endl;
 	}
 	delete subject;
-	delete ikSolver;
 
 }
 //_____________________________________________________________________________
