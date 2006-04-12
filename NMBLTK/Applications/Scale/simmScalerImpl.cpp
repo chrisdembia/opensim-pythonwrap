@@ -3,27 +3,37 @@
 #include <NMBLTK/Tools/suScaleSet.h>
 #include <NMBLTK/SQP/rdFSQP.h>
 #include <NMBLTK/Simulation/Model/nmblKinematicsEngine.h>
+#include <NMBLTK/Simulation/SIMM/simmModel.h>
 #include "simmScalerImpl.h"
 
 using namespace std;
 
-simmScalerImpl::simmScalerImpl(nmblKinematicsEngine &aKinematicsEngine):
-ScalerInterface(aKinematicsEngine)
+simmScalerImpl::simmScalerImpl(rdModel &aModel):
+ScalerInterface(aModel)
 {
 }
 
 bool simmScalerImpl::scaleModel(const suScaleSet& aScaleSet, bool aPreserveMassDist, double aFinalMass)
 {
 
-	// Here we know we're in SIMM implementation so we may convert to the concrete simmKinematicsEngine class
-	// Though it would be better to keep using the nmblKinematicsEngine and add whatever methods (e.g. getBodies())
+	// Here we know we're in SIMM implementation so we may convert to the concrete simm* classes
+	// Though it would be better to keep using the rdModel, nmblKinematicsEngine and add whatever methods (e.g. getBodies())
 	// and abstract classes (e.g. suBody and suJoint). This's all academic though until we have another 
 	// kinematics engine -Ayman 2/06 
-	simmKinematicsEngine& engine = dynamic_cast<simmKinematicsEngine&> (_theKinematiceEngine);
+	simmModel& sModel = dynamic_cast<simmModel&> (_theModel);
 	
-	rdArrayPtrs<simmBody>&	bodies = engine.getBodies();
-
+	// Scale the muscles
+	simmMuscle* sm;
 	int i, j;
+	for (i = 0; i < sModel.getNumberOfMuscles(); i++)
+	{
+		if (sm = dynamic_cast<simmMuscle*>(sModel.getMuscle(i)))
+			sm->scale(aScaleSet);
+	}
+
+	// Scale the rest (KinematicsEngine stuff)
+	rdArrayPtrs<simmBody>&	bodies = sModel.getBodies();
+	// 
 	for (i = 0; i < bodies.getSize(); i++)
 	{
 		for (j = 0; j < aScaleSet.getSize(); j++)
@@ -45,7 +55,7 @@ bool simmScalerImpl::scaleModel(const suScaleSet& aScaleSet, bool aPreserveMassD
 	// so that the total model mass comes out to aFinalMass.
 	if (aFinalMass > 0.0)
 	{
-		double mass = engine.getMass();
+		double mass = sModel.getMass();
 		if (mass > 0.0)
 		{
 			double factor = pow(aFinalMass / mass, 1.0 / 3.0);
@@ -56,6 +66,7 @@ bool simmScalerImpl::scaleModel(const suScaleSet& aScaleSet, bool aPreserveMassD
 	}
 
 	// Now scale the joints.
+	simmKinematicsEngine &engine = sModel.getSimmKinematicsEngine();
 	for (i = 0; i < engine.getNumJoints(); i++){
 		engine.getJoint(i)->scale(aScaleSet); 
 	}

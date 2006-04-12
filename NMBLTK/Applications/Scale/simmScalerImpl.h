@@ -33,7 +33,7 @@ class suScaleSet;
 class simmScalerImpl : public ScalerInterface 
 {
 public:
-	simmScalerImpl(nmblKinematicsEngine &aKinematicsEngine);
+	simmScalerImpl(rdModel &aModel);
 	virtual bool scaleModel(const suScaleSet& scaleSet, bool aPreserveMassDist, double aFinalMass);
 };
 

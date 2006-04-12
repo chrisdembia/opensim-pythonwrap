@@ -242,19 +242,22 @@ simmScalingParams& simmScalingParams::operator=(const simmScalingParams &aScalin
 
 	return(*this);
 }
+//______________________________________________________________________________
+/**
+* Get final scale set to be applied to the model. This could come form measurements.
+* or be specified manually.
+*
+* @param Model to be scaled (used to retrieve body names)
+* @returns ScaleSet to be used for scaling the model (one entry per segment)
+*/
 
-bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
+suScaleSet& simmScalingParams::getScaleSet(simmModel& aModel) 
 {
+
 	int i;
-	suScaleSet theScaleSet;
 	rdArray<double> unity(1.0, 3);
 
-	if (aSubjectMass == simmSubject::DefaultMass){
-		cout << "___WARNING___: Subject mass was not specified, assuming " << simmSubject::DefaultMass << endl;
-	}
-	cout << endl << "Step 2: Scaling generic model" << endl;
-
-	rdArrayPtrs<simmBody>& bodies = aModel->getBodies();
+	rdArrayPtrs<simmBody>& bodies = aModel.getBodies();
 
 	/* Make a scale set with an suScale for each body.
 	 * Initialize all factors to 1.0.
@@ -265,7 +268,7 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 		bodyScale->setSegmentName(bodies[i]->getName());
 		bodyScale->setScaleFactors(unity);
 		bodyScale->setApply(true);
-		theScaleSet.append(bodyScale);
+		_theScaleSet.append(bodyScale);
 	}
 
 	try
@@ -273,12 +276,12 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 		/* Keep track if any scaling ends up being applied or not due to mssing file, markers etc.
 		 * If none is applied a STRONGER warning is warranted since it's likely a problem */
 		bool anyScalingDone = false;
-		/* Make adjustments to theScaleSet, in the user-specified order. */
+		/* Make adjustments to _theScaleSet, in the user-specified order. */
 		for (i = 0; i < _scalingOrder.getSize(); i++)
 		{
 			/* For measurements, measure the distance between a pair of markers
 			 * in the model, and in the static pose. The latter divided by the
-			 * former is the scale factor. Put that scale factor in theScaleSet,
+			 * former is the scale factor. Put that scale factor in _theScaleSet,
 			 * using the body/axis names specified in the measurement to
 			 * determine in what place[s] to put the factor.
 			 */
@@ -289,7 +292,7 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 			    */
 				simmMarkerData staticPose(_markerFileName);
 				staticPose.averageFrames(0.01, _timeRange[0], _timeRange[1]);
-				staticPose.convertToUnits(aModel->getLengthUnits());
+				staticPose.convertToUnits(aModel.getLengthUnits());
 
 				/* Now take and apply the measurements. */
 				for (int j = 0; j < _measurementSet.getSize(); j++)
@@ -297,18 +300,18 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 					if (_measurementSet[j]->getApply())
 					{
 						double scaleFactor = 1.0;
-						double modelLength = aModel->takeMeasurement(*_measurementSet[j]);
+						double modelLength = aModel.takeMeasurement(*_measurementSet[j]);
 						double staticPoseLength = staticPose.takeMeasurement(*_measurementSet[j]);
 						if (modelLength != rdMath::NAN && staticPoseLength != rdMath::NAN)
 						{
 							scaleFactor = staticPoseLength / modelLength;
-							_measurementSet[j]->applyScaleFactor(scaleFactor, theScaleSet);
+							_measurementSet[j]->applyScaleFactor(scaleFactor, _theScaleSet);
 							anyScalingDone = true;
 							cout << "Measurement " << _measurementSet[j]->getName() << ": model = " << modelLength << ", static pose = " << staticPoseLength << endl;
 						}
 						else
 						{
-							cout << "___WARNING___: " << _measurementSet[j]->getName() << " measurement not used to scale " << aModel->getName() << endl;
+							cout << "___WARNING___: " << _measurementSet[j]->getName() << " measurement not used to scale " << aModel.getName() << endl;
 						}
 					}
 				}
@@ -329,10 +332,10 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 						const string& bodyName = _scaleSet[j]->getSegmentName();
 						rdArray<double> factors(1.0, 3);
 						_scaleSet[j]->getScaleFactors(factors);
-						for (int k = 0; k < theScaleSet.getSize(); k++)
+						for (int k = 0; k < _theScaleSet.getSize(); k++)
 						{
-							if (theScaleSet[k]->getSegmentName() == bodyName)
-								theScaleSet[k]->setScaleFactors(factors);
+							if (_theScaleSet[k]->getSegmentName() == bodyName)
+								_theScaleSet[k]->setScaleFactors(factors);
 						}
 						anyScalingDone = true;
 					}
@@ -345,28 +348,7 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 		}
 
 		if (!anyScalingDone){
-			cout << "___WARNING___: NO SCALING HAS BEEN APPLIED TO " << aModel->getName() << endl;
-		}
-		/* Now scale the model. */
-		aModel->scale(theScaleSet, _preserveMassDist, aSubjectMass);
-
-		/* Write output files, if names specified by the user. */
-		if (!_outputJointFileNameProp.getUseDefault())
-			aModel->writeSIMMJointFile(_outputJointFileName);
-
-		if (!_outputMuscleFileNameProp.getUseDefault())
-			aModel->writeSIMMMuscleFile(_outputMuscleFileName);
-
-		if (!_outputModelFileNameProp.getUseDefault())
-		{
-			if (aModel->print(_outputModelFileName))
-				cout << "Wrote model file " << _outputModelFileName << " from model " << aModel->getName() << endl;
-		}
-
-		if (!_outputScaleFileNameProp.getUseDefault())
-		{
-			if (theScaleSet.print(_outputScaleFileName))
-				cout << "Wrote scale file " << _outputScaleFileName << " for model " << aModel->getName() << endl;
+			cout << "___WARNING___: NO SCALING HAS BEEN APPLIED TO " << aModel.getName() << endl;
 		}
 	}
 	catch (rdException &x)
@@ -375,10 +357,35 @@ bool simmScalingParams::processModel(simmModel* aModel, double aSubjectMass)
 		cout << "Press Return to continue. " << endl;
 		cout.flush();
 		int c = getc( stdin );
-		return false;
+	}
+	return _theScaleSet;
+
+}
+/**
+ * Post scaling, write output files specified in the simmScalingParams block.
+ *
+ * @params aModel: scaled model
+ */
+void simmScalingParams::writeOutputFiles(simmModel *aModel)
+{
+	/* Write output files, if names specified by the user. */
+	if (!_outputJointFileNameProp.getUseDefault())
+		aModel->writeSIMMJointFile(_outputJointFileName);
+
+	if (!_outputMuscleFileNameProp.getUseDefault())
+		aModel->writeSIMMMuscleFile(_outputMuscleFileName);
+
+	if (!_outputModelFileNameProp.getUseDefault())
+	{
+		if (aModel->print(_outputModelFileName))
+			cout << "Wrote model file " << _outputModelFileName << " from model " << aModel->getName() << endl;
 	}
 
-	return true;
+	if (!_outputScaleFileNameProp.getUseDefault())
+	{
+		if (_theScaleSet.print(_outputScaleFileName))
+			cout << "Wrote scale file " << _outputScaleFileName << " for model " << aModel->getName() << endl;
+	}
 }
 
 void simmScalingParams::peteTest() const

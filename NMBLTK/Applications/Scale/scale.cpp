@@ -107,11 +107,10 @@ int main(int argc,char **argv)
 		// Construct model and read parameters file
 		simmSubject* subject = new simmSubject(inName);
 		simmModel* model = subject->createModel();
-		simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
 		if (!subject->isDefaultScalingParams()){
-			ScalerInterface *scaler = new simmScalerImpl(engine);
-			engine.setScaler(scaler);
-			if (!subject->getScalingParams().processModel(model, subject->getMass()))
+			simmScalingParams& params = subject->getScalingParams();
+			ScalerInterface *scaler = new simmScalerImpl(*model);
+			if (!scaler->scaleModel(params.getScaleSet(*model), params.getPreserveMassDist(), subject->getMass()))
 			{
 				cout << "===ERROR===: Unable to scale generic model." << endl;
 				return 0;
@@ -119,6 +118,7 @@ int main(int argc,char **argv)
 			else {
 				cout << "Scaled model "<< inName << "Successfully" << endl;
 			}
+			params.writeOutputFiles(model);
 			delete scaler;
 		}
 		else {
@@ -162,8 +162,10 @@ int main(int argc,char **argv)
 			// Solve
 			rdStorage	outputStorage;
 			ikSolver->solveFrames(options, inputStorage, outputStorage);
-			outputStorage.setWriteSIMMHeader(true);
-			outputStorage.print(options.getOutputMotionFilename().c_str());
+
+			model->moveMarkersToCloud(staticPose);
+	
+			params.writeOutputFiles(model, outputStorage);
 
 			delete ikSolver;
 			delete target;

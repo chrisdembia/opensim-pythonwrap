@@ -101,6 +101,9 @@ protected:
 	rdPropertyStr _outputScaleFileNameProp;
 	std::string &_outputScaleFileName;
 
+	// Cache for aggregate scale set
+	suScaleSet _theScaleSet;
+
 //=============================================================================
 // METHODS
 //=============================================================================
@@ -118,10 +121,16 @@ public:
 #ifndef SWIG
 	simmScalingParams& operator=(const simmScalingParams &aScalingParams);
 #endif
-   void simmScalingParams::copyData(const simmScalingParams &aScalingParams);
+	void simmScalingParams::copyData(const simmScalingParams &aScalingParams);
 
-	bool processModel(simmModel* aModel, double aFinalMass = -1.0);
+	const bool getPreserveMassDist() const
+	{
+		return _preserveMassDist;
+	}
 
+	suScaleSet& getScaleSet(simmModel& aModel);	
+
+	void writeOutputFiles(simmModel* aModel);
 	/* Register types to be used when reading a simmScalingParams object from xml file. */
 	static void registerTypes();
 

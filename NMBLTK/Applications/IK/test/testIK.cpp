@@ -57,14 +57,16 @@ int main(int argc,char **argv)
 	simmSubject* subject = new simmSubject("CrouchGait.xml");
 	simmModel* model = subject->createModel();
 
-	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
-	ScalerInterface *scaler = new simmScalerImpl(engine);
-	engine.setScaler(scaler);
-	if (!subject->getScalingParams().processModel(model, 75.0))
+	simmScalingParams& params = subject->getScalingParams();
+	ScalerInterface *scaler = new simmScalerImpl(*model);
+
+	if (!scaler->scaleModel(params.getScaleSet(*model), params.getPreserveMassDist(), subject->getMass()))
 	{
 		cout << "===ERROR===: Unable to scale generic model." << endl;
 		return 0;
 	}
+	params.writeOutputFiles(model);
+
 	delete scaler;
 
 	//----------------------- Marker placement section

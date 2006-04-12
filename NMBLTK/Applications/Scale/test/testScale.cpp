@@ -60,16 +60,16 @@ int main(int argc,char **argv)
 	// Construct model and read parameters file
 	simmSubject* subject = new simmSubject("CrouchGait.xml");
 	simmModel* model = subject->createModel();
-	simmKinematicsEngine& engine = model->getSimmKinematicsEngine();
-	ScalerInterface *scaler = new simmScalerImpl(engine);
-	engine.setScaler(scaler);
+	simmScalingParams& params = subject->getScalingParams();
+	ScalerInterface *scaler = new simmScalerImpl(*model);
 
-
-	if (!subject->getScalingParams().processModel(model, 75.0))
+	if (!scaler->scaleModel(params.getScaleSet(*model), params.getPreserveMassDist(), subject->getMass()))
 	{
 		cout << "===ERROR===: Unable to scale generic model." << endl;
 		return 0;
 	}
+	params.writeOutputFiles(model);
+
 	if (!subject->isDefaultMarkerPlacementParams()){
 		simmMarkerPlacementParams& markerPlacementParams = subject->getMarkerPlacementParams();
 		// Update markers to correspond to those specified in IKParams block
@@ -99,7 +99,7 @@ int main(int argc,char **argv)
 		/* Now solve the static pose, by faking it as an IKTrial */
 		simmIKTrialParams options;
 		options.setStartTime(startTime);
-		options.setEndTime(endTime);
+		options.setEndTime(startTime);
 		options.setIncludeMarkers(true);
 
 		// Create target

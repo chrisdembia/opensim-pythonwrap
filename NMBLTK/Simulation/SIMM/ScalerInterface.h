@@ -3,7 +3,7 @@
 
 #include <NMBLTK/Simulation/rdSimulationDLL.h>
 #include <NMBLTK/Tools/rdArray.h>
-class nmblKinematicsEngine;
+class rdModel;
 class suBody;
 class suJoint;
 class suScaleSet;
@@ -36,10 +36,10 @@ class simmScalingOptions;
 class RDSIMULATION_API ScalerInterface 
 {
 protected:
-	nmblKinematicsEngine& _theKinematiceEngine;
+	rdModel& _theModel;
 public:
-	ScalerInterface(nmblKinematicsEngine &aKinematicsEngine):
-		_theKinematiceEngine(aKinematicsEngine)
+	ScalerInterface(rdModel &aModel):
+		_theModel(aModel)
 		{}
 	virtual bool scaleModel(const suScaleSet& scaleSet, bool aPreserveMassDist, double aFinalMass)
 	{
