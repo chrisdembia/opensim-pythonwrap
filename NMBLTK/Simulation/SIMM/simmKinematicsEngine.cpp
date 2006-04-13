@@ -81,8 +81,7 @@ simmKinematicsEngine::simmKinematicsEngine() :
 	_path(0),
 	_model(NULL),
 	_sdfastInfo(),
-	_groundBody(NULL),
-	_dIKSolver(0)
+	_groundBody(NULL)
 {
 	// NULL
 	setNull();
@@ -102,9 +101,7 @@ simmKinematicsEngine::simmKinematicsEngine(const string &aFileName) :
 	_path(0),
 	_model(NULL),
 	_sdfastInfo(),
-	_groundBody(NULL),
-	_dIKSolver(0),
-	_dScaler(0)
+	_groundBody(NULL)
 {
 	// NULL
 	setNull();
@@ -129,9 +126,7 @@ simmKinematicsEngine::simmKinematicsEngine(DOMElement *aElement) :
 	_path(0),
 	_model(NULL),
 	_sdfastInfo(),
-	_groundBody(NULL),
-	_dIKSolver(0),
-	_dScaler(0)
+	_groundBody(NULL)
 {
 	// NULL
 	setNull();
@@ -155,9 +150,7 @@ simmKinematicsEngine::simmKinematicsEngine(const simmKinematicsEngine& aKE) :
 	_path(0),
 	_model(NULL),
 	_sdfastInfo(),
-	_groundBody(NULL),
-	_dIKSolver(aKE._dIKSolver),
-	_dScaler(aKE._dScaler)
+	_groundBody(NULL)
 {
 	// NULL
 	setNull();
@@ -197,8 +190,6 @@ void simmKinematicsEngine::copyData(const simmKinematicsEngine &aKE)
 	_forceUnits = aKE._forceUnits;
 	_model = aKE._model;
 	_sdfastInfo = aKE._sdfastInfo;
-	_dIKSolver = aKE._dIKSolver;
-	_dScaler = aKE._dScaler;
 }
 
 simmKinematicsEngine& simmKinematicsEngine::operator=(const simmKinematicsEngine &aKE)
@@ -2171,82 +2162,7 @@ void simmKinematicsEngine::getUnlockedCoordinates(simmCoordinateArray& aUnlocked
 		if (!_coordinates[i]->isLocked())
 			aUnlockedCoordinates.append(_coordinates[i]);
 }
-/*Reorg
-void simmKinematicsEngine::solveInverseKinematics(const simmIKTrialParams& aIKOptions, const std::string aMarkerDataFileName, const std::string aOutputFileName)
-{
-	// Experimental marker and coordinate data
-	rdStorage inputStorage(aMarkerDataFileName.c_str());
-	//TODO need to convert units
 
-	// Set up output storage
-	rdStorage outputStorage;
-	outputStorage.setName("InverseKinematicsResults");
-
-	assert(_dIKSolver);
-	
-	// Solve the frames.
-	_dIKSolver->solveFrames(aIKOptions, inputStorage, outputStorage);
-
-	outputStorage.setWriteSIMMHeader(true);
-	outputStorage.print(aOutputFileName.c_str());
-}
-
-simmMotionData* simmKinematicsEngine::solveInverseKinematics(const simmIKTrialParams& aIKOptions, simmMarkerData& aMarkerData)
-{
-	// Convert experimental marker data to rdStorage object.
-	rdStorage inputStorage;
-	aMarkerData.makeRdStorage(inputStorage);
-
-	// Set up output storage.
-	rdStorage outputStorage;
-	outputStorage.setName(aMarkerData.getFileName());
-
-	assert(_dIKSolver);
-	// Solve the frames.
-	_dIKSolver->solveFrames(aIKOptions, inputStorage, outputStorage);
-
-	// Store the result in a simmMotionData object.
-	simmMotionData* outputMotionData = new simmMotionData(outputStorage);
-
-	return outputMotionData;
-}
-
-simmMotionData* simmKinematicsEngine::solveInverseKinematics(const simmIKTrialParams& aIKOptions, simmMarkerData& aMarkerData, simmMotionData& aCoordinateData)
-{
-
-	// Convert experimental marker data to an rdStorage object. 
-	rdStorage inputStorage;
-	aMarkerData.makeRdStorage(inputStorage);
-
-	// Adjust the user-defined start and end times to make sure they are in the
-	// range of the marker data. This must be done so that you only look in the
-	// coordinate data for rows that will actually be solved.
-	//
-	double firstStateTime = inputStorage.getFirstTime();
-	double lastStateTime = inputStorage.getLastTime();
-	double startTime = MAX(firstStateTime, aIKOptions.getStartTime());
-	double endTime = MIN(lastStateTime, aIKOptions.getEndTime());
-
-	// Add the coordinate data to the marker data. There must be a row of
-	// corresponding coordinate data for every row of marker data that will
-	// be solved, or it is a fatal error.
-	//
-	aCoordinateData.addToRdStorage(inputStorage, startTime, endTime);
-
-	// Set up output storage.
-	rdStorage outputStorage;
-	outputStorage.setName(aMarkerData.getFileName());
-
-	assert(_dIKSolver);
-	// Solve the frames.
-	_dIKSolver->solveFrames(aIKOptions, inputStorage, outputStorage);
-
-	// Store the result in a simmMotionData object.
-	simmMotionData* outputMotionData = new simmMotionData(outputStorage);
-
-	return outputMotionData;
-}
-*/
 /* Set the local offset of each non-fixed marker so that in the model's
  * current pose the marker coincides with the marker's global position
  * in the passed-in simmMarkerData.
@@ -2998,10 +2914,45 @@ bool simmKinematicsEngine::scale(const suScaleSet& aScaleSet)
 bool simmKinematicsEngine::scale(const suScaleSet& aScaleSet, bool aPreserveMassDist, double aFinalMass)
 {
 
-	assert(_dScaler);
+	rdArrayPtrs<simmBody>&	bodies = getBodies();
+	int i, j;
 
-	return _dScaler->scaleModel(aScaleSet, aPreserveMassDist, aFinalMass);
+	for (i = 0; i < bodies.getSize(); i++)
+	{
+		for (j = 0; j < aScaleSet.getSize(); j++)
+		{
+			suScale *aScale = aScaleSet.get(j);
+			if (bodies[i]->getName() == aScale->getSegmentName())
+			{
+				rdArray<double> scaleFactors(1.0, 3);
+				aScale->getScaleFactors(scaleFactors);
+				bodies[i]->scale(scaleFactors, aPreserveMassDist);	
+			}
+		}
+	}
 
+	// Now that the masses of the individual bodies have
+	// been scaled (if aPreserveMassDist == false), get the
+	// total mass and compare it to aFinalMass in order to
+	// determine how much to scale the body masses again,
+	// so that the total model mass comes out to aFinalMass.
+	if (aFinalMass > 0.0)
+	{
+		double mass = getMass();
+		if (mass > 0.0)
+		{
+			double factor = pow(aFinalMass / mass, 1.0 / 3.0);
+			rdArray<double> scaleFactor(factor, 3);
+			for (i = 0; i < bodies.getSize(); i++)
+				bodies[i]->scaleInertialProperties(scaleFactor);	
+		}
+	}
+
+	// Now scale the joints.
+	for (i = 0; i < getNumJoints(); i++){
+		getJoint(i)->scale(aScaleSet); 
+	}
+	return true;
 }
 
 //--------------------------------------------------------------------------

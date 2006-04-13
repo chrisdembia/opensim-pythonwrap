@@ -184,62 +184,7 @@ simmIKParams& simmIKParams::operator=(const simmIKParams &aIKParams)
 
 	return(*this);
 }
-/*
-bool simmIKParams::solveIK(IKSolverInterface *aSolver,simmModel* aModel)
-{
-	cout << endl << "Step 4: Solving IK trials" << endl;
 
-	if (!aModel && _modelFileNameProp.getUseDefault())
-	{
-		cout << "===ERROR===: To process an IK trial, you must specify GenericModelParameters or a file name in IKParameters." << endl;
-		return false;
-	}
-
-	try
-	{
-		// If the user specified a model file name,
-		// delete the passed-in model and create a new
-		// one from the file.
-		//
-		if (!_modelFileNameProp.getUseDefault())
-		{
-			simmModel* newModel = new simmModel(_modelFileName);
-			if (newModel)
-			{
-				newModel->setup();
-				if (aModel)
-					delete aModel;
-				aModel = newModel;
-			}
-		}
-	}
-	catch (rdException &x)
-	{
-		x.print(cout);
-		cout << "Press Return to continue." << endl;
-		cout.flush();
-		int c = getc( stdin );
-		return false;
-	}
-
-	// SET IK SOLVER
-	aModel->getKinematicsEngine().setIKSolver(aSolver);
-
-	// Update the markers. 
-	aModel->updateMarkers(_markerSet);
-
-	// Now perform the IK trials on the updated model. 
-	for (int i = 0; i < _IKTrialParamsSet.getSize(); i++)
-	{
-		if (_IKTrialParamsSet[i]->processTrial(*aModel, _coordinateSet))
-			cout << "Trial " << _IKTrialParamsSet[i]->getName() << " processed successfully." << endl;
-		else
-			cout << "Trial " << _IKTrialParamsSet[i]->getName() << " processing failed." << endl;
-	}
-
-	return true;
-}
-*/
 void simmIKParams::peteTest() const
 {
 	int i;

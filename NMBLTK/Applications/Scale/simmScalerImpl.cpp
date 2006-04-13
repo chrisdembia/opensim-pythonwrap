@@ -32,44 +32,6 @@ bool simmScalerImpl::scaleModel(const suScaleSet& aScaleSet, bool aPreserveMassD
 	}
 
 	// Scale the rest (KinematicsEngine stuff)
-	rdArrayPtrs<simmBody>&	bodies = sModel.getBodies();
-	// 
-	for (i = 0; i < bodies.getSize(); i++)
-	{
-		for (j = 0; j < aScaleSet.getSize(); j++)
-		{
-			suScale *aScale = aScaleSet.get(j);
-			if (bodies[i]->getName() == aScale->getSegmentName())
-			{
-				rdArray<double> scaleFactors(1.0, 3);
-				aScale->getScaleFactors(scaleFactors);
-				bodies[i]->scale(scaleFactors, aPreserveMassDist);	
-			}
-		}
-	}
-
-	// Now that the masses of the individual bodies have
-	// been scaled (if aPreserveMassDist == false), get the
-	// total mass and compare it to aFinalMass in order to
-	// determine how much to scale the body masses again,
-	// so that the total model mass comes out to aFinalMass.
-	if (aFinalMass > 0.0)
-	{
-		double mass = sModel.getMass();
-		if (mass > 0.0)
-		{
-			double factor = pow(aFinalMass / mass, 1.0 / 3.0);
-			rdArray<double> scaleFactor(factor, 3);
-			for (i = 0; i < bodies.getSize(); i++)
-				bodies[i]->scaleInertialProperties(scaleFactor);	
-		}
-	}
-
-	// Now scale the joints.
-	simmKinematicsEngine &engine = sModel.getSimmKinematicsEngine();
-	for (i = 0; i < engine.getNumJoints(); i++){
-		engine.getJoint(i)->scale(aScaleSet); 
-	}
-
+	sModel.getSimmKinematicsEngine().scale(aScaleSet, aPreserveMassDist, aFinalMass);
 	return true;
 }

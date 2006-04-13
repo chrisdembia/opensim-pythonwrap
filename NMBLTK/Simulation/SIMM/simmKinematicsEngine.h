@@ -116,10 +116,7 @@ protected:
 
 	simmBody* _groundBody;
 
-	IKSolverInterface *_dIKSolver;
-
-	ScalerInterface *_dScaler;
-//=============================================================================
+	//=============================================================================
 // METHODS
 //=============================================================================
 	//--------------------------------------------------------------------------
@@ -209,14 +206,6 @@ public:
 	virtual rdArrayPtrs<simmBody>& getBodies() { return _bodies; }
 	virtual rdArrayPtrs<simmCoordinate>& getCoordinates() { return _coordinates; }
 
-	virtual void setIKSolver(IKSolverInterface *aSolver)
-	{
-		_dIKSolver= aSolver;
-	}
-	virtual void setScaler(ScalerInterface *aScaler)
-	{
-		_dScaler = aScaler;
-	}
 	//--------------------------------------------------------------------------
 	// NUMBERS
 	//--------------------------------------------------------------------------
