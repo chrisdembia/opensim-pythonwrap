@@ -42,6 +42,17 @@ public:
 					const simmIKParams&		aIKParams);
 
 	virtual void solveFrames(const simmIKTrialParams& aIKOptions, rdStorage& inputData, rdStorage& outputData);
+private:
+
+	void collectUserData(const rdArray<std::string> &,
+						std::string& resultsHeader, 
+						std::string& userHeaders, 
+						rdArray<int>& userDataColumnIndices);
+
+	void appendUserData(rdArray<double>& outputRow, 
+						rdArray<int>& indices, 
+						rdStateVector* inputRow);
+
 };
 
 #endif // __simmIKSolverImpl_h__

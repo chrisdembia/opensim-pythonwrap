@@ -8,14 +8,28 @@
 #include "simmInverseKinematicsTarget.h"
 
 using namespace std;
-
+//______________________________________________________________________________
+/**
+ * An implementation of the IKSolverInterface specific to simm classes/dynamicsEngine.
+ *
+ * @param aOptimizationTarget The target that IK will minimize
+ * @param aIKParams Parameters specified in input file to control IK.
+ */
 simmIKSolverImpl::
 simmIKSolverImpl(simmInverseKinematicsTarget&	aOptimizationTarget,
 				 const simmIKParams&	aIKParams):
 IKSolverInterface(aOptimizationTarget, aIKParams)
 {
 }
+//______________________________________________________________________________
+/**
+ * This is the heart of the IK solver, this method solves a specific motion trial
+ * given an input storage object for input, one for output.
 
+ * @param aIKOptions Pass along to the method attributes specified by end-user in input file.
+ * @param inputData Set of frames to solve packaged as a storage fle.
+ * @param outputData the frames solved by the solver represented as a storage onbject.
+ */
 void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorage& inputData, rdStorage& outputData)
 {
 	// Instantiate the optimizer
@@ -66,6 +80,16 @@ void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorag
 			}
 		}
 	}
+	// User data (colummns that are in input storage file but not used by IK,
+	// to be passed along for later processing.
+	const rdArray<string> &inputColumnNames	 = inputData.getColumnLabelsArray();
+	rdArray<int> userDataColumnIndices(0);
+	string userHeaders;
+	collectUserData(inputColumnNames, resultsHeader, userHeaders, userDataColumnIndices);
+	resultsHeader += userHeaders;
+
+
+
 	outputData.setColumnLabels(resultsHeader.c_str());
 
 	// Set the lower and upper bounds on the unconstrained Q array
@@ -139,11 +163,56 @@ void simmIKSolverImpl::solveFrames(const simmIKTrialParams& aIKOptions, rdStorag
 		cout << "Solved frame " << index + 1 << " at time " << currentTime << ", Optimizer returned = " << optimizerReturn << endl;
 		// Allocate new row (rdStateVector) and add it to ikStorage
 		rdStateVector *nextDataRow = new rdStateVector();
-		nextDataRow->setStates(timeT, qsAndMarkersArray.getSize(), &qsAndMarkersArray[0]);
+
+		// Append user data to qsAndMarkersArray
+		rdArray<double> dataRow(qsAndMarkersArray);
+		appendUserData(dataRow, userDataColumnIndices, inputData.getStateVector(index));
+
+		nextDataRow->setStates(timeT, dataRow.getSize(), &dataRow[0]);
 
 		outputData.append(*nextDataRow);
 	}
 
 	delete optimizer;
-	//delete _ikTarget; //TODO this causes the application to crash as it exits
+}
+//______________________________________________________________________________
+/**
+ * UserData is the set of columns that are not used directly by the IK problem (for example
+ * ground reaction forces). This UserData needs to be carried along in IK.
+ */
+void simmIKSolverImpl::collectUserData(const rdArray<string> &inputColumnLabels,
+									   string& resultsHeader, 
+									   string& userHeaders, 
+									   rdArray<int>& userDataColumnIndices)
+{
+	// Find columns that are none of the above to append them to the end of the list
+	int i;
+	for(i=0; i< inputColumnLabels.getSize(); i++){
+		string nextLabel = inputColumnLabels[i];
+		// We'll find out if the column is already there by doing string search for 
+		// either \t$column or $column\t to account for substrings
+		string searchString1(nextLabel+"\t");
+		string searchString2("\t"+nextLabel);
+		if (strstr(resultsHeader.c_str(), searchString1.c_str())==0 &&
+			strstr(resultsHeader.c_str(), searchString2.c_str())==0 ){
+			// Append to userHeaders
+			userHeaders += nextLabel+"\t";
+			// Keep track of indices to match data with labels
+			userDataColumnIndices.append(i);
+		}
+	}
+}
+//______________________________________________________________________________
+/**
+ * Companion helper function to (collectUserData) responsible for appending user columns 
+ * to outputRow.
+ */
+void simmIKSolverImpl::appendUserData(rdArray<double>& outputRow, rdArray<int>& indices, rdStateVector* inputRow)
+{
+	int i;
+	for(i=0; i< indices.getSize(); i++){
+		double userValue=rdMath::NAN;
+		inputRow->getDataValue(indices[i], userValue);
+		outputRow.append(userValue);
+	}
 }
