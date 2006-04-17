@@ -177,39 +177,49 @@ void simmMarkerPlacementParams::setNull()
 void simmMarkerPlacementParams::setupProperties()
 {
 	_markerFileNameProp.setName("markerFile");
+	_markerSetProp.setComment("Markers to be used by the marker placement step");
 	_propertySet.append(&_markerFileNameProp);
 
 	const double defaultTimeRange[] = {-1.0, -1.0};
 	_timeRangeProp.setName("timeRange");
+	_timeRangeProp.setComment("Static pose time range to use for averaging: min max");
 	_timeRangeProp.setValue(2, defaultTimeRange);
 	_propertySet.append(&_timeRangeProp);
 
 	_coordinateFileNameProp.setName("coordinateFile");
+	_coordinateFileNameProp.setComment("Name of coordinate file used to initialize marker placement solution.");
 	_propertySet.append(&_coordinateFileNameProp);
 
 	_coordinateSetProp.setName("CoordinateSet");
+	_coordinateSetProp.setComment("List of coordinates and corresponding values to initialize solution.");
 	rdArrayPtrs<rdObject> cs;
 	_coordinateSetProp.setValue(cs);
 	_propertySet.append(&_coordinateSetProp);
 
 	_markerSetProp.setName("MarkerSet");
+	_markerSetProp.setComment("Markers to use if different from generic model.");
 	rdArrayPtrs<rdObject> ms;
 	_markerSetProp.setValue(ms);
 	_propertySet.append(&_markerSetProp);
 
 	_outputJointFileNameProp.setName("outputJointFile");
+	_outputJointFileNameProp.setComment("SIMM Joint file to write when finished with marker placement.");
 	_propertySet.append(&_outputJointFileNameProp);
 
 	_outputMuscleFileNameProp.setName("outputMuscleFile");
+	_outputMuscleFileNameProp.setComment("SIMM muscle file to write when finished with marker placement.");
 	_propertySet.append(&_outputMuscleFileNameProp);
 
 	_outputModelFileNameProp.setName("outputModelFile");
+	_outputModelFileNameProp.setComment("OpenSim xml file to write when finished with marker placement.");
 	_propertySet.append(&_outputModelFileNameProp);
 
 	_outputMarkerFileNameProp.setName("outputMarkerFile");
+	_outputMarkerFileNameProp.setComment("Markers file to write when finished with marker placement.");
 	_propertySet.append(&_outputMarkerFileNameProp);
 
 	_outputMotionFileNameProp.setName("outputMotionFile");
+	_outputMotionFileNameProp.setComment("SIMM motion file to write when finished with marker placement.");
 	_propertySet.append(&_outputMotionFileNameProp);
 }
 

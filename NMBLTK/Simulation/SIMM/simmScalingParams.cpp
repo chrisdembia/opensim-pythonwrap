@@ -179,29 +179,29 @@ void simmScalingParams::setupProperties()
 {
 	_scalingOrderProp.setName("scalingOrder");
 	rdArray<string> sorder("");
-	_scalingOrderProp.setComment("Valid options are 'measurements', 'manual' possibly in sequence");
+	_scalingOrderProp.setComment("Valid options are 'measurements', 'manual' possibly in sequence. Required for scaling.");
 	_scalingOrderProp.setValue(sorder);
 	_propertySet.append(&_scalingOrderProp);
 
 	_measurementSetProp.setName("MeasurementSet");
 	rdArrayPtrs<rdObject> ms;
 	_measurementSetProp.setValue(ms);
-	_measurementSetProp.setComment("Measurements consist of 'MarkerPairSet' and 'BodyScaleSet'");
+	_measurementSetProp.setComment("Measurements consist of a 'MarkerPairSet' and a 'BodyScaleSet'");
 	_propertySet.append(&_measurementSetProp);
 
 	_scaleSetProp.setName("ScaleSet");
 	rdArrayPtrs<rdObject> ss;
 	_scaleSetProp.setValue(ss);
-	_scaleSetProp.setComment("Scale factors to be used for manual(user controlled) scaling");
+	_scaleSetProp.setComment("Scale factors to be used for 'manual' scaling .. Used only in 'maunal' scaling.");
 	_propertySet.append(&_scaleSetProp);
 
 	_markerFileNameProp.setName("markerFile");
-	_markerFileNameProp.setComment("Name of marker file *.trc for static pose");
+	_markerFileNameProp.setComment("Name of marker file *.trc for static pose. Used only in 'measurement' based scaling.");
 	_propertySet.append(&_markerFileNameProp);
 
 	const double defaultTimeRange[] = {-1.0, -1.0};
 	_timeRangeProp.setName("timeRange");
-	_timeRangeProp.setComment("Range of time in markers file to use for static pose solution");
+	_timeRangeProp.setComment("Range of time in markers file to use for static pose solution in 'measurement' based scaling.");
 	_timeRangeProp.setValue(2, defaultTimeRange);
 	_propertySet.append(&_timeRangeProp);
 

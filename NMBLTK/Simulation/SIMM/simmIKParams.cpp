@@ -151,14 +151,17 @@ void simmIKParams::setNull()
 void simmIKParams::setupProperties()
 {
 	_modelFileNameProp.setName("modelFile");
+	_modelFileNameProp.setComment("Name of model file. This is assumed to be scaled already with marker placement done.");
 	_propertySet.append(&_modelFileNameProp);
 
 	_markerSetProp.setName("MarkerSet");
+	_markerSetProp.setComment("Markers to be used by all IK trials");
 	rdArrayPtrs<rdObject> ms;
 	_markerSetProp.setValue(ms);
 	_propertySet.append(&_markerSetProp);
 
 	_coordinateSetProp.setName("CoordinateSet");
+	_coordinateSetProp.setComment("Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial value. Filename is specified in the corresponding trial block.");
 	rdArrayPtrs<rdObject> cs;
 	_coordinateSetProp.setValue(cs);
 	_propertySet.append(&_coordinateSetProp);
