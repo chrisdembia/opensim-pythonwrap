@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- Hypothetical muscle serialized to file. -->
+<Muscle name="gluteus_maximus">
+	<optimal_strength> 3000.0 </optimal_strength>
+	<optimal_fiber_length> 0.012 </optimal_fiber_length>
+	<tendon_slack_length> 0.030 </tendon_slack_length>	
+	<WrapSphere>
+		<diameter> 0.500 </diameter>
+		...
+	</WrapShere>
+	...
+</Muscle>
+
