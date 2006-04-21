@@ -1,21 +1,21 @@
 class Muscle : public Object 
 {
-	// VARIABLE MEMBERS
+	// SERIALIZED MEMBER VARIABLES
 	/** Optimal strength of the muscle. */
 	PropertyDbl optimalStrengthProp;
-	double &optimalStrength;
 
 	/** Optimal fiber length. */
 	PropertyDbl optimalFiberLengthProp;
-	double &optimalFiberLength;
 
 	/** Tendon slack length. */
 	PropertyDbl tendonSlackLengthProp;
-	double &tendonSlackLength;
 
 	/** Spherical wrap obstacle. */
 	PropertyObj wrapSphereProp;
-	WrapSphere &wrapSphere;
+
+	// NON-SERIALIZED MEMBER VARIABLES
+	/** Calculated total muscle length. */
+	double lmt;
 
 	// METHODS BELOW HERE ...
 }
