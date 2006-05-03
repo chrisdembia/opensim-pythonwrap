@@ -220,7 +220,7 @@ compute(double *aXPrev,double *aYPrev,int step,double dt,double t,
 //	sqp->setMaxIterations(400);
 	sqp->setNonlinearEqualityConstraintTolerance(1.0e-4);
 	sqp->setConvergenceCriterion(1.0e-2);
-	sqp->setPrintLevel(0);
+	sqp->setPrintLevel(1);
 
 	// SOLVE OPTIMIZATION PROBLEM ONLY ONCE
 
