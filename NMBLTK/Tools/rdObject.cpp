@@ -742,7 +742,7 @@ updateFromXMLNode()
 					char *elmtName =
 						rdXMLNode::GetAttribute(elmt,"name");
 					if(rdObject_DEBUG) cout<<"\nFound element "<<elmtName<<endl;
-					if(objName == elmtName) {
+					if(objName == elmtName) {//? why
 						objNode = elmt;
 						delete[] elmtName;
 						break;
@@ -875,7 +875,21 @@ updateFromXMLNode()
 			DOMElement *objElmt;
 			DOMNodeList *list;
 			rdObject *defaultObject,*object;
-
+			{
+				// If top element has a "file attribute", the document needs to be opened
+				// and elmt must be switched to the root of that document
+				char *fileAttrib = rdXMLNode::GetAttribute(elmt, "file");
+				bool inLinedObject = true;
+				DOMElement *refNode;
+				rdXMLDocument *childDocument;
+				if ((fileAttrib!=NULL) && (strlen(fileAttrib)>0)){
+					// Change _node to refer to the root of the external file
+					refNode = elmt;
+					childDocument = new rdXMLDocument(fileAttrib);
+					elmt = childDocument->getDOMDocument()->getDocumentElement();
+					inLinedObject = false;
+				}
+			}
 			// LOOP THROUGH SUPPORTED OBJECT TYPES
 			list = elmt->getChildNodes();
 			listLength = list->getLength();
