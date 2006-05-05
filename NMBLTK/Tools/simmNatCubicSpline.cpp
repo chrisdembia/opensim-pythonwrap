@@ -196,15 +196,13 @@ void simmNatCubicSpline::setNull()
 void simmNatCubicSpline::setupProperties()
 {
 	// X- INDEPENDENT VARIABLES
-	string temp2 = "x";
-	_propX.setName(temp2.c_str());
+	_propX.setName("x");
 	rdArray<double> x(0.0);
 	_propX.setValue(x);
 	_propertySet.append( &_propX );
 
 	// Y- DEPENDENT VARIABLES
-	string temp = "y";
-	_propY.setName(temp.c_str());
+	_propY.setName("y");
 	rdArray<double> y(0.0);
 	_propY.setValue(y);
 	_propertySet.append( &_propY );
