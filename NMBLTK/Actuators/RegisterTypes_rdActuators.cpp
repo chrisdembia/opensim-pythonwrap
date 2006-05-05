@@ -13,6 +13,7 @@
 
 using namespace std;
 
+static rdActuatorsInstantiator instantiator;
 
 //_____________________________________________________________________________
 /**
@@ -29,3 +30,12 @@ RDACTUATORS_API void RegisterTypes_rdActuators()
 	rdObject::RegisterType( JointMoment() );
 }
 
+rdActuatorsInstantiator::rdActuatorsInstantiator()
+{
+	registerDllClasses();
+}
+
+void rdActuatorsInstantiator::registerDllClasses()
+{
+	RegisterTypes_rdActuators();
+}

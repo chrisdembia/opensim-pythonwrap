@@ -17,7 +17,6 @@
 
 using namespace std;
 
-
 //_____________________________________________________________________________
 /**
  * The purpose of this routine is to register all class types exported by
@@ -38,4 +37,3 @@ RDTOOLS_API void RegisterTypes_rdTools()
 	rdObject::RegisterType( suScale() );
 	rdObject::RegisterType( simmNatCubicSpline() );
 }
-

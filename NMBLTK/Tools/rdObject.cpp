@@ -22,16 +22,16 @@ using namespace std;
 //=============================================================================
 // STATICS
 //=============================================================================
+
+#include <vector>
+#include <algorithm>  // Include algorithms
+
 rdArrayPtrs<rdObject> rdObject::_Types;
 rdArray<XMLCh *> rdObject::_typeNames(0);
 
 stringsToObjects rdObject::_mapTypesToDefaultObjects;
 defaultsReadFromFile	rdObject::_defaultsReadFromFile;
 bool rdObject::_serializeAllDefaults=false;
-
-#include <vector>
-#include <algorithm>  // Include algorithms
-
 static vector<std::string> recognizedTypes;
 
 //============================================================================
@@ -1531,3 +1531,31 @@ print(const string &aFileName)
 	return _document->print(aFileName);
 }
 
+/**
+ * The following code accounts for an object made up to call 
+ * RegisterTypes_rdTools function on entry to the DLL in a cross platform manner
+ *
+ * @todo Figure out if there're scenarios due to static initialization problem that breaks this.
+ * -Ayman May 06
+ */
+
+class rdToolsInstantiator
+{
+public:
+	rdToolsInstantiator();
+private:
+	void registerDllClasses();
+};
+
+rdToolsInstantiator::rdToolsInstantiator()
+{
+	registerDllClasses();
+}
+
+extern "C" RDTOOLS_API void RegisterTypes_rdTools();
+void rdToolsInstantiator::registerDllClasses()
+{
+	RegisterTypes_rdTools();
+}
+
+static rdToolsInstantiator instantiator;

@@ -17,6 +17,8 @@
 
 using namespace std;
 
+static suAnalysesInstantiator instantiator;
+
 //_____________________________________________________________________________
 /**
  * The purpose of this routine is to register all class types exported by
@@ -36,3 +38,12 @@ SUANALYSES_API void RegisterTypes_suAnalyses()
 	rdObject::RegisterType( suActuatorGeneralizedForces() );
 }
 
+suAnalysesInstantiator::suAnalysesInstantiator()
+{
+	registerDllClasses();
+}
+
+void suAnalysesInstantiator::registerDllClasses()
+{
+	RegisterTypes_suAnalyses();
+}

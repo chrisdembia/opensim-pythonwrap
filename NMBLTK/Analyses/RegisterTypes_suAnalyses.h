@@ -13,6 +13,14 @@ SUANALYSES_API void RegisterTypes_suAnalyses();
 
 }
 
+class suAnalysesInstantiator
+{
+public:
+	suAnalysesInstantiator();
+private:
+	void registerDllClasses();
+};
+
 #endif // __RegisterTypes_suAnalyses_h__
 
 

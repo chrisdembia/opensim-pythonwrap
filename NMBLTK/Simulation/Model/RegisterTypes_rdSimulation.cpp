@@ -46,6 +46,9 @@
 using namespace std;
 
 
+static rdSimulationInstantiator instantiator;
+
+
 //_____________________________________________________________________________
 /**
  * The purpose of this routine is to register all class types exported by
@@ -101,3 +104,12 @@ RDSIMULATION_API void RegisterTypes_rdSimulation()
 
 }
 
+rdSimulationInstantiator::rdSimulationInstantiator()
+{
+	registerDllClasses();
+}
+
+void rdSimulationInstantiator::registerDllClasses()
+{
+	RegisterTypes_rdSimulation();
+}

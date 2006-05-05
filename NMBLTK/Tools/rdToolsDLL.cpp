@@ -34,7 +34,6 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 			cout<<"Library rdTools...\n";
 			cout<<"This product includes software developed by the\n";
 			cout<<"Apache Software Foundation (http://www.apache.org/).\n";
-			RegisterTypes_rdTools();
 			cout<<"-------------------------------------------------------\n\n";
 			break;
 
@@ -43,7 +42,6 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 			cout<<"Library rdTools...\n";
 			cout<<"This product includes software developed by the\n";
 			cout<<"Apache Software Foundation (http://www.apache.org/).\n";
-			RegisterTypes_rdTools();
 			cout<<"-------------------------------------------------------\n\n";
 			break;
 

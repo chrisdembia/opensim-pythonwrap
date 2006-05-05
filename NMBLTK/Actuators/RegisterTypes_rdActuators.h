@@ -13,6 +13,14 @@ RDACTUATORS_API void RegisterTypes_rdActuators();
 
 }
 
+class rdActuatorsInstantiator
+{
+public:
+	rdActuatorsInstantiator();
+private:
+	void registerDllClasses();
+};
+
 #endif // __RegisterTypes_rdActuators_h__
 
 

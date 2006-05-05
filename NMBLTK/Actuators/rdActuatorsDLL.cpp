@@ -35,13 +35,11 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 		case DLL_PROCESS_ATTACH:
 			cout<<"\n-------------------------------------------------------\n";
 			cout<<"Library rdActuators...\n";
-			RegisterTypes_rdActuators();
 			cout<<"-------------------------------------------------------\n\n";
 			break;
 		case DLL_THREAD_ATTACH:
 			cout<<"\n-------------------------------------------------------\n";
 			cout<<"Library rdActuators...\n";
-			RegisterTypes_rdActuators();
 			cout<<"-------------------------------------------------------\n\n";
 			break;
 		case DLL_THREAD_DETACH:

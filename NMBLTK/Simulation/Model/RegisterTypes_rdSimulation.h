@@ -13,6 +13,14 @@ RDSIMULATION_API void RegisterTypes_rdSimulation();
 
 }
 
+class rdSimulationInstantiator
+{
+public:
+	rdSimulationInstantiator();
+private:
+	void registerDllClasses();
+};
+
 #endif // __RegisterTypes_rdSimulation_h__
 
 
