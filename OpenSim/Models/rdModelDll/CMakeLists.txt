@@ -7,7 +7,7 @@ INCLUDE(${CMAKE_ROOT}/Modules/FindJNI.cmake)
 
 IF(JAVA_INCLUDE_PATH)
 
-FILE(GLOB SOURCE_FILES rdModelJNI_wrap.cxx)
+FILE(GLOB SOURCE_FILES ModelJNI_wrap.cxx)
 
 INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} 
 					${OpenSim_SOURCE_DIR}/Vendors 

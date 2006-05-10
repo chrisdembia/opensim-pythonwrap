@@ -1,2 +1,2 @@
 #-----------------------------------------------------------------------------
-SUBDIRS(Block CGMALWalking01 Hopper Slider SIMMPipeline Subjects)
+SUBDIRS(Block CGMALWalking01 Hopper Slider SIMMPipeline Subjects rdModelDll)
