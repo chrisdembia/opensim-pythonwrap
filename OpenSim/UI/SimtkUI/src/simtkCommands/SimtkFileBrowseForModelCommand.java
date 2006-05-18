@@ -6,7 +6,7 @@ import javax.swing.Action;
 import javax.swing.JFileChooser;
 
 import simtkCore.SimtkDB;
-import simtkModel.rdModel;
+import opensimModel.Model;
 import simtkUtils.SimtkFileChooser;
 import simtkui.SimtkApp;
 import simtkui.guiUtilities.GenericFileFilter;
@@ -68,12 +68,12 @@ public class SimtkFileBrowseForModelCommand
     else
       _fileName = (String) _cmdParams.get("FileName");
 
-      rdModel mdl = null;
+      Model mdl = null;
       // Pass selection to view to write the file
       try { //
         Class modelClass = this.getClass().getClassLoader().loadClass(_fileName);
         try {
-          mdl = (rdModel) modelClass.newInstance();
+          mdl = (Model) modelClass.newInstance();
         }
         catch (IllegalAccessException ex) {
         }
@@ -127,10 +127,10 @@ public class SimtkFileBrowseForModelCommand
      * will be called as part of the object's creation.
      */
     Class c = null;
-    rdModel mdl = null;
+    Model mdl = null;
     try {
       c = Class.forName(modelClassName);
-      mdl = (rdModel) c.newInstance();
+      mdl = (Model) c.newInstance();
     }
     catch(ClassNotFoundException e){
       SimtkApp.displayErrorMessage("Model " + modelClassName+ " could not be located");

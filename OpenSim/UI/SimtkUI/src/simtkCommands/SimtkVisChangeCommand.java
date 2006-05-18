@@ -5,8 +5,8 @@ import java.util.HashMap;
 import javax.swing.Action;
 
 import simtkCore.SimtkDB;
-import simtkModel.rdModel;
-import simtkModel.rdVisibleObject;
+import opensimModel.Model;
+import opensimModel.VisibleObject;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -81,9 +81,9 @@ abstract public class SimtkVisChangeCommand extends SimtkCommand implements Simt
   /**
    * setObject: sets the reference to the object whose visibility is affected
    *
-   * @param rObj rdVisibleObject
+   * @param rObj VisibleObject
    */
-  public void setObject(rdVisibleObject rObj)
+  public void setObject(VisibleObject rObj)
   {
     this._cmdParams.put("Object", rObj);
    _objectIsSet = true;
@@ -106,12 +106,12 @@ abstract public class SimtkVisChangeCommand extends SimtkCommand implements Simt
     boolean success = true;
     // Make sure there's a model
     String mdlName = (String) _cmdParams.get("ModelName");
-    rdVisibleObject rdVisObj;
+    VisibleObject rdVisObj;
     Object object = _cmdParams.get("Object");
-    if (object instanceof rdVisibleObject)
-      rdVisObj = (rdVisibleObject) object;
+    if (object instanceof VisibleObject)
+      rdVisObj = (VisibleObject) object;
     else if (object instanceof String) {
-      rdModel mdl = SimtkDB.getInstance().getModelByName(mdlName);
+      Model mdl = SimtkDB.getInstance().getModelByName(mdlName);
       String objectName = object.toString();
       rdVisObj = mdl.getVisibleObjectByName(objectName);
       if (rdVisObj == null) // Object was not found
@@ -144,8 +144,8 @@ abstract public class SimtkVisChangeCommand extends SimtkCommand implements Simt
   {
     String mdlName = (String) _cmdParams.get("ModelName");
     String objectName = _cmdParams.get("Object").toString();
-    rdModel mdl =  SimtkDB.getInstance().getModelByName(mdlName);
-    rdVisibleObject obj = mdl.getVisibleObjectByName(objectName );
+    Model mdl =  SimtkDB.getInstance().getModelByName(mdlName);
+    VisibleObject obj = mdl.getVisibleObjectByName(objectName );
     _state = new Memento(obj, _selectedProperty);
   }
   /**
@@ -157,8 +157,8 @@ abstract public class SimtkVisChangeCommand extends SimtkCommand implements Simt
   {
     String mdlName = (String) _cmdParams.get("ModelName");
     String objectName = _cmdParams.get("Object").toString();
-    rdModel mdl =  SimtkDB.getInstance().getModelByName(mdlName);
-    rdVisibleObject obj = mdl.getVisibleObjectByName(objectName );
+    Model mdl =  SimtkDB.getInstance().getModelByName(mdlName);
+    VisibleObject obj = mdl.getVisibleObjectByName(objectName );
     SimtkDB.getInstance().setProperties(mdlName, obj, _state.getReverseProp());
     return true;
   }
@@ -167,10 +167,10 @@ abstract public class SimtkVisChangeCommand extends SimtkCommand implements Simt
     /**
      * Memento
      *
-     * @param rdVisibleObject obj objects whose state is being saved and int newProperty property to be set
+     * @param VisibleObject obj objects whose state is being saved and int newProperty property to be set
      */
     private int _reverseProp;
-    public Memento(rdVisibleObject obj, int newProperty) {
+    public Memento(VisibleObject obj, int newProperty) {
       // Actual display preference
       if (newProperty==WIREFRAME ||
           newProperty==FLAT_SHADED ||
@@ -178,7 +178,7 @@ abstract public class SimtkVisChangeCommand extends SimtkCommand implements Simt
           newProperty==BOUNDING_BOX ||
           newProperty==NONE ||
           newProperty==PHONG_SHADED ){
-        _reverseProp = obj.getVisibleProperties().getDisplayPreference();
+        _reverseProp = obj.getVisibleProperties().getDisplayPreference().swigValue();
       }
       else if (newProperty == SHOW_NORMALS || newProperty == HIDE_NORMALS) {
         _reverseProp = obj.getVisibleProperties().getShowNormals() ?

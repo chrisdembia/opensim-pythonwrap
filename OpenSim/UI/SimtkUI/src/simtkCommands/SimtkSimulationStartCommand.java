@@ -8,13 +8,14 @@ import javax.swing.Timer;
 
 import simtkCore.SimtkDB;
 import simtkCore.SimtkSimEnv;
-import simtkModel.rdControl;
-import simtkModel.rdControlSet;
-import simtkModel.rdManager;
+import opensimModel.Control;
+import opensimModel.ControlSet;
+import opensimModel.Manager;
 import simtkUtils.FileUtils;
 import simtkUtils.SwingWorker;
 import simtkui.SimtkApp;
 import simtkuiEvents.SimtkSimEnvSimulationTimeChange;
+import opensimModel.*;
 
 public class SimtkSimulationStartCommand
     extends SimtkCommand{
@@ -59,26 +60,27 @@ public class SimtkSimulationStartCommand
     // Make sure there's a model
     String simenvName = (String) _cmdParams.get("EnvName");
     final SimtkSimEnv currentEnv = SimtkDB.getInstance().getSimtkSimEnv(simenvName);
-    final rdManager mgr = currentEnv.getSimulationManager();
+    final Manager mgr = currentEnv.getSimulationManager();
+    final ModelIntegrand integrand = new ModelIntegrand(currentEnv.getModel());
     // Set model again as it might have changed
-    mgr.setModel(currentEnv.getModel());
+    mgr.setIntegrand(integrand);
 
-    rdControlSet controlSet = mgr.getControlSet();
+    ControlSet controlSet = integrand.getControlSet();
     // Get initial time
     int tiIndex = controlSet.getIndex("ti", 0);
-    rdControl tiControl = (tiIndex==-1)?null:controlSet.get("ti");
+    Control tiControl = (tiIndex==-1)?null:controlSet.get("ti");
 
     if (tiControl != null) {
       mgr.setInitialTime(tiControl.getControlValue(0.0));
     }
       // Get final time
     int tfIndex = controlSet.getIndex("tf", 0);
-    rdControl tfControl = (tfIndex==-1)?null:controlSet.get("tf");
+    Control tfControl = (tfIndex==-1)?null:controlSet.get("tf");
     if (tfControl != null) {
       mgr.setFinalTime(tfControl.getControlValue(0.01));
     }
     if (tiControl == null || tfControl ==null){
-        rdControl firstControl = controlSet.get(0);
+        Control firstControl = controlSet.get(0);
         mgr.setInitialTime(firstControl.getFirstTime());
         mgr.setFinalTime(firstControl.getLastTime());
     }
@@ -96,7 +98,7 @@ public class SimtkSimulationStartCommand
        * @param e ActionEvent
        */
       public void actionPerformed(ActionEvent e) {
-        SimtkDB.getInstance().updateModelDisplay(mgr.getModel());
+        SimtkDB.getInstance().updateModelDisplay(mgr.getIntegrand().getModel());
         SimtkSimEnvSimulationTimeChange evnt = new SimtkSimEnvSimulationTimeChange(currentEnv);
         currentEnv.update(evnt);
         }
@@ -111,11 +113,12 @@ public class SimtkSimulationStartCommand
        */
       public Object construct() {
         //synchronized(this){
-          currentEnv.setStatus(SimtkSimEnv.STARTED);
+          currentEnv.setStatus(SimtkSimEnv.RUNNING);
           currentEnv.getAnimationTimer().start();
           currentEnv.setProgressRange(mgr.getInitialTime(), mgr.getFinalTime());
           mgr.integrate();
         //}
+        /* //Temp
         if (currentEnv.getStoragePreferences().getPStatesStore()){
           String fullpath = FileUtils.makeFileName(currentEnv.getStoragePreferences().getStorageDirectory(),
                                                    currentEnv.getStoragePreferences().getPStatesStorageFile());
@@ -131,7 +134,7 @@ public class SimtkSimulationStartCommand
                                                   currentEnv.getStoragePreferences().getControlsStorageFile());
          mgr.getIntegrator().getControlStorage().print(fullpath, .01, "w");
         }
-
+*/
         currentEnv.setSimulationThread(null);
         currentEnv.setStatus(SimtkSimEnv.READY);
         currentEnv.getAnimationTimer().stop();

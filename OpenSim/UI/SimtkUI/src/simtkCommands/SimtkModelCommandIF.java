@@ -1,10 +1,10 @@
 package simtkCommands;
-import simtkModel.rdModel;
+import opensimModel.Model;
 
 public interface SimtkModelCommandIF extends SimtkEnvCommandIF{
   // Interface to be implemented by all commands that operate on a model
-  public void setModel(rdModel model);
+  public void setModel(Model model);
 
-  public rdModel getModel();
+  public Model getModel();
 
 }

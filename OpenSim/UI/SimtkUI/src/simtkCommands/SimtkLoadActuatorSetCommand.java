@@ -8,7 +8,7 @@ import javax.swing.Action;
 
 import simtkCore.SimtkDB;
 import simtkCore.SimtkSimEnv;
-import simtkModel.rdActuatorSet;
+import opensimModel.ActuatorSet;
 import simtkUtils.SimtkFileChooser;
 import simtkui.SimtkApp;
 
@@ -72,7 +72,7 @@ public class SimtkLoadActuatorSetCommand
     else
       _fileName = (String) _cmdParams.get("FileName");
 
-    rdActuatorSet newActuatorset = new rdActuatorSet(_fileName);
+    ActuatorSet newActuatorset = new ActuatorSet(_fileName);
     // What if the newActuatorset cant be constructed?
     success = SimtkDB.getInstance().addActuatorSet(newActuatorset, (String) _cmdParams.get("EnvName"));
     env.setPreferredDirectory(new File(_fileName).getParentFile());

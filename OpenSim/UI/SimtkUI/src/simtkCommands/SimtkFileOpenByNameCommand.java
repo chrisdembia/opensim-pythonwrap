@@ -6,7 +6,7 @@ import javax.swing.Action;
 
 import simtkCore.SimtkDB;
 import simtkCore.SimtkSimEnv;
-import simtkModel.rdModel;
+import opensimModel.Model;
 import simtkUtils.SimtkFileChooser;
 import simtkui.SimDlgModelName;
 import simtkui.SimtkApp;
@@ -112,10 +112,10 @@ public class SimtkFileOpenByNameCommand extends SimtkEnvCommand implements Simtk
      * will be called as part of the object's creation.
      */
     Class c = null;
-    rdModel mdl = null;
+    Model mdl = null;
     try {
       c = Class.forName(modelClassName);
-      mdl = (rdModel) c.newInstance();
+      mdl = (Model) c.newInstance();
     }
     catch(ClassNotFoundException e){
       SimtkApp.displayErrorMessage("Model " + modelClassName+ " could not be located");

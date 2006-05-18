@@ -5,9 +5,9 @@ import java.util.HashMap;
 import javax.swing.Action;
 
 import simtkCore.SimtkDB;
-import simtkModel.rdModel;
-import simtkModel.rdObject;
-import simtkModel.rdVisibleObject;
+import opensimModel.Model;
+import opensimModel.OpenSimObject;
+import opensimModel.VisibleObject;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -52,7 +52,7 @@ public class SimtkObjectEditCommand
    _modelNameIsSet = true;
   }
 
-  public void setObject(rdObject rObj)
+  public void setObject(OpenSimObject rObj)
   {
     this._cmdParams.put("Object", rObj);
    _objectIsSet = true;
@@ -63,18 +63,18 @@ public class SimtkObjectEditCommand
     boolean success = true;
     // Make sure there's a model
     String mdlName = (String) _cmdParams.get("ModelName");
-    rdObject rdObj;
+    OpenSimObject rdObj;
     Object object = _cmdParams.get("Object");
-    if (object instanceof rdObject)
-      rdObj = (rdObject) object;
+    if (object instanceof OpenSimObject)
+      rdObj = (OpenSimObject) object;
     else if (object instanceof String) {
-      rdModel mdl = SimtkDB.getInstance().getModelByName(mdlName);
+      Model mdl = SimtkDB.getInstance().getModelByName(mdlName);
       String objectName = object.toString();
-      rdVisibleObject obj = mdl.getVisibleObjectByName(objectName);
+      VisibleObject obj = mdl.getVisibleObjectByName(objectName);
       if (obj == null) // Object was not found
         return false;
-      if (obj instanceof rdObject)
-        rdObj = (rdObject) obj;
+      if (obj instanceof OpenSimObject)
+        rdObj = (OpenSimObject) obj;
       else
         return false;
     }

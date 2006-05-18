@@ -9,7 +9,7 @@ import javax.swing.Action;
 
 import simtkCore.SimtkDB;
 import simtkCore.SimtkSimEnv;
-import simtkModel.rdControlSet;
+import opensimModel.ControlSet;
 import simtkUtils.SimtkFileChooser;
 import simtkView.SimtkMdlInternalFrame;
 import simtkui.SimtkApp;
@@ -84,7 +84,7 @@ public class SimtkLoadControlSetCommand
     SimtkMdlInternalFrame mdlFrame = env.getAssociatedFrame();
     mdlFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-    rdControlSet newControlSet = new rdControlSet(_fileName);
+    ControlSet newControlSet = new ControlSet(_fileName);
     // What if the controlSet cant be constructed?
     success = SimtkDB.getInstance().addControlSet(newControlSet, simenvName);
 

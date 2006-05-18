@@ -5,9 +5,9 @@ import java.util.HashMap;
 import javax.swing.Action;
 
 import simtkCore.SimtkDB;
-import simtkModel.rdModel;
-import simtkModel.rdObject;
-import simtkModel.rdVisibleObject;
+import opensimModel.Model;
+import opensimModel.OpenSimObject;
+import opensimModel.VisibleObject;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -53,7 +53,7 @@ public class SimtkObjectSelectCommand
    _modelNameIsSet = true;
   }
 
-  public void setObject(rdObject rObj)
+  public void setObject(OpenSimObject rObj)
   {
     this._cmdParams.put("Object", rObj);
    _objectIsSet = true;
@@ -64,12 +64,12 @@ public class SimtkObjectSelectCommand
     boolean success = true;
     // Make sure there's a model
     String mdlName = (String) _cmdParams.get("ModelName");
-    rdVisibleObject rdVisObj;
+    VisibleObject rdVisObj;
     Object object = _cmdParams.get("Object");
-    if (object instanceof rdVisibleObject)
-      rdVisObj = (rdVisibleObject) object;
+    if (object instanceof VisibleObject)
+      rdVisObj = (VisibleObject) object;
     else if (object instanceof String) {
-      rdModel mdl = SimtkDB.getInstance().getModelByName(mdlName);
+      Model mdl = SimtkDB.getInstance().getModelByName(mdlName);
       String objectName = object.toString();
       rdVisObj = mdl.getVisibleObjectByName(objectName);
       if (rdVisObj == null) // Object was not found

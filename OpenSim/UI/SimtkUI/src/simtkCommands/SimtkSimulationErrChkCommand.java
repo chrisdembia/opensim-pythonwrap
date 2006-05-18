@@ -4,7 +4,7 @@ import javax.swing.Action;
 
 import simtkCore.SimtkDB;
 import simtkCore.SimtkSimEnv;
-import simtkModel.rdManager;
+import opensimModel.Manager;
 import simtkui.SimtkApp;
 
 public class SimtkSimulationErrChkCommand
@@ -49,13 +49,13 @@ public class SimtkSimulationErrChkCommand
     // Make sure there's a model
     String simenvName = (String) _cmdParams.get("EnvName");
     SimtkSimEnv currentEnv = SimtkDB.getInstance().getSimtkSimEnv(simenvName);
-    rdManager mgr = currentEnv.getSimulationManager();
+    Manager mgr = currentEnv.getSimulationManager();
     // We have to have a model
-    if (mgr.getModel()==null){
+    if (mgr.getIntegrand().getModel()==null){
       SimtkApp.displayInfoMessage("No model in current Simulation Environment");
       success = false;
     }
-    else if (mgr.getControlSet()==null){
+    else if (mgr.getIntegrand().getControlSet()==null){
       SimtkApp.displayInfoMessage("No Control Set in current Simulation Environment");
       success = false;
     }

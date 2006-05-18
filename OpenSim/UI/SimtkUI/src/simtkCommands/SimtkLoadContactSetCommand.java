@@ -8,7 +8,7 @@ import javax.swing.Action;
 
 import simtkCore.SimtkDB;
 import simtkCore.SimtkSimEnv;
-import simtkModel.rdContactForceSet;
+import opensimModel.ContactForceSet;
 import simtkUtils.SimtkFileChooser;
 import simtkui.SimtkApp;
 
@@ -72,7 +72,7 @@ public class SimtkLoadContactSetCommand
     else
       _fileName = (String) _cmdParams.get("FileName");
 
-    rdContactForceSet newContactSet = new rdContactForceSet(_fileName);
+    ContactForceSet newContactSet = new ContactForceSet(_fileName);
     // What if the newContactSet cant be constructed?
     success = SimtkDB.getInstance().addContactForceSet(newContactSet, (String) _cmdParams.get("EnvName"));
     env.setPreferredDirectory(new File(_fileName).getParentFile());
