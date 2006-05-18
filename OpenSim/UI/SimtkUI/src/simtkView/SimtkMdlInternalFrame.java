@@ -35,18 +35,18 @@ import javax.swing.border.TitledBorder;
 import simtkCommands.CommandFactory;
 import simtkCommands.SimtkCommand;
 import simtkCore.SimtkSimEnv;
-import simtkModel.Model;
-import simtkModel.SWIGTYPE_p_double;
-import simtkModel.rdArrayDouble;
-import simtkModel.rdBody;
-import simtkModel.rdModel;
-import simtkModel.rdObject;
-import simtkModel.rdTransform;
-import simtkModel.rdVisibleObject;
-import simtkModel.rdVisibleProperties;
-import simtkModel.suMarker;
-import simtkModel.suMarkerSet;
-import simtkModel.suSetMarkers;
+import opensimModel.Model;
+import opensimModel.SWIGTYPE_p_double;
+import opensimModel.ArrayDouble;
+import opensimModel.Body;
+import opensimModel.Model;
+import opensimModel.OpenSimObject;
+import opensimModel.Transform;
+import opensimModel.VisibleObject;
+import opensimModel.VisibleProperties;
+import opensimModel.Marker;
+import opensimModel.MarkerSet;
+import opensimModel.SetMarkers;
 import simtkUtils.SimtkValidateName;
 import simtkView.animation.*;
 import simtkui.SimDlgGetName;
@@ -87,7 +87,7 @@ import simtkCore.*;
  *
  * @author Ayman Habib
  * @version 1.0
- * @todo Change traversal to include all rdVisibleObjects instead of bodies so
+ * @todo Change traversal to include all VisibleObjects instead of bodies so
  *   that new objects that inherit from rdVsisbleObject (classes that support
  *   the interface defined by rdVsisbleObject) do get displayed automatically.
  * @todo Switch to lazy actor creation where we don't build the boundingbox
@@ -101,7 +101,7 @@ import simtkCore.*;
 public class SimtkMdlInternalFrame
     extends JInternalFrame implements Observer{
   private SimtkSimEnv _env = null;
-  private rdModel _mdl = null; // Keep a reference to rdModel for reverse lookup
+  private Model _mdl = null; // Keep a reference to Model for reverse lookup
   private SimtkCanvas _renWin = null;
   private SimtkAnimation animation = null;
 
@@ -240,7 +240,7 @@ public class SimtkMdlInternalFrame
   public void displayObjects() {
     for (int i = 0; i < _mdl.getNB()+1; i++) {
       // For each visible object, get geometry, read it and display it into a vtkActor then add to modelAssembly
-      rdBody nextBody = _mdl.getBody(i);
+      Body nextBody = _mdl.getBody(i);
 //      vtkAssembly bodyAssembly = new vtkAssembly();
       Vector bodyRepVector = new Vector();
       int numGeometryFiles = nextBody.getNumGeometryFiles();
@@ -252,13 +252,8 @@ public class SimtkMdlInternalFrame
         vtkPolyData pd = geometryReader.GetOutput();
 
         // Get scale factors
-        SWIGTYPE_p_double scales =  Model.new_doubleArray(3);
         double[] jScales = new double[3];
-        nextBody.getScaleFactors(scales);
-        for (int idx=0; idx < 3; idx++){
-          jScales[idx] = Model.doubleArray_get(scales, idx);
-        }
-        Model.free_doubleArray(scales);
+        nextBody.getScaleFactors(jScales);
 
         // Create Mapper and set its input from read data
         vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
@@ -269,7 +264,7 @@ public class SimtkMdlInternalFrame
         // Scale actor before applying xform or generating other dependent mappers
         bodyActor.SetScale(jScales);
         // Set prefrences
-        rdVisibleProperties appProp = nextBody.getVisibleProperties();
+        VisibleProperties appProp = nextBody.getVisibleProperties();
         vtkProperty vtkProp = new SimtkVisibleProperties(appProp).
             getVtkProperty();
         bodyActor.SetProperty(vtkProp);
@@ -295,7 +290,7 @@ public class SimtkMdlInternalFrame
         normalsActor.SetMapper(normalsMapper);
         normalsActor.SetScale(jScales);
         // Get transformation
-        rdTransform xform = nextBody.getTransform();
+        Transform xform = nextBody.getTransform();
 
         // CoordinateSystem
          vtkAssembly axesActor = new AxesActor();
@@ -340,13 +335,13 @@ public class SimtkMdlInternalFrame
     Enumeration modelObjects = _env.getModelObjects();
     while(modelObjects.hasMoreElements()){
       Object obj = modelObjects.nextElement();
-      rdObject nextObj = (rdObject) obj;
-      if (nextObj instanceof suMarkerSet){
+      OpenSimObject nextObj = (OpenSimObject) obj;
+      if (nextObj instanceof MarkerSet){
         // Get geometry and display
-        suSetMarkers markers = ((suMarkerSet) nextObj).getMarkers();
+        SetMarkers markers = ((MarkerSet) nextObj).getMarkers();
         // Foreach marker, find location, create sphere for it and display
         for(int markerSetIndex=0; markerSetIndex < markers.getSize(); markerSetIndex++){
-          suMarker nextMarker = markers.get(markerSetIndex);
+          Marker nextMarker = markers.get(markerSetIndex);
           vtkSphereSource sphere = new vtkSphereSource();
           sphere.SetRadius(0.02);
           sphere.SetThetaResolution(18);
@@ -362,22 +357,17 @@ public class SimtkMdlInternalFrame
           markerActor.GetProperty().SetColor(0, 0, 1); // color blue
           // Get body transform from segment
            int markerSegment = nextMarker.getRefSegment();
-          rdArrayDouble jRelativeLocation = new rdArrayDouble(0.0, 3, 3);
+          ArrayDouble jRelativeLocation = new ArrayDouble(0.0, 3, 3);
           nextMarker.getLocation(jRelativeLocation);
-         SWIGTYPE_p_double relativePos = Model.new_doubleArray(3);
+         double[] relativePos = new double[3];
           for (int i = 0; i < 3; i++) {
-           Model.doubleArray_set(relativePos, i, jRelativeLocation.getitem(i));
+           relativePos[i]= jRelativeLocation.getitem(i);
          }
 
-         SWIGTYPE_p_double relativeGlobalLocation = Model.new_doubleArray(3);
+         double[] relativeGlobalLocation = new double[3];
          _mdl.getPosition(markerSegment, relativePos, relativeGlobalLocation);
-         double[] jPos = new double[3];
-         for (int i = 0; i < 3; i++) {
-           jPos[i] = Model.doubleArray_get(relativeGlobalLocation, i);
-         }
-         markerActor.SetPosition(jPos);
-         Model.free_doubleArray(relativePos);
-         Model.free_doubleArray(relativeGlobalLocation);
+
+         markerActor.SetPosition(relativeGlobalLocation);
            _renWin.GetRenderer().AddActor(markerActor);
           _actors2VisibleObjectsMap.put(markerActor, nextMarker);
           _visibleObjects2VisRepMap.put(nextMarker, markerActor);
@@ -388,12 +378,12 @@ public class SimtkMdlInternalFrame
 
   /**
    * getActorForVisibleObject returns the SimtkVisRep for the corresponding
-   * rdVisibleObject or null if not found
+   * VisibleObject or null if not found
    *
-   * @param vObject rdVisibleObject
+   * @param vObject VisibleObject
    * @return SimtkVisRep that conatins vtkActors as well as state of what's currently displayed
    */
-  public Vector getActorsForVisibleObject(rdVisibleObject vObject)
+  public Vector getActorsForVisibleObject(VisibleObject vObject)
   {
     if (_visibleObjects2VisRepMap.containsKey(vObject)){
       return (Vector) _visibleObjects2VisRepMap.get(vObject);
@@ -407,12 +397,12 @@ public class SimtkMdlInternalFrame
    * @todo implement datastructures to support reverse lookup.
    *
    * @param act vtkActor
-   * @return rdVisibleObject
+   * @return VisibleObject
    */
-  rdVisibleObject getVisibleObjectForActor(vtkActor act)
+  VisibleObject getVisibleObjectForActor(vtkActor act)
   {
     if (_actors2VisibleObjectsMap.containsKey(act)){
-      return (rdVisibleObject) _actors2VisibleObjectsMap.get(act);
+      return (VisibleObject) _actors2VisibleObjectsMap.get(act);
     }
     return null;
   }
@@ -438,19 +428,19 @@ public class SimtkMdlInternalFrame
   /**
    * updateDisplay
    *
-   * @param selectedObject rdVisibleObject
+   * @param selectedObject VisibleObject
    *
    * The actual change is performed by the database early on, this function only updates the display
-   * to be in sync. with rdVisibleProperties of the vObject
+   * to be in sync. with VisibleProperties of the vObject
    * if vObject is Null then this nothing is done.
    */
-  public void updateDisplay(rdVisibleObject vObject) {
+  public void updateDisplay(VisibleObject vObject) {
     if (vObject != null){
       Vector visRepVector = getActorsForVisibleObject(vObject);
       // Object may have no visible representation for whatever reason
       if (visRepVector == null)
         return;
-      int displayPref = vObject.getVisibleProperties().getDisplayPreference();
+      VisibleProperties.DisplayPreference displayPref = vObject.getVisibleProperties().getDisplayPreference();
       for (int i = 0; i < visRepVector.size(); i++) {
         SimtkVisRep visRep = (SimtkVisRep) visRepVector.get(i);
         if (visRep.getGeomActor() == null)
@@ -476,8 +466,8 @@ public class SimtkMdlInternalFrame
    _env.setSimulationTime(_env.getAnimationCallback().getCurrentTime());
    while (e.hasMoreElements()){
      Object obj = e.nextElement();
-     if (obj instanceof rdBody){
-       rdBody nextBody = (rdBody) obj;
+     if (obj instanceof Body){
+       Body nextBody = (Body) obj;
        Vector bodyRepVector = (Vector) _visibleObjects2VisRepMap.get(nextBody);
        int numBodies = bodyRepVector.size();
        for (int i = 0; i < numBodies; i++) {
@@ -485,27 +475,22 @@ public class SimtkMdlInternalFrame
          bodyRep.setTransform(nextBody.getTransform());
        }
      }
-     else if (obj instanceof suMarker){
-       suMarker nextMarker = (suMarker) obj;
+     else if (obj instanceof Marker){
+       Marker nextMarker = (Marker) obj;
        vtkActor markerActor =  (vtkActor) _visibleObjects2VisRepMap.get(nextMarker);
        int markerSegment = nextMarker.getRefSegment();
-       rdArrayDouble jRelativeLocation = new rdArrayDouble(0.0, 3, 3);
+       ArrayDouble jRelativeLocation = new ArrayDouble(0.0, 3, 3);
        nextMarker.getLocation(jRelativeLocation);
-      SWIGTYPE_p_double relativePos = Model.new_doubleArray(3);
+      double[] relativePos = new double[3];
        for (int i = 0; i < 3; i++) {
-        Model.doubleArray_set(relativePos, i, jRelativeLocation.getitem(i));
+        relativePos[i]= jRelativeLocation.getitem(i);
       }
 
-      SWIGTYPE_p_double relativeGlobalLocation = Model.new_doubleArray(3);
+      double[] relativeGlobalLocation = new double[3];
       _mdl.getPosition(markerSegment, relativePos, relativeGlobalLocation);
       double[] jPos = new double[3];
-      for (int i = 0; i < 3; i++) {
-        jPos[i] = Model.doubleArray_get(relativeGlobalLocation, i);
-      }
-      markerActor.SetPosition(jPos);
-      Model.free_doubleArray(relativePos);
-      Model.free_doubleArray(relativeGlobalLocation);
-    }
+      markerActor.SetPosition(relativeGlobalLocation);
+     }
    }
    _renWin.Render();
    if (animation instanceof SimtkDiscreteAnimation)

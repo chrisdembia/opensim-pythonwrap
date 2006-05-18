@@ -9,12 +9,12 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-import simtkModel.rdActuatorSet;
-import simtkModel.rdBody;
-import simtkModel.rdControlSet;
-import simtkModel.rdModel;
-import simtkModel.rdObject;
-import simtkModel.*;
+import opensimModel.ActuatorSet;
+import opensimModel.Body;
+import opensimModel.ControlSet;
+import opensimModel.Model;
+import opensimModel.OpenSimObject;
+import opensimModel.*;
 
 /**
  * SimtkDBTree is the holder of the abstract Tree representation of the models
@@ -39,7 +39,7 @@ public class SimtkDBTreeModel extends DefaultTreeModel{
    * addModelToTree is the place where a model is added to the SimtkDBTree
    * data-structure
    *
-   * @param mdl rdModel
+   * @param mdl Model
    */
   public void addSimEnvToTree(SimtkSimEnv simEnvironment) {
     int numEnvirnments = getChildCount(_root);
@@ -82,7 +82,7 @@ public class SimtkDBTreeModel extends DefaultTreeModel{
    insertNodeInto(modelManagerNode, simenvNode, 1);
    // Now the model subtree
    SimtkSimEnv simEnvironment = (SimtkSimEnv) simenvNode.getUserObject();
-   rdModel mdl = simEnvironment.getModel();
+   Model mdl = simEnvironment.getModel();
    if (mdl != null) {
 
      DefaultMutableTreeNode modelNode = new DefaultMutableTreeNode(mdl, true);
@@ -91,19 +91,20 @@ public class SimtkDBTreeModel extends DefaultTreeModel{
        DefaultMutableTreeNode bodiesNode = new DefaultMutableTreeNode(mdl.getBodySet(), true);
        insertNodeInto(bodiesNode, modelNode, 0);
        for (int i = 0; i < mdl.getNB(); i++) {
-         rdBody bdy = mdl.getBody(i);
+         Body bdy = mdl.getBody(i);
              DefaultMutableTreeNode nextBodyNode = new DefaultMutableTreeNode(
                bdy, false);
            bodiesNode.add(nextBodyNode);
        }
      }
+     /*
      { // Create Actuators tree
        try {
          // Check if method exists
          Method actuatorsGetter = mdl.getClass().getMethod("getActuatorSet", null);
-         rdActuatorSet actuators = null;
+         ActuatorSet actuators = null;
          try {
-           actuators = (rdActuatorSet) actuatorsGetter.invoke(mdl, null);
+           actuators = (ActuatorSet) actuatorsGetter.invoke(mdl, null);
            DefaultMutableTreeNode ActuatorsNode = new DefaultMutableTreeNode(
                actuators, true);
            insertNodeInto(ActuatorsNode, modelNode, 1);
@@ -126,12 +127,13 @@ public class SimtkDBTreeModel extends DefaultTreeModel{
        catch (NoSuchMethodException ex) {
        }
      }
+      **/
      Enumeration mdlObjectNames = simEnvironment.getModelObjectNames();
      if (mdlObjectNames != null){
        int idx = 0;
        while (mdlObjectNames.hasMoreElements()) {
          String mdlObjectName = (String) mdlObjectNames.nextElement();
-         rdObject mdlObject = simEnvironment.getModelObject(mdlObjectName);
+         OpenSimObject mdlObject = simEnvironment.getModelObject(mdlObjectName);
          String objname = mdlObject.getName();
          if (objname.equals(""))
            mdlObject.setName(mdlObjectName);
@@ -189,8 +191,8 @@ public class SimtkDBTreeModel extends DefaultTreeModel{
 
 	   DefaultMutableTreeNode managerNode = new DefaultMutableTreeNode(simEnvironment.getSimulationManager(), true);
 	   insertNodeInto(managerNode, simManagerNode, 0);
-           rdModelIntegrand integrand = simEnvironment.getSimulationManager().getIntegrand();
-	   rdControlSet cs = integrand.getControlSet();
+           ModelIntegrand integrand = simEnvironment.getSimulationManager().getIntegrand();
+	   ControlSet cs = integrand.getControlSet();
 
 	   DefaultMutableTreeNode controlNode;
 	   if (cs != null){
@@ -238,9 +240,9 @@ public class SimtkDBTreeModel extends DefaultTreeModel{
   /**
    * removeModel
    *
-   * @param mdl rdModel
+   * @param mdl Model
 
-  public void removeModel(rdModel mdl) {
+  public void removeModel(Model mdl) {
     int numModels = getChildCount(_root);
     for (int i = 0; i < numModels; i++) {
       DefaultMutableTreeNode modelNode = (DefaultMutableTreeNode) _root.getChildAt(i);
@@ -262,15 +264,15 @@ public class SimtkDBTreeModel extends DefaultTreeModel{
     Enumeration environments = _root.children();
     // Cycle thru top level nodes and find grand children of nodes corresponding to SimtkSimEnv
     while(environments.hasMoreElements()){
-      // For every SimtkSimEnv node, find corresponding rdModel node and check the name of corresponding rdModel
+      // For every SimtkSimEnv node, find corresponding Model node and check the name of corresponding Model
       DefaultMutableTreeNode nextEnvNode = (DefaultMutableTreeNode) environments.nextElement();
       TreeNode modelManagerNode = nextEnvNode.getChildAt(1);
       // Model manager may not have a model under it.
       if (modelManagerNode.getChildCount()==0)
         continue;
       DefaultMutableTreeNode modelNode = (DefaultMutableTreeNode) modelManagerNode.getChildAt(0);
-      if (modelNode.getUserObject() instanceof rdModel){
-        rdModel mdl = (rdModel)modelNode.getUserObject();
+      if (modelNode.getUserObject() instanceof Model){
+        Model mdl = (Model)modelNode.getUserObject();
         String name = mdl.getName();
         if (name.equals(mdlName)){
           foundEnv = (SimtkSimEnv) nextEnvNode.getUserObject();

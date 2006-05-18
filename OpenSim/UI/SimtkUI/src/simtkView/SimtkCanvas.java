@@ -16,7 +16,7 @@ import javax.swing.JPopupMenu;
 import simtkCommands.CommandFactory;
 import simtkCommands.CommandFactoryException;
 import simtkCommands.ExecutionManager;
-import simtkModel.rdVisibleObject;
+import opensimModel.VisibleObject;
 import simtkui.SimtkDebugMenu;
 import simtkui.SimtkPropMenu;
 import vtk.vtkCanvas;
@@ -61,7 +61,7 @@ public class SimtkCanvas extends vtkCanvas {
   private final String availableStyleNames[] = {
       "Flight", "Terrain", "Trackball", "Unicam", "Joystick"
   };
-  private static rdVisibleObject selectedObject = null;
+  private static VisibleObject selectedObject = null;
 
   static {
     JPopupMenu.setDefaultLightWeightPopupEnabled(false);
@@ -172,15 +172,15 @@ public class SimtkCanvas extends vtkCanvas {
   }
 
   /**
-   * findObjectAt: Finds the rdVisibleObject given a selection
+   * findObjectAt: Finds the VisibleObject given a selection
    * @todo: if performance becomes an issue, build a reverse lookup table to
    * locate object rather than use exhaustive search.
    *
    * @param x int
    * @param y int
-   * @return rdObject
+   * @return OpenSimObject
    */
-  private rdVisibleObject findObjectAt(int x, int y) {
+  private VisibleObject findObjectAt(int x, int y) {
 
     vtkPropPicker picker = new vtkPropPicker();
 

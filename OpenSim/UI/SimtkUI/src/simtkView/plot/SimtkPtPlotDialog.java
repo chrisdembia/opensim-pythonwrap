@@ -246,9 +246,9 @@ public class SimtkPtPlotDialog extends JSimtkDialog{
        * @param e ActionEvent
        */
       public void actionPerformed(ActionEvent e) {
-        Enumeration enum = _mapNamesToDatasets.elements();
-        while (enum.hasMoreElements()) {
-          SimtkPlotDataSet dataSet = (SimtkPlotDataSet) enum.nextElement();
+        Enumeration enumElems = _mapNamesToDatasets.elements();
+        while (enumElems.hasMoreElements()) {
+          SimtkPlotDataSet dataSet = (SimtkPlotDataSet) enumElems.nextElement();
           if (dataSet.getFigureIndex()!= currentFigureIndex)
             continue;
           dataSet.cleanup();

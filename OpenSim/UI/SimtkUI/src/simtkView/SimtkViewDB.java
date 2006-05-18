@@ -10,8 +10,8 @@ import javax.swing.JInternalFrame;
 
 import simtkCore.SimtkDB;
 import simtkCore.SimtkSimEnv;
-import simtkModel.rdModel;
-import simtkModel.rdVisibleObject;
+import opensimModel.Model;
+import opensimModel.VisibleObject;
 import simtkui.MDIDesktopPane;
 import simtkui.SimtkApp;
 import simtkuiEvents.SimtkCloseModelEvent;
@@ -38,26 +38,26 @@ final public class SimtkViewDB implements Observer{
   static SimtkMdlInternalFrame _currentFrame=null;
 
   static {
-		System.loadLibrary("vtkCommon"); 
-		System.loadLibrary("vtkCommonJava"); 
-		System.loadLibrary("vtkFiltering"); 
-		System.loadLibrary("vtkFilteringJava"); 
-		System.loadLibrary("vtkfreetype"); 
-		System.loadLibrary("vtkexpat"); 
-		System.loadLibrary("vtkjpeg"); 
-		System.loadLibrary("vtkzlib"); 
-		System.loadLibrary("vtktiff"); 
-		System.loadLibrary("vtkpng"); 
-		System.loadLibrary("vtkftgl"); 
-	    System.loadLibrary("vtkDICOMParser"); 
- 	    System.loadLibrary("vtkIO"); 
-	    System.loadLibrary("vtkIOJava"); 
-	    System.loadLibrary("vtkImaging"); 
-	    System.loadLibrary("vtkGraphics"); 
-	    System.loadLibrary("vtkGraphicsJava"); 
-	    System.loadLibrary("vtkRendering"); 
-	    System.loadLibrary("vtkRenderingJava"); 
-	    System.loadLibrary("vtkHybrid"); 
+		System.loadLibrary("vtkCommon");
+		System.loadLibrary("vtkCommonJava");
+		System.loadLibrary("vtkFiltering");
+		System.loadLibrary("vtkFilteringJava");
+		System.loadLibrary("vtkfreetype");
+		System.loadLibrary("vtkexpat");
+		System.loadLibrary("vtkjpeg");
+		System.loadLibrary("vtkzlib");
+		System.loadLibrary("vtktiff");
+		System.loadLibrary("vtkpng");
+		System.loadLibrary("vtkftgl");
+	    System.loadLibrary("vtkDICOMParser");
+ 	    System.loadLibrary("vtkIO");
+	    System.loadLibrary("vtkIOJava");
+	    System.loadLibrary("vtkImaging");
+	    System.loadLibrary("vtkGraphics");
+	    System.loadLibrary("vtkGraphicsJava");
+	    System.loadLibrary("vtkRendering");
+	    System.loadLibrary("vtkRenderingJava");
+	    System.loadLibrary("vtkHybrid");
     try {
       System.loadLibrary("vtkHybridJava");
     } catch (Throwable e) {
@@ -92,7 +92,7 @@ final public class SimtkViewDB implements Observer{
      _currentFrame = modelFrame;
     }
 
-   static public SimtkMdlInternalFrame getFrameForModel(rdModel mdl) {
+   static public SimtkMdlInternalFrame getFrameForModel(Model mdl) {
      if (!_viewTable.containsKey(mdl.getName()))
        return null;
 
@@ -104,9 +104,9 @@ final public class SimtkViewDB implements Observer{
    * match selectedObject
    *
    * @param mdlName String
-   * @param selectedObject rdVisibleObject
+   * @param selectedObject VisibleObject
    */
-  static public void setProperties(String mdlName, rdVisibleObject selectedObject)
+  static public void setProperties(String mdlName, VisibleObject selectedObject)
    {
      SimtkMdlInternalFrame mdlFrame = (SimtkMdlInternalFrame) _viewTable.get(mdlName);
      mdlFrame.updateDisplay(selectedObject);

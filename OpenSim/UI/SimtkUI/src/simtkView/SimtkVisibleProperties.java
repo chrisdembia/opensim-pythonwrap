@@ -1,18 +1,18 @@
 package simtkView;
 
-import simtkModel.rdVisibleProperties;
+import opensimModel.VisibleProperties;
 import simtkui.SimtkApp;
 import vtk.vtkProperty;
 
 /**
  * This class is our wrapper around the vtkProperty. It serves as an adaptor
  * betweeen the visibleProperties class on the application side
- * (rdVisibleProperties) and the view specific class (vtkProperty)
+ * (VisibleProperties) and the view specific class (vtkProperty)
  *
  * @todo handle colors properly and other options that are not directly supported by vtkProperty
  * for example displaying normals, or bounding-box or none.
  */
-public class SimtkVisibleProperties extends rdVisibleProperties {
+public class SimtkVisibleProperties extends VisibleProperties {
   private vtkProperty _vtpProperty=null;
 
   /**
@@ -24,22 +24,22 @@ public class SimtkVisibleProperties extends rdVisibleProperties {
 
   /**
    * SimtkVisibleProperties constructor that maps the passed in
-   * rdVisibleProperties object to a vtkProperty.
+   * VisibleProperties object to a vtkProperty.
    *
-   * @param aProp rdVisibleProperties
+   * @param aProp VisibleProperties
    */
-  public SimtkVisibleProperties(rdVisibleProperties aProp) {
+  public SimtkVisibleProperties(VisibleProperties aProp) {
     _vtpProperty = new vtkProperty();
-    int pref = aProp.getDisplayPreference();
-    if (pref == rdVisibleProperties.WireFrame)
+    VisibleProperties.DisplayPreference pref = aProp.getDisplayPreference();
+    if (pref == VisibleProperties.DisplayPreference.WireFrame)
       _vtpProperty.SetRepresentationToWireframe();
-    else if (pref == rdVisibleProperties.FlatShaded)
+    else if (pref == VisibleProperties.DisplayPreference.FlatShaded)
       _vtpProperty.SetInterpolationToFlat();
-    else if (pref == rdVisibleProperties.GouraudShaded)
+    else if (pref == VisibleProperties.DisplayPreference.GouraudShaded)
       _vtpProperty.SetInterpolationToGouraud();
-    else if (pref == rdVisibleProperties.PhongShaded)
+    else if (pref == VisibleProperties.DisplayPreference.PhongShaded)
       _vtpProperty.SetInterpolationToPhong();
-    else if (pref == rdVisibleProperties.SolidFill) {
+    else if (pref == VisibleProperties.DisplayPreference.SolidFill) {
             SimtkApp.displayWarningMessage(
                 "SimtkVisibleProperties: DisplayPreference " +
                 aProp.getDisplayPreference() +

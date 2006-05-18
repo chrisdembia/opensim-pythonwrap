@@ -2,12 +2,12 @@ package simtkCore;
 
 /**
  * We're importing simtkBlock library here which is an example model just so that the code can
- * be compiled (i.e. rdModel is defined).
+ * be compiled (i.e. Model is defined).
  * SWIG generated wrappers entangle the model specific JNI code (rdBlock) with the generic code
  * (rdActuatedModel_SDFast) and lower classes. All implementations go thru one class (rdBlockModuleJNI)
  * that is declared final with static methods.
  *
- * @todo separate simtkModel wrappers into two classes, generic one that's imported here and is part of simtk and a model specific
+ * @todo separate opensimModel wrappers into two classes, generic one that's imported here and is part of simtk and a model specific
  * wrapper that can be loaded separately. This way the code doesn't have to import the simtkBlock package.
  * Ayman 03/24/04.
  */
@@ -18,7 +18,7 @@ import java.awt.*;
 import javax.swing.tree.*;
 
 import simtkCommands.*;
-import simtkModel.*;
+import opensimModel.*;
 import simtkui.*;
 import simtkui.edit.*;
 import simtkuiEvents.*;
@@ -97,14 +97,14 @@ public class SimtkDB extends Observable {
    * book-keeping operatoin, the actual openning of a file to instantiate the
    * model is done somewhere-else.
    *
-   * @param mdl rdModel: the model to be added
+   * @param mdl Model: the model to be added
    * @return boolean true on success. Possible causes of failure are duplicate
    *   names or some other database consistecy issue. Models should probably
    *   provide a sanity check function (validate) to be invoked before the
    *   model is added to make sure the model has made it safely through the
    *   journey from whatever shape the model started in to Simtk.
    */
-  public boolean addModel(rdModel mdl, String SimEnvName)
+  public boolean addModel(Model mdl, String SimEnvName)
   {
     boolean success = true;
 
@@ -166,10 +166,10 @@ public class SimtkDB extends Observable {
    return createNewSimEnv(proposedName);
   }
 
-  public rdModel getModelByName(String modelName)
+  public Model getModelByName(String modelName)
   {
     if (_modelTable.containsKey((Object) modelName))
-      return (rdModel) _modelTable.get((Object) modelName);
+      return (Model) _modelTable.get((Object) modelName);
     // Should never get here
     return null;
   }
@@ -223,26 +223,26 @@ public class SimtkDB extends Observable {
    * setProperties
    *
    * @param mdlName String
-   * @param rdVisObj rdVisibleObject
+   * @param rdVisObj VisibleObject
    * @param _selectedProperty int
    *
    */
-  public void setProperties(String mdlName, rdVisibleObject rdVisObj,
+  public void setProperties(String mdlName, VisibleObject rdVisObj,
                             int property) {
     // Change the model
     // Check against old value so that you don't fire an event unnecessarily
     switch (property) {
       case SimtkVisChangeCommand.WIREFRAME:
-        rdVisObj.getVisibleProperties().setDisplayPreference(rdVisibleProperties.WireFrame);
+        rdVisObj.getVisibleProperties().setDisplayPreference(VisibleProperties.DisplayPreference.WireFrame);
         break;
       case SimtkVisChangeCommand.FLAT_SHADED:
-        rdVisObj.getVisibleProperties().setDisplayPreference(rdVisibleProperties.FlatShaded);
+        rdVisObj.getVisibleProperties().setDisplayPreference(VisibleProperties.DisplayPreference.FlatShaded);
         break;
       case SimtkVisChangeCommand.NONE:
-        rdVisObj.getVisibleProperties().setDisplayPreference(rdVisibleProperties.None);
+        rdVisObj.getVisibleProperties().setDisplayPreference(VisibleProperties.DisplayPreference.None);
        break;
      case SimtkVisChangeCommand.BOUNDING_BOX:
-       rdVisObj.getVisibleProperties().setDisplayPreference(rdVisibleProperties.BoundingBox);
+       rdVisObj.getVisibleProperties().setDisplayPreference(VisibleProperties.DisplayPreference.BoundingBox);
        break;
      case SimtkVisChangeCommand.SHOW_NORMALS:
        rdVisObj.getVisibleProperties().setShowNormals(true);
@@ -258,7 +258,7 @@ public class SimtkDB extends Observable {
        break;
       case SimtkVisChangeCommand.GOURAUD_SHADED:
       default:
-        rdVisObj.getVisibleProperties().setDisplayPreference(rdVisibleProperties.GouraudShaded);
+        rdVisObj.getVisibleProperties().setDisplayPreference(VisibleProperties.DisplayPreference.GouraudShaded);
         break;
     }
     processVisibleChange(mdlName, rdVisObj);
@@ -270,9 +270,9 @@ public class SimtkDB extends Observable {
    * processVisibleChange
    *
    * @param mdlName String
-   * @param rdVisObj rdVisibleObject
+   * @param rdVisObj VisibleObject
    */
-  public void processVisibleChange(String mdlName, rdVisibleObject rdVisObj) {
+  public void processVisibleChange(String mdlName, VisibleObject rdVisObj) {
     _modelChangedTable.put(mdlName, Boolean.TRUE);
     // Create an event to signal change
     SimtkVisibilityChangeEvent evnt = new SimtkVisibilityChangeEvent(this, mdlName, rdVisObj);
@@ -287,7 +287,7 @@ public class SimtkDB extends Observable {
    */
   public void removeModel(String mdlName) {
     // Remove named model from hashTables and Tell Viw to do the same
-    rdModel mdl = (rdModel) _modelTable.get(mdlName);
+    Model mdl = (Model) _modelTable.get(mdlName);
     _modelTable.remove((Object) mdlName);
     _modelChangedTable.remove((Object) mdlName);
 //    _dbTreeModel.removeModel(mdl);
@@ -303,7 +303,7 @@ public class SimtkDB extends Observable {
    * @return boolean
    */
   public boolean saveModel(String mdlName) {
-    rdModel mdl = (rdModel) _modelTable.get(mdlName);
+    Model mdl = (Model) _modelTable.get(mdlName);
     String filename = mdl.getModelDescriptionFileName();
     if (filename!= null && filename.length()!= 0)
       mdl.print(filename);
@@ -326,9 +326,9 @@ public class SimtkDB extends Observable {
   /**
    * updateModelDisplay is called to trigger redisplay of model during animation
    *
-   * @param mdl rdModel
+   * @param mdl Model
    */
-  public void updateModelDisplay(rdModel mdl)
+  public void updateModelDisplay(Model mdl)
   {
     SimtkModelRedisplayEvent ev = new SimtkModelRedisplayEvent(mdl, mdl.getName());
     setChanged();
@@ -337,9 +337,9 @@ public class SimtkDB extends Observable {
   /**
    * reCreateModelDisplay is called to trigger recreation of the model display.
    *
-   * @param mdl rdModel
+   * @param mdl Model
    */
-  public void reCreateModelDisplay(rdModel mdl)
+  public void reCreateModelDisplay(Model mdl)
   {
     SimtkModelRedisplayEvent ev = new SimtkModelRedisplayEvent(mdl, mdl.getName(), true);
     setChanged();
@@ -349,9 +349,9 @@ public class SimtkDB extends Observable {
    * reviewObject Shows dialog of generic object editor
    *
    * @param mdlName String
-   * @param rdObj rdObject
+   * @param rdObj OpenSimObject
    */
-  public void reviewObject(String mdlName, rdObject rdObj) {
+  public void reviewObject(String mdlName, OpenSimObject rdObj) {
     // instantiate and invoke dialog based on rdObj
     SimtkObjectViewerDlg dlg = new SimtkObjectViewerDlg((Frame)SimtkApp.getTopComponent(), rdObj, false, mdlName);
     dlg.pack();
@@ -363,9 +363,9 @@ public class SimtkDB extends Observable {
   /**
    * exportObject
    *
-   * @param rdObj rdObject
+   * @param rdObj OpenSimObject
    */
-  public boolean exportObject(rdObject rdObj) {
+  public boolean exportObject(OpenSimObject rdObj) {
     SimDlgGetName getNameDlg = new SimDlgGetName("XML File ");
     getNameDlg.setVisible(true);
     if (!getNameDlg.userConfirmed())
@@ -382,9 +382,9 @@ public class SimtkDB extends Observable {
    * editObject
    *
    * @param mdlName String
-   * @param rdObj rdObject
+   * @param rdObj OpenSimObject
    */
-  public void editObject(String mdlName, rdObject rdObj) {
+  public void editObject(String mdlName, OpenSimObject rdObj) {
 
     // instantiate and invoke dialog based on rdObj
    SimtkObjectViewerDlg dlg = new SimtkObjectViewerDlg((Frame)SimtkApp.getTopComponent(), rdObj, true, mdlName);
@@ -430,14 +430,14 @@ public class SimtkDB extends Observable {
   /**
    * addControlSet: Adds controlset to the simulation manager
    *
-   * @param controlSet rdControlSet
+   * @param controlSet ControlSet
    * @param SimEnvName String
    * @return boolean
    * @todo Check if we can put some SWIG pragma to make sure the controlSet
    *   doesn't get deleted by the garbage collector. For now we live with the
    *   kluge of keeping a reference with the simenv
    */
-  public boolean addControlSet(rdControlSet controlSet, String SimEnvName)
+  public boolean addControlSet(ControlSet controlSet, String SimEnvName)
   {
     boolean success = true;
 
@@ -459,7 +459,7 @@ public class SimtkDB extends Observable {
    * @param string String
    * @return boolean
    */
-  public boolean addContactForceSet(rdContactForceSet newContactSet,
+  public boolean addContactForceSet(ContactForceSet newContactSet,
                                     String SimEnvName) {
     boolean success = true;
 
@@ -480,15 +480,16 @@ public class SimtkDB extends Observable {
   /**
    * addActuatorSet
    *
-   * @param newActuatorset rdActuatorSet
+   * @param newActuatorset ActuatorSet
    * @param string String
    * @return boolean
    */
-  public boolean addActuatorSet(rdActuatorSet newActuatorset, String SimEnvName) {
+  public boolean addActuatorSet(ActuatorSet newActuatorset, String SimEnvName) {
     boolean success = true;
    SimtkSimEnv simEnv = (SimEnvName==null)? createNewSimEnv() : getSimtkSimEnv(SimEnvName);
    /** We'll keep around a reference to newActuatorset so that it's not deleted by garbage collector */
    simEnv.actuatorSet = newActuatorset;
+   /*
   Method actuatorsGetter = null;
   try {
     actuatorsGetter = simEnv.getModel().getClass().getMethod("getActuatorSet", null);
@@ -499,9 +500,10 @@ public class SimtkDB extends Observable {
   catch (NoSuchMethodException ex) {
     return false;
   }
-   rdActuatorSet actuators = null;
+  
+   ActuatorSet actuators = null;
    try {
-     actuators = (rdActuatorSet) actuatorsGetter.invoke(simEnv.getModel(), null);
+     actuators = (ActuatorSet) actuatorsGetter.invoke(simEnv.getModel(), null);
    }
    catch (InvocationTargetException ex1) {
      return false;
@@ -515,14 +517,14 @@ public class SimtkDB extends Observable {
 
    for(int i=0; i < newActuatorset.getSize(); i++)
      actuators.append(newActuatorset.get(i));
-
+     */
    SimtkUpdateTreeEvent ev = new SimtkUpdateTreeEvent(simEnv);
    setChanged();
    this.notifyObservers(ev);
    return success;
   }
 
-  public boolean addModelObject(String SimEnvName, String objectName, rdObject modelObject)
+  public boolean addModelObject(String SimEnvName, String objectName, OpenSimObject modelObject)
   {
     boolean success = true;
 
@@ -556,11 +558,11 @@ public class SimtkDB extends Observable {
   /**
    * addSorage
    *
-   * @param addStorage rdStorage
+   * @param addStorage Storage
    * @param simenvName String
    * @return boolean
    */
-  public boolean addStorage(rdStorage newStorage, String simenvName) {
+  public boolean addStorage(Storage newStorage, String simenvName) {
     boolean success = true;
 
     SimtkSimEnv simEnv = (simenvName==null)? createNewSimEnv() : getSimtkSimEnv(simenvName);

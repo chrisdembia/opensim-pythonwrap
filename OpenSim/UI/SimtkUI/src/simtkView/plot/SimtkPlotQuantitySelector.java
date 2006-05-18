@@ -5,7 +5,7 @@ import simtkCore.SimtkDB;
 import javax.swing.tree.*;
 import simtkCore.*;
 import java.util.Enumeration;
-import simtkModel.*;
+import opensimModel.*;
 import java.awt.event.*;
 import java.awt.*;
 
@@ -26,11 +26,11 @@ public class SimtkPlotQuantitySelector extends JPopupMenu implements ActionListe
       Enumeration allStorages = env.getAvailableStorages();
       if (allStorages != null){
        while (allStorages.hasMoreElements()) {
-         rdStorage nextStorage = (rdStorage) allStorages.nextElement();
+         Storage nextStorage = (Storage) allStorages.nextElement();
          String storageName = nextStorage.getName();
          JMenu storageMenu = new JMenu(storageName);
          envMenu.add(storageMenu);
-         rdArrayStr columnLabels = nextStorage.getColumnLabelsArray();
+         ArrayStr columnLabels = nextStorage.getColumnLabelsArray();
          int numEntries = columnLabels.getSize();
          int nColumns = numEntries/50+1;
          int nRows = 50;

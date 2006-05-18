@@ -11,7 +11,7 @@ import simtkCommands.CommandFactory;
 import simtkCommands.CommandFactoryException;
 import simtkCommands.ExecutionManager;
 import simtkCommands.SimtkCommand;
-import simtkModel.rdVisibleObject;
+import opensimModel.VisibleObject;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -57,10 +57,10 @@ public class SimtkVisMenu extends JMenu {
       "SimtkVisShowAxesCmd",
       "SimtkVisHideAxesCmd"
   };
-  private rdVisibleObject _selectedObject=null;
+  private VisibleObject _selectedObject=null;
   private String _mdlName=null;
 
-  public SimtkVisMenu(String menuName, String mdlName, rdVisibleObject selectedObject)
+  public SimtkVisMenu(String menuName, String mdlName, VisibleObject selectedObject)
   {
     super(menuName);
     _mdlName = mdlName;
@@ -84,10 +84,10 @@ public class SimtkVisMenu extends JMenu {
    * showNormals while normals are already shown)
    *
    * @param visOption String
-   * @param vObject rdVisibleObject
+   * @param vObject VisibleObject
    * @return boolean
    */
-  boolean optionValidForObject(String visOption, rdVisibleObject vObject)
+  boolean optionValidForObject(String visOption, VisibleObject vObject)
   {
     if (vObject == null)// No actual object was selected
       return false;

@@ -18,7 +18,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
-import simtkModel.rdObject;
+import opensimModel.OpenSimObject;
 
 public class ObjectPropertyViewerDlg extends JDialog {
   JPanel jMainPanel = new JPanel();
@@ -31,7 +31,7 @@ public class ObjectPropertyViewerDlg extends JDialog {
   JTable jPropertyTable = null;
   TitledBorder titledBorder1;
 
-  public ObjectPropertyViewerDlg(rdObject aObject) {
+  public ObjectPropertyViewerDlg(OpenSimObject aObject) {
     super();
     _objectProperties = new SimtkObjectTableModel(aObject);
     jPropertyTable = new JTable(_objectProperties);

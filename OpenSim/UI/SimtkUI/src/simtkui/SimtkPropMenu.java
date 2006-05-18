@@ -8,7 +8,7 @@ import javax.swing.JMenuItem;
 import simtkCommands.CommandFactory;
 import simtkCommands.CommandFactoryException;
 import simtkCommands.SimtkCommand;
-import simtkModel.rdObject;
+import opensimModel.OpenSimObject;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -40,10 +40,10 @@ public class SimtkPropMenu
   };
   private final String _contextDependentCommands[] = {
   };
-  private rdObject _selectedObject = null;
+  private OpenSimObject _selectedObject = null;
   private String _mdlName = null;
 
-  public SimtkPropMenu(String menuName, String mdlName, rdObject selectedObject) {
+  public SimtkPropMenu(String menuName, String mdlName, OpenSimObject selectedObject) {
     super(menuName);
     _mdlName = mdlName;
     _selectedObject = selectedObject;
@@ -60,7 +60,7 @@ public class SimtkPropMenu
    * and object
    *
    * @param mdlName String
-   * @param selectedObject rdObject
+   * @param selectedObject OpenSimObject
    * @param commandName String
    * @return Object
    */

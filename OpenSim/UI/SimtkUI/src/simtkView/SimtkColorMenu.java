@@ -11,7 +11,7 @@ import simtkCommands.CommandFactory;
 import simtkCommands.CommandFactoryException;
 import simtkCommands.ExecutionManager;
 import simtkCommands.SimtkCommand;
-import simtkModel.rdVisibleObject;
+import opensimModel.VisibleObject;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -44,10 +44,10 @@ public class SimtkColorMenu
       "SimtkVisNoneCmd",
       "SimtkVisToggleNormalsCmd"
   };
-  private rdVisibleObject _selectedObject=null;
+  private VisibleObject _selectedObject=null;
   private String _mdlName=null;
 
-  public SimtkColorMenu(String menuName, String mdlName, rdVisibleObject selectedObject)
+  public SimtkColorMenu(String menuName, String mdlName, VisibleObject selectedObject)
   {
     super(menuName);
     _mdlName = mdlName;

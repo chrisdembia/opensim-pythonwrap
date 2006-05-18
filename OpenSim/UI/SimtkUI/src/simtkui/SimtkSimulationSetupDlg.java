@@ -8,7 +8,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import simtkCore.SimtkSimEnv;
-import simtkModel.*;
+import opensimModel.*;
 import simtkui.guiUtilities.SimtkJDialog;
 import java.awt.*;
 import javax.swing.*;
@@ -113,7 +113,7 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
   JButton jRemoveAnalysisBtn = new JButton();
   JPanel jAnalysisListPanel = new JPanel();
   TitledBorder titledBorder10;
-  rdArrayAnalysis analyses;
+  ArrayAnalysis analyses;
   JTable jAnalysisTable = new JTable();
   BorderLayout borderLayout5 = new BorderLayout();
   JScrollPane jScrollPane2 = new JScrollPane();
@@ -136,8 +136,8 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
    */
   private void setDialogValues() {
     // Control Frame
-    rdControlSet controlSet = simenv.getControlSet();
-    rdControl firstControl = controlSet.get(0);
+    ControlSet controlSet = simenv.getControlSet();
+    Control firstControl = controlSet.get(0);
     jTiValue.setText(String.valueOf(firstControl.getFirstTime()));
     jTfValue.setText(String.valueOf(firstControl.getLastTime()));
 
@@ -166,18 +166,17 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
    // Gravity frame
    Object[][] gravityTableData = new Object[3][2];
    String[] gravityDirs = new String[]{"X", "Y", "Z"};
-   SWIGTYPE_p_double g = Model.new_doubleArray(3);
+   double[] g = new double[3];
    simenv.getModel().getGravity(g);
    for(int i=0; i < 3; i++){
      gravityTableData[i][0] = gravityDirs[i];
-     gravityTableData[i][1] = String.valueOf(Model.doubleArray_get(g, i));
+     gravityTableData[i][1] = String.valueOf(g[i]);
    }
-   Model.free_doubleArray(g);
    String[] gColumnNames = new String[]{"Dir", "Value"};
    jGravityTable.setModel(new SimtkArrayTableModel(gravityTableData, gColumnNames));
 
    // Analyses is a table with model in rdAnalysisFactory
-   suAnalysisFactory analysisFactory = suAnalysisFactory.getInstance(simenv.getModel());
+   AnalysisFactory analysisFactory = AnalysisFactory.getInstance();
 
    analyses = analysisFactory.getRegisteredAnalyses();
    Object[][] analysisTableData = new Object[analyses.getSize()][2];
@@ -445,17 +444,17 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
 
   void jOkButton_actionPerformed(ActionEvent e) {
     // Set values as appropriate
-    //rdControl tiControl = simenv.getControlSet().get("ti");
-    rdControlSet controlSet = simenv.getControlSet();
+    //Control tiControl = simenv.getControlSet().get("ti");
+    ControlSet controlSet = simenv.getControlSet();
     int tiIndex = controlSet.getIndex("ti", 0);
-    rdControl tiControl = (tiIndex==-1)?null:controlSet.get("ti");
+    Control tiControl = (tiIndex==-1)?null:controlSet.get("ti");
     double tiValue = 0.0;
     if (tiControl != null) {
        tiControl.setControlValue(0.0, Double.parseDouble(this.jTiValue.getText()));
     }
 
     int tfIndex = controlSet.getIndex("tf", 0);
-    rdControl tfControl = (tfIndex==-1)?null:controlSet.get("tf");
+    Control tfControl = (tfIndex==-1)?null:controlSet.get("tf");
     double tfValue = 1.0;
     if (tfControl != null) {
       tfControl.setControlValue(0.0, Double.parseDouble(this.jTfValue.getText()));
@@ -481,26 +480,24 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
 
     simenv.setStoragePreferences(newStoragePrefs);
     // Initial States
-    SWIGTYPE_p_double newInitialStates = Model.new_doubleArray(simenv.getModel().getNY());
+    double[] newInitialStates = new double[simenv.getModel().getNY()];
 
     for (int i=0; i < simenv.getModel().getNY(); i++){
       Object obj = jInitialStatesTable.getModel().getValueAt(i, 1);
       double val = Double.parseDouble((String)obj);
-      Model.doubleArray_set(newInitialStates, i, val);
+      newInitialStates[i]= val;
     }
     simenv.getModel().setInitialStates(newInitialStates);
-    Model.free_doubleArray(newInitialStates);
 
     // Gravity
-    SWIGTYPE_p_double newGravityVector = Model.new_doubleArray(3);
+    double[] newGravityVector = new double[3];
 
    for (int i=0; i < 3; i++){
      Object obj = jGravityTable.getModel().getValueAt(i, 1);
      double val = Double.parseDouble((String)obj);
-     Model.doubleArray_set(newGravityVector, i, val);
+     newGravityVector[i]= val;
    }
    simenv.getModel().setGravity(newGravityVector);
-   Model.free_doubleArray(newGravityVector);
 
    // Analysis
    for (int i=0; i < analyses.getSize(); i++){
@@ -548,11 +545,11 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
 
 
   class ListSelectionHandler implements ListSelectionListener {
-    rdArrayAnalysis   analyses;
+    ArrayAnalysis   analyses;
     JTextArea         descriptionArea;
     int               selectedIndex;
 
-    public ListSelectionHandler(rdArrayAnalysis analyses, JTextArea descriptionArea)
+    public ListSelectionHandler(ArrayAnalysis analyses, JTextArea descriptionArea)
     {
       this.analyses = analyses;
       this.descriptionArea = descriptionArea;
@@ -560,7 +557,7 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
       public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()){
           selectedIndex = e.getFirstIndex();
-          rdAnalysis currentAnalysis = analyses.get(selectedIndex);
+          Analysis currentAnalysis = analyses.get(selectedIndex);
           descriptionArea.setText(currentAnalysis.getDescription());
         }
       }
@@ -581,7 +578,7 @@ public class SimtkSimulationSetupDlg extends SimtkJDialog {
   }
 
   void jCustomizeAnalysisBtn_actionPerformed(ActionEvent e) {
-    rdAnalysis analysis = analyses.get(jAnalysisTable.getSelectedRow());
+    Analysis analysis = analyses.get(jAnalysisTable.getSelectedRow());
     SimtkDB.getInstance().editObject(null, analysis);
   }
 

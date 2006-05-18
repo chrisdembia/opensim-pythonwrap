@@ -2,10 +2,10 @@ package simtkView;
 
 import java.util.Vector;
 
-import simtkModel.Model;
-import simtkModel.SWIGTYPE_p_double;
-import simtkModel.rdTransform;
-import simtkModel.rdVisibleProperties;
+import opensimModel.Model;
+import opensimModel.SWIGTYPE_p_double;
+import opensimModel.Transform;
+import opensimModel.VisibleProperties;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 /**
@@ -27,8 +27,6 @@ public class SimtkVisRep {
   private vtkActor _normalsActor;
   private vtkAssembly _axesActor;
   private Vector _attachedActors;
-  SWIGTYPE_p_double pos = Model.new_doubleArray(3);
-  SWIGTYPE_p_double orient =  Model.new_doubleArray(3);
   double[] jPos = new double[3];
   double[] jOrient = new double[3];
 
@@ -100,31 +98,31 @@ public class SimtkVisRep {
    *
    * @param displayPref int
    */
-  public void updateDisplay(int displayPref, boolean showNormals, boolean showAxes) {
+  public void updateDisplay(VisibleProperties.DisplayPreference displayPref, boolean showNormals, boolean showAxes) {
     vtkActor gActor = getGeomActor();
     vtkActor bActor = getBboxActor();
-// Somehow java doesn't think rdVisibleProperties.WireFrame is constant
+// Somehow java doesn't think VisibleProperties.WireFrame is constant
 // so I can't use a switch statement here!!
-    if (displayPref == rdVisibleProperties.WireFrame) {
+    if (displayPref == VisibleProperties.DisplayPreference.WireFrame) {
       gActor.VisibilityOn();
       gActor.GetProperty().SetRepresentationToWireframe();
       bActor.VisibilityOff();
     }
-    else if (displayPref == rdVisibleProperties.FlatShaded) {
+    else if (displayPref == VisibleProperties.DisplayPreference.FlatShaded) {
       gActor.VisibilityOn();
       gActor.GetProperty().SetRepresentationToSurface();
       gActor.GetProperty().SetInterpolationToFlat();
       bActor.VisibilityOff();
     }
-    else if (displayPref == rdVisibleProperties.None) {
+    else if (displayPref == VisibleProperties.DisplayPreference.None) {
       gActor.VisibilityOff();
       bActor.VisibilityOff();
     }
-    else if (displayPref == rdVisibleProperties.BoundingBox) {
+    else if (displayPref == VisibleProperties.DisplayPreference.BoundingBox) {
       gActor.VisibilityOff();
       bActor.VisibilityOn();
     }
-    else { //displayPref==rdVisibleProperties.GouraudShaded
+    else { //displayPref==VisibleProperties.GouraudShaded
       gActor.VisibilityOn();
       bActor.VisibilityOff();
       gActor.GetProperty().SetRepresentationToSurface();
@@ -140,13 +138,9 @@ public class SimtkVisRep {
    * object based on its model xform
    * @param xform rdTransform
    */
-  public void setTransform(rdTransform xform) {
-    xform.getPosition(pos);
-    xform.getOrientation(orient);
-    for (int i=0; i < 3; i++){
-      jPos[i] = Model.doubleArray_get(pos, i);
-      jOrient[i] = Model.doubleArray_get(orient, i);
-    }
+  public void setTransform(Transform xform) {
+    xform.getPosition(jPos);
+    xform.getOrientation(jOrient);
 
     getGeomActor().SetPosition(jPos);
     getGeomActor().SetOrientation(0., 0., 0.);
@@ -171,7 +165,7 @@ public class SimtkVisRep {
    getAxesActor().RotateX(jOrient[0]);
    getAxesActor().RotateY(jOrient[1]);
    getAxesActor().RotateZ(jOrient[2]);
-   
+
     for (int i=0; i <_attachedActors.size(); i++){
       ((vtkActor)(_attachedActors.get(i))).SetPosition(jPos);
       ((vtkActor)(_attachedActors.get(i))).SetOrientation(0., 0., 0.);

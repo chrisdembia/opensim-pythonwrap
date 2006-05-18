@@ -13,7 +13,7 @@ import java.util.Hashtable;
  * @author Ayman Habib
  * @version 1.0
  * A Class to manager which editor to be invoked for specific types. As of now
- * it handles only classes not derived from rdObject but that can easily be
+ * it handles only classes not derived from OpenSimObject but that can easily be
  * changed. SimtkEditingManager is consulted before any editing operation is performed
  */
 public final class SimtkEditingManager {

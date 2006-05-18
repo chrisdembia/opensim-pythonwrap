@@ -6,10 +6,10 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import simtkModel.Model;
-import simtkModel.SWIGTYPE_p_double;
-import simtkModel.rdObject;
-import simtkModel.rdVisibleObject;
+import opensimModel.Model;
+import opensimModel.SWIGTYPE_p_double;
+import opensimModel.OpenSimObject;
+import opensimModel.VisibleObject;
 import simtkui.guiUtilities.SimtkJMenu;
 
 /**
@@ -35,11 +35,11 @@ public class SimtkDebugMenu
       "ShowTranslations",
       "ShowRotations"
   };
-  private rdObject _selectedObject = null;
+  private OpenSimObject _selectedObject = null;
   private String _mdlName = null;
 
   public SimtkDebugMenu(String menuName, String mdlName,
-                        rdObject selectedObject) {
+                        OpenSimObject selectedObject) {
     super(menuName);
     _mdlName = mdlName;
     _selectedObject = selectedObject;
@@ -52,16 +52,16 @@ public class SimtkDebugMenu
   class DebugAction
       extends AbstractAction {
     private int _idx=0;
-    private rdVisibleObject _object;
+    private VisibleObject _object;
     /**
      * actionPerformed
      *
      * @param e ActionEvent
      */
-    public DebugAction(int index, rdObject obj){
+    public DebugAction(int index, OpenSimObject obj){
       super();
       _idx = index;
-      _object = (rdVisibleObject) obj;
+      _object = (VisibleObject) obj;
       putValue(Action.NAME, _defaultProperties[_idx]);
     }
 
@@ -76,21 +76,13 @@ public class SimtkDebugMenu
         _object.getTransform().translateZ(1.0);
       }
       else if (e.getActionCommand()=="ShowTranslations"){
-        SWIGTYPE_p_double pos = Model.new_doubleArray(3);
         double[] jPos = new double[3];
-        _object.getTransform().getPosition(pos);
-        for (int i=0; i < 3; i++){
-          jPos[i] = Model.doubleArray_get(pos, i);
-        }
+        _object.getTransform().getPosition(jPos);
         SimtkApp.displayDebugMessage("Position = "+jPos[0]+", "+jPos[1]+", "+jPos[2]);
       }
       else if (e.getActionCommand()=="ShowRotations"){
-        SWIGTYPE_p_double pos = Model.new_doubleArray(3);
        double[] jPos = new double[3];
-       _object.getTransform().getOrientation(pos);
-       for (int i=0; i < 3; i++){
-         jPos[i] = Model.doubleArray_get(pos, i);
-       }
+       _object.getTransform().getOrientation(jPos);
        SimtkApp.displayDebugMessage("Orientation = "+jPos[0]+", "+jPos[1]+", "+jPos[2]);
 
       }

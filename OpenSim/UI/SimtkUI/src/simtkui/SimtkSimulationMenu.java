@@ -49,7 +49,7 @@ public class SimtkSimulationMenu extends SimtkJMenu {
    * and object
    *
    * @param mdlName String
-   * @param selectedObject rdObject
+   * @param selectedObject OpenSimObject
    * @param commandName String
    * @return Object
    */

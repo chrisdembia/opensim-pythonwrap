@@ -32,7 +32,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.tree.TreePath;
 
-import simtkModel.rdObject;
+import opensimModel.OpenSimObject;
 import simtkui.guiUtilities.SimtkJDialog;
 
 /**
@@ -64,13 +64,13 @@ public class SimtkObjectViewerDlg extends SimtkJDialog {
     /** Used to indicate status. */
     protected JLabel             statusLabel;
     /** Path created with. */
-    protected rdObject             object;
+    protected OpenSimObject             object;
     /** Allow in place editing */
     protected boolean             editMode;
 
     final String[] toolTipStr = {"Property name in xml file", "Current property value", "Property type", "Inherited from DEFAULT"};
 
-    public SimtkObjectViewerDlg(Frame owner, rdObject aObject, boolean allowModification, String mdlName) {
+    public SimtkObjectViewerDlg(Frame owner, OpenSimObject aObject, boolean allowModification, String mdlName) {
        super(owner);
 	this.object = aObject;
 	editMode = allowModification;
@@ -136,7 +136,7 @@ public class SimtkObjectViewerDlg extends SimtkJDialog {
     /**
      * Creates the SimtkrdObjectModel that will be used.
      */
-    protected SimtkrdObjectModel createModel(rdObject object, boolean editable, String mdlName) {
+    protected SimtkrdObjectModel createModel(OpenSimObject object, boolean editable, String mdlName) {
 	return new SimtkrdObjectModel(object, editable, mdlName);
     }
 

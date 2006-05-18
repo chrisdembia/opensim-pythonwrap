@@ -1,7 +1,7 @@
 package simtkCore;
 
 import javax.swing.tree.*;
-import simtkModel.*;
+import opensimModel.*;
 
 /**
  * SimtkDBTree is the holder of the abstract Tree representation of the models
@@ -26,9 +26,9 @@ public class SimtkDBTree extends DefaultTreeModel{
    * addModelToTree is the place where a model is added to the SimtkDBTree
    * data-structure
    *
-   * @param mdl rdModel
+   * @param mdl Model
    */
-  public void addModelToTree(rdModel mdl) {
+  public void addModelToTree(Model mdl) {
     int numModels = getChildCount(_root);
     DefaultMutableTreeNode modelNode = new DefaultMutableTreeNode("Model:"+mdl.getName(), true);
     insertNodeInto(modelNode, _root, numModels);

@@ -5,7 +5,7 @@ import java.util.*;
 
 import javax.swing.Timer;
 
-import simtkModel.*;
+import opensimModel.*;
 import simtkUtils.*;
 import simtkView.*;
 import simtkui.*;
@@ -30,14 +30,14 @@ import simtkuiEvents.*;
 public class SimtkSimEnv extends Observable {
 
   /** Simulation manager */
-  private rdManager manager=null;
-  private rdModel model=null;
+  private Manager manager=null;
+  private Model model=null;
   /** Keep around contactForceSet and actuatorSet to be used in model construction */
-  rdControlSet controlSet=null;
-  rdContactForceSet contactForceSet=null;
-  rdActuatorSet actuatorSet=null;
-  suMarkerSet markerSet=null;
-  rdModelIntegrand integrand = null;
+  ControlSet controlSet=null;
+  ContactForceSet contactForceSet=null;
+  ActuatorSet actuatorSet=null;
+  MarkerSet markerSet=null;
+  ModelIntegrand integrand = null;
 
   private String _infoStatus="";
   private String name;
@@ -45,7 +45,7 @@ public class SimtkSimEnv extends Observable {
   private SwingWorker simulationThread=null;
   private Timer timer=null;
   private int status;
-  private rdSimtkAnimationCallback animationCallback=null;
+  private SimtkAnimationCallback animationCallback=null;
   private SimtkStoragePreferences storagePrefs=null;
   private File _preferredDirectory;
   // Attributes to control the progress bar shown for the internalframe
@@ -76,23 +76,23 @@ public class SimtkSimEnv extends Observable {
   public String getName() {
     return name;
   }
-  public void setModel(rdModel aModel)
+  public void setModel(Model aModel)
   {
     model = aModel;
 
-    integrand = new rdModelIntegrand(model);
+    integrand = new ModelIntegrand(model);
     controlSet = integrand.getControlSet();
-    manager = new rdManager(integrand);
-    animationCallback = new rdSimtkAnimationCallback(aModel);
+    manager = new Manager(integrand);
+    animationCallback = new SimtkAnimationCallback(aModel);
  }
 
 
-  public rdModel getModel()
+  public Model getModel()
   {
     return model;
   }
 
-   public rdManager getSimulationManager()
+   public Manager getSimulationManager()
   {
      return manager;
   }
@@ -103,9 +103,9 @@ public class SimtkSimEnv extends Observable {
   public void createSimulationManager() {
     if (model==null)
       return;
-    integrand = new rdModelIntegrand(model);
+    integrand = new ModelIntegrand(model);
     controlSet = integrand.getControlSet();
-    manager = new rdManager(integrand);
+    manager = new Manager(integrand);
   }
 
   public String toString()
@@ -118,7 +118,7 @@ public class SimtkSimEnv extends Observable {
    *
    * @return Object
    */
-  public rdIntegRKF getIntegrator() {
+  public IntegRKF getIntegrator() {
     return manager.getIntegrator();
   }
 
@@ -127,11 +127,11 @@ public class SimtkSimEnv extends Observable {
    *
    * @return Object
    */
-  public rdControlSet getControlSet() {
+  public ControlSet getControlSet() {
     return manager.getIntegrand().getControlSet();
   }
 
-  public void setControlSet(rdControlSet aControlSet) {
+  public void setControlSet(ControlSet aControlSet) {
     manager.getIntegrand().setControlSet(aControlSet);
   }
 
@@ -144,7 +144,7 @@ public class SimtkSimEnv extends Observable {
     return simulationThread;
   }
 
-  public rdSimtkAnimationCallback getAnimationCallback()
+  public SimtkAnimationCallback getAnimationCallback()
   {
     return animationCallback;
   }
@@ -217,11 +217,11 @@ public class SimtkSimEnv extends Observable {
    *
    * @param newContactSet rdContactForceSet
    */
-  public void setContactForceSet(rdContactForceSet newContactSet) {
+  public void setContactForceSet(ContactForceSet newContactSet) {
     contactForceSet=newContactSet;
   }
 
-  public void setActuatorSet(rdActuatorSet actuatorSet) {
+  public void setActuatorSet(ActuatorSet actuatorSet) {
     this.actuatorSet= actuatorSet;
   }
 
@@ -367,12 +367,12 @@ public class SimtkSimEnv extends Observable {
    * @param string object name
    * @param Object object reference
    */
-  public void addModelObject(String aName, rdObject modelObject) {
+  public void addModelObject(String aName, OpenSimObject modelObject) {
     _modelObjects.put(aName, modelObject);
   }
 
-  public rdObject getModelObject(String aName) {
-      return (rdObject) _modelObjects.get(aName);
+  public OpenSimObject getModelObject(String aName) {
+      return (OpenSimObject) _modelObjects.get(aName);
   }
   public void removeModelObject(String aName) {
     _modelObjects.remove(aName);
@@ -393,11 +393,11 @@ public class SimtkSimEnv extends Observable {
   public void getAvailableQuantities(Vector plotQuantitiesModel) {
 /*    if (manager == null || manager.getIntegrator()==null)
       return;
-    rdStorage kinematicsStorage = manager.getIntegrator().getStateStorage();
+    Storage kinematicsStorage = manager.getIntegrator().getStateStorage();
     if (kinematicsStorage == null)
       return;
 
-    rdArrayStr columnLabels = kinematicsStorage.getColumnLabelsArray();
+    ArrayStr columnLabels = kinematicsStorage.getColumnLabelsArray();
     for (int i=0; i < columnLabels.getSize(); i++){
       String fullName = name+"."+columnLabels.getitem(i);
       if (plotQuantitiesModel.contains(fullName))
@@ -405,7 +405,7 @@ public class SimtkSimEnv extends Observable {
       plotQuantitiesModel.addElement(fullName);
     }
     // Repeat for controls
-    rdStorage controlStorage = manager.getIntegrator().getControlStorage();
+    Storage controlStorage = manager.getIntegrator().getControlStorage();
     if (controlStorage == null)
       return;
     columnLabels = controlStorage.getColumnLabelsArray();
@@ -415,12 +415,12 @@ public class SimtkSimEnv extends Observable {
         continue;
       plotQuantitiesModel.addElement(fullName);
     }*/
-    rdArrayStr columnLabels;
+    ArrayStr columnLabels;
     Enumeration allStorages = _availableData.elements();
     if (allStorages != null){
      int idx = 0;
      while (allStorages.hasMoreElements()) {
-       rdStorage nextStorage = (rdStorage) allStorages.nextElement();
+       Storage nextStorage = (Storage) allStorages.nextElement();
        columnLabels = nextStorage.getColumnLabelsArray();
        for (int i=0; i < columnLabels.getSize(); i++){
          String fullName = name+":"+nextStorage.getName()+":"+columnLabels.getitem(i);
@@ -458,7 +458,7 @@ public class SimtkSimEnv extends Observable {
                                Vector yValues, double startTime) {
     // Assume storage comes from xName
     String storageName = xName.substring(0, xName.lastIndexOf(":"));
-    rdStorage useStorage = (rdStorage) _availableData.get(storageName);
+    Storage useStorage = (Storage) _availableData.get(storageName);
     if (useStorage!=null){
       String bareXName = xName.substring(xName.lastIndexOf(":") + 1);
       String bareYName = yName.substring(yName.lastIndexOf(":") + 1);
@@ -486,7 +486,7 @@ public class SimtkSimEnv extends Observable {
     return false;
   }
 
-  public boolean addStorage(rdStorage newStorage, boolean timeVarying) {
+  public boolean addStorage(Storage newStorage, boolean timeVarying) {
     if (_timeVaryingData.get(newStorage.getName())== null){
       _timeVaryingData.put(newStorage.getName(), new Boolean(timeVarying));
       return addStorage(newStorage);
@@ -497,10 +497,10 @@ public class SimtkSimEnv extends Observable {
   /**
    * addStorage
    *
-   * @param newStorage rdStorage
+   * @param newStorage Storage
    * @return boolean true if success else false
    */
-  private boolean addStorage(rdStorage newStorage) {
+  private boolean addStorage(Storage newStorage) {
     _availableData.put(newStorage.getName(), newStorage);
     return true;
   }
@@ -508,10 +508,10 @@ public class SimtkSimEnv extends Observable {
   /**
    * addStorage
    *
-   * @param newStorage rdStorage
+   * @param newStorage Storage
    * @return boolean true if success else false
    */
-  public void removeStorage(rdStorage toRemoveStorage) {
+  public void removeStorage(Storage toRemoveStorage) {
     _availableData.remove(toRemoveStorage.getName());
     _timeVaryingData.remove(toRemoveStorage.getName());
     return;
@@ -538,10 +538,10 @@ public class SimtkSimEnv extends Observable {
   public void removeDynamicStorages() {
     int nAnalyses = getModel().getNumAnalyses();
     for (int i=0; i < nAnalyses; i++){
-      rdAnalysis nextAnalysis = getModel().getAnalysis(i);
+      Analysis nextAnalysis = getModel().getAnalysis(i);
       String analysisName = nextAnalysis.getName();
       String analysisType = nextAnalysis.getType();
-      rdArrayStorage storages = nextAnalysis.getStorageList();
+      ArrayStorage storages = nextAnalysis.getStorageList();
       for (int j=0; j < storages.getSize(); j++){
         removeStorage(storages.get(j));
       }
@@ -554,10 +554,10 @@ public class SimtkSimEnv extends Observable {
   public void addDynamicStorages() {
     int nAnalyses = getModel().getNumAnalyses();
     for (int i=0; i < nAnalyses; i++){
-      rdAnalysis nextAnalysis = getModel().getAnalysis(i);
+      Analysis nextAnalysis = getModel().getAnalysis(i);
       String analysisName = nextAnalysis.getName();
       String analysisType = nextAnalysis.getType();
-      rdArrayStorage storages = nextAnalysis.getStorageList();
+      ArrayStorage storages = nextAnalysis.getStorageList();
       for (int j=0; j < storages.getSize(); j++){
         addStorage(storages.get(j), true);
       }

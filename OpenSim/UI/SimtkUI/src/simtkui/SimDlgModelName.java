@@ -26,7 +26,7 @@ import simtkui.guiUtilities.SimtkJDialog;
  * @version 1.0
  * This dialog is used to query the user for model name. Model name has to
  * correspond to a class that:
- * 1. Extends rdModel.
+ * 1. Extends Model.
  * 2. Has no-args constructor
  * 3. Is available in classpath
  * @todo use the generic SimDlgGetName dialog instead to avoid code duplication

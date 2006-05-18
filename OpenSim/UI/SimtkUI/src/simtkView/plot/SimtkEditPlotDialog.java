@@ -4,11 +4,11 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import ptolemy.plot.*;
-import simtkModel.*;
+import opensimModel.*;
 
 public class SimtkEditPlotDialog extends JDialog implements ActionListener {
   private EditablePlot plot = new EditablePlot();   // The plot box with all plotting capabilities
-  private rdControl _control;
+  private Control _control;
   JPanel jPlotPanel = new JPanel();
   BorderLayout borderLayout1 = new BorderLayout();
   BorderLayout borderLayout2 = new BorderLayout();
@@ -25,7 +25,7 @@ public class SimtkEditPlotDialog extends JDialog implements ActionListener {
   Object EditQuantities[] = new Object[2];
   final double PLOT_EDIT_ZERO = .001;
 
-  public SimtkEditPlotDialog(rdControl aControl) {
+  public SimtkEditPlotDialog(Control aControl) {
     _control = aControl;
     saveBackupData();
     loadControlIntoPlot();

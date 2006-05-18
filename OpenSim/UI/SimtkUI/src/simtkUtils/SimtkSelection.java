@@ -1,7 +1,7 @@
 package simtkUtils;
 
-import simtkModel.rdModel;
-import simtkModel.rdObject;
+import opensimModel.Model;
+import opensimModel.OpenSimObject;
 
 /**
  * <p>Title: UI for Simtk Prototype</p>
@@ -15,33 +15,33 @@ import simtkModel.rdObject;
  * or the display/graphics window
  */
 public class SimtkSelection {
-  private rdModel _mdl;    // Selected model
-  private rdObject _obj;   // Selected object within model, could be same as _mdl if whole model is selected
+  private Model _mdl;    // Selected model
+  private OpenSimObject _obj;   // Selected object within model, could be same as _mdl if whole model is selected
   public SimtkSelection() {
     _mdl = null;
     _obj = null;
   }
-  public SimtkSelection(rdModel mdl) {
+  public SimtkSelection(Model mdl) {
     _mdl = mdl;
     _obj = null;
   }
-  public SimtkSelection(rdModel mdl, rdObject obj) {
+  public SimtkSelection(Model mdl, OpenSimObject obj) {
     _mdl = mdl;
     _obj = obj;
   }
-  void setModel(rdModel mdl)
+  void setModel(Model mdl)
   {
     _mdl = mdl;
   }
-  rdModel getModel()
+  Model getModel()
   {
     return _mdl;
   }
-  void setObject(rdObject obj)
+  void setObject(OpenSimObject obj)
   {
     _obj = obj;
   }
-  rdObject getObject()
+  OpenSimObject getObject()
   {
     return _obj;
   }

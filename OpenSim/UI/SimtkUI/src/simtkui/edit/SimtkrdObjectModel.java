@@ -10,14 +10,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.TreePath;
 
 import simtkCore.SimtkDB;
-import simtkModel.rdArrayDouble;
-import simtkModel.rdArrayInt;
-import simtkModel.rdArrayPtrsObj;
-import simtkModel.rdArrayStr;
-import simtkModel.rdObject;
-import simtkModel.rdProperty;
-import simtkModel.rdPropertySet;
-import simtkModel.rdVisibleObject;
+import opensimModel.ArrayDouble;
+import opensimModel.ArrayInt;
+import opensimModel.ArrayPtrsObj;
+import opensimModel.ArrayStr;
+import opensimModel.OpenSimObject;
+import opensimModel.Property;
+import opensimModel.PropertySet;
+import opensimModel.VisibleObject;
 
 public class SimtkrdObjectModel
     extends AbstractTreeTableModel {
@@ -71,11 +71,11 @@ public class SimtkrdObjectModel
    * This does not load it, you should invoke
    * <code>reloadChildren</code> with the root to start loading.
    */
-  public SimtkrdObjectModel(rdObject obj, boolean isEditable, String mdlName) {
+  public SimtkrdObjectModel(OpenSimObject obj, boolean isEditable, String mdlName) {
     super(obj);
     isValid = true;
     this.isEditable = isEditable;
-    this.isVisibleObject = (obj instanceof rdVisibleObject);
+    this.isVisibleObject = (obj instanceof VisibleObject);
     this.mdlName = mdlName;
     root = new PropertyNode(obj, isEditable);
   }
@@ -152,15 +152,15 @@ public class SimtkrdObjectModel
           return fn.getValue();
         case 2: // Type
           Object obj = fn.getObject();
-          if (obj instanceof rdObject)
-            return ( (rdObject) obj).getType();
-          else if (obj instanceof rdProperty)
-            return ( (rdProperty) obj).getTypeAsString();
+          if (obj instanceof OpenSimObject)
+            return ( (OpenSimObject) obj).getType();
+          else if (obj instanceof Property)
+            return ( (Property) obj).getTypeAsString();
           return "  ";
         case 3: // use default
           obj = fn.getObject();
-          if (obj instanceof rdProperty)
-            return ( ( (rdProperty) obj).getUseDefault() ? "True" : "False");
+          if (obj instanceof Property)
+            return ( ( (Property) obj).getUseDefault() ? "True" : "False");
           return "  ";
       }
     }
@@ -187,63 +187,63 @@ public class SimtkrdObjectModel
        */
       String newValueString = (String) aValue;
       // Only primitive properties and array entries can be edited
-      if (((PropertyNode) node).property instanceof rdProperty){
-        rdProperty p = (rdProperty) ((PropertyNode) node).property;
-        if (p.getType()== rdProperty.Dbl){
+      if (((PropertyNode) node).property instanceof Property){
+        Property p = (Property) ((PropertyNode) node).property;
+        if (p.getType()== Property.PropertyType.Dbl){
           double newdbl = Double.parseDouble(newValueString);
           p.setValue(newdbl);
         }
-        else if (p.getType()== rdProperty.Int){
+        else if (p.getType()== Property.PropertyType.Int){
           int newint = Integer.parseInt(newValueString);
           p.setValue(newint);
         }
-        else if (p.getType()== rdProperty.Str){
+        else if (p.getType()== Property.PropertyType.Str){
            p.setValue(newValueString);
         }
-        else if (p.getType()==rdProperty.Bool){
+        else if (p.getType()==Property.PropertyType.Bool){
           Boolean b = Boolean.valueOf(newValueString);
           p.setValue(b.booleanValue());
         }
       }
       else if (((PropertyNode) node).idx != -1){// Array index of an aggregate/array property
-         rdProperty p = (rdProperty) ((PropertyNode) node).getParent().property;
-         if (p.getType()== rdProperty.DblArray){
+         Property p = (Property) ((PropertyNode) node).getParent().property;
+         if (p.getType()== Property.PropertyType.DblArray){
            double newdbl = Double.parseDouble(newValueString);
-           rdArrayDouble dblArray = p.getValueDblArray();
+           ArrayDouble dblArray = p.getValueDblArray();
            dblArray.set(((PropertyNode) node).idx, newdbl);
            reloadChildren(((PropertyNode) node).getParent());
          }
-         else if (p.getType()== rdProperty.IntArray){
+         else if (p.getType()== Property.PropertyType.IntArray){
           int newint = Integer.parseInt(newValueString);
-          rdArrayInt intArray = p.getValueIntArray();
+          ArrayInt intArray = p.getValueIntArray();
           intArray.set(((PropertyNode) node).idx, newint);
           reloadChildren(((PropertyNode) node).getParent());
         }
-        else if (p.getType()== rdProperty.StrArray){
+        else if (p.getType()== Property.PropertyType.StrArray){
           p.getValueStrArray().set(((PropertyNode) node).idx, newValueString);
           reloadChildren(((PropertyNode) node).getParent());
         }
-        else if (p.getType()== rdProperty.BoolArray){
+        else if (p.getType()== Property.PropertyType.BoolArray){
           boolean newval = Boolean.getBoolean(newValueString);
           p.getValueBoolArray().set(((PropertyNode) node).idx, newval);
           reloadChildren(((PropertyNode) node).getParent());
         }
      }
     }
-    else if (column==3 && (((PropertyNode) node).property instanceof rdProperty)){ // Changing inheritance from default.
+    else if (column==3 && (((PropertyNode) node).property instanceof Property)){ // Changing inheritance from default.
       String newDefString = (String) aValue;
       boolean isTrue = newDefString.compareToIgnoreCase("true")==0;
       boolean isFalse = newDefString.compareToIgnoreCase("false")==0;
 
       if ( isTrue || isFalse){
-        rdProperty prop = (rdProperty) ((PropertyNode) node).property;
+        Property prop = (Property) ((PropertyNode) node).property;
         prop.setUseDefault(isTrue?true:false);
       }
     }
     // At any rate if the object we're editing is a visible object update display
     if (isVisibleObject){
       Object obj = ((PropertyNode) getRoot()).getObject();
-         SimtkDB.getInstance().processVisibleChange(mdlName, (rdVisibleObject) obj);
+         SimtkDB.getInstance().processVisibleChange(mdlName, (VisibleObject) obj);
     }
   }
   //
@@ -388,17 +388,17 @@ public class SimtkrdObjectModel
       aggregate = false;
       this.isEditable = !aggregate && editable;
 
-      if (property instanceof rdObject)
+      if (property instanceof OpenSimObject)
         aggregate = true;
-      else if (property instanceof rdProperty) {
-        int propType = ( (rdProperty) property).getType();
-        if (propType == rdProperty.Obj ||
-            propType == rdProperty.BoolArray ||
-            propType == rdProperty.IntArray ||
-            propType == rdProperty.FltArray ||
-            propType == rdProperty.DblArray ||
-            propType == rdProperty.StrArray ||
-            propType == rdProperty.ObjArray) {
+      else if (property instanceof Property) {
+        Property.PropertyType propType = ( (Property) property).getType();
+        if (propType == Property.PropertyType.Obj ||
+            propType == Property.PropertyType.BoolArray ||
+            propType == Property.PropertyType.IntArray ||
+            propType == Property.PropertyType.FltArray ||
+            propType == Property.PropertyType.DblArray ||
+            propType == Property.PropertyType.StrArray ||
+            propType == Property.PropertyType.ObjArray) {
           aggregate = true;
         }
 
@@ -409,10 +409,10 @@ public class SimtkrdObjectModel
      * Returns the the string to be used to display this leaf in the JTree.
      */
     public String getValue() {
-      if (property instanceof rdObject)
+      if (property instanceof OpenSimObject)
         return getName();
-      else if (property instanceof rdProperty)
-        return ( (rdProperty) property).toString();
+      else if (property instanceof Property)
+        return ( (Property) property).toString();
       else if (idx != -1)
         return (String) property;
 
@@ -420,10 +420,10 @@ public class SimtkrdObjectModel
     }
 
     public String getName() {
-      if (property instanceof rdObject)
-        return ( (rdObject) property).getName();
-      else if (property instanceof rdProperty)
-        return ( (rdProperty) property).getName();
+      if (property instanceof OpenSimObject)
+        return ( (OpenSimObject) property).getName();
+      else if (property instanceof Property)
+        return ( (Property) property).getName();
       else if (property instanceof String)
        return ( "["+String.valueOf(idx)+"]");
 
@@ -474,7 +474,7 @@ public class SimtkrdObjectModel
      * Loads the children of of the receiver.
      *
      * @return PropertyNode[]
-     * @todo Complete the list of types of rdProperty that are aggregates:
+     * @todo Complete the list of types of Property that are aggregates:
      *   primitive types already work as well as Arrays of doubles and Strings.
      *   Left: Arrays of objects and actual editing/change-probagation
      */
@@ -482,55 +482,55 @@ public class SimtkrdObjectModel
       PropertyNode[] retArray = null;
 
       try {
-        if (property instanceof rdObject) {
-          rdPropertySet props = ( (rdObject) property).getPropertySet();
+        if (property instanceof OpenSimObject) {
+          PropertySet props = ( (OpenSimObject) property).getPropertySet();
           retArray = new PropertyNode[props.getSize()];
           for (int i = 0; i < props.getSize(); i++) {
-            rdProperty prop = props.get(i);
+            Property prop = props.get(i);
             retArray[i] = new PropertyNode(this, prop, isEditable);
           }
         }
-        else if (property instanceof rdProperty) {
-          rdProperty rdprop = (rdProperty) property;
-          int propType = rdprop.getType();
-          if (propType == rdProperty.Obj) {
-            rdObject childObj = (rdObject) rdprop.getValueObj();
-            rdPropertySet props = ( (rdObject) childObj).getPropertySet();
+        else if (property instanceof Property) {
+          Property rdprop = (Property) property;
+          Property.PropertyType propType = rdprop.getType();
+          if (propType == Property.PropertyType.Obj) {
+            OpenSimObject childObj = (OpenSimObject) rdprop.getValueObj();
+            PropertySet props = ( (OpenSimObject) childObj).getPropertySet();
             retArray = new PropertyNode[props.getSize()];
             for (int i = 0; i < props.getSize(); i++) {
-              rdProperty prop = props.get(i);
+              Property prop = props.get(i);
               retArray[i] = new PropertyNode(this, prop, isEditable);
             }
           }
-          else if (propType == rdProperty.DblArray) {
-            rdArrayDouble dblArray = rdprop.getValueDblArray();
+          else if (propType == Property.PropertyType.DblArray) {
+            ArrayDouble dblArray = rdprop.getValueDblArray();
             retArray = new PropertyNode[dblArray.getSize()];
             for (int i = 0; i < dblArray.getSize(); i++) {
               double value = dblArray.getitem(i);
               retArray[i] = new PropertyNode(this, Double.toString(value), i, isEditable);
             }
           }
-          else if (propType == rdProperty.StrArray) {
-            rdArrayStr strArray = rdprop.getValueStrArray();
+          else if (propType == Property.PropertyType.StrArray) {
+            ArrayStr strArray = rdprop.getValueStrArray();
             retArray = new PropertyNode[strArray.getSize()];
             for (int i = 0; i < strArray.getSize(); i++) {
               String value = strArray.getitem(i);
               retArray[i] = new PropertyNode(this, value, i, isEditable);
             }
           }
-          else if (propType == rdProperty.IntArray) {
-            rdArrayInt intArray = rdprop.getValueIntArray();
+          else if (propType == Property.PropertyType.IntArray) {
+            ArrayInt intArray = rdprop.getValueIntArray();
             retArray = new PropertyNode[intArray.getSize()];
             for (int i = 0; i < intArray.getSize(); i++) {
               int value = intArray.getitem(i);
               retArray[i] = new PropertyNode(this, new Integer(value), i, isEditable);
             }
           }
-          else if (propType == rdProperty.ObjArray) {
-            rdArrayPtrsObj objArray = rdprop.getValueObjArray();
+          else if (propType == Property.PropertyType.ObjArray) {
+            ArrayPtrsObj objArray = rdprop.getValueObjArray();
             retArray = new PropertyNode[objArray.getSize()];
             for (int i = 0; i < objArray.getSize(); i++) {
-              rdObject subobj = objArray.get(i);
+              OpenSimObject subobj = objArray.get(i);
               retArray[i] = new PropertyNode(this, subobj, i, isEditable);
             }
           }
