@@ -11,7 +11,7 @@ package opensimModel;
 public class SWIGTYPE_p_SimmMeasurement {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_SimmMeasurement(long cPtr, boolean futureUse) {
+  public SWIGTYPE_p_SimmMeasurement(long cPtr, boolean bFutureUse) {
     swigCPtr = cPtr;
   }
 
@@ -19,7 +19,7 @@ public class SWIGTYPE_p_SimmMeasurement {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_SimmMeasurement obj) {
+  public static long getCPtr(SWIGTYPE_p_SimmMeasurement obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

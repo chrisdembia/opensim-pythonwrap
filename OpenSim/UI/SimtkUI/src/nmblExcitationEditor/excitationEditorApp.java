@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import java.awt.*;
-import simtkModel.*;
+import opensimModel.*;
 
 public class excitationEditorApp {
   JFrame frame;
@@ -13,14 +13,12 @@ public class excitationEditorApp {
 
     // Initialize C++ components
     System.loadLibrary("xerces-c_2_4_0D");
-    System.loadLibrary("rdTools");
-    System.loadLibrary("rdSimulation");
-    System.loadLibrary("suCFSQP");
-    System.loadLibrary("rdSQP");
-    System.loadLibrary("suAnalyses");
-    System.loadLibrary("rdModelDll");
-    System.loadLibrary("suS26Gui");
-    simtksuS26Pkg.suS26.RegisterTypes();
+    System.loadLibrary("rdTools_d");
+    System.loadLibrary("rdSimulation_d");
+    System.loadLibrary("suCFSQP_d");
+    System.loadLibrary("rdSQP_d");
+    System.loadLibrary("suAnalyses_d");
+    System.loadLibrary("rdModelDll_d");
 
   }
   //Construct the application

@@ -77,7 +77,7 @@ public class SimmTranslationDof extends SimmDof {
   }
 
   public SimmDof.DofType getDofType() {
-    return SimmDof.DofType.swigToEnum(opensimModelJNI.SimmTranslationDof_getType(swigCPtr));
+    return SimmDof.DofType.swigToEnum(opensimModelJNI.SimmTranslationDof_getDofType(swigCPtr));
   }
 
   public void getTranslation(double[] vec) {

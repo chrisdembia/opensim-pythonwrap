@@ -14,7 +14,7 @@ public class opensimModelJNI {
     try {
         System.loadLibrary("rdModelDll_d");
     } catch (UnsatisfiedLinkError e) {
-      System.err.println("Native code library failed to load. \n" + e);
+      System.err.println("Native code library failed to load. Check that the dynamic library rdModelDll_d is in the PATH\n" + e);
       System.exit(1);
     }
   }
@@ -603,7 +603,7 @@ public class opensimModelJNI {
   public final static native int Storage_findIndex__SWIG_1(long jarg1, int jarg2, double jarg3);
   public final static native void Storage_resample(long jarg1, double jarg2, int jarg3);
   public final static native void Storage_print__SWIG_0(long jarg1);
-  public final static native int Storage_print__SWIG_1(long jarg1, String jarg2, String jarg3);
+  public final static native boolean Storage_print__SWIG_1(long jarg1, String jarg2, String jarg3);
   public final static native boolean Storage_print__SWIG_2(long jarg1, String jarg2);
   public final static native int Storage_print__SWIG_3(long jarg1, String jarg2, double jarg3, String jarg4);
   public final static native int Storage_print__SWIG_4(long jarg1, String jarg2, double jarg3);
@@ -1903,7 +1903,7 @@ public class opensimModelJNI {
   public final static native void SimmDof_getAxis(long jarg1, double[] jarg2);
   public final static native long SimmDof_getAxisPtr(long jarg1);
   public final static native double SimmDof_getValue(long jarg1);
-  public final static native int SimmDof_getType(long jarg1);
+  public final static native int SimmDof_getDofType(long jarg1);
   public final static native long SimmDof_getCoordinate(long jarg1);
   public final static native long SimmDof_getFunction(long jarg1);
   public final static native void SimmDof_peteTest(long jarg1);
@@ -2405,7 +2405,7 @@ public class opensimModelJNI {
   public final static native long SimmRotationDof_getAxis__SWIG_1(long jarg1);
   public final static native long SimmRotationDof_getAxisPtr(long jarg1);
   public final static native double SimmRotationDof_getValue(long jarg1);
-  public final static native int SimmRotationDof_getType(long jarg1);
+  public final static native int SimmRotationDof_getDofType(long jarg1);
   public final static native void SimmRotationDof_peteTest(long jarg1);
   public final static native long new_SimmStep__SWIG_0();
   public final static native long new_SimmStep__SWIG_1(long jarg1, int jarg2);
@@ -2429,7 +2429,7 @@ public class opensimModelJNI {
   public final static native void SimmTranslationDof_getAxis(long jarg1, double[] jarg2);
   public final static native long SimmTranslationDof_getAxisPtr(long jarg1);
   public final static native double SimmTranslationDof_getValue(long jarg1);
-  public final static native int SimmTranslationDof_getType(long jarg1);
+  public final static native int SimmTranslationDof_getDofType(long jarg1);
   public final static native void SimmTranslationDof_getTranslation(long jarg1, double[] jarg2);
   public final static native int SimmTranslationDof_getAxisIndex(long jarg1);
   public final static native void SimmTranslationDof_peteTest(long jarg1);

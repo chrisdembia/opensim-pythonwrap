@@ -11,7 +11,7 @@ package opensimModel;
 public class SWIGTYPE_p_ContactForce {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_ContactForce(long cPtr, boolean futureUse) {
+  public SWIGTYPE_p_ContactForce(long cPtr, boolean bFutureUse) {
     swigCPtr = cPtr;
   }
 
@@ -19,7 +19,7 @@ public class SWIGTYPE_p_ContactForce {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_ContactForce obj) {
+  public static long getCPtr(SWIGTYPE_p_ContactForce obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

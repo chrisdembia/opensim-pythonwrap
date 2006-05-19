@@ -11,7 +11,7 @@ package opensimModel;
 public class SWIGTYPE_p_OpenSim__DerivCallback {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_OpenSim__DerivCallback(long cPtr, boolean futureUse) {
+  public SWIGTYPE_p_OpenSim__DerivCallback(long cPtr, boolean bFutureUse) {
     swigCPtr = cPtr;
   }
 
@@ -19,7 +19,7 @@ public class SWIGTYPE_p_OpenSim__DerivCallback {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_OpenSim__DerivCallback obj) {
+  public static long getCPtr(SWIGTYPE_p_OpenSim__DerivCallback obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

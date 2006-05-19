@@ -11,7 +11,7 @@ package opensimModel;
 public class SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t(long cPtr, boolean futureUse) {
+  public SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t(long cPtr, boolean bFutureUse) {
     swigCPtr = cPtr;
   }
 
@@ -19,7 +19,7 @@ public class SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t obj) {
+  public static long getCPtr(SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

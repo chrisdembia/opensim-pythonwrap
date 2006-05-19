@@ -184,17 +184,18 @@ public class OpenSimObject {
   public static boolean getSerializeAllDefaults() {
     return opensimModelJNI.OpenSimObject_getSerializeAllDefaults();
   }
-
-  public boolean equals(Object aObject) {
-    if (! (aObject instanceof OpenSimObject))
-      return false;
-    OpenSimObject rObj = (OpenSimObject) aObject;
-    return (this.getName().equals(rObj.getName()) &&
-            this.getType().equals(rObj.getType()));
-  }
-
-  public int hashCode() {
-    return( this.getName().hashCode()+10000 * getType().hashCode());
-  }
+	// Code inlined to work around %typemap(javacode) SWIG apparent bug
+	public boolean equals(Object aObject) 
+	{
+		if (! (aObject instanceof OpenSimObject))
+			return false;
+		OpenSimObject rObj = (OpenSimObject) aObject;
+		return (this.getName().equals(rObj.getName()) &&
+			this.getType().equals(rObj.getType()));
+	}
+	public int hashCode() 
+	{
+		return( this.getName().hashCode()+10000 * getType().hashCode());
+	}
 
 }

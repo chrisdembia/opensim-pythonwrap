@@ -388,7 +388,7 @@ public class Storage extends OpenSimObject {
     opensimModelJNI.Storage_print__SWIG_0(swigCPtr);
   }
 
-  public int print(String aFileName, String aMode) {
+  public boolean print(String aFileName, String aMode) {
     return opensimModelJNI.Storage_print__SWIG_1(swigCPtr, aFileName, aMode);
   }
 

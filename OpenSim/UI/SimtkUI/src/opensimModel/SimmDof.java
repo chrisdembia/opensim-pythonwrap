@@ -65,7 +65,7 @@ public class SimmDof extends OpenSimObject {
   }
 
   public SimmDof.DofType getDofType() {
-    return SimmDof.DofType.swigToEnum(opensimModelJNI.SimmDof_getType(swigCPtr));
+    return SimmDof.DofType.swigToEnum(opensimModelJNI.SimmDof_getDofType(swigCPtr));
   }
 
   public SimmCoordinate getCoordinate() {

@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.tree.*;
 
 import ptolemy.plot.*;
-import simtkModel.*;
+import opensimModel.*;
 import simtkUtils.*;
 import simtkui.*;
 import simtkui.guiUtilities.*;
@@ -149,7 +149,7 @@ public class ExcitationEditorFrame extends JFrame{
       String fileName = SimtkFileChooser.getFile("Select controls file to load", "ctr", "*.ctr");
       if (fileName == null)
         return;
-      rdControlSet newSet = new rdControlSet(fileName);
+      ControlSet newSet = new ControlSet(fileName);
       mapControlSetsToFiles.put(newSet, fileName);
       editableQtyTreeModel.addControlSet(newSet);
       }
@@ -167,7 +167,7 @@ public class ExcitationEditorFrame extends JFrame{
         // Cycle thru the list of control sets and write to corresponding files
         Enumeration controlSets = mapControlSetsToFiles.keys();
         while(controlSets.hasMoreElements()){
-          rdControlSet nextSet = (rdControlSet) controlSets.nextElement();
+          ControlSet nextSet = (ControlSet) controlSets.nextElement();
           String fileName = (String) mapControlSetsToFiles.get(nextSet);
           nextSet.print(fileName);
         }
@@ -251,7 +251,7 @@ public class ExcitationEditorFrame extends JFrame{
       // get data for plot i and set it in control
       double[][] data = plot.getData(plotIndex);
       // Modify control from data, assume no change in number of nodes
-      rdControl control = (rdControl) subControl.getControl();
+      Control control = (Control) subControl.getControl();
       int numNodes = control.getNumParameters();
       if (subControl.getSub().equals(EDIT_VALUE)){
         for (int j = 0; j < numNodes; j++) {
@@ -275,7 +275,7 @@ public class ExcitationEditorFrame extends JFrame{
    *
    * @param aControl is the control to be edited visually
    */
-  private int loadControlIntoPlot(rdControl aControl, String sub) {
+  private int loadControlIntoPlot(Control aControl, String sub) {
     plot.setMarksStyle("dots");
     int numNodes = aControl.getNumParameters();
     int availableIndex = getAvailablePlotIndex();
@@ -347,9 +347,9 @@ public class ExcitationEditorFrame extends JFrame{
     /**
      * addControlSet
      *
-     * @param newSet rdControlSet
+     * @param newSet ControlSet
      */
-    public void addControlSet(rdControlSet newSet) {
+    public void addControlSet(ControlSet newSet) {
      DefaultMutableTreeNode controlNode;
      if (newSet != null){
        controlNode = new DefaultMutableTreeNode(newSet, true);
@@ -368,7 +368,7 @@ public class ExcitationEditorFrame extends JFrame{
   public class JControlsTree extends JTree
   {
     private JPopupMenu _popup = new JPopupMenu("Available operations");
-    private Hashtable controls2Files;  //Keep a refernce to the hashtable that maps rdControlSet objects to filenames
+    private Hashtable controls2Files;  //Keep a refernce to the hashtable that maps ControlSet objects to filenames
     public JControlsTree(TreeModel model, Hashtable fileNames)
     {
       super(model);
@@ -393,8 +393,8 @@ public class ExcitationEditorFrame extends JFrame{
        DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) selected[0].
            getPathComponent(pathlength - 1);
        final Object selObj = selNode.getUserObject();
-       if (selObj instanceof rdControlSet){
-         final rdControlSet selrdObj = (rdControlSet) selObj;
+       if (selObj instanceof ControlSet){
+         final ControlSet selrdObj = (ControlSet) selObj;
          final String fileName = getFilenameForControlSet(selrdObj);
          _popup.add(new AbstractAction("Save") {
            /**
@@ -429,7 +429,7 @@ public class ExcitationEditorFrame extends JFrame{
        DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) selected[i].
            getPathComponent(pathlength - 1);
        Object selObj = selNode.getUserObject();
-       if (selObj instanceof rdControl) {
+       if (selObj instanceof Control) {
          controlSelected = true;
          break;
        }
@@ -443,8 +443,8 @@ public class ExcitationEditorFrame extends JFrame{
                  selected[i].
                  getPathComponent(pathlength - 1);
              Object selObj = selNode.getUserObject();
-             if (selObj instanceof rdControl) {
-               rdControl selrdObj = (rdControl) selObj;
+             if (selObj instanceof Control) {
+               Control selrdObj = (Control) selObj;
                subControlSignal subControl = new subControlSignal(selrdObj,
                    EDIT_VALUE);
                // Don't add the same control more than once
@@ -474,8 +474,8 @@ public class ExcitationEditorFrame extends JFrame{
                  selected[i].
                  getPathComponent(pathlength - 1);
              Object selObj = selNode.getUserObject();
-             if (selObj instanceof rdControl) {
-               rdControl selrdObj = (rdControl) selObj;
+             if (selObj instanceof Control) {
+               Control selrdObj = (Control) selObj;
                // Don't add the same control more than once
                subControlSignal controlVal = new subControlSignal(selrdObj,
                    EDIT_VALUE);
@@ -527,10 +527,10 @@ public class ExcitationEditorFrame extends JFrame{
     /**
      * getFilenameForControlSet
      *
-     * @param selrdObj rdControlSet
+     * @param selrdObj ControlSet
      * @return String
      */
-    private String getFilenameForControlSet(rdControlSet selrdObj) {
+    private String getFilenameForControlSet(ControlSet selrdObj) {
       return (String) controls2Files.get((Object) selrdObj);
     }
   }
@@ -601,12 +601,12 @@ public class ExcitationEditorFrame extends JFrame{
 */
   private class subControlSignal
   {
-    rdObject _control;
+    OpenSimObject _control;
     String _sub;
 
     private subControlSignal()
     {};
-    public subControlSignal(rdControl control, String sub)
+    public subControlSignal(Control control, String sub)
     {
       _control = control;
       _sub = sub;
@@ -615,7 +615,7 @@ public class ExcitationEditorFrame extends JFrame{
     {
       return _sub+_control.toString();
     }
-    public rdObject getControl()
+    public OpenSimObject getControl()
     {
       return _control;
     }

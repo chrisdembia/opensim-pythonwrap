@@ -77,7 +77,7 @@ public class SimmRotationDof extends SimmDof {
   }
 
   public SimmDof.DofType getDofType() {
-    return SimmDof.DofType.swigToEnum(opensimModelJNI.SimmRotationDof_getType(swigCPtr));
+    return SimmDof.DofType.swigToEnum(opensimModelJNI.SimmRotationDof_getDofType(swigCPtr));
   }
 
   public void peteTest() {

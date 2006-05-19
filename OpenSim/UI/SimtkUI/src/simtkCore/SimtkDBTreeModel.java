@@ -97,37 +97,26 @@ public class SimtkDBTreeModel extends DefaultTreeModel{
            bodiesNode.add(nextBodyNode);
        }
      }
-     /*
+
      { // Create Actuators tree
        try {
-         // Check if method exists
-         Method actuatorsGetter = mdl.getClass().getMethod("getActuatorSet", null);
-         ActuatorSet actuators = null;
          try {
-           actuators = (ActuatorSet) actuatorsGetter.invoke(mdl, null);
            DefaultMutableTreeNode ActuatorsNode = new DefaultMutableTreeNode(
-               actuators, true);
+               "Actuators", true);
            insertNodeInto(ActuatorsNode, modelNode, 1);
-           for (int i = 0; i <actuators.getSize(); i++) {
+           for (int i = 0; i <mdl.getNA(); i++) {
              DefaultMutableTreeNode nextActuatorSetNode = new
-                 DefaultMutableTreeNode(actuators.get(i), false);
+                 DefaultMutableTreeNode(mdl.getActuatorName(i), false);
              ActuatorsNode.add(nextActuatorSetNode);
            }
          }
-         catch (InvocationTargetException ex1) {
-         }
          catch (IllegalArgumentException ex1) {
          }
-         catch (IllegalAccessException ex1) {
-         }
-
        }
        catch (SecurityException ex) {
        }
-       catch (NoSuchMethodException ex) {
-       }
      }
-      **/
+
      Enumeration mdlObjectNames = simEnvironment.getModelObjectNames();
      if (mdlObjectNames != null){
        int idx = 0;

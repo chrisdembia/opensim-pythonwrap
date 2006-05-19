@@ -11,7 +11,7 @@ package opensimModel;
 public class SWIGTYPE_p_a_3__double {
   private long swigCPtr;
 
-  protected SWIGTYPE_p_a_3__double(long cPtr, boolean futureUse) {
+  public SWIGTYPE_p_a_3__double(long cPtr, boolean bFutureUse) {
     swigCPtr = cPtr;
   }
 
