@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(OPENSIM_INCLUDE_PATH)"
+				AdditionalIncludeDirectories="$(OPENSIM_INCLUDE_PATH); $(OPENSIM_INCLUDE_PATH)/OpenSim/..../"
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,RDSDFAST_EXPORTS"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
