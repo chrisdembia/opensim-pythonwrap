@@ -4,10 +4,19 @@ SET(UKIT MODELDLL)
 
 INCLUDE(${CMAKE_ROOT}/Modules/FindJava.cmake)
 INCLUDE(${CMAKE_ROOT}/Modules/FindJNI.cmake)
+INCLUDE(${CMAKE_ROOT}/Modules/FindSwig.cmake)
+
+MESSAGE(STATUS ${SWIG_EXECUTABLE})
 
 IF(JAVA_INCLUDE_PATH)
 
-FILE(GLOB SOURCE_FILES ModelJNI_wrap.cxx)
+# Run command to generate ModelJNI_wrap.cxx
+SET(swig_generated_file_fullname ${OpenSim_SOURCE_DIR}/OpenSim/Models/rdModelDll/ModelJNI_wrap.cxx)
+SET(swig_interface_file_fullname ${OpenSim_SOURCE_DIR}/OpenSim/Resources/Swig/genericTemplate.i)
+
+ADD_CUSTOM_TARGET(JavaWrap ${SWIG_EXECUTABLE} -v -c++ -java -package opensimModel -I${OpenSim_SOURCE_DIR} -I${OpenSim_SOURCE_DIR}/OpenSim/Resources/Swig/ -o ${swig_generated_file_fullname} -outdir ${OpenSim_SOURCE_DIR}/OpenSim/UI/SimtkUI/src/opensimModel ${swig_interface_file_fullname})
+
+FILE(GLOB SOURCE_FILES ${swig_generated_file_fullname})
 
 INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} 
 					${OpenSim_SOURCE_DIR}/Vendors 
@@ -26,6 +35,8 @@ ADD_LIBRARY(rd${KIT} SHARED ${SOURCE_FILES})
 SET_TARGET_PROPERTIES(rd${KIT} PROPERTIES
    DEFINE_SYMBOL ${EXPORT_MACRO}
 )
+
+ADD_DEPENDENCIES(rd${KIT} JavaWrap)
 
 INSTALL_TARGETS(/lib/ RUNTIME_DIRECTORY /lib rd${KIT})
 

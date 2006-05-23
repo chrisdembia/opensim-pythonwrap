@@ -10200,12 +10200,12 @@ JNIEXPORT void JNICALL Java_opensimModel_opensimModelJNI_Storage_1print_1_1SWIG_
 }
 
 
-JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_Storage_1print_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
-  jint jresult = 0 ;
+JNIEXPORT jboolean JNICALL Java_opensimModel_opensimModelJNI_Storage_1print_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
+  jboolean jresult = 0 ;
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
   char *arg2 = (char *) 0 ;
   char *arg3 = (char *) 0 ;
-  int result;
+  bool result;
   
   (void)jenv;
   (void)jcls;
@@ -10220,19 +10220,19 @@ JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_Storage_1print_1_1SWIG_
     arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
     if (!arg3) return 0;
   }
-  result = (int)(arg1)->print((char const *)arg2,(char const *)arg3);
-  jresult = (jint)result; 
+  result = (bool)(arg1)->print((char const *)arg2,(char const *)arg3);
+  jresult = (jboolean)result; 
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
   if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
 
-JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_Storage_1print_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
-  jint jresult = 0 ;
+JNIEXPORT jboolean JNICALL Java_opensimModel_opensimModelJNI_Storage_1print_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
+  jboolean jresult = 0 ;
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
   char *arg2 = (char *) 0 ;
-  int result;
+  bool result;
   
   (void)jenv;
   (void)jcls;
@@ -10242,8 +10242,8 @@ JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_Storage_1print_1_1SWIG_
     arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
     if (!arg2) return 0;
   }
-  result = (int)(arg1)->print((char const *)arg2);
-  jresult = (jint)result; 
+  result = (bool)(arg1)->print((char const *)arg2);
+  jresult = (jboolean)result; 
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
   return jresult;
 }
@@ -32420,7 +32420,7 @@ JNIEXPORT jdouble JNICALL Java_opensimModel_opensimModelJNI_SimmDof_1getValue(JN
 }
 
 
-JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_SimmDof_1getType(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_SimmDof_1getDofType(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jint jresult = 0 ;
   OpenSim::SimmDof *arg1 = (OpenSim::SimmDof *) 0 ;
   OpenSim::SimmDof::DofType result;
@@ -32428,7 +32428,7 @@ JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_SimmDof_1getType(JNIEnv
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::SimmDof **)&jarg1; 
-  result = (OpenSim::SimmDof::DofType)((OpenSim::SimmDof const *)arg1)->getType();
+  result = (OpenSim::SimmDof::DofType)((OpenSim::SimmDof const *)arg1)->getDofType();
   jresult = (jint)result; 
   return jresult;
 }
@@ -41167,7 +41167,7 @@ JNIEXPORT jdouble JNICALL Java_opensimModel_opensimModelJNI_SimmRotationDof_1get
 }
 
 
-JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_SimmRotationDof_1getType(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_SimmRotationDof_1getDofType(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jint jresult = 0 ;
   OpenSim::SimmRotationDof *arg1 = (OpenSim::SimmRotationDof *) 0 ;
   OpenSim::SimmDof::DofType result;
@@ -41175,7 +41175,7 @@ JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_SimmRotationDof_1getTyp
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::SimmRotationDof **)&jarg1; 
-  result = (OpenSim::SimmDof::DofType)((OpenSim::SimmRotationDof const *)arg1)->getType();
+  result = (OpenSim::SimmDof::DofType)((OpenSim::SimmRotationDof const *)arg1)->getDofType();
   jresult = (jint)result; 
   return jresult;
 }
@@ -41494,7 +41494,7 @@ JNIEXPORT jdouble JNICALL Java_opensimModel_opensimModelJNI_SimmTranslationDof_1
 }
 
 
-JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_SimmTranslationDof_1getType(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_SimmTranslationDof_1getDofType(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jint jresult = 0 ;
   OpenSim::SimmTranslationDof *arg1 = (OpenSim::SimmTranslationDof *) 0 ;
   OpenSim::SimmDof::DofType result;
@@ -41502,7 +41502,7 @@ JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_SimmTranslationDof_1get
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::SimmTranslationDof **)&jarg1; 
-  result = (OpenSim::SimmDof::DofType)((OpenSim::SimmTranslationDof const *)arg1)->getType();
+  result = (OpenSim::SimmDof::DofType)((OpenSim::SimmTranslationDof const *)arg1)->getDofType();
   jresult = (jint)result; 
   return jresult;
 }
