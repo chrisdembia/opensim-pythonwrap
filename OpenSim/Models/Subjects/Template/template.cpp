@@ -9,7 +9,7 @@
 //=============================================================================
 #include <iostream>
 #include <string>
-#include <OpenSim/Models/SIMMPipeline/4.0/Pipeline40Workflow/Pipeline40Workflow.h>
+#include <OpenSim/Models/SIMMPipeline/4.0/Pipeline40Workflow/suPipeline40Workflow.h>
 #include "_Template_.h"
 
 
@@ -34,7 +34,7 @@ _Template_::~_Template_()
 _Template_::
 _Template_(const std::string &aParametersFileName,
 	ActuatorSet *aActuators,ContactForceSet *aContacts) :
-	Pipeline40Workflow(aParametersFileName,aActuators,aContacts)
+	suPipeline40Workflow(aParametersFileName,aActuators,aContacts)
 {
 	setNull();
 	setName("_Template_");

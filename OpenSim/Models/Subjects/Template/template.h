@@ -9,7 +9,7 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <OpenSim/Models/SIMMPipeline/4.0/Pipeline40Workflow/Pipeline40Workflow.h>
+#include <OpenSim/Models/SIMMPipeline/4.0/Pipeline40Workflow/suPipeline40Workflow.h>
 
 
 //=============================================================================
@@ -17,7 +17,7 @@
 
 namespace OpenSim { 
 
-class RDSDFAST_API _Template_ : public Pipeline40Workflow
+class RDSDFAST_API _Template_ : public suPipeline40Workflow
 {
 //=============================================================================
 // DATA
