@@ -6,8 +6,6 @@ INCLUDE(${CMAKE_ROOT}/Modules/FindJava.cmake)
 INCLUDE(${CMAKE_ROOT}/Modules/FindJNI.cmake)
 INCLUDE(${CMAKE_ROOT}/Modules/FindSwig.cmake)
 
-MESSAGE(STATUS ${SWIG_EXECUTABLE})
-
 IF(JAVA_INCLUDE_PATH)
 
 # Run command to generate ModelJNI_wrap.cxx
