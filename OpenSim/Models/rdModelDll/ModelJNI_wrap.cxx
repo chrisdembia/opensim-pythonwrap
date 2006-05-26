@@ -9496,7 +9496,33 @@ JNIEXPORT jstring JNICALL Java_opensimModel_opensimModelJNI_Storage_1getHeaderTo
 }
 
 
-JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_Storage_1getColumnIndex(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
+JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_Storage_1getColumnIndex_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jint jarg3) {
+  jint jresult = 0 ;
+  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
+  std::string *arg2 = 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Storage **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  arg3 = (int)jarg3; 
+  result = (int)((OpenSim::Storage const *)arg1)->getColumnIndex((std::string const &)*arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_Storage_1getColumnIndex_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
   jint jresult = 0 ;
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
   std::string *arg2 = 0 ;
@@ -13735,6 +13761,30 @@ JNIEXPORT void JNICALL Java_opensimModel_opensimModelJNI_Model_1computeConstrain
   arg1 = *(OpenSim::Model **)&jarg1; 
   arg2 = *(double **)&jarg2; 
   (arg1)->computeConstrainedCoordinates(arg2);
+}
+
+
+JNIEXPORT void JNICALL Java_opensimModel_opensimModelJNI_Model_1formCompleteStorages(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3, jlong jarg4) {
+  OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
+  OpenSim::Storage *arg2 = 0 ;
+  OpenSim::Storage **arg3 = 0 ;
+  OpenSim::Storage **arg4 = 0 ;
+  OpenSim::Storage *temp3 = 0 ;
+  OpenSim::Storage *temp4 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Model **)&jarg1; 
+  arg2 = *(OpenSim::Storage **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Storage const & reference is null");
+    return ;
+  } 
+  temp3 = *(OpenSim::Storage **)&jarg3;
+  arg3 = &temp3; 
+  temp4 = *(OpenSim::Storage **)&jarg4;
+  arg4 = &temp4; 
+  (arg1)->formCompleteStorages((OpenSim::Storage const &)*arg2,*arg3,*arg4);
 }
 
 
