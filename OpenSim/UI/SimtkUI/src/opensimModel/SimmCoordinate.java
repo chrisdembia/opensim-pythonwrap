@@ -174,4 +174,8 @@ public class SimmCoordinate extends Coordinate {
     opensimModelJNI.SimmCoordinate_peteTest(swigCPtr);
   }
 
+  public void setRestraintFunction(Function aFunction) {
+    opensimModelJNI.SimmCoordinate_setRestraintFunction(swigCPtr, Function.getCPtr(aFunction));
+  }
+
 }

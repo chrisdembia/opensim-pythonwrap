@@ -118,8 +118,8 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     return opensimModelJNI.SimmKinematicsEngine_getNumMarkers(swigCPtr);
   }
 
-  public void moveMarkersToCloud(SWIGTYPE_p_SimmMarkerData aMarkerData) {
-    opensimModelJNI.SimmKinematicsEngine_moveMarkersToCloud(swigCPtr, SWIGTYPE_p_SimmMarkerData.getCPtr(aMarkerData));
+  public void moveMarkersToCloud(Storage aMarkerStorage) {
+    opensimModelJNI.SimmKinematicsEngine_moveMarkersToCloud(swigCPtr, Storage.getCPtr(aMarkerStorage));
   }
 
   public int deleteUnusedMarkers(ArrayStr aMarkerNames) {

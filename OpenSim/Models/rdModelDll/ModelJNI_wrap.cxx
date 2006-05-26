@@ -32302,6 +32302,18 @@ JNIEXPORT void JNICALL Java_opensimModel_opensimModelJNI_SimmCoordinate_1peteTes
 }
 
 
+JNIEXPORT void JNICALL Java_opensimModel_opensimModelJNI_SimmCoordinate_1setRestraintFunction(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  OpenSim::SimmCoordinate *arg1 = (OpenSim::SimmCoordinate *) 0 ;
+  OpenSim::Function *arg2 = (OpenSim::Function *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmCoordinate **)&jarg1; 
+  arg2 = *(OpenSim::Function **)&jarg2; 
+  (arg1)->setRestraintFunction(arg2);
+}
+
+
 JNIEXPORT void JNICALL Java_opensimModel_opensimModelJNI_delete_1SimmDof(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   OpenSim::SimmDof *arg1 = (OpenSim::SimmDof *) 0 ;
   
@@ -33155,14 +33167,14 @@ JNIEXPORT jint JNICALL Java_opensimModel_opensimModelJNI_SimmKinematicsEngine_1g
 
 JNIEXPORT void JNICALL Java_opensimModel_opensimModelJNI_SimmKinematicsEngine_1moveMarkersToCloud(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
-  SimmMarkerData *arg2 = 0 ;
+  OpenSim::Storage *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::SimmKinematicsEngine **)&jarg1; 
-  arg2 = *(SimmMarkerData **)&jarg2;
+  arg2 = *(OpenSim::Storage **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimmMarkerData & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Storage & reference is null");
     return ;
   } 
   (arg1)->moveMarkersToCloud(*arg2);
@@ -36597,14 +36609,14 @@ JNIEXPORT jlong JNICALL Java_opensimModel_opensimModelJNI_SimmModel_1getSimmKine
 
 JNIEXPORT void JNICALL Java_opensimModel_opensimModelJNI_SimmModel_1moveMarkersToCloud(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   OpenSim::SimmModel *arg1 = (OpenSim::SimmModel *) 0 ;
-  SimmMarkerData *arg2 = 0 ;
+  OpenSim::Storage *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::SimmModel **)&jarg1; 
-  arg2 = *(SimmMarkerData **)&jarg2;
+  arg2 = *(OpenSim::Storage **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimmMarkerData & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Storage & reference is null");
     return ;
   } 
   (arg1)->moveMarkersToCloud(*arg2);

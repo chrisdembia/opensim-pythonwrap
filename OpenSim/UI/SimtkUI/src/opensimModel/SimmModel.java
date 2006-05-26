@@ -93,8 +93,8 @@ public class SimmModel extends Model {
     return new SimmKinematicsEngine(opensimModelJNI.SimmModel_getSimmKinematicsEngine(swigCPtr), false);
   }
 
-  public void moveMarkersToCloud(SWIGTYPE_p_SimmMarkerData aMarkerData) {
-    opensimModelJNI.SimmModel_moveMarkersToCloud(swigCPtr, SWIGTYPE_p_SimmMarkerData.getCPtr(aMarkerData));
+  public void moveMarkersToCloud(Storage aMarkerStorage) {
+    opensimModelJNI.SimmModel_moveMarkersToCloud(swigCPtr, Storage.getCPtr(aMarkerStorage));
   }
 
   public int deleteUnusedMarkers(ArrayStr aMarkerNames) {

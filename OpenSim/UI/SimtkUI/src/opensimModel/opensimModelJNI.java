@@ -14,7 +14,7 @@ public class opensimModelJNI {
     try {
         System.loadLibrary("rdModelDll_d");
     } catch (UnsatisfiedLinkError e) {
-      System.err.println("Native code library failed to load. Check that the dynamic library rdModelDll_d is in the PATH\n" + e);
+      System.err.println("Native code library failed to load. Check that the dynamic library rdModelDll is in the PATH\n" + e);
       System.exit(1);
     }
   }
@@ -1895,6 +1895,7 @@ public class opensimModelJNI {
   public final static native void SimmCoordinate_updateFromCoordinate(long jarg1, long jarg2);
   public final static native void SimmCoordinate_writeSIMM(long jarg1, long jarg2, long jarg3);
   public final static native void SimmCoordinate_peteTest(long jarg1);
+  public final static native void SimmCoordinate_setRestraintFunction(long jarg1, long jarg2);
   public final static native void delete_SimmDof(long jarg1);
   public final static native long SimmDof_copy__SWIG_0(long jarg1);
   public final static native long SimmDof_copy__SWIG_1(long jarg1, long jarg2);
