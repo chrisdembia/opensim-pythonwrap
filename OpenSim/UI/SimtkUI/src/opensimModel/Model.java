@@ -784,6 +784,10 @@ public class Model extends OpenSimObject {
     opensimModelJNI.Model_computeConstrainedCoordinates(swigCPtr, SWIGTYPE_p_double.getCPtr(y));
   }
 
+  public void formCompleteStorages(Storage aQIn, Storage rQComplete, Storage rUComplete) {
+    opensimModelJNI.Model_formCompleteStorages(swigCPtr, Storage.getCPtr(aQIn), Storage.getCPtr(rQComplete), Storage.getCPtr(rUComplete));
+  }
+
   public void printBasicInfo(SWIGTYPE_p_std__ostream aOStream) {
     opensimModelJNI.Model_printBasicInfo(swigCPtr, SWIGTYPE_p_std__ostream.getCPtr(aOStream));
   }

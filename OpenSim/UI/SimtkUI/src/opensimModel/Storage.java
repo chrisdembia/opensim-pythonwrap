@@ -200,8 +200,12 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_getHeaderToken(swigCPtr);
   }
 
+  public int getColumnIndex(String aColumnName, int startIndex) {
+    return opensimModelJNI.Storage_getColumnIndex__SWIG_0(swigCPtr, aColumnName, startIndex);
+  }
+
   public int getColumnIndex(String aColumnName) {
-    return opensimModelJNI.Storage_getColumnIndex(swigCPtr, aColumnName);
+    return opensimModelJNI.Storage_getColumnIndex__SWIG_1(swigCPtr, aColumnName);
   }
 
   public void setColumnLabels(String aLabels) {

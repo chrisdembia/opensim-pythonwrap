@@ -557,7 +557,8 @@ public class opensimModelJNI {
   public final static native boolean Storage_getWriteSIMMHeader(long jarg1);
   public final static native void Storage_setHeaderToken(long jarg1, String jarg2);
   public final static native String Storage_getHeaderToken(long jarg1);
-  public final static native int Storage_getColumnIndex(long jarg1, String jarg2);
+  public final static native int Storage_getColumnIndex__SWIG_0(long jarg1, String jarg2, int jarg3);
+  public final static native int Storage_getColumnIndex__SWIG_1(long jarg1, String jarg2);
   public final static native void Storage_setColumnLabels__SWIG_0(long jarg1, String jarg2);
   public final static native void Storage_setColumnLabels__SWIG_1(long jarg1);
   public final static native String Storage_getColumnLabels(long jarg1);
@@ -794,6 +795,7 @@ public class opensimModelJNI {
   public final static native void Model_addDerivCallback(long jarg1, long jarg2);
   public final static native void Model_setIncludePipelineActuators(long jarg1, boolean jarg2);
   public final static native void Model_computeConstrainedCoordinates(long jarg1, long jarg2);
+  public final static native void Model_formCompleteStorages(long jarg1, long jarg2, long jarg3, long jarg4);
   public final static native void Model_printBasicInfo(long jarg1, long jarg2);
   public final static native void Model_printDetailedInfo(long jarg1, long jarg2);
   public final static native void delete_Control(long jarg1);
