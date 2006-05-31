@@ -4,7 +4,7 @@ SET(UKIT MODELDLL)
 
 INCLUDE(${CMAKE_ROOT}/Modules/FindJava.cmake)
 INCLUDE(${CMAKE_ROOT}/Modules/FindJNI.cmake)
-INCLUDE(${CMAKE_ROOT}/Modules/FindSwig.cmake)
+INCLUDE(${CMAKE_ROOT}/Modules/FindSWIG.cmake)
 
 IF(JAVA_INCLUDE_PATH)
 
