@@ -233,8 +233,6 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 #include <OpenSim/Simulation/Model/Analysis.h>
 #include <OpenSim/Simulation/Model/AnalysisSet.h>
 #include <OpenSim/Simulation/Model/AnalysisFactory.h>
-
-#include <OpenSim/Analyses/AnalysisFactory.h>
 #include <OpenSim/Analyses/Actuation.h>
 #include <OpenSim/Analyses/IndAcc.h>
 #include <OpenSim/Analyses/Kinematics.h>
