@@ -39,15 +39,12 @@ final class Gfx3DVTKTopComponent extends TopComponent {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jGfxWindowMenuBar = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
         opensimCanvas = new java.awt.Canvas();
         jGfxWindowStatusBar = new javax.swing.JPanel();
         jGfxWindowText = new javax.swing.JTextField();
         jGfxWindowProgressBar = new javax.swing.JProgressBar();
-
-        org.openide.awt.Mnemonics.setLocalizedText(jMenu2, "Menu");
-        jGfxWindowMenuBar.add(jMenu2);
+        jGfxWindowToolBar = new javax.swing.JToolBar();
+        jRefitModelButton = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -72,16 +69,26 @@ final class Gfx3DVTKTopComponent extends TopComponent {
         );
         add(jGfxWindowStatusBar, java.awt.BorderLayout.SOUTH);
 
+        org.openide.awt.Mnemonics.setLocalizedText(jRefitModelButton, "Refit");
+        jGfxWindowToolBar.add(jRefitModelButton);
+
+        add(jGfxWindowToolBar, java.awt.BorderLayout.NORTH);
+
     }// </editor-fold>//GEN-END:initComponents
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar jGfxWindowMenuBar;
     private javax.swing.JProgressBar jGfxWindowProgressBar;
+    private javax.swing.JProgressBar jGfxWindowProgressBar1;
     private javax.swing.JPanel jGfxWindowStatusBar;
+    private javax.swing.JPanel jGfxWindowStatusBar1;
     private javax.swing.JTextField jGfxWindowText;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JTextField jGfxWindowText1;
+    private javax.swing.JToolBar jGfxWindowToolBar;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jRefitModelButton;
     private java.awt.Canvas opensimCanvas;
+    private java.awt.Canvas opensimCanvas1;
     // End of variables declaration//GEN-END:variables
     
     /**

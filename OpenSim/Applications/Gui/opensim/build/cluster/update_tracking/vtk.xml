@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module codename="vtk">
-<module_version install_time="1150156421034" last="true" origin="installer" specification_version="1.0">
-<file crc="2932489754" name="config/Modules/vtk.xml"/>
-<file crc="2781652123" name="modules/ext/vtk50.jar"/>
-<file crc="3307908311" name="modules/vtk.jar"/>
-</module_version>
-</module>

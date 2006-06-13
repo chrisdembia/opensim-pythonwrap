@@ -3,11 +3,15 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Window">
+            <file name="org-opensim-view-ExplorerAction.instance"/>
             <file name="org-opensim-view-Gfx3DVTKAction.instance"/>
         </folder>
     </folder>
     <folder name="Menu">
         <folder name="Window">
+            <file name="ExplorerAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-ExplorerAction.instance"/>
+            </file>
             <file name="Gfx3DVTKAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-Gfx3DVTKAction.instance"/>
             </file>
@@ -15,11 +19,15 @@
     </folder>
     <folder name="Windows2">
         <folder name="Components">
+            <file name="ExplorerTopComponent.settings" url="ExplorerTopComponentSettings.xml"/>
             <file name="Gfx3DVTKTopComponent.settings" url="Gfx3DVTKTopComponentSettings.xml"/>
         </folder>
         <folder name="Modes">
             <folder name="editor">
                 <file name="Gfx3DVTKTopComponent.wstcref" url="Gfx3DVTKTopComponentWstcref.xml"/>
+            </folder>
+            <folder name="explorer">
+                <file name="ExplorerTopComponent.wstcref" url="ExplorerTopComponentWstcref.xml"/>
             </folder>
         </folder>
     </folder>
