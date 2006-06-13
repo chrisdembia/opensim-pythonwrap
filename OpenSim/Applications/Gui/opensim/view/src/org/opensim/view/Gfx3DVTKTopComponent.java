@@ -39,7 +39,6 @@ final class Gfx3DVTKTopComponent extends TopComponent {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        opensimCanvas = new java.awt.Canvas();
         jGfxWindowStatusBar = new javax.swing.JPanel();
         jGfxWindowText = new javax.swing.JTextField();
         jGfxWindowProgressBar = new javax.swing.JProgressBar();
@@ -47,8 +46,6 @@ final class Gfx3DVTKTopComponent extends TopComponent {
         jRefitModelButton = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
-
-        add(opensimCanvas, java.awt.BorderLayout.CENTER);
 
         org.jdesktop.layout.GroupLayout jGfxWindowStatusBarLayout = new org.jdesktop.layout.GroupLayout(jGfxWindowStatusBar);
         jGfxWindowStatusBar.setLayout(jGfxWindowStatusBarLayout);
@@ -79,16 +76,10 @@ final class Gfx3DVTKTopComponent extends TopComponent {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar jGfxWindowProgressBar;
-    private javax.swing.JProgressBar jGfxWindowProgressBar1;
     private javax.swing.JPanel jGfxWindowStatusBar;
-    private javax.swing.JPanel jGfxWindowStatusBar1;
     private javax.swing.JTextField jGfxWindowText;
-    private javax.swing.JTextField jGfxWindowText1;
     private javax.swing.JToolBar jGfxWindowToolBar;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jRefitModelButton;
-    private java.awt.Canvas opensimCanvas;
-    private java.awt.Canvas opensimCanvas1;
     // End of variables declaration//GEN-END:variables
     
     /**

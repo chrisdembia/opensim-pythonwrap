@@ -3,12 +3,16 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Window">
+            <file name="org-opensim-view-BottomPanelAction.instance"/>
             <file name="org-opensim-view-ExplorerAction.instance"/>
             <file name="org-opensim-view-Gfx3DVTKAction.instance"/>
         </folder>
     </folder>
     <folder name="Menu">
         <folder name="Window">
+            <file name="BottomPanelAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-BottomPanelAction.instance"/>
+            </file>
             <file name="ExplorerAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-ExplorerAction.instance"/>
             </file>
@@ -19,6 +23,7 @@
     </folder>
     <folder name="Windows2">
         <folder name="Components">
+            <file name="BottomPanelTopComponent.settings" url="BottomPanelTopComponentSettings.xml"/>
             <file name="ExplorerTopComponent.settings" url="ExplorerTopComponentSettings.xml"/>
             <file name="Gfx3DVTKTopComponent.settings" url="Gfx3DVTKTopComponentSettings.xml"/>
         </folder>
@@ -28,6 +33,9 @@
             </folder>
             <folder name="explorer">
                 <file name="ExplorerTopComponent.wstcref" url="ExplorerTopComponentWstcref.xml"/>
+            </folder>
+            <folder name="output">
+                <file name="BottomPanelTopComponent.wstcref" url="BottomPanelTopComponentWstcref.xml"/>
             </folder>
         </folder>
     </folder>
