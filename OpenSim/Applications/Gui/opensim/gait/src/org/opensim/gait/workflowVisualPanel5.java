@@ -10,7 +10,7 @@ public final class workflowVisualPanel5 extends JPanel {
     }
     
     public String getName() {
-        return "Generate Dynamic Model";
+        return "Generate dynamic model";
     }
     
     /** This method is called from within the constructor to

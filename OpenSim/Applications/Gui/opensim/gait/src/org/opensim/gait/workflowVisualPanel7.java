@@ -10,7 +10,7 @@ public final class workflowVisualPanel7 extends JPanel {
     }
     
     public String getName() {
-        return "Track Motion";
+        return "Track experimental motion";
     }
     
     /** This method is called from within the constructor to

@@ -85,8 +85,8 @@ public class SimmJoint extends OpenSimObject {
     return (cPtr == 0) ? null : new SimmBody(cPtr, false);
   }
 
-  public Transform getForwaTransform() {
-    return new Transform(opensimModelJNI.SimmJoint_getForwaTransform(swigCPtr), false);
+  public Transform getForwardTransform() {
+    return new Transform(opensimModelJNI.SimmJoint_getForwardTransform(swigCPtr), false);
   }
 
   public Transform getInverseTransform() {

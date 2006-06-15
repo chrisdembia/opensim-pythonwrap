@@ -1790,6 +1790,8 @@ public class opensimModelJNI {
   public final static native void SimmBody_getMassCenter(long jarg1, double[] jarg2);
   public final static native long SimmBody_getInertia(long jarg1);
   public final static native long SimmBody_getBones(long jarg1);
+  public final static native int SimmBody_getNumBones(long jarg1);
+  public final static native long SimmBody_getBone(long jarg1, int jarg2);
   public final static native int SimmBody_getNumMarkers(long jarg1);
   public final static native long SimmBody_getMarker(long jarg1, int jarg2);
   public final static native int SimmBody_deleteAllMarkers(long jarg1);
@@ -1923,7 +1925,7 @@ public class opensimModelJNI {
   public final static native long SimmJoint_getDofs(long jarg1);
   public final static native long SimmJoint_getChildBody(long jarg1);
   public final static native long SimmJoint_getParentBody(long jarg1);
-  public final static native long SimmJoint_getForwaTransform(long jarg1);
+  public final static native long SimmJoint_getForwardTransform(long jarg1);
   public final static native long SimmJoint_getInverseTransform(long jarg1);
   public final static native boolean SimmJoint_isCoordinateUsed(long jarg1, long jarg2);
   public final static native void SimmJoint_identifyDpType(long jarg1, long jarg2);
@@ -2378,7 +2380,7 @@ public class opensimModelJNI {
   public final static native long SimmPath_getFromBody(long jarg1);
   public final static native long SimmPath_getToBody(long jarg1);
   public final static native long SimmPath_getPath(long jarg1);
-  public final static native long SimmPath_getForwaTransform(long jarg1);
+  public final static native long SimmPath_getForwardTransform(long jarg1);
   public final static native long SimmPath_getInverseTransform(long jarg1);
   public final static native void SimmPath_peteTest(long jarg1);
   public final static native long new_SimmPathMatrix(int jarg1);
@@ -2448,6 +2450,16 @@ public class opensimModelJNI {
   public final static native int SimmUnits_getType(long jarg1);
   public final static native String SimmUnits_getLabel(long jarg1);
   public final static native void SimmUnits_peteTest(long jarg1);
+  public final static native long new_SimmModelIterator__SWIG_0(long jarg1, long jarg2);
+  public final static native long new_SimmModelIterator__SWIG_1(long jarg1);
+  public final static native void delete_SimmModelIterator(long jarg1);
+  public final static native long SimmModelIterator_getNextBody(long jarg1);
+  public final static native long SimmModelIterator_getCurrentBody(long jarg1);
+  public final static native long SimmModelIterator_getCurrentJoint(long jarg1);
+  public final static native int SimmModelIterator_getNumAncestors(long jarg1);
+  public final static native long SimmModelIterator_getAncestor__SWIG_0(long jarg1, int jarg2);
+  public final static native long SimmModelIterator_getAncestor__SWIG_1(long jarg1);
+  public final static native void SimmModelIterator_reset(long jarg1);
   public final static native long new_SimmGenericModelParams__SWIG_0();
   public final static native long new_SimmGenericModelParams__SWIG_1(long jarg1);
   public final static native long new_SimmGenericModelParams__SWIG_2(long jarg1);
@@ -2481,7 +2493,6 @@ public class opensimModelJNI {
   public final static native long SimmMarkerPlacementParams_copy__SWIG_0(long jarg1);
   public final static native long SimmMarkerPlacementParams_copy__SWIG_1(long jarg1, long jarg2);
   public final static native void SimmMarkerPlacementParams_copyData(long jarg1, long jarg2);
-  public final static native boolean SimmMarkerPlacementParams_processModel(long jarg1, long jarg2);
   public final static native void SimmMarkerPlacementParams_peteTest(long jarg1);
   public final static native boolean SimmMarkerPlacementParams_isDefault(long jarg1);
   public final static native long SimmMarkerPlacementParams_getMarkerSet(long jarg1);

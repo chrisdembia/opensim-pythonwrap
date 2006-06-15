@@ -79,6 +79,15 @@ public class SimmBody extends OpenSimObject {
     return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__VisibleObject_t(opensimModelJNI.SimmBody_getBones(swigCPtr), false);
   }
 
+  public int getNumBones() {
+    return opensimModelJNI.SimmBody_getNumBones(swigCPtr);
+  }
+
+  public SimmBone getBone(int index) {
+    long cPtr = opensimModelJNI.SimmBody_getBone(swigCPtr, index);
+    return (cPtr == 0) ? null : new SimmBone(cPtr, false);
+  }
+
   public int getNumMarkers() {
     return opensimModelJNI.SimmBody_getNumMarkers(swigCPtr);
   }

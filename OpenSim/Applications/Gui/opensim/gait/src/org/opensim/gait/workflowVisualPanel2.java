@@ -10,7 +10,7 @@ public final class workflowVisualPanel2 extends JPanel {
     }
     
     public String getName() {
-        return "Scale Generic Model";
+        return "Scale generic model";
     }
     
     /** This method is called from within the constructor to

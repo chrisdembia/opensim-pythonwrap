@@ -10,7 +10,7 @@ public final class workflowVisualPanel6 extends JPanel {
     }
     
     public String getName() {
-        return "Reduce Residuals";
+        return "Reduce residuals";
     }
     
     /** This method is called from within the constructor to

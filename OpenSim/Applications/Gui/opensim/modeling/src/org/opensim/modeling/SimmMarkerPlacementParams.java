@@ -59,10 +59,6 @@ public class SimmMarkerPlacementParams extends OpenSimObject {
     opensimModelJNI.SimmMarkerPlacementParams_copyData(swigCPtr, SimmMarkerPlacementParams.getCPtr(aMarkerPlacementParams));
   }
 
-  public boolean processModel(SimmModel aModel) {
-    return opensimModelJNI.SimmMarkerPlacementParams_processModel(swigCPtr, SimmModel.getCPtr(aModel));
-  }
-
   public void peteTest() {
     opensimModelJNI.SimmMarkerPlacementParams_peteTest(swigCPtr);
   }

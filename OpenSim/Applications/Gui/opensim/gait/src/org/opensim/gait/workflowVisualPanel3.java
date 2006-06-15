@@ -10,7 +10,7 @@ public final class workflowVisualPanel3 extends JPanel {
     }
     
     public String getName() {
-        return "Place Markers based on a trial";
+        return "Place markers based on trial";
     }
     
     /** This method is called from within the constructor to

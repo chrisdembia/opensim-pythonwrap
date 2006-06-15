@@ -59,8 +59,8 @@ public class SimmPath {
     return new SWIGTYPE_p_std__vectorTSimmStep_t(opensimModelJNI.SimmPath_getPath(swigCPtr), false);
   }
 
-  public Transform getForwaTransform() {
-    return new Transform(opensimModelJNI.SimmPath_getForwaTransform(swigCPtr), false);
+  public Transform getForwardTransform() {
+    return new Transform(opensimModelJNI.SimmPath_getForwardTransform(swigCPtr), false);
   }
 
   public Transform getInverseTransform() {
