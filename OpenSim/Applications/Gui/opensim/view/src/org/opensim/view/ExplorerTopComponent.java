@@ -5,17 +5,20 @@ import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.Serializable;
+import java.util.Observable;
+import java.util.Observer;
 import org.openide.ErrorManager;
 import org.openide.util.NbBundle;
 import org.openide.util.RequestProcessor;
 import org.openide.util.Utilities;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
+import org.opensim.common.OpenSimDB;
 
 /**
  * Top component which displays something.
  */
-final class ExplorerTopComponent extends TopComponent {
+final class ExplorerTopComponent extends TopComponent implements Observer {
     
     private static final long serialVersionUID = 1L;
     
@@ -29,6 +32,8 @@ final class ExplorerTopComponent extends TopComponent {
         initComponents();
         setName(NbBundle.getMessage(ExplorerTopComponent.class, "CTL_ExplorerTopComponent"));
         setToolTipText(NbBundle.getMessage(ExplorerTopComponent.class, "HINT_ExplorerTopComponent"));
+        // Add explorer as observer of the database
+        OpenSimDB.getInstance().addObserver(this);
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
     }
     
@@ -103,6 +108,11 @@ final class ExplorerTopComponent extends TopComponent {
     
     protected String preferredID() {
         return PREFERRED_ID;
+    }
+
+    public void update(Observable o, Object arg) {
+        // Observable is OpenSimDB
+        
     }
     
     final static class ResolvableHelper implements Serializable {

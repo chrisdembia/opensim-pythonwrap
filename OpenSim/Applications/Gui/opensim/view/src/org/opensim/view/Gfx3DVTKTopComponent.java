@@ -47,6 +47,11 @@ final class Gfx3DVTKTopComponent extends TopComponent {
 
         setLayout(new java.awt.BorderLayout());
 
+        jGfxWindowProgressBar.setBorderPainted(false);
+        jGfxWindowProgressBar.setEnabled(false);
+        jGfxWindowProgressBar.setFocusable(false);
+        jGfxWindowProgressBar.setOpaque(true);
+
         org.jdesktop.layout.GroupLayout jGfxWindowStatusBarLayout = new org.jdesktop.layout.GroupLayout(jGfxWindowStatusBar);
         jGfxWindowStatusBar.setLayout(jGfxWindowStatusBarLayout);
         jGfxWindowStatusBarLayout.setHorizontalGroup(

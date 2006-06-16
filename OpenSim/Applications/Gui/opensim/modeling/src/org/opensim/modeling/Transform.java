@@ -123,8 +123,12 @@ public class Transform extends OpenSimObject {
   }
 
   public SWIGTYPE_p_double getMatrix() {
-    long cPtr = opensimModelJNI.Transform_getMatrix(swigCPtr);
+    long cPtr = opensimModelJNI.Transform_getMatrix__SWIG_0(swigCPtr);
     return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
+  }
+
+  public void getMatrix(double[] aMat) {
+    opensimModelJNI.Transform_getMatrix__SWIG_1(swigCPtr, aMat);
   }
 
   public void setupSerializedMembers() {

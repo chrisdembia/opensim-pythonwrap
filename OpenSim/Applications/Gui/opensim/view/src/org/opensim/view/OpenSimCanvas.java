@@ -11,15 +11,14 @@ package org.opensim.view;
 
 import java.io.File;
 import java.util.Stack;
-import org.opensim.modeling.SWIGTYPE_p_double;
 import org.opensim.modeling.SimmBody;
 import org.opensim.modeling.SimmBone;
 import org.opensim.modeling.SimmJoint;
 import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmModelIterator;
-import org.opensim.modeling.opensimModelJNI;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
+import vtk.vtkCamera;
 import vtk.vtkMatrix4x4;
 import vtk.vtkPanel;
 import vtk.vtkPolyData;
@@ -29,6 +28,7 @@ import vtk.vtkXMLPolyDataReader;
 /**
  *
  * @author Ayman, based on Kenny Smith's Canvas3DVtk and earlier incarnations
+ * A wrapper around vtkPanel that provides common behavior 
  */
 public class OpenSimCanvas extends vtkPanel {
     
@@ -86,14 +86,15 @@ public class OpenSimCanvas extends vtkPanel {
             SimmJoint joint = i.getCurrentJoint();
 
             if (joint != null) {
-                SWIGTYPE_p_double jointXform = joint.getForwardTransform().getMatrix();
+                double[] jointXform = new double[16];
+                joint.getForwardTransform().getMatrix(jointXform);
 
                 vtkMatrix4x4 m = new vtkMatrix4x4();
-
-                for (int row = 0; row < 4; ++row)
-                    for (int col = 0; col < 4; ++col){
-                    //opensimModelJNI.(jointXform, row * 4 + col)
-                        m.SetElement(col, row, (col==row?1.0:0.0));
+                System.out.println("Body "+body.getName()+", transform="+
+                        jointXform[0]+" "+jointXform[1]+" "+jointXform[2]+" "+jointXform[3]);
+                for (int row = 0; row < 4; row++)
+                    for (int col = 0; col < 4; col++){
+                        m.SetElement(row, col, jointXform[row*4+col]);
                     }
 
                 assembly.SetUserMatrix(m);
@@ -125,6 +126,11 @@ public class OpenSimCanvas extends vtkPanel {
                 }
             }
         }
+        // Automatically setup the camera based on the visible actors.
+        vtkCamera camera = GetRenderer().GetActiveCamera();
+        camera.ComputeViewPlaneNormal();
+        camera.Dolly(1.5);
+
         return success;
     }
 }

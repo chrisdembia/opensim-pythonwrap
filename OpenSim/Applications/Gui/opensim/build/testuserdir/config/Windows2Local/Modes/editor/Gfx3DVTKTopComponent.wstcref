@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<tc-ref version="2.1">
-    <module name="org.opensim.view" spec="1.0" />
-    <tc-id id="Gfx3DVTKTopComponent" />
-    <state opened="true" />
-</tc-ref>

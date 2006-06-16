@@ -3866,7 +3866,7 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1tran
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1getMatrix(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1getMatrix_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
   double *result = 0 ;
@@ -3877,6 +3877,21 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1get
   result = (double *)(arg1)->getMatrix();
   *(double **)&jresult = result; 
   return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1getMatrix_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jdoubleArray jarg2) {
+  OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Transform **)&jarg1; 
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  ((OpenSim::Transform const *)arg1)->getMatrix(arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
 }
 
 

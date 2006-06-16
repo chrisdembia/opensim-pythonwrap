@@ -6,7 +6,9 @@
             <code-name-base>org.opensim.modeling</code-name-base>
             <suite-component/>
             <module-dependencies/>
-            <public-packages/>
+            <public-packages>
+                <package>org.opensim.modeling</package>
+            </public-packages>
         </data>
     </configuration>
 </project>
