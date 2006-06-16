@@ -24,7 +24,7 @@ public final class OpenOsimModelAction extends CallableSystemAction {
     }
     
     protected String iconResource() {
-        return "org/opensim/view/integrator.gif";
+        return null;
     }
     
     public HelpCtx getHelpCtx() {
