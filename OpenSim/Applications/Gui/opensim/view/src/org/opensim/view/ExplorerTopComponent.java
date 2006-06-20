@@ -1,24 +1,23 @@
 package org.opensim.view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 import org.openide.ErrorManager;
 import org.openide.util.NbBundle;
-import org.openide.util.RequestProcessor;
-import org.openide.util.Utilities;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.common.OpenSimDB;
+import org.opensim.common.newModelEvent;
+import org.openide.explorer.ExplorerManager;
+import org.openide.explorer.view.BeanTreeView;
+import org.openide.nodes.Node;
 
 /**
  * Top component which displays something.
  */
-final class ExplorerTopComponent extends TopComponent implements Observer {
+final class ExplorerTopComponent extends TopComponent implements Observer, ExplorerManager.Provider  {
     
     private static final long serialVersionUID = 1L;
     
@@ -28,15 +27,26 @@ final class ExplorerTopComponent extends TopComponent implements Observer {
     
     private static final String PREFERRED_ID = "ExplorerTopComponent";
     
-    private ExplorerTopComponent() {
+   private final ExplorerManager manager = new ExplorerManager();
+   private final BeanTreeView modelTree = new BeanTreeView();
+   
+   private ExplorerTopComponent() {
         initComponents();
         setName(NbBundle.getMessage(ExplorerTopComponent.class, "CTL_ExplorerTopComponent"));
         setToolTipText(NbBundle.getMessage(ExplorerTopComponent.class, "HINT_ExplorerTopComponent"));
         // Add explorer as observer of the database
         OpenSimDB.getInstance().addObserver(this);
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
+        setLayout(new BorderLayout());
+        add(modelTree, BorderLayout.CENTER);
+        modelTree.setRootVisible(false);
+        manager.setRootContext(new ModelNode.RootNode());
     }
-    
+   
+     BeanTreeView getTree() {
+        return modelTree;
+    }
+   
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -112,7 +122,23 @@ final class ExplorerTopComponent extends TopComponent implements Observer {
 
     public void update(Observable o, Object arg) {
         // Observable is OpenSimDB
+        if (arg instanceof newModelEvent){
+            newModelEvent evnt = (newModelEvent)arg;
+             // Add the model to the Tree window.
+            ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
+
+            Node rootNode = tree.getExplorerManager().getRootContext();
+
+            rootNode.getChildren().add(new Node[] { new ModelNode.ConcreteModelNode(evnt.getModel()) });
+
+            tree.getTree().expandAll();
+
+        }
         
+    }
+
+    public ExplorerManager getExplorerManager() {
+        return manager;
     }
     
     final static class ResolvableHelper implements Serializable {

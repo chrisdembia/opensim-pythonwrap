@@ -1,35 +1,35 @@
 package org.opensim.view;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.io.ByteArrayOutputStream;
+import java.io.FileWriter;
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.Serializable;
 import org.openide.ErrorManager;
 import org.openide.util.NbBundle;
-import org.openide.util.RequestProcessor;
-import org.openide.util.Utilities;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 
 /**
  * Top component which displays something.
  */
-final class BottomPanelTopComponent extends TopComponent {
+final class StdOutPanelTopComponent extends TopComponent {
     
     private static final long serialVersionUID = 1L;
     
-    private static BottomPanelTopComponent instance;
+    private static StdOutPanelTopComponent instance;
     /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
     
-    private static final String PREFERRED_ID = "BottomPanelTopComponent";
-    
-    private BottomPanelTopComponent() {
+    private static final String PREFERRED_ID = "StdOutPanelTopComponent";
+    private StdOutPanelTopComponent() {
         initComponents();
-        setName(NbBundle.getMessage(BottomPanelTopComponent.class, "CTL_BottomPanelTopComponent"));
-        setToolTipText(NbBundle.getMessage(BottomPanelTopComponent.class, "HINT_BottomPanelTopComponent"));
+        setName(NbBundle.getMessage(StdOutPanelTopComponent.class, "CTL_StdOutPanelTopComponent"));
+        setToolTipText(NbBundle.getMessage(StdOutPanelTopComponent.class, "HINT_StdOutPanelTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
+
     }
     
     /** This method is called from within the constructor to
@@ -39,29 +39,21 @@ final class BottomPanelTopComponent extends TopComponent {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jBottomPanelScrollPane = new javax.swing.JScrollPane();
-        jMessageTextArea = new javax.swing.JTextArea();
-
-        jMessageTextArea.setColumns(20);
-        jMessageTextArea.setRows(5);
-        jBottomPanelScrollPane.setViewportView(jMessageTextArea);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jBottomPanelScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .add(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jBottomPanelScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .add(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jBottomPanelScrollPane;
-    private javax.swing.JTextArea jMessageTextArea;
     // End of variables declaration//GEN-END:variables
     
     /**
@@ -69,24 +61,24 @@ final class BottomPanelTopComponent extends TopComponent {
      * i.e. deserialization routines; otherwise you could get a non-deserialized instance.
      * To obtain the singleton instance, use {@link findInstance}.
      */
-    public static synchronized BottomPanelTopComponent getDefault() {
+    public static synchronized StdOutPanelTopComponent getDefault() {
         if (instance == null) {
-            instance = new BottomPanelTopComponent();
+            instance = new StdOutPanelTopComponent();
         }
         return instance;
     }
     
     /**
-     * Obtain the BottomPanelTopComponent instance. Never call {@link #getDefault} directly!
+     * Obtain the StdOutPanelTopComponent instance. Never call {@link #getDefault} directly!
      */
-    public static synchronized BottomPanelTopComponent findInstance() {
+    public static synchronized StdOutPanelTopComponent findInstance() {
         TopComponent win = WindowManager.getDefault().findTopComponent(PREFERRED_ID);
         if (win == null) {
-            ErrorManager.getDefault().log(ErrorManager.WARNING, "Cannot find BottomPanel component. It will not be located properly in the window system.");
+            ErrorManager.getDefault().log(ErrorManager.WARNING, "Cannot find StdOutPanel component. It will not be located properly in the window system.");
             return getDefault();
         }
-        if (win instanceof BottomPanelTopComponent) {
-            return (BottomPanelTopComponent)win;
+        if (win instanceof StdOutPanelTopComponent) {
+            return (StdOutPanelTopComponent)win;
         }
         ErrorManager.getDefault().log(ErrorManager.WARNING, "There seem to be multiple components with the '" + PREFERRED_ID + "' ID. That is a potential source of errors and unexpected behavior.");
         return getDefault();
@@ -112,17 +104,13 @@ final class BottomPanelTopComponent extends TopComponent {
     protected String preferredID() {
         return PREFERRED_ID;
     }
+
     
     final static class ResolvableHelper implements Serializable {
         private static final long serialVersionUID = 1L;
         public Object readResolve() {
-            return BottomPanelTopComponent.getDefault();
+            return StdOutPanelTopComponent.getDefault();
         }
     }
-    
-    public void showLogMessage(String msg)
-    {
-        jMessageTextArea.append(msg);
-    }
-    
+
 }

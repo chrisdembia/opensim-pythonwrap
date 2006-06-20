@@ -23,7 +23,6 @@ final public class OpenSimDB extends Observable {
     
     static OpenSimDB instance;
     
-    static HashMap<String, SimmModel> modelsLookupTable = new HashMap<String, SimmModel>();
     static ArrayList<SimmModel>  models = new ArrayList<SimmModel>();
     /** 
     /** Creates a new instance of OpenSimDB */
@@ -38,7 +37,7 @@ final public class OpenSimDB extends Observable {
     }
     
     public static void addModel(SimmModel aModel) {
-        modelsLookupTable.put(aModel.getName(), aModel);
+        models.add(aModel);
     }
   
     public void addModel(String filename) {
@@ -52,11 +51,15 @@ final public class OpenSimDB extends Observable {
 
     public static SimmModel getModel(String modelName)
     {
-        return modelsLookupTable.get(modelName);
+        for(int i=0; i<models.size(); i++){
+            if (models.get(i).getName().equals(modelName))
+                return models.get(i);
+        }
+        return null;
     }
     
-    public static Collection<SimmModel> getAllModels()
+    public static SimmModel[] getAllModels()
     {
-        return modelsLookupTable.values();
+        return (SimmModel[]) models.toArray();
     }
 }

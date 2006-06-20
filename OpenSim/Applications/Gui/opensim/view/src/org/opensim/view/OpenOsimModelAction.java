@@ -15,6 +15,7 @@ public final class OpenOsimModelAction extends CallableSystemAction {
         
         if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
             OpenSimDB.getInstance().addModel(dlog.getSelectedFile().getAbsolutePath());
+            BottomPanelTopComponent.findInstance().showLogMessage("Model has been created from file "+dlog.getSelectedFile().getAbsolutePath()+"\n");
         }
 
     }

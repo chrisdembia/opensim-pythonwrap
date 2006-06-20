@@ -25,4 +25,9 @@ public class newModelEvent extends EventObject {
         super(source);
     }
     
+    public SimmModel getModel()
+    {
+        return (SimmModel) source;
+    }
+    
 }

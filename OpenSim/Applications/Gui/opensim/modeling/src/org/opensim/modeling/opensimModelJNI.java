@@ -12,7 +12,7 @@ public class opensimModelJNI {
 
   static {
     try {
-        System.loadLibrary("rdModelDll");
+        System.loadLibrary("rdModelDll_d");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library failed to load. Check that the dynamic library rdModelDll is in the PATH\n" + e);
       System.exit(1);
@@ -211,7 +211,8 @@ public class opensimModelJNI {
   public final static native void Transform_transformPoint__SWIG_0(long jarg1, double[] jarg2);
   public final static native void Transform_transformPoint__SWIG_1(long jarg1, long jarg2);
   public final static native void Transform_transformVector(long jarg1, double[] jarg2);
-  public final static native long Transform_getMatrix(long jarg1);
+  public final static native long Transform_getMatrix__SWIG_0(long jarg1);
+  public final static native void Transform_getMatrix__SWIG_1(long jarg1, double[] jarg2);
   public final static native void Transform_setupSerializedMembers(long jarg1);
   public final static native long new_VisibleObject__SWIG_0();
   public final static native long new_VisibleObject__SWIG_1(String jarg1);

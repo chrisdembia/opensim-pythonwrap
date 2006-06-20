@@ -35,17 +35,15 @@ public class OpenSimCanvas extends vtkPanel {
     SimmModel model;
     
     /** Creates a new instance of OpenSimCanvas */
-    public OpenSimCanvas(SimmModel aModel) {
+    public OpenSimCanvas() {
          GetRenderer().SetBackground(1, 0.2, 0.2); 
-         model = aModel;
-         loadModel();
     }
     
     /**
      * Function to load a SimmModel into a vtk Canvas. Model is assumed 
      * to be set earlier in constructor.
      */
-    private boolean loadModel()
+    public boolean loadModel(SimmModel model)
     {
         boolean success = false;
         
