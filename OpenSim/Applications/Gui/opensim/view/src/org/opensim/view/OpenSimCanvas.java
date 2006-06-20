@@ -92,7 +92,7 @@ public class OpenSimCanvas extends vtkPanel {
                         jointXform[0]+" "+jointXform[1]+" "+jointXform[2]+" "+jointXform[3]);
                 for (int row = 0; row < 4; row++)
                     for (int col = 0; col < 4; col++){
-                        m.SetElement(row, col, jointXform[row*4+col]);
+                        m.SetElement(col, row, jointXform[row*4+col]);
                     }
 
                 assembly.SetUserMatrix(m);
