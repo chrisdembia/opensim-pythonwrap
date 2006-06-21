@@ -26,7 +26,7 @@ public class workflowWizardPanel1 implements WizardDescriptor.Panel {
     
     public HelpCtx getHelp() {
         // Show no Help button for this panel:
-        return HelpCtx.DEFAULT_HELP;
+        return HelpCtx.DEFAULT_HELP;  
         // If you have context help:
         // return new HelpCtx(SampleWizardPanel1.class);
     }

@@ -36,14 +36,8 @@ final public class OpenSimDB extends Observable {
         return instance;
     }
     
-    public static void addModel(SimmModel aModel) {
+    public void addModel(SimmModel aModel) {
         models.add(aModel);
-    }
-  
-    public void addModel(String filename) {
-        SimmModel aModel = new SimmModel(filename);
-        aModel.setup();
-        addModel(aModel);
         setChanged();
         newModelEvent evnt = new newModelEvent(aModel);
         notifyObservers(evnt);

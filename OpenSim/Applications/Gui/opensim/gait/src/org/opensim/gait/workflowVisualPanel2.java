@@ -7,6 +7,7 @@ public final class workflowVisualPanel2 extends JPanel {
     /** Creates new form workflowVisualPanel2 */
     public workflowVisualPanel2() {
         initComponents();
+        putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
     }
     
     public String getName() {

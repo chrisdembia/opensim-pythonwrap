@@ -4,13 +4,11 @@
     <folder name="Actions">
         <folder name="Edit">
             <file name="org-opensim-view-OpenOsimModelAction.instance"/>
-        </folder>
+            </folder>
         <folder name="Window">
             <file name="org-opensim-view-BottomPanelAction.instance"/>
             <file name="org-opensim-view-ExplorerAction.instance"/>
-            <file name="org-opensim-view-ModelViewAction.instance"/>
-            <file name="org-opensim-view-ModelWindowVTKAction.instance"/>
-        </folder>
+            </folder>
     </folder>
     <folder name="Menu">
     <file name="GoTo_hidden"/>
@@ -28,32 +26,19 @@
             <file name="ExplorerAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-ExplorerAction.instance"/>
             </file>
-            <file name="ModelViewAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-ModelViewAction.instance"/>
-            </file>
-            <file name="ModelWindowVTKAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-ModelWindowVTKAction.instance"/>
-            </file>
-        </folder>
+            </folder>
     </folder>
     <folder name="Windows2">
         <folder name="Components">
             <file name="BottomPanelTopComponent.settings" url="BottomPanelTopComponentSettings.xml"/>
             <file name="ExplorerTopComponent.settings" url="ExplorerTopComponentSettings.xml"/>
-            <file name="ModelViewTopComponent.settings" url="ModelViewTopComponentSettings.xml"/>
-            <file name="ModelWindowVTKTopComponent.settings" url="ModelWindowVTKTopComponentSettings.xml"/>
         </folder>
         <folder name="Modes">
-            <folder name="editor">
-                <file name="ModelViewTopComponent.wstcref" url="ModelViewTopComponentWstcref.xml"/>
-                <file name="ModelWindowVTKTopComponent.wstcref" url="ModelWindowVTKTopComponentWstcref.xml"/>
-            </folder>
             <folder name="explorer">
                 <file name="ExplorerTopComponent.wstcref" url="ExplorerTopComponentWstcref.xml"/>
             </folder>
             <folder name="output">
                 <file name="BottomPanelTopComponent.wstcref" url="BottomPanelTopComponentWstcref.xml"/>
-                <file name="StdOutPanelTopComponent.wstcref" url="StdOutPanelTopComponentWstcref.xml"/>
             </folder>
         </folder>
     </folder>

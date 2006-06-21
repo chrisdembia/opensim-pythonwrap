@@ -24,17 +24,26 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Refit"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRefitModelButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jTakeSnapshotButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="SnapShot"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTakeSnapshotButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSlider" name="jAnimationSlider">
         </Component>
       </SubComponents>
     </Container>
     <Component class="org.opensim.view.OpenSimCanvas" name="openSimCanvas1">
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="processMousePressed"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="Center"/>

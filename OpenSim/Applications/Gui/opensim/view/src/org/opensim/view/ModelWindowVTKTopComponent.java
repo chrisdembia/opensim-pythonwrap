@@ -1,10 +1,9 @@
 package org.opensim.view;
 
-import java.awt.Dimension;
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.JDesktopPane;
+import javax.swing.JFileChooser;
 import org.openide.ErrorManager;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
@@ -16,22 +15,27 @@ import org.opensim.modeling.SimmModel;
 /**
  * Top component which displays something.
  */
-final class ModelWindowVTKTopComponent extends TopComponent implements Observer  {
+public class ModelWindowVTKTopComponent extends TopComponent implements Observer  {
     
     private static final long serialVersionUID = 1L;
-    
-    private static ModelWindowVTKTopComponent instance;
+    private static int ct = 0; //A counter used to provide names for new models
+    SimmModel myModel;
     /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
-    
-    private static final String PREFERRED_ID = "ModelWindowVTKTopComponent";
-    
-    private ModelWindowVTKTopComponent() {
+        
+    public ModelWindowVTKTopComponent(SimmModel dModel) {
+        myModel = dModel;
         initComponents();
-        setName(NbBundle.getMessage(ModelWindowVTKTopComponent.class, "CTL_ModelWindowVTKTopComponent"));
+        String displayName = NbBundle.getMessage(
+                        ModelWindowVTKTopComponent.class,
+                        "UnsavedModelNameFormat",
+                        new Object[] { new Integer(ct++) }
+                );
+
+        setName(displayName);
         setToolTipText(NbBundle.getMessage(ModelWindowVTKTopComponent.class, "HINT_ModelWindowVTKTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
-        OpenSimDB.getInstance().addObserver(this);
+        
     }
     
     /** This method is called from within the constructor to
@@ -50,18 +54,56 @@ final class ModelWindowVTKTopComponent extends TopComponent implements Observer 
         setLayout(new java.awt.BorderLayout());
 
         org.openide.awt.Mnemonics.setLocalizedText(jRefitModelButton, "Refit");
+        jRefitModelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRefitModelButtonActionPerformed(evt);
+            }
+        });
+
         jModelWiondowToolBar.add(jRefitModelButton);
 
         org.openide.awt.Mnemonics.setLocalizedText(jTakeSnapshotButton, "SnapShot");
+        jTakeSnapshotButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTakeSnapshotButtonActionPerformed(evt);
+            }
+        });
+
         jModelWiondowToolBar.add(jTakeSnapshotButton);
 
         jModelWiondowToolBar.add(jAnimationSlider);
 
         add(jModelWiondowToolBar, java.awt.BorderLayout.NORTH);
 
+        openSimCanvas1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                processMousePressed(evt);
+            }
+        });
+
         add(openSimCanvas1, java.awt.BorderLayout.CENTER);
 
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTakeSnapshotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTakeSnapshotButtonActionPerformed
+// TODO add your handling code here:
+        final JFileChooser dlog = new JFileChooser();
+        
+        if (dlog.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            openSimCanvas1.HardCopy(dlog.getSelectedFile().getAbsolutePath()+".tiff", 1);
+        }
+    }//GEN-LAST:event_jTakeSnapshotButtonActionPerformed
+
+    private void jRefitModelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRefitModelButtonActionPerformed
+// TODO add your handling code here:
+        openSimCanvas1.resetCamera();
+        openSimCanvas1.Render();
+    }//GEN-LAST:event_jRefitModelButtonActionPerformed
+
+    private void processMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processMousePressed
+// TODO add your handling code here:
+        super.processEvent(evt);
+    }//GEN-LAST:event_processMousePressed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -71,34 +113,6 @@ final class ModelWindowVTKTopComponent extends TopComponent implements Observer 
     private javax.swing.JButton jTakeSnapshotButton;
     private org.opensim.view.OpenSimCanvas openSimCanvas1;
     // End of variables declaration//GEN-END:variables
-    
-    /**
-     * Gets default instance. Do not use directly: reserved for *.settings files only,
-     * i.e. deserialization routines; otherwise you could get a non-deserialized instance.
-     * To obtain the singleton instance, use {@link findInstance}.
-     */
-    public static synchronized ModelWindowVTKTopComponent getDefault() {
-        if (instance == null) {
-            instance = new ModelWindowVTKTopComponent();
-        }
-        return instance;
-    }
-    
-    /**
-     * Obtain the ModelWindowVTKTopComponent instance. Never call {@link #getDefault} directly!
-     */
-    public static synchronized ModelWindowVTKTopComponent findInstance() {
-        TopComponent win = WindowManager.getDefault().findTopComponent(PREFERRED_ID);
-        if (win == null) {
-            ErrorManager.getDefault().log(ErrorManager.WARNING, "Cannot find ModelWindowVTK component. It will not be located properly in the window system.");
-            return getDefault();
-        }
-        if (win instanceof ModelWindowVTKTopComponent) {
-            return (ModelWindowVTKTopComponent)win;
-        }
-        ErrorManager.getDefault().log(ErrorManager.WARNING, "There seem to be multiple components with the '" + PREFERRED_ID + "' ID. That is a potential source of errors and unexpected behavior.");
-        return getDefault();
-    }
     
     public int getPersistenceType() {
         return TopComponent.PERSISTENCE_NEVER;
@@ -112,32 +126,16 @@ final class ModelWindowVTKTopComponent extends TopComponent implements Observer 
         // TODO add custom code on component closing
     }
     
-    /** replaces this in object stream */
-    public Object writeReplace() {
-        return new ResolvableHelper();
-    }
+    public String preferredID() {
+        return "Model";
+    }     
     
-    protected String preferredID() {
-        return PREFERRED_ID;
-    }
-    
-    final static class ResolvableHelper implements Serializable {
-        private static final long serialVersionUID = 1L;
-        public Object readResolve() {
-            return ModelWindowVTKTopComponent.getDefault();
-        }
-    }
-
     public void update(Observable o, Object arg) {
                // Observable is OpenSimDB
         if (arg instanceof newModelEvent){
-            newModelEvent evnt = (newModelEvent)arg;
-            
-            SimmModel dNewModel = evnt.getModel();
-            
             // Create a frame for the new Model
-            openSimCanvas1.loadModel(dNewModel);
- 
-        }
+            if (((newModelEvent)arg).getModel() == myModel)
+                openSimCanvas1.loadModel(myModel);
+       }
     }
 }

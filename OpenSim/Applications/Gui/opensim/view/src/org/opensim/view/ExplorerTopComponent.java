@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.SwingUtilities;
 import org.openide.ErrorManager;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
@@ -123,15 +124,13 @@ final class ExplorerTopComponent extends TopComponent implements Observer, Explo
     public void update(Observable o, Object arg) {
         // Observable is OpenSimDB
         if (arg instanceof newModelEvent){
-            newModelEvent evnt = (newModelEvent)arg;
+            final newModelEvent evnt = (newModelEvent)arg;
              // Add the model to the Tree window.
             ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
 
             Node rootNode = tree.getExplorerManager().getRootContext();
 
             rootNode.getChildren().add(new Node[] { new ModelNode.ConcreteModelNode(evnt.getModel()) });
-
-            tree.getTree().expandAll();
 
         }
         

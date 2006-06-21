@@ -1,14 +1,37 @@
 package org.opensim.gait;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import javax.help.CSH;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.help.HelpSetException;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import org.opensim.modeling.SimmSubject;
 
 public final class workflowVisualPanel1 extends JPanel {
     
     /** Creates new form workflowVisualPanel1 */
     public workflowVisualPanel1() {
         initComponents();
+        putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
+
+
+/*        URL url;
+            url = this.getClass().getResource("help/help.hs");
+
+            HelpSet hs;
+            try {
+                hs = new HelpSet(null, url);
+                HelpBroker hb = hs.createHelpBroker();
+
+                jButton3.addActionListener(new CSH.DisplayHelpFromSource(hb));
+           } catch (HelpSetException ex) {
+                ex.printStackTrace();
+           }
+*/
     }
     
     public String getName() {
@@ -248,7 +271,8 @@ public final class workflowVisualPanel1 extends JPanel {
         if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
             jSubjectFileTextField.setText(dlog.getSelectedFile().getAbsolutePath());
             // Create a subject instance
-            //subject = new SimmSubject(dlog.getSelectedFile());
+            SimmSubject subject = new SimmSubject(dlog.getSelectedFile().getAbsolutePath());
+            
         }
         //else
         //subject = new SimmSubject();

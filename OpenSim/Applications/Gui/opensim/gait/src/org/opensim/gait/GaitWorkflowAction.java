@@ -14,12 +14,16 @@ public final class GaitWorkflowAction extends CallableSystemAction {
         // TODO implement action body
         WizardDescriptor.Iterator iterator = new workflowWizardIterator();
         WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator);
+        wizardDescriptor.setModal(false);
+
         // {0} will be replaced by WizardDescriptor.Panel.getComponent().getName()
         // {1} will be replaced by WizardDescriptor.Iterator.name()
         wizardDescriptor.setTitleFormat(new MessageFormat("{0} ({1})"));
         wizardDescriptor.setTitle("Subject Specific Gait Workflow");
+        wizardDescriptor.putProperty("WizardPanel_helpDisplayed",Boolean.TRUE);
+        wizardDescriptor.putProperty("WizardPanel_helpDisplayed",Boolean.TRUE);
+
         Dialog dialog = DialogDisplayer.getDefault().createDialog(wizardDescriptor);
-        dialog.setModal(false);
         dialog.setVisible(true);
         dialog.toFront();
         boolean cancelled = wizardDescriptor.getValue() != WizardDescriptor.FINISH_OPTION;

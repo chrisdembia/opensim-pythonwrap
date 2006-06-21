@@ -6,7 +6,7 @@
             <file name="org-opensim-gait-GaitWorkflowAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.gait.GaitWorkflowAction"/>
             </file>
-        </folder>
+            </folder>
     </folder>
     <folder name="Menu">
         <folder name="Tools">
