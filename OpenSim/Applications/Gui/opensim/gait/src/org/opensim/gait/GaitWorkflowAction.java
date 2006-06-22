@@ -1,7 +1,11 @@
 package org.opensim.gait;
 
 import java.awt.Dialog;
+import java.net.URL;
 import java.text.MessageFormat;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.help.HelpSetException;
 import org.openide.DialogDisplayer;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
@@ -20,8 +24,7 @@ public final class GaitWorkflowAction extends CallableSystemAction {
         // {1} will be replaced by WizardDescriptor.Iterator.name()
         wizardDescriptor.setTitleFormat(new MessageFormat("{0} ({1})"));
         wizardDescriptor.setTitle("Subject Specific Gait Workflow");
-        wizardDescriptor.putProperty("WizardPanel_helpDisplayed",Boolean.TRUE);
-        wizardDescriptor.putProperty("WizardPanel_helpDisplayed",Boolean.TRUE);
+        //wizardDescriptor.putProperty("WizardPanel_helpDisplayed",Boolean.TRUE);
 
         Dialog dialog = DialogDisplayer.getDefault().createDialog(wizardDescriptor);
         dialog.setVisible(true);
@@ -41,6 +44,15 @@ public final class GaitWorkflowAction extends CallableSystemAction {
         super.initialize();
         // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
         putValue("noIconInMenu", Boolean.TRUE);
+        URL url= this.getClass().getResource("help/help.hs");
+
+        HelpSet hs;
+        try {
+            hs = new HelpSet(null, url);
+            HelpBroker hb = hs.createHelpBroker();
+        } catch (HelpSetException ex) {
+            ex.printStackTrace();
+        }    
     }
     
     public HelpCtx getHelpCtx() {

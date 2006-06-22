@@ -120,9 +120,10 @@ final class BottomPanelTopComponent extends TopComponent {
         }
     }
     
-    public void showLogMessage(String msg)
+    final static public void showLogMessage(String msg)
     {
-        jMessageTextArea.append(msg);
+        if (instance != null)
+            instance.jMessageTextArea.append(msg);
     }
     
 }

@@ -10,9 +10,8 @@
 package org.opensim.common;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Observable;
+import org.opensim.common.RemoveModelEvent;
 import org.opensim.modeling.SimmModel;
 
 /**
@@ -39,7 +38,7 @@ final public class OpenSimDB extends Observable {
     public void addModel(SimmModel aModel) {
         models.add(aModel);
         setChanged();
-        newModelEvent evnt = new newModelEvent(aModel);
+        ModelEvent evnt = new ModelEvent(aModel, ModelEvent.Operation.Open);
         notifyObservers(evnt);
     }
 
@@ -52,8 +51,16 @@ final public class OpenSimDB extends Observable {
         return null;
     }
     
-    public static SimmModel[] getAllModels()
+    public static Object[] getAllModels()
     {
-        return (SimmModel[]) models.toArray();
+        return (Object[]) models.toArray();
+    }
+    
+    public void removeModel(SimmModel model)
+    {
+        models.remove(model);
+        setChanged();
+        ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Close);
+        notifyObservers(evnt);
     }
 }

@@ -282,7 +282,7 @@ public final class workflowVisualPanel1 extends JPanel {
 // TODO add your handling code here:
     }//GEN-LAST:event_jSubjectFileTextFieldActionPerformed
     
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

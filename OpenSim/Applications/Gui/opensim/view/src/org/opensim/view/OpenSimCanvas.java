@@ -9,10 +9,16 @@
 
 package org.opensim.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import javax.swing.Action;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
 import java.util.Stack;
+import javax.swing.JPopupMenu;
 import org.opensim.modeling.SimmBody;
 import org.opensim.modeling.SimmBone;
 import org.opensim.modeling.SimmJoint;
@@ -20,7 +26,6 @@ import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmModelIterator;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
-import vtk.vtkCamera;
 import vtk.vtkMatrix4x4;
 import vtk.vtkPanel;
 import vtk.vtkPolyData;
@@ -35,7 +40,11 @@ import vtk.vtkXMLPolyDataReader;
 public class OpenSimCanvas extends vtkPanel {
     
     SimmModel model;
+    JPopupMenu windowControlPopup = new JPopupMenu();
     
+    static {
+     JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+    }
     /** Creates a new instance of OpenSimCanvas */
     public OpenSimCanvas() {
          GetRenderer().SetBackground(0.2, 0.2, 1.0); 
@@ -139,7 +148,7 @@ public class OpenSimCanvas extends vtkPanel {
                 return this;
             }
             public void finished() {
-                resetCamera();
+                //resetCamera();
                 Render();
                 progressHandle.finish();
             }
@@ -147,4 +156,16 @@ public class OpenSimCanvas extends vtkPanel {
         worker.start();
         return true;
     }
+    
+  public void mousePressed(MouseEvent e)
+  {
+      
+    if ((e.getModifiers()== (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK))){
+        
+        //windowControlPopup.add(OpenOsimModelAction.);
+        windowControlPopup.show(this, e.getX(), e.getY());
+    }
+          // Show popup if right mouse otherwise pass along to super implementation
+    super.mousePressed(e);
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * newModelEvent.java
+ * ModelEvent.java
  *
  * Created on June 16, 2006, 8:59 AM
  *
@@ -16,18 +16,27 @@ import org.opensim.modeling.SimmModel;
  *
  * @author adminxp
  */
-public class newModelEvent extends EventObject {
+public class ModelEvent extends EventObject {
     
+    public enum Operation{Open, Close, Save};
+    
+    Operation op= Operation.Open;
     /**
-     * Creates a new instance of newModelEvent
+     * Creates a new instance of ModelEvent
      */
-    public newModelEvent(SimmModel source) {
+    public ModelEvent(SimmModel source, Operation op) {
         super(source);
+        this.op = op;
     }
     
     public SimmModel getModel()
     {
         return (SimmModel) source;
+    }
+    
+    public ModelEvent.Operation getOperation()
+    {
+        return op;
     }
     
 }

@@ -1,15 +1,13 @@
 package org.opensim.view;
 
-import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JFileChooser;
-import org.openide.ErrorManager;
+import javax.swing.JOptionPane;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
-import org.openide.windows.WindowManager;
 import org.opensim.common.OpenSimDB;
-import org.opensim.common.newModelEvent;
+import org.opensim.common.ModelEvent;
 import org.opensim.modeling.SimmModel;
 
 /**
@@ -122,8 +120,18 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         // TODO add custom code on component opening
     }
     
-    public void componentClosed() {
+ public boolean canClose(){
         // TODO add custom code on component closing
+        // Closing the model should warn about unsaved changes and if confirmed remove it from OpenSimDB
+        // For now we'll warn anyway
+        int confirm = JOptionPane.showConfirmDialog(this, "Do you want to close model "+myModel.getName()+" ?");
+        if (confirm == JOptionPane.YES_OPTION){
+            int observersCount = OpenSimDB.getInstance().countObservers();
+            OpenSimDB.getInstance().removeModel(myModel);
+            return super.canClose();
+        }
+        else
+            return false;
     }
     
     public String preferredID() {
@@ -132,9 +140,9 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     
     public void update(Observable o, Object arg) {
                // Observable is OpenSimDB
-        if (arg instanceof newModelEvent){
+        if (arg instanceof ModelEvent){
             // Create a frame for the new Model
-            if (((newModelEvent)arg).getModel() == myModel)
+            if (((ModelEvent)arg).getModel() == myModel)
                 openSimCanvas1.loadModel(myModel);
        }
     }

@@ -21,9 +21,10 @@ public final class OpenOsimModelAction extends CallableSystemAction {
             // Make the window
             ModelWindowVTKTopComponent modelWindow = new ModelWindowVTKTopComponent(aModel);
             modelWindow.open();
+            
             OpenSimDB.getInstance().addObserver(modelWindow);
             OpenSimDB.getInstance().addModel(aModel);
-            //BottomPanelTopComponent.findInstance().showLogMessage("Model has been created from file "+dlog.getSelectedFile().getAbsolutePath()+"\n");
+            BottomPanelTopComponent.showLogMessage("Model has been created from file "+dlog.getSelectedFile().getAbsolutePath()+"\n");
         }
 
     }
