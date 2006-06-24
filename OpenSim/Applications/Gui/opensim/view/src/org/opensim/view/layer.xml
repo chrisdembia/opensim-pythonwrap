@@ -4,7 +4,13 @@
     <folder name="Actions">
         <folder name="Edit">
             <file name="org-opensim-view-OpenOsimModelAction.instance"/>
-            </folder>
+                    <file name="org-opensim-view-base-SelectCameraAction.instance">
+                <attr name="instanceClass" stringvalue="org.opensim.view.base.SelectCameraAction"/>
+            </file>
+            <file name="org-opensim-view-base-ToggleAxesAction.instance">
+                <attr name="instanceClass" stringvalue="org.opensim.view.base.ToggleAxesAction"/>
+            </file>
+        </folder>
         <folder name="Window">
             <file name="org-opensim-view-BottomPanelAction.instance"/>
             <file name="org-opensim-view-ExplorerAction.instance"/>

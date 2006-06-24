@@ -43,22 +43,11 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jModelWiondowToolBar = new javax.swing.JToolBar();
-        jRefitModelButton = new javax.swing.JButton();
         jTakeSnapshotButton = new javax.swing.JButton();
+        jRefitModelButton = new javax.swing.JButton();
+        jModelWiondowToolBar = new javax.swing.JToolBar();
         jAnimationSlider = new javax.swing.JSlider();
         openSimCanvas1 = new org.opensim.view.OpenSimCanvas();
-
-        setLayout(new java.awt.BorderLayout());
-
-        org.openide.awt.Mnemonics.setLocalizedText(jRefitModelButton, "Refit");
-        jRefitModelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRefitModelButtonActionPerformed(evt);
-            }
-        });
-
-        jModelWiondowToolBar.add(jRefitModelButton);
 
         org.openide.awt.Mnemonics.setLocalizedText(jTakeSnapshotButton, "SnapShot");
         jTakeSnapshotButton.addActionListener(new java.awt.event.ActionListener() {
@@ -67,7 +56,14 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
             }
         });
 
-        jModelWiondowToolBar.add(jTakeSnapshotButton);
+        org.openide.awt.Mnemonics.setLocalizedText(jRefitModelButton, "Refit");
+        jRefitModelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRefitModelButtonActionPerformed(evt);
+            }
+        });
+
+        setLayout(new java.awt.BorderLayout());
 
         jModelWiondowToolBar.add(jAnimationSlider);
 

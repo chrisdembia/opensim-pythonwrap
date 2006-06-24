@@ -11,7 +11,6 @@ package org.opensim.common;
 
 import java.util.ArrayList;
 import java.util.Observable;
-import org.opensim.common.RemoveModelEvent;
 import org.opensim.modeling.SimmModel;
 
 /**

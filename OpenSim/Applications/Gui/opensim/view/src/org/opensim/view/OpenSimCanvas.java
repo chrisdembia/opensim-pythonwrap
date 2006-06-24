@@ -9,27 +9,24 @@
 
 package org.opensim.view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeListener;
-import javax.swing.Action;
+import java.util.Hashtable;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
 import java.util.Stack;
-import javax.swing.JPopupMenu;
 import org.opensim.modeling.SimmBody;
 import org.opensim.modeling.SimmBone;
 import org.opensim.modeling.SimmJoint;
 import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmModelIterator;
+import org.opensim.modeling.VisibleObject;
+import org.opensim.view.base.OpenSimBaseCanvas;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkMatrix4x4;
-import vtk.vtkPanel;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
+import vtk.vtkProp3D;
 import vtk.vtkXMLPolyDataReader;
 
 /**
@@ -37,17 +34,15 @@ import vtk.vtkXMLPolyDataReader;
  * @author Ayman, based on Kenny Smith's Canvas3DVtk and earlier incarnations
  * A wrapper around vtkPanel that provides common behavior 
  */
-public class OpenSimCanvas extends vtkPanel {
+public class OpenSimCanvas extends OpenSimBaseCanvas {
     
     SimmModel model;
-    JPopupMenu windowControlPopup = new JPopupMenu();
     
-    static {
-     JPopupMenu.setDefaultLightWeightPopupEnabled(false);
-    }
+    Hashtable<VisibleObject, vtkProp3D> mapObject2Actors = new Hashtable<VisibleObject, vtkProp3D>();
+    Hashtable<vtkProp3D, VisibleObject> mapActors2Objects = new Hashtable<vtkProp3D, VisibleObject>();
+    
     /** Creates a new instance of OpenSimCanvas */
     public OpenSimCanvas() {
-         GetRenderer().SetBackground(0.2, 0.2, 1.0); 
     }
     
     /**
@@ -68,7 +63,7 @@ public class OpenSimCanvas extends vtkPanel {
                 
                 boolean success = false;
 
-                 Stack<vtkAssembly> stack = new Stack<vtkAssembly>();
+                Stack<vtkAssembly> stack = new Stack<vtkAssembly>();
 
                 File modelFile = new File(model.getInputFileName());
                 String modelFilePath = modelFile.getParent() + modelFile.separator;
@@ -86,14 +81,12 @@ public class OpenSimCanvas extends vtkPanel {
                     while (stack.size() > depth)
                         stack.pop();
 
-                    // Print the body name (debug only).
-                    // for (int j = 0; j < depth; ++j) System.out.print("  ");
-                    // System.out.println(body.getName() + " (bones: " + body.getNumBones() + ")");
-
                     // Add a vtkAssembly to the vtk scene graph to represent
                     // the current body.
                     vtkAssembly assembly = new vtkAssembly();
 
+                    //mapObject2Actors.put((VisibleObject) body, (vtkProp3D) assembly);
+                    
                     if (stack.size() > 0)
                         stack.peek().AddPart(assembly);
                     else
@@ -157,15 +150,5 @@ public class OpenSimCanvas extends vtkPanel {
         return true;
     }
     
-  public void mousePressed(MouseEvent e)
-  {
-      
-    if ((e.getModifiers()== (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK))){
-        
-        //windowControlPopup.add(OpenOsimModelAction.);
-        windowControlPopup.show(this, e.getX(), e.getY());
-    }
-          // Show popup if right mouse otherwise pass along to super implementation
-    super.mousePressed(e);
-  }
+  
 }

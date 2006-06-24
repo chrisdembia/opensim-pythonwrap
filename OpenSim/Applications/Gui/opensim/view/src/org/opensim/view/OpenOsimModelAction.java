@@ -1,13 +1,18 @@
 package org.opensim.view;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import javax.swing.JFileChooser;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
-import org.openide.util.actions.CallableSystemAction;
 import org.opensim.common.OpenSimDB;
 import org.opensim.modeling.SimmModel;
+import org.opensim.view.base.OpensimAction;
 
-public final class OpenOsimModelAction extends CallableSystemAction {
+public final class OpenOsimModelAction extends OpensimAction {
+    
+    private String fileName;
     
     public void performAction() {
         // TODO implement action body
@@ -15,8 +20,9 @@ public final class OpenOsimModelAction extends CallableSystemAction {
         final JFileChooser dlog = new JFileChooser();
         
         if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            // Make the model
-            SimmModel aModel = new SimmModel(dlog.getSelectedFile().getAbsolutePath());
+            fileName = dlog.getSelectedFile().getAbsolutePath();
+           // Make the model
+            SimmModel aModel = new SimmModel(fileName);
             aModel.setup();
             // Make the window
             ModelWindowVTKTopComponent modelWindow = new ModelWindowVTKTopComponent(aModel);
@@ -25,6 +31,8 @@ public final class OpenOsimModelAction extends CallableSystemAction {
             OpenSimDB.getInstance().addObserver(modelWindow);
             OpenSimDB.getInstance().addModel(aModel);
             BottomPanelTopComponent.showLogMessage("Model has been created from file "+dlog.getSelectedFile().getAbsolutePath()+"\n");
+            
+            logSelf();
         }
 
     }
@@ -44,5 +52,14 @@ public final class OpenOsimModelAction extends CallableSystemAction {
     protected boolean asynchronous() {
         return false;
     }
+
+    public void logSelf() {
+        System.out.println("!'"+getName()+"' file='"+fileName+"'\n");
+    }
     
+    public void writeExternal(ObjectOutput out) throws IOException {
+    }
+
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    }
 }
