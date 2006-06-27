@@ -14,6 +14,7 @@ import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
 import java.util.Stack;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmBody;
 import org.opensim.modeling.SimmBone;
 import org.opensim.modeling.SimmJoint;
@@ -38,8 +39,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     
     SimmModel model;
     
-    Hashtable<VisibleObject, vtkProp3D> mapObject2Actors = new Hashtable<VisibleObject, vtkProp3D>();
-    Hashtable<vtkProp3D, VisibleObject> mapActors2Objects = new Hashtable<vtkProp3D, VisibleObject>();
+    Hashtable<OpenSimObject, vtkProp3D> mapObject2Actors = new Hashtable<OpenSimObject, vtkProp3D>();
+    Hashtable<vtkProp3D, OpenSimObject> mapActors2Objects = new Hashtable<vtkProp3D, OpenSimObject>();
     
     /** Creates a new instance of OpenSimCanvas */
     public OpenSimCanvas() {
@@ -85,7 +86,9 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     // the current body.
                     vtkAssembly assembly = new vtkAssembly();
 
-                    //mapObject2Actors.put((VisibleObject) body, (vtkProp3D) assembly);
+                    // Fill the two maps between objects and actors to support picking, highlighting, etc..
+                    mapObject2Actors.put(body, assembly);
+                    mapActors2Objects.put(assembly, body);
                     
                     if (stack.size() > 0)
                         stack.peek().AddPart(assembly);
@@ -141,14 +144,23 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 return this;
             }
             public void finished() {
-                //resetCamera();
-                Render();
-                progressHandle.finish();
+               Render();
+               resetCamera();
+               progressHandle.finish();
             }
         };
         worker.start();
         return true;
     }
     
-  
+    public vtkProp3D getActorForObject(OpenSimObject obj)
+    {
+        return mapObject2Actors.get(obj);
+    }
+    
+    public OpenSimObject getObjectForActor(vtkProp3D prop)
+    {
+        return mapActors2Objects.get(prop);
+    }
+    
 }

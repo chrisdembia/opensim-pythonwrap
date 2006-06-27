@@ -16,7 +16,6 @@ import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.nodes.Node;
 import org.opensim.modeling.SimmModel;
-import org.opensim.view.ModelNode.ConcreteModelNode;
 import org.opensim.common.ModelEvent.Operation;
 /**
  * Top component which displays something.
@@ -138,7 +137,7 @@ final class ExplorerTopComponent extends TopComponent implements Observer, Explo
                 case Open :
                 {
                     SimmModel newModel = evnt.getModel();
-                    ConcreteModelNode newModelNode = new ModelNode.ConcreteModelNode(newModel);
+                    ConcreteModelNode newModelNode = new ConcreteModelNode(newModel);
                     rootNode.getChildren().add(new Node[] { newModelNode});
                     mapModelsToNodes.put(newModel, newModelNode);
                     break;
@@ -180,7 +179,7 @@ final class ExplorerTopComponent extends TopComponent implements Observer, Explo
 
         Object[] models = db.getAllModels();
         for(int i=0; i < models.length; i++)
-            rootNode.getChildren().add(new Node[] { new ModelNode.ConcreteModelNode((SimmModel)models[i]) });
+            rootNode.getChildren().add(new Node[] { new ConcreteModelNode((SimmModel)models[i]) });
 
     }
 }

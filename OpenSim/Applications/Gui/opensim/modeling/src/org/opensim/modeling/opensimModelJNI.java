@@ -12,7 +12,7 @@ public class opensimModelJNI {
 
   static {
     try {
-        System.loadLibrary("rdModelDll_d");
+        System.loadLibrary("rdModelDll");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library failed to load. Check that the dynamic library rdModelDll is in the PATH\n" + e);
       System.exit(1);

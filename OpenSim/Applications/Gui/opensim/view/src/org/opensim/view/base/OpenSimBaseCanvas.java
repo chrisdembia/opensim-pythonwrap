@@ -83,14 +83,14 @@ public class OpenSimBaseCanvas extends vtkPanel {
     void displayAxes(boolean toDisplay) {
         if (toDisplay){
             axesActor = new AxesActor();
-            vtkMapper axesMapper = new vtkMapper();
+            //vtkMapper axesMapper = new vtkMapper();
             //axesActor.SetMapper(axesMapper);
             GetRenderer().AddViewProp(axesActor);
             setAxesDisplayed(true);
             Render();
         }
         else {
-            axesActor.FastDelete();
+            this.GetRenderer().RemoveActor(axesActor);
             setAxesDisplayed(false);
             Render();
         }

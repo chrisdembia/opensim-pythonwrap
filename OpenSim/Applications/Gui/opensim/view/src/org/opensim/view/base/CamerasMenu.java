@@ -60,12 +60,12 @@ public class CamerasMenu extends JMenu {
     private void createDefaultCameras()
     {
         frontCamera = new vtkCamera();
-        frontCamera.Azimuth(0);
-        frontCamera.Elevation(90);
+        frontCamera.Azimuth(90);
+        frontCamera.Elevation(0);
         frontCamera.Roll(0);
         frontCamera.SetViewAngle(30);
         frontCamera.SetFocalPoint(0, 0, 0);
-        frontCamera.SetViewUp(1, 0, 0);
+        frontCamera.SetViewUp(0, 0, 1);
 
         topCamera = new vtkCamera();
         topCamera.Azimuth(0);
@@ -76,12 +76,12 @@ public class CamerasMenu extends JMenu {
         topCamera.SetViewUp(0, 1, 0);
         
         sideCamera = new vtkCamera();
-        sideCamera.Azimuth(-90);
-        sideCamera.Elevation(0);
+        sideCamera.Azimuth(0);
+        sideCamera.Elevation(-90);
         sideCamera.Roll(0);
         sideCamera.SetViewAngle(30);
         sideCamera.SetFocalPoint(0, 0, 0);
-        sideCamera.SetViewUp(0, 1, 0);
+        sideCamera.SetViewUp(0, 0, 1);
 
         availableCameras.add(frontCamera);
         availableCameraNames.add("Front");
@@ -100,6 +100,9 @@ public class CamerasMenu extends JMenu {
             cameraItem.setText(availableCameraNames.get(i));
             availableCameraItems.add(cameraItem);
         }
+        // Add a new Camera definition option
+        
+        
     }
    private class setPickCameraAction extends AbstractAction {
 
