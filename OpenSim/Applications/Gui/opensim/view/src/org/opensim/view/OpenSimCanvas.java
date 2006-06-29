@@ -9,25 +9,31 @@
 
 package org.opensim.view;
 
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
 import java.util.Hashtable;
+import javax.swing.Action;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
 import java.util.Stack;
+import javax.swing.JPopupMenu;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmBody;
 import org.opensim.modeling.SimmBone;
 import org.opensim.modeling.SimmJoint;
 import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmModelIterator;
-import org.opensim.modeling.VisibleObject;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
+import vtk.vtkAssemblyNode;
+import vtk.vtkAssemblyPath;
 import vtk.vtkMatrix4x4;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
+import vtk.vtkPropPicker;
 import vtk.vtkXMLPolyDataReader;
 
 /**
@@ -39,8 +45,10 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     
     SimmModel model;
     
-    Hashtable<OpenSimObject, vtkProp3D> mapObject2Actors = new Hashtable<OpenSimObject, vtkProp3D>();
+    Hashtable<OpenSimObject, vtkAssembly> mapObject2Actors = new Hashtable<OpenSimObject, vtkAssembly>();
     Hashtable<vtkProp3D, OpenSimObject> mapActors2Objects = new Hashtable<vtkProp3D, OpenSimObject>();
+    
+    JPopupMenu visibilityMenu = new JPopupMenu();
     
     /** Creates a new instance of OpenSimCanvas */
     public OpenSimCanvas() {
@@ -84,20 +92,19 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
                     // Add a vtkAssembly to the vtk scene graph to represent
                     // the current body.
-                    vtkAssembly assembly = new vtkAssembly();
+                    vtkAssembly bodyRep = new vtkAssembly();
 
                     // Fill the two maps between objects and actors to support picking, highlighting, etc..
-                    mapObject2Actors.put(body, assembly);
-                    mapActors2Objects.put(assembly, body);
+                    mapObject2Actors.put(body, bodyRep);
                     
                     if (stack.size() > 0)
-                        stack.peek().AddPart(assembly);
+                        stack.peek().AddPart(bodyRep);
                     else
-                        GetRenderer().AddViewProp(assembly); // used to be AddProp, but VTK 5 complains.
+                        GetRenderer().AddViewProp(bodyRep); // used to be AddProp, but VTK 5 complains.
 
-                    stack.push(assembly);
+                    stack.push(bodyRep);
 
-                    // Set the assembly's transform.
+                    // Set the bodyRep's transform.
                     SimmJoint joint = i.getCurrentJoint();
 
                     if (joint != null) {
@@ -110,7 +117,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                                 m.SetElement(col, row, jointXform[row*4+col]);
                             }
 
-                        assembly.SetUserMatrix(m);
+                        bodyRep.SetUserMatrix(m);
                     }
 
                     // Add a vtkActor object to the vtk scene graph to represent
@@ -136,7 +143,9 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
                             vtkActor actor = new vtkActor();
                             actor.SetMapper(mapper);
-                            assembly.AddPart(actor);
+                            bodyRep.AddPart(actor);
+                            mapActors2Objects.put(actor, body);
+
                         }
                     }
                 }
@@ -144,21 +153,48 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 return this;
             }
             public void finished() {
-               Render();
-               resetCamera();
                progressHandle.finish();
+               Render();               
             }
         };
         worker.start();
         return true;
     }
     
-    public vtkProp3D getActorForObject(OpenSimObject obj)
+    public void mousePressed(MouseEvent e)
+   {
+       if ( (e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.CTRL_MASK))) {
+          OpenSimObject selectedObject = findObjectAt(lastX, lastY);
+          if (selectedObject != null){
+            JPopupMenu visPopup = new JPopupMenu();
+            visPopup.add(new ModifyObjectVisibilityAction(selectedObject, this));
+            visPopup.show(this, e.getX(), e.getY());
+         }
+        }        // Show popup if right mouse otherwise pass along to super implementation
+        super.mousePressed(e);
+    }
+    
+    OpenSimObject findObjectAt(int x, int y)
+    {
+        vtkPropPicker picker = new vtkPropPicker();
+
+        Lock();
+        picker.Pick(x, rw.GetSize()[1] - y, 0, ren);
+        UnLock();
+
+        vtkAssemblyPath asmPath = picker.GetPath();
+        if (asmPath != null) {
+         vtkAssemblyNode pickedAsm = asmPath.GetLastNode();
+         return mapActors2Objects.get(pickedAsm.GetViewProp());
+        }
+        return null;
+    }
+    public vtkAssembly getActorForObject(OpenSimObject obj)
     {
         return mapObject2Actors.get(obj);
     }
     
-    public OpenSimObject getObjectForActor(vtkProp3D prop)
+    public OpenSimObject getObjectForActor(vtkAssembly prop)
     {
         return mapActors2Objects.get(prop);
     }

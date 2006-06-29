@@ -11,6 +11,7 @@ package org.opensim.common;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmModel;
 
 /**
@@ -62,4 +63,5 @@ final public class OpenSimDB extends Observable {
         ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Close);
         notifyObservers(evnt);
     }
+
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.opensim.common.OpenSimDB;
@@ -25,8 +26,11 @@ public final class OpenOsimModelAction extends OpensimAction {
             SimmModel aModel = new SimmModel(fileName);
             aModel.setup();
             // Make the window
-            ModelWindowVTKTopComponent modelWindow = new ModelWindowVTKTopComponent(aModel);
-            modelWindow.open();
+            final ModelWindowVTKTopComponent modelWindow = new ModelWindowVTKTopComponent(aModel);
+            SwingUtilities.invokeLater(new Runnable(){
+                public void run() {
+                    modelWindow.open();
+               }});
             
             OpenSimDB.getInstance().addObserver(modelWindow);
             OpenSimDB.getInstance().addModel(aModel);
@@ -50,7 +54,7 @@ public final class OpenOsimModelAction extends OpensimAction {
     }
     
     protected boolean asynchronous() {
-        return false;
+        return true;
     }
 
     public void logSelf() {

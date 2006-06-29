@@ -230,6 +230,7 @@
             <TitledBorder title="Instructions"/>
           </Border>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="instructions tool tip"/>
       </Properties>
 
       <Layout>
@@ -313,6 +314,7 @@
         <Component class="javax.swing.JTextField" name="jSubjectFileTextField">
           <Properties>
             <Property name="text" type="java.lang.String" value="*.xml"/>
+            <Property name="toolTipText" type="java.lang.String" value="Hello Paul"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSubjectFileTextFieldActionPerformed"/>

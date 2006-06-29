@@ -59,7 +59,7 @@ public class OpenSimBaseCanvas extends vtkPanel {
          axesActor = null;
     }
     public void mousePressed(MouseEvent e)
-  {
+   {
       
     if ((e.getModifiers()== (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK))){
         settingsMenu.show(this, e.getX(), e.getY());
@@ -100,4 +100,8 @@ public class OpenSimBaseCanvas extends vtkPanel {
         axesDisplayed = b;
     }
   
+    public JPopupMenu getMenu()
+    {
+        return settingsMenu;
+    }
 }

@@ -20,6 +20,7 @@
     <file name="GoTo_hidden"/>
     <file name="View_hidden"/>
         <folder name="File">
+            <attr name="org-opensim-view-NewOsimModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="true"/>
             <file name="org-opensim-view-OpenOsimModel.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-OpenOsimModelAction.instance"/>
             </file>

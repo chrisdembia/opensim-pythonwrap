@@ -17,6 +17,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     
     private static final long serialVersionUID = 1L;
     private static int ct = 0; //A counter used to provide names for new models
+    private String displayName;
     SimmModel myModel;
     /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
@@ -24,14 +25,14 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     public ModelWindowVTKTopComponent(SimmModel dModel) {
         myModel = dModel;
         initComponents();
-        String displayName = NbBundle.getMessage(
+        displayName = NbBundle.getMessage(
                         ModelWindowVTKTopComponent.class,
                         "UnsavedModelNameFormat",
                         new Object[] { new Integer(ct++) }
                 );
 
-        setName(displayName);
-        setToolTipText(NbBundle.getMessage(ModelWindowVTKTopComponent.class, "HINT_ModelWindowVTKTopComponent"));
+        //setName(displayName);
+        //setToolTipText(NbBundle.getMessage(ModelWindowVTKTopComponent.class, "HINT_ModelWindowVTKTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
         
     }
@@ -65,6 +66,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
 
         setLayout(new java.awt.BorderLayout());
 
+        setName(getDisplayName());
         jModelWiondowToolBar.add(jAnimationSlider);
 
         add(jModelWiondowToolBar, java.awt.BorderLayout.NORTH);
@@ -133,6 +135,14 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     public String preferredID() {
         return "Model";
     }     
+    
+    public String getDisplayName()
+    {
+        if (myModel != null)
+            return myModel.getName();
+        else
+            return displayName;
+    }
     
     public void update(Observable o, Object arg) {
                // Observable is OpenSimDB

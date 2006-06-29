@@ -6,6 +6,7 @@ import java.text.MessageFormat;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.help.HelpSetException;
+import javax.swing.JButton;
 import org.openide.DialogDisplayer;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
@@ -18,6 +19,9 @@ public final class GaitWorkflowAction extends CallableSystemAction {
         // TODO implement action body
         WizardDescriptor.Iterator iterator = new workflowWizardIterator();
         WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator);
+        wizardDescriptor = new WizardDescriptor(iterator);
+        wizardDescriptor.setAdditionalOptions(new Object[]{new JButton(new ExecuteOneStepAction())});
+        wizardDescriptor.putProperty("WizardPanel_contentNumbered",Boolean.FALSE);
         wizardDescriptor.setModal(false);
 
         // {0} will be replaced by WizardDescriptor.Panel.getComponent().getName()

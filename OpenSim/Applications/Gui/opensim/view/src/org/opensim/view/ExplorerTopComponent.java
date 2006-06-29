@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.SwingUtilities;
 import org.openide.ErrorManager;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
@@ -16,7 +17,7 @@ import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.nodes.Node;
 import org.opensim.modeling.SimmModel;
-import org.opensim.common.ModelEvent.Operation;
+
 /**
  * Top component which displays something.
  */
@@ -130,30 +131,34 @@ final class ExplorerTopComponent extends TopComponent implements Observer, Explo
         if (arg instanceof ModelEvent){
             final ModelEvent evnt = (ModelEvent)arg;
              // Add the model to the Tree window.
-            ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
+            SwingUtilities.invokeLater(new Runnable(){
+                public void run() {
+                    ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
 
-            Node rootNode = tree.getExplorerManager().getRootContext();
-            switch(evnt.getOperation()){
-                case Open :
-                {
-                    SimmModel newModel = evnt.getModel();
-                    ConcreteModelNode newModelNode = new ConcreteModelNode(newModel);
-                    rootNode.getChildren().add(new Node[] { newModelNode});
-                    mapModelsToNodes.put(newModel, newModelNode);
-                    break;
-                }
-                case Close:
-                {
-                    SimmModel closingModel = evnt.getModel();
-                    ConcreteModelNode modelNode = mapModelsToNodes.get(closingModel);
-                    try {
-                        modelNode.destroy();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+                    Node rootNode = tree.getExplorerManager().getRootContext();
+                    switch(evnt.getOperation()){
+                        case Open :
+                        {
+                            SimmModel newModel = evnt.getModel();
+                            ConcreteModelNode newModelNode = new ConcreteModelNode(newModel);
+                            rootNode.getChildren().add(new Node[] { newModelNode});
+                            mapModelsToNodes.put(newModel, newModelNode);
+                            break;
+                        }
+                        case Close:
+                        {
+                            SimmModel closingModel = evnt.getModel();
+                            ConcreteModelNode modelNode = mapModelsToNodes.get(closingModel);
+                            try {
+                                modelNode.destroy();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+
                     }
-                }
-                  
-            }
+
+                }});
  
         }        
     }

@@ -174,6 +174,7 @@ public final class workflowVisualPanel1 extends JPanel {
         );
 
         jInstructionsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Instructions"));
+        jInstructionsPanel.setToolTipText("instructions tool tip");
         jEditorPane1.setEditable(false);
         jEditorPane1.setToolTipText("Explanation/instructions");
         jEditorPane1.setContentType("text/html");
@@ -201,6 +202,7 @@ public final class workflowVisualPanel1 extends JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel7, "Subject file");
 
         jSubjectFileTextField.setText("*.xml");
+        jSubjectFileTextField.setToolTipText("Hello Paul");
         jSubjectFileTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSubjectFileTextFieldActionPerformed(evt);

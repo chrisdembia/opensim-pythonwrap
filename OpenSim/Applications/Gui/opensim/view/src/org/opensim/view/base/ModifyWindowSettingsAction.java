@@ -1,11 +1,12 @@
 package org.opensim.view.base;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
 import javax.swing.JColorChooser;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.view.*;
 
 public class ModifyWindowSettingsAction extends CallableSystemAction {
     
@@ -45,5 +46,5 @@ public class ModifyWindowSettingsAction extends CallableSystemAction {
     protected boolean asynchronous() {
         return false;
     }
-    
+
 }

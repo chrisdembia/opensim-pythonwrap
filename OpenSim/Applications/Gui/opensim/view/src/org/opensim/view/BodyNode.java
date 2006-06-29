@@ -1,5 +1,6 @@
 package org.opensim.view;
 
+import javax.swing.Action;
 import org.opensim.modeling.SimmBody;
 
 
@@ -11,7 +12,7 @@ public class BodyNode extends ModelNode<SimmBody> {
     }
     
     public String getHtmlDisplayName() {
-        return "<b>Body " + _object.getName() + "</b>" ;
-}
+        return "<b>" + _object.getName() + "</b>" ;
+    }
 
 }
