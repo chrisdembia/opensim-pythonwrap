@@ -45,9 +45,6 @@ public final class workflowVisualPanel2 extends JPanel {
         jTextField5 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jOutputFilesPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
         jHelpPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
@@ -217,24 +214,6 @@ public final class workflowVisualPanel2 extends JPanel {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jOutputFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Instructions"));
-        jScrollPane1.setViewportView(jEditorPane1);
-
-        org.jdesktop.layout.GroupLayout jOutputFilesPanelLayout = new org.jdesktop.layout.GroupLayout(jOutputFilesPanel);
-        jOutputFilesPanel.setLayout(jOutputFilesPanelLayout);
-        jOutputFilesPanelLayout.setHorizontalGroup(
-            jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jOutputFilesPanelLayout.createSequentialGroup()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jOutputFilesPanelLayout.setVerticalGroup(
-            jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jOutputFilesPanelLayout.createSequentialGroup()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jHelpPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
         jLabel7.setText("Directory");
 
@@ -310,9 +289,6 @@ public final class workflowVisualPanel2 extends JPanel {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jHelpPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(layout.createSequentialGroup()
-                        .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(jMeasurementScalePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -332,8 +308,6 @@ public final class workflowVisualPanel2 extends JPanel {
                 .add(jManualScalePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jHelpPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -353,7 +327,6 @@ public final class workflowVisualPanel2 extends JPanel {
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JPanel jHelpPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -366,9 +339,7 @@ public final class workflowVisualPanel2 extends JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jManualScalePanel;
     private javax.swing.JPanel jMeasurementScalePanel;
-    private javax.swing.JPanel jOutputFilesPanel;
     private javax.swing.JPanel jScalingMethodSelectPanel;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

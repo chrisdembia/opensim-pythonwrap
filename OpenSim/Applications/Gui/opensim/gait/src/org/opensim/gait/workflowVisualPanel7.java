@@ -30,9 +30,6 @@ public final class workflowVisualPanel7 extends JPanel {
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jOutputPanel = new javax.swing.JPanel();
-        jHelpPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
 
         jModelSpecanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Model Specification"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Shared library");
@@ -101,22 +98,6 @@ public final class workflowVisualPanel7 extends JPanel {
             .add(0, 53, Short.MAX_VALUE)
         );
 
-        jHelpPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Instructions"));
-        jScrollPane1.setViewportView(jEditorPane1);
-
-        org.jdesktop.layout.GroupLayout jHelpPanelLayout = new org.jdesktop.layout.GroupLayout(jHelpPanel);
-        jHelpPanel.setLayout(jHelpPanelLayout);
-        jHelpPanelLayout.setHorizontalGroup(
-            jHelpPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1)
-        );
-        jHelpPanelLayout.setVerticalGroup(
-            jHelpPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jHelpPanelLayout.createSequentialGroup()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,8 +106,7 @@ public final class workflowVisualPanel7 extends JPanel {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jCustomizeCMCPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jModelSpecanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jHelpPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jModelSpecanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -137,9 +117,7 @@ public final class workflowVisualPanel7 extends JPanel {
                 .add(jCustomizeCMCPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jHelpPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     
@@ -148,13 +126,10 @@ public final class workflowVisualPanel7 extends JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jCustomizeCMCPanel;
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JPanel jHelpPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jModelSpecanel;
     private javax.swing.JPanel jOutputPanel;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables

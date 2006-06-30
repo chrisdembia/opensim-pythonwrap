@@ -20,7 +20,6 @@ public final class GaitWorkflowAction extends CallableSystemAction {
         WizardDescriptor.Iterator iterator = new workflowWizardIterator();
         WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator);
         wizardDescriptor = new WizardDescriptor(iterator);
-        wizardDescriptor.setAdditionalOptions(new Object[]{new JButton(new ExecuteOneStepAction())});
         wizardDescriptor.putProperty("WizardPanel_contentNumbered",Boolean.FALSE);
         wizardDescriptor.setModal(false);
 
@@ -34,9 +33,6 @@ public final class GaitWorkflowAction extends CallableSystemAction {
         dialog.setVisible(true);
         dialog.toFront();
         boolean cancelled = wizardDescriptor.getValue() != WizardDescriptor.FINISH_OPTION;
-        if (!cancelled) {
-            // do something
-        }
 
     }
     
