@@ -76,6 +76,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="ObjectNameText">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="object.getName()" type="code"/>
         </Property>

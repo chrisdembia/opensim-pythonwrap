@@ -10,7 +10,8 @@ import org.opensim.modeling.SimmModelIterator;
 
 /** Node class to wrap SimmModel's collection of SimmBodies */
 public class BodiesNode extends ModelNode<SimmModel> {
-           
+    boolean topological;
+    
     public BodiesNode(SimmModel m) {
         super(m);
         setName("Bodies");

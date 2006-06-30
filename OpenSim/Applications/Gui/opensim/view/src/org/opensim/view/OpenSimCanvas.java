@@ -12,7 +12,6 @@ package org.opensim.view;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.util.Hashtable;
-import javax.swing.Action;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
@@ -33,7 +32,10 @@ import vtk.vtkMatrix4x4;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
+import vtk.vtkProp3DCollection;
+import vtk.vtkPropCollection;
 import vtk.vtkPropPicker;
+import vtk.vtkProperty;
 import vtk.vtkXMLPolyDataReader;
 
 /**
@@ -197,6 +199,33 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     public OpenSimObject getObjectForActor(vtkAssembly prop)
     {
         return mapActors2Objects.get(prop);
+    }
+
+    void SetObjectColor(OpenSimObject object, float[] colorComponents) {
+        vtkAssembly asm = getActorForObject(object);
+        vtkProp3DCollection parts = asm.GetParts();
+        parts.InitTraversal();
+        vtkProp3D prop = parts.GetNextProp3D();
+        vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+	while (prop != null) {
+            if (part != null)
+                part.GetProperty().SetColor(colorComponents[0], colorComponents[1], colorComponents[2]);
+            prop = parts.GetNextProp3D();
+            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+        }
+    }
+    void SetObjectOpacity(OpenSimObject object, float newOpacity) {
+        vtkAssembly asm = getActorForObject(object);
+        vtkProp3DCollection parts = asm.GetParts();
+        parts.InitTraversal();
+        vtkProp3D prop = parts.GetNextProp3D();
+        vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+	while (prop != null) {
+            if (part != null)
+                part.GetProperty().SetOpacity(newOpacity);
+            prop = parts.GetNextProp3D();
+            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+        }
     }
     
 }

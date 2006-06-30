@@ -6,13 +6,17 @@
 
 package org.opensim.view;
 
+import java.awt.Color;
+import javax.swing.JColorChooser;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.opensim.modeling.OpenSimObject;
 
 /**
  *
  * @author  Ayman
  */
-public class VisibilityJDialog extends javax.swing.JDialog {
+public class VisibilityJDialog extends javax.swing.JDialog implements ChangeListener {
     
     OpenSimCanvas   canvas;
     OpenSimObject   object;
@@ -25,6 +29,7 @@ public class VisibilityJDialog extends javax.swing.JDialog {
         this.object = object;
         this.canvas = canvas;
         initComponents();
+        OpacitySlider.addChangeListener(this);
     }
     
     /** This method is called from within the constructor to
@@ -46,6 +51,7 @@ public class VisibilityJDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         ObjectNameLabel.setText("Object Name:");
 
+        ObjectNameText.setEditable(false);
         ObjectNameText.setText(object.getName());
         ObjectNameText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,6 +130,14 @@ public class VisibilityJDialog extends javax.swing.JDialog {
 
     private void jChooseColorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jChooseColorBtnActionPerformed
 // TODO add your handling code here:
+        JColorChooser objectColorChooser = new JColorChooser();
+        Color newColor = objectColorChooser.showDialog(canvas, "Select new background color", canvas.getBackground());
+        if (newColor != null){
+             float[] colorComponents = newColor.getRGBComponents(null);
+             canvas.SetObjectColor(object, colorComponents);
+             canvas.repaint();
+        }
+
     }//GEN-LAST:event_jChooseColorBtnActionPerformed
 
     private void ObjectNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObjectNameTextActionPerformed
@@ -134,6 +148,15 @@ public class VisibilityJDialog extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+    }
+
+    public void stateChanged(ChangeEvent e) {
+        // Handle change in opacity slider
+        int newOpacity = ((javax.swing.JSlider)e.getSource()).getValue();
+        canvas.SetObjectOpacity(object, (float)newOpacity/100.0f);
+        canvas.repaint();
+      
+        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

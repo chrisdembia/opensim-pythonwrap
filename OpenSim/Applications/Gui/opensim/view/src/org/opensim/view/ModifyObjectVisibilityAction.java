@@ -9,7 +9,6 @@ public final class ModifyObjectVisibilityAction extends CallableSystemAction {
     
     OpenSimObject object;
     OpenSimCanvas canvas;
-    VisibilityJFrame frame;
     
     public ModifyObjectVisibilityAction(OpenSimObject object, OpenSimCanvas canvas)
     {

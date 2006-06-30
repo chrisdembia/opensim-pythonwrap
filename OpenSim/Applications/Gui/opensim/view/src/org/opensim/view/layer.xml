@@ -3,6 +3,7 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Edit">
+            <file name="org-opensim-view-HiLightObjectsAction.instance"/>
             <file name="org-opensim-view-OpenOsimModelAction.instance"/>
                     <file name="org-opensim-view-base-SelectCameraAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.base.SelectCameraAction"/>
