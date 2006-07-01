@@ -1,6 +1,10 @@
 package org.opensim.gait;
 
 import java.awt.Component;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
@@ -42,9 +46,6 @@ public class workflowWizardPanel1 implements WizardDescriptor.Panel {
         // and uncomment the complicated stuff below.
     }
     
-    public final void addChangeListener(ChangeListener l) {}
-    public final void removeChangeListener(ChangeListener l) {}
-    /*
     private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
     public final void addChangeListener(ChangeListener l) {
         synchronized (listeners) {
@@ -66,7 +67,7 @@ public class workflowWizardPanel1 implements WizardDescriptor.Panel {
             it.next().stateChanged(ev);
         }
     }
-     */
+     
     
     // You can use a settings object to keep track of state. Normally the
     // settings object will be the WizardDescriptor, so you can use

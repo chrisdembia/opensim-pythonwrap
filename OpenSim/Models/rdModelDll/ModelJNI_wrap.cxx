@@ -42130,6 +42130,23 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmGenericMode
 }
 
 
+JNIEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmGenericModelParams_1getModelFileName(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jstring jresult = 0 ;
+  OpenSim::SimmGenericModelParams *arg1 = (OpenSim::SimmGenericModelParams *) 0 ;
+  std::string *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmGenericModelParams **)&jarg1; 
+  {
+    std::string const &_result_ref = ((OpenSim::SimmGenericModelParams const *)arg1)->getModelFileName();
+    result = (std::string *) &_result_ref;
+  }
+  jresult = jenv->NewStringUTF(result->c_str()); 
+  return jresult;
+}
+
+
 JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmScalingParams_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::SimmScalingParams *result = 0 ;

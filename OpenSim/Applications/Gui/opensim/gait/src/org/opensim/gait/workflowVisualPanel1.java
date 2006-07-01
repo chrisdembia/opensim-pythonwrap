@@ -1,12 +1,6 @@
 package org.opensim.gait;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import javax.help.CSH;
-import javax.help.HelpBroker;
-import javax.help.HelpSet;
-import javax.help.HelpSetException;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import org.opensim.modeling.SimmSubject;
@@ -55,7 +49,7 @@ public final class workflowVisualPanel1 extends JPanel {
         jModelDefaultRadioButton = new javax.swing.JRadioButton();
         jModelOwnRadioButton = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jModelNameTextField = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -117,15 +111,24 @@ public final class workflowVisualPanel1 extends JPanel {
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Model Selection"));
+        modelButtonGroup.add(jModelDefaultRadioButton);
+        jModelDefaultRadioButton.setSelected(true);
         org.openide.awt.Mnemonics.setLocalizedText(jModelDefaultRadioButton, "Use default model");
         jModelDefaultRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jModelDefaultRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
+        modelButtonGroup.add(jModelOwnRadioButton);
         org.openide.awt.Mnemonics.setLocalizedText(jModelOwnRadioButton, "Use own model");
         jModelOwnRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jModelOwnRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         org.openide.awt.Mnemonics.setLocalizedText(jButton1, "Browse...");
+
+        jModelNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jModelNameTextFieldActionPerformed(evt);
+            }
+        });
 
         jTextField2.setEditable(false);
 
@@ -156,7 +159,7 @@ public final class workflowVisualPanel1 extends JPanel {
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(jModelOwnRadioButton)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                                .add(jModelNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jButton1)))
                         .addContainerGap(94, Short.MAX_VALUE))
@@ -187,7 +190,7 @@ public final class workflowVisualPanel1 extends JPanel {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jModelOwnRadioButton)
                     .add(jButton1)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jModelNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
@@ -202,6 +205,8 @@ public final class workflowVisualPanel1 extends JPanel {
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Marker Selection"));
+        markerButtonGroup.add(jDefaultMarkersRadioButton);
+        jDefaultMarkersRadioButton.setSelected(true);
         org.openide.awt.Mnemonics.setLocalizedText(jDefaultMarkersRadioButton, "use default markers");
         jDefaultMarkersRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jDefaultMarkersRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -211,6 +216,7 @@ public final class workflowVisualPanel1 extends JPanel {
             }
         });
 
+        markerButtonGroup.add(jOwnMarkersRadioButton);
         org.openide.awt.Mnemonics.setLocalizedText(jOwnMarkersRadioButton, "use own markers");
         jOwnMarkersRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jOwnMarkersRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -275,6 +281,10 @@ public final class workflowVisualPanel1 extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jModelNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jModelNameTextFieldActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_jModelNameTextFieldActionPerformed
+
     private void jDefaultMarkersRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDefaultMarkersRadioButtonActionPerformed
 // TODO add your handling code here:
     }//GEN-LAST:event_jDefaultMarkersRadioButtonActionPerformed
@@ -288,7 +298,9 @@ public final class workflowVisualPanel1 extends JPanel {
             jSubjectFileTextField.setText(dlog.getSelectedFile().getAbsolutePath());
             // Create a subject instance
             SimmSubject subject = new SimmSubject(dlog.getSelectedFile().getAbsolutePath());
-            
+            jModelNameTextField.setText(subject.getGenericModelParams().getModelFileName());
+            // @ToDo This may need to be changed once the "Default" really exists.
+            jModelOwnRadioButton.setSelected(true);
         }
         //else
         //subject = new SimmSubject();
@@ -311,13 +323,13 @@ public final class workflowVisualPanel1 extends JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JRadioButton jModelDefaultRadioButton;
+    private javax.swing.JTextField jModelNameTextField;
     private javax.swing.JRadioButton jModelOwnRadioButton;
     private javax.swing.JRadioButton jOwnMarkersRadioButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jSubjectFilePanel;
     private javax.swing.JTextField jSubjectFileTextField;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;

@@ -1,10 +1,13 @@
 package org.opensim.view;
 
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import org.openide.util.NbBundle;
+import org.openide.util.lookup.Lookups;
 import org.openide.windows.TopComponent;
 import org.opensim.common.OpenSimDB;
 import org.opensim.common.ModelEvent;
@@ -25,13 +28,20 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     public ModelWindowVTKTopComponent(SimmModel dModel) {
         myModel = dModel;
         initComponents();
+        
+        // Associate window with a model and a canvas so that other platform users can key on that
+        associateLookup (Lookups.singleton (openSimCanvas1));
+
         displayName = NbBundle.getMessage(
                         ModelWindowVTKTopComponent.class,
                         "UnsavedModelNameFormat",
                         new Object[] { new Integer(ct++) }
                 );
-
-        //setName(displayName);
+        SwingUtilities.invokeLater(new Runnable(){
+            public void run() {
+                 setName(getDisplayName());
+            }});
+       
         //setToolTipText(NbBundle.getMessage(ModelWindowVTKTopComponent.class, "HINT_ModelWindowVTKTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
         
@@ -66,7 +76,6 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
 
         setLayout(new java.awt.BorderLayout());
 
-        setName(getDisplayName());
         jModelWiondowToolBar.add(jAnimationSlider);
 
         add(jModelWiondowToolBar, java.awt.BorderLayout.NORTH);
@@ -98,6 +107,12 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
 
     private void processMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processMousePressed
 // TODO add your handling code here:
+        if(evt.getClickCount()==1){
+            openSimCanvas1.selectObject(evt);
+        }
+        if(evt.getClickCount()==2){
+            openSimCanvas1.handleDoubleClick(evt);
+        }
         super.processEvent(evt);
     }//GEN-LAST:event_processMousePressed
     

@@ -12,7 +12,7 @@ public class opensimModelJNI {
 
   static {
     try {
-        System.loadLibrary("rdModelDll_d");
+        System.loadLibrary("rdModelDll");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library failed to load. Check that the dynamic library rdModelDll is in the PATH\n" + e);
       System.exit(1);
@@ -2472,6 +2472,7 @@ public class opensimModelJNI {
   public final static native void SimmGenericModelParams_registerTypes();
   public final static native void SimmGenericModelParams_peteTest(long jarg1);
   public final static native void SimmGenericModelParams_addMarker(long jarg1, long jarg2);
+  public final static native String SimmGenericModelParams_getModelFileName(long jarg1);
   public final static native long new_SimmScalingParams__SWIG_0();
   public final static native long new_SimmScalingParams__SWIG_1(long jarg1);
   public final static native long new_SimmScalingParams__SWIG_2(long jarg1);

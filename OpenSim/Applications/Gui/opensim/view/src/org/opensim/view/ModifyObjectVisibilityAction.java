@@ -18,11 +18,7 @@ public final class ModifyObjectVisibilityAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VisibilityJDialog(new javax.swing.JFrame(), canvas, object).setVisible(true);
-            }
-        });
+        new VisibilityJDialog(new javax.swing.JFrame(), canvas, object).setVisible(true);
      }
     
     public String getName() {

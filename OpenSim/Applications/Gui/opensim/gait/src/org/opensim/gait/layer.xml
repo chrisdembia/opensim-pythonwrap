@@ -3,9 +3,6 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Edit">
-            <file name="org-opensim-gait-ExecuteOneStepAction.instance">
-                <attr name="instanceClass" stringvalue="org.opensim.gait.ExecuteOneStepAction"/>
-            </file>
             <file name="org-opensim-gait-GaitWorkflowAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.gait.GaitWorkflowAction"/>
             </file>

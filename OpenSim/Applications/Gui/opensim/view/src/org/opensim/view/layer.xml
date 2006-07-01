@@ -11,7 +11,7 @@
             <file name="org-opensim-view-base-ToggleAxesAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.base.ToggleAxesAction"/>
             </file>
-        </folder>
+            </folder>
         <folder name="Window">
             <file name="org-opensim-view-BottomPanelAction.instance"/>
             <file name="org-opensim-view-ExplorerAction.instance"/>
@@ -34,6 +34,11 @@
             <file name="ExplorerAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-ExplorerAction.instance"/>
             </file>
+            </folder>
+    </folder>
+    <folder name="Toolbars">
+        <folder name="Edit">
+            <attr name="org-openide-actions-FindAction.instance/org-opensim-view-toolbar-SnapshotAction.shadow" boolvalue="true"/>
             </folder>
     </folder>
     <folder name="Windows2">

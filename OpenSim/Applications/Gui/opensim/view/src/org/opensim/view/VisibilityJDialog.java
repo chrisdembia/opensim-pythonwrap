@@ -11,6 +11,7 @@ import javax.swing.JColorChooser;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.opensim.modeling.OpenSimObject;
+import vtk.vtkProperty;
 
 /**
  *
@@ -20,7 +21,7 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
     
     OpenSimCanvas   canvas;
     OpenSimObject   object;
-
+    vtkProperty     saveProperty;
     /** Creates new form VisibilityJDialog */
     public VisibilityJDialog(java.awt.Frame parent, 
             OpenSimCanvas canvas, 
@@ -30,6 +31,9 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
         this.canvas = canvas;
         initComponents();
         OpacitySlider.addChangeListener(this);
+        saveProperty = new vtkProperty();
+        canvas.getObjectProperties(object, saveProperty);
+        
     }
     
     /** This method is called from within the constructor to
@@ -49,6 +53,10 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
         CancelBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Object Visibility");
+        setAlwaysOnTop(true);
+        setResizable(false);
+        getAccessibleContext().setAccessibleParent(null);
         ObjectNameLabel.setText("Object Name:");
 
         ObjectNameText.setEditable(false);
@@ -78,6 +86,11 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
         });
 
         CancelBtn.setText("Cancel");
+        CancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelBtnActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,8 +137,16 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtnActionPerformed
+// TODO add your handling code here:
+        canvas.setObjectProperties(object, saveProperty);
+        canvas.repaint();
+        dispose();
+    }//GEN-LAST:event_CancelBtnActionPerformed
+
     private void OkBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkBtnActionPerformed
 // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_OkBtnActionPerformed
 
     private void jChooseColorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jChooseColorBtnActionPerformed
@@ -134,10 +155,10 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
         Color newColor = objectColorChooser.showDialog(canvas, "Select new background color", canvas.getBackground());
         if (newColor != null){
              float[] colorComponents = newColor.getRGBComponents(null);
-             canvas.SetObjectColor(object, colorComponents);
+             double[] dColorComponents = new double[]{colorComponents[0], colorComponents[1], colorComponents[2]};
+             canvas.setObjectColor(object, dColorComponents);
              canvas.repaint();
         }
-
     }//GEN-LAST:event_jChooseColorBtnActionPerformed
 
     private void ObjectNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObjectNameTextActionPerformed
@@ -153,10 +174,8 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
     public void stateChanged(ChangeEvent e) {
         // Handle change in opacity slider
         int newOpacity = ((javax.swing.JSlider)e.getSource()).getValue();
-        canvas.SetObjectOpacity(object, (float)newOpacity/100.0f);
+        canvas.setObjectOpacity(object, (double)newOpacity/100.0);
         canvas.repaint();
-      
-        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

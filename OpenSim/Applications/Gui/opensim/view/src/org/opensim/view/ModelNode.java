@@ -10,22 +10,9 @@
 package org.opensim.view;
 
 
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
-import java.util.Stack;
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
-import org.openide.nodes.Node;
-import org.openide.util.HelpCtx;
-import org.openide.util.actions.CallableSystemAction;
-import org.openide.util.HelpCtx;
-import org.openide.util.actions.CallableSystemAction;
-import org.openide.util.actions.SystemAction;
-import org.opensim.modeling.SimmBody;
-import org.opensim.modeling.SimmModel;
-import org.opensim.modeling.SimmModelIterator;
 
 /**
  *

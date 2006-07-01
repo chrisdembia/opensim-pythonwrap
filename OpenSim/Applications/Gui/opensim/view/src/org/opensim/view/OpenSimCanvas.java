@@ -9,6 +9,7 @@
 
 package org.opensim.view;
 
+import java.awt.Color;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.util.Hashtable;
@@ -33,7 +34,6 @@ import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
-import vtk.vtkPropCollection;
 import vtk.vtkPropPicker;
 import vtk.vtkProperty;
 import vtk.vtkXMLPolyDataReader;
@@ -51,6 +51,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     Hashtable<vtkProp3D, OpenSimObject> mapActors2Objects = new Hashtable<vtkProp3D, OpenSimObject>();
     
     JPopupMenu visibilityMenu = new JPopupMenu();
+    
+    static double[] highlightColor = new double[]{1.0, 0.0, 0.0};
     
     /** Creates a new instance of OpenSimCanvas */
     public OpenSimCanvas() {
@@ -201,7 +203,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         return mapActors2Objects.get(prop);
     }
 
-    void SetObjectColor(OpenSimObject object, float[] colorComponents) {
+    void setObjectColor(OpenSimObject object, double[] colorComponents) {
         vtkAssembly asm = getActorForObject(object);
         vtkProp3DCollection parts = asm.GetParts();
         parts.InitTraversal();
@@ -209,12 +211,12 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
 	while (prop != null) {
             if (part != null)
-                part.GetProperty().SetColor(colorComponents[0], colorComponents[1], colorComponents[2]);
+                part.GetProperty().SetColor(colorComponents);
             prop = parts.GetNextProp3D();
             part = (prop instanceof vtkActor)?(vtkActor)prop:null;
         }
     }
-    void SetObjectOpacity(OpenSimObject object, float newOpacity) {
+    void setObjectOpacity(OpenSimObject object, double newOpacity) {
         vtkAssembly asm = getActorForObject(object);
         vtkProp3DCollection parts = asm.GetParts();
         parts.InitTraversal();
@@ -223,6 +225,58 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 	while (prop != null) {
             if (part != null)
                 part.GetProperty().SetOpacity(newOpacity);
+            prop = parts.GetNextProp3D();
+            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+        }
+    }
+
+    void getObjectProperties(OpenSimObject object, vtkProperty saveProperty) {
+        vtkAssembly asm = getActorForObject(object);
+        vtkProp3DCollection parts = asm.GetParts();
+        parts.InitTraversal();
+        vtkProp3D prop = parts.GetNextProp3D();
+        vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+	while (prop != null) {
+            if (part != null){
+                saveProperty.SetColor(part.GetProperty().GetColor());
+                saveProperty.SetOpacity(part.GetProperty().GetOpacity());
+            }
+            prop = parts.GetNextProp3D();
+            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+        }
+    }
+    void setObjectProperties(OpenSimObject object, vtkProperty saveProperty) {
+        setObjectColor(object, saveProperty.GetColor());
+        setObjectOpacity(object, saveProperty.GetOpacity());
+    }
+
+    void handleDoubleClick(MouseEvent evt) {
+          OpenSimObject selectedObject = findObjectAt(lastX, lastY);
+          if (selectedObject != null){
+              new VisibilityJDialog(new javax.swing.JFrame(), this, selectedObject).setVisible(true);
+          }
+    }
+
+    void selectObject(MouseEvent evt) {
+          OpenSimObject selectedObject = findObjectAt(lastX, lastY);
+          if (selectedObject != null)
+            markSelected(selectedObject, true);
+    }
+
+    private void markSelected(OpenSimObject selectedObject, boolean on) {
+        vtkAssembly asm = getActorForObject(selectedObject);
+        vtkProp3DCollection parts = asm.GetParts();
+        parts.InitTraversal();
+        vtkProp3D prop = parts.GetNextProp3D();
+        vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+	while (prop != null) {
+            if (part != null){
+                if (on){
+                    part.GetProperty().EdgeVisibilityOn();
+                }
+                else
+                    part.GetProperty().EdgeVisibilityOff();
+            }
             prop = parts.GetNextProp3D();
             part = (prop instanceof vtkActor)?(vtkActor)prop:null;
         }

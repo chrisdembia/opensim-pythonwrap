@@ -1,8 +1,14 @@
 package org.opensim.gait;
 
 import java.awt.Component;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import javax.swing.JComponent;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.openide.WizardDescriptor;
 
@@ -100,13 +106,13 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
     }
     
     // If nothing unusual changes in the middle of the wizard, simply:
-    public void addChangeListener(ChangeListener l) {}
-    public void removeChangeListener(ChangeListener l) {}
+    //public void addChangeListener(ChangeListener l) {}
+    //public void removeChangeListener(ChangeListener l) {}
     
     // If something changes dynamically (besides moving between panels), e.g.
     // the number of panels changes in response to user input, then uncomment
     // the following and call when needed: fireChangeEvent();
-    /*
+    
     private transient Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
     public final void addChangeListener(ChangeListener l) {
         synchronized (listeners) {
@@ -132,7 +138,7 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
         in.defaultReadObject();
         listeners = new HashSet<ChangeListener>(1);
     }
-     */
+     
     
 }
 
