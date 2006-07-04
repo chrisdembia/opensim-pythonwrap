@@ -38,12 +38,17 @@ public class workflowWizardPanel1 implements WizardDescriptor.Panel {
     
     public boolean isValid() {
         // If it is always OK to press Next or Finish, then:
-        return true;
+        return checkValidPanel();
         // If it depends on some condition (form filled out...), then:
         // return someCondition();
         // and when this condition changes (last form field filled in...) then:
         // fireChangeEvent();
         // and uncomment the complicated stuff below.
+    }
+    
+    private boolean checkValidPanel() {
+        // You can advance only if there's a model
+        return true;
     }
     
     private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
@@ -73,7 +78,10 @@ public class workflowWizardPanel1 implements WizardDescriptor.Panel {
     // settings object will be the WizardDescriptor, so you can use
     // WizardDescriptor.getProperty & putProperty to store information entered
     // by the user.
-    public void readSettings(Object settings) {}
+    public void readSettings(Object settings) {
+        WorkflowDescriptor descriptor = (WorkflowDescriptor) settings;
+        ((workflowVisualPanel1)getComponent()).updatePanel(descriptor);
+    }
     public void storeSettings(Object settings) {}
     
 }

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.prefs.Preferences;
 import javax.swing.JComponent;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -31,6 +32,7 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
         // do something
     }
      */
+    private Preferences prefs = Preferences.userNodeForPackage(this.getClass());
     
     private int index;
     
@@ -139,6 +141,14 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
         listeners = new HashSet<ChangeListener>(1);
     }
      
+    public void addWorkflowPref(String key, String val)
+    {
+        prefs.put(key, val);
+    }
     
+    public String getWorkflowPref(String key, String DefaultVal)
+    {
+        return prefs.get(key, DefaultVal);
+    }
 }
 

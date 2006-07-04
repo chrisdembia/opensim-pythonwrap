@@ -6,20 +6,20 @@ import java.text.MessageFormat;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.help.HelpSetException;
-import javax.swing.JButton;
 import org.openide.DialogDisplayer;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import java.util.prefs.*;
 
 public final class GaitWorkflowAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
         WizardDescriptor.Iterator iterator = new workflowWizardIterator();
-        WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator);
-        wizardDescriptor = new WizardDescriptor(iterator);
+        WorkflowDescriptor  workflow = new WorkflowDescriptor();
+        WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator, workflow);
         wizardDescriptor.putProperty("WizardPanel_contentNumbered",Boolean.FALSE);
         wizardDescriptor.setModal(false);
 
@@ -27,7 +27,7 @@ public final class GaitWorkflowAction extends CallableSystemAction {
         // {1} will be replaced by WizardDescriptor.Iterator.name()
         wizardDescriptor.setTitleFormat(new MessageFormat("{0} ({1})"));
         wizardDescriptor.setTitle("Subject Specific Gait Workflow");
-        //wizardDescriptor.putProperty("WizardPanel_helpDisplayed",Boolean.TRUE);
+         //wizardDescriptor.putProperty("WizardPanel_helpDisplayed",Boolean.TRUE);
 
         Dialog dialog = DialogDisplayer.getDefault().createDialog(wizardDescriptor);
         dialog.setVisible(true);
