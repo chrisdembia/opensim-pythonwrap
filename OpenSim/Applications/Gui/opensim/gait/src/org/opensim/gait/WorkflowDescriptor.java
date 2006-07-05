@@ -45,10 +45,11 @@ public class WorkflowDescriptor {
      * Constructor, Creates a new instance of WorkflowDescriptor
      * 
      * @todo look into why the no-arg constructor for SIMMModel crashes and init subject
-     * in constructor
+     * in constructor instead of using setSubject
      */
     public WorkflowDescriptor() {
     }
+    
     /**  init subject to a subject created from an external file */
     public void setSubject(SimmSubject aSubject)
     {
@@ -59,6 +60,7 @@ public class WorkflowDescriptor {
     {
         return dSubject;
     }
+    
     public SimmModel getModel() {   // Lazily get the Model 
         if (dGenericModel==null && dSubject != null){
             dGenericModel = dSubject.createModel();

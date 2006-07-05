@@ -7,11 +7,11 @@ import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
+import org.openide.util.actions.CallableSystemAction;
 import org.opensim.common.OpenSimDB;
 import org.opensim.modeling.SimmModel;
-import org.opensim.view.base.OpensimAction;
 
-public final class OpenOsimModelAction extends OpensimAction {
+public final class OpenOsimModelAction extends CallableSystemAction {
     
     private String fileName;
     
@@ -22,23 +22,27 @@ public final class OpenOsimModelAction extends OpensimAction {
         
         if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
             fileName = dlog.getSelectedFile().getAbsolutePath();
-           // Make the model
-            SimmModel aModel = new SimmModel(fileName);
-            aModel.setup();
-            // Make the window
-            final ModelWindowVTKTopComponent modelWindow = new ModelWindowVTKTopComponent(aModel);
-            SwingUtilities.invokeLater(new Runnable(){
-                public void run() {
-                    modelWindow.open();
-               }});
-            
-            OpenSimDB.getInstance().addObserver(modelWindow);
-            OpenSimDB.getInstance().addModel(aModel);
+            loadModel(fileName);
             BottomPanelTopComponent.showLogMessage("Model has been created from file "+dlog.getSelectedFile().getAbsolutePath()+"\n");
             
             logSelf();
         }
 
+    }
+
+    public void loadModel(final String fileName) {
+           // Make the model
+        SimmModel aModel = new SimmModel(fileName);
+        aModel.setup();
+        // Make the window
+        final ModelWindowVTKTopComponent modelWindow = new ModelWindowVTKTopComponent(aModel);
+        SwingUtilities.invokeLater(new Runnable(){
+            public void run() {
+                modelWindow.open();
+           }});
+        
+        OpenSimDB.getInstance().addObserver(modelWindow);
+        OpenSimDB.getInstance().addModel(aModel);
     }
     
     public String getName() {

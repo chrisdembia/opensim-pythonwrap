@@ -4,6 +4,9 @@
     <folder name="Actions">
         <folder name="Edit">
             <file name="org-opensim-view-HiLightObjectsAction.instance"/>
+            <file name="org-opensim-view-LoadDemoModelAction.instance">
+                <attr name="instanceClass" stringvalue="org.opensim.view.LoadDemoModelAction"/>
+            </file>
             <file name="org-opensim-view-OpenOsimModelAction.instance"/>
                     <file name="org-opensim-view-base-SelectCameraAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.base.SelectCameraAction"/>
@@ -26,6 +29,11 @@
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-OpenOsimModelAction.instance"/>
             </file>
             <attr name="org-opensim-view-OpenOsimModel.shadow/Separator2.instance" boolvalue="true"/>
+            <attr name="Separator4.instance/org-opensim-view-LoadDemoModelAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-LoadDemoModelAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-LoadDemoModelAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
         </folder>
         <folder name="Window">
             <file name="BottomPanelAction.shadow">

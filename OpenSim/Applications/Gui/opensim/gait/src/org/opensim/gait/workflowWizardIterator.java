@@ -70,7 +70,7 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
                     // Show steps on the left side with the image on the background
                     jc.putClientProperty("WizardPanel_contentDisplayed", Boolean.TRUE);
                     // Turn on numbering of all steps
-                    jc.putClientProperty("WizardPanel_contentNumbered", Boolean.TRUE);
+                    jc.putClientProperty("WizardPanel_contentNumbered", Boolean.FALSE);
                 }
             }
         }
