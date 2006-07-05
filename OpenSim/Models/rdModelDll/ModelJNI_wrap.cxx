@@ -43084,6 +43084,57 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmSubject_1re
 }
 
 
+JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmSubject_1getSubjectMass(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jdouble jresult = 0 ;
+  OpenSim::SimmSubject *arg1 = (OpenSim::SimmSubject *) 0 ;
+  double *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmSubject **)&jarg1; 
+  {
+    double const &_result_ref = (arg1)->getSubjectMass();
+    result = (double *) &_result_ref;
+  }
+  jresult = (jdouble)*result; 
+  return jresult;
+}
+
+
+JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmSubject_1getSubjectAge(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jdouble jresult = 0 ;
+  OpenSim::SimmSubject *arg1 = (OpenSim::SimmSubject *) 0 ;
+  double *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmSubject **)&jarg1; 
+  {
+    double const &_result_ref = (arg1)->getSubjectAge();
+    result = (double *) &_result_ref;
+  }
+  jresult = (jdouble)*result; 
+  return jresult;
+}
+
+
+JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmSubject_1getSubjectHeight(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jdouble jresult = 0 ;
+  OpenSim::SimmSubject *arg1 = (OpenSim::SimmSubject *) 0 ;
+  double *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmSubject **)&jarg1; 
+  {
+    double const &_result_ref = (arg1)->getSubjectHeight();
+    result = (double *) &_result_ref;
+  }
+  jresult = (jdouble)*result; 
+  return jresult;
+}
+
+
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmSubject_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   OpenSim::SimmSubject *arg1 = (OpenSim::SimmSubject *) 0 ;
   

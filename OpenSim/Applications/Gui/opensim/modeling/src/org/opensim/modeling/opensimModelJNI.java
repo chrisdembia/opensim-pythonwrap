@@ -2537,6 +2537,9 @@ public class opensimModelJNI {
   public final static native boolean SimmSubject_isDefaultMarkerPlacementParams(long jarg1);
   public final static native boolean SimmSubject_isDefaultIKParams(long jarg1);
   public final static native void SimmSubject_registerTypes();
+  public final static native double SimmSubject_getSubjectMass(long jarg1);
+  public final static native double SimmSubject_getSubjectAge(long jarg1);
+  public final static native double SimmSubject_getSubjectHeight(long jarg1);
   public final static native void SimmSubject_peteTest(long jarg1);
   public final static native double SimmSubject_DefaultMass_get();
   public final static native long SWIGMaterialUpcast(long jarg1);

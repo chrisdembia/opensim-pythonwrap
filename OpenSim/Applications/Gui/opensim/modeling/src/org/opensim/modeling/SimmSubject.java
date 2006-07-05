@@ -108,6 +108,18 @@ public class SimmSubject extends OpenSimObject {
     opensimModelJNI.SimmSubject_registerTypes();
   }
 
+  public double getSubjectMass() {
+    return opensimModelJNI.SimmSubject_getSubjectMass(swigCPtr);
+  }
+
+  public double getSubjectAge() {
+    return opensimModelJNI.SimmSubject_getSubjectAge(swigCPtr);
+  }
+
+  public double getSubjectHeight() {
+    return opensimModelJNI.SimmSubject_getSubjectHeight(swigCPtr);
+  }
+
   public void peteTest() {
     opensimModelJNI.SimmSubject_peteTest(swigCPtr);
   }

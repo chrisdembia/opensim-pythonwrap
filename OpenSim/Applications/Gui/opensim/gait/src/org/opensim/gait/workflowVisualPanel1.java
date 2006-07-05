@@ -404,12 +404,17 @@ public final class workflowVisualPanel1 extends JPanel {
         
         return selectModel;
    }
-
+   /**
+    * One common place to set Model file (either from Browse... or from the radio button)
+    */
     private void setModelFile(String modelFile) {
         if (modelFile!= null){
             jModelOwnRadioButton.setSelected(true);
             String parentPath = new File(modelFile).getParent();
-            jModelNameTextField.setText(modelFile.substring(parentPath.length()+1));
+            if (parentPath != null)
+                jModelNameTextField.setText(modelFile.substring(parentPath.length()+1));
+            else
+                jModelNameTextField.setText(modelFile);
         }
         else
             jModelDefaultRadioButton.setSelected(true);
@@ -430,13 +435,19 @@ public final class workflowVisualPanel1 extends JPanel {
 
         return selectMarkers;
    }
-
+   /**
+    * setMarkersFile is the one common place where markersFile is set 
+    * (either from Browse... or from the radio button)
+    */
     private void setMarkersFile(String markersFile) {
         if (markersFile!= null){
             jOwnMarkersRadioButton.setSelected(true);
             String parentPath = new File(markersFile).getParent();
-            jOwnMarkersTextField.setText(markersFile.substring(parentPath.length()+1));
-        }
+            if (parentPath != null)
+                jOwnMarkersTextField.setText(markersFile.substring(parentPath.length()+1));
+            else
+                 jModelNameTextField.setText(markersFile);
+       }
         else
             jDefaultMarkersRadioButton.setSelected(true);
     }
