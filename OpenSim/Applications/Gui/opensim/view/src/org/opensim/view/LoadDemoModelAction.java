@@ -7,8 +7,8 @@ import org.openide.util.actions.CallableSystemAction;
 public final class LoadDemoModelAction extends CallableSystemAction {
     
     public void performAction() {
-        // TODO implement action body
-        new OpenOsimModelAction().loadModel("C:/Downloads/MODEL/dynamic.xml");
+        // TODO better layout for models, bones, use relative path
+        new OpenOsimModelAction().loadModel("./resources/models/demoModel/dynamic.xml");
     }
     
     public String getName() {
@@ -22,7 +22,7 @@ public final class LoadDemoModelAction extends CallableSystemAction {
     }
     
     public HelpCtx getHelpCtx() {
-        return HelpCtx.DEFAULT_HELP;
+        return new HelpCtx(LoadDemoModelAction.class);
     }
     
     protected boolean asynchronous() {

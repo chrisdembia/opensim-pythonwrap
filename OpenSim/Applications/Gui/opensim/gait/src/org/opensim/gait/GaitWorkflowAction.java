@@ -44,15 +44,6 @@ public final class GaitWorkflowAction extends CallableSystemAction {
         super.initialize();
         // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
         putValue("noIconInMenu", Boolean.TRUE);
-        URL url= this.getClass().getResource("help/help.hs");
-
-        HelpSet hs;
-        try {
-            hs = new HelpSet(null, url);
-            HelpBroker hb = hs.createHelpBroker();
-        } catch (HelpSetException ex) {
-            ex.printStackTrace();
-        }    
     }
     
     public HelpCtx getHelpCtx() {

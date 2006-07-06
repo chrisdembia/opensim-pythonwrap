@@ -1951,6 +1951,7 @@ public class opensimModelJNI {
   public final static native void SimmKinematicsEngine_makePaths(long jarg1);
   public final static native long SimmKinematicsEngine_getGroundBodyPtr(long jarg1);
   public final static native void SimmKinematicsEngine_convertPoint__SWIG_0(long jarg1, double[] jarg2, long jarg3, long jarg4);
+  public final static native void SimmKinematicsEngine_convertVector(long jarg1, double[] jarg2, long jarg3, long jarg4);
   public final static native void SimmKinematicsEngine_convertPoint__SWIG_1(long jarg1, long jarg2, long jarg3, long jarg4);
   public final static native double SimmKinematicsEngine_calcDistance__SWIG_0(long jarg1, long jarg2, long jarg3, long jarg4, long jarg5);
   public final static native double SimmKinematicsEngine_calcDistance__SWIG_1(long jarg1, double[] jarg2, long jarg3, double[] jarg4, long jarg5);

@@ -7,7 +7,7 @@ public final class workflowVisualPanel2 extends JPanel {
     /** Creates new form workflowVisualPanel2 */
     public workflowVisualPanel2() {
         initComponents();
-        putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
+        
     }
     
     public String getName() {
@@ -45,7 +45,7 @@ public final class workflowVisualPanel2 extends JPanel {
         jTextField5 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jHelpPanel = new javax.swing.JPanel();
+        jOutputPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
@@ -214,7 +214,7 @@ public final class workflowVisualPanel2 extends JPanel {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jHelpPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
+        jOutputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
         jLabel7.setText("Directory");
 
         jButton7.setText("Browse...");
@@ -235,14 +235,14 @@ public final class workflowVisualPanel2 extends JPanel {
         jCheckBox5.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jCheckBox5.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        org.jdesktop.layout.GroupLayout jHelpPanelLayout = new org.jdesktop.layout.GroupLayout(jHelpPanel);
-        jHelpPanel.setLayout(jHelpPanelLayout);
-        jHelpPanelLayout.setHorizontalGroup(
-            jHelpPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jHelpPanelLayout.createSequentialGroup()
+        org.jdesktop.layout.GroupLayout jOutputPanelLayout = new org.jdesktop.layout.GroupLayout(jOutputPanel);
+        jOutputPanel.setLayout(jOutputPanelLayout);
+        jOutputPanelLayout.setHorizontalGroup(
+            jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jOutputPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jHelpPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jHelpPanelLayout.createSequentialGroup()
+                .add(jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jOutputPanelLayout.createSequentialGroup()
                         .add(jLabel9)
                         .add(35, 35, 35)
                         .add(jCheckBox3)
@@ -250,31 +250,31 @@ public final class workflowVisualPanel2 extends JPanel {
                         .add(jCheckBox4)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jCheckBox5))
-                    .add(jHelpPanelLayout.createSequentialGroup()
+                    .add(jOutputPanelLayout.createSequentialGroup()
                         .add(jLabel7)
                         .add(15, 15, 15)
                         .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 217, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton7))
-                    .add(jHelpPanelLayout.createSequentialGroup()
+                    .add(jOutputPanelLayout.createSequentialGroup()
                         .add(jLabel8)
                         .add(12, 12, 12)
                         .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(93, Short.MAX_VALUE))
         );
-        jHelpPanelLayout.setVerticalGroup(
-            jHelpPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jHelpPanelLayout.createSequentialGroup()
-                .add(jHelpPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+        jOutputPanelLayout.setVerticalGroup(
+            jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jOutputPanelLayout.createSequentialGroup()
+                .add(jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
                     .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButton7))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jHelpPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
                     .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jHelpPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jCheckBox3)
                     .add(jCheckBox4)
@@ -288,7 +288,7 @@ public final class workflowVisualPanel2 extends JPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jHelpPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(jMeasurementScalePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -307,7 +307,7 @@ public final class workflowVisualPanel2 extends JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jManualScalePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jHelpPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -327,7 +327,6 @@ public final class workflowVisualPanel2 extends JPanel {
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JPanel jHelpPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -339,6 +338,7 @@ public final class workflowVisualPanel2 extends JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jManualScalePanel;
     private javax.swing.JPanel jMeasurementScalePanel;
+    private javax.swing.JPanel jOutputPanel;
     private javax.swing.JPanel jScalingMethodSelectPanel;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

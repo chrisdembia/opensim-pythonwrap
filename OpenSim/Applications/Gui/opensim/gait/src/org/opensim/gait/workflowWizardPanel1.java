@@ -32,8 +32,8 @@ public class workflowWizardPanel1 implements WizardDescriptor.Panel {
         // Show no Help button for this panel:
         //return HelpCtx.DEFAULT_HELP;  
         // If you have context help:
-        return new HelpCtx(workflowWizardPanel1.class.getResource("help/html/SubjectSpecificWorkflow.htm"));
         //return new HelpCtx(workflowWizardPanel1.class);
+        return new HelpCtx(workflowWizardPanel1.class);
     }
     
     public boolean isValid() {

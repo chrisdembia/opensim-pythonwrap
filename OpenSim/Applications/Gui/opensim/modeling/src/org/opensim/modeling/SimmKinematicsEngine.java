@@ -102,6 +102,10 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     opensimModelJNI.SimmKinematicsEngine_convertPoint__SWIG_0(swigCPtr, aPoint, SimmBody.getCPtr(aFrom), SimmBody.getCPtr(aTo));
   }
 
+  public void convertVector(double[] aVector, SimmBody aFrom, SimmBody aTo) {
+    opensimModelJNI.SimmKinematicsEngine_convertVector(swigCPtr, aVector, SimmBody.getCPtr(aFrom), SimmBody.getCPtr(aTo));
+  }
+
   public void convertPoint(ArrayDouble aPoint, SimmBody aFrom, SimmBody aTo) {
     opensimModelJNI.SimmKinematicsEngine_convertPoint__SWIG_1(swigCPtr, ArrayDouble.getCPtr(aPoint), SimmBody.getCPtr(aFrom), SimmBody.getCPtr(aTo));
   }

@@ -76,7 +76,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 
                 boolean success = false;
 
-                Stack<vtkAssembly> stack = new Stack<vtkAssembly>();
+                //Stack<vtkAssembly> stack = new Stack<vtkAssembly>();
 
                 File modelFile = new File(model.getInputFileName());
                 String modelFilePath = modelFile.getParent() + modelFile.separator;
@@ -84,16 +84,11 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 // Traverse the bodies of the simmModel in depth-first order.
                 SimmModelIterator i = new SimmModelIterator(model);
 
+                SimmBody gnd = model.getSimmKinematicsEngine().getGroundBodyPtr();
                 while (i.getNextBody() != null) {
 
                     SimmBody body = i.getCurrentBody();
-
-                    // Pop any stale entries off of our stack.
-                    int depth = i.getNumAncestors();
-
-                    while (stack.size() > depth)
-                        stack.pop();
-
+                    
                     // Add a vtkAssembly to the vtk scene graph to represent
                     // the current body.
                     vtkAssembly bodyRep = new vtkAssembly();
@@ -101,28 +96,34 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     // Fill the two maps between objects and actors to support picking, highlighting, etc..
                     mapObject2Actors.put(body, bodyRep);
                     
-                    if (stack.size() > 0)
-                        stack.peek().AddPart(bodyRep);
-                    else
-                        GetRenderer().AddViewProp(bodyRep); // used to be AddProp, but VTK 5 complains.
+                    GetRenderer().AddViewProp(bodyRep); // used to be AddProp, but VTK 5 complains.
 
-                    stack.push(bodyRep);
+                    // Convert origin frame in currentBody to ground.
+                    
+                    double[][] originFrame = new double[][]{{1.0, 0.0, 0.0}, 
+                                                            {0.0, 1.0, 0.0}, 
+                                                            {0.0, 0.0, 1.0},
+                                                            {0.0, 0.0, 0.0}};
 
-                    // Set the bodyRep's transform.
-                    SimmJoint joint = i.getCurrentJoint();
+                    model.getSimmKinematicsEngine().convertVector(originFrame[0], body, gnd);
+                    model.getSimmKinematicsEngine().convertVector(originFrame[1], body, gnd);
+                    model.getSimmKinematicsEngine().convertVector(originFrame[2], body, gnd);
+                    model.getSimmKinematicsEngine().convertPoint(originFrame[3], body, gnd);
 
-                    if (joint != null) {
-                        double[] jointXform = new double[16];
-                        joint.getForwardTransform().getMatrix(jointXform);
-
-                        vtkMatrix4x4 m = new vtkMatrix4x4();
-                        for (int row = 0; row < 4; row++)
-                            for (int col = 0; col < 4; col++){
-                                m.SetElement(col, row, jointXform[row*4+col]);
-                            }
-
-                        bodyRep.SetUserMatrix(m);
+                    vtkMatrix4x4 m = new vtkMatrix4x4();
+                    // Set the rotation part
+                    for (int row = 0; row < 3; row++){
+                        for (int col = 0; col < 3; col++){
+                            m.SetElement(row, col, originFrame[row][col]);
+                        }
                     }
+                    // Set last row of the matrix to translation.
+                    for (int col = 0; col < 3; col++)
+                        m.SetElement(3, col, originFrame[3][col]);
+                    
+                    // Transpose the matrix per Pete!!
+                    m.Transpose();
+                    bodyRep.SetUserMatrix(m);
 
                     // Add a vtkActor object to the vtk scene graph to represent
                     // each bone in the current body.

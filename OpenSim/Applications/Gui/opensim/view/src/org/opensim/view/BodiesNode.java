@@ -1,8 +1,11 @@
 package org.opensim.view;
 
 import java.util.Stack;
+import javax.swing.Action;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
+import org.openide.util.HelpCtx;
+import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.SimmBody;
 import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmModelIterator;
@@ -10,7 +13,7 @@ import org.opensim.modeling.SimmModelIterator;
 
 /** Node class to wrap SimmModel's collection of SimmBodies */
 public class BodiesNode extends ModelNode<SimmModel> {
-    boolean topological;
+    boolean topological=false;
     
     public BodiesNode(SimmModel m) {
         super(m);
@@ -44,5 +47,5 @@ public class BodiesNode extends ModelNode<SimmModel> {
             }
         }
     }
-            
+                
 } // class BodiesNode
