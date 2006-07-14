@@ -23,6 +23,8 @@ import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.nodes.Node;
 import org.opensim.modeling.SimmModel;
+import org.opensim.view.nodes.ConcreteModelNode;
+import org.opensim.view.nodes.ModelNode;
 
 /**
  * Top component which displays something.

@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class SimmBone extends VisibleObject {
+public class SimmBone extends OpenSimObject {
   private long swigCPtr;
 
   protected SimmBone(long cPtr, boolean cMemoryOwn) {
@@ -53,6 +53,18 @@ public class SimmBone extends VisibleObject {
   public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
     long cPtr = opensimModelJNI.SimmBone_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public SWIGTYPE_p_std__string getGeometryFileName(int i) {
+    return new SWIGTYPE_p_std__string(opensimModelJNI.SimmBone_getGeometryFileName(swigCPtr, i), false);
+  }
+
+  public int getNumGeometryFiles() {
+    return opensimModelJNI.SimmBone_getNumGeometryFiles(swigCPtr);
+  }
+
+  public void addGeometryFile(SWIGTYPE_p_std__string geomFile) {
+    opensimModelJNI.SimmBone_addGeometryFile(swigCPtr, SWIGTYPE_p_std__string.getCPtr(geomFile));
   }
 
   public void copyData(SimmBone aBone) {

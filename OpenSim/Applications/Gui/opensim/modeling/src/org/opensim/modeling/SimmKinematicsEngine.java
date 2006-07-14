@@ -146,12 +146,12 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     return opensimModelJNI.SimmKinematicsEngine_takeMeasurement(swigCPtr, SWIGTYPE_p_SimmMeasurement.getCPtr(aMeasurement));
   }
 
-  public SWIGTYPE_p_SimmUnits getLengthUnits() {
-    return new SWIGTYPE_p_SimmUnits(opensimModelJNI.SimmKinematicsEngine_getLengthUnits(swigCPtr), false);
+  public SimmUnits getLengthUnits() {
+    return new SimmUnits(opensimModelJNI.SimmKinematicsEngine_getLengthUnits(swigCPtr), false);
   }
 
-  public SWIGTYPE_p_SimmUnits getForceUnits() {
-    return new SWIGTYPE_p_SimmUnits(opensimModelJNI.SimmKinematicsEngine_getForceUnits(swigCPtr), false);
+  public SimmUnits getForceUnits() {
+    return new SimmUnits(opensimModelJNI.SimmKinematicsEngine_getForceUnits(swigCPtr), false);
   }
 
   public void writeSIMMJointFile(SWIGTYPE_p_std__string aFileName) {

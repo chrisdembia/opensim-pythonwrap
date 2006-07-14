@@ -51,8 +51,8 @@ public class OpenSimObject {
     this(opensimModelJNI.new_OpenSimObject__SWIG_1(aFileName), true);
   }
 
-  public OpenSimObject(SWIGTYPE_p_XMLDocument aDocument) {
-    this(opensimModelJNI.new_OpenSimObject__SWIG_2(SWIGTYPE_p_XMLDocument.getCPtr(aDocument)), true);
+  public OpenSimObject(SWIGTYPE_p_OpenSim__XMLDocument aDocument) {
+    this(opensimModelJNI.new_OpenSimObject__SWIG_2(SWIGTYPE_p_OpenSim__XMLDocument.getCPtr(aDocument)), true);
   }
 
   public OpenSimObject(SWIGTYPE_p_DOMElement aNode) {
@@ -71,6 +71,11 @@ public class OpenSimObject {
   public OpenSimObject copy(SWIGTYPE_p_DOMElement aNode) {
     long cPtr = opensimModelJNI.OpenSimObject_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aNode));
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public VisibleObject getDisplayer() {
+    long cPtr = opensimModelJNI.OpenSimObject_getDisplayer(swigCPtr);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
   public String getType() {
@@ -145,9 +150,9 @@ public class OpenSimObject {
     opensimModelJNI.OpenSimObject_clearXMLNodes(swigCPtr);
   }
 
-  public SWIGTYPE_p_XMLDocument getDocument() {
+  public SWIGTYPE_p_OpenSim__XMLDocument getDocument() {
     long cPtr = opensimModelJNI.OpenSimObject_getDocument(swigCPtr);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_XMLDocument(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__XMLDocument(cPtr, false);
   }
 
   public SWIGTYPE_p_DOMElement getXMLNode() {

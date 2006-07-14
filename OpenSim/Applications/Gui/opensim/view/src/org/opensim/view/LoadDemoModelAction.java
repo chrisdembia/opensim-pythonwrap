@@ -7,8 +7,12 @@ import org.openide.util.actions.CallableSystemAction;
 public final class LoadDemoModelAction extends CallableSystemAction {
     
     public void performAction() {
-        // TODO better layout for models, bones, use relative path
-        new OpenOsimModelAction().loadModel("./resources/models/demoModel/dynamic.xml");
+        try {
+            // TODO better layout for models, bones, use relative path
+            ((OpenOsimModelAction) OpenOsimModelAction.findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel("./resources/models/demoModel/dynamic.xml");
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public String getName() {

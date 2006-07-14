@@ -12,6 +12,7 @@ package org.opensim.view;
 
 import java.util.ArrayList;
 import org.openide.explorer.ExplorerManager;
+import org.openide.nodes.AbstractNode;
 import org.opensim.modeling.SimmModel;
 
 /**

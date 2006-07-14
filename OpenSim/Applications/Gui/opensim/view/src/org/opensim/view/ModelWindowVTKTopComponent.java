@@ -1,5 +1,6 @@
 package org.opensim.view;
 
+import java.util.Collection;
 import java.io.File;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
@@ -8,22 +9,28 @@ import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
+import org.openide.util.Utilities;
 import org.openide.util.lookup.Lookups;
 import org.openide.windows.TopComponent;
 import org.opensim.common.OpenSimDB;
 import org.opensim.common.ModelEvent;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmModel;
 
 /**
  * Top component which displays something.
  */
-public class ModelWindowVTKTopComponent extends TopComponent implements Observer  {
+public class ModelWindowVTKTopComponent extends TopComponent implements Observer, LookupListener  {
     
     private static final long serialVersionUID = 1L;
     private static int ct = 0; //A counter used to provide names for new models
     private String displayName;
     SimmModel myModel;
+    private Lookup.Result result = null;
     Preferences prefs;
             
 
@@ -37,7 +44,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         initComponents();
         
         // Associate window with a model and a canvas so that other platform users can key on that
-        //associateLookup (Lookups.singleton (openSimCanvas1));
+        associateLookup (Lookups.singleton (dModel));
 
         displayName = NbBundle.getMessage(
                         ModelWindowVTKTopComponent.class,
@@ -143,7 +150,9 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     }
     
     public void componentOpened() {
-        // TODO add custom code on component opening
+        Lookup.Template tpl = new Lookup.Template (OpenSimObject.class);
+        result = Utilities.actionsGlobalContext().lookup(tpl);
+        result.addLookupListener (this);
     }
     
  public boolean canClose(){
@@ -182,4 +191,34 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
                 openSimCanvas1.loadModel(myModel);
        }
     }
+    /**
+     * Implementation of Lookup Listener Interface
+     */
+    public void resultChanged(LookupEvent lookupEvent) {
+        Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
+        Collection c = r.allInstances();
+        String objectName;
+        String objectType;
+        if (!c.isEmpty()) {
+            OpenSimObject o = (OpenSimObject) c.iterator().next();
+            objectName = o.getName();
+            objectType = o.getType();
+        } else {
+}
+    }
+    
+    public void componentClosed() {
+        result.removeLookupListener (this);
+        result = null;
+    }
+    
+    /*************
+     *    
+    public void componentOpened() {
+    }
+    
+    public void resultChanged(LookupEvent lookupEvent) {
+    }
+
+*/
 }

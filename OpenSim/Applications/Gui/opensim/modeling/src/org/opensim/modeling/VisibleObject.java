@@ -59,6 +59,15 @@ public class VisibleObject extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public void setOwner(OpenSimObject aObject) {
+    opensimModelJNI.VisibleObject_setOwner(swigCPtr, OpenSimObject.getCPtr(aObject));
+  }
+
+  public OpenSimObject getOwner() {
+    long cPtr = opensimModelJNI.VisibleObject_getOwner(swigCPtr);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
   public void setNumGeometryFiles(int n) {
     opensimModelJNI.VisibleObject_setNumGeometryFiles(swigCPtr, n);
   }
@@ -103,8 +112,8 @@ public class VisibleObject extends OpenSimObject {
     opensimModelJNI.VisibleObject_rotateRadians__SWIG_0(swigCPtr, rR);
   }
 
-  public void rotateRadians(double[] rR, Transform.RotationOrder order) {
-    opensimModelJNI.VisibleObject_rotateRadians__SWIG_1(swigCPtr, rR, order.swigValue());
+  public void rotateRadians(double[] rR, SWIGTYPE_p_Transform__RotationOrder order) {
+    opensimModelJNI.VisibleObject_rotateRadians__SWIG_1(swigCPtr, rR, SWIGTYPE_p_Transform__RotationOrder.getCPtr(order));
   }
 
   public void rotateRadiansX(double rR) {
@@ -127,8 +136,8 @@ public class VisibleObject extends OpenSimObject {
     opensimModelJNI.VisibleObject_rotateDegrees__SWIG_0(swigCPtr, rR);
   }
 
-  public void rotateDegrees(double[] rR, Transform.RotationOrder order) {
-    opensimModelJNI.VisibleObject_rotateDegrees__SWIG_1(swigCPtr, rR, order.swigValue());
+  public void rotateDegrees(double[] rR, SWIGTYPE_p_Transform__RotationOrder order) {
+    opensimModelJNI.VisibleObject_rotateDegrees__SWIG_1(swigCPtr, rR, SWIGTYPE_p_Transform__RotationOrder.getCPtr(order));
   }
 
   public void rotateDegreesX(double rR) {
@@ -149,6 +158,41 @@ public class VisibleObject extends OpenSimObject {
 
   public void translate(double[] t) {
     opensimModelJNI.VisibleObject_translate(swigCPtr, t);
+  }
+
+  public void addDependent(VisibleObject aChild) {
+    opensimModelJNI.VisibleObject_addDependent(swigCPtr, VisibleObject.getCPtr(aChild));
+  }
+
+  public void removeDependent(VisibleObject aChild) {
+    opensimModelJNI.VisibleObject_removeDependent(swigCPtr, VisibleObject.getCPtr(aChild));
+  }
+
+  public int countDependents() {
+    return opensimModelJNI.VisibleObject_countDependents(swigCPtr);
+  }
+
+  public VisibleObject getDependent(int i) {
+    long cPtr = opensimModelJNI.VisibleObject_getDependent(swigCPtr, i);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
+  public void addGeometry(Geometry aGeometry) {
+    opensimModelJNI.VisibleObject_addGeometry(swigCPtr, Geometry.getCPtr(aGeometry));
+  }
+
+  public Geometry getGeometry(int i) {
+    long cPtr = opensimModelJNI.VisibleObject_getGeometry(swigCPtr, i);
+    return (cPtr == 0) ? null : new Geometry(cPtr, false);
+  }
+
+  public int countGeometry() {
+    return opensimModelJNI.VisibleObject_countGeometry(swigCPtr);
+  }
+
+  public Geometry getDefaultGeometry() {
+    long cPtr = opensimModelJNI.VisibleObject_getDefaultGeometry(swigCPtr);
+    return (cPtr == 0) ? null : new Geometry(cPtr, false);
   }
 
   public void setupProperties() {

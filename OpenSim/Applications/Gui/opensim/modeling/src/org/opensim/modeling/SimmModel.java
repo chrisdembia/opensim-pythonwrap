@@ -76,9 +76,9 @@ public class SimmModel extends Model {
     return opensimModelJNI.SimmModel_getNumberOfMuscleGroups(swigCPtr);
   }
 
-  public SWIGTYPE_p_SimmMuscleGroup enterGroup(String aName) {
+  public SimmMuscleGroup enterGroup(String aName) {
     long cPtr = opensimModelJNI.SimmModel_enterGroup(swigCPtr, aName);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_SimmMuscleGroup(cPtr, false);
+    return (cPtr == 0) ? null : new SimmMuscleGroup(cPtr, false);
   }
 
   public void setKinematicsEngine(AbstractDynamicsEngine aKE) {
@@ -117,12 +117,12 @@ public class SimmModel extends Model {
     return opensimModelJNI.SimmModel_takeMeasurement(swigCPtr, SWIGTYPE_p_SimmMeasurement.getCPtr(aMeasurement));
   }
 
-  public SWIGTYPE_p_SimmUnits getLengthUnits() {
-    return new SWIGTYPE_p_SimmUnits(opensimModelJNI.SimmModel_getLengthUnits(swigCPtr), false);
+  public SimmUnits getLengthUnits() {
+    return new SimmUnits(opensimModelJNI.SimmModel_getLengthUnits(swigCPtr), false);
   }
 
-  public SWIGTYPE_p_SimmUnits getForceUnits() {
-    return new SWIGTYPE_p_SimmUnits(opensimModelJNI.SimmModel_getForceUnits(swigCPtr), false);
+  public SimmUnits getForceUnits() {
+    return new SimmUnits(opensimModelJNI.SimmModel_getForceUnits(swigCPtr), false);
   }
 
   public SWIGTYPE_p_double getGravity() {

@@ -47,13 +47,13 @@ public class Actuator extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setModel(SWIGTYPE_p_Model aModel) {
-    opensimModelJNI.Actuator_setModel(swigCPtr, SWIGTYPE_p_Model.getCPtr(aModel));
+  public void setModel(Model aModel) {
+    opensimModelJNI.Actuator_setModel(swigCPtr, Model.getCPtr(aModel));
   }
 
-  public SWIGTYPE_p_Model getModel() {
+  public Model getModel() {
     long cPtr = opensimModelJNI.Actuator_getModel(swigCPtr);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_Model(cPtr, false);
+    return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
   public int getNX() {

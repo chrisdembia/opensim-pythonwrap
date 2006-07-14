@@ -105,4 +105,9 @@ public class SimmMarker extends OpenSimObject {
     opensimModelJNI.SimmMarker_peteTest(swigCPtr);
   }
 
+  public VisibleObject getDisplayer() {
+    long cPtr = opensimModelJNI.SimmMarker_getDisplayer(swigCPtr);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
 }

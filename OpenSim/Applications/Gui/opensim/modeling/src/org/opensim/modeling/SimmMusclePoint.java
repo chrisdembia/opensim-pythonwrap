@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class SimmMusclePoint extends VisibleObject {
+public class SimmMusclePoint extends OpenSimObject {
   private long swigCPtr;
 
   protected SimmMusclePoint(long cPtr, boolean cMemoryOwn) {

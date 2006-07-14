@@ -8,11 +8,12 @@
 
 package org.opensim.modeling;
 
-public class Transform extends OpenSimObject {
+public class Transform {
   private long swigCPtr;
+  protected boolean swigCMemOwn;
 
   protected Transform(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGTransformUpcast(cPtr), cMemoryOwn);
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
@@ -30,7 +31,6 @@ public class Transform extends OpenSimObject {
       opensimModelJNI.delete_Transform(swigCPtr);
     }
     swigCPtr = 0;
-    super.delete();
   }
 
   public Transform() {
@@ -45,9 +45,9 @@ public class Transform extends OpenSimObject {
     this(opensimModelJNI.new_Transform__SWIG_2(r, preference.swigValue(), axis), true);
   }
 
-  public OpenSimObject copy() {
+  public Transform copy() {
     long cPtr = opensimModelJNI.Transform_copy(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+    return (cPtr == 0) ? null : new Transform(cPtr, false);
   }
 
   public void printMatrix() {
@@ -60,14 +60,6 @@ public class Transform extends OpenSimObject {
 
   public void setPosition(double[] pos) {
     opensimModelJNI.Transform_setPosition(swigCPtr, pos);
-  }
-
-  public void getOrientation(double[] orientation) {
-    opensimModelJNI.Transform_getOrientation(swigCPtr, orientation);
-  }
-
-  public void setOrientation(double[] orientation) {
-    opensimModelJNI.Transform_setOrientation(swigCPtr, orientation);
   }
 
   public void setIdentity() {
@@ -129,10 +121,6 @@ public class Transform extends OpenSimObject {
 
   public void getMatrix(double[] aMat) {
     opensimModelJNI.Transform_getMatrix__SWIG_1(swigCPtr, aMat);
-  }
-
-  public void setupSerializedMembers() {
-    opensimModelJNI.Transform_setupSerializedMembers(swigCPtr);
   }
 
   public final static class AxisName {

@@ -75,34 +75,26 @@ public class SimmBody extends OpenSimObject {
     return new ArrayDouble(opensimModelJNI.SimmBody_getInertia(swigCPtr), false);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__VisibleObject_t getBones() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__VisibleObject_t(opensimModelJNI.SimmBody_getBones(swigCPtr), false);
-  }
-
-  public int getNumBones() {
-    return opensimModelJNI.SimmBody_getNumBones(swigCPtr);
-  }
-
-  public SimmBone getBone(int index) {
-    long cPtr = opensimModelJNI.SimmBody_getBone(swigCPtr, index);
-    return (cPtr == 0) ? null : new SimmBone(cPtr, false);
+  public VisibleObject getDisplayer() {
+    long cPtr = opensimModelJNI.SimmBody_getDisplayer(swigCPtr);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
   public int getNumMarkers() {
     return opensimModelJNI.SimmBody_getNumMarkers(swigCPtr);
   }
 
-  public SWIGTYPE_p_SimmMarker getMarker(int index) {
+  public SimmMarker getMarker(int index) {
     long cPtr = opensimModelJNI.SimmBody_getMarker(swigCPtr, index);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_SimmMarker(cPtr, false);
+    return (cPtr == 0) ? null : new SimmMarker(cPtr, false);
   }
 
   public int deleteAllMarkers() {
     return opensimModelJNI.SimmBody_deleteAllMarkers(swigCPtr);
   }
 
-  public void deleteMarker(SWIGTYPE_p_SimmMarker aMarker) {
-    opensimModelJNI.SimmBody_deleteMarker(swigCPtr, SWIGTYPE_p_SimmMarker.getCPtr(aMarker));
+  public void deleteMarker(SimmMarker aMarker) {
+    opensimModelJNI.SimmBody_deleteMarker(swigCPtr, SimmMarker.getCPtr(aMarker));
   }
 
   public int deleteUnusedMarkers(ArrayStr aMarkerNames) {
@@ -121,8 +113,8 @@ public class SimmBody extends OpenSimObject {
     opensimModelJNI.SimmBody_scaleInertialProperties(swigCPtr, ArrayDouble.getCPtr(aScaleFactors));
   }
 
-  public void addMarker(SWIGTYPE_p_SimmMarker aMarker) {
-    opensimModelJNI.SimmBody_addMarker(swigCPtr, SWIGTYPE_p_SimmMarker.getCPtr(aMarker));
+  public void addMarker(SimmMarker aMarker) {
+    opensimModelJNI.SimmBody_addMarker(swigCPtr, SimmMarker.getCPtr(aMarker));
   }
 
   public void writeSIMM(SWIGTYPE_p_std__ofstream out) {

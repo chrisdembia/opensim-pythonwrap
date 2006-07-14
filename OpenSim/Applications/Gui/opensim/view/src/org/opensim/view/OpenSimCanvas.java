@@ -15,14 +15,15 @@ import java.util.Hashtable;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
-import java.util.Stack;
 import javax.swing.JPopupMenu;
+import org.opensim.modeling.AnalyticGeometry;
+import org.opensim.modeling.AnalyticGeometry.AnalyticGeometryType;
+import org.opensim.modeling.Geometry;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmBody;
-import org.opensim.modeling.SimmBone;
-import org.opensim.modeling.SimmJoint;
 import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmModelIterator;
+import org.opensim.modeling.VisibleObject;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
@@ -35,6 +36,7 @@ import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkPropPicker;
 import vtk.vtkProperty;
+import vtk.vtkSphereSource;
 import vtk.vtkXMLPolyDataReader;
 
 /**
@@ -130,20 +132,17 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     bodyRep.SetUserMatrix(m);
 
                     // Add a vtkActor object to the vtk scene graph to represent
+                    VisibleObject bodyDisplayer = body.getDisplayer();
                     // each bone in the current body.
-                    for (int k = 0; k < body.getNumBones(); ++k) {
-
-                        SimmBone bone = body.getBone(k);
-
-                        for (int l = 0; l < bone.getNumGeometryFiles(); ++l) {
+                    for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
 
                             // Get the native vtkPolyData object from the OpenSim
                             // model, and wrap a Java vtkPolyData object around it
                             // for use by VTK.
-                            progressHandle.progress(bone.getGeometryFileName(l));
+                        progressHandle.progress(bodyDisplayer.getGeometryFileName(k));
                             
                             vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
-                            String boneFile = modelFilePath + bone.getGeometryFileName(l);
+                        String boneFile = modelFilePath + bodyDisplayer.getGeometryFileName(k);
                             polyReader.SetFileName(boneFile);
 
                             vtkPolyData poly = polyReader.GetOutput();
@@ -155,6 +154,37 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                             bodyRep.AddPart(actor);
                             mapActors2Objects.put(actor, body);
 
+                        }
+                    int ct = bodyDisplayer.countDependents();
+                    System.out.println("Body "+body+" has "+ct+ " dependents");
+                    for(int j=0; j < ct;j++){
+                        VisibleObject Dependent = bodyDisplayer.getDependent(j);
+                        int geomcount = Dependent.countGeometry();
+                        // Create actor for the dpendent
+                        for(int gc=0; gc<geomcount; gc++){
+                            Geometry g = Dependent.getGeometry(gc);
+                            vtkActor dActor = new vtkActor();
+                            AnalyticGeometry ag=null;
+                            ag = AnalyticGeometry.dynamic_cast(g);
+                            if (ag != null){
+                                AnalyticGeometryType analyticType = ag.getShape();
+                                if (analyticType == AnalyticGeometryType.Sphere){
+                                    vtkSphereSource sphere = new vtkSphereSource();
+                                    sphere.SetRadius(0.01);
+                                    double[] pos = new double[3];
+                                    System.out.println("Sphere for object "+Dependent.getOwner().getName()+
+                                            " at"+pos[0]+", "+pos[1]+", "+pos[2]);
+                                    Dependent.getTransform().getPosition(pos);
+                                    sphere.SetCenter(pos);
+                                    vtkPolyDataMapper mapper = new vtkPolyDataMapper();
+                                    mapper.SetInput(sphere.GetOutput());
+                                    dActor.GetProperty().SetColor(new double[]{1.0, 0.0, 0.0});
+                                    dActor.SetMapper(mapper);
+                                    bodyRep.AddPart(dActor);
+                                    mapActors2Objects.put(dActor, Dependent.getOwner());
+                                    GetRenderer().AddViewProp(dActor); 
+                                }
+                            }
                         }
                     }
                 }
@@ -175,9 +205,9 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
        if ( (e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.CTRL_MASK))) {
           setSelectedObject(findObjectAt(lastX, lastY));
           if (getSelectedObject() != null){
-            JPopupMenu visPopup = new JPopupMenu();
-            visPopup.add(new ModifyObjectVisibilityAction(getSelectedObject(), this));
-            visPopup.show(this, e.getX(), e.getY());
+            //JPopupMenu visPopup = new JPopupMenu();
+            //visPopup.add(new ModifyObjectVisibilityAction(getSelectedObject(), this));
+            //visPopup.show(this, e.getX(), e.getY());
          }
         }        // Show popup if right mouse otherwise pass along to super implementation
         super.mousePressed(e);
@@ -291,10 +321,10 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             part = (prop instanceof vtkActor)?(vtkActor)prop:null;
         }
     }
-
+    
     public void setModel(SimmModel model) {
         this.model = model;
-    }
+}
 
     public OpenSimObject getSelectedObject() {
         return selectedObject;

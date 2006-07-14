@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JColorChooser;
+import javax.swing.JMenuItem;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -46,5 +47,4 @@ public class ModifyWindowSettingsAction extends CallableSystemAction {
     protected boolean asynchronous() {
         return false;
     }
-
 }

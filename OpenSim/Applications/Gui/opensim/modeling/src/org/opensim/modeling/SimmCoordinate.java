@@ -63,8 +63,8 @@ public class SimmCoordinate extends Coordinate {
     opensimModelJNI.SimmCoordinate_addJointToList(swigCPtr, SimmJoint.getCPtr(aJoint));
   }
 
-  public void addPathToList(SWIGTYPE_p_SimmPath aPath) {
-    opensimModelJNI.SimmCoordinate_addPathToList(swigCPtr, SWIGTYPE_p_SimmPath.getCPtr(aPath));
+  public void addPathToList(SimmPath aPath) {
+    opensimModelJNI.SimmCoordinate_addPathToList(swigCPtr, SimmPath.getCPtr(aPath));
   }
 
   public void setup(SimmKinematicsEngine aEngine) {

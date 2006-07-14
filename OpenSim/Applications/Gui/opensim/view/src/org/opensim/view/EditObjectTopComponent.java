@@ -3,15 +3,16 @@ package org.opensim.view;
 import java.awt.Color;
 import java.io.Serializable;
 import javax.swing.JColorChooser;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;
 import org.openide.ErrorManager;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.view.OpenSimObjectModel;
+import org.opensim.view.editors.JTreeTable;
+import org.opensim.view.editors.ObjectViewerPanel;
 import vtk.vtkProperty;
 
 /**
@@ -27,7 +28,6 @@ final class EditObjectTopComponent extends TopComponent implements javax.swing.e
     OpenSimCanvas   canvas;
     OpenSimObject   object;
     vtkProperty     saveProperty;
-    OpenSimObjectModel objectProperties;
     JTreeTable      jPropertyTable;
    
     private EditObjectTopComponent() {
@@ -45,7 +45,7 @@ final class EditObjectTopComponent extends TopComponent implements javax.swing.e
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        PropertyEditPanel = new javax.swing.JPanel();
+        PropertyEditPanel =  new ObjectViewerPanel(null, false);
         VisualEditPanel = new javax.swing.JPanel();
         OpacityLabel = new javax.swing.JLabel();
         ObjectNameLabel = new javax.swing.JLabel();
@@ -60,11 +60,11 @@ final class EditObjectTopComponent extends TopComponent implements javax.swing.e
         PropertyEditPanel.setLayout(PropertyEditPanelLayout);
         PropertyEditPanelLayout.setHorizontalGroup(
             PropertyEditPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 307, Short.MAX_VALUE)
+            .add(0, 297, Short.MAX_VALUE)
         );
         PropertyEditPanelLayout.setVerticalGroup(
             PropertyEditPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 239, Short.MAX_VALUE)
+            .add(0, 357, Short.MAX_VALUE)
         );
 
         org.openide.awt.Mnemonics.setLocalizedText(OpacityLabel, "Opacity:");
@@ -143,8 +143,10 @@ final class EditObjectTopComponent extends TopComponent implements javax.swing.e
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(PropertyEditPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(VisualEditPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .add(PropertyEditPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -184,7 +186,7 @@ final class EditObjectTopComponent extends TopComponent implements javax.swing.e
     private javax.swing.JTextField ObjectTypeText;
     private javax.swing.JLabel OpacityLabel;
     private javax.swing.JSlider OpacitySlider;
-    private javax.swing.JPanel PropertyEditPanel;
+    private ObjectViewerPanel PropertyEditPanel;
     private javax.swing.JPanel VisualEditPanel;
     private javax.swing.JButton jChooseColorBtn;
     // End of variables declaration//GEN-END:variables
@@ -266,9 +268,12 @@ final class EditObjectTopComponent extends TopComponent implements javax.swing.e
         canvas.getObjectProperties(object, saveProperty);
         OpacitySlider.getModel().setValue((int) (saveProperty.GetOpacity()*100));
         // Now the properties
-        objectProperties = new OpenSimObjectModel(object, true, canvas.getModel().getName());
-        jPropertyTable = new JTreeTable(objectProperties);
-        PropertyEditPanel.add(jPropertyTable);
+        JDialog testDialog = new JDialog(new JFrame(), false);
+        testDialog.getContentPane().add(new ObjectViewerPanel(object, true));
+        testDialog.pack();
+        testDialog.setVisible(true);
+        PropertyEditPanel  = new ObjectViewerPanel(object, true);
+        repaint();
     }
 
 }

@@ -16,6 +16,8 @@ import vtk.vtkProperty;
 /**
  *
  * @author  Ayman
+ *
+ * @todo replace base class by DialogDescriptor to integrate better into the Windows API of netbeans
  */
 public class VisibilityJDialog extends javax.swing.JDialog implements ChangeListener {
     
