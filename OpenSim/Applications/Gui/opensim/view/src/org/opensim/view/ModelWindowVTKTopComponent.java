@@ -1,8 +1,10 @@
 package org.opensim.view;
 
+import java.io.File;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -22,15 +24,20 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     private static int ct = 0; //A counter used to provide names for new models
     private String displayName;
     SimmModel myModel;
+    Preferences prefs;
+            
+
+ 
     /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
         
     public ModelWindowVTKTopComponent(SimmModel dModel) {
         myModel = dModel;
+//        associateLookup (Lookups.singleton (myModel));
         initComponents();
         
         // Associate window with a model and a canvas so that other platform users can key on that
-        associateLookup (Lookups.singleton (openSimCanvas1));
+        //associateLookup (Lookups.singleton (openSimCanvas1));
 
         displayName = NbBundle.getMessage(
                         ModelWindowVTKTopComponent.class,
@@ -41,10 +48,13 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
             public void run() {
                  setName(getDisplayName());
             }});
-       
         //setToolTipText(NbBundle.getMessage(ModelWindowVTKTopComponent.class, "HINT_ModelWindowVTKTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
         
+        // Set preferred directory for the TopComponent (to be used for all saving, loading, ...
+        prefs = Preferences.userNodeForPackage(this.getClass());
+        File f = new File(myModel.getInputFileName());
+        prefs.put("Preferred Directory", f.getParent());
     }
     
     /** This method is called from within the constructor to
@@ -54,18 +64,11 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jTakeSnapshotButton = new javax.swing.JButton();
         jRefitModelButton = new javax.swing.JButton();
         jModelWiondowToolBar = new javax.swing.JToolBar();
+        jTakeSnapshotButton = new javax.swing.JButton();
         jAnimationSlider = new javax.swing.JSlider();
         openSimCanvas1 = new org.opensim.view.OpenSimCanvas();
-
-        org.openide.awt.Mnemonics.setLocalizedText(jTakeSnapshotButton, "SnapShot");
-        jTakeSnapshotButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTakeSnapshotButtonActionPerformed(evt);
-            }
-        });
 
         org.openide.awt.Mnemonics.setLocalizedText(jRefitModelButton, "Refit");
         jRefitModelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +78,15 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         });
 
         setLayout(new java.awt.BorderLayout());
+
+        org.openide.awt.Mnemonics.setLocalizedText(jTakeSnapshotButton, "SnapShot");
+        jTakeSnapshotButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTakeSnapshotButtonActionPerformed(evt);
+            }
+        });
+
+        jModelWiondowToolBar.add(jTakeSnapshotButton);
 
         jModelWiondowToolBar.add(jAnimationSlider);
 
@@ -92,7 +104,8 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
 
     private void jTakeSnapshotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTakeSnapshotButtonActionPerformed
 // TODO add your handling code here:
-        final JFileChooser dlog = new JFileChooser();
+        String currentDirectory = prefs.get("Preferred Directory", ".");
+        final JFileChooser dlog = new JFileChooser(currentDirectory);
         
         if (dlog.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             openSimCanvas1.HardCopy(dlog.getSelectedFile().getAbsolutePath()+".tiff", 1);
@@ -137,6 +150,8 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         // TODO add custom code on component closing
         // Closing the model should warn about unsaved changes and if confirmed remove it from OpenSimDB
         // For now we'll warn anyway
+        String DefaultDir=".";
+        System.out.println("preferred directory = "+prefs.get("Preferred Directory", DefaultDir));
         int confirm = JOptionPane.showConfirmDialog(this, "Do you want to close model "+myModel.getName()+" ?");
         if (confirm == JOptionPane.YES_OPTION){
             int observersCount = OpenSimDB.getInstance().countObservers();

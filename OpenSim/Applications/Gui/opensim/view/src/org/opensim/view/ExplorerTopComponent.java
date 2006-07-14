@@ -1,14 +1,20 @@
 package org.opensim.view;
 
 import java.awt.BorderLayout;
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.SwingUtilities;
 import org.openide.ErrorManager;
+import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
+import org.openide.util.Utilities;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.common.OpenSimDB;
@@ -21,7 +27,8 @@ import org.opensim.modeling.SimmModel;
 /**
  * Top component which displays something.
  */
-final class ExplorerTopComponent extends TopComponent implements Observer, ExplorerManager.Provider  {
+final class ExplorerTopComponent extends TopComponent 
+        implements Observer, ExplorerManager.Provider, LookupListener{
     
     private static final long serialVersionUID = 1L;
     
@@ -33,8 +40,10 @@ final class ExplorerTopComponent extends TopComponent implements Observer, Explo
     
    private final ExplorerManager manager = new ExplorerManager();
    private final BeanTreeView modelTree = new BeanTreeView();
-   private static HashMap<SimmModel, ConcreteModelNode> mapModelsToNodes = new HashMap<SimmModel, ConcreteModelNode>(4);
+   private static HashMap<SimmModel, ConcreteModelNode> mapModels2Nodes = new HashMap<SimmModel, ConcreteModelNode>(4);
    
+   private Lookup.Result result = null;
+
    private ExplorerTopComponent() {
         initComponents();
         setName(NbBundle.getMessage(ExplorerTopComponent.class, "CTL_ExplorerTopComponent"));
@@ -109,12 +118,35 @@ final class ExplorerTopComponent extends TopComponent implements Observer, Explo
     }
     
     public void componentOpened() {
-        // TODO add custom code on component opening
+        Lookup.Template tpl = new Lookup.Template (OpenSimCanvas.class);
+        result = Utilities.actionsGlobalContext().lookup(tpl);
+        result.addLookupListener (this);
         redisplay();
     }
     
     public void componentClosed() {
-        // TODO add custom code on component closing
+        result.removeLookupListener (this);
+        result = null;
+    }
+    
+    public void resultChanged(LookupEvent lookupEvent) {
+        Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
+        Collection c = r.allInstances();
+        if (!c.isEmpty()) {
+            OpenSimCanvas o = (OpenSimCanvas) c.iterator().next();
+            SimmModel m = o.getModel();
+            Node modelNode = mapModels2Nodes.get(m);
+            Node[] selectedNodes = new Node[1];
+            selectedNodes[0] = modelNode;
+            try {
+                manager.setSelectedNodes(selectedNodes);
+            } catch (PropertyVetoException ex) {
+                ex.printStackTrace();
+            }
+            //jLabel1.setText(o.getName());
+        } else {
+            //jLabel1.setText("[no selection]");
+        }
     }
     
     /** replaces this in object stream */
@@ -142,13 +174,13 @@ final class ExplorerTopComponent extends TopComponent implements Observer, Explo
                             SimmModel newModel = evnt.getModel();
                             ConcreteModelNode newModelNode = new ConcreteModelNode(newModel);
                             rootNode.getChildren().add(new Node[] { newModelNode});
-                            mapModelsToNodes.put(newModel, newModelNode);
+                            mapModels2Nodes.put(newModel, newModelNode);
                             break;
                         }
                         case Close:
                         {
                             SimmModel closingModel = evnt.getModel();
-                            ConcreteModelNode modelNode = mapModelsToNodes.get(closingModel);
+                            ConcreteModelNode modelNode = mapModels2Nodes.get(closingModel);
                             try {
                                 modelNode.destroy();
                             } catch (IOException ex) {
@@ -187,4 +219,5 @@ final class ExplorerTopComponent extends TopComponent implements Observer, Explo
             rootNode.getChildren().add(new Node[] { new ConcreteModelNode((SimmModel)models[i]) });
 
     }
+    
 }

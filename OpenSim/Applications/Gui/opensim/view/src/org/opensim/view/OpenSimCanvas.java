@@ -9,7 +9,6 @@
 
 package org.opensim.view;
 
-import java.awt.Color;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.util.Hashtable;
@@ -45,24 +44,29 @@ import vtk.vtkXMLPolyDataReader;
  */
 public class OpenSimCanvas extends OpenSimBaseCanvas {
     
-    SimmModel model;
+    private SimmModel model;
     
     Hashtable<OpenSimObject, vtkAssembly> mapObject2Actors = new Hashtable<OpenSimObject, vtkAssembly>();
     Hashtable<vtkProp3D, OpenSimObject> mapActors2Objects = new Hashtable<vtkProp3D, OpenSimObject>();
     
     JPopupMenu visibilityMenu = new JPopupMenu();
     
-    static double[] highlightColor = new double[]{1.0, 0.0, 0.0};
+    private OpenSimObject selectedObject=null;
     
     /** Creates a new instance of OpenSimCanvas */
     public OpenSimCanvas() {
     }
     
+    public SimmModel getModel()
+    {
+        return model;
+    }
     /**
      * Function to load a SimmModel into a vtk Canvas. 
      */
     public boolean loadModel(final SimmModel model)
     {
+        setModel(model);
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Building scene ");
         progressHandle.start();
         
@@ -169,10 +173,10 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     public void mousePressed(MouseEvent e)
    {
        if ( (e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.CTRL_MASK))) {
-          OpenSimObject selectedObject = findObjectAt(lastX, lastY);
-          if (selectedObject != null){
+          setSelectedObject(findObjectAt(lastX, lastY));
+          if (getSelectedObject() != null){
             JPopupMenu visPopup = new JPopupMenu();
-            visPopup.add(new ModifyObjectVisibilityAction(selectedObject, this));
+            visPopup.add(new ModifyObjectVisibilityAction(getSelectedObject(), this));
             visPopup.show(this, e.getX(), e.getY());
          }
         }        // Show popup if right mouse otherwise pass along to super implementation
@@ -204,7 +208,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         return mapActors2Objects.get(prop);
     }
 
-    void setObjectColor(OpenSimObject object, double[] colorComponents) {
+    public void setObjectColor(OpenSimObject object, double[] colorComponents) {
         vtkAssembly asm = getActorForObject(object);
         vtkProp3DCollection parts = asm.GetParts();
         parts.InitTraversal();
@@ -252,16 +256,21 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     }
 
     void handleDoubleClick(MouseEvent evt) {
-          OpenSimObject selectedObject = findObjectAt(lastX, lastY);
-          if (selectedObject != null){
-              new VisibilityJDialog(new javax.swing.JFrame(), this, selectedObject).setVisible(true);
+          setSelectedObject(findObjectAt(lastX, lastY));
+          if (getSelectedObject() != null){
+                EditObjectTopComponent win = EditObjectTopComponent.findInstance();
+                win.setContext(this);
+                win.open();
+                win.requestActive();
+              //new VisibilityJDialog(new javax.swing.JFrame(), this, getSelectedObject()).setVisible(true);
           }
+          setSelectedObject(null);
     }
 
     void selectObject(MouseEvent evt) {
-          OpenSimObject selectedObject = findObjectAt(lastX, lastY);
-          if (selectedObject != null)
-            markSelected(selectedObject, true);
+          setSelectedObject(findObjectAt(lastX, lastY));
+          if (getSelectedObject() != null)
+            markSelected(getSelectedObject(), true);
     }
 
     private void markSelected(OpenSimObject selectedObject, boolean on) {
@@ -282,5 +291,16 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             part = (prop instanceof vtkActor)?(vtkActor)prop:null;
         }
     }
-    
+
+    public void setModel(SimmModel model) {
+        this.model = model;
+    }
+
+    public OpenSimObject getSelectedObject() {
+        return selectedObject;
+    }
+
+    public void setSelectedObject(OpenSimObject selectedObject) {
+        this.selectedObject = selectedObject;
+    }
 }

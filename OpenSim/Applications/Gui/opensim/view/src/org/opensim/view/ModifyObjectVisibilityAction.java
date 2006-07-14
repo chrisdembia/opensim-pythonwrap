@@ -18,7 +18,8 @@ public final class ModifyObjectVisibilityAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
-        new VisibilityJDialog(new javax.swing.JFrame(), canvas, object).setVisible(true);
+        EditObjectTopComponent editWindow = EditObjectTopComponent.findInstance();
+        //new VisibilityJDialog(new javax.swing.JFrame(), canvas, object).setVisible(true);
      }
     
     public String getName() {
