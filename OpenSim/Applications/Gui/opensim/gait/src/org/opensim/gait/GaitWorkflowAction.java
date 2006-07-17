@@ -1,17 +1,13 @@
 package org.opensim.gait;
 
 import java.awt.Dialog;
-import java.net.URL;
 import java.text.MessageFormat;
-import javax.help.HelpBroker;
-import javax.help.HelpSet;
-import javax.help.HelpSetException;
+import javax.swing.JButton;
 import org.openide.DialogDisplayer;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import java.util.prefs.*;
 
 public final class GaitWorkflowAction extends CallableSystemAction {
     
@@ -28,7 +24,8 @@ public final class GaitWorkflowAction extends CallableSystemAction {
         wizardDescriptor.setTitleFormat(new MessageFormat("{0} ({1})"));
         wizardDescriptor.setTitle("Subject Specific Gait Workflow");
          //wizardDescriptor.putProperty("WizardPanel_helpDisplayed",Boolean.TRUE);
-
+        JButton executeButton = new JButton(new ExecuteWorkflowStepAction(iterator));
+        wizardDescriptor.setAdditionalOptions(new Object[] {executeButton});
         Dialog dialog = DialogDisplayer.getDefault().createDialog(wizardDescriptor);
         dialog.setVisible(true);
         dialog.toFront();

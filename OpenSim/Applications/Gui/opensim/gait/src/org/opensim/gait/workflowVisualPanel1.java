@@ -8,7 +8,9 @@ import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmSubject;
 
 public final class workflowVisualPanel1 extends JPanel {
-    
+
+    boolean ownModel;
+    boolean ownMarkers;
     /** Creates new form workflowVisualPanel1 */
     public workflowVisualPanel1() {
         initComponents();
@@ -164,16 +166,16 @@ public final class workflowVisualPanel1 extends JPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jWeightLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jWeightTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(19, 19, 19)
+                        .add(jWeightTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jHeightLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jHeightTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 44, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(24, 24, 24)
+                        .add(12, 12, 12)
                         .add(jGenderLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jGenderTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(38, Short.MAX_VALUE))))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -191,8 +193,8 @@ public final class workflowVisualPanel1 extends JPanel {
                     .add(jAgeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jWeightLabel)
                     .add(jHeightLabel)
-                    .add(jWeightTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jHeightTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jWeightTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jGenderLabel)
                     .add(jGenderTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -322,6 +324,8 @@ public final class workflowVisualPanel1 extends JPanel {
             // Create a subject instance. This should be moves to the non-GUI counterpart class.
             SimmSubject subject = new SimmSubject(dlog.getSelectedFile().getAbsolutePath());
             setModelFile(subject.getGenericModelParams().getModelFileName());
+            setSubjectInfo(subject);
+            
             // @ToDo This may need to be changed once the "Default" really exists.
             jModelOwnRadioButton.setSelected(true);
         }
@@ -379,11 +383,6 @@ public final class workflowVisualPanel1 extends JPanel {
         jModelOwnRadioButton.setSelected(aDescriptor.getUseOwnModel());
         jOwnMarkersRadioButton.setSelected(aDescriptor.getUseOwnMarkers());
         SimmModel aModel = aDescriptor.getModel();
-        if ( aModel != null){   // Update display with values from model if any
-            //jWeightTextField.setText(String.valueOf(aDescriptor.getSubject().getSubjectMass()));
-            //jHeightTextField.setText(String.valueOf(aDescriptor.getSubject().getSubjectHeight()));
-            //jAgeTextField.setText(String.valueOf(aDescriptor.getSubject().getSubjectAge()));
-        }
    }
     
    /**
@@ -415,9 +414,13 @@ public final class workflowVisualPanel1 extends JPanel {
                 jModelNameTextField.setText(modelFile.substring(parentPath.length()+1));
             else
                 jModelNameTextField.setText(modelFile);
+            // Update GUI accordingly
+            ownModel = true;
         }
-        else
+        else {
             jModelDefaultRadioButton.setSelected(true);
+            ownModel = false;
+        }
 
     }
     // Repeat for markers
@@ -446,11 +449,33 @@ public final class workflowVisualPanel1 extends JPanel {
             if (parentPath != null)
                 jOwnMarkersTextField.setText(markersFile.substring(parentPath.length()+1));
             else
-                 jModelNameTextField.setText(markersFile);
+                 jOwnMarkersTextField.setText(markersFile);
        }
         else
             jDefaultMarkersRadioButton.setSelected(true);
     }
 
+    private void setSubjectInfo(SimmSubject subject) {
+        if (subject!= null){
+            jWeightTextField.setText(String.valueOf(subject.getSubjectMass()));
+            jHeightTextField.setText(String.valueOf(subject.getSubjectHeight()));
+            jAgeTextField.setText(String.valueOf(subject.getSubjectAge()));
+        }
+        else {
+            jWeightTextField.setText("");
+            jHeightTextField.setText("");
+            jAgeTextField.setText("");
+        }
+    }
+
+    public boolean hasModel()
+    {
+        return (ownModel || jModelNameTextField.getText()!= "");
+    }
+    
+    public String getModel()
+    {
+        return jModelNameTextField.getText();
+    }
 }
 

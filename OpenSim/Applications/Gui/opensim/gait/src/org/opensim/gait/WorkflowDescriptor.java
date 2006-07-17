@@ -47,8 +47,6 @@ public class WorkflowDescriptor {
      * @todo look into why the no-arg constructor for SIMMModel crashes and init subject
      * in constructor instead of using setSubject
      */
-    public WorkflowDescriptor() {
-    }
     
     /**  init subject to a subject created from an external file */
     public void setSubject(SimmSubject aSubject)

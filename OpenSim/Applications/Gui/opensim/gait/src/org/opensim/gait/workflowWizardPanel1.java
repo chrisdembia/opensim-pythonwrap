@@ -8,6 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
+import org.opensim.view.OpenOsimModelAction;
 
 public class workflowWizardPanel1 implements WizardDescriptor.Panel {
     
@@ -15,7 +16,7 @@ public class workflowWizardPanel1 implements WizardDescriptor.Panel {
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
-    private Component component;
+    private workflowVisualPanel1 component;
     
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
@@ -48,7 +49,7 @@ public class workflowWizardPanel1 implements WizardDescriptor.Panel {
     
     private boolean checkValidPanel() {
         // You can advance only if there's a model
-        return true;
+        return component.hasModel();
     }
     
     private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
@@ -80,9 +81,15 @@ public class workflowWizardPanel1 implements WizardDescriptor.Panel {
     // by the user.
     public void readSettings(Object settings) {
         WorkflowDescriptor descriptor = (WorkflowDescriptor) settings;
-        ((workflowVisualPanel1)getComponent()).updatePanel(descriptor);
+        component.updatePanel(descriptor);
     }
     public void storeSettings(Object settings) {}
     
+    public boolean executeStep()
+    {   
+        // Load model and markers into GUI
+        new OpenOsimModelAction().loadModel(component.getModel());
+        return true;
+    }
 }
 

@@ -143,16 +143,16 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jWeightLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jWeightTextField" min="-2" pref="31" max="-2" attributes="1"/>
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="jWeightTextField" min="-2" pref="46" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jHeightLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jHeightTextField" min="-2" pref="44" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jGenderLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jGenderTextField" min="-2" pref="48" max="-2" attributes="1"/>
-                          <EmptySpace pref="38" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -175,8 +175,8 @@
                       <Component id="jAgeTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jWeightLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jHeightLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jWeightTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jHeightTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jWeightTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jGenderLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jGenderTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
