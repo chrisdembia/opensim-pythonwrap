@@ -56,16 +56,19 @@ final class EditObjectTopComponent extends TopComponent implements javax.swing.e
         ObjectTypeLabel = new javax.swing.JLabel();
         ObjectTypeText = new javax.swing.JTextField();
 
+        setLayout(new java.awt.BorderLayout());
+
         org.jdesktop.layout.GroupLayout PropertyEditPanelLayout = new org.jdesktop.layout.GroupLayout(PropertyEditPanel);
         PropertyEditPanel.setLayout(PropertyEditPanelLayout);
         PropertyEditPanelLayout.setHorizontalGroup(
             PropertyEditPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 297, Short.MAX_VALUE)
+            .add(0, 307, Short.MAX_VALUE)
         );
         PropertyEditPanelLayout.setVerticalGroup(
             PropertyEditPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 357, Short.MAX_VALUE)
+            .add(0, 363, Short.MAX_VALUE)
         );
+        add(PropertyEditPanel, java.awt.BorderLayout.CENTER);
 
         org.openide.awt.Mnemonics.setLocalizedText(OpacityLabel, "Opacity:");
 
@@ -138,23 +141,8 @@ final class EditObjectTopComponent extends TopComponent implements javax.swing.e
                     .add(OpacitySlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+        add(VisualEditPanel, java.awt.BorderLayout.NORTH);
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(VisualEditPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(layout.createSequentialGroup()
-                .add(PropertyEditPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(VisualEditPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(PropertyEditPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void ObjectTypeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObjectTypeTextActionPerformed
@@ -186,7 +174,7 @@ final class EditObjectTopComponent extends TopComponent implements javax.swing.e
     private javax.swing.JTextField ObjectTypeText;
     private javax.swing.JLabel OpacityLabel;
     private javax.swing.JSlider OpacitySlider;
-    private ObjectViewerPanel PropertyEditPanel;
+    private javax.swing.JPanel PropertyEditPanel;
     private javax.swing.JPanel VisualEditPanel;
     private javax.swing.JButton jChooseColorBtn;
     // End of variables declaration//GEN-END:variables
@@ -268,11 +256,13 @@ final class EditObjectTopComponent extends TopComponent implements javax.swing.e
         canvas.getObjectProperties(object, saveProperty);
         OpacitySlider.getModel().setValue((int) (saveProperty.GetOpacity()*100));
         // Now the properties
-        JDialog testDialog = new JDialog(new JFrame(), false);
-        testDialog.getContentPane().add(new ObjectViewerPanel(object, true));
-        testDialog.pack();
-        testDialog.setVisible(true);
+        //JDialog testDialog = new JDialog(new JFrame(), false);
+        this.add(new ObjectViewerPanel(object, true));
+        //testDialog.pack();
+        //testDialog.setVisible(true);
+        this.remove(PropertyEditPanel);
         PropertyEditPanel  = new ObjectViewerPanel(object, true);
+        add(PropertyEditPanel, java.awt.BorderLayout.CENTER);
         repaint();
     }
 

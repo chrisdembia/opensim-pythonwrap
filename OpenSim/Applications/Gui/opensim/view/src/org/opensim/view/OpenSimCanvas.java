@@ -85,7 +85,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 //Stack<vtkAssembly> stack = new Stack<vtkAssembly>();
 
                 File modelFile = new File(model.getInputFileName());
-                String modelFilePath = modelFile.getParent() + modelFile.separator;
+                String modelFilePath = modelFile.getParent() + modelFile.separator; // Could this be null?
 
                 // Traverse the bodies of the simmModel in depth-first order.
                 SimmModelIterator i = new SimmModelIterator(model);
@@ -136,23 +136,23 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     // each bone in the current body.
                     for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
 
-                            // Get the native vtkPolyData object from the OpenSim
-                            // model, and wrap a Java vtkPolyData object around it
-                            // for use by VTK.
+                        // Get the native vtkPolyData object from the OpenSim
+                        // model, and wrap a Java vtkPolyData object around it
+                        // for use by VTK.
                         progressHandle.progress(bodyDisplayer.getGeometryFileName(k));
-                            
-                            vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
+
+                        vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
                         String boneFile = modelFilePath + bodyDisplayer.getGeometryFileName(k);
-                            polyReader.SetFileName(boneFile);
+                        polyReader.SetFileName(boneFile);
 
-                            vtkPolyData poly = polyReader.GetOutput();
-                            vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-                            mapper.SetInput(poly);
+                        vtkPolyData poly = polyReader.GetOutput();
+                        vtkPolyDataMapper mapper = new vtkPolyDataMapper();
+                        mapper.SetInput(poly);
 
-                            vtkActor actor = new vtkActor();
-                            actor.SetMapper(mapper);
-                            bodyRep.AddPart(actor);
-                            mapActors2Objects.put(actor, body);
+                        vtkActor actor = new vtkActor();
+                        actor.SetMapper(mapper);
+                        bodyRep.AddPart(actor);
+                        mapActors2Objects.put(actor, body);
 
                         }
                     int ct = bodyDisplayer.countDependents();
