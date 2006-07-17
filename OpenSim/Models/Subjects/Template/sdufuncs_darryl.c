@@ -182,6 +182,7 @@ int sduforce(double t, double q[], double u[])
 	ForceVecStruct grf[2];
 	TorqueVecStruct grt[2];
 
+	/* NO LONGER APPLYING EXERNAL LOADS IN PIPELINE CODE (Clay, 2006_07_11)
 	if (kinetics_data) {
 		// Skip the force mattes approach
 		//		apply_external_forces(t, kinetics_data);
@@ -190,6 +191,7 @@ int sduforce(double t, double q[], double u[])
 //		adjust_ground_reactions(grf,grt,kx,bx,kt,bt);
 		apply_ground_reactions(grf,grt,kinetics_data->num_forces,kinetics_data->num_torques);
 	}
+	*/
 
 	
    apply_muscle_forces(sdm);
@@ -640,9 +642,11 @@ void init_gaitsim(dpModelStruct* sdm, MotionData* data,double t,double *y) {
 	int i, j, k, frame, mus;
 
 	// First unconstrain all the gait model degrees of freedom
-	for (i=0;i<sdm->nq;i++)
-      if (sdm->q[i].type == dpPrescribedQ)
+	for (i=0;i<sdm->nq;i++) {
+		if(sdm->q[i].type == dpPrescribedQ) {
 		  sdm->q[i].type = dpUnconstrainedQ;
+		}
+	}
 
 	// Now re-prescribe the toe joint and virtual feet degrees of freedom
 	sdm->q[subtalar_angle_r].type = dpPrescribedQ;
@@ -749,6 +753,8 @@ void apply_ground_reactions(ForceVecStruct* grf,TorqueVecStruct* grt,int num_for
    int i, j, jc;
 	double force[3], pt[3], com[3], torque[3];
 	com[0]=com[1]=com[2]=0.;
+
+	printf("sdufuncs_darryl.apply_ground_reactions:  ERROR- method should not be called!\n");
 
 	for (i=0;i<num_forces;i++) {
 		jc=grf[i].applSegment;
