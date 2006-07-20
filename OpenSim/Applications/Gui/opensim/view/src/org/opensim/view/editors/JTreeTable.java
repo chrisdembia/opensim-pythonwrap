@@ -150,9 +150,6 @@ public class JTreeTable extends JTable {
 	    TreeCellRenderer tcr = getCellRenderer();
 	    if (tcr instanceof DefaultTreeCellRenderer) {
 		DefaultTreeCellRenderer dtcr = ((DefaultTreeCellRenderer)tcr);
-		// For 1.1 uncomment this, 1.2 has a bug that will cause an
-		// exception to be thrown if the border selection color is
-		// null.
 		// dtcr.setBorderSelectionColor(null);
 		dtcr.setTextSelectionColor(UIManager.getColor
 					   ("Table.selectionForeground"));

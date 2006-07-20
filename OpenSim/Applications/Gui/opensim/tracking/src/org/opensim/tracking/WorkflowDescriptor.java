@@ -40,14 +40,17 @@ public class WorkflowDescriptor {
     SimmSubject dSubject=null;
     boolean     useOwnModel=false;
     boolean     useOwnMarkers = false;
-    SimmModel   dGenericModel = null;
+    transient SimmModel   dGenericModel = null;
     /**
      * Constructor, Creates a new instance of WorkflowDescriptor
      * 
      * @todo look into why the no-arg constructor for SIMMModel crashes and init subject
      * in constructor instead of using setSubject
      */
-    
+    public WorkflowDescriptor()
+    {
+        dSubject = new SimmSubject();
+    }
     /**  init subject to a subject created from an external file */
     public void setSubject(SimmSubject aSubject)
     {

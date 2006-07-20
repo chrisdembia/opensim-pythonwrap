@@ -16,6 +16,7 @@ import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
 import javax.swing.JPopupMenu;
+import org.openide.DialogDisplayer;
 import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.AnalyticGeometry.AnalyticGeometryType;
 import org.opensim.modeling.Geometry;
@@ -25,6 +26,7 @@ import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmModelIterator;
 import org.opensim.modeling.VisibleObject;
 import org.opensim.view.base.OpenSimBaseCanvas;
+import org.opensim.view.editors.ObjectEditDialogMaker;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
@@ -159,6 +161,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     System.out.println("Body "+body+" has "+ct+ " dependents");
                     for(int j=0; j < ct;j++){
                         VisibleObject Dependent = bodyDisplayer.getDependent(j);
+                        vtkAssembly attachmentRep = new vtkAssembly();
+                        attachmentRep.SetUserMatrix(m);
                         int geomcount = Dependent.countGeometry();
                         // Create actor for the dpendent
                         for(int gc=0; gc<geomcount; gc++){
@@ -173,19 +177,20 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                                     sphere.SetRadius(0.01);
                                     double[] pos = new double[3];
                                     System.out.println("Sphere for object "+Dependent.getOwner().getName()+
-                                            " at"+pos[0]+", "+pos[1]+", "+pos[2]);
+                                            " type"+Dependent.getOwner().getType());
                                     Dependent.getTransform().getPosition(pos);
                                     sphere.SetCenter(pos);
                                     vtkPolyDataMapper mapper = new vtkPolyDataMapper();
                                     mapper.SetInput(sphere.GetOutput());
-                                    dActor.GetProperty().SetColor(new double[]{1.0, 0.0, 0.0});
+                                    dActor.GetProperty().SetColor(new double[]{0.0, 1.0, 0.0});
                                     dActor.SetMapper(mapper);
-                                    bodyRep.AddPart(dActor);
+                                    attachmentRep.AddPart(dActor);
                                     mapActors2Objects.put(dActor, Dependent.getOwner());
-                                    GetRenderer().AddViewProp(dActor); 
                                 }
                             }
                         }
+                        GetRenderer().AddViewProp(attachmentRep); 
+                        mapObject2Actors.put(Dependent.getOwner(), attachmentRep);
                     }
                 }
                  
@@ -251,7 +256,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             part = (prop instanceof vtkActor)?(vtkActor)prop:null;
         }
     }
-    void setObjectOpacity(OpenSimObject object, double newOpacity) {
+    public void setObjectOpacity(OpenSimObject object, double newOpacity) {
         vtkAssembly asm = getActorForObject(object);
         vtkProp3DCollection parts = asm.GetParts();
         parts.InitTraversal();
@@ -265,7 +270,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         }
     }
 
-    void getObjectProperties(OpenSimObject object, vtkProperty saveProperty) {
+    public void getObjectProperties(OpenSimObject object, vtkProperty saveProperty) {
         vtkAssembly asm = getActorForObject(object);
         vtkProp3DCollection parts = asm.GetParts();
         parts.InitTraversal();
@@ -280,18 +285,20 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             part = (prop instanceof vtkActor)?(vtkActor)prop:null;
         }
     }
-    void setObjectProperties(OpenSimObject object, vtkProperty saveProperty) {
+    public void setObjectProperties(OpenSimObject object, vtkProperty saveProperty) {
         setObjectColor(object, saveProperty.GetColor());
         setObjectOpacity(object, saveProperty.GetOpacity());
     }
 
     void handleDoubleClick(MouseEvent evt) {
           setSelectedObject(findObjectAt(lastX, lastY));
-          if (getSelectedObject() != null){
-                EditObjectTopComponent win = EditObjectTopComponent.findInstance();
+          if (selectedObject != null){
+                /*EditObjectTopComponent win = EditObjectTopComponent.findInstance();
                 win.setContext(this);
                 win.open();
-                win.requestActive();
+                win.requestActive();*/
+              ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(selectedObject, this);
+              editorDialog.process();
               //new VisibilityJDialog(new javax.swing.JFrame(), this, getSelectedObject()).setVisible(true);
           }
           setSelectedObject(null);
@@ -299,28 +306,24 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
     void selectObject(MouseEvent evt) {
           setSelectedObject(findObjectAt(lastX, lastY));
-          if (getSelectedObject() != null)
-            markSelected(getSelectedObject(), true);
+          if (selectedObject != null)
+            markSelected(selectedObject, true);
     }
 
-    private void markSelected(OpenSimObject selectedObject, boolean on) {
+    public void markSelected(OpenSimObject selectedObject, boolean on) {
         vtkAssembly asm = getActorForObject(selectedObject);
         vtkProp3DCollection parts = asm.GetParts();
         parts.InitTraversal();
         vtkProp3D prop = parts.GetNextProp3D();
         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-	while (prop != null) {
+        while (prop != null) {
             if (part != null){
-                if (on){
-                    part.GetProperty().EdgeVisibilityOn();
-                }
-                else
-                    part.GetProperty().EdgeVisibilityOff();
             }
             prop = parts.GetNextProp3D();
             part = (prop instanceof vtkActor)?(vtkActor)prop:null;
         }
-    }
+        
+     }
     
     public void setModel(SimmModel model) {
         this.model = model;

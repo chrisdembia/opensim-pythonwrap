@@ -9,7 +9,9 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.SwingUtilities;
+import org.openide.DialogDisplayer;
 import org.openide.ErrorManager;
+import org.openide.NotifyDescriptor;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
@@ -22,6 +24,7 @@ import org.opensim.common.ModelEvent;
 import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.nodes.Node;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmModel;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.nodes.ModelNode;
@@ -45,7 +48,10 @@ final class ExplorerTopComponent extends TopComponent
    private static HashMap<SimmModel, ConcreteModelNode> mapModels2Nodes = new HashMap<SimmModel, ConcreteModelNode>(4);
    
    private Lookup.Result result = null;
-
+   //private OpenSimObject  selectedFromTree;
+    Lookup.Template tpl = new Lookup.Template (OpenSimObject.class);
+    Lookup.Result res = Utilities.actionsGlobalContext().lookup (tpl);
+  
    private ExplorerTopComponent() {
         initComponents();
         setName(NbBundle.getMessage(ExplorerTopComponent.class, "CTL_ExplorerTopComponent"));
@@ -56,8 +62,9 @@ final class ExplorerTopComponent extends TopComponent
         setLayout(new BorderLayout());
         add(modelTree, BorderLayout.CENTER);
         modelTree.setRootVisible(false);
-        manager.setRootContext(new ModelNode.RootNode());
-    }
+        ModelNode root = new ModelNode.RootNode();
+        manager.setRootContext(root);
+   }
    
      BeanTreeView getTree() {
         return modelTree;
@@ -136,6 +143,7 @@ final class ExplorerTopComponent extends TopComponent
         Collection c = r.allInstances();
         if (!c.isEmpty()) {
             OpenSimCanvas o = (OpenSimCanvas) c.iterator().next();
+            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Confirmation((Object)"Results changed in ExplorerTop. canvas found due2 vtktop"));
             SimmModel m = o.getModel();
             Node modelNode = mapModels2Nodes.get(m);
             Node[] selectedNodes = new Node[1];
@@ -145,10 +153,7 @@ final class ExplorerTopComponent extends TopComponent
             } catch (PropertyVetoException ex) {
                 ex.printStackTrace();
             }
-            //jLabel1.setText(o.getName());
-        } else {
-            //jLabel1.setText("[no selection]");
-        }
+         } 
     }
     
     /** replaces this in object stream */
@@ -185,6 +190,7 @@ final class ExplorerTopComponent extends TopComponent
                             ConcreteModelNode modelNode = mapModels2Nodes.get(closingModel);
                             try {
                                 modelNode.destroy();
+                                mapModels2Nodes.remove(closingModel);
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
@@ -194,7 +200,9 @@ final class ExplorerTopComponent extends TopComponent
 
                 }});
  
-        }        
+        }    
+
+
     }
 
     public ExplorerManager getExplorerManager() {

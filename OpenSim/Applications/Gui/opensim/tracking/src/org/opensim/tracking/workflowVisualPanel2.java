@@ -1,6 +1,7 @@
 package org.opensim.tracking;
 
 import javax.swing.JPanel;
+import org.opensim.modeling.SimmScalingParams;
 
 public final class workflowVisualPanel2 extends JPanel {
     
@@ -23,8 +24,8 @@ public final class workflowVisualPanel2 extends JPanel {
     private void initComponents() {
         jScalingMethodSelectPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        scaleSelect = new javax.swing.JComboBox();
+        preserveMass = new javax.swing.JCheckBox();
         jMeasurementScalePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -59,11 +60,11 @@ public final class workflowVisualPanel2 extends JPanel {
         jScalingMethodSelectPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Scaling method"));
         jLabel1.setText("Scaling method");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Manual", "Measurements", "Manual+Measurements", "Measurements+Manual" }));
+        scaleSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Manual", "Measurements", "Manual+Measurements", "Measurements+Manual" }));
 
-        jCheckBox1.setText("Preserve mass distribution");
-        jCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        preserveMass.setText("Preserve mass distribution");
+        preserveMass.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        preserveMass.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         org.jdesktop.layout.GroupLayout jScalingMethodSelectPanelLayout = new org.jdesktop.layout.GroupLayout(jScalingMethodSelectPanel);
         jScalingMethodSelectPanel.setLayout(jScalingMethodSelectPanelLayout);
@@ -73,9 +74,9 @@ public final class workflowVisualPanel2 extends JPanel {
                 .addContainerGap()
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(scaleSelect, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 32, Short.MAX_VALUE)
-                .add(jCheckBox1)
+                .add(preserveMass)
                 .add(70, 70, 70))
         );
         jScalingMethodSelectPanelLayout.setVerticalGroup(
@@ -83,8 +84,8 @@ public final class workflowVisualPanel2 extends JPanel {
             .add(jScalingMethodSelectPanelLayout.createSequentialGroup()
                 .add(jScalingMethodSelectPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jCheckBox1))
+                    .add(scaleSelect, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(preserveMass))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -321,12 +322,10 @@ public final class workflowVisualPanel2 extends JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -348,7 +347,17 @@ public final class workflowVisualPanel2 extends JPanel {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JCheckBox preserveMass;
+    private javax.swing.JComboBox scaleSelect;
     // End of variables declaration//GEN-END:variables
-    
+     
+    public void updatePanel(WorkflowDescriptor aDescriptor)
+    {   
+        SimmScalingParams scalingParams = aDescriptor.dSubject.getScalingParams();
+        preserveMass.setSelected(scalingParams.getPreserveMassDist());
+        // Map scaling method to dropdown
+        //scalingParams.getScalingMethodString();
+    }
+   
 }
 

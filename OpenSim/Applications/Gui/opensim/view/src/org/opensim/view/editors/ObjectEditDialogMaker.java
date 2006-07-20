@@ -1,6 +1,6 @@
 /*
  *
- * ObjectViewerPanel
+ * ObjectEditDialogMaker
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -27,6 +27,9 @@ package org.opensim.view.editors;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.OpenSimCanvas;
 
@@ -34,22 +37,33 @@ import org.opensim.view.OpenSimCanvas;
  *
  * @author Ayman
  */
-public class ObjectViewerPanel extends JPanel {
-    private AbstractEditorPanel editorPanel;
-    /** Creates a new instance of ObjectViewerPanel */
-    public ObjectViewerPanel(OpenSimObject object, boolean editable, OpenSimCanvas canvas) {
-      this.setLayout(new BorderLayout());
-      add(new ObjectPropertyViewerPanel(object, false), BorderLayout.SOUTH);
-      setEditorPanel(new VisibilityEditorPanel(object, canvas));
-      add(getEditorPanel(), BorderLayout.NORTH);
+public class ObjectEditDialogMaker {
+    ObjectPropertyViewerPanel propertiesPanel;
+    AbstractEditorPanel       editorPanel;
+    DialogDescriptor          topDialog;
+    /**
+     * Creates a new instance of ObjectEditDialogMaker
+     */
+    public ObjectEditDialogMaker(OpenSimObject object, OpenSimCanvas canvas) {
+        propertiesPanel = new ObjectPropertyViewerPanel(object, false);
+        editorPanel = new VisibilityEditorPanel(object, canvas);
+        JPanel topDialogPanel = new JPanel();
+        topDialogPanel.setLayout(new BorderLayout());
+        topDialogPanel.add(editorPanel, BorderLayout.NORTH);
+        topDialogPanel.add(propertiesPanel, BorderLayout.SOUTH);
+        topDialog = new DialogDescriptor(topDialogPanel, "Object Editor");
+        DialogDisplayer.getDefault().createDialog(topDialog).setVisible(true);
     }
 
-    public AbstractEditorPanel getEditorPanel() {
-        return editorPanel;
+    public void process() {
+        Object userInput = topDialog.getValue();
+        if (userInput instanceof Integer){
+            Integer ret = (Integer)userInput;
+            if (ret!=DialogDescriptor.OK_OPTION){
+                editorPanel.cancelEdit();
+            }
+            else
+                editorPanel.confirmEdit();
+        }
     }
-
-    public void setEditorPanel(AbstractEditorPanel editorPanel) {
-        this.editorPanel = editorPanel;
-    }
-    
 }

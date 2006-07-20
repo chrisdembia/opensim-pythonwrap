@@ -1,17 +1,20 @@
 package org.opensim.view;
 
-import java.beans.XMLEncoder;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.Collection;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import org.openide.util.HelpCtx;
+import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
+import org.openide.util.Utilities;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.common.OpenSimDB;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmModel;
 import org.opensim.view.base.SerializationHelper;
 
@@ -22,7 +25,17 @@ public final class OpenOsimModelAction extends CallableSystemAction {
     public void performAction() {
         // TODO implement action body
         // Browse for model file
-        final JFileChooser dlog = new JFileChooser();
+         Lookup.Template tpl = new Lookup.Template (OpenSimObject.class);
+        Lookup.Result res = Utilities.actionsGlobalContext().lookup (tpl);
+        res.addLookupListener (new LookupListener() {
+           public void resultChanged (LookupEvent evt) {
+             Collection c = ((Lookup.Result) evt.getSource()).allInstances();
+             //do something with the collection of 0 or more instances - the collection has changed
+             System.out.println("Collection size="+c.size());
+           }
+        });
+        
+       final JFileChooser dlog = new JFileChooser();
         
         if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
             fileName = dlog.getSelectedFile().getAbsolutePath();

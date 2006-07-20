@@ -7,6 +7,7 @@
             <file name="org-opensim-view-LoadDemoModelAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.LoadDemoModelAction"/>
             </file>
+            <file name="org-opensim-view-ObjectEditAction.instance"/>
             <file name="org-opensim-view-OpenOsimModelAction.instance"/>
                     <file name="org-opensim-view-base-SelectCameraAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.base.SelectCameraAction"/>
@@ -14,7 +15,7 @@
             <file name="org-opensim-view-base-ToggleAxesAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.base.ToggleAxesAction"/>
             </file>
-            </folder>
+                </folder>
         <folder name="Window">
             <file name="org-opensim-view-BottomPanelAction.instance"/>
             <file name="org-opensim-view-EditObjectAction.instance"/>
@@ -22,31 +23,47 @@
             </folder>
     </folder>
     <folder name="Menu">
-    <file name="GoTo_hidden"/>
-    <file name="View_hidden"/>
+    <folder name="Edit">
+            <file name="org-netbeans-core-actions-JumpNextAction.shadow_hidden"/>
+            <file name="org-netbeans-core-actions-JumpPrevAction.shadow_hidden"/>
+            <file name="org-openide-actions-ReplaceAction.instance_hidden"/>
+        </folder>
+        <file name="GoTo_hidden"/>
+    <folder name="Tools">
+            <file name="org-netbeans-core-actions-OptionsAction.instance_hidden"/>
+            <file name="org-netbeans-modules-favorites-templates-TemplatesAction.instance_hidden"/>
+        </folder>
+        <file name="View_hidden"/>
         <folder name="File">
             <attr name="org-opensim-view-NewOsimModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="true"/>
-            <file name="org-opensim-view-OpenOsimModel.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-OpenOsimModelAction.instance"/>
-            </file>
-            <attr name="org-opensim-view-OpenOsimModel.shadow/Separator2.instance" boolvalue="true"/>
             <attr name="Separator4.instance/org-opensim-view-LoadDemoModelAction.shadow" boolvalue="true"/>
             <file name="org-opensim-view-LoadDemoModelAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-LoadDemoModelAction.instance"/>
             </file>
             <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-OpenOsimModel.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-OpenOsimModelAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-OpenOsimModel.shadow/Separator2.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-nodes-TrackNodeSelectionAction.shadow/Separator4.instance" boolvalue="true"/>
+            <file name="org-openide-actions-PrintAction.instance_hidden"/>
         </folder>
         <folder name="Window">
             <file name="BottomPanelAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-BottomPanelAction.instance"/>
             </file>
+            <file name="CloneDocumentAction.shadow_hidden"/>
             <file name="EditObjectAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-EditObjectAction.instance"/>
             </file>
             <file name="ExplorerAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-ExplorerAction.instance"/>
             </file>
-            </folder>
+                <file name="ViewRuntimeTabAction.shadow_hidden"/>
+            <file name="oldRootsEnd.txt_hidden"/>
+            <file name="oldRootsStart.txt_hidden"/>
+        </folder>
     </folder>
     <folder name="Windows2">
         <folder name="Components">

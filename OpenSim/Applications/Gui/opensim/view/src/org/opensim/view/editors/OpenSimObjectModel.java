@@ -24,23 +24,21 @@ public class OpenSimObjectModel
 
   // Names of the columns.
   static protected String[] cNames = {
-      "Name", "Value", "Type", "Default"};
+      "Name", "Value", "D"};
 
   // Types of the columns.
   static protected Class[] cTypes = {
       TreeTableModel.class,
-      String.class,
       String.class,
       String.class};
 
   static protected boolean[] editableColumns = {
       true, // TreeTableModel
       true, // Value
-      false, // Type
       true}; // UseDefault
 
   final String[] toolTipStr = {
-      "Property name in xml file", "Type", "Current property value",
+      "Property name in xml file", "Current property value",
       "Inherited from DEFAULT"};
 
   /** True if the receiver is valid, once set to false all Threads
@@ -147,17 +145,10 @@ public class OpenSimObjectModel
           return fn.getName();
         case 1: // Value
           return fn.getValue();
-        case 2: // Type
+        case 2: // use default
           Object obj = fn.getObject();
-          if (obj instanceof OpenSimObject)
-            return ( (OpenSimObject) obj).getType();
-          else if (obj instanceof Property)
-            return ( (Property) obj).getTypeAsString();
-          return "  ";
-        case 3: // use default
-          obj = fn.getObject();
           if (obj instanceof Property)
-            return ( ( (Property) obj).getUseDefault() ? "True" : "False");
+            return ( ( (Property) obj).getUseDefault() ? "T" : "F");
           return "  ";
       }
     }
@@ -227,7 +218,7 @@ public class OpenSimObjectModel
         }
      }
     }
-    else if (column==3 && (((PropertyNode) node).property instanceof Property)){ // Changing inheritance from default.
+    else if (column==2 && (((PropertyNode) node).property instanceof Property)){ // Changing inheritance from default.
       String newDefString = (String) aValue;
       boolean isTrue = newDefString.compareToIgnoreCase("true")==0;
       boolean isFalse = newDefString.compareToIgnoreCase("false")==0;

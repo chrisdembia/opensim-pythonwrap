@@ -1,6 +1,6 @@
 /*
  *
- * ObjectViewerPanel
+ * AbstractEditorPanel
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -25,31 +25,21 @@
  */
 package org.opensim.view.editors;
 
-import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.view.OpenSimCanvas;
 
 /**
  *
  * @author Ayman
  */
-public class ObjectViewerPanel extends JPanel {
-    private AbstractEditorPanel editorPanel;
-    /** Creates a new instance of ObjectViewerPanel */
-    public ObjectViewerPanel(OpenSimObject object, boolean editable, OpenSimCanvas canvas) {
-      this.setLayout(new BorderLayout());
-      add(new ObjectPropertyViewerPanel(object, false), BorderLayout.SOUTH);
-      setEditorPanel(new VisibilityEditorPanel(object, canvas));
-      add(getEditorPanel(), BorderLayout.NORTH);
-    }
-
-    public AbstractEditorPanel getEditorPanel() {
-        return editorPanel;
-    }
-
-    public void setEditorPanel(AbstractEditorPanel editorPanel) {
-        this.editorPanel = editorPanel;
+public abstract class AbstractEditorPanel extends JPanel{
+    /**
+     * Creates a new instance of AbstractEditorPanel
+     */
+    public AbstractEditorPanel() {
     }
     
+    abstract public void confirmEdit();
+    
+    abstract public void cancelEdit();
 }

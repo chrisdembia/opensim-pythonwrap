@@ -2,7 +2,6 @@ package org.opensim.view;
 
 import java.util.Collection;
 import java.io.File;
-import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.prefs.Preferences;
@@ -20,11 +19,12 @@ import org.opensim.common.OpenSimDB;
 import org.opensim.common.ModelEvent;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmModel;
+import org.opensim.view.nodes.ModelNode;
 
 /**
  * Top component which displays something.
  */
-public class ModelWindowVTKTopComponent extends TopComponent implements Observer, LookupListener  {
+public class ModelWindowVTKTopComponent extends TopComponent implements Observer, LookupListener{
     
     private static final long serialVersionUID = 1L;
     private static int ct = 0; //A counter used to provide names for new models
@@ -32,7 +32,6 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     SimmModel myModel;
     private Lookup.Result result = null;
     Preferences prefs;
-            
 
  
     /** path to the icon used by the component and its open action */
@@ -44,7 +43,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         initComponents();
         
         // Associate window with a model and a canvas so that other platform users can key on that
-        associateLookup (Lookups.singleton (dModel));
+        associateLookup (Lookups.singleton (openSimCanvas1));
 
         displayName = NbBundle.getMessage(
                         ModelWindowVTKTopComponent.class,
@@ -115,23 +114,23 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         final JFileChooser dlog = new JFileChooser(currentDirectory);
         
         if (dlog.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            openSimCanvas1.HardCopy(dlog.getSelectedFile().getAbsolutePath()+".tiff", 1);
+            getOpenSimCanvas1().HardCopy(dlog.getSelectedFile().getAbsolutePath()+".tiff", 1);
         }
     }//GEN-LAST:event_jTakeSnapshotButtonActionPerformed
 
     private void jRefitModelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRefitModelButtonActionPerformed
 // TODO add your handling code here:
-        openSimCanvas1.resetCamera();
-        openSimCanvas1.Render();
+        getOpenSimCanvas1().resetCamera();
+        getOpenSimCanvas1().Render();
     }//GEN-LAST:event_jRefitModelButtonActionPerformed
 
     private void processMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processMousePressed
 // TODO add your handling code here:
         if(evt.getClickCount()==1){
-            openSimCanvas1.selectObject(evt);
+            getOpenSimCanvas1().selectObject(evt);
         }
         if(evt.getClickCount()==2){
-            openSimCanvas1.handleDoubleClick(evt);
+            getOpenSimCanvas1().handleDoubleClick(evt);
         }
         super.processEvent(evt);
     }//GEN-LAST:event_processMousePressed
@@ -148,15 +147,9 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     public int getPersistenceType() {
         return TopComponent.PERSISTENCE_NEVER;
     }
-    
-    public void componentOpened() {
-        Lookup.Template tpl = new Lookup.Template (OpenSimObject.class);
-        result = Utilities.actionsGlobalContext().lookup(tpl);
-        result.addLookupListener (this);
-    }
-    
- public boolean canClose(){
+    public boolean canClose(){
         // TODO add custom code on component closing
+
         // Closing the model should warn about unsaved changes and if confirmed remove it from OpenSimDB
         // For now we'll warn anyway
         String DefaultDir=".";
@@ -188,7 +181,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         if (arg instanceof ModelEvent){
             // Create a frame for the new Model
             if (((ModelEvent)arg).getModel() == myModel)
-                openSimCanvas1.loadModel(myModel);
+                getOpenSimCanvas1().loadModel(myModel);
        }
     }
     /**
@@ -203,22 +196,25 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
             OpenSimObject o = (OpenSimObject) c.iterator().next();
             objectName = o.getName();
             objectType = o.getType();
+            openSimCanvas1.markSelected(o, true);
         } else {
 }
     }
+    
+    public void componentOpened() {
+        Lookup.Template tpl = new Lookup.Template (OpenSimObject.class);
+        result = Utilities.actionsGlobalContext().lookup(tpl);
+        result.addLookupListener (this);
+    }
+    
     
     public void componentClosed() {
         result.removeLookupListener (this);
         result = null;
     }
     
-    /*************
-     *    
-    public void componentOpened() {
-    }
-    
-    public void resultChanged(LookupEvent lookupEvent) {
-    }
 
-*/
+    public org.opensim.view.OpenSimCanvas getOpenSimCanvas1() {
+        return openSimCanvas1;
+    }
 }

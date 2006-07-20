@@ -14,8 +14,7 @@ public final class TrackingWorkflowAction extends CallableSystemAction {
     public void performAction() {
         // TODO implement action body
         WizardDescriptor.Iterator iterator = new workflowWizardIterator();
-        WorkflowDescriptor  workflow = new WorkflowDescriptor();
-        WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator, workflow);
+        WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator, new WorkflowDescriptor());
         wizardDescriptor.putProperty("WizardPanel_contentNumbered",Boolean.FALSE);
         wizardDescriptor.setModal(false);
 
@@ -30,7 +29,7 @@ public final class TrackingWorkflowAction extends CallableSystemAction {
         dialog.setVisible(true);
         dialog.toFront();
         boolean cancelled = wizardDescriptor.getValue() != WizardDescriptor.FINISH_OPTION;
-
+        // Potentially ask user to save.
     }
     
     public String getName() {
