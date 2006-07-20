@@ -20,15 +20,15 @@ OpenSim 0.5 runs only on Windows platform. Support for other platforms will be m
 2. Subversion client (e.g. http://tortoisesvn.tigris.org/).
 3. Cygwin (perl module)
 4. SIMM for visualization (version 4.0 or later).
-5. CMake (from www.cmake.org) version 2.2 or later.
+5. CMake (from www.cmake.org) version 2.2.
 6. SDFast (from Parametric Technology Inc.)
 
 The following steps should allow you to build the executables that are part of the OpenSim 0.5 release.
 
-1. Check out the source code from https://simtk.org/svn/nmbltk/Tags/Release_05_00 into a new blank directory (we'll call it here OpenSimTopDir).
+1. Check out the latest source code from https://simtk.org/svn/opensim/Trunk into a new empty directory (we'll call it here OpenSimSrc).
 2. Invoke CMake and browse for the source, and
-	- browse for OpenSimTopDir and use it to fill in the top pick.
-	- specify a directory for CMake to place object files (this directory doesn't have to pre-exist), call this OpenSimLibDir. 
+	- browse for OpenSimSrc and use it to fill in the top pick.
+	- specify a directory for CMake to place object files (this directory doesn't have to pre-exist), call this OpenSimBuild. 
 2. Set the following environment variables:
    - If your version of DevStudio is different from .NET 2003 then you need to set the environment variable RDI_ARCH to indicate it (for example VC60 for version 6.0) otherwise go to the next task.
    - When you build with CMake you'll need to specify a location for the binaries and/or libraries. 
