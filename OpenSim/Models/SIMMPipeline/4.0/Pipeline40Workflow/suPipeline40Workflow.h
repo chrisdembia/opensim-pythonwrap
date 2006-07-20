@@ -2,7 +2,7 @@
 #define _Pipeline40Workflow_h_
 // Pipeline40Workflow.h
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Authors:  Ayman Habib
+// Authors:  Ayman Habib & Clay Anderson
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
