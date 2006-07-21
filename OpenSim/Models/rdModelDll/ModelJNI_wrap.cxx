@@ -4028,6 +4028,44 @@ JNIEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_VisiblePrope
 }
 
 
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleProperties_1getColor(JNIEnv *jenv, jclass jcls, jlong jarg1, jdoubleArray jarg2) {
+  OpenSim::VisibleProperties *arg1 = (OpenSim::VisibleProperties *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::VisibleProperties **)&jarg1; 
+  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+    return ;
+  }
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  (arg1)->getColor(arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleProperties_1setColor(JNIEnv *jenv, jclass jcls, jlong jarg1, jdoubleArray jarg2) {
+  OpenSim::VisibleProperties *arg1 = (OpenSim::VisibleProperties *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::VisibleProperties **)&jarg1; 
+  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+    return ;
+  }
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  (arg1)->setColor(arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
+}
+
+
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1X_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   OpenSim::Transform::AxisName result;
@@ -4587,35 +4625,32 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalyticGeometr
 }
 
 
-JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalyticGeometry_1getSphereRadius(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalyticGeometry_1getSphereRadius(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jdouble jresult = 0 ;
   OpenSim::AnalyticGeometry *arg1 = (OpenSim::AnalyticGeometry *) 0 ;
-  double *arg2 = 0 ;
+  double *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::AnalyticGeometry **)&jarg1; 
-  arg2 = *(double **)&jarg2;
-  if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "double & reference is null");
-    return ;
-  } 
-  ((OpenSim::AnalyticGeometry const *)arg1)->getSphereRadius(*arg2);
+  {
+    double const &_result_ref = ((OpenSim::AnalyticGeometry const *)arg1)->getSphereRadius();
+    result = (double *) &_result_ref;
+  }
+  jresult = (jdouble)*result; 
+  return jresult;
 }
 
 
-JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalyticGeometry_1setSphereRadius(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalyticGeometry_1setSphereRadius(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
   OpenSim::AnalyticGeometry *arg1 = (OpenSim::AnalyticGeometry *) 0 ;
-  double *arg2 = 0 ;
+  double arg2 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::AnalyticGeometry **)&jarg1; 
-  arg2 = *(double **)&jarg2;
-  if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "double & reference is null");
-    return ;
-  } 
-  (arg1)->setSphereRadius(*arg2);
+  arg2 = (double)jarg2; 
+  (arg1)->setSphereRadius(arg2);
 }
 
 
@@ -28938,6 +28973,16 @@ JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDyna
 }
 
 
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1applyDefaultPose(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::AbstractDynamicsEngine **)&jarg1; 
+  (arg1)->applyDefaultPose();
+}
+
+
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1setInitialPseudoStates(JNIEnv *jenv, jclass jcls, jlong jarg1, jdoubleArray jarg2) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   double *arg2 ;
@@ -34544,6 +34589,16 @@ JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinemati
 }
 
 
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1applyDefaultPose(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmKinematicsEngine **)&jarg1; 
+  (arg1)->applyDefaultPose();
+}
+
+
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1setInitialPseudoStates(JNIEnv *jenv, jclass jcls, jlong jarg1, jdoubleArray jarg2) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   double *arg2 ;
@@ -38228,6 +38283,16 @@ JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmModel_1g
 }
 
 
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmModel_1applyDefaultPose(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::SimmModel *arg1 = (OpenSim::SimmModel *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmModel **)&jarg1; 
+  (arg1)->applyDefaultPose();
+}
+
+
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmModel_1setInitialPseudoStates(JNIEnv *jenv, jclass jcls, jlong jarg1, jdoubleArray jarg2) {
   OpenSim::SimmModel *arg1 = (OpenSim::SimmModel *) 0 ;
   double *arg2 ;
@@ -40567,17 +40632,15 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscle_1app
 }
 
 
-JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscle_1getLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscle_1getLength(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jdouble jresult = 0 ;
   OpenSim::SimmMuscle *arg1 = (OpenSim::SimmMuscle *) 0 ;
-  OpenSim::SimmKinematicsEngine *arg2 = (OpenSim::SimmKinematicsEngine *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::SimmMuscle **)&jarg1; 
-  arg2 = *(OpenSim::SimmKinematicsEngine **)&jarg2; 
-  result = (double)((OpenSim::SimmMuscle const *)arg1)->getLength(arg2);
+  result = (double)((OpenSim::SimmMuscle const *)arg1)->getLength();
   jresult = (jdouble)result; 
   return jresult;
 }
@@ -40600,10 +40663,40 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscle_1ge
 }
 
 
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscle_1getDisplayer(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  OpenSim::SimmMuscle *arg1 = (OpenSim::SimmMuscle *) 0 ;
+  OpenSim::VisibleObject *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMuscle **)&jarg1; 
+  result = (OpenSim::VisibleObject *)(arg1)->getDisplayer();
+  *(OpenSim::VisibleObject **)&jresult = result; 
+  return jresult;
+}
+
+
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscle_1registerTypes(JNIEnv *jenv, jclass jcls) {
   (void)jenv;
   (void)jcls;
   OpenSim::SimmMuscle::registerTypes();
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscle_1preScale(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  OpenSim::SimmMuscle *arg1 = (OpenSim::SimmMuscle *) 0 ;
+  OpenSim::ScaleSet *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMuscle **)&jarg1; 
+  arg2 = *(OpenSim::ScaleSet **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ScaleSet const & reference is null");
+    return ;
+  } 
+  (arg1)->preScale((OpenSim::ScaleSet const &)*arg2);
 }
 
 
@@ -40620,6 +40713,22 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscle_1sca
     return ;
   } 
   (arg1)->scale((OpenSim::ScaleSet const &)*arg2);
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscle_1postScale(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  OpenSim::SimmMuscle *arg1 = (OpenSim::SimmMuscle *) 0 ;
+  OpenSim::ScaleSet *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMuscle **)&jarg1; 
+  arg2 = *(OpenSim::ScaleSet **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ScaleSet const & reference is null");
+    return ;
+  } 
+  (arg1)->postScale((OpenSim::ScaleSet const &)*arg2);
 }
 
 
@@ -41004,6 +41113,20 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMusclePoint
   arg2 = *(OpenSim::SimmModel **)&jarg2; 
   arg3 = *(OpenSim::SimmKinematicsEngine **)&jarg3; 
   (arg1)->setup(arg2,arg3);
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMusclePoint_1getDisplayer(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  OpenSim::SimmMusclePoint *arg1 = (OpenSim::SimmMusclePoint *) 0 ;
+  OpenSim::VisibleObject *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMusclePoint **)&jarg1; 
+  result = (OpenSim::VisibleObject *)(arg1)->getDisplayer();
+  *(OpenSim::VisibleObject **)&jresult = result; 
+  return jresult;
 }
 
 
