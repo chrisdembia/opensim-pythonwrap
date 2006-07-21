@@ -95,6 +95,14 @@ public class VisibleProperties extends OpenSimObject {
     return opensimModelJNI.VisibleProperties_getMaterialName(swigCPtr);
   }
 
+  public void getColor(double[] aColor) {
+    opensimModelJNI.VisibleProperties_getColor(swigCPtr, aColor);
+  }
+
+  public void setColor(double[] aColor) {
+    opensimModelJNI.VisibleProperties_setColor(swigCPtr, aColor);
+  }
+
   public final static class DisplayPreference {
     public final static DisplayPreference None = new DisplayPreference("None", opensimModelJNI.VisibleProperties_None_get());
     public final static DisplayPreference WireFrame = new DisplayPreference("WireFrame", opensimModelJNI.VisibleProperties_WireFrame_get());

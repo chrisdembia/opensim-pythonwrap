@@ -158,7 +158,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
                         }
                     int ct = bodyDisplayer.countDependents();
-                    System.out.println("Body "+body+" has "+ct+ " dependents");
+                    //System.out.println("Body "+body+" has "+ct+ " dependents");
+                    double[] color = new double[3];
                     for(int j=0; j < ct;j++){
                         VisibleObject Dependent = bodyDisplayer.getDependent(j);
                         vtkAssembly attachmentRep = new vtkAssembly();
@@ -174,15 +175,16 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                                 AnalyticGeometryType analyticType = ag.getShape();
                                 if (analyticType == AnalyticGeometryType.Sphere){
                                     vtkSphereSource sphere = new vtkSphereSource();
-                                    sphere.SetRadius(0.01);
+                                    sphere.SetRadius(ag.getSphereRadius());
                                     double[] pos = new double[3];
-                                    System.out.println("Sphere for object "+Dependent.getOwner().getName()+
-                                            " type"+Dependent.getOwner().getType());
+                                    //System.out.println("Sphere for object "+Dependent.getOwner().getName()+
+                                     //       " type"+Dependent.getOwner().getType());
                                     Dependent.getTransform().getPosition(pos);
                                     sphere.SetCenter(pos);
                                     vtkPolyDataMapper mapper = new vtkPolyDataMapper();
                                     mapper.SetInput(sphere.GetOutput());
-                                    dActor.GetProperty().SetColor(new double[]{0.0, 1.0, 0.0});
+                                    Dependent.getVisibleProperties().getColor(color);
+                                    dActor.GetProperty().SetColor(color);
                                     dActor.SetMapper(mapper);
                                     attachmentRep.AddPart(dActor);
                                     mapActors2Objects.put(dActor, Dependent.getOwner());

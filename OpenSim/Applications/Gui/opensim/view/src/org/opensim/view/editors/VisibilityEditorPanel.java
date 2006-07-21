@@ -49,9 +49,10 @@ public class VisibilityEditorPanel extends AbstractEditorPanel implements Change
         this.object = object;
         this.canvas = canvas;
         initComponents();
-        OpacitySlider.addChangeListener(this);
         saveProperty = new vtkProperty();
         canvas.getObjectProperties(object, saveProperty);
+        OpacitySlider.setValue((int)(saveProperty.GetOpacity()*100));
+        OpacitySlider.addChangeListener(this);
     }
  
     private void jChooseColorBtnActionPerformed(java.awt.event.ActionEvent evt) {                                                

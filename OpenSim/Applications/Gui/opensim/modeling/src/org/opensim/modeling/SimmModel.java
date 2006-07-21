@@ -338,6 +338,10 @@ public class SimmModel extends Model {
     return opensimModelJNI.SimmModel_getState__SWIG_1(swigCPtr, aName);
   }
 
+  public void applyDefaultPose() {
+    opensimModelJNI.SimmModel_applyDefaultPose(swigCPtr);
+  }
+
   public void setInitialPseudoStates(double[] aYPI) {
     opensimModelJNI.SimmModel_setInitialPseudoStates(swigCPtr, aYPI);
   }

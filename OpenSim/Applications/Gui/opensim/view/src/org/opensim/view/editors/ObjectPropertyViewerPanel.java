@@ -90,7 +90,7 @@ public class ObjectPropertyViewerPanel extends JPanel {
         // Create status bar
 	statusLabel = createStatusLabel();
 	this.add(new JScrollPane(treeTable));
-	this.add(statusLabel, BorderLayout.SOUTH);
+	//NoStatusLabelForNow this.add(statusLabel, BorderLayout.SOUTH);
 
 	reloadRow = -1;
         reload(model.getRoot(), editMode);
@@ -101,7 +101,7 @@ public class ObjectPropertyViewerPanel extends JPanel {
      * of loading.
      */
     protected JLabel createStatusLabel() {
-	JLabel         retLabel = new JLabel(" ");
+	JLabel         retLabel = new JLabel("MyStatusLabel");
 
 	retLabel.setHorizontalAlignment(JLabel.RIGHT);
 	retLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));

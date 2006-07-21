@@ -49,8 +49,6 @@ final class ExplorerTopComponent extends TopComponent
    
    private Lookup.Result result = null;
    //private OpenSimObject  selectedFromTree;
-    Lookup.Template tpl = new Lookup.Template (OpenSimObject.class);
-    Lookup.Result res = Utilities.actionsGlobalContext().lookup (tpl);
   
    private ExplorerTopComponent() {
         initComponents();
@@ -143,7 +141,6 @@ final class ExplorerTopComponent extends TopComponent
         Collection c = r.allInstances();
         if (!c.isEmpty()) {
             OpenSimCanvas o = (OpenSimCanvas) c.iterator().next();
-            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Confirmation((Object)"Results changed in ExplorerTop. canvas found due2 vtktop"));
             SimmModel m = o.getModel();
             Node modelNode = mapModels2Nodes.get(m);
             Node[] selectedNodes = new Node[1];

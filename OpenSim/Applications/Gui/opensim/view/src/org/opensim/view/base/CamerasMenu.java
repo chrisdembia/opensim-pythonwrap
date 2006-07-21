@@ -129,6 +129,7 @@ public class CamerasMenu extends JMenu {
         dCanvas.GetRenderer().CreateLight();
         dCanvas.GetRenderer().ResetCamera();
         dCanvas.GetRenderer().Render();
+        dCanvas.repaint();
      }
     }
   }

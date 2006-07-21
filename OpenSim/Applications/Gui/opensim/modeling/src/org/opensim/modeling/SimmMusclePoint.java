@@ -84,6 +84,11 @@ public class SimmMusclePoint extends OpenSimObject {
     opensimModelJNI.SimmMusclePoint_setup(swigCPtr, SimmModel.getCPtr(model), SimmKinematicsEngine.getCPtr(ke));
   }
 
+  public VisibleObject getDisplayer() {
+    long cPtr = opensimModelJNI.SimmMusclePoint_getDisplayer(swigCPtr);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
   public void peteTest() {
     opensimModelJNI.SimmMusclePoint_peteTest(swigCPtr);
   }

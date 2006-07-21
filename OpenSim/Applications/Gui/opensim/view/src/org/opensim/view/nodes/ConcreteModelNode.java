@@ -15,7 +15,7 @@ public class ConcreteModelNode extends ModelNode<SimmModel> {
         getChildren().add(new Node[]  {new BodiesNode(m)});
     }
     public Action[] getActions(boolean popup) {
-        return new Action[]  {new OpenOsimModelAction()};
+        return new Action[]  {(Action)OpenOsimModelAction.findObject(OpenOsimModelAction.class)};
     }
 
 }

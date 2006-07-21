@@ -158,6 +158,10 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     return opensimModelJNI.AbstractDynamicsEngine_getState__SWIG_1(swigCPtr, aName);
   }
 
+  public void applyDefaultPose() {
+    opensimModelJNI.AbstractDynamicsEngine_applyDefaultPose(swigCPtr);
+  }
+
   public void setInitialPseudoStates(double[] aYPI) {
     opensimModelJNI.AbstractDynamicsEngine_setInitialPseudoStates(swigCPtr, aYPI);
   }

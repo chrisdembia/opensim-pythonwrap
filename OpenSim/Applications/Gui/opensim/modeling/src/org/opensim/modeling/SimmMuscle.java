@@ -67,20 +67,33 @@ public class SimmMuscle extends Actuator {
     opensimModelJNI.SimmMuscle_apply(swigCPtr);
   }
 
-  public double getLength(SimmKinematicsEngine ke) {
-    return opensimModelJNI.SimmMuscle_getLength(swigCPtr, SimmKinematicsEngine.getCPtr(ke));
+  public double getLength() {
+    return opensimModelJNI.SimmMuscle_getLength(swigCPtr);
   }
 
   public ArrayStr getGroupNames() {
     return new ArrayStr(opensimModelJNI.SimmMuscle_getGroupNames(swigCPtr), false);
   }
 
+  public VisibleObject getDisplayer() {
+    long cPtr = opensimModelJNI.SimmMuscle_getDisplayer(swigCPtr);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
   public static void registerTypes() {
     opensimModelJNI.SimmMuscle_registerTypes();
   }
 
+  public void preScale(ScaleSet aScaleSet) {
+    opensimModelJNI.SimmMuscle_preScale(swigCPtr, ScaleSet.getCPtr(aScaleSet));
+  }
+
   public void scale(ScaleSet aScaleSet) {
     opensimModelJNI.SimmMuscle_scale(swigCPtr, ScaleSet.getCPtr(aScaleSet));
+  }
+
+  public void postScale(ScaleSet aScaleSet) {
+    opensimModelJNI.SimmMuscle_postScale(swigCPtr, ScaleSet.getCPtr(aScaleSet));
   }
 
   public void setup(SimmModel model, SimmKinematicsEngine ke) {

@@ -45,12 +45,12 @@ public class AnalyticGeometry extends Geometry {
     return AnalyticGeometry.AnalyticGeometryType.swigToEnum(opensimModelJNI.AnalyticGeometry_getShape(swigCPtr));
   }
 
-  public void getSphereRadius(SWIGTYPE_p_double radius) {
-    opensimModelJNI.AnalyticGeometry_getSphereRadius(swigCPtr, SWIGTYPE_p_double.getCPtr(radius));
+  public double getSphereRadius() {
+    return opensimModelJNI.AnalyticGeometry_getSphereRadius(swigCPtr);
   }
 
-  public void setSphereRadius(SWIGTYPE_p_double radius) {
-    opensimModelJNI.AnalyticGeometry_setSphereRadius(swigCPtr, SWIGTYPE_p_double.getCPtr(radius));
+  public void setSphereRadius(double radius) {
+    opensimModelJNI.AnalyticGeometry_setSphereRadius(swigCPtr, radius);
   }
 
   public void getCylinderParams(SWIGTYPE_p_double radius, SWIGTYPE_p_double height) {

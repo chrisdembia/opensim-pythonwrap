@@ -313,6 +313,10 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     return opensimModelJNI.SimmKinematicsEngine_getState__SWIG_1(swigCPtr, aName);
   }
 
+  public void applyDefaultPose() {
+    opensimModelJNI.SimmKinematicsEngine_applyDefaultPose(swigCPtr);
+  }
+
   public void setInitialPseudoStates(double[] aYPI) {
     opensimModelJNI.SimmKinematicsEngine_setInitialPseudoStates(swigCPtr, aYPI);
   }

@@ -3,6 +3,7 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Edit">
+            <file name="org-opensim-view-CameraAction.instance"/>
             <file name="org-opensim-view-HiLightObjectsAction.instance"/>
             <file name="org-opensim-view-LoadDemoModelAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.LoadDemoModelAction"/>
@@ -15,10 +16,10 @@
             <file name="org-opensim-view-base-ToggleAxesAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.base.ToggleAxesAction"/>
             </file>
-                </folder>
+                        <file name="org-opensim-view-nodes-EditFromNodeAction.instance"/>
+            </folder>
         <folder name="Window">
             <file name="org-opensim-view-BottomPanelAction.instance"/>
-            <file name="org-opensim-view-EditObjectAction.instance"/>
             <file name="org-opensim-view-ExplorerAction.instance"/>
             </folder>
     </folder>
@@ -54,9 +55,6 @@
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-BottomPanelAction.instance"/>
             </file>
             <file name="CloneDocumentAction.shadow_hidden"/>
-            <file name="EditObjectAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-EditObjectAction.instance"/>
-            </file>
             <file name="ExplorerAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-ExplorerAction.instance"/>
             </file>
@@ -64,6 +62,27 @@
             <file name="oldRootsEnd.txt_hidden"/>
             <file name="oldRootsStart.txt_hidden"/>
         </folder>
+    </folder>
+    <folder name="Services">
+        <folder name="JavaHelp">
+            <file name="view-helpset.xml" url="view-helpset.xml"/>
+        </folder>
+    </folder>
+    <folder name="Shortcuts">
+        <file name="O-P.shadow">
+            <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-CameraAction.instance"/>
+        </file>
+    </folder>
+    <folder name="Toolbars">
+        <folder name="Edit">
+            <attr name="org-openide-actions-FindAction.instance/org-opensim-view-CameraAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-CameraAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-CameraAction.instance"/>
+            </file>
+        </folder>
+            <file name="File_hidden"/>
+        <file name="Memory_hidden"/>
+        <file name="Standard.xml_hidden"/>
     </folder>
     <folder name="Windows2">
         <folder name="Components">
@@ -75,12 +94,13 @@
             <folder name="explorer">
                 <file name="ExplorerTopComponent.wstcref" url="ExplorerTopComponentWstcref.xml"/>
             </folder>
-            <folder name="leftSlidingSide">
-                <file name="EditObjectTopComponent.wstcref" url="EditObjectTopComponentWstcref.xml"/>
-            </folder>
+            <folder name="leftSlidingSide"/>
             <folder name="output">
                 <file name="BottomPanelTopComponent.wstcref" url="BottomPanelTopComponentWstcref.xml"/>
             </folder>
         </folder>
+    </folder>
+    <folder name="xml">
+        <file name="memory_hidden"/>
     </folder>
 </filesystem>

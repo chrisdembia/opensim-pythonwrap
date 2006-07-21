@@ -12,7 +12,7 @@ public class opensimModelJNI {
 
   static {
     try {
-        System.loadLibrary("rdModelDll_d");
+        System.loadLibrary("rdModelDll");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library failed to load. Check that the dynamic library rdModelDll is in the PATH\n" + e);
       System.exit(1);
@@ -219,6 +219,8 @@ public class opensimModelJNI {
   public final static native boolean VisibleProperties_getShowAxes(long jarg1);
   public final static native void VisibleProperties_setMaterialName(long jarg1, String jarg2);
   public final static native String VisibleProperties_getMaterialName(long jarg1);
+  public final static native void VisibleProperties_getColor(long jarg1, double[] jarg2);
+  public final static native void VisibleProperties_setColor(long jarg1, double[] jarg2);
   public final static native int Transform_X_get();
   public final static native int Transform_Y_get();
   public final static native int Transform_Z_get();
@@ -258,8 +260,8 @@ public class opensimModelJNI {
   public final static native long new_AnalyticGeometry();
   public final static native boolean AnalyticGeometry_isAnalytic(long jarg1);
   public final static native int AnalyticGeometry_getShape(long jarg1);
-  public final static native void AnalyticGeometry_getSphereRadius(long jarg1, long jarg2);
-  public final static native void AnalyticGeometry_setSphereRadius(long jarg1, long jarg2);
+  public final static native double AnalyticGeometry_getSphereRadius(long jarg1);
+  public final static native void AnalyticGeometry_setSphereRadius(long jarg1, double jarg2);
   public final static native void AnalyticGeometry_getCylinderParams(long jarg1, long jarg2, long jarg3);
   public final static native void AnalyticGeometry_getConeParams(long jarg1, long jarg2, long jarg3, long jarg4);
   public final static native void AnalyticGeometry_getEllipsoidParams(long jarg1, long jarg2, long jarg3, long jarg4);
@@ -1696,6 +1698,7 @@ public class opensimModelJNI {
   public final static native void AbstractDynamicsEngine_getStates(long jarg1, double[] jarg2);
   public final static native double AbstractDynamicsEngine_getState__SWIG_0(long jarg1, int jarg2);
   public final static native double AbstractDynamicsEngine_getState__SWIG_1(long jarg1, String jarg2);
+  public final static native void AbstractDynamicsEngine_applyDefaultPose(long jarg1);
   public final static native void AbstractDynamicsEngine_setInitialPseudoStates(long jarg1, double[] jarg2);
   public final static native void AbstractDynamicsEngine_getInitialPseudoStates(long jarg1, double[] jarg2);
   public final static native double AbstractDynamicsEngine_getInitialPseudoState__SWIG_0(long jarg1, int jarg2);
@@ -2029,6 +2032,7 @@ public class opensimModelJNI {
   public final static native void SimmKinematicsEngine_getStates(long jarg1, double[] jarg2);
   public final static native double SimmKinematicsEngine_getState__SWIG_0(long jarg1, int jarg2);
   public final static native double SimmKinematicsEngine_getState__SWIG_1(long jarg1, String jarg2);
+  public final static native void SimmKinematicsEngine_applyDefaultPose(long jarg1);
   public final static native void SimmKinematicsEngine_setInitialPseudoStates(long jarg1, double[] jarg2);
   public final static native void SimmKinematicsEngine_getInitialPseudoStates(long jarg1, double[] jarg2);
   public final static native double SimmKinematicsEngine_getInitialPseudoState__SWIG_0(long jarg1, int jarg2);
@@ -2233,6 +2237,7 @@ public class opensimModelJNI {
   public final static native void SimmModel_getStates(long jarg1, double[] jarg2);
   public final static native double SimmModel_getState__SWIG_0(long jarg1, int jarg2);
   public final static native double SimmModel_getState__SWIG_1(long jarg1, String jarg2);
+  public final static native void SimmModel_applyDefaultPose(long jarg1);
   public final static native void SimmModel_setInitialPseudoStates(long jarg1, double[] jarg2);
   public final static native void SimmModel_getInitialPseudoStates(long jarg1, double[] jarg2);
   public final static native double SimmModel_getInitialPseudoState__SWIG_0(long jarg1, int jarg2);
@@ -2359,10 +2364,13 @@ public class opensimModelJNI {
   public final static native void SimmMuscle_copyData(long jarg1, long jarg2);
   public final static native void SimmMuscle_computeActuation(long jarg1);
   public final static native void SimmMuscle_apply(long jarg1);
-  public final static native double SimmMuscle_getLength(long jarg1, long jarg2);
+  public final static native double SimmMuscle_getLength(long jarg1);
   public final static native long SimmMuscle_getGroupNames(long jarg1);
+  public final static native long SimmMuscle_getDisplayer(long jarg1);
   public final static native void SimmMuscle_registerTypes();
+  public final static native void SimmMuscle_preScale(long jarg1, long jarg2);
   public final static native void SimmMuscle_scale(long jarg1, long jarg2);
+  public final static native void SimmMuscle_postScale(long jarg1, long jarg2);
   public final static native void SimmMuscle_setup(long jarg1, long jarg2, long jarg3);
   public final static native void SimmMuscle_writeSIMM(long jarg1, long jarg2);
   public final static native void SimmMuscle_peteTest(long jarg1, long jarg2);
@@ -2389,6 +2397,7 @@ public class opensimModelJNI {
   public final static native void SimmMusclePoint_scale(long jarg1, long jarg2);
   public final static native void SimmMusclePoint_writeSIMM(long jarg1, long jarg2);
   public final static native void SimmMusclePoint_setup(long jarg1, long jarg2, long jarg3);
+  public final static native long SimmMusclePoint_getDisplayer(long jarg1);
   public final static native void SimmMusclePoint_peteTest(long jarg1);
   public final static native long new_SimmMuscleViaPoint__SWIG_0();
   public final static native long new_SimmMuscleViaPoint__SWIG_1(long jarg1);

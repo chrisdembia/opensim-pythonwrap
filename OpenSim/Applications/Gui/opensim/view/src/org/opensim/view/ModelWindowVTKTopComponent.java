@@ -24,13 +24,12 @@ import org.opensim.view.nodes.ModelNode;
 /**
  * Top component which displays something.
  */
-public class ModelWindowVTKTopComponent extends TopComponent implements Observer, LookupListener{
+public class ModelWindowVTKTopComponent extends TopComponent implements Observer{
     
     private static final long serialVersionUID = 1L;
     private static int ct = 0; //A counter used to provide names for new models
     private String displayName;
     SimmModel myModel;
-    private Lookup.Result result = null;
     Preferences prefs;
 
  
@@ -183,36 +182,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
             if (((ModelEvent)arg).getModel() == myModel)
                 getOpenSimCanvas1().loadModel(myModel);
        }
-    }
-    /**
-     * Implementation of Lookup Listener Interface
-     */
-    public void resultChanged(LookupEvent lookupEvent) {
-        Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
-        Collection c = r.allInstances();
-        String objectName;
-        String objectType;
-        if (!c.isEmpty()) {
-            OpenSimObject o = (OpenSimObject) c.iterator().next();
-            objectName = o.getName();
-            objectType = o.getType();
-            openSimCanvas1.markSelected(o, true);
-        } else {
-}
-    }
-    
-    public void componentOpened() {
-        Lookup.Template tpl = new Lookup.Template (OpenSimObject.class);
-        result = Utilities.actionsGlobalContext().lookup(tpl);
-        result.addLookupListener (this);
-    }
-    
-    
-    public void componentClosed() {
-        result.removeLookupListener (this);
-        result = null;
-    }
-    
+    }    
 
     public org.opensim.view.OpenSimCanvas getOpenSimCanvas1() {
         return openSimCanvas1;
