@@ -16,14 +16,16 @@ import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
 import javax.swing.JPopupMenu;
-import org.openide.DialogDisplayer;
 import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.AnalyticGeometry.AnalyticGeometryType;
+import org.opensim.modeling.ArrayPtrsSimmMusclePoint;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmBody;
 import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmModelIterator;
+import org.opensim.modeling.SimmMuscle;
+import org.opensim.modeling.SimmMusclePoint;
 import org.opensim.modeling.VisibleObject;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.editors.ObjectEditDialogMaker;
@@ -31,6 +33,7 @@ import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
+import vtk.vtkCylinderSource;
 import vtk.vtkMatrix4x4;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
@@ -157,6 +160,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                         mapActors2Objects.put(actor, body);
 
                         }
+                    
                     int ct = bodyDisplayer.countDependents();
                     //System.out.println("Body "+body+" has "+ct+ " dependents");
                     double[] color = new double[3];
@@ -177,8 +181,6 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                                     vtkSphereSource sphere = new vtkSphereSource();
                                     sphere.SetRadius(ag.getSphereRadius());
                                     double[] pos = new double[3];
-                                    //System.out.println("Sphere for object "+Dependent.getOwner().getName()+
-                                     //       " type"+Dependent.getOwner().getType());
                                     Dependent.getTransform().getPosition(pos);
                                     sphere.SetCenter(pos);
                                     vtkPolyDataMapper mapper = new vtkPolyDataMapper();
@@ -194,8 +196,66 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                         GetRenderer().AddViewProp(attachmentRep); 
                         mapObject2Actors.put(Dependent.getOwner(), attachmentRep);
                     }
+                } //body
+                // Now the muscles
+                int numMuscles = model.getNumberOfMuscles();
+                for(int m=0; m < numMuscles; m++){   
+                    SimmMuscle nextMuscle = model.getMuscle(m);
+                    // Create assembly for muscle
+                    vtkAssembly muscleRep = new vtkAssembly();
+                    
+                    // Fill the two maps between objects and actors to support picking, highlighting, etc..
+                    mapObject2Actors.put(nextMuscle, muscleRep);
+                    
+                    // Get attachments and connect them
+                    ArrayPtrsSimmMusclePoint attatchments = nextMuscle.getAttachmentArray();
+                    int arraySize = attatchments.getSize();
+                    if (arraySize > 0){
+                        // Points must be traxformed to gnd space as they generally live
+                        // on diferent bodies
+                        SimmMusclePoint firstPoint = attatchments.get(0);
+                        SimmBody body = firstPoint.getBody();
+                        double[] position1 = new double[3];
+                        double[] position2 = new double[3];
+                        for(int p=0; p <3; p++){
+                            position1[p]=firstPoint.getAttachment().getitem(p);
+                        }
+                        model.getSimmKinematicsEngine().convertPoint(position1, body, gnd);
+                        for (int att=1; att < arraySize; att++){
+                             SimmMusclePoint curPoint = attatchments.get(att);
+                             for(int p=0; p <3; p++){
+                                position2[p]=curPoint.getAttachment().getitem(p);
+                             }
+                             SimmBody curBody = curPoint.getBody();
+                             model.getSimmKinematicsEngine().convertPoint(position2, curBody, gnd);
+                            double[] axis = new double[3];
+                            double[] center = new double[3];
+                            for(int d=0; d <3; d++){
+                                axis[d]=position1[d]-position2[d];
+                                center[d] = (position1[d]+position2[d])/2.0;
+                            }
+                            double length = normalizeAndGetLength(axis);
+                            // Create a cylinder connecting position1, position2
+                            vtkCylinderSource cylinder = new vtkCylinderSource();
+                            cylinder.SetRadius(.005);
+                            cylinder.SetHeight(length);
+                            cylinder.CappingOff();
+                            vtkPolyDataMapper mapper = new vtkPolyDataMapper();
+                            mapper.SetInput(cylinder.GetOutput());
+                            vtkActor dActor = new vtkActor();
+                            dActor.GetProperty().SetColor(0.8, 0.1, 0.1);
+                            dActor.SetUserMatrix(getCylinderTransform(axis, center));
+                            dActor.SetMapper(mapper);
+                            muscleRep.AddPart(dActor);
+                            mapActors2Objects.put(dActor, nextMuscle);
+
+                            // Move position1 to the next point
+                            for(int d=0; d <3; d++)
+                                position1[d]=position2[d];
+                        } // Attachments
+                    } // ArraySize
+                    GetRenderer().AddViewProp(muscleRep); 
                 }
-                 
                 return this;
             }
             public void finished() {
@@ -205,6 +265,47 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         };
         worker.start();
         return true;
+    }
+    /**
+     * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points
+     */
+    private vtkMatrix4x4 getCylinderTransform(double[] axis, double[] origin)
+    {
+        vtkMatrix4x4 retTransform = new vtkMatrix4x4();
+        // yaxis is the unit vector
+        for (int i=0; i < 3; i++)
+            retTransform.SetElement(i, 1, axis[i]);
+        double[] newX = new double[3];
+        double[] oldXCrossNewY = new double[3]; // NewZ
+        oldXCrossNewY[0] = 0.0;
+        oldXCrossNewY[1] = -axis[2];
+        oldXCrossNewY[2] = axis[1];
+        
+        normalizeAndGetLength(oldXCrossNewY);
+        for (int i=0; i < 3; i++)
+            retTransform.SetElement(i, 2, oldXCrossNewY[i]);
+
+        newX[0] = axis[1]*oldXCrossNewY[2]-axis[2]*oldXCrossNewY[1];
+        newX[1] = axis[2]*oldXCrossNewY[0]-axis[0]*oldXCrossNewY[2];
+        newX[2] = axis[0]*oldXCrossNewY[1]-axis[1]*oldXCrossNewY[0];
+        normalizeAndGetLength(newX);
+        for (int i=0; i < 3; i++)
+            retTransform.SetElement(i, 0, newX[i]);
+        
+        for (int i=0; i < 3; i++)
+            retTransform.SetElement(i, 3, origin[i]);
+        
+        return retTransform;
+    }
+    private double normalizeAndGetLength(double[] vector3)
+    {
+        double length = Math.sqrt(Math.pow(vector3[0], 2)+
+                                  Math.pow(vector3[1], 2)+
+                                  Math.pow(vector3[2], 2));
+        // normalize
+        for(int d=0; d <3; d++)
+            vector3[d]=vector3[d]/length;
+        return length;
     }
     
     public void mousePressed(MouseEvent e)

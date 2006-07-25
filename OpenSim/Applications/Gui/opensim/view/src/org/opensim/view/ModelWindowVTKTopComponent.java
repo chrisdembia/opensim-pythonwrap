@@ -5,21 +5,23 @@ import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.prefs.Preferences;
+import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import org.openide.actions.CutAction;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
 import org.openide.util.Utilities;
+import org.openide.util.actions.SystemAction;
 import org.openide.util.lookup.Lookups;
 import org.openide.windows.TopComponent;
 import org.opensim.common.OpenSimDB;
 import org.opensim.common.ModelEvent;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmModel;
-import org.opensim.view.nodes.ModelNode;
 
 /**
  * Top component which displays something.
@@ -53,13 +55,20 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
             public void run() {
                  setName(getDisplayName());
             }});
-        //setToolTipText(NbBundle.getMessage(ModelWindowVTKTopComponent.class, "HINT_ModelWindowVTKTopComponent"));
-//        setIcon(Utilities.loadImage(ICON_PATH, true));
         
         // Set preferred directory for the TopComponent (to be used for all saving, loading, ...
         prefs = Preferences.userNodeForPackage(this.getClass());
         File f = new File(myModel.getInputFileName());
         prefs.put("Preferred Directory", f.getParent());
+        /*
+        javax.swing.Action yourCopyAction = new OpenOsimModelAction(); // the action to invoke instead of Copy
+        CutAction globalCopyAction = (CutAction) SystemAction.get (CutAction.class);
+        Object key = globalCopyAction.getActionMapKey(); // key is a special value defined by all CallbackSystemActions
+        getActionMap ().put (key, yourCopyAction);
+
+        Object[] keys = getActionMap().allKeys();
+        int i=0;
+         **/
     }
     
     /** This method is called from within the constructor to
@@ -157,6 +166,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         if (confirm == JOptionPane.YES_OPTION){
             int observersCount = OpenSimDB.getInstance().countObservers();
             OpenSimDB.getInstance().removeModel(myModel);
+            Object[] keys = getActionMap().allKeys();
             return super.canClose();
         }
         else
@@ -187,4 +197,9 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     public org.opensim.view.OpenSimCanvas getOpenSimCanvas1() {
         return openSimCanvas1;
     }
+    
+    public Action[] getActions(){
+        Action act = new LoadDemoModelAction();
+        return (new Action[]{act});
+    };
 }

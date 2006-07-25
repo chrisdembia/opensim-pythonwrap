@@ -37,7 +37,7 @@ public class ModelNode<T> extends AbstractNode {
     public ModelNode(T obj) {
         super(new Children.Array());
         _object = obj;
-    }
+     }
 
     public boolean canCopy() {
         return true;

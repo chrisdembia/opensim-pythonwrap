@@ -26,7 +26,7 @@ public class BodiesNode extends ModelNode<SimmModel> {
 
     public BodiesNode(SimmModel m) {
         super(m);
-        setName("Bodies");
+        setDisplayName("Bodies");
 
         Stack<BodyNode> stack = new Stack<BodyNode>();
 

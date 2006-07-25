@@ -1,6 +1,7 @@
 package org.opensim.view.nodes;
 
 import javax.swing.Action;
+import org.openide.cookies.SaveCookie;
 import org.openide.nodes.Node;
 import org.opensim.modeling.SimmModel;
 import org.opensim.view.*;
@@ -11,9 +12,12 @@ import org.opensim.view.*;
 public class ConcreteModelNode extends ModelNode<SimmModel> {
     public ConcreteModelNode(SimmModel m) {
         super(m);
-        setName(m.getName());
+        setDisplayName(m.getName());
         getChildren().add(new Node[]  {new BodiesNode(m)});
-    }
+        getCookieSet().add(new SaveCookie(){
+        public void save()
+        { System.out.println("Saving");}});
+   }
     public Action[] getActions(boolean popup) {
         return new Action[]  {(Action)OpenOsimModelAction.findObject(OpenOsimModelAction.class)};
     }

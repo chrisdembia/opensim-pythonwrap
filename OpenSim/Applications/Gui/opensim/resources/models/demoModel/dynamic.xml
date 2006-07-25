@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SimmModel name="Dynamic Mocap Model">
+<SimmModel name="OpenSim Demo Model">
 	<gravity>0.0 0.0 -9.80665</gravity>
 	<Muscles>
 		<SimmMuscle name="glut_max1_r">

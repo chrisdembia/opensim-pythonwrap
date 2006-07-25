@@ -54,6 +54,8 @@ public final class CameraAction extends CallableSystemAction
         toolbarButton.addMouseListener(new MouseAdapter(){  
               public void mousePressed(MouseEvent e) { showSettingsPopup(e); }
                private void showSettingsPopup(MouseEvent e) {
+                   if (canvas==null)
+                       return;
                   JPopupMenu settingsMenu = new JPopupMenu();
                   settingsMenu.add(new CamerasMenu(canvas));
                   settingsMenu.show(toolbarButton, e.getX(), e.getY());

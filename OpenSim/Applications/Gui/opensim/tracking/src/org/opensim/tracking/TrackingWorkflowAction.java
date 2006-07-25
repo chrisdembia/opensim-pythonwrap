@@ -26,6 +26,7 @@ public final class TrackingWorkflowAction extends CallableSystemAction {
         JButton executeButton = new JButton(new ExecuteWorkflowStepAction(iterator));
         wizardDescriptor.setAdditionalOptions(new Object[] {executeButton});
         Dialog dialog = DialogDisplayer.getDefault().createDialog(wizardDescriptor);
+        dialog.setResizable(false);
         dialog.setVisible(true);
         dialog.toFront();
         boolean cancelled = wizardDescriptor.getValue() != WizardDescriptor.FINISH_OPTION;

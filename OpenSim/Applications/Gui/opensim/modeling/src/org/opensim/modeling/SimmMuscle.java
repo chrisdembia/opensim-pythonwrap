@@ -59,6 +59,10 @@ public class SimmMuscle extends Actuator {
     opensimModelJNI.SimmMuscle_copyData(swigCPtr, SimmMuscle.getCPtr(aMuscle));
   }
 
+  public ArrayPtrsSimmMusclePoint getAttachmentArray() {
+    return new ArrayPtrsSimmMusclePoint(opensimModelJNI.SimmMuscle_getAttachmentArray(swigCPtr), false);
+  }
+
   public void computeActuation() {
     opensimModelJNI.SimmMuscle_computeActuation(swigCPtr);
   }

@@ -1,18 +1,21 @@
 package org.opensim.view;
 
+import java.awt.Component;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.openide.util.actions.Presenter;
 import org.opensim.common.OpenSimDB;
 import org.opensim.modeling.SimmModel;
 import org.opensim.view.base.SerializationHelper;
 
-public final class OpenOsimModelAction extends CallableSystemAction {
+public final class OpenOsimModelAction extends CallableSystemAction implements Presenter.Toolbar {
     
     protected String fileName;
     
@@ -86,4 +89,12 @@ public final class OpenOsimModelAction extends CallableSystemAction {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         
     }
+
+    public Component getToolbarPresenter() {
+        Component retValue;
+        
+        retValue = new JButton(this);
+        return retValue;
+    }
+    
 }

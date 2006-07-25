@@ -77,5 +77,10 @@ public class workflowWizardPanel2 implements WizardDescriptor.Panel {
     }
     public void storeSettings(Object settings) {}
     
+    public boolean executeStep()
+    {   
+        // Call scaling with the model and display it in GUI
+        return false;
+    }    
 }
 

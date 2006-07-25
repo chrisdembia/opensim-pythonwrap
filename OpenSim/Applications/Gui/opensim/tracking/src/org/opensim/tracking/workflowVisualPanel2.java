@@ -1,9 +1,13 @@
 package org.opensim.tracking;
 
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.SimmScalingParams;
 
 public final class workflowVisualPanel2 extends JPanel {
+    
+    String manualScaleFile;
     
     /** Creates new form workflowVisualPanel2 */
     public workflowVisualPanel2() {
@@ -24,16 +28,16 @@ public final class workflowVisualPanel2 extends JPanel {
     private void initComponents() {
         jScalingMethodSelectPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        scaleSelect = new javax.swing.JComboBox();
+        scaleMethodSelect = new javax.swing.JComboBox();
         preserveMass = new javax.swing.JCheckBox();
         jMeasurementScalePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jFromTimeTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jToTimeTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -43,8 +47,8 @@ public final class workflowVisualPanel2 extends JPanel {
         jButton6 = new javax.swing.JButton();
         jManualScalePanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        jManualScaleTextField = new javax.swing.JTextField();
+        jBrowse4ScaleFile = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jOutputPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -60,7 +64,7 @@ public final class workflowVisualPanel2 extends JPanel {
         jScalingMethodSelectPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Scaling method"));
         jLabel1.setText("Scaling method");
 
-        scaleSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Manual", "Measurements", "Manual+Measurements", "Measurements+Manual" }));
+        scaleMethodSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Manual", "Measurements", "Manual+Measurements", "Measurements+Manual" }));
 
         preserveMass.setText("Preserve mass distribution");
         preserveMass.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -74,7 +78,7 @@ public final class workflowVisualPanel2 extends JPanel {
                 .addContainerGap()
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(scaleSelect, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(scaleMethodSelect, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 32, Short.MAX_VALUE)
                 .add(preserveMass)
                 .add(70, 70, 70))
@@ -84,7 +88,7 @@ public final class workflowVisualPanel2 extends JPanel {
             .add(jScalingMethodSelectPanelLayout.createSequentialGroup()
                 .add(jScalingMethodSelectPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(scaleSelect, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(scaleMethodSelect, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(preserveMass))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -132,11 +136,11 @@ public final class workflowVisualPanel2 extends JPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jMeasurementScalePanelLayout.createSequentialGroup()
-                                .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jFromTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jLabel4)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(jToTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(jMeasurementScalePanelLayout.createSequentialGroup()
                                 .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                     .add(org.jdesktop.layout.GroupLayout.LEADING, jTextField4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
@@ -164,8 +168,8 @@ public final class workflowVisualPanel2 extends JPanel {
                 .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
                     .add(jLabel4)
-                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jFromTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jToTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
@@ -183,9 +187,14 @@ public final class workflowVisualPanel2 extends JPanel {
         jManualScalePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Specify scale factors directly")));
         jLabel6.setText("Scale factors");
 
-        jTextField5.setText("*.xml");
+        jManualScaleTextField.setText("*.xml");
 
-        jButton4.setText("Browse...");
+        jBrowse4ScaleFile.setText("Browse...");
+        jBrowse4ScaleFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowse4ScaleFileActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Edit...");
 
@@ -197,9 +206,9 @@ public final class workflowVisualPanel2 extends JPanel {
                 .addContainerGap()
                 .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 71, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(15, 15, 15)
-                .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 187, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jManualScaleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 187, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton4)
+                .add(jBrowse4ScaleFile)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jButton5)
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -209,8 +218,8 @@ public final class workflowVisualPanel2 extends JPanel {
             .add(jManualScalePanelLayout.createSequentialGroup()
                 .add(jManualScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
-                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton4)
+                    .add(jManualScaleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jBrowse4ScaleFile)
                     .add(jButton5))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -312,13 +321,26 @@ public final class workflowVisualPanel2 extends JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBrowse4ScaleFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4ScaleFileActionPerformed
+       final JFileChooser dlog = new JFileChooser();
+
+        String scalesFile=null;
+        if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            manualScaleFile= dlog.getSelectedFile().getAbsolutePath();
+            scaleMethodSelect.setSelectedItem("Manual");
+            jManualScaleTextField.setText(manualScaleFile);
+        }
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBrowse4ScaleFileActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBrowse4ScaleFile;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -326,6 +348,7 @@ public final class workflowVisualPanel2 extends JPanel {
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBox5;
+    private javax.swing.JTextField jFromTimeTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -336,19 +359,18 @@ public final class workflowVisualPanel2 extends JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jManualScalePanel;
+    private javax.swing.JTextField jManualScaleTextField;
     private javax.swing.JPanel jMeasurementScalePanel;
     private javax.swing.JPanel jOutputPanel;
     private javax.swing.JPanel jScalingMethodSelectPanel;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jToTimeTextField;
     private javax.swing.JCheckBox preserveMass;
-    private javax.swing.JComboBox scaleSelect;
+    private javax.swing.JComboBox scaleMethodSelect;
     // End of variables declaration//GEN-END:variables
      
     public void updatePanel(WorkflowDescriptor aDescriptor)
@@ -356,7 +378,8 @@ public final class workflowVisualPanel2 extends JPanel {
         SimmScalingParams scalingParams = aDescriptor.dSubject.getScalingParams();
         preserveMass.setSelected(scalingParams.getPreserveMassDist());
         // Map scaling method to dropdown
-        //scalingParams.getScalingMethodString();
+        ArrayDouble range = scalingParams.get_timeRange();
+        
     }
    
 }

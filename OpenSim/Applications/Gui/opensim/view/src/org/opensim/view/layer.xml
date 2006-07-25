@@ -2,13 +2,14 @@
 <!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.1//EN" "http://www.netbeans.org/dtds/filesystem-1_1.dtd">
 <filesystem>
     <folder name="Actions">
+        <folder name="Build">
+            <file name="org-opensim-view-SaveAction.instance"/>
+        </folder>
         <folder name="Edit">
             <file name="org-opensim-view-CameraAction.instance"/>
-            <file name="org-opensim-view-HiLightObjectsAction.instance"/>
             <file name="org-opensim-view-LoadDemoModelAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.LoadDemoModelAction"/>
             </file>
-            <file name="org-opensim-view-ObjectEditAction.instance"/>
             <file name="org-opensim-view-OpenOsimModelAction.instance"/>
                     <file name="org-opensim-view-base-SelectCameraAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.base.SelectCameraAction"/>
@@ -23,31 +24,57 @@
             <file name="org-opensim-view-ExplorerAction.instance"/>
             </folder>
     </folder>
+    <file name="HTMLPalette_hidden"/>
+    <file name="HTTPServer_DUMMY_hidden"/>
+    <file name="J2EE_hidden"/>
+    <folder name="Loaders">
+        <folder name="text">
+            <folder name="x-xml"/>
+        </folder>
+    </folder>
     <folder name="Menu">
-    <folder name="Edit">
+    <file name="BuildProject_hidden"/>
+        <file name="CVS_hidden"/>
+        <folder name="Edit">
             <file name="org-netbeans-core-actions-JumpNextAction.shadow_hidden"/>
             <file name="org-netbeans-core-actions-JumpPrevAction.shadow_hidden"/>
             <file name="org-openide-actions-ReplaceAction.instance_hidden"/>
         </folder>
         <file name="GoTo_hidden"/>
-    <folder name="Tools">
+    <file name="Refactoring_hidden"/>
+        <file name="RunProject_hidden"/>
+        <file name="Source_hidden"/>
+        <folder name="Tools">
             <file name="org-netbeans-core-actions-OptionsAction.instance_hidden"/>
             <file name="org-netbeans-modules-favorites-templates-TemplatesAction.instance_hidden"/>
+            <file name="org-opensim-tracking-TrackingWorkflowAction.shadow_hidden"/>
+        </folder>
+        <folder name="Tracking">
+            <file name="org-opensim-tracking-TrackingWorkflowAction.shadow" url="org-opensim-tracking-TrackingWorkflowAction_1.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
+            </file>
         </folder>
         <file name="View_hidden"/>
         <folder name="File">
             <attr name="org-opensim-view-NewOsimModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="true"/>
             <attr name="Separator4.instance/org-opensim-view-LoadDemoModelAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-nodes-TrackNodeSelectionAction.shadow/Separator4.instance" boolvalue="true"/>
+            <attr name="org-netbeans-modules-project-ui-CustomizeProject.shadow/org-opensim-view-LoadDemoModelAction.shadow" boolvalue="true"/>
             <file name="org-opensim-view-LoadDemoModelAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-LoadDemoModelAction.instance"/>
             </file>
-            <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
             <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="true"/>
             <file name="org-opensim-view-OpenOsimModel.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-OpenOsimModelAction.instance"/>
             </file>
             <attr name="org-opensim-view-OpenOsimModel.shadow/Separator2.instance" boolvalue="true"/>
-            <attr name="org-opensim-view-nodes-TrackNodeSelectionAction.shadow/Separator4.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
+            <file name="org-netbeans-modules-editor-ExportHtmlAction.instance_hidden"/>
+            <file name="org-netbeans-modules-project-ui-CloseProject.shadow_hidden"/>
+            <file name="org-netbeans-modules-project-ui-NewProject.shadow_hidden"/>
+            <file name="org-netbeans-modules-project-ui-OpenProject.shadow_hidden"/>
+            <file name="org-netbeans-modules-project-ui-RecentProjects.shadow_hidden"/>
+            <file name="org-openide-actions-PageSetupAction.instance_hidden"/>
             <file name="org-openide-actions-PrintAction.instance_hidden"/>
         </folder>
         <folder name="Window">
@@ -55,10 +82,12 @@
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-BottomPanelAction.instance"/>
             </file>
             <file name="CloneDocumentAction.shadow_hidden"/>
+            <file name="CloseAllButThisAction.shadow_hidden"/>
             <file name="ExplorerAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-ExplorerAction.instance"/>
             </file>
-                <file name="ViewRuntimeTabAction.shadow_hidden"/>
+                <file name="ProgressListAction.shadow_hidden"/>
+            <file name="ViewRuntimeTabAction.shadow_hidden"/>
             <file name="oldRootsEnd.txt_hidden"/>
             <file name="oldRootsStart.txt_hidden"/>
         </folder>
@@ -74,6 +103,8 @@
         </file>
     </folder>
     <folder name="Toolbars">
+        <file name="Build_hidden"/>
+        <file name="Debug_hidden"/>
         <folder name="Edit">
             <attr name="org-openide-actions-FindAction.instance/org-opensim-view-CameraAction.shadow" boolvalue="true"/>
             <file name="org-opensim-view-CameraAction.shadow">
@@ -87,7 +118,6 @@
     <folder name="Windows2">
         <folder name="Components">
             <file name="BottomPanelTopComponent.settings" url="BottomPanelTopComponentSettings.xml"/>
-            <file name="EditObjectTopComponent.settings" url="EditObjectTopComponentSettings.xml"/>
             <file name="ExplorerTopComponent.settings" url="ExplorerTopComponentSettings.xml"/>
         </folder>
         <folder name="Modes">

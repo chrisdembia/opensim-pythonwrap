@@ -67,9 +67,9 @@ public class SimmModel extends Model {
     return opensimModelJNI.SimmModel_getNumberOfMuscles(swigCPtr);
   }
 
-  public OpenSimObject getMuscle(int index) {
+  public SimmMuscle getMuscle(int index) {
     long cPtr = opensimModelJNI.SimmModel_getMuscle(swigCPtr, index);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+    return (cPtr == 0) ? null : new SimmMuscle(cPtr, false);
   }
 
   public int getNumberOfMuscleGroups() {
