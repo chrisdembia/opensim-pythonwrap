@@ -14,9 +14,6 @@ public class ConcreteModelNode extends ModelNode<SimmModel> {
         super(m);
         setDisplayName(m.getName());
         getChildren().add(new Node[]  {new BodiesNode(m)});
-        getCookieSet().add(new SaveCookie(){
-        public void save()
-        { System.out.println("Saving");}});
    }
     public Action[] getActions(boolean popup) {
         return new Action[]  {(Action)OpenOsimModelAction.findObject(OpenOsimModelAction.class)};

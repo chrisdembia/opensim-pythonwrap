@@ -375,10 +375,9 @@ public final class workflowVisualPanel2 extends JPanel {
      
     public void updatePanel(WorkflowDescriptor aDescriptor)
     {   
-        SimmScalingParams scalingParams = aDescriptor.dSubject.getScalingParams();
-        preserveMass.setSelected(scalingParams.getPreserveMassDist());
+        //SimmScalingParams scalingParams = aDescriptor.dSubject.getScalingParams();
+        //preserveMass.setSelected(scalingParams.getPreserveMassDist());
         // Map scaling method to dropdown
-        ArrayDouble range = scalingParams.get_timeRange();
         
     }
    

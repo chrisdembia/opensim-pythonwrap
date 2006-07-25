@@ -41,6 +41,10 @@ public class SimmPathMatrix {
     opensimModelJNI.SimmPathMatrix_initTable(swigCPtr, size);
   }
 
+  public void invalidate() {
+    opensimModelJNI.SimmPathMatrix_invalidate(swigCPtr);
+  }
+
   public SimmPath getSimmPath(SimmBody aFromBody, SimmBody aToBody) {
     long cPtr = opensimModelJNI.SimmPathMatrix_getSimmPath(swigCPtr, SimmBody.getCPtr(aFromBody), SimmBody.getCPtr(aToBody));
     return (cPtr == 0) ? null : new SimmPath(cPtr, false);
