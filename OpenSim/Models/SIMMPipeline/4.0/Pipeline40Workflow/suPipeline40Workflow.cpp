@@ -118,11 +118,11 @@ computeConstrainedCoordinates(double* y)
  * When a u is constrained, its value is altered to be consisten with the
  * constraint.  The caller is responsible for deleting the memory
  * associated with this storage.
- */
 void suPipeline40Workflow::
 formCompleteStorages(const OpenSim::Storage &aQIn,
 	OpenSim::Storage *&rQComplete,OpenSim::Storage *&rUComplete)
 {
+	cout<<"suPipeline40Workflow.formCompleteStorages: ERR- this routine should not be executed!\n\n";
 	int i;
 	int nq = getNQ();
 	int nu = getNU();
@@ -196,5 +196,4 @@ formCompleteStorages(const OpenSim::Storage &aQIn,
 	rQComplete->setColumnLabels(columnLabels.c_str());
 	rUComplete->setColumnLabels(columnLabels.c_str());
 }
-
-
+ */

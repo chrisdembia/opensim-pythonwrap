@@ -48,8 +48,8 @@ public:
 	// FOR RRA - ADDED BY CHAND, 2/3/2006
 	//--------------------------------------------------------------------------
 	virtual void computeConstrainedCoordinates(double* y);
-	virtual void formCompleteStorages(const OpenSim::Storage &aQIn,
-		OpenSim::Storage *&rQComplete,OpenSim::Storage *&rUComplete);
+	//virtual void formCompleteStorages(const OpenSim::Storage &aQIn,
+	//	OpenSim::Storage *&rQComplete,OpenSim::Storage *&rUComplete);
 
 
 //=============================================================================
