@@ -4,7 +4,7 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 
-public final class ToggleAxesAction extends CallableSystemAction {
+public class ToggleAxesAction extends CallableSystemAction {
     
     private OpenSimBaseCanvas dCanvas;
     public ToggleAxesAction(OpenSimBaseCanvas aCanvas)

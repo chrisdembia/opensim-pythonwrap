@@ -2,7 +2,7 @@ package org.opensim.tracking;
 
 import javax.swing.JPanel;
 
-public final class workflowVisualPanel7 extends JPanel {
+public final class workflowVisualPanel7 extends workflowVisualPanelBase {
     
     /** Creates new form workflowVisualPanel7 */
     public workflowVisualPanel7() {
@@ -44,10 +44,10 @@ public final class workflowVisualPanel7 extends JPanel {
                 .addContainerGap()
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 146, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton1)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jModelSpecanelLayout.setVerticalGroup(
             jModelSpecanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -70,10 +70,10 @@ public final class workflowVisualPanel7 extends JPanel {
                 .addContainerGap()
                 .add(jLabel2)
                 .add(13, 13, 13)
-                .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 197, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton2)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jCustomizeCMCPanelLayout.setVerticalGroup(
             jCustomizeCMCPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -91,7 +91,7 @@ public final class workflowVisualPanel7 extends JPanel {
         jOutputPanel.setLayout(jOutputPanelLayout);
         jOutputPanelLayout.setHorizontalGroup(
             jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 374, Short.MAX_VALUE)
+            .add(0, 307, Short.MAX_VALUE)
         );
         jOutputPanelLayout.setVerticalGroup(
             jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -112,12 +112,12 @@ public final class workflowVisualPanel7 extends JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jModelSpecanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jModelSpecanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jCustomizeCMCPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     
@@ -133,6 +133,11 @@ public final class workflowVisualPanel7 extends JPanel {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+    void updateWorkflow(WorkflowDescriptor descriptor) {
+    }
+
+    void updatePanel(WorkflowDescriptor aDescriptor) {
+    }
     
 }
 

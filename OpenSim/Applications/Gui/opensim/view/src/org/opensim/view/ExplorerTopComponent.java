@@ -8,33 +8,35 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.ActionMap;
 import javax.swing.SwingUtilities;
-import org.openide.DialogDisplayer;
+import javax.swing.text.DefaultEditorKit;
 import org.openide.ErrorManager;
-import org.openide.NotifyDescriptor;
+import org.openide.util.HelpCtx;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
 import org.openide.util.Utilities;
+import org.openide.util.actions.CallableSystemAction;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.common.OpenSimDB;
 import org.opensim.common.ModelEvent;
 import org.openide.explorer.ExplorerManager;
+import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.nodes.Node;
-import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmModel;
 import org.opensim.view.nodes.ConcreteModelNode;
-import org.opensim.view.nodes.ModelNode;
+import org.opensim.view.nodes.OpenSimNode;
 
 /**
  * Top component which displays something.
  */
 final class ExplorerTopComponent extends TopComponent 
-        implements Observer, ExplorerManager.Provider, LookupListener{
-    
+        implements Observer, ExplorerManager.Provider, LookupListener, Lookup.Provider{
+
     private static final long serialVersionUID = 1L;
     
     private static ExplorerTopComponent instance;
@@ -60,8 +62,19 @@ final class ExplorerTopComponent extends TopComponent
         setLayout(new BorderLayout());
         add(modelTree, BorderLayout.CENTER);
         modelTree.setRootVisible(false);
-        ModelNode root = new ModelNode.RootNode();
+        OpenSimNode root = new OpenSimNode.RootNode();
         manager.setRootContext(root);
+        // The following code activates/makes available Copy/Paste/Delete
+        ActionMap map = this.getActionMap();
+        map.put(DefaultEditorKit.copyAction, ExplorerUtils.actionCopy(manager));
+        map.put(DefaultEditorKit.cutAction, ExplorerUtils.actionCut(manager));
+        map.put(DefaultEditorKit.pasteAction, ExplorerUtils.actionPaste(manager));
+        map.put("delete", ExplorerUtils.actionDelete(manager, true)); // or false
+        map.put("paste", ExplorerUtils.actionPaste(manager)); // or false
+
+        // following line tells the top component which lookup should be associated with it
+        associateLookup (ExplorerUtils.createLookup (getExplorerManager(), map));
+
    }
    
      BeanTreeView getTree() {
@@ -123,9 +136,17 @@ final class ExplorerTopComponent extends TopComponent
     public int getPersistenceType() {
         return TopComponent.PERSISTENCE_ALWAYS;
     }
+    // It is good idea to switch all listeners on and off when the
+    // component is shown or hidden. In the case of TopComponent use:
+    protected void componentActivated() {
+        ExplorerUtils.activateActions(getExplorerManager(), true);
+    }
+    protected void componentDeactivated() {
+        ExplorerUtils.activateActions(getExplorerManager(), false);
+    }
     
     public void componentOpened() {
-        Lookup.Template tpl = new Lookup.Template (OpenSimCanvas.class);
+        Lookup.Template tpl = new Lookup.Template (ModelWindowVTKTopComponent.class);
         result = Utilities.actionsGlobalContext().lookup(tpl);
         result.addLookupListener (this);
         redisplay();
@@ -140,7 +161,7 @@ final class ExplorerTopComponent extends TopComponent
         Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
         Collection c = r.allInstances();
         if (!c.isEmpty()) {
-            OpenSimCanvas o = (OpenSimCanvas) c.iterator().next();
+            ModelWindowVTKTopComponent o = (ModelWindowVTKTopComponent) c.iterator().next();
             SimmModel m = o.getModel();
             Node modelNode = mapModels2Nodes.get(m);
             Node[] selectedNodes = new Node[1];
@@ -226,5 +247,5 @@ final class ExplorerTopComponent extends TopComponent
             rootNode.getChildren().add(new Node[] { new ConcreteModelNode((SimmModel)models[i]) });
 
     }
-    
+        
 }

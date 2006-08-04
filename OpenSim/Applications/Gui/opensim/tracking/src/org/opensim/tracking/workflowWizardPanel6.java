@@ -5,7 +5,7 @@ import javax.swing.event.ChangeListener;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
 
-public class workflowWizardPanel6 implements WizardDescriptor.Panel {
+public class workflowWizardPanel6  extends workflowWizardPanelBase{
     
     /**
      * The visual component that displays this panel. If you need to access the
@@ -73,6 +73,10 @@ public class workflowWizardPanel6 implements WizardDescriptor.Panel {
     // by the user.
     public void readSettings(Object settings) {}
     public void storeSettings(Object settings) {}
+
+    boolean executeStep() {
+        return false;
+    }
     
 }
 

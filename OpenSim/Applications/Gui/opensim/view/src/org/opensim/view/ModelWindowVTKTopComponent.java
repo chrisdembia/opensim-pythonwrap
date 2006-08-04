@@ -1,6 +1,5 @@
 package org.opensim.view;
 
-import java.util.Collection;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
@@ -9,42 +8,36 @@ import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import org.openide.actions.CutAction;
-import org.openide.util.Lookup;
-import org.openide.util.LookupEvent;
-import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
-import org.openide.util.Utilities;
-import org.openide.util.actions.SystemAction;
 import org.openide.util.lookup.Lookups;
 import org.openide.windows.TopComponent;
 import org.opensim.common.OpenSimDB;
 import org.opensim.common.ModelEvent;
-import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmModel;
-
+import vtk.vtkFileOutputWindow;
 /**
  * Top component which displays something.
  */
-public class ModelWindowVTKTopComponent extends TopComponent implements Observer{
+public class ModelWindowVTKTopComponent extends TopComponent implements 
+                Observer
+{
     
     private static final long serialVersionUID = 1L;
     private static int ct = 0; //A counter used to provide names for new models
     private String displayName;
-    SimmModel myModel;
+    private SimmModel model;
     Preferences prefs;
-
- 
+    
     /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
         
     public ModelWindowVTKTopComponent(SimmModel dModel) {
-        myModel = dModel;
-//        associateLookup (Lookups.singleton (myModel));
+        model = dModel;
+//        associateLookup (Lookups.singleton (model));
         initComponents();
         
         // Associate window with a model and a canvas so that other platform users can key on that
-        associateLookup (Lookups.singleton (openSimCanvas1));
+        associateLookup (Lookups.singleton (this));
 
         displayName = NbBundle.getMessage(
                         ModelWindowVTKTopComponent.class,
@@ -58,19 +51,18 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         
         // Set preferred directory for the TopComponent (to be used for all saving, loading, ...
         prefs = Preferences.userNodeForPackage(this.getClass());
-        File f = new File(myModel.getInputFileName());
-        prefs.put("Preferred Directory", f.getParent());
-        /*
-        javax.swing.Action yourCopyAction = new OpenOsimModelAction(); // the action to invoke instead of Copy
-        CutAction globalCopyAction = (CutAction) SystemAction.get (CutAction.class);
-        Object key = globalCopyAction.getActionMapKey(); // key is a special value defined by all CallbackSystemActions
-        getActionMap ().put (key, yourCopyAction);
-
-        Object[] keys = getActionMap().allKeys();
-        int i=0;
-         **/
-    }
-    
+        File f = new File(getModel().getInputFileName());
+        if (f.getParent()!= null)
+            prefs.put("Preferred Directory", f.getParent());
+        
+        // Disable vtk output window
+        // This code should be moved to the module installer to be done once per session
+        vtkFileOutputWindow fow = new vtkFileOutputWindow();
+        fow.SetFileName("vtklog.log");
+        if (fow != null)
+            fow.SetInstance(fow);
+     }
+   
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -83,6 +75,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         jTakeSnapshotButton = new javax.swing.JButton();
         jAnimationSlider = new javax.swing.JSlider();
         openSimCanvas1 = new org.opensim.view.OpenSimCanvas();
+        openSimCanvas1.setOwnerWindow(this);
 
         org.openide.awt.Mnemonics.setLocalizedText(jRefitModelButton, "Refit");
         jRefitModelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -122,23 +115,23 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         final JFileChooser dlog = new JFileChooser(currentDirectory);
         
         if (dlog.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            getOpenSimCanvas1().HardCopy(dlog.getSelectedFile().getAbsolutePath()+".tiff", 1);
+            getCanvas().HardCopy(dlog.getSelectedFile().getAbsolutePath()+".tiff", 1);
         }
     }//GEN-LAST:event_jTakeSnapshotButtonActionPerformed
 
     private void jRefitModelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRefitModelButtonActionPerformed
 // TODO add your handling code here:
-        getOpenSimCanvas1().resetCamera();
-        getOpenSimCanvas1().Render();
+        getCanvas().resetCamera();
+        getCanvas().Render();
     }//GEN-LAST:event_jRefitModelButtonActionPerformed
 
     private void processMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processMousePressed
 // TODO add your handling code here:
         if(evt.getClickCount()==1){
-            getOpenSimCanvas1().selectObject(evt);
+            getCanvas().selectObject(evt);
         }
         if(evt.getClickCount()==2){
-            getOpenSimCanvas1().handleDoubleClick(evt);
+            getCanvas().handleDoubleClick(evt);
         }
         super.processEvent(evt);
     }//GEN-LAST:event_processMousePressed
@@ -162,11 +155,9 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         // For now we'll warn anyway
         String DefaultDir=".";
         System.out.println("preferred directory = "+prefs.get("Preferred Directory", DefaultDir));
-        int confirm = JOptionPane.showConfirmDialog(this, "Do you want to close model "+myModel.getName()+" ?");
+        int confirm = JOptionPane.showConfirmDialog(this, "Do you want to close model "+getModel().getName()+" ?");
         if (confirm == JOptionPane.YES_OPTION){
-            int observersCount = OpenSimDB.getInstance().countObservers();
-            OpenSimDB.getInstance().removeModel(myModel);
-            Object[] keys = getActionMap().allKeys();
+            OpenSimDB.getInstance().removeModel(getModel());
             return super.canClose();
         }
         else
@@ -179,8 +170,8 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
     
     public String getDisplayName()
     {
-        if (myModel != null)
-            return myModel.getName();
+        if (getModel() != null)
+            return getModel().getName();
         else
             return displayName;
     }
@@ -189,12 +180,15 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
                // Observable is OpenSimDB
         if (arg instanceof ModelEvent){
             // Create a frame for the new Model
-            if (((ModelEvent)arg).getModel() == myModel)
-                getOpenSimCanvas1().loadModel(myModel);
+            if (((ModelEvent)arg).getModel() == getModel())
+                getCanvas().loadModel(getModel());
        }
     }    
-
-    public org.opensim.view.OpenSimCanvas getOpenSimCanvas1() {
+    /**
+     * Potentially there could be multiple canvases inserted into this top component,
+     * Use an accessor method just incase 
+     */
+    public org.opensim.view.OpenSimCanvas getCanvas() {
         return openSimCanvas1;
     }
     
@@ -202,4 +196,9 @@ public class ModelWindowVTKTopComponent extends TopComponent implements Observer
         Action act = new LoadDemoModelAction();
         return (new Action[]{act});
     };
+
+    public SimmModel getModel() {
+        return model;
+    }
+    
 }

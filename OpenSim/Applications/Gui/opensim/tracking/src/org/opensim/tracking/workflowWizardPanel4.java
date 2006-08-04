@@ -5,13 +5,13 @@ import javax.swing.event.ChangeListener;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
 
-public class workflowWizardPanel4 implements WizardDescriptor.Panel {
+public class workflowWizardPanel4  extends workflowWizardPanelBase{
     
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
-    private Component component;
+    private workflowVisualPanelBase component;
     
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
@@ -73,6 +73,11 @@ public class workflowWizardPanel4 implements WizardDescriptor.Panel {
     // by the user.
     public void readSettings(Object settings) {}
     public void storeSettings(Object settings) {}
+
+    boolean executeStep() {
+            component.setExecuted(true);
+        return false;
+    }
     
 }
 

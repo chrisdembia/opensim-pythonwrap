@@ -36,15 +36,15 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
     
     private int index;
     
-    private WizardDescriptor.Panel[] panels;
+    private workflowWizardPanelBase[] panels;
     
     /**
      * Initialize panels representing individual wizard's steps and sets
      * various properties for them influencing wizard appearance.
      */
-    private WizardDescriptor.Panel[] getPanels() {
+    private workflowWizardPanelBase[] getPanels() {
         if (panels == null) {
-            panels = new WizardDescriptor.Panel[] {
+            panels = new workflowWizardPanelBase[] {
                 new workflowWizardPanel1(),
                 new workflowWizardPanel2(),
                 new workflowWizardPanel3(),
@@ -136,11 +136,12 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
             it.next().stateChanged(ev);
         }
     }
+    
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         listeners = new HashSet<ChangeListener>(1);
     }
-     
+    
     public void addWorkflowPref(String key, String val)
     {
         prefs.put(key, val);

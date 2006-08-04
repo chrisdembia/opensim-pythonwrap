@@ -16,6 +16,7 @@ import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
 import javax.swing.JPopupMenu;
+import org.openide.awt.StatusDisplayer;
 import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.AnalyticGeometry.AnalyticGeometryType;
 import org.opensim.modeling.ArrayPtrsSimmMusclePoint;
@@ -59,11 +60,18 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     JPopupMenu visibilityMenu = new JPopupMenu();
     
     private OpenSimObject selectedObject=null;
-    
+    private ModelWindowVTKTopComponent ownerTopComponent=null;
     /** Creates a new instance of OpenSimCanvas */
     public OpenSimCanvas() {
     }
-    
+    /**
+     * Ideally I pass the ownerTopComponent in constructor but that messes up the GUI editor
+     * in netbeans, so the call is broken into two that MUST be called in sequence:
+     */
+    public void setOwnerWindow(ModelWindowVTKTopComponent ownerTopComponent)
+    {
+         this.ownerTopComponent=ownerTopComponent;       
+    }
     public SimmModel getModel()
     {
         return model;
@@ -90,7 +98,9 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 //Stack<vtkAssembly> stack = new Stack<vtkAssembly>();
 
                 File modelFile = new File(model.getInputFileName());
-                String modelFilePath = modelFile.getParent() + modelFile.separator; // Could this be null?
+                String modelFilePath = "";
+                if (modelFile.getParent()!= null)
+                    modelFilePath= modelFile.getParent()+ modelFile.separator; // Could this be null?
 
                 // Traverse the bodies of the simmModel in depth-first order.
                 SimmModelIterator i = new SimmModelIterator(model);
@@ -138,6 +148,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
                     // Add a vtkActor object to the vtk scene graph to represent
                     VisibleObject bodyDisplayer = body.getDisplayer();
+                    int ns = bodyDisplayer.getNumGeometryFiles();
                     // each bone in the current body.
                     for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
 
@@ -297,6 +308,9 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         
         return retTransform;
     }
+    /**
+     * Normalize a vector and return its length
+     */
     private double normalizeAndGetLength(double[] vector3)
     {
         double length = Math.sqrt(Math.pow(vector3[0], 2)+
@@ -312,11 +326,11 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
    {
        if ( (e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.CTRL_MASK))) {
           setSelectedObject(findObjectAt(lastX, lastY));
-          if (getSelectedObject() != null){
+          //if (getSelectedObject() != null){
             //JPopupMenu visPopup = new JPopupMenu();
-            //visPopup.add(new ModifyObjectVisibilityAction(getSelectedObject(), this));
+            //visPopup.add(new ModifyObjectVisibilityAction(getSelectedObject(), ownerTopComponent));
             //visPopup.show(this, e.getX(), e.getY());
-         }
+         //}
         }        // Show popup if right mouse otherwise pass along to super implementation
         super.mousePressed(e);
     }
@@ -400,7 +414,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 win.setContext(this);
                 win.open();
                 win.requestActive();*/
-              ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(selectedObject, this);
+              ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(selectedObject, ownerTopComponent);
               editorDialog.process();
               //new VisibilityJDialog(new javax.swing.JFrame(), this, getSelectedObject()).setVisible(true);
           }
@@ -409,11 +423,11 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
     void selectObject(MouseEvent evt) {
           setSelectedObject(findObjectAt(lastX, lastY));
-          if (selectedObject != null)
-            markSelected(selectedObject, true);
     }
-
-    public void markSelected(OpenSimObject selectedObject, boolean on) {
+    /**
+     * Toggle graphical feed back that an object is selected
+     */
+    public void markSelected(OpenSimObject selectedObject, boolean onOff) {
         vtkAssembly asm = getActorForObject(selectedObject);
         vtkProp3DCollection parts = asm.GetParts();
         parts.InitTraversal();
@@ -438,5 +452,13 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
     public void setSelectedObject(OpenSimObject selectedObject) {
         this.selectedObject = selectedObject;
+        if (selectedObject != null){
+            markSelected(selectedObject, true);
+            //Node selectedNode = ownerTopComponent.getNodeFor(selectedObject);
+            //ownerTopComponent.setActivatedNodes(new Node[] {selectedNode});
+            StatusDisplayer.getDefault().setStatusText(selectedObject.getType()+", "+selectedObject.getName());
+        }
+        else
+            StatusDisplayer.getDefault().setStatusText("");
     }
 }

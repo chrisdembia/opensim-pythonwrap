@@ -14,8 +14,8 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
     public void performAction() {
         // TODO implement action body
         WizardDescriptor.Panel currentPanel = iterator.current();
-        if (currentPanel instanceof workflowWizardPanel1)
-            ((workflowWizardPanel1)currentPanel).executeStep();
+        if (currentPanel instanceof workflowWizardPanelBase)
+            ((workflowWizardPanelBase)currentPanel).executeStep();
     }
     
     public String getName() {

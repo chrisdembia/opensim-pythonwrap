@@ -45,9 +45,9 @@ public class VisibilityEditorPanel extends AbstractEditorPanel implements Change
     vtkProperty     saveProperty;
     
     /** Creates new form VisibilityJDialog */
-    public VisibilityEditorPanel( OpenSimObject object, OpenSimCanvas canvas) {
+    public VisibilityEditorPanel( OpenSimObject object, ModelWindowVTKTopComponent gfxwindow) {
         this.object = object;
-        this.canvas = canvas;
+        this.canvas = gfxwindow.getCanvas();
         initComponents();
         saveProperty = new vtkProperty();
         canvas.getObjectProperties(object, saveProperty);

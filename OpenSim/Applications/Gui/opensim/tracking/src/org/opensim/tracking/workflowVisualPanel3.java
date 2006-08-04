@@ -1,8 +1,9 @@
 package org.opensim.tracking;
 
-import javax.swing.JPanel;
+import org.opensim.modeling.ArrayDouble;
+import org.opensim.modeling.SimmMarkerPlacementParams;
 
-public final class workflowVisualPanel3 extends JPanel {
+public final class workflowVisualPanel3 extends workflowVisualPanelBase {
     
     /** Creates new form workflowVisualPanel3 */
     public workflowVisualPanel3() {
@@ -22,22 +23,19 @@ public final class workflowVisualPanel3 extends JPanel {
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
         jSolveStaticPosePanel = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jStaticTrialTextField = new javax.swing.JTextField();
+        jStaticTrialBrowseButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jStaticFromTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jStaticToTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        jCoordinatesFileTextField = new javax.swing.JTextField();
+        jMarkersFileTextField = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
         jOutputFilesPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
@@ -51,7 +49,7 @@ public final class workflowVisualPanel3 extends JPanel {
 
         jSolveStaticPosePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Static Pose"));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton1, "Browse...");
+        org.openide.awt.Mnemonics.setLocalizedText(jStaticTrialBrowseButton, "Browse...");
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Static trial file");
 
@@ -63,13 +61,9 @@ public final class workflowVisualPanel3 extends JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel5, "Markers file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel6, "Motion file");
-
         org.openide.awt.Mnemonics.setLocalizedText(jButton2, "Browse...");
 
         org.openide.awt.Mnemonics.setLocalizedText(jButton3, "Browse...");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jButton4, "Browse...");
 
         org.jdesktop.layout.GroupLayout jSolveStaticPosePanelLayout = new org.jdesktop.layout.GroupLayout(jSolveStaticPosePanel);
         jSolveStaticPosePanel.setLayout(jSolveStaticPosePanelLayout);
@@ -81,66 +75,55 @@ public final class workflowVisualPanel3 extends JPanel {
                         .addContainerGap()
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jStaticFromTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel3)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jStaticToTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jSolveStaticPosePanelLayout.createSequentialGroup()
                         .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jSolveStaticPosePanelLayout.createSequentialGroup()
                                 .add(jLabel1)
                                 .add(13, 13, 13)
-                                .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(jStaticTrialTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 147, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jSolveStaticPosePanelLayout.createSequentialGroup()
                                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel4)
-                                    .add(jLabel6)
                                     .add(jLabel5))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jTextField4)
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jSolveStaticPosePanelLayout.createSequentialGroup()
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jTextField6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextField5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))))
+                                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                    .add(jCoordinatesFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jButton4)
-                            .add(jButton3)
-                            .add(jButton2)
-                            .add(jButton1))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jButton3, 0, 0, Short.MAX_VALUE)
+                            .add(jButton2, 0, 0, Short.MAX_VALUE)
+                            .add(jStaticTrialBrowseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, Short.MAX_VALUE))))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jSolveStaticPosePanelLayout.setVerticalGroup(
             jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jSolveStaticPosePanelLayout.createSequentialGroup()
                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton1)
                     .add(jLabel1)
-                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jStaticTrialTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jStaticTrialBrowseButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jStaticToTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel3)
-                    .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jStaticFromTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(15, 15, 15)
                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
-                    .add(jButton2)
-                    .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jCoordinatesFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButton2))
                 .add(14, 14, 14)
                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton3)
-                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel5))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 15, Short.MAX_VALUE)
-                .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel6)
-                    .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton4))
-                .addContainerGap())
+                    .add(jLabel5)
+                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButton3)))
         );
 
         jOutputFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
@@ -152,16 +135,17 @@ public final class workflowVisualPanel3 extends JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel9, "Save");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox1, "SIMM jnt file");
+        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox1, "SIMM .jnt");
         jCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox2, "Markers xml file");
+        jCheckBox2.setActionCommand("Markers.xml");
         jCheckBox2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jCheckBox2.setLabel("Markers.xml");
         jCheckBox2.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox3, "Solved SIMM motion file");
         jCheckBox3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jCheckBox3.setLabel("Solved.mot");
         jCheckBox3.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         org.jdesktop.layout.GroupLayout jOutputFilesPanelLayout = new org.jdesktop.layout.GroupLayout(jOutputFilesPanel);
@@ -174,22 +158,22 @@ public final class workflowVisualPanel3 extends JPanel {
                         .add(jLabel8)
                         .add(12, 12, 12)
                         .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, jOutputFilesPanelLayout.createSequentialGroup()
-                            .add(jLabel7)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 173, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(jButton5))
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, jOutputFilesPanelLayout.createSequentialGroup()
-                            .add(jLabel9)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(jCheckBox1)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(jCheckBox2)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(jCheckBox3))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .add(jOutputFilesPanelLayout.createSequentialGroup()
+                        .add(jLabel7)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 178, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(38, 38, 38))
+                    .add(jOutputFilesPanelLayout.createSequentialGroup()
+                        .add(jLabel9)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jCheckBox1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jCheckBox2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jCheckBox3)))
+                .addContainerGap())
         );
         jOutputFilesPanelLayout.setVerticalGroup(
             jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -214,7 +198,7 @@ public final class workflowVisualPanel3 extends JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jOutputFilesPanel, 0, 292, Short.MAX_VALUE)
             .add(jSolveStaticPosePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -223,37 +207,52 @@ public final class workflowVisualPanel3 extends JPanel {
                 .add(jSolveStaticPosePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    void updatePanel(WorkflowDescriptor aDescriptor) {
+        SimmMarkerPlacementParams params = aDescriptor.getSubject().getMarkerPlacementParams();
+        jStaticTrialTextField.setText(params.getStaticPoseFilename());  //trc file of static trial
+        jStaticTrialTextField.setToolTipText(params.getPropertySet().get("marker_trial").getComment());
+        ArrayDouble timeRange = params.getTimeRange();
+        if (timeRange.getSize()==2){
+            jStaticFromTextField.setText(String.valueOf(timeRange.getitem(0)));  // from time in trc
+            jStaticToTextField.setText(String.valueOf(timeRange.getitem(1)));  // to time in trc
+        }
+        jCoordinatesFileTextField.setText(params.getCoordinateFileName());  // Coordinate file to init Single frame IK
+        jCoordinatesFileTextField.setToolTipText(params.getPropertySet().get("coordinate_trial").getComment());
+        jMarkersFileTextField.setText("");      // Extra markers
+        
+    }
+
+    void updateWorkflow(WorkflowDescriptor descriptor) {
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JTextField jCoordinatesFileTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jMarkersFileTextField;
     private javax.swing.JPanel jOutputFilesPanel;
     private javax.swing.JPanel jSolveStaticPosePanel;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jStaticFromTextField;
+    private javax.swing.JTextField jStaticToTextField;
+    private javax.swing.JButton jStaticTrialBrowseButton;
+    private javax.swing.JTextField jStaticTrialTextField;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables

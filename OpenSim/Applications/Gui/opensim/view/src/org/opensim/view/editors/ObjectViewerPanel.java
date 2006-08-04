@@ -28,6 +28,7 @@ package org.opensim.view.editors;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.OpenSimCanvas;
 
 /**
@@ -37,10 +38,10 @@ import org.opensim.view.OpenSimCanvas;
 public class ObjectViewerPanel extends JPanel {
     private AbstractEditorPanel editorPanel;
     /** Creates a new instance of ObjectViewerPanel */
-    public ObjectViewerPanel(OpenSimObject object, boolean editable, OpenSimCanvas canvas) {
+    public ObjectViewerPanel(OpenSimObject object, boolean editable, ModelWindowVTKTopComponent owner) {
       this.setLayout(new BorderLayout());
       add(new ObjectPropertyViewerPanel(object, false), BorderLayout.SOUTH);
-      setEditorPanel(new VisibilityEditorPanel(object, canvas));
+      setEditorPanel(new VisibilityEditorPanel(object, owner));
       add(getEditorPanel(), BorderLayout.NORTH);
     }
 

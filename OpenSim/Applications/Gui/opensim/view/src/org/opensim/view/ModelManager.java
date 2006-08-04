@@ -19,7 +19,7 @@ import org.opensim.modeling.SimmModel;
  *
  * @author ken
  */
-public class ModelManager implements ExplorerManager.Provider {
+public final class ModelManager implements ExplorerManager.Provider {
     
     private static ModelManager _instance = null;
     

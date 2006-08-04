@@ -2,7 +2,7 @@ package org.opensim.tracking;
 
 import javax.swing.JPanel;
 
-public final class workflowVisualPanel4 extends JPanel {
+public final class workflowVisualPanel4 extends workflowVisualPanelBase {
     
     /** Creates new form workflowVisualPanel4 */
     public workflowVisualPanel4() {
@@ -23,19 +23,17 @@ public final class workflowVisualPanel4 extends JPanel {
     private void initComponents() {
         jModelSpecPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jModelNameTextField = new javax.swing.JTextField();
+        jModelBrowseButton = new javax.swing.JButton();
         jModelAddonForIKPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jMarkersFileTextField = new javax.swing.JTextField();
+        jMarkersBrowseButton = new javax.swing.JButton();
+        jMarkersEditButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jTrialSelectionPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
         jLabel4 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
@@ -50,6 +48,8 @@ public final class workflowVisualPanel4 extends JPanel {
         jTextField8 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
         jOutputPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
@@ -60,7 +60,7 @@ public final class workflowVisualPanel4 extends JPanel {
         jModelSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Model specification"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Model file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton1, "Browse...");
+        org.openide.awt.Mnemonics.setLocalizedText(jModelBrowseButton, "Browse...");
 
         org.jdesktop.layout.GroupLayout jModelSpecPanelLayout = new org.jdesktop.layout.GroupLayout(jModelSpecPanel);
         jModelSpecPanel.setLayout(jModelSpecPanelLayout);
@@ -70,27 +70,27 @@ public final class workflowVisualPanel4 extends JPanel {
                 .addContainerGap()
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jModelNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton1)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .add(jModelBrowseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         jModelSpecPanelLayout.setVerticalGroup(
             jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jModelSpecPanelLayout.createSequentialGroup()
                 .add(jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton1))
+                    .add(jModelNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jModelBrowseButton))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jModelAddonForIKPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Model adjustments for IK"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Markers");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton2, "Browse...");
+        org.openide.awt.Mnemonics.setLocalizedText(jMarkersBrowseButton, "Browse...");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton3, "Edit...");
+        org.openide.awt.Mnemonics.setLocalizedText(jMarkersEditButton, "Edit...");
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Coordinates");
 
@@ -101,48 +101,37 @@ public final class workflowVisualPanel4 extends JPanel {
         jModelAddonForIKPanelLayout.setHorizontalGroup(
             jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jModelAddonForIKPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel3)
                     .add(jLabel2))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                    .add(jTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+                .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jTextField3)
+                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jButton4)
-                    .add(jModelAddonForIKPanelLayout.createSequentialGroup()
-                        .add(jButton2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton3)))
-                .addContainerGap())
+                .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jButton4, 0, 0, Short.MAX_VALUE)
+                    .add(jMarkersBrowseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jMarkersEditButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jModelAddonForIKPanelLayout.setVerticalGroup(
             jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jModelAddonForIKPanelLayout.createSequentialGroup()
                 .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
-                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton2)
-                    .add(jButton3))
+                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jMarkersBrowseButton)
+                    .add(jMarkersEditButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
-                    .add(jButton4)
-                    .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButton4)))
         );
 
         jTrialSelectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Trials to solve"));
-        jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createTitledBorder("Available trials"));
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Static Trial ", "Trial One", "Trial Two" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jList1);
-
         org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "Trial file");
 
         org.openide.awt.Mnemonics.setLocalizedText(jButton5, "Browse...");
@@ -159,16 +148,18 @@ public final class workflowVisualPanel4 extends JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel9, "Ground Reaction Smoothing ");
 
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel11, "Select trial");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Static trial", "trial 1", "trial 2" }));
+
         org.jdesktop.layout.GroupLayout jTrialSelectionPanelLayout = new org.jdesktop.layout.GroupLayout(jTrialSelectionPanel);
         jTrialSelectionPanel.setLayout(jTrialSelectionPanelLayout);
         jTrialSelectionPanelLayout.setHorizontalGroup(
             jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jTrialSelectionPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 104, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jTrialSelectionPanelLayout.createSequentialGroup()
-                        .add(36, 36, 36)
+                        .add(24, 24, 24)
                         .add(jLabel6)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -177,41 +168,44 @@ public final class workflowVisualPanel4 extends JPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jTrialSelectionPanelLayout.createSequentialGroup()
-                        .add(12, 12, 12)
-                        .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jTrialSelectionPanelLayout.createSequentialGroup()
-                                .add(jLabel4)
+                        .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jTrialSelectionPanelLayout.createSequentialGroup()
+                                .add(jLabel5)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jTextField5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jTrialSelectionPanelLayout.createSequentialGroup()
+                                .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel8)
+                                    .add(jLabel9))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jButton5))
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTrialSelectionPanelLayout.createSequentialGroup()
-                                .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jTrialSelectionPanelLayout.createSequentialGroup()
-                                        .add(jLabel5)
-                                        .add(9, 9, 9)
-                                        .add(jTextField5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTrialSelectionPanelLayout.createSequentialGroup()
-                                        .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(jLabel8)
-                                            .add(jLabel9))
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                            .add(jTextField9, 0, 0, Short.MAX_VALUE)
-                                            .add(jTextField8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
-                                        .add(26, 26, 26)))
+                                .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(jTextField9, 0, 0, Short.MAX_VALUE)
+                                    .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jTrialSelectionPanelLayout.createSequentialGroup()
+                                .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel11)
+                                    .add(jLabel4))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jButton6)))))
-                .addContainerGap())
+                                .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jComboBox1, 0, 148, Short.MAX_VALUE))))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jButton6, 0, 0, Short.MAX_VALUE)
+                            .add(jButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .add(71, 71, 71))
         );
         jTrialSelectionPanelLayout.setVerticalGroup(
             jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
             .add(jTrialSelectionPanelLayout.createSequentialGroup()
                 .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel11)
+                    .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
+                .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
-                    .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton5))
+                    .add(jButton5)
+                    .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(5, 5, 5)
                 .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
@@ -220,9 +214,9 @@ public final class workflowVisualPanel4 extends JPanel {
                     .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel5)
                     .add(jButton6)
-                    .add(jLabel5))
+                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
@@ -230,8 +224,7 @@ public final class workflowVisualPanel4 extends JPanel {
                 .add(4, 4, 4)
                 .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel9)
-                    .add(jTextField9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .add(jTextField9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
 
         jOutputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
@@ -243,7 +236,7 @@ public final class workflowVisualPanel4 extends JPanel {
         jCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox2, "include other data from input motion file ");
+        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox2, "include other data from motion file ");
         jCheckBox2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jCheckBox2.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
@@ -252,19 +245,19 @@ public final class workflowVisualPanel4 extends JPanel {
         jOutputPanelLayout.setHorizontalGroup(
             jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jOutputPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .add(jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jOutputPanelLayout.createSequentialGroup()
                         .add(jLabel10)
+                        .add(12, 12, 12)
+                        .add(jTextField10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 136, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 227, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 46, Short.MAX_VALUE)
-                        .add(jButton7))
+                        .add(jButton7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jOutputPanelLayout.createSequentialGroup()
+                        .addContainerGap()
                         .add(jCheckBox1)
-                        .add(40, 40, 40)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jCheckBox2)))
-                .addContainerGap())
+                .add(19, 19, 19))
         );
         jOutputPanelLayout.setVerticalGroup(
             jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -276,48 +269,48 @@ public final class workflowVisualPanel4 extends JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jCheckBox1)
-                    .add(jCheckBox2)))
+                    .add(jCheckBox2))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jModelSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jModelAddonForIKPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jTrialSelectionPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jModelSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jModelAddonForIKPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTrialSelectionPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(jModelSpecPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(jModelSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jModelAddonForIKPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jTrialSelectionPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -326,14 +319,15 @@ public final class workflowVisualPanel4 extends JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList1;
+    private javax.swing.JButton jMarkersBrowseButton;
+    private javax.swing.JButton jMarkersEditButton;
+    private javax.swing.JTextField jMarkersFileTextField;
     private javax.swing.JPanel jModelAddonForIKPanel;
+    private javax.swing.JButton jModelBrowseButton;
+    private javax.swing.JTextField jModelNameTextField;
     private javax.swing.JPanel jModelSpecPanel;
     private javax.swing.JPanel jOutputPanel;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
@@ -343,6 +337,11 @@ public final class workflowVisualPanel4 extends JPanel {
     private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel jTrialSelectionPanel;
     // End of variables declaration//GEN-END:variables
+    void updateWorkflow(WorkflowDescriptor descriptor) {
+    }
+
+    void updatePanel(WorkflowDescriptor aDescriptor) {
+    }
     
 }
 

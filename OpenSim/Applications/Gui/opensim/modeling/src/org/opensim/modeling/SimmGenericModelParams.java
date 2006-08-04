@@ -59,8 +59,13 @@ public class SimmGenericModelParams extends OpenSimObject {
     opensimModelJNI.SimmGenericModelParams_copyData(swigCPtr, SimmGenericModelParams.getCPtr(aGenericModelParams));
   }
 
+  public SimmModel processModel(String pathToSubject) {
+    long cPtr = opensimModelJNI.SimmGenericModelParams_processModel__SWIG_0(swigCPtr, pathToSubject);
+    return (cPtr == 0) ? null : new SimmModel(cPtr, false);
+  }
+
   public SimmModel processModel() {
-    long cPtr = opensimModelJNI.SimmGenericModelParams_processModel(swigCPtr);
+    long cPtr = opensimModelJNI.SimmGenericModelParams_processModel__SWIG_1(swigCPtr);
     return (cPtr == 0) ? null : new SimmModel(cPtr, false);
   }
 
@@ -78,6 +83,10 @@ public class SimmGenericModelParams extends OpenSimObject {
 
   public String getModelFileName() {
     return opensimModelJNI.SimmGenericModelParams_getModelFileName(swigCPtr);
+  }
+
+  public ArrayPtrsSimmMarker getMarkerSet() {
+    return new ArrayPtrsSimmMarker(opensimModelJNI.SimmGenericModelParams_getMarkerSet(swigCPtr), false);
   }
 
 }

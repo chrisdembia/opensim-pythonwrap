@@ -134,8 +134,8 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     return opensimModelJNI.SimmKinematicsEngine_replaceMarkerSet(swigCPtr, SWIGTYPE_p_SimmMarkerSet.getCPtr(aMarkerSet));
   }
 
-  public void updateMarkers(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmMarker_t aMarkerArray) {
-    opensimModelJNI.SimmKinematicsEngine_updateMarkers(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmMarker_t.getCPtr(aMarkerArray));
+  public void updateMarkers(ArrayPtrsSimmMarker aMarkerArray) {
+    opensimModelJNI.SimmKinematicsEngine_updateMarkers(swigCPtr, ArrayPtrsSimmMarker.getCPtr(aMarkerArray));
   }
 
   public void updateCoordinates(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t aCoordinateArray) {

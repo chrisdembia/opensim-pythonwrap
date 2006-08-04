@@ -40,7 +40,7 @@ public class WorkflowDescriptor {
     SimmSubject dSubject=null;
     boolean     useOwnModel=false;
     boolean     useOwnMarkers = false;
-    transient SimmModel   dGenericModel = null;
+    transient   SimmModel   dGenericModel = null;
     /**
      * Constructor, Creates a new instance of WorkflowDescriptor
      * 
@@ -87,6 +87,22 @@ public class WorkflowDescriptor {
     public boolean getUseOwnMarkers()
     {
         return useOwnMarkers;
+    }
+
+    void updateCachedValues() {
+        String modelFilename = dSubject.getGenericModelParams().getModelFileName();
+        setUseOwnModel(!modelFilename.equalsIgnoreCase("Unassigned"));
+        setUseOwnMarkers(dSubject.getGenericModelParams().getMarkerSet().getSize()>0);
+    }
+
+    void setSubjectFile(String fullPathToSubjectFile) {
+        SimmSubject newSubject = new SimmSubject(fullPathToSubjectFile);
+        if (newSubject!=null){
+            dSubject = newSubject;
+            updateCachedValues();
+        }
+         else
+           throw new UnsupportedOperationException("Not yet implemented");
     }
    
 }

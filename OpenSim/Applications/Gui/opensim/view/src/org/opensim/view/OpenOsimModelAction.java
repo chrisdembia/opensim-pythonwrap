@@ -38,9 +38,34 @@ public final class OpenOsimModelAction extends CallableSystemAction implements P
 
     }
 
-    public void loadModel(final String fileName) {
-           // Make the model
+    /**
+     * This is the function that does the real work of loading a model file into the GUI
+     * @param fileName is the absolute path to the file to be used.
+     * @returns true on success else failure
+     */
+    public boolean loadModel(final String fileName) {
+        boolean retValue = false;   
+        // Make the model
         SimmModel aModel = new SimmModel(fileName);
+        if (aModel == null)
+            return retValue;
+        
+        aModel.setup();
+        // Make the window
+        final ModelWindowVTKTopComponent modelWindow = new ModelWindowVTKTopComponent(aModel);
+        SwingUtilities.invokeLater(new Runnable(){
+            public void run() {
+                modelWindow.open();
+           }});
+        
+        OpenSimDB.getInstance().addObserver(modelWindow);
+        OpenSimDB.getInstance().addModel(aModel);
+        
+        retValue = true;
+        return retValue;
+    }
+    
+   public void loadModel(SimmModel aModel) {
         aModel.setup();
         // Make the window
         final ModelWindowVTKTopComponent modelWindow = new ModelWindowVTKTopComponent(aModel);

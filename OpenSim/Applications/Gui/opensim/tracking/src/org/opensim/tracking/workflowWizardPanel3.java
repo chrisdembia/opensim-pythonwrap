@@ -2,16 +2,26 @@ package org.opensim.tracking;
 
 import java.awt.Component;
 import javax.swing.event.ChangeListener;
-import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
+import org.opensim.modeling.ArrayDouble;
+import org.opensim.modeling.ArrayPtrsSimmMarker;
+import org.opensim.modeling.SimmIKSolverImpl;
+import org.opensim.modeling.SimmIKTrialParams;
+import org.opensim.modeling.SimmInverseKinematicsTarget;
+import org.opensim.modeling.SimmMarkerData;
+import org.opensim.modeling.SimmMarkerPlacementParams;
+import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.SimmSubject;
+import org.opensim.modeling.Storage;
+import org.opensim.view.OpenOsimModelAction;
 
-public class workflowWizardPanel3 implements WizardDescriptor.Panel {
+public class workflowWizardPanel3  extends workflowWizardPanelBase{
     
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
-    private Component component;
+    private workflowVisualPanelBase component;
     
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
@@ -71,8 +81,111 @@ public class workflowWizardPanel3 implements WizardDescriptor.Panel {
     // settings object will be the WizardDescriptor, so you can use
     // WizardDescriptor.getProperty & putProperty to store information entered
     // by the user.
-    public void readSettings(Object settings) {}
+    public void readSettings(Object settings) {
+        descriptor = (WorkflowDescriptor) settings;
+        component.updatePanel(descriptor);
+    }
     public void storeSettings(Object settings) {}
+
+    boolean executeStep() {
+        /**
+         *			SimmMarkerPlacementParams& params = subject->getMarkerPlacementParams();
+			// Update markers to correspond to those specified in IKParams block
+			// end code restore
+
+			// Load the static pose marker file, and average all the
+			// frames in the user-specified time range.
+			SimmMarkerData staticPose(params.getStaticPoseFilename());
+
+			// Convert read trc fil into "common" rdStroage format
+			Storage inputStorage;
+			staticPose.makeRdStorage(inputStorage);
+
+			// Convert the marker data into the model's units.
+			Array<double> timeRange = params.getTimeRange();
+			staticPose.averageFrames(0.01, timeRange[0], timeRange[1]);
+			staticPose.convertToUnits(model->getLengthUnits());
+
+			// Delete any markers from the model that are not in the static
+			// pose marker file.
+			model->deleteUnusedMarkers(staticPose.getMarkerNames());
+
+			// SOLVE THE IK PROBLEM FOR THE STATIC POSE
+			SimmIKTrialParams options;
+			options.setStartTime(timeRange[0]);
+			options.setEndTime(timeRange[1]);
+			options.setIncludeMarkers(true);
+			// Convert read trc fil into "common" rdStroage format
+			staticPose.makeRdStorage(inputStorage);
+			// Create target
+			SimmInverseKinematicsTarget *target = new SimmInverseKinematicsTarget(*model, inputStorage);
+			// Create solver
+			SimmIKSolverImpl *ikSolver = new SimmIKSolverImpl(*target, subject->getIKParams());
+			// Solve
+			Storage	outputStorage;
+			ikSolver->solveFrames(options, inputStorage, outputStorage);
+
+			// MOVE THE MARKERS TO CORRESPOND TO EXPERIMENTAL LOCATIONS
+			model->moveMarkersToCloud(outputStorage);
+                        */
+            // Call scaling with the model and display it in GUI
+            SimmSubject subject = descriptor.getSubject();
+            SimmModel model = descriptor.getModel();
+            SimmMarkerPlacementParams params = subject.getMarkerPlacementParams();
+            ArrayPtrsSimmMarker aMarkerArray=params.getMarkerSet();
+            model.updateMarkers(aMarkerArray); // This should be markerSet, could this work using proxy classes?
+            SimmMarkerData staticPose = new SimmMarkerData(subject.getPathToSubject()+params.getStaticPoseFilename());
+            // Convert read trc fil into "common" rdStroage format
+            Storage inputStorage = new Storage();
+            staticPose.makeRdStorage(inputStorage);
+            ArrayDouble timeRange = params.getTimeRange();
+            staticPose.averageFrames(0.01, timeRange.getitem(0), timeRange.getitem(1));
+            staticPose.convertToUnits(model.getLengthUnits());
+
+            // Delete any markers from the model that are not in the static
+            // pose marker file.
+            model.deleteUnusedMarkers(staticPose.getMarkerNames());
+            SimmIKTrialParams options = new SimmIKTrialParams();
+            options.setStartTime(timeRange.getitem(0));
+            options.setEndTime(timeRange.getitem(1));
+            options.setIncludeMarkers(true);
+            // Convert read trc fil into "common" rdStroage format
+            staticPose.makeRdStorage(inputStorage);
+            // Create target
+            SimmInverseKinematicsTarget target = new SimmInverseKinematicsTarget(model, inputStorage);
+            // Create solver
+            SimmIKSolverImpl ikSolver = new SimmIKSolverImpl(target, subject.getIKParams());
+            // Solve
+            Storage	outputStorage = new Storage();
+            ikSolver.solveFrames(options, inputStorage, outputStorage);
+
+            // MOVE THE MARKERS TO CORRESPOND TO EXPERIMENTAL LOCATIONS
+            model.moveMarkersToCloud(outputStorage);
+            
+            String userSpecifiedName = params.getOutputModelFileName();
+            String localName;
+            if (userSpecifiedName.equalsIgnoreCase("Unassigned")){
+                 localName = FileUtils.getNextAvailableName(subject.getPathToSubject(), 
+                                                                   subject.getGenericModelParams().getModelFileName()+"MP",
+                                                                   "xml");
+            }
+            else
+                localName= userSpecifiedName;
+            
+            model.setName(model.getName()+"- Markers");
+            params.setOutputModelFileName(localName);
+            params.writeOutputFiles(model, outputStorage, subject.getPathToSubject());
+            try {
+                // Display original model
+                ((OpenOsimModelAction) OpenOsimModelAction.findObject(
+                        Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+localName);
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+            component.setExecuted(true);
+            return true;
+    }
+
     
 }
 

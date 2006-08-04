@@ -20,6 +20,7 @@
                         <file name="org-opensim-view-nodes-EditFromNodeAction.instance"/>
             </folder>
         <folder name="Window">
+            <file name="org-netbeans-core-actions-ViewRuntimeTabAction.instance_hidden"/>
             <file name="org-opensim-view-BottomPanelAction.instance"/>
             <file name="org-opensim-view-ExplorerAction.instance"/>
             </folder>
@@ -50,9 +51,10 @@
             <file name="org-opensim-tracking-TrackingWorkflowAction.shadow_hidden"/>
         </folder>
         <folder name="Tracking">
-            <file name="org-opensim-tracking-TrackingWorkflowAction.shadow" url="org-opensim-tracking-TrackingWorkflowAction_1.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
+            <file name="org-opensim-tracking-TrackingWorkflowAction.instance" url="org-opensim-tracking-TrackingWorkflowAction.instance">
+                <attr name="instanceClass" stringvalue="org.opensim.tracking.TrackingWorkflowAction"/>
             </file>
+            <file name="org-opensim-view-LoadDemoModelAction.instance"/>
         </folder>
         <file name="View_hidden"/>
         <folder name="File">

@@ -2,7 +2,7 @@ package org.opensim.tracking;
 
 import javax.swing.JPanel;
 
-public final class workflowVisualPanel8 extends JPanel {
+public final class workflowVisualPanel8 extends workflowVisualPanelBase {
     
     /** Creates new form workflowVisualPanel8 */
     public workflowVisualPanel8() {
@@ -46,13 +46,12 @@ public final class workflowVisualPanel8 extends JPanel {
         jModelSpecPanelLayout.setHorizontalGroup(
             jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jModelSpecPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 193, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 183, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton1)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jModelSpecPanelLayout.setVerticalGroup(
             jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -65,7 +64,7 @@ public final class workflowVisualPanel8 extends JPanel {
         );
 
         jAnalysisPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Analyses to perform"));
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Additional libraries to load");
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Additional libraries");
 
         org.openide.awt.Mnemonics.setLocalizedText(jButton2, "Browse...");
 
@@ -82,13 +81,14 @@ public final class workflowVisualPanel8 extends JPanel {
                     .add(jAnalysisPanelLayout.createSequentialGroup()
                         .add(jLabel3)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(jLabel2))
-                .add(13, 13, 13)
-                .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton2)
-                .addContainerGap(33, Short.MAX_VALUE))
+                        .add(jButton3))
+                    .add(jAnalysisPanelLayout.createSequentialGroup()
+                        .add(jLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 173, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jAnalysisPanelLayout.setVerticalGroup(
             jAnalysisPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -125,8 +125,8 @@ public final class workflowVisualPanel8 extends JPanel {
                 .add(26, 26, 26)
                 .add(jRadioButton2)
                 .add(42, 42, 42)
-                .add(jButton4)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .add(jButton4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(15, 15, 15))
         );
         jInvestigationPanelLayout.setVerticalGroup(
             jInvestigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -140,13 +140,12 @@ public final class workflowVisualPanel8 extends JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jInvestigationPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jModelSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jAnalysisPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jAnalysisPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jInvestigationPanel, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jModelSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -177,6 +176,11 @@ public final class workflowVisualPanel8 extends JPanel {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+    void updateWorkflow(WorkflowDescriptor descriptor) {
+    }
+
+    void updatePanel(WorkflowDescriptor aDescriptor) {
+    }
     
 }
 

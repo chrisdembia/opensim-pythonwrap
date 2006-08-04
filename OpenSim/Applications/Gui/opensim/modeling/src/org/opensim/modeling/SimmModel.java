@@ -54,6 +54,11 @@ public class SimmModel extends Model {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public SimmModel clone() {
+    long cPtr = opensimModelJNI.SimmModel_clone(swigCPtr);
+    return (cPtr == 0) ? null : new SimmModel(cPtr, false);
+  }
+
   public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
     long cPtr = opensimModelJNI.SimmModel_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
@@ -105,8 +110,8 @@ public class SimmModel extends Model {
     return opensimModelJNI.SimmModel_replaceMarkerSet(swigCPtr, SWIGTYPE_p_SimmMarkerSet.getCPtr(aMarkerSet));
   }
 
-  public void updateMarkers(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmMarker_t aMarkerArray) {
-    opensimModelJNI.SimmModel_updateMarkers(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmMarker_t.getCPtr(aMarkerArray));
+  public void updateMarkers(ArrayPtrsSimmMarker aMarkerArray) {
+    opensimModelJNI.SimmModel_updateMarkers(swigCPtr, ArrayPtrsSimmMarker.getCPtr(aMarkerArray));
   }
 
   public void updateCoordinates(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t aCoordinateArray) {

@@ -2,7 +2,7 @@ package org.opensim.tracking;
 
 import javax.swing.JPanel;
 
-public final class workflowVisualPanel5 extends JPanel {
+public final class workflowVisualPanel5 extends workflowVisualPanelBase {
     
     /** Creates new form workflowVisualPanel5 */
     public workflowVisualPanel5() {
@@ -47,11 +47,11 @@ public final class workflowVisualPanel5 extends JPanel {
                     .add(jModelSpecPanelLayout.createSequentialGroup()
                         .add(jLabel1)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 224, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton1))
+                        .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jCheckBox1))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jModelSpecPanelLayout.setVerticalGroup(
             jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -88,6 +88,11 @@ public final class workflowVisualPanel5 extends JPanel {
     private javax.swing.JPanel jModelSpecPanel;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+    void updateWorkflow(WorkflowDescriptor descriptor) {
+    }
+
+    void updatePanel(WorkflowDescriptor aDescriptor) {
+    }
     
 }
 

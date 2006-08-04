@@ -2,17 +2,25 @@ package org.opensim.tracking;
 
 import java.awt.Component;
 import javax.swing.event.ChangeListener;
-import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
+import org.opensim.modeling.ScaleSet;
+import org.opensim.modeling.ScalerInterface;
+import org.opensim.modeling.SimmBody;
+import org.opensim.modeling.SimmKinematicsEngine;
+import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.SimmScalerImpl;
+import org.opensim.modeling.SimmScalingParams;
+import org.opensim.modeling.SimmSubject;
+import org.opensim.view.OpenOsimModelAction;
 
-public class workflowWizardPanel2 implements WizardDescriptor.Panel {
+public class workflowWizardPanel2  extends workflowWizardPanelBase {
     
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
     private workflowVisualPanel2 component;
-    
+     
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
     // but never displayed, or not all panels are displayed, it is better to
@@ -72,15 +80,52 @@ public class workflowWizardPanel2 implements WizardDescriptor.Panel {
     // WizardDescriptor.getProperty & putProperty to store information entered
     // by the user.
     public void readSettings(Object settings) {
-        WorkflowDescriptor descriptor = (WorkflowDescriptor) settings;
+        descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
     }
-    public void storeSettings(Object settings) {}
+    public void storeSettings(Object settings) {
+        descriptor = (WorkflowDescriptor) settings;
+        component.updateWorkflow(descriptor);
+    }
     
     public boolean executeStep()
     {   
         // Call scaling with the model and display it in GUI
-        return false;
+        SimmSubject subject = descriptor.getSubject();
+        SimmScalingParams params = subject.getScalingParams();
+        SimmModel model = descriptor.getModel();
+        ScalerInterface scaler = new SimmScalerImpl(model);
+        ScaleSet scaleSet = params.getScaleSet(model, subject.getPathToSubject());
+        boolean preserveMassDistribution = params.getPreserveMassDist();
+        double mass = subject.getMass();
+        boolean success = scaler.scaleModel(scaleSet,preserveMassDistribution, mass);
+        model.setName(model.getName()+"- Scaled");
+        String outputModelName = getOutputModelPath(descriptor);
+        params.setOutputModelFileName(outputModelName);
+        params.writeOutputFiles(model, subject.getPathToSubject());
+        try {
+            // Display original model
+            ((OpenOsimModelAction) OpenOsimModelAction.findObject(
+                    Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+outputModelName);
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        component.setExecuted(true);
+        return true;
     }    
+
+    private String getOutputModelPath(WorkflowDescriptor descriptor) {
+        SimmSubject subject = descriptor.getSubject();
+        SimmScalingParams params = subject.getScalingParams();
+        String userSpecifiedName = params.getOutputModelFileName();
+        if (userSpecifiedName.equalsIgnoreCase("Unassigned")){
+            String localName = FileUtils.getNextAvailableName(subject.getPathToSubject(), 
+                                                               subject.getGenericModelParams().getModelFileName(),
+                                                               "xml");
+            return localName;
+        }
+        else
+            return userSpecifiedName;
+    }
 }
 

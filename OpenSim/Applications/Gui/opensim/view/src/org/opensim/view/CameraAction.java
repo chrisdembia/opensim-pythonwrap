@@ -19,9 +19,9 @@ import org.opensim.view.base.OpenSimBaseCanvas;
 public final class CameraAction extends CallableSystemAction 
         implements LookupListener{
     
-    Lookup.Template tpl = new Lookup.Template (OpenSimCanvas.class);
+    Lookup.Template tpl = new Lookup.Template (ModelWindowVTKTopComponent.class);
     private Lookup.Result result = Utilities.actionsGlobalContext().lookup(tpl);
-    OpenSimBaseCanvas   canvas;
+    ModelWindowVTKTopComponent   tc;
     
     public CameraAction()
     {
@@ -54,10 +54,10 @@ public final class CameraAction extends CallableSystemAction
         toolbarButton.addMouseListener(new MouseAdapter(){  
               public void mousePressed(MouseEvent e) { showSettingsPopup(e); }
                private void showSettingsPopup(MouseEvent e) {
-                   if (canvas==null)
+                   if (tc==null)
                        return;
                   JPopupMenu settingsMenu = new JPopupMenu();
-                  settingsMenu.add(new CamerasMenu(canvas));
+                  settingsMenu.add(new CamerasMenu(tc.getCanvas()));
                   settingsMenu.show(toolbarButton, e.getX(), e.getY());
               }
         });
@@ -68,7 +68,7 @@ public final class CameraAction extends CallableSystemAction
         Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
         Collection c = r.allInstances();
         if (!c.isEmpty()) {
-            canvas = (OpenSimBaseCanvas) c.iterator().next();
+            tc = (ModelWindowVTKTopComponent) c.iterator().next();
         }
     }
     

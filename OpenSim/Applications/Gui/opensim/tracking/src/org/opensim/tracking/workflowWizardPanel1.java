@@ -1,28 +1,35 @@
 package org.opensim.tracking;
 
-import java.awt.Component;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.openide.WizardDescriptor;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
+import org.opensim.modeling.ScaleSet;
+import org.opensim.modeling.ScalerInterface;
+import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.SimmScalerImpl;
+import org.opensim.modeling.SimmScalingParams;
+import org.opensim.modeling.SimmSubject;
+import org.opensim.tracking.workflowWizardPanelBase;
 import org.opensim.view.OpenOsimModelAction;
 
-public class workflowWizardPanel1 implements WizardDescriptor.Panel {
+
+public class workflowWizardPanel1 extends workflowWizardPanelBase{
     
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
     private workflowVisualPanel1 component;
-    
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
     // but never displayed, or not all panels are displayed, it is better to
     // create only those which really need to be visible.
-    public Component getComponent() {
+    public workflowVisualPanel1 getComponent() {
         if (component == null) {
             component = new workflowVisualPanel1();
         }
@@ -80,16 +87,45 @@ public class workflowWizardPanel1 implements WizardDescriptor.Panel {
     // WizardDescriptor.getProperty & putProperty to store information entered
     // by the user.
     public void readSettings(Object settings) {
-        WorkflowDescriptor descriptor = (WorkflowDescriptor) settings;
+        descriptor = (WorkflowDescriptor) settings;
+        System.out.println("read settings");
+        // Update cached values
+        descriptor.updateCachedValues();
         component.updatePanel(descriptor);
     }
-    public void storeSettings(Object settings) {}
-    
+    public void storeSettings(Object settings) {
+        System.out.println("Store settings");
+    }
+    /**
+     * The meat of the panel happens in this function which is now associated to the execute button in the GUI
+     * it tries to load the model based on user input and report errors on failure.
+     */
     public boolean executeStep()
     {   
         // Load model and markers into GUI
-        OpenOsimModelAction action = (OpenOsimModelAction) OpenOsimModelAction.findObject(OpenOsimModelAction.class, true);
-        action.loadModel(component.getFullModelFile());
+        // Create a subject instance. This should be moved to the non-GUI counterpart class.
+        // Calling setSubject also creates the model in descriptor;
+        //descriptor.setSubject(new SimmSubject(component.getSubjectPath()));
+        
+        SimmSubject subject = descriptor.getSubject();
+        SimmModel model = descriptor.getModel(); 
+        if (model != null){
+            try {
+                // Display original model
+                boolean success = ((OpenOsimModelAction) OpenOsimModelAction.findObject(
+                        Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(model.getInputFileName());
+                if (!success)
+                    component.setMessage("Model has failed to load, please check the path.");
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+                component.setMessage("Model has failed to load from file "+model.getInputFileName());
+            }
+            component.setExecuted(true);
+            
+        }
+        else
+            DialogDisplayer.getDefault().notify( 
+                    new NotifyDescriptor.Message("Generic model failed to load."));
         return true;
     }
 }

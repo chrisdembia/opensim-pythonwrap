@@ -59,16 +59,16 @@ public class SimmIKParams extends OpenSimObject {
     opensimModelJNI.SimmIKParams_copyData(swigCPtr, SimmIKParams.getCPtr(aIKParams));
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmMarker_t getMarkerSet() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmMarker_t(opensimModelJNI.SimmIKParams_getMarkerSet(swigCPtr), false);
+  public ArrayPtrsSimmMarker getMarkerSet() {
+    return new ArrayPtrsSimmMarker(opensimModelJNI.SimmIKParams_getMarkerSet(swigCPtr), false);
   }
 
   public int getNumIKTrials() {
     return opensimModelJNI.SimmIKParams_getNumIKTrials(swigCPtr);
   }
 
-  public SWIGTYPE_p_SimmIKTrialParams getTrialParams(int aIndex) {
-    return new SWIGTYPE_p_SimmIKTrialParams(opensimModelJNI.SimmIKParams_getTrialParams(swigCPtr, aIndex), false);
+  public SimmIKTrialParams getTrialParams(int aIndex) {
+    return new SimmIKTrialParams(opensimModelJNI.SimmIKParams_getTrialParams(swigCPtr, aIndex), false);
   }
 
   public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t getCoordinateSet() {

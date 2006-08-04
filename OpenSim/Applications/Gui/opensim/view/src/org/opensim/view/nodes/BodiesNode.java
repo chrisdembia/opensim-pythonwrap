@@ -20,14 +20,16 @@ import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmModelIterator;
 
 /** Node class to wrap SimmModel's collection of SimmBodies */
-public class BodiesNode extends ModelNode<SimmModel> {
+public class BodiesNode extends OpenSimNode {
     boolean topological=false;
+    SimmModel   m;
     private static ResourceBundle bundle = NbBundle.getBundle(BodiesNode.class);
 
     public BodiesNode(SimmModel m) {
-        super(m);
+        super();
         setDisplayName("Bodies");
-
+        this.m = m;
+        
         Stack<BodyNode> stack = new Stack<BodyNode>();
 
         SimmModelIterator i = new SimmModelIterator(m);
@@ -58,7 +60,7 @@ public class BodiesNode extends ModelNode<SimmModel> {
         //getChildren().add(new MyChildren(m).getNodes());
     }
     public Node cloneNode() {
-        return new BodiesNode(_object);
+        return new BodiesNode(m);
     }
     
     public Action[] getActions(boolean context) {

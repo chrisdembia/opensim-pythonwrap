@@ -67,32 +67,48 @@ public class SimmMarkerPlacementParams extends OpenSimObject {
     return opensimModelJNI.SimmMarkerPlacementParams_isDefault(swigCPtr);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmMarker_t getMarkerSet() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmMarker_t(opensimModelJNI.SimmMarkerPlacementParams_getMarkerSet(swigCPtr), false);
+  public ArrayPtrsSimmMarker getMarkerSet() {
+    return new ArrayPtrsSimmMarker(opensimModelJNI.SimmMarkerPlacementParams_getMarkerSet(swigCPtr), false);
   }
 
-  public SWIGTYPE_p_std__string getStaticPoseFilename() {
-    return new SWIGTYPE_p_std__string(opensimModelJNI.SimmMarkerPlacementParams_getStaticPoseFilename(swigCPtr), false);
+  public String getStaticPoseFilename() {
+    return opensimModelJNI.SimmMarkerPlacementParams_getStaticPoseFilename(swigCPtr);
   }
 
-  public void getTimeRange(SWIGTYPE_p_double startTime, SWIGTYPE_p_double endTime) {
-    opensimModelJNI.SimmMarkerPlacementParams_getTimeRange(swigCPtr, SWIGTYPE_p_double.getCPtr(startTime), SWIGTYPE_p_double.getCPtr(endTime));
+  public ArrayDouble getTimeRange() {
+    return new ArrayDouble(opensimModelJNI.SimmMarkerPlacementParams_getTimeRange(swigCPtr), true);
   }
 
-  public SWIGTYPE_p_std__string getCoordinateFileName() {
-    return new SWIGTYPE_p_std__string(opensimModelJNI.SimmMarkerPlacementParams_getCoordinateFileName(swigCPtr), false);
+  public String getCoordinateFileName() {
+    return opensimModelJNI.SimmMarkerPlacementParams_getCoordinateFileName(swigCPtr);
   }
 
   public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t getCoordinateSet() {
     return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t(opensimModelJNI.SimmMarkerPlacementParams_getCoordinateSet(swigCPtr), false);
   }
 
+  public boolean processModel(SimmModel aModel, String path) {
+    return opensimModelJNI.SimmMarkerPlacementParams_processModel(swigCPtr, SimmModel.getCPtr(aModel), path);
+  }
+
   public void addCoordinate(SimmCoordinate aCoordinate) {
     opensimModelJNI.SimmMarkerPlacementParams_addCoordinate(swigCPtr, SimmCoordinate.getCPtr(aCoordinate));
   }
 
+  public void writeOutputFiles(SimmModel aModel, Storage aStorage, String path) {
+    opensimModelJNI.SimmMarkerPlacementParams_writeOutputFiles__SWIG_0(swigCPtr, SimmModel.getCPtr(aModel), Storage.getCPtr(aStorage), path);
+  }
+
   public void writeOutputFiles(SimmModel aModel, Storage aStorage) {
-    opensimModelJNI.SimmMarkerPlacementParams_writeOutputFiles(swigCPtr, SimmModel.getCPtr(aModel), Storage.getCPtr(aStorage));
+    opensimModelJNI.SimmMarkerPlacementParams_writeOutputFiles__SWIG_1(swigCPtr, SimmModel.getCPtr(aModel), Storage.getCPtr(aStorage));
+  }
+
+  public String getOutputModelFileName() {
+    return opensimModelJNI.SimmMarkerPlacementParams_getOutputModelFileName(swigCPtr);
+  }
+
+  public void setOutputModelFileName(String aOutputModelFileName) {
+    opensimModelJNI.SimmMarkerPlacementParams_setOutputModelFileName(swigCPtr, aOutputModelFileName);
   }
 
 }

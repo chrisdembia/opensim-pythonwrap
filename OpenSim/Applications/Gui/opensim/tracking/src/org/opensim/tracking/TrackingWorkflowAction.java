@@ -9,6 +9,9 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 
+/**
+ * A Class responsible for constructing and showing the tracking workflow wizard
+ */
 public final class TrackingWorkflowAction extends CallableSystemAction {
     
     public void performAction() {
@@ -23,10 +26,12 @@ public final class TrackingWorkflowAction extends CallableSystemAction {
         wizardDescriptor.setTitleFormat(new MessageFormat("{0} ({1})"));
         wizardDescriptor.setTitle("OpenSim Tracking Workflow");
          //wizardDescriptor.putProperty("WizardPanel_helpDisplayed",Boolean.TRUE);
+        
+        // Add an Execute button to the bottom panel
         JButton executeButton = new JButton(new ExecuteWorkflowStepAction(iterator));
         wizardDescriptor.setAdditionalOptions(new Object[] {executeButton});
         Dialog dialog = DialogDisplayer.getDefault().createDialog(wizardDescriptor);
-        dialog.setResizable(false);
+        dialog.setResizable(true);
         dialog.setVisible(true);
         dialog.toFront();
         boolean cancelled = wizardDescriptor.getValue() != WizardDescriptor.FINISH_OPTION;

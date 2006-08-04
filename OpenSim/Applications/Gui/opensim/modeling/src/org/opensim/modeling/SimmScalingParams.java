@@ -63,16 +63,20 @@ public class SimmScalingParams extends OpenSimObject {
     return opensimModelJNI.SimmScalingParams_getPreserveMassDist(swigCPtr);
   }
 
-  public ScaleSet getScaleSet(SimmModel aModel) {
-    return new ScaleSet(opensimModelJNI.SimmScalingParams_getScaleSet(swigCPtr, SimmModel.getCPtr(aModel)), false);
+  public ScaleSet getScaleSet(SimmModel aModel, String subjectDirectory) {
+    return new ScaleSet(opensimModelJNI.SimmScalingParams_getScaleSet__SWIG_0(swigCPtr, SimmModel.getCPtr(aModel), subjectDirectory), false);
   }
 
   public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t getScales() {
     return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t(opensimModelJNI.SimmScalingParams_getScales(swigCPtr), false);
   }
 
+  public void writeOutputFiles(SimmModel aModel, String dirToWriteOutputFiles) {
+    opensimModelJNI.SimmScalingParams_writeOutputFiles__SWIG_0(swigCPtr, SimmModel.getCPtr(aModel), dirToWriteOutputFiles);
+  }
+
   public void writeOutputFiles(SimmModel aModel) {
-    opensimModelJNI.SimmScalingParams_writeOutputFiles(swigCPtr, SimmModel.getCPtr(aModel));
+    opensimModelJNI.SimmScalingParams_writeOutputFiles__SWIG_1(swigCPtr, SimmModel.getCPtr(aModel));
   }
 
   public static void registerTypes() {
@@ -89,6 +93,82 @@ public class SimmScalingParams extends OpenSimObject {
 
   public void addScale(Scale aScale) {
     opensimModelJNI.SimmScalingParams_addScale(swigCPtr, Scale.getCPtr(aScale));
+  }
+
+  public SWIGTYPE_p_OpenSim__ArrayPtrsTSimmMeasurement_t getMeasurementSet() {
+    return new SWIGTYPE_p_OpenSim__ArrayPtrsTSimmMeasurement_t(opensimModelJNI.SimmScalingParams_getMeasurementSet(swigCPtr), true);
+  }
+
+  public void setMeasurementSet(SWIGTYPE_p_OpenSim__ArrayPtrsTSimmMeasurement_t measurementSet) {
+    opensimModelJNI.SimmScalingParams_setMeasurementSet(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTSimmMeasurement_t.getCPtr(measurementSet));
+  }
+
+  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t getScaleSet() {
+    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t(opensimModelJNI.SimmScalingParams_getScaleSet__SWIG_1(swigCPtr), true);
+  }
+
+  public void setScaleSet(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t aScaleSet) {
+    opensimModelJNI.SimmScalingParams_setScaleSet(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t.getCPtr(aScaleSet));
+  }
+
+  public ArrayDouble getTimeRange() {
+    return new ArrayDouble(opensimModelJNI.SimmScalingParams_getTimeRange(swigCPtr), true);
+  }
+
+  public void setTimeRange(ArrayDouble timeRange) {
+    opensimModelJNI.SimmScalingParams_setTimeRange(swigCPtr, ArrayDouble.getCPtr(timeRange));
+  }
+
+  public void setPreserveMassDist(boolean preserveMassDist) {
+    opensimModelJNI.SimmScalingParams_setPreserveMassDist(swigCPtr, preserveMassDist);
+  }
+
+  public ArrayStr getScalingOrder() {
+    return new ArrayStr(opensimModelJNI.SimmScalingParams_getScalingOrder(swigCPtr), true);
+  }
+
+  public void setScalingOrder(ArrayStr scalingOrder) {
+    opensimModelJNI.SimmScalingParams_setScalingOrder(swigCPtr, ArrayStr.getCPtr(scalingOrder));
+  }
+
+  public String getMarkerFileName() {
+    return opensimModelJNI.SimmScalingParams_getMarkerFileName(swigCPtr);
+  }
+
+  public void setMarkerFileName(String aMarkerFileName) {
+    opensimModelJNI.SimmScalingParams_setMarkerFileName(swigCPtr, aMarkerFileName);
+  }
+
+  public String getOutputJointFileName() {
+    return opensimModelJNI.SimmScalingParams_getOutputJointFileName(swigCPtr);
+  }
+
+  public void setOutputJointFileName(String outputJointFileName) {
+    opensimModelJNI.SimmScalingParams_setOutputJointFileName(swigCPtr, outputJointFileName);
+  }
+
+  public String getOutputMuscleFileName() {
+    return opensimModelJNI.SimmScalingParams_getOutputMuscleFileName(swigCPtr);
+  }
+
+  public void setOutputMuscleFileName(String aOutputMuscleFileName) {
+    opensimModelJNI.SimmScalingParams_setOutputMuscleFileName(swigCPtr, aOutputMuscleFileName);
+  }
+
+  public String getOutputModelFileName() {
+    return opensimModelJNI.SimmScalingParams_getOutputModelFileName(swigCPtr);
+  }
+
+  public void setOutputModelFileName(String aOutputModelFileName) {
+    opensimModelJNI.SimmScalingParams_setOutputModelFileName(swigCPtr, aOutputModelFileName);
+  }
+
+  public String getOutputScaleFileName() {
+    return opensimModelJNI.SimmScalingParams_getOutputScaleFileName(swigCPtr);
+  }
+
+  public void setOutputScaleFileName(String aOutputScaleFileName) {
+    opensimModelJNI.SimmScalingParams_setOutputScaleFileName(swigCPtr, aOutputScaleFileName);
   }
 
 }

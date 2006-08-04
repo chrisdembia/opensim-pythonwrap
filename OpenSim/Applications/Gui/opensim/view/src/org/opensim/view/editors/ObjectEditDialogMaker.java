@@ -29,9 +29,8 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.view.OpenSimCanvas;
+import org.opensim.view.ModelWindowVTKTopComponent;
 
 /**
  *
@@ -44,9 +43,9 @@ public class ObjectEditDialogMaker {
     /**
      * Creates a new instance of ObjectEditDialogMaker
      */
-    public ObjectEditDialogMaker(OpenSimObject object, OpenSimCanvas canvas) {
+    public ObjectEditDialogMaker(OpenSimObject object, ModelWindowVTKTopComponent owner) {
         propertiesPanel = new ObjectPropertyViewerPanel(object, false);
-        editorPanel = new VisibilityEditorPanel(object, canvas);
+        editorPanel = new VisibilityEditorPanel(object, owner);
         JPanel topDialogPanel = new JPanel();
         topDialogPanel.setLayout(new BorderLayout());
         topDialogPanel.add(editorPanel, BorderLayout.NORTH);
