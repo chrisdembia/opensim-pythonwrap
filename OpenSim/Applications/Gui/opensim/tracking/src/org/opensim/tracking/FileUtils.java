@@ -41,7 +41,7 @@ public final class FileUtils {
      * Extension is assumed to include trailing path separator char
      * String returned is the local name only and is not the full path
      */ 
-    static String getNextAvailableName(String folder, String baseName, String extension)
+    public static String getNextAvailableName(String folder, String baseName, String extension)
     {
         // Check that thae folder do exist, otherwise return the passed in name, ext
         File parentDir = new File(folder);
@@ -67,8 +67,22 @@ public final class FileUtils {
         return null;
     }
     
-    static String getNextAvailableName(String folder, String baseName)
+    public static String getNextAvailableName(String folder, String baseName)
     {
         return getNextAvailableName(folder, baseName, null);
+    }
+    /**
+     * utility method to add suffix to a file name
+     */
+    public static String addSuffix(String filenameWithExtension, String suffix) {
+           if( filenameWithExtension == null ) return null;
+            int lastDotLocation  = filenameWithExtension.lastIndexOf(".");
+            if (lastDotLocation==-1)
+                return null;
+            else
+                return filenameWithExtension.substring(0, lastDotLocation)
+                        +suffix
+                        +filenameWithExtension.substring(lastDotLocation);
+
     }
 }
