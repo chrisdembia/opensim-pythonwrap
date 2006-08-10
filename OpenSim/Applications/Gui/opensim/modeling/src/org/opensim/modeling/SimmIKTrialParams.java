@@ -95,8 +95,13 @@ public class SimmIKTrialParams extends OpenSimObject {
     opensimModelJNI.SimmIKTrialParams_findFrameRange(swigCPtr, Storage.getCPtr(aData), SWIGTYPE_p_int.getCPtr(oStartFrame), SWIGTYPE_p_int.getCPtr(oEndFrame));
   }
 
+  public SimmMotionData getCoordinateValues(SimmModel aModel, String path) {
+    long cPtr = opensimModelJNI.SimmIKTrialParams_getCoordinateValues__SWIG_0(swigCPtr, SimmModel.getCPtr(aModel), path);
+    return (cPtr == 0) ? null : new SimmMotionData(cPtr, false);
+  }
+
   public SimmMotionData getCoordinateValues(SimmModel aModel) {
-    long cPtr = opensimModelJNI.SimmIKTrialParams_getCoordinateValues(swigCPtr, SimmModel.getCPtr(aModel));
+    long cPtr = opensimModelJNI.SimmIKTrialParams_getCoordinateValues__SWIG_1(swigCPtr, SimmModel.getCPtr(aModel));
     return (cPtr == 0) ? null : new SimmMotionData(cPtr, false);
   }
 

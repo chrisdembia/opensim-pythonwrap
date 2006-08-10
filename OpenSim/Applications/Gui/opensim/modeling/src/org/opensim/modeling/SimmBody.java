@@ -129,4 +129,8 @@ public class SimmBody extends OpenSimObject {
     opensimModelJNI.SimmBody_peteTest(swigCPtr);
   }
 
+  public void getScaleFactors(ArrayDouble aScaleFactors) {
+    opensimModelJNI.SimmBody_getScaleFactors(swigCPtr, ArrayDouble.getCPtr(aScaleFactors));
+  }
+
 }

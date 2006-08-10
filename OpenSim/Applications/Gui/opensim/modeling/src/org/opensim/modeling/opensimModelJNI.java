@@ -8,6 +8,10 @@
 
 package org.opensim.modeling;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
 public class opensimModelJNI {
 
   static {
@@ -1831,6 +1835,7 @@ public class opensimModelJNI {
   public final static native void SimmBody_writeSIMM(long jarg1, long jarg2);
   public final static native void SimmBody_writeMarkers(long jarg1, long jarg2);
   public final static native void SimmBody_peteTest(long jarg1);
+  public final static native void SimmBody_getScaleFactors(long jarg1, long jarg2);
   public final static native long new_SimmBone__SWIG_0();
   public final static native long new_SimmBone__SWIG_1(long jarg1);
   public final static native long new_SimmBone__SWIG_2(long jarg1);
@@ -2634,6 +2639,14 @@ public class opensimModelJNI {
   public final static native void SimmMarkerPlacementParams_writeOutputFiles__SWIG_1(long jarg1, long jarg2, long jarg3);
   public final static native String SimmMarkerPlacementParams_getOutputModelFileName(long jarg1);
   public final static native void SimmMarkerPlacementParams_setOutputModelFileName(long jarg1, String jarg2);
+  public final static native String SimmMarkerPlacementParams_getOutputJointFileName(long jarg1);
+  public final static native void SimmMarkerPlacementParams_setOutputJointFileName(long jarg1, String jarg2);
+  public final static native String SimmMarkerPlacementParams_getOutputMuscleFileName(long jarg1);
+  public final static native void SimmMarkerPlacementParams_setOutputMuscleFileName(long jarg1, String jarg2);
+  public final static native String SimmMarkerPlacementParams_getOutputMarkerFileName(long jarg1);
+  public final static native void SimmMarkerPlacementParams_setOutputMarkerFileName(long jarg1, String jarg2);
+  public final static native String SimmMarkerPlacementParams_getOutputMotionFileName(long jarg1);
+  public final static native void SimmMarkerPlacementParams_setOutputMotionFileName(long jarg1, String jarg2);
   public final static native long new_SimmIKTrialParams__SWIG_0();
   public final static native long new_SimmIKTrialParams__SWIG_1(long jarg1);
   public final static native long new_SimmIKTrialParams__SWIG_2(long jarg1);
@@ -2650,7 +2663,8 @@ public class opensimModelJNI {
   public final static native void SimmIKTrialParams_setEndTime(long jarg1, double jarg2);
   public final static native void SimmIKTrialParams_setIncludeMarkers(long jarg1, boolean jarg2);
   public final static native void SimmIKTrialParams_findFrameRange(long jarg1, long jarg2, long jarg3, long jarg4);
-  public final static native long SimmIKTrialParams_getCoordinateValues(long jarg1, long jarg2);
+  public final static native long SimmIKTrialParams_getCoordinateValues__SWIG_0(long jarg1, long jarg2, String jarg3);
+  public final static native long SimmIKTrialParams_getCoordinateValues__SWIG_1(long jarg1, long jarg2);
   public final static native void SimmIKTrialParams_peteTest(long jarg1);
   public final static native String SimmIKTrialParams_getMarkerDataFilename(long jarg1);
   public final static native String SimmIKTrialParams_getOutputMotionFilename(long jarg1);

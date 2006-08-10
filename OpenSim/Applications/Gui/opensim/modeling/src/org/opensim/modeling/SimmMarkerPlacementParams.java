@@ -111,4 +111,36 @@ public class SimmMarkerPlacementParams extends OpenSimObject {
     opensimModelJNI.SimmMarkerPlacementParams_setOutputModelFileName(swigCPtr, aOutputModelFileName);
   }
 
+  public String getOutputJointFileName() {
+    return opensimModelJNI.SimmMarkerPlacementParams_getOutputJointFileName(swigCPtr);
+  }
+
+  public void setOutputJointFileName(String outputJointFileName) {
+    opensimModelJNI.SimmMarkerPlacementParams_setOutputJointFileName(swigCPtr, outputJointFileName);
+  }
+
+  public String getOutputMuscleFileName() {
+    return opensimModelJNI.SimmMarkerPlacementParams_getOutputMuscleFileName(swigCPtr);
+  }
+
+  public void setOutputMuscleFileName(String outputMuscleFileName) {
+    opensimModelJNI.SimmMarkerPlacementParams_setOutputMuscleFileName(swigCPtr, outputMuscleFileName);
+  }
+
+  public String getOutputMarkerFileName() {
+    return opensimModelJNI.SimmMarkerPlacementParams_getOutputMarkerFileName(swigCPtr);
+  }
+
+  public void setOutputMarkerFileName(String outputMarkerFileName) {
+    opensimModelJNI.SimmMarkerPlacementParams_setOutputMarkerFileName(swigCPtr, outputMarkerFileName);
+  }
+
+  public String getOutputMotionFileName() {
+    return opensimModelJNI.SimmMarkerPlacementParams_getOutputMotionFileName(swigCPtr);
+  }
+
+  public void setOutputMotionFileName(String outputMotionFileName) {
+    opensimModelJNI.SimmMarkerPlacementParams_setOutputMotionFileName(swigCPtr, outputMotionFileName);
+  }
+
 }
