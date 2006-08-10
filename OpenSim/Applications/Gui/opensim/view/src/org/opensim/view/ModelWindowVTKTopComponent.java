@@ -7,6 +7,7 @@ import java.util.prefs.Preferences;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JToolTip;
 import javax.swing.SwingUtilities;
 import org.openide.util.NbBundle;
 import org.openide.util.lookup.Lookups;
@@ -148,16 +149,20 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
     public int getPersistenceType() {
         return TopComponent.PERSISTENCE_NEVER;
     }
+    
+    /**
+     * Check if the window can be closed before it's too late (Vetoable)
+     */
     public boolean canClose(){
         // TODO add custom code on component closing
 
-        // Closing the model should warn about unsaved changes and if confirmed remove it from OpenSimDB
-        // For now we'll warn anyway
-        String DefaultDir=".";
-        System.out.println("preferred directory = "+prefs.get("Preferred Directory", DefaultDir));
-        int confirm = JOptionPane.showConfirmDialog(this, "Do you want to close model "+getModel().getName()+" ?");
-        if (confirm == JOptionPane.YES_OPTION){
+        int confirm = JOptionPane.showConfirmDialog(this, "Do you want to save model "+getModel().getName()+" ?");
+        if (confirm == JOptionPane.YES_OPTION || confirm ==JOptionPane.NO_OPTION){
+            if (confirm == JOptionPane.YES_OPTION){
+                getModel().print(""); // Model comes from file that can't be changed anyway!, when we do saveAs we'll make a fresh copy'
+            }
             OpenSimDB.getInstance().removeModel(getModel());
+            ViewDB.getInstance().removeModel(getModel());
             return super.canClose();
         }
         else
@@ -199,6 +204,13 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
 
     public SimmModel getModel() {
         return model;
+    }
+
+    public JToolTip createToolTip() {
+        JToolTip retValue;
+        
+        retValue = super.createToolTip();
+        return retValue;
     }
     
 }

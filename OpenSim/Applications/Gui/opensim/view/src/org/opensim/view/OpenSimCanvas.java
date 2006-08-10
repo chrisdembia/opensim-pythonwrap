@@ -19,6 +19,7 @@ import javax.swing.JPopupMenu;
 import org.openide.awt.StatusDisplayer;
 import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.AnalyticGeometry.AnalyticGeometryType;
+import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayPtrsSimmMusclePoint;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.OpenSimObject;
@@ -66,7 +67,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     }
     /**
      * Ideally I pass the ownerTopComponent in constructor but that messes up the GUI editor
-     * in netbeans, so the call is broken into two that MUST be called in sequence:
+     * in netbeans, so the call is broken into two that MUST be called in sequence.
+     * @Fixme
      */
     public void setOwnerWindow(ModelWindowVTKTopComponent ownerTopComponent)
     {
@@ -94,7 +96,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             public Object construct() { // runs in a worker thread
                 
                 boolean success = false;
-
+                double[] scales = new double[3];
                 //Stack<vtkAssembly> stack = new Stack<vtkAssembly>();
 
                 File modelFile = new File(model.getInputFileName());
@@ -148,6 +150,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
                     // Add a vtkActor object to the vtk scene graph to represent
                     VisibleObject bodyDisplayer = body.getDisplayer();
+                    bodyDisplayer.getScaleFactors(scales);
+
                     int ns = bodyDisplayer.getNumGeometryFiles();
                     // each bone in the current body.
                     for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
@@ -167,10 +171,10 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
                         vtkActor actor = new vtkActor();
                         actor.SetMapper(mapper);
+                        actor.SetScale(scales);
                         bodyRep.AddPart(actor);
                         mapActors2Objects.put(actor, body);
-
-                        }
+                    }
                     
                     int ct = bodyDisplayer.countDependents();
                     //System.out.println("Body "+body+" has "+ct+ " dependents");
@@ -247,6 +251,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                             }
                             double length = normalizeAndGetLength(axis);
                             // Create a cylinder connecting position1, position2
+                            // We should obtain this from the muscle so that shape,size and color are customizable
                             vtkCylinderSource cylinder = new vtkCylinderSource();
                             cylinder.SetRadius(.005);
                             cylinder.SetHeight(length);
@@ -457,6 +462,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             //Node selectedNode = ownerTopComponent.getNodeFor(selectedObject);
             //ownerTopComponent.setActivatedNodes(new Node[] {selectedNode});
             StatusDisplayer.getDefault().setStatusText(selectedObject.getType()+", "+selectedObject.getName());
+            ownerTopComponent.setToolTipText(selectedObject.getType()+", "+selectedObject.getName());
         }
         else
             StatusDisplayer.getDefault().setStatusText("");

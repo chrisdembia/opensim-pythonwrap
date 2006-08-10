@@ -25,44 +25,53 @@
  */
 package org.opensim.view;
 
-import java.util.HashMap;
-import java.util.Observable;
-import java.util.Observer;
-import org.opensim.common.OpenSimDB;
+import java.util.Hashtable;
 import org.opensim.modeling.SimmModel;
 
 /**
  *
  * @author Ayman
  *
- * A class to represent the top level view of the database/Model. 
- * ViewDB maintains the list of open model windows.
+ * A Database of Displayed models, maps models to corresponding ModelWindowVTKTopComponents
  */
-final public class ViewDB implements Observer {
+public final class ViewDB {
     
+    static Hashtable<SimmModel, ModelWindowVTKTopComponent> mapModels2Tc = new Hashtable<SimmModel, ModelWindowVTKTopComponent>(4);
     static ViewDB instance=null;
-
-    static HashMap<String, SimmModel> mapNamesToModels = new HashMap<String, SimmModel>(4);
     
     /** Creates a new instance of ViewDB */
-    private ViewDB() {
+    protected ViewDB() {
     }
     
-    public static synchronized ViewDB getInstance() {
-        if (instance == null) {
+    /**
+     * Enforce a singleton pattern 
+     */
+    public static ViewDB getInstance()
+    {
+        if (instance==null){
             instance = new ViewDB();
-            OpenSimDB db = OpenSimDB.getInstance();
-            db.addObserver(instance);
         }
         return instance;
     }
     /**
-     * Implement method of Observer interface. We'll be notified whenevr a change happens in the database 
-     * that requires view update.
+     * Add a new model and topcomponent to the map
      */
-    public void update(Observable o, Object arg) {
-        int i=0; // View informed
+    public static void addMap(SimmModel model, ModelWindowVTKTopComponent modelWindow)
+    {
+        mapModels2Tc.put(model, modelWindow);
     }
-    
-    
+    /**
+     * Retrieve the Topcomponent for the passed in model.
+     */
+    public static ModelWindowVTKTopComponent getVTKTopComponentForModel(SimmModel model)
+    {
+        return mapModels2Tc.get(model);
+    }
+    /**
+     * Remove the passed in model from the map
+     */
+    public static void removeModel(SimmModel model)
+    {
+        mapModels2Tc.remove(model);
+    }
 }

@@ -15,6 +15,7 @@ import java.io.IOException;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.util.datatransfer.PasteType;
+import org.opensim.modeling.SimmModel;
 
 /**
  * 
@@ -66,6 +67,14 @@ public class OpenSimNode extends AbstractNode {
             setDisplayName("Models");
         }
     }
-    
-   
+    /**
+     * Find the SimmModel for a node by traversingup the tree
+     */
+    protected SimmModel getModelForNode() {
+        if (this instanceof ConcreteModelNode)
+            return ((ConcreteModelNode)this).getModel();
+        else 
+            return ((OpenSimNode)getParentNode()).getModelForNode();
+    }
+
 } // class OpenSimNode

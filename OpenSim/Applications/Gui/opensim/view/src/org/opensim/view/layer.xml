@@ -19,6 +19,9 @@
             </file>
                         <file name="org-opensim-view-nodes-EditFromNodeAction.instance"/>
             </folder>
+        <folder name="View">
+            <file name="org-opensim-view-GfxWindowOnlyAction.instance"/>
+        </folder>
         <folder name="Window">
             <file name="org-netbeans-core-actions-ViewRuntimeTabAction.instance_hidden"/>
             <file name="org-opensim-view-BottomPanelAction.instance"/>
@@ -109,8 +112,9 @@
         <file name="Debug_hidden"/>
         <folder name="Edit">
             <attr name="org-openide-actions-FindAction.instance/org-opensim-view-CameraAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-view-CameraAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-CameraAction.instance"/>
+                <attr name="org-openide-actions-FindAction.instance/org-opensim-view-FgxWindowOnlyAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-FgxWindowOnlyAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/View/org-opensim-view-GfxWindowOnlyAction.instance"/>
             </file>
         </folder>
             <file name="File_hidden"/>

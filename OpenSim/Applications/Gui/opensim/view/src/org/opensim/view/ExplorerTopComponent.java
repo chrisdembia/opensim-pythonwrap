@@ -64,6 +64,7 @@ final class ExplorerTopComponent extends TopComponent
         modelTree.setRootVisible(false);
         OpenSimNode root = new OpenSimNode.RootNode();
         manager.setRootContext(root);
+        
         // The following code activates/makes available Copy/Paste/Delete
         ActionMap map = this.getActionMap();
         map.put(DefaultEditorKit.copyAction, ExplorerUtils.actionCopy(manager));

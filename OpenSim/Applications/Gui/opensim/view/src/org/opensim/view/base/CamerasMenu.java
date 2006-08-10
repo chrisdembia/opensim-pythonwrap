@@ -42,19 +42,22 @@ public class CamerasMenu extends JMenu {
     OpenSimBaseCanvas dCanvas;
     static vtkCamera frontCamera, topCamera, sideCamera;
     
-    ArrayList<vtkCamera> availableCameras = new ArrayList<vtkCamera>();
-    ArrayList<String> availableCameraNames = new ArrayList<String>();
-    ArrayList<JMenuItem> availableCameraItems = new ArrayList<JMenuItem>();
+    static ArrayList<vtkCamera> availableCameras = new ArrayList<vtkCamera>();
+    static ArrayList<String> availableCameraNames = new ArrayList<String>();
+    static ArrayList<JMenuItem> availableCameraItems = new ArrayList<JMenuItem>();
+    static boolean initialzed = false;
 
    /** Creates a new instance of CamerasMenu */
     public CamerasMenu(OpenSimBaseCanvas aCanvas) {
         super("Cameras");
         dCanvas = aCanvas;
-        createDefaultCameras();
-        createCameraActions();
-        for( int i=0; i < availableCameras.size(); i++ )
-            add(availableCameraItems.get(i));
-            
+        if (!initialzed){
+            createDefaultCameras();
+            createCameraActions();
+            for( int i=0; i < availableCameras.size(); i++ )
+                add(availableCameraItems.get(i));
+            initialzed = true;
+        }
     }
     
     private void createDefaultCameras()
@@ -104,6 +107,23 @@ public class CamerasMenu extends JMenu {
         
         
     }
+    /**
+     * Pick one of the standard Front, Top, Side Cameras using fullname.
+     * Eventually the user will be able to add some and assocate a keyboard binding with it
+     * if not already in use.
+     */
+    static public vtkCamera pickStandardCamera(String camName)
+    {
+        int index = availableCameraNames.indexOf((String)camName);
+        if (index != -1){
+            return availableCameras.get(index);
+        }
+        return null;
+    }
+
+    /**
+     * Handle button push of Camera Actions
+     **/
    private class setPickCameraAction extends AbstractAction {
 
     /**
@@ -115,22 +135,8 @@ public class CamerasMenu extends JMenu {
       String cameraName = e.getActionCommand();
       int cameraIndex = availableCameraNames.indexOf((Object) cameraName);
         vtkCamera selectedCamera = availableCameras.get(cameraIndex);
-        vtkCamera currentCamera = dCanvas.GetRenderer().GetActiveCamera();
-        currentCamera.SetPosition(selectedCamera.GetPosition());
-        currentCamera.SetFocalPoint(selectedCamera.GetFocalPoint());
-        currentCamera.SetViewAngle(selectedCamera.GetViewAngle());
-        currentCamera.SetDistance(selectedCamera.GetDistance());
-        currentCamera.SetClippingRange(selectedCamera.GetClippingRange());
-        currentCamera.SetViewUp(selectedCamera.GetViewUp());
-        currentCamera.SetParallelScale(selectedCamera.GetParallelScale());
-
-        vtkLightCollection lights = dCanvas.GetRenderer().GetLights();
-        lights.RemoveAllItems();
-        dCanvas.GetRenderer().CreateLight();
-        dCanvas.GetRenderer().ResetCamera();
-        dCanvas.GetRenderer().Render();
-        dCanvas.repaint();
-     }
+        CamerasMenu.this.dCanvas.applyCamera(selectedCamera);
+      }
     }
   }
 

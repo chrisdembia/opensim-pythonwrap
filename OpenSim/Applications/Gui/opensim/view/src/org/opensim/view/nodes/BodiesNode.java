@@ -79,7 +79,7 @@ public class BodiesNode extends OpenSimNode {
                 return bundle.getString("LBL_NewBody");
             }
             public HelpCtx getHelpCtx() {
-                return new HelpCtx("org.myorg.systemproperties");
+                return null;
             }
             public void create() throws IOException {
                 String title = bundle.getString("LBL_Newbody_dialog");

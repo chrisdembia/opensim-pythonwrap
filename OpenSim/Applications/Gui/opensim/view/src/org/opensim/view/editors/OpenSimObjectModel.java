@@ -24,7 +24,7 @@ public class OpenSimObjectModel
 
   // Names of the columns.
   static protected String[] cNames = {
-      "Name", "Value", "D"};
+      "Name", "Value", "Default"};
 
   // Types of the columns.
   static protected Class[] cTypes = {
@@ -148,7 +148,7 @@ public class OpenSimObjectModel
         case 2: // use default
           Object obj = fn.getObject();
           if (obj instanceof Property)
-            return ( ( (Property) obj).getUseDefault() ? "T" : "F");
+            return ( ( (Property) obj).getUseDefault() ? "True" : "False");
           return "  ";
       }
     }
