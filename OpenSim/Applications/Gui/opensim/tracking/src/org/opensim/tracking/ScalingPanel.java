@@ -13,13 +13,13 @@ import org.opensim.modeling.SimmScalingParams;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.view.OpenOsimModelAction;
 
-public class workflowWizardPanel2  extends workflowWizardPanelBase {
+public class ScalingPanel  extends workflowWizardPanelBase {
     
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
-    private workflowVisualPanel2 component;
+    private ScalingVisualPanel component;
      
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
@@ -27,7 +27,7 @@ public class workflowWizardPanel2  extends workflowWizardPanelBase {
     // create only those which really need to be visible.
     public Component getComponent() {
         if (component == null) {
-            component = new workflowVisualPanel2();
+            component = new ScalingVisualPanel();
         }
         return component;
     }
@@ -36,7 +36,7 @@ public class workflowWizardPanel2  extends workflowWizardPanelBase {
         // Show no Help button for this panel:
         //return HelpCtx.DEFAULT_HELP;
         // If you have context help:
-        return new HelpCtx(workflowWizardPanel2.class);
+        return new HelpCtx(ScalingPanel.class);
     }
     
     public boolean isValid() {

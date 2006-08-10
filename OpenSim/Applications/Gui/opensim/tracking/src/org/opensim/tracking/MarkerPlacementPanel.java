@@ -11,11 +11,12 @@ import org.opensim.modeling.SimmInverseKinematicsTarget;
 import org.opensim.modeling.SimmMarkerData;
 import org.opensim.modeling.SimmMarkerPlacementParams;
 import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.SimmMotionData;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.modeling.Storage;
 import org.opensim.view.OpenOsimModelAction;
 
-public class workflowWizardPanel3  extends workflowWizardPanelBase{
+public class MarkerPlacementPanel  extends workflowWizardPanelBase{
     
     /**
      * The visual component that displays this panel. If you need to access the
@@ -29,7 +30,7 @@ public class workflowWizardPanel3  extends workflowWizardPanelBase{
     // create only those which really need to be visible.
     public Component getComponent() {
         if (component == null) {
-            component = new workflowVisualPanel3();
+            component = new MarkerPlacementVisualPanel();
         }
         return component;
     }
@@ -88,52 +89,17 @@ public class workflowWizardPanel3  extends workflowWizardPanelBase{
     public void storeSettings(Object settings) {}
 
     boolean executeStep() {
-        /**
-         *			SimmMarkerPlacementParams& params = subject->getMarkerPlacementParams();
-			// Update markers to correspond to those specified in IKParams block
-			// end code restore
-
-			// Load the static pose marker file, and average all the
-			// frames in the user-specified time range.
-			SimmMarkerData staticPose(params.getStaticPoseFilename());
-
-			// Convert read trc fil into "common" rdStroage format
-			Storage inputStorage;
-			staticPose.makeRdStorage(inputStorage);
-
-			// Convert the marker data into the model's units.
-			Array<double> timeRange = params.getTimeRange();
-			staticPose.averageFrames(0.01, timeRange[0], timeRange[1]);
-			staticPose.convertToUnits(model->getLengthUnits());
-
-			// Delete any markers from the model that are not in the static
-			// pose marker file.
-			model->deleteUnusedMarkers(staticPose.getMarkerNames());
-
-			// SOLVE THE IK PROBLEM FOR THE STATIC POSE
-			SimmIKTrialParams options;
-			options.setStartTime(timeRange[0]);
-			options.setEndTime(timeRange[1]);
-			options.setIncludeMarkers(true);
-			// Convert read trc fil into "common" rdStroage format
-			staticPose.makeRdStorage(inputStorage);
-			// Create target
-			SimmInverseKinematicsTarget *target = new SimmInverseKinematicsTarget(*model, inputStorage);
-			// Create solver
-			SimmIKSolverImpl *ikSolver = new SimmIKSolverImpl(*target, subject->getIKParams());
-			// Solve
-			Storage	outputStorage;
-			ikSolver->solveFrames(options, inputStorage, outputStorage);
-
-			// MOVE THE MARKERS TO CORRESPOND TO EXPERIMENTAL LOCATIONS
-			model->moveMarkersToCloud(outputStorage);
-                        */
             // Call scaling with the model and display it in GUI
             SimmSubject subject = descriptor.getSubject();
             SimmModel model = descriptor.getModel();
             SimmMarkerPlacementParams params = subject.getMarkerPlacementParams();
             ArrayPtrsSimmMarker aMarkerArray=params.getMarkerSet();
             model.updateMarkers(aMarkerArray); // This should be markerSet, could this work using proxy classes?
+            if (!params.getCoordinateFileName().equalsIgnoreCase("Unassigned")){
+                SimmMotionData coordinateValues = new SimmMotionData(subject.getPathToSubject()+params.getCoordinateFileName());
+                model.updateCoordinates(params.getCoordinateSet());
+            }
+            // Make up a SimmIKTrialParams
             SimmMarkerData staticPose = new SimmMarkerData(subject.getPathToSubject()+params.getStaticPoseFilename());
             // Convert read trc fil into "common" rdStroage format
             Storage inputStorage = new Storage();

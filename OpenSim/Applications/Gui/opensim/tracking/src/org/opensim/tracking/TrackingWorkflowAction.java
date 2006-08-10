@@ -19,7 +19,7 @@ public final class TrackingWorkflowAction extends CallableSystemAction {
         WizardDescriptor.Iterator iterator = new workflowWizardIterator();
         WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator, new WorkflowDescriptor());
         wizardDescriptor.putProperty("WizardPanel_contentNumbered",Boolean.FALSE);
-        wizardDescriptor.setModal(false);
+         wizardDescriptor.setModal(false);
 
         // {0} will be replaced by WizardDescriptor.Panel.getComponent().getName()
         // {1} will be replaced by WizardDescriptor.Iterator.name()

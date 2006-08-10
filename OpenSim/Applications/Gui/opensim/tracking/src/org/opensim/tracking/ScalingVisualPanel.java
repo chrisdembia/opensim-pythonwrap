@@ -1,27 +1,22 @@
 package org.opensim.tracking;
 
-import java.awt.Component;
-import java.io.File;
-import java.io.IOException;
-import javax.swing.JButton;
+import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import org.jdesktop.layout.GroupLayout;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.SimmScalingParams;
 
-public final class workflowVisualPanel2 extends workflowVisualPanelBase {
+public final class ScalingVisualPanel extends workflowVisualPanelBase {
     
     String manualScaleFile;
     ArrayStr scalingOrder;
     String subjectPath;
 
     
-    /** Creates new form workflowVisualPanel2 */
-    public workflowVisualPanel2() {
+    /**
+     * Creates new form ScalingVisualPanel
+     */
+    public ScalingVisualPanel() {
         initComponents();
         
     }
@@ -77,7 +72,7 @@ public final class workflowVisualPanel2 extends workflowVisualPanelBase {
         jScalingMethodSelectPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Scaling method"));
         jLabel1.setText("Scaling method");
 
-        scaleMethodSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Manual", "Measurements", "Manual+Measurements", "Measurements+Manual" }));
+        scaleMethodSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Manual", "Measurements", "Manual+Measurements", "Measurements+Manual" }));
         scaleMethodSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ScalingMethodSelectionHandler(evt);
@@ -421,7 +416,10 @@ public final class workflowVisualPanel2 extends workflowVisualPanelBase {
     }//GEN-LAST:event_jMeasurementsFileTextFieldActionPerformed
 
     private void jBrowse4ScaleFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4ScaleFileActionPerformed
-       final JFileChooser dlog = new JFileChooser();
+        String defaultDir="";
+        defaultDir = Preferences.userNodeForPackage(this.getClass()).get("WorkDirectory", defaultDir);
+
+        final JFileChooser dlog = new JFileChooser(defaultDir);
 
         String scalesFile=null;
         if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
@@ -504,34 +502,36 @@ public final class workflowVisualPanel2 extends workflowVisualPanelBase {
         // We need to make a name for output files (at least the xml file) for
         // our own sake so that we can open it later.
         subjectPath = aDescriptor.dSubject.getPathToSubject();
-        if (scalingParams.getOutputModelFileName()!= "Unassigned"){
+        // if OutputModelFileName is null we should use ours
+        if (!scalingParams.getOutputModelFileName().equalsIgnoreCase("Unassigned")){
             saveOpenSimTextField1.setText(scalingParams.getOutputModelFileName());
             jCheckBoxSaveopensim1.setSelected(true);
         }
         else{
             // Make up a default name
+            String madeUpName = subjectPath+aDescriptor.dSubject.getGenericModelParams().getModelFileName();
             saveOpenSimTextField1.setText(aDescriptor.dSubject.getPathToSubject()+
-                                            addSuffix(scalingParams.getOutputModelFileName(),"SP")+".osim");
+                                            FileUtils.addSuffix(madeUpName,"SP")+".osim");
         }
         // Joint file
-        if (scalingParams.getOutputJointFileName()!= "Unassigned"){
+        if (!scalingParams.getOutputJointFileName().equalsIgnoreCase("Unassigned")){
             saveSIMMJntTextField1.setText(scalingParams.getOutputJointFileName());
             jCheckBox2.setSelected(true);
         }
         else{
             // Make up a default name
             saveSIMMJntTextField1.setText(aDescriptor.dSubject.getPathToSubject()+
-                                            addSuffix(scalingParams.getOutputModelFileName(),"SP")+".jnt");
+                                            FileUtils.addSuffix(scalingParams.getOutputModelFileName(),"SP")+".jnt");
         }
         // Muscle file
-        if (scalingParams.getOutputMuscleFileName()!= "Unassigned"){
+        if (!scalingParams.getOutputMuscleFileName().equalsIgnoreCase("Unassigned")){
             saveSIMMmslTextField1.setText(scalingParams.getOutputMuscleFileName());
             jCheckBoxSavemsl1.setSelected(true);
         }
         else{
             // Make up a default name
             saveSIMMmslTextField1.setText(aDescriptor.dSubject.getPathToSubject()+
-                                            addSuffix(scalingParams.getOutputModelFileName(),"SP"));
+                                            FileUtils.addSuffix(scalingParams.getOutputModelFileName(),"SP"));
         }
         repaint();
     }
@@ -577,20 +577,6 @@ public final class workflowVisualPanel2 extends workflowVisualPanelBase {
         saveScalesTextField.setEnabled(includesMeasurements);
     }
 
-    /**
-     * utility method to add suffix to a file name
-     */
-    private String addSuffix(String filenameWithExtension, String suffix) {
-           if( filenameWithExtension == null ) return null;
-            int lastDotLocation  = filenameWithExtension.lastIndexOf(".");
-            if (lastDotLocation==-1)
-                return null;
-            else
-                return filenameWithExtension.substring(0, lastDotLocation)
-                        +suffix
-                        +filenameWithExtension.substring(lastDotLocation);
-
-    }
     
     void updateWorkflow(WorkflowDescriptor descriptor){
     };

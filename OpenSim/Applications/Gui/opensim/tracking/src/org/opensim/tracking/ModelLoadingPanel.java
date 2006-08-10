@@ -18,20 +18,20 @@ import org.opensim.tracking.workflowWizardPanelBase;
 import org.opensim.view.OpenOsimModelAction;
 
 
-public class workflowWizardPanel1 extends workflowWizardPanelBase{
+public class ModelLoadingPanel extends workflowWizardPanelBase{
     
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
-    private workflowVisualPanel1 component;
+    private ModelLoadingVisualPanel component;
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
     // but never displayed, or not all panels are displayed, it is better to
     // create only those which really need to be visible.
-    public workflowVisualPanel1 getComponent() {
+    public ModelLoadingVisualPanel getComponent() {
         if (component == null) {
-            component = new workflowVisualPanel1();
+            component = new ModelLoadingVisualPanel();
         }
         return component;
     }
@@ -40,8 +40,8 @@ public class workflowWizardPanel1 extends workflowWizardPanelBase{
         // Show no Help button for this panel:
         //return HelpCtx.DEFAULT_HELP;  
         // If you have context help:
-        //return new HelpCtx(workflowWizardPanel1.class);
-        return new HelpCtx(workflowWizardPanel1.class);
+        //return new HelpCtx(ModelLoadingPanel.class);
+        return new HelpCtx(ModelLoadingPanel.class);
     }
     
     public boolean isValid() {
@@ -88,14 +88,16 @@ public class workflowWizardPanel1 extends workflowWizardPanelBase{
     // by the user.
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
-        System.out.println("read settings");
+        //System.out.println("read settings");
         // Update cached values
         descriptor.updateCachedValues();
         component.updatePanel(descriptor);
     }
     public void storeSettings(Object settings) {
-        System.out.println("Store settings");
-    }
+        //System.out.println("Store settings");
+       descriptor = (WorkflowDescriptor) settings;
+       component.updateWorkflow(descriptor);
+     }
     /**
      * The meat of the panel happens in this function which is now associated to the execute button in the GUI
      * it tries to load the model based on user input and report errors on failure.
@@ -116,6 +118,8 @@ public class workflowWizardPanel1 extends workflowWizardPanelBase{
                         Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(model.getInputFileName());
                 if (!success)
                     component.setMessage("Model has failed to load, please check the path.");
+                else
+                    component.setMessage("Step 1: Loading generic model - Done.");
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
                 component.setMessage("Model has failed to load from file "+model.getInputFileName());

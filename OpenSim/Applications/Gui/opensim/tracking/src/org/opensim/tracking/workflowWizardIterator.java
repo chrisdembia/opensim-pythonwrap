@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.prefs.Preferences;
 import javax.swing.JComponent;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -32,8 +31,7 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
         // do something
     }
      */
-    private Preferences prefs = Preferences.userNodeForPackage(this.getClass());
-    
+     
     private int index;
     
     private workflowWizardPanelBase[] panels;
@@ -45,10 +43,10 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
     private workflowWizardPanelBase[] getPanels() {
         if (panels == null) {
             panels = new workflowWizardPanelBase[] {
-                new workflowWizardPanel1(),
-                new workflowWizardPanel2(),
-                new workflowWizardPanel3(),
-                new workflowWizardPanel4(),
+                new ModelLoadingPanel(),
+                new ScalingPanel(),
+                new MarkerPlacementPanel(),
+                new IKPanel(),
                 new workflowWizardPanel5(),
                 new workflowWizardPanel6(),
                 new workflowWizardPanel7(),
@@ -140,16 +138,6 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         listeners = new HashSet<ChangeListener>(1);
-    }
-    
-    public void addWorkflowPref(String key, String val)
-    {
-        prefs.put(key, val);
-    }
-    
-    public String getWorkflowPref(String key, String DefaultVal)
-    {
-        return prefs.get(key, DefaultVal);
     }
 }
 

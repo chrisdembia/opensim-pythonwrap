@@ -19,7 +19,7 @@ public class workflowWizardPanel5  extends workflowWizardPanelBase{
     // create only those which really need to be visible.
     public Component getComponent() {
         if (component == null) {
-            component = new workflowVisualPanel5();
+            component = new MakeDModelVisualPanel();
         }
         return component;
     }

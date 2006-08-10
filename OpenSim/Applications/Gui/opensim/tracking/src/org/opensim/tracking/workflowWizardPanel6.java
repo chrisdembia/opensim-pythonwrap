@@ -19,7 +19,7 @@ public class workflowWizardPanel6  extends workflowWizardPanelBase{
     // create only those which really need to be visible.
     public Component getComponent() {
         if (component == null) {
-            component = new workflowVisualPanel6();
+            component = new ReduceResidualsVisualPanel();
         }
         return component;
     }

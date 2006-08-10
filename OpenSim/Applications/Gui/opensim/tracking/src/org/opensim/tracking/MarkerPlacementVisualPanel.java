@@ -3,10 +3,12 @@ package org.opensim.tracking;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.SimmMarkerPlacementParams;
 
-public final class workflowVisualPanel3 extends workflowVisualPanelBase {
+public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     
-    /** Creates new form workflowVisualPanel3 */
-    public workflowVisualPanel3() {
+    /**
+     * Creates new form MarkerPlacementVisualPanel
+     */
+    public MarkerPlacementVisualPanel() {
         initComponents();
         putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
     }
@@ -37,15 +39,18 @@ public final class workflowVisualPanel3 extends workflowVisualPanelBase {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jOutputFilesPanel = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        jMarkersFileNameTextField = new javax.swing.JTextField();
+        jSimmJntCheckBox = new javax.swing.JCheckBox();
+        iSaveMarkersCheckBox = new javax.swing.JCheckBox();
+        jSaveMotionCheckBox = new javax.swing.JCheckBox();
+        jOutputMotionTextField = new javax.swing.JTextField();
+        jOutputJntTextField = new javax.swing.JTextField();
+        jSaveOsimCheckBox = new javax.swing.JCheckBox();
+        jOsimFilenameTextField = new javax.swing.JTextField();
+        jBrowseOsimButton = new javax.swing.JButton();
+        jBrowseMarkersButton = new javax.swing.JButton();
+        jBrowseMotionButton = new javax.swing.JButton();
+        jBrowseJntButton = new javax.swing.JButton();
 
         jSolveStaticPosePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Static Pose"));
 
@@ -127,26 +132,31 @@ public final class workflowVisualPanel3 extends workflowVisualPanelBase {
         );
 
         jOutputFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel7, "Directory");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton5, "Browse...");
+        org.openide.awt.Mnemonics.setLocalizedText(jSimmJntCheckBox, "SIMM .jnt");
+        jSimmJntCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jSimmJntCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel8, "Base file name");
+        org.openide.awt.Mnemonics.setLocalizedText(iSaveMarkersCheckBox, "Markers");
+        iSaveMarkersCheckBox.setActionCommand("Markers.xml");
+        iSaveMarkersCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        iSaveMarkersCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel9, "Save");
+        org.openide.awt.Mnemonics.setLocalizedText(jSaveMotionCheckBox, "Save.mot");
+        jSaveMotionCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jSaveMotionCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox1, "SIMM .jnt");
-        jCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        org.openide.awt.Mnemonics.setLocalizedText(jSaveOsimCheckBox, "Osim");
+        jSaveOsimCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jSaveOsimCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        jCheckBox2.setActionCommand("Markers.xml");
-        jCheckBox2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox2.setLabel("Markers.xml");
-        jCheckBox2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowseOsimButton, "jButton1");
 
-        jCheckBox3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox3.setLabel("Solved.mot");
-        jCheckBox3.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowseMarkersButton, "jButton4");
+
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowseMotionButton, "jButton6");
+
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowseJntButton, "jButton7");
 
         org.jdesktop.layout.GroupLayout jOutputFilesPanelLayout = new org.jdesktop.layout.GroupLayout(jOutputFilesPanel);
         jOutputFilesPanel.setLayout(jOutputFilesPanelLayout);
@@ -154,60 +164,66 @@ public final class workflowVisualPanel3 extends workflowVisualPanelBase {
             jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jOutputFilesPanelLayout.createSequentialGroup()
                 .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jOutputFilesPanelLayout.createSequentialGroup()
-                        .add(jLabel8)
-                        .add(12, 12, 12)
-                        .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jOutputFilesPanelLayout.createSequentialGroup()
-                        .add(jLabel7)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 178, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jSaveMotionCheckBox)
+                    .add(jSimmJntCheckBox)
+                    .add(iSaveMarkersCheckBox)
+                    .add(jSaveOsimCheckBox))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jOutputJntTextField)
+                    .add(jOutputMotionTextField)
+                    .add(jMarkersFileNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jOutputFilesPanelLayout.createSequentialGroup()
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(38, 38, 38))
-                    .add(jOutputFilesPanelLayout.createSequentialGroup()
-                        .add(jLabel9)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jCheckBox1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jCheckBox2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jCheckBox3)))
-                .addContainerGap())
+                        .add(jOsimFilenameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jBrowseJntButton, 0, 0, Short.MAX_VALUE)
+                    .add(jBrowseMotionButton, 0, 0, Short.MAX_VALUE)
+                    .add(jBrowseMarkersButton, 0, 0, Short.MAX_VALUE)
+                    .add(jBrowseOsimButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, Short.MAX_VALUE))
+                .add(16, 16, 16))
         );
         jOutputFilesPanelLayout.setVerticalGroup(
             jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jOutputFilesPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel7)
-                    .add(jButton5)
-                    .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jSaveOsimCheckBox)
+                    .add(jOsimFilenameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jBrowseOsimButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel8)
-                    .add(jTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
+                    .add(jMarkersFileNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(iSaveMarkersCheckBox)
+                    .add(jBrowseMarkersButton))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel9)
-                    .add(jCheckBox1)
-                    .add(jCheckBox2)
-                    .add(jCheckBox3)))
+                    .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jSaveMotionCheckBox)
+                    .add(jBrowseMotionButton))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jOutputJntTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jSimmJntCheckBox)
+                    .add(jBrowseJntButton))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jOutputFilesPanel, 0, 292, Short.MAX_VALUE)
             .add(jSolveStaticPosePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jOutputFilesPanel, 0, 292, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jSolveStaticPosePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -215,15 +231,65 @@ public final class workflowVisualPanel3 extends workflowVisualPanelBase {
         SimmMarkerPlacementParams params = aDescriptor.getSubject().getMarkerPlacementParams();
         jStaticTrialTextField.setText(params.getStaticPoseFilename());  //trc file of static trial
         jStaticTrialTextField.setToolTipText(params.getPropertySet().get("marker_trial").getComment());
+        jOutputJntTextField.setToolTipText(params.getPropertySet().get("output_joint_file").getComment());
+        jOsimFilenameTextField.setToolTipText(params.getPropertySet().get("output_model_file").getComment());
+        jMarkersFileNameTextField.setToolTipText(params.getPropertySet().get("output_marker_file").getComment());
+        jOutputMotionTextField.setToolTipText(params.getPropertySet().get("output_motion_file").getComment());
         ArrayDouble timeRange = params.getTimeRange();
         if (timeRange.getSize()==2){
             jStaticFromTextField.setText(String.valueOf(timeRange.getitem(0)));  // from time in trc
             jStaticToTextField.setText(String.valueOf(timeRange.getitem(1)));  // to time in trc
         }
-        jCoordinatesFileTextField.setText(params.getCoordinateFileName());  // Coordinate file to init Single frame IK
-        jCoordinatesFileTextField.setToolTipText(params.getPropertySet().get("coordinate_trial").getComment());
+        if (!params.getCoordinateFileName().equalsIgnoreCase("Unassigned")){
+            jCoordinatesFileTextField.setText(params.getCoordinateFileName());  // Coordinate file to init Single frame IK
+            jCoordinatesFileTextField.setToolTipText(params.getPropertySet().get("coordinate_trial").getComment());
+        }
         jMarkersFileTextField.setText("");      // Extra markers
+
+        // We need to make a name for output files (at least the xml file) for
+        // our own sake so that we can open it later.
+        String subjectPath = aDescriptor.dSubject.getPathToSubject();
         
+        if (!params.getOutputModelFileName().equalsIgnoreCase("Unassigned")){
+            jOsimFilenameTextField.setText(params.getOutputModelFileName());
+            jSaveOsimCheckBox.setSelected(true);
+        }
+        else{
+            // Make up a default name
+            jOsimFilenameTextField.setText(aDescriptor.dSubject.getPathToSubject()+
+                                            FileUtils.addSuffix(params.getOutputModelFileName(),"MP")+".osim");
+        }
+        // Joint file .jnt
+        if (!params.getOutputJointFileName().equalsIgnoreCase("Unassigned")){
+            jOutputJntTextField.setText(params.getOutputJointFileName());
+            jSimmJntCheckBox.setSelected(true);
+        }
+        else{
+            // Make up a default name
+            jOutputJntTextField.setText(aDescriptor.dSubject.getPathToSubject()+
+                                            FileUtils.addSuffix(params.getOutputJointFileName(),"MP")+".jnt");
+        }
+        // New markers
+        if (!params.getOutputMarkerFileName().equalsIgnoreCase("Unassigned")){
+            jMarkersFileNameTextField.setText(params.getOutputMarkerFileName());
+            iSaveMarkersCheckBox.setSelected(true);
+        }
+        else{
+            // Make up a default name
+            jMarkersFileNameTextField.setText(aDescriptor.dSubject.getPathToSubject()+
+                                            FileUtils.addSuffix(params.getOutputMarkerFileName(),"MP")+".xml");
+        }
+        // Motion file
+        if (!params.getOutputMotionFileName().equalsIgnoreCase("Unassigned")){
+            jOutputMotionTextField.setText(params.getOutputMotionFileName());
+            jSaveMotionCheckBox.setSelected(true);
+        }
+        else{
+            // Make up a default name
+            jOutputMotionTextField.setText(aDescriptor.dSubject.getPathToSubject()+
+                                            FileUtils.addSuffix(params.getOutputMotionFileName(),"MP")+".osim");
+        }
+       
     }
 
     void updateWorkflow(WorkflowDescriptor descriptor) {
@@ -231,30 +297,33 @@ public final class workflowVisualPanel3 extends workflowVisualPanelBase {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox iSaveMarkersCheckBox;
+    private javax.swing.JButton jBrowseJntButton;
+    private javax.swing.JButton jBrowseMarkersButton;
+    private javax.swing.JButton jBrowseMotionButton;
+    private javax.swing.JButton jBrowseOsimButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JTextField jCoordinatesFileTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jMarkersFileNameTextField;
     private javax.swing.JTextField jMarkersFileTextField;
+    private javax.swing.JTextField jOsimFilenameTextField;
     private javax.swing.JPanel jOutputFilesPanel;
+    private javax.swing.JTextField jOutputJntTextField;
+    private javax.swing.JTextField jOutputMotionTextField;
+    private javax.swing.JCheckBox jSaveMotionCheckBox;
+    private javax.swing.JCheckBox jSaveOsimCheckBox;
+    private javax.swing.JCheckBox jSimmJntCheckBox;
     private javax.swing.JPanel jSolveStaticPosePanel;
     private javax.swing.JTextField jStaticFromTextField;
     private javax.swing.JTextField jStaticToTextField;
     private javax.swing.JButton jStaticTrialBrowseButton;
     private javax.swing.JTextField jStaticTrialTextField;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
     
 }

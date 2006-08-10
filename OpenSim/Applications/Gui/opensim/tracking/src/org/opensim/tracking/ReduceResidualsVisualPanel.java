@@ -2,10 +2,12 @@ package org.opensim.tracking;
 
 import javax.swing.JPanel;
 
-public final class workflowVisualPanel6 extends workflowVisualPanelBase {
+public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
     
-    /** Creates new form workflowVisualPanel6 */
-    public workflowVisualPanel6() {
+    /**
+     * Creates new form ReduceResidualsVisualPanel
+     */
+    public ReduceResidualsVisualPanel() {
         initComponents();
         putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
     }
