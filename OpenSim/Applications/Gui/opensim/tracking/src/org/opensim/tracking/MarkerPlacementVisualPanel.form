@@ -12,7 +12,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jSolveStaticPosePanel" alignment="0" max="32767" attributes="1"/>
-          <Component id="jOutputFilesPanel" alignment="0" min="0" max="32767" attributes="1"/>
+          <Component id="jOutputFilesPanel" alignment="0" min="0" pref="292" max="32767" attributes="1"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -287,7 +287,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="jSaveOsimCheckBox">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Osim"/>
+            <Property name="text" type="java.lang.String" value="OpenSim"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                 <EmptyBorder bottom="0" left="0" right="0" top="0"/>

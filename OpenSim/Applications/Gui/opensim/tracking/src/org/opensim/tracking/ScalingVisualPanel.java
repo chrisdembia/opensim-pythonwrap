@@ -11,7 +11,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
     String manualScaleFile;
     ArrayStr scalingOrder;
     String subjectPath;
-
+    static boolean initialized=false; // Keep track if the page was visited before to min overhead
     
     /**
      * Creates new form ScalingVisualPanel
@@ -39,22 +39,22 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         jMeasurementScalePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         markerTrialTextField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jBrowse4TrcButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jFromTimeTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jToTimeTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jMeasurementsFileTextField = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jBrowse4MeasButton = new javax.swing.JButton();
+        jEditMeasButton = new javax.swing.JButton();
         jSaveScalesCheckBox = new javax.swing.JCheckBox();
         saveScalesTextField = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        jBrowse4ScalesButton = new javax.swing.JButton();
         jManualScalePanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jManualScaleTextField = new javax.swing.JTextField();
-        jBrowse4ScaleFile = new javax.swing.JButton();
+        jBrowse4ScaleButton = new javax.swing.JButton();
         jEditScalesButton = new javax.swing.JButton();
         jOutputPanel = new javax.swing.JPanel();
         saveOpenSimTextField1 = new javax.swing.JTextField();
@@ -112,7 +112,12 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
 
         markerTrialTextField.setText("*.trc");
 
-        jButton1.setText("Browse...");
+        jBrowse4TrcButton.setText("Browse...");
+        jBrowse4TrcButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowse4TrcButtonActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("use time from ");
 
@@ -127,9 +132,14 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             }
         });
 
-        jButton2.setText("Browse...");
+        jBrowse4MeasButton.setText("Browse...");
+        jBrowse4MeasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowse4MeasButtonActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Edit...");
+        jEditMeasButton.setText("Edit...");
 
         jSaveScalesCheckBox.setText("Save scales");
         jSaveScalesCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -137,7 +147,12 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
 
         saveScalesTextField.setText("*.xml");
 
-        jButton6.setText("Browse...");
+        jBrowse4ScalesButton.setText("Browse...");
+        jBrowse4ScalesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowse4ScalesButtonActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jMeasurementScalePanelLayout = new org.jdesktop.layout.GroupLayout(jMeasurementScalePanel);
         jMeasurementScalePanel.setLayout(jMeasurementScalePanelLayout);
@@ -168,12 +183,12 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jMeasurementScalePanelLayout.createSequentialGroup()
-                                        .add(jButton2, 0, 0, Short.MAX_VALUE)
+                                        .add(jBrowse4MeasButton, 0, 0, Short.MAX_VALUE)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
-                                    .add(jButton6, 0, 0, Short.MAX_VALUE)
-                                    .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, Short.MAX_VALUE))))
+                                    .add(jBrowse4ScalesButton, 0, 0, Short.MAX_VALUE)
+                                    .add(jBrowse4TrcButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, Short.MAX_VALUE))))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(jEditMeasButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
         jMeasurementScalePanelLayout.setVerticalGroup(
@@ -181,14 +196,14 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             .add(jMeasurementScalePanelLayout.createSequentialGroup()
                 .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
-                    .add(jButton3)
-                    .add(jButton2)
+                    .add(jEditMeasButton)
+                    .add(jBrowse4MeasButton)
                     .add(jMeasurementsFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
                     .add(markerTrialTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton1))
+                    .add(jBrowse4TrcButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
@@ -199,7 +214,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                 .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jSaveScalesCheckBox)
                     .add(saveScalesTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton6))
+                    .add(jBrowse4ScalesButton))
                 .addContainerGap())
         );
 
@@ -208,10 +223,10 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
 
         jManualScaleTextField.setText("*.xml");
 
-        jBrowse4ScaleFile.setText("Browse...");
-        jBrowse4ScaleFile.addActionListener(new java.awt.event.ActionListener() {
+        jBrowse4ScaleButton.setText("Browse...");
+        jBrowse4ScaleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBrowse4ScaleFileActionPerformed(evt);
+                jBrowse4ScaleButtonActionPerformed(evt);
             }
         });
 
@@ -226,7 +241,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jManualScaleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jBrowse4ScaleFile, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jBrowse4ScaleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jEditScalesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -237,7 +252,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                 .add(jManualScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
                     .add(jManualScaleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jBrowse4ScaleFile)
+                    .add(jBrowse4ScaleButton)
                     .add(jEditScalesButton))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -332,7 +347,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane1.setEnabled(false);
         jScrollPane1.setFocusable(false);
-        jMessageTextArea.setBackground(new java.awt.Color(236, 233, 216));
+        jMessageTextArea.setBackground(new java.awt.Color(224, 223, 227));
         jMessageTextArea.setColumns(20);
         jMessageTextArea.setEditable(false);
         jMessageTextArea.setForeground(new java.awt.Color(204, 0, 51));
@@ -347,13 +362,12 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, jScalingMethodSelectPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, jMeasurementScalePanel, 0, 321, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, jManualScalePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScalingMethodSelectPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jMeasurementScalePanel, 0, 321, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jManualScalePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -371,6 +385,30 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBrowse4ScalesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4ScalesButtonActionPerformed
+       final JFileChooser dlog = new JFileChooser(subjectPath);
+       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            saveScalesTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBrowse4ScalesButtonActionPerformed
+
+    private void jBrowse4TrcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4TrcButtonActionPerformed
+       final JFileChooser dlog = new JFileChooser(subjectPath);
+       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            markerTrialTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBrowse4TrcButtonActionPerformed
+
+    private void jBrowse4MeasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4MeasButtonActionPerformed
+       final JFileChooser dlog = new JFileChooser(subjectPath);
+       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            jMeasurementsFileTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBrowse4MeasButtonActionPerformed
 
     private void jBrowse4Msl1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4Msl1ActionPerformed
        final JFileChooser dlog = new JFileChooser(subjectPath);
@@ -415,7 +453,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
 // TODO add your handling code here:
     }//GEN-LAST:event_jMeasurementsFileTextFieldActionPerformed
 
-    private void jBrowse4ScaleFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4ScaleFileActionPerformed
+    private void jBrowse4ScaleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4ScaleButtonActionPerformed
         String defaultDir="";
         defaultDir = Preferences.userNodeForPackage(this.getClass()).get("WorkDirectory", defaultDir);
 
@@ -429,21 +467,21 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         }
 
 // TODO add your handling code here:
-    }//GEN-LAST:event_jBrowse4ScaleFileActionPerformed
+    }//GEN-LAST:event_jBrowse4ScaleButtonActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBrowse4Jnt1;
+    private javax.swing.JButton jBrowse4MeasButton;
     private javax.swing.JButton jBrowse4Msl1;
     private javax.swing.JButton jBrowse4OpenSim1;
-    private javax.swing.JButton jBrowse4ScaleFile;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jBrowse4ScaleButton;
+    private javax.swing.JButton jBrowse4ScalesButton;
+    private javax.swing.JButton jBrowse4TrcButton;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBoxSavemsl1;
     private javax.swing.JCheckBox jCheckBoxSaveopensim1;
+    private javax.swing.JButton jEditMeasButton;
     private javax.swing.JButton jEditScalesButton;
     private javax.swing.JTextField jFromTimeTextField;
     private javax.swing.JLabel jLabel1;
@@ -474,13 +512,15 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
     public void updatePanel(WorkflowDescriptor aDescriptor)
     {   
         SimmScalingParams scalingParams = aDescriptor.dSubject.getScalingParams();
-        scaleMethodSelect.setToolTipText(scalingParams.getPropertySet().get("scaling_order").getComment());
-        markerTrialTextField.setToolTipText(scalingParams.getPropertySet().get("marker_trial").getComment());
-        jMeasurementsFileTextField.setToolTipText(scalingParams.getPropertySet().get("MeasurementSet").getComment());
-        jManualScaleTextField.setToolTipText(scalingParams.getPropertySet().get("ScaleSet").getComment());
-        preserveMass.setToolTipText(scalingParams.getPropertySet().get("preserve_mass_distribution").getComment());
-        saveScalesTextField.setToolTipText(scalingParams.getPropertySet().get("output_scale_file").getComment());
-        
+        if (!initialized){
+            scaleMethodSelect.setToolTipText(scalingParams.getPropertySet().get("scaling_order").getComment());
+            markerTrialTextField.setToolTipText(scalingParams.getPropertySet().get("marker_trial").getComment());
+            jMeasurementsFileTextField.setToolTipText(scalingParams.getPropertySet().get("MeasurementSet").getComment());
+            jManualScaleTextField.setToolTipText(scalingParams.getPropertySet().get("ScaleSet").getComment());
+            preserveMass.setToolTipText(scalingParams.getPropertySet().get("preserve_mass_distribution").getComment());
+            saveScalesTextField.setToolTipText(scalingParams.getPropertySet().get("output_scale_file").getComment());
+            initialized = true;
+        }
         preserveMass.setSelected(scalingParams.getPreserveMassDist());
         // Map scaling method to dropdown
         scalingOrder = scalingParams.getScalingOrder();
@@ -509,9 +549,9 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         }
         else{
             // Make up a default name
-            String madeUpName = subjectPath+aDescriptor.dSubject.getGenericModelParams().getModelFileName();
+            String madeUpName = subjectPath+"ScaledModel.osim";
             saveOpenSimTextField1.setText(aDescriptor.dSubject.getPathToSubject()+
-                                            FileUtils.addSuffix(madeUpName,"SP")+".osim");
+                                            FileUtils.addSuffix(madeUpName,"SP"));
         }
         // Joint file
         if (!scalingParams.getOutputJointFileName().equalsIgnoreCase("Unassigned")){
@@ -520,8 +560,9 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         }
         else{
             // Make up a default name
+            String madeUpName = subjectPath+"ScaledSIMMModel.jnt";
             saveSIMMJntTextField1.setText(aDescriptor.dSubject.getPathToSubject()+
-                                            FileUtils.addSuffix(scalingParams.getOutputModelFileName(),"SP")+".jnt");
+                                            FileUtils.addSuffix(madeUpName,"SP"));
         }
         // Muscle file
         if (!scalingParams.getOutputMuscleFileName().equalsIgnoreCase("Unassigned")){
@@ -530,8 +571,9 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         }
         else{
             // Make up a default name
+            String madeUpName = subjectPath+"ScaledSIMMModel.msl";
             saveSIMMmslTextField1.setText(aDescriptor.dSubject.getPathToSubject()+
-                                            FileUtils.addSuffix(scalingParams.getOutputModelFileName(),"SP"));
+                                            FileUtils.addSuffix(madeUpName,"SP"));
         }
         repaint();
     }
@@ -567,7 +609,6 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         jManualScalePanel.setEnabled(includesManual);
         jMeasurementScalePanel.setEnabled(includesMeasurements);
         jManualScaleTextField.setEnabled(includesManual);
-        jBrowse4ScaleFile.setEnabled(includesManual);
         jEditScalesButton.setEnabled(includesManual);
         jMeasurementsFileTextField.setEnabled(includesMeasurements);
         jSaveScalesCheckBox.setEnabled(includesMeasurements);
@@ -575,11 +616,58 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         jToTimeTextField.setEnabled(includesMeasurements);
         markerTrialTextField.setEnabled(includesMeasurements);
         saveScalesTextField.setEnabled(includesMeasurements);
+        // Now the buttons
+        jBrowse4MeasButton.setEnabled(includesMeasurements);
+        jBrowse4ScalesButton.setEnabled(includesMeasurements);
+        jBrowse4TrcButton.setEnabled(includesMeasurements);
+        jEditMeasButton.setEnabled(includesMeasurements);
+        jSaveScalesCheckBox.setEnabled(includesMeasurements);
+        jEditScalesButton.setEnabled(includesManual);
+        jBrowse4ScaleButton.setEnabled(includesManual);
+        jCheckBoxSavemsl1.setEnabled(includesManual || includesMeasurements);
+        jCheckBox2.setEnabled(includesManual || includesMeasurements);
+        jCheckBoxSaveopensim1.setEnabled(includesManual || includesMeasurements);
+        saveOpenSimTextField1.setEnabled(includesManual || includesMeasurements);
+        saveSIMMJntTextField1.setEnabled(includesManual || includesMeasurements);
+        saveSIMMmslTextField1.setEnabled(includesManual || includesMeasurements);
+        jBrowse4OpenSim1.setEnabled(includesManual || includesMeasurements);
+        jBrowse4Jnt1.setEnabled(includesManual || includesMeasurements);
+        jBrowse4Msl1.setEnabled(includesManual || includesMeasurements);
+       
     }
 
     
     void updateWorkflow(WorkflowDescriptor descriptor){
+        SimmScalingParams scalingParams = descriptor.dSubject.getScalingParams();
+        String order = (String)scaleMethodSelect.getSelectedItem();
+        scalingOrder = new ArrayStr("", 2);
+        parseOrderIntoStrArr(order, scalingOrder);
+        scalingParams.setScalingOrder(scalingOrder);
+
     };
+
+    private void parseOrderIntoStrArr(String order, ArrayStr scalingOrder) {
+        String temp = order;
+        if (temp.contains("+")){
+            // Parse up to first +, append to scalingOrder, skip+ and repeat
+            while(!temp.equals("")){
+                int plusLocation = temp.indexOf('+');
+                if (plusLocation==-1){  // No more +
+                    scalingOrder.append(temp);
+                    break;
+                }
+                scalingOrder.append(temp.substring(0, plusLocation));
+                temp = temp.substring(plusLocation+1);
+            }
+        }
+        else { // Just one 
+            if (temp.equals("None"))
+                scalingOrder.set(0, "");
+            else{
+                 scalingOrder.set(0, temp);               
+            }
+        }
+    }
 
 
 }

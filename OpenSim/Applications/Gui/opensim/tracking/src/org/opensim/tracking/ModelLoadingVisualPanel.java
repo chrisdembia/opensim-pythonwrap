@@ -24,7 +24,6 @@ public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
      */
     public ModelLoadingVisualPanel() {
         initComponents();
-        putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
 
     }
     /**

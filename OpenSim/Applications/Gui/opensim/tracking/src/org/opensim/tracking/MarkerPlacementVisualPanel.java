@@ -146,7 +146,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         jSaveMotionCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jSaveMotionCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jSaveOsimCheckBox, "Osim");
+        org.openide.awt.Mnemonics.setLocalizedText(jSaveOsimCheckBox, "OpenSim");
         jSaveOsimCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jSaveOsimCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 

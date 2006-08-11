@@ -8,10 +8,6 @@
 
 package org.opensim.modeling;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-
 public class opensimModelJNI {
 
   static {

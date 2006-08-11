@@ -277,13 +277,14 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane1.setEnabled(false);
         jScrollPane1.setFocusable(false);
-        jMessageTextArea.setBackground(new java.awt.Color(236, 233, 216));
+        jMessageTextArea.setBackground(new java.awt.Color(224, 223, 227));
         jMessageTextArea.setColumns(20);
         jMessageTextArea.setEditable(false);
         jMessageTextArea.setForeground(new java.awt.Color(204, 0, 51));
         jMessageTextArea.setRows(5);
         jMessageTextArea.setBorder(null);
         jMessageTextArea.setFocusable(false);
+        jMessageTextArea.setOpaque(false);
         jScrollPane1.setViewportView(jMessageTextArea);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -292,11 +293,11 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jTrialSelectionPanel, 0, 302, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jModelSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jModelAddonForIKPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jModelAddonForIKPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -324,7 +325,6 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBrowse4MotionButton;
     private javax.swing.JButton jBrowse4TRCButton5;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton7;
@@ -387,10 +387,12 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
        }
         // IF no trials are availble, we're in trouble
         if (numTrials==0){
-            throw new UnsupportedOperationException("Not yet implemented");
+           jTrialSelectComboBox.setEnabled(false);
+           showMessage("No trials are available");
         }
-        // Get data for first trial and populate the dialog.
-        makeTrialCurrent(availableTrials[0]);
+        else
+            // Get data for first trial and populate the dialog.
+            makeTrialCurrent(availableTrials[0]);
     }
     /**
      * Mark one of the trials as current and update the GUI accordingly
@@ -422,6 +424,10 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     public SimmIKTrialParams getSelectedTrial()
     {
         return ((SimmIKTrialParams)jTrialSelectComboBox.getSelectedItem());
+    }
+
+    private void showMessage(String message) {
+        jMessageTextArea.setText(message);    
     }
 }
 

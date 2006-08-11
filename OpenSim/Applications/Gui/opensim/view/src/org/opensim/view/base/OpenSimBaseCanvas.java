@@ -148,7 +148,7 @@ public class OpenSimBaseCanvas extends vtkPanel
         lights.RemoveAllItems();
         GetRenderer().CreateLight();
         GetRenderer().ResetCamera();
-        GetRenderer().Render();
+        //GetRenderer().Render();
         repaint();
       }
 }
