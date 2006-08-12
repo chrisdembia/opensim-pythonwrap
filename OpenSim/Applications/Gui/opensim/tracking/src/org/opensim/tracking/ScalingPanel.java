@@ -96,21 +96,32 @@ public class ScalingPanel  extends workflowWizardPanelBase {
         SimmModel model = descriptor.getModel();
         ScalerInterface scaler = new SimmScalerImpl(model);
         ScaleSet scaleSet = params.getScaleSet(model, subject.getPathToSubject());
+        component.appendMessage("Obtained scale factors.\n");
         boolean preserveMassDistribution = params.getPreserveMassDist();
         double mass = subject.getMass();
         boolean success = scaler.scaleModel(scaleSet,preserveMassDistribution, mass);
-        model.setName(model.getName()+"- Scaled");
-        String outputModelName = getOutputModelPath(descriptor);
-        params.setOutputModelFileName(outputModelName);
-        params.writeOutputFiles(model, subject.getPathToSubject());
-        try {
-            // Display original model
-            ((OpenOsimModelAction) OpenOsimModelAction.findObject(
-                    Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+outputModelName);
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+        if (success)
+            component.appendMessage("Model has been scaled successfully.\n");
+        else
+            component.appendMessage("Failed to scale generic model.\n");
+        if (success) {  // Open scaled model 
+            model.setName(model.getName()+"- Scaled");
+            String outputModelName = getOutputModelPath(descriptor);
+            params.setOutputModelFileName(outputModelName);
+            component.appendMessage("Writing output files.\n");
+            params.writeOutputFiles(model, subject.getPathToSubject());
+             try {
+                component.appendMessage("Opening Scaled Model.\n");
+                // Display original model
+                ((OpenOsimModelAction) OpenOsimModelAction.findObject(
+                        Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+outputModelName);
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+            component.setExecuted(true);
         }
-        component.setExecuted(true);
+        else
+            component.setExecuted(false);
         return true;
     }    
 

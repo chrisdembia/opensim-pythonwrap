@@ -95,16 +95,19 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             SimmMarkerPlacementParams params = subject.getMarkerPlacementParams();
             ArrayPtrsSimmMarker aMarkerArray=params.getMarkerSet();
             model.updateMarkers(aMarkerArray); // This should be markerSet, could this work using proxy classes?
+            component.appendMessage("Updating markers and coordinates.\n");
             if (!params.getCoordinateFileName().equalsIgnoreCase("Unassigned")){
                 SimmMotionData coordinateValues = new SimmMotionData(subject.getPathToSubject()+params.getCoordinateFileName());
                 model.updateCoordinates(params.getCoordinateSet());
             }
             // Make up a SimmIKTrialParams
+            component.appendMessage("Reading static pose.\n");
             SimmMarkerData staticPose = new SimmMarkerData(subject.getPathToSubject()+params.getStaticPoseFilename());
             // Convert read trc fil into "common" rdStroage format
             Storage inputStorage = new Storage();
             staticPose.makeRdStorage(inputStorage);
             ArrayDouble timeRange = params.getTimeRange();
+            component.appendMessage("Averaging static pose.\n");
             staticPose.averageFrames(0.01, timeRange.getitem(0), timeRange.getitem(1));
             staticPose.convertToUnits(model.getLengthUnits());
 
@@ -123,9 +126,11 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             SimmIKSolverImpl ikSolver = new SimmIKSolverImpl(target, subject.getIKParams());
             // Solve
             Storage	outputStorage = new Storage();
+            component.appendMessage("Solving averaged frame from static pose.\n");
             ikSolver.solveFrames(options, inputStorage, outputStorage);
 
             // MOVE THE MARKERS TO CORRESPOND TO EXPERIMENTAL LOCATIONS
+            component.appendMessage("Moving markers on model.\n");
             model.moveMarkersToCloud(outputStorage);
             
             String userSpecifiedName = params.getOutputModelFileName();
@@ -141,7 +146,8 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             model.setName(model.getName()+"- Markers");
             params.setOutputModelFileName(localName);
             params.writeOutputFiles(model, outputStorage, subject.getPathToSubject());
-            try {
+            component.appendMessage("Opening model with moved markers.\n");
+           try {
                 // Display original model
                 ((OpenOsimModelAction) OpenOsimModelAction.findObject(
                         Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+localName);

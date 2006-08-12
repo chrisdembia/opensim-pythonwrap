@@ -248,13 +248,11 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         );
         jManualScalePanelLayout.setVerticalGroup(
             jManualScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jManualScalePanelLayout.createSequentialGroup()
-                .add(jManualScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel6)
-                    .add(jManualScaleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jBrowse4ScaleButton)
-                    .add(jEditScalesButton))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(jManualScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jLabel6)
+                .add(jManualScaleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jBrowse4ScaleButton)
+                .add(jEditScalesButton))
         );
 
         jOutputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
@@ -354,6 +352,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         jMessageTextArea.setRows(5);
         jMessageTextArea.setBorder(null);
         jMessageTextArea.setFocusable(false);
+        jMessageTextArea.setOpaque(false);
         jScrollPane1.setViewportView(jMessageTextArea);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -362,8 +361,8 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jScalingMethodSelectPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jMeasurementScalePanel, 0, 321, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jManualScalePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -376,12 +375,12 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                 .add(jScalingMethodSelectPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jMeasurementScalePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(14, 14, 14)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jManualScalePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 61, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -667,6 +666,10 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                  scalingOrder.set(0, temp);               
             }
         }
+    }
+
+    public void appendMessage(String message) {
+        jMessageTextArea.append(message);
     }
 
 

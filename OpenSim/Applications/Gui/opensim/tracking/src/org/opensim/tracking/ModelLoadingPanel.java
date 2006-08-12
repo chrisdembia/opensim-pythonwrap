@@ -117,12 +117,12 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
                 boolean success = ((OpenOsimModelAction) OpenOsimModelAction.findObject(
                         Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(model.getInputFileName());
                 if (!success)
-                    component.setMessage("Model has failed to load, please check the path.");
+                    component.appendMessage("Model has failed to load, please check the path.");
                 else
-                    component.setMessage("Step 1: Loading generic model - Done.");
+                    component.appendMessage("Step 1: Loading generic model - Done.");
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
-                component.setMessage("Model has failed to load from file "+model.getInputFileName());
+                component.appendMessage("Model has failed to load from file "+model.getInputFileName());
             }
             component.setExecuted(true);
             

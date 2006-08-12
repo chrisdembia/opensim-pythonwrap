@@ -51,6 +51,8 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         jBrowseMarkersButton = new javax.swing.JButton();
         jBrowseMotionButton = new javax.swing.JButton();
         jBrowseJntButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jMessageTextArea = new javax.swing.JTextArea();
 
         jSolveStaticPosePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Static Pose"));
 
@@ -182,7 +184,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                     .add(jBrowseMotionButton, 0, 0, Short.MAX_VALUE)
                     .add(jBrowseMarkersButton, 0, 0, Short.MAX_VALUE)
                     .add(jBrowseOsimButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, Short.MAX_VALUE))
-                .add(16, 16, 16))
+                .add(55, 55, 55))
         );
         jOutputFilesPanelLayout.setVerticalGroup(
             jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -210,19 +212,38 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setForeground(new java.awt.Color(204, 0, 51));
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane1.setEnabled(false);
+        jScrollPane1.setFocusable(false);
+        jMessageTextArea.setBackground(new java.awt.Color(224, 223, 227));
+        jMessageTextArea.setColumns(20);
+        jMessageTextArea.setEditable(false);
+        jMessageTextArea.setForeground(new java.awt.Color(204, 0, 51));
+        jMessageTextArea.setRows(5);
+        jMessageTextArea.setBorder(null);
+        jMessageTextArea.setFocusable(false);
+        jMessageTextArea.setOpaque(false);
+        jScrollPane1.setViewportView(jMessageTextArea);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jSolveStaticPosePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jOutputFilesPanel, 0, 292, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jSolveStaticPosePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -312,12 +333,14 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jMarkersFileNameTextField;
     private javax.swing.JTextField jMarkersFileTextField;
+    private javax.swing.JTextArea jMessageTextArea;
     private javax.swing.JTextField jOsimFilenameTextField;
     private javax.swing.JPanel jOutputFilesPanel;
     private javax.swing.JTextField jOutputJntTextField;
     private javax.swing.JTextField jOutputMotionTextField;
     private javax.swing.JCheckBox jSaveMotionCheckBox;
     private javax.swing.JCheckBox jSaveOsimCheckBox;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JCheckBox jSimmJntCheckBox;
     private javax.swing.JPanel jSolveStaticPosePanel;
     private javax.swing.JTextField jStaticFromTextField;
@@ -325,6 +348,10 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     private javax.swing.JButton jStaticTrialBrowseButton;
     private javax.swing.JTextField jStaticTrialTextField;
     // End of variables declaration//GEN-END:variables
+    public void appendMessage(String message)
+    {
+        jMessageTextArea.append(message);
+    }
     
 }
 

@@ -49,5 +49,5 @@ public abstract class workflowVisualPanelBase extends JPanel{
     public void setExecuted(boolean executed) {
         this.executed = executed;
     }
-    
+    abstract public void appendMessage(String message);
 }

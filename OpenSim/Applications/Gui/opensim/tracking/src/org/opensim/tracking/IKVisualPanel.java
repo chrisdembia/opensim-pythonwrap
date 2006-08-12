@@ -388,7 +388,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         // IF no trials are availble, we're in trouble
         if (numTrials==0){
            jTrialSelectComboBox.setEnabled(false);
-           showMessage("No trials are available");
+           appendMessage("No trials are available");
         }
         else
             // Get data for first trial and populate the dialog.
@@ -426,7 +426,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         return ((SimmIKTrialParams)jTrialSelectComboBox.getSelectedItem());
     }
 
-    private void showMessage(String message) {
+    public void appendMessage(String message) {
         jMessageTextArea.setText(message);    
     }
 }

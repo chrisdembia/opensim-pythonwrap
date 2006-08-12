@@ -13,12 +13,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="1"/>
-                  <Component id="jScalingMethodSelectPanel" alignment="0" max="32767" attributes="1"/>
-                  <Component id="jMeasurementScalePanel" alignment="0" min="0" pref="321" max="32767" attributes="1"/>
-                  <Component id="jManualScalePanel" alignment="0" max="32767" attributes="1"/>
-                  <Component id="jOutputPanel" alignment="0" max="32767" attributes="3"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jScrollPane1" alignment="0" pref="321" max="32767" attributes="2"/>
+                  <Component id="jScalingMethodSelectPanel" alignment="0" max="32767" attributes="2"/>
+                  <Component id="jMeasurementScalePanel" alignment="0" min="0" pref="321" max="32767" attributes="2"/>
+                  <Component id="jManualScalePanel" alignment="0" max="32767" attributes="2"/>
+                  <Component id="jOutputPanel" alignment="0" max="32767" attributes="2"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -30,12 +30,12 @@
               <Component id="jScalingMethodSelectPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jMeasurementScalePanel" min="-2" pref="145" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jManualScalePanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jOutputPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="61" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -329,14 +329,11 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jManualScaleTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBrowse4ScaleButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jEditScalesButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jManualScaleTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBrowse4ScaleButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jEditScalesButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -546,6 +543,7 @@
               <Border info="null"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
+            <Property name="opaque" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>

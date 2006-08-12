@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SimmModel name="OpenSim Demo Model">
-	<gravity>0.0 0.0 -9.80665</gravity>
 	<Muscles>
 		<SimmMuscle name="glut_max1_r">
 			<Attachments>
@@ -4243,9 +4242,10 @@
 			<groups>left leg_l ankle_l </groups>
 		</SimmMuscle>
 	</Muscles>
-	<KinematicsEngines>
+	<DynamicsEngine>
 		<SimmKinematicsEngine>
-			<Bodies>
+      <gravity>0.0 0.0 -9.80665</gravity>
+      <Bodies>
 				<SimmBody name="ground">
 					<mass>0.000000</mass>
 					<mass_center>0.000000 0.000000 0.000000</mass_center>
@@ -5525,7 +5525,7 @@
 					<range>-10.000000 10.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>false</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5534,7 +5534,7 @@
 					<range>-10.000000 10.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>false</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5543,7 +5543,7 @@
 					<range>-10.000000 10.000000</range>
 					<default_value>0.969000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>false</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5552,7 +5552,7 @@
 					<range>-270.000000 270.000000</range>
 					<default_value>90.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>false</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5561,7 +5561,7 @@
 					<range>-270.000000 270.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>false</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5570,7 +5570,7 @@
 					<range>-270.000000 270.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>false</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5579,7 +5579,7 @@
 					<range>-45.000000 45.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5600,7 +5600,7 @@
 					<range>-60.000000 60.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5621,7 +5621,7 @@
 					<range>-45.000000 45.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5642,7 +5642,7 @@
 					<range>-40.000000 40.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5663,7 +5663,7 @@
 					<range>-66.000000 66.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5684,7 +5684,7 @@
 					<range>-50.000000 72.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5705,7 +5705,7 @@
 					<range>-120.000000 90.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5726,7 +5726,7 @@
 					<range>-10.000000 10.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5747,7 +5747,7 @@
 					<range>-45.000000 90.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5768,7 +5768,7 @@
 					<range>0.000000 130.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5789,7 +5789,7 @@
 					<range>50.000000 70.000000</range>
 					<default_value>60.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5810,7 +5810,7 @@
 					<range>-25.000000 35.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5831,7 +5831,7 @@
 					<range>-70.000000 70.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5852,7 +5852,7 @@
 					<range>-120.000000 90.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5873,7 +5873,7 @@
 					<range>-10.000000 10.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5894,7 +5894,7 @@
 					<range>-45.000000 90.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5915,7 +5915,7 @@
 					<range>0.000000 130.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5936,7 +5936,7 @@
 					<range>50.000000 70.000000</range>
 					<default_value>60.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5957,7 +5957,7 @@
 					<range>-25.000000 35.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5978,7 +5978,7 @@
 					<range>-70.000000 70.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -5999,7 +5999,7 @@
 					<range>-50.000000 20.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6020,7 +6020,7 @@
 					<range>-40.000000 40.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6041,7 +6041,7 @@
 					<range>-11.000000 95.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6062,7 +6062,7 @@
 					<range>-10.000000 120.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6083,7 +6083,7 @@
 					<range>-30.000000 30.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6104,7 +6104,7 @@
 					<range>-20.000000 20.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6125,7 +6125,7 @@
 					<range>-30.000000 30.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6146,7 +6146,7 @@
 					<range>-50.000000 20.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6167,7 +6167,7 @@
 					<range>-40.000000 40.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6188,7 +6188,7 @@
 					<range>-11.000000 95.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6209,7 +6209,7 @@
 					<range>-10.000000 120.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6230,7 +6230,7 @@
 					<range>-30.000000 30.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6251,7 +6251,7 @@
 					<range>-20.000000 20.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6272,7 +6272,7 @@
 					<range>-30.000000 30.000000</range>
 					<default_value>0.000000</default_value>
 					<tolerance>0.000000</tolerance>
-					<PDStiffness>0.000000</PDStiffness>
+					<stiffness>0.000000</stiffness>
 					<clamped>true</clamped>
 					<locked>false</locked>
 					<restraint_active>false</restraint_active>
@@ -6296,60 +6296,60 @@
 					<Dofs>
 						<SimmTranslationDof name="tx">
 							<DOF_coordinate>lower_torso_TX</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
 							<DOF_coordinate>lower_torso_TY</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
 							<DOF_coordinate>lower_torso_TZ</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>1.000000 0.000000 0.000000</axis>
 							<DOF_coordinate>lower_torso_RX</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
 							<DOF_coordinate>lower_torso_RY</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>lower_torso_RZ</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6357,55 +6357,55 @@
 					<Bodies>pelvis torso</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.087200</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.033100</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>lumbar_pitch</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>1.000000 0.000000 0.000000</axis>
 							<DOF_coordinate>lumbar_roll</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
 							<DOF_coordinate>lumbar_yaw</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6413,55 +6413,55 @@
 					<Bodies>torso neckhead</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.025300</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.448950</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>neck_pitch</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>1.000000 0.000000 0.000000</axis>
 							<DOF_coordinate>neck_roll</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
 							<DOF_coordinate>neck_yaw</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6469,49 +6469,49 @@
 					<Bodies>neckhead OT_head</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.071660</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.235900</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>-90.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6520,48 +6520,48 @@
 					<Dofs>
 						<SimmRotationDof name="r1">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.048800</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.470650</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6569,55 +6569,55 @@
 					<Bodies>torso humerus_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.028100</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.416450</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.199000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>1.000000 0.000000 0.000000</axis>
 							<DOF_coordinate>arm_add_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>arm_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
 							<DOF_coordinate>arm_rot_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6625,49 +6625,49 @@
 					<Bodies>humerus_r elbow_marker_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.226047 0.022269 0.973862</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>3.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>15.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6675,51 +6675,51 @@
 					<Bodies>humerus_r ulna_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.013144</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.286273</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.009595</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.226047 0.022269 0.973862</axis>
 							<DOF_coordinate>elbow_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6727,51 +6727,51 @@
 					<Bodies>ulna_r radius_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.006727</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.013007</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.026083</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.056398 0.998406 0.001952</axis>
 							<DOF_coordinate>pro_sup_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6779,49 +6779,49 @@
 					<Bodies>radius_r wrist_marker_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.006727</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.013007</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.026083</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>-8.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>10.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>-4.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6829,53 +6829,53 @@
 					<Bodies>radius_r hand_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.008797</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.235841</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.013610</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>wrist_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>1.000000 0.000000 0.000000</axis>
 							<DOF_coordinate>wrist_dev_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6884,48 +6884,48 @@
 					<Dofs>
 						<SimmRotationDof name="r1">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.048800</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.470650</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6933,55 +6933,55 @@
 					<Bodies>torso humerus_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.028100</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.416450</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.199000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>-1.000000 0.000000 0.000000</axis>
 							<DOF_coordinate>arm_add_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>arm_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 -1.000000 0.000000</axis>
 							<DOF_coordinate>arm_rot_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -6989,49 +6989,49 @@
 					<Bodies>humerus_l elbow_marker_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>-0.226047 -0.022269 0.973862</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>3.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 -1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>-15.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>-1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7039,51 +7039,51 @@
 					<Bodies>humerus_l ulna_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.013144</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.286273</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.009595</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>-0.226047 -0.022269 0.973862</axis>
 							<DOF_coordinate>elbow_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 -1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>-1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7091,51 +7091,51 @@
 					<Bodies>ulna_l radius_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.006727</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.013007</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.026083</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>-1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>-0.056398 -0.998406 0.001952</axis>
 							<DOF_coordinate>pro_sup_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7143,49 +7143,49 @@
 					<Bodies>radius_l wrist_marker_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.006727</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.013007</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.026083</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>8.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>-10.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>-4.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7193,53 +7193,53 @@
 					<Bodies>radius_l hand_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.008797</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.235841</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.013610</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>wrist_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 -1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>-1.000000 0.000000 0.000000</axis>
 							<DOF_coordinate>wrist_dev_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7247,55 +7247,55 @@
 					<Bodies>pelvis femur_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.080000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.082400</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.078500</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>hip_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>1.000000 0.000000 0.000000</axis>
 							<DOF_coordinate>hip_add_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
 							<DOF_coordinate>hip_rot_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7304,54 +7304,54 @@
 					<Dofs>
 						<SimmTranslationDof name="tx">
 							<DOF_coordinate>knee_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>0.000000 10.000000 20.000000 40.000000 60.000000 80.000000 100.000000 120.000000 </x>
 									<y>-0.005250 -0.003100 -0.001000 0.002120 0.004100 0.004110 0.001790 -0.003200 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
 							<DOF_coordinate>knee_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>0.000000 10.000000 20.000000 30.000000 70.000000 120.000000 </x>
 									<y>-0.396000 -0.396600 -0.397600 -0.399000 -0.408200 -0.422600 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 -1.000000</axis>
 							<DOF_coordinate>knee_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7360,54 +7360,54 @@
 					<Dofs>
 						<SimmTranslationDof name="tx">
 							<DOF_coordinate>knee_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>0.000000 10.000000 20.000000 40.000000 60.000000 80.000000 120.000000 </x>
 									<y>0.049600 0.048400 0.046900 0.043000 0.038100 0.032400 0.017300 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
 							<DOF_coordinate>knee_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>0.286000 10.000000 20.000000 40.000000 60.000000 80.000000 90.000000 120.000000 </x>
 									<y>-0.022700 -0.022300 -0.021900 -0.021100 -0.020400 -0.020000 -0.020200 -0.021900 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.002400</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>knee_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-10.000000 -0.150000 20.340000 56.430000 114.590000 120.000000 </x>
 									<y>-9.240000 -2.440000 6.090000 13.860000 17.650000 17.650000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7415,51 +7415,51 @@
 					<Bodies>tibia_r talus_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.426000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>-0.104529 -0.173649 0.979244</axis>
 							<DOF_coordinate>ankle_flex_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7467,51 +7467,51 @@
 					<Bodies>talus_r foot_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.048770</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.041950</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.007920</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.787180 0.604747 -0.120949</axis>
 							<DOF_coordinate>subt_angle_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7519,49 +7519,49 @@
 					<Bodies>foot_r foot_marker_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.020000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.018000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.010000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7569,51 +7569,51 @@
 					<Bodies>foot_r toes_r</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.176800</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.002000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.001080</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.541717 0.000000 -0.840561</axis>
 							<DOF_coordinate>toe_angle_r</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7621,55 +7621,55 @@
 					<Bodies>pelvis femur_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.080000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.082400</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.078500</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>hip_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>-1.000000 0.000000 0.000000</axis>
 							<DOF_coordinate>hip_add_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 -1.000000 0.000000</axis>
 							<DOF_coordinate>hip_rot_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7678,54 +7678,54 @@
 					<Dofs>
 						<SimmTranslationDof name="tx">
 							<DOF_coordinate>knee_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>0.000000 10.000000 20.000000 40.000000 60.000000 80.000000 100.000000 120.000000 </x>
 									<y>-0.005250 -0.003100 -0.001000 0.002120 0.004100 0.004110 0.001790 -0.003200 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
 							<DOF_coordinate>knee_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>0.000000 10.000000 20.000000 30.000000 70.000000 120.000000 </x>
 									<y>-0.396000 -0.396600 -0.397600 -0.399000 -0.408200 -0.422600 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 -1.000000</axis>
 							<DOF_coordinate>knee_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7734,54 +7734,54 @@
 					<Dofs>
 						<SimmTranslationDof name="tx">
 							<DOF_coordinate>knee_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>0.000000 10.000000 20.000000 40.000000 60.000000 80.000000 120.000000 </x>
 									<y>0.049600 0.048400 0.046900 0.043000 0.038100 0.032400 0.017300 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
 							<DOF_coordinate>knee_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>0.286000 10.000000 20.000000 40.000000 60.000000 80.000000 90.000000 120.000000 </x>
 									<y>-0.022700 -0.022300 -0.021900 -0.021100 -0.020400 -0.020000 -0.020200 -0.021900 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.002400</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.000000 0.000000 1.000000</axis>
 							<DOF_coordinate>knee_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-10.000000 -0.150000 20.340000 56.430000 114.590000 120.000000 </x>
 									<y>-9.240000 -2.440000 6.090000 13.860000 17.650000 17.650000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>-1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 -1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7789,51 +7789,51 @@
 					<Bodies>tibia_l talus_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.426000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>0.104529 0.173649 0.979244</axis>
 							<DOF_coordinate>ankle_flex_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>-1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 -1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7841,51 +7841,51 @@
 					<Bodies>talus_l foot_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.048770</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.041950</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.007920</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>-0.787180 -0.604747 -0.120949</axis>
 							<DOF_coordinate>subt_angle_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 -1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7893,49 +7893,49 @@
 					<Bodies>foot_l foot_marker_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.020000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.018000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.010000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>1.000000 0.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
@@ -7943,55 +7943,55 @@
 					<Bodies>foot_l toes_l</Bodies>
 					<Dofs>
 						<SimmTranslationDof name="tx">
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.176800</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="ty">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.002000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmTranslationDof name="tz">
-							<Values>
+							<Value>
 								<Constant>
 									<value>-0.001080</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmTranslationDof>
 						<SimmRotationDof name="r1">
 							<axis>-0.541717 0.000000 -0.840561</axis>
 							<DOF_coordinate>toe_angle_l</DOF_coordinate>
-							<Values>
+							<Value>
 								<natCubicSpline>
 									<x>-360.000000 360.000000 </x>
 									<y>-360.000000 360.000000 </y>
 								</natCubicSpline>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r2">
 							<axis>0.000000 1.000000 0.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 						<SimmRotationDof name="r3">
 							<axis>0.000000 0.000000 1.000000</axis>
-							<Values>
+							<Value>
 								<Constant>
 									<value>0.000000</value>
 								</Constant>
-							</Values>
+							</Value>
 						</SimmRotationDof>
 					</Dofs>
 				</SimmJoint>
 			</Joints>
 		</SimmKinematicsEngine>
-	</KinematicsEngines>
+	</DynamicsEngine>
 </SimmModel>

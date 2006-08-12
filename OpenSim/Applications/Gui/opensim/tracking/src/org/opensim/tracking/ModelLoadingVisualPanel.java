@@ -526,9 +526,9 @@ public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         repaint();  // Refresh display after any new dialog is braught down
     }
     
-    public void setMessage(String message)
+    public void appendMessage(String message)
     {
-        jMessageTextArea.setText(message);
+        jMessageTextArea.append(message);
     }
 
     /**

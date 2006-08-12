@@ -141,6 +141,7 @@ public class IKPanel  extends workflowWizardPanelBase{
                 coordinateValues.addToRdStorage(inputStorage, startTime, endTime);
 
         }
+        component.appendMessage("Setting up the IK problem for trial "+trialParams.getName()+".\n");
         // Create target
         SimmInverseKinematicsTarget target = new SimmInverseKinematicsTarget(model, inputStorage);
         // Create solver
@@ -148,6 +149,7 @@ public class IKPanel  extends workflowWizardPanelBase{
         // Solve
         Storage	outputStorage = new Storage();
         ikSolver.solveFrames(trialParams, inputStorage, outputStorage);
+        component.appendMessage("Solved trial "+trialParams.getName()+".\n");
         outputStorage.setWriteSIMMHeader(true);
         component.setExecuted(true);
         return false;

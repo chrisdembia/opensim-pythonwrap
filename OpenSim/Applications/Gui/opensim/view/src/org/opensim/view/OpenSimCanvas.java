@@ -106,7 +106,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
                 // Traverse the bodies of the simmModel in depth-first order.
                 SimmModelIterator i = new SimmModelIterator(model);
-
+                // Keep track of ground body to avoid recomputation
                 SimmBody gnd = model.getSimmKinematicsEngine().getGroundBodyPtr();
                 while (i.getNextBody() != null) {
 
@@ -115,37 +115,14 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     // Add a vtkAssembly to the vtk scene graph to represent
                     // the current body.
                     vtkAssembly bodyRep = new vtkAssembly();
-
-                    // Fill the two maps between objects and actors to support picking, highlighting, etc..
+                    
+                    // Fill the maps between objects and display to support picking, highlighting, etc..
+                    // The reverse map takes an actor to an Object and is filled as actors are created.
                     mapObject2Actors.put(body, bodyRep);
                     
                     GetRenderer().AddViewProp(bodyRep); // used to be AddProp, but VTK 5 complains.
 
-                    // Convert origin frame in currentBody to ground.
-                    
-                    double[][] originFrame = new double[][]{{1.0, 0.0, 0.0}, 
-                                                            {0.0, 1.0, 0.0}, 
-                                                            {0.0, 0.0, 1.0},
-                                                            {0.0, 0.0, 0.0}};
-
-                    model.getSimmKinematicsEngine().convertVector(originFrame[0], body, gnd);
-                    model.getSimmKinematicsEngine().convertVector(originFrame[1], body, gnd);
-                    model.getSimmKinematicsEngine().convertVector(originFrame[2], body, gnd);
-                    model.getSimmKinematicsEngine().convertPoint(originFrame[3], body, gnd);
-
-                    vtkMatrix4x4 m = new vtkMatrix4x4();
-                    // Set the rotation part
-                    for (int row = 0; row < 3; row++){
-                        for (int col = 0; col < 3; col++){
-                            m.SetElement(row, col, originFrame[row][col]);
-                        }
-                    }
-                    // Set last row of the matrix to translation.
-                    for (int col = 0; col < 3; col++)
-                        m.SetElement(3, col, originFrame[3][col]);
-                    
-                    // Transpose the matrix per Pete!!
-                    m.Transpose();
+                    vtkMatrix4x4 m= getBodyTransform(body, gnd);
                     bodyRep.SetUserMatrix(m);
 
                     // Add a vtkActor object to the vtk scene graph to represent
@@ -153,9 +130,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     bodyDisplayer.getScaleFactors(scales);
 
                     int ns = bodyDisplayer.getNumGeometryFiles();
-                    // each bone in the current body.
+                    // For each bone in the current body.
                     for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
-
                         // Get the native vtkPolyData object from the OpenSim
                         // model, and wrap a Java vtkPolyData object around it
                         // for use by VTK.
@@ -176,6 +152,9 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                         mapActors2Objects.put(actor, body);
                     }
                     
+                    // Bodies have things attached to them as handled by the
+                    // dependents mechanism. For each one of these a new assembly is created and attached 
+                    // to the same xform as the owner body.
                     int ct = bodyDisplayer.countDependents();
                     //System.out.println("Body "+body+" has "+ct+ " dependents");
                     double[] color = new double[3];
@@ -190,7 +169,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                             vtkActor dActor = new vtkActor();
                             AnalyticGeometry ag=null;
                             ag = AnalyticGeometry.dynamic_cast(g);
-                            if (ag != null){
+                            if (ag != null){    
                                 AnalyticGeometryType analyticType = ag.getShape();
                                 if (analyticType == AnalyticGeometryType.Sphere){
                                     vtkSphereSource sphere = new vtkSphereSource();
@@ -207,19 +186,23 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                                     mapActors2Objects.put(dActor, Dependent.getOwner());
                                 }
                             }
+                            else {  // General geometry
+                                // throw an exception for not implemented though should be identical
+                            }
                         }
                         GetRenderer().AddViewProp(attachmentRep); 
                         mapObject2Actors.put(Dependent.getOwner(), attachmentRep);
                     }
                 } //body
-                // Now the muscles
+                // Now the muscles which are different creatures since they don't have a frame of their own
+                // We'll just connect the "musclepoints" in gnd frame to make up the muscle.
                 int numMuscles = model.getNumberOfMuscles();
                 for(int m=0; m < numMuscles; m++){   
                     SimmMuscle nextMuscle = model.getMuscle(m);
                     // Create assembly for muscle
                     vtkAssembly muscleRep = new vtkAssembly();
                     
-                    // Fill the two maps between objects and actors to support picking, highlighting, etc..
+                    // Fill the object to display map
                     mapObject2Actors.put(nextMuscle, muscleRep);
                     
                     // Get attachments and connect them
@@ -263,6 +246,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                             dActor.SetUserMatrix(getCylinderTransform(axis, center));
                             dActor.SetMapper(mapper);
                             muscleRep.AddPart(dActor);
+                            // Fill the display to object map
                             mapActors2Objects.put(dActor, nextMuscle);
 
                             // Move position1 to the next point
@@ -327,6 +311,39 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         return length;
     }
     
+     /**
+      * Get the vtkTransform matrix between ground and a body frame,
+      * There could be a more efficient way to do that than xform a frame
+      * at body origin.
+      */
+     vtkMatrix4x4 getBodyTransform(SimmBody body, SimmBody gnd)
+     {
+                    double[][] originFrame = new double[][]{{1.0, 0.0, 0.0}, 
+                                                            {0.0, 1.0, 0.0}, 
+                                                            {0.0, 0.0, 1.0},
+                                                            {0.0, 0.0, 0.0}};
+
+                    model.getSimmKinematicsEngine().convertVector(originFrame[0], body, gnd);
+                    model.getSimmKinematicsEngine().convertVector(originFrame[1], body, gnd);
+                    model.getSimmKinematicsEngine().convertVector(originFrame[2], body, gnd);
+                    model.getSimmKinematicsEngine().convertPoint(originFrame[3], body, gnd);
+
+                    vtkMatrix4x4 m = new vtkMatrix4x4();    // This should be moved out for performance
+                    // Set the rotation part
+                    for (int row = 0; row < 3; row++){
+                        for (int col = 0; col < 3; col++){
+                            m.SetElement(row, col, originFrame[row][col]);
+                        }
+                    }
+                    // Set last row of the matrix to translation.
+                    for (int col = 0; col < 3; col++)
+                        m.SetElement(3, col, originFrame[3][col]);
+                    
+                    // Transpose the matrix per Pete!!
+                    m.Transpose();
+                    return m;
+     }
+     
     public void mousePressed(MouseEvent e)
    {
        if ( (e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.CTRL_MASK))) {
@@ -462,7 +479,6 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             //Node selectedNode = ownerTopComponent.getNodeFor(selectedObject);
             //ownerTopComponent.setActivatedNodes(new Node[] {selectedNode});
             StatusDisplayer.getDefault().setStatusText(selectedObject.getType()+", "+selectedObject.getName());
-            ownerTopComponent.setToolTipText(selectedObject.getType()+", "+selectedObject.getName());
         }
         else
             StatusDisplayer.getDefault().setStatusText("");

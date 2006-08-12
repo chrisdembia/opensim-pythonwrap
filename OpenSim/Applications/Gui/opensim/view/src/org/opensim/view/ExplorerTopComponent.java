@@ -165,6 +165,8 @@ final class ExplorerTopComponent extends TopComponent
             ModelWindowVTKTopComponent o = (ModelWindowVTKTopComponent) c.iterator().next();
             SimmModel m = o.getModel();
             Node modelNode = mapModels2Nodes.get(m);
+            if (modelNode==null)
+                return;
             Node[] selectedNodes = new Node[1];
             selectedNodes[0] = modelNode;
             try {
