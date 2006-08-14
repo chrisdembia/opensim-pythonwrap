@@ -29,11 +29,19 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
+ *
+ * Base class for all visual panels of the tracking workflow to call
+ * updatePanel(WorkflowDescriptor) when the panel is displayed.
+ * updateWorkflow(WorkflowDescriptor) when the panel is left
+ *  keep track of flags to mark
+ * executed: if the workflow step has been executed already
+ * ready: to indicate if the panel has a valid set of data values to be executed.
  */
 public abstract class workflowVisualPanelBase extends JPanel{
     
     private boolean executed=false;
+    private boolean ready=false;
     /**
      * Creates a new instance of workflowVisualPanelBase
      */
@@ -50,4 +58,14 @@ public abstract class workflowVisualPanelBase extends JPanel{
         this.executed = executed;
     }
     abstract public void appendMessage(String message);
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }
+    
+    
 }

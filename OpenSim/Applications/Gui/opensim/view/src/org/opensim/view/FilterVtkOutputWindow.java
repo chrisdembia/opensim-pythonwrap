@@ -30,7 +30,7 @@ import vtk.vtkOutputWindow;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
  */
 public final class FilterVtkOutputWindow extends vtkFileOutputWindow {
     static FilterVtkOutputWindow instance;

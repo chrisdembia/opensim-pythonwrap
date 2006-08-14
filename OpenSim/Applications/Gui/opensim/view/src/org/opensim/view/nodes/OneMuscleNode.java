@@ -37,7 +37,7 @@ import org.opensim.view.editors.ObjectEditDialogMaker;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
  */
 public class OneMuscleNode extends OpenSimNode{
     

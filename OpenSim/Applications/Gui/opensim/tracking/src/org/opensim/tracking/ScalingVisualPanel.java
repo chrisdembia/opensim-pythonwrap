@@ -2,6 +2,8 @@ package org.opensim.tracking;
 
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.SimmScalingParams;
@@ -548,7 +550,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         }
         else{
             // Make up a default name
-            String madeUpName = subjectPath+"ScaledModel.osim";
+            String madeUpName = "ScaledModel.osim";
             saveOpenSimTextField1.setText(aDescriptor.dSubject.getPathToSubject()+
                                             FileUtils.addSuffix(madeUpName,"SP"));
         }
@@ -559,7 +561,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         }
         else{
             // Make up a default name
-            String madeUpName = subjectPath+"ScaledSIMMModel.jnt";
+            String madeUpName = "ScaledSIMMModel.jnt";
             saveSIMMJntTextField1.setText(aDescriptor.dSubject.getPathToSubject()+
                                             FileUtils.addSuffix(madeUpName,"SP"));
         }
@@ -570,7 +572,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         }
         else{
             // Make up a default name
-            String madeUpName = subjectPath+"ScaledSIMMModel.msl";
+            String madeUpName = "ScaledSIMMModel.msl";
             saveSIMMmslTextField1.setText(aDescriptor.dSubject.getPathToSubject()+
                                             FileUtils.addSuffix(madeUpName,"SP"));
         }
@@ -642,6 +644,31 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         scalingOrder = new ArrayStr("", 2);
         parseOrderIntoStrArr(order, scalingOrder);
         scalingParams.setScalingOrder(scalingOrder);
+        boolean includesManual = hasManual();
+        boolean includesMeasurements = hasMeasurements();
+        if (includesManual){    // Make sure a scale file has been selected
+            if(jManualScaleTextField.getText().equals(""))
+                this.appendMessage("Manual scaling was selected but no Scales file was presented.");
+            else {
+                /* Create a ScaleSet based on selected file and set it in Subject.
+                //DialogDisplayer.getDefault().notify(
+                //    new NotifyDescriptor.Message("Not implemented yet, pending resolution of bug 209."));
+                 */
+            }
+        }
+        // Now measurements
+        if (includesMeasurements){    // Make sure a scale file has been selected
+            if(jManualScaleTextField.getText().equals(""))
+                this.appendMessage("Manual scaling was selected but no Scales file was presented.");
+            else {
+                /*
+                // Create a ScaleSet based on selected file and set it in Subject.
+                DialogDisplayer.getDefault().notify(
+                    new NotifyDescriptor.Message("Not implemented yet, pending resolution of bug 209."));
+                 **/
+            }
+        }
+        
 
     };
 
@@ -670,6 +697,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
 
     public void appendMessage(String message) {
         jMessageTextArea.append(message);
+        repaint();
     }
 
 

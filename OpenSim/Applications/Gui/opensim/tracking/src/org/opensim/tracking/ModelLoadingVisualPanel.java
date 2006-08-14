@@ -6,10 +6,12 @@ import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.util.NbBundle;
 import org.openide.windows.WindowManager;
+import org.opensim.modeling.Property;
 import org.opensim.modeling.SimmGenericModelParams;
-import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmSubject;
 
 public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
@@ -434,8 +436,10 @@ public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         if (modelFile!= null){
             jModelOwnRadioButton.setSelected(true);
             String parentPath = new File(modelFile).getParent();
-            if (parentPath != null)
+            if (parentPath != null){
                 jModelNameTextField.setText(modelFile.substring(parentPath.length()+1));
+                aDescriptor.getSubject().setPathToSubject(parentPath+File.separator);
+            }
             else
                 jModelNameTextField.setText(modelFile);
             // Update GUI accordingly
@@ -484,9 +488,13 @@ public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
 
     private void setSubjectInfo(SimmSubject subject) {
         if (subject!= null){
-            jWeightTextField.setText(String.valueOf(subject.getSubjectMass()));
-            jHeightTextField.setText(String.valueOf(subject.getSubjectHeight()));
-            jAgeTextField.setText(String.valueOf(subject.getSubjectAge()));
+            Property massProp = subject.getPropertySet().get("mass");
+            boolean def = massProp.getUseDefault();
+            if (subject.getMass()!=subject.getDefaultMass()){
+                jWeightTextField.setText(String.valueOf(subject.getSubjectMass()));
+                jHeightTextField.setText(String.valueOf(subject.getSubjectHeight()));
+                jAgeTextField.setText(String.valueOf(subject.getSubjectAge()));
+            }
         }
         else {
             jWeightTextField.setText("");
@@ -529,6 +537,7 @@ public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
     public void appendMessage(String message)
     {
         jMessageTextArea.append(message);
+        repaint();  // Refresh display after any new dialog is braught down
     }
 
     /**
@@ -557,7 +566,18 @@ public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
    }
     
     void updateWorkflow(WorkflowDescriptor descriptor){
-        System.out.println(descriptor.getModel());
-    };
+        SimmGenericModelParams params = descriptor.getSubject().getGenericModelParams();
+        if(!jModelNameTextField.getText().equals("")){
+            params.setModelFileName(jModelNameTextField.getText());
+            setModelFile(jModelNameTextField.getText());
+        }
+        // We'll do the same for Markers when MarkerSet is exposed properly (bug 209'
+       /*
+        if(!jOwnMarkersTextField.getText().equals("")){
+        DialogDisplayer.getDefault().notify(
+                new NotifyDescriptor.Message("MarkerSet selection not implemented yet, pending resolution of bug 209."));
+       }
+        */
+     };
 }
 

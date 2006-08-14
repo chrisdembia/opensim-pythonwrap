@@ -37,7 +37,7 @@ import vtk.vtkProperty;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
  */
 public class VisibilityEditorPanel extends AbstractEditorPanel implements ChangeListener {
     OpenSimObject   object;

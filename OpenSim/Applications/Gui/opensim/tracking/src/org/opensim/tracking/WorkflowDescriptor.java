@@ -92,7 +92,8 @@ public class WorkflowDescriptor {
     void updateCachedValues() {
         String modelFilename = dSubject.getGenericModelParams().getModelFileName();
         setUseOwnModel(!modelFilename.equalsIgnoreCase("Unassigned"));
-        setUseOwnMarkers(dSubject.getGenericModelParams().getMarkerSet().getSize()>0);
+        // Until MarkerSet is an object we'll disable the option from the GUI'
+        setUseOwnMarkers(false/*dSubject.getGenericModelParams().getMarkerSet().getSize()>0*/);
     }
 
     void setSubjectFile(String fullPathToSubjectFile) {
@@ -101,8 +102,7 @@ public class WorkflowDescriptor {
             dSubject = newSubject;
             updateCachedValues();
         }
-         else
-           throw new UnsupportedOperationException("Not yet implemented");
+        /* else
+           throw new UnsupportedOperationException("Not yet implemented");*/
     }
-   
 }

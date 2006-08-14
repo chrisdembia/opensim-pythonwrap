@@ -183,6 +183,9 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
     }
+
+    public void appendMessage(String message) {
+    }
     
 }
 

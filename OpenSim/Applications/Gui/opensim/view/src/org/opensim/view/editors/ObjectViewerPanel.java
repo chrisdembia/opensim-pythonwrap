@@ -33,7 +33,7 @@ import org.opensim.view.OpenSimCanvas;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
  */
 public class ObjectViewerPanel extends JPanel {
     private AbstractEditorPanel editorPanel;

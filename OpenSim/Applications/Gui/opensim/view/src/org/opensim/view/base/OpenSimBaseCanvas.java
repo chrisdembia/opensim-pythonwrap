@@ -39,7 +39,11 @@ import vtk.vtkPanel;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
+ *
+ * Base class for the Canvas to collect all the properties to be shared by OpenSim based 
+ * applications and to enforce behvior (e.g colors, camera, mouse interaction) that's not specific
+ * to OpenSim's Top Gui Application.
  */
 public class OpenSimBaseCanvas extends vtkPanel 
         implements KeyListener {

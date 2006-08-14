@@ -87,10 +87,6 @@ public class SimmMarkerPlacementParams extends OpenSimObject {
     return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t(opensimModelJNI.SimmMarkerPlacementParams_getCoordinateSet(swigCPtr), false);
   }
 
-  public double getMaxMarkerMovement() {
-    return opensimModelJNI.SimmMarkerPlacementParams_getMaxMarkerMovement(swigCPtr);
-  }
-
   public boolean processModel(SimmModel aModel, String path) {
     return opensimModelJNI.SimmMarkerPlacementParams_processModel(swigCPtr, SimmModel.getCPtr(aModel), path);
   }

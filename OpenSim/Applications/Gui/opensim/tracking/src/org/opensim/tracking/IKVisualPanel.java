@@ -427,7 +427,8 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     }
 
     public void appendMessage(String message) {
-        jMessageTextArea.setText(message);    
+        jMessageTextArea.setText(message); 
+        repaint();
     }
 }
 

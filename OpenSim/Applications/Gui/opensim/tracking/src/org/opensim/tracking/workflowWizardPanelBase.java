@@ -29,7 +29,9 @@ import org.openide.WizardDescriptor;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib Habib
+ *
+ * Base class for all Tracking Workflow panels 
  */
 abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
     

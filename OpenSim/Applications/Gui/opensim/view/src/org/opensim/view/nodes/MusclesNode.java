@@ -29,7 +29,7 @@ import org.opensim.modeling.SimmModel;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
  */
 public class MusclesNode extends OpenSimNode {
     

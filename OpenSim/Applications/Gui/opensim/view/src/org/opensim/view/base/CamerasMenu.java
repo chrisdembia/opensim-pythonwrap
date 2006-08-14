@@ -36,6 +36,8 @@ import vtk.vtkLightCollection;
 /**
  *
  * @author Ayman
+ *
+ * A class to create a list of cameras with standard views (front, top, side).
  */
 public class CamerasMenu extends JMenu {
     

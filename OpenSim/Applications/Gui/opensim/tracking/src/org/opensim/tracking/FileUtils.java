@@ -85,4 +85,13 @@ public final class FileUtils {
                         +filenameWithExtension.substring(lastDotLocation);
 
     }
+    /**
+     * Extension should contain the leading . e.g. ".xml"
+     */
+    public static String addExtensionIfNeeded(String path, String extension) {
+        if (path.endsWith("extension") || path.contains("."))
+            return path;
+        // just append extension
+        return path+extension;
+    }
 }

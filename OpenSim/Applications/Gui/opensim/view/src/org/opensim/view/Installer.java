@@ -29,6 +29,7 @@ public class Installer extends ModuleInstall {
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
+        System.setProperty ("netbeans.buildnumber", ""); 
         super.restored();
 
     }

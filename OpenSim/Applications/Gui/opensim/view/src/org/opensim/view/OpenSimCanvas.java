@@ -48,8 +48,8 @@ import vtk.vtkXMLPolyDataReader;
 
 /**
  *
- * @author Ayman, based on Kenny Smith's Canvas3DVtk and earlier incarnations
- * A wrapper around vtkPanel that provides common behavior 
+ * @author Ayman Habib, based on Kenny Smith's Canvas3DVtk and earlier incarnations
+ * A wrapper around vtkPanel that provides common behavior beyond OpenSimBaseCanvas
  */
 public class OpenSimCanvas extends OpenSimBaseCanvas {
     

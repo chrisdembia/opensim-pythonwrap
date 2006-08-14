@@ -85,6 +85,10 @@ public class SimmGenericModelParams extends OpenSimObject {
     return opensimModelJNI.SimmGenericModelParams_getModelFileName(swigCPtr);
   }
 
+  public void setModelFileName(String newModelFileName) {
+    opensimModelJNI.SimmGenericModelParams_setModelFileName(swigCPtr, newModelFileName);
+  }
+
   public ArrayPtrsSimmMarker getMarkerSet() {
     return new ArrayPtrsSimmMarker(opensimModelJNI.SimmGenericModelParams_getMarkerSet(swigCPtr), false);
   }

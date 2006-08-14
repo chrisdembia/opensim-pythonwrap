@@ -2,16 +2,15 @@
 <!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.1//EN" "http://www.netbeans.org/dtds/filesystem-1_1.dtd">
 <filesystem>
     <folder name="Actions">
-        <folder name="Build">
-            <file name="org-opensim-view-SaveAction.instance"/>
-        </folder>
         <folder name="Edit">
             <file name="org-opensim-view-CameraAction.instance"/>
+            <file name="org-opensim-view-SaveAction.instance"/>
             <file name="org-opensim-view-LoadDemoModelAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.LoadDemoModelAction"/>
             </file>
             <file name="org-opensim-view-OpenOsimModelAction.instance"/>
-                    <file name="org-opensim-view-base-SelectCameraAction.instance">
+                    <file name="org-opensim-view-SaveModelAction.instance"/>
+            <file name="org-opensim-view-base-SelectCameraAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.base.SelectCameraAction"/>
             </file>
             <file name="org-opensim-view-base-ToggleAxesAction.instance">
@@ -73,7 +72,19 @@
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-OpenOsimModelAction.instance"/>
             </file>
             <attr name="org-opensim-view-OpenOsimModel.shadow/Separator2.instance" boolvalue="true"/>
+            <attr name="Separator2.instance/org-opensim-view-separatorBefore.instance" boolvalue="true"/>
             <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
+            <attr name="org-openide-actions-SaveAllAction.instance/org-opensim-view-separatorBefore.instance" boolvalue="true"/>
+            <file name="org-opensim-view-separatorBefore.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+            <attr name="org-opensim-view-separatorBefore.instance/org-opensim-view-SaveModelAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-SaveModelAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-SaveModelAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-SaveModelAction.shadow/org-openide-actions-SaveAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-separatorBefore.instance/org-opensim-view-ExportSIMMJntAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-ExportSIMMJntAction.shadow/Separator3.instance" boolvalue="true"/>
             <file name="org-netbeans-modules-editor-ExportHtmlAction.instance_hidden"/>
             <file name="org-netbeans-modules-project-ui-CloseProject.shadow_hidden"/>
             <file name="org-netbeans-modules-project-ui-NewProject.shadow_hidden"/>

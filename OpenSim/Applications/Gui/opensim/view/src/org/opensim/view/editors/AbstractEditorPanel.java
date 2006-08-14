@@ -30,7 +30,7 @@ import org.opensim.modeling.OpenSimObject;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
  */
 public abstract class AbstractEditorPanel extends JPanel{
     /**

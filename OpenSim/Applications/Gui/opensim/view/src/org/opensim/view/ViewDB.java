@@ -30,7 +30,7 @@ import org.opensim.modeling.SimmModel;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
  *
  * A Database of Displayed models, maps models to corresponding ModelWindowVTKTopComponents
  */

@@ -35,7 +35,7 @@ import java.io.ObjectOutputStream;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
  */
 public final class SerializationHelper {
     

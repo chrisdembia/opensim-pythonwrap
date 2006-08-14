@@ -140,6 +140,9 @@ public final class TrackingVisualPanel extends workflowVisualPanelBase {
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
     }
+
+    public void appendMessage(String message) {
+    }
     
 }
 

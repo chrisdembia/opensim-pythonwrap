@@ -141,6 +141,9 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
     }
+
+    public void appendMessage(String message) {
+    }
     
 }
 

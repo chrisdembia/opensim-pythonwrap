@@ -26,7 +26,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     private void initComponents() {
         jSolveStaticPosePanel = new javax.swing.JPanel();
         jStaticTrialTextField = new javax.swing.JTextField();
-        jStaticTrialBrowseButton = new javax.swing.JButton();
+        jBrowse4TrcButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jStaticFromTextField = new javax.swing.JTextField();
@@ -56,7 +56,12 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
 
         jSolveStaticPosePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Static Pose"));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jStaticTrialBrowseButton, "Browse...");
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4TrcButton, "Browse...");
+        jBrowse4TrcButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowse4TrcButtonActionPerformed(evt);
+            }
+        });
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Static trial file");
 
@@ -105,7 +110,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                         .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jButton3, 0, 0, Short.MAX_VALUE)
                             .add(jButton2, 0, 0, Short.MAX_VALUE)
-                            .add(jStaticTrialBrowseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, Short.MAX_VALUE))))
+                            .add(jBrowse4TrcButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, Short.MAX_VALUE))))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jSolveStaticPosePanelLayout.setVerticalGroup(
@@ -114,7 +119,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
                     .add(jStaticTrialTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jStaticTrialBrowseButton))
+                    .add(jBrowse4TrcButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
@@ -248,6 +253,11 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBrowse4TrcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4TrcButtonActionPerformed
+// TODO add your handling code here:
+        
+    }//GEN-LAST:event_jBrowse4TrcButtonActionPerformed
+
     void updatePanel(WorkflowDescriptor aDescriptor) {
         SimmMarkerPlacementParams params = aDescriptor.getSubject().getMarkerPlacementParams();
         jStaticTrialTextField.setText(params.getStaticPoseFilename());  //trc file of static trial
@@ -319,6 +329,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox iSaveMarkersCheckBox;
+    private javax.swing.JButton jBrowse4TrcButton;
     private javax.swing.JButton jBrowseJntButton;
     private javax.swing.JButton jBrowseMarkersButton;
     private javax.swing.JButton jBrowseMotionButton;
@@ -345,12 +356,12 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     private javax.swing.JPanel jSolveStaticPosePanel;
     private javax.swing.JTextField jStaticFromTextField;
     private javax.swing.JTextField jStaticToTextField;
-    private javax.swing.JButton jStaticTrialBrowseButton;
     private javax.swing.JTextField jStaticTrialTextField;
     // End of variables declaration//GEN-END:variables
     public void appendMessage(String message)
     {
         jMessageTextArea.append(message);
+        repaint();
     }
     
 }

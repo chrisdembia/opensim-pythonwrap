@@ -109,27 +109,29 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
         // Calling setSubject also creates the model in descriptor;
         //descriptor.setSubject(new SimmSubject(component.getSubjectPath()));
         
+        component.updateWorkflow(descriptor);
         SimmSubject subject = descriptor.getSubject();
         SimmModel model = descriptor.getModel(); 
+        component.appendMessage("Start loading model.\n");
         if (model != null){
             try {
                 // Display original model
                 boolean success = ((OpenOsimModelAction) OpenOsimModelAction.findObject(
                         Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(model.getInputFileName());
                 if (!success)
-                    component.appendMessage("Model has failed to load, please check the path.");
+                    component.appendMessage("Generic Model has failed to load, please check the path.");
                 else
                     component.appendMessage("Step 1: Loading generic model - Done.");
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
-                component.appendMessage("Model has failed to load from file "+model.getInputFileName());
+                component.appendMessage("Generic model has failed to load from file "+model.getInputFileName());
             }
             component.setExecuted(true);
             
         }
         else
             DialogDisplayer.getDefault().notify( 
-                    new NotifyDescriptor.Message("Generic model failed to load."));
+                    new NotifyDescriptor.Message("Generic model has failed to load from file. Path="+subject.getPathToSubject()));
         return true;
     }
 }

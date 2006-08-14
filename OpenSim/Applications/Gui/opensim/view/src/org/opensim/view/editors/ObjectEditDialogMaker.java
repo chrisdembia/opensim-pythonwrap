@@ -34,7 +34,7 @@ import org.opensim.view.ModelWindowVTKTopComponent;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
  */
 public class ObjectEditDialogMaker {
     ObjectPropertyViewerPanel propertiesPanel;
