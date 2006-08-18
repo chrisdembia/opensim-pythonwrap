@@ -2630,6 +2630,7 @@ public class opensimModelJNI {
   public final static native long SimmMarkerPlacementParams_getTimeRange(long jarg1);
   public final static native String SimmMarkerPlacementParams_getCoordinateFileName(long jarg1);
   public final static native long SimmMarkerPlacementParams_getCoordinateSet(long jarg1);
+  public final static native double SimmMarkerPlacementParams_getMaxMarkerMovement(long jarg1);
   public final static native boolean SimmMarkerPlacementParams_processModel(long jarg1, long jarg2, String jarg3);
   public final static native void SimmMarkerPlacementParams_addCoordinate(long jarg1, long jarg2);
   public final static native void SimmMarkerPlacementParams_writeOutputFiles__SWIG_0(long jarg1, long jarg2, long jarg3, String jarg4);
@@ -2703,6 +2704,8 @@ public class opensimModelJNI {
   public final static native double SimmSubject_getSubjectHeight(long jarg1);
   public final static native String SimmSubject_getPathToSubject(long jarg1);
   public final static native void SimmSubject_setPathToSubject(long jarg1, String jarg2);
+  public final static native String SimmSubject_getParentDirectory(long jarg1, String jarg2);
+  public final static native void SimmSubject_peteTest(long jarg1);
   public final static native double SimmSubject_DefaultMass_get();
   public final static native long new_SimmMotionData__SWIG_0();
   public final static native long new_SimmMotionData__SWIG_1(String jarg1);

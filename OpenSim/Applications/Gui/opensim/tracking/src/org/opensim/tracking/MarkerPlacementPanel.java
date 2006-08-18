@@ -154,7 +154,7 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
-            component.setExecuted(true);
+            component.putClientProperty("Step_executed", Boolean.TRUE);
             return true;
     }
 

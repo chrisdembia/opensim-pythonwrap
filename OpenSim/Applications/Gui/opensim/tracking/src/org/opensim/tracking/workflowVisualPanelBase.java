@@ -40,7 +40,6 @@ import javax.swing.JPanel;
  */
 public abstract class workflowVisualPanelBase extends JPanel{
     
-    private boolean executed=false;
     private boolean ready=false;
     /**
      * Creates a new instance of workflowVisualPanelBase
@@ -50,13 +49,6 @@ public abstract class workflowVisualPanelBase extends JPanel{
     abstract void updatePanel(WorkflowDescriptor aDescriptor);
     abstract void updateWorkflow(WorkflowDescriptor descriptor);
 
-    public boolean isExecuted() {
-        return executed;
-    }
-
-    public void setExecuted(boolean executed) {
-        this.executed = executed;
-    }
     abstract public void appendMessage(String message);
 
     public boolean isReady() {

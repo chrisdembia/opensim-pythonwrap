@@ -34,11 +34,7 @@ public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
      */
     public String getName() {
         String baseName = NbBundle.getMessage(ModelLoadingVisualPanel.class, "CTL_LoadGenericModel");
-        if (isExecuted()){
-            return baseName+"*";
-        }
-        else
-            return baseName;
+        return baseName;
     }
     
     /** This method is called from within the constructor to
@@ -495,6 +491,7 @@ public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                 jHeightTextField.setText(String.valueOf(subject.getSubjectHeight()));
                 jAgeTextField.setText(String.valueOf(subject.getSubjectAge()));
             }
+            this.firePropertyChange("Model_Defined", false, true);
         }
         else {
             jWeightTextField.setText("");
@@ -506,7 +503,8 @@ public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
 
     public boolean hasModel()
     {
-        return (ownModel || jModelNameTextField.getText()!= "");
+        return (!(jModelNameTextField.getText().equalsIgnoreCase("*.xml") || 
+                jModelNameTextField.getText().equals("")));
     }
     
     public String getModelFileName()
@@ -571,13 +569,13 @@ public final class ModelLoadingVisualPanel extends workflowVisualPanelBase {
             params.setModelFileName(jModelNameTextField.getText());
             setModelFile(jModelNameTextField.getText());
         }
-        // We'll do the same for Markers when MarkerSet is exposed properly (bug 209'
+        // We'll do the same for Markers when MarkerSet is exposed properly (bug 209)
        /*
         if(!jOwnMarkersTextField.getText().equals("")){
         DialogDisplayer.getDefault().notify(
                 new NotifyDescriptor.Message("MarkerSet selection not implemented yet, pending resolution of bug 209."));
        }
         */
-     };
+    };
 }
 

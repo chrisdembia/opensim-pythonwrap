@@ -1,17 +1,18 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.io.File;
 import javax.swing.event.ChangeListener;
-import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
+import org.opensim.modeling.SimmModel;
 
-public class workflowWizardPanel5  extends workflowWizardPanelBase{
+public class MakeDModelPanel  extends workflowWizardPanelBase{
     
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
-    private Component component;
+    private MakeDModelVisualPanel component;
     
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
@@ -71,11 +72,28 @@ public class workflowWizardPanel5  extends workflowWizardPanelBase{
     // settings object will be the WizardDescriptor, so you can use
     // WizardDescriptor.getProperty & putProperty to store information entered
     // by the user.
-    public void readSettings(Object settings) {}
+    public void readSettings(Object settings) {
+        descriptor = (WorkflowDescriptor) settings;
+        component.updatePanel(descriptor);
+
+    }
     public void storeSettings(Object settings) {}
 
     boolean executeStep() {
-         return false;
+        String modelFilename = component.getModelFilename();
+        String dynamicsDirectory=component.getDynamicsDirectory();
+        boolean writeParamsTxt = component.getWriteParamsFlag();
+
+        /**
+         * Create model and invoke SaveDynamics
+         */
+        SimmModel model = new SimmModel(modelFilename);
+        model.setup();  // Just incase some setup is needed before Dynamcis are saved
+        if (dynamicsDirectory.endsWith(File.separator))
+            model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory);            
+        else
+            model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory+File.separator);
+        return true;
    }
     
 }

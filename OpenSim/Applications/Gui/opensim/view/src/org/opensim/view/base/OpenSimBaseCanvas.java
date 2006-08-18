@@ -60,7 +60,7 @@ public class OpenSimBaseCanvas extends vtkPanel
     }
     /** Creates a new instance of OpenSimBaseCanvas */
     public OpenSimBaseCanvas() {
-         GetRenderer().SetBackground(0.2, 0.2, 1.0); 
+         GetRenderer().SetBackground(0.15, 0.15, 0.15); 
          createSettingsMenu();
          addKeyListener(this);
          axesActor = null;

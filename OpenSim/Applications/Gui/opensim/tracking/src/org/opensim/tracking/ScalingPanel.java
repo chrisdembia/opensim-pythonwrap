@@ -3,14 +3,14 @@ package org.opensim.tracking;
 import java.awt.Component;
 import javax.swing.event.ChangeListener;
 import org.openide.util.HelpCtx;
+import org.openide.windows.TopComponent;
 import org.opensim.modeling.ScaleSet;
 import org.opensim.modeling.ScalerInterface;
-import org.opensim.modeling.SimmBody;
-import org.opensim.modeling.SimmKinematicsEngine;
 import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmScalerImpl;
 import org.opensim.modeling.SimmScalingParams;
 import org.opensim.modeling.SimmSubject;
+import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.OpenOsimModelAction;
 
 public class ScalingPanel  extends workflowWizardPanelBase {
@@ -20,7 +20,8 @@ public class ScalingPanel  extends workflowWizardPanelBase {
      * component from this class, just use getComponent().
      */
     private ScalingVisualPanel component;
-     
+    SimmModel scaledModel;
+    
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
     // but never displayed, or not all panels are displayed, it is better to
@@ -112,16 +113,26 @@ public class ScalingPanel  extends workflowWizardPanelBase {
             params.writeOutputFiles(model, subject.getPathToSubject());
              try {
                 component.appendMessage("Opening Scaled Model.\n");
+                /*
+                // A kluge to test how easy is it to overlay models!
+                scaledModel = new SimmModel(subject.getPathToSubject()+outputModelName);
+                scaledModel.setup();
+                TopComponent top = (TopComponent) TopComponent.getRegistry().getOpened().iterator().next();
+                if (top instanceof ModelWindowVTKTopComponent){
+                    ((ModelWindowVTKTopComponent) top).getCanvas().loadModel(scaledModel);
+                }
+                 **/
                 // Display original model
                 ((OpenOsimModelAction) OpenOsimModelAction.findObject(
                         Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+outputModelName);
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
-            component.setExecuted(true);
+            component.putClientProperty("Step_executed", Boolean.TRUE);
+
         }
         else
-            component.setExecuted(false);
+           component.putClientProperty("Step_executed", Boolean.FALSE);
         return true;
     }    
 

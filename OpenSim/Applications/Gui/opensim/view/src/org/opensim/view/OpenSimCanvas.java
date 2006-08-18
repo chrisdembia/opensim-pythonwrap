@@ -53,7 +53,7 @@ import vtk.vtkXMLPolyDataReader;
  */
 public class OpenSimCanvas extends OpenSimBaseCanvas {
     
-    private SimmModel model;
+    //private SimmModel model;
     
     Hashtable<OpenSimObject, vtkAssembly> mapObject2Actors = new Hashtable<OpenSimObject, vtkAssembly>();
     Hashtable<vtkProp3D, OpenSimObject> mapActors2Objects = new Hashtable<vtkProp3D, OpenSimObject>();
@@ -74,16 +74,11 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     {
          this.ownerTopComponent=ownerTopComponent;       
     }
-    public SimmModel getModel()
-    {
-        return model;
-    }
     /**
      * Function to load a SimmModel into a vtk Canvas. 
      */
     public boolean loadModel(final SimmModel model)
     {
-        setModel(model);
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Building scene ");
         progressHandle.start();
         
@@ -104,6 +99,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 if (modelFile.getParent()!= null)
                     modelFilePath= modelFile.getParent()+ modelFile.separator; // Could this be null?
 
+                //vtkAssembly fullModelAssembly = new vtkAssembly();
                 // Traverse the bodies of the simmModel in depth-first order.
                 SimmModelIterator i = new SimmModelIterator(model);
                 // Keep track of ground body to avoid recomputation
@@ -122,7 +118,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     
                     GetRenderer().AddViewProp(bodyRep); // used to be AddProp, but VTK 5 complains.
 
-                    vtkMatrix4x4 m= getBodyTransform(body, gnd);
+                    vtkMatrix4x4 m= getBodyTransform(model, body, gnd);
                     bodyRep.SetUserMatrix(m);
 
                     // Add a vtkActor object to the vtk scene graph to represent
@@ -316,7 +312,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
       * There could be a more efficient way to do that than xform a frame
       * at body origin.
       */
-     vtkMatrix4x4 getBodyTransform(SimmBody body, SimmBody gnd)
+     vtkMatrix4x4 getBodyTransform(SimmModel model, SimmBody body, SimmBody gnd)
      {
                     double[][] originFrame = new double[][]{{1.0, 0.0, 0.0}, 
                                                             {0.0, 1.0, 0.0}, 
@@ -463,10 +459,6 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         }
         
      }
-    
-    public void setModel(SimmModel model) {
-        this.model = model;
-}
 
     public OpenSimObject getSelectedObject() {
         return selectedObject;

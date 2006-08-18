@@ -151,7 +151,7 @@ public class IKPanel  extends workflowWizardPanelBase{
         ikSolver.solveFrames(trialParams, inputStorage, outputStorage);
         component.appendMessage("Solved trial "+trialParams.getName()+".\n");
         outputStorage.setWriteSIMMHeader(true);
-        component.setExecuted(true);
+        component.putClientProperty("Step_executed", Boolean.TRUE);
         return false;
     }
     

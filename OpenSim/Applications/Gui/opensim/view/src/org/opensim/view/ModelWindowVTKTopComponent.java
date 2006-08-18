@@ -28,13 +28,13 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
     private String displayName;
     private SimmModel model;
     Preferences prefs;
-    
+    private SimmModel[] otherModels;
     /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
         
     public ModelWindowVTKTopComponent(SimmModel dModel) {
         model = dModel;
-//        associateLookup (Lookups.singleton (model));
+        otherModels = new SimmModel[0];
         initComponents();
         
         // Associate window with a model and a canvas so that other platform users can key on that
@@ -206,11 +206,4 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
         return model;
     }
 
-    public JToolTip createToolTip() {
-        JToolTip retValue;
-        
-        retValue = super.createToolTip();
-        return retValue;
-    }
-    
 }

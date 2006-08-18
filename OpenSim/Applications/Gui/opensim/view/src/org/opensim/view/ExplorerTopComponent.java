@@ -169,11 +169,7 @@ final class ExplorerTopComponent extends TopComponent
                 return;
             Node[] selectedNodes = new Node[1];
             selectedNodes[0] = modelNode;
-            try {
-                manager.setSelectedNodes(selectedNodes);
-            } catch (PropertyVetoException ex) {
-                ex.printStackTrace();
-            }
+                manager.setExploredContext(modelNode);
          } 
     }
     

@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -12,12 +13,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.openide.WizardDescriptor;
 
-public final class workflowWizardIterator implements WizardDescriptor.Iterator {
+public final class WorkflowWizardIterator implements WizardDescriptor.Iterator {
     
     // To invoke this wizard, copy-paste and run the following code, e.g. from
     // SomeAction.performAction():
     /*
-    WizardDescriptor.Iterator iterator = new workflowWizardIterator();
+    WizardDescriptor.Iterator iterator = new WorkflowWizardIterator();
     WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator);
     // {0} will be replaced by WizardDescriptor.Panel.getComponent().getName()
     // {1} will be replaced by WizardDescriptor.Iterator.name()
@@ -47,7 +48,7 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
                 new ScalingPanel(),
                 new MarkerPlacementPanel(),
                 new IKPanel(),
-                new workflowWizardPanel5(),
+                new MakeDModelPanel(),
                 new workflowWizardPanel6(),
                 new workflowWizardPanel7(),
                 new workflowWizardPanel8()
@@ -69,6 +70,8 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
                     jc.putClientProperty("WizardPanel_contentDisplayed", Boolean.TRUE);
                     // Turn on numbering of all steps
                     jc.putClientProperty("WizardPanel_contentNumbered", Boolean.FALSE);
+                    // ClientProperty("Step_executed"
+                    jc.putClientProperty("Step_executed", Boolean.FALSE);
                 }
             }
         }

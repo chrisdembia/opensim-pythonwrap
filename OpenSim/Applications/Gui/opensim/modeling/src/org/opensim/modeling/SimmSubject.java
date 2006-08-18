@@ -128,6 +128,14 @@ public class SimmSubject extends OpenSimObject {
     opensimModelJNI.SimmSubject_setPathToSubject(swigCPtr, aPath);
   }
 
+  public String getParentDirectory(String fileName) {
+    return opensimModelJNI.SimmSubject_getParentDirectory(swigCPtr, fileName);
+  }
+
+  public void peteTest() {
+    opensimModelJNI.SimmSubject_peteTest(swigCPtr);
+  }
+
   public static double getDefaultMass() {
     return opensimModelJNI.SimmSubject_DefaultMass_get();
   }

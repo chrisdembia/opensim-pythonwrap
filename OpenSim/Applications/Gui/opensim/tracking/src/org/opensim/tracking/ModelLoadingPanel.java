@@ -46,19 +46,14 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
     
     public boolean isValid() {
         // If it is always OK to press Next or Finish, then:
-        return checkValidPanel();
+        //return true;
         // If it depends on some condition (form filled out...), then:
-        // return someCondition();
+        return true;
         // and when this condition changes (last form field filled in...) then:
         // fireChangeEvent();
         // and uncomment the complicated stuff below.
     }
-    
-    private boolean checkValidPanel() {
-        // You can advance only if there's a model
-        return component.hasModel();
-    }
-    
+        
     private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
     public final void addChangeListener(ChangeListener l) {
         synchronized (listeners) {
@@ -80,7 +75,7 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
             it.next().stateChanged(ev);
         }
     }
-     
+    
     
     // You can use a settings object to keep track of state. Normally the
     // settings object will be the WizardDescriptor, so you can use
@@ -126,12 +121,15 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
                 ex.printStackTrace();
                 component.appendMessage("Generic model has failed to load from file "+model.getInputFileName());
             }
-            component.setExecuted(true);
             
+            //component.setExecuted(true);
+            component.putClientProperty("Step_executed", Boolean.TRUE);
         }
-        else
+        else{
             DialogDisplayer.getDefault().notify( 
                     new NotifyDescriptor.Message("Generic model has failed to load from file. Path="+subject.getPathToSubject()));
+            component.putClientProperty("Step_executed", Boolean.FALSE);
+        }
         return true;
     }
 }
