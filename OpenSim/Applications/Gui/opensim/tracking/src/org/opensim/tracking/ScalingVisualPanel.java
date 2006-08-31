@@ -2,11 +2,10 @@ package org.opensim.tracking;
 
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.SimmScalingParams;
+import org.opensim.utils.FileUtils;
 
 public final class ScalingVisualPanel extends workflowVisualPanelBase {
     
@@ -74,7 +73,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         jScalingMethodSelectPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Scaling method"));
         jLabel1.setText("Scaling method");
 
-        scaleMethodSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "Manual", "Measurements", "Manual+Measurements", "Measurements+Manual" }));
+        scaleMethodSelect.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None", "manual", "measurements", "manual+measurements", "measurements+manual" }));
         scaleMethodSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ScalingMethodSelectionHandler(evt);
@@ -463,7 +462,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         String scalesFile=null;
         if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
             manualScaleFile= dlog.getSelectedFile().getAbsolutePath();
-            scaleMethodSelect.setSelectedItem("Manual");
+            scaleMethodSelect.setSelectedItem("manual");
             jManualScaleTextField.setText(manualScaleFile);
         }
 
@@ -584,11 +583,11 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         for(int i=0; i < scalingOrder.getSize(); i++){
             if (i > 0)
                 scalingOrderString = scalingOrderString+"+";
-            if (scalingOrder.getitem(i).equalsIgnoreCase("Manual")){
-                scalingOrderString = scalingOrderString+"Manual";
+            if (scalingOrder.getitem(i).equalsIgnoreCase("manual")){
+                scalingOrderString = scalingOrderString+"manual";
             }
-            if (scalingOrder.getitem(i).equalsIgnoreCase("Measurements")){
-                scalingOrderString = scalingOrderString+"Measurements";
+            if (scalingOrder.getitem(i).equalsIgnoreCase("measurements")){
+                scalingOrderString = scalingOrderString+"measurements";
             }
         }
         return scalingOrderString;
@@ -596,11 +595,11 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
    
     private boolean hasManual()
     {
-        return ((String)scaleMethodSelect.getSelectedItem()).contains("Manual");
+        return ((String)scaleMethodSelect.getSelectedItem()).contains("manual");
     }
     private boolean hasMeasurements()
     {
-        return ((String)scaleMethodSelect.getSelectedItem()).contains("Measurements");
+        return ((String)scaleMethodSelect.getSelectedItem()).contains("measurements");
     }
 
     private void updateBasedOnScalingOrder() {

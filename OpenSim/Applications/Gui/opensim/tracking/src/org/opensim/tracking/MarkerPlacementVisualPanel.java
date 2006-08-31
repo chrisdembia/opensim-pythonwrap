@@ -2,6 +2,7 @@ package org.opensim.tracking;
 
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.SimmMarkerPlacementParams;
+import org.opensim.utils.FileUtils;
 
 public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     

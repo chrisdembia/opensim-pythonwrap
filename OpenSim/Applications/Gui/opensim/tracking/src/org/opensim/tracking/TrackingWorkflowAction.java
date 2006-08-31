@@ -20,7 +20,7 @@ public final class TrackingWorkflowAction extends CallableSystemAction {
     static CallableSystemAction executeStepAction;
     public void performAction() {
         // TODO implement action body
-        final WizardDescriptor.Iterator iterator = new WorkflowWizardIterator();
+        final WizardDescriptor.Iterator iterator = new workflowWizardIterator();
         WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator, new WorkflowDescriptor());
         wizardDescriptor.putProperty("WizardPanel_contentNumbered",Boolean.TRUE);
         wizardDescriptor.setModal(false);

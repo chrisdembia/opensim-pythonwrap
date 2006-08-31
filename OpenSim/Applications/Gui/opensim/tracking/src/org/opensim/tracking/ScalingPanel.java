@@ -10,6 +10,7 @@ import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmScalerImpl;
 import org.opensim.modeling.SimmScalingParams;
 import org.opensim.modeling.SimmSubject;
+import org.opensim.utils.FileUtils;
 import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.OpenOsimModelAction;
 
@@ -113,15 +114,15 @@ public class ScalingPanel  extends workflowWizardPanelBase {
             params.writeOutputFiles(model, subject.getPathToSubject());
              try {
                 component.appendMessage("Opening Scaled Model.\n");
-                /*
-                // A kluge to test how easy is it to overlay models!
+                
+                /* A kluge to test how easy is it to overlay models!
                 scaledModel = new SimmModel(subject.getPathToSubject()+outputModelName);
                 scaledModel.setup();
                 TopComponent top = (TopComponent) TopComponent.getRegistry().getOpened().iterator().next();
                 if (top instanceof ModelWindowVTKTopComponent){
                     ((ModelWindowVTKTopComponent) top).getCanvas().loadModel(scaledModel);
                 }
-                 **/
+                */
                 // Display original model
                 ((OpenOsimModelAction) OpenOsimModelAction.findObject(
                         Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+outputModelName);

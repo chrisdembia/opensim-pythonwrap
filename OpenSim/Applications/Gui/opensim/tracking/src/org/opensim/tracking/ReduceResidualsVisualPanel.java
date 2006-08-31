@@ -1,6 +1,8 @@
 package org.opensim.tracking;
 
-import javax.swing.JPanel;
+import java.util.prefs.Preferences;
+import javax.swing.JFileChooser;
+import org.opensim.tracking.ModelLoadingVisualPanel.XMLFileFilter;
 
 public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
     
@@ -30,8 +32,16 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
         jRRAParamsPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        jBrowse4RRA1SetupButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jBrowse4RRA2SetupButton = new javax.swing.JButton();
+        jEditRRA1SetupButton = new javax.swing.JButton();
+        jEditRRA2SetupButton = new javax.swing.JButton();
         jOutputFilesPanel = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
 
         jModelSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Model Specification"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Shared Library");
@@ -49,7 +59,7 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
                 .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 172, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jModelSpecPanelLayout.setVerticalGroup(
             jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -62,43 +72,93 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
         );
 
         jRRAParamsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("RRA Tune up parameters"));
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Settings file");
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Pass 1 settings file:");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton2, "Browse...");
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4RRA1SetupButton, "Browse...");
+        jBrowse4RRA1SetupButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowse4RRA1SetupButtonActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Pass 2 settings file:");
+
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4RRA2SetupButton, "jButton3");
+
+        org.openide.awt.Mnemonics.setLocalizedText(jEditRRA1SetupButton, "jButton4");
+
+        org.openide.awt.Mnemonics.setLocalizedText(jEditRRA2SetupButton, "jButton5");
 
         org.jdesktop.layout.GroupLayout jRRAParamsPanelLayout = new org.jdesktop.layout.GroupLayout(jRRAParamsPanel);
         jRRAParamsPanel.setLayout(jRRAParamsPanelLayout);
         jRRAParamsPanelLayout.setHorizontalGroup(
             jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jRRAParamsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel2)
-                .add(18, 18, 18)
-                .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jTextField3)
+                    .add(jTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jBrowse4RRA2SetupButton, 0, 0, Short.MAX_VALUE)
+                    .add(jBrowse4RRA1SetupButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE))
+                .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jRRAParamsPanelLayout.createSequentialGroup()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jEditRRA1SetupButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jRRAParamsPanelLayout.createSequentialGroup()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jEditRRA2SetupButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jRRAParamsPanelLayout.setVerticalGroup(
             jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jRRAParamsPanelLayout.createSequentialGroup()
                 .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jBrowse4RRA1SetupButton)
                     .add(jLabel2)
                     .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton2))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .add(jEditRRA1SetupButton))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel3)
+                    .add(jBrowse4RRA2SetupButton)
+                    .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jEditRRA2SetupButton))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jOutputFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "Output Motion file: ");
+
+        jTextField4.setText("alteredKineamtics.mot");
+
+        org.openide.awt.Mnemonics.setLocalizedText(jButton6, "jButton6");
+
         org.jdesktop.layout.GroupLayout jOutputFilesPanelLayout = new org.jdesktop.layout.GroupLayout(jOutputFilesPanel);
         jOutputFilesPanel.setLayout(jOutputFilesPanelLayout);
         jOutputFilesPanelLayout.setHorizontalGroup(
             jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 307, Short.MAX_VALUE)
+            .add(jOutputFilesPanelLayout.createSequentialGroup()
+                .add(jLabel4)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jButton6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jOutputFilesPanelLayout.setVerticalGroup(
             jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 61, Short.MAX_VALUE)
+            .add(jOutputFilesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel4)
+                    .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButton6))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -123,18 +183,35 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBrowse4RRA1SetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4RRA1SetupButtonActionPerformed
+// TODO add your handling code here:
+        String defaultDir="";
+        defaultDir = Preferences.userNodeForPackage(this.getClass()).get("WorkDirectory", defaultDir);
+        final JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "RRA Pass1 settings file"));
+        
+    }//GEN-LAST:event_jBrowse4RRA1SetupButtonActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBrowse4RRA1SetupButton;
+    private javax.swing.JButton jBrowse4RRA2SetupButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jEditRRA1SetupButton;
+    private javax.swing.JButton jEditRRA2SetupButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jModelSpecPanel;
     private javax.swing.JPanel jOutputFilesPanel;
     private javax.swing.JPanel jRRAParamsPanel;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
     void updateWorkflow(WorkflowDescriptor descriptor) {
     }

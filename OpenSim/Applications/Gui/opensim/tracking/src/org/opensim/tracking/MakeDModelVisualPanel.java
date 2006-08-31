@@ -5,6 +5,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.SimmMarkerPlacementParams;
+import org.opensim.utils.FileUtils;
 
 public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
     
@@ -112,8 +113,11 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
         jMessageTextArea.setBackground(new java.awt.Color(224, 223, 227));
         jMessageTextArea.setColumns(20);
         jMessageTextArea.setEditable(false);
+        jMessageTextArea.setFont(new java.awt.Font("Courier", 0, 12));
         jMessageTextArea.setForeground(new java.awt.Color(204, 0, 51));
         jMessageTextArea.setRows(5);
+        jMessageTextArea.setText("Create a shared lib. to represent the dynamics \nof your model (.dll on Windows, .so on linux). \nUsing SD/Fast, C Compiler and the files created \nby OpenSim (model.h, model.sd, sdfor.c).\nPlace the generated shared library in your path.");
+        jMessageTextArea.setWrapStyleWord(true);
         jMessageTextArea.setBorder(null);
         jMessageTextArea.setFocusable(false);
         jMessageTextArea.setOpaque(false);

@@ -1,24 +1,17 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Set;
 import javax.swing.JComponent;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.openide.WizardDescriptor;
 
-public final class workflowWizardIterator implements WizardDescriptor.Iterator {
+public final class ScalingWizardIterator implements WizardDescriptor.Iterator {
     
     // To invoke this wizard, copy-paste and run the following code, e.g. from
     // SomeAction.performAction():
     /*
-    WizardDescriptor.Iterator iterator = new workflowWizardIterator();
+    WizardDescriptor.Iterator iterator = new ScalingWizardIterator();
     WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator);
     // {0} will be replaced by WizardDescriptor.Panel.getComponent().getName()
     // {1} will be replaced by WizardDescriptor.Iterator.name()
@@ -32,26 +25,20 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
         // do something
     }
      */
-     
+    
     private int index;
     
-    private workflowWizardPanelBase[] panels;
+    private WizardDescriptor.Panel[] panels;
     
     /**
      * Initialize panels representing individual wizard's steps and sets
      * various properties for them influencing wizard appearance.
      */
-    private workflowWizardPanelBase[] getPanels() {
+    private WizardDescriptor.Panel[] getPanels() {
         if (panels == null) {
-            panels = new workflowWizardPanelBase[] {
-                new ModelLoadingPanel(),
+            panels = new WizardDescriptor.Panel[] {
                 new ScalingPanel(),
-                new MarkerPlacementPanel(),
-                new IKPanel(),
-                new MakeDModelPanel(),
-                new ReduceResidualsPanel(),
-                new workflowWizardPanel7(),
-                new workflowWizardPanel8()
+                new MarkerPlacementPanel()
             };
             String[] steps = new String[panels.length];
             for (int i = 0; i < panels.length; i++) {
@@ -69,9 +56,7 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
                     // Show steps on the left side with the image on the background
                     jc.putClientProperty("WizardPanel_contentDisplayed", Boolean.TRUE);
                     // Turn on numbering of all steps
-                    jc.putClientProperty("WizardPanel_contentNumbered", Boolean.FALSE);
-                    // ClientProperty("Step_executed"
-                    jc.putClientProperty("Step_executed", Boolean.FALSE);
+                    jc.putClientProperty("WizardPanel_contentNumbered", Boolean.TRUE);
                 }
             }
         }
@@ -83,7 +68,7 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
     }
     
     public String name() {
-        return index + 1 + ". of " + getPanels().length;
+        return index + 1 + ". from " + getPanels().length;
     }
     
     public boolean hasNext() {
@@ -109,14 +94,14 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
     }
     
     // If nothing unusual changes in the middle of the wizard, simply:
-    //public void addChangeListener(ChangeListener l) {}
-    //public void removeChangeListener(ChangeListener l) {}
+    public void addChangeListener(ChangeListener l) {}
+    public void removeChangeListener(ChangeListener l) {}
     
     // If something changes dynamically (besides moving between panels), e.g.
     // the number of panels changes in response to user input, then uncomment
     // the following and call when needed: fireChangeEvent();
-    
-    private transient Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
+    /*
+    private Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
     public final void addChangeListener(ChangeListener l) {
         synchronized (listeners) {
             listeners.add(l);
@@ -137,10 +122,6 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
             it.next().stateChanged(ev);
         }
     }
+     */
     
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        listeners = new HashSet<ChangeListener>(1);
-    }
 }
-

@@ -14,6 +14,7 @@ import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.modeling.Storage;
+import org.opensim.utils.FileUtils;
 import org.opensim.view.OpenOsimModelAction;
 
 public class MarkerPlacementPanel  extends workflowWizardPanelBase{

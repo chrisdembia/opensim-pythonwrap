@@ -41,6 +41,14 @@ public class WorkflowDescriptor {
     boolean     useOwnModel=false;
     boolean     useOwnMarkers = false;
     transient   SimmModel   dGenericModel = null;
+    // Extra items needed for RRA, CMC, Forward/perturb
+    private String      modelLibrary;
+    private String      setupRRA_pass1Filename;
+    private String      setupRRA_pass2Filename;
+    private String      setupCMCFilename;
+    private String      RRAoutputMotionFilename;
+    
+    
     /**
      * Constructor, Creates a new instance of WorkflowDescriptor
      * 
@@ -104,5 +112,45 @@ public class WorkflowDescriptor {
         }
         /* else
            throw new UnsupportedOperationException("Not yet implemented");*/
+    }
+
+    public String getModelLibrary() {
+        return modelLibrary;
+    }
+
+    public void setModelLibrary(String modelLibrary) {
+        this.modelLibrary = modelLibrary;
+    }
+
+    public String getSetupRRA_pass1Filename() {
+        return setupRRA_pass1Filename;
+    }
+
+    public void setSetupRRA_pass1Filename(String setupRRA_pass1Filename) {
+        this.setupRRA_pass1Filename = setupRRA_pass1Filename;
+    }
+
+    public String getSetupRRA_pass2Filename() {
+        return setupRRA_pass2Filename;
+    }
+
+    public void setSetupRRA_pass2Filename(String setupRRA_pass2Filename) {
+        this.setupRRA_pass2Filename = setupRRA_pass2Filename;
+    }
+
+    public String getSetupCMCFilename() {
+        return setupCMCFilename;
+    }
+
+    public void setSetupCMCFilename(String setupCMCFilename) {
+        this.setupCMCFilename = setupCMCFilename;
+    }
+
+    public String getRRAoutputMotionFilename() {
+        return RRAoutputMotionFilename;
+    }
+
+    public void setRRAoutputMotionFilename(String RRAoutputMotionFilename) {
+        this.RRAoutputMotionFilename = RRAoutputMotionFilename;
     }
 }
