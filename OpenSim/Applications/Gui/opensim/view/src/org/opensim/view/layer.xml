@@ -4,9 +4,10 @@
     <folder name="Actions">
         <folder name="Edit">
             <file name="org-opensim-view-CameraAction.instance"/>
+            <file name="org-opensim-view-ExportSIMMJntAction.instance"/>
             <file name="org-opensim-view-SaveAction.instance"/>
-            <file name="org-opensim-view-LoadDemoModelAction.instance">
-                <attr name="instanceClass" stringvalue="org.opensim.view.LoadDemoModelAction"/>
+            <file name="org-opensim-view-LoadGaitModelAction.instance">
+                <attr name="instanceClass" stringvalue="org.opensim.view.LoadGaitModelAction"/>
             </file>
             <file name="org-opensim-view-OpenOsimModelAction.instance"/>
                     <file name="org-opensim-view-SaveModelAction.instance"/>
@@ -48,24 +49,27 @@
         <file name="RunProject_hidden"/>
         <file name="Source_hidden"/>
         <folder name="Tools">
+            <attr name="org-opensim-scalingtool-separatorAfter.instance/org-opensim-tracking-TrackingWorkflowAction.instance" boolvalue="true"/>
+            <file name="org-opensim-tracking-TrackingWorkflowAction.instance" url="org-opensim-tracking-TrackingWorkflowAction_1.instance">
+                <attr name="instanceClass" stringvalue="org.opensim.tracking.TrackingWorkflowAction"/>
+            </file>
+            <attr name="org-opensim-tracking-TrackingWorkflowAction.instance/Separator3.instance" boolvalue="true"/>
             <file name="org-netbeans-core-actions-OptionsAction.instance_hidden"/>
             <file name="org-netbeans-modules-favorites-templates-TemplatesAction.instance_hidden"/>
             <file name="org-opensim-tracking-TrackingWorkflowAction.shadow_hidden"/>
         </folder>
-        <folder name="Tracking">
-            <file name="org-opensim-tracking-TrackingWorkflowAction.instance" url="org-opensim-tracking-TrackingWorkflowAction.instance">
-                <attr name="instanceClass" stringvalue="org.opensim.tracking.TrackingWorkflowAction"/>
-            </file>
-            <file name="org-opensim-view-LoadDemoModelAction.instance"/>
-        </folder>
+        <file name="Tracking_hidden"/>
         <file name="View_hidden"/>
         <folder name="File">
             <attr name="org-opensim-view-NewOsimModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="true"/>
             <attr name="Separator4.instance/org-opensim-view-LoadDemoModelAction.shadow" boolvalue="true"/>
             <attr name="org-opensim-view-nodes-TrackNodeSelectionAction.shadow/Separator4.instance" boolvalue="true"/>
             <attr name="org-netbeans-modules-project-ui-CustomizeProject.shadow/org-opensim-view-LoadDemoModelAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-ExportSIMMJntAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-ExportSIMMJntAction.instance"/>
+            </file>
             <file name="org-opensim-view-LoadDemoModelAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-LoadDemoModelAction.instance"/>
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-LoadGaitModelAction.instance"/>
             </file>
             <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="true"/>
             <file name="org-opensim-view-OpenOsimModel.shadow">
@@ -74,7 +78,7 @@
             <attr name="org-opensim-view-OpenOsimModel.shadow/Separator2.instance" boolvalue="true"/>
             <attr name="Separator2.instance/org-opensim-view-separatorBefore.instance" boolvalue="true"/>
             <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
-            <attr name="org-openide-actions-SaveAllAction.instance/org-opensim-view-separatorBefore.instance" boolvalue="true"/>
+            <attr name="org-openide-actions-SaveAllAction.instance/org-opensim-view-separatorBefore.instance" boolvalue="false"/>
             <file name="org-opensim-view-separatorBefore.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
@@ -92,6 +96,11 @@
             <file name="org-netbeans-modules-project-ui-RecentProjects.shadow_hidden"/>
             <file name="org-openide-actions-PageSetupAction.instance_hidden"/>
             <file name="org-openide-actions-PrintAction.instance_hidden"/>
+            <attr name="org-opensim-view-SaveModelAction.shadow/org-opensim-view-separatorBefore.instance" boolvalue="false"/>
+            <attr name="org-opensim-view-SaveModelAction.shadow/org-openide-actions-SaveAllAction.instance" boolvalue="true"/>
+            <attr name="org-openide-actions-SaveAction.instance/org-opensim-view-ExportSIMMJntAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-ExportSIMMJntAction.shadow/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
+            <attr name="org-openide-actions-SaveAction.instance/org-openide-actions-SaveAllAction.instance" boolvalue="false"/>
         </folder>
         <folder name="Window">
             <file name="BottomPanelAction.shadow">

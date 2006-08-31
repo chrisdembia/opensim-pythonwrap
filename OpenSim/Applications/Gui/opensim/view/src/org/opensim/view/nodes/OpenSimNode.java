@@ -10,8 +10,11 @@
 package org.opensim.view.nodes;
 
 
+import java.awt.Image;
 import java.awt.datatransfer.Transferable;
 import java.io.IOException;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.util.datatransfer.PasteType;
@@ -76,5 +79,27 @@ public class OpenSimNode extends AbstractNode {
         else 
             return ((OpenSimNode)getParentNode()).getModelForNode();
     }
+
+    /**
+     * Icon for the body node 
+     **/
+    public Image getIcon(int i) {
+        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/collapsedNode.gif");
+        if (imageURL != null) {
+            return new ImageIcon(imageURL, "").getImage();
+        } else {
+            return null;
+        }
+    }
+
+    public Image getOpenedIcon(int i) {
+        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/openNode.gif");
+        if (imageURL != null) {
+            return new ImageIcon(imageURL, "").getImage();
+        } else {
+            return null;
+        }
+    }
+    
 
 } // class OpenSimNode

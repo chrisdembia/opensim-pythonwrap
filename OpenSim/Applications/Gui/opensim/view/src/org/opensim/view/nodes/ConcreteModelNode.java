@@ -17,6 +17,7 @@ public class ConcreteModelNode extends OpenSimNode {
         setDisplayName(m.getName());
         getChildren().add(new Node[]  {new BodiesNode(m)});
         getChildren().add(new Node[] {new MusclesNode(m)});
+        getChildren().add(new Node[] {new JointsNode(m)});
    }
     public Action[] getActions(boolean popup) {
         return new Action[]  {(Action)OpenOsimModelAction.findObject(OpenOsimModelAction.class)};

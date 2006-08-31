@@ -125,6 +125,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     VisibleObject bodyDisplayer = body.getDisplayer();
                     bodyDisplayer.getScaleFactors(scales);
 
+                    //System.out.println("Scale factors"+scales[0]+scales[1]+scales[2]);
                     int ns = bodyDisplayer.getNumGeometryFiles();
                     // For each bone in the current body.
                     for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {

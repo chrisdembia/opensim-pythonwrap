@@ -33,11 +33,14 @@ import org.opensim.modeling.SimmModel;
  * @author Ayman Habib
  *
  * A Database of Displayed models, maps models to corresponding ModelWindowVTKTopComponents
+ * Also keeps track of currently activated ModelWindowVTKTopComponent
  */
 public final class ViewDB {
     
     static Hashtable<SimmModel, ModelWindowVTKTopComponent> mapModels2Tc = new Hashtable<SimmModel, ModelWindowVTKTopComponent>(4);
     static ViewDB instance=null;
+    private static ModelWindowVTKTopComponent currentModelWindow=null;
+    
     
     /** Creates a new instance of ViewDB */
     protected ViewDB() {
@@ -73,5 +76,13 @@ public final class ViewDB {
     public static void removeModel(SimmModel model)
     {
         mapModels2Tc.remove(model);
+    }
+
+    public static ModelWindowVTKTopComponent getCurrentModelWindow() {
+        return currentModelWindow;
+    }
+
+    public static void setCurrentModelWindow(ModelWindowVTKTopComponent aCurrentModelWindow) {
+        currentModelWindow = aCurrentModelWindow;
     }
 }

@@ -1,41 +1,43 @@
 package org.opensim.view;
 
-import java.util.Collection;
+import java.util.prefs.Preferences;
+import javax.swing.JFileChooser;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
-import org.openide.util.Lookup;
-import org.openide.util.LookupEvent;
-import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
-import org.openide.util.Utilities;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.SimmModel;
+import org.opensim.utils.FileUtils;
 
-public final class SaveModelAction extends CallableSystemAction {
+
+public final class ExportSIMMJntAction extends CallableSystemAction {
     
     ModelWindowVTKTopComponent active;
-    
+
     public void performAction() {
         // TODO implement action body
-        // Get current active top component
         active = ViewDB.getInstance().getCurrentModelWindow();
         if (active != null){
+             String defaultDir="";
+            defaultDir = Preferences.userNodeForPackage(this.getClass()).get("WorkDirectory", defaultDir);
+            final JFileChooser dlog = new JFileChooser(defaultDir);
+            dlog.setFileFilter(FileUtils.getFileFilter(".jnt", "SIMM .jnt file"));
+
             SimmModel mdl = active.getModel();
-            StatusDisplayer.getDefault().setStatusText("Saving model "+mdl.getName()+"to file.");
-            mdl.print(mdl.getInputFileName());
+            StatusDisplayer.getDefault().setStatusText("Exporting SIMM jnts of "+mdl.getName()+"to file.");
+            mdl.writeSIMMJointFile("save.jnt");
             StatusDisplayer.getDefault().setStatusText("");
         }
     }
     
     public String getName() {
-        return NbBundle.getMessage(SaveModelAction.class, "CTL_SaveModelAction");
+        return NbBundle.getMessage(ExportSIMMJntAction.class, "CTL_ExportSIMMJntAction");
     }
     
     protected void initialize() {
         super.initialize();
         // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
         putValue("noIconInMenu", Boolean.TRUE);
-        
     }
     
     public HelpCtx getHelpCtx() {

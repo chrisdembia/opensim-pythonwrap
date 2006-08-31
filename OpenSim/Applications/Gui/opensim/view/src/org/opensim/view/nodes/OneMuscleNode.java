@@ -56,10 +56,10 @@ public class OneMuscleNode extends OpenSimNode{
    public Image getOpenedIcon(int i) {
         return getIcon(i);
     }
-   
+   /*
    public Action[] getActions(boolean b) {
         Action[] retValue;
-        /*
+        
         final SimmModel ownerModel = getModelForNode();
         //retValue = super.getActions(b);
         Action reviewAction = new CallableSystemAction(){
@@ -77,8 +77,8 @@ public class OneMuscleNode extends OpenSimNode{
                 return null;
             }}; 
         return (new Action[] {reviewAction});
-         **/
+         
         return null;
     }
-    
+    */
 }

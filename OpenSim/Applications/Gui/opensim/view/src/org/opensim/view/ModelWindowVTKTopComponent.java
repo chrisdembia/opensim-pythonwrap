@@ -74,7 +74,6 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
         jRefitModelButton = new javax.swing.JButton();
         jModelWiondowToolBar = new javax.swing.JToolBar();
         jTakeSnapshotButton = new javax.swing.JButton();
-        jAnimationSlider = new javax.swing.JSlider();
         openSimCanvas1 = new org.opensim.view.OpenSimCanvas();
         openSimCanvas1.setOwnerWindow(this);
 
@@ -95,8 +94,6 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
         });
 
         jModelWiondowToolBar.add(jTakeSnapshotButton);
-
-        jModelWiondowToolBar.add(jAnimationSlider);
 
         add(jModelWiondowToolBar, java.awt.BorderLayout.NORTH);
 
@@ -139,7 +136,6 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JSlider jAnimationSlider;
     private javax.swing.JToolBar jModelWiondowToolBar;
     private javax.swing.JButton jRefitModelButton;
     private javax.swing.JButton jTakeSnapshotButton;
@@ -198,9 +194,14 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
     }
     
     public Action[] getActions(){
-        Action act = new LoadDemoModelAction();
+        Action act = new LoadGaitModelAction();
         return (new Action[]{act});
     };
+
+    protected void componentActivated() {
+        super.componentActivated();
+        ViewDB.getInstance().setCurrentModelWindow(this);
+    }
 
     public SimmModel getModel() {
         return model;

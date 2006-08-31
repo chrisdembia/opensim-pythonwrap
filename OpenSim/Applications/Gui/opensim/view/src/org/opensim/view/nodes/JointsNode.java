@@ -1,6 +1,6 @@
 /*
  *
- * MusclesNode
+ * JointsNode
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -31,13 +31,12 @@ import org.opensim.modeling.SimmModel;
  *
  * @author Ayman Habib
  *
- * Top level Muscles node in Navigator view
+ * Top level Joints node in Navigator view
  */
-public class MusclesNode extends OpenSimNode {
+public class JointsNode extends OpenSimNode {
     
-    /** Creates a new instance of MusclesNode */
-    public MusclesNode(SimmModel m) {
-        super(new MuscleChildren(m));
-        setDisplayName("Muscles");
+    /** Creates a new instance of JointsNode */
+    public JointsNode(SimmModel m) {
+        setDisplayName("Joints");
     }    
 }
