@@ -154,12 +154,12 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     return new SimmUnits(opensimModelJNI.SimmKinematicsEngine_getForceUnits(swigCPtr), false);
   }
 
-  public void writeSIMMJointFile(SWIGTYPE_p_std__string aFileName) {
-    opensimModelJNI.SimmKinematicsEngine_writeSIMMJointFile(swigCPtr, SWIGTYPE_p_std__string.getCPtr(aFileName));
+  public void writeSIMMJointFile(String aFileName) {
+    opensimModelJNI.SimmKinematicsEngine_writeSIMMJointFile(swigCPtr, aFileName);
   }
 
-  public void writeMarkerFile(SWIGTYPE_p_std__string aFileName) {
-    opensimModelJNI.SimmKinematicsEngine_writeMarkerFile(swigCPtr, SWIGTYPE_p_std__string.getCPtr(aFileName));
+  public void writeMarkerFile(String aFileName) {
+    opensimModelJNI.SimmKinematicsEngine_writeMarkerFile(swigCPtr, aFileName);
   }
 
   public void peteTest() {

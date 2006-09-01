@@ -167,16 +167,16 @@ public class SimmModel extends Model {
     return opensimModelJNI.SimmModel_getInputFileName(swigCPtr);
   }
 
-  public void writeSIMMJointFile(SWIGTYPE_p_std__string aFileName) {
-    opensimModelJNI.SimmModel_writeSIMMJointFile(swigCPtr, SWIGTYPE_p_std__string.getCPtr(aFileName));
+  public void writeSIMMJointFile(String aFileName) {
+    opensimModelJNI.SimmModel_writeSIMMJointFile(swigCPtr, aFileName);
   }
 
-  public void writeSIMMMuscleFile(SWIGTYPE_p_std__string aFileName) {
-    opensimModelJNI.SimmModel_writeSIMMMuscleFile(swigCPtr, SWIGTYPE_p_std__string.getCPtr(aFileName));
+  public void writeSIMMMuscleFile(String aFileName) {
+    opensimModelJNI.SimmModel_writeSIMMMuscleFile(swigCPtr, aFileName);
   }
 
-  public void writeMarkerFile(SWIGTYPE_p_std__string aFileName) {
-    opensimModelJNI.SimmModel_writeMarkerFile(swigCPtr, SWIGTYPE_p_std__string.getCPtr(aFileName));
+  public void writeMarkerFile(String aFileName) {
+    opensimModelJNI.SimmModel_writeMarkerFile(swigCPtr, aFileName);
   }
 
   public static void registerTypes() {

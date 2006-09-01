@@ -12,7 +12,7 @@ public class opensimModelJNI {
 
   static {
     try {
-        System.loadLibrary("rdModelDll");
+        System.loadLibrary("rdModelDll_d");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library failed to load. Check that the dynamic library rdModelDll is in the PATH\n" + e);
       System.exit(1);
@@ -997,6 +997,20 @@ public class opensimModelJNI {
   public final static native void ControlLinear_simplify(long jarg1, long jarg2);
   public final static native boolean ControlLinear_isA(long jarg1);
   public final static native long ControlLinear_downcast__SWIG_0(long jarg1);
+  public final static native int ControllerNAME_LENGTH_get();
+  public final static native int ControllerDESCRIP_LENGTH_get();
+  public final static native int Controller_NAME_LENGTH_get();
+  public final static native int Controller_DESCRIP_LENGTH_get();
+  public final static native void delete_Controller(long jarg1);
+  public final static native void Controller_setNull(long jarg1);
+  public final static native long Controller_getModel(long jarg1);
+  public final static native void Controller_setOn(long jarg1, boolean jarg2);
+  public final static native boolean Controller_getOn(long jarg1);
+  public final static native void Controller_setName(long jarg1, String jarg2);
+  public final static native String Controller_getName(long jarg1);
+  public final static native void Controller_setDescription(long jarg1, String jarg2);
+  public final static native String Controller_getDescription(long jarg1);
+  public final static native void Controller_computeControls(long jarg1, long jarg2, double jarg3, long jarg4, long jarg5);
   public final static native void delete_Integrand(long jarg1);
   public final static native int Integrand_getSize(long jarg1);
   public final static native void Integrand_setInitialStates(long jarg1, double jarg2, double[] jarg3);
@@ -1303,6 +1317,21 @@ public class opensimModelJNI {
   public final static native boolean AnalysisFactory_registerAnalysis(long jarg1, long jarg2);
   public final static native String AnalysisFactory_toString(long jarg1);
   public final static native long AnalysisFactory_getRegisteredAnalyses(long jarg1);
+  public final static native void delete_Investigation(long jarg1);
+  public final static native void Investigation_setModel(long jarg1, long jarg2);
+  public final static native long Investigation_getModel(long jarg1);
+  public final static native void Investigation_setOutputPrecision(long jarg1, int jarg2);
+  public final static native int Investigation_getOutputPrecision(long jarg1);
+  public final static native long Investigation_getAnalysisSet(long jarg1);
+  public final static native String Investigation_getResultsDir(long jarg1);
+  public final static native void Investigation_setResultsDir(long jarg1, String jarg2);
+  public final static native void Investigation_constructCommandLineForLoadModel(long jarg1, long jarg2);
+  public final static native void Investigation_loadModel(long jarg1);
+  public final static native void Investigation_run(long jarg1);
+  public final static native void Investigation_printResults__SWIG_0(long jarg1, String jarg2, String jarg3, double jarg4, String jarg5);
+  public final static native void Investigation_printResults__SWIG_1(long jarg1, String jarg2, String jarg3, double jarg4);
+  public final static native void Investigation_printResults__SWIG_2(long jarg1, String jarg2, String jarg3);
+  public final static native void Investigation_printResults__SWIG_3(long jarg1, String jarg2);
   public final static native long new_Kinematics__SWIG_0(long jarg1);
   public final static native long new_Kinematics__SWIG_1();
   public final static native long new_Kinematics__SWIG_2(String jarg1);
@@ -1994,8 +2023,8 @@ public class opensimModelJNI {
   public final static native double SimmKinematicsEngine_takeMeasurement(long jarg1, long jarg2);
   public final static native long SimmKinematicsEngine_getLengthUnits(long jarg1);
   public final static native long SimmKinematicsEngine_getForceUnits(long jarg1);
-  public final static native void SimmKinematicsEngine_writeSIMMJointFile(long jarg1, long jarg2);
-  public final static native void SimmKinematicsEngine_writeMarkerFile(long jarg1, long jarg2);
+  public final static native void SimmKinematicsEngine_writeSIMMJointFile(long jarg1, String jarg2);
+  public final static native void SimmKinematicsEngine_writeMarkerFile(long jarg1, String jarg2);
   public final static native void SimmKinematicsEngine_peteTest(long jarg1);
   public final static native void SimmKinematicsEngine_getUnlockedCoordinates(long jarg1, long jarg2);
   public final static native long SimmKinematicsEngine_getBody(long jarg1, String jarg2);
@@ -2227,9 +2256,9 @@ public class opensimModelJNI {
   public final static native void SimmModel_getPin(long jarg1, int jarg2, int jarg3, double[] jarg4);
   public final static native void SimmModel_getJointInfo(long jarg1, int jarg2, int[] jarg3, int[] jarg4);
   public final static native String SimmModel_getInputFileName(long jarg1);
-  public final static native void SimmModel_writeSIMMJointFile(long jarg1, long jarg2);
-  public final static native void SimmModel_writeSIMMMuscleFile(long jarg1, long jarg2);
-  public final static native void SimmModel_writeMarkerFile(long jarg1, long jarg2);
+  public final static native void SimmModel_writeSIMMJointFile(long jarg1, String jarg2);
+  public final static native void SimmModel_writeSIMMMuscleFile(long jarg1, String jarg2);
+  public final static native void SimmModel_writeMarkerFile(long jarg1, String jarg2);
   public final static native void SimmModel_registerTypes();
   public final static native void SimmModel_setup(long jarg1);
   public final static native boolean SimmModel_builtOK(long jarg1);
@@ -2704,7 +2733,6 @@ public class opensimModelJNI {
   public final static native double SimmSubject_getSubjectHeight(long jarg1);
   public final static native String SimmSubject_getPathToSubject(long jarg1);
   public final static native void SimmSubject_setPathToSubject(long jarg1, String jarg2);
-  public final static native String SimmSubject_getParentDirectory(long jarg1, String jarg2);
   public final static native void SimmSubject_peteTest(long jarg1);
   public final static native double SimmSubject_DefaultMass_get();
   public final static native long new_SimmMotionData__SWIG_0();
@@ -2796,6 +2824,7 @@ public class opensimModelJNI {
   public final static native long SWIGSimtkAnimationCallbackUpcast(long jarg1);
   public final static native long SWIGAnalysisUpcast(long jarg1);
   public final static native long SWIGSetAnalysisUpcast(long jarg1);
+  public final static native long SWIGInvestigationUpcast(long jarg1);
   public final static native long SWIGKinematicsUpcast(long jarg1);
   public final static native long SWIGActuationUpcast(long jarg1);
   public final static native long SWIGIndAccUpcast(long jarg1);

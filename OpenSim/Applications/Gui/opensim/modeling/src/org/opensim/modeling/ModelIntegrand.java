@@ -82,13 +82,13 @@ public class ModelIntegrand extends Integrand {
     return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
-  public void setController(SWIGTYPE_p_Controller aController) {
-    opensimModelJNI.ModelIntegrand_setController(swigCPtr, SWIGTYPE_p_Controller.getCPtr(aController));
+  public void setController(Controller aController) {
+    opensimModelJNI.ModelIntegrand_setController(swigCPtr, Controller.getCPtr(aController));
   }
 
-  public SWIGTYPE_p_Controller getController() {
+  public Controller getController() {
     long cPtr = opensimModelJNI.ModelIntegrand_getController(swigCPtr);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_Controller(cPtr, false);
+    return (cPtr == 0) ? null : new Controller(cPtr, false);
   }
 
   public ControlSet constructControlSet() {

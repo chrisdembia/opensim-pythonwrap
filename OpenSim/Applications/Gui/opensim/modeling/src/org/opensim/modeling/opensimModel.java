@@ -21,4 +21,12 @@ public class opensimModel implements opensimModelConstants {
     return opensimModelJNI.Storage_DEFAULT_CAPACITY_get();
   }
 
+  public static int getControllerNAME_LENGTH() {
+    return opensimModelJNI.ControllerNAME_LENGTH_get();
+  }
+
+  public static int getControllerDESCRIP_LENGTH() {
+    return opensimModelJNI.ControllerDESCRIP_LENGTH_get();
+  }
+
 }
