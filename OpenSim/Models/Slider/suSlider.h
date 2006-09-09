@@ -13,7 +13,7 @@
 #include <OpenSim/Simulation/Model/Model.h>
 #include <OpenSim/Simulation/Model/ActuatorSet.h>
 #include <OpenSim/Simulation/Model/ContactForceSet.h>
-#include <OpenSim/Simulation/SDFast/SDFast.h>
+#include <OpenSim/Simulation/SDFast/rdSDFast.h>
 #include <OpenSim/Simulation/SDFast/ActuatedModel_SDFast.h>
 
 
