@@ -36,7 +36,9 @@
 
 #define NO 0
 #define YES 1
+#ifndef M_PI
 #define M_PI 3.1415926535897932384626433832795
+#endif
 #define RAD2DEG(x) ((x) * 180.0/M_PI)
 #define DEG2RAD(x) ((x) * M_PI/180.0)
 
