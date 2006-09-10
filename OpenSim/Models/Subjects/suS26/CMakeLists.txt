@@ -11,7 +11,11 @@ INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR}
 		    ${OpenSim_SOURCE_DIR}/OpenSim/Models/SIMMPipeline/4.0/Pipeline40Workflow
 )
 
-LINK_LIBRARIES( rdTools rdSimulation rdSDFast suPipeline40Workflow suPipeline40 suAnalyses acpp)
+IF(WIN32)
+LINK_LIBRARIES( rdTools rdSimulation rdSDFast suPipeline40 suPipeline40Workflow suAnalyses acpp)
+ELSE(WIN32) # no acpp library for linux
+LINK_LIBRARIES( rdTools rdSimulation rdSDFast suPipeline40 suPipeline40Workflow suAnalyses)
+ENDIF(WIN32)
 
 ADD_EXECUTABLE(su${KIT} ${SOURCE_FILES} ${INCLUDE_FILES}) 
 
