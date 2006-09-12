@@ -12,7 +12,7 @@ public class ArrayInt {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected ArrayInt(long cPtr, boolean cMemoryOwn) {
+  public ArrayInt(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }

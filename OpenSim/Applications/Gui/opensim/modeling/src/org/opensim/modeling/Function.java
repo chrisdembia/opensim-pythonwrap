@@ -11,7 +11,7 @@ package org.opensim.modeling;
 public class Function extends OpenSimObject {
   private long swigCPtr;
 
-  protected Function(long cPtr, boolean cMemoryOwn) {
+  public Function(long cPtr, boolean cMemoryOwn) {
     super(opensimModelJNI.SWIGFunctionUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }

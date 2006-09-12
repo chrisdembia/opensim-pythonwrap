@@ -12,12 +12,12 @@ public class ArrayDouble {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected ArrayDouble(long cPtr, boolean cMemoryOwn) {
+  public ArrayDouble(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ArrayDouble obj) {
+  public static long getCPtr(ArrayDouble obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

@@ -11,7 +11,7 @@ package org.opensim.modeling;
 public class Storage extends OpenSimObject {
   private long swigCPtr;
 
-  protected Storage(long cPtr, boolean cMemoryOwn) {
+  public Storage(long cPtr, boolean cMemoryOwn) {
     super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }

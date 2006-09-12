@@ -53,8 +53,8 @@ public class SimmMotionData {
     return opensimModelJNI.SimmMotionData_getColumnIndex(swigCPtr, aName);
   }
 
-  public void setColumnLabel(int aIndex, SWIGTYPE_p_std__string aLabel) {
-    opensimModelJNI.SimmMotionData_setColumnLabel(swigCPtr, aIndex, SWIGTYPE_p_std__string.getCPtr(aLabel));
+  public void setColumnLabel(int aIndex, String aLabel) {
+    opensimModelJNI.SimmMotionData_setColumnLabel(swigCPtr, aIndex, aLabel);
   }
 
   public double getValue(String aName, int aFrameIndex) {

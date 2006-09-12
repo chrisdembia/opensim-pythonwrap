@@ -12,7 +12,7 @@ public class OpenSimObject {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected OpenSimObject(long cPtr, boolean cMemoryOwn) {
+  public OpenSimObject(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }

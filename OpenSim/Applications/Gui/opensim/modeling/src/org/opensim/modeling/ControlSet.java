@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class ControlSet extends SetControls {
   private long swigCPtr;
 
-  protected ControlSet(long cPtr, boolean cMemoryOwn) {
+  public ControlSet(long cPtr, boolean cMemoryOwn) {
     super(opensimModelJNI.SWIGControlSetUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ControlSet obj) {
+  public static long getCPtr(ControlSet obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

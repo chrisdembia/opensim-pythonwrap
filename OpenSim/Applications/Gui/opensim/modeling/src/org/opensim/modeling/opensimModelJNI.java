@@ -12,9 +12,9 @@ public class opensimModelJNI {
 
   static {
     try {
-        System.loadLibrary("rdModelDll_d");
+        System.loadLibrary("ModelingAPI_d");
     } catch (UnsatisfiedLinkError e) {
-      System.err.println("Native code library failed to load. Check that the dynamic library rdModelDll is in the PATH\n" + e);
+      System.err.println("Native code library failed to load. Check that the dynamic library ModelingAPI_d is in the PATH\n" + e);
       System.exit(1);
     }
   }
@@ -1187,13 +1187,6 @@ public class opensimModelJNI {
   public final static native int IntegCallback_step__SWIG_1(long jarg1, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
   public final static native int IntegCallback_end__SWIG_0(long jarg1, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
   public final static native int IntegCallback_end__SWIG_1(long jarg1, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
-  public final static native long new_SimtkAnimationCallback(long jarg1);
-  public final static native void delete_SimtkAnimationCallback(long jarg1);
-  public final static native double SimtkAnimationCallback_getCurrentTime(long jarg1);
-  public final static native int SimtkAnimationCallback_step__SWIG_0(long jarg1, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native int SimtkAnimationCallback_step__SWIG_1(long jarg1, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
-  public final static native void SimtkAnimationCallback_getMutex(long jarg1);
-  public final static native void SimtkAnimationCallback_releaseMutex(long jarg1);
   public final static native void delete_ArrayStorage(long jarg1);
   public final static native long new_ArrayStorage__SWIG_0(int jarg1);
   public final static native long new_ArrayStorage__SWIG_1();
@@ -2741,7 +2734,7 @@ public class opensimModelJNI {
   public final static native void delete_SimmMotionData(long jarg1);
   public final static native int SimmMotionData_getNumColumns(long jarg1);
   public final static native int SimmMotionData_getColumnIndex(long jarg1, String jarg2);
-  public final static native void SimmMotionData_setColumnLabel(long jarg1, int jarg2, long jarg3);
+  public final static native void SimmMotionData_setColumnLabel(long jarg1, int jarg2, String jarg3);
   public final static native double SimmMotionData_getValue(long jarg1, String jarg2, int jarg3);
   public final static native double SimmMotionData_getRangeMin(long jarg1);
   public final static native double SimmMotionData_getRangeMax(long jarg1);
@@ -2821,7 +2814,6 @@ public class opensimModelJNI {
   public final static native long SWIGSetCallbackUpcast(long jarg1);
   public final static native long SWIGCallbackSetUpcast(long jarg1);
   public final static native long SWIGIntegCallbackUpcast(long jarg1);
-  public final static native long SWIGSimtkAnimationCallbackUpcast(long jarg1);
   public final static native long SWIGAnalysisUpcast(long jarg1);
   public final static native long SWIGSetAnalysisUpcast(long jarg1);
   public final static native long SWIGInvestigationUpcast(long jarg1);
