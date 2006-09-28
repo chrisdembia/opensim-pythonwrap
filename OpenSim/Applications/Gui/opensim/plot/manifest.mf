@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.opensim.plot
+OpenIDE-Module-Install: org/opensim/plot/Installer.class
+OpenIDE-Module-Layer: org/opensim/plot/layer.xml
+OpenIDE-Module-Localizing-Bundle: org/opensim/plot/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
