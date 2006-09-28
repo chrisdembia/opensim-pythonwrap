@@ -1,42 +1,51 @@
 package org.opensim.view;
 
-import java.awt.Component;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.prefs.Preferences;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.openide.util.actions.Presenter;
-import org.opensim.common.OpenSimDB;
 import org.opensim.modeling.SimmModel;
+import org.opensim.utils.FileUtils;
+import org.opensim.utils.TheApp;
 import org.opensim.view.base.SerializationHelper;
 
-public final class OpenOsimModelAction extends CallableSystemAction implements Presenter.Toolbar {
+public final class OpenOsimModelAction extends CallableSystemAction {
     
     protected String fileName;
     
     public void performAction() {
         // TODO implement action body
         // Browse for model file
-       String defaultDir="";
-       defaultDir = Preferences.userNodeForPackage(this.getClass()).get("WorkDirectory", defaultDir);
+/*       String defaultDir="";
+       defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
        final JFileChooser dlog = new JFileChooser(defaultDir);
         
+        dlog.setFileFilter(FileUtils.getFileFilter());
         if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
             fileName = dlog.getSelectedFile().getAbsolutePath();
-            loadModel(fileName);
+            Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
+        }
+*/
+        String fileName = FileUtils.browseForFilename(".xml,.osim", "Model file to open");
+        if (fileName != null){
+            try {
+                loadModel(fileName);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                
+            }
+            
             try {
                 writeExternal(SerializationHelper.getLogStream());
             } catch (IOException ex) {
                 ex.printStackTrace();
-            }
+            }            
         }
-
     }
 
     /**
@@ -44,15 +53,21 @@ public final class OpenOsimModelAction extends CallableSystemAction implements P
      * @param fileName is the absolute path to the file to be used.
      * @returns true on success else failure
      */
-    public boolean loadModel(final String fileName) {
-        boolean retValue = false;   
-        // Make the model
-        SimmModel aModel = new SimmModel(fileName);
+    public boolean loadModel(final String fileName) throws IOException {
+        boolean retValue = false;
+        SimmModel aModel=null;
+        
+        aModel = new SimmModel(fileName);
         if (aModel == null){
-            BottomPanelTopComponent.findInstance().showLogMessage("Failed to construct model from file "+fileName+"\n");
+             BottomPanelTopComponent.findInstance().showErrorMessage("Failed to construct model from file "+fileName+"\n");
             return retValue;
         }
         aModel.setup();
+        boolean isOk = aModel.builtOK();
+        if (!isOk){
+             BottomPanelTopComponent.findInstance().showErrorMessage("Failed to construct model from file "+fileName+"\n");
+            return retValue;            
+        }
         // Make the window
         final ModelWindowVTKTopComponent modelWindow = new ModelWindowVTKTopComponent(aModel);
         SwingUtilities.invokeLater(new Runnable(){
@@ -62,10 +77,10 @@ public final class OpenOsimModelAction extends CallableSystemAction implements P
         
         OpenSimDB.getInstance().addObserver(modelWindow);
         OpenSimDB.getInstance().addModel(aModel);
-        ViewDB.getInstance().addMap(aModel, modelWindow);
+        ViewDB.getInstance().addModelWindowMap(aModel, modelWindow);
         retValue = true;
         // Log message to Log window
-        BottomPanelTopComponent.findInstance().showLogMessage("Model has been created from file "+fileName+"\n");
+         BottomPanelTopComponent.findInstance().showLogMessage("Model has been created from file "+fileName+"\n");
         return retValue;
     }
 
@@ -106,11 +121,4 @@ public final class OpenOsimModelAction extends CallableSystemAction implements P
         
     }
 
-    public Component getToolbarPresenter() {
-        Component retValue;
-        
-        retValue = new JButton(this);
-        return retValue;
-    }
-    
 }

@@ -17,8 +17,6 @@ import org.openide.windows.WindowManager;
  */
 final class BottomPanelTopComponent extends TopComponent {
     
-    private static final long serialVersionUID = 1L;
-    
     private static BottomPanelTopComponent instance;
     /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
@@ -39,29 +37,29 @@ final class BottomPanelTopComponent extends TopComponent {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jBottomPanelScrollPane = new javax.swing.JScrollPane();
-        jMessageTextArea = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jMessageArea = new javax.swing.JTextArea();
 
-        jMessageTextArea.setColumns(20);
-        jMessageTextArea.setRows(5);
-        jBottomPanelScrollPane.setViewportView(jMessageTextArea);
+        jMessageArea.setColumns(20);
+        jMessageArea.setRows(5);
+        jScrollPane1.setViewportView(jMessageArea);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jBottomPanelScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jBottomPanelScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jBottomPanelScrollPane;
-    private javax.swing.JTextArea jMessageTextArea;
+    private javax.swing.JTextArea jMessageArea;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
     
     /**
@@ -112,18 +110,30 @@ final class BottomPanelTopComponent extends TopComponent {
     protected String preferredID() {
         return PREFERRED_ID;
     }
+
+    /** 
+     * showLogMessage shows a message in the "bottom panel"'s text area.
+     * A log message has low priority so if the component is closed nothing is shown
+     */
+    void showLogMessage(String string) {
+        jMessageArea.append(string);
+    }
+
+    /**
+     * showErrorMessage displays a more serious error in the "bottom panel"'s text area.
+     * Since this's more serious, the window is opened if it's closed and indicated to need attention
+     */
+    void showErrorMessage(String string) {
+        open();
+        requestAttention(true);
+        jMessageArea.append(string);        
+    }
     
     final static class ResolvableHelper implements Serializable {
         private static final long serialVersionUID = 1L;
         public Object readResolve() {
             return BottomPanelTopComponent.getDefault();
         }
-    }
-    
-    final static public void showLogMessage(String msg)
-    {
-        if (instance != null)
-            instance.jMessageTextArea.append(msg);
     }
     
 }

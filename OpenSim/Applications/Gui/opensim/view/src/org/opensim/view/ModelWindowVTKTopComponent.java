@@ -7,14 +7,15 @@ import java.util.prefs.Preferences;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JToolTip;
 import javax.swing.SwingUtilities;
+import org.openide.awt.UndoRedo;
 import org.openide.util.NbBundle;
 import org.openide.util.lookup.Lookups;
+import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
-import org.opensim.common.OpenSimDB;
-import org.opensim.common.ModelEvent;
+import org.openide.windows.WindowManager;
 import org.opensim.modeling.SimmModel;
+import org.opensim.utils.TheApp;
 import vtk.vtkFileOutputWindow;
 /**
  * Top component which displays something.
@@ -51,7 +52,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
             }});
         
         // Set preferred directory for the TopComponent (to be used for all saving, loading, ...
-        prefs = Preferences.userNodeForPackage(this.getClass());
+        prefs = Preferences.userNodeForPackage(TheApp.class);
         File f = new File(getModel().getInputFileName());
         if (f.getParent()!= null)
             prefs.put("Preferred Directory", f.getParent());
@@ -109,11 +110,16 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
 
     private void jTakeSnapshotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTakeSnapshotButtonActionPerformed
 // TODO add your handling code here:
-        String currentDirectory = prefs.get("Preferred Directory", ".");
-        final JFileChooser dlog = new JFileChooser(currentDirectory);
+       String defaultDir="";
+       defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
+        final JFileChooser dlog = new JFileChooser(defaultDir);
         
         if (dlog.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            getCanvas().HardCopy(dlog.getSelectedFile().getAbsolutePath()+".tiff", 1);
+            String fullPath = dlog.getSelectedFile().getAbsolutePath();
+            if (! fullPath.toLowerCase().endsWith(".tiff")){
+                fullPath = dlog.getSelectedFile().getAbsolutePath()+".tiff";
+            }
+            getCanvas().HardCopy(fullPath, 1);
         }
     }//GEN-LAST:event_jTakeSnapshotButtonActionPerformed
 
@@ -180,9 +186,14 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
     public void update(Observable o, Object arg) {
                // Observable is OpenSimDB
         if (arg instanceof ModelEvent){
+            ModelEvent ev = (ModelEvent)arg;
             // Create a frame for the new Model
-            if (((ModelEvent)arg).getModel() == getModel())
-                getCanvas().loadModel(getModel());
+            if (ev.getModel() == getModel()){
+                if(ev.getOperation() == ModelEvent.Operation.Open){
+                    getCanvas().loadModel(getModel());
+                    componentActivated();
+                }
+            }
        }
     }    
     /**
@@ -207,4 +218,11 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
         return model;
     }
 
+    public UndoRedo getUndoRedo() {
+        UndoRedo retValue;
+        
+        retValue = super.getUndoRedo();
+        return retValue;
+    }
+    
 }

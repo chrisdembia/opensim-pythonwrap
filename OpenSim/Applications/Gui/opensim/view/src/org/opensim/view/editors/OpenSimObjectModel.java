@@ -24,7 +24,7 @@ public class OpenSimObjectModel
 
   // Names of the columns.
   static protected String[] cNames = {
-      "Name", "Value", "Default"};
+      "Name", "Value", "Description"};
 
   // Types of the columns.
   static protected Class[] cTypes = {
@@ -39,7 +39,7 @@ public class OpenSimObjectModel
 
   final String[] toolTipStr = {
       "Property name in xml file", "Current property value",
-      "Inherited from DEFAULT"};
+      "Description"};
 
   /** True if the receiver is valid, once set to false all Threads
    * loading files will stop. */
@@ -148,7 +148,7 @@ public class OpenSimObjectModel
         case 2: // use default
           Object obj = fn.getObject();
           if (obj instanceof Property)
-            return ( ( (Property) obj).getUseDefault() ? "True" : "False");
+            return ( ( (Property) obj).getComment());
           return "  ";
       }
     }
@@ -217,16 +217,6 @@ public class OpenSimObjectModel
           reloadChildren(((PropertyNode) node).getParent());
         }
      }
-    }
-    else if (column==2 && (((PropertyNode) node).property instanceof Property)){ // Changing inheritance from default.
-      String newDefString = (String) aValue;
-      boolean isTrue = newDefString.compareToIgnoreCase("true")==0;
-      boolean isFalse = newDefString.compareToIgnoreCase("false")==0;
-
-      if ( isTrue || isFalse){
-        Property prop = (Property) ((PropertyNode) node).property;
-        prop.setUseDefault(isTrue?true:false);
-      }
     }
   }
   //

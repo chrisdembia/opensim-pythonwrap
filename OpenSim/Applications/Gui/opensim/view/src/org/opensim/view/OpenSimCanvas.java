@@ -20,7 +20,6 @@ import org.openide.awt.StatusDisplayer;
 import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.AnalyticGeometry.AnalyticGeometryType;
 import org.opensim.modeling.ArrayDouble;
-import org.opensim.modeling.ArrayPtrsSimmMusclePoint;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmBody;
@@ -28,7 +27,9 @@ import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmModelIterator;
 import org.opensim.modeling.SimmMuscle;
 import org.opensim.modeling.SimmMusclePoint;
+import org.opensim.modeling.SimmMusclePointSet;
 import org.opensim.modeling.VisibleObject;
+import org.opensim.swingui.SwingWorker;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.editors.ObjectEditDialogMaker;
 import vtk.vtkActor;
@@ -81,9 +82,6 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     {
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Building scene ");
         progressHandle.start();
-        
-        // DialogDisplayer.getDefault().notify(
-        //        new NotifyDescriptor.Message("Click OK to continue."));
         
         // Build the scene graph in a worker thread.
         final SwingWorker worker = new SwingWorker() {
@@ -193,7 +191,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 } //body
                 // Now the muscles which are different creatures since they don't have a frame of their own
                 // We'll just connect the "musclepoints" in gnd frame to make up the muscle.
-                int numMuscles = model.getNumberOfMuscles();
+                // @FIXME handle non-muscle actuators
+                int numMuscles = model.getNA();
                 for(int m=0; m < numMuscles; m++){   
                     SimmMuscle nextMuscle = model.getMuscle(m);
                     // Create assembly for muscle
@@ -203,7 +202,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     mapObject2Actors.put(nextMuscle, muscleRep);
                     
                     // Get attachments and connect them
-                    ArrayPtrsSimmMusclePoint attatchments = nextMuscle.getAttachmentArray();
+                    SimmMusclePointSet attatchments = nextMuscle.getAttachmentSet();
                     int arraySize = attatchments.getSize();
                     if (arraySize > 0){
                         // Points must be traxformed to gnd space as they generally live
@@ -434,7 +433,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 win.open();
                 win.requestActive();*/
               ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(selectedObject, ownerTopComponent);
-              editorDialog.process();
+               editorDialog.process();
               //new VisibilityJDialog(new javax.swing.JFrame(), this, getSelectedObject()).setVisible(true);
           }
           setSelectedObject(null);

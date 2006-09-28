@@ -43,7 +43,7 @@ public class OpenSimNode extends AbstractNode {
     }
 
     public boolean canCopy() {
-        return true;
+        return false;
     }
 
     public PasteType getDropType(Transferable transferable, int i, int i0) {
@@ -54,7 +54,7 @@ public class OpenSimNode extends AbstractNode {
     }
 
     public boolean canCut() {
-         return true;
+         return false;
     }
 
     public Transferable clipboardCopy() throws IOException {

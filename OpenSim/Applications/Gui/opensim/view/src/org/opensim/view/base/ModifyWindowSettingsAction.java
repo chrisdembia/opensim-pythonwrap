@@ -9,13 +9,12 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 
-public class ModifyWindowSettingsAction extends CallableSystemAction {
+public final class ModifyWindowSettingsAction extends CallableSystemAction {
     
     OpenSimBaseCanvas dCanvas;
     
     public ModifyWindowSettingsAction(OpenSimBaseCanvas aCanvas)
     {
-        super();
         dCanvas = aCanvas;
     }
     

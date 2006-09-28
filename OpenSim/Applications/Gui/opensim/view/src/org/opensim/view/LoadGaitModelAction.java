@@ -1,5 +1,8 @@
 package org.opensim.view;
 
+import java.io.IOException;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -8,10 +11,15 @@ public final class LoadGaitModelAction extends CallableSystemAction {
     
     public void performAction() {
         try {
-            // TODO better layout for models, bones, use relative path
-            ((OpenOsimModelAction) OpenOsimModelAction.findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel("./resources/models/demoModel/dynamic.xml");
+                // TODO better layout for models, bones, use relative path
+                ((OpenOsimModelAction) OpenOsimModelAction.findObject(
+                        Class.forName("org.opensim.view.OpenOsimModelAction"))).
+                        loadModel("./resources/models/demoModel/dynamic.xml");
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+                ex.printStackTrace();
+        } catch (IOException ex) {
+            DialogDisplayer.getDefault().notify(
+                    new NotifyDescriptor.Message("Model could not be located. Please file a bug!"));
         }
     }
     

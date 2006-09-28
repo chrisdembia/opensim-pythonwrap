@@ -119,15 +119,15 @@ public class OpenSimBaseCanvas extends vtkPanel
       {
         char keyChar = e.getKeyChar();
 
-        if ('f' == keyChar)
+        if ('x' == keyChar)
           {
             applyCamera(CamerasMenu.pickStandardCamera("Front"));
           }
-        else if ('s' == keyChar)
+        else if ('y' == keyChar)
           {
             applyCamera(CamerasMenu.pickStandardCamera("Side"));
           }
-        else if ('t' == keyChar)
+        else if ('z' == keyChar)
           {
             applyCamera(CamerasMenu.pickStandardCamera("Top"));
           }

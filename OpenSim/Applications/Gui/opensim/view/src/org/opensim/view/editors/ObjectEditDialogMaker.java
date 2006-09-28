@@ -29,6 +29,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.awt.UndoRedo;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ModelWindowVTKTopComponent;
 
@@ -37,32 +38,60 @@ import org.opensim.view.ModelWindowVTKTopComponent;
  * @author Ayman Habib
  */
 public class ObjectEditDialogMaker {
-    ObjectPropertyViewerPanel propertiesPanel;
-    AbstractEditorPanel       editorPanel;
+    ObjectPropertyViewerPanel propertiesEditorPanel=null;
+    AbstractEditorPanel       typeSpecificEditorPanel=null;
     DialogDescriptor          topDialog;
+    OpenSimObject             objectToEdit;
     /**
      * Creates a new instance of ObjectEditDialogMaker
      */
-    public ObjectEditDialogMaker(OpenSimObject object, ModelWindowVTKTopComponent owner) {
-        propertiesPanel = new ObjectPropertyViewerPanel(object, false);
-        editorPanel = new VisibilityEditorPanel(object, owner);
+    public ObjectEditDialogMaker(OpenSimObject object, ModelWindowVTKTopComponent owner, boolean allowEdit) {
+        objectToEdit = object;
+        propertiesEditorPanel = new ObjectPropertyViewerPanel(object, allowEdit);
         JPanel topDialogPanel = new JPanel();
         topDialogPanel.setLayout(new BorderLayout());
-        topDialogPanel.add(editorPanel, BorderLayout.NORTH);
-        topDialogPanel.add(propertiesPanel, BorderLayout.SOUTH);
+        topDialogPanel.add(propertiesEditorPanel, BorderLayout.SOUTH);
+        if (object.getDisplayer()!=null){   // This should be made more general to account for other editing
+            typeSpecificEditorPanel = new VisibilityEditorPanel(object, owner);
+            topDialogPanel.add(typeSpecificEditorPanel, BorderLayout.NORTH);
+        }
         topDialog = new DialogDescriptor(topDialogPanel, "Object Editor");
+        // Make undoredo
         DialogDisplayer.getDefault().createDialog(topDialog).setVisible(true);
     }
-
-    public void process() {
+    /**
+     * Just review, no edit
+     */
+    public ObjectEditDialogMaker(OpenSimObject object, ModelWindowVTKTopComponent owner) {
+        this(object, owner, false);
+    }
+    
+    /**
+     * Non visible objects
+     */
+     public ObjectEditDialogMaker(OpenSimObject object, boolean allowEdit) {
+        this(object, null, allowEdit);
+    }
+     
+    /**
+     * process handles the closing of the Editor dialog and calls corresponding AbstractEditor methods
+     * It also return a boolean true for confirm, false otherwise
+     */
+    public boolean process() {
         Object userInput = topDialog.getValue();
         if (userInput instanceof Integer){
             Integer ret = (Integer)userInput;
             if (ret!=DialogDescriptor.OK_OPTION){
-                editorPanel.cancelEdit();
+                if (typeSpecificEditorPanel!= null)
+                    typeSpecificEditorPanel.cancelEdit();
+                    
             }
-            else
-                editorPanel.confirmEdit();
+            else{
+                if (typeSpecificEditorPanel!= null)
+                    typeSpecificEditorPanel.confirmEdit();
+            }
         }
+        return (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0);
+
     }
 }

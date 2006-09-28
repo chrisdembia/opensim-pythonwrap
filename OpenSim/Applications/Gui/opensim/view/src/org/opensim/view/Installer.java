@@ -16,9 +16,7 @@ public class Installer extends ModuleInstall {
     
     public void restored() {
         try {
-            // By default, do nothing.
-            // Put your startup code here.
-            // Restore default directory and Bones directory, ..
+             // Put your startup code here.
             UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -29,7 +27,11 @@ public class Installer extends ModuleInstall {
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
+        // Disable the number in the application title that shows after OpenSim
         System.setProperty ("netbeans.buildnumber", ""); 
+        /**
+         * @todo open explorer window, Restore default directory and Bones directories, ..
+         */
         super.restored();
 
     }

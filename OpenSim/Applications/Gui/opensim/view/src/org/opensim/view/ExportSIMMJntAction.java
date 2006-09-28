@@ -8,6 +8,7 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.SimmModel;
 import org.opensim.utils.FileUtils;
+import org.opensim.utils.TheApp;
 
 
 public final class ExportSIMMJntAction extends CallableSystemAction {
@@ -19,7 +20,7 @@ public final class ExportSIMMJntAction extends CallableSystemAction {
         active = ViewDB.getInstance().getCurrentModelWindow();
         if (active != null){
              String defaultDir="";
-            defaultDir = Preferences.userNodeForPackage(this.getClass()).get("WorkDirectory", defaultDir);
+            defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
             final JFileChooser dlog = new JFileChooser(defaultDir);
             dlog.setFileFilter(FileUtils.getFileFilter(".jnt", "SIMM .jnt file"));
 

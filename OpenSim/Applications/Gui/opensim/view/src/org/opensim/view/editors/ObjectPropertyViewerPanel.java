@@ -68,7 +68,7 @@ public class ObjectPropertyViewerPanel extends JPanel {
     /** Allow in place editing */
     protected boolean             editMode;
 
-    final String[] toolTipStr = {"Property name in xml file", "Current property value", "Inherited from DEFAULT"};
+    final String[] toolTipStr = {"Property name in xml file", "Current property value", "Description"};
 
 
     public ObjectPropertyViewerPanel(OpenSimObject aObject, boolean allowModification) {

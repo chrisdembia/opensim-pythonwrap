@@ -56,8 +56,9 @@ public class MuscleChildren extends Children.Keys {
     }
     
     private void refreshList() {
-        List keys = new ArrayList();
-        int numMuscles = model.getNumberOfMuscles();
+        List<String> keys = new ArrayList<String>();
+        // @FIXME Actuators can be different from muscles
+        int numMuscles = model.getNA();
         for(int i=0; i < numMuscles; i++)
             keys.add(model.getMuscle(i).getName());
         Collections.sort(keys);

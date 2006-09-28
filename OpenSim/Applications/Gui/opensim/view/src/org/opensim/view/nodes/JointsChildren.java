@@ -1,6 +1,6 @@
 /*
  *
- * JointsNode
+ * JointsChildren
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -25,19 +25,43 @@
  */
 package org.opensim.view.nodes;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.swing.event.ChangeListener;
+import org.openide.nodes.Children;
+import org.openide.nodes.Node;
 import org.opensim.modeling.SimmModel;
+import org.opensim.view.nodes.OneJointNode;
 
 /**
  *
  * @author Ayman Habib
- *
- * Top level Joints node in Navigator view
  */
-public class JointsNode extends OpenSimNode {
+public class JointsChildren extends Children.Keys {
     
-    /** Creates a new instance of JointsNode */
-    public JointsNode(SimmModel m) {
-        super(new JointsChildren(m));
-        setDisplayName("Joints");
-    }    
+    private ChangeListener listener;
+    SimmModel model;
+    
+    JointsChildren(SimmModel m) {
+        model = m;
+    }
+    protected void addNotify() {
+        refreshList();  // Called when parent node is expanded
+    }
+    protected void removeNotify() {
+        setKeys(Collections.EMPTY_SET);
+    }
+    protected Node[] createNodes(Object key) {
+        return new Node[] { new OneJointNode((String) key) };
+    }
+    
+    private void refreshList() {
+        List<String> keys = new ArrayList<String>();
+        int numJoints = model.getNJ();
+        for(int i=0; i < numJoints; i++)
+            keys.add(model.getSimmKinematicsEngine().getJoint(i).getName());
+        setKeys(keys);
+    }
+    
 }

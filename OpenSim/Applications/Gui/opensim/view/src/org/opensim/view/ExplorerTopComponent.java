@@ -21,8 +21,6 @@ import org.openide.util.Utilities;
 import org.openide.util.actions.CallableSystemAction;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
-import org.opensim.common.OpenSimDB;
-import org.opensim.common.ModelEvent;
 import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.view.BeanTreeView;
@@ -169,7 +167,8 @@ final class ExplorerTopComponent extends TopComponent
                 return;
             Node[] selectedNodes = new Node[1];
             selectedNodes[0] = modelNode;
-                manager.setExploredContext(modelNode);
+            manager.setExploredContext(modelNode);
+            setActivatedNodes(selectedNodes);
          } 
     }
     
