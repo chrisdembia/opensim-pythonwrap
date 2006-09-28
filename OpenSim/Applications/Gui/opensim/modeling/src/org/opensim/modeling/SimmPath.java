@@ -12,12 +12,12 @@ public class SimmPath {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected SimmPath(long cPtr, boolean cMemoryOwn) {
+  public SimmPath(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmPath obj) {
+  public static long getCPtr(SimmPath obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

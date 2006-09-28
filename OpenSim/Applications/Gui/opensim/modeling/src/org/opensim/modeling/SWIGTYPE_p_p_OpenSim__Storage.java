@@ -10,13 +10,11 @@ package org.opensim.modeling;
 
 public class SWIGTYPE_p_p_OpenSim__Storage {
   private long swigCPtr;
+  protected boolean swigCMemOwn;
 
-  public SWIGTYPE_p_p_OpenSim__Storage(long cPtr, boolean bFutureUse) {
+  public SWIGTYPE_p_p_OpenSim__Storage(long cPtr, boolean cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
-  }
-
-  protected SWIGTYPE_p_p_OpenSim__Storage() {
-    swigCPtr = 0;
   }
 
   public static long getCPtr(SWIGTYPE_p_p_OpenSim__Storage obj) {

@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmIKParams extends OpenSimObject {
   private long swigCPtr;
 
-  protected SimmIKParams(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmIKParamsUpcast(cPtr), cMemoryOwn);
+  public SimmIKParams(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmIKParams obj) {
+  public static long getCPtr(SimmIKParams obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -59,8 +59,8 @@ public class SimmIKParams extends OpenSimObject {
     opensimModelJNI.SimmIKParams_copyData(swigCPtr, SimmIKParams.getCPtr(aIKParams));
   }
 
-  public ArrayPtrsSimmMarker getMarkerSet() {
-    return new ArrayPtrsSimmMarker(opensimModelJNI.SimmIKParams_getMarkerSet(swigCPtr), false);
+  public SimmMarkerSet getMarkerSet() {
+    return new SimmMarkerSet(opensimModelJNI.SimmIKParams_getMarkerSet(swigCPtr), false);
   }
 
   public int getNumIKTrials() {
@@ -71,8 +71,8 @@ public class SimmIKParams extends OpenSimObject {
     return new SimmIKTrialParams(opensimModelJNI.SimmIKParams_getTrialParams(swigCPtr, aIndex), false);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t getCoordinateSet() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t(opensimModelJNI.SimmIKParams_getCoordinateSet(swigCPtr), false);
+  public SimmCoordinateSet getCoordinateSet() {
+    return new SimmCoordinateSet(opensimModelJNI.SimmIKParams_getCoordinateSet(swigCPtr), false);
   }
 
   public String getModelFileName() {

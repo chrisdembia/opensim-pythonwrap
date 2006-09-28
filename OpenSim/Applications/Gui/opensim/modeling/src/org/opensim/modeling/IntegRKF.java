@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class IntegRKF extends RKF {
   private long swigCPtr;
 
-  protected IntegRKF(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGIntegRKFUpcast(cPtr), cMemoryOwn);
+  public IntegRKF(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(IntegRKF obj) {
+  public static long getCPtr(IntegRKF obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

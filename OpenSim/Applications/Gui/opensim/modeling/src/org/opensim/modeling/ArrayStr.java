@@ -12,12 +12,12 @@ public class ArrayStr {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected ArrayStr(long cPtr, boolean cMemoryOwn) {
+  public ArrayStr(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ArrayStr obj) {
+  public static long getCPtr(ArrayStr obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

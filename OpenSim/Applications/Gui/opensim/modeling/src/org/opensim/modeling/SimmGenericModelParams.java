@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmGenericModelParams extends OpenSimObject {
   private long swigCPtr;
 
-  protected SimmGenericModelParams(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmGenericModelParamsUpcast(cPtr), cMemoryOwn);
+  public SimmGenericModelParams(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmGenericModelParams obj) {
+  public static long getCPtr(SimmGenericModelParams obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -89,8 +89,8 @@ public class SimmGenericModelParams extends OpenSimObject {
     opensimModelJNI.SimmGenericModelParams_setModelFileName(swigCPtr, aFileName);
   }
 
-  public ArrayPtrsSimmMarker getMarkerSet() {
-    return new ArrayPtrsSimmMarker(opensimModelJNI.SimmGenericModelParams_getMarkerSet(swigCPtr), false);
+  public SimmMarkerSet getMarkerSet() {
+    return new SimmMarkerSet(opensimModelJNI.SimmGenericModelParams_getMarkerSet(swigCPtr), false);
   }
 
 }

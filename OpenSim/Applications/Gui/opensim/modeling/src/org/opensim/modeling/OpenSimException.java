@@ -12,12 +12,12 @@ public class OpenSimException {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected OpenSimException(long cPtr, boolean cMemoryOwn) {
+  public OpenSimException(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(OpenSimException obj) {
+  public static long getCPtr(OpenSimException obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

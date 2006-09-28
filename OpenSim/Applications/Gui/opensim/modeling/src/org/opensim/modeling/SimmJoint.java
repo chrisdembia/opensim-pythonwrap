@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmJoint extends OpenSimObject {
   private long swigCPtr;
 
-  protected SimmJoint(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmJointUpcast(cPtr), cMemoryOwn);
+  public SimmJoint(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmJoint obj) {
+  public static long getCPtr(SimmJoint obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -71,8 +71,8 @@ public class SimmJoint extends OpenSimObject {
     return new ArrayStr(opensimModelJNI.SimmJoint_getBodyNames(swigCPtr), false);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmDof_t getDofs() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmDof_t(opensimModelJNI.SimmJoint_getDofs(swigCPtr), false);
+  public SWIGTYPE_p_SimmDofSet getDofSet() {
+    return new SWIGTYPE_p_SimmDofSet(opensimModelJNI.SimmJoint_getDofSet(swigCPtr), false);
   }
 
   public SimmBody getChildBody() {

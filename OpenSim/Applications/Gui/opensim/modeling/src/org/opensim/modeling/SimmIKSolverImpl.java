@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmIKSolverImpl extends IKSolverInterface {
   private long swigCPtr;
 
-  protected SimmIKSolverImpl(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmIKSolverImplUpcast(cPtr), cMemoryOwn);
+  public SimmIKSolverImpl(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmIKSolverImpl obj) {
+  public static long getCPtr(SimmIKSolverImpl obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

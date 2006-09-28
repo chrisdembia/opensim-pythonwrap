@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class AbstractDynamicsEngine extends OpenSimObject {
   private long swigCPtr;
 
-  protected AbstractDynamicsEngine(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGAbstractDynamicsEngineUpcast(cPtr), cMemoryOwn);
+  public AbstractDynamicsEngine(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(AbstractDynamicsEngine obj) {
+  public static long getCPtr(AbstractDynamicsEngine obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

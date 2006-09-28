@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class Marker extends VisibleObject {
   private long swigCPtr;
 
-  protected Marker(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGMarkerUpcast(cPtr), cMemoryOwn);
+  public Marker(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Marker obj) {
+  public static long getCPtr(Marker obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class ContactForceSet extends ActuatorSet {
   private long swigCPtr;
 
-  protected ContactForceSet(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGContactForceSetUpcast(cPtr), cMemoryOwn);
+  public ContactForceSet(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ContactForceSet obj) {
+  public static long getCPtr(ContactForceSet obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

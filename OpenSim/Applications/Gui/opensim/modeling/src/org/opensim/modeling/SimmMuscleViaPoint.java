@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmMuscleViaPoint extends SimmMusclePoint {
   private long swigCPtr;
 
-  protected SimmMuscleViaPoint(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmMuscleViaPointUpcast(cPtr), cMemoryOwn);
+  public SimmMuscleViaPoint(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmMuscleViaPoint obj) {
+  public static long getCPtr(SimmMuscleViaPoint obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

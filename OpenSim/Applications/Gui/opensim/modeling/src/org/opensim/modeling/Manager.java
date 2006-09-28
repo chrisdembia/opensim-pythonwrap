@@ -12,12 +12,12 @@ public class Manager {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected Manager(long cPtr, boolean cMemoryOwn) {
+  public Manager(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Manager obj) {
+  public static long getCPtr(Manager obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

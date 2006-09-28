@@ -12,12 +12,12 @@ public class Geometry {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected Geometry(long cPtr, boolean cMemoryOwn) {
+  public Geometry(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Geometry obj) {
+  public static long getCPtr(Geometry obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

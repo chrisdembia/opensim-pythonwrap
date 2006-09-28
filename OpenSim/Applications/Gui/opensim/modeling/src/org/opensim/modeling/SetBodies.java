@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SetBodies extends OpenSimObject {
   private long swigCPtr;
 
-  protected SetBodies(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSetBodiesUpcast(cPtr), cMemoryOwn);
+  public SetBodies(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SetBodies obj) {
+  public static long getCPtr(SetBodies obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

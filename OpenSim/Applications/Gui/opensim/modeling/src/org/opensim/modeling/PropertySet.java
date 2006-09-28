@@ -12,12 +12,12 @@ public class PropertySet {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected PropertySet(long cPtr, boolean cMemoryOwn) {
+  public PropertySet(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(PropertySet obj) {
+  public static long getCPtr(PropertySet obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

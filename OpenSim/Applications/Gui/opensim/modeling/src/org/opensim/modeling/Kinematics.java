@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class Kinematics extends Analysis {
   private long swigCPtr;
 
-  protected Kinematics(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGKinematicsUpcast(cPtr), cMemoryOwn);
+  public Kinematics(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Kinematics obj) {
+  public static long getCPtr(Kinematics obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

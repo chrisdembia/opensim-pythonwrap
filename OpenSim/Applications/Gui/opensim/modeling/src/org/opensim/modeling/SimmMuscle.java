@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmMuscle extends Actuator {
   private long swigCPtr;
 
-  protected SimmMuscle(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmMuscleUpcast(cPtr), cMemoryOwn);
+  public SimmMuscle(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmMuscle obj) {
+  public static long getCPtr(SimmMuscle obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -59,8 +59,8 @@ public class SimmMuscle extends Actuator {
     opensimModelJNI.SimmMuscle_copyData(swigCPtr, SimmMuscle.getCPtr(aMuscle));
   }
 
-  public ArrayPtrsSimmMusclePoint getAttachmentArray() {
-    return new ArrayPtrsSimmMusclePoint(opensimModelJNI.SimmMuscle_getAttachmentArray(swigCPtr), false);
+  public SimmMusclePointSet getAttachmentSet() {
+    return new SimmMusclePointSet(opensimModelJNI.SimmMuscle_getAttachmentSet(swigCPtr), false);
   }
 
   public void computeActuation() {

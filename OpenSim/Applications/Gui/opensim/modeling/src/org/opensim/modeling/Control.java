@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class Control extends OpenSimObject {
   private long swigCPtr;
 
-  protected Control(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGControlUpcast(cPtr), cMemoryOwn);
+  public Control(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Control obj) {
+  public static long getCPtr(Control obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -47,6 +47,14 @@ public class Control extends OpenSimObject {
 
   public boolean getExtrapolate() {
     return opensimModelJNI.Control_getExtrapolate(swigCPtr);
+  }
+
+  public void setFilterOn(boolean aTrueFalse) {
+    opensimModelJNI.Control_setFilterOn(swigCPtr, aTrueFalse);
+  }
+
+  public boolean getFilterOn() {
+    return opensimModelJNI.Control_getFilterOn(swigCPtr);
   }
 
   public int getNumParameters() {
@@ -155,6 +163,10 @@ public class Control extends OpenSimObject {
 
   public void simplify(PropertySet aProperties) {
     opensimModelJNI.Control_simplify(swigCPtr, PropertySet.getCPtr(aProperties));
+  }
+
+  public void filter(double aT) {
+    opensimModelJNI.Control_filter(swigCPtr, aT);
   }
 
 }

@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SetAnalysis extends OpenSimObject {
   private long swigCPtr;
 
-  protected SetAnalysis(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSetAnalysisUpcast(cPtr), cMemoryOwn);
+  public SetAnalysis(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SetAnalysis obj) {
+  public static long getCPtr(SetAnalysis obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -114,8 +114,8 @@ public class SetAnalysis extends OpenSimObject {
     return opensimModelJNI.SetAnalysis_append__SWIG_0(swigCPtr, Analysis.getCPtr(aObject));
   }
 
-  public boolean append(ArrayAnalysis aArray) {
-    return opensimModelJNI.SetAnalysis_append__SWIG_1(swigCPtr, ArrayAnalysis.getCPtr(aArray));
+  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Analysis_t aArray) {
+    return opensimModelJNI.SetAnalysis_append__SWIG_1(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Analysis_t.getCPtr(aArray));
   }
 
   public boolean insert(int aIndex, Analysis aObject) {

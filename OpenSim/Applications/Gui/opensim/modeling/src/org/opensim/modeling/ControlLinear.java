@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class ControlLinear extends Control {
   private long swigCPtr;
 
-  protected ControlLinear(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGControlLinearUpcast(cPtr), cMemoryOwn);
+  public ControlLinear(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ControlLinear obj) {
+  public static long getCPtr(ControlLinear obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -73,6 +73,22 @@ public class ControlLinear extends Control {
 
   public boolean getUseSteps() {
     return opensimModelJNI.ControlLinear_getUseSteps(swigCPtr);
+  }
+
+  public void setKp(double aKp) {
+    opensimModelJNI.ControlLinear_setKp(swigCPtr, aKp);
+  }
+
+  public double getKp() {
+    return opensimModelJNI.ControlLinear_getKp(swigCPtr);
+  }
+
+  public void setKv(double aKv) {
+    opensimModelJNI.ControlLinear_setKv(swigCPtr, aKv);
+  }
+
+  public double getKv() {
+    return opensimModelJNI.ControlLinear_getKv(swigCPtr);
   }
 
   public int getNumParameters() {
@@ -165,6 +181,10 @@ public class ControlLinear extends Control {
 
   public void simplify(PropertySet aProperties) {
     opensimModelJNI.ControlLinear_simplify(swigCPtr, PropertySet.getCPtr(aProperties));
+  }
+
+  public void filter(double aT) {
+    opensimModelJNI.ControlLinear_filter(swigCPtr, aT);
   }
 
   public static boolean isA(Control p) {

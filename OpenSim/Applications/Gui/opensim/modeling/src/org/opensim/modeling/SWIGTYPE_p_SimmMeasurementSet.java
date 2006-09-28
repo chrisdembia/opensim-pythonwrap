@@ -8,18 +8,16 @@
 
 package org.opensim.modeling;
 
-public class SWIGTYPE_p_OpenSim__AnalysisSet {
+public class SWIGTYPE_p_SimmMeasurementSet {
   private long swigCPtr;
+  protected boolean swigCMemOwn;
 
-  public SWIGTYPE_p_OpenSim__AnalysisSet(long cPtr, boolean bFutureUse) {
+  public SWIGTYPE_p_SimmMeasurementSet(long cPtr, boolean cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_OpenSim__AnalysisSet() {
-    swigCPtr = 0;
-  }
-
-  public static long getCPtr(SWIGTYPE_p_OpenSim__AnalysisSet obj) {
+  public static long getCPtr(SWIGTYPE_p_SimmMeasurementSet obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

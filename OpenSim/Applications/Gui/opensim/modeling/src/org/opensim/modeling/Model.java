@@ -12,7 +12,7 @@ public class Model extends OpenSimObject {
   private long swigCPtr;
 
   public Model(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGModelUpcast(cPtr), cMemoryOwn);
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -737,9 +737,9 @@ public class Model extends OpenSimObject {
     return opensimModelJNI.Model_getContactPower(swigCPtr, aID);
   }
 
-  public SWIGTYPE_p_OpenSim__AnalysisSet getAnalysisSet() {
+  public AnalysisSet getAnalysisSet() {
     long cPtr = opensimModelJNI.Model_getAnalysisSet(swigCPtr);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__AnalysisSet(cPtr, false);
+    return (cPtr == 0) ? null : new AnalysisSet(cPtr, false);
   }
 
   public void addAnalysis(Analysis aAnalysis) {

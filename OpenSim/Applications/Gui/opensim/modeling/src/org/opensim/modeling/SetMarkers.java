@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SetMarkers extends OpenSimObject {
   private long swigCPtr;
 
-  protected SetMarkers(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSetMarkersUpcast(cPtr), cMemoryOwn);
+  public SetMarkers(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SetMarkers obj) {
+  public static long getCPtr(SetMarkers obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class PolyhedralGeometry extends Geometry {
   private long swigCPtr;
 
-  protected PolyhedralGeometry(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGPolyhedralGeometryUpcast(cPtr), cMemoryOwn);
+  public PolyhedralGeometry(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(PolyhedralGeometry obj) {
+  public static long getCPtr(PolyhedralGeometry obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

@@ -12,12 +12,12 @@ public class RKF {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected RKF(long cPtr, boolean cMemoryOwn) {
+  public RKF(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(RKF obj) {
+  public static long getCPtr(RKF obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

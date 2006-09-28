@@ -12,12 +12,12 @@ public class SimmModelIterator {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected SimmModelIterator(long cPtr, boolean cMemoryOwn) {
+  public SimmModelIterator(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmModelIterator obj) {
+  public static long getCPtr(SimmModelIterator obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

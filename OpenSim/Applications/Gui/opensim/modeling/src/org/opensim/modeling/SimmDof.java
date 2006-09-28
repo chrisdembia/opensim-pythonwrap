@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmDof extends OpenSimObject {
   private long swigCPtr;
 
-  protected SimmDof(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmDofUpcast(cPtr), cMemoryOwn);
+  public SimmDof(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmDof obj) {
+  public static long getCPtr(SimmDof obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

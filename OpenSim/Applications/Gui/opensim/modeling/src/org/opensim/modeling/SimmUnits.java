@@ -12,12 +12,12 @@ public class SimmUnits {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected SimmUnits(long cPtr, boolean cMemoryOwn) {
+  public SimmUnits(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmUnits obj) {
+  public static long getCPtr(SimmUnits obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

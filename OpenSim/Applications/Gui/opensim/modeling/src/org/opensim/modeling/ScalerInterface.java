@@ -12,12 +12,12 @@ public class ScalerInterface {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected ScalerInterface(long cPtr, boolean cMemoryOwn) {
+  public ScalerInterface(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ScalerInterface obj) {
+  public static long getCPtr(ScalerInterface obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

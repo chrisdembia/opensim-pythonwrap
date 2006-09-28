@@ -12,12 +12,12 @@ public class Controller {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected Controller(long cPtr, boolean cMemoryOwn) {
+  public Controller(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Controller obj) {
+  public static long getCPtr(Controller obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

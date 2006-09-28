@@ -17,7 +17,7 @@ public class ArrayInt {
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ArrayInt obj) {
+  public static long getCPtr(ArrayInt obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

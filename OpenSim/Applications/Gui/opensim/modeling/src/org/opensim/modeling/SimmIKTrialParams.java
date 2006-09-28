@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmIKTrialParams extends OpenSimObject {
   private long swigCPtr;
 
-  protected SimmIKTrialParams(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmIKTrialParamsUpcast(cPtr), cMemoryOwn);
+  public SimmIKTrialParams(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmIKTrialParams obj) {
+  public static long getCPtr(SimmIKTrialParams obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

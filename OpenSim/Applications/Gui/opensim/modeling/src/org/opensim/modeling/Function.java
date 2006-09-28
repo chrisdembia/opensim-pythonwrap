@@ -12,11 +12,11 @@ public class Function extends OpenSimObject {
   private long swigCPtr;
 
   public Function(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGFunctionUpcast(cPtr), cMemoryOwn);
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Function obj) {
+  public static long getCPtr(Function obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

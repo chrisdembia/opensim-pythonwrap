@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SetActuators extends OpenSimObject {
   private long swigCPtr;
 
-  protected SetActuators(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSetActuatorsUpcast(cPtr), cMemoryOwn);
+  public SetActuators(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SetActuators obj) {
+  public static long getCPtr(SetActuators obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

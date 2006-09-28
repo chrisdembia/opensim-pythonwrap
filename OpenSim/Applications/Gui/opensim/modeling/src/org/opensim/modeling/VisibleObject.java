@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class VisibleObject extends OpenSimObject {
   private long swigCPtr;
 
-  protected VisibleObject(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGVisibleObjectUpcast(cPtr), cMemoryOwn);
+  public VisibleObject(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(VisibleObject obj) {
+  public static long getCPtr(VisibleObject obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

@@ -12,12 +12,12 @@ public class SimmMotionData {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected SimmMotionData(long cPtr, boolean cMemoryOwn) {
+  public SimmMotionData(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmMotionData obj) {
+  public static long getCPtr(SimmMotionData obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmMuscleGroup extends OpenSimObject {
   private long swigCPtr;
 
-  protected SimmMuscleGroup(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmMuscleGroupUpcast(cPtr), cMemoryOwn);
+  public SimmMuscleGroup(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmMuscleGroup obj) {
+  public static long getCPtr(SimmMuscleGroup obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

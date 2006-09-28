@@ -10,13 +10,11 @@ package org.opensim.modeling;
 
 public class SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t {
   private long swigCPtr;
+  protected boolean swigCMemOwn;
 
-  public SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t(long cPtr, boolean bFutureUse) {
+  public SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t(long cPtr, boolean cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
-  }
-
-  protected SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t() {
-    swigCPtr = 0;
   }
 
   public static long getCPtr(SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t obj) {

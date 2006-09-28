@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class AnalyticGeometry extends Geometry {
   private long swigCPtr;
 
-  protected AnalyticGeometry(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGAnalyticGeometryUpcast(cPtr), cMemoryOwn);
+  public AnalyticGeometry(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(AnalyticGeometry obj) {
+  public static long getCPtr(AnalyticGeometry obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

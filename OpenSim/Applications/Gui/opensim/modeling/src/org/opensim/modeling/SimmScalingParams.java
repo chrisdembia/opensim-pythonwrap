@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmScalingParams extends OpenSimObject {
   private long swigCPtr;
 
-  protected SimmScalingParams(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmScalingParamsUpcast(cPtr), cMemoryOwn);
+  public SimmScalingParams(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmScalingParams obj) {
+  public static long getCPtr(SimmScalingParams obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -67,10 +67,6 @@ public class SimmScalingParams extends OpenSimObject {
     return new ScaleSet(opensimModelJNI.SimmScalingParams_getScaleSet__SWIG_0(swigCPtr, SimmModel.getCPtr(aModel), subjectDirectory), false);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t getScales() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t(opensimModelJNI.SimmScalingParams_getScales(swigCPtr), false);
-  }
-
   public void writeOutputFiles(SimmModel aModel, String dirToWriteOutputFiles) {
     opensimModelJNI.SimmScalingParams_writeOutputFiles__SWIG_0(swigCPtr, SimmModel.getCPtr(aModel), dirToWriteOutputFiles);
   }
@@ -95,20 +91,20 @@ public class SimmScalingParams extends OpenSimObject {
     opensimModelJNI.SimmScalingParams_addScale(swigCPtr, Scale.getCPtr(aScale));
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTSimmMeasurement_t getMeasurementSet() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTSimmMeasurement_t(opensimModelJNI.SimmScalingParams_getMeasurementSet(swigCPtr), true);
+  public SWIGTYPE_p_SimmMeasurementSet getMeasurementSet() {
+    return new SWIGTYPE_p_SimmMeasurementSet(opensimModelJNI.SimmScalingParams_getMeasurementSet(swigCPtr), false);
   }
 
-  public void setMeasurementSet(SWIGTYPE_p_OpenSim__ArrayPtrsTSimmMeasurement_t measurementSet) {
-    opensimModelJNI.SimmScalingParams_setMeasurementSet(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTSimmMeasurement_t.getCPtr(measurementSet));
+  public void setMeasurementSet(SWIGTYPE_p_SimmMeasurementSet measurementSet) {
+    opensimModelJNI.SimmScalingParams_setMeasurementSet(swigCPtr, SWIGTYPE_p_SimmMeasurementSet.getCPtr(measurementSet));
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t getScaleSet() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t(opensimModelJNI.SimmScalingParams_getScaleSet__SWIG_1(swigCPtr), true);
+  public ScaleSet getScaleSet() {
+    return new ScaleSet(opensimModelJNI.SimmScalingParams_getScaleSet__SWIG_1(swigCPtr), false);
   }
 
-  public void setScaleSet(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t aScaleSet) {
-    opensimModelJNI.SimmScalingParams_setScaleSet(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Scale_t.getCPtr(aScaleSet));
+  public void setScaleSet(ScaleSet aScaleSet) {
+    opensimModelJNI.SimmScalingParams_setScaleSet(swigCPtr, ScaleSet.getCPtr(aScaleSet));
   }
 
   public ArrayDouble getTimeRange() {
@@ -137,6 +133,14 @@ public class SimmScalingParams extends OpenSimObject {
 
   public void setMarkerFileName(String aMarkerFileName) {
     opensimModelJNI.SimmScalingParams_setMarkerFileName(swigCPtr, aMarkerFileName);
+  }
+
+  public void setMaxMarkerMovement(double aMaxMarkerMovement) {
+    opensimModelJNI.SimmScalingParams_setMaxMarkerMovement(swigCPtr, aMaxMarkerMovement);
+  }
+
+  public double getMaxMarkerMovement() {
+    return opensimModelJNI.SimmScalingParams_getMaxMarkerMovement(swigCPtr);
   }
 
   public String getOutputJointFileName() {

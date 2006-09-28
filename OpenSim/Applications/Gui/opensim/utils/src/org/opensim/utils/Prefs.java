@@ -31,7 +31,6 @@ import java.util.prefs.Preferences;
  * @author Ayman
  */
 public final class Prefs {
-    
     /**
      * Creates a new instance of Prefs
      */

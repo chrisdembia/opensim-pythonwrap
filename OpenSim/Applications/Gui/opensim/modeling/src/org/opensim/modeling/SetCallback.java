@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SetCallback extends OpenSimObject {
   private long swigCPtr;
 
-  protected SetCallback(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSetCallbackUpcast(cPtr), cMemoryOwn);
+  public SetCallback(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SetCallback obj) {
+  public static long getCPtr(SetCallback obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

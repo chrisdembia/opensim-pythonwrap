@@ -12,12 +12,12 @@ public class SimmInverseKinematicsTarget {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected SimmInverseKinematicsTarget(long cPtr, boolean cMemoryOwn) {
+  public SimmInverseKinematicsTarget(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmInverseKinematicsTarget obj) {
+  public static long getCPtr(SimmInverseKinematicsTarget obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

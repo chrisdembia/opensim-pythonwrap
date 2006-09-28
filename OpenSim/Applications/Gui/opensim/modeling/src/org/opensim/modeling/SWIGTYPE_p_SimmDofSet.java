@@ -8,18 +8,16 @@
 
 package org.opensim.modeling;
 
-public class SWIGTYPE_p_VisibleObject {
+public class SWIGTYPE_p_SimmDofSet {
   private long swigCPtr;
+  protected boolean swigCMemOwn;
 
-  public SWIGTYPE_p_VisibleObject(long cPtr, boolean bFutureUse) {
+  public SWIGTYPE_p_SimmDofSet(long cPtr, boolean cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_VisibleObject() {
-    swigCPtr = 0;
-  }
-
-  public static long getCPtr(SWIGTYPE_p_VisibleObject obj) {
+  public static long getCPtr(SWIGTYPE_p_SimmDofSet obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

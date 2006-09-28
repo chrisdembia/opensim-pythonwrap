@@ -12,12 +12,12 @@ public class IKSolverInterface {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected IKSolverInterface(long cPtr, boolean cMemoryOwn) {
+  public IKSolverInterface(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(IKSolverInterface obj) {
+  public static long getCPtr(IKSolverInterface obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

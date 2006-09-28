@@ -12,12 +12,12 @@ public class SimmStep {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected SimmStep(long cPtr, boolean cMemoryOwn) {
+  public SimmStep(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmStep obj) {
+  public static long getCPtr(SimmStep obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

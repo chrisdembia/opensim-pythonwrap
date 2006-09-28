@@ -12,7 +12,7 @@ public class ControlSet extends SetControls {
   private long swigCPtr;
 
   public ControlSet(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGControlSetUpcast(cPtr), cMemoryOwn);
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -175,6 +175,10 @@ public class ControlSet extends SetControls {
 
   public void simplify(PropertySet aProperties) {
     opensimModelJNI.ControlSet_simplify(swigCPtr, PropertySet.getCPtr(aProperties));
+  }
+
+  public void filter(double aT) {
+    opensimModelJNI.ControlSet_filter(swigCPtr, aT);
   }
 
   public Storage constructStorage(int aN, double aT1, double aT2, boolean aForModelControls) {

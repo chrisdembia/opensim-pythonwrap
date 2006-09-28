@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class Coordinate extends OpenSimObject {
   private long swigCPtr;
 
-  protected Coordinate(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGCoordinateUpcast(cPtr), cMemoryOwn);
+  public Coordinate(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Coordinate obj) {
+  public static long getCPtr(Coordinate obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

@@ -25,7 +25,15 @@
  */
 package org.opensim.utils;
 import java.io.File;
+import java.util.StringTokenizer;
+import java.util.Vector;
+import java.util.prefs.Preferences;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
+import org.openide.windows.WindowManager;
 
 /**
  *
@@ -97,16 +105,81 @@ public final class FileUtils {
    /**
      * Utility to create file filters to browse for files of specified "extension" with "description"
      */
-    public static FileFilter getFileFilter(final String extension, final String desc) {
+    public static FileFilter getFileFilter(final String extensions, final String desc) {
+        // Parse the list of extensions passed in as (*.xyz, *.abc .de) into an array[]
+        Vector<String> extensionList = new Vector<String>(2);
+        if (extensions.contains(",")){
+            StringTokenizer tokenizer = new StringTokenizer(extensions," ,*()");
+            while(tokenizer.hasMoreElements()){
+                extensionList.add(tokenizer.nextToken());
+            }
+        }
+        else
+            extensionList.add(0, extensions);
+        
+        // Copy list into an array[] (not necessary but to make a final object to be used by inner class
+        // Could be done more efficiently
+        final String[] extensionsArray = new String[extensionList.size()];
+        for(int i=0; i<extensionsArray.length;i++)
+            extensionsArray[i] = extensionList.get(i);
+        
         return  new FileFilter() {
             public boolean accept(File f) {
-                return f.isDirectory() || f.getName().toLowerCase().endsWith(extension);
+                boolean test = false;
+                for(int i=0; i<extensionsArray.length && !test; i++){
+                    test = f.isDirectory() || f.getName().toLowerCase().endsWith(extensionsArray[i]);
+                 }
+                return test;
             }
             
             public String getDescription() {
-                return desc;
+                return desc +" ("+extensions+")";
             }
         };
+    }
+    /**
+     * One common place to do the following common functions:
+     * 1. Browse for a file using user's "workingDirectory" as initial dir.
+     * 2. get file name
+     * 3. set new "workingDirectory" based on selection
+     * 4. return full path name of selected file
+     *
+     * If the file is required and a non-existant name is entered and isRequired2Exist==true
+     *    then this function returns null 
+     *
+     * @todo this could be improved by making our own JFileChooser container JPanel
+     */
+    public static String browseForFilename(String extensions, String description, boolean isRequired2Exist)
+    {
+        // Init dialog to use "WorkDirectory" as thought of by user
+        String defaultDir="";
+        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
+        final JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setFileFilter(FileUtils.getFileFilter(extensions, description));
+        
+        String outFilename=null;
+        if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+             outFilename= dlog.getSelectedFile().getAbsolutePath();
+             Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
+       }
+        /** 
+         * If isRequired2Exist flag is passed in as true we ned to make sure the file really exists
+         */
+       if (isRequired2Exist && outFilename!= null){
+            File outfile = new File(outFilename);
+            if (!outfile.exists()){
+                DialogDisplayer.getDefault().notify(
+                        new NotifyDescriptor.Message("Selected file "+outFilename+" does not exist."));
+                // This could be done better
+                return browseForFilename(extensions, description, isRequired2Exist);
+            }
+       }
+       return outFilename;
+    }
+    
+    public static String browseForFilename(String extensions, String description)
+    {
+        return browseForFilename(extensions, description, true);
     }
     
 }

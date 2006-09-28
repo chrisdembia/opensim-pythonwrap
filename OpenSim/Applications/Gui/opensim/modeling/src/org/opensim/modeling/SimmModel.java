@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmModel extends Model {
   private long swigCPtr;
 
-  protected SimmModel(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmModelUpcast(cPtr), cMemoryOwn);
+  public SimmModel(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmModel obj) {
+  public static long getCPtr(SimmModel obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -37,7 +37,7 @@ public class SimmModel extends Model {
     this(opensimModelJNI.new_SimmModel__SWIG_0(), true);
   }
 
-  public SimmModel(String aFileName) {
+  public SimmModel(String aFileName) throws java.io.IOException {
     this(opensimModelJNI.new_SimmModel__SWIG_1(aFileName), true);
   }
 
@@ -66,10 +66,6 @@ public class SimmModel extends Model {
 
   public void copyData(SimmModel aModel) {
     opensimModelJNI.SimmModel_copyData(swigCPtr, SimmModel.getCPtr(aModel));
-  }
-
-  public int getNumberOfMuscles() {
-    return opensimModelJNI.SimmModel_getNumberOfMuscles(swigCPtr);
   }
 
   public SimmMuscle getMuscle(int index) {
@@ -106,16 +102,16 @@ public class SimmModel extends Model {
     return opensimModelJNI.SimmModel_deleteUnusedMarkers(swigCPtr, ArrayStr.getCPtr(aMarkerNames));
   }
 
-  public int replaceMarkerSet(SWIGTYPE_p_SimmMarkerSet aMarkerSet) {
-    return opensimModelJNI.SimmModel_replaceMarkerSet(swigCPtr, SWIGTYPE_p_SimmMarkerSet.getCPtr(aMarkerSet));
+  public int replaceMarkerSet(SimmMarkerSet aMarkerSet) {
+    return opensimModelJNI.SimmModel_replaceMarkerSet(swigCPtr, SimmMarkerSet.getCPtr(aMarkerSet));
   }
 
-  public void updateMarkers(ArrayPtrsSimmMarker aMarkerArray) {
-    opensimModelJNI.SimmModel_updateMarkers(swigCPtr, ArrayPtrsSimmMarker.getCPtr(aMarkerArray));
+  public void updateMarkers(SimmMarkerSet aMarkerArray) {
+    opensimModelJNI.SimmModel_updateMarkers(swigCPtr, SimmMarkerSet.getCPtr(aMarkerArray));
   }
 
-  public void updateCoordinates(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t aCoordinateArray) {
-    opensimModelJNI.SimmModel_updateCoordinates(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t.getCPtr(aCoordinateArray));
+  public void updateCoordinates(SimmCoordinateSet aCoordinateArray) {
+    opensimModelJNI.SimmModel_updateCoordinates(swigCPtr, SimmCoordinateSet.getCPtr(aCoordinateArray));
   }
 
   public double takeMeasurement(SWIGTYPE_p_SimmMeasurement aMeasurement) {
@@ -143,12 +139,12 @@ public class SimmModel extends Model {
     return opensimModelJNI.SimmModel_bodyNeededForDynamics(swigCPtr, SimmBody.getCPtr(aBody));
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmBody_t getBodies() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmBody_t(opensimModelJNI.SimmModel_getBodies(swigCPtr), false);
+  public SWIGTYPE_p_SimmBodySet getBodies() {
+    return new SWIGTYPE_p_SimmBodySet(opensimModelJNI.SimmModel_getBodies(swigCPtr), false);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t getCoordinates() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t(opensimModelJNI.SimmModel_getCoordinates__SWIG_0(swigCPtr), false);
+  public SimmCoordinateSet getCoordinates() {
+    return new SimmCoordinateSet(opensimModelJNI.SimmModel_getCoordinates__SWIG_0(swigCPtr), false);
   }
 
   public void setPin(int aBody, int aPinNumber, double[] aPin) {

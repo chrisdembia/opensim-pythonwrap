@@ -10,13 +10,11 @@ package org.opensim.modeling;
 
 public class SWIGTYPE_p_p_double {
   private long swigCPtr;
+  protected boolean swigCMemOwn;
 
-  public SWIGTYPE_p_p_double(long cPtr, boolean bFutureUse) {
+  public SWIGTYPE_p_p_double(long cPtr, boolean cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
-  }
-
-  protected SWIGTYPE_p_p_double() {
-    swigCPtr = 0;
   }
 
   public static long getCPtr(SWIGTYPE_p_p_double obj) {

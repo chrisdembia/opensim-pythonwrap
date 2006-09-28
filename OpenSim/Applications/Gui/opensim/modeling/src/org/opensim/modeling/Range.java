@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class Range extends OpenSimObject {
   private long swigCPtr;
 
-  protected Range(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGRangeUpcast(cPtr), cMemoryOwn);
+  public Range(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Range obj) {
+  public static long getCPtr(Range obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

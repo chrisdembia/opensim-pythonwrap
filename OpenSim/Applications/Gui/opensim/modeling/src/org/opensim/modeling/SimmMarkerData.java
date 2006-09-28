@@ -12,12 +12,12 @@ public class SimmMarkerData {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected SimmMarkerData(long cPtr, boolean cMemoryOwn) {
+  public SimmMarkerData(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmMarkerData obj) {
+  public static long getCPtr(SimmMarkerData obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

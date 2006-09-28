@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmKinematicsEngine extends AbstractDynamicsEngine {
   private long swigCPtr;
 
-  protected SimmKinematicsEngine(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmKinematicsEngineUpcast(cPtr), cMemoryOwn);
+  public SimmKinematicsEngine(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmKinematicsEngine obj) {
+  public static long getCPtr(SimmKinematicsEngine obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -71,8 +71,28 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public void saveDynamics(String aFolderName, String aMuscleFileName, String aBonePath, String aKineticsFile, String aOutputMotionFile) {
+    opensimModelJNI.SimmKinematicsEngine_saveDynamics__SWIG_0(swigCPtr, aFolderName, aMuscleFileName, aBonePath, aKineticsFile, aOutputMotionFile);
+  }
+
+  public void saveDynamics(String aFolderName, String aMuscleFileName, String aBonePath, String aKineticsFile) {
+    opensimModelJNI.SimmKinematicsEngine_saveDynamics__SWIG_1(swigCPtr, aFolderName, aMuscleFileName, aBonePath, aKineticsFile);
+  }
+
+  public void saveDynamics(String aFolderName, String aMuscleFileName, String aBonePath) {
+    opensimModelJNI.SimmKinematicsEngine_saveDynamics__SWIG_2(swigCPtr, aFolderName, aMuscleFileName, aBonePath);
+  }
+
+  public void saveDynamics(String aFolderName, String aMuscleFileName) {
+    opensimModelJNI.SimmKinematicsEngine_saveDynamics__SWIG_3(swigCPtr, aFolderName, aMuscleFileName);
+  }
+
   public void saveDynamics(String aFolderName) {
-    opensimModelJNI.SimmKinematicsEngine_saveDynamics(swigCPtr, aFolderName);
+    opensimModelJNI.SimmKinematicsEngine_saveDynamics__SWIG_4(swigCPtr, aFolderName);
+  }
+
+  public void saveDynamics() {
+    opensimModelJNI.SimmKinematicsEngine_saveDynamics__SWIG_5(swigCPtr);
   }
 
   public SimmBody getLeafBody(SimmJoint aJoint) {
@@ -130,28 +150,20 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     return opensimModelJNI.SimmKinematicsEngine_deleteUnusedMarkers(swigCPtr, ArrayStr.getCPtr(aMarkerNames));
   }
 
-  public int replaceMarkerSet(SWIGTYPE_p_SimmMarkerSet aMarkerSet) {
-    return opensimModelJNI.SimmKinematicsEngine_replaceMarkerSet(swigCPtr, SWIGTYPE_p_SimmMarkerSet.getCPtr(aMarkerSet));
+  public int replaceMarkerSet(SimmMarkerSet aMarkerSet) {
+    return opensimModelJNI.SimmKinematicsEngine_replaceMarkerSet(swigCPtr, SimmMarkerSet.getCPtr(aMarkerSet));
   }
 
-  public void updateMarkers(ArrayPtrsSimmMarker aMarkerArray) {
-    opensimModelJNI.SimmKinematicsEngine_updateMarkers(swigCPtr, ArrayPtrsSimmMarker.getCPtr(aMarkerArray));
+  public void updateMarkers(SimmMarkerSet aMarkerArray) {
+    opensimModelJNI.SimmKinematicsEngine_updateMarkers(swigCPtr, SimmMarkerSet.getCPtr(aMarkerArray));
   }
 
-  public void updateCoordinates(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t aCoordinateArray) {
-    opensimModelJNI.SimmKinematicsEngine_updateCoordinates(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t.getCPtr(aCoordinateArray));
+  public void updateCoordinates(SimmCoordinateSet aCoordinateArray) {
+    opensimModelJNI.SimmKinematicsEngine_updateCoordinates(swigCPtr, SimmCoordinateSet.getCPtr(aCoordinateArray));
   }
 
   public double takeMeasurement(SWIGTYPE_p_SimmMeasurement aMeasurement) {
     return opensimModelJNI.SimmKinematicsEngine_takeMeasurement(swigCPtr, SWIGTYPE_p_SimmMeasurement.getCPtr(aMeasurement));
-  }
-
-  public SimmUnits getLengthUnits() {
-    return new SimmUnits(opensimModelJNI.SimmKinematicsEngine_getLengthUnits(swigCPtr), false);
-  }
-
-  public SimmUnits getForceUnits() {
-    return new SimmUnits(opensimModelJNI.SimmKinematicsEngine_getForceUnits(swigCPtr), false);
   }
 
   public void writeSIMMJointFile(String aFileName) {
@@ -185,12 +197,12 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     return (cPtr == 0) ? null : new SimmJoint(cPtr, false);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmBody_t getBodies() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmBody_t(opensimModelJNI.SimmKinematicsEngine_getBodies(swigCPtr), false);
+  public SWIGTYPE_p_SimmBodySet getBodies() {
+    return new SWIGTYPE_p_SimmBodySet(opensimModelJNI.SimmKinematicsEngine_getBodies(swigCPtr), false);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t getCoordinates() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmCoordinate_t(opensimModelJNI.SimmKinematicsEngine_getCoordinates(swigCPtr), false);
+  public SimmCoordinateSet getCoordinates() {
+    return new SimmCoordinateSet(opensimModelJNI.SimmKinematicsEngine_getCoordinates(swigCPtr), false);
   }
 
   public int getNumBodies() {
@@ -411,10 +423,6 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
 
   public void setGravity(double[] aGrav) {
     opensimModelJNI.SimmKinematicsEngine_setGravity(swigCPtr, aGrav);
-  }
-
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmBody_t getBodyArray() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__SimmBody_t(opensimModelJNI.SimmKinematicsEngine_getBodyArray(swigCPtr), false);
   }
 
   public int getGroundBodyIndex() {

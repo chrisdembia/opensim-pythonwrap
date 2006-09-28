@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class ControlConstant extends Control {
   private long swigCPtr;
 
-  protected ControlConstant(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGControlConstantUpcast(cPtr), cMemoryOwn);
+  public ControlConstant(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ControlConstant obj) {
+  public static long getCPtr(ControlConstant obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

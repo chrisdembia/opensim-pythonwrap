@@ -17,7 +17,7 @@ public class OpenSimObject {
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(OpenSimObject obj) {
+  public static long getCPtr(OpenSimObject obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -47,7 +47,7 @@ public class OpenSimObject {
     this(opensimModelJNI.new_OpenSimObject__SWIG_0(), true);
   }
 
-  public OpenSimObject(String aFileName) {
+  public OpenSimObject(String aFileName) throws java.io.IOException {
     this(opensimModelJNI.new_OpenSimObject__SWIG_1(aFileName), true);
   }
 
@@ -108,6 +108,20 @@ public class OpenSimObject {
 
   public static void RegisterType(OpenSimObject aObject) {
     opensimModelJNI.OpenSimObject_RegisterType(OpenSimObject.getCPtr(aObject));
+  }
+
+  public static OpenSimObject makeObjectFromFile(String aFileName) {
+    long cPtr = opensimModelJNI.OpenSimObject_makeObjectFromFile(aFileName);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public static OpenSimObject newInstanceOfType(String aType) {
+    long cPtr = opensimModelJNI.OpenSimObject_newInstanceOfType(aType);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public static void getRegisteredTypenames(ArrayStr rTypeNames) {
+    opensimModelJNI.OpenSimObject_getRegisteredTypenames(ArrayStr.getCPtr(rTypeNames));
   }
 
   public boolean isValidDefaultType(OpenSimObject aObject) {

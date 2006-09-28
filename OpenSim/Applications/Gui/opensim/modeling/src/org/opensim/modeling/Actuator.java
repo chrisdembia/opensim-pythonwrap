@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class Actuator extends OpenSimObject {
   private long swigCPtr;
 
-  protected Actuator(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGActuatorUpcast(cPtr), cMemoryOwn);
+  public Actuator(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Actuator obj) {
+  public static long getCPtr(Actuator obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

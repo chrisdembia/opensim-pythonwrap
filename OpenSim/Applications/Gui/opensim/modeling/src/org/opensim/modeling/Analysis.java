@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class Analysis extends IntegCallback {
   private long swigCPtr;
 
-  protected Analysis(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGAnalysisUpcast(cPtr), cMemoryOwn);
+  public Analysis(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Analysis obj) {
+  public static long getCPtr(Analysis obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

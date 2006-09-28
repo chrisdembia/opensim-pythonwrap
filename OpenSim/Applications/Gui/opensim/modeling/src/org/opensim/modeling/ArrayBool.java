@@ -12,12 +12,12 @@ public class ArrayBool {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected ArrayBool(long cPtr, boolean cMemoryOwn) {
+  public ArrayBool(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ArrayBool obj) {
+  public static long getCPtr(ArrayBool obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

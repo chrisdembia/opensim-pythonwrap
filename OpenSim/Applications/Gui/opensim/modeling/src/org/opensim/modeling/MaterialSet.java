@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class MaterialSet extends SetMaterials {
   private long swigCPtr;
 
-  protected MaterialSet(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGMaterialSetUpcast(cPtr), cMemoryOwn);
+  public MaterialSet(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(MaterialSet obj) {
+  public static long getCPtr(MaterialSet obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

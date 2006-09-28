@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class IndAcc extends Analysis {
   private long swigCPtr;
 
-  protected IndAcc(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGIndAccUpcast(cPtr), cMemoryOwn);
+  public IndAcc(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(IndAcc obj) {
+  public static long getCPtr(IndAcc obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

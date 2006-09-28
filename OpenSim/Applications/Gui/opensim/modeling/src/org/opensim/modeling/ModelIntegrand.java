@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class ModelIntegrand extends Integrand {
   private long swigCPtr;
 
-  protected ModelIntegrand(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGModelIntegrandUpcast(cPtr), cMemoryOwn);
+  public ModelIntegrand(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(ModelIntegrand obj) {
+  public static long getCPtr(ModelIntegrand obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

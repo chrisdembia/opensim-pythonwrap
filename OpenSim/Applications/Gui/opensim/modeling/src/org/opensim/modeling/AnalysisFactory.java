@@ -12,12 +12,12 @@ public class AnalysisFactory {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  protected AnalysisFactory(long cPtr, boolean cMemoryOwn) {
+  public AnalysisFactory(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(AnalysisFactory obj) {
+  public static long getCPtr(AnalysisFactory obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -51,8 +51,8 @@ public class AnalysisFactory {
     return opensimModelJNI.AnalysisFactory_toString(swigCPtr);
   }
 
-  public ArrayAnalysis getRegisteredAnalyses() {
-    return new ArrayAnalysis(opensimModelJNI.AnalysisFactory_getRegisteredAnalyses(swigCPtr), false);
+  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Analysis_t getRegisteredAnalyses() {
+    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Analysis_t(opensimModelJNI.AnalysisFactory_getRegisteredAnalyses(swigCPtr), false);
   }
 
 }

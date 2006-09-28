@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class Scale extends OpenSimObject {
   private long swigCPtr;
 
-  protected Scale(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGScaleUpcast(cPtr), cMemoryOwn);
+  public Scale(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Scale obj) {
+  public static long getCPtr(Scale obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

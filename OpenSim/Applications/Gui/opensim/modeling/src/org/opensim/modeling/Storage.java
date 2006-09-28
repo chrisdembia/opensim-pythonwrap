@@ -16,7 +16,7 @@ public class Storage extends OpenSimObject {
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Storage obj) {
+  public static long getCPtr(Storage obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

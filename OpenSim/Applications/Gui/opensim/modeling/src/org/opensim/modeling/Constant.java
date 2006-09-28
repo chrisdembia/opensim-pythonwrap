@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class Constant extends Function {
   private long swigCPtr;
 
-  protected Constant(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGConstantUpcast(cPtr), cMemoryOwn);
+  public Constant(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Constant obj) {
+  public static long getCPtr(Constant obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

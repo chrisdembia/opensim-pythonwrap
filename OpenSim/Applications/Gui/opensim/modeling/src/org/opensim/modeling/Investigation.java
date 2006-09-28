@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class Investigation extends OpenSimObject {
   private long swigCPtr;
 
-  protected Investigation(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGInvestigationUpcast(cPtr), cMemoryOwn);
+  public Investigation(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(Investigation obj) {
+  public static long getCPtr(Investigation obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -50,8 +50,8 @@ public class Investigation extends OpenSimObject {
     return opensimModelJNI.Investigation_getOutputPrecision(swigCPtr);
   }
 
-  public SWIGTYPE_p_OpenSim__AnalysisSet getAnalysisSet() {
-    return new SWIGTYPE_p_OpenSim__AnalysisSet(opensimModelJNI.Investigation_getAnalysisSet(swigCPtr), false);
+  public AnalysisSet getAnalysisSet() {
+    return new AnalysisSet(opensimModelJNI.Investigation_getAnalysisSet(swigCPtr), false);
   }
 
   public String getResultsDir() {

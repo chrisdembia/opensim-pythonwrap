@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class SimmScalerImpl extends ScalerInterface {
   private long swigCPtr;
 
-  protected SimmScalerImpl(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGSimmScalerImplUpcast(cPtr), cMemoryOwn);
+  public SimmScalerImpl(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SimmScalerImpl obj) {
+  public static long getCPtr(SimmScalerImpl obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 

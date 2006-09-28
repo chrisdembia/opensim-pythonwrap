@@ -11,12 +11,12 @@ package org.opensim.modeling;
 public class GeneralizedForces extends Analysis {
   private long swigCPtr;
 
-  protected GeneralizedForces(long cPtr, boolean cMemoryOwn) {
-    super(opensimModelJNI.SWIGGeneralizedForcesUpcast(cPtr), cMemoryOwn);
+  public GeneralizedForces(long cPtr, boolean cMemoryOwn) {
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(GeneralizedForces obj) {
+  public static long getCPtr(GeneralizedForces obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
