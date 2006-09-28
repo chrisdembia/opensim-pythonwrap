@@ -32,7 +32,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jScrollPane3" pref="92" max="32767" attributes="0"/>
+              <Component id="jScrollPane3" pref="80" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -54,12 +54,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="1">
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSubjectFileTextField2" min="-2" pref="152" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jGetSubjectFileButton3" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="jGetSubjectFileButton3" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jAgeLabel2" min="-2" max="-2" attributes="0"/>
@@ -75,10 +75,10 @@
                           <Component id="jHeightTextField2" min="-2" pref="44" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jGenderLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jGenderTextField2" pref="56" max="32767" attributes="1"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jGenderTextField2" pref="56" max="32767" attributes="1"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -89,11 +89,11 @@
                   <EmptySpace min="15" pref="15" max="15" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jSubjectFileTextField2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jGetSubjectFileButton3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jSubjectFileTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jGetSubjectFileButton3" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="11" max="32767" attributes="0"/>
+                          <EmptySpace pref="17" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jAgeLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jWeightLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -170,7 +170,13 @@
         </Component>
         <Component class="javax.swing.JButton" name="jGetSubjectFileButton3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Browse..."/>
+            <Property name="autoscrolls" type="boolean" value="true"/>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jGetSubjectFileButton3ActionPerformed"/>
@@ -199,8 +205,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jModelNameTextField2" pref="186" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBrowseForModelButton2" min="-2" pref="24" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jBrowseForModelButton2" min="-2" pref="20" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -265,7 +271,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBrowseForModelButton2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Browse..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Browse..."/>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowseForModelButton2ActionPerformed"/>
@@ -298,15 +309,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jOwnMarkersRadioButton2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jOwnMarkersTextField2" min="-2" pref="114" max="-2" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jMarkersNameButton2" min="-2" pref="25" max="-2" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jMarkersEditButton2" min="-2" pref="23" max="-2" attributes="1"/>
+                          <Component id="jOwnMarkersTextField2" min="-2" pref="186" max="-2" attributes="1"/>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Component id="jMarkersNameButton2" min="-2" pref="15" max="-2" attributes="1"/>
                       </Group>
                       <Component id="jDefaultMarkersRadioButton2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                  <EmptySpace pref="29" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -319,7 +328,6 @@
                       <Component id="jOwnMarkersRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jOwnMarkersTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jMarkersNameButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jMarkersEditButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -333,7 +341,7 @@
               <ComponentRef name="buttonGroup2"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="use default markers"/>
+            <Property name="text" type="java.lang.String" value="Use default markers"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                 <EmptyBorder bottom="0" left="0" right="0" top="0"/>
@@ -352,13 +360,12 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup2"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="use own markers"/>
+            <Property name="text" type="java.lang.String" value="Use own markers"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                 <EmptyBorder bottom="0" left="0" right="0" top="0"/>
               </Border>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
@@ -371,21 +378,22 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jOwnMarkersTextField2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jMarkersNameButton2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Browse..."/>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMarkersNameButton2ActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="jMarkersEditButton2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

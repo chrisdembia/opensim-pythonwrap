@@ -96,7 +96,7 @@ public class IKPanel  extends workflowWizardPanelBase{
      * @Todo handle new model for IK
      */
     boolean executeStep() {
-        final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Start IK ");
+        final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Running Inverse Kinematics ");
         progressHandle.start();
         SimmSubject subject = descriptor.getSubject();
         SimmModel model = descriptor.getModel();

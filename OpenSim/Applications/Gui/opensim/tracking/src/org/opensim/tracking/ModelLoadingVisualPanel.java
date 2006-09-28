@@ -16,6 +16,7 @@ import org.opensim.modeling.SimmGenericModelParams;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.Property;
 import org.openide.util.NbBundle;
+import org.opensim.modeling.SimmMarkerSet;
 import org.opensim.utils.TheApp;
 
 /**
@@ -28,6 +29,9 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
     boolean ownMarkers;
     String fullModelFileName;
     WorkflowDescriptor aDescriptor; // Cache the descriptor so that we can update it
+    enum State {NothingIsSet, SubjectIsSet, ModelISSet, MarkerISSet};
+    State currentState = State.NothingIsSet;
+    boolean canAdvance=false;
     /**
      * Creates new form ModelLoadingVisualPanel
      */
@@ -74,7 +78,6 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         jOwnMarkersRadioButton2 = new javax.swing.JRadioButton();
         jOwnMarkersTextField2 = new javax.swing.JTextField();
         jMarkersNameButton2 = new javax.swing.JButton();
-        jMarkersEditButton2 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jMessageTextArea2 = new javax.swing.JTextArea();
 
@@ -104,7 +107,11 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
 
         jGenderTextField2.setEditable(false);
 
-        jGetSubjectFileButton3.setText("...");
+        jGetSubjectFileButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
+        jGetSubjectFileButton3.setToolTipText("Browse...");
+        jGetSubjectFileButton3.setAutoscrolls(true);
+        jGetSubjectFileButton3.setBorderPainted(false);
+        jGetSubjectFileButton3.setContentAreaFilled(false);
         jGetSubjectFileButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jGetSubjectFileButton3ActionPerformed(evt);
@@ -123,7 +130,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jSubjectFileTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 152, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jGetSubjectFileButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jGetSubjectFileButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jSubjectFilePanel2Layout.createSequentialGroup()
                         .add(jAgeLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -137,9 +144,9 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jHeightTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 44, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jGenderLabel2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jGenderTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)))
+                        .add(jGenderLabel2)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jGenderTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jSubjectFilePanel2Layout.setVerticalGroup(
@@ -148,10 +155,10 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                 .add(15, 15, 15)
                 .add(jSubjectFilePanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jSubjectFilePanel2Layout.createSequentialGroup()
-                        .add(jSubjectFilePanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(jSubjectFilePanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jSubjectFileTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jGetSubjectFileButton3))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 17, Short.MAX_VALUE)
                         .add(jSubjectFilePanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jAgeLabel2)
                             .add(jWeightLabel2)
@@ -190,7 +197,10 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
             }
         });
 
-        jBrowseForModelButton2.setText("Browse...");
+        jBrowseForModelButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
+        jBrowseForModelButton2.setToolTipText("Browse...");
+        jBrowseForModelButton2.setBorderPainted(false);
+        jBrowseForModelButton2.setContentAreaFilled(false);
         jBrowseForModelButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowseForModelButton2ActionPerformed(evt);
@@ -217,8 +227,8 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jModelNameTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jBrowseForModelButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(20, 20, 20))))
+                        .add(jBrowseForModelButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(24, 24, 24))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -235,7 +245,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Marker Selection"));
         buttonGroup2.add(jDefaultMarkersRadioButton2);
         jDefaultMarkersRadioButton2.setSelected(true);
-        jDefaultMarkersRadioButton2.setText("use default markers");
+        jDefaultMarkersRadioButton2.setText("Use default markers");
         jDefaultMarkersRadioButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jDefaultMarkersRadioButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jDefaultMarkersRadioButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -245,9 +255,8 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         });
 
         buttonGroup2.add(jOwnMarkersRadioButton2);
-        jOwnMarkersRadioButton2.setText("use own markers");
+        jOwnMarkersRadioButton2.setText("Use own markers");
         jOwnMarkersRadioButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jOwnMarkersRadioButton2.setEnabled(false);
         jOwnMarkersRadioButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jOwnMarkersRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,17 +265,21 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         });
 
         jOwnMarkersTextField2.setEditable(false);
+        jOwnMarkersTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jOwnMarkersTextField2ActionPerformed(evt);
+            }
+        });
 
-        jMarkersNameButton2.setText("...");
-        jMarkersNameButton2.setEnabled(false);
+        jMarkersNameButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
+        jMarkersNameButton2.setToolTipText("Browse...");
+        jMarkersNameButton2.setBorderPainted(false);
+        jMarkersNameButton2.setContentAreaFilled(false);
         jMarkersNameButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMarkersNameButton2ActionPerformed(evt);
             }
         });
-
-        jMarkersEditButton2.setText("...");
-        jMarkersEditButton2.setEnabled(false);
 
         org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -277,13 +290,11 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                     .add(jPanel6Layout.createSequentialGroup()
                         .add(jOwnMarkersRadioButton2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jOwnMarkersTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 114, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jMarkersNameButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jMarkersEditButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jOwnMarkersTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(6, 6, 6)
+                        .add(jMarkersNameButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jDefaultMarkersRadioButton2))
-                .add(62, 62, 62))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -293,8 +304,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                 .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jOwnMarkersRadioButton2)
                     .add(jOwnMarkersTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jMarkersNameButton2)
-                    .add(jMarkersEditButton2))
+                    .add(jMarkersNameButton2))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -320,7 +330,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jSubjectFilePanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jPanel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+            .add(jPanel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -332,16 +342,21 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jOwnMarkersTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOwnMarkersTextField2ActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_jOwnMarkersTextField2ActionPerformed
 
     private void jModelNameTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jModelNameTextField2ActionPerformed
 // TODO add your handling code here:
     }//GEN-LAST:event_jModelNameTextField2ActionPerformed
 
     private void jMarkersNameButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMarkersNameButton2ActionPerformed
+        useOwnMarkers();
 // TODO add your handling code here:
     }//GEN-LAST:event_jMarkersNameButton2ActionPerformed
 
@@ -374,7 +389,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         final JFileChooser dlog = new JFileChooser(defaultDir);
         
         dlog.setDialogTitle(NbBundle.getMessage(ModelLoadingVisualPanel.class, "CTL_OpenSubjectFileDlgTitle"));
-        dlog.setFileFilter(new XMLFileFilter());
+        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Select setup file for scaling_ik"));
         if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
             jSubjectFileTextField2.setText(dlog.getSelectedFile().getAbsolutePath());
             aDescriptor.setSubjectFile(dlog.getSelectedFile().getAbsolutePath());
@@ -394,80 +409,29 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JLabel jAgeLabel;
-    private javax.swing.JLabel jAgeLabel1;
     private javax.swing.JLabel jAgeLabel2;
-    private javax.swing.JTextField jAgeTextField;
-    private javax.swing.JTextField jAgeTextField1;
     private javax.swing.JTextField jAgeTextField2;
-    private javax.swing.JButton jBrowseForModelButton;
-    private javax.swing.JButton jBrowseForModelButton1;
     private javax.swing.JButton jBrowseForModelButton2;
-    private javax.swing.JRadioButton jDefaultMarkersRadioButton;
-    private javax.swing.JRadioButton jDefaultMarkersRadioButton1;
     private javax.swing.JRadioButton jDefaultMarkersRadioButton2;
-    private javax.swing.JLabel jGenderLabel;
-    private javax.swing.JLabel jGenderLabel1;
     private javax.swing.JLabel jGenderLabel2;
-    private javax.swing.JTextField jGenderTextField;
-    private javax.swing.JTextField jGenderTextField1;
     private javax.swing.JTextField jGenderTextField2;
-    private javax.swing.JButton jGetSubjectFileButton1;
-    private javax.swing.JButton jGetSubjectFileButton2;
     private javax.swing.JButton jGetSubjectFileButton3;
-    private javax.swing.JLabel jHeightLabel;
-    private javax.swing.JLabel jHeightLabel1;
     private javax.swing.JLabel jHeightLabel2;
-    private javax.swing.JTextField jHeightTextField;
-    private javax.swing.JTextField jHeightTextField1;
     private javax.swing.JTextField jHeightTextField2;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JButton jMarkersEditButton;
-    private javax.swing.JButton jMarkersEditButton1;
-    private javax.swing.JButton jMarkersEditButton2;
-    private javax.swing.JButton jMarkersNameButton;
-    private javax.swing.JButton jMarkersNameButton1;
     private javax.swing.JButton jMarkersNameButton2;
-    private javax.swing.JTextArea jMessageTextArea;
-    private javax.swing.JTextArea jMessageTextArea1;
     private javax.swing.JTextArea jMessageTextArea2;
-    private javax.swing.JRadioButton jModelDefaultRadioButton;
-    private javax.swing.JRadioButton jModelDefaultRadioButton1;
     private javax.swing.JRadioButton jModelDefaultRadioButton2;
-    private javax.swing.JTextField jModelNameTextField;
-    private javax.swing.JTextField jModelNameTextField1;
     private javax.swing.JTextField jModelNameTextField2;
-    private javax.swing.JRadioButton jModelOwnRadioButton;
-    private javax.swing.JRadioButton jModelOwnRadioButton1;
     private javax.swing.JRadioButton jModelOwnRadioButton2;
-    private javax.swing.JRadioButton jOwnMarkersRadioButton;
-    private javax.swing.JRadioButton jOwnMarkersRadioButton1;
     private javax.swing.JRadioButton jOwnMarkersRadioButton2;
-    private javax.swing.JTextField jOwnMarkersTextField;
-    private javax.swing.JTextField jOwnMarkersTextField1;
     private javax.swing.JTextField jOwnMarkersTextField2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JPanel jSubjectFilePanel;
-    private javax.swing.JPanel jSubjectFilePanel1;
     private javax.swing.JPanel jSubjectFilePanel2;
-    private javax.swing.JTextField jSubjectFileTextField;
-    private javax.swing.JTextField jSubjectFileTextField1;
     private javax.swing.JTextField jSubjectFileTextField2;
-    private javax.swing.JLabel jWeightLabel;
-    private javax.swing.JLabel jWeightLabel1;
     private javax.swing.JLabel jWeightLabel2;
-    private javax.swing.JTextField jWeightTextField;
-    private javax.swing.JTextField jWeightTextField1;
     private javax.swing.JTextField jWeightTextField2;
     // End of variables declaration//GEN-END:variables
     private void jModelDefaultRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                         
@@ -505,15 +469,6 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
     private void jSubjectFileTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                      
 // TODO add your handling code here:
     }                                                     
-   class XMLFileFilter extends javax.swing.filechooser.FileFilter {
-        public boolean accept(File f) {
-            return f.isDirectory() || f.getName().toLowerCase().endsWith(".xml");
-        }
-
-        public String getDescription() {
-            return ".xml files";
-        }
-    }    
     
    /**
     * Handle user switching to use his own model either by browsing or using the dario button
@@ -525,7 +480,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         String defaultDir="";
         defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
         final JFileChooser dlog = new JFileChooser(defaultDir);
-        dlog.setFileFilter(new XMLFileFilter());
+        dlog.setFileFilter(FileUtils.getFileFilter(".xml, .osim", "load OpenSim model file"));
        
         String modelFile=null;
 
@@ -568,7 +523,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         String defaultDir="";
         defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
         final JFileChooser dlog = new JFileChooser(defaultDir);
-        dlog.setFileFilter(new XMLFileFilter());
+        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Select markers file"));
 
         String markersFile=null;
         if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
@@ -628,9 +583,9 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         final JFileChooser dlog = new JFileChooser(defaultDir);
         
         dlog.setDialogTitle(NbBundle.getMessage(ModelLoadingVisualPanel.class, "CTL_OpenSubjectFileDlgTitle"));
-        dlog.setFileFilter(new XMLFileFilter());
+        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Select setup file for scaling_ik"));
         if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jSubjectFileTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+            jSubjectFileTextField2.setText(dlog.getSelectedFile().getAbsolutePath());
             aDescriptor.setSubjectFile(dlog.getSelectedFile().getAbsolutePath());
             Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
             updatePanel(aDescriptor);
@@ -678,8 +633,9 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         // We'll do the same for Markers when MarkerSet is exposed properly (bug 209)
        
         if(!jOwnMarkersTextField2.getText().equals("")){
+            SimmMarkerSet markerSet = new SimmMarkerSet(jOwnMarkersTextField2.getText());
+            descriptor.getModel().updateMarkers(markerSet);
        }
         
     };
-    
-}
+ }
