@@ -2,6 +2,7 @@ package org.opensim.tracking;
 
 import java.awt.Component;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.event.ChangeListener;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.SimmModel;
@@ -77,22 +78,31 @@ public class MakeDModelPanel  extends workflowWizardPanelBase{
         component.updatePanel(descriptor);
 
     }
-    public void storeSettings(Object settings) {}
+    public void storeSettings(Object settings) {
+        descriptor = (WorkflowDescriptor) settings;
+        component.updateWorkflow(descriptor);
+    }
 
     boolean executeStep() {
-        String modelFilename = component.getModelFilename();
+        String modelFilename = descriptor.getDynamicsModelFile();
         String dynamicsDirectory=component.getDynamicsDirectory();
-        boolean writeParamsTxt = component.getWriteParamsFlag();
-
-        /**
-         * Create model and invoke SaveDynamics
-         */
-        SimmModel model = new SimmModel(modelFilename);
-        model.setup();  // Just incase some setup is needed before Dynamcis are saved
+        SimmModel model;
+        try { //String aFolderName, String aMuscleFileName, String aBonePath, String aKineticsFile)
+            model = new SimmModel(modelFilename);
+         model.setup();  // Just incase some setup is needed before Dynamcis are saved
         if (dynamicsDirectory.endsWith(File.separator))
-            model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory);            
+            model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory, 
+                    component.getMuscleFilename(),
+                    "",
+                    component.getKineticsFilename());
         else
-            model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory+File.separator);
+            model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory+File.separator,
+                    component.getMuscleFilename(),
+                    "",
+                    component.getKineticsFilename());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         return true;
    }
     

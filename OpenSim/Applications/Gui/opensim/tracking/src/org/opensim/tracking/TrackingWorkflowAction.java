@@ -34,6 +34,7 @@ public final class TrackingWorkflowAction extends CallableSystemAction {
         // Add an Execute button to the bottom panel
         executeStepAction = new ExecuteWorkflowStepAction(iterator);
         //wizardDescriptor.setAdditionalOptions(new Object[] {executeButton});
+        
         wizardDescriptor.setButtonListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 Object obj = e.getSource();
@@ -50,6 +51,7 @@ public final class TrackingWorkflowAction extends CallableSystemAction {
                     }
                 }
             }});
+         
         Dialog dialog = DialogDisplayer.getDefault().createDialog(wizardDescriptor);
         dialog.setResizable(true);
         dialog.setVisible(true);

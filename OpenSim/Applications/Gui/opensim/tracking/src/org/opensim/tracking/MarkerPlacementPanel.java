@@ -1,15 +1,18 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.io.IOException;
 import javax.swing.event.ChangeListener;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.ArrayDouble;
-import org.opensim.modeling.ArrayPtrsSimmMarker;
 import org.opensim.modeling.SimmIKSolverImpl;
 import org.opensim.modeling.SimmIKTrialParams;
 import org.opensim.modeling.SimmInverseKinematicsTarget;
 import org.opensim.modeling.SimmMarkerData;
 import org.opensim.modeling.SimmMarkerPlacementParams;
+import org.opensim.modeling.SimmMarkerSet;
 import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.modeling.SimmSubject;
@@ -94,7 +97,7 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             SimmSubject subject = descriptor.getSubject();
             SimmModel model = descriptor.getModel();
             SimmMarkerPlacementParams params = subject.getMarkerPlacementParams();
-            ArrayPtrsSimmMarker aMarkerArray=params.getMarkerSet();
+            SimmMarkerSet aMarkerArray=params.getMarkerSet();
             model.updateMarkers(aMarkerArray); // This should be markerSet, could this work using proxy classes?
             component.appendMessage("Updating markers and coordinates.\n");
             if (!params.getCoordinateFileName().equalsIgnoreCase("Unassigned")){
@@ -154,7 +157,10 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
                         Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+localName);
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
-            }
+            } catch (IOException ex) {
+                DialogDisplayer.getDefault().notify(
+                    new NotifyDescriptor.Message("Model could not be located. Please file a bug!"));
+            };
             component.putClientProperty("Step_executed", Boolean.TRUE);
             return true;
     }

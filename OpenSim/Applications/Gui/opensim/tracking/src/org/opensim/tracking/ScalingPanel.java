@@ -1,9 +1,9 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.io.IOException;
 import javax.swing.event.ChangeListener;
 import org.openide.util.HelpCtx;
-import org.openide.windows.TopComponent;
 import org.opensim.modeling.ScaleSet;
 import org.opensim.modeling.ScalerInterface;
 import org.opensim.modeling.SimmModel;
@@ -11,7 +11,6 @@ import org.opensim.modeling.SimmScalerImpl;
 import org.opensim.modeling.SimmScalingParams;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.utils.FileUtils;
-import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.OpenOsimModelAction;
 
 public class ScalingPanel  extends workflowWizardPanelBase {
@@ -92,7 +91,9 @@ public class ScalingPanel  extends workflowWizardPanelBase {
     
     public boolean executeStep()
     {   
+
         // Call scaling with the model and display it in GUI
+        //ExecOpenSimProcess.execute("Scale -S "+"900045_setup_scale_ik.xml", new String[0], new File("C:\\Projects\\fca\\900045"));
         SimmSubject subject = descriptor.getSubject();
         SimmScalingParams params = subject.getScalingParams();
         SimmModel model = descriptor.getModel();
@@ -127,6 +128,8 @@ public class ScalingPanel  extends workflowWizardPanelBase {
                 ((OpenOsimModelAction) OpenOsimModelAction.findObject(
                         Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+outputModelName);
             } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
             component.putClientProperty("Step_executed", Boolean.TRUE);

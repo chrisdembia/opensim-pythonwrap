@@ -40,7 +40,6 @@ import javax.swing.JPanel;
  */
 public abstract class workflowVisualPanelBase extends JPanel{
     
-    private boolean ready=false;
     /**
      * Creates a new instance of workflowVisualPanelBase
      */
@@ -50,14 +49,5 @@ public abstract class workflowVisualPanelBase extends JPanel{
     abstract void updateWorkflow(WorkflowDescriptor descriptor);
 
     abstract public void appendMessage(String message);
-
-    public boolean isReady() {
-        return ready;
-    }
-
-    public void setReady(boolean ready) {
-        this.ready = ready;
-    }
-    
     
 }

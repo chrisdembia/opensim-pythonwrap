@@ -1,5 +1,6 @@
 package org.opensim.tracking;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -110,9 +111,12 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
         component.appendMessage("Start loading model.\n");
         if (model != null){
             try {
-                // Display original model
-                boolean success = ((OpenOsimModelAction) OpenOsimModelAction.findObject(
-                        Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(model.getInputFileName());
+                boolean success=false;
+                try {
+                    success = ((OpenOsimModelAction) OpenOsimModelAction.findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(model.getInputFileName());
+                } catch (IOException ex) {
+                    success=false;
+                }
                 if (!success)
                     component.appendMessage("Generic Model has failed to load, please check the path.");
                 else

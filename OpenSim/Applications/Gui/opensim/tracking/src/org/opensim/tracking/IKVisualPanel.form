@@ -12,12 +12,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="jOutputPanel" alignment="0" max="32767" attributes="3"/>
-                  <Component id="jTrialSelectionPanel" alignment="0" min="0" pref="302" max="32767" attributes="3"/>
-                  <Component id="jModelSpecPanel" alignment="0" max="32767" attributes="3"/>
-                  <Component id="jModelAddonForIKPanel" alignment="0" max="32767" attributes="3"/>
-                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="1"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jScrollPane1" alignment="0" pref="302" max="32767" attributes="1"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jOutputPanel" alignment="0" max="32767" attributes="3"/>
+                      <Component id="jTrialSelectionPanel" alignment="0" min="0" pref="302" max="32767" attributes="3"/>
+                      <Component id="jModelSpecPanel" alignment="0" max="32767" attributes="3"/>
+                      <Component id="jModelAddonForIKPanel" alignment="0" max="32767" attributes="3"/>
+                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -26,17 +28,16 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jModelSpecPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jModelAddonForIKPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jTrialSelectionPanel" min="-2" pref="158" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jOutputPanel" min="-2" pref="94" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="66" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="77" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -87,6 +88,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Browse..."/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jModelBrowseButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -114,7 +118,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButton4" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="jBrowse4CoordinatesButton" min="0" pref="0" max="32767" attributes="1"/>
                       <Component id="jMarkersBrowseButton" alignment="0" pref="32" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -135,7 +139,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jCoordinateSetTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBrowse4CoordinatesButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -166,10 +170,13 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jCoordinateSetTextField">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="jBrowse4CoordinatesButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Browse..."/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4CoordinatesButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -274,6 +281,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Browse..."/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4TRCButton5ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -291,7 +301,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Kinematic Smoothing Factor"/>
+            <Property name="text" type="java.lang.String" value="Kinematic smoothing factor"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jKinematicSmoothingTextField">
@@ -301,7 +311,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ground Reaction Smoothing "/>
+            <Property name="text" type="java.lang.String" value="Ground reaction smoothing "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jGroundReactionSmoothingTextField">
@@ -345,7 +355,7 @@
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jOutputMotionTextField" min="-2" pref="136" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton7" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="jBrowse4OutputMotionButton" min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -366,7 +376,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jOutputMotionTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBrowse4OutputMotionButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jIncludeMarkersInOutputCheckBox" min="-2" max="-2" attributes="0"/>
@@ -385,10 +395,13 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jOutputMotionTextField">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton7">
+        <Component class="javax.swing.JButton" name="jBrowse4OutputMotionButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Browse..."/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4OutputMotionButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jIncludeMarkersInOutputCheckBox">
           <Properties>

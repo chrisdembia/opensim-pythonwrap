@@ -50,8 +50,8 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
                 new IKPanel(),
                 new MakeDModelPanel(),
                 new ReduceResidualsPanel(),
-                new workflowWizardPanel7(),
-                new workflowWizardPanel8()
+                new RunCMCWizardPanel(),
+                new RunInvestigationPanel()
             };
             String[] steps = new String[panels.length];
             for (int i = 0; i < panels.length; i++) {

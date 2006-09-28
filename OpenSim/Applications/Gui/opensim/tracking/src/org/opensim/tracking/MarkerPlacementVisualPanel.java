@@ -1,7 +1,11 @@
 package org.opensim.tracking;
 
+import javax.swing.JFileChooser;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.SimmMarkerPlacementParams;
+import org.opensim.swingui.ValidateUserInput;
 import org.opensim.utils.FileUtils;
 
 public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
@@ -37,10 +41,10 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         jLabel5 = new javax.swing.JLabel();
         jCoordinatesFileTextField = new javax.swing.JTextField();
         jMarkersFileTextField = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jInitCoordinatesFileButton = new javax.swing.JButton();
+        jAdditionalMarkersFileButton = new javax.swing.JButton();
         jOutputFilesPanel = new javax.swing.JPanel();
-        jMarkersFileNameTextField = new javax.swing.JTextField();
+        jOutputMarkersFileNameTextField = new javax.swing.JTextField();
         jSimmJntCheckBox = new javax.swing.JCheckBox();
         iSaveMarkersCheckBox = new javax.swing.JCheckBox();
         jSaveMotionCheckBox = new javax.swing.JCheckBox();
@@ -55,7 +59,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         jScrollPane1 = new javax.swing.JScrollPane();
         jMessageTextArea = new javax.swing.JTextArea();
 
-        jSolveStaticPosePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Static Pose"));
+        jSolveStaticPosePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Static pose"));
 
         org.openide.awt.Mnemonics.setLocalizedText(jBrowse4TrcButton, "Browse...");
         jBrowse4TrcButton.addActionListener(new java.awt.event.ActionListener() {
@@ -68,15 +72,31 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "use time from");
 
+        jStaticFromTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jStaticFromTextFieldActionPerformed(evt);
+            }
+        });
+
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "to");
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "Coordinates file");
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel5, "Markers file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton2, "Browse...");
+        org.openide.awt.Mnemonics.setLocalizedText(jInitCoordinatesFileButton, "Browse...");
+        jInitCoordinatesFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jInitCoordinatesFileButtonActionPerformed(evt);
+            }
+        });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton3, "Browse...");
+        org.openide.awt.Mnemonics.setLocalizedText(jAdditionalMarkersFileButton, "Browse...");
+        jAdditionalMarkersFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAdditionalMarkersFileButtonActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jSolveStaticPosePanelLayout = new org.jdesktop.layout.GroupLayout(jSolveStaticPosePanel);
         jSolveStaticPosePanel.setLayout(jSolveStaticPosePanelLayout);
@@ -88,11 +108,11 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                         .addContainerGap()
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jStaticFromTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jStaticFromTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel3)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jStaticToTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jStaticToTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jSolveStaticPosePanelLayout.createSequentialGroup()
                         .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jSolveStaticPosePanelLayout.createSequentialGroup()
@@ -109,8 +129,8 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                                     .add(jCoordinatesFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(jButton3, 0, 0, Short.MAX_VALUE)
-                            .add(jButton2, 0, 0, Short.MAX_VALUE)
+                            .add(jAdditionalMarkersFileButton, 0, 0, Short.MAX_VALUE)
+                            .add(jInitCoordinatesFileButton, 0, 0, Short.MAX_VALUE)
                             .add(jBrowse4TrcButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, Short.MAX_VALUE))))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -124,19 +144,19 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
-                    .add(jStaticToTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel3)
+                    .add(jStaticToTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jStaticFromTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(15, 15, 15)
                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
                     .add(jCoordinatesFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton2))
+                    .add(jInitCoordinatesFileButton))
                 .add(14, 14, 14)
                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
                     .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton3)))
+                    .add(jAdditionalMarkersFileButton)))
         );
 
         jOutputFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
@@ -159,12 +179,32 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         jSaveOsimCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         org.openide.awt.Mnemonics.setLocalizedText(jBrowseOsimButton, "jButton1");
+        jBrowseOsimButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowseOsimButtonActionPerformed(evt);
+            }
+        });
 
         org.openide.awt.Mnemonics.setLocalizedText(jBrowseMarkersButton, "jButton4");
+        jBrowseMarkersButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowseMarkersButtonActionPerformed(evt);
+            }
+        });
 
         org.openide.awt.Mnemonics.setLocalizedText(jBrowseMotionButton, "jButton6");
+        jBrowseMotionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowseMotionButtonActionPerformed(evt);
+            }
+        });
 
         org.openide.awt.Mnemonics.setLocalizedText(jBrowseJntButton, "jButton7");
+        jBrowseJntButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowseJntButtonActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jOutputFilesPanelLayout = new org.jdesktop.layout.GroupLayout(jOutputFilesPanel);
         jOutputFilesPanel.setLayout(jOutputFilesPanelLayout);
@@ -180,7 +220,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                 .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jOutputJntTextField)
                     .add(jOutputMotionTextField)
-                    .add(jMarkersFileNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .add(jOutputMarkersFileNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jOutputFilesPanelLayout.createSequentialGroup()
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jOsimFilenameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
@@ -202,7 +242,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                     .add(jBrowseOsimButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jMarkersFileNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jOutputMarkersFileNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(iSaveMarkersCheckBox)
                     .add(jBrowseMarkersButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -249,13 +289,83 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBrowseJntButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseJntButtonActionPerformed
+      final JFileChooser dlog = new JFileChooser("");
+       dlog.setFileFilter(FileUtils.getFileFilter(".jnt", "Output SIMM jnt file"));
+
+       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            jOutputJntTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBrowseJntButtonActionPerformed
+
+    private void jBrowseMotionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseMotionButtonActionPerformed
+      final JFileChooser dlog = new JFileChooser("");
+       dlog.setFileFilter(FileUtils.getFileFilter(".mot", "Output Motion file"));
+
+       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            jOutputMotionTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBrowseMotionButtonActionPerformed
+
+    private void jBrowseMarkersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseMarkersButtonActionPerformed
+       final JFileChooser dlog = new JFileChooser("");
+       dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Output Markers"));
+
+       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            jOutputMarkersFileNameTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBrowseMarkersButtonActionPerformed
+
+    private void jBrowseOsimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseOsimButtonActionPerformed
+       final JFileChooser dlog = new JFileChooser("");
+       dlog.setFileFilter(FileUtils.getFileFilter(".xml, .osim", "Output OpenSim model"));
+
+       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            jOsimFilenameTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBrowseOsimButtonActionPerformed
+
+    private void jStaticFromTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStaticFromTextFieldActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_jStaticFromTextFieldActionPerformed
+
+    private void jAdditionalMarkersFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdditionalMarkersFileButtonActionPerformed
+       final JFileChooser dlog = new JFileChooser("");
+       dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Additional markers for static pose solution"));
+
+       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            jMarkersFileTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jAdditionalMarkersFileButtonActionPerformed
+
+    private void jInitCoordinatesFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInitCoordinatesFileButtonActionPerformed
+       final JFileChooser dlog = new JFileChooser("");
+       dlog.setFileFilter(FileUtils.getFileFilter(".mot", "Motion file to initialize static pose solution"));
+
+       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            jCoordinatesFileTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jInitCoordinatesFileButtonActionPerformed
+
     private void jBrowse4TrcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4TrcButtonActionPerformed
 // TODO add your handling code here:
+       final JFileChooser dlog = new JFileChooser("");
+       dlog.setFileFilter(FileUtils.getFileFilter(".trc", "Static trial file"));
+
+       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            jStaticTrialTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       }
         
     }//GEN-LAST:event_jBrowse4TrcButtonActionPerformed
 
@@ -263,9 +373,11 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         SimmMarkerPlacementParams params = aDescriptor.getSubject().getMarkerPlacementParams();
         jStaticTrialTextField.setText(params.getStaticPoseFilename());  //trc file of static trial
         jStaticTrialTextField.setToolTipText(params.getPropertySet().get("marker_trial").getComment());
+        jCoordinatesFileTextField.setToolTipText(params.getPropertySet().get("SimmCoordinateSet").getComment());
+        jMarkersFileTextField.setToolTipText(params.getPropertySet().get("SimmMarkerSet").getComment());
         jOutputJntTextField.setToolTipText(params.getPropertySet().get("output_joint_file").getComment());
         jOsimFilenameTextField.setToolTipText(params.getPropertySet().get("output_model_file").getComment());
-        jMarkersFileNameTextField.setToolTipText(params.getPropertySet().get("output_marker_file").getComment());
+        jOutputMarkersFileNameTextField.setToolTipText(params.getPropertySet().get("output_marker_file").getComment());
         jOutputMotionTextField.setToolTipText(params.getPropertySet().get("output_motion_file").getComment());
         ArrayDouble timeRange = params.getTimeRange();
         if (timeRange.getSize()==2){
@@ -303,12 +415,12 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         }
         // New markers
         if (!params.getOutputMarkerFileName().equalsIgnoreCase("Unassigned")){
-            jMarkersFileNameTextField.setText(params.getOutputMarkerFileName());
+            jOutputMarkersFileNameTextField.setText(params.getOutputMarkerFileName());
             iSaveMarkersCheckBox.setSelected(true);
         }
         else{
             // Make up a default name
-            jMarkersFileNameTextField.setText(aDescriptor.dSubject.getPathToSubject()+
+            jOutputMarkersFileNameTextField.setText(aDescriptor.dSubject.getPathToSubject()+
                                             FileUtils.addSuffix(params.getOutputMarkerFileName(),"MP")+".xml");
         }
         // Motion file
@@ -325,30 +437,40 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     }
 
     void updateWorkflow(WorkflowDescriptor descriptor) {
+        SimmMarkerPlacementParams params = descriptor.getSubject().getMarkerPlacementParams();
+        params.setStaticPoseFilename(jStaticTrialTextField.getText());
+        ArrayDouble timeRange = new ArrayDouble(2);
+        timeRange.setitem(0, Double.parseDouble(jStaticFromTextField.getText()));
+        timeRange.setitem(1, Double.parseDouble(jStaticToTextField.getText()));
+        //params.setTimeRange(timeRange);
+        //if (jCoordinatesFileTextField.getText()!="")
+        //  params.setCoordinateFile(jCoordinatesFileTextField.getText());
+
+        
     }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox iSaveMarkersCheckBox;
+    private javax.swing.JButton jAdditionalMarkersFileButton;
     private javax.swing.JButton jBrowse4TrcButton;
     private javax.swing.JButton jBrowseJntButton;
     private javax.swing.JButton jBrowseMarkersButton;
     private javax.swing.JButton jBrowseMotionButton;
     private javax.swing.JButton jBrowseOsimButton;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JTextField jCoordinatesFileTextField;
+    private javax.swing.JButton jInitCoordinatesFileButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jMarkersFileNameTextField;
     private javax.swing.JTextField jMarkersFileTextField;
     private javax.swing.JTextArea jMessageTextArea;
     private javax.swing.JTextField jOsimFilenameTextField;
     private javax.swing.JPanel jOutputFilesPanel;
     private javax.swing.JTextField jOutputJntTextField;
+    private javax.swing.JTextField jOutputMarkersFileNameTextField;
     private javax.swing.JTextField jOutputMotionTextField;
     private javax.swing.JCheckBox jSaveMotionCheckBox;
     private javax.swing.JCheckBox jSaveOsimCheckBox;

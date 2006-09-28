@@ -1,14 +1,17 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.io.IOException;
 import javax.swing.event.ChangeListener;
+import org.netbeans.api.progress.ProgressHandle;
+import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
-import org.opensim.modeling.ArrayPtrsSimmMarker;
 import org.opensim.modeling.SimmIKParams;
 import org.opensim.modeling.SimmIKSolverImpl;
 import org.opensim.modeling.SimmIKTrialParams;
 import org.opensim.modeling.SimmInverseKinematicsTarget;
 import org.opensim.modeling.SimmMarkerData;
+import org.opensim.modeling.SimmMarkerSet;
 import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.modeling.SimmSubject;
@@ -84,27 +87,36 @@ public class IKPanel  extends workflowWizardPanelBase{
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
     }
-    public void storeSettings(Object settings) {}
+    public void storeSettings(Object settings) {
+        descriptor = (WorkflowDescriptor) settings;
+        component.updateWorkflow(descriptor);
+    }
     
     /**
      * @Todo handle new model for IK
      */
     boolean executeStep() {
+        final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Start IK ");
+        progressHandle.start();
         SimmSubject subject = descriptor.getSubject();
+        SimmModel model = descriptor.getModel();
         if (!subject.isDefaultIKParams()){
 		//  If model needs to be created anew, do it here.
 		if (!subject.getIKParams().getModelFileName().equalsIgnoreCase("Unassigned")){
-			SimmModel model = new SimmModel(subject.getIKParams().getModelFileName());
-			model.setup();
+                try {
+                    model = new SimmModel(subject.getPathToSubject()+subject.getIKParams().getModelFileName());
+		    model.setup();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
 		}
 		else // Warn model used without scaling or marker placement
                     ;
         }
-        SimmModel model = descriptor.getModel();
         SimmIKParams params = subject.getIKParams();
         
         // Adjust model by markers and coordinates in the IK block
-        ArrayPtrsSimmMarker aMarkerArray=params.getMarkerSet();
+        SimmMarkerSet aMarkerArray=params.getMarkerSet();
         model.updateMarkers(aMarkerArray); 
         model.updateCoordinates(subject.getIKParams().getCoordinateSet());
         
@@ -125,20 +137,21 @@ public class IKPanel  extends workflowWizardPanelBase{
         // Convert read trc fil into "common" rdStroage format
         motionTrialData.makeRdStorage(inputStorage);
         if (coordinateValues != null) {
-                /* Adjust the user-defined start and end times to make sure they are in the
-                * range of the marker data. This must be done so that you only look in the
-                * coordinate data for rows that will actually be solved.
-                */
-                double firstStateTime = inputStorage.getFirstTime();
-                double lastStateTime = inputStorage.getLastTime();
-                double startTime = (firstStateTime>trialParams.getStartTime()) ? firstStateTime : trialParams.getStartTime();
-                double endTime =  (lastStateTime<trialParams.getEndTime()) ? lastStateTime : trialParams.getEndTime();
+            /* Adjust the user-defined start and end times to make sure they are in the
+            * range of the marker data. This must be done so that you only look in the
+            * coordinate data for rows that will actually be solved.
+            */
+            double firstStateTime = inputStorage.getFirstTime();
+            double lastStateTime = inputStorage.getLastTime();
+            double startTime = (firstStateTime>trialParams.getStartTime()) ? firstStateTime : trialParams.getStartTime();
+            double endTime =  (lastStateTime<trialParams.getEndTime()) ? lastStateTime : trialParams.getEndTime();
 
-                /* Add the coordinate data to the marker data. There must be a row of
-                * corresponding coordinate data for every row of marker data that will
-                * be solved, or it is a fatal error.
-                */
-                coordinateValues.addToRdStorage(inputStorage, startTime, endTime);
+            /* Add the coordinate data to the marker data. There must be a row of
+            * corresponding coordinate data for every row of marker data that will
+            * be solved, or it is a fatal error.
+            */
+            coordinateValues.addToRdStorage(inputStorage, startTime, endTime);
+            progressHandle.progress("Start solution from time "+startTime+" to "+endTime);
 
         }
         component.appendMessage("Setting up the IK problem for trial "+trialParams.getName()+".\n");
@@ -149,6 +162,8 @@ public class IKPanel  extends workflowWizardPanelBase{
         // Solve
         Storage	outputStorage = new Storage();
         ikSolver.solveFrames(trialParams, inputStorage, outputStorage);
+        progressHandle.finish();
+        
         component.appendMessage("Solved trial "+trialParams.getName()+".\n");
         outputStorage.setWriteSIMMHeader(true);
         component.putClientProperty("Step_executed", Boolean.TRUE);

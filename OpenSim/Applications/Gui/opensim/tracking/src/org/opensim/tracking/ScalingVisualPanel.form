@@ -12,15 +12,15 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jMeasurementScalePanel" alignment="0" min="0" pref="321" max="32767" attributes="2"/>
                   <Component id="jScrollPane1" alignment="0" pref="321" max="32767" attributes="2"/>
                   <Component id="jScalingMethodSelectPanel" alignment="0" max="32767" attributes="2"/>
-                  <Component id="jMeasurementScalePanel" alignment="0" min="0" pref="321" max="32767" attributes="2"/>
-                  <Component id="jManualScalePanel" alignment="0" max="32767" attributes="2"/>
                   <Component id="jOutputPanel" alignment="0" max="32767" attributes="2"/>
+                  <Component id="jManualScalePanel" alignment="0" max="32767" attributes="2"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -29,14 +29,14 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jScalingMethodSelectPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jMeasurementScalePanel" min="-2" pref="145" max="-2" attributes="0"/>
+              <Component id="jMeasurementScalePanel" min="-2" pref="166" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jManualScalePanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jOutputPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="80" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -134,48 +134,52 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jSaveScalesCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" pref="81" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jFromTimeTextField" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jToTimeTextField" min="-2" pref="28" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jMeasurementsFileTextField" max="32767" attributes="1"/>
-                                      <Component id="saveScalesTextField" alignment="0" pref="126" max="32767" attributes="1"/>
-                                      <Component id="markerTrialTextField" alignment="0" pref="126" max="32767" attributes="1"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel2" min="-2" pref="81" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="1" attributes="1">
-                                          <Component id="jBrowse4MeasButton" min="0" pref="0" max="32767" attributes="1"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="saveScalesTextField" alignment="0" pref="168" max="32767" attributes="1"/>
+                                      <Component id="markerTrialTextField" alignment="0" min="-2" pref="168" max="-2" attributes="1"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jMeasurementsFileTextField" pref="131" max="32767" attributes="1"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jBrowse4MeasButton" min="-2" pref="31" max="-2" attributes="1"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jBrowse4ScalesButton" min="0" pref="0" max="32767" attributes="1"/>
-                                      <Component id="jBrowse4TrcButton" pref="33" max="32767" attributes="1"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jFromTimeTextField" min="-2" pref="48" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jMaxMarkerMoveTextField" alignment="1" max="32767" attributes="1"/>
+                                              <Component id="jToTimeTextField" alignment="1" pref="41" max="32767" attributes="1"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
+                              <Component id="jSaveScalesCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="jEditMeasButton" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jEditMeasButton" alignment="1" pref="33" max="32767" attributes="1"/>
+                              <Component id="jBrowse4ScalesButton" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
+                              <Component id="jBrowse4TrcButton" alignment="1" pref="33" max="32767" attributes="1"/>
+                          </Group>
                       </Group>
+                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="8" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -197,15 +201,20 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jToTimeTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jFromTimeTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jToTimeTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jMaxMarkerMoveTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jSaveScalesCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="saveScalesTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBrowse4ScalesButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="saveScalesTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -219,13 +228,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="markerTrialTextField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="*.trc"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4TrcButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Browse..."/>
+            <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4TrcButtonActionPerformed"/>
@@ -251,16 +257,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jMeasurementsFileTextField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="*.xml"/>
-          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMeasurementsFileTextFieldActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4MeasButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Browse..."/>
+            <Property name="actionCommand" type="java.lang.String" value="..."/>
+            <Property name="label" type="java.lang.String" value="..."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4MeasButtonActionPerformed"/>
@@ -268,7 +272,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jEditMeasButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Edit..."/>
+            <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jSaveScalesCheckBox">
@@ -285,17 +289,24 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="saveScalesTextField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="*.xml"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveScalesTextFieldActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4ScalesButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Browse..."/>
+            <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4ScalesButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel7">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Max. marker movement"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jMaxMarkerMoveTextField">
         </Component>
       </SubComponents>
     </Container>
@@ -320,9 +331,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jManualScaleTextField" min="-2" pref="125" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jBrowse4ScaleButton" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="jBrowse4ManualScaleButton" min="-2" pref="34" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jEditScalesButton" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="jEditManualScalesButton" min="-2" pref="31" max="-2" attributes="0"/>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -332,8 +343,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jManualScaleTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBrowse4ScaleButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jEditScalesButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBrowse4ManualScaleButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jEditManualScalesButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -345,21 +356,18 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jManualScaleTextField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="*.xml"/>
-          </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jBrowse4ScaleButton">
+        <Component class="javax.swing.JButton" name="jBrowse4ManualScaleButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Browse..."/>
+            <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4ScaleButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4ManualScaleButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jEditScalesButton">
+        <Component class="javax.swing.JButton" name="jEditManualScalesButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Edit..."/>
+            <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
         </Component>
       </SubComponents>
@@ -432,7 +440,6 @@
                       <Component id="saveSIMMmslTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBrowse4Msl1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -446,7 +453,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4OpenSim1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Browse..."/>
+            <Property name="label" type="java.lang.String" value="..."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4OpenSim1ActionPerformed"/>
@@ -493,7 +500,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4Jnt1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Browse..."/>
+            <Property name="label" type="java.lang.String" value="..."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4Jnt1ActionPerformed"/>
@@ -501,7 +508,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4Msl1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Browse..."/>
+            <Property name="label" type="java.lang.String" value="..."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4Msl1ActionPerformed"/>

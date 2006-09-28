@@ -11,11 +11,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jMessageTextArea" alignment="0" pref="393" max="32767" attributes="0"/>
           <Component id="jModelSpecPanel" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jMessageTextArea" min="-2" pref="339" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -24,7 +21,7 @@
               <Component id="jModelSpecPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jMessageTextArea" min="-2" pref="163" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -44,28 +41,30 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jCreateParamsCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jDynamicsDirTextField" min="-2" pref="186" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBrowseForDynamicsDirButton" min="-2" pref="36" max="-2" attributes="1"/>
+                      </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jDynamicsDirTextField" min="-2" pref="186" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jModelTextField" min="-2" pref="185" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jBrowseForDynamicsDirButton" min="0" pref="0" max="32767" attributes="1"/>
-                              <Component id="jBrowse4ModelButton" alignment="0" pref="38" max="32767" attributes="1"/>
+                              <Component id="KineticsFileTextField" max="32767" attributes="1"/>
+                              <Component id="jMusclefileTextField" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jModelTextField" alignment="0" pref="185" max="32767" attributes="1"/>
                           </Group>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Component id="jBrowse4ModelButton" min="-2" pref="38" max="-2" attributes="1"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="55" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -78,15 +77,23 @@
                       <Component id="jModelTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBrowse4ModelButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jDynamicsDirTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBrowseForDynamicsDirButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jMusclefileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="KineticsFileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jCreateParamsCheckBox" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jBrowseForDynamicsDirButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDynamicsDirTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -98,9 +105,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jModelTextField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="*.xml"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4ModelButton">
           <Properties>
@@ -109,19 +113,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4ModelButtonActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="jCreateParamsCheckBox">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Create params.txt file in same directory"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-              </Border>
-            </Property>
-            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-              <Insets value="[0, 0, 0, 0]"/>
-            </Property>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -141,6 +132,23 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowseForDynamicsDirButtonActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Muscle filename"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jMusclefileTextField">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMusclefileTextFieldActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Kinetics filename"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="KineticsFileTextField">
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextArea" name="jMessageTextArea">
@@ -157,7 +165,7 @@
           <Color blue="33" green="0" red="cc" type="rgb"/>
         </Property>
         <Property name="rows" type="int" value="5"/>
-        <Property name="text" type="java.lang.String" value="Create a shared lib. to represent the dynamics &#xa;of your model (.dll on Windows, .so on linux). &#xa;Using SD/Fast, C Compiler and the files created &#xa;by OpenSim (model.h, model.sd, sdfor.c).&#xa;Place the generated shared library in your path."/>
+        <Property name="text" type="java.lang.String" value="Create a shared lib. to represent the dynamics &#xa;of your model (.dll on Windows, .so on linux). &#xa;Using SD/Fast, C Compiler and the files created &#xa;by OpenSim (model.h, model.sd, sdfor.c).&#xa;Place the generated shared library in your path.&#xa;&#xa;For now also modify params.txt file to refer to &#xa;kinetics file and msl file if modified."/>
         <Property name="wrapStyleWord" type="boolean" value="true"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>

@@ -40,14 +40,15 @@ public class WorkflowDescriptor {
     SimmSubject dSubject=null;
     boolean     useOwnModel=false;
     boolean     useOwnMarkers = false;
-    transient   SimmModel   dGenericModel = null;
+    SimmModel   dGenericModel = null;
+    SimmModel   ikModel = null;
     // Extra items needed for RRA, CMC, Forward/perturb
-    private String      modelLibrary;
+    private String      dynamicsModelFile;
     private String      setupRRA_pass1Filename;
     private String      setupRRA_pass2Filename;
     private String      setupCMCFilename;
     private String      RRAoutputMotionFilename;
-    
+    private String      dynamicsDir;
     
     /**
      * Constructor, Creates a new instance of WorkflowDescriptor
@@ -114,14 +115,6 @@ public class WorkflowDescriptor {
            throw new UnsupportedOperationException("Not yet implemented");*/
     }
 
-    public String getModelLibrary() {
-        return modelLibrary;
-    }
-
-    public void setModelLibrary(String modelLibrary) {
-        this.modelLibrary = modelLibrary;
-    }
-
     public String getSetupRRA_pass1Filename() {
         return setupRRA_pass1Filename;
     }
@@ -153,4 +146,21 @@ public class WorkflowDescriptor {
     public void setRRAoutputMotionFilename(String RRAoutputMotionFilename) {
         this.RRAoutputMotionFilename = RRAoutputMotionFilename;
     }
-}
+
+    public String getDynamicsModelFile() {
+        return dynamicsModelFile;
+    }
+
+    public void setDynamicsModelFile(String dynamicsModelFile) {
+        this.dynamicsModelFile = dynamicsModelFile;
+    }
+
+    void setDynamicsDir(String string) {
+        dynamicsDir = string;
+    }
+
+    public String getDynamicsDir() {
+        return dynamicsDir;
+    }
+
+ }
