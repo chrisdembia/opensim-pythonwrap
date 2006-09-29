@@ -7,9 +7,6 @@
         </folder>
     </folder>
     <folder name="Menu">
-        <folder name="Edit">
-            <attr name="org-netbeans-modules-editor-MainMenuAction$StopMacroRecordingAction.instance/org-opensim-plot-PlotAction.shadow" boolvalue="true"/>
-            </folder>
         <folder name="Tools">
             <attr name="Separator1.instance/org-opensim-plot-PlotAction.shadow" boolvalue="true"/>
             <file name="org-opensim-plot-PlotAction.shadow" url="org-opensim-plot-PlotAction.shadow">

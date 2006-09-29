@@ -18,7 +18,8 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     /**
      * Creates new form IKVisualPanel
      */
-    public IKVisualPanel() {
+    public IKVisualPanel(workflowWizardPanelBase basePanel) {
+        super(basePanel);
         initComponents();
         putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
     }

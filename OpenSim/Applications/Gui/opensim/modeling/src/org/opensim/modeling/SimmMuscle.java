@@ -108,6 +108,11 @@ public class SimmMuscle extends Actuator {
     opensimModelJNI.SimmMuscle_writeSIMM(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out));
   }
 
+  public SWIGTYPE_p_OpenSim__AttachmentPointIterator newAttachmentPointIterator() {
+    long cPtr = opensimModelJNI.SimmMuscle_newAttachmentPointIterator(swigCPtr);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__AttachmentPointIterator(cPtr, false);
+  }
+
   public void peteTest(SimmKinematicsEngine ke) {
     opensimModelJNI.SimmMuscle_peteTest(swigCPtr, SimmKinematicsEngine.getCPtr(ke));
   }

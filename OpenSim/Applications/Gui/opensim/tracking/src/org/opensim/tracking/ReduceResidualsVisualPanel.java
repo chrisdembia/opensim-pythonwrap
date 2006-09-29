@@ -17,7 +17,8 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
     /**
      * Creates new form ReduceResidualsVisualPanel
      */
-    public ReduceResidualsVisualPanel() {
+    public ReduceResidualsVisualPanel(workflowWizardPanelBase basePanel) {
+        super(basePanel);
         initComponents();
         putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
     }

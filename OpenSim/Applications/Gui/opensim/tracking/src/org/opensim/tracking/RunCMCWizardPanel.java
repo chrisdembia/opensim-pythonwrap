@@ -22,7 +22,7 @@ public class RunCMCWizardPanel  extends workflowWizardPanelBase{
     // create only those which really need to be visible.
     public Component getComponent() {
         if (component == null) {
-            component = new RunCMCVisualPanel();
+            component = new RunCMCVisualPanel(this);
         }
         return component;
     }
@@ -34,18 +34,6 @@ public class RunCMCWizardPanel  extends workflowWizardPanelBase{
         // return new HelpCtx(SampleWizardPanel1.class);
     }
     
-    public boolean isValid() {
-        // If it is always OK to press Next or Finish, then:
-        return true;
-        // If it depends on some condition (form filled out...), then:
-        // return someCondition();
-        // and when this condition changes (last form field filled in...) then:
-        // fireChangeEvent();
-        // and uncomment the complicated stuff below.
-    }
-    
-    public final void addChangeListener(ChangeListener l) {}
-    public final void removeChangeListener(ChangeListener l) {}
     /*
     private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
     public final void addChangeListener(ChangeListener l) {

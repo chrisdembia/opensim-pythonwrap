@@ -32,7 +32,7 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
     // create only those which really need to be visible.
     public ModelLoadingVisualPanel getComponent() {
         if (component == null) {
-            component = new ModelLoadingVisualPanel();
+            component = new ModelLoadingVisualPanel(this);
         }
         return component;
     }
@@ -44,39 +44,6 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
         //return new HelpCtx(ModelLoadingPanel.class);
         return new HelpCtx(ModelLoadingPanel.class);
     }
-    
-    public boolean isValid() {
-        // If it is always OK to press Next or Finish, then:
-        //return true;
-        // If it depends on some condition (form filled out...), then:
-        return true;
-        // and when this condition changes (last form field filled in...) then:
-        // fireChangeEvent();
-        // and uncomment the complicated stuff below.
-    }
-        
-    private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
-    public final void addChangeListener(ChangeListener l) {
-        synchronized (listeners) {
-            listeners.add(l);
-        }
-    }
-    public final void removeChangeListener(ChangeListener l) {
-        synchronized (listeners) {
-            listeners.remove(l);
-        }
-    }
-    protected final void fireChangeEvent() {
-        Iterator<ChangeListener> it;
-        synchronized (listeners) {
-            it = new HashSet<ChangeListener>(listeners).iterator();
-        }
-        ChangeEvent ev = new ChangeEvent(this);
-        while (it.hasNext()) {
-            it.next().stateChanged(ev);
-        }
-    }
-    
     
     // You can use a settings object to keep track of state. Normally the
     // settings object will be the WizardDescriptor, so you can use

@@ -7,7 +7,8 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
     /**
      * Creates new form AnalysisVisualPanel
      */
-    public AnalysisVisualPanel() {
+    public AnalysisVisualPanel(workflowWizardPanelBase basePanel) {
+        super(basePanel);
         initComponents();
         putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
     }

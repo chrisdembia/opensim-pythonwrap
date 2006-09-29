@@ -80,6 +80,10 @@ public class SimmMusclePoint extends OpenSimObject {
     opensimModelJNI.SimmMusclePoint_writeSIMM(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out));
   }
 
+  public boolean isActive() {
+    return opensimModelJNI.SimmMusclePoint_isActive(swigCPtr);
+  }
+
   public void setup(SimmModel model, SimmKinematicsEngine ke) {
     opensimModelJNI.SimmMusclePoint_setup(swigCPtr, SimmModel.getCPtr(model), SimmKinematicsEngine.getCPtr(ke));
   }

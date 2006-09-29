@@ -26,17 +26,22 @@
 package org.opensim.tracking;
 
 import org.openide.WizardDescriptor;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
- * @author Ayman Habib Habib
+ * @author Ayman Habib
  *
  * Base class for all Tracking Workflow panels 
  */
 abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
     
      protected WorkflowDescriptor descriptor;
-
+     private boolean valid=true; // Can proceed to next
     /**
      * Creates a new instance of workflowWizardPanelBase
      */
@@ -45,4 +50,42 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
     
     /** Execute the step (normally when Execute button is pushed */
     abstract boolean executeStep();   
+    
+    public void markValid(boolean valid){
+        this.valid = valid;
+        fireChangeEvent();
+    }
+
+     final public boolean isValid() {
+        // If it is always OK to press Next or Finish, then:
+        return valid;
+        // If it depends on some condition (form filled out...), then:
+        // return someCondition();
+        // and when this condition changes (last form field filled in...) then:
+        // fireChangeEvent();
+        // and uncomment the complicated stuff below.
+    }
+     
+    private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
+    public final void addChangeListener(ChangeListener l) {
+        synchronized (listeners) {
+            listeners.add(l);
+        }
+    }
+    public final void removeChangeListener(ChangeListener l) {
+        synchronized (listeners) {
+            listeners.remove(l);
+        }
+    }
+    protected final void fireChangeEvent() {
+        Iterator<ChangeListener> it;
+        synchronized (listeners) {
+            it = new HashSet<ChangeListener>(listeners).iterator();
+        }
+        ChangeEvent ev = new ChangeEvent(this);
+        while (it.hasNext()) {
+            it.next().stateChanged(ev);
+        }
+    }
+
 }

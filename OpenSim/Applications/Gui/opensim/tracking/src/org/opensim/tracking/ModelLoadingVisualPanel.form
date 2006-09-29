@@ -20,7 +20,7 @@
           <Component id="jSubjectFilePanel2" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
-          <Component id="jScrollPane3" alignment="1" pref="357" max="32767" attributes="0"/>
+          <Component id="jScrollPane3" alignment="1" pref="358" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -43,7 +43,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Workflow Customization [Optional]"/>
+            <TitledBorder title="Scale-ik setup file"/>
           </Border>
         </Property>
       </Properties>
@@ -57,7 +57,7 @@
                       <Group type="102" alignment="0" attributes="1">
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSubjectFileTextField2" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="jSubjectFileTextField2" min="-2" pref="231" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jGetSubjectFileButton3" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
@@ -75,10 +75,10 @@
                           <Component id="jHeightTextField2" min="-2" pref="44" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jGenderLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jGenderTextField2" pref="57" max="32767" attributes="1"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jGenderTextField2" pref="56" max="32767" attributes="1"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -90,8 +90,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jSubjectFileTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jGetSubjectFileButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSubjectFileTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="17" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -101,8 +101,8 @@
                               <Component id="jHeightLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jHeightTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jGenderLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jGenderTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jAgeTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jGenderTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="3" attributes="0">
@@ -117,7 +117,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Subject file"/>
+            <Property name="text" type="java.lang.String" value="Setup file"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jSubjectFileTextField2">
@@ -188,7 +188,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Model Selection"/>
+            <TitledBorder title="Model selection"/>
           </Border>
         </Property>
       </Properties>
@@ -203,7 +203,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jModelOwnRadioButton2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jModelNameTextField2" pref="186" max="32767" attributes="1"/>
+                          <Component id="jModelNameTextField2" pref="187" max="32767" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBrowseForModelButton2" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
@@ -296,7 +296,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Marker Selection"/>
+            <TitledBorder title="Marker selection "/>
           </Border>
         </Property>
       </Properties>
@@ -310,12 +310,12 @@
                           <Component id="jOwnMarkersRadioButton2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jOwnMarkersTextField2" min="-2" pref="186" max="-2" attributes="1"/>
-                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Component id="jMarkersNameButton2" min="-2" pref="15" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jMarkersNameButton2" min="-2" pref="21" max="-2" attributes="1"/>
                       </Group>
                       <Component id="jDefaultMarkersRadioButton2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

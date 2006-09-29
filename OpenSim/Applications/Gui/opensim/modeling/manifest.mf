@@ -1,6 +1,5 @@
 Manifest-Version: 1.0
 OpenIDE-Module: org.opensim.modeling
-OpenIDE-Module-Install: org/opensim/modeling/Installer.class
 OpenIDE-Module-Layer: org/opensim/modeling/layer.xml
 OpenIDE-Module-Localizing-Bundle: org/opensim/modeling/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0

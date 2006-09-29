@@ -40,14 +40,23 @@ import javax.swing.JPanel;
  */
 public abstract class workflowVisualPanelBase extends JPanel{
     
+    workflowWizardPanelBase logicPanel;
     /**
      * Creates a new instance of workflowVisualPanelBase
      */
-    protected workflowVisualPanelBase() {
+    protected workflowVisualPanelBase(workflowWizardPanelBase logicPanel) {
+        this.logicPanel = logicPanel;
     }
     abstract void updatePanel(WorkflowDescriptor aDescriptor);
     abstract void updateWorkflow(WorkflowDescriptor descriptor);
 
     abstract public void appendMessage(String message);
+    /**
+     * A method to be called to inform the world that the user can hit next
+     */
+    protected void markValid(boolean valid)
+    {
+        logicPanel.markValid(valid);
+    }
     
 }

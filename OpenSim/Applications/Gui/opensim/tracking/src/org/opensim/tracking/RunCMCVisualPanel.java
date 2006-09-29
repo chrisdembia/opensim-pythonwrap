@@ -11,7 +11,8 @@ public final class RunCMCVisualPanel extends workflowVisualPanelBase {
     /**
      * Creates new form RunCMCVisualPanel
      */
-    public RunCMCVisualPanel() {
+    public RunCMCVisualPanel(workflowWizardPanelBase basePanel) {
+        super(basePanel);
         initComponents();
         putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
     }

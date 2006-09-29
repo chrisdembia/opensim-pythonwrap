@@ -17,7 +17,8 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
     /**
      * Creates new form ScalingVisualPanel
      */
-    public ScalingVisualPanel() {
+    public ScalingVisualPanel(workflowWizardPanelBase basePanel) {
+        super(basePanel);
         initComponents();
         
     }
@@ -542,13 +543,13 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
     public void updatePanel(WorkflowDescriptor aDescriptor)
     {   
         SimmScalingParams scalingParams = aDescriptor.dSubject.getScalingParams();
-             scaleMethodSelect.setToolTipText(scalingParams.getPropertySet().get("scaling_order").getComment());
-            markerTrialTextField.setToolTipText(scalingParams.getPropertySet().get("marker_trial").getComment());
-            jMeasurementsFileTextField.setToolTipText(scalingParams.getPropertySet().get("SimmMeasurementSet").getComment());
-            jManualScaleTextField.setToolTipText(scalingParams.getPropertySet().get("ScaleSet").getComment());
-            preserveMass.setToolTipText(scalingParams.getPropertySet().get("preserve_mass_distribution").getComment());
-            saveScalesTextField.setToolTipText(scalingParams.getPropertySet().get("output_scale_file").getComment());
-            jMaxMarkerMoveTextField.setToolTipText(scalingParams.getPropertySet().get("max_marker_movement").getComment());
+        scaleMethodSelect.setToolTipText(scalingParams.getPropertySet().get("scaling_order").getComment());
+        markerTrialTextField.setToolTipText(scalingParams.getPropertySet().get("marker_trial").getComment());
+        jMeasurementsFileTextField.setToolTipText(scalingParams.getPropertySet().get("SimmMeasurementSet").getComment());
+        jManualScaleTextField.setToolTipText(scalingParams.getPropertySet().get("ScaleSet").getComment());
+        preserveMass.setToolTipText(scalingParams.getPropertySet().get("preserve_mass_distribution").getComment());
+        saveScalesTextField.setToolTipText(scalingParams.getPropertySet().get("output_scale_file").getComment());
+        jMaxMarkerMoveTextField.setToolTipText(scalingParams.getPropertySet().get("max_marker_movement").getComment());
         preserveMass.setSelected(scalingParams.getPreserveMassDist());
         // Map scaling method to dropdown
         scalingOrder = scalingParams.getScalingOrder();

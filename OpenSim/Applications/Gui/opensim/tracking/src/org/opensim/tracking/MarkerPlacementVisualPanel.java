@@ -13,7 +13,8 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     /**
      * Creates new form MarkerPlacementVisualPanel
      */
-    public MarkerPlacementVisualPanel() {
+    public MarkerPlacementVisualPanel(workflowWizardPanelBase basePanel) {
+        super(basePanel);
         initComponents();
         putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
     }

@@ -12,7 +12,7 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("rdModelDll");
+        System.loadLibrary("rdModelDll_d");
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic library rdModelDll is in your PATH\n"+e);
@@ -1326,6 +1326,26 @@ public class opensimModelJNI {
   public final static native void Investigation_printResults__SWIG_1(long jarg1, String jarg2, String jarg3, double jarg4);
   public final static native void Investigation_printResults__SWIG_2(long jarg1, String jarg2, String jarg3);
   public final static native void Investigation_printResults__SWIG_3(long jarg1, String jarg2);
+  public final static native void delete_InvestigationForward(long jarg1);
+  public final static native long new_InvestigationForward__SWIG_0();
+  public final static native long new_InvestigationForward__SWIG_1(String jarg1);
+  public final static native long new_InvestigationForward__SWIG_2(long jarg1);
+  public final static native long new_InvestigationForward__SWIG_3(long jarg1);
+  public final static native long InvestigationForward_copy__SWIG_0(long jarg1);
+  public final static native long InvestigationForward_copy__SWIG_1(long jarg1, long jarg2);
+  public final static native void InvestigationForward_run(long jarg1);
+  public final static native long new_InvestigationPerturbation__SWIG_0();
+  public final static native long new_InvestigationPerturbation__SWIG_1(String jarg1);
+  public final static native long new_InvestigationPerturbation__SWIG_2(long jarg1);
+  public final static native void delete_InvestigationPerturbation(long jarg1);
+  public final static native long new_InvestigationPerturbation__SWIG_3(long jarg1);
+  public final static native long InvestigationPerturbation_copy__SWIG_0(long jarg1);
+  public final static native long InvestigationPerturbation_copy__SWIG_1(long jarg1, long jarg2);
+  public final static native void InvestigationPerturbation_run(long jarg1);
+  public final static native void InvestigationPerturbation_printResults__SWIG_0(long jarg1, String jarg2, String jarg3, double jarg4, String jarg5);
+  public final static native void InvestigationPerturbation_printResults__SWIG_1(long jarg1, String jarg2, String jarg3, double jarg4);
+  public final static native void InvestigationPerturbation_printResults__SWIG_2(long jarg1, String jarg2, String jarg3);
+  public final static native void InvestigationPerturbation_printResults__SWIG_3(long jarg1, String jarg2);
   public final static native long new_Kinematics__SWIG_0(long jarg1);
   public final static native long new_Kinematics__SWIG_1();
   public final static native long new_Kinematics__SWIG_2(String jarg1);
@@ -2472,6 +2492,7 @@ public class opensimModelJNI {
   public final static native void SimmMuscle_postScale(long jarg1, long jarg2);
   public final static native void SimmMuscle_setup(long jarg1, long jarg2, long jarg3);
   public final static native void SimmMuscle_writeSIMM(long jarg1, long jarg2);
+  public final static native long SimmMuscle_newAttachmentPointIterator(long jarg1);
   public final static native void SimmMuscle_peteTest(long jarg1, long jarg2);
   public final static native long new_SimmMuscleGroup__SWIG_0();
   public final static native long new_SimmMuscleGroup__SWIG_1(long jarg1);
@@ -2495,6 +2516,7 @@ public class opensimModelJNI {
   public final static native long SimmMusclePoint_getBodyName(long jarg1);
   public final static native void SimmMusclePoint_scale(long jarg1, long jarg2);
   public final static native void SimmMusclePoint_writeSIMM(long jarg1, long jarg2);
+  public final static native boolean SimmMusclePoint_isActive(long jarg1);
   public final static native void SimmMusclePoint_setup(long jarg1, long jarg2, long jarg3);
   public final static native long SimmMusclePoint_getDisplayer(long jarg1);
   public final static native void SimmMusclePoint_peteTest(long jarg1);
@@ -2508,6 +2530,7 @@ public class opensimModelJNI {
   public final static native long SimmMuscleViaPoint_getRange(long jarg1);
   public final static native long SimmMuscleViaPoint_getCoordinateName(long jarg1);
   public final static native void SimmMuscleViaPoint_writeSIMM(long jarg1, long jarg2);
+  public final static native boolean SimmMuscleViaPoint_isActive(long jarg1);
   public final static native void SimmMuscleViaPoint_setup(long jarg1, long jarg2, long jarg3);
   public final static native void SimmMuscleViaPoint_peteTest(long jarg1);
   public final static native void delete_SetSimmMusclePoint(long jarg1);
@@ -2869,6 +2892,8 @@ public class opensimModelJNI {
   public final static native long SWIGSetAnalysisUpcast(long jarg1);
   public final static native long SWIGAnalysisSetUpcast(long jarg1);
   public final static native long SWIGInvestigationUpcast(long jarg1);
+  public final static native long SWIGInvestigationForwardUpcast(long jarg1);
+  public final static native long SWIGInvestigationPerturbationUpcast(long jarg1);
   public final static native long SWIGKinematicsUpcast(long jarg1);
   public final static native long SWIGActuationUpcast(long jarg1);
   public final static native long SWIGIndAccUpcast(long jarg1);

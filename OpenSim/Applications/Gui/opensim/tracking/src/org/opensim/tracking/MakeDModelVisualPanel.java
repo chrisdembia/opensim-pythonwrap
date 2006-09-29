@@ -13,7 +13,8 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
     /**
      * Creates new form MakeDModelVisualPanel
      */
-    public MakeDModelVisualPanel() {
+    public MakeDModelVisualPanel(workflowWizardPanelBase basePanel) {
+        super(basePanel);
         initComponents();
         putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
     }
