@@ -71,4 +71,5 @@ public final class TheApp {
                 new NotifyDescriptor.Message(errorMessage));
         LifecycleManager.getDefault().exit();
     }
+    
 }

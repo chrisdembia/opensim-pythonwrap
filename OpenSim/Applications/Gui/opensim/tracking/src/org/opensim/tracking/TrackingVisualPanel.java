@@ -7,7 +7,8 @@ public final class TrackingVisualPanel extends workflowVisualPanelBase {
     /**
      * Creates new form TrackingVisualPanel
      */
-    public TrackingVisualPanel() {
+    public TrackingVisualPanel(workflowWizardPanelBase basePanel) {
+        super(basePanel);
         initComponents();
         putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
     }
@@ -142,6 +143,10 @@ public final class TrackingVisualPanel extends workflowVisualPanelBase {
     }
 
     public void appendMessage(String message) {
+    }
+
+    protected boolean checkValidForm() {
+        return false;
     }
     
 }

@@ -187,6 +187,10 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
 
     public void appendMessage(String message) {
     }
+
+    protected boolean checkValidForm() {
+        return true;
+    }
     
 }
 

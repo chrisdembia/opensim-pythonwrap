@@ -1,20 +1,23 @@
 package org.opensim.view;
 
 import java.io.IOException;
+import java.net.URL;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.utils.TheApp;
 
 public final class LoadGaitModelAction extends CallableSystemAction {
     
     public void performAction() {
         try {
                 // TODO better layout for models, bones, use relative path
+            URL modelURL = this.getClass().getResource("resources/gait2392_gillette.osim");
                 ((OpenOsimModelAction) OpenOsimModelAction.findObject(
                         Class.forName("org.opensim.view.OpenOsimModelAction"))).
-                        loadModel("./resources/models/demoModel/dynamic.xml");
+                        loadModel(modelURL);
         } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
         } catch (IOException ex) {

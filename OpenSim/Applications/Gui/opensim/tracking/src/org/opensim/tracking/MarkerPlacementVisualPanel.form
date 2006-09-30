@@ -11,8 +11,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jSolveStaticPosePanel" alignment="0" max="32767" attributes="1"/>
-          <Component id="jOutputFilesPanel" alignment="0" min="0" pref="292" max="32767" attributes="1"/>
+          <Component id="jSolveStaticPosePanel" alignment="0" max="32767" attributes="2"/>
+          <Component id="jOutputFilesPanel" alignment="0" min="0" pref="292" max="32767" attributes="2"/>
           <Component id="jScrollPane1" alignment="1" pref="292" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>

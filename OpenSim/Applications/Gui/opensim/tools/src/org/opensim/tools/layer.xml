@@ -10,15 +10,12 @@
             </folder>
         <folder name="Tools">
             <file name="org-opensim-tracking-ReduceResidualsAction.instance_hidden"/>
+            <file name="org-opensim-tracking-TrackingWorkflowAction.shadow_hidden"/>
         </folder>
     </folder>
     <folder name="Menu">
         <folder name="Tools">
-             <file name="org-opensim-tools-ScaleToolAction.instance" url="org-opensim-tools-ScaleAction.instance"/>
-            <file name="org-opensim-tracking-ReduceResidualsAction.instance_hidden"/>
-            <file name="org-opensim-tracking-TrackingWorkflowAction_1.shadow" url="org-opensim-tracking-TrackingWorkflowAction_1.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
-            </file>
-        </folder>
+             <file name="org-opensim-tracking-ReduceResidualsAction.instance_hidden"/>
+            </folder>
     </folder>
 </filesystem>

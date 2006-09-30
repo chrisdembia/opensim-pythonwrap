@@ -35,6 +35,8 @@ public final class SaveModelAction extends CallableSystemAction {
         super.initialize();
         // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
         putValue("noIconInMenu", Boolean.TRUE);
+        setEnabled(false);
+        ViewDB.registerModelCommand(this);
         
     }
     

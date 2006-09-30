@@ -3,15 +3,13 @@ package org.opensim.view;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.prefs.Preferences;
-import javax.swing.JFileChooser;
+import java.net.URL;
 import javax.swing.SwingUtilities;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.SimmModel;
 import org.opensim.utils.FileUtils;
-import org.opensim.utils.TheApp;
 import org.opensim.view.base.SerializationHelper;
 
 public final class OpenOsimModelAction extends CallableSystemAction {
@@ -48,6 +46,12 @@ public final class OpenOsimModelAction extends CallableSystemAction {
         }
     }
 
+     /**
+     * A wrapper around loadModel that handles URLs so that we can use the getResource mechanism
+     */
+    public boolean loadModel(final URL fileURL) throws IOException {
+        return loadModel(fileURL.getFile());
+    }
     /**
      * This is the function that does the real work of loading a model file into the GUI
      * @param fileName is the absolute path to the file to be used.

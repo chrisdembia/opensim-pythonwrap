@@ -67,6 +67,7 @@
             <public-packages>
                 <package>org.opensim.swingui</package>
                 <package>org.opensim.utils</package>
+                <package>org.opensim.utils.resources</package>
             </public-packages>
         </data>
     </configuration>

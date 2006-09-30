@@ -17,6 +17,7 @@ import org.openide.windows.WindowManager;
 import org.opensim.modeling.Property;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.SimmMarkerSet;
+import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 
 /**
@@ -490,6 +491,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
 
         }
         
+        markValid(checkValidForm());
         return selectModel;
    }
    /**
@@ -627,6 +629,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         else {
             jDefaultMarkersRadioButton2.setSelected(true);
         }
+        markValid(checkValidForm());
    }
     
     void updateWorkflow(WorkflowDescriptor descriptor){
@@ -643,4 +646,10 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
        }
         
     };
+
+    protected boolean checkValidForm() {
+
+        return(!jModelNameTextField2.getText().equalsIgnoreCase(""));
+    }
+
  }

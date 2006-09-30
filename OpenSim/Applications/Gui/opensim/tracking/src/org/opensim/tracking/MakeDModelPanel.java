@@ -81,12 +81,12 @@ public class MakeDModelPanel  extends workflowWizardPanelBase{
         if (dynamicsDirectory.endsWith(File.separator))
             model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory, 
                     component.getMuscleFilename(),
-                    "",
+                    ".",
                     component.getKineticsFilename());
         else
             model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory+File.separator,
                     component.getMuscleFilename(),
-                    "",
+                    ".",
                     component.getKineticsFilename());
         } catch (IOException ex) {
             ex.printStackTrace();

@@ -4,6 +4,7 @@ import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
+import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 
 public final class RunCMCVisualPanel extends workflowVisualPanelBase {
@@ -168,6 +169,10 @@ public final class RunCMCVisualPanel extends workflowVisualPanelBase {
     }
 
     public void appendMessage(String message) {
+    }
+
+    protected boolean checkValidForm() {
+        return true;
     }
     
 }

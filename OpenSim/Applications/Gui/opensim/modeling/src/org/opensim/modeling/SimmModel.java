@@ -114,8 +114,8 @@ public class SimmModel extends Model {
     opensimModelJNI.SimmModel_updateCoordinates(swigCPtr, SimmCoordinateSet.getCPtr(aCoordinateArray));
   }
 
-  public double takeMeasurement(SWIGTYPE_p_SimmMeasurement aMeasurement) {
-    return opensimModelJNI.SimmModel_takeMeasurement(swigCPtr, SWIGTYPE_p_SimmMeasurement.getCPtr(aMeasurement));
+  public double takeMeasurement(SimmMeasurement aMeasurement) {
+    return opensimModelJNI.SimmModel_takeMeasurement(swigCPtr, SimmMeasurement.getCPtr(aMeasurement));
   }
 
   public SimmUnits getLengthUnits() {

@@ -246,5 +246,9 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
     {
         return KineticsFileTextField.getText();
     }
+
+    protected boolean checkValidForm() {
+        return true;
+    }
 }
 

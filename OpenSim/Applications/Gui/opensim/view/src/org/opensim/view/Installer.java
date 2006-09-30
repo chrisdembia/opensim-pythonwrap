@@ -28,7 +28,9 @@ public class Installer extends ModuleInstall {
             ex.printStackTrace();
         }
         // Disable the number in the application title that shows after OpenSim
-        System.setProperty ("netbeans.buildnumber", ""); 
+        System.setProperty ("netbeans.buildnumber", "0.7.01"); 
+        ViewDB.updateCommandsVisibility();
+
         /**
          * @todo open explorer window, Restore default directory and Bones directories, ..
          */

@@ -61,8 +61,8 @@ public class SimmMarkerData {
     opensimModelJNI.SimmMarkerData_averageFrames__SWIG_3(swigCPtr);
   }
 
-  public double takeMeasurement(SWIGTYPE_p_SimmMeasurement aMeasurement) {
-    return opensimModelJNI.SimmMarkerData_takeMeasurement(swigCPtr, SWIGTYPE_p_SimmMeasurement.getCPtr(aMeasurement));
+  public double takeMeasurement(SimmMeasurement aMeasurement) {
+    return opensimModelJNI.SimmMarkerData_takeMeasurement(swigCPtr, SimmMeasurement.getCPtr(aMeasurement));
   }
 
   public String getFileName() {

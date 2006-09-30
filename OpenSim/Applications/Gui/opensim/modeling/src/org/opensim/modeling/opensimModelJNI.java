@@ -12,7 +12,7 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("rdModelDll_d");
+        System.loadLibrary("rdModelDll");
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic library rdModelDll is in your PATH\n"+e);
@@ -2838,6 +2838,58 @@ public class opensimModelJNI {
   public final static native long new_IKSolverInterface(long jarg1, long jarg2);
   public final static native void IKSolverInterface_solveFrames(long jarg1, long jarg2, long jarg3, long jarg4);
   public final static native void delete_IKSolverInterface(long jarg1);
+  public final static native long new_SimmMeasurement__SWIG_0();
+  public final static native long new_SimmMeasurement__SWIG_1(long jarg1);
+  public final static native long new_SimmMeasurement__SWIG_2(long jarg1);
+  public final static native void delete_SimmMeasurement(long jarg1);
+  public final static native long SimmMeasurement_copy__SWIG_0(long jarg1);
+  public final static native long SimmMeasurement_copy__SWIG_1(long jarg1, long jarg2);
+  public final static native void SimmMeasurement_copyData(long jarg1, long jarg2);
+  public final static native int SimmMeasurement_getNumMarkerPairs(long jarg1);
+  public final static native long SimmMeasurement_getMarkerPair(long jarg1, int jarg2);
+  public final static native boolean SimmMeasurement_getApply(long jarg1);
+  public final static native void SimmMeasurement_setApply(long jarg1, boolean jarg2);
+  public final static native void SimmMeasurement_applyScaleFactor(long jarg1, double jarg2, long jarg3);
+  public final static native void SimmMeasurement_registerTypes();
+  public final static native void SimmMeasurement_addMarkerPair(long jarg1, long jarg2);
+  public final static native void SimmMeasurement_addBodyScale(long jarg1, long jarg2);
+  public final static native void SimmMeasurement_peteTest(long jarg1);
+  public final static native void delete_SetSimmMeasurements(long jarg1);
+  public final static native long new_SetSimmMeasurements__SWIG_0();
+  public final static native long new_SetSimmMeasurements__SWIG_1(String jarg1);
+  public final static native long new_SetSimmMeasurements__SWIG_2(long jarg1);
+  public final static native long new_SetSimmMeasurements__SWIG_3(long jarg1);
+  public final static native long SetSimmMeasurements_copy(long jarg1);
+  public final static native void SetSimmMeasurements_setMemoryOwner(long jarg1, boolean jarg2);
+  public final static native boolean SetSimmMeasurements_getMemoryOwner(long jarg1);
+  public final static native boolean SetSimmMeasurements_computeNewCapacity(long jarg1, int jarg2, long jarg3);
+  public final static native boolean SetSimmMeasurements_ensureCapacity(long jarg1, int jarg2);
+  public final static native void SetSimmMeasurements_trim(long jarg1);
+  public final static native int SetSimmMeasurements_getCapacity(long jarg1);
+  public final static native void SetSimmMeasurements_setCapacityIncrement(long jarg1, int jarg2);
+  public final static native int SetSimmMeasurements_getCapacityIncrement(long jarg1);
+  public final static native boolean SetSimmMeasurements_setSize(long jarg1, int jarg2);
+  public final static native int SetSimmMeasurements_getSize(long jarg1);
+  public final static native int SetSimmMeasurements_getIndex__SWIG_0(long jarg1, long jarg2, int jarg3);
+  public final static native int SetSimmMeasurements_getIndex__SWIG_1(long jarg1, long jarg2);
+  public final static native int SetSimmMeasurements_getIndex__SWIG_2(long jarg1, String jarg2, int jarg3);
+  public final static native int SetSimmMeasurements_getIndex__SWIG_3(long jarg1, String jarg2);
+  public final static native boolean SetSimmMeasurements_append__SWIG_0(long jarg1, long jarg2);
+  public final static native boolean SetSimmMeasurements_append__SWIG_1(long jarg1, long jarg2);
+  public final static native boolean SetSimmMeasurements_insert(long jarg1, int jarg2, long jarg3);
+  public final static native boolean SetSimmMeasurements_remove__SWIG_0(long jarg1, int jarg2);
+  public final static native boolean SetSimmMeasurements_remove__SWIG_1(long jarg1, long jarg2);
+  public final static native boolean SetSimmMeasurements_set(long jarg1, int jarg2, long jarg3);
+  public final static native long SetSimmMeasurements_get__SWIG_0(long jarg1, int jarg2);
+  public final static native long SetSimmMeasurements_get__SWIG_1(long jarg1, String jarg2);
+  public final static native long SetSimmMeasurements_getLast(long jarg1);
+  public final static native int SetSimmMeasurements_searchBinary__SWIG_0(long jarg1, long jarg2, boolean jarg3, int jarg4, int jarg5);
+  public final static native int SetSimmMeasurements_searchBinary__SWIG_1(long jarg1, long jarg2, boolean jarg3, int jarg4);
+  public final static native int SetSimmMeasurements_searchBinary__SWIG_2(long jarg1, long jarg2, boolean jarg3);
+  public final static native int SetSimmMeasurements_searchBinary__SWIG_3(long jarg1, long jarg2);
+  public final static native long new_SimmMeasurementSet__SWIG_0();
+  public final static native long new_SimmMeasurementSet__SWIG_1(long jarg1);
+  public final static native void delete_SimmMeasurementSet(long jarg1);
   public final static native long new_SimmScalerImpl(long jarg1);
   public final static native boolean SimmScalerImpl_scaleModel(long jarg1, long jarg2, boolean jarg3, double jarg4);
   public final static native void delete_SimmScalerImpl(long jarg1);
@@ -2936,6 +2988,9 @@ public class opensimModelJNI {
   public final static native long SWIGSimmIKTrialParamsUpcast(long jarg1);
   public final static native long SWIGSimmIKParamsUpcast(long jarg1);
   public final static native long SWIGSimmSubjectUpcast(long jarg1);
+  public final static native long SWIGSimmMeasurementUpcast(long jarg1);
+  public final static native long SWIGSetSimmMeasurementsUpcast(long jarg1);
+  public final static native long SWIGSimmMeasurementSetUpcast(long jarg1);
   public final static native long SWIGSimmScalerImplUpcast(long jarg1);
   public final static native long SWIGSimmIKSolverImplUpcast(long jarg1);
 }

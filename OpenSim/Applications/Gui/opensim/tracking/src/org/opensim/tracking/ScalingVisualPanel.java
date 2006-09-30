@@ -4,6 +4,7 @@ import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.SimmMeasurementSet;
 import org.opensim.modeling.SimmScalingParams;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
@@ -561,6 +562,10 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         updateBasedOnScalingOrder();
         
         markerTrialTextField.setText(scalingParams.getMarkerFileName());
+        SimmMeasurementSet mSet = scalingParams.getMeasurementSet();
+        if (!mSet.getInlined()){
+            jMeasurementsFileTextField.setText(mSet.getOffLineFileName());
+        }
         ArrayDouble timeRange = scalingParams.getTimeRange();
         if (timeRange.getSize()==2){
             jFromTimeTextField.setText(String.valueOf(timeRange.getitem(0)));
@@ -672,7 +677,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         scalingParams.setPreserveMassDist(preserveMass.getModel().isSelected());
         String order = (String)scaleMethodSelect.getSelectedItem();
         scalingOrder = new ArrayStr("", 2);
- 
+        
         parseOrderIntoStrArr(order, scalingOrder);
         scalingParams.setScalingOrder(scalingOrder);
         boolean includesManual = hasManual();
@@ -696,6 +701,12 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                     new NotifyDescriptor.Message("Not implemented yet, pending resolution of bug 209."));
                  **/
             }
+            double fromTime = Double.parseDouble(jFromTimeTextField.getText());
+            double toTime = Double.parseDouble(jToTimeTextField.getText());
+            ArrayDouble timeRange=new ArrayDouble(0.0, 2);
+            timeRange.setitem(0, fromTime);
+            timeRange.setitem(1, toTime);
+            scalingParams.setTimeRange(timeRange);
             scalingParams.setMaxMarkerMovement(Double.valueOf(jMaxMarkerMoveTextField.getText()).doubleValue());
         }
         if (includesManual || includesMeasurements){    // not None, do output files
@@ -741,6 +752,10 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
     public void appendMessage(String message) {
         jMessageTextArea.append(message);
         repaint();
+    }
+
+    protected boolean checkValidForm() {
+        return true;
     }
 
 

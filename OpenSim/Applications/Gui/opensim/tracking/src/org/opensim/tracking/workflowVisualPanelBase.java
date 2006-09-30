@@ -58,5 +58,8 @@ public abstract class workflowVisualPanelBase extends JPanel{
     {
         logicPanel.markValid(valid);
     }
-    
+    /**
+     * checkValidForm: A method that does the actual validation of the form
+     */
+    abstract protected boolean checkValidForm();
 }

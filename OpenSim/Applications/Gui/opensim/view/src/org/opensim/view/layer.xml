@@ -83,9 +83,6 @@
             <file name="org-opensim-view-ExportSIMMJntAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-ExportSIMMJntAction.instance"/>
             </file>
-            <file name="org-opensim-view-LoadDemoModelAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-LoadGaitModelAction.instance"/>
-            </file>
             <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="true"/>
             <file name="org-opensim-view-OpenOsimModel.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-OpenOsimModelAction.instance"/>
@@ -137,11 +134,7 @@
         <folder name="JavaHelp">
             <file name="view-helpset.xml" url="view-helpset.xml"/>
         </folder>
-        <folder name="MIMEResolver">
-            <file name="SimmModelResolver.xml" url="SimmModelResolver.xml">
-                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.opensim.view.Bundle"/>
-            </file>
-        </folder>
+        <folder name="MIMEResolver"/>
     </folder>
     <folder name="Shortcuts">
         <file name="O-P.shadow">

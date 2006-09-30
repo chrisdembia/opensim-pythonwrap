@@ -25,7 +25,10 @@
  */
 package org.opensim.view;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
+import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.SimmModel;
 
 /**
@@ -40,6 +43,7 @@ public final class ViewDB{
     static Hashtable<SimmModel, ModelWindowVTKTopComponent> mapModels2Tc = new Hashtable<SimmModel, ModelWindowVTKTopComponent>(4);
     static ViewDB instance=null;
     private static ModelWindowVTKTopComponent currentModelWindow=null;
+    static ArrayList<CallableSystemAction> modelCommands = new ArrayList<CallableSystemAction>(10);
     
     
     /** Creates a new instance of ViewDB */
@@ -53,7 +57,7 @@ public final class ViewDB{
     {
         if (instance==null){
             instance = new ViewDB();
-        }
+         }
         return instance;
     }
     /**
@@ -62,6 +66,7 @@ public final class ViewDB{
     public void addModelWindowMap(SimmModel model, ModelWindowVTKTopComponent modelWindow)
     {
         mapModels2Tc.put(model, modelWindow);
+        updateCommandsVisibility();
     }
     /**
      * Retrieve the Topcomponent for the passed in model.
@@ -76,6 +81,7 @@ public final class ViewDB{
     public static void removeModel(SimmModel model)
     {
         mapModels2Tc.remove(model);
+        updateCommandsVisibility();
     }
 
     public static ModelWindowVTKTopComponent getCurrentModelWindow() {
@@ -84,6 +90,19 @@ public final class ViewDB{
 
     public static void setCurrentModelWindow(ModelWindowVTKTopComponent aCurrentModelWindow) {
         currentModelWindow = aCurrentModelWindow;
+    }
+    public static void registerModelCommand(CallableSystemAction newCommand)
+    {
+        modelCommands.add(newCommand);
+    }
+    
+    public static void updateCommandsVisibility()
+    {
+        boolean enable =  (mapModels2Tc.size())>0;
+        Iterator<CallableSystemAction> iter = modelCommands.iterator();
+        while (iter.hasNext()){
+            iter.next().setEnabled(enable);
+        }
     }
 
 }

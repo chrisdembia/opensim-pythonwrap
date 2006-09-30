@@ -83,20 +83,20 @@ public class SimmScalingParams extends OpenSimObject {
     opensimModelJNI.SimmScalingParams_peteTest(swigCPtr);
   }
 
-  public void addMeasurement(SWIGTYPE_p_SimmMeasurement aMeasurement) {
-    opensimModelJNI.SimmScalingParams_addMeasurement(swigCPtr, SWIGTYPE_p_SimmMeasurement.getCPtr(aMeasurement));
+  public void addMeasurement(SimmMeasurement aMeasurement) {
+    opensimModelJNI.SimmScalingParams_addMeasurement(swigCPtr, SimmMeasurement.getCPtr(aMeasurement));
   }
 
   public void addScale(Scale aScale) {
     opensimModelJNI.SimmScalingParams_addScale(swigCPtr, Scale.getCPtr(aScale));
   }
 
-  public SWIGTYPE_p_SimmMeasurementSet getMeasurementSet() {
-    return new SWIGTYPE_p_SimmMeasurementSet(opensimModelJNI.SimmScalingParams_getMeasurementSet(swigCPtr), false);
+  public SimmMeasurementSet getMeasurementSet() {
+    return new SimmMeasurementSet(opensimModelJNI.SimmScalingParams_getMeasurementSet(swigCPtr), false);
   }
 
-  public void setMeasurementSet(SWIGTYPE_p_SimmMeasurementSet measurementSet) {
-    opensimModelJNI.SimmScalingParams_setMeasurementSet(swigCPtr, SWIGTYPE_p_SimmMeasurementSet.getCPtr(measurementSet));
+  public void setMeasurementSet(SimmMeasurementSet measurementSet) {
+    opensimModelJNI.SimmScalingParams_setMeasurementSet(swigCPtr, SimmMeasurementSet.getCPtr(measurementSet));
   }
 
   public ScaleSet getScaleSet() {

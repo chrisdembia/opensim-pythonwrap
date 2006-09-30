@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.SimmIKParams;
 import org.opensim.modeling.SimmIKTrialParams;
+import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 
 public final class IKVisualPanel extends workflowVisualPanelBase {
@@ -508,6 +509,10 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     public void appendMessage(String message) {
         jMessageTextArea.setText(message); 
         repaint();
+    }
+
+    protected boolean checkValidForm() {
+        return true;
     }
 }
 

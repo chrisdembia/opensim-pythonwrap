@@ -255,8 +255,9 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 return this;
             }
             public void finished() {
-               progressHandle.finish();
+               GetRenderer().ResetCamera(); 
                Render();               
+               progressHandle.finish();
             }
         };
         worker.start();

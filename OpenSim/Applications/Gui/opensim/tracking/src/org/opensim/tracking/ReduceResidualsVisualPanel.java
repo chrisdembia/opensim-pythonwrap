@@ -45,22 +45,19 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
         jRRAPass2SetupFileTextField = new javax.swing.JTextField();
         jBrowse4RRA2SetupButton = new javax.swing.JButton();
         jEditRRA2SetupButton = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
         jRunPass2Button = new javax.swing.JButton();
 
-        jRRAParamsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Pass 1, Compute Residuals"));
+        jRRAParamsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Pass 1, compute residuals"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Pass 1 settings file:");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4RRA1SetupButton, "Browse...");
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4RRA1SetupButton, "...");
         jBrowse4RRA1SetupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowse4RRA1SetupButtonActionPerformed(evt);
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jEditRRA1SetupButton, "jButton4");
+        org.openide.awt.Mnemonics.setLocalizedText(jEditRRA1SetupButton, "...");
         jEditRRA1SetupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jEditRRA1SetupButtonActionPerformed(evt);
@@ -108,42 +105,30 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
         jRRAParamsPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pass 2, alter motion to reduce residuals"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Pass 2 settings file:");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4RRA2SetupButton, "jButton3");
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4RRA2SetupButton, "...");
         jBrowse4RRA2SetupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowse4RRA2SetupButtonActionPerformed(evt);
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jEditRRA2SetupButton, "jButton5");
+        org.openide.awt.Mnemonics.setLocalizedText(jEditRRA2SetupButton, "...");
         jEditRRA2SetupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jEditRRA2SetupButtonActionPerformed(evt);
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "Output Motion file: ");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jButton6, "jButton6");
-
         org.jdesktop.layout.GroupLayout jRRAParamsPanel1Layout = new org.jdesktop.layout.GroupLayout(jRRAParamsPanel1);
         jRRAParamsPanel1.setLayout(jRRAParamsPanel1Layout);
         jRRAParamsPanel1Layout.setHorizontalGroup(
             jRRAParamsPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jRRAParamsPanel1Layout.createSequentialGroup()
-                .add(jRRAParamsPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jRRAParamsPanel1Layout.createSequentialGroup()
-                        .add(jLabel3)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jRRAPass2SetupFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jBrowse4RRA2SetupButton, 0, 0, Short.MAX_VALUE))
-                    .add(jRRAParamsPanel1Layout.createSequentialGroup()
-                        .add(jLabel4)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(jLabel3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jRRAPass2SetupFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jBrowse4RRA2SetupButton, 0, 0, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jEditRRA2SetupButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -157,12 +142,7 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
                     .add(jRRAPass2SetupFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jBrowse4RRA2SetupButton)
                     .add(jEditRRA2SetupButton))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jRRAParamsPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel4)
-                    .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton6))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         org.openide.awt.Mnemonics.setLocalizedText(jRunPass2Button, "Run Pass 2");
@@ -178,8 +158,9 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jRRAParamsPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jRRAParamsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jRRAParamsPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jRRAParamsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(137, 137, 137)
                         .add(jRunPass2Button)))
@@ -193,7 +174,7 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
                 .add(jRRAParamsPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jRunPass2Button)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -283,19 +264,16 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBrowse4RRA1SetupButton;
     private javax.swing.JButton jBrowse4RRA2SetupButton;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jEditRRA1SetupButton;
     private javax.swing.JButton jEditRRA2SetupButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jRRAParamsPanel;
     private javax.swing.JPanel jRRAParamsPanel1;
     private javax.swing.JTextField jRRAPass1SetupFileTextField;
     private javax.swing.JTextField jRRAPass2SetupFileTextField;
     private javax.swing.JButton jRunPass2Button;
     private javax.swing.JButton jRunRRAPass1Button;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
     void updateWorkflow(WorkflowDescriptor descriptor) {
         descriptor.setSetupRRA_pass1Filename(jRRAPass1SetupFileTextField.getText());
@@ -310,6 +288,9 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
 
     public void appendMessage(String message) {
         
+    }
+    protected boolean checkValidForm() {
+        return true;
     }
     
 }

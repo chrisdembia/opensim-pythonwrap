@@ -3,6 +3,7 @@ package org.opensim.view.base;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.view.ViewDB;
 
 public final class ToggleAxesAction extends CallableSystemAction {
     
@@ -32,6 +33,8 @@ public final class ToggleAxesAction extends CallableSystemAction {
         super.initialize();
         // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
         putValue("noIconInMenu", Boolean.TRUE);
+        setEnabled(false);
+        ViewDB.registerModelCommand(this);
     }
     
     public HelpCtx getHelpCtx() {

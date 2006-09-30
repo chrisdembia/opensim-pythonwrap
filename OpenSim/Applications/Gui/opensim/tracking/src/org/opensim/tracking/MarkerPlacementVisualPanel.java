@@ -487,6 +487,10 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         jMessageTextArea.append(message);
         repaint();
     }
+
+    protected boolean checkValidForm() {
+        return true;
+    }
     
 }
 
