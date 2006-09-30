@@ -47,6 +47,8 @@ public class WorkflowDescriptor {
     private String      setupRRA_pass1Filename;
     private String      setupRRA_pass2Filename;
     private String      setupCMCFilename;
+    private String      setupInvestigationFilename;
+    
     private String      RRAoutputMotionFilename;
     private String      dynamicsDir;
     

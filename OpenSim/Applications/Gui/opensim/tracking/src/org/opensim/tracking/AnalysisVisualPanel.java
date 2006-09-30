@@ -1,16 +1,27 @@
 package org.opensim.tracking;
 
-import javax.swing.JPanel;
+import java.util.prefs.Preferences;
+import javax.swing.JFileChooser;
+import org.opensim.modeling.Investigation;
+import org.opensim.modeling.InvestigationForward;
+import org.opensim.modeling.InvestigationPerturbation;
+import org.opensim.utils.FileUtils;
+import org.opensim.utils.TheApp;
+import org.opensim.view.editors.ObjectEditDialogMaker;
 
 public final class AnalysisVisualPanel extends workflowVisualPanelBase {
     
+    enum investigtionType{Forward, Perurb};
+    AnalysisVisualPanel.investigtionType invType=investigtionType.Forward;
+    Investigation inv;
     /**
      * Creates new form AnalysisVisualPanel
      */
     public AnalysisVisualPanel(workflowWizardPanelBase basePanel) {
         super(basePanel);
         initComponents();
-        putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm")); 
+        putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm"));
+        checkValidForm();
     }
     
     public String getName() {
@@ -24,10 +35,7 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jModelSpecPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jAnalysisPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -37,39 +45,16 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
         jInvestigationPanel = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jButton4 = new javax.swing.JButton();
-
-        jModelSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Model Specification"));
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Shared library");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jButton1, "Browse...");
-
-        org.jdesktop.layout.GroupLayout jModelSpecPanelLayout = new org.jdesktop.layout.GroupLayout(jModelSpecPanel);
-        jModelSpecPanel.setLayout(jModelSpecPanelLayout);
-        jModelSpecPanelLayout.setHorizontalGroup(
-            jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jModelSpecPanelLayout.createSequentialGroup()
-                .add(jLabel1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 183, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        jModelSpecPanelLayout.setVerticalGroup(
-            jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jModelSpecPanelLayout.createSequentialGroup()
-                .add(jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton1))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jBrowse4SettingsFileButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jSetupFileTextField = new javax.swing.JTextField();
+        jEditSetttingsButton = new javax.swing.JButton();
+        jMessageTextArea = new javax.swing.JTextArea();
 
         jAnalysisPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Analyses to perform"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Additional libraries");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton2, "Browse...");
+        org.openide.awt.Mnemonics.setLocalizedText(jButton2, "...");
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Analyses ");
 
@@ -88,10 +73,10 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
                     .add(jAnalysisPanelLayout.createSequentialGroup()
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 173, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(53, 53, 53))
         );
         jAnalysisPanelLayout.setVerticalGroup(
             jAnalysisPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -108,15 +93,42 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
         );
 
         jInvestigationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Investigation Type"));
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         org.openide.awt.Mnemonics.setLocalizedText(jRadioButton1, "Forward");
         jRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
+        buttonGroup1.add(jRadioButton2);
         org.openide.awt.Mnemonics.setLocalizedText(jRadioButton2, "Perturbation");
         jRadioButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jRadioButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jButton4, "Settings...");
+        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4SettingsFileButton, "Settings...");
+        jBrowse4SettingsFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowse4SettingsFileButtonActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "Setup file");
+
+        org.openide.awt.Mnemonics.setLocalizedText(jEditSetttingsButton, "...");
+        jEditSetttingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditSetttingsButtonActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jInvestigationPanelLayout = new org.jdesktop.layout.GroupLayout(jInvestigationPanel);
         jInvestigationPanel.setLayout(jInvestigationPanelLayout);
@@ -124,73 +136,157 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
             jInvestigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jInvestigationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jRadioButton1)
-                .add(26, 26, 26)
-                .add(jRadioButton2)
-                .add(42, 42, 42)
-                .add(jButton4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(15, 15, 15))
+                .add(jInvestigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jInvestigationPanelLayout.createSequentialGroup()
+                        .add(jRadioButton1)
+                        .add(26, 26, 26)
+                        .add(jRadioButton2))
+                    .add(jInvestigationPanelLayout.createSequentialGroup()
+                        .add(jLabel4)
+                        .add(15, 15, 15)
+                        .add(jSetupFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jBrowse4SettingsFileButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jEditSetttingsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jInvestigationPanelLayout.setVerticalGroup(
             jInvestigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jInvestigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                .add(jRadioButton1)
-                .add(jRadioButton2)
-                .add(jButton4))
+            .add(jInvestigationPanelLayout.createSequentialGroup()
+                .add(jInvestigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jRadioButton1)
+                    .add(jRadioButton2))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jInvestigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel4)
+                    .add(jSetupFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jBrowse4SettingsFileButton)
+                    .add(jEditSetttingsButton))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jMessageTextArea.setBackground(new java.awt.Color(224, 223, 227));
+        jMessageTextArea.setColumns(20);
+        jMessageTextArea.setEditable(false);
+        jMessageTextArea.setForeground(new java.awt.Color(204, 0, 51));
+        jMessageTextArea.setRows(5);
+        jMessageTextArea.setBorder(null);
+        jMessageTextArea.setFocusable(false);
+        jMessageTextArea.setOpaque(false);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jAnalysisPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jInvestigationPanel, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jModelSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jMessageTextArea, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+                    .add(jAnalysisPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jInvestigationPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jModelSpecPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jInvestigationPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jAnalysisPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jMessageTextArea, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jEditSetttingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditSetttingsButtonActionPerformed
+    // Create an investigation
+        getInvestigation();
+        String fileName=jSetupFileTextField.getText();
+        boolean confirm = new ObjectEditDialogMaker(inv, true).process();
+        if (confirm)
+            inv.print(fileName);
+// TODO add your handling code here:
+    }//GEN-LAST:event_jEditSetttingsButtonActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+       invType=investigtionType.Perurb;
+        jSetupFileTextField.setText("");
+// TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+// TODO add your handling code here:
+        invType=investigtionType.Forward;
+        jSetupFileTextField.setText("");
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jBrowse4SettingsFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4SettingsFileButtonActionPerformed
+        String defaultDir="";
+        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
+
+        final JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Investgation setup file"));
+
+        if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            jSetupFileTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+             Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
+       }
+       jEditSetttingsButton.setEnabled(true);
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBrowse4SettingsFileButtonActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jAnalysisPanel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBrowse4SettingsFileButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jEditSetttingsButton;
     private javax.swing.JPanel jInvestigationPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jModelSpecPanel;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextArea jMessageTextArea;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jSetupFileTextField;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
     void updateWorkflow(WorkflowDescriptor descriptor) {
+        
     }
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
     }
 
     public void appendMessage(String message) {
+        super.displayMessage(message);
+        jMessageTextArea.append(message);
     }
 
     protected boolean checkValidForm() {
-        return true;
+        boolean setupFileSet = hasSetupFile();
+        jEditSetttingsButton.setEnabled(setupFileSet);
+
+        return setupFileSet;
+    }
+
+    private boolean hasSetupFile()
+    {
+        return !jSetupFileTextField.getText().equalsIgnoreCase("");
     }
     
+    public Investigation getInvestigation()
+    {
+        String fileName=jSetupFileTextField.getText();
+        if (invType==investigtionType.Perurb){
+            inv= new InvestigationPerturbation(fileName);
+        }
+        else if (invType==investigtionType.Forward){
+            inv= new InvestigationForward(fileName);
+        }
+        return inv;
+    }
 }
 

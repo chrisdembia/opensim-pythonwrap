@@ -15,7 +15,7 @@ import org.openide.windows.WindowManager;
 /**
  * Top component which displays something.
  */
-final class BottomPanelTopComponent extends TopComponent {
+public final class BottomPanelTopComponent extends TopComponent {
     
     private static BottomPanelTopComponent instance;
     /** path to the icon used by the component and its open action */
@@ -115,7 +115,7 @@ final class BottomPanelTopComponent extends TopComponent {
      * showLogMessage shows a message in the "bottom panel"'s text area.
      * A log message has low priority so if the component is closed nothing is shown
      */
-    void showLogMessage(String string) {
+    public void showLogMessage(String string) {
         jMessageArea.append(string);
     }
 
@@ -123,7 +123,7 @@ final class BottomPanelTopComponent extends TopComponent {
      * showErrorMessage displays a more serious error in the "bottom panel"'s text area.
      * Since this's more serious, the window is opened if it's closed and indicated to need attention
      */
-    void showErrorMessage(String string) {
+    public void showErrorMessage(String string) {
         open();
         requestAttention(true);
         jMessageArea.append(string);        

@@ -26,7 +26,7 @@
 package org.opensim.tracking;
 
 import javax.swing.JPanel;
-
+import org.opensim.view.BottomPanelTopComponent;
 /**
  *
  * @author Ayman Habib
@@ -51,6 +51,9 @@ public abstract class workflowVisualPanelBase extends JPanel{
     abstract void updateWorkflow(WorkflowDescriptor descriptor);
 
     abstract public void appendMessage(String message);
+    public void displayMessage(String message) {
+        BottomPanelTopComponent.findInstance().showErrorMessage(message);
+    }
     /**
      * A method to be called to inform the world that the user can hit next
      */

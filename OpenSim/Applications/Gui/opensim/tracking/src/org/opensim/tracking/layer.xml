@@ -10,6 +10,7 @@
             </folder>
         <folder name="Tools">
             <file name="org-opensim-toolbox-RRAction.instance"/>
+            <file name="org-opensim-tracking-InvestigationAction.instance"/>
             <file name="org-opensim-tracking-TrackingWorkflowAction.shadow" url="org-opensim-tracking-TrackingWorkflowAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
             </file>
@@ -35,9 +36,6 @@
             <attr name="org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance/org-netbeans-modules-autoupdate-UpdateAction.instance" boolvalue="false"/>
             <attr name="org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance/org-opensim-tracking-TrackingWorkflowAction.shadow" boolvalue="false"/>
             <attr name="Separator3.instance/org-opensim-tracking-TrackingWorkflowAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-toolbox-RRAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Tools/org-opensim-toolbox-RRAction.instance"/>
-            </file>
             <file name="org-opensim-tracking-TrackingWorkflowAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
             </file>
@@ -51,6 +49,14 @@
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
             <attr name="org-opensim-toolbox-separatorBefore.instance/org-opensim-toolbox-RRAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-toolbox-RRAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Tools/org-opensim-toolbox-RRAction.instance"/>
+            </file>
+            <attr name="Separator3.instance/org-opensim-tracking-InvestigationAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-tracking-InvestigationAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Tools/org-opensim-tracking-InvestigationAction.instance"/>
+            </file>
+            <attr name="org-opensim-tracking-InvestigationAction.shadow/org-opensim-tracking-TrackingWorkflowAction.instance" boolvalue="true"/>
             <file name="org-openide-actions-ToolsAction.instance_hidden"/>
         </folder>
         </folder>

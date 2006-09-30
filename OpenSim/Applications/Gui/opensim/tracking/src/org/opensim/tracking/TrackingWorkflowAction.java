@@ -41,7 +41,8 @@ public final class TrackingWorkflowAction extends CallableSystemAction {
                 if (obj instanceof JButton){
                       JButton selected = (JButton)obj;
                       // FIXME: this test should be replaced with a robust one
-                      if (selected.getText().equalsIgnoreCase("Next >")){
+                      if (selected.getText().equalsIgnoreCase("Next >") ||
+                          selected.getText().equalsIgnoreCase("Finish")  ){
                          // Execute action in addition to Next>
                           JComponent curComponent = (JComponent) iterator.current().getComponent();
                           // Execute only if not executed yet!

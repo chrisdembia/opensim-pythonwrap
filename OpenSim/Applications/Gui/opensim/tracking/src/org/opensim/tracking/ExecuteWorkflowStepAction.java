@@ -8,6 +8,9 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.swingui.SwingWorker;
 
+/**
+ * Execute a task of the workflow on a worker thread
+ */
 public final class ExecuteWorkflowStepAction extends CallableSystemAction {
     WizardDescriptor.Iterator  iterator;
     public ExecuteWorkflowStepAction(WizardDescriptor.Iterator  iterator)
@@ -33,12 +36,6 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
             };
          };
         worker.start();
-        /*    SwingUtilities.invokeLater(
-                    new Runnable(){
-                        public void run(){
-                            ((workflowWizardPanelBase)currentPanel).executeStep();
-                        };
-                    });*/
         }
     }
     
