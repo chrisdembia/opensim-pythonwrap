@@ -47036,6 +47036,89 @@ JNIEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmIKTrialP
 }
 
 
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmIKTrialParams_1setOutputMotionFilename(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
+  OpenSim::SimmIKTrialParams *arg1 = (OpenSim::SimmIKTrialParams *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmIKTrialParams **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->setOutputMotionFilename((std::string const &)*arg2);
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmIKTrialParams_1setIncludeMarkersProp(JNIEnv *jenv, jclass jcls, jlong jarg1, jboolean jarg2) {
+  OpenSim::SimmIKTrialParams *arg1 = (OpenSim::SimmIKTrialParams *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmIKTrialParams **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setIncludeMarkersProp(arg2);
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmIKTrialParams_1getIncludeMarkersProp(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jboolean jresult = 0 ;
+  OpenSim::SimmIKTrialParams *arg1 = (OpenSim::SimmIKTrialParams *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmIKTrialParams **)&jarg1; 
+  result = (bool)(arg1)->getIncludeMarkersProp();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmIKTrialParams_1getInputCoordinateFileName(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jstring jresult = 0 ;
+  OpenSim::SimmIKTrialParams *arg1 = (OpenSim::SimmIKTrialParams *) 0 ;
+  std::string *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmIKTrialParams **)&jarg1; 
+  {
+    std::string const &_result_ref = ((OpenSim::SimmIKTrialParams const *)arg1)->getInputCoordinateFileName();
+    result = (std::string *) &_result_ref;
+  }
+  jresult = jenv->NewStringUTF(result->c_str()); 
+  return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmIKTrialParams_1setInputCoordinateFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
+  OpenSim::SimmIKTrialParams *arg1 = (OpenSim::SimmIKTrialParams *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmIKTrialParams **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->setInputCoordinateFileName((std::string const &)*arg2);
+}
+
+
 JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmIKParams_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::SimmIKParams *result = 0 ;

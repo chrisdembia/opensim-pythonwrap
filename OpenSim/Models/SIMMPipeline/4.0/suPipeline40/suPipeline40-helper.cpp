@@ -100,7 +100,8 @@ extern "C" int sim_message( ErrorAction action, const char* format, ... )
    if ( action == exit_program )
       throw std::runtime_error( "sim_message: called with action==exit_program" );
 
-   if ( action == recover && wants_to_quit() )
+	bool queryUser = false; // Never query user per discussion with Clay & Eran for OpenSim 0.7
+   if ( action == recover && queryUser && wants_to_quit() )
       throw std::runtime_error( "sim_message: user chose to stop simulation" );
 
    return rv;
