@@ -20,7 +20,7 @@
           <Component id="jSubjectFilePanel2" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
-          <Component id="jScrollPane3" alignment="1" pref="358" max="32767" attributes="0"/>
+          <Component id="jScrollPane3" alignment="1" pref="375" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -59,7 +59,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jSubjectFileTextField2" min="-2" pref="231" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jGetSubjectFileButton3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jGetSubjectFileButton3" min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jAgeLabel2" min="-2" max="-2" attributes="0"/>
@@ -76,7 +76,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jGenderLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jGenderTextField2" pref="57" max="32767" attributes="1"/>
+                          <Component id="jGenderTextField2" pref="74" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -176,7 +176,6 @@
             <Property name="toolTipText" type="java.lang.String" value="Browse..."/>
             <Property name="autoscrolls" type="boolean" value="true"/>
             <Property name="borderPainted" type="boolean" value="false"/>
-            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jGetSubjectFileButton3ActionPerformed"/>
@@ -196,28 +195,27 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jModelDefaultRadioButton2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jModelOwnRadioButton2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jModelNameTextField2" pref="187" max="32767" attributes="1"/>
+                          <Component id="jModelNameTextField2" min="-2" pref="193" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBrowseForModelButton2" min="-2" pref="20" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="jBrowseForModelButton2" min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jModelDefaultRadioButton2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace pref="33" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jModelDefaultRadioButton2" min="-2" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jModelDefaultRadioButton2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jModelOwnRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jModelNameTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -276,7 +274,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Browse..."/>
             <Property name="borderPainted" type="boolean" value="false"/>
-            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowseForModelButton2ActionPerformed"/>
@@ -311,11 +308,11 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jOwnMarkersTextField2" min="-2" pref="186" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jMarkersNameButton2" min="-2" pref="21" max="-2" attributes="1"/>
+                          <Component id="jMarkersNameButton2" min="-2" pref="32" max="-2" attributes="1"/>
                       </Group>
                       <Component id="jDefaultMarkersRadioButton2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -326,8 +323,8 @@
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jOwnMarkersRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jOwnMarkersTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jMarkersNameButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jOwnMarkersTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -388,8 +385,6 @@
               <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Browse..."/>
-            <Property name="borderPainted" type="boolean" value="false"/>
-            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMarkersNameButton2ActionPerformed"/>

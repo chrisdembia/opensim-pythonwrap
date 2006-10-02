@@ -34,7 +34,7 @@
               <Component id="jRRAParamsPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jRunPass2Button" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="116" max="32767" attributes="0"/>
+              <EmptySpace pref="112" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,11 +57,11 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jRRAPass1SetupFileTextField" min="-2" pref="159" max="-2" attributes="1"/>
+                          <Component id="jRRAPass1SetupFileTextField" min="-2" pref="167" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBrowse4RRA1SetupButton" min="-2" pref="31" max="-2" attributes="1"/>
+                          <Component id="jBrowse4RRA1SetupButton" min="-2" pref="32" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jEditRRA1SetupButton" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Component id="jEditRRA1SetupButton" min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
@@ -78,8 +78,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBrowse4RRA1SetupButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRRAPass1SetupFileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jEditRRA1SetupButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRRAPass1SetupFileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="17" max="32767" attributes="0"/>
                   <Component id="jRunRRAPass1Button" min="-2" max="-2" attributes="0"/>
@@ -97,7 +97,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4RRA1SetupButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4RRA1SetupButtonActionPerformed"/>
@@ -105,7 +107,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jEditRRA1SetupButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/editor.gif"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEditRRA1SetupButtonActionPerformed"/>
@@ -136,11 +140,11 @@
               <Group type="102" attributes="0">
                   <Component id="jLabel3" min="-2" max="-2" attributes="1"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jRRAPass2SetupFileTextField" min="-2" pref="155" max="-2" attributes="1"/>
+                  <Component id="jRRAPass2SetupFileTextField" pref="167" max="32767" attributes="1"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jBrowse4RRA2SetupButton" min="0" pref="0" max="32767" attributes="1"/>
+                  <Component id="jBrowse4RRA2SetupButton" min="-2" pref="32" max="-2" attributes="1"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jEditRRA2SetupButton" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="jEditRRA2SetupButton" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -151,9 +155,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRRAPass2SetupFileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBrowse4RRA2SetupButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jEditRRA2SetupButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBrowse4RRA2SetupButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRRAPass2SetupFileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -170,7 +174,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4RRA2SetupButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4RRA2SetupButtonActionPerformed"/>
@@ -178,7 +184,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jEditRRA2SetupButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/editor.gif"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEditRRA2SetupButtonActionPerformed"/>

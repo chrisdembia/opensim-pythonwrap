@@ -117,4 +117,24 @@ public class SimmIKTrialParams extends OpenSimObject {
     return opensimModelJNI.SimmIKTrialParams_getOutputMotionFilename(swigCPtr);
   }
 
+  public void setOutputMotionFilename(String aOutputMotionFilename) {
+    opensimModelJNI.SimmIKTrialParams_setOutputMotionFilename(swigCPtr, aOutputMotionFilename);
+  }
+
+  public void setIncludeMarkersProp(boolean aBoolean) {
+    opensimModelJNI.SimmIKTrialParams_setIncludeMarkersProp(swigCPtr, aBoolean);
+  }
+
+  public boolean getIncludeMarkersProp() {
+    return opensimModelJNI.SimmIKTrialParams_getIncludeMarkersProp(swigCPtr);
+  }
+
+  public String getInputCoordinateFileName() {
+    return opensimModelJNI.SimmIKTrialParams_getInputCoordinateFileName(swigCPtr);
+  }
+
+  public void setInputCoordinateFileName(String aFilename) {
+    opensimModelJNI.SimmIKTrialParams_setInputCoordinateFileName(swigCPtr, aFilename);
+  }
+
 }

@@ -1,11 +1,14 @@
 package org.opensim.tracking;
 
+import com.realisticDynamics.InvestigationCMC;
+import com.realisticDynamics.InvestigationRRA;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
+import org.opensim.view.editors.ObjectEditDialogMaker;
 
 public final class RunCMCVisualPanel extends workflowVisualPanelBase {
     
@@ -33,18 +36,22 @@ public final class RunCMCVisualPanel extends workflowVisualPanelBase {
         jLabel2 = new javax.swing.JLabel();
         jcmcSetupfileTextField = new javax.swing.JTextField();
         jBrowse4SetupfileButton = new javax.swing.JButton();
-        jOutputPanel = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jResultsDirTextField = new javax.swing.JTextField();
-        jBrowse4ResultsDirButton = new javax.swing.JButton();
+        jEditCMCButton = new javax.swing.JButton();
 
         jCustomizeCMCPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("CMC Customization"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Settings file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4SetupfileButton, "Browse...");
+        jBrowse4SetupfileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowse4SetupfileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowse4SetupfileButtonActionPerformed(evt);
+            }
+        });
+
+        jEditCMCButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/editor.gif")));
+        jEditCMCButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditCMCButtonActionPerformed(evt);
             }
         });
 
@@ -55,53 +62,23 @@ public final class RunCMCVisualPanel extends workflowVisualPanelBase {
             .add(jCustomizeCMCPanelLayout.createSequentialGroup()
                 .add(jLabel2)
                 .add(20, 20, 20)
-                .add(jcmcSetupfileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 203, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jcmcSetupfileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 184, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jBrowse4SetupfileButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jEditCMCButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jCustomizeCMCPanelLayout.setVerticalGroup(
             jCustomizeCMCPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jCustomizeCMCPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jCustomizeCMCPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jBrowse4SetupfileButton)
                     .add(jLabel2)
-                    .add(jcmcSetupfileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jOutputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Output Directory");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4ResultsDirButton, "jButton3");
-        jBrowse4ResultsDirButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBrowse4ResultsDirButtonActionPerformed(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout jOutputPanelLayout = new org.jdesktop.layout.GroupLayout(jOutputPanel);
-        jOutputPanel.setLayout(jOutputPanelLayout);
-        jOutputPanelLayout.setHorizontalGroup(
-            jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jOutputPanelLayout.createSequentialGroup()
-                .add(jLabel3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jResultsDirTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 194, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jBrowse4ResultsDirButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        jOutputPanelLayout.setVerticalGroup(
-            jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jOutputPanelLayout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .add(jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel3)
-                    .add(jResultsDirTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jBrowse4ResultsDirButton))
-                .addContainerGap())
+                    .add(jcmcSetupfileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jBrowse4SetupfileButton)
+                    .add(jEditCMCButton))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -109,32 +86,24 @@ public final class RunCMCVisualPanel extends workflowVisualPanelBase {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jCustomizeCMCPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jCustomizeCMCPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jCustomizeCMCPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jOutputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBrowse4ResultsDirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4ResultsDirButtonActionPerformed
-        String defaultDir="";
-        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
-        final JFileChooser dlog = new JFileChooser(defaultDir);
-        dlog.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jResultsDirTextField.setText(dlog.getSelectedFile().getAbsolutePath());
-            Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
-        }
+    private void jEditCMCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditCMCButtonActionPerformed
+          String setupFilename = jcmcSetupfileTextField.getText();
+          InvestigationCMC cmc = new InvestigationCMC(setupFilename);
+          new ObjectEditDialogMaker(cmc, true).process();
+          cmc.print(setupFilename);
 // TODO add your handling code here:
-    }//GEN-LAST:event_jBrowse4ResultsDirButtonActionPerformed
+    }//GEN-LAST:event_jEditCMCButtonActionPerformed
 
     private void jBrowse4SetupfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4SetupfileButtonActionPerformed
         String defaultDir="";
@@ -151,13 +120,10 @@ public final class RunCMCVisualPanel extends workflowVisualPanelBase {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBrowse4ResultsDirButton;
     private javax.swing.JButton jBrowse4SetupfileButton;
     private javax.swing.JPanel jCustomizeCMCPanel;
+    private javax.swing.JButton jEditCMCButton;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jOutputPanel;
-    private javax.swing.JTextField jResultsDirTextField;
     private javax.swing.JTextField jcmcSetupfileTextField;
     // End of variables declaration//GEN-END:variables
     void updateWorkflow(WorkflowDescriptor descriptor) {

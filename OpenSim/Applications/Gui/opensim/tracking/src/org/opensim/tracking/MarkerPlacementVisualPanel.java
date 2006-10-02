@@ -62,7 +62,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
 
         jSolveStaticPosePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Static pose"));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4TrcButton, "Browse...");
+        jBrowse4TrcButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowse4TrcButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowse4TrcButtonActionPerformed(evt);
@@ -85,14 +85,14 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel5, "Markers file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jInitCoordinatesFileButton, "Browse...");
+        jInitCoordinatesFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jInitCoordinatesFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jInitCoordinatesFileButtonActionPerformed(evt);
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jAdditionalMarkersFileButton, "Browse...");
+        jAdditionalMarkersFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jAdditionalMarkersFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAdditionalMarkersFileButtonActionPerformed(evt);
@@ -161,6 +161,11 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         );
 
         jOutputFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
+        jOutputMarkersFileNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jOutputMarkersFileNameTextFieldActionPerformed(evt);
+            }
+        });
 
         org.openide.awt.Mnemonics.setLocalizedText(jSimmJntCheckBox, "SIMM .jnt");
         jSimmJntCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -179,28 +184,28 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         jSaveOsimCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jSaveOsimCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowseOsimButton, "jButton1");
+        jBrowseOsimButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowseOsimButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowseOsimButtonActionPerformed(evt);
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowseMarkersButton, "jButton4");
+        jBrowseMarkersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowseMarkersButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowseMarkersButtonActionPerformed(evt);
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowseMotionButton, "jButton6");
+        jBrowseMotionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowseMotionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowseMotionButtonActionPerformed(evt);
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowseJntButton, "jButton7");
+        jBrowseJntButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowseJntButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowseJntButtonActionPerformed(evt);
@@ -290,10 +295,14 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jOutputMarkersFileNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOutputMarkersFileNameTextFieldActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_jOutputMarkersFileNameTextFieldActionPerformed
 
     private void jBrowseJntButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseJntButtonActionPerformed
       final JFileChooser dlog = new JFileChooser("");
@@ -415,14 +424,15 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                                             FileUtils.addSuffix(params.getOutputJointFileName(),"MP")+".jnt");
         }
         // New markers
-        if (!params.getOutputMarkerFileName().equalsIgnoreCase("Unassigned")){
-            jOutputMarkersFileNameTextField.setText(params.getOutputMarkerFileName());
-            iSaveMarkersCheckBox.setSelected(true);
-        }
-        else{
+        String temp = params.getOutputMarkerFileName();
+        if (params.getOutputMarkerFileName().equalsIgnoreCase("Unassigned")){
             // Make up a default name
             jOutputMarkersFileNameTextField.setText(aDescriptor.dSubject.getPathToSubject()+
                                             FileUtils.addSuffix(params.getOutputMarkerFileName(),"MP")+".xml");
+        }
+        else{
+            jOutputMarkersFileNameTextField.setText(params.getOutputMarkerFileName());
+            iSaveMarkersCheckBox.setSelected(true);
         }
         // Motion file
         if (!params.getOutputMotionFileName().equalsIgnoreCase("Unassigned")){

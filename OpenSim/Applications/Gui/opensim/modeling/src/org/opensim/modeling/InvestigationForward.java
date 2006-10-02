@@ -63,4 +63,8 @@ public class InvestigationForward extends Investigation {
     opensimModelJNI.InvestigationForward_run(swigCPtr);
   }
 
+  public void initializeExternalLoads() {
+    opensimModelJNI.InvestigationForward_initializeExternalLoads(swigCPtr);
+  }
+
 }

@@ -22564,6 +22564,16 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationFo
 }
 
 
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationForward_1initializeExternalLoads(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::InvestigationForward *arg1 = (OpenSim::InvestigationForward *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::InvestigationForward **)&jarg1; 
+  (arg1)->initializeExternalLoads();
+}
+
+
 JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1InvestigationPerturbation_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::InvestigationPerturbation *result = 0 ;

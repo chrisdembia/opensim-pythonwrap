@@ -13,6 +13,7 @@ import org.opensim.swingui.SwingWorker;
  */
 public final class ExecuteWorkflowStepAction extends CallableSystemAction {
     WizardDescriptor.Iterator  iterator;
+    static boolean executing=false;
     public ExecuteWorkflowStepAction(WizardDescriptor.Iterator  iterator)
     {
         this.iterator = iterator;
@@ -20,6 +21,7 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
     public void performAction() {
         // TODO implement action body
         final WizardDescriptor.Panel currentPanel = iterator.current();
+        
         // Do not execute on event patching thread now so as not to freeze the GUI
         if (currentPanel instanceof workflowWizardPanelBase){
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Executing "+currentPanel.getComponent().getName()+"...");
@@ -31,7 +33,7 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
                 ((workflowWizardPanelBase)currentPanel).executeStep();
                 return this;
             };
-            public void finished() {
+           public void finished() {
                progressHandle.finish();
             };
          };

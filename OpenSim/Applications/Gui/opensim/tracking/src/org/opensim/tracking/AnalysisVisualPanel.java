@@ -36,12 +36,6 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jAnalysisPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
         jInvestigationPanel = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -50,47 +44,6 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
         jSetupFileTextField = new javax.swing.JTextField();
         jEditSetttingsButton = new javax.swing.JButton();
         jMessageTextArea = new javax.swing.JTextArea();
-
-        jAnalysisPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Analyses to perform"));
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Additional libraries");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jButton2, "...");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Analyses ");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jButton3, "Select...");
-
-        org.jdesktop.layout.GroupLayout jAnalysisPanelLayout = new org.jdesktop.layout.GroupLayout(jAnalysisPanel);
-        jAnalysisPanel.setLayout(jAnalysisPanelLayout);
-        jAnalysisPanelLayout.setHorizontalGroup(
-            jAnalysisPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jAnalysisPanelLayout.createSequentialGroup()
-                .add(jAnalysisPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jAnalysisPanelLayout.createSequentialGroup()
-                        .add(jLabel3)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton3))
-                    .add(jAnalysisPanelLayout.createSequentialGroup()
-                        .add(jLabel2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(53, 53, 53))
-        );
-        jAnalysisPanelLayout.setVerticalGroup(
-            jAnalysisPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jAnalysisPanelLayout.createSequentialGroup()
-                .add(jAnalysisPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
-                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jButton2))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jAnalysisPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel3)
-                    .add(jButton3))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         jInvestigationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Investigation Type"));
         buttonGroup1.add(jRadioButton1);
@@ -114,7 +67,8 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4SettingsFileButton, "Settings...");
+        jBrowse4SettingsFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
+        jBrowse4SettingsFileButton.setBorderPainted(false);
         jBrowse4SettingsFileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowse4SettingsFileButtonActionPerformed(evt);
@@ -123,7 +77,9 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "Setup file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jEditSetttingsButton, "...");
+        jEditSetttingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/editor.gif")));
+        jEditSetttingsButton.setAutoscrolls(true);
+        jEditSetttingsButton.setBorderPainted(false);
         jEditSetttingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jEditSetttingsButtonActionPerformed(evt);
@@ -144,11 +100,12 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
                     .add(jInvestigationPanelLayout.createSequentialGroup()
                         .add(jLabel4)
                         .add(15, 15, 15)
-                        .add(jSetupFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                        .add(jSetupFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jBrowse4SettingsFileButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jBrowse4SettingsFileButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jEditSetttingsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(jEditSetttingsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
                 .addContainerGap())
         );
         jInvestigationPanelLayout.setVerticalGroup(
@@ -163,7 +120,7 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
                     .add(jSetupFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jBrowse4SettingsFileButton)
                     .add(jEditSetttingsButton))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jMessageTextArea.setBackground(new java.awt.Color(224, 223, 227));
@@ -182,7 +139,6 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jMessageTextArea, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                    .add(jAnalysisPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jInvestigationPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -190,10 +146,8 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jInvestigationPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jAnalysisPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jMessageTextArea, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .add(105, 105, 105)
+                .add(jMessageTextArea, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -238,20 +192,14 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JPanel jAnalysisPanel;
     private javax.swing.JButton jBrowse4SettingsFileButton;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jEditSetttingsButton;
     private javax.swing.JPanel jInvestigationPanel;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextArea jMessageTextArea;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jSetupFileTextField;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
     void updateWorkflow(WorkflowDescriptor descriptor) {
         

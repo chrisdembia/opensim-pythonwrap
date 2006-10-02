@@ -91,6 +91,7 @@ public class MakeDModelPanel  extends workflowWizardPanelBase{
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        component.putClientProperty("Step_executed", Boolean.TRUE);
         return true;
    }
     

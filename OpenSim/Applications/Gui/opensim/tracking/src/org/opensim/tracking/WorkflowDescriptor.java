@@ -52,6 +52,7 @@ public class WorkflowDescriptor {
     private String      RRAoutputMotionFilename;
     private String      dynamicsDir;
     
+    private Boolean     stepInProgress=false;
     /**
      * Constructor, Creates a new instance of WorkflowDescriptor
      * 
@@ -163,6 +164,14 @@ public class WorkflowDescriptor {
 
     public String getDynamicsDir() {
         return dynamicsDir;
+    }
+
+    public Boolean getStepInProgress() {
+        return stepInProgress;
+    }
+
+    public void setStepInProgress(Boolean stepInProgress) {
+        this.stepInProgress = stepInProgress;
     }
 
  }

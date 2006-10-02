@@ -46,7 +46,7 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
         jModelSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Model Specification"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Model file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4ModelButton, "...");
+        jBrowse4ModelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowse4ModelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowse4ModelButtonActionPerformed(evt);
@@ -61,14 +61,14 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowseForDynamicsDirButton, "...");
+        jBrowseForDynamicsDirButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowseForDynamicsDirButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowseForDynamicsDirButtonActionPerformed(evt);
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Muscle filename");
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "SIMM Muscle file");
 
         jMusclefileTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +76,7 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "Kinetics filename");
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "Kinetics file");
 
         org.jdesktop.layout.GroupLayout jModelSpecPanelLayout = new org.jdesktop.layout.GroupLayout(jModelSpecPanel);
         jModelSpecPanel.setLayout(jModelSpecPanelLayout);
@@ -88,7 +88,7 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
                         .addContainerGap()
                         .add(jDynamicsDirTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jBrowseForDynamicsDirButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jBrowseForDynamicsDirButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jModelSpecPanelLayout.createSequentialGroup()
                         .add(jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
@@ -101,8 +101,8 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
                             .add(jMusclefileTextField)
                             .add(jModelTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
                         .add(6, 6, 6)
-                        .add(jBrowse4ModelButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(jBrowse4ModelButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jModelSpecPanelLayout.setVerticalGroup(
             jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -134,7 +134,7 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
         jMessageTextArea.setFont(new java.awt.Font("Courier", 0, 12));
         jMessageTextArea.setForeground(new java.awt.Color(204, 0, 51));
         jMessageTextArea.setRows(5);
-        jMessageTextArea.setText("Create a shared lib. to represent the dynamics \nof your model (.dll on Windows, .so on linux). \nUsing SD/Fast, C Compiler and the files created \nby OpenSim (model.h, model.sd, sdfor.c).\nPlace the generated shared library in your path.\n\nFor now also modify params.txt file to refer to \nkinetics file and msl file if modified.");
+        jMessageTextArea.setText("Create a shared library to represent the dynamics \nof your model (.dll on Windows, .so on linux). \nUse SD/Fast, C compiler and the files created \nby OpenSim (model.h, model.sd, sdfor.c).\nPlace the generated shared library in your PATH.\n");
         jMessageTextArea.setWrapStyleWord(true);
         jMessageTextArea.setBorder(null);
         jMessageTextArea.setFocusable(false);
@@ -153,7 +153,7 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
                 .add(jModelSpecPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jMessageTextArea, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -49,9 +49,6 @@
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
             <attr name="org-opensim-toolbox-separatorBefore.instance/org-opensim-toolbox-RRAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-toolbox-RRAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Tools/org-opensim-toolbox-RRAction.instance"/>
-            </file>
             <attr name="Separator3.instance/org-opensim-tracking-InvestigationAction.shadow" boolvalue="true"/>
             <file name="org-opensim-tracking-InvestigationAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Tools/org-opensim-tracking-InvestigationAction.instance"/>

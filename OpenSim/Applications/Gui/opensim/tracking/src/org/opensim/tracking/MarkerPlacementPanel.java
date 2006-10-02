@@ -88,10 +88,15 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             SimmMarkerSet aMarkerArray=params.getMarkerSet();
             model.updateMarkers(aMarkerArray); // This should be markerSet, could this work using proxy classes?
             component.appendMessage("Updating markers and coordinates.\n");
+            SimmMotionData coordinateValues=null;
             if (!params.getCoordinateFileName().equalsIgnoreCase("Unassigned")){
-                SimmMotionData coordinateValues = new SimmMotionData(subject.getPathToSubject()+params.getCoordinateFileName());
+                // @FIXME check that file exists
+                coordinateValues = new SimmMotionData(subject.getPathToSubject()+params.getCoordinateFileName());
                 model.updateCoordinates(params.getCoordinateSet());
             }
+            if (coordinateValues==null)
+                coordinateValues = new SimmMotionData();
+            
             // Make up a SimmIKTrialParams
             component.appendMessage("Reading static pose.\n");
             SimmMarkerData staticPose = new SimmMarkerData(subject.getPathToSubject()+params.getStaticPoseFilename());
@@ -112,6 +117,12 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             options.setIncludeMarkers(true);
             // Convert read trc fil into "common" rdStroage format
             staticPose.makeRdStorage(inputStorage);
+            if(coordinateValues.getNumColumns()>0) {
+                 coordinateValues.addToRdStorage(inputStorage,timeRange.getitem(0),timeRange.getitem(1));
+            }
+            inputStorage.print("markers_coords.sto"); 
+                  // Create target 
+
             // Create target
             SimmInverseKinematicsTarget target = new SimmInverseKinematicsTarget(model, inputStorage);
             // Create solver

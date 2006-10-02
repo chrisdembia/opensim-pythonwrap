@@ -11,12 +11,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="273" max="32767" attributes="1"/>
+                  <Component id="jTrialSelectionPanel" alignment="0" max="32767" attributes="2"/>
+                  <Component id="jScrollPane1" alignment="0" pref="337" max="32767" attributes="1"/>
                   <Component id="jOutputPanel" alignment="0" max="32767" attributes="3"/>
-                  <Component id="jTrialSelectionPanel" alignment="0" min="0" pref="273" max="32767" attributes="2"/>
-                  <Component id="jModelAddonForIKPanel" alignment="0" min="0" pref="273" max="32767" attributes="3"/>
+                  <Component id="jModelAddonForIKPanel" alignment="0" min="0" max="32767" attributes="3"/>
                   <Component id="jModelSpecPanel" alignment="0" max="32767" attributes="3"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -35,7 +35,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jOutputPanel" min="-2" pref="94" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="77" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="71" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,8 +57,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jModelNameTextField" pref="150" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jModelNameTextField" min="-2" pref="182" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jModelBrowseButton" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               </Group>
@@ -84,7 +84,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jModelBrowseButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jModelBrowseButtonActionPerformed"/>
@@ -111,15 +113,15 @@
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jCoordinateSetTextField" pref="148" max="32767" attributes="2"/>
-                      <Component id="jMarkersFileTextField" alignment="0" pref="148" max="32767" attributes="2"/>
+                      <Component id="jCoordinateSetTextField" pref="180" max="32767" attributes="2"/>
+                      <Component id="jMarkersFileTextField" alignment="0" pref="180" max="32767" attributes="2"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jBrowse4CoordinatesButton" min="0" pref="0" max="32767" attributes="1"/>
                       <Component id="jMarkersBrowseButton" alignment="0" pref="32" max="32767" attributes="1"/>
                   </Group>
-                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -151,7 +153,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jMarkersBrowseButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -163,7 +167,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4CoordinatesButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4CoordinatesButtonActionPerformed"/>
@@ -203,7 +209,7 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jTrialFileTextField" pref="153" max="32767" attributes="0"/>
+                                  <Component id="jTrialFileTextField" pref="203" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Component id="jTrialSelectComboBox" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
@@ -273,7 +279,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4TRCButton5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4TRCButton5ActionPerformed"/>
@@ -347,8 +355,8 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jOutputMotionTextField" pref="156" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jOutputMotionTextField" min="-2" pref="202" max="-2" attributes="0"/>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                           <Component id="jBrowse4OutputMotionButton" min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -360,7 +368,7 @@
                           <Component id="jIncludeUserDataCheckBox" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -369,8 +377,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBrowse4OutputMotionButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jOutputMotionTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBrowse4OutputMotionButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jIncludeMarkersInOutputCheckBox" min="-2" max="-2" attributes="0"/>
@@ -388,10 +396,15 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jOutputMotionTextField">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jOutputMotionTextFieldActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4OutputMotionButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4OutputMotionButtonActionPerformed"/>

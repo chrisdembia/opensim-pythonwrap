@@ -73,7 +73,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         jModelSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Model specification"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Model file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jModelBrowseButton, "...");
+        jModelBrowseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jModelBrowseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jModelBrowseButtonActionPerformed(evt);
@@ -88,8 +88,8 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                 .addContainerGap()
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jModelNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jModelNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 182, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jModelBrowseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(42, 42, 42))
         );
@@ -104,11 +104,11 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         jModelAddonForIKPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Model adjustments for IK"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Markers");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jMarkersBrowseButton, "...");
+        jMarkersBrowseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Coordinates");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4CoordinatesButton, "...");
+        jBrowse4CoordinatesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowse4CoordinatesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowse4CoordinatesButtonActionPerformed(evt);
@@ -125,13 +125,13 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                     .add(jLabel2))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jCoordinateSetTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+                    .add(jCoordinateSetTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jBrowse4CoordinatesButton, 0, 0, Short.MAX_VALUE)
                     .add(jMarkersBrowseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, Short.MAX_VALUE))
-                .add(9, 9, 9))
+                .add(41, 41, 41))
         );
         jModelAddonForIKPanelLayout.setVerticalGroup(
             jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -150,7 +150,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         jTrialSelectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Trials to solve"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "Trial file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4TRCButton5, "...");
+        jBrowse4TRCButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowse4TRCButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowse4TRCButton5ActionPerformed(evt);
@@ -199,7 +199,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jTrialSelectionPanelLayout.createSequentialGroup()
-                                .add(jTrialFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                                .add(jTrialFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
                             .add(jTrialSelectComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -246,7 +246,13 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         jOutputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel10, "Motion file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBrowse4OutputMotionButton, "...");
+        jOutputMotionTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jOutputMotionTextFieldActionPerformed(evt);
+            }
+        });
+
+        jBrowse4OutputMotionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowse4OutputMotionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowse4OutputMotionButtonActionPerformed(evt);
@@ -272,8 +278,8 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                     .add(jOutputPanelLayout.createSequentialGroup()
                         .add(jLabel10)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 202, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(6, 6, 6)
                         .add(jBrowse4OutputMotionButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jOutputPanelLayout.createSequentialGroup()
                         .addContainerGap()
@@ -281,15 +287,15 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                     .add(jOutputPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .add(jIncludeUserDataCheckBox)))
-                .addContainerGap())
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jOutputPanelLayout.setVerticalGroup(
             jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jOutputPanelLayout.createSequentialGroup()
                 .add(jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel10)
-                    .add(jBrowse4OutputMotionButton)
-                    .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jBrowse4OutputMotionButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jIncludeMarkersInOutputCheckBox)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -317,12 +323,12 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTrialSelectionPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTrialSelectionPanel, 0, 273, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jModelAddonForIKPanel, 0, 273, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jModelAddonForIKPanel, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jModelSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -338,9 +344,14 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jOutputMotionTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOutputMotionTextFieldActionPerformed
+// TODO add your handling code here:
+        checkValidForm();
+    }//GEN-LAST:event_jOutputMotionTextFieldActionPerformed
 
     private void jBrowse4OutputMotionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4OutputMotionButtonActionPerformed
        final JFileChooser dlog = new JFileChooser("");
@@ -436,7 +447,9 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     void updateWorkflow(WorkflowDescriptor descriptor) {
        SimmIKParams params = descriptor.getSubject().getIKParams();
        // model file, markers, coords, trial-name, trial-file, from, to, motfile, inc markers, inc-others
-       
+       params.getTrialParams(0).setEndTime(Double.parseDouble(jToTextField.getText()));
+       params.getTrialParams(0).setStartTime(Double.parseDouble(jFromTextField.getText()));
+       params.getTrialParams(0).setOutputMotionFilename(jOutputMotionTextField.getText());
        
     }
 
@@ -509,7 +522,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     }
 
     protected boolean checkValidForm() {
-        return true;
+        return (jOutputMotionTextField.getText().length()!=0);
     }
 }
 

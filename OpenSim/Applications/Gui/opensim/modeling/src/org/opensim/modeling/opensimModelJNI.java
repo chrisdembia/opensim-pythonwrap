@@ -1334,6 +1334,7 @@ public class opensimModelJNI {
   public final static native long InvestigationForward_copy__SWIG_0(long jarg1);
   public final static native long InvestigationForward_copy__SWIG_1(long jarg1, long jarg2);
   public final static native void InvestigationForward_run(long jarg1);
+  public final static native void InvestigationForward_initializeExternalLoads(long jarg1);
   public final static native long new_InvestigationPerturbation__SWIG_0();
   public final static native long new_InvestigationPerturbation__SWIG_1(String jarg1);
   public final static native long new_InvestigationPerturbation__SWIG_2(long jarg1);
@@ -2762,6 +2763,11 @@ public class opensimModelJNI {
   public final static native void SimmIKTrialParams_peteTest(long jarg1);
   public final static native String SimmIKTrialParams_getMarkerDataFilename(long jarg1);
   public final static native String SimmIKTrialParams_getOutputMotionFilename(long jarg1);
+  public final static native void SimmIKTrialParams_setOutputMotionFilename(long jarg1, String jarg2);
+  public final static native void SimmIKTrialParams_setIncludeMarkersProp(long jarg1, boolean jarg2);
+  public final static native boolean SimmIKTrialParams_getIncludeMarkersProp(long jarg1);
+  public final static native String SimmIKTrialParams_getInputCoordinateFileName(long jarg1);
+  public final static native void SimmIKTrialParams_setInputCoordinateFileName(long jarg1, String jarg2);
   public final static native long new_SimmIKParams__SWIG_0();
   public final static native long new_SimmIKParams__SWIG_1(long jarg1);
   public final static native long new_SimmIKParams__SWIG_2(long jarg1);

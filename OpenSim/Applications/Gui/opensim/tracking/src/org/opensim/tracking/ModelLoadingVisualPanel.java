@@ -111,7 +111,6 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         jGetSubjectFileButton3.setToolTipText("Browse...");
         jGetSubjectFileButton3.setAutoscrolls(true);
         jGetSubjectFileButton3.setBorderPainted(false);
-        jGetSubjectFileButton3.setContentAreaFilled(false);
         jGetSubjectFileButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jGetSubjectFileButton3ActionPerformed(evt);
@@ -130,7 +129,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jSubjectFileTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 231, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jGetSubjectFileButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jGetSubjectFileButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jSubjectFilePanel2Layout.createSequentialGroup()
                         .add(jAgeLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -146,7 +145,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jGenderLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jGenderTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)))
+                        .add(jGenderTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jSubjectFilePanel2Layout.setVerticalGroup(
@@ -200,7 +199,6 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         jBrowseForModelButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowseForModelButton2.setToolTipText("Browse...");
         jBrowseForModelButton2.setBorderPainted(false);
-        jBrowseForModelButton2.setContentAreaFilled(false);
         jBrowseForModelButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBrowseForModelButton2ActionPerformed(evt);
@@ -219,23 +217,22 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jModelDefaultRadioButton2)
                     .add(jPanel5Layout.createSequentialGroup()
                         .add(jModelOwnRadioButton2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jModelNameTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                        .add(jModelNameTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 193, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jBrowseForModelButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(24, 24, 24))))
+                        .add(jBrowseForModelButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jModelDefaultRadioButton2))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(jModelDefaultRadioButton2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jModelOwnRadioButton2)
                     .add(jModelNameTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -273,8 +270,6 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
 
         jMarkersNameButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jMarkersNameButton2.setToolTipText("Browse...");
-        jMarkersNameButton2.setBorderPainted(false);
-        jMarkersNameButton2.setContentAreaFilled(false);
         jMarkersNameButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMarkersNameButton2ActionPerformed(evt);
@@ -292,9 +287,9 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jOwnMarkersTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 186, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jMarkersNameButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jMarkersNameButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jDefaultMarkersRadioButton2))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -303,8 +298,8 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                 .add(14, 14, 14)
                 .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jOwnMarkersRadioButton2)
-                    .add(jOwnMarkersTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jMarkersNameButton2))
+                    .add(jMarkersNameButton2)
+                    .add(jOwnMarkersTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -331,7 +326,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
             .add(jSubjectFilePanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jPanel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -598,7 +593,8 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
     public void appendMessage(String message)
     {
         jMessageTextArea2.append(message);
-        repaint();  // Refresh display after any new dialog is braught down
+        invalidate();
+        repaint();
     }
 
     /**

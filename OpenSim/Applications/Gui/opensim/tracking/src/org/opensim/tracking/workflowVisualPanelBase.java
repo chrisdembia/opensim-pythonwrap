@@ -52,7 +52,7 @@ public abstract class workflowVisualPanelBase extends JPanel{
 
     abstract public void appendMessage(String message);
     public void displayMessage(String message) {
-        BottomPanelTopComponent.findInstance().showErrorMessage(message);
+        BottomPanelTopComponent.findInstance().showLogMessage(message);
     }
     /**
      * A method to be called to inform the world that the user can hit next
