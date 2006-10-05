@@ -18,7 +18,7 @@
 
 *******************************************************************************/
 #include <OpenSim/Models/SIMMPipeline/4.0/suPipeline40/dp/universal.h>
-#include <OpenSim/Models/SIMMPipeline/4.0/Pipeline40Workflow/model.h>
+#include "model.h"
 #include <OpenSim/Models/SIMMPipeline/4.0/Pipeline40Workflow/user_structs.h>
 
 /*************** DEFINES (for this file only) *********************************/
@@ -653,6 +653,8 @@ void init_gaitsim(dpModelStruct* sdm, MotionData* data,double t,double *y) {
 	sdm->q[subtalar_angle_l].type = dpPrescribedQ;
 	sdm->q[mtp_angle_r].type = dpPrescribedQ;
 	sdm->q[mtp_angle_l].type = dpPrescribedQ;
+	//printf("\n\n\n\nsub_r,mtp_r,sub_l,mtp_l %d %d %d %d\n\n\n\n",subtalar_angle_r,mtp_angle_r,subtalar_angle_l,mtp_angle_l);
+	/* Clay- We no longer have virtual feet.
 	sdm->q[calcn_r_tx].type = dpPrescribedQ;
 	sdm->q[calcn_r_ty].type = dpPrescribedQ;
 	sdm->q[calcn_r_tz].type = dpPrescribedQ;
@@ -665,6 +667,7 @@ void init_gaitsim(dpModelStruct* sdm, MotionData* data,double t,double *y) {
 	sdm->q[calcn_l_r1].type = dpPrescribedQ;
 	sdm->q[calcn_l_r2].type = dpPrescribedQ;
 	sdm->q[calcn_l_r3].type = dpPrescribedQ;
+	*/
 
 	// Set prescribed and unconstrained gencoords
 	for (i=0;i<sdm->nq;i++) {
