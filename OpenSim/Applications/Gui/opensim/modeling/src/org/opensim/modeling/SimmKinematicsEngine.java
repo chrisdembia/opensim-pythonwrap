@@ -197,8 +197,8 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     return (cPtr == 0) ? null : new SimmJoint(cPtr, false);
   }
 
-  public SWIGTYPE_p_SimmBodySet getBodies() {
-    return new SWIGTYPE_p_SimmBodySet(opensimModelJNI.SimmKinematicsEngine_getBodies(swigCPtr), false);
+  public SimmBodySet getBodies() {
+    return new SimmBodySet(opensimModelJNI.SimmKinematicsEngine_getBodies(swigCPtr), false);
   }
 
   public SimmCoordinateSet getCoordinates() {

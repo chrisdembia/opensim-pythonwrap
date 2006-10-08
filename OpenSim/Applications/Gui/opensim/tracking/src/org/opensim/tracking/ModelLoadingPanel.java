@@ -55,6 +55,7 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
         // Update cached values
         descriptor.updateCachedValues();
         component.updatePanel(descriptor);
+        updateVisibility();
     }
     public void storeSettings(Object settings) {
         //System.out.println("Store settings");
@@ -103,5 +104,7 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
         }
         return true;
     }
+    public void updateVisibility()
+    {}
 }
 

@@ -21,7 +21,6 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
     public ScalingVisualPanel(workflowWizardPanelBase basePanel) {
         super(basePanel);
         initComponents();
-        
     }
     
     public String getName() {
@@ -176,8 +175,8 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                                     .add(jLabel5))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(saveScalesTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                                    .add(markerTrialTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                                    .add(saveScalesTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                                    .add(markerTrialTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                                     .add(jMeasurementScalePanelLayout.createSequentialGroup()
                                         .add(jFromTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -186,7 +185,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                                         .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jMaxMarkerMoveTextField)
                                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jToTimeTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
-                                    .add(jMeasurementsFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
+                                    .add(jMeasurementsFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
                             .add(jSaveScalesCheckBox))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
@@ -592,7 +591,8 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                                             FileUtils.addSuffix(madeUpName,"SP"));
         }
         // Muscle file
-        if (!scalingParams.getOutputMuscleFileName().equalsIgnoreCase("Unassigned")){
+        String msl =scalingParams.getOutputMuscleFileName();
+        if (!msl.equalsIgnoreCase("Unassigned")){
             saveSIMMmslTextField1.setText(scalingParams.getOutputMuscleFileName());
             jCheckBoxSavemsl1.setSelected(true);
         }
@@ -603,6 +603,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                                             FileUtils.addSuffix(madeUpName,"SP"));
         }
         repaint();
+
     }
 
     private String mapScalingOrderToIndex(ArrayStr scalingOrder) {
@@ -742,14 +743,9 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
 
     public void appendMessage(String message) {
         jMessageTextArea.append(message);
-        invalidate();
-        repaint();
-    }
+        jMessageTextArea.invalidate();
 
-    protected boolean checkValidForm() {
-        return true;
     }
-
 
 }
 

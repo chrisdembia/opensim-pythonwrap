@@ -47,25 +47,10 @@ public final class OpenOsimModelAction extends CallableSystemAction {
     }
 
      /**
-     * A wrapper around loadModel that handles URLs so that we can use the getResource mechanism
+     * A wrapper around loadModel that handles a SimmModel rather than a filename
      */
-    public boolean loadModel(final URL fileURL) throws IOException {
-        return loadModel(fileURL.getFile());
-    }
-    /**
-     * This is the function that does the real work of loading a model file into the GUI
-     * @param fileName is the absolute path to the file to be used.
-     * @returns true on success else failure
-     */
-    public boolean loadModel(final String fileName) throws IOException {
+    public boolean loadModel(final SimmModel aModel) throws IOException {
         boolean retValue = false;
-        SimmModel aModel=null;
-        
-        aModel = new SimmModel(fileName);
-        if (aModel == null){
-             BottomPanelTopComponent.findInstance().showErrorMessage("Failed to construct model from file "+fileName+"\n");
-            return retValue;
-        }
         aModel.setup();
         boolean isOk = aModel.builtOK();
         if (!isOk){
@@ -77,17 +62,35 @@ public final class OpenOsimModelAction extends CallableSystemAction {
         SwingUtilities.invokeLater(new Runnable(){
             public void run() {
                 modelWindow.open();
-           }});
-        
-        OpenSimDB.getInstance().addObserver(modelWindow);
-        OpenSimDB.getInstance().addModel(aModel);
-        ViewDB.getInstance().addModelWindowMap(aModel, modelWindow);
+                OpenSimDB.getInstance().addObserver(modelWindow);
+                OpenSimDB.getInstance().addModel(aModel);
+                ViewDB.getInstance().addModelWindowMap(aModel, modelWindow);
+                // Log message to Log window. 
+                BottomPanelTopComponent.findInstance().showLogMessage("Model has been created from file "+fileName+"\n");
+                modelWindow.requestActive();
+            }});
         retValue = true;
-        // Log message to Log window
-         BottomPanelTopComponent.findInstance().showLogMessage("Model has been created from file "+fileName+"\n");
-        return retValue;
+        return retValue;        
     }
-
+    /**
+     * This is the function that does the real work of loading a model file into the GUI
+     * @param fileName is the absolute path to the file to be used.
+     * @returns true on success else failure
+     */
+      public boolean loadModel(final String fileName) throws IOException {
+         return loadModel(fileName, false);
+         
+     }
+     public boolean loadModel(final String fileName, boolean loadInForground) throws IOException {
+        boolean retValue = false;
+        final SimmModel aModel = new SimmModel(fileName);
+        if (aModel == null){
+             BottomPanelTopComponent.findInstance().showErrorMessage("Failed to construct model from file "+fileName+"\n");
+            return retValue;
+        }
+        return loadModel(aModel);
+    }
+    
     public String getName() {
         return NbBundle.getMessage(OpenOsimModelAction.class, "CTL_OpenOsimModel");
     }

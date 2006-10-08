@@ -40,7 +40,7 @@ import org.opensim.view.BottomPanelTopComponent;
  */
 public abstract class workflowVisualPanelBase extends JPanel{
     
-    workflowWizardPanelBase logicPanel;
+    public workflowWizardPanelBase logicPanel;
     /**
      * Creates a new instance of workflowVisualPanelBase
      */
@@ -61,8 +61,4 @@ public abstract class workflowVisualPanelBase extends JPanel{
     {
         logicPanel.markValid(valid);
     }
-    /**
-     * checkValidForm: A method that does the actual validation of the form
-     */
-    abstract protected boolean checkValidForm();
-}
+ }

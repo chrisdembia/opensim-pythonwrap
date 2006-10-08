@@ -498,9 +498,6 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         repaint();
     }
 
-    protected boolean checkValidForm() {
-        return true;
-    }
     
 }
 

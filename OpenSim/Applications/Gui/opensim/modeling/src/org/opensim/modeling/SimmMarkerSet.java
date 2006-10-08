@@ -41,4 +41,12 @@ public class SimmMarkerSet extends SetSimmMarker {
     this(opensimModelJNI.new_SimmMarkerSet__SWIG_1(aMarkersFileName), true);
   }
 
+  public SimmMarkerSet(SimmMarkerSet aSimmMarkerSet) {
+    this(opensimModelJNI.new_SimmMarkerSet__SWIG_2(SimmMarkerSet.getCPtr(aSimmMarkerSet)), true);
+  }
+
+  public void addNamePrefix(String prefix) {
+    opensimModelJNI.SimmMarkerSet_addNamePrefix(swigCPtr, prefix);
+  }
+
 }

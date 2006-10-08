@@ -11,10 +11,9 @@ import javax.swing.SwingUtilities;
 import org.openide.awt.UndoRedo;
 import org.openide.util.NbBundle;
 import org.openide.util.lookup.Lookups;
-import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
-import org.openide.windows.WindowManager;
 import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.utils.TheApp;
 import vtk.vtkFileOutputWindow;
 /**
@@ -63,6 +62,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
         fow.SetFileName("vtklog.log");
         if (fow != null)
             fow.SetInstance(fow);
+        
      }
    
     /** This method is called from within the constructor to
@@ -190,7 +190,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
             // Create a frame for the new Model
             if (ev.getModel() == getModel()){
                 if(ev.getOperation() == ModelEvent.Operation.Open){
-                    getCanvas().loadModel(getModel());
+                    getCanvas().loadModel(getModel(), false);
                     componentActivated();
                 }
             }
@@ -223,6 +223,10 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
         
         retValue = super.getUndoRedo();
         return retValue;
+    }
+
+    public void updateDisplay(SimmModel analysisModel) {
+        openSimCanvas1.updateDisplay(analysisModel);
     }
     
 }

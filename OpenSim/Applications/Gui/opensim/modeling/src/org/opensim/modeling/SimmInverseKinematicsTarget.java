@@ -8,12 +8,11 @@
 
 package org.opensim.modeling;
 
-public class SimmInverseKinematicsTarget {
+public class SimmInverseKinematicsTarget extends rdOptimizationTarget {
   private long swigCPtr;
-  protected boolean swigCMemOwn;
 
   public SimmInverseKinematicsTarget(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -31,6 +30,7 @@ public class SimmInverseKinematicsTarget {
       opensimModelJNI.delete_SimmInverseKinematicsTarget(swigCPtr);
     }
     swigCPtr = 0;
+    super.delete();
   }
 
   public SimmInverseKinematicsTarget(SimmModel aModel, Storage aExperimentalDataStorage) {

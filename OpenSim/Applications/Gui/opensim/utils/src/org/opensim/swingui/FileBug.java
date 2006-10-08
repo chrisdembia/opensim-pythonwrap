@@ -9,6 +9,8 @@ import org.opensim.utils.BrowserLauncher;
 public final class FileBug extends CallableSystemAction {
     
     public void performAction() {
+        //Or use internal browser 
+        // HtmlBrowser.URLDisplayer.getDefault().showURL(new URL("https://simtk.org/tracker/?func=add&atid=322&group_id=91"));
         BrowserLauncher.openURL("https://simtk.org/tracker/?func=add&atid=322&group_id=91");
     }
     
@@ -18,7 +20,6 @@ public final class FileBug extends CallableSystemAction {
     
     protected void initialize() {
         super.initialize();
-        // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
         putValue("noIconInMenu", Boolean.TRUE);
     }
     

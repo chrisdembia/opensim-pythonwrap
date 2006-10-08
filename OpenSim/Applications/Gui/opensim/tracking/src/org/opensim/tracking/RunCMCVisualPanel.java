@@ -1,17 +1,18 @@
 package org.opensim.tracking;
 
 import com.realisticDynamics.InvestigationCMC;
-import com.realisticDynamics.InvestigationRRA;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
+import org.opensim.modeling.Investigation;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 import org.opensim.view.editors.ObjectEditDialogMaker;
 
 public final class RunCMCVisualPanel extends workflowVisualPanelBase {
     
+    Investigation inv;
     /**
      * Creates new form RunCMCVisualPanel
      */
@@ -139,6 +140,13 @@ public final class RunCMCVisualPanel extends workflowVisualPanelBase {
 
     protected boolean checkValidForm() {
         return true;
+    }
+    public Investigation getInvestigation()
+    {
+        String fileName=jcmcSetupfileTextField.getText();
+        inv= new InvestigationCMC(fileName);
+
+        return inv;
     }
     
 }

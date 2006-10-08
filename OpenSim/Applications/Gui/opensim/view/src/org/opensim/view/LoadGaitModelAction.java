@@ -12,18 +12,6 @@ import org.opensim.utils.TheApp;
 public final class LoadGaitModelAction extends CallableSystemAction {
     
     public void performAction() {
-        try {
-                // TODO better layout for models, bones, use relative path
-            URL modelURL = this.getClass().getResource("resources/gait2392_gillette.osim");
-                ((OpenOsimModelAction) OpenOsimModelAction.findObject(
-                        Class.forName("org.opensim.view.OpenOsimModelAction"))).
-                        loadModel(modelURL);
-        } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-        } catch (IOException ex) {
-            DialogDisplayer.getDefault().notify(
-                    new NotifyDescriptor.Message("Model could not be located. Please file a bug!"));
-        }
     }
     
     public String getName() {

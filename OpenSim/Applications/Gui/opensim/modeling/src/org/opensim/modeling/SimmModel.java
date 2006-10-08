@@ -139,8 +139,8 @@ public class SimmModel extends Model {
     return opensimModelJNI.SimmModel_bodyNeededForDynamics(swigCPtr, SimmBody.getCPtr(aBody));
   }
 
-  public SWIGTYPE_p_SimmBodySet getBodies() {
-    return new SWIGTYPE_p_SimmBodySet(opensimModelJNI.SimmModel_getBodies(swigCPtr), false);
+  public SimmBodySet getBodies() {
+    return new SimmBodySet(opensimModelJNI.SimmModel_getBodies(swigCPtr), false);
   }
 
   public SimmCoordinateSet getCoordinates() {

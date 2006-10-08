@@ -62,12 +62,32 @@ public class Investigation extends OpenSimObject {
     opensimModelJNI.Investigation_setResultsDir(swigCPtr, aString);
   }
 
+  public double getStartTime() {
+    return opensimModelJNI.Investigation_getStartTime(swigCPtr);
+  }
+
+  public double getFinalTime() {
+    return opensimModelJNI.Investigation_getFinalTime(swigCPtr);
+  }
+
+  public String getModelFilename() {
+    return opensimModelJNI.Investigation_getModelFilename(swigCPtr);
+  }
+
+  public void setModelFilename(String aModelFile) {
+    opensimModelJNI.Investigation_setModelFilename(swigCPtr, aModelFile);
+  }
+
   public void constructCommandLineForLoadModel(ArrayStr args) {
     opensimModelJNI.Investigation_constructCommandLineForLoadModel(swigCPtr, ArrayStr.getCPtr(args));
   }
 
   public void loadModel() {
     opensimModelJNI.Investigation_loadModel(swigCPtr);
+  }
+
+  public void addAnalysisSetToModel() {
+    opensimModelJNI.Investigation_addAnalysisSetToModel(swigCPtr);
   }
 
   public void run() {

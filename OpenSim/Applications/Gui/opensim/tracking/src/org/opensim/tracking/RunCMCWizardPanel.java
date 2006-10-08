@@ -1,12 +1,19 @@
 package org.opensim.tracking;
 
-import com.realisticDynamics.InvestigationCMCGait;
 import java.awt.Component;
-import javax.swing.event.ChangeListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
+import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
-import org.opensim.swingui.SwingWorker;
+import org.opensim.modeling.Investigation;
+import org.opensim.modeling.Model;
+import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.SimtkAnimationCallback;
+import org.opensim.view.ModelWindowVTKTopComponent;
+import org.opensim.view.ViewDB;
 
 public class RunCMCWizardPanel  extends workflowWizardPanelBase{
     
@@ -15,6 +22,7 @@ public class RunCMCWizardPanel  extends workflowWizardPanelBase{
      * component from this class, just use getComponent().
      */
     private RunCMCVisualPanel component;
+    SimtkAnimationCallback animationCallback;
     
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
@@ -65,6 +73,7 @@ public class RunCMCWizardPanel  extends workflowWizardPanelBase{
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
+        updateVisibility();
     }
     public void storeSettings(Object settings) {
        descriptor = (WorkflowDescriptor) settings;
@@ -72,51 +81,14 @@ public class RunCMCWizardPanel  extends workflowWizardPanelBase{
     }
 
     boolean executeStep() {
-        /* String cmd = "cmcgait -S" + "900045_setup_cmcgait.xml";
-         try {
-             File workingDir = new File("C:\\test\\945\\900045");
-             Runtime r = Runtime.getRuntime();
-             Process p = r.exec(cmd);
-             
-             InputStream i_stream = p.getErrorStream();
-             InputStreamReader reader = new InputStreamReader(i_stream); 
- 
-             InputStream out = new BufferedInputStream(p.getInputStream()); 
-             
-             String s =null;
-             
-             BufferedReader bf_reader= new BufferedReader(reader); 
-             while ((s = bf_reader.readLine()) != null) {
-        		 byte[] b = new byte[1024]; 
-                 int n = out.read(b);
-                 for(int i=0; i<n; i++) 
-        		 System.out.print((char)b[i]);
-             }
- 
-             p.waitFor();// wait for application to be ended
-             
-         }catch(Exception e) {
-            System.out.println("execution error" + cmd + e.getMessage());
-         } */
-        final InvestigationCMCGait cmc = new InvestigationCMCGait(descriptor.getSetupCMCFilename());
-        final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Running CMC ");
-        progressHandle.start();
-
-        final SwingWorker worker = new SwingWorker() {
-            
-            public Object construct() { // runs in a worker thread
-                progressHandle.progress((int)cmc.getModel().getTime()*100);
-                cmc.run();
-                return this;
-            };
-            public void finished() {
-               progressHandle.finish();
-            };
-         };
-        worker.start();
-
-         return true;
+        final Investigation dInvestigation = component.getInvestigation();
+        runDynamicInvestigation(dInvestigation, false);
+        return true;
+     }
+    public void updateVisibility()
+    {
+        markValid(!descriptor.getStepInProgress());
     }
-    
+
 }
 

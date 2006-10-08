@@ -81,7 +81,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         jScrollPane3 = new javax.swing.JScrollPane();
         jMessageTextArea2 = new javax.swing.JTextArea();
 
-        jSubjectFilePanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Scale-ik setup file"));
+        jSubjectFilePanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Scale setup file"));
         jLabel9.setText("Setup file");
 
         jSubjectFileTextField2.setToolTipText("Prepared workflow file");
@@ -384,7 +384,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         final JFileChooser dlog = new JFileChooser(defaultDir);
         
         dlog.setDialogTitle(NbBundle.getMessage(ModelLoadingVisualPanel.class, "CTL_OpenSubjectFileDlgTitle"));
-        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Select setup file for scaling_ik"));
+        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Select setup file for model selection and scaling"));
         if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
             jSubjectFileTextField2.setText(dlog.getSelectedFile().getAbsolutePath());
             aDescriptor.setSubjectFile(dlog.getSelectedFile().getAbsolutePath());

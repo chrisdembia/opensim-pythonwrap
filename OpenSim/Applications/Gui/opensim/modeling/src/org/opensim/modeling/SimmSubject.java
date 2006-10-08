@@ -80,10 +80,6 @@ public class SimmSubject extends OpenSimObject {
     return new SimmMarkerPlacementParams(opensimModelJNI.SimmSubject_getMarkerPlacementParams(swigCPtr), false);
   }
 
-  public SimmIKParams getIKParams() {
-    return new SimmIKParams(opensimModelJNI.SimmSubject_getIKParams(swigCPtr), false);
-  }
-
   public double getMass() {
     return opensimModelJNI.SimmSubject_getMass(swigCPtr);
   }
@@ -98,10 +94,6 @@ public class SimmSubject extends OpenSimObject {
 
   public boolean isDefaultMarkerPlacementParams() {
     return opensimModelJNI.SimmSubject_isDefaultMarkerPlacementParams(swigCPtr);
-  }
-
-  public boolean isDefaultIKParams() {
-    return opensimModelJNI.SimmSubject_isDefaultIKParams(swigCPtr);
   }
 
   public static void registerTypes() {

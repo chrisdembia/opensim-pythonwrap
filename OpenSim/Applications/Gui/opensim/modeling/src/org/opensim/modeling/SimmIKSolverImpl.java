@@ -33,8 +33,8 @@ public class SimmIKSolverImpl extends IKSolverInterface {
     super.delete();
   }
 
-  public SimmIKSolverImpl(SimmInverseKinematicsTarget aOptimizationTarget, SimmIKParams aIKParams) {
-    this(opensimModelJNI.new_SimmIKSolverImpl(SimmInverseKinematicsTarget.getCPtr(aOptimizationTarget), SimmIKParams.getCPtr(aIKParams)), true);
+  public SimmIKSolverImpl(SimmInverseKinematicsTarget aOptimizationTarget) {
+    this(opensimModelJNI.new_SimmIKSolverImpl(SimmInverseKinematicsTarget.getCPtr(aOptimizationTarget)), true);
   }
 
   public void solveFrames(SimmIKTrialParams aIKOptions, Storage inputData, Storage outputData) {

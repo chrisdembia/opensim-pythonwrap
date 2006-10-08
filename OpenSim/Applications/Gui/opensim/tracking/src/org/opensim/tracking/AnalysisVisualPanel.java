@@ -21,7 +21,6 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
         super(basePanel);
         initComponents();
         putClientProperty("WizardPanel_helpURL",this.getClass().getResource("help/html/SubjectSpecificWorkflow.htm"));
-        checkValidForm();
     }
     
     public String getName() {
@@ -211,13 +210,6 @@ public final class AnalysisVisualPanel extends workflowVisualPanelBase {
     public void appendMessage(String message) {
         super.displayMessage(message);
         jMessageTextArea.append(message);
-    }
-
-    protected boolean checkValidForm() {
-        boolean setupFileSet = hasSetupFile();
-        jEditSetttingsButton.setEnabled(setupFileSet);
-
-        return setupFileSet;
     }
 
     private boolean hasSetupFile()

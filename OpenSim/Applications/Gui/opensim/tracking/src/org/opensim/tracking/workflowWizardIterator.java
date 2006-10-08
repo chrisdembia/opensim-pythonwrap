@@ -49,7 +49,8 @@ public final class workflowWizardIterator implements WizardDescriptor.Iterator {
                 new MarkerPlacementPanel(),
                 new IKPanel(),
                 new MakeDModelPanel(),
-                new ReduceResidualsPanel(),
+                new ReduceResidualsPanelPass1(),
+                new ReduceResidualsPanelPass2(),
                 new RunCMCWizardPanel(),
                 new RunInvestigationPanel()
             };

@@ -46,29 +46,6 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
         // return new HelpCtx(SampleWizardPanel1.class);
     }
     
-    /*
-    private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
-    public final void addChangeListener(ChangeListener l) {
-        synchronized (listeners) {
-            listeners.add(l);
-        }
-    }
-    public final void removeChangeListener(ChangeListener l) {
-        synchronized (listeners) {
-            listeners.remove(l);
-        }
-    }
-    protected final void fireChangeEvent() {
-        Iterator<ChangeListener> it;
-        synchronized (listeners) {
-            it = new HashSet<ChangeListener>(listeners).iterator();
-        }
-        ChangeEvent ev = new ChangeEvent(this);
-        while (it.hasNext()) {
-            it.next().stateChanged(ev);
-        }
-    }
-     */
     
     // You can use a settings object to keep track of state. Normally the
     // settings object will be the WizardDescriptor, so you can use
@@ -77,6 +54,7 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
+        updateVisibility();
     }
     public void storeSettings(Object settings) {}
 
@@ -85,8 +63,8 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             SimmSubject subject = descriptor.getSubject();
             SimmModel model = descriptor.getModel();
             SimmMarkerPlacementParams params = subject.getMarkerPlacementParams();
-            SimmMarkerSet aMarkerArray=params.getMarkerSet();
-            model.updateMarkers(aMarkerArray); // This should be markerSet, could this work using proxy classes?
+            SimmMarkerSet paramsMarkerSet=params.getMarkerSet();
+            model.updateMarkers(paramsMarkerSet); // This should be markerSet, could this work using proxy classes?
             component.appendMessage("Updating markers and coordinates.\n");
             SimmMotionData coordinateValues=null;
             if (!params.getCoordinateFileName().equalsIgnoreCase("Unassigned")){
@@ -126,7 +104,7 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             // Create target
             SimmInverseKinematicsTarget target = new SimmInverseKinematicsTarget(model, inputStorage);
             // Create solver
-            SimmIKSolverImpl ikSolver = new SimmIKSolverImpl(target, subject.getIKParams());
+            SimmIKSolverImpl ikSolver = new SimmIKSolverImpl(target);
             // Solve
             Storage	outputStorage = new Storage();
             component.appendMessage("Solving averaged frame from static pose.\n");
@@ -164,6 +142,14 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             return true;
     }
 
+    public void updateVisibility()
+    {
+        Object isExecuted = component.getClientProperty("Step_executed");
+        if (isExecuted != null && (Boolean)isExecuted==Boolean.TRUE ){
+            markValid(true);
+        }
+        markValid(!descriptor.getStepInProgress() );
+    }
     
 }
 

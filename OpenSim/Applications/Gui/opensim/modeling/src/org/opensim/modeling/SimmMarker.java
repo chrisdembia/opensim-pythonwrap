@@ -110,4 +110,12 @@ public class SimmMarker extends OpenSimObject {
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
+  public boolean isVirtual() {
+    return opensimModelJNI.SimmMarker_isVirtual(swigCPtr);
+  }
+
+  public void setVirtual(boolean aTrueFalse) {
+    opensimModelJNI.SimmMarker_setVirtual(swigCPtr, aTrueFalse);
+  }
+
 }

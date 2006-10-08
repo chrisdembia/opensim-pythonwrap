@@ -1,12 +1,20 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
-import javax.swing.event.ChangeListener;
-import org.openide.WizardDescriptor;
+import java.util.TimerTask;
+import java.util.Timer;
+import org.netbeans.api.progress.ProgressHandle;
+import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
+import org.opensim.modeling.Investigation;
+import org.opensim.modeling.Model;
+import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.SimtkAnimationCallback;
+import org.opensim.view.ModelWindowVTKTopComponent;
+import org.opensim.view.ViewDB;
 
 public class RunInvestigationPanel  extends workflowWizardPanelBase{
-    
+    SimtkAnimationCallback animationCallback;
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
@@ -36,16 +44,23 @@ public class RunInvestigationPanel  extends workflowWizardPanelBase{
     // settings object will be the WizardDescriptor, so you can use
     // WizardDescriptor.getProperty & putProperty to store information entered
     // by the user.
-    public void readSettings(Object settings) {}
+    public void readSettings(Object settings) {
+        descriptor = (WorkflowDescriptor) settings;
+        updateVisibility();
+    }
     public void storeSettings(Object settings) {}
 
     boolean executeStep() {
         // Make investigation and run it
-        component.appendMessage("Ready to run investigation ...");
-        component.getInvestigation().run();
-        component.appendMessage("Finished running investigation");
+        final Investigation dInvestigation = component.getInvestigation();
+        runDynamicInvestigation(dInvestigation, true);
         return true;
     }
+    public void updateVisibility()
+    {
+        markValid(!descriptor.getStepInProgress());        
+    }
+
     
 }
 

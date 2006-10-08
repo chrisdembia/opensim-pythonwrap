@@ -218,6 +218,26 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
         else
             jModelTextField.setText(aDescriptor.getDynamicsModelFile());
         jDynamicsDirTextField.setText(aDescriptor.getSubject().getPathToSubject());
+        
+        String defaultFilename = aDescriptor.getSubject().getScalingParams().getOutputMuscleFileName();
+        if (defaultFilename.equalsIgnoreCase("Unassigned") ||
+                defaultFilename.equalsIgnoreCase("")){
+            defaultFilename=aDescriptor.getSubject().getMarkerPlacementParams().getOutputMuscleFileName();
+        }
+        
+        if (!defaultFilename.equalsIgnoreCase("Unassigned")){
+            jMusclefileTextField.setText(defaultFilename);
+        }
+        else 
+            jMusclefileTextField.setText("");
+        
+        String ikOutfilename = "recomputeFromIK";
+         if (!ikOutfilename.equalsIgnoreCase("Unassigned")){
+            KineticsFileTextField.setText(ikOutfilename);
+        }
+        else
+            KineticsFileTextField.setText("");
+       
     }
 
     public void appendMessage(String message) {
@@ -247,8 +267,5 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
         return KineticsFileTextField.getText();
     }
 
-    protected boolean checkValidForm() {
-        return true;
-    }
 }
 

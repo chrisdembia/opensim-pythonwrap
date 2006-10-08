@@ -123,6 +123,10 @@ public class Transform {
     opensimModelJNI.Transform_getMatrix__SWIG_1(swigCPtr, aMat);
   }
 
+  public void setRotationSubmatrix(SWIGTYPE_p_a_3__double rDirCos) {
+    opensimModelJNI.Transform_setRotationSubmatrix(swigCPtr, SWIGTYPE_p_a_3__double.getCPtr(rDirCos));
+  }
+
   public final static class AxisName {
     public final static AxisName X = new AxisName("X", opensimModelJNI.Transform_X_get());
     public final static AxisName Y = new AxisName("Y", opensimModelJNI.Transform_Y_get());

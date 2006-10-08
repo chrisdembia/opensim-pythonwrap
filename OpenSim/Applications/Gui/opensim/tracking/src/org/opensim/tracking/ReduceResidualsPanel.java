@@ -75,6 +75,9 @@ public class ReduceResidualsPanel  extends workflowWizardPanelBase{
     boolean executeStep() {
          return true;
     }
+
+    public void updateVisibility() {
+    }
     
 }
 

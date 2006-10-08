@@ -7,13 +7,14 @@ import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.swingui.SwingWorker;
 
 public final class InvestigationAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
         WizardDescriptor.Iterator iterator = new AnalysisWizardIterator();
-        WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator);
+        WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator, new WorkflowDescriptor());
         // {0} will be replaced by WizardDescriptor.Panel.getComponent().getName()
         // {1} will be replaced by WizardDescriptor.Iterator.name()
         wizardDescriptor.setTitleFormat(new MessageFormat("{0} ({1})"));
@@ -23,9 +24,18 @@ public final class InvestigationAction extends CallableSystemAction {
         dialog.toFront();
         boolean cancelled = wizardDescriptor.getValue() != WizardDescriptor.FINISH_OPTION;
         if (!cancelled) {
-              RunInvestigationPanel curPanel = (RunInvestigationPanel) iterator.current();
-              curPanel.executeStep();   
-        }
+            final RunInvestigationPanel curPanel = (RunInvestigationPanel) iterator.current();
+                final SwingWorker worker = new SwingWorker() {
+
+                public Object construct() { // runs in a worker thread
+                    curPanel.executeStep(); 
+                   return this;
+                }
+                public void finished() {
+                }
+                };
+            worker.start();
+         }
     }
     
     public String getName() {

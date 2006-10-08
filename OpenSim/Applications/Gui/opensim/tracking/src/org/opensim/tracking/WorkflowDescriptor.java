@@ -48,11 +48,12 @@ public class WorkflowDescriptor {
     private String      setupRRA_pass2Filename;
     private String      setupCMCFilename;
     private String      setupInvestigationFilename;
+    private String      setupIKFilename;
     
     private String      RRAoutputMotionFilename;
     private String      dynamicsDir;
     
-    private Boolean     stepInProgress=false;
+    public Boolean     stepInProgress=false;
     /**
      * Constructor, Creates a new instance of WorkflowDescriptor
      * 
@@ -172,6 +173,14 @@ public class WorkflowDescriptor {
 
     public void setStepInProgress(Boolean stepInProgress) {
         this.stepInProgress = stepInProgress;
+    }
+
+    public String getSetupIKFilename() {
+        return setupIKFilename;
+    }
+
+    public void setSetupIKFilename(String setupIKFilename) {
+        this.setupIKFilename = setupIKFilename;
     }
 
  }

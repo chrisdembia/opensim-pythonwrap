@@ -3,6 +3,7 @@ package org.opensim.tracking;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.WizardDescriptor;
+import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -30,11 +31,15 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
         final SwingWorker worker = new SwingWorker() {
             
             public Object construct() { // runs in a worker thread
+                ((workflowWizardPanelBase)currentPanel).descriptor.stepInProgress=true;
                 ((workflowWizardPanelBase)currentPanel).executeStep();
+                ((workflowWizardPanelBase)currentPanel).descriptor.stepInProgress=false;
                 return this;
             };
            public void finished() {
                progressHandle.finish();
+               workflowWizardPanelBase displayedPanel = (workflowWizardPanelBase) iterator.current();
+               displayedPanel.updateVisibility();
             };
          };
         worker.start();

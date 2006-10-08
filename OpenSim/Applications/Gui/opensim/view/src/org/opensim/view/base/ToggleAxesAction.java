@@ -5,7 +5,7 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.view.ViewDB;
 
-public final class ToggleAxesAction extends CallableSystemAction {
+public class ToggleAxesAction extends CallableSystemAction {
     
     private OpenSimBaseCanvas dCanvas;
     public ToggleAxesAction(OpenSimBaseCanvas aCanvas)

@@ -71,6 +71,7 @@ public class ScalingPanel  extends workflowWizardPanelBase {
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
+        updateVisibility();
     }
     public void storeSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
@@ -140,6 +141,11 @@ public class ScalingPanel  extends workflowWizardPanelBase {
         }
         else
             return userSpecifiedName;
+    }
+    
+    public void updateVisibility()
+    {
+        markValid(!descriptor.getStepInProgress());
     }
 }
 

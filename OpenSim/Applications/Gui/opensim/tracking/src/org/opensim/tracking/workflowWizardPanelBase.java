@@ -29,8 +29,18 @@ import org.openide.WizardDescriptor;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import org.netbeans.api.progress.ProgressHandle;
+import org.netbeans.api.progress.ProgressHandleFactory;
+import org.opensim.modeling.Investigation;
+import org.opensim.modeling.Model;
+import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.SimtkAnimationCallback;
+import org.opensim.view.ModelWindowVTKTopComponent;
+import org.opensim.view.ViewDB;
 
 /**
  *
@@ -40,8 +50,10 @@ import javax.swing.event.ChangeListener;
  */
 abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
     
-     protected WorkflowDescriptor descriptor;
+     public WorkflowDescriptor descriptor;
      private boolean valid=true; // Can proceed to next
+     protected boolean needProgress=false;  // The task will need to show some progress info
+     protected final int UPDATE_FREQUENCY=100; // How often we update the display in milliseconds
     /**
      * Creates a new instance of workflowWizardPanelBase
      */
@@ -86,6 +98,70 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
         while (it.hasNext()) {
             it.next().stateChanged(ev);
         }
+    }
+    abstract public void updateVisibility();
+
+    public boolean isNeedProgress() {
+        return needProgress;
+    }
+
+    public void setNeedProgress(boolean needProgress) {
+        this.needProgress = needProgress;
+    }
+    /**
+     * runDynamicInvestigation does all the leg work of setting up the GUI, callback to run
+     * a Dynamic investigation and update display with the resulting animation
+     */
+    protected void runDynamicInvestigation(final Investigation dInvestigation, final Boolean isDeterministic) {
+ 
+        final Model model = dInvestigation.getModel();
+        SimmModel visModel=null;     // model used for visualization only
+        final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Run forward");
+        final double investigationDuration = (dInvestigation.getFinalTime() - dInvestigation.getStartTime());
+        final double startTime = dInvestigation.getStartTime();
+        final SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(model);
+
+        dInvestigation.getModel().addIntegCallback(animationCallback);  
+
+        // show model in new window if possible
+         final ModelWindowVTKTopComponent modelWindow = ViewDB.getCurrentModelWindow();
+         if (modelWindow==null){
+             // Show warning and proceed thatno animation will be done
+         }
+         else {
+             animationCallback.extractOffsets(modelWindow.getModel());
+         }
+        progressHandle.start();
+        if (isDeterministic)
+            progressHandle.switchToDeterminate(100);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask(){public void run() {
+            double simulationTime=animationCallback.getCurrentTime();
+               double percentComplete = (animationCallback.getCurrentTime()-startTime)/investigationDuration*100.0;
+                int intPercent =(int)percentComplete;
+                if (intPercent < 0) intPercent = 0;
+                if (intPercent > 100) intPercent = 100;
+                if (modelWindow!=null)
+                       modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
+                       modelWindow.getCanvas().repaint();
+                       if (isDeterministic)
+                              progressHandle.progress("time="+simulationTime,intPercent);
+                }},
+	               0,        //initial delay
+	               100);  //subsequent rate
+        
+        if (modelWindow!=null)
+            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
+        Runnable runtask = new Runnable(){
+            public void run() {
+                dInvestigation.run();
+           }};
+         runtask.run();
+         if (modelWindow!=null)
+            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
+        if (isDeterministic)
+            progressHandle.progress(100);
+        progressHandle.finish();
     }
 
 }

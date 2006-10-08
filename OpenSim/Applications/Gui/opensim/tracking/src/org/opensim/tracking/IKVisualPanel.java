@@ -5,17 +5,24 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import org.openide.windows.WindowManager;
-import org.opensim.modeling.SimmIKParams;
+import org.opensim.modeling.Investigation;
+import org.opensim.modeling.InvestigationIK;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmIKTrialParams;
+import org.opensim.modeling.SimmIKTrialParamsSet;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 
 public final class IKVisualPanel extends workflowVisualPanelBase {
     
     int numTrials;
+    SimmIKTrialParamsSet trialSet=null;
     SimmIKTrialParams[] availableTrials=null;
     static boolean initialized=false;   // Tooltips and other GUI elements need to be set only once
+    InvestigationIK ik = new InvestigationIK();
     /**
      * Creates new form IKVisualPanel
      */
@@ -55,10 +62,6 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         jFromTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jToTextField = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jKinematicSmoothingTextField = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jGroundReactionSmoothingTextField = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTrialSelectComboBox = new javax.swing.JComboBox();
         jOutputPanel = new javax.swing.JPanel();
@@ -69,6 +72,10 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         jIncludeUserDataCheckBox = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jMessageTextArea = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jSetupFilenameTextField = new javax.swing.JTextField();
+        jBrowse4SetupButton = new javax.swing.JButton();
 
         jModelSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Model specification"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Model file");
@@ -88,10 +95,10 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                 .addContainerGap()
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jModelNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 182, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jModelNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jModelBrowseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(42, 42, 42))
+                .addContainerGap())
         );
         jModelSpecPanelLayout.setVerticalGroup(
             jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -125,26 +132,26 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                     .add(jLabel2))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jCoordinateSetTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                    .add(jCoordinateSetTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jBrowse4CoordinatesButton, 0, 0, Short.MAX_VALUE)
-                    .add(jMarkersBrowseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, Short.MAX_VALUE))
-                .add(41, 41, 41))
+                .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jBrowse4CoordinatesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jMarkersBrowseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jModelAddonForIKPanelLayout.setVerticalGroup(
             jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jModelAddonForIKPanelLayout.createSequentialGroup()
                 .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
-                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jMarkersBrowseButton))
+                    .add(jMarkersBrowseButton)
+                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jModelAddonForIKPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
-                    .add(jCoordinateSetTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jBrowse4CoordinatesButton)))
+                    .add(jBrowse4CoordinatesButton)
+                    .add(jCoordinateSetTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
 
         jTrialSelectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Trials to solve"));
@@ -160,14 +167,6 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel6, "use time from");
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel7, "to");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel8, "Kinematic smoothing factor");
-
-        jKinematicSmoothingTextField.setEnabled(false);
-
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel9, "Ground reaction smoothing ");
-
-        jGroundReactionSmoothingTextField.setEnabled(false);
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel11, "Select trial");
 
@@ -199,20 +198,11 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jTrialSelectionPanelLayout.createSequentialGroup()
-                                .add(jTrialFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                                .add(jTrialFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                                .add(6, 6, 6))
                             .add(jTrialSelectComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jBrowse4TRCButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(32, 32, 32))
-            .add(jTrialSelectionPanelLayout.createSequentialGroup()
-                .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel8)
-                    .add(jLabel9))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jGroundReactionSmoothingTextField, 0, 0, Short.MAX_VALUE)
-                    .add(jKinematicSmoothingTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jTrialSelectionPanelLayout.setVerticalGroup(
@@ -232,15 +222,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                     .add(jFromTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel7)
                     .add(jToTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel8)
-                    .add(jKinematicSmoothingTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(4, 4, 4)
-                .add(jTrialSelectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel9)
-                    .add(jGroundReactionSmoothingTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(29, 29, 29))
+                .add(77, 77, 77))
         );
 
         jOutputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
@@ -278,8 +260,8 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                     .add(jOutputPanelLayout.createSequentialGroup()
                         .add(jLabel10)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 202, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(6, 6, 6)
+                        .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jBrowse4OutputMotionButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jOutputPanelLayout.createSequentialGroup()
                         .addContainerGap()
@@ -287,15 +269,15 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
                     .add(jOutputPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .add(jIncludeUserDataCheckBox)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jOutputPanelLayout.setVerticalGroup(
             jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jOutputPanelLayout.createSequentialGroup()
                 .add(jOutputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel10)
-                    .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jBrowse4OutputMotionButton))
+                    .add(jBrowse4OutputMotionButton)
+                    .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jIncludeMarkersInOutputCheckBox)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -319,34 +301,107 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         jMessageTextArea.setOpaque(false);
         jScrollPane1.setViewportView(jMessageTextArea);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Setup file"));
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel8, "Setup file ");
+
+        jBrowse4SetupButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
+        jBrowse4SetupButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBrowse4SetupButtonActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel8)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jSetupFilenameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jBrowse4SetupButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel8)
+                    .add(jBrowse4SetupButton)
+                    .add(jSetupFilenameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTrialSelectionPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jModelAddonForIKPanel, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jModelSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jModelSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jModelAddonForIKPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jTrialSelectionPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jOutputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jModelSpecPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jModelAddonForIKPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTrialSelectionPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 158, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jTrialSelectionPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBrowse4SetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4SetupButtonActionPerformed
+// TODO add your handling code here:
+        String defaultDir="";
+        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
+        final JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Setup for IK"));
+        
+        String setupFile=null;
+        
+        if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            setupFile= dlog.getSelectedFile().getAbsolutePath();
+            jSetupFilenameTextField.setText(setupFile);
+            Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
+            // create an investigation and fill in the fields
+            ik = new InvestigationIK(jSetupFilenameTextField.getText()); 
+            logicPanel.descriptor.setSetupIKFilename(jSetupFilenameTextField.getText());
+            jMessageTextArea.setText("");
+            updatePanel(logicPanel.descriptor);
+        }
+       
+    }//GEN-LAST:event_jBrowse4SetupButtonActionPerformed
+
+    private void jModelBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jModelBrowseButtonActionPerformed
+        String defaultDir="";
+        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
+        final JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Model for IK"));
+        
+        String modelFile=null;
+        
+        if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+            modelFile= dlog.getSelectedFile().getAbsolutePath();
+            jModelNameTextField.setText(modelFile);
+            Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jModelBrowseButtonActionPerformed
 
     private void jOutputMotionTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOutputMotionTextFieldActionPerformed
 // TODO add your handling code here:
@@ -386,22 +441,6 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
        // TODO add your handling code here:
     }//GEN-LAST:event_jBrowse4TRCButton5ActionPerformed
 
-    private void jModelBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jModelBrowseButtonActionPerformed
-        String defaultDir="";
-        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
-       final JFileChooser dlog = new JFileChooser(defaultDir);
-       dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Model for IK"));
-       
-        String modelFile=null;
-
-        if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            modelFile= dlog.getSelectedFile().getAbsolutePath();
-            jModelNameTextField.setText(modelFile);
-            Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
-        }
-// TODO add your handling code here:
-    }//GEN-LAST:event_jModelBrowseButtonActionPerformed
-
     private void jTrialSelectComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTrialSelectComboBoxActionPerformed
 // TODO add your handling code here:
         JComboBox trialSelect = (JComboBox)evt.getSource();
@@ -412,13 +451,12 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBrowse4CoordinatesButton;
     private javax.swing.JButton jBrowse4OutputMotionButton;
+    private javax.swing.JButton jBrowse4SetupButton;
     private javax.swing.JButton jBrowse4TRCButton5;
     private javax.swing.JTextField jCoordinateSetTextField;
     private javax.swing.JTextField jFromTextField;
-    private javax.swing.JTextField jGroundReactionSmoothingTextField;
     private javax.swing.JCheckBox jIncludeMarkersInOutputCheckBox;
     private javax.swing.JCheckBox jIncludeUserDataCheckBox;
-    private javax.swing.JTextField jKinematicSmoothingTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -428,7 +466,6 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JButton jMarkersBrowseButton;
     private javax.swing.JTextField jMarkersFileTextField;
     private javax.swing.JTextArea jMessageTextArea;
@@ -438,51 +475,54 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     private javax.swing.JPanel jModelSpecPanel;
     private javax.swing.JTextField jOutputMotionTextField;
     private javax.swing.JPanel jOutputPanel;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jSetupFilenameTextField;
     private javax.swing.JTextField jToTextField;
     private javax.swing.JTextField jTrialFileTextField;
     private javax.swing.JComboBox jTrialSelectComboBox;
     private javax.swing.JPanel jTrialSelectionPanel;
     // End of variables declaration//GEN-END:variables
     void updateWorkflow(WorkflowDescriptor descriptor) {
-       SimmIKParams params = descriptor.getSubject().getIKParams();
+      /*
        // model file, markers, coords, trial-name, trial-file, from, to, motfile, inc markers, inc-others
        params.getTrialParams(0).setEndTime(Double.parseDouble(jToTextField.getText()));
        params.getTrialParams(0).setStartTime(Double.parseDouble(jFromTextField.getText()));
        params.getTrialParams(0).setOutputMotionFilename(jOutputMotionTextField.getText());
-       
+       */
     }
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
-        initialize(aDescriptor);
-        SimmIKParams params = aDescriptor.getSubject().getIKParams();
+        initialize(aDescriptor);    // Tooltip
+        String filename = aDescriptor.getSetupIKFilename();
+        if (filename != null && ik==null)
+            ik = new InvestigationIK(filename);
         
-        String modelFile = params.getModelFileName();
+        String modelFile = ik.getModelFilename();
         if (modelFile.equalsIgnoreCase("Unassigned") || modelFile.equals("")){
             // Assume output of previous step
             modelFile = aDescriptor.getSubject().getMarkerPlacementParams().getOutputModelFileName();
         }
         jModelNameTextField.setText(modelFile); 
-        numTrials = params.getNumIKTrials();
-        if (availableTrials==null){ // First time around in this panel
+        numTrials = ik.getIKTrialParamsSet().getSize();
+        if (numTrials==0){
+           jTrialSelectComboBox.setEnabled(false);
+           appendMessage("No trials are available");
+        }
+        else { // at least one
             availableTrials = new SimmIKTrialParams[numTrials];
             for(int i=0; i < numTrials; i++){
-                availableTrials[i] = params.getTrialParams(i);
+                availableTrials[i] = ik.getIKTrialParamsSet().get(i);
             }
             if (jTrialSelectComboBox.getModel().getSize()==0){
                 for(int i=0; i < numTrials; i++){
                     jTrialSelectComboBox.setModel(new DefaultComboBoxModel(availableTrials));
                 }                
+            
             }
-       }
-        // IF no trials are availble, we're in trouble
-        if (numTrials==0){
-           jTrialSelectComboBox.setEnabled(false);
-           appendMessage("No trials are available");
-        }
-        else
-            // Get data for first trial and populate the dialog.
+             // Get data for first trial and populate the dialog.
             makeTrialCurrent(availableTrials[0]);
+        }
     }
     /**
      * Mark one of the trials as current and update the GUI accordingly
@@ -494,20 +534,11 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         jToTextField.setText(String.valueOf(simmIKTrialParams.getEndTime()));
         jOutputMotionTextField.setText(simmIKTrialParams.getOutputMotionFilename());
         jOutputMotionTextField.setToolTipText(simmIKTrialParams.getPropertySet().get("output_motion_file").getComment());
-        jKinematicSmoothingTextField.setToolTipText(simmIKTrialParams.getPropertySet().get("kinematics_smoothing").getComment());
-        jGroundReactionSmoothingTextField.setToolTipText(simmIKTrialParams.getPropertySet().get("ground_reaction_smoothing").getComment());
         jIncludeMarkersInOutputCheckBox.setSelected(simmIKTrialParams.getIncludeMarkers());
     }
 
     private void initialize(WorkflowDescriptor aDescriptor) {
-        if (!initialized){
-            SimmIKParams params = aDescriptor.getSubject().getIKParams();
-            jModelNameTextField.setToolTipText(params.getPropertySet().get("model_file").getComment());
-            jMarkersFileTextField.setToolTipText(params.getPropertySet().get("SimmMarkerSet").getComment());
-            jCoordinateSetTextField.setToolTipText(params.getPropertySet().get("SimmCoordinateSet").getComment());
-            initialized = true;
-        }
-    }
+     }
     /**
      * @returns trial selected by the user 
      */
@@ -523,6 +554,11 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
 
     protected boolean checkValidForm() {
         return (jOutputMotionTextField.getText().length()!=0);
+    }
+    
+    public InvestigationIK getInvestigation()
+    {
+        return ik;
     }
 }
 
