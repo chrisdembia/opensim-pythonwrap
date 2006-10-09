@@ -63,6 +63,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     
     Hashtable<OpenSimObject, vtkAssembly> mapObject2Actors = new Hashtable<OpenSimObject, vtkAssembly>();
     Hashtable<vtkProp3D, OpenSimObject> mapActors2Objects = new Hashtable<vtkProp3D, OpenSimObject>();
+    // A kluge to keep handles to muscle segments that are not full objects
+    Hashtable<String, vtkActor> mapObjectsSegments2Actors = new Hashtable<String, vtkActor>();
     
     JPopupMenu visibilityMenu = new JPopupMenu();
     
@@ -140,7 +142,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                         progressHandle.progress(bodyDisplayer.getGeometryFileName(k));
 
                         vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
-                        String boneFile = modelFilePath + bodyDisplayer.getGeometryFileName(k);
+                        String boneFile = modelFilePath + "bones\\"+bodyDisplayer.getGeometryFileName(k);
                         polyReader.SetFileName(boneFile);
 
                         vtkPolyData poly = polyReader.GetOutput();
@@ -212,7 +214,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     SimmMusclePointSet attatchments = nextMuscle.getAttachmentSet();
                     int arraySize = attatchments.getSize();
                     if (arraySize > 0){
-                        // Points must be traxformed to gnd space as they generally live
+                        // Points must be traxformed to gnd frame as they generally live
                         // on diferent bodies
                         SimmMusclePoint firstPoint = attatchments.get(0);
                         SimmBody body = firstPoint.getBody();
@@ -251,7 +253,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                             muscleRep.AddPart(dActor);
                             // Fill the display to object map
                             mapActors2Objects.put(dActor, nextMuscle);
-
+                            String muscleSegname = nextMuscle.getName()+String.valueOf(att-1)+String.valueOf(att);
+                            mapObjectsSegments2Actors.put(muscleSegname, dActor);
                             // Move position1 to the next point
                             for(int d=0; d <3; d++)
                                 position1[d]=position2[d];
@@ -273,61 +276,35 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     /**
      * Method called in the animation loop to update positions with new xforms
      * Here, the xforms are obtained from the dynamcis engine and so 
+     *
      */
     public void updateDisplayFromDynamicModel(SimtkAnimationCallback animationCallback)
     {
          Model dModel = animationCallback.getModel();
-         boolean test = (dModel instanceof SimmModel);
          int nb = dModel.getNB();
-         int gndId = dModel.getGroundID();
-         double[] origin = new double[]{0., 0., 0.};
-         double[] location = new double[3];
          double[] xformMatrix = new double[16];
-         double[] com = new double[3];
-         double[] nagativeCom = new double[3];
-         vtkMatrix4x4 oldXform;
-         double[] rots = new double[3];
          animationCallback.getMutex();
          for(int bodyNum=0; bodyNum<nb; bodyNum++) {
-            Transform bodyTransform = animationCallback.getBodyTransform(bodyNum); // get translation
-            animationCallback.getBodyRotations(bodyNum, rots);  //rotations
-            bodyTransform.getPosition(origin);
+            Transform bodyTransform = animationCallback.getBodyTransform(bodyNum); 
             SimmBodySet vModelBodies = model.getBodies();
-            int sz = vModelBodies.getSize();
+            /*
             Body dBody = dModel.getBodySet().get(bodyNum);
             String bName = dBody.getName();
+             **/
+            String bName = dModel.getBodyName(bodyNum);
             SimmBody vBody = vModelBodies.get(bName);
+            
             vtkAssembly bodyRep = mapObject2Actors.get(vBody);
             // Make  matrix from xlation, rotations
             vtkMatrix4x4 m= new vtkMatrix4x4();
-            /*bodyRep.SetPosition(origin);
-            bodyRep.SetOrientation(0., 0., 0.);
-            bodyRep.RotateX(rots[0]);
-            bodyRep.RotateY(rots[1]);
-            bodyRep.RotateZ(rots[2]);*/
             bodyTransform.getMatrix(xformMatrix);
             m.DeepCopy(xformMatrix);
+            // Move translation to last column instead of last row
             for(int i=0; i<3; i++){
                 m.SetElement(i, 3, m.GetElement(3, i));
                 m.SetElement(3, i, 0.0);
             }
- 
-            if (false){
-                vBody.getMassCenter(com);
-                for(int i=0; i <3; i++)
-                    nagativeCom[i] = -com[i];
-                double[] negativeComXform = new double[3];
-                // xform -com by the dirCos and add as a translation
-                for(int i=0; i<3; i++){
-                    negativeComXform[i]=0.0;
-                    for(int j=0; j<3; j++){
-                        negativeComXform[i]+=m.GetElement(i, j)*nagativeCom[j];
-                    }
-                }
-                for (int i=0; i < 3; i++)
-                    m.SetElement(i, 3, m.GetElement(i,3)+negativeComXform[i]);
-            }
-            
+             
             if (bodyRep != null){   // Some bodies do not have a rep.
                 bodyRep.SetUserMatrix(m);
             }
@@ -335,6 +312,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             // Bodies have things attached to them as handled by the
             // dependents mechanism. For each one of these a new assembly is created and attached 
             // to the same xform as the owner body.
+            // this takes care of markers and musclepoints
             int ct = vBody.getDisplayer().countDependents();
             for(int j=0; j < ct;j++){
                 VisibleObject Dependent = vBody.getDisplayer().getDependent(j);
@@ -342,7 +320,48 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 attachmentRep.SetUserMatrix(m);
             } 
         } //body
+        // Now the muscles
+        int numMuscles = model.getNA();
+        for(int m=0; m < numMuscles; m++){   
+            SimmMuscle nextMuscle = model.getMuscle(m);
+            // Get muscle rep
+            vtkAssembly muscleRep = mapObject2Actors.get(nextMuscle);
+            
+            // Get attachments and connect them
+            SimmMusclePointSet attatchments = nextMuscle.getAttachmentSet();
+            int arraySize = attatchments.getSize();
+            if (arraySize > 0){
+                SimmMusclePoint firstPoint = attatchments.get(0);
+                
+                // get location of position1 in inertial frame
+                vtkAssembly prevAsm = mapObject2Actors.get(firstPoint);
+                double[] position1=prevAsm.GetPosition();
+                double[] position2;
+
+                for (int att=1; att < arraySize; att++){
+                     String muscleSegname = nextMuscle.getName()+String.valueOf(att-1)+String.valueOf(att);
+                     vtkActor segActor = mapObjectsSegments2Actors.get(muscleSegname);
+                     SimmMusclePoint curPoint = attatchments.get(att);
+                     vtkAssembly curPointAsm = mapObject2Actors.get(curPoint);
+                     position2=curPointAsm.GetPosition();
+                    double[] axis = new double[3];
+                    double[] center = new double[3];
+                    for(int d=0; d <3; d++){
+                        axis[d]=position1[d]-position2[d];
+                        center[d] = (position1[d]+position2[d])/2.0;
+                    }
+                    double length = normalizeAndGetLength(axis);
+                    // Compute new xform and apply it to segActor
+                    segActor.SetUserMatrix(getCylinderTransform(axis, center));
+                    // Move position1 to the next point
+                    position1=position2;
+                } // Attachments
+
+            }
+
+        }
         animationCallback.releaseMutex();
+        GetRenderer().ResetCamera(); 
         Render();
         repaint();
     }
@@ -564,19 +583,4 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         return model;
     }
 
-    void updateDisplay(SimmModel analysisModel) {
-         int nb = analysisModel.getNB();
-         SimmBody gnd = analysisModel.getSimmKinematicsEngine().getGroundBodyPtr();
-
-        for(int bodyNum=0; bodyNum<nb-1; bodyNum++) {
-             SimmBody body = analysisModel.getBodies().get(bodyNum);
-             vtkMatrix4x4 m= getBodyTransform(analysisModel, body, gnd);
-             // find body in model and piggyback on it
-             SimmBody vBody = model.getBodies().get(bodyNum);
-             vtkAssembly vBodyRep = mapObject2Actors.get(vBody);
-             if (vBodyRep != null)
-                vBodyRep.SetUserMatrix(m);
-       }
- 
-    }
 }

@@ -1,9 +1,12 @@
 package org.opensim.tracking;
 
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JDialog;
+import java.awt.Dimension;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.WizardDescriptor;
-import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -26,6 +29,17 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
         // Do not execute on event patching thread now so as not to freeze the GUI
         if (currentPanel instanceof workflowWizardPanelBase){
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Executing "+currentPanel.getComponent().getName()+"...");
+        JComponent progressComp=ProgressHandleFactory.createProgressComponent(progressHandle);
+        final JDialog progressframe = new JDialog(new JFrame());
+        progressframe.setTitle(currentPanel.getComponent().getName()+ "progress ...");
+        progressframe.setAlwaysOnTop(true);
+        progressframe.setModal(false);
+        progressframe.setLocation(500,500);
+        progressframe.setPreferredSize(new Dimension(300,60));
+        //progressframe.setUndecorated(true);
+        progressframe.getContentPane().setLayout(new java.awt.BorderLayout());
+        progressframe.getContentPane().add(progressComp);
+        progressframe.pack();
         progressHandle.start();
 
         final SwingWorker worker = new SwingWorker() {
@@ -40,9 +54,12 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
                progressHandle.finish();
                workflowWizardPanelBase displayedPanel = (workflowWizardPanelBase) iterator.current();
                displayedPanel.updateVisibility();
+               progressframe.dispose();
+
             };
          };
         worker.start();
+        progressframe.setVisible(true);
         }
     }
     

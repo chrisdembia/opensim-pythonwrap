@@ -7,8 +7,10 @@ import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.InvestigationIK;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.SimtkAnimationCallback;
+import org.opensim.view.ModelWindowVTKTopComponent;
+import org.opensim.view.ViewDB;
 
 public class IKPanel  extends workflowWizardPanelBase{
     
@@ -80,12 +82,39 @@ public class IKPanel  extends workflowWizardPanelBase{
     boolean executeStep() {
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Running Inverse Kinematics ");
         final InvestigationIK ik = component.getInvestigation();
-        final SimmModel ikModel = ik.getSimmModel();
-        //final SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(ikModel);
-        //ikModel.addIntegCallback(animationCallback);
+        // @FIXME should be current trial
+        final double startTime = ik.getIKTrialParamsSet().get(0).getStartTime();
+        final double endTime = ik.getIKTrialParamsSet().get(0).getEndTime();
+        final double investigationDuration = endTime - startTime;
+        final Model ikModel = ik.getModel();
+        final SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(ikModel);
+        ikModel.addIntegCallback(animationCallback);
+         final ModelWindowVTKTopComponent modelWindow = ViewDB.getCurrentModelWindow();
+         if (modelWindow==null){
+             // Show warning and proceed that no animation will be done
+         }
+         else {
+             animationCallback.extractOffsets(modelWindow.getModel());
+         }
         progressHandle.start();
+        // no timer for now to test muscles
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask(){public void run() {
+            double simulationTime=animationCallback.getCurrentTime();
+               //double percentComplete = (animationCallback.getCurrentTime()-startTime)/investigationDuration*100.0;
+                //int intPercent =(int)percentComplete;
+                //if (intPercent < 0) intPercent = 0;
+                //if (intPercent > 100) intPercent = 100;
+                if (modelWindow!=null)
+                       modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
+                       progressHandle.progress("time="+simulationTime);
+                }},
+	               0,        //initial delay
+	               100);  //subsequent rate
+                
+         if (modelWindow!=null)
+            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
         
-    
         // Execute IK on a separate thread
         Runnable runIk = new Runnable(){
             public void run() {
@@ -93,6 +122,9 @@ public class IKPanel  extends workflowWizardPanelBase{
             }};
     
         runIk.run();
+        //progressHandle.progress(100);
+         if (modelWindow!=null)
+            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
         progressHandle.finish();
         
         component.putClientProperty("Step_executed", Boolean.TRUE);

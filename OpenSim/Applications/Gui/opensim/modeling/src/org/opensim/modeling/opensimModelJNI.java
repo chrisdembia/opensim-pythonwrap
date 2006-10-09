@@ -3032,7 +3032,6 @@ public class opensimModelJNI {
   public final static native long InvestigationIK_getMarkerSet(long jarg1);
   public final static native long InvestigationIK_getCoordinateSet(long jarg1);
   public final static native long InvestigationIK_getIKTrialParamsSet(long jarg1);
-  public final static native long InvestigationIK_getSimmModel(long jarg1);
   public final static native void InvestigationIK_run(long jarg1);
   public final static native long new_SimmInverseKinematicsTarget(long jarg1, long jarg2);
   public final static native void delete_SimmInverseKinematicsTarget(long jarg1);

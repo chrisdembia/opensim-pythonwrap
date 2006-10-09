@@ -223,10 +223,5 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
         
         retValue = super.getUndoRedo();
         return retValue;
-    }
-
-    public void updateDisplay(SimmModel analysisModel) {
-        openSimCanvas1.updateDisplay(analysisModel);
-    }
-    
+    }    
 }
