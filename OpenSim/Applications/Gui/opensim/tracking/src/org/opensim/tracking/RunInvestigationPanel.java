@@ -61,6 +61,5 @@ public class RunInvestigationPanel  extends workflowWizardPanelBase{
         markValid(!descriptor.getStepInProgress());        
     }
 
-    
 }
 

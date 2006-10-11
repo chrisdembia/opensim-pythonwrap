@@ -7,7 +7,9 @@
  * ----------------------------------------------------------------------------- */
 
 package com.realisticDynamics;
+
 import org.opensim.modeling.*;
+
 
 public class InvestigationCMCGait extends Investigation {
   private long swigCPtr;

@@ -18,7 +18,6 @@ import org.opensim.view.OpenOsimModelAction;
 
 public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{
     
-    SimtkAnimationCallback animationCallback;
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().

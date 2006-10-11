@@ -81,7 +81,7 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
             try {
                 boolean success=false;
                 try {
-                    success = ((OpenOsimModelAction) OpenOsimModelAction.findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(model.getInputFileName());
+                    success = ((OpenOsimModelAction) OpenOsimModelAction.findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(model);
                 } catch (IOException ex) {
                     success=false;
                 }

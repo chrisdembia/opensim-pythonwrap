@@ -484,12 +484,15 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     private javax.swing.JPanel jTrialSelectionPanel;
     // End of variables declaration//GEN-END:variables
     void updateWorkflow(WorkflowDescriptor descriptor) {
-      /*
+      
        // model file, markers, coords, trial-name, trial-file, from, to, motfile, inc markers, inc-others
-       params.getTrialParams(0).setEndTime(Double.parseDouble(jToTextField.getText()));
-       params.getTrialParams(0).setStartTime(Double.parseDouble(jFromTextField.getText()));
-       params.getTrialParams(0).setOutputMotionFilename(jOutputMotionTextField.getText());
-       */
+       SimmIKTrialParamsSet trialSet = ik.getIKTrialParamsSet();
+       if (trialSet.getSize()>0){
+           trialSet.get(0).setEndTime(Double.parseDouble(jToTextField.getText()));
+           trialSet.get(0).setStartTime(Double.parseDouble(jFromTextField.getText()));
+           trialSet.get(0).setOutputMotionFilename(jOutputMotionTextField.getText());
+       }
+        descriptor.setIKoutfilename(jOutputMotionTextField.getText());
     }
 
     void updatePanel(WorkflowDescriptor aDescriptor) {

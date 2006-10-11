@@ -14267,6 +14267,18 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1addInteg
 }
 
 
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1removeIntegCallback(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
+  OpenSim::IntegCallback *arg2 = (OpenSim::IntegCallback *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Model **)&jarg1; 
+  arg2 = *(OpenSim::IntegCallback **)&jarg2; 
+  (arg1)->removeIntegCallback(arg2);
+}
+
+
 JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1getIntegCallback(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
   jlong jresult = 0 ;
   OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;

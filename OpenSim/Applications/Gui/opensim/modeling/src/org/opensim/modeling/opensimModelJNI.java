@@ -12,7 +12,7 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("rdModelDll_d");
+        System.loadLibrary("rdModelDll");
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic library rdModelDll is in your PATH\n"+e);
@@ -822,6 +822,7 @@ public class opensimModelJNI {
   public final static native long Model_getAnalysis(long jarg1, int jarg2);
   public final static native long Model_getIntegCallbackSet(long jarg1);
   public final static native void Model_addIntegCallback(long jarg1, long jarg2);
+  public final static native void Model_removeIntegCallback(long jarg1, long jarg2);
   public final static native long Model_getIntegCallback(long jarg1, int jarg2);
   public final static native long Model_getDerivCallbackSet(long jarg1);
   public final static native void Model_addDerivCallback(long jarg1, long jarg2);

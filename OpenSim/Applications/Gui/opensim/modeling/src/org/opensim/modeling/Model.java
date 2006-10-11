@@ -763,6 +763,10 @@ public class Model extends OpenSimObject {
     opensimModelJNI.Model_addIntegCallback(swigCPtr, IntegCallback.getCPtr(aCallback));
   }
 
+  public void removeIntegCallback(IntegCallback aCallback) {
+    opensimModelJNI.Model_removeIntegCallback(swigCPtr, IntegCallback.getCPtr(aCallback));
+  }
+
   public IntegCallback getIntegCallback(int index) {
     return new IntegCallback(opensimModelJNI.Model_getIntegCallback(swigCPtr, index), false);
   }

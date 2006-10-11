@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.1//EN" "http://www.netbeans.org/dtds/filesystem-1_1.dtd">
 <filesystem>
-    <attr name="Actions\Tools\org-opensim-tools-RdReduceResidualsAction.instance\name" stringvalue="org-opensim-tools-RdReduceResidualsAction"/>
-    <attr name="Menu\Tools\org-opensim-tracking-ScalingToolAction.instance\name" stringvalue="org-opensim-tools-ScalingToolAction"/>
-    <folder name="Actions">
-        <folder name="Edit">
-            <file name="org-opensim-tools-ScaleToolAction.instance"/>
-            <file name="org-opensim-tools-common-InvokeExternalAction.instance"/>
-            </folder>
-        <folder name="Tools">
-            <file name="org-opensim-tracking-ReduceResidualsAction.instance_hidden"/>
-            <file name="org-opensim-tracking-TrackingWorkflowAction.shadow_hidden"/>
-        </folder>
-    </folder>
-    <folder name="Menu">
-        <folder name="Tools">
-             <file name="org-opensim-tracking-ReduceResidualsAction.instance_hidden"/>
-            </folder>
-    </folder>
-</filesystem>
+ </filesystem>

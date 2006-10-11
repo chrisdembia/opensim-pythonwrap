@@ -56,12 +56,11 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
         if (f.getParent()!= null)
             prefs.put("Preferred Directory", f.getParent());
         
-        // Disable vtk output window
-        // This code should be moved to the module installer to be done once per session
-        vtkFileOutputWindow fow = new vtkFileOutputWindow();
-        fow.SetFileName("vtklog.log");
-        if (fow != null)
+         vtkFileOutputWindow fow = new vtkFileOutputWindow();
+         fow.SetFileName("vtklog.log");
+         if (fow != null)
             fow.SetInstance(fow);
+
         
      }
    

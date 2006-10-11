@@ -8,7 +8,6 @@
 
 package com.realisticDynamics;
 import org.opensim.modeling.*;
-
 public class rdCMC_Task extends OpenSimObject {
   private long swigCPtr;
 

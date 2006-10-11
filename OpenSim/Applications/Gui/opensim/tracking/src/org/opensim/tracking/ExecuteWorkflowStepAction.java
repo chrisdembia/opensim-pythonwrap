@@ -1,12 +1,9 @@
 package org.opensim.tracking;
 
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JDialog;
-import java.awt.Dimension;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.WizardDescriptor;
+import org.openide.util.Cancellable;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -28,10 +25,17 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
         
         // Do not execute on event patching thread now so as not to freeze the GUI
         if (currentPanel instanceof workflowWizardPanelBase){
-        final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Executing "+currentPanel.getComponent().getName()+"...");
+        final ProgressHandle progressHandle = ProgressHandleFactory.createHandle(
+                "Executing "+currentPanel.getComponent().getName()+"...", 
+                new Cancellable(){
+                public boolean cancel() {
+                    iterator.previousPanel();
+                    return true;
+                }});
+        /*
         JComponent progressComp=ProgressHandleFactory.createProgressComponent(progressHandle);
         final JDialog progressframe = new JDialog(new JFrame());
-        progressframe.setTitle(currentPanel.getComponent().getName()+ "progress ...");
+        progressframe.setTitle(currentPanel.getComponent().getName()+ " progress ...");
         progressframe.setAlwaysOnTop(true);
         progressframe.setModal(false);
         progressframe.setLocation(500,500);
@@ -40,8 +44,9 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
         progressframe.getContentPane().setLayout(new java.awt.BorderLayout());
         progressframe.getContentPane().add(progressComp);
         progressframe.pack();
+         **/
         progressHandle.start();
-
+        
         final SwingWorker worker = new SwingWorker() {
             
             public Object construct() { // runs in a worker thread
@@ -54,12 +59,12 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
                progressHandle.finish();
                workflowWizardPanelBase displayedPanel = (workflowWizardPanelBase) iterator.current();
                displayedPanel.updateVisibility();
-               progressframe.dispose();
+               //progressframe.dispose();
 
             };
          };
         worker.start();
-        progressframe.setVisible(true);
+        //progressframe.setVisible(true);
         }
     }
     

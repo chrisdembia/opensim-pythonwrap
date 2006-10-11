@@ -45,15 +45,6 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
         jRRAPass1SetupFileTextField = new javax.swing.JTextField();
         jBrowse4RRA1SetupButton = new javax.swing.JButton();
         jEditRRA1SetupButton = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
 
         jRRAParamsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Pass 1, compute residuals"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Pass 1 settings file:");
@@ -72,36 +63,6 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox1, "FZ");
-        jCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox2, "FY");
-        jCheckBox2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox3, "FX");
-        jCheckBox3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-        org.openide.awt.Mnemonics.setLocalizedText(jButton1, "Plot...");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Forces:");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Moments:");
-
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox4, "MX");
-        jCheckBox4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox5, "MY");
-        jCheckBox5.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox5.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox6, "MZ");
-        jCheckBox6.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox6.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
         org.jdesktop.layout.GroupLayout jRRAParamsPanelLayout = new org.jdesktop.layout.GroupLayout(jRRAParamsPanel);
         jRRAParamsPanel.setLayout(jRRAParamsPanelLayout);
         jRRAParamsPanelLayout.setHorizontalGroup(
@@ -114,26 +75,6 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
                 .add(jBrowse4RRA1SetupButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(6, 6, 6)
                 .add(jEditRRA1SetupButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(jRRAParamsPanelLayout.createSequentialGroup()
-                .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel1)
-                    .add(jLabel3))
-                .add(8, 8, 8)
-                .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jRRAParamsPanelLayout.createSequentialGroup()
-                        .add(jCheckBox3)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jCheckBox2))
-                    .add(jRRAParamsPanelLayout.createSequentialGroup()
-                        .add(jCheckBox4)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jCheckBox5)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jCheckBox6)
-                    .add(jCheckBox1))
-                .add(15, 15, 15)
-                .add(jButton1))
         );
         jRRAParamsPanelLayout.setVerticalGroup(
             jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -143,23 +84,6 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
                     .add(jRRAPass1SetupFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jBrowse4RRA1SetupButton)
                     .add(jEditRRA1SetupButton))
-                .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jRRAParamsPanelLayout.createSequentialGroup()
-                        .add(21, 21, 21)
-                        .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel1)
-                            .add(jCheckBox3)
-                            .add(jCheckBox2)
-                            .add(jCheckBox1))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jRRAParamsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel3)
-                            .add(jCheckBox4)
-                            .add(jCheckBox5)
-                            .add(jCheckBox6)))
-                    .add(jRRAParamsPanelLayout.createSequentialGroup()
-                        .add(27, 27, 27)
-                        .add(jButton1)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -175,7 +99,7 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jRRAParamsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addContainerGap(262, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -202,17 +126,8 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBrowse4RRA1SetupButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JButton jEditRRA1SetupButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jRRAParamsPanel;
     private javax.swing.JTextField jRRAPass1SetupFileTextField;
     // End of variables declaration//GEN-END:variables

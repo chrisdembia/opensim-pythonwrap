@@ -7,17 +7,15 @@
  * ----------------------------------------------------------------------------- */
 
 package com.realisticDynamics;
-
-import org.opensim.modeling.*;
 import org.opensim.utils.TheApp;
 
 public class cmcJNI {
 
   static {
     try {
-        System.loadLibrary("rdJCmcDll_d");
+        System.loadLibrary("rdJCmcDll");
     } catch (UnsatisfiedLinkError e) {
-           TheApp.exitApp("Required library failed to load. Check that the dynamic library rdJCmcDll is in your PATH\n"+e);
+          TheApp.exitApp("Required library failed to load. Check that the dynamic library rdJCmcDll is in your PATH\n"+e);
     }
   }
 
@@ -260,6 +258,7 @@ public class cmcJNI {
   public final static native void Transform_transformVector(long jarg1, double[] jarg2);
   public final static native long Transform_getMatrix__SWIG_0(long jarg1);
   public final static native void Transform_getMatrix__SWIG_1(long jarg1, double[] jarg2);
+  public final static native void Transform_setRotationSubmatrix(long jarg1, long jarg2);
   public final static native long new_Geometry();
   public final static native void delete_Geometry(long jarg1);
   public final static native long new_AnalyticGeometry();
@@ -1206,8 +1205,13 @@ public class cmcJNI {
   public final static native double SimtkAnimationCallback_getCurrentTime(long jarg1);
   public final static native int SimtkAnimationCallback_step__SWIG_0(long jarg1, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
   public final static native int SimtkAnimationCallback_step__SWIG_1(long jarg1, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
+  public final static native int SimtkAnimationCallback_begin__SWIG_0(long jarg1, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int SimtkAnimationCallback_begin__SWIG_1(long jarg1, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native long SimtkAnimationCallback_getBodyTransform(long jarg1, int jarg2);
+  public final static native void SimtkAnimationCallback_getBodyRotations(long jarg1, int jarg2, double[] jarg3);
   public final static native void SimtkAnimationCallback_getMutex(long jarg1);
   public final static native void SimtkAnimationCallback_releaseMutex(long jarg1);
+  public final static native void SimtkAnimationCallback_extractOffsets(long jarg1, long jarg2);
   public final static native void delete_ArrayStorage(long jarg1);
   public final static native long new_ArrayStorage__SWIG_0(int jarg1);
   public final static native long new_ArrayStorage__SWIG_1();
@@ -1441,8 +1445,13 @@ public class cmcJNI {
   public final static native long Investigation_getAnalysisSet(long jarg1);
   public final static native String Investigation_getResultsDir(long jarg1);
   public final static native void Investigation_setResultsDir(long jarg1, String jarg2);
+  public final static native double Investigation_getStartTime(long jarg1);
+  public final static native double Investigation_getFinalTime(long jarg1);
+  public final static native String Investigation_getModelFilename(long jarg1);
+  public final static native void Investigation_setModelFilename(long jarg1, String jarg2);
   public final static native void Investigation_constructCommandLineForLoadModel(long jarg1, long jarg2);
   public final static native void Investigation_loadModel(long jarg1);
+  public final static native void Investigation_addAnalysisSetToModel(long jarg1);
   public final static native void Investigation_run(long jarg1);
   public final static native void Investigation_printResults__SWIG_0(long jarg1, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native void Investigation_printResults__SWIG_1(long jarg1, String jarg2, String jarg3, double jarg4);
@@ -1897,6 +1906,8 @@ public class cmcJNI {
   public final static native long rdCMC_getPositionErrorStorage(long jarg1);
   public final static native long rdCMC_getVelocityErrorStorage(long jarg1);
   public final static native long rdCMC_getStressTermWeightStorage(long jarg1);
+  public final static native void rdCMC_setUseCurvatureFilter(long jarg1, boolean jarg2);
+  public final static native boolean rdCMC_getUseCurvatureFilter(long jarg1);
   public final static native void rdCMC_setUseReflexes(long jarg1, boolean jarg2);
   public final static native boolean rdCMC_getUseReflexes(long jarg1);
   public final static native void rdCMC_constrainControlsBasedOnReflexes(long jarg1, double jarg2, long jarg3, long jarg4);
@@ -2062,15 +2073,6 @@ public class cmcJNI {
   public final static native long InvestigationRRA_copy__SWIG_0(long jarg1);
   public final static native long InvestigationRRA_copy__SWIG_1(long jarg1, long jarg2);
   public final static native void InvestigationRRA_run(long jarg1);
-  public final static native void delete_InvestigationCMC(long jarg1);
-  public final static native long new_InvestigationCMC__SWIG_0();
-  public final static native long new_InvestigationCMC__SWIG_1(String jarg1);
-  public final static native long new_InvestigationCMC__SWIG_2(long jarg1);
-  public final static native long new_InvestigationCMC__SWIG_3(long jarg1);
-  public final static native long InvestigationCMC_copy__SWIG_0(long jarg1);
-  public final static native long InvestigationCMC_copy__SWIG_1(long jarg1, long jarg2);
-  public final static native void InvestigationCMC_run(long jarg1);
-  public final static native void InvestigationCMC_computeInitialStatesFromCoordinates(long jarg1, long jarg2, long jarg3);
   public final static native void delete_InvestigationCMCGait(long jarg1);
   public final static native long new_InvestigationCMCGait__SWIG_0();
   public final static native long new_InvestigationCMCGait__SWIG_1(String jarg1);
@@ -2129,6 +2131,5 @@ public class cmcJNI {
   public final static native long SWIGrdCMC_TaskSetUpcast(long jarg1);
   public final static native long SWIGrdCMC_JointUpcast(long jarg1);
   public final static native long SWIGInvestigationRRAUpcast(long jarg1);
-  public final static native long SWIGInvestigationCMCUpcast(long jarg1);
   public final static native long SWIGInvestigationCMCGaitUpcast(long jarg1);
 }

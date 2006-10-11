@@ -3,8 +3,11 @@ package org.opensim.tracking;
 import java.awt.Component;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.SwingUtilities;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.InvestigationIK;
 import org.opensim.modeling.Model;
@@ -87,17 +90,22 @@ public class IKPanel  extends workflowWizardPanelBase{
         final double endTime = ik.getIKTrialParamsSet().get(0).getEndTime();
         final double investigationDuration = endTime - startTime;
         final Model ikModel = ik.getModel();
-        final SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(ikModel);
-        ikModel.addIntegCallback(animationCallback);
+        
+         final SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(ikModel);
+         ikModel.addIntegCallback(animationCallback);
+         
          final ModelWindowVTKTopComponent modelWindow = ViewDB.getCurrentModelWindow();
          if (modelWindow==null){
              // Show warning and proceed that no animation will be done
+             DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("No model is currently open. Results will not be visualized"));
          }
          else {
              animationCallback.extractOffsets(modelWindow.getModel());
          }
+        
         progressHandle.start();
-        // no timer for now to test muscles
+        
+        
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){public void run() {
             double simulationTime=animationCallback.getCurrentTime();
@@ -105,26 +113,29 @@ public class IKPanel  extends workflowWizardPanelBase{
                 //int intPercent =(int)percentComplete;
                 //if (intPercent < 0) intPercent = 0;
                 //if (intPercent > 100) intPercent = 100;
-                if (modelWindow!=null)
-                       modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
-                       progressHandle.progress("time="+simulationTime);
+                if (modelWindow!=null){
+                        SwingUtilities.invokeLater(new Runnable(){
+                        public void run() {
+                            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
+                        }});
+                         
+                }
+                progressHandle.progress("time="+simulationTime);
                 }},
 	               0,        //initial delay
 	               100);  //subsequent rate
                 
-         if (modelWindow!=null)
-            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
+           
+         //if (modelWindow!=null)
+            //modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
         
         // Execute IK on a separate thread
-        Runnable runIk = new Runnable(){
-            public void run() {
-                ik.run();
-            }};
-    
-        runIk.run();
+         ik.run();
+         
+         //if (modelWindow!=null)
+            //modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
         //progressHandle.progress(100);
-         if (modelWindow!=null)
-            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
+                 
         progressHandle.finish();
         
         component.putClientProperty("Step_executed", Boolean.TRUE);

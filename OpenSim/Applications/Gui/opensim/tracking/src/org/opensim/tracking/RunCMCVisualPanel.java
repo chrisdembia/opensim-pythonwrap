@@ -1,6 +1,6 @@
 package org.opensim.tracking;
 
-import com.realisticDynamics.InvestigationCMC;
+import com.realisticDynamics.InvestigationCMCGait;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -100,7 +100,7 @@ public final class RunCMCVisualPanel extends workflowVisualPanelBase {
 
     private void jEditCMCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditCMCButtonActionPerformed
           String setupFilename = jcmcSetupfileTextField.getText();
-          InvestigationCMC cmc = new InvestigationCMC(setupFilename);
+          InvestigationCMCGait cmc = new InvestigationCMCGait(setupFilename);
           new ObjectEditDialogMaker(cmc, true).process();
           cmc.print(setupFilename);
 // TODO add your handling code here:
@@ -144,7 +144,7 @@ public final class RunCMCVisualPanel extends workflowVisualPanelBase {
     public Investigation getInvestigation()
     {
         String fileName=jcmcSetupfileTextField.getText();
-        inv= new InvestigationCMC(fileName);
+        inv= new InvestigationCMCGait(fileName);
 
         return inv;
     }

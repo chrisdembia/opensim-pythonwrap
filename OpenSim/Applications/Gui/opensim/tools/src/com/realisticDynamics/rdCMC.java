@@ -137,6 +137,14 @@ public class rdCMC extends Controller {
     return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
+  public void setUseCurvatureFilter(boolean aTrueFalse) {
+    cmcJNI.rdCMC_setUseCurvatureFilter(swigCPtr, aTrueFalse);
+  }
+
+  public boolean getUseCurvatureFilter() {
+    return cmcJNI.rdCMC_getUseCurvatureFilter(swigCPtr);
+  }
+
   public void setUseReflexes(boolean aTrueFalse) {
     cmcJNI.rdCMC_setUseReflexes(swigCPtr, aTrueFalse);
   }

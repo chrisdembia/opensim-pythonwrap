@@ -4,17 +4,10 @@ import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
-import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.FileUtils;
 import com.realisticDynamics.InvestigationRRA;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Timer;
-import org.netbeans.api.progress.ProgressHandle;
-import org.netbeans.api.progress.ProgressHandleFactory;
-import org.openide.awt.StatusDisplayer;
-import org.opensim.modeling.Analysis;
-import org.opensim.modeling.Model;
+import java.io.File;
+import org.opensim.tools.common.ExecOpenSimProcess;
 import org.opensim.utils.TheApp;
 import org.opensim.view.editors.ObjectEditDialogMaker;
 
@@ -70,7 +63,7 @@ public final class ReduceResidualsVisualPanelPass2 extends workflowVisualPanelBa
             .add(jRRAParamsPanel1Layout.createSequentialGroup()
                 .add(jLabel3)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jRRAPass2SetupFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                .add(jRRAPass2SetupFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jBrowse4RRA2SetupButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)

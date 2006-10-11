@@ -11,22 +11,23 @@ package org.opensim.view;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
+import javax.swing.SwingUtilities;
 import java.util.Hashtable;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JPopupMenu;
 import org.openide.awt.StatusDisplayer;
 import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.AnalyticGeometry.AnalyticGeometryType;
-import org.opensim.modeling.Body;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmBody;
 import org.opensim.modeling.SimmBodySet;
 import org.opensim.modeling.SimmModel;
-import org.opensim.modeling.SimmModelIterator;
 import org.opensim.modeling.SimmMuscle;
 import org.opensim.modeling.SimmMusclePoint;
 import org.opensim.modeling.SimmMusclePointSet;
@@ -280,33 +281,28 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
      */
     public void updateDisplayFromDynamicModel(SimtkAnimationCallback animationCallback)
     {
-         Model dModel = animationCallback.getModel();
+          Model dModel = animationCallback.getModel();
          int nb = dModel.getNB();
          double[] xformMatrix = new double[16];
          animationCallback.getMutex();
+         vtkMatrix4x4[] xformArray = new vtkMatrix4x4[nb];
          for(int bodyNum=0; bodyNum<nb; bodyNum++) {
             Transform bodyTransform = animationCallback.getBodyTransform(bodyNum); 
             SimmBodySet vModelBodies = model.getBodies();
-            /*
-            Body dBody = dModel.getBodySet().get(bodyNum);
-            String bName = dBody.getName();
-             **/
             String bName = dModel.getBodyName(bodyNum);
             SimmBody vBody = vModelBodies.get(bName);
             
             vtkAssembly bodyRep = mapObject2Actors.get(vBody);
             // Make  matrix from xlation, rotations
-            vtkMatrix4x4 m= new vtkMatrix4x4();
             bodyTransform.getMatrix(xformMatrix);
-            m.DeepCopy(xformMatrix);
+            xformArray[bodyNum].DeepCopy(xformMatrix);
             // Move translation to last column instead of last row
             for(int i=0; i<3; i++){
-                m.SetElement(i, 3, m.GetElement(3, i));
-                m.SetElement(3, i, 0.0);
+                xformArray[bodyNum].SetElement(i, 3, xformArray[bodyNum].GetElement(3, i));
+                xformArray[bodyNum].SetElement(3, i, 0.0);
             }
-             
             if (bodyRep != null){   // Some bodies do not have a rep.
-                bodyRep.SetUserMatrix(m);
+                bodyRep.SetUserMatrix(xformArray[bodyNum]);
             }
             
             // Bodies have things attached to them as handled by the
@@ -317,11 +313,13 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             for(int j=0; j < ct;j++){
                 VisibleObject Dependent = vBody.getDisplayer().getDependent(j);
                 vtkAssembly attachmentRep = mapObject2Actors.get(Dependent.getOwner());
-                attachmentRep.SetUserMatrix(m);
+                attachmentRep.SetUserMatrix(xformArray[bodyNum]);
             } 
         } //body
+        /*
         // Now the muscles
         int numMuscles = model.getNA();
+        
         for(int m=0; m < numMuscles; m++){   
             SimmMuscle nextMuscle = model.getMuscle(m);
             // Get muscle rep
@@ -332,10 +330,13 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             int arraySize = attatchments.getSize();
             if (arraySize > 0){
                 SimmMusclePoint firstPoint = attatchments.get(0);
-                
+                SimmBody pointBody = firstPoint.getBody();
+                int pointBodyIndex = model.getBodyIndex(pointBody.getName());
                 // get location of position1 in inertial frame
-                vtkAssembly prevAsm = mapObject2Actors.get(firstPoint);
-                double[] position1=prevAsm.GetPosition();
+                double[] position1=xformArray[pointBodyIndex].MultiplyPoint(
+                        attachmentPosition.getitem(0), 
+                        attachmentPosition.getitem(1), 
+                        attachmentPosition.getitem(2));
                 double[] position2;
 
                 for (int att=1; att < arraySize; att++){
@@ -358,13 +359,12 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 } // Attachments
 
             }
-
+            
         }
+         **/
         animationCallback.releaseMutex();
-        GetRenderer().ResetCamera(); 
-        Render();
         repaint();
-    }
+   }
     /**
      * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points
      */

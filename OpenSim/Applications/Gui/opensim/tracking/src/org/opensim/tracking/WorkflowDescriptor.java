@@ -52,7 +52,7 @@ public class WorkflowDescriptor {
     
     private String      RRAoutputMotionFilename;
     private String      dynamicsDir;
-    
+    private String      IKoutfilename;
     public Boolean     stepInProgress=false;
     /**
      * Constructor, Creates a new instance of WorkflowDescriptor
@@ -181,6 +181,14 @@ public class WorkflowDescriptor {
 
     public void setSetupIKFilename(String setupIKFilename) {
         this.setupIKFilename = setupIKFilename;
+    }
+
+    String getIKoutfilename() {
+        return IKoutfilename;
+    }
+
+    public void setIKoutfilename(String IKoutfilename) {
+        this.IKoutfilename = IKoutfilename;
     }
 
  }

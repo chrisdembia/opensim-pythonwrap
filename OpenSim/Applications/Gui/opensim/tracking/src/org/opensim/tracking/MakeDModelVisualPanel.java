@@ -231,7 +231,7 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
         else 
             jMusclefileTextField.setText("");
         
-        String ikOutfilename = "recomputeFromIK";
+        String ikOutfilename = aDescriptor.getIKoutfilename();
          if (!ikOutfilename.equalsIgnoreCase("Unassigned")){
             KineticsFileTextField.setText(ikOutfilename);
         }
