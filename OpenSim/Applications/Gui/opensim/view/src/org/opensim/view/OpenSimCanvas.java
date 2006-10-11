@@ -285,7 +285,6 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
          int nb = dModel.getNB();
          double[] xformMatrix = new double[16];
          animationCallback.getMutex();
-         vtkMatrix4x4[] xformArray = new vtkMatrix4x4[nb];
          for(int bodyNum=0; bodyNum<nb; bodyNum++) {
             Transform bodyTransform = animationCallback.getBodyTransform(bodyNum); 
             SimmBodySet vModelBodies = model.getBodies();
@@ -295,14 +294,15 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             vtkAssembly bodyRep = mapObject2Actors.get(vBody);
             // Make  matrix from xlation, rotations
             bodyTransform.getMatrix(xformMatrix);
-            xformArray[bodyNum].DeepCopy(xformMatrix);
+            vtkMatrix4x4 m = new vtkMatrix4x4();
+            m.DeepCopy(xformMatrix);
             // Move translation to last column instead of last row
             for(int i=0; i<3; i++){
-                xformArray[bodyNum].SetElement(i, 3, xformArray[bodyNum].GetElement(3, i));
-                xformArray[bodyNum].SetElement(3, i, 0.0);
+                m.SetElement(i, 3, m.GetElement(3, i));
+                m.SetElement(3, i, 0.0);
             }
             if (bodyRep != null){   // Some bodies do not have a rep.
-                bodyRep.SetUserMatrix(xformArray[bodyNum]);
+                bodyRep.SetUserMatrix(m);
             }
             
             // Bodies have things attached to them as handled by the
@@ -313,7 +313,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             for(int j=0; j < ct;j++){
                 VisibleObject Dependent = vBody.getDisplayer().getDependent(j);
                 vtkAssembly attachmentRep = mapObject2Actors.get(Dependent.getOwner());
-                attachmentRep.SetUserMatrix(xformArray[bodyNum]);
+                attachmentRep.SetUserMatrix(m);
             } 
         } //body
         /*
