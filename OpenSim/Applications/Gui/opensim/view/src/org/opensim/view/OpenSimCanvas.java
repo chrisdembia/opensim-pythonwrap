@@ -60,7 +60,6 @@ import vtk.vtkXMLPolyDataReader;
 public class OpenSimCanvas extends OpenSimBaseCanvas {
     
     private SimmModel model;
-    private SimmModel saveModel;
     
     Hashtable<OpenSimObject, vtkAssembly> mapObject2Actors = new Hashtable<OpenSimObject, vtkAssembly>();
     Hashtable<vtkProp3D, OpenSimObject> mapActors2Objects = new Hashtable<vtkProp3D, OpenSimObject>();
@@ -296,11 +295,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             bodyTransform.getMatrix(xformMatrix);
             vtkMatrix4x4 m = new vtkMatrix4x4();
             m.DeepCopy(xformMatrix);
+            m.Transpose();
             // Move translation to last column instead of last row
-            for(int i=0; i<3; i++){
-                m.SetElement(i, 3, m.GetElement(3, i));
-                m.SetElement(3, i, 0.0);
-            }
             if (bodyRep != null){   // Some bodies do not have a rep.
                 bodyRep.SetUserMatrix(m);
             }
@@ -316,7 +312,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 attachmentRep.SetUserMatrix(m);
             } 
         } //body
-        /*
+        
         // Now the muscles
         int numMuscles = model.getNA();
         
@@ -328,40 +324,72 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             // Get attachments and connect them
             SimmMusclePointSet attatchments = nextMuscle.getAttachmentSet();
             int arraySize = attatchments.getSize();
+            double[] position1InOwenerBody = new double[4];
             if (arraySize > 0){
                 SimmMusclePoint firstPoint = attatchments.get(0);
                 SimmBody pointBody = firstPoint.getBody();
                 int pointBodyIndex = model.getBodyIndex(pointBody.getName());
                 // get location of position1 in inertial frame
-                double[] position1=xformArray[pointBodyIndex].MultiplyPoint(
-                        attachmentPosition.getitem(0), 
-                        attachmentPosition.getitem(1), 
-                        attachmentPosition.getitem(2));
-                double[] position2;
+                double[] position1InOwnerBody = new double[4];
+                double[] position1InWorld = new double[4];
+                for(int i=0; i<3; i++)
+                    position1InOwnerBody[i] = firstPoint.getAttachment().getitem(i);
+                
+                // xform the position into inertial frame
+                Transform bodyTransform = animationCallback.getBodyTransform(pointBodyIndex); 
+                bodyTransform.getMatrix(xformMatrix);
+                vtkMatrix4x4 m1 = new vtkMatrix4x4();
+                m1.DeepCopy(xformMatrix);
+                // Move translation to last column instead of last row
+                m1.Transpose();
+                // m1 works because it gets applied to the body
+                position1InOwnerBody[3]=1.0;
+                m1.MultiplyPoint(position1InOwnerBody, position1InWorld);
+                //debugLocation(position1InWorld);
+                double[] position2InOwnerBody = new double[4];
+                double[] position2InWorld = new double[4];
 
                 for (int att=1; att < arraySize; att++){
                      String muscleSegname = nextMuscle.getName()+String.valueOf(att-1)+String.valueOf(att);
                      vtkActor segActor = mapObjectsSegments2Actors.get(muscleSegname);
                      SimmMusclePoint curPoint = attatchments.get(att);
-                     vtkAssembly curPointAsm = mapObject2Actors.get(curPoint);
-                     position2=curPointAsm.GetPosition();
+                     SimmBody point2Body = curPoint.getBody();
+                     int point2BodyIndex = model.getBodyIndex(point2Body.getName());
+                     
                     double[] axis = new double[3];
                     double[] center = new double[3];
+                    for(int i=0; i<3; i++)
+                        position2InOwnerBody[i] = curPoint.getAttachment().getitem(i);
+                    
+                    Transform body2Transform = animationCallback.getBodyTransform(point2BodyIndex); 
+                    body2Transform.getMatrix(xformMatrix);
+                    vtkMatrix4x4 m2 = new vtkMatrix4x4();
+                    m2.DeepCopy(xformMatrix);
+                    // Move translation to last column instead of last row
+                    m2.Transpose();
+                   // m1 works because it gets applied to the body
+                    position2InOwnerBody[3]=1.0;
+                    m2.MultiplyPoint(position2InOwnerBody, position2InWorld);
+                    //debugLocation(position2InWorld);
+
                     for(int d=0; d <3; d++){
-                        axis[d]=position1[d]-position2[d];
-                        center[d] = (position1[d]+position2[d])/2.0;
+                        axis[d]=position1InWorld[d]-position2InWorld[d];
+                        center[d] = (position1InWorld[d]+position2InWorld[d])/2.0;
                     }
                     double length = normalizeAndGetLength(axis);
                     // Compute new xform and apply it to segActor
                     segActor.SetUserMatrix(getCylinderTransform(axis, center));
+                    
                     // Move position1 to the next point
-                    position1=position2;
+                    for(int d=0; d <3; d++){
+                       position1InWorld[d]=position2InWorld[d];
+                    }
                 } // Attachments
 
             }
             
         }
-         **/
+         
         animationCallback.releaseMutex();
         repaint();
    }
@@ -581,6 +609,19 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
     public SimmModel getModel() {
         return model;
+    }
+    
+    private void debugLocation(double[] propLocation) {
+        vtkActor startPointActor = new vtkActor();
+        vtkSphereSource sphere = new vtkSphereSource();
+        sphere.SetRadius(0.03);
+        sphere.SetCenter(propLocation);
+        vtkPolyDataMapper mapper = new vtkPolyDataMapper();
+        mapper.SetInput(sphere.GetOutput());
+        startPointActor.SetMapper(mapper);
+        startPointActor.GetProperty().SetColor(0., 1., 0.);
+        startPointActor.GetProperty().SetOpacity(0.2);
+        GetRenderer().AddViewProp(startPointActor); 
     }
 
 }

@@ -10,7 +10,8 @@ import org.openide.util.actions.CallableSystemAction;
 import org.opensim.swingui.SwingWorker;
 
 /**
- * Execute a task of the workflow on a worker thread
+ * Execute a task of the workflow on a worker thread.
+ * performAction is invoked from the AWT event thread
  */
 public final class ExecuteWorkflowStepAction extends CallableSystemAction {
     WizardDescriptor.Iterator  iterator;
@@ -26,12 +27,7 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
         // Do not execute on event patching thread now so as not to freeze the GUI
         if (currentPanel instanceof workflowWizardPanelBase){
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle(
-                "Executing "+currentPanel.getComponent().getName()+"...", 
-                new Cancellable(){
-                public boolean cancel() {
-                    iterator.previousPanel();
-                    return true;
-                }});
+                "Executing "+currentPanel.getComponent().getName()+"...");
         /*
         JComponent progressComp=ProgressHandleFactory.createProgressComponent(progressHandle);
         final JDialog progressframe = new JDialog(new JFrame());

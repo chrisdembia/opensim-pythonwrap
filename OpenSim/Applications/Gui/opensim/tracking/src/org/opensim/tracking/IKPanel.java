@@ -123,12 +123,9 @@ public class IKPanel  extends workflowWizardPanelBase{
                 progressHandle.progress("time="+simulationTime);
                 }},
 	               0,        //initial delay
-	               100);  //subsequent rate
+	               1000);  //subsequent rate
                 
            
-         //if (modelWindow!=null)
-            //modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
-        
         // Execute IK on a separate thread
          ik.run();
          
@@ -147,8 +144,9 @@ public class IKPanel  extends workflowWizardPanelBase{
         Object state = component.getClientProperty("Step_executed");
         if (state instanceof Boolean && ((Boolean)state).booleanValue()==true)
             markValid(true);
-        else
-            markValid(!descriptor.getStepInProgress());
+        else {
+            markValid(!descriptor.getStepInProgress());            
+        }
     }
 }
 
