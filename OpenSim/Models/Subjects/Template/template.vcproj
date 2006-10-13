@@ -75,6 +75,7 @@
 				AdditionalIncludeDirectories="$(OPENSIM_INCLUDE_PATH);$(OPENSIM_INCLUDE_PATH)/Vendors/xerces-c-src2_4_0/src;$(OPENSIM_INCLUDE_PATH)/OpenSim/Models/SIMMPipeline/4.0/suPipeline40/dp"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,RDSDFAST_EXPORTS"
 				RuntimeLibrary="2"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
