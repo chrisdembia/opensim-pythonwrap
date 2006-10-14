@@ -105,7 +105,7 @@ public class IKPanel  extends workflowWizardPanelBase{
         
         progressHandle.start();
         
-        
+
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){public void run() {
             double simulationTime=animationCallback.getCurrentTime();
@@ -116,7 +116,7 @@ public class IKPanel  extends workflowWizardPanelBase{
                 if (modelWindow!=null){
                         SwingUtilities.invokeLater(new Runnable(){
                         public void run() {
-                            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
+                            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, true);
                         }});
                          
                 }
@@ -128,6 +128,8 @@ public class IKPanel  extends workflowWizardPanelBase{
            
         // Execute IK on a separate thread
          ik.run();
+         
+         timer.cancel();
          
          //if (modelWindow!=null)
             //modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);

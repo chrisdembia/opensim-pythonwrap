@@ -147,28 +147,21 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
                 int intPercent =(int)percentComplete;
                 if (intPercent < 0) intPercent = 0;
                 if (intPercent > 100) intPercent = 100;
+                if(modelWindow==null) System.out.println("*** modelWindow is null!");
                 if (modelWindow!=null)
                         SwingUtilities.invokeLater(new Runnable(){
                         public void run() {
-                            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
+                            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, false);
                         }});
                 }},
 	               0,        //initial delay
-	               100);  //subsequent rate
+	               1000);  //subsequent rate
         
-        if (modelWindow!=null){
-            SwingUtilities.invokeLater(new Runnable(){
-            public void run() {
-                modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
-            }});
-        }
+
         dInvestigation.run();
-         if (modelWindow!=null){
-            SwingUtilities.invokeLater(new Runnable(){
-            public void run() {
-                modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
-            }});
-        }
+        
+        timer.cancel();
+
         if (isDeterministic)
             progressHandle.progress(100);
         progressHandle.finish();

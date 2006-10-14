@@ -278,8 +278,10 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
      * Here, the xforms are obtained from the dynamcis engine and so 
      *
      */
-    public void updateDisplayFromDynamicModel(SimtkAnimationCallback animationCallback)
+    public void updateDisplayFromDynamicModel(SimtkAnimationCallback animationCallback, Boolean useSimmModel)
     {
+        System.out.println("Got useSimmModel = " + useSimmModel);
+        
           Model dModel = animationCallback.getModel();
          int nb = dModel.getNB();
          double[] xformMatrix = new double[16];
@@ -315,7 +317,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         
         // Now the muscles
         int numMuscles = model.getNA();
-        
+        /*
         for(int m=0; m < numMuscles; m++){   
             SimmMuscle nextMuscle = model.getMuscle(m);
             // Get muscle rep
@@ -389,7 +391,9 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             }
             
         }
-         
+
+         */
+        
         animationCallback.releaseMutex();
         repaint();
    }
