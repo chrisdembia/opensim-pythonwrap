@@ -280,7 +280,6 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
      */
     public void updateDisplayFromDynamicModel(SimtkAnimationCallback animationCallback, Boolean useSimmModel)
     {
-        System.out.println("Got useSimmModel = " + useSimmModel);
         
           Model dModel = animationCallback.getModel();
          int nb = dModel.getNB();
@@ -317,7 +316,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         
         // Now the muscles
         int numMuscles = model.getNA();
-        /*
+        
         for(int m=0; m < numMuscles; m++){   
             SimmMuscle nextMuscle = model.getMuscle(m);
             // Get muscle rep
@@ -331,6 +330,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                 SimmMusclePoint firstPoint = attatchments.get(0);
                 SimmBody pointBody = firstPoint.getBody();
                 int pointBodyIndex = model.getBodyIndex(pointBody.getName());
+                if (!useSimmModel)  // hack to work around ground body
+                    pointBodyIndex = pointBodyIndex-1;
                 // get location of position1 in inertial frame
                 double[] position1InOwnerBody = new double[4];
                 double[] position1InWorld = new double[4];
@@ -357,6 +358,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                      SimmMusclePoint curPoint = attatchments.get(att);
                      SimmBody point2Body = curPoint.getBody();
                      int point2BodyIndex = model.getBodyIndex(point2Body.getName());
+                    if (!useSimmModel)  // hack to work around ground body
+                        point2BodyIndex = point2BodyIndex-1;
                      
                     double[] axis = new double[3];
                     double[] center = new double[3];
@@ -392,7 +395,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             
         }
 
-         */
+         
         
         animationCallback.releaseMutex();
         repaint();

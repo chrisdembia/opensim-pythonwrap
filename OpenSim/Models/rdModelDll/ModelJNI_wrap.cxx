@@ -23063,23 +23063,6 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimation
 }
 
 
-JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1getBodyRotations(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jdoubleArray jarg3) {
-  OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
-  int arg2 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(OpenSim::SimtkAnimationCallback **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::SimtkAnimationCallback const *)arg1)->getBodyRotations(arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
-}
-
-
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1getMutex(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
   
@@ -49800,6 +49783,20 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMarkerData
     result = (OpenSim::Array<std::string > *) &_result_ref;
   }
   *(OpenSim::Array<std::string > **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMarkerData_1getNumFrames(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jint jresult = 0 ;
+  OpenSim::SimmMarkerData *arg1 = (OpenSim::SimmMarkerData *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMarkerData **)&jarg1; 
+  result = (int)((OpenSim::SimmMarkerData const *)arg1)->getNumFrames();
+  jresult = (jint)result; 
   return jresult;
 }
 

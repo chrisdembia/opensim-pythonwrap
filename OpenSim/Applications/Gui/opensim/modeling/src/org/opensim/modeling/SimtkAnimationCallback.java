@@ -62,10 +62,6 @@ public class SimtkAnimationCallback extends IntegCallback {
     return (cPtr == 0) ? null : new Transform(cPtr, false);
   }
 
-  public void getBodyRotations(int index, double[] rots) {
-    opensimModelJNI.SimtkAnimationCallback_getBodyRotations(swigCPtr, index, rots);
-  }
-
   public void getMutex() {
     opensimModelJNI.SimtkAnimationCallback_getMutex(swigCPtr);
   }

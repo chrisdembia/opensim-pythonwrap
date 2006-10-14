@@ -1362,7 +1362,6 @@ public class opensimModelJNI {
   public final static native int SimtkAnimationCallback_begin__SWIG_0(long jarg1, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
   public final static native int SimtkAnimationCallback_begin__SWIG_1(long jarg1, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native long SimtkAnimationCallback_getBodyTransform(long jarg1, int jarg2);
-  public final static native void SimtkAnimationCallback_getBodyRotations(long jarg1, int jarg2, double[] jarg3);
   public final static native void SimtkAnimationCallback_getMutex(long jarg1);
   public final static native void SimtkAnimationCallback_releaseMutex(long jarg1);
   public final static native void SimtkAnimationCallback_extractOffsets(long jarg1, long jarg2);
@@ -2930,6 +2929,7 @@ public class opensimModelJNI {
   public final static native long SimmMarkerData_getUnits(long jarg1);
   public final static native void SimmMarkerData_convertToUnits(long jarg1, long jarg2);
   public final static native long SimmMarkerData_getMarkerNames(long jarg1);
+  public final static native int SimmMarkerData_getNumFrames(long jarg1);
   public final static native void SimmMarkerData_peteTest(long jarg1);
   public final static native long new_ScalerInterface(long jarg1);
   public final static native boolean ScalerInterface_scaleModel(long jarg1, long jarg2, boolean jarg3, double jarg4);

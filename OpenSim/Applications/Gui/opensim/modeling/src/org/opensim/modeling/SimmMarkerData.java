@@ -94,6 +94,10 @@ public class SimmMarkerData {
     return new ArrayStr(opensimModelJNI.SimmMarkerData_getMarkerNames(swigCPtr), false);
   }
 
+  public int getNumFrames() {
+    return opensimModelJNI.SimmMarkerData_getNumFrames(swigCPtr);
+  }
+
   public void peteTest() {
     opensimModelJNI.SimmMarkerData_peteTest(swigCPtr);
   }
