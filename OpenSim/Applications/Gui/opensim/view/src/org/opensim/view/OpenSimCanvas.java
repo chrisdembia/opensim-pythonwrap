@@ -398,7 +398,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
          
         
         animationCallback.releaseMutex();
-        repaint();
+        //repaint();
    }
     /**
      * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points

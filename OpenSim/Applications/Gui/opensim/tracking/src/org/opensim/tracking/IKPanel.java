@@ -114,9 +114,10 @@ public class IKPanel  extends workflowWizardPanelBase{
                 //if (intPercent < 0) intPercent = 0;
                 //if (intPercent > 100) intPercent = 100;
                 if (modelWindow!=null){
+                        modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, true);
                         SwingUtilities.invokeLater(new Runnable(){
                         public void run() {
-                            modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, true);
+                            modelWindow.getCanvas().repaint();
                         }});
                          
                 }
