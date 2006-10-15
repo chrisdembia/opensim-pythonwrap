@@ -64,15 +64,15 @@ public class CamerasMenu extends JMenu {
     
     private void createDefaultCameras()
     {
-        frontCamera = new vtkCamera();
+        frontCamera = new vtkCamera(); //x
         frontCamera.Azimuth(90);
         frontCamera.Elevation(0);
         frontCamera.Roll(0);
         frontCamera.SetViewAngle(30);
         frontCamera.SetFocalPoint(0, 0, 0);
-        frontCamera.SetViewUp(0, 0, 1);
+        frontCamera.SetViewUp(0, 1, 0);
 
-        topCamera = new vtkCamera();
+        topCamera = new vtkCamera();    //z
         topCamera.Azimuth(0);
         topCamera.Elevation(0);
         topCamera.Roll(0);
@@ -80,13 +80,13 @@ public class CamerasMenu extends JMenu {
         topCamera.SetFocalPoint(0, 0, 0);
         topCamera.SetViewUp(0, 1, 0);
         
-        sideCamera = new vtkCamera();
+        sideCamera = new vtkCamera();   //y
         sideCamera.Azimuth(0);
-        sideCamera.Elevation(-90);
-        sideCamera.Roll(0);
+        sideCamera.Elevation(90);
+        sideCamera.Roll(180);
         sideCamera.SetViewAngle(30);
         sideCamera.SetFocalPoint(0, 0, 0);
-        sideCamera.SetViewUp(0, 0, 1);
+        sideCamera.SetViewUp(0, 0, -1);
 
         availableCameras.add(frontCamera);
         availableCameraNames.add("Front");
