@@ -21,7 +21,8 @@ public class SimtkAnimationCallback extends IntegCallback {
   }
 
   protected void finalize() {
-    delete();
+    //CLAY- Commented out to try to stop crash.
+    //delete();
   }
 
   public void delete() {
