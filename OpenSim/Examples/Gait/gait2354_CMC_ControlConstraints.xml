@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ControlSet name="gait2354_CMC">
+	<defaults>
+		<ControlLinear name="default">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min>       0.000000000000 </default_min>
+			<default_max>       1.000000000000 </default_max>
+			<use_steps> false </use_steps>
+			<nodes/>
+		</ControlLinear>
+		<ControlLinearNode name="default">
+			<t>       0.000000000000 </t>
+			<x>       0.000000000000 </x>
+			<min>       0.000000000000 </min>
+			<max>       1.000000000000 </max>
+		</ControlLinearNode>
+	</defaults>
+	<objects>
+		<ControlLinear name="FX.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1.0 </default_min>
+			<default_max>  1.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+		<ControlLinear name="FY.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1.0 </default_min>
+			<default_max>  1.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+		<ControlLinear name="FZ.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1.0 </default_min>
+			<default_max>  1.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+		<ControlLinear name="MX.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1.0 </default_min>
+			<default_max>  1.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+		<ControlLinear name="MY.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1.0 </default_min>
+			<default_max>  1.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+		<ControlLinear name="MZ.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1.0 </default_min>
+			<default_max>  1.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1.0 </min>
+					<max>  1.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+		
+		<!-- right -->
+		
+		<ControlLinear name="hip_flexion_r_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<ControlLinear name="hip_adduction_r_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<ControlLinear name="hip_rotation_r_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<ControlLinear name="knee_angle_r_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<ControlLinear name="ankle_angle_r_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+		
+		<!-- left -->
+
+		<ControlLinear name="hip_flexion_l_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<ControlLinear name="hip_adduction_l_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<ControlLinear name="hip_rotation_l_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<ControlLinear name="knee_angle_l_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<ControlLinear name="ankle_angle_l_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+		
+		<!-- back -->
+
+		<ControlLinear name="lumbar_extension_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<ControlLinear name="lumbar_bending_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<ControlLinear name="lumbar_rotation_reserve.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min> -1000.0 </default_min>
+			<default_max>  1000.0 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> -1000.0 </min>
+					<max>  1000.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+
+		<!--  Forces RF on
+		<ControlLinear name="rect_fem_l.excitation">
+			<is_model_control> true </is_model_control>
+			<extrapolate> true </extrapolate>
+			<default_min>       0.000000000000 </default_min>
+			<default_max>       1.000000000000 </default_max>
+			<use_steps> false </use_steps>
+			<nodes>
+				<ControlLinearNode name="">
+					<t> -1.0e30 </t>
+					<x> 0.0 </x>
+					<min> 0.0 </min>
+					<max> 1.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 0.33 </t>
+					<x> 0.0 </x>
+					<min> 0.2 </min>
+					<max> 1.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 0.42 </t>
+					<x> 0.0 </x>
+					<min> 0.2 </min>
+					<max> 1.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 0.91 </t>
+					<x> 0.0 </x>
+					<min> 0.0 </min>
+					<max> 1.0 </max>
+				</ControlLinearNode>
+				<ControlLinearNode name="">
+					<t> 1.0e30 </t>
+					<x> 0.0 </x>
+					<min> 0.0 </min>
+					<max> 1.0 </max>
+				</ControlLinearNode>
+			</nodes>
+		</ControlLinear>
+		-->
+		
+	</objects>
+</ControlSet>
+

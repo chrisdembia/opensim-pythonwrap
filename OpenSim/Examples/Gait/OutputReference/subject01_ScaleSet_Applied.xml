@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScaleSet name="ScaleSet">
+	<defaults/>
+	<objects>
+		<Scale name="">
+			<scales>   1.00000000   1.00000000   1.00000000 </scales>
+			<segment> ground </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   0.93065083   0.93065083   0.93065083 </scales>
+			<segment> pelvis </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.04372165   1.04372165   1.04372165 </scales>
+			<segment> femur_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   0.93554526   0.93554526   0.93554526 </scales>
+			<segment> tibia_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.04372165   1.04372165   1.04372165 </scales>
+			<segment> patella_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   0.93554526   0.93554526   0.93554526 </scales>
+			<segment> talus_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.04036106   1.04036106   1.04036106 </scales>
+			<segment> calcn_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.04036106   1.04036106   1.04036106 </scales>
+			<segment> toes_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.04372165   1.04372165   1.04372165 </scales>
+			<segment> femur_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   0.93554526   0.93554526   0.93554526 </scales>
+			<segment> tibia_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.04372165   1.04372165   1.04372165 </scales>
+			<segment> patella_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   0.93554526   0.93554526   0.93554526 </scales>
+			<segment> talus_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.04036106   1.04036106   1.04036106 </scales>
+			<segment> calcn_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.04036106   1.04036106   1.04036106 </scales>
+			<segment> toes_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   0.95320184   0.95320184   0.95320184 </scales>
+			<segment> torso </segment>
+			<apply> true </apply>
+		</Scale>
+	</objects>
+</ScaleSet>
+

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SimmMarkerSet>
+
+	<!-- Pelvis -->
+	<SimmMarker name="asis_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="asis_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="midasis">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="psis_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="psis_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="sacralwand">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="hip_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="hip_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="midhip">
+		<weight>1.0</weight>
+	</SimmMarker>
+
+	<!-- Right femur -->
+	<SimmMarker name="epicondLat_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="epicondMed_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="thighwand_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="upperleg1_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="upperleg2_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+
+	<!-- Right tibia -->
+	<SimmMarker name="malleolusLat_r">
+		<weight>10.0</weight>
+	</SimmMarker>
+	<SimmMarker name="malleolusMedv_r">
+		<weight>10.0</weight>
+	</SimmMarker>
+	<SimmMarker name="shankwand_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="lowerleg1_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="knee_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="ankle_r">
+		<weight>10.0</weight>
+	</SimmMarker>
+
+	<!-- Right calcaneous -->
+	<SimmMarker name="toe_r">
+		<weight>10.0</weight>
+	</SimmMarker>
+	<SimmMarker name="heel_r">
+		<weight>10.0</weight>
+	</SimmMarker>
+
+	<!-- Left femur -->
+	<SimmMarker name="epicondLat_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="epicondMed_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="thighwand_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="upperleg1_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="upperleg2_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+
+	<!-- Left tibia -->
+	<SimmMarker name="malleolusLat_l">
+		<weight>10.0</weight>
+	</SimmMarker>
+	<SimmMarker name="malleolusMedv_l">
+		<weight>10.0</weight>
+	</SimmMarker>
+	<SimmMarker name="shankwand_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="lowerleg1_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="knee_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="ankle_l">
+		<weight>10.0</weight>
+	</SimmMarker>
+
+	<!-- Left calcaneous -->
+	<SimmMarker name="toe_l">
+		<weight>10.0</weight>
+	</SimmMarker>
+	<SimmMarker name="heel_l">
+		<weight>10.0</weight>
+	</SimmMarker>
+
+	<!-- Torso -->
+	<SimmMarker name="subclavicle_r">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="subclavicle_l">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="neck">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="sternalnotch">
+		<weight>1.0</weight>
+	</SimmMarker>
+	<SimmMarker name="xyphoidprocess">
+		<weight>1.0</weight>
+	</SimmMarker>
+</SimmMarkerSet>

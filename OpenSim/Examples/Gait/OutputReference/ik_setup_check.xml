@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InvestigationIK name="subject01">
+	<!--Name of the OpenSim model file after scaling and marker relocation.-->
+	<model_file> subject01.osim </model_file>
+	<SimmMarkerSet name=""><objects file="gait2354_IK_MarkerSet.xml"/></SimmMarkerSet>
+	<!--Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial values. Filename is specified in the appropriate trial block.-->
+	<SimmCoordinateSet name=""><objects file="gait2354_IK_CoordinateSet.xml"/></SimmCoordinateSet>
+	<!--Trial paramaters, one block per trial-->
+	<SimmIKTrialParamsSet name="">
+		<objects>
+		<SimmIKTrialParams name="first">
+			<!--Name of the .trc file containing the marker trail data.-->
+			<marker_trial> subject01_walk01.trc </marker_trial>
+			<!--Name of the .mot file containing precomputed joint angles for the trial.  These are used to guide and weight the IK solution.-->
+			<coordinate_trial> subject01_walk01.mot </coordinate_trial>
+			<!--Time range over which to solve the IK problem.-->
+			<time_range>       0.15000000       2.20000000 </time_range>
+			<!-- <time_range> 1.10 1.5 </time_range> -->
+			<!--Cutoff frequency for a low-pass filter on the kinematics.-->
+			<kinematics_smoothing>      10.00000000 </kinematics_smoothing>
+			<!--Cutoff frequency for a low-pass filter on the ground reaction forces.-->
+			<ground_reaction_smoothing>    1000.00000000 </ground_reaction_smoothing>
+			<!--Name of the .mot file containing the IK solution for the joint angles.-->
+			<output_motion_file> subject01_walk01_ik.mot </output_motion_file>
+			<!--Flag for whether or not to includ marker positions in the output .mot file.-->
+			<include_markers> false </include_markers>
+		</SimmIKTrialParams>
+		</objects>
+	</SimmIKTrialParamsSet>
+	<defaults/>
+	<!--Set of analyses to be run during the investigation.-->
+	<AnalysisSet name="Analyses">
+		<objects/>
+	</AnalysisSet>
+	<!--Markers to be used by all IK trials-->
+	<!--Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial values. Filename is specified in the appropriate trial block.-->
+	<!--Trial paramaters, one block per trial-->
+</InvestigationIK>
+

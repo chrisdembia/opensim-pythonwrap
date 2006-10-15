@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InvestigationRRA name="subject01">
+	<defaults>
+	</defaults>
+	<!--Name of the model library to load. Do not include the library extension (e.g., .dll or .lib).-->
+	<model_library>subject01</model_library>
+	<!--Name of the xml file used to deserialize or construct a model.-->
+	<model_file>  </model_file>
+	<!--Name of the xml file used to construct an actuator set for the model.-->
+	<actuator_set_file>gait2354_RRA1_Actuators.xml</actuator_set_file>
+	<!--Name of the xml file used to construct a contact force set for the model.-->
+	<contact_force_set_file>  </contact_force_set_file>
+	<!--Name of the params files used to construct a SIMM Pipeline model.-->
+	<params_file>params.txt</params_file>
+	<!--Directory used for writing results.-->
+	<results_directory> ./Results </results_directory>
+	<!--Output precision.-->
+	<output_precision> 8 </output_precision>
+	<!--Initial time for the investigation.-->
+	<initial_time> 0.15 </initial_time>
+	<!--Final time for the investigation.-->
+	<final_time> 0.76 </final_time>
+	<!--Maximum number of steps for the integrator.-->
+	<maximum_number_of_integrator_steps> 20000 </maximum_number_of_integrator_steps>
+	<!--Maximum integration step size.-->
+	<maximum_integrator_step_size> 0.001 </maximum_integrator_step_size>
+	<!--Integrator error tolerance. When the error is greater, the integrator step size is decreased.-->
+	<integrator_error_tolerance> 0.000100 </integrator_error_tolerance>
+	<!--Integrator fine tolerance. When the error is less, the integrator step size is increased.-->
+	<integrator_fine_tolerance>  0.000001 </integrator_fine_tolerance>
+	<!--Set of analyses to be run during the investigation.-->
+	<rdAnalysisSet name="Analyses">
+		<objects/>
+	</rdAnalysisSet>
+	<!--Name of the tracking file to load.-->
+	<tracking_file_name_prop> gait2354_RRA1_Tasks.xml </tracking_file_name_prop>
+	<!--Name of the prefix for this subject's motion and result files.-->
+	<prefix_prop>subject01_walk01_ik</prefix_prop>
+	<!--Name of the kinetics file containing ground reaction data.-->
+	<kinetics_file_name_prop>subject01_walk01.mot</kinetics_file_name_prop>
+	<!--Whether or not to compute corrections in this pass of RRA.-->
+	<compute_corrections_prop> true </compute_corrections_prop>
+	<!--Amount by which to weight torso x coordinate correction.-->
+	<torso_x_weight_prop>       0.00000000 </torso_x_weight_prop>
+	<!--Amount by which to weight torso z coordinate correction.-->
+	<torso_z_weight_prop>       0.00000000 </torso_z_weight_prop>
+	<!--Amount by which to weight lumbar extension correction.-->
+	<lumbar_extension_weight_prop>       0.00000000 </lumbar_extension_weight_prop>
+	<!--Amount by which to weight lumbar bending correction.-->
+	<lumbar_bending_weight_prop>       0.00000000 </lumbar_bending_weight_prop>
+	<!--Extra user-specified perturbation for torso x.-->
+	<torso_x_perturbation_prop>       0.00000000 </torso_x_perturbation_prop>
+	<!--Extra user-specified perturbation for torso y.-->
+	<torso_y_perturbation_prop>       0.00000000 </torso_y_perturbation_prop>
+	<!--Extra user-specified perturbation for torso z.-->
+	<torso_z_perturbation_prop>       0.00000000 </torso_z_perturbation_prop>
+	<!--Extra user-specified perturbation for lumbar extension.-->
+	<lumbar_extension_perturbation_prop>       0.00000000 </lumbar_extension_perturbation_prop>
+	<!--Extra user-specified perturbation for lumbar bending.-->
+	<lumbar_bending_perturbation_prop>       0.00000000 </lumbar_bending_perturbation_prop>
+	<!--Extra user-specified perturbation for lumbar rotation.-->
+	<lumbar_rotation_perturbation_prop>       0.00000000 </lumbar_rotation_perturbation_prop>
+	<!--Extra user-specified perturbation for right foot COP x.-->
+	<right_cop_x_perturbation_prop>       0.00000000 </right_cop_x_perturbation_prop>
+	<!--Extra user-specified perturbation for right foot COP y.-->
+	<right_cop_y_perturbation_prop>       0.00000000 </right_cop_y_perturbation_prop>
+	<!--Extra user-specified perturbation for right foot COP z.-->
+	<right_cop_z_perturbation_prop>       0.00000000 </right_cop_z_perturbation_prop>
+	<!--Extra user-specified perturbation for left foot COP x.-->
+	<left_cop_x_perturbation_prop>       0.00000000 </left_cop_x_perturbation_prop>
+	<!--Extra user-specified perturbation for left foot COP y.-->
+	<left_cop_y_perturbation_prop>       0.00000000 </left_cop_y_perturbation_prop>
+	<!--Extra user-specified perturbation for left foot COP z.-->
+	<left_cop_z_perturbation_prop>       0.00000000 </left_cop_z_perturbation_prop>
+</InvestigationRRA>
+

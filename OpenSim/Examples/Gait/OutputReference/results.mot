@@ -1,0 +1,14 @@
+name sd_motion
+datacolumns 115
+datarows 248
+range 0.150000 2.200000
+cursor 1.0 1.0 0.0
+keys m_key
+wrap
+enforce_loops no
+enforce_constraints no
+calc_derivatives 0.008330
+event_color 1.000000 0.000000 1.000000
+endheader
+
+time	glut_med1_r	glut_med2_r	glut_med3_r	bifemlh_r	bifemsh_r	sar_r	add_mag2_r	tfl_r	pect_r	grac_r	glut_max1_r	glut_max2_r	glut_max3_r	iliacus_r	psoas_r	quad_fem_r	gem_r	peri_r	rect_fem_r	vas_int_r	med_gas_r	soleus_r	tib_post_r	tib_ant_r	glut_med1_l	glut_med2_l	glut_med3_l	bifemlh_l	bifemsh_l	sar_l	add_mag2_l	tfl_l	pect_l	grac_l	glut_max1_l	glut_max2_l	glut_max3_l	iliacus_l	psoas_l	quad_fem_l	gem_l	peri_l	rect_fem_l	vas_int_l	med_gas_l	soleus_l	tib_post_l	tib_ant_l	ercspn_r	ercspn_l	intobl_r	intobl_l	extobl_r	extobl_l	glut_med1_r_frc	glut_med2_r_frc	glut_med3_r_frc	bifemlh_r_frc	bifemsh_r_frc	sar_r_frc	add_mag2_r_frc	tfl_r_frc	pect_r_frc	grac_r_frc	glut_max1_r_frc	glut_max2_r_frc	glut_max3_r_frc	iliacus_r_frc	psoas_r_frc	quad_fem_r_frc	gem_r_frc	peri_r_frc	rect_fem_r_frc	vas_int_r_frc	med_gas_r_frc	soleus_r_frc	tib_post_r_frc	tib_ant_r_frc	glut_med1_l_frc	glut_med2_l_frc	glut_med3_l_frc	bifemlh_l_frc	bifemsh_l_frc	sar_l_frc	add_mag2_l_frc	tfl_l_frc	pect_l_frc	grac_l_frc	glut_max1_l_frc	glut_max2_l_frc	glut_max3_l_frc	iliacus_l_frc	psoas_l_frc	quad_fem_l_frc	gem_l_frc	peri_l_frc	rect_fem_l_frc	vas_int_l_frc	med_gas_l_frc	soleus_l_frc	tib_post_l_frc	tib_ant_l_frc	ercspn_r_frc	ercspn_l_frc	intobl_r_frc	intobl_l_frc	extobl_r_frc	extobl_l_frc	ground_torque_vx	ground_torque_vy	ground_torque_vz	ground_torque_vx	ground_torque_vy	ground_torque_vz	

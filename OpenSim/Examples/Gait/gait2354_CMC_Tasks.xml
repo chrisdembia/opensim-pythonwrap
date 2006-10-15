@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdCMC_TaskSet name="gait2354_CMC">
+
+	<defaults>
+		<rdCMC_Joint name="default">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> false </on>
+			<active> false false false </active>
+			<weight> 1.0 1.0 1.0 </weight>
+			<kp> 1.0 1.0 1.0 </kp>
+			<kv> 1.0 1.0 1.0 </kv>
+			<ka> 1.0 1.0 1.0 </ka>
+			<R0> 0.0 0.0 0.0 </R0>
+			<R1> 0.0 0.0 0.0 </R1>
+			<R2> 0.0 0.0 0.0 </R2>
+			<qid> -1 </qid>
+		</rdCMC_Joint>
+	</defaults>
+
+	<objects>
+
+		<!-- Pelvis -->
+
+		<rdCMC_Joint name="pelvis_tz">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e0 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 0 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="pelvis_tx">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e0 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 1 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="pelvis_ty">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e0 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 2 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="pelvis_tilt">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e1 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 3 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="pelvis_list">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e1 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 4 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="pelvis_rotation">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e1 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 5 </qid>
+		</rdCMC_Joint>
+
+
+		<!-- Right Leg -->
+
+		<rdCMC_Joint name="hip_flexion_r">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e2 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 6 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="hip_adduction_r">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e2 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 7 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="hip_rotation_r">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e2 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 8 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="knee_angle_r">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e2 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 9 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="ankle_angle_r">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e2 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 10 </qid>
+		</rdCMC_Joint>
+
+		<!-- Left Leg -->
+
+		<rdCMC_Joint name="hip_flexion_l">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e2 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 12 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="hip_adduction_l">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e2 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 13 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="hip_rotation_l">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e2 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 14 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="knee_angle_l">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e2 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 15 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="ankle_angle_l">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e2 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 16 </qid>
+		</rdCMC_Joint>
+		
+		<!-- Back Joint -->
+
+		<rdCMC_Joint name="lumbar_extension">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e1 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 18 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="lumbar_bending">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e1 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 19 </qid>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="lumbar_rotation">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e1 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<qid> 20 </qid>
+		</rdCMC_Joint>
+
+	</objects>
+
+</rdCMC_TaskSet>
+
