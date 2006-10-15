@@ -124,7 +124,7 @@ public class IKPanel  extends workflowWizardPanelBase{
                 progressHandle.progress("time="+simulationTime);
                 }},
 	               0,        //initial delay
-	               1000);  //subsequent rate
+	               500);  //subsequent rate
                 
            
         // Execute IK on a separate thread

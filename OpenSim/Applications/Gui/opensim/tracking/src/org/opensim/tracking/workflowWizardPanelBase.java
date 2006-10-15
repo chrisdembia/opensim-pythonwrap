@@ -141,22 +141,23 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
             progressHandle.switchToDeterminate(100);
         
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask(){public void run() {
-            final double simulationTime=animationCallback.getCurrentTime();
-               double percentComplete = (animationCallback.getCurrentTime()-startTime)/investigationDuration*100.0;
-                int intPercent =(int)percentComplete;
-                if (intPercent < 0) intPercent = 0;
-                if (intPercent > 100) intPercent = 100;
-                if(modelWindow==null) System.out.println("*** modelWindow is null!");
-                if (modelWindow!=null)
+        timer.scheduleAtFixedRate(
+            new TimerTask(){
+                public void run() {
+                    final double simulationTime=animationCallback.getCurrentTime();
+                    double percentComplete = (animationCallback.getCurrentTime()-startTime)/investigationDuration*100.0;
+                    int intPercent =(int)percentComplete;
+                    if (intPercent < 0) intPercent = 0;
+                    if (intPercent > 100) intPercent = 100;
+                    if(modelWindow==null) System.out.println("*** modelWindow is null!");
+                    if (modelWindow!=null)
                         modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, false);
-                        SwingUtilities.invokeLater(new Runnable(){
-                        public void run() {
-                            modelWindow.getCanvas().repaint();
-                        }});
-                }},
-	               0,        //initial delay
-	               1000);  //subsequent rate
+                        SwingUtilities.invokeLater(
+                            new Runnable(){
+                                public void run() { modelWindow.getCanvas().repaint(); }
+                            });
+                }
+            },0,500);
         
 
         dInvestigation.run();
