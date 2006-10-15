@@ -19,7 +19,7 @@
 	<!--Initial time for the investigation.-->
 	<initial_time> 0.15 </initial_time>
 	<!--Final time for the investigation.-->
-	<final_time> 0.76 </final_time>
+	<final_time> 0.75 </final_time>
 	<!--Maximum number of steps for the integrator.-->
 	<maximum_number_of_integrator_steps> 20000 </maximum_number_of_integrator_steps>
 	<!--Maximum integration step size.-->

@@ -14,7 +14,7 @@
 			<!--Name of the .mot file containing precomputed joint angles for the trial.  These are used to guide and weight the IK solution.-->
 			<coordinate_trial> subject01_walk01.mot </coordinate_trial>
 			<!--Time range over which to solve the IK problem.-->
-			<time_range> 0.15 2.2 </time_range>
+			<time_range> 0.15 0.76 </time_range>
 			<!-- <time_range> 1.10 1.5 </time_range> -->
 			<!--Cutoff frequency for a low-pass filter on the kinematics.-->
 			<kinematics_smoothing> 10.0 </kinematics_smoothing>
