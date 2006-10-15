@@ -13,7 +13,7 @@ public class cmcJNI {
 
   static {
     try {
-        System.loadLibrary("rdJCmcDll_d");
+        System.loadLibrary("rdJCmcDll");
     } catch (UnsatisfiedLinkError e) {
           TheApp.exitApp("Required library failed to load. Check that the dynamic library rdJCmcDll is in your PATH\n"+e);
     }
