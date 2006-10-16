@@ -1,9 +1,11 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
-import java.util.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.TimerTask;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.DialogDisplayer;
@@ -106,6 +108,17 @@ public class IKPanel  extends workflowWizardPanelBase{
         progressHandle.start();
         
 
+            int delay = 1000; //milliseconds
+            ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+              //...Perform a task...
+                if (modelWindow!=null){
+                        modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, true);
+                        modelWindow.getCanvas().repaint();
+                }
+                }};
+             Timer timer = new Timer(delay, taskPerformer);
+            /*
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){public void run() {
             double simulationTime=animationCallback.getCurrentTime();
@@ -126,11 +139,12 @@ public class IKPanel  extends workflowWizardPanelBase{
 	               0,        //initial delay
 	               500);  //subsequent rate
                 
-           
+         */
+             timer.start();
         // Execute IK on a separate thread
          ik.run();
          
-         timer.cancel();
+         timer.stop();
          
          //if (modelWindow!=null)
             //modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
