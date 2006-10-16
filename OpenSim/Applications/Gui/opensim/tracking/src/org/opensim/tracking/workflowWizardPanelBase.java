@@ -25,13 +25,13 @@
  */
 package org.opensim.tracking;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.openide.WizardDescriptor;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
-import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.progress.ProgressHandle;
@@ -140,7 +140,18 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
         if (isDeterministic)
             progressHandle.switchToDeterminate(100);
         
-        Timer timer = new Timer();
+            int delay = 100; //milliseconds
+            ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+              //...Perform a task...
+                if (modelWindow!=null){
+                        modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, false);
+                        modelWindow.getCanvas().repaint();
+                }
+                }};
+                
+             Timer timer = new Timer(delay, taskPerformer);
+/*        Timer timer = new Timer();
         timer.scheduleAtFixedRate(
             new TimerTask(){
                 public void run() {
@@ -159,10 +170,11 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
                 }
             },0,500);
         
-
+*/
+        timer.start();
         dInvestigation.run();
         
-        timer.cancel();
+        timer.stop();
 
         if (isDeterministic)
             progressHandle.progress(100);

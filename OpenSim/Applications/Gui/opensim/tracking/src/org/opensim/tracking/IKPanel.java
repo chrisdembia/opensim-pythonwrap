@@ -108,7 +108,7 @@ public class IKPanel  extends workflowWizardPanelBase{
         progressHandle.start();
         
 
-            int delay = 1000; //milliseconds
+            int delay = 100; //milliseconds
             ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
               //...Perform a task...
