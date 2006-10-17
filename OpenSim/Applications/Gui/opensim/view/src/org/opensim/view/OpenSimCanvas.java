@@ -284,7 +284,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
           Model dModel = animationCallback.getModel();
          int nb = dModel.getNB();
          double[] xformMatrix = new double[16];
-         animationCallback.getMutex();
+         //animationCallback.getMutex();
          for(int bodyNum=0; bodyNum<nb; bodyNum++) {
             Transform bodyTransform = animationCallback.getBodyTransform(bodyNum); 
             SimmBodySet vModelBodies = model.getBodies();
@@ -397,7 +397,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
 
          
         
-        animationCallback.releaseMutex();
+        //animationCallback.releaseMutex();
         //repaint();
    }
     /**
