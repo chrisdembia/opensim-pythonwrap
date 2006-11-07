@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding = "Windows-1252"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.00"
+	Version="7.10"
 	Name="XercesLib"
 	ProjectGUID="{152CE948-F659-4206-A50A-1D2B9658EF96}"
 	SccProjectName=""
@@ -66,7 +66,13 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
@@ -121,9 +127,17 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
+	<References>
+	</References>
 	<Files>
 		<Filter
 			Name="util"
@@ -219,28 +233,28 @@
 				RelativePath="..\..\..\..\..\src\xercesc\util\HexBin.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\IOException.hpp">
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\IllegalArgumentException.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\InvalidCastException.hpp">
 			</File>
 			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\IOException.hpp">
+			</File>
+			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\Janitor.hpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\KVStringPair.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\KVStringPair.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\KeyRefPair.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\KeyValuePair.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\KVStringPair.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\KVStringPair.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\Mutexes.cpp">
@@ -315,22 +329,22 @@
 				RelativePath="..\..\..\..\..\src\xercesc\util\SynchronizedStringPool.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\TranscodingException.hpp">
+			</File>
+			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\TransService.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\TransService.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\TranscodingException.hpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\UTFDataFormatException.hpp">
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\UnexpectedEOFException.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\UnsupportedEncodingException.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\UTFDataFormatException.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\ValueArrayOf.hpp">
@@ -345,6 +359,18 @@
 				RelativePath="..\..\..\..\..\src\xercesc\util\ValueVectorOf.hpp">
 			</File>
 			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XercesDefs.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XercesVersion.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMemory.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMemory.hpp">
+			</File>
+			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XML256TableTranscoder.cpp">
 			</File>
 			<File
@@ -357,16 +383,16 @@
 				RelativePath="..\..\..\..\..\src\xercesc\util\XML88591Transcoder.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLASCIITranscoder.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLASCIITranscoder.hpp">
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLAbstractDoubleFloat.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLAbstractDoubleFloat.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLASCIITranscoder.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLASCIITranscoder.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLBigDecimal.cpp">
@@ -381,22 +407,16 @@
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLBigInteger.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLChTranscoder.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLChTranscoder.hpp">
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLChar.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLChar.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLDOMMsg.hpp">
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLChTranscoder.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLDOMMsg.hpp">
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLChTranscoder.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLDateTime.cpp">
@@ -406,6 +426,12 @@
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLDeleterFor.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLDOMMsg.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLDOMMsg.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLDouble.cpp">
@@ -426,13 +452,13 @@
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLEnumerator.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLExceptMsgs.hpp">
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLException.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLException.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLExceptMsgs.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLFloat.cpp">
@@ -501,6 +527,21 @@
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUCSTranscoder.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUni.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUni.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUniDefs.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUri.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUri.hpp">
+			</File>
+			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLURL.cpp">
 			</File>
 			<File
@@ -519,41 +560,17 @@
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUTF8Transcoder.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUni.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUni.hpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUniDefs.hpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUri.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMLUri.hpp">
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLWin1252Transcoder.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\util\XMLWin1252Transcoder.hpp">
 			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMemory.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XMemory.hpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XercesDefs.hpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\util\XercesVersion.hpp">
-			</File>
 			<Filter
 				Name="Win32"
 				Filter=".cpp,.hpp">
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\util\Platforms\Win32\resource.h">
+				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\util\Platforms\Win32\Win32Defs.hpp">
 				</File>
@@ -577,9 +594,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\util\XMLRegisterCleanup.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\util\Platforms\Win32\resource.h">
 				</File>
 			</Filter>
 			<Filter
@@ -676,16 +690,16 @@
 					RelativePath="..\..\..\..\..\src\xercesc\util\regx\ASCIIRangeFactory.hpp">
 				</File>
 				<File
-					RelativePath="..\..\..\..\..\src\xercesc\util\regx\BMPattern.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\util\regx\BMPattern.hpp">
-				</File>
-				<File
 					RelativePath="..\..\..\..\..\src\xercesc\util\regx\BlockRangeFactory.cpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\util\regx\BlockRangeFactory.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\util\regx\BMPattern.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\util\regx\BMPattern.hpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\util\regx\CharToken.cpp">
@@ -843,10 +857,10 @@
 				RelativePath="..\..\..\..\..\src\xercesc\framework\LocalFileFormatTarget.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\framework\LocalFileInputSource.Hpp">
+				RelativePath="..\..\..\..\..\src\xercesc\framework\LocalFileInputSource.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\framework\LocalFileInputSource.cpp">
+				RelativePath="..\..\..\..\..\src\xercesc\framework\LocalFileInputSource.Hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\framework\MemBufFormatTarget.cpp">
@@ -933,10 +947,10 @@
 				RelativePath="..\..\..\..\..\src\xercesc\framework\XMLContentModel.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\framework\XMLDTDDescription.cpp">
+				RelativePath="..\..\..\..\..\src\xercesc\framework\XMLDocumentHandler.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\framework\XMLDocumentHandler.hpp">
+				RelativePath="..\..\..\..\..\src\xercesc\framework\XMLDTDDescription.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\framework\XMLElementDecl.cpp">
@@ -1241,16 +1255,16 @@
 				RelativePath="..\..\..\..\..\src\xercesc\internal\ValidationContextImpl.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\internal\VecAttrListImpl.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\internal\VecAttrListImpl.hpp">
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\src\xercesc\internal\VecAttributesImpl.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\internal\VecAttributesImpl.hpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\internal\VecAttrListImpl.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\xercesc\internal\VecAttrListImpl.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\internal\WFXMLScanner.cpp">
@@ -1295,10 +1309,10 @@
 				RelativePath="..\..\..\..\..\src\xercesc\internal\XSAXMLScanner.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\internal\XSObjectFactory.cpp">
+				RelativePath="..\..\..\..\..\src\xercesc\internal\XSerializeEngine.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\internal\XSerializeEngine.cpp">
+				RelativePath="..\..\..\..\..\src\xercesc\internal\XSObjectFactory.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\internal\XTemplateSerializer.cpp">
@@ -1314,10 +1328,10 @@
 				RelativePath="..\..\..\..\..\src\xercesc\sax\AttributeList.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\sax\DTDHandler.hpp">
+				RelativePath="..\..\..\..\..\src\xercesc\sax\DocumentHandler.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\sax\DocumentHandler.hpp">
+				RelativePath="..\..\..\..\..\src\xercesc\sax\DTDHandler.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\sax\Dummy.cpp">
@@ -1632,6 +1646,12 @@
 					RelativePath="..\..\..\..\..\src\xercesc\validators\datatype\MonthDayDatatypeValidator.hpp">
 				</File>
 				<File
+					RelativePath="..\..\..\..\..\src\xercesc\validators\datatype\NameDatatypeValidator.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\validators\datatype\NameDatatypeValidator.hpp">
+				</File>
+				<File
 					RelativePath="..\..\..\..\..\src\xercesc\validators\datatype\NCNameDatatypeValidator.cpp">
 				</File>
 				<File
@@ -1642,12 +1662,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\validators\datatype\NOTATIONDatatypeValidator.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\validators\datatype\NameDatatypeValidator.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\validators\datatype\NameDatatypeValidator.hpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\validators\datatype\QNameDatatypeValidator.cpp">
@@ -1696,6 +1710,9 @@
 				Name="DTD"
 				Filter="*.cpp, *.hpp">
 				<File
+					RelativePath="..\..\..\..\..\src\xercesc\validators\DTD\DocTypeHandler.hpp">
+				</File>
+				<File
 					RelativePath="..\..\..\..\..\src\xercesc\validators\DTD\DTDAttDef.cpp">
 				</File>
 				<File
@@ -1736,9 +1753,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\validators\DTD\DTDValidator.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\validators\DTD\DocTypeHandler.hpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\validators\DTD\XMLDTDDescriptionImpl.cpp">
@@ -1826,6 +1840,24 @@
 					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\TraverseSchema.hpp">
 				</File>
 				<File
+					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesAttGroupInfo.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesAttGroupInfo.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesElementWildcard.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesElementWildcard.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesGroupInfo.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesGroupInfo.hpp">
+				</File>
+				<File
 					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XMLSchemaDescriptionImpl.cpp">
 				</File>
 				<File
@@ -1854,24 +1886,6 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XUtil.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesAttGroupInfo.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesAttGroupInfo.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesElementWildcard.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesElementWildcard.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesGroupInfo.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\validators\schema\XercesGroupInfo.hpp">
 				</File>
 				<Filter
 					Name="identity"
@@ -1937,6 +1951,12 @@
 						RelativePath="..\..\..\..\..\src\xercesc\validators\schema\identity\ValueStoreCache.hpp">
 					</File>
 					<File
+						RelativePath="..\..\..\..\..\src\xercesc\validators\schema\identity\XercesXPath.cpp">
+					</File>
+					<File
+						RelativePath="..\..\..\..\..\src\xercesc\validators\schema\identity\XercesXPath.hpp">
+					</File>
+					<File
 						RelativePath="..\..\..\..\..\src\xercesc\validators\schema\identity\XPathException.hpp">
 					</File>
 					<File
@@ -1957,12 +1977,6 @@
 					<File
 						RelativePath="..\..\..\..\..\src\xercesc\validators\schema\identity\XPathSymbols.hpp">
 					</File>
-					<File
-						RelativePath="..\..\..\..\..\src\xercesc\validators\schema\identity\XercesXPath.cpp">
-					</File>
-					<File
-						RelativePath="..\..\..\..\..\src\xercesc\validators\schema\identity\XercesXPath.hpp">
-					</File>
 				</Filter>
 			</Filter>
 		</Filter>
@@ -1979,6 +1993,9 @@
 				RelativePath="..\..\..\..\..\src\xercesc\sax2\DefaultHandler.hpp">
 			</File>
 			<File
+				RelativePath="..\..\..\..\..\src\xercesc\sax2\sax2Dummy.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\..\..\src\xercesc\sax2\SAX2XMLFilter.hpp">
 			</File>
 			<File
@@ -1986,9 +2003,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\sax2\XMLReaderFactory.hpp">
-			</File>
-			<File
-				RelativePath="..\..\..\..\..\src\xercesc\sax2\sax2Dummy.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -2130,10 +2144,10 @@
 				RelativePath="..\..\..\..\..\src\xercesc\dom\DOMXPathExpression.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\dom\DOMXPathNSResolver.hpp">
+				RelativePath="..\..\..\..\..\src\xercesc\dom\DOMXPathNamespace.hpp">
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\src\xercesc\dom\DOMXPathNamespace.hpp">
+				RelativePath="..\..\..\..\..\src\xercesc\dom\DOMXPathNSResolver.hpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\xercesc\dom\DOMXPathResult.hpp">
@@ -2160,13 +2174,13 @@
 					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMAttrNSImpl.hpp">
 				</File>
 				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMCasts.hpp">
+				</File>
+				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMCDATASectionImpl.cpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMCDATASectionImpl.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMCasts.hpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMCharacterDataImpl.cpp">
@@ -2253,10 +2267,10 @@
 					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMImplementationImpl.cpp">
 				</File>
 				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMImplementationRegistry.cpp">
+					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMImplementationimpl.hpp">
 				</File>
 				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMImplementationimpl.hpp">
+					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMImplementationRegistry.cpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\impl\DOMLocatorImpl.cpp">

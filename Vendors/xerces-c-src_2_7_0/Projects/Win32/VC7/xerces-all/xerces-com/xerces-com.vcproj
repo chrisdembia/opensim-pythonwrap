@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding = "Windows-1252"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.00"
+	Version="7.10"
 	Name="xml4com"
 	ProjectGUID="{9488FCC8-E44D-468C-B805-85001457ECFB}"
 	SccProjectName=""
@@ -74,7 +74,13 @@ echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
@@ -137,9 +143,17 @@ echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
+	<References>
+	</References>
 	<Files>
 		<Filter
 			Name="com"
@@ -170,6 +184,12 @@ echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\com\StdAfx.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\com\xml4com.h">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\com\xml4comCP.h">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\com\XMLDOMAttribute.h">
@@ -228,12 +248,6 @@ echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\com\XMLHTTPRequest.h">
 				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\com\xml4com.h">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\com\xml4comCP.h">
-				</File>
 			</Filter>
 			<Filter
 				Name="Source Files"
@@ -254,6 +268,48 @@ echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;
 						<Tool
 							Name="VCCLCompilerTool"
 							UsePrecompiledHeader="1"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\com\xml4com.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\com\xml4com.def">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\com\xml4com.idl">
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCMIDLTool"
+							AdditionalIncludeDirectories="..\..\..\..\..\src\xercesc\com;$(NoInherit)"
+							TypeLibraryName="..\..\..\..\..\Build\Win32\xml4com\xml4com.tlb"
+							HeaderFileName="..\..\..\..\..\src\xercesc\com\xml4com.h"
+							InterfaceIdentifierFileName="..\..\..\..\..\src\xercesc\com\xml4com_i.c"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCMIDLTool"
+							AdditionalIncludeDirectories="..\..\..\..\..\src\xercesc\com;$(NoInherit)"
+							TypeLibraryName="..\..\..\..\..\Build\Win32\xml4com\xml4com.tlb"
+							HeaderFileName="..\..\..\..\..\src\xercesc\com\xml4com.h"
+							InterfaceIdentifierFileName="..\..\..\..\..\src\xercesc\com\xml4com_i.c"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\com\xml4com.rc">
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCResourceCompilerTool"
+							AdditionalIncludeDirectories="..\..\..\..\..\src\xercesc\com;$(OUTDIR);$(NoInherit)"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCResourceCompilerTool"
+							AdditionalIncludeDirectories="..\..\..\..\..\src\xercesc\com;$(OUTDIR);$(NoInherit)"/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -297,48 +353,6 @@ echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\com\XMLHTTPRequest.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\com\xml4com.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\com\xml4com.def">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\com\xml4com.idl">
-					<FileConfiguration
-						Name="Release|Win32">
-						<Tool
-							Name="VCMIDLTool"
-							AdditionalIncludeDirectories="..\..\..\..\..\src\xercesc\com;$(NoInherit)"
-							TypeLibraryName="..\..\..\..\..\Build\Win32\xml4com\xml4com.tlb"
-							HeaderFileName="..\..\..\..\..\src\xercesc\com\xml4com.h"
-							InterfaceIdentifierFileName="..\..\..\..\..\src\xercesc\com\xml4com_i.c"/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32">
-						<Tool
-							Name="VCMIDLTool"
-							AdditionalIncludeDirectories="..\..\..\..\..\src\xercesc\com;$(NoInherit)"
-							TypeLibraryName="..\..\..\..\..\Build\Win32\xml4com\xml4com.tlb"
-							HeaderFileName="..\..\..\..\..\src\xercesc\com\xml4com.h"
-							InterfaceIdentifierFileName="..\..\..\..\..\src\xercesc\com\xml4com_i.c"/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\com\xml4com.rc">
-					<FileConfiguration
-						Name="Release|Win32">
-						<Tool
-							Name="VCResourceCompilerTool"
-							AdditionalIncludeDirectories="..\..\..\..\..\src\xercesc\com;$(OUTDIR);$(NoInherit)"/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32">
-						<Tool
-							Name="VCResourceCompilerTool"
-							AdditionalIncludeDirectories="..\..\..\..\..\src\xercesc\com;$(OUTDIR);$(NoInherit)"/>
-					</FileConfiguration>
 				</File>
 			</Filter>
 			<Filter

@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding = "Windows-1252"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.00"
+	Version="7.10"
 	Name="XercesDeprecatedDOMLib"
 	ProjectGUID="{E2D9921F-C2BE-47EE-B978-8C27A3D5EC9A}"
 	SccProjectName=""
@@ -69,7 +69,13 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
@@ -127,9 +133,17 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
+	<References>
+	</References>
 	<Files>
 		<Filter
 			Name="dom"
@@ -180,22 +194,31 @@
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\CommentImpl.hpp">
 				</File>
 				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DeepNodeListImpl.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DeepNodeListImpl.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentFragmentImpl.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentFragmentImpl.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentImpl.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentImpl.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentTypeImpl.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentTypeImpl.hpp">
+				</File>
+				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOMParser.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOMParser.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOMString.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOMString.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOMStringImpl.hpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_Attr.cpp">
@@ -222,18 +245,6 @@
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_Comment.hpp">
 				</File>
 				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_DOMException.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_DOMException.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_DOMImplementation.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_DOMImplementation.hpp">
-				</File>
-				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_Document.cpp">
 				</File>
 				<File
@@ -250,6 +261,18 @@
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_DocumentType.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_DOMException.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_DOMException.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_DOMImplementation.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_DOMImplementation.hpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_Element.cpp">
@@ -342,40 +365,31 @@
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOM_XMLDecl.hpp">
 				</File>
 				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DStringPool.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DStringPool.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DeepNodeListImpl.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DeepNodeListImpl.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentFragmentImpl.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentFragmentImpl.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentImpl.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentImpl.hpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentTypeImpl.cpp">
-				</File>
-				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DocumentTypeImpl.hpp">
-				</File>
-				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DomMemDebug.cpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DomMemDebug.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOMParser.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOMParser.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOMString.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOMString.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DOMStringImpl.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DStringPool.cpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\DStringPool.hpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\ElementDefinitionImpl.cpp">
@@ -414,13 +428,13 @@
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\MemDebug.hpp">
 				</File>
 				<File
-					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\NameNodeFilter.hpp">
-				</File>
-				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\NamedNodeMapImpl.cpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\NamedNodeMapImpl.hpp">
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\NameNodeFilter.hpp">
 				</File>
 				<File
 					RelativePath="..\..\..\..\..\src\xercesc\dom\deprecated\NodeIDMap.cpp">
