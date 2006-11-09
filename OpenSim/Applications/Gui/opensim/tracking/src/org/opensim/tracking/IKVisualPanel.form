@@ -13,12 +13,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="285" max="32767" attributes="1"/>
-                  <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jModelSpecPanel" alignment="1" max="32767" attributes="3"/>
-                  <Component id="jModelAddonForIKPanel" alignment="1" max="32767" attributes="3"/>
                   <Component id="jTrialSelectionPanel" alignment="1" max="32767" attributes="2"/>
                   <Component id="jOutputPanel" alignment="1" max="32767" attributes="3"/>
+                  <Component id="jModelSpecPanel" alignment="1" max="32767" attributes="3"/>
+                  <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="318" max="32767" attributes="1"/>
+                  <Component id="jModelAddonForIKPanel" alignment="1" max="32767" attributes="3"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -33,10 +33,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jModelAddonForIKPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTrialSelectionPanel" min="-2" pref="109" max="-2" attributes="0"/>
+              <Component id="jTrialSelectionPanel" min="-2" pref="120" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jOutputPanel" min="-2" pref="94" max="-2" attributes="0"/>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <Component id="jOutputPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -59,7 +59,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jModelNameTextField" pref="162" max="32767" attributes="0"/>
+                  <Component id="jModelNameTextField" pref="195" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jModelBrowseButton" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -115,8 +115,8 @@
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jCoordinateSetTextField" pref="159" max="32767" attributes="2"/>
-                      <Component id="jMarkersFileTextField" alignment="0" pref="159" max="32767" attributes="2"/>
+                      <Component id="jCoordinateSetTextField" pref="192" max="32767" attributes="2"/>
+                      <Component id="jMarkersFileTextField" alignment="0" pref="192" max="32767" attributes="2"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
@@ -211,10 +211,10 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jTrialFileTextField" pref="167" max="32767" attributes="0"/>
+                                  <Component id="jTrialFileTextField" pref="200" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jTrialSelectComboBox" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
+                              <Component id="jTrialSelectComboBox" min="-2" pref="149" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -315,15 +315,13 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jOutputMotionTextField" pref="168" max="32767" attributes="0"/>
+                          <Component id="jOutputMotionTextField" pref="201" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBrowse4OutputMotionButton" min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jIncludeMarkersInOutputCheckBox" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jIncludeUserDataCheckBox" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -341,10 +339,10 @@
                       <Component id="jOutputMotionTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jIncludeMarkersInOutputCheckBox" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jIncludeUserDataCheckBox" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jIncludeMarkersInOutputCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jIncludeUserDataCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -455,7 +453,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jSetupFilenameTextField" pref="159" max="32767" attributes="0"/>
+                  <Component id="jSetupFilenameTextField" pref="192" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jBrowse4SetupButton" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -464,13 +462,10 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBrowse4SetupButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jSetupFilenameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBrowse4SetupButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSetupFilenameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

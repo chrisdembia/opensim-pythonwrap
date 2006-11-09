@@ -11,13 +11,10 @@ package org.opensim.view;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
-import javax.swing.SwingUtilities;
 import java.util.Hashtable;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import java.io.File;
-import java.util.Observable;
-import java.util.Observer;
 import javax.swing.JPopupMenu;
 import org.openide.awt.StatusDisplayer;
 import org.opensim.modeling.AnalyticGeometry;
@@ -91,113 +88,27 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Building scene ");
         progressHandle.start();
         this.model = model;
-        
         // Build the scene graph in a worker thread.
         final SwingWorker worker = new SwingWorker() {
             
-            public Object construct() { // runs in a worker thread
-                
+            public Object construct() { // runs in a worker thread                                       
                 boolean success = false;
-                double[] scales = new double[3];
-                //Stack<vtkAssembly> stack = new Stack<vtkAssembly>();
-
                 File modelFile = new File(model.getInputFileName());
                 String modelFilePath = "";
                 if (modelFile.getParent()!= null)
                     modelFilePath= modelFile.getParent()+ modelFile.separator; // Could this be null?
 
                 //vtkAssembly fullModelAssembly = new vtkAssembly();
-                // Traverse the bodies of the simmModel in depth-first order.
-                //SimmModelIterator i = new SimmModelIterator(model);
                 // Keep track of ground body to avoid recomputation
                 SimmBody gnd = model.getSimmKinematicsEngine().getGroundBodyPtr();
                 for(int i=0; i < model.getNB(); i++){
 
                     SimmBody body = model.getSimmKinematicsEngine().getBodies().get(i);
-                    
-                    // Add a vtkAssembly to the vtk scene graph to represent
-                    // the current body.
-                    vtkAssembly bodyRep = new vtkAssembly();
-                    
-                    // Fill the maps between objects and display to support picking, highlighting, etc..
-                    // The reverse map takes an actor to an Object and is filled as actors are created.
-                    mapObject2Actors.put(body, bodyRep);
-                    
-                    GetRenderer().AddViewProp(bodyRep); // used to be AddProp, but VTK 5 complains.
-
-                    vtkMatrix4x4 m= getBodyTransform(model, body, gnd);
-                    bodyRep.SetUserMatrix(m);
-
-                    // Add a vtkActor object to the vtk scene graph to represent
-                    VisibleObject bodyDisplayer = body.getDisplayer();
-                    bodyDisplayer.getScaleFactors(scales);
-
-                    //System.out.println("Scale factors"+scales[0]+scales[1]+scales[2]);
-                    int ns = bodyDisplayer.getNumGeometryFiles();
-                    // For each bone in the current body.
-                    for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
-                        // Get the native vtkPolyData object from the OpenSim
-                        // model, and wrap a Java vtkPolyData object around it
-                        // for use by VTK.
-                        progressHandle.progress(bodyDisplayer.getGeometryFileName(k));
-
-                        vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
-                        String boneFile = modelFilePath + "bones\\"+bodyDisplayer.getGeometryFileName(k);
-                        polyReader.SetFileName(boneFile);
-
-                        vtkPolyData poly = polyReader.GetOutput();
-                        vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-                        mapper.SetInput(poly);
-
-                        vtkActor actor = new vtkActor();
-                        actor.SetMapper(mapper);
-                        actor.SetScale(scales);
-                        bodyRep.AddPart(actor);
-                        mapActors2Objects.put(actor, body);
-                    }
-                    
-                    // Bodies have things attached to them as handled by the
-                    // dependents mechanism. For each one of these a new assembly is created and attached 
-                    // to the same xform as the owner body.
-                    int ct = bodyDisplayer.countDependents();
-                    //System.out.println("Body "+body+" has "+ct+ " dependents");
-                    double[] color = new double[3];
-                    for(int j=0; j < ct;j++){
-                        VisibleObject Dependent = bodyDisplayer.getDependent(j);
-                        vtkAssembly attachmentRep = new vtkAssembly();
-                        attachmentRep.SetUserMatrix(m);
-                        int geomcount = Dependent.countGeometry();
-                        // Create actor for the dpendent
-                        for(int gc=0; gc<geomcount; gc++){
-                            Geometry g = Dependent.getGeometry(gc);
-                            vtkActor dActor = new vtkActor();
-                            AnalyticGeometry ag=null;
-                            ag = AnalyticGeometry.dynamic_cast(g);
-                            if (ag != null){    
-                                AnalyticGeometryType analyticType = ag.getShape();
-                                if (analyticType == AnalyticGeometryType.Sphere){
-                                    vtkSphereSource sphere = new vtkSphereSource();
-                                    sphere.SetRadius(ag.getSphereRadius());
-                                    double[] pos = new double[3];
-                                    Dependent.getTransform().getPosition(pos);
-                                    sphere.SetCenter(pos);
-                                    vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-                                    mapper.SetInput(sphere.GetOutput());
-                                    Dependent.getVisibleProperties().getColor(color);
-                                    dActor.GetProperty().SetColor(color);
-                                    dActor.SetMapper(mapper);
-                                    attachmentRep.AddPart(dActor);
-                                    mapActors2Objects.put(dActor, Dependent.getOwner());
-                                }
-                            }
-                            else {  // General geometry
-                                // throw an exception for not implemented though should be identical
-                            }
-                        }
-                        GetRenderer().AddViewProp(attachmentRep); 
-                        mapObject2Actors.put(Dependent.getOwner(), attachmentRep);
-                    }
-                } //body
+                    // Add a body to the scene. pass in ground pointer to avoid recomputation
+                    // addBody also adds attachments to the body as needed
+                    addBody(body, gnd, modelFilePath);
+                    progressHandle.progress("body "+body.getName());
+               } //body
                 // Now the muscles which are different creatures since they don't have a frame of their own
                 // We'll just connect the "musclepoints" in gnd frame to make up the muscle.
                 // @FIXME handle non-muscle actuators
@@ -206,10 +117,10 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     SimmMuscle nextMuscle = model.getMuscle(m);
                     // Create assembly for muscle
                     vtkAssembly muscleRep = new vtkAssembly();
-                    
+
                     // Fill the object to display map
                     mapObject2Actors.put(nextMuscle, muscleRep);
-                    
+
                     // Get attachments and connect them
                     SimmMusclePointSet attatchments = nextMuscle.getAttachmentSet();
                     int arraySize = attatchments.getSize();
@@ -226,6 +137,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                         model.getSimmKinematicsEngine().convertPoint(position1, body, gnd);
                         for (int att=1; att < arraySize; att++){
                              SimmMusclePoint curPoint = attatchments.get(att);
+                             if (!(curPoint.isActive()))
+                                 continue;
                              for(int p=0; p <3; p++){
                                 position2[p]=curPoint.getAttachment().getitem(p);
                              }
@@ -266,13 +179,13 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             }
             public void finished() {
                GetRenderer().ResetCamera(); 
-               Render();               
+               Render();            
                progressHandle.finish();
             }
         };
         worker.start();
         return true;
-    }
+     }
     /**
      * Method called in the animation loop to update positions with new xforms
      * Here, the xforms are obtained from the dynamcis engine and so 
@@ -281,25 +194,33 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     public void updateDisplayFromDynamicModel(SimtkAnimationCallback animationCallback, Boolean useSimmModel)
     {
         
-          Model dModel = animationCallback.getModel();
+         Model dModel = animationCallback.getModel();
          int nb = dModel.getNB();
          double[] xformMatrix = new double[16];
+         vtkMatrix4x4[] vtkBodyXforms = new vtkMatrix4x4[nb];
          //animationCallback.getMutex();
+         Transform[] bodyTransforms = new Transform[nb];
+         //animationCallback.mutex_begin(1);
+         // @todo move the loop inside one function call to minimize blocking time
          for(int bodyNum=0; bodyNum<nb; bodyNum++) {
-            Transform bodyTransform = animationCallback.getBodyTransform(bodyNum); 
+            bodyTransforms[bodyNum] = new Transform(animationCallback.getBodyTransform(bodyNum)); 
+         }
+         //animationCallback.mutex_end(1);
+         for(int bodyNum=0; bodyNum<nb; bodyNum++) {
+            //Transform bodyTransform = animationCallback.getBodyTransform(bodyNum); 
             SimmBodySet vModelBodies = model.getBodies();
             String bName = dModel.getBodyName(bodyNum);
             SimmBody vBody = vModelBodies.get(bName);
             
             vtkAssembly bodyRep = mapObject2Actors.get(vBody);
             // Make  matrix from xlation, rotations
-            bodyTransform.getMatrix(xformMatrix);
-            vtkMatrix4x4 m = new vtkMatrix4x4();
-            m.DeepCopy(xformMatrix);
-            m.Transpose();
+            bodyTransforms[bodyNum].getMatrix(xformMatrix);
+            vtkBodyXforms[bodyNum] = new vtkMatrix4x4();
+            vtkBodyXforms[bodyNum].DeepCopy(xformMatrix);
+            vtkBodyXforms[bodyNum].Transpose();
             // Move translation to last column instead of last row
             if (bodyRep != null){   // Some bodies do not have a rep.
-                bodyRep.SetUserMatrix(m);
+                bodyRep.SetUserMatrix(vtkBodyXforms[bodyNum]);
             }
             
             // Bodies have things attached to them as handled by the
@@ -310,7 +231,16 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             for(int j=0; j < ct;j++){
                 VisibleObject Dependent = vBody.getDisplayer().getDependent(j);
                 vtkAssembly attachmentRep = mapObject2Actors.get(Dependent.getOwner());
-                attachmentRep.SetUserMatrix(m);
+                attachmentRep.SetUserMatrix(vtkBodyXforms[bodyNum]);
+                if (Dependent.getOwner() instanceof SimmMusclePoint){
+                    SimmMusclePoint musclePoint = (SimmMusclePoint) Dependent.getOwner();
+                    if (musclePoint.isActive()){
+                        attachmentRep.SetVisibility(1);
+                    }
+                    else{
+                        attachmentRep.SetVisibility(0);
+                    }
+                }
             } 
         } //body
         
@@ -339,15 +269,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                     position1InOwnerBody[i] = firstPoint.getAttachment().getitem(i);
                 
                 // xform the position into inertial frame
-                Transform bodyTransform = animationCallback.getBodyTransform(pointBodyIndex); 
-                bodyTransform.getMatrix(xformMatrix);
-                vtkMatrix4x4 m1 = new vtkMatrix4x4();
-                m1.DeepCopy(xformMatrix);
-                // Move translation to last column instead of last row
-                m1.Transpose();
-                // m1 works because it gets applied to the body
                 position1InOwnerBody[3]=1.0;
-                m1.MultiplyPoint(position1InOwnerBody, position1InWorld);
+                vtkBodyXforms[pointBodyIndex].MultiplyPoint(position1InOwnerBody, position1InWorld);
                 //debugLocation(position1InWorld);
                 double[] position2InOwnerBody = new double[4];
                 double[] position2InWorld = new double[4];
@@ -356,50 +279,139 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
                      String muscleSegname = nextMuscle.getName()+String.valueOf(att-1)+String.valueOf(att);
                      vtkActor segActor = mapObjectsSegments2Actors.get(muscleSegname);
                      SimmMusclePoint curPoint = attatchments.get(att);
-                     SimmBody point2Body = curPoint.getBody();
-                     int point2BodyIndex = model.getBodyIndex(point2Body.getName());
-                    if (!useSimmModel)  // hack to work around ground body
-                        point2BodyIndex = point2BodyIndex-1;
-                     
-                    double[] axis = new double[3];
-                    double[] center = new double[3];
-                    for(int i=0; i<3; i++)
-                        position2InOwnerBody[i] = curPoint.getAttachment().getitem(i);
-                    
-                    Transform body2Transform = animationCallback.getBodyTransform(point2BodyIndex); 
-                    body2Transform.getMatrix(xformMatrix);
-                    vtkMatrix4x4 m2 = new vtkMatrix4x4();
-                    m2.DeepCopy(xformMatrix);
-                    // Move translation to last column instead of last row
-                    m2.Transpose();
-                   // m1 works because it gets applied to the body
-                    position2InOwnerBody[3]=1.0;
-                    m2.MultiplyPoint(position2InOwnerBody, position2InWorld);
-                    //debugLocation(position2InWorld);
+                     // ViaPoints could be inActive or get deActivated during simulation.
+                     if (curPoint.isActive()){
+                         SimmBody point2Body = curPoint.getBody();
+                         int point2BodyIndex = model.getBodyIndex(point2Body.getName());
+                        if (!useSimmModel)  // hack to work around ground body
+                            point2BodyIndex = point2BodyIndex-1;
 
-                    for(int d=0; d <3; d++){
-                        axis[d]=position1InWorld[d]-position2InWorld[d];
-                        center[d] = (position1InWorld[d]+position2InWorld[d])/2.0;
-                    }
-                    double length = normalizeAndGetLength(axis);
-                    // Compute new xform and apply it to segActor
-                    segActor.SetUserMatrix(getCylinderTransform(axis, center));
-                    
-                    // Move position1 to the next point
-                    for(int d=0; d <3; d++){
-                       position1InWorld[d]=position2InWorld[d];
-                    }
+                        double[] axis = new double[3];
+                        double[] center = new double[3];
+                        for(int i=0; i<3; i++)
+                            position2InOwnerBody[i] = curPoint.getAttachment().getitem(i);
+
+                        position2InOwnerBody[3]=1.0;
+                        vtkBodyXforms[point2BodyIndex].MultiplyPoint(position2InOwnerBody, position2InWorld);
+                        //debugLocation(position2InWorld);
+
+                        for(int d=0; d <3; d++){
+                            axis[d]=position1InWorld[d]-position2InWorld[d];
+                            center[d] = (position1InWorld[d]+position2InWorld[d])/2.0;
+                        }
+                        double length = normalizeAndGetLength(axis);
+                        // Compute new xform and apply it to segActor
+                        segActor.SetUserMatrix(getCylinderTransform(axis, center));
+
+                        // Move position1 to the next point
+                        for(int d=0; d <3; d++){
+                           position1InWorld[d]=position2InWorld[d];
+                        }
+                     }
                 } // Attachments
 
             }
             
         }
 
-         
-        
         //animationCallback.releaseMutex();
-        //repaint();
    }
+    
+    /**
+     * Add a vtkAssembly to the vtk scene graph to represent
+     * the 'body'. baseBody is normally ground
+     * 
+     * @param SimmBody body to be added
+     * @param SimmBody baseBody (ground)
+     * @param modelFilePath to locate bone files. 
+     */
+    void addBody(SimmBody body, SimmBody baseBody, String modelFilePath)
+    {
+        double[] scales = new double[3];
+        vtkAssembly bodyRep = new vtkAssembly();
+        
+        // Fill the maps between objects and display to support picking, highlighting, etc..
+        // The reverse map takes an actor to an Object and is filled as actors are created.
+        mapObject2Actors.put(body, bodyRep);
+        
+        GetRenderer().AddViewProp(bodyRep);
+        
+        vtkMatrix4x4 m= getBodyTransform(model, body, baseBody);
+        bodyRep.SetUserMatrix(m);
+        
+        VisibleObject bodyDisplayer = body.getDisplayer();
+        bodyDisplayer.getScaleFactors(scales);
+        
+        //System.out.println("Scale factors"+scales[0]+scales[1]+scales[2]);
+        int ns = bodyDisplayer.getNumGeometryFiles();
+        // For each bone in the current body.
+        for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
+            // Get the native vtkPolyData object from the OpenSim
+            // model, and wrap a Java vtkPolyData object around it
+            // for use by VTK.
+            
+            vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
+            String boneFile = modelFilePath + "bones\\"+bodyDisplayer.getGeometryFileName(k);
+            polyReader.SetFileName(boneFile);
+            
+            vtkPolyData poly = polyReader.GetOutput();
+            vtkPolyDataMapper mapper = new vtkPolyDataMapper();
+            mapper.SetInput(poly);
+            
+            vtkActor actor = new vtkActor();
+            actor.SetMapper(mapper);
+            actor.SetScale(scales);
+            bodyRep.AddPart(actor);
+            mapActors2Objects.put(actor, body);
+        }
+        addBodyAttachments(bodyDisplayer, m, modelFilePath);
+    }
+    /**
+     * Add objects attached to body to the scene these include markers, musclePoints, wrapObjects, ..
+     * Path is used to locate geometry files if non analytical geometry is used
+     */
+    private void  addBodyAttachments(VisibleObject bodyDisplayer, vtkMatrix4x4 bodyXform, String Path)
+    {
+        // Bodies have things attached to them as handled by the
+        // dependents mechanism. For each one of these a new assembly is created and attached
+        // to the same xform as the owner body.
+        int ct = bodyDisplayer.countDependents();
+        double[] color = new double[3];
+        for(int j=0; j < ct;j++){
+            VisibleObject Dependent = bodyDisplayer.getDependent(j);
+            vtkAssembly attachmentRep = new vtkAssembly();
+            attachmentRep.SetUserMatrix(bodyXform);
+            int geomcount = Dependent.countGeometry();
+            // Create actor for the dpendent
+            for(int gc=0; gc<geomcount; gc++){
+                Geometry g = Dependent.getGeometry(gc);
+                vtkActor dActor = new vtkActor();
+                AnalyticGeometry ag=null;
+                ag = AnalyticGeometry.dynamic_cast(g);
+                if (ag != null){
+                    AnalyticGeometryType analyticType = ag.getShape();
+                    if (analyticType == AnalyticGeometryType.Sphere){
+                        vtkSphereSource sphere = new vtkSphereSource();
+                        sphere.SetRadius(ag.getSphereRadius());
+                        double[] pos = new double[3];
+                        Dependent.getTransform().getPosition(pos);
+                        sphere.SetCenter(pos);
+                        vtkPolyDataMapper mapper = new vtkPolyDataMapper();
+                        mapper.SetInput(sphere.GetOutput());
+                        Dependent.getVisibleProperties().getColor(color);
+                        dActor.GetProperty().SetColor(color);
+                        dActor.SetMapper(mapper);
+                        attachmentRep.AddPart(dActor);
+                        mapActors2Objects.put(dActor, Dependent.getOwner());
+                    }
+                } else {  // General geometry
+                    // throw an exception for not implemented though should be identical
+                }
+            }
+             GetRenderer().AddViewProp(attachmentRep);
+            mapObject2Actors.put(Dependent.getOwner(), attachmentRep);
+        }
+    }
     /**
      * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points
      */
@@ -493,6 +505,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     
     OpenSimObject findObjectAt(int x, int y)
     {
+        if (!isWindowSet()) { return null; }    // Fix/Workaround by Eran around picking crash while loading model 10/06.
         vtkPropPicker picker = new vtkPropPicker();
 
         Lock();
@@ -566,14 +579,9 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     void handleDoubleClick(MouseEvent evt) {
           setSelectedObject(findObjectAt(lastX, lastY));
           if (selectedObject != null){
-                /*EditObjectTopComponent win = EditObjectTopComponent.findInstance();
-                win.setContext(this);
-                win.open();
-                win.requestActive();*/
               ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(selectedObject, ownerTopComponent);
                editorDialog.process();
-              //new VisibilityJDialog(new javax.swing.JFrame(), this, getSelectedObject()).setVisible(true);
-          }
+           }
           setSelectedObject(null);
     }
 
@@ -614,10 +622,12 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             StatusDisplayer.getDefault().setStatusText("");
     }
 
-    public SimmModel getModel() {
-        return model;
-    }
-    
+    //public SimmModel getModel() {
+    //    return model;
+    //}
+    /**
+     * A function to display a sphere at specified location for debuggig purposes
+     */
     private void debugLocation(double[] propLocation) {
         vtkActor startPointActor = new vtkActor();
         vtkSphereSource sphere = new vtkSphereSource();
@@ -629,6 +639,80 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         startPointActor.GetProperty().SetColor(0., 1., 0.);
         startPointActor.GetProperty().SetOpacity(0.2);
         GetRenderer().AddViewProp(startPointActor); 
+    }
+    /**
+     * updateModelDisplay is a function used to update the visuals when objects are added/removed 
+     * from the displayed model.
+     *
+     * This method reuses whatever vtk objects already displayed and create new ones only if needed
+     * e.g Body's vtkAssembly is reused if found otherwise a new one is added to the scene. No deletion
+     * is performed. 
+     */
+    void updateModelDisplay() {
+       File modelFile = new File(model.getInputFileName());
+        String modelFilePath = "";
+        if (modelFile.getParent()!= null)
+            modelFilePath= modelFile.getParent()+ modelFile.separator; 
+
+        // Keep track of ground body to avoid recomputation
+        SimmBody gnd = model.getSimmKinematicsEngine().getGroundBodyPtr();
+        for(int i=0; i < model.getNB(); i++){
+
+            SimmBody body = model.getSimmKinematicsEngine().getBodies().get(i);
+            // if body already displayed the update it otherwise create it
+            if (mapObject2Actors.get(body)==null){
+                // Create new vtkAssembly for body and addit to the scene
+                addBody(body, gnd, modelFilePath);                
+            };
+            // update depependents
+            vtkMatrix4x4 m= getBodyTransform(model, body, gnd);
+            VisibleObject bodyDisplayer = body.getDisplayer();
+            updateBodyAttachments(bodyDisplayer, m, modelFilePath);
+
+       } //body
+        
+    }
+    private void  updateBodyAttachments(VisibleObject bodyDisplayer, vtkMatrix4x4 bodyXform, String Path)
+    {
+        // Bodies have things attached to them as handled by the
+        // dependents mechanism. For each one of these a new assembly is created and attached
+        // to the same xform as the owner body.
+        int ct = bodyDisplayer.countDependents();
+        double[] color = new double[3];
+        for(int j=0; j < ct;j++){
+            VisibleObject Dependent = bodyDisplayer.getDependent(j);
+            vtkAssembly attachmentRep = new vtkAssembly();
+            attachmentRep.SetUserMatrix(bodyXform);
+            int geomcount = Dependent.countGeometry();
+            // Create actor for the dpendent
+            for(int gc=0; gc<geomcount; gc++){
+                Geometry g = Dependent.getGeometry(gc);
+                vtkActor dActor = new vtkActor();
+                AnalyticGeometry ag=null;
+                ag = AnalyticGeometry.dynamic_cast(g);
+                if (ag != null){
+                    AnalyticGeometryType analyticType = ag.getShape();
+                    if (analyticType == AnalyticGeometryType.Sphere){
+                        vtkSphereSource sphere = new vtkSphereSource();
+                        sphere.SetRadius(ag.getSphereRadius());
+                        double[] pos = new double[3];
+                        Dependent.getTransform().getPosition(pos);
+                        sphere.SetCenter(pos);
+                        vtkPolyDataMapper mapper = new vtkPolyDataMapper();
+                        mapper.SetInput(sphere.GetOutput());
+                        Dependent.getVisibleProperties().getColor(color);
+                        dActor.GetProperty().SetColor(color);
+                        dActor.SetMapper(mapper);
+                        attachmentRep.AddPart(dActor);
+                        mapActors2Objects.put(dActor, Dependent.getOwner());
+                    }
+                } else {  // General geometry
+                    // throw an exception for not implemented though should be identical
+                }
+            }
+            GetRenderer().AddViewProp(attachmentRep);
+            mapObject2Actors.put(Dependent.getOwner(), attachmentRep);
+        }
     }
 
 }

@@ -74,7 +74,7 @@ public class IKPanel  extends workflowWizardPanelBase{
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
-        updateVisibility();
+        updateAvailability();
     }
     public void storeSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
@@ -94,6 +94,7 @@ public class IKPanel  extends workflowWizardPanelBase{
         final Model ikModel = ik.getModel();
         
          final SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(ikModel);
+         //animationCallback.setStepInterval(5);
          ikModel.addIntegCallback(animationCallback);
          
          final ModelWindowVTKTopComponent modelWindow = ViewDB.getCurrentModelWindow();
@@ -107,62 +108,35 @@ public class IKPanel  extends workflowWizardPanelBase{
         
         progressHandle.start();
         
-
-            int delay = 100; //milliseconds
-            ActionListener taskPerformer = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-              //...Perform a task...
-                if (modelWindow!=null){
-                        modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, true);
-                        modelWindow.getCanvas().repaint();
-                }
-                }};
-             Timer timer = new Timer(delay, taskPerformer);
-            /*
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask(){public void run() {
-            double simulationTime=animationCallback.getCurrentTime();
-               //double percentComplete = (animationCallback.getCurrentTime()-startTime)/investigationDuration*100.0;
-                //int intPercent =(int)percentComplete;
-                //if (intPercent < 0) intPercent = 0;
-                //if (intPercent > 100) intPercent = 100;
-                if (modelWindow!=null){
-                        modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, true);
-                        SwingUtilities.invokeLater(new Runnable(){
-                        public void run() {
-                            modelWindow.getCanvas().repaint();
-                        }});
-                         
-                }
-                progressHandle.progress("time="+simulationTime);
-                }},
-	               0,        //initial delay
-	               500);  //subsequent rate
-                
-         */
-             timer.start();
+        int delay = 50; //milliseconds
+        ActionListener taskPerformer = new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+          //...Perform a task...
+            if (modelWindow!=null){
+                    modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, true);
+                    modelWindow.getCanvas().repaint();
+            }
+            }};
+         Timer timer = new Timer(delay, taskPerformer);
+         timer.start();
         // Execute IK on a separate thread
          ik.run();
          
          timer.stop();
-         
-         //if (modelWindow!=null)
-            //modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback);
-        //progressHandle.progress(100);
-                 
+                          
         progressHandle.finish();
         
         component.putClientProperty("Step_executed", Boolean.TRUE);
         return false;
     }
     
-    public void updateVisibility()
+    public void updateAvailability()
     {
         Object state = component.getClientProperty("Step_executed");
         if (state instanceof Boolean && ((Boolean)state).booleanValue()==true)
-            markValid(true);
+            updateValidity(true);
         else {
-            markValid(!descriptor.getStepInProgress());            
+            updateValidity(!descriptor.getStepInProgress());            
         }
     }
 }

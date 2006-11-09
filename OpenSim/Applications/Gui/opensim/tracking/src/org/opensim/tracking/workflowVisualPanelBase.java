@@ -41,6 +41,7 @@ import org.opensim.view.BottomPanelTopComponent;
 public abstract class workflowVisualPanelBase extends JPanel{
     
     public workflowWizardPanelBase logicPanel;
+    private boolean guiCanAdvance=false;
     /**
      * Creates a new instance of workflowVisualPanelBase
      */
@@ -54,11 +55,17 @@ public abstract class workflowVisualPanelBase extends JPanel{
     public void displayMessage(String message) {
         BottomPanelTopComponent.findInstance().showLogMessage(message);
     }
-    /**
-     * A method to be called to inform the world that the user can hit next
-     */
-    protected void markValid(boolean valid)
-    {
-        logicPanel.markValid(valid);
+    // A common place to check if values entered in the GUI make sense together
+    // Usually this ends up calling setGuiCanAdvance().
+    abstract public void checkConsistentPanel();    
+     // Gui can advance on its own (may not be enough to enable "Next/Finish" 
+    // if a dependency or a previous step is in progress)
+    public boolean isGuiCanAdvance() {
+        return guiCanAdvance;
+    }
+
+    public void setGuiCanAdvance(boolean guiCanAdvance) {
+        this.guiCanAdvance = guiCanAdvance;
+        logicPanel.fireChangeEvent();
     }
  }

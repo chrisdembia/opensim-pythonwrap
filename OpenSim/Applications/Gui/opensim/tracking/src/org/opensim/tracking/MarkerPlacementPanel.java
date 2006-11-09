@@ -54,8 +54,8 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
-        updateVisibility();
-    }
+        updateAvailability();
+   }
     public void storeSettings(Object settings) {}
 
     boolean executeStep() {
@@ -118,15 +118,16 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             String localName;
             if (userSpecifiedName.equalsIgnoreCase("Unassigned")){
                  localName = FileUtils.getNextAvailableName(subject.getPathToSubject(), 
-                                                                   subject.getGenericModelParams().getModelFileName()+"MP",
-                                                                   "xml");
+                                                                   subject.getGenericModelParams().getModelFileName()+"MP");
             }
             else
                 localName= userSpecifiedName;
             
-            model.setName(model.getName()+"- Markers");
+            String saveName = model.getName();
+            model.setName(saveName+"- Markers"); 
             params.setOutputModelFileName(localName);
             params.writeOutputFiles(model, outputStorage, subject.getPathToSubject());
+            model.setName(saveName);
             component.appendMessage("Opening model with moved markers.\n");
            try {
                 // Display original model
@@ -142,13 +143,10 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
             return true;
     }
 
-    public void updateVisibility()
+    public void updateAvailability()
     {
-        Object isExecuted = component.getClientProperty("Step_executed");
-        if (isExecuted != null && (Boolean)isExecuted==Boolean.TRUE ){
-            markValid(true);
-        }
-        markValid(!descriptor.getStepInProgress() );
+        //System.out.println("MP:"+descriptor.getStepInProgress()+component.isGuiCanAdvance());
+        updateValidity(!descriptor.getStepInProgress() && component.isGuiCanAdvance());
     }
     
 }

@@ -21,7 +21,6 @@ public class SimtkAnimationCallback extends IntegCallback {
   }
 
   protected void finalize() {
-    //CLAY- Commented out to try to stop crash.
     //delete();
   }
 
@@ -58,17 +57,21 @@ public class SimtkAnimationCallback extends IntegCallback {
     return opensimModelJNI.SimtkAnimationCallback_begin__SWIG_1(swigCPtr, aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY));
   }
 
-  public Transform getBodyTransform(int bodyIndex) {
-    long cPtr = opensimModelJNI.SimtkAnimationCallback_getBodyTransform(swigCPtr, bodyIndex);
+  public void getBodyTransforms(Transform transforms) {
+    opensimModelJNI.SimtkAnimationCallback_getBodyTransforms(swigCPtr, Transform.getCPtr(transforms));
+  }
+
+  public Transform getBodyTransform(int index) {
+    long cPtr = opensimModelJNI.SimtkAnimationCallback_getBodyTransform(swigCPtr, index);
     return (cPtr == 0) ? null : new Transform(cPtr, false);
   }
 
-  public void getMutex() {
-    opensimModelJNI.SimtkAnimationCallback_getMutex(swigCPtr);
+  public void mutex_begin(int i) {
+    opensimModelJNI.SimtkAnimationCallback_mutex_begin(swigCPtr, i);
   }
 
-  public void releaseMutex() {
-    opensimModelJNI.SimtkAnimationCallback_releaseMutex(swigCPtr);
+  public void mutex_end(int i) {
+    opensimModelJNI.SimtkAnimationCallback_mutex_end(swigCPtr, i);
   }
 
   public void extractOffsets(SimmModel displayModel) {

@@ -45,6 +45,7 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
                         "UnsavedModelNameFormat",
                         new Object[] { new Integer(ct++) }
                 );
+        // setName has to be invoked from the awt 
         SwingUtilities.invokeLater(new Runnable(){
             public void run() {
                  setName(getDisplayName());
@@ -191,6 +192,9 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
                 if(ev.getOperation() == ModelEvent.Operation.Open){
                     getCanvas().loadModel(getModel(), false);
                     componentActivated();
+                }
+                else if(ev.getOperation() == ModelEvent.Operation.UpdateDisplay){
+                    getCanvas().updateModelDisplay();
                 }
             }
        }

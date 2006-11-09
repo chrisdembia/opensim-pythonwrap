@@ -90,7 +90,7 @@ public class Investigation extends OpenSimObject {
     opensimModelJNI.Investigation_addAnalysisSetToModel(swigCPtr);
   }
 
-  public void run() {
+  public void run() throws java.io.IOException {
     opensimModelJNI.Investigation_run(swigCPtr);
   }
 

@@ -486,7 +486,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
 
         }
         
-        markValid(checkValidForm());
+        setGuiCanAdvance(checkValidForm());
         return selectModel;
    }
    /**
@@ -625,7 +625,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         else {
             jDefaultMarkersRadioButton2.setSelected(true);
         }
-        markValid(checkValidForm());
+        setGuiCanAdvance(checkValidForm());
    }
     
     void updateWorkflow(WorkflowDescriptor descriptor){
@@ -646,6 +646,9 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
     protected boolean checkValidForm() {
 
         return(!jModelNameTextField2.getText().equalsIgnoreCase(""));
+    }
+
+    public void checkConsistentPanel() {
     }
 
  }

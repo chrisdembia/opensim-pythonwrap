@@ -1,13 +1,15 @@
 package org.opensim.tracking;
 
-import java.util.prefs.Preferences;
+import java.io.File;
 import javax.swing.JFileChooser;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.ScaleSet;
+import org.opensim.modeling.SimmMarkerData;
 import org.opensim.modeling.SimmMeasurementSet;
 import org.opensim.modeling.SimmScalingParams;
 import org.opensim.utils.FileUtils;
-import org.opensim.utils.TheApp;
+import org.opensim.view.editors.ObjectEditDialogMaker;
 
 public final class ScalingVisualPanel extends workflowVisualPanelBase {
     
@@ -22,7 +24,9 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         super(basePanel);
         initComponents();
     }
-    
+    /**
+     * Name to be displayed in the wizard
+     */
     public String getName() {
         return "Scale generic model";
     }
@@ -122,6 +126,12 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
 
         jLabel3.setText("use time from ");
 
+        jFromTimeTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFromTimeTextFieldActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("to");
 
         jLabel5.setText("Measurements");
@@ -175,8 +185,8 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                                     .add(jLabel5))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(saveScalesTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                                    .add(markerTrialTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                                    .add(saveScalesTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                                    .add(markerTrialTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                                     .add(jMeasurementScalePanelLayout.createSequentialGroup()
                                         .add(jFromTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -185,14 +195,14 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
                                         .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jMaxMarkerMoveTextField)
                                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jToTimeTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
-                                    .add(jMeasurementsFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
+                                    .add(jMeasurementsFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)))
                             .add(jSaveScalesCheckBox))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jMeasurementScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jBrowse4ScalesButton, 0, 0, Short.MAX_VALUE)
                             .add(jBrowse4TrcButton, 0, 0, Short.MAX_VALUE)
                             .add(jBrowse4MeasButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, Short.MAX_VALUE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
                     .add(jLabel7))
                 .addContainerGap())
         );
@@ -229,6 +239,12 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         jManualScalePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Specify scale factors directly")));
         jLabel6.setText("Scale factors");
 
+        jManualScaleTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jManualScaleTextFieldFocusLost(evt);
+            }
+        });
+
         jBrowse4ManualScaleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowse4ManualScaleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,6 +253,11 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         });
 
         jEditManualScalesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/editor.gif")));
+        jEditManualScalesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditManualScalesButtonActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jManualScalePanelLayout = new org.jdesktop.layout.GroupLayout(jManualScalePanel);
         jManualScalePanel.setLayout(jManualScalePanelLayout);
@@ -245,20 +266,19 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             .add(jManualScalePanelLayout.createSequentialGroup()
                 .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 71, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jManualScaleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jManualScaleTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jBrowse4ManualScaleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jEditManualScalesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .add(jEditManualScalesButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         jManualScalePanelLayout.setVerticalGroup(
             jManualScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jManualScalePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                 .add(jLabel6)
-                .add(jManualScaleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jEditManualScalesButton)
                 .add(jBrowse4ManualScaleButton)
-                .add(jEditManualScalesButton))
+                .add(jManualScaleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
         jOutputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
@@ -390,6 +410,40 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jEditManualScalesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditManualScalesButtonActionPerformed
+// TODO add your handling code here:
+        String scalesFile = jManualScaleTextField.getText();
+       boolean manualScalesSpecified = !(jManualScaleTextField.getText().equals("") ||
+                                            jManualScaleTextField.getText().equalsIgnoreCase("Unassigned"));
+       if (manualScalesSpecified){
+            ScaleSet scales = new ScaleSet(scalesFile);
+            new ObjectEditDialogMaker(scales, true).process();
+            scales.print(scalesFile);
+       }
+    }//GEN-LAST:event_jEditManualScalesButtonActionPerformed
+
+    private void jManualScaleTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jManualScaleTextFieldFocusLost
+       boolean manualScalesSpecified = !(jManualScaleTextField.getText().equals("") ||
+                                            jManualScaleTextField.getText().equalsIgnoreCase("Unassigned"));
+       jEditManualScalesButton.setEnabled(manualScalesSpecified);
+       checkConsistentPanel();
+// TODO add your handling code here:
+    }//GEN-LAST:event_jManualScaleTextFieldFocusLost
+
+    private void jBrowse4MeasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4MeasButtonActionPerformed
+        String measurementsFilename = FileUtils.getInstance().browseForFilename(".xml", "Measurements file");
+        if (measurementsFilename != null) {
+            jMeasurementsFileTextField.setText(measurementsFilename);
+            updateWorkflow(logicPanel.descriptor);
+        }
+        checkConsistentPanel();
+// TODO add your handling code here:
+    }//GEN-LAST:event_jBrowse4MeasButtonActionPerformed
+
+    private void jFromTimeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFromTimeTextFieldActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_jFromTimeTextFieldActionPerformed
+
     private void saveScalesTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveScalesTextFieldActionPerformed
        final JFileChooser dlog = new JFileChooser(subjectPath);
        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Computed Scales file"));
@@ -404,60 +458,56 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
     }//GEN-LAST:event_jMeasurementsFileTextFieldActionPerformed
 
     private void jBrowse4ScalesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4ScalesButtonActionPerformed
-       final JFileChooser dlog = new JFileChooser(subjectPath);
-       dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Save computed scales file"));
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jManualScaleTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+      String scalesFilename = FileUtils.getInstance().browseForFilename(".xml", "Save computed scales file", false);
+       if (scalesFilename != null) {
+            saveScalesTextField.setText(scalesFilename);
        }
 // TODO add your handling code here:
     }//GEN-LAST:event_jBrowse4ScalesButtonActionPerformed
-
+    /**
+     * jBrowse4TrcButtonActionPerformed browses for the trc file that contains marker trajectories. 
+     * The function opens the file to populate the start/end times.
+     *
+     * @todo Handle invalid files that do not exist or files that do not contain marker trajectories
+     */
     private void jBrowse4TrcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4TrcButtonActionPerformed
-       final JFileChooser dlog = new JFileChooser(subjectPath);
-       dlog.setFileFilter(FileUtils.getFileFilter(".trc", "Marker trajectory file"));
-
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            markerTrialTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+      String trialFilename = FileUtils.getInstance().browseForFilename(".trc", "Trial file");
+      if (trialFilename != null) {
+            markerTrialTextField.setText(trialFilename);
        }
+      // get end times from the motion file to populate the GUI
+      // 
+       SimmMarkerData trcData = new SimmMarkerData(trialFilename);
+       jFromTimeTextField.setText(String.valueOf(trcData.getStartFrameTime()));
+       jToTimeTextField.setText(String.valueOf(trcData.getLastFrameTime()));
+       checkConsistentPanel();
 // TODO add your handling code here:
     }//GEN-LAST:event_jBrowse4TrcButtonActionPerformed
 
-    private void jBrowse4MeasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4MeasButtonActionPerformed
-       final JFileChooser dlog = new JFileChooser(subjectPath);
-        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Measurements file"));
-      if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jMeasurementsFileTextField.setText(dlog.getSelectedFile().getAbsolutePath());
-       }
-// TODO add your handling code here:
-    }//GEN-LAST:event_jBrowse4MeasButtonActionPerformed
-
     private void jBrowse4Msl1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4Msl1ActionPerformed
-       final JFileChooser dlog = new JFileChooser(subjectPath);
-       dlog.setFileFilter(FileUtils.getFileFilter(".msl", "SIMM .msl file"));
-      if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            saveSIMMmslTextField1.setText(dlog.getSelectedFile().getAbsolutePath());
+       String saveMslFilename = FileUtils.getInstance().browseForFilename(".msl", "SIMM .msl file");
+       if (saveMslFilename != null) {
+            saveSIMMmslTextField1.setText(saveMslFilename);
             jCheckBoxSavemsl1.setSelected(true);            
        }
 // TODO add your handling code here:
     }//GEN-LAST:event_jBrowse4Msl1ActionPerformed
 
     private void jBrowse4Jnt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4Jnt1ActionPerformed
-       final JFileChooser dlog = new JFileChooser(subjectPath);
-       dlog.setFileFilter(FileUtils.getFileFilter(".jnt", "SIMM .jnt file"));
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            saveSIMMJntTextField1.setText(dlog.getSelectedFile().getAbsolutePath());
-            jCheckBox2.setSelected(true);
+       String saveJntFilename = FileUtils.getInstance().browseForFilename(".jnt", "SIMM .jnt file");
+       if (saveJntFilename != null) {
+            saveSIMMJntTextField1.setText(saveJntFilename);
+            jCheckBox2.setSelected(true);            
        }
 // TODO add your handling code here:
     }//GEN-LAST:event_jBrowse4Jnt1ActionPerformed
 
     private void jBrowse4OpenSim1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4OpenSim1ActionPerformed
 // TODO add your handling code here:
-       final JFileChooser dlog = new JFileChooser(subjectPath);
-       dlog.setFileFilter(FileUtils.getFileFilter(".xml, .osim", "Scaled OpenSim model file"));
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            saveOpenSimTextField1.setText(dlog.getSelectedFile().getAbsolutePath());
-            jCheckBoxSaveopensim1.setSelected(true);
+       String saveOsimFilename = FileUtils.getInstance().browseForFilename(".xml, .osim", "Scaled OpenSim model file");
+       if (saveOsimFilename != null) {
+            saveOpenSimTextField1.setText(saveOsimFilename);
+            jCheckBoxSaveopensim1.setSelected(true);            
        }
     }//GEN-LAST:event_jBrowse4OpenSim1ActionPerformed
 
@@ -466,7 +516,6 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         Object obj = evt.getSource();
         if (obj == scaleMethodSelect){
             String selectedMethod = (String) scaleMethodSelect.getSelectedItem();
-        
             // Based on scaling "order" that is if Manual, Measurements or mix enable/disable fields in the Panel
             updateBasedOnScalingOrder();
            
@@ -474,20 +523,12 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
     }//GEN-LAST:event_ScalingMethodSelectionHandler
 
     private void jBrowse4ManualScaleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4ManualScaleButtonActionPerformed
-        String defaultDir="";
-        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
-
-        final JFileChooser dlog = new JFileChooser(defaultDir);
-        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Scales file"));
-
-        String scalesFile=null;
-        if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            manualScaleFile= dlog.getSelectedFile().getAbsolutePath();
-            scaleMethodSelect.setSelectedItem("manual");
-            jManualScaleTextField.setText(manualScaleFile);
-             Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
+       String scalesFile = FileUtils.getInstance().browseForFilename(".xml", "File for precomputed scale factors");
+       if (scalesFile != null) {
+            jManualScaleTextField.setText(scalesFile);
        }
-
+       updateBasedOnScalingOrder();
+       checkConsistentPanel();
 // TODO add your handling code here:
     }//GEN-LAST:event_jBrowse4ManualScaleButtonActionPerformed
     
@@ -602,8 +643,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             saveSIMMmslTextField1.setText(aDescriptor.dSubject.getPathToSubject()+
                                             FileUtils.addSuffix(madeUpName,"SP"));
         }
-        repaint();
-
+        checkConsistentPanel();
     }
 
     private String mapScalingOrderToIndex(ArrayStr scalingOrder) {
@@ -637,7 +677,9 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         jManualScalePanel.setEnabled(includesManual);
         jMeasurementScalePanel.setEnabled(includesMeasurements);
         jManualScaleTextField.setEnabled(includesManual);
-        jEditManualScalesButton.setEnabled(includesManual);
+        boolean manualScalesUnspecified = jManualScaleTextField.getText().equals("") ||
+                                            jManualScaleTextField.getText().equalsIgnoreCase("Unassigned");
+        jEditManualScalesButton.setEnabled(includesManual && !manualScalesUnspecified);
         jMeasurementsFileTextField.setEnabled(includesMeasurements);
         jSaveScalesCheckBox.setEnabled(includesMeasurements);
         jFromTimeTextField.setEnabled(includesMeasurements);
@@ -659,9 +701,12 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         jBrowse4OpenSim1.setEnabled(includesManual || includesMeasurements);
         jBrowse4Jnt1.setEnabled(includesManual || includesMeasurements);
         jBrowse4Msl1.setEnabled(includesManual || includesMeasurements);
+        preserveMass.setEnabled(includesManual || includesMeasurements);
         jMaxMarkerMoveTextField.setEnabled(includesMeasurements);
-       
-    }
+        
+        String txt = markerTrialTextField.getText();
+        checkConsistentPanel();
+     }
 
     
     void updateWorkflow(WorkflowDescriptor descriptor){
@@ -678,21 +723,14 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             if(jManualScaleTextField.getText().equals(""))
                 this.appendMessage("Manual scaling was selected but no Scales file was presented.");
             else {
-                /* Create a ScaleSet based on selected file and set it in Subject.
-                //DialogDisplayer.getDefault().notify(
-                //    new NotifyDescriptor.Message("Not implemented yet, pending resolution of bug 209."));
-                 */
+                /* Create a ScaleSet based on selected file and set it in Subject.*/
+                ScaleSet manualScales = new ScaleSet(jManualScaleTextField.getText());
+                scalingParams.setScaleSet(manualScales);
+                descriptor.keepRef(manualScales);   // A hack to work around early garbage collection
             }
         }
         // Now measurements
-        if (includesMeasurements){    // Make sure a scale file has been selected
-            if(!jManualScaleTextField.getText().equals("")){
-                /*
-                // Create a ScaleSet based on selected file and set it in Subject.
-                DialogDisplayer.getDefault().notify(
-                    new NotifyDescriptor.Message("Not implemented yet, pending resolution of bug 209."));
-                 **/
-            }
+        if (includesMeasurements){    
             double fromTime = Double.parseDouble(jFromTimeTextField.getText());
             double toTime = Double.parseDouble(jToTimeTextField.getText());
             ArrayDouble timeRange=new ArrayDouble(0.0, 2);
@@ -700,20 +738,28 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             timeRange.setitem(1, toTime);
             scalingParams.setTimeRange(timeRange);
             scalingParams.setMaxMarkerMovement(Double.valueOf(jMaxMarkerMoveTextField.getText()).doubleValue());
+            scalingParams.setMarkerFileName(markerTrialTextField.getText());
+            
+            /*if (!(jMeasurementsFileTextField.getText().equals("")))
+                scalingParams.setMeasurementSetFile(jMeasurementsFileTextField.getText()); */
+            
+            if (jSaveScalesCheckBox.isSelected()){
+                // If absolute path then done, otherwise assume same as subject and append it
+                File scalesFile = new File(saveScalesTextField.getText());
+                if (scalesFile.isAbsolute())
+                    scalingParams.setOutputScaleFileName(saveScalesTextField.getText());
+                else {
+                    scalingParams.setOutputScaleFileName(descriptor.getSubject().getPathToSubject()+saveScalesTextField.getText());
+                }
+            }
         }
         if (includesManual || includesMeasurements){    // not None, do output files
             if (jCheckBoxSaveopensim1.getModel().isSelected())
                 scalingParams.setOutputModelFileName(saveOpenSimTextField1.getText());
-            else 
-                scalingParams.setOutputModelFileName("");
             if (jCheckBox2.getModel().isSelected())
                 scalingParams.setOutputJointFileName(saveSIMMJntTextField1.getText());
-            else 
-                scalingParams.setOutputJointFileName("");
             if (jCheckBoxSavemsl1.getModel().isSelected())
                 scalingParams.setOutputMuscleFileName(saveSIMMmslTextField1.getText());
-             else 
-                scalingParams.setOutputMuscleFileName("");
        }
 
     };
@@ -746,6 +792,37 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         jMessageTextArea.invalidate();
 
     }
+    /**
+     * checkConsistentPanel encodes all the validation rules that allow the panel to proceed.
+     * This function assumes only valid options for current selection order are enabled
+     */
+    public void checkConsistentPanel() {
+        boolean canProceed =  true;
+        if (hasManual()){ 
+            canProceed = !(jManualScaleTextField.getText().equals("") ||
+                    jManualScaleTextField.getText().equalsIgnoreCase("Unassigned"));
+        }
+        if (canProceed && hasMeasurements()){
+            // A measurment set has to be specified, along with a trial file and a valid time range
+            SimmScalingParams params=logicPanel.descriptor.getSubject().getScalingParams();
+            if (params.getMeasurementSet().getSize()==0 && 
+                    (jMeasurementsFileTextField.getText().equals("") ||
+                     jMeasurementsFileTextField.getText().equalsIgnoreCase("Unassigned"))){
+                canProceed =false;
+            }
+            if (canProceed &&
+                    (markerTrialTextField.getText().equals("") ||
+                     markerTrialTextField.getText().equalsIgnoreCase("Unassigned"))){
+                canProceed =false;
+            }
+            if (canProceed){ // Check valid time range
+                double fromTime = Double.parseDouble(jFromTimeTextField.getText());
+                double toTime = Double.parseDouble(jToTimeTextField.getText());
+                canProceed = (toTime > fromTime);
+            }
+        }
+        setGuiCanAdvance(canProceed);
+     }
 
 }
 

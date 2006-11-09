@@ -25,14 +25,18 @@
  */
 package org.opensim.utils;
 import java.io.File;
+import java.net.URI;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import org.openide.filesystems.FileObject;
+import org.openide.filesystems.FileUtil;
 import org.openide.windows.WindowManager;
 
 /**
@@ -47,27 +51,31 @@ public final class FileUtils {
      * getNextAvailableName for a file with prefix baseName in passed in folder
      * use "." for current directory
      *
-     * Extension is assumed to include trailing path separator char
-     * String returned is the local name only and is not the full path
      */
-    public static String getNextAvailableName(String folder, String baseName, String extension) {
-        // Check that thae folder do exist, otherwise return the passed in name, ext
-        File parentDir = new File(folder);
-        String extensionString = (extension==null)?"":extension;
-        if (!parentDir.isDirectory()){
-            if (extension==null)
-                return baseName;
-            else
-                return baseName+File.separator+extension;
+    static FileUtils instance=null;
+    
+    public static String getNextAvailableName(String folder, String baseName) {
+        File baseFile = new File(baseName);
+        if (baseFile.isAbsolute()){ // user specified a full path. Ignore passed in folder
+            folder = baseFile.getParent();
         }
+        else
+            baseName = folder+baseName;
+        // Here folder and baseName are consistent for a file and a parent directory
+        File parentDir = new File(folder);
+        // Handle extension
+        String stripExtension = baseName.substring(0, baseName.lastIndexOf('.'));
+        if (stripExtension.contains("_"))
+            stripExtension = stripExtension.substring(0, baseName.lastIndexOf('_'));
+        String extensionString = baseName.substring(baseName.lastIndexOf('.')); // includes .
         // Cycle thru and check if the file exists, return first available
         boolean found = false;
-        int index=0;
+        int index=1;
         while(!found){
-            String suffix = (index==0)?"":"_"+String.valueOf(index);
-            File nextCandidate = new File(folder+baseName+suffix+File.separatorChar+extensionString);
+            String suffix = "_"+String.valueOf(index);
+            File nextCandidate = new File(stripExtension+suffix+extensionString);
             if (!nextCandidate.exists()){
-                return baseName+suffix+File.separatorChar+extensionString;
+                return stripExtension+suffix+extensionString;
             }
             index++;
         }
@@ -75,9 +83,6 @@ public final class FileUtils {
         return null;
     }
     
-    public static String getNextAvailableName(String folder, String baseName) {
-        return getNextAvailableName(folder, baseName, null);
-    }
     /**
      * utility method to add suffix to a file name
      */
@@ -149,7 +154,7 @@ public final class FileUtils {
      *
      * @todo this could be improved by making our own JFileChooser container JPanel
      */
-    public static String browseForFilename(String extensions, String description, boolean isRequired2Exist)
+    public String browseForFilename(String extensions, String description, boolean isRequired2Exist)
     {
         // Init dialog to use "WorkDirectory" as thought of by user
         String defaultDir="";
@@ -158,12 +163,13 @@ public final class FileUtils {
         dlog.setFileFilter(FileUtils.getFileFilter(extensions, description));
         
         String outFilename=null;
-        if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+        JFrame topFrame = (JFrame) WindowManager.getDefault().getMainWindow();
+        if (dlog.showOpenDialog(topFrame) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
              outFilename= dlog.getSelectedFile().getAbsolutePath();
              Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
        }
         /** 
-         * If isRequired2Exist flag is passed in as true we ned to make sure the file really exists
+         * If isRequired2Exist flag is passed in as true we need to make sure the file really exists
          */
        if (isRequired2Exist && outFilename!= null){
             File outfile = new File(outFilename);
@@ -176,10 +182,65 @@ public final class FileUtils {
        }
        return outFilename;
     }
-    
-    public static String browseForFilename(String extensions, String description)
+    /**
+     * browseForFilename is a hlper function used to browse for files with specified 
+     * extensions and desciption. see browseForFilename(String , String , boolean )
+     * for details.
+     */
+    public String browseForFilename(String extensions, String description)
     {
         return browseForFilename(extensions, description, true);
     }
     
+    /**
+     * getInstance: gets the singlton instance of the FileUtils class
+     */
+     public static FileUtils getInstance()
+    {
+        if (instance==null)
+            instance = new FileUtils();
+        
+        return instance;
+    }
+    /**
+     * makePathRelative converts the second parameter (file) to be relative
+     * to baseDir. If this is not possible it returns null. The caller
+     * would need to use the absolute path then.
+     *
+     * Both file and baseDir, baseDir is assumed to be a Dir
+     *
+     */
+    public String makePathRelative(File baseDir, File file)
+    {
+        String relative = null;
+        if (baseDir.isDirectory()){
+            if (baseDir.equals(file))
+                relative = ".";
+            else {
+                StringBuffer b = new StringBuffer();
+                File base = baseDir;
+                String filePath = file.getAbsolutePath();
+                while(!filePath.startsWith(slashify(base.getAbsolutePath()))){
+                    base = base.getParentFile();
+                    if (base == null)
+                        return null;
+                    b.append("../");
+                }
+                URI u = base.toURI().relativize(file.toURI());
+                b.append(u.getPath());
+                if (b.charAt(b.length() -1)=='/'){
+                    b.setLength(b.length() -1);
+                }
+                relative = b.toString();
+            }            
+        }
+        return relative;
+    }
+    
+    public static String slashify(String path){
+        if (path.endsWith(File.separator))
+            return path;
+        else
+            return path + File.separatorChar;
+    }
 }

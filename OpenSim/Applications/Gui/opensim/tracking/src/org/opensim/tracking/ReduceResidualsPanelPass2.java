@@ -4,7 +4,6 @@ import com.realisticDynamics.InvestigationRRA;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Timer;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
@@ -67,7 +66,7 @@ public class ReduceResidualsPanelPass2  extends workflowWizardPanelBase{
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
-        updateVisibility();
+        updateAvailability();
     }
     public void storeSettings(Object settings) {
        descriptor = (WorkflowDescriptor) settings;
@@ -79,12 +78,12 @@ public class ReduceResidualsPanelPass2  extends workflowWizardPanelBase{
        component.updateWorkflow(descriptor);
         final InvestigationRRA rra = new InvestigationRRA(descriptor.getSetupRRA_pass2Filename());
         runDynamicInvestigation(rra,false);
-          return true;
+        return true;
     }
     
-    public void updateVisibility()
+    public void updateAvailability()
     {
-        markValid(!descriptor.getStepInProgress());
+        updateValidity(!descriptor.getStepInProgress() && component.isGuiCanAdvance());
     }
    
 }

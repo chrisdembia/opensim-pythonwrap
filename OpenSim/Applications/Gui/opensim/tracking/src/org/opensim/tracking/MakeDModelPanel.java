@@ -64,7 +64,7 @@ public class MakeDModelPanel  extends workflowWizardPanelBase{
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
-        updateVisibility();
+        updateAvailability();
 
     }
     public void storeSettings(Object settings) {
@@ -96,9 +96,10 @@ public class MakeDModelPanel  extends workflowWizardPanelBase{
         return true;
    }
     
-    public void updateVisibility()
+    public void updateAvailability()
     {
-        markValid(!descriptor.getStepInProgress());
+        System.out.println("Prog="+descriptor.getStepInProgress()+" Gui"+component.isGuiCanAdvance());
+        updateValidity(!descriptor.getStepInProgress() && component.isGuiCanAdvance());
     }
 }
 

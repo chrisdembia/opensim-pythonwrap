@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import javax.swing.Timer;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.DialogDisplayer;
@@ -73,7 +72,7 @@ public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
-        updateVisibility();
+        updateAvailability();
     }
     public void storeSettings(Object settings) {
        descriptor = (WorkflowDescriptor) settings;
@@ -87,9 +86,9 @@ public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{
          return true;
     }
     
-    public void updateVisibility()
+    public void updateAvailability()
     {
-        markValid(!descriptor.getStepInProgress());
+        updateValidity(!descriptor.getStepInProgress() && component.isGuiCanAdvance());
     }
    
 }

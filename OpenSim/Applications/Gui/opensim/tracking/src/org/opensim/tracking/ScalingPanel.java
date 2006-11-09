@@ -1,9 +1,10 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.io.File;
 import java.io.IOException;
-import javax.swing.event.ChangeListener;
 import org.openide.util.HelpCtx;
+import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ScaleSet;
 import org.opensim.modeling.ScalerInterface;
 import org.opensim.modeling.SimmModel;
@@ -71,7 +72,7 @@ public class ScalingPanel  extends workflowWizardPanelBase {
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
-        updateVisibility();
+        updateAvailability();
     }
     public void storeSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
@@ -80,7 +81,6 @@ public class ScalingPanel  extends workflowWizardPanelBase {
     
     public boolean executeStep()
     {   
-
         // Call scaling with the model and display it in GUI
         //ExecOpenSimProcess.execute("Scale -S "+"900045_setup_scale_ik.xml", new String[0], new File("C:\\Projects\\fca\\900045"));
         SimmSubject subject = descriptor.getSubject();
@@ -89,6 +89,9 @@ public class ScalingPanel  extends workflowWizardPanelBase {
         ScalerInterface scaler = new SimmScalerImpl(model);
         ScaleSet scaleSet = params.getScaleSet(model, subject.getPathToSubject());
         component.appendMessage("Obtained scale factors.\n");
+        ArrayDouble factors = new ArrayDouble(0.0,3);
+        scaleSet.get(1).getScaleFactors(factors);
+        System.out.println(factors.getitem(0)+factors.getitem(1)+factors.getitem(2));
         boolean preserveMassDistribution = params.getPreserveMassDist();
         double mass = subject.getMass();
         boolean success = scaler.scaleModel(scaleSet,preserveMassDistribution, mass);
@@ -97,25 +100,41 @@ public class ScalingPanel  extends workflowWizardPanelBase {
         else
             component.appendMessage("Failed to scale generic model.\n");
         if (success) {  // Open scaled model 
-            model.setName(model.getName()+"- Scaled");
+            // We should never change the name of OpenSimObjects
+            // that are stored in maps since their name is used by the OpenSimObject.hash()
+            // used as an ID everywhere.
+            //
+            String saveName = model.getName();
+            model.setName(saveName+"- Scaled");
             String outputModelName = getOutputModelPath(descriptor);
             params.setOutputModelFileName(outputModelName);
             component.appendMessage("Writing output files.\n");
-            params.writeOutputFiles(model, subject.getPathToSubject());
-             try {
+            params.writeOutputFiles(model, null);   ///PathFix
+                
+            model.setName(saveName); 
+            //double sf[] = new double[3];
+            //model.getSimmKinematicsEngine().getBody("pelvis").getDisplayer().getScaleFactors(sf);
+            //System.out.println("Scale factors for  pelvis for model in memory"+sf[0]);
+            try {
                 component.appendMessage("Opening Scaled Model.\n");
                 
                 /* A kluge to test how easy is it to overlay models!
-                scaledModel = new SimmModel(subject.getPathToSubject()+outputModelName);
+                String scaledModelPath = (absoluteOutputPath)?outputModelName:subject.getPathToSubject()+outputModelName;
+ 
+                scaledModel = new SimmModel(scaledModelPath);
                 scaledModel.setup();
                 TopComponent top = (TopComponent) TopComponent.getRegistry().getOpened().iterator().next();
                 if (top instanceof ModelWindowVTKTopComponent){
-                    ((ModelWindowVTKTopComponent) top).getCanvas().loadModel(scaledModel);
+                    ((ModelWindowVTKTopComponent) top).getCanvas().loadModel(scaledModel, false);
                 }
                 */
+                String modelFileName = outputModelName;
+                if (!(new File(modelFileName).isAbsolute())){
+                    modelFileName = subject.getPathToSubject()+File.separatorChar+outputModelName;
+                }
                 // Display original model
                 ((OpenOsimModelAction) OpenOsimModelAction.findObject(
-                        Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+outputModelName);
+                        Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(modelFileName);
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             } catch (IOException ex) {
@@ -133,19 +152,22 @@ public class ScalingPanel  extends workflowWizardPanelBase {
         SimmSubject subject = descriptor.getSubject();
         SimmScalingParams params = subject.getScalingParams();
         String userSpecifiedName = params.getOutputModelFileName();
+        String baseModelName = subject.getGenericModelParams().getModelFileName();
+        if (baseModelName.equalsIgnoreCase("Unassigned")){
+            baseModelName = descriptor.getModel().getInputFileName();
+        }
         if (userSpecifiedName.equalsIgnoreCase("Unassigned")){
             String localName = FileUtils.getNextAvailableName(subject.getPathToSubject(), 
-                                                               subject.getGenericModelParams().getModelFileName(),
-                                                               "xml");
+                                                               baseModelName);
             return localName;
         }
         else
             return userSpecifiedName;
     }
     
-    public void updateVisibility()
+    public void updateAvailability()
     {
-        markValid(!descriptor.getStepInProgress());
+        updateValidity(!descriptor.getStepInProgress() && component.isGuiCanAdvance());
     }
 }
 

@@ -1,11 +1,8 @@
 package org.opensim.tracking;
 
-import javax.swing.JFileChooser;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ArrayDouble;
+import org.opensim.modeling.SimmMarkerData;
 import org.opensim.modeling.SimmMarkerPlacementParams;
-import org.opensim.swingui.ValidateUserInput;
 import org.opensim.utils.FileUtils;
 
 public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
@@ -305,41 +302,33 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     }//GEN-LAST:event_jOutputMarkersFileNameTextFieldActionPerformed
 
     private void jBrowseJntButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseJntButtonActionPerformed
-      final JFileChooser dlog = new JFileChooser("");
-       dlog.setFileFilter(FileUtils.getFileFilter(".jnt", "Output SIMM jnt file"));
-
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jOutputJntTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+     String jntFilename = FileUtils.getInstance().browseForFilename(".jnt", "Output SIMM jnt file", false);
+       if (jntFilename != null) {
+            jOutputJntTextField.setText(jntFilename);
        }
 // TODO add your handling code here:
     }//GEN-LAST:event_jBrowseJntButtonActionPerformed
 
     private void jBrowseMotionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseMotionButtonActionPerformed
-      final JFileChooser dlog = new JFileChooser("");
-       dlog.setFileFilter(FileUtils.getFileFilter(".mot", "Output Motion file"));
-
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jOutputMotionTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       String motFilename = FileUtils.getInstance().browseForFilename(".mot", "Output Motion file", false);
+       if (motFilename != null) {
+            jOutputMotionTextField.setText(motFilename);
        }
 // TODO add your handling code here:
     }//GEN-LAST:event_jBrowseMotionButtonActionPerformed
 
     private void jBrowseMarkersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseMarkersButtonActionPerformed
-       final JFileChooser dlog = new JFileChooser("");
-       dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Output Markers"));
-
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jOutputMarkersFileNameTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       String motFilename = FileUtils.getInstance().browseForFilename(".xml", "Output Markers", false);
+       if (motFilename != null) {
+            jOutputMarkersFileNameTextField.setText(motFilename);
        }
 // TODO add your handling code here:
     }//GEN-LAST:event_jBrowseMarkersButtonActionPerformed
 
     private void jBrowseOsimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseOsimButtonActionPerformed
-       final JFileChooser dlog = new JFileChooser("");
-       dlog.setFileFilter(FileUtils.getFileFilter(".xml, .osim", "Output OpenSim model"));
-
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jOsimFilenameTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       String osimFilename = FileUtils.getInstance().browseForFilename(".xml, .osim", "Output OpenSim model", false);
+       if (osimFilename != null) {
+            jOsimFilenameTextField.setText(osimFilename);
        }
 // TODO add your handling code here:
     }//GEN-LAST:event_jBrowseOsimButtonActionPerformed
@@ -349,34 +338,34 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     }//GEN-LAST:event_jStaticFromTextFieldActionPerformed
 
     private void jAdditionalMarkersFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdditionalMarkersFileButtonActionPerformed
-       final JFileChooser dlog = new JFileChooser("");
-       dlog.setFileFilter(FileUtils.getFileFilter(".xml", "Additional markers for static pose solution"));
-
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jMarkersFileTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       String markersFilename = FileUtils.getInstance().browseForFilename(".xml", "Additional markers for static pose solution");
+       if (markersFilename != null) {
+            jMarkersFileTextField.setText(markersFilename);
        }
 // TODO add your handling code here:
     }//GEN-LAST:event_jAdditionalMarkersFileButtonActionPerformed
 
     private void jInitCoordinatesFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInitCoordinatesFileButtonActionPerformed
-       final JFileChooser dlog = new JFileChooser("");
-       dlog.setFileFilter(FileUtils.getFileFilter(".mot", "Motion file to initialize static pose solution"));
-
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jCoordinatesFileTextField.setText(dlog.getSelectedFile().getAbsolutePath());
+       String coordinatesFilename = FileUtils.getInstance().
+               browseForFilename(".mot", "Motion file to initialize static pose solution");
+       if (coordinatesFilename != null) {
+            jCoordinatesFileTextField.setText(coordinatesFilename);
        }
 // TODO add your handling code here:
     }//GEN-LAST:event_jInitCoordinatesFileButtonActionPerformed
 
     private void jBrowse4TrcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4TrcButtonActionPerformed
 // TODO add your handling code here:
-       final JFileChooser dlog = new JFileChooser("");
-       dlog.setFileFilter(FileUtils.getFileFilter(".trc", "Static trial file"));
+       String staticTrialFilename = FileUtils.getInstance().
+               browseForFilename(".trc", "Static trial file");
+       if (staticTrialFilename != null) {
+            jStaticTrialTextField.setText(staticTrialFilename);
+       } 
+       // Get times from file and populate GUI
+       SimmMarkerData trcData = new SimmMarkerData(staticTrialFilename);
+       jStaticFromTextField.setText(String.valueOf(trcData.getStartFrameTime()));
+       jStaticToTextField.setText(String.valueOf(trcData.getLastFrameTime()));
 
-       if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            jStaticTrialTextField.setText(dlog.getSelectedFile().getAbsolutePath());
-       }
-        
     }//GEN-LAST:event_jBrowse4TrcButtonActionPerformed
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
@@ -444,7 +433,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
             jOutputMotionTextField.setText(aDescriptor.dSubject.getPathToSubject()+
                                             FileUtils.addSuffix(params.getOutputMotionFileName(),"MP")+".osim");
         }
-       
+       checkConsistentPanel(); // enable/disable buttons, fields based on state
     }
 
     void updateWorkflow(WorkflowDescriptor descriptor) {
@@ -496,6 +485,11 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     {
         jMessageTextArea.append(message);
         repaint();
+    }
+
+    public void checkConsistentPanel() {
+       boolean canProceed =  true;
+        setGuiCanAdvance(canProceed);
     }
 
     

@@ -98,6 +98,18 @@ public class SimmMarkerData {
     return opensimModelJNI.SimmMarkerData_getNumFrames(swigCPtr);
   }
 
+  public double getStartFrameTime() {
+    return opensimModelJNI.SimmMarkerData_getStartFrameTime(swigCPtr);
+  }
+
+  public double getLastFrameTime() {
+    return opensimModelJNI.SimmMarkerData_getLastFrameTime(swigCPtr);
+  }
+
+  public int countFramesBetweenTimes(double aStartTime, double aEndTime) {
+    return opensimModelJNI.SimmMarkerData_countFramesBetweenTimes(swigCPtr, aStartTime, aEndTime);
+  }
+
   public void peteTest() {
     opensimModelJNI.SimmMarkerData_peteTest(swigCPtr);
   }

@@ -55,7 +55,7 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
         // Update cached values
         descriptor.updateCachedValues();
         component.updatePanel(descriptor);
-        updateVisibility();
+        updateAvailability();
     }
     public void storeSettings(Object settings) {
         //System.out.println("Store settings");
@@ -78,8 +78,8 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
         SimmModel model = descriptor.getModel(); 
         component.appendMessage("Start loading model.\n");
         if (model != null){
+            boolean success=false;
             try {
-                boolean success=false;
                 try {
                     success = ((OpenOsimModelAction) OpenOsimModelAction.findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(model);
                 } catch (IOException ex) {
@@ -94,8 +94,8 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
                 component.appendMessage("Generic model has failed to load from file "+model.getInputFileName());
             }
             
-            //component.setExecuted(true);
-            component.putClientProperty("Step_executed", Boolean.TRUE);
+            if (success)
+                component.putClientProperty("Step_executed", Boolean.TRUE);
         }
         else{
             DialogDisplayer.getDefault().notify( 
@@ -104,7 +104,7 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
         }
         return true;
     }
-    public void updateVisibility()
+    public void updateAvailability()
     {}
 }
 

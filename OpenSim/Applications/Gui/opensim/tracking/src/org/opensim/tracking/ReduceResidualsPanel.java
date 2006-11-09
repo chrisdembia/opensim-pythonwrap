@@ -76,7 +76,8 @@ public class ReduceResidualsPanel  extends workflowWizardPanelBase{
          return true;
     }
 
-    public void updateVisibility() {
+    public void updateAvailability() {
+        updateValidity(!descriptor.getStepInProgress() && component.isGuiCanAdvance());
     }
     
 }

@@ -5,6 +5,8 @@
         <folder name="Edit">
             <file name="org-opensim-view-CameraAction.instance"/>
             <file name="org-opensim-view-ExportSIMMJntAction.instance"/>
+            <file name="org-opensim-view-LoadMarkerSetAction.instance"/>
+            <file name="org-opensim-view-LoadMusclesAction.instance"/>
             <file name="org-opensim-view-SaveAction.instance"/>
             <file name="org-opensim-view-LoadGaitModelAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.LoadGaitModelAction"/>
@@ -84,6 +86,12 @@
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-ExportSIMMJntAction.instance"/>
             </file>
             <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-LoadMarkerSetAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-LoadMarkerSetAction.instance"/>
+            </file>
+            <file name="org-opensim-view-LoadMusclesAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-LoadMusclesAction.instance"/>
+            </file>
             <file name="org-opensim-view-OpenOsimModel.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-OpenOsimModelAction.instance"/>
             </file>
@@ -113,21 +121,10 @@
             <attr name="org-openide-actions-SaveAction.instance/org-opensim-view-ExportSIMMJntAction.shadow" boolvalue="true"/>
             <attr name="org-opensim-view-ExportSIMMJntAction.shadow/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
             <attr name="org-openide-actions-SaveAction.instance/org-openide-actions-SaveAllAction.instance" boolvalue="false"/>
-        </folder>
-        <folder name="Window">
-            <file name="BottomPanelAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-BottomPanelAction.instance"/>
-            </file>
-            <file name="BottomPanelAction.shadow"/>
-            <file name="CloneDocumentAction.shadow_hidden"/>
-            <file name="CloseAllButThisAction.shadow_hidden"/>
-            <file name="ExplorerAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-ExplorerAction.instance"/>
-            </file>
-                <file name="ProgressListAction.shadow_hidden"/>
-            <file name="ViewRuntimeTabAction.shadow_hidden"/>
-            <file name="oldRootsEnd.txt_hidden"/>
-            <file name="oldRootsStart.txt_hidden"/>
+            <attr name="org-opensim-view-OpenOsimModel.shadow/org-opensim-view-LoadMarkerSetAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-LoadMarkerSetAction.shadow/Separator2.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-OpenOsimModel.shadow/org-opensim-view-LoadMusclesAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-LoadMusclesAction.shadow/org-opensim-view-LoadMarkerSetAction.shadow" boolvalue="true"/>
         </folder>
     </folder>
     <folder name="Services">
@@ -149,7 +146,7 @@
         <file name="Debug_hidden"/>
         <folder name="Edit">
             <attr name="org-openide-actions-FindAction.instance/org-opensim-view-CameraAction.shadow" boolvalue="true"/>
-        </folder>
+            </folder>
             <file name="File_hidden"/>
         <file name="Memory_hidden"/>
         <file name="Standard.xml_hidden"/>

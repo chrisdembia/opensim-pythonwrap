@@ -9,7 +9,6 @@ import org.opensim.utils.FileUtils;
 import com.realisticDynamics.InvestigationRRA;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Timer;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.awt.StatusDisplayer;
@@ -48,6 +47,12 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
 
         jRRAParamsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Pass 1, compute residuals"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Pass 1 settings file:");
+
+        jRRAPass1SetupFileTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jRRAPass1SetupFileTextFieldFocusLost(evt);
+            }
+        });
 
         jBrowse4RRA1SetupButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowse4RRA1SetupButton.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +108,11 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jRRAPass1SetupFileTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRRAPass1SetupFileTextFieldFocusLost
+// TODO add your handling code here:
+        checkConsistentPanel();
+    }//GEN-LAST:event_jRRAPass1SetupFileTextFieldFocusLost
+
     private void jEditRRA1SetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditRRA1SetupButtonActionPerformed
           String setupFilename = jRRAPass1SetupFileTextField.getText();
           InvestigationRRA rra = new InvestigationRRA(setupFilename);
@@ -113,14 +123,12 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
 
     private void jBrowse4RRA1SetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4RRA1SetupButtonActionPerformed
 // TODO add your handling code here:
-        String defaultDir="";
-        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
-        final JFileChooser dlog = new JFileChooser(defaultDir);
-        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "RRA Pass1 settings file"));
-        if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            String setupFilename = dlog.getSelectedFile().getAbsolutePath();
+        String setupFilename = FileUtils.getInstance().browseForFilename(".xml", "RRA Pass1 settings file");
+        if (setupFilename != null) {
             jRRAPass1SetupFileTextField.setText(setupFilename);
         }
+
+        checkConsistentPanel();
     }//GEN-LAST:event_jBrowse4RRA1SetupButtonActionPerformed
     
     
@@ -133,15 +141,26 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
     // End of variables declaration//GEN-END:variables
     void updateWorkflow(WorkflowDescriptor descriptor) {
         descriptor.setSetupRRA_pass1Filename(jRRAPass1SetupFileTextField.getText());
-        
     }
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
         jRRAPass1SetupFileTextField.setText(aDescriptor.getSetupRRA_pass1Filename());
+        checkConsistentPanel();    
     }
 
     public void appendMessage(String message) {
         
     }    
+    
+    /**
+     * checkConsistentPanel of various GUI elements based on context/current selections
+     */
+    public void checkConsistentPanel() {
+        boolean emptyFile = jRRAPass1SetupFileTextField.getText().equals("");
+         jEditRRA1SetupButton.setEnabled(! emptyFile);
+         System.out.println("RRA gui panel can advance "+!emptyFile);
+         setGuiCanAdvance(!emptyFile);
+       
+    }
 }
 

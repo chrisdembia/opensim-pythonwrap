@@ -42,6 +42,12 @@ public final class ReduceResidualsVisualPanelPass2 extends workflowVisualPanelBa
         jRRAParamsPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pass 2, alter motion to reduce residuals"));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Pass 2 settings file:");
 
+        jRRAPass2SetupFileTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jRRAPass2SetupFileTextFieldFocusLost(evt);
+            }
+        });
+
         jBrowse4RRA2SetupButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
         jBrowse4RRA2SetupButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +104,11 @@ public final class ReduceResidualsVisualPanelPass2 extends workflowVisualPanelBa
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jRRAPass2SetupFileTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jRRAPass2SetupFileTextFieldFocusLost
+// TODO add your handling code here:
+        checkConsistentPanel();
+    }//GEN-LAST:event_jRRAPass2SetupFileTextFieldFocusLost
+
     private void jEditRRA2SetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditRRA2SetupButtonActionPerformed
           String setupFilename = jRRAPass2SetupFileTextField.getText();
           InvestigationRRA rra = new InvestigationRRA(setupFilename);
@@ -107,15 +118,13 @@ public final class ReduceResidualsVisualPanelPass2 extends workflowVisualPanelBa
     }//GEN-LAST:event_jEditRRA2SetupButtonActionPerformed
 
     private void jBrowse4RRA2SetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4RRA2SetupButtonActionPerformed
-        String defaultDir="";
-        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
-        final JFileChooser dlog = new JFileChooser(defaultDir);
-        dlog.setFileFilter(FileUtils.getFileFilter(".xml", "RRA Pass2 settings file"));
-        if (dlog.showOpenDialog((JFrame) WindowManager.getDefault().getMainWindow()) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-           String setupFilename = dlog.getSelectedFile().getAbsolutePath();
+        String setupFilename = FileUtils.getInstance().browseForFilename(".xml", "RRA Pass2 settings file");
+        if (setupFilename != null) {
             jRRAPass2SetupFileTextField.setText(setupFilename);
-         }
-// TODO add your handling code here:
+        }
+
+        checkConsistentPanel();
+ // TODO add your handling code here:
     }//GEN-LAST:event_jBrowse4RRA2SetupButtonActionPerformed
     
     
@@ -133,13 +142,20 @@ public final class ReduceResidualsVisualPanelPass2 extends workflowVisualPanelBa
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
         jRRAPass2SetupFileTextField.setText(aDescriptor.getSetupRRA_pass2Filename());
+        checkConsistentPanel();
     }
 
     public void appendMessage(String message) {
         
     }
-    protected boolean checkValidForm() {
-        return true;
+    /**
+     * checkConsistentPanel of various GUI elements based on context/current selections
+     */
+    public void checkConsistentPanel() {
+        boolean emptyFile = jRRAPass2SetupFileTextField.getText().equals("");
+         jEditRRA2SetupButton.setEnabled(! emptyFile);
+         setGuiCanAdvance(!emptyFile);
+      
     }
     
 }

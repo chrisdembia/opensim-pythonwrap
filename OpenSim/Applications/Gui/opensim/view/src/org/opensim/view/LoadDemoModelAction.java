@@ -1,6 +1,8 @@
 package org.opensim.view;
 
+import java.awt.Component;
 import java.io.IOException;
+import javax.swing.JButton;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;

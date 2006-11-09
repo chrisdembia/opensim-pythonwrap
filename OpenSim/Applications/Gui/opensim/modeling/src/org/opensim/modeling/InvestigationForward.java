@@ -59,7 +59,7 @@ public class InvestigationForward extends Investigation {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void run() {
+  public void run() throws java.io.IOException {
     opensimModelJNI.InvestigationForward_run(swigCPtr);
   }
 

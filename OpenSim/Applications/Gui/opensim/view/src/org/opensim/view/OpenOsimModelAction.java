@@ -29,7 +29,7 @@ public final class OpenOsimModelAction extends CallableSystemAction {
             Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
         }
 */
-        String fileName = FileUtils.browseForFilename(".xml,.osim", "Model file to open");
+        String fileName = FileUtils.getInstance().browseForFilename(".xml,.osim", "Model file to open");
         if (fileName != null){
             try {
                 loadModel(fileName);

@@ -13,7 +13,7 @@ public final class InvestigationAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
-        WizardDescriptor.Iterator iterator = new AnalysisWizardIterator();
+        WizardDescriptor.Iterator iterator = new InvestigationWizardIterator();
         WizardDescriptor wizardDescriptor = new WizardDescriptor(iterator, new WorkflowDescriptor());
         // {0} will be replaced by WizardDescriptor.Panel.getComponent().getName()
         // {1} will be replaced by WizardDescriptor.Iterator.name()
@@ -24,7 +24,7 @@ public final class InvestigationAction extends CallableSystemAction {
         dialog.toFront();
         boolean cancelled = wizardDescriptor.getValue() != WizardDescriptor.FINISH_OPTION;
         if (!cancelled) {
-            final RunInvestigationPanel curPanel = (RunInvestigationPanel) iterator.current();
+            final InvestigationRunPanel curPanel = (InvestigationRunPanel) iterator.current();
                 final SwingWorker worker = new SwingWorker() {
 
                 public Object construct() { // runs in a worker thread

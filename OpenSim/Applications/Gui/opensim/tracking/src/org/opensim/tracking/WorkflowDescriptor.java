@@ -25,6 +25,9 @@
  */
 package org.opensim.tracking;
 
+import java.util.ArrayList;
+import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.ScaleSet;
 import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmSubject;
 
@@ -40,7 +43,7 @@ public class WorkflowDescriptor {
     SimmSubject dSubject=null;
     boolean     useOwnModel=false;
     boolean     useOwnMarkers = false;
-    SimmModel   dGenericModel = null;
+    private SimmModel   genericModel = null;
     SimmModel   ikModel = null;
     // Extra items needed for RRA, CMC, Forward/perturb
     private String      dynamicsModelFile;
@@ -53,7 +56,9 @@ public class WorkflowDescriptor {
     private String      RRAoutputMotionFilename;
     private String      dynamicsDir;
     private String      IKoutfilename;
-    public Boolean     stepInProgress=false;
+    public Boolean      stepInProgress=false;
+    
+    private ArrayList<OpenSimObject> objectsToKeep = new ArrayList<OpenSimObject>(1);
     /**
      * Constructor, Creates a new instance of WorkflowDescriptor
      * 
@@ -76,10 +81,10 @@ public class WorkflowDescriptor {
     }
     
     public SimmModel getModel() {   // Lazily get the Model 
-        if (dGenericModel==null && dSubject != null){
-            dGenericModel = dSubject.createModel();
+        if (genericModel==null && dSubject != null){
+            setGenericModel(dSubject.createModel());
         }
-        return dGenericModel;
+        return genericModel;
     }
     
     public void setUseOwnModel(boolean b)
@@ -189,6 +194,18 @@ public class WorkflowDescriptor {
 
     public void setIKoutfilename(String IKoutfilename) {
         this.IKoutfilename = IKoutfilename;
+    }
+
+    public void setGenericModel(SimmModel genericModel) {
+        this.genericModel = genericModel;
+    }
+    /**
+     * keepRef is a hack to make sure Java does not believe it owns these objects
+     * while a reference to them is in use on the C++ side. This needs to be sttreamlined 
+     * in a more general way.
+     */
+    void keepRef(ScaleSet manualScales) {
+        objectsToKeep.add(manualScales);
     }
 
  }

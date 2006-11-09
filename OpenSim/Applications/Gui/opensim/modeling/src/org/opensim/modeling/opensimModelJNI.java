@@ -12,7 +12,7 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("rdModelDll");
+        System.loadLibrary("rdModelDll_d");
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic library rdModelDll is in your PATH\n"+e);
@@ -119,6 +119,8 @@ public class opensimModelJNI {
   public final static native long VisibleObject_getGeometry(long jarg1, int jarg2);
   public final static native int VisibleObject_countGeometry(long jarg1);
   public final static native long VisibleObject_getDefaultGeometry(long jarg1);
+  public final static native boolean VisibleObject_isActive(long jarg1);
+  public final static native void VisibleObject_setActive(long jarg1, boolean jarg2);
   public final static native void VisibleObject_setupProperties(long jarg1);
   public final static native String ObjectDEFAULT_NAME_get();
   public final static native void delete_OpenSimObject(long jarg1);
@@ -1328,7 +1330,7 @@ public class opensimModelJNI {
   public final static native void Investigation_constructCommandLineForLoadModel(long jarg1, long jarg2);
   public final static native void Investigation_loadModel(long jarg1);
   public final static native void Investigation_addAnalysisSetToModel(long jarg1);
-  public final static native void Investigation_run(long jarg1);
+  public final static native void Investigation_run(long jarg1) throws java.io.IOException;
   public final static native void Investigation_printResults__SWIG_0(long jarg1, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native void Investigation_printResults__SWIG_1(long jarg1, String jarg2, String jarg3, double jarg4);
   public final static native void Investigation_printResults__SWIG_2(long jarg1, String jarg2, String jarg3);
@@ -1340,7 +1342,7 @@ public class opensimModelJNI {
   public final static native long new_InvestigationForward__SWIG_3(long jarg1);
   public final static native long InvestigationForward_copy__SWIG_0(long jarg1);
   public final static native long InvestigationForward_copy__SWIG_1(long jarg1, long jarg2);
-  public final static native void InvestigationForward_run(long jarg1);
+  public final static native void InvestigationForward_run(long jarg1) throws java.io.IOException;
   public final static native void InvestigationForward_initializeExternalLoads(long jarg1);
   public final static native long new_InvestigationPerturbation__SWIG_0();
   public final static native long new_InvestigationPerturbation__SWIG_1(String jarg1);
@@ -1361,9 +1363,10 @@ public class opensimModelJNI {
   public final static native int SimtkAnimationCallback_step__SWIG_1(long jarg1, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
   public final static native int SimtkAnimationCallback_begin__SWIG_0(long jarg1, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
   public final static native int SimtkAnimationCallback_begin__SWIG_1(long jarg1, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native void SimtkAnimationCallback_getBodyTransforms(long jarg1, long jarg2);
   public final static native long SimtkAnimationCallback_getBodyTransform(long jarg1, int jarg2);
-  public final static native void SimtkAnimationCallback_getMutex(long jarg1);
-  public final static native void SimtkAnimationCallback_releaseMutex(long jarg1);
+  public final static native void SimtkAnimationCallback_mutex_begin(long jarg1, int jarg2);
+  public final static native void SimtkAnimationCallback_mutex_end(long jarg1, int jarg2);
   public final static native void SimtkAnimationCallback_extractOffsets(long jarg1, long jarg2);
   public final static native long new_Kinematics__SWIG_0(long jarg1);
   public final static native long new_Kinematics__SWIG_1();
@@ -2930,6 +2933,9 @@ public class opensimModelJNI {
   public final static native void SimmMarkerData_convertToUnits(long jarg1, long jarg2);
   public final static native long SimmMarkerData_getMarkerNames(long jarg1);
   public final static native int SimmMarkerData_getNumFrames(long jarg1);
+  public final static native double SimmMarkerData_getStartFrameTime(long jarg1);
+  public final static native double SimmMarkerData_getLastFrameTime(long jarg1);
+  public final static native int SimmMarkerData_countFramesBetweenTimes(long jarg1, double jarg2, double jarg3);
   public final static native void SimmMarkerData_peteTest(long jarg1);
   public final static native long new_ScalerInterface(long jarg1);
   public final static native boolean ScalerInterface_scaleModel(long jarg1, long jarg2, boolean jarg3, double jarg4);
@@ -2989,6 +2995,7 @@ public class opensimModelJNI {
   public final static native long new_SimmMeasurementSet__SWIG_0();
   public final static native long new_SimmMeasurementSet__SWIG_1(long jarg1);
   public final static native void delete_SimmMeasurementSet(long jarg1);
+  public final static native long new_SimmMeasurementSet__SWIG_2(String jarg1);
   public final static native long new_SimmScalerImpl(long jarg1);
   public final static native boolean SimmScalerImpl_scaleModel(long jarg1, long jarg2, boolean jarg3, double jarg4);
   public final static native void delete_SimmScalerImpl(long jarg1);

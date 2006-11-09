@@ -27,10 +27,12 @@ package org.opensim.tracking;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import org.openide.WizardDescriptor;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import javax.swing.JComponent;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -54,8 +56,7 @@ import org.opensim.view.ViewDB;
 abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
     
      public WorkflowDescriptor descriptor;
-     private boolean valid=true; // Can proceed to next
-     protected boolean needProgress=false;  // The task will need to show some progress info
+     private boolean canProceed=true; // Can proceed to next based on context only.
      protected final int UPDATE_FREQUENCY=100; // How often we update the display in milliseconds
     /**
      * Creates a new instance of workflowWizardPanelBase
@@ -63,17 +64,20 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
     public workflowWizardPanelBase() {
     }
     
-    /** Execute the step (normally when Execute button is pushed */
+    /** Execute the step  */
     abstract boolean executeStep();   
     
-    public void markValid(boolean valid){
-        this.valid = valid;
-        fireChangeEvent();
+    public void updateValidity(boolean canProceed){
+        if (this.canProceed != canProceed){
+            this.canProceed = canProceed;
+            fireChangeEvent();
+        }
     }
 
      final public boolean isValid() {
         // If it is always OK to press Next or Finish, then:
-        return valid;
+        //System.out.println("Is Valid = "+canProceed+" Gui"+((workflowVisualPanelBase)getComponent()).isGuiCanAdvance());
+        return (canProceed && ((workflowVisualPanelBase)getComponent()).isGuiCanAdvance());
         // If it depends on some condition (form filled out...), then:
         // return someCondition();
         // and when this condition changes (last form field filled in...) then:
@@ -102,15 +106,8 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
             it.next().stateChanged(ev);
         }
     }
-    abstract public void updateVisibility();
+    abstract public void updateAvailability();
 
-    public boolean isNeedProgress() {
-        return needProgress;
-    }
-
-    public void setNeedProgress(boolean needProgress) {
-        this.needProgress = needProgress;
-    }
     /**
      * runDynamicInvestigation does all the leg work of setting up the GUI, callback to run
      * a Dynamic investigation and update display with the resulting animation
@@ -140,39 +137,26 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
         if (isDeterministic)
             progressHandle.switchToDeterminate(100);
         
-            int delay = 100; //milliseconds
-            ActionListener taskPerformer = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-              //...Perform a task...
+        int delay = UPDATE_FREQUENCY; //milliseconds
+        ActionListener taskPerformer = new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+          //...Perform a task...
                 if (modelWindow!=null){
                         modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, false);
                         modelWindow.getCanvas().repaint();
                 }
-                }};
-                
-             Timer timer = new Timer(delay, taskPerformer);
-/*        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(
-            new TimerTask(){
-                public void run() {
-                    final double simulationTime=animationCallback.getCurrentTime();
-                    double percentComplete = (animationCallback.getCurrentTime()-startTime)/investigationDuration*100.0;
-                    int intPercent =(int)percentComplete;
-                    if (intPercent < 0) intPercent = 0;
-                    if (intPercent > 100) intPercent = 100;
-                    if(modelWindow==null) System.out.println("*** modelWindow is null!");
-                    if (modelWindow!=null)
-                        modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, false);
-                        SwingUtilities.invokeLater(
-                            new Runnable(){
-                                public void run() { modelWindow.getCanvas().repaint(); }
-                            });
-                }
-            },0,500);
-        
-*/
+            }
+        };
+
+        Timer timer = new Timer(delay, taskPerformer);
         timer.start();
-        dInvestigation.run();
+        try {
+            dInvestigation.run();
+        } catch (IOException ex) {
+             DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("The following error has been reported. Please fix and retry.\n "+ex.getMessage()));
+
+            ex.printStackTrace();
+        }
         
         timer.stop();
 
@@ -180,6 +164,8 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
             progressHandle.progress(100);
         progressHandle.finish();
         dInvestigation.getModel().removeIntegCallback(animationCallback);
+        ((JComponent) getComponent()).putClientProperty("Step_executed", Boolean.TRUE);
+        System.gc();
     }
 
 }

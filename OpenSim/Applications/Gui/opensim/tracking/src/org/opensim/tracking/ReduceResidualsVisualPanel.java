@@ -292,6 +292,9 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
     protected boolean checkValidForm() {
         return true;
     }
+
+    public void checkConsistentPanel() {
+    }
     
 }
 

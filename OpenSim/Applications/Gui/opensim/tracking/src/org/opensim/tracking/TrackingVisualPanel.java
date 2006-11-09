@@ -145,8 +145,7 @@ public final class TrackingVisualPanel extends workflowVisualPanelBase {
     public void appendMessage(String message) {
     }
 
-    protected boolean checkValidForm() {
-        return false;
+    public void checkConsistentPanel() {
     }
     
 }

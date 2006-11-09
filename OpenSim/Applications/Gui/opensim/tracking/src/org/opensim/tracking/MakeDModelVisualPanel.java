@@ -237,6 +237,8 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
         }
         else
             KineticsFileTextField.setText("");
+        
+        checkConsistentPanel();
        
     }
 
@@ -265,6 +267,10 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
     public String getKineticsFilename()
     {
         return KineticsFileTextField.getText();
+    }
+
+    public void checkConsistentPanel() {
+        setGuiCanAdvance(true);
     }
 
 }

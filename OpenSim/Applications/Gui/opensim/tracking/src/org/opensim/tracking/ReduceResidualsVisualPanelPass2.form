@@ -73,6 +73,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jRRAPass2SetupFileTextField">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jRRAPass2SetupFileTextFieldFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBrowse4RRA2SetupButton">
           <Properties>

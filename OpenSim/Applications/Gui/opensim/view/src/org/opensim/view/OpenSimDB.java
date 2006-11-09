@@ -12,6 +12,7 @@ package org.opensim.view;
 import java.util.ArrayList;
 import java.util.Observable;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.SimmMarkerSet;
 import org.opensim.modeling.SimmModel;
 import org.opensim.view.ModelEvent;
 
@@ -64,5 +65,19 @@ final public class OpenSimDB extends Observable {
         ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Close);
         notifyObservers(evnt);
     }
+    /**
+     * Add a markerSet to the simmModel.
+     * This operation modifies the model and triggers update of the visuals
+     */
+    void addMarkerSet(SimmMarkerSet markerSet, SimmModel simmModel) {
+        simmModel.updateMarkers(markerSet);
+        // Needed to update display properties of markers
+        for(int i=0; i < markerSet.getSize(); i++){
+            markerSet.get(i).setup(simmModel.getSimmKinematicsEngine());
+        }
+        setChanged();
+        ModelEvent evnt = new ModelEvent(simmModel, ModelEvent.Operation.UpdateDisplay);
+        notifyObservers(evnt);
+   }
 
 }

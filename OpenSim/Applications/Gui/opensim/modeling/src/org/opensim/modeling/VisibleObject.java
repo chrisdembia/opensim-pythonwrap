@@ -195,6 +195,14 @@ public class VisibleObject extends OpenSimObject {
     return (cPtr == 0) ? null : new Geometry(cPtr, false);
   }
 
+  public boolean isActive() {
+    return opensimModelJNI.VisibleObject_isActive(swigCPtr);
+  }
+
+  public void setActive(boolean aActive) {
+    opensimModelJNI.VisibleObject_setActive(swigCPtr, aActive);
+  }
+
   public void setupProperties() {
     opensimModelJNI.VisibleObject_setupProperties(swigCPtr);
   }
