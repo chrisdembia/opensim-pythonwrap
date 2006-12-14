@@ -305,7 +305,7 @@ public:
 	void setMuson(int aMus,int aOnOff);
 
 //=============================================================================
-};	// END of class rdUTWalking8Prescribed
+};	// END of class rdUTWalking8Prescribed
 
 }; //namespace
 //=============================================================================
