@@ -40,8 +40,9 @@
 #include <OpenSim/Tools/rdTools.h>
 //#include <Storage.h>
 #include <OpenSim/Simulation/SDFast/rdSDFastDLL.h>
-#include <OpenSim/Simulation/Model/Model.h>
 #include <OpenSim/Simulation/SDFast/ActuatedModel_SDFast.h>
+#include <OpenSim/Simulation/Model/ContactForceSet.h>
+#include <OpenSim/Simulation/Simm/AbsActuatorSet.h>
 
 // NUMBERS OF THINGS
 const int rdUTWalking8Prescribed_NQ = 34;
@@ -170,7 +171,7 @@ public:
 //=============================================================================
 public:
 	virtual ~rdUTWalking8Prescribed();
-	rdUTWalking8Prescribed(const ActuatorSet *aActuatorSet=NULL,
+	rdUTWalking8Prescribed(const AbsActuatorSet *aActuatorSet=NULL,
 		const ContactForceSet *aContactSet=NULL);
 protected:
 	void initializeParameters();
@@ -268,8 +269,8 @@ public:
 	virtual void computeResultantBodyForces(double aFE[][3],double aFB[][6]);
 	virtual void applyContactForce(int aID);
 	virtual void applyContactForces();
-	virtual int getContactBodyA(int aID) const;
-	virtual int getContactBodyB(int aID) const;
+	virtual AbstractBody* getContactBodyA(int aID) const;
+	virtual AbstractBody* getContactBodyB(int aID) const;
 	virtual void setContactPointA(int aID,const double rPoint[3]);
 	virtual void getContactPointA(int aID,double rPoint[3]) const;
 	virtual void setContactPointB(int aID,const double rPoint[3]);

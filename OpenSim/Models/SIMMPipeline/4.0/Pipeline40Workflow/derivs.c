@@ -306,7 +306,7 @@ int muscle_deriv_func4(double time, dpMuscleStruct* ms, double state[],
          new_fiber_length = sqrt(h*h + w*w) / (*(ms->optimal_fiber_length));
          new_pennation_angle = calc_pennation(new_fiber_length, 1.0,
                                               (*(ms->pennation_angle)));
-         new_ca = cos(new_pennation_angle);
+         new_ca = cos(DEG_TO_RAD*new_pennation_angle);
          normdstate[fiber_length] = calc_muscle_tendon_velocity(ms) *
                                     c_tau / (*(ms->optimal_fiber_length)) * new_ca;
          ms->fiber_velocity = normdstate[fiber_length];
@@ -501,7 +501,7 @@ int muscle_deriv_func6(double time, dpMuscleStruct* ms, double state[],
          new_fiber_length = sqrt(h*h + w*w) / (*(ms->optimal_fiber_length));
          new_pennation_angle = calc_pennation(new_fiber_length,1.0,
                                               (*(ms->pennation_angle)));
-         new_ca = cos(new_pennation_angle);
+         new_ca = cos(DEG_TO_RAD*new_pennation_angle);
          normdstate[fiber_length] = calc_muscle_tendon_velocity(ms) *
             c_tau / (*(ms->optimal_fiber_length)) * new_ca;
          ms->fiber_velocity = normdstate[fiber_length] *
@@ -662,7 +662,7 @@ int muscle_deriv_func8(double time, dpMuscleStruct* ms, double state[],
 			new_fiber_length = sqrt(h*h + w*w) / (*(ms->optimal_fiber_length));
 			new_pennation_angle = calc_pennation(new_fiber_length,1.0,
 					      (*(ms->pennation_angle)));
-			new_ca = cos(new_pennation_angle);
+			new_ca = cos(DEG_TO_RAD*new_pennation_angle);
 //			normdstate[fiber_length] = ms->muscle_tendon_vel / (Vmax*new_ca) ;
 			normdstate[fiber_length] = calc_muscle_tendon_velocity(ms) / (Vmax*new_ca) ;
 		}
@@ -762,7 +762,7 @@ int muscle_deriv_func9(double time, dpMuscleStruct* ms, double state[],
 			new_fiber_length = sqrt(h*h + w*w) / (*(ms->optimal_fiber_length));
 			new_pennation_angle = calc_pennation(new_fiber_length,1.0,
 					      (*(ms->pennation_angle)));
-			new_ca = cos(new_pennation_angle);
+			new_ca = cos(DEG_TO_RAD*new_pennation_angle);
 			normdstate[fiber_length] = ms->muscle_tendon_vel / (Vmax*new_ca) ;
 //			normdstate[fiber_length] = calc_muscle_tendon_velocity(ms) / (Vmax*new_ca) ;
 		}

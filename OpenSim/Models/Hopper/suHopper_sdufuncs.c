@@ -53,3 +53,6 @@ void sduconsfrc(double t, double q[], double u[], double mults[])
 {
 }
 
+void init_sdm()
+{
+}

@@ -25,7 +25,7 @@ INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR}
 
 SET(EXPORT_MACRO RD${UKIT}_EXPORTS)
 
-LINK_LIBRARIES( rdTools rdSimulation suAnalyses workflow
+LINK_LIBRARIES( rdTools rdSimulation suAnalyses workflow rdCMC
 		debug xerces-c_2D optimized  xerces-c_2)
 
 ADD_LIBRARY(rd${KIT} SHARED ${SOURCE_FILES}) 

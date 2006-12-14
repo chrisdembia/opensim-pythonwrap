@@ -124,8 +124,8 @@ formCompleteStorages(const OpenSim::Storage &aQIn,
 {
 	cout<<"suPipeline40Workflow.formCompleteStorages: ERR- this routine should not be executed!\n\n";
 	int i;
-	int nq = getNQ();
-	int nu = getNU();
+	int nq = getNumCoordinates();
+	int nu = getNumSpeeds();
 
 	// Get coordinate file indices
 	string qName,columnLabels;

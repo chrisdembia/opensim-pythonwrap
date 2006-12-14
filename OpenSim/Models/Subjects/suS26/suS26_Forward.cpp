@@ -15,6 +15,7 @@
 #include <OpenSim/Analyses/GeneralizedForces.h>
 #include <OpenSim/Analyses/BodyKinematics.h>
 #include <OpenSim/Simulation/Model/AnalysisSet.h>
+#include <OpenSim/Simulation/Simm/AbstractBody.h>
 #include "suS26.h"
 
 
@@ -43,9 +44,9 @@ int main()
 	suS26 model(parmFile);
 
 	// Initial states
-	Array<double> yi(0.0,model.getNY());
+	Array<double> yi(0.0,model.getNumStates());
 	model.getInitialStates(&yi[0]);
-	int ny = model.getNY();
+	int ny = model.getNumStates();
 	cout<<"\nInitial States:"<<endl;
 	for(i=0;i<ny;i++) {
 		cout<<model.getStateName(i)<<"["<<i<<"]= "<<yi[i]<<endl;
@@ -53,10 +54,15 @@ int main()
 
 	// Bodies
 	cout<<endl<<endl<<"Bodies:"<<endl;
-	int nb = model.getNB();
-	for(i=0;i<nb;i++) {
-		cout<<"body["<<i<<"]= "<<model.getBodyName(i)<<endl;
+	BodyIterator *bi = model.getDynamicsEngine().newBodyIterator();
+	AbstractBody* body = bi->next();
+	i = 0;
+	while (body)
+	{
+		cout << "body[" << i++ << "] = " << body->getName() << endl;
+		body = bi->next();
 	}
+	delete bi;
 	cout<<endl;
 
 

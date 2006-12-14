@@ -89,7 +89,7 @@ cgmalWalking01::cgmalWalking01(ActuatorSet *aActuators,ContactForceSet *aContact
 
 	// Set initial states here. Probably this will need to move
 	int i;
-	int numStates = getNY();
+	int numStates = getNumStates();
 	double *stateValues = new double[numStates];
 	for(i=0; i<numStates; i++)
 		stateValues[i] = 0.0;
@@ -104,7 +104,7 @@ cgmalWalking01::cgmalWalking01(ActuatorSet *aActuators,ContactForceSet *aContact
 	double *rotations = new double[3];
 	double	dirCos[3][3];
 
-	for(i=0;i<getNB(); i++){
+	for(i=0;i<getNumBodies(); i++){
 		if (i==getGroundID())
 			continue;
 		for(int di=0; di<3; di++)
@@ -139,7 +139,7 @@ setNull()
 void cgmalWalking01::
 constructInitialStates()
 {
-	Array<double> yi(0.0,getNY());
+	Array<double> yi(0.0,getNumStates());
 	getInitialStates(&yi[0]);
 	// specify initial states here...
 	setInitialStates(&yi[0]);
@@ -152,11 +152,11 @@ void cgmalWalking01::
 constructNames()
 {
 	int i;
-	int nq = cgmalWalking01::getNQ();
-	int nu = cgmalWalking01::getNU();
+	int nq = cgmalWalking01::getNumCoordinates();
+	int nu = cgmalWalking01::getNumSpeeds();
 
 	// BODIES
-	for(i=0;i<getNB();i++) {
+	for(i=0;i<getNumBodies();i++) {
 		setBodyName(i,bNames[i]);
 		if (i!=getGroundID())
 			getBody(i)->setName(bNames[i]);
@@ -183,7 +183,7 @@ constructGeometry()
 	char *curDirectory = ".";
 	if (!resourceDirectory)
 		resourceDirectory = curDirectory;
-	for(int i=0;i<getNB();i++) {
+	for(int i=0;i<getNumBodies();i++) {
 		// Actual body has been constructed by constructBodies()
 		if (i==getGroundID())
 			continue;

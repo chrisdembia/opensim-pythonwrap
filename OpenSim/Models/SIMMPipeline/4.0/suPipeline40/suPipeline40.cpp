@@ -11,7 +11,7 @@
 #include <iostream>
 #include <OpenSim/Tools/rdMath.h>
 #include <OpenSim/Simulation/Model/DerivCallbackSet.h>
-#include <OpenSim/Simulation/Model/ActuatorSet.h>
+#include <OpenSim/Simulation/Simm/ActuatorSet.h>
 #include <OpenSim/Simulation/Model/ContactForceSet.h>
 #include "suPipeline40.h"
 #include "suPipeline40-helper.h"
@@ -145,9 +145,9 @@ constructInitialStates()
 {
 	// NUMBERS
 	int i;
-	int ny = getNY();
-	int nqnu = getNQ() + getNU();
-	int nyAct = ActuatedModel_SDFast::getNY() - nqnu;
+	int ny = getNumStates();
+	int nqnu = getNumCoordinates() + getNumSpeeds();
+	int nyAct = ActuatedModel_SDFast::getNumStates() - nqnu;
 	int nyDP = sdm->neq - nqnu;
 	//cout<<"suPipeline40.constructInitialStates:  ny="<<ny;
 	//cout<<" nyAct="<<nyAct<<" nyDP="<<nyDP<<endl;
@@ -178,22 +178,22 @@ constructNames()
 	setName("suPipeline40");
 	
 	// BODIES
-	//printf("suPipeline40.constructNames: nb = %d\n",getNB());
+	//printf("suPipeline40.constructNames: nb = %d\n",getNumBodies());
 	int i;
-	for(i=0;i<getNB();i++) {	// Use i+1 since SIMM has a segment for ground but RDI does not! -Ayman 11/04
+	for(i=0;i<getNumBodies();i++) {	// Use i+1 since SIMM has a segment for ground but RDI does not! -Ayman 11/04
 		setBodyName(i,sdm->body_segment[i+1].name);
 	}
 
 	// GENERALIZED COORDINATES
-	//printf("suPipeline40.constructNames: nq = %d\n",getNQ());
-	for(i=0;i<getNQ();i++) {
+	//printf("suPipeline40.constructNames: nq = %d\n",getNumCoordinates());
+	for(i=0;i<getNumCoordinates();i++) {
 		setCoordinateName(i,sdm->q[i].name);
 	}
 
 	// GENERALIZED SPEEDS
-	//printf("suPipeline40.constructNames: nu = %d\n",getNU());
+	//printf("suPipeline40.constructNames: nu = %d\n",getNumSpeeds());
 	char name[100];
-	for(i=0;i<getNU();i++) {
+	for(i=0;i<getNumSpeeds();i++) {
 		sprintf(name, "%s",sdm->q[i].name);
 		setSpeedName(i,name);
 	}
@@ -213,10 +213,10 @@ void suPipeline40::
 setConfiguration(const double aQ[],const double aU[])
 {
 	int i;
-	for(i=0;i<getNQ();i++)
+	for(i=0;i<getNumCoordinates();i++)
 		_dpd->y[i] = aQ[i];
-	for(i=0;i<getNU();i++)
-		_dpd->y[i+getNQ()] = aU[i];
+	for(i=0;i<getNumSpeeds();i++)
+		_dpd->y[i+getNumCoordinates()] = aU[i];
 
 	ActuatedModel_SDFast::setConfiguration(aQ,aU);
 }
@@ -230,7 +230,7 @@ void suPipeline40::
 setConfiguration(const double aY[])
 {
 	ActuatedModel_SDFast::setConfiguration(aY);	
-	int i, iAct = getNQ() + getNU();
+	int i, iAct = getNumCoordinates() + getNumSpeeds();
 	for(i=0;i<iAct;i++){	// This seems redundant, already done by setConfiguration
 		_dpd->y[i] = aY[i];
 	}
@@ -245,9 +245,9 @@ setConfiguration(const double aY[])
  *
  */
 int suPipeline40::
-getNX() const
+getNumControls() const
 {
-	int nx = ActuatedModel_SDFast::getNX();
+	int nx = ActuatedModel_SDFast::getNumControls();
 	if(getIncludePipelineActuators()) nx += sdm->num_muscles;
 	return(nx);
 }
@@ -258,9 +258,9 @@ getNX() const
  *
  */
 int suPipeline40::
-getNA() const
+getNumActuators() const
 {
-	int na = ActuatedModel_SDFast::getNA();
+	int na = ActuatedModel_SDFast::getNumActuators();
 	if(getIncludePipelineActuators()) na += sdm->num_muscles;
 	return(na);
 }
@@ -271,11 +271,11 @@ getNA() const
  *
  */
 int suPipeline40::
-getNY() const
+getNumStates() const
 {
-	int ny = ActuatedModel_SDFast::getNY();
+	int ny = ActuatedModel_SDFast::getNumStates();
 	if(getIncludePipelineActuators()) {
-		int nMuscleStates = sdm->neq - getNQ() - getNU();
+		int nMuscleStates = sdm->neq - getNumCoordinates() - getNumSpeeds();
 		ny += nMuscleStates;
 	}
 
@@ -293,7 +293,7 @@ getNY() const
  * @param aIndex Index of the control whose name is desired.  aIndex should
  * be greater than or equal to 0 and less than the number of controls.
  * @return Control name.
- * @see getNX()
+ * @see getNumControls()
  */
 string suPipeline40::
 getControlName(int aIndex) const
@@ -301,7 +301,7 @@ getControlName(int aIndex) const
 	string name = "";
 
 	// BASE CLASS
-	int nxBase = ActuatedModel_SDFast::getNX();
+	int nxBase = ActuatedModel_SDFast::getNumControls();
 	if(aIndex<nxBase) {
 		name = ActuatedModel_SDFast::getControlName(aIndex);
 
@@ -321,7 +321,7 @@ getControlName(int aIndex) const
  * @param aIndex Index of the actuator whose name is desired.  aIndex should
  * be greater than or equal to 0 and less than the number of actuators.
  * @return Control name.
- * @see getNA()
+ * @see getNumActuators()
  */
 string suPipeline40::
 getActuatorName(int aIndex) const
@@ -329,7 +329,7 @@ getActuatorName(int aIndex) const
 	string name = "";
 
 	// BASE CLASS
-	int naBase = ActuatedModel_SDFast::getNA();
+	int naBase = ActuatedModel_SDFast::getNumActuators();
 	if(aIndex<naBase) {
 		name = ActuatedModel_SDFast::getActuatorName(aIndex);
 
@@ -358,15 +358,15 @@ getStateName(int aIndex) const
 	string name = "";
 
 	// BASE
-	int nyBase = ActuatedModel_SDFast::getNY();
+	int nyBase = ActuatedModel_SDFast::getNumStates();
 	if(aIndex<nyBase){
 		name = ActuatedModel_SDFast::getStateName(aIndex);
 
 	// DYNAMICS PIPELINE
 	} else if(getIncludePipelineActuators()) {
-		int nyPipeline = getNY() - nyBase;
+		int nyPipeline = getNumStates() - nyBase;
 		if(nyPipeline<=0) return(name);
-		int naPipeline = getNA() - ActuatedModel_SDFast::getNA();
+		int naPipeline = getNumActuators() - ActuatedModel_SDFast::getNumActuators();
 		if(naPipeline<=0) return(name);
 		int nyPerMuscle = nyPipeline / naPipeline; // States per muscle
 		int muscle = (aIndex - nyBase) / nyPerMuscle;
@@ -402,7 +402,7 @@ int suPipeline40::
 getActuatorIndex(const string &aName) const
 {
 	int i;
-	for(i=0;i<getNA();i++) {
+	for(i=0;i<getNumActuators();i++) {
 		if(aName == getActuatorName(i)) 
 			return(i);
 	}
@@ -425,7 +425,7 @@ int suPipeline40::
 getControlIndex(const string &aName) const
 {
 	int i;
-	for(i=0;i<getNA();i++) {
+	for(i=0;i<getNumActuators();i++) {
 		if(aName == getControlName(i)) 
 			return(i);
 	}
@@ -448,7 +448,7 @@ int suPipeline40::
 getStateIndex(const string &aName) const
 {
 	int i;
-	for(i=0;i<getNY();i++) {
+	for(i=0;i<getNumStates();i++) {
 		if(aName==getStateName(i)) 
 			return(i);
 	}
@@ -462,13 +462,13 @@ getStateIndex(const string &aName) const
 /**
  * Set the value of a control by index.
  *
- * @param aIndex Index of the control to be set:  0 <= aIndex < getNX().
+ * @param aIndex Index of the control to be set:  0 <= aIndex < getNumControls().
  * @param aValue Value of the control.
  */
 void suPipeline40::
 setControl(int aIndex,double aValue)
 {
-	int nxBase = ActuatedModel_SDFast::getNX();
+	int nxBase = ActuatedModel_SDFast::getNumControls();
 	if(aIndex<nxBase) {
 		ActuatedModel_SDFast::setControl(aIndex,aValue);
 	} else if(getIncludePipelineActuators()) {
@@ -496,7 +496,7 @@ setControl(const string &aName,double aValue)
 /**
  * Get the current value of a control by index.
  *
- * @param aIndex Index of the control:  0 <= aIndex < getNX().
+ * @param aIndex Index of the control:  0 <= aIndex < getNumControls().
  * @return Value of the control.  rdMath::NAN is returned on an error.
  */
 double suPipeline40::
@@ -504,7 +504,7 @@ getControl(int aIndex) const
 {
 	double value = rdMath::NAN;
 
-	int nxBase = ActuatedModel_SDFast::getNX();
+	int nxBase = ActuatedModel_SDFast::getNumControls();
 	if(aIndex<nxBase) {
 		value = ActuatedModel_SDFast::getControl(aIndex);
 	} else if(getIncludePipelineActuators()) {
@@ -540,14 +540,14 @@ getControl(const std::string &aName) const
  * The controls must be set for the model and the actuators.
  *
  * @param aX Array of controls.  The size of aX should be the value returned
- * by getNX().
+ * by getNumControls().
  * @see ActuatedModel_SDFast::setControls();
  */
 void suPipeline40::
 setControls(const double aX[])
 {
 	int i;
-	for(i=0;i<getNA();i++) {
+	for(i=0;i<getNumActuators();i++) {
 		setControl(i,aX[i]);
 	}
 }
@@ -558,14 +558,14 @@ setControls(const double aX[])
  * The controls must be set for the model and the actuators.
  *
  * @param rX Array of controls.  The size of aX should be the value returned
- * by getNX().
+ * by getNumControls().
  * @see ActuatedModel_SDFast::setControls();
  */
 void suPipeline40::
 getControls(double rX[]) const
 {
 	int i;
-	for(i=0;i<getNA();i++) rX[i] = getControl(i);
+	for(i=0;i<getNumActuators();i++) rX[i] = getControl(i);
 }
 
 //-----------------------------------------------------------------------------
@@ -579,7 +579,7 @@ getControls(double rX[]) const
  * and also the initial states of the actuators.
  *
  * @param aY Array of states. The size of aY should be the value returned by
- * getNY().
+ * getNumStates().
  */
 void suPipeline40::
 setInitialStates(const double aY[])
@@ -588,7 +588,7 @@ setInitialStates(const double aY[])
 	ActuatedModel_SDFast::setInitialStates(aY);
 
 	// LOCAL
-	int i,ny=suPipeline40::getNY();
+	int i,ny=suPipeline40::getNumStates();
 	for(i=0;i<ny;i++) {
 		_yi[i] = aY[i];
 	}
@@ -599,13 +599,13 @@ setInitialStates(const double aY[])
  * Get the current states.
  *
  * @param aY Array of states.  The size of aYP should be the value
- * returned by getNY().
+ * returned by getNumStates().
  * @see ActuatedModel_SDFast::setStates();
  */
 void suPipeline40::
 getInitialStates(double rY[]) const
 {
-	int i,ny=suPipeline40::getNY();
+	int i,ny=suPipeline40::getNumStates();
 	for(i=0;i<ny;i++) {
 		rY[i] = _yi[i];
 	}
@@ -635,7 +635,7 @@ getInitialState(int aIndex) const
  * and also the states of the actuators.
  *
  * @param aY Array of states.  The size of aY should be the value returned by
- * getNY().
+ * getNumStates().
  * @see ActuatedModel_SDFast::setStates();
  * @see Model::setConfiguration().
  * @see SDFast::setConfiguration().
@@ -645,7 +645,7 @@ setStates(const double aY[])
 {
 	// LOCAL ARRAY
 	int i;
-	int nunq = getNQ()+getNU();
+	int nunq = getNumCoordinates()+getNumSpeeds();
 	for(i=0;i<nunq;i++)  _dpd->y[i] = aY[i];
 
 	// BASE
@@ -654,14 +654,14 @@ setStates(const double aY[])
 
 
 	// pipeline actuator states
-	int iDP = ActuatedModel_SDFast::getNY();
-	int na = suPipeline40::getNY() - ActuatedModel_SDFast::getNY();
+	int iDP = ActuatedModel_SDFast::getNumStates();
+	int na = suPipeline40::getNumStates() - ActuatedModel_SDFast::getNumStates();
 	for(i=0;i<na;i++) {
 		_dpd->y[i+nunq] = aY[iDP+i];
 	}
 
 	// PRINT
-	//for(i=0;i<suPipeline40::getNY();i++) {
+	//for(i=0;i<suPipeline40::getNumStates();i++) {
 	//	cout<<"suPipeline40.setStates: y["<<i<<"]= "<<aY[i]<<endl;
 	//}
 
@@ -674,7 +674,7 @@ setStates(const double aY[])
  * Get the current states.
  *
  * @param aY Array of states.  The size of aYP should be the value
- * returned by getNY().
+ * returned by getNumStates().
  * @see ActuatedModel_SDFast::setStates();
  */
 void suPipeline40::
@@ -687,8 +687,8 @@ getStates(double rY[]) const
 
 	// LOCAL
 	int i;
-	int nyBase = ActuatedModel_SDFast::getNY();
-	int nqnu = getNQ() + getNU();
+	int nyBase = ActuatedModel_SDFast::getNumStates();
+	int nqnu = getNumCoordinates() + getNumSpeeds();
 	int n = sdm->neq - nqnu;
 	for(i=0;i<n;i++) {
 		rY[nyBase+i] = _dpd->y[nqnu+i];
@@ -705,11 +705,11 @@ getStates(double rY[]) const
 double suPipeline40::
 getState(int aIndex) const
 {
-	int ny = ActuatedModel_SDFast::getNY();
+	int ny = ActuatedModel_SDFast::getNumStates();
 	if(aIndex< ny){
 		return ActuatedModel_SDFast::getState(aIndex);
 	} else {
-		int state = aIndex - ny + getNQ() + getNU();
+		int state = aIndex - ny + getNumCoordinates() + getNumSpeeds();
 		return( _dpd->y[state]);
 	}
 }
@@ -762,8 +762,8 @@ computeActuation()
 		int i,j;
 		int err=0;
 		double param[1] = { -1.0 };
-		int nx = getNX();
-		int nxBase = ActuatedModel_SDFast::getNX();
+		int nx = getNumControls();
+		int nxBase = ActuatedModel_SDFast::getNumControls();
 		for (i=0,j=nxBase;j<nx;i++,j++) {
 			sdm->muscles[i].excitation_level = getControl(j);
 		}
@@ -790,7 +790,7 @@ computeActuation()
 void suPipeline40::
 applyActuatorForce(int aID)
 {
-	int na = ActuatedModel_SDFast::getNA();
+	int na = ActuatedModel_SDFast::getNumActuators();
 
 	// RD
 	if(aID<na) {
@@ -844,14 +844,14 @@ void suPipeline40::
 applyActuatorForces()
 {
 	// Set fixed and prescribed generalized forces 
-	sdumotion(_t,&_dpd->y[0],&_dpd->y[getNQ()]);
+	sdumotion(_t,&_dpd->y[0],&_dpd->y[getNumCoordinates()]);
 
 	// RD Actuators
 	ActuatedModel_SDFast::applyActuatorForces();
 
 	// Apply pipeline related forces
 	if(getIncludePipelineActuators()) {
-		sduforce(_t,&_dpd->y[0],&_dpd->y[getNQ()]);
+		sduforce(_t,&_dpd->y[0],&_dpd->y[getNumCoordinates()]);
 	}
 }
 //_____________________________________________________________________________
@@ -862,7 +862,7 @@ applyActuatorForces()
 void suPipeline40::
 setActuatorForce(int aID,double aForce)
 {
-	int na = ActuatedModel_SDFast::getNA();
+	int na = ActuatedModel_SDFast::getNumActuators();
 	if(aID<na) {
 		ActuatedModel_SDFast::setActuatorForce(aID,aForce);
 	} else {
@@ -880,7 +880,7 @@ setActuatorForce(int aID,double aForce)
 double suPipeline40::
 getActuatorForce(int aID) const
 {
-	int na = ActuatedModel_SDFast::getNA();
+	int na = ActuatedModel_SDFast::getNumActuators();
 
 	double force;
 
@@ -904,7 +904,7 @@ getActuatorForce(int aID) const
 double suPipeline40::
 getActuatorStress(int aID) const
 {
-	int na = ActuatedModel_SDFast::getNA();
+	int na = ActuatedModel_SDFast::getNumActuators();
 
 	double stress;
 
@@ -930,7 +930,7 @@ getActuatorStress(int aID) const
 double suPipeline40::
 getActuatorSpeed(int aID) const
 {
- 	int na = ActuatedModel_SDFast::getNA();
+ 	int na = ActuatedModel_SDFast::getNumActuators();
 
 	double speed;
 
@@ -955,7 +955,7 @@ getActuatorSpeed(int aID) const
 double suPipeline40::
 getActuatorPower(int aID) const 
 {
- 	int na = ActuatedModel_SDFast::getNA();
+ 	int na = ActuatedModel_SDFast::getNumActuators();
 
 	double power;
 
@@ -1129,7 +1129,7 @@ scale(const ScaleSet& aScaleSet)
  * These quantities include at least the contact bodies, contact points, and
  * contact forces.
  *
- * @see getNP()
+ * @see getNumContacts()
  */
 void suPipeline40::
 computeContact()
@@ -1149,7 +1149,7 @@ computeContact()
 void suPipeline40::
 applyContactForce(int aID)
 {
-	Actuator *contact = _contactSet.get(aID);
+	AbsActuator *contact = _contactSet.get(aID);
 	if(contact!=NULL) contact->apply();
 }
 //_____________________________________________________________________________
@@ -1195,11 +1195,11 @@ computeAuxiliaryDerivatives(double *dydt)
 		calc_muscle_derivatives(t,_dpd->y,_dpd->dy,param,&err);
 
 		int i;
-		int nq = getNQ();
-		int nu = getNU();
+		int nq = getNumCoordinates();
+		int nu = getNumSpeeds();
 		int nqnu = nq + nu;
-		int ny = suPipeline40::getNY();
-		int nyBase = ActuatedModel_SDFast::getNY();
+		int ny = suPipeline40::getNumStates();
+		int nyBase = ActuatedModel_SDFast::getNumStates();
 		int nAuxPipeline = ny - nyBase;
 		int nAuxBase = nyBase - nqnu;
 

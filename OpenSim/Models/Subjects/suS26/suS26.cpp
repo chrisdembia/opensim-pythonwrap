@@ -16,7 +16,8 @@
 #include <OpenSim/Simulation/Control/ControlSet.h>
 #include <OpenSim/Simulation/Model/Force.h>
 #include <OpenSim/Simulation/Model/GeneralizedForce.h>
-#include <OpenSim/Simulation/Model/MarkerSet.h>
+#include <OpenSim/Simulation/Model/Marker.h>
+//#include <OpenSim/Simulation/SIMM/MarkerSet.h>
 #include <OpenSim/Tools/ScaleSet.h>
 #include <OpenSim/Tools/Range.h>
 
@@ -169,12 +170,12 @@ constructGeometry()
 	int curIndex=0;
 	char *fullFileName;
 	// Body Geometry and preferences
-	for(int i=0;i<getNB();i++) {
+	for(int i=0;i<getNumBodies();i++) {
 		// Actual body has been constructed by constructBodies()
 		if (i==getGroundID())
 			continue;
 		int numFiles = numGeomFiles[i];
-		Body *currentBody = getBody(i);	
+		AbstractBody *currentBody = getBody(i);	
 		currentBody->setNumGeometryFiles(numFiles);
 		// Set actual file names
 		for(int subSegment=0; subSegment<numFiles; subSegment++, curIndex++){
@@ -187,7 +188,7 @@ constructGeometry()
 		currentBody->setScaleFactors(scales[i]);
 		currentBody->setCenterOfMass(coms[i]);
 	}
-	Body *groundBody = getBody(getNB());
+	Body *groundBody = getBody(getNumBodies());
 	groundBody->setNumGeometryFiles(1);
 	fullFileName = new char[strlen(resourceDirectory)+strlen(groundGeomFileName)+1];
 	strcpy(fullFileName, resourceDirectory);
@@ -217,7 +218,7 @@ RegisterTypes()
 	Object::RegisterType(Force());
 	Object::RegisterType(GeneralizedForce());
 	Object::RegisterType(Marker());
-	Object::RegisterType(MarkerSet());
+	//Object::RegisterType(MarkerSet());
 
 	Object::RegisterType(Scale());
 	Object::RegisterType(ScaleSet());

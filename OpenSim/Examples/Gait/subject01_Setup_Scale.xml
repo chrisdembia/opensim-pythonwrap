@@ -11,36 +11,37 @@
 	<notes> birth date = 1/1/07, exam date = 1/1/07 </notes>
 	
 	<!--File name for the (nominal model).osim to use is specified here.-->
-	<SimmGenericModelParams name="">
+	<SimmGenericModelMaker name="">
 		<!--Name of the file for the OpenSim model (unscaled generic model)-->
 		<file_name> gait2354.osim </file_name>
-		<SimmMarkerSet><objects file="gait2354_MarkerSet.xml"/></SimmMarkerSet>
-	</SimmGenericModelParams>
+		<MarkerSet><objects file="gait2354_MarkerSet.xml"/></MarkerSet>
+	</SimmGenericModelMaker>
 	
 	<!--Parameters to control model scaling.-->
-	<SimmScalingParams name="">
-		<!--Valid options are 'measurements', 'manual', possibly in sequence.-->
+	<SimmModelScaler name="">
+		<!--Valid options are 'measurements', 'manualScale', possibly in sequence.-->
 		<scaling_order> measurements </scaling_order>
 		<!--A measurement set specifies which marker locations are used to scale which body segments.-->
 		<SimmMeasurementSet> <objects file="gait2354_Scale_MeasurementSet.xml"/> </SimmMeasurementSet>		
 		<!--Name of .trc file containing the time history of marker positions. Used only in measurement-based scaling.-->
-		<marker_trial> subject01_static.trc </marker_trial>
+		<marker_file> subject01_static.trc </marker_file>
 		<!--Range of time in the markers trial to use for scaling.-->
 		<time_range> 1.025 1.925 </time_range>
 		<!--Whether to preserve relative mass between segments.-->
 		<preserve_mass_distribution> true </preserve_mass_distribution>
 		<!--Name of scales file to write when done scaling.-->
 		<output_scale_file> subject01_ScaleSet_Applied.xml </output_scale_file>
-	</SimmScalingParams>
+	</SimmModelScaler>
 	
 	<!--Parameters for moving a model's marker locations to match measured ones. Marker weighting and whether or not a marker should be moved is specified in the marker set for the generic model.-->
-	<SimmMarkerPlacementParams name="">
+	<SimmMarkerPlacer name="">
 		<!--Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial values. Filename is specified in the appropriate trial block.-->
-		<SimmCoordinateSet> <objects file="gait2354_Scale_CoordinateSet.xml"/> </SimmCoordinateSet>
+		<CoordinateSet> <objects file="gait2354_Scale_CoordinateSet.xml"/> </CoordinateSet>
 		<!--Name of .trc file containing the time history of marker positions (usually a static trial).-->
-		<marker_trial> subject01_static.trc </marker_trial>
+		<marker_file> subject01_static.trc </marker_file>
 		<!--Name of .mot file containing the joint angles used to set the initial configuration of the model for the purpose of relocating the non-fixed markers.-->
-		<coordinate_trial>subject01_static.mot</coordinate_trial>
+		<coordinate_file>subject01_static.mot</coordinate_file>
+		<coordinates_from_file> pelvis_tx pelvis_ty pelvis_tz pelvis_tilt pelvis_list pelvis_rotation hip_flexion_r hip_adduction_r hip_rotation_r knee_angle_r ankle_angle_r subtalar_angle_r mtp_angle_r hip_flexion_l hip_adduction_l hip_rotation_l knee_angle_l ankle_angle_l subtalar_angle_l mtp_angle_l lumbar_extension lumbar_bending lumbar_rotation </coordinates_from_file>
 		<!--Range of time in the markers trial to use for measurement-based scaling.-->
 		<time_range> 1.025 1.925 </time_range>
 		<!--Name of the new SIMM Joint file after scaling and marker relocation.-->
@@ -49,6 +50,6 @@
 		<output_muscle_file> subject01.msl </output_muscle_file>
 		<!-- Name of the new model file after scaling and marker relocation. This file will not be written if a name is not specfied.-->
 		<output_model_file> subject01.osim </output_model_file>
-	</SimmMarkerPlacementParams>
+	</SimmMarkerPlacer>
 	
 </SimmSubject>

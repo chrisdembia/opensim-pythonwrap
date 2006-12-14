@@ -13,7 +13,6 @@
 #include <OpenSim/Tools/rdMath.h>
 #include <OpenSim/Tools/Mtx.h>
 #include <OpenSim/Tools/Memory.h>
-#include <OpenSim/Simulation/Model/Model.h>
 #include <OpenSim/Simulation/Model/Springs.h>
 #include <OpenSim/Simulation/Model/Analysis.h>
 #include <OpenSim/Simulation/Model/IntegCallbackSet.h>
@@ -2010,10 +2009,10 @@ getAllowLeftContact() const
  * equal to zero and less than the value returned by getNP().
  * @return Body ID of BodyA.
  */
-int rdUTWalking8Prescribed::
+AbstractBody* rdUTWalking8Prescribed::
 getContactBodyA(int aID) const
 {
-	if((aID<0)||(aID>=getNP())) return(getGroundID()-1);
+	if((aID<0)||(aID>=getNP())) return &getDynamicsEngine().getGroundBody();
 
 	// BASE
 	if(aID<ActuatedModel_SDFast::getNP()) {
@@ -2021,7 +2020,7 @@ getContactBodyA(int aID) const
 	}
 
 	// UT MODEL
-	return(getGroundID());
+	return &getDynamicsEngine().getGroundBody();
 }
 //_____________________________________________________________________________
 /**
@@ -2034,19 +2033,18 @@ getContactBodyA(int aID) const
  * equal to zero and less than the value returned by getNP().
  * @return Body ID of BodyB.
  */
-int rdUTWalking8Prescribed::
+AbstractBody* rdUTWalking8Prescribed::
 getContactBodyB(int aID) const
 {
-	if((aID<0)||(aID>=getNP())) return(getGroundID()-1);
-
+	if((aID<0)||(aID>=getNP())) return &getDynamicsEngine().getGroundBody();
 	// BASE
 	if(aID<ActuatedModel_SDFast::getNP()) {
 		return( ActuatedModel_SDFast::getContactBodyA(aID) );
 	}
 
 	// UT MODEL
-	int id = aID - ActuatedModel_SDFast::getNP();
-	return(_sBodies[id]);
+	//int id = aID - ActuatedModel_SDFast::getNP(); TODOAUG
+	//return(_sBodies[id]);
 }
 
 //-----------------------------------------------------------------------------

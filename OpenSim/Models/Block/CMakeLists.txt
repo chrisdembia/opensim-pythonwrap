@@ -1,14 +1,15 @@
 SET(KIT Block)
 SET(UKIT BLOCK)
 
-FILE(GLOB SOURCE_FILES *.cpp *.c)
+FILE(GLOB SOURCE_FILES *.cpp *.c ${OpenSim_SOURCE_DIR}/OpenSim/Models/SIMMPipeline/4.1/*.cpp ${OpenSim_SOURCE_DIR}/OpenSim/Models/SIMMPipeline/4.1/*.c)
 FILE(GLOB INCLUDE_FILES *.h)
 
-INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src)
 
-ADD_DEFINITIONS(-DRDSDFAST_EXPORTS -D_USRDLL)
+INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src ${OpenSim_SOURCE_DIR}/OpenSim/Models/SIMMPipeline/4.1)
 
-LINK_LIBRARIES( rdTools rdSimulation rdSDFast)
+ADD_DEFINITIONS(-DSDFAST_ENGINE_EXPORTS -D_USRDLL)
+
+LINK_LIBRARIES( rdTools rdSimulation SdfastEngine)
 
 ADD_LIBRARY(rd${KIT} SHARED ${SOURCE_FILES} ${INCLUDE_FILES}) 
 

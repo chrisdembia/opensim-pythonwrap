@@ -66,9 +66,9 @@ protected:
 public:
 
 	// NUMBERS OF THINGS
-	virtual int getNX() const;
-	virtual int getNA() const;
-	virtual int getNY() const;
+	virtual int getNumControls() const;
+	virtual int getNumActuators() const;
+	virtual int getNumStates() const;
 
 	// NAMES
 	virtual std::string getActuatorName(int aIndex) const;

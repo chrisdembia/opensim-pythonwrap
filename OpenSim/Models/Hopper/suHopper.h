@@ -9,12 +9,8 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <OpenSim/Simulation/SDFast/rdSDFastDLL.h>
-#include <OpenSim/Simulation/Model/Model.h>
-#include <OpenSim/Simulation/Model/ActuatorSet.h>
-#include <OpenSim/Simulation/Model/ContactForceSet.h>
-#include <OpenSim/Simulation/SDFast/rdSDFast.h>
-#include <OpenSim/Simulation/SDFast/ActuatedModel_SDFast.h>
+#include <OpenSim/Tools/Object.h>
+#include <OpenSim/Models/SdfastEngine/SdfastEngineDLL.h>
 
 
 //=============================================================================
@@ -24,7 +20,7 @@
  */
 namespace OpenSim { 
 
-class RDSDFAST_API suHopper : public ActuatedModel_SDFast
+class SDFAST_ENGINE_API suHopper : public Object
 {
 //=============================================================================
 // DATA
@@ -34,7 +30,7 @@ public:
 //=============================================================================
 // METHODS
 //=============================================================================
-	suHopper(ActuatorSet *aActuators=NULL,ContactForceSet *aContacts=NULL);
+	suHopper();
 	virtual ~suHopper();
 private:
 	void setNull();

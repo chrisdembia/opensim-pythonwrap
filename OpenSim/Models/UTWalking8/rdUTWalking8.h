@@ -70,6 +70,8 @@ const int rdUTWalking8_IMSF = rdUTWalking8_NQ + rdUTWalking8_NU;
  */
 namespace OpenSim { 
 
+class AbstractBody;
+
 class RDSDFAST_API rdUTWalking8 : public ActuatedModel_SDFast
 {
 //=============================================================================
@@ -170,7 +172,7 @@ public:
 //=============================================================================
 public:
 	virtual ~rdUTWalking8();
-	rdUTWalking8(const ActuatorSet *aActuatorSet=NULL,
+	rdUTWalking8(const AbsActuatorSet *aActuatorSet=NULL,
 		const ContactForceSet *aContactSet=NULL);
 protected:
 	void initializeParameters();
@@ -268,8 +270,8 @@ public:
 	virtual void computeResultantBodyForces(double aFE[][3],double aFB[][6]);
 	virtual void applyContactForce(int aID);
 	virtual void applyContactForces();
-	virtual int getContactBodyA(int aID) const;
-	virtual int getContactBodyB(int aID) const;
+	virtual AbstractBody* getContactBodyA(int aID) const;
+	virtual AbstractBody* getContactBodyB(int aID) const;
 	virtual void setContactPointA(int aID,const double rPoint[3]);
 	virtual void getContactPointA(int aID,double rPoint[3]) const;
 	virtual void setContactPointB(int aID,const double rPoint[3]);

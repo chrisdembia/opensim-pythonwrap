@@ -75,7 +75,7 @@ setNull()
 void suSlider::
 constructInitialStates()
 {
-	Array<double> yi(0.0,getNY());
+	Array<double> yi(0.0,getNumStates());
 	getInitialStates(&yi[0]);
 	// specify any initial states...
 	// yi[??] = ??;
@@ -91,13 +91,13 @@ constructNames()
 
 	// BODIES
 	int i;
-	for(i=0;i<getNB();i++) setBodyName(i,bNames[i]);
+	for(i=0;i<getNumBodies();i++) setBodyName(i,bNames[i]);
 
 	// Q
-	for(i=0;i<getNQ();i++) setCoordinateName(i,qNames[i]);
+	for(i=0;i<getNumCoordinates();i++) setCoordinateName(i,qNames[i]);
 
 	// U
-	for(i=0;i<getNU();i++) setSpeedName(i,uNames[i]);
+	for(i=0;i<getNumSpeeds();i++) setSpeedName(i,uNames[i]);
 }
 
 
