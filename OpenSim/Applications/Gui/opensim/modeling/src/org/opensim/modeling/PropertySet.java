@@ -58,12 +58,12 @@ public class PropertySet {
     return opensimModelJNI.PropertySet_getSize(swigCPtr);
   }
 
-  public Property get(int i) {
+  public Property get(int i) throws java.io.IOException {
     long cPtr = opensimModelJNI.PropertySet_get__SWIG_0(swigCPtr, i);
     return (cPtr == 0) ? null : new Property(cPtr, false);
   }
 
-  public Property get(String aName) {
+  public Property get(String aName) throws java.io.IOException {
     long cPtr = opensimModelJNI.PropertySet_get__SWIG_1(swigCPtr, aName);
     return (cPtr == 0) ? null : new Property(cPtr, false);
   }

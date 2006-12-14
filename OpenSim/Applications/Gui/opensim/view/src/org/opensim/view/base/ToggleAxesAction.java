@@ -5,23 +5,18 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.view.ViewDB;
 
+/**
+ * An action to toggle the display of axes at the origin of the world's scene
+ */
 public class ToggleAxesAction extends CallableSystemAction {
-    
-    private OpenSimBaseCanvas dCanvas;
-    public ToggleAxesAction(OpenSimBaseCanvas aCanvas)
-    {
-        dCanvas = aCanvas;
-    }
-    
+        
     public void performAction() {
         // TODO implement action body
-        if (dCanvas.getAxesDisplayed()){
-            dCanvas.displayAxes(false);
-            dCanvas.Render();
+        if (ViewDB.getInstance().isAxesDisplayed()){
+            ViewDB.getInstance().showAxes(false);
         }
         else{
-            dCanvas.displayAxes(true);
-            dCanvas.Render();
+            ViewDB.getInstance().showAxes(true);
         }
     }
     
@@ -33,8 +28,6 @@ public class ToggleAxesAction extends CallableSystemAction {
         super.initialize();
         // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
         putValue("noIconInMenu", Boolean.TRUE);
-        setEnabled(false);
-        ViewDB.registerModelCommand(this);
     }
     
     public HelpCtx getHelpCtx() {

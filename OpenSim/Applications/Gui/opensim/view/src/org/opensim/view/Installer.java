@@ -1,10 +1,14 @@
 package org.opensim.view;
 
+import java.lang.reflect.InvocationTargetException;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.openide.modules.ModuleInstall;
 import org.openide.util.NbBundle;
-import vtk.vtkFileOutputWindow;
+import org.openide.windows.WindowManager;
+import org.opensim.utils.TheApp;
 
 /**
  * Manages a module's lifecycle. Remember that an installer is optional and
@@ -28,9 +32,11 @@ public class Installer extends ModuleInstall {
         // Disable the number in the application title that shows after OpenSim
         System.setProperty ("netbeans.buildnumber", 
                 NbBundle.getMessage(Installer.class, "CTL_OpenSimVersion")); 
+        // Force creation of Model-database OpenSimDB 
+        // and a View-database ViewDB
+        // and register View as Observer of Model
+        OpenSimDB.getInstance().addObserver(ViewDB.getInstance());
         ViewDB.updateCommandsVisibility();
-        // Disable vtk output window
-        // This code should be moved to the module installer to be done once per session
         /**
          * @todo open explorer window, Restore default directory and Bones directories, ..
          */

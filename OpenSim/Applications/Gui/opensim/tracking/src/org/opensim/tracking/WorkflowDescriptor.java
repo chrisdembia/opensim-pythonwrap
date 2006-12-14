@@ -26,9 +26,9 @@
 package org.opensim.tracking;
 
 import java.util.ArrayList;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.ScaleSet;
-import org.opensim.modeling.SimmModel;
 import org.opensim.modeling.SimmSubject;
 
 /**
@@ -43,8 +43,11 @@ public class WorkflowDescriptor {
     SimmSubject dSubject=null;
     boolean     useOwnModel=false;
     boolean     useOwnMarkers = false;
-    private SimmModel   genericModel = null;
-    SimmModel   ikModel = null;
+    AbstractModel   dGenericModel = null;
+    private AbstractModel   scaledModel = null;
+    AbstractModel   ikModel = null;
+    
+    private String      genericModelMarkersFilename;
     // Extra items needed for RRA, CMC, Forward/perturb
     private String      dynamicsModelFile;
     private String      setupRRA_pass1Filename;
@@ -80,11 +83,11 @@ public class WorkflowDescriptor {
         return dSubject;
     }
     
-    public SimmModel getModel() {   // Lazily get the Model 
-        if (genericModel==null && dSubject != null){
+    public AbstractModel getModel() {   // Lazily get the Model 
+        if (dGenericModel==null && dSubject != null){
             setGenericModel(dSubject.createModel());
         }
-        return genericModel;
+        return dGenericModel;
     }
     
     public void setUseOwnModel(boolean b)
@@ -108,7 +111,7 @@ public class WorkflowDescriptor {
     }
 
     void updateCachedValues() {
-        String modelFilename = dSubject.getGenericModelParams().getModelFileName();
+        String modelFilename = dSubject.getGenericModelMaker().getModelFileName();
         setUseOwnModel(!modelFilename.equalsIgnoreCase("Unassigned"));
         // Until MarkerSet is an object we'll disable the option from the GUI'
         setUseOwnMarkers(false/*dSubject.getGenericModelParams().getMarkerSet().getSize()>0*/);
@@ -196,9 +199,9 @@ public class WorkflowDescriptor {
         this.IKoutfilename = IKoutfilename;
     }
 
-    public void setGenericModel(SimmModel genericModel) {
-        this.genericModel = genericModel;
-    }
+    public void setGenericModel(AbstractModel genericModel) {
+        this.dGenericModel = genericModel;
+ }
     /**
      * keepRef is a hack to make sure Java does not believe it owns these objects
      * while a reference to them is in use on the C++ side. This needs to be sttreamlined 
@@ -207,5 +210,21 @@ public class WorkflowDescriptor {
     void keepRef(ScaleSet manualScales) {
         objectsToKeep.add(manualScales);
     }
+
+   public String getGenericModelMarkersFilename() {
+      return genericModelMarkersFilename;
+   }
+
+   public void setGenericModelMarkersFilename(String genericModelMarkersFilename) {
+      this.genericModelMarkersFilename = genericModelMarkersFilename;
+   }
+
+   AbstractModel getScaledModel() {
+      return scaledModel;
+   }
+
+   public void setScaledModel(AbstractModel scaledModel) {
+      this.scaledModel = scaledModel;
+   }
 
  }

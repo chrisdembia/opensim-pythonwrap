@@ -59,8 +59,8 @@ public class SimmMuscleGroup extends OpenSimObject {
     opensimModelJNI.SimmMuscleGroup_copyData(swigCPtr, SimmMuscleGroup.getCPtr(aGroup));
   }
 
-  public void setup(SimmModel aModel) {
-    opensimModelJNI.SimmMuscleGroup_setup(swigCPtr, SimmModel.getCPtr(aModel));
+  public void setup(AbstractModel aModel) {
+    opensimModelJNI.SimmMuscleGroup_setup(swigCPtr, AbstractModel.getCPtr(aModel));
   }
 
   public boolean contains(String aName) {

@@ -15,32 +15,30 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.SystemAction;
 import org.openide.util.datatransfer.NewType;
+import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.BodySet;
 import org.opensim.modeling.SimmBody;
-import org.opensim.modeling.SimmModel;
-import org.opensim.modeling.SimmModelIterator;
+import org.opensim.modeling.AbstractModel;
 
-/** Node class to wrap SimmModel's collection of SimmBodies */
-public class BodiesNode extends OpenSimNode {
+/**
+ * Node class to wrap AbstractModel's collection of SimmBodies
+ */
+public class BodiesNode extends OpenSimObjectNode {
     boolean topological=false;
-    SimmModel   m;
     private static ResourceBundle bundle = NbBundle.getBundle(BodiesNode.class);
 
-    public BodiesNode(SimmModel m) {
-        super();
-        setDisplayName("Bodies");
-        this.m = m;
-        
-        Stack<BodyNode> stack = new Stack<BodyNode>();
+    public BodiesNode(BodySet bodySet) {
+        super(bodySet);
+         
+        //Stack<OneBodyNode> stack = new Stack<OneBodyNode>();
 
-        SimmModelIterator i = new SimmModelIterator(m);
+        for (int bodyNum=0; bodyNum < bodySet.getSize(); bodyNum++ ){
 
-        while (i.getNextBody() != null) {
-
-            SimmBody body = i.getCurrentBody();
+            AbstractBody body = bodySet.get(bodyNum);
             Children children = getChildren();
 
             if (topological){
-                while (stack.size() > i.getNumAncestors())
+                /*while (stack.size() > i.getNumAncestors())
                     stack.pop();
 
                 if (stack.size() > 0)
@@ -48,10 +46,10 @@ public class BodiesNode extends OpenSimNode {
 
                 stack.push(new BodyNode(body));
 
-                children.add(new Node[] { stack.peek() });
+                children.add(new Node[] { stack.peek() });*/
             }
             else {
-                BodyNode node = new BodyNode(body);
+                OneBodyNode node = new OneBodyNode(body);
                 Node[] arrNodes = new Node[1];
                 arrNodes[0] = node;
                 children.add(arrNodes);
@@ -59,37 +57,27 @@ public class BodiesNode extends OpenSimNode {
         }
         //getChildren().add(new MyChildren(m).getNodes());
     }
-    public Node cloneNode() {
-        return new BodiesNode(m);
+    
+    /**
+     * Display name 
+     */
+    public String getHtmlDisplayName() {
+        
+        return "Bodies";
     }
     
+    public Node cloneNode() {
+        return new BodiesNode((BodySet)getOpensimObject());
+    }
+    /*
     public Action[] getActions(boolean context) {
         Action[] result = new Action[] {
-                    SystemAction.get(NewAction.class),
+                    //SystemAction.get(NewAction.class),
                     null,
-                    SystemAction.get(ToolsAction.class),
-                    SystemAction.get(PropertiesAction.class),
+                    //SystemAction.get(ToolsAction.class),
+                    //SystemAction.get(PropertiesAction.class),
         };
         return result;
     }
-    
-   public NewType[] getNewTypes() {
-        return new NewType[] { new NewType() {
-            public String getName() {
-                return bundle.getString("LBL_NewBody");
-            }
-            public HelpCtx getHelpCtx() {
-                return null;
-            }
-            public void create() throws IOException {
-                String title = bundle.getString("LBL_Newbody_dialog");
-                String msg = bundle.getString("MSG_Newbody_dialog_key");
-                NotifyDescriptor.InputLine desc = new NotifyDescriptor.InputLine(msg, title);
-                DialogDisplayer.getDefault().notify(desc);
-                String key = desc.getInputText();
-                if ("".equals(key)) return;
-              }
-        } };
-    }
-
+    */
 } // class BodiesNode

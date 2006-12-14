@@ -130,6 +130,10 @@ public class SetScales extends OpenSimObject {
     return opensimModelJNI.SetScales_remove__SWIG_1(swigCPtr, Scale.getCPtr(aObject));
   }
 
+  public void clearAndDestroy() {
+    opensimModelJNI.SetScales_clearAndDestroy(swigCPtr);
+  }
+
   public boolean set(int aIndex, Scale aObject) {
     return opensimModelJNI.SetScales_set(swigCPtr, aIndex, Scale.getCPtr(aObject));
   }
@@ -142,6 +146,10 @@ public class SetScales extends OpenSimObject {
   public Scale get(String aName) {
     long cPtr = opensimModelJNI.SetScales_get__SWIG_1(swigCPtr, aName);
     return (cPtr == 0) ? null : new Scale(cPtr, false);
+  }
+
+  public void getNames(ArrayStr rNames) {
+    opensimModelJNI.SetScales_getNames(swigCPtr, ArrayStr.getCPtr(rNames));
   }
 
   public Scale getLast() {

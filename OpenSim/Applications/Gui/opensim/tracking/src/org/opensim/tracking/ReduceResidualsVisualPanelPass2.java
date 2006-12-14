@@ -1,15 +1,8 @@
 package org.opensim.tracking;
 
-import java.util.prefs.Preferences;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import org.openide.windows.WindowManager;
 import org.opensim.utils.FileUtils;
-import com.realisticDynamics.InvestigationRRA;
-import java.io.File;
-import org.opensim.tools.common.ExecOpenSimProcess;
-import org.opensim.utils.TheApp;
 import org.opensim.view.editors.ObjectEditDialogMaker;
+import org.opensim.modeling.InvestigationCMCGait;
 
 public final class ReduceResidualsVisualPanelPass2 extends workflowVisualPanelBase {
     
@@ -111,7 +104,7 @@ public final class ReduceResidualsVisualPanelPass2 extends workflowVisualPanelBa
 
     private void jEditRRA2SetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditRRA2SetupButtonActionPerformed
           String setupFilename = jRRAPass2SetupFileTextField.getText();
-          InvestigationRRA rra = new InvestigationRRA(setupFilename);
+          InvestigationCMCGait rra = new InvestigationCMCGait(setupFilename);
           new ObjectEditDialogMaker(rra, true).process();
           rra.print(setupFilename);
 // TODO add your handling code here:

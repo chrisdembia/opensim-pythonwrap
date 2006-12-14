@@ -3,32 +3,21 @@ package org.opensim.view;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.net.URL;
 import javax.swing.SwingUtilities;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.base.SerializationHelper;
 
-public final class OpenOsimModelAction extends CallableSystemAction {
+public class OpenOsimModelAction extends CallableSystemAction {
     
     protected String fileName;
     
     public void performAction() {
         // TODO implement action body
         // Browse for model file
-/*       String defaultDir="";
-       defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
-       final JFileChooser dlog = new JFileChooser(defaultDir);
-        
-        dlog.setFileFilter(FileUtils.getFileFilter());
-        if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-            fileName = dlog.getSelectedFile().getAbsolutePath();
-            Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
-        }
-*/
         String fileName = FileUtils.getInstance().browseForFilename(".xml,.osim", "Model file to open");
         if (fileName != null){
             try {
@@ -47,27 +36,27 @@ public final class OpenOsimModelAction extends CallableSystemAction {
     }
 
      /**
-     * A wrapper around loadModel that handles a SimmModel rather than a filename
+     * A wrapper around loadModel that handles a AbstractModel rather than a filename
+      * setup was invoked already on the model
      */
-    public boolean loadModel(final SimmModel aModel) throws IOException {
+    public boolean loadModel(final AbstractModel aModel) throws IOException {
         boolean retValue = false;
-        aModel.setup();
         boolean isOk = aModel.builtOK();
         if (!isOk){
-             BottomPanelTopComponent.findInstance().showErrorMessage("Failed to construct model from file "+fileName+"\n");
+            BottomPanelTopComponent.findInstance().showErrorMessage("Failed to construct model from file "+fileName+"\n");
             return retValue;            
         }
+        if (OpenSimDB.getInstance().hasModel(aModel)){   // If model is already loaded, complain and return.
+            BottomPanelTopComponent.findInstance().showErrorMessage("Model is already loaded\n");
+            return retValue;            
+           
+        }
         // Make the window
-        final ModelWindowVTKTopComponent modelWindow = new ModelWindowVTKTopComponent(aModel);
         SwingUtilities.invokeLater(new Runnable(){
             public void run() {
-                modelWindow.open();
-                OpenSimDB.getInstance().addObserver(modelWindow);
                 OpenSimDB.getInstance().addModel(aModel);
-                ViewDB.getInstance().addModelWindowMap(aModel, modelWindow);
                 // Log message to Log window. 
-                BottomPanelTopComponent.findInstance().showLogMessage("Model has been created from file "+fileName+"\n");
-                modelWindow.requestActive();
+                BottomPanelTopComponent.findInstance().showLogMessage("Model has been created from file "+aModel.getInputFileName()+"\n");
             }});
         retValue = true;
         return retValue;        
@@ -83,11 +72,12 @@ public final class OpenOsimModelAction extends CallableSystemAction {
      }
      public boolean loadModel(final String fileName, boolean loadInForground) throws IOException {
         boolean retValue = false;
-        final SimmModel aModel = new SimmModel(fileName);
+        final AbstractModel aModel = new AbstractModel(fileName);
         if (aModel == null){
              BottomPanelTopComponent.findInstance().showErrorMessage("Failed to construct model from file "+fileName+"\n");
             return retValue;
         }
+        aModel.setup();
         return loadModel(aModel);
     }
     
@@ -120,8 +110,8 @@ public final class OpenOsimModelAction extends CallableSystemAction {
     }
     
     public void writeExternal(ObjectOutput out) throws IOException {
-       SerializationHelper.getCommandEncoder().writeObject(this);
-       SerializationHelper.getCommandEncoder().flush();
+       //SerializationHelper.getCommandEncoder().writeObject(this);
+       //SerializationHelper.getCommandEncoder().flush();
     }
 
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {

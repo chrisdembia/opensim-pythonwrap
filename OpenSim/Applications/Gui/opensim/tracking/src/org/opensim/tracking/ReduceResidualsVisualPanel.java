@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.FileUtils;
-import com.realisticDynamics.InvestigationRRA;
+import org.opensim.modeling.InvestigationCMCGait;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.opensim.utils.TheApp;
@@ -179,7 +179,7 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRunPass2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRunPass2ButtonActionPerformed
-        final InvestigationRRA rra = new InvestigationRRA(jRRAPass2SetupFileTextField.getText());
+        final InvestigationCMCGait rra = new InvestigationCMCGait(jRRAPass2SetupFileTextField.getText());
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Solving RRA pass 2 ");
         progressHandle.start();
 
@@ -201,7 +201,7 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
 
     private void jEditRRA1SetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditRRA1SetupButtonActionPerformed
           String setupFilename = jRRAPass1SetupFileTextField.getText();
-          InvestigationRRA rra = new InvestigationRRA(setupFilename);
+          InvestigationCMCGait rra = new InvestigationCMCGait(setupFilename);
           new ObjectEditDialogMaker(rra, true).process();
           rra.print(setupFilename);
 // TODO add your handling code here:
@@ -209,7 +209,7 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
 
     private void jEditRRA2SetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditRRA2SetupButtonActionPerformed
           String setupFilename = jRRAPass2SetupFileTextField.getText();
-          InvestigationRRA rra = new InvestigationRRA(setupFilename);
+          InvestigationCMCGait rra = new InvestigationCMCGait(setupFilename);
           new ObjectEditDialogMaker(rra, true).process();
           rra.print(setupFilename);
 // TODO add your handling code here:
@@ -217,7 +217,7 @@ public final class ReduceResidualsVisualPanel extends workflowVisualPanelBase {
 
     private void jRunRRAPass1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRunRRAPass1ButtonActionPerformed
 // TODO add your handling code here:
-        final InvestigationRRA rra = new InvestigationRRA(jRRAPass1SetupFileTextField.getText());
+        final InvestigationCMCGait rra = new InvestigationCMCGait(jRRAPass1SetupFileTextField.getText());
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Solving RRA pass 1 ");
         progressHandle.start();
 

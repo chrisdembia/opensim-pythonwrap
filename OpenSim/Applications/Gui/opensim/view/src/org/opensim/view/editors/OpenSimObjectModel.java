@@ -6,6 +6,7 @@ package org.opensim.view.editors;
  *
  */
 
+import java.io.IOException;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.TreePath;
 import org.opensim.modeling.ArrayDouble;
@@ -459,7 +460,12 @@ public class OpenSimObjectModel
           PropertySet props = ( (OpenSimObject) property).getPropertySet();
           retArray = new PropertyNode[props.getSize()];
           for (int i = 0; i < props.getSize(); i++) {
-            Property prop = props.get(i);
+                  Property prop=null;
+                  try {
+                     prop = props.get(i);
+                  } catch (IOException ex) {
+                     ex.printStackTrace();
+                  }
             retArray[i] = new PropertyNode(this, prop, isEditable);
           }
         }
@@ -471,7 +477,12 @@ public class OpenSimObjectModel
             PropertySet props = ( (OpenSimObject) childObj).getPropertySet();
             retArray = new PropertyNode[props.getSize()];
             for (int i = 0; i < props.getSize(); i++) {
-              Property prop = props.get(i);
+               Property prop=null;
+               try {
+                  prop = props.get(i);
+               } catch (IOException ex) {
+                  ex.printStackTrace();
+               }
               retArray[i] = new PropertyNode(this, prop, isEditable);
             }
           }

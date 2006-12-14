@@ -31,7 +31,8 @@ import java.util.List;
 import javax.swing.event.ChangeListener;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractActuator;
+import org.opensim.modeling.ActuatorSet;
 
 /**
  *
@@ -40,10 +41,10 @@ import org.opensim.modeling.SimmModel;
 public class MuscleChildren extends Children.Keys {
     
     private ChangeListener listener;
-    SimmModel model;
+    ActuatorSet actuatorSet;
     
-    MuscleChildren(SimmModel m) {
-        model = m;
+    MuscleChildren(ActuatorSet actuatorSet) {
+        this.actuatorSet = actuatorSet;
     }
     protected void addNotify() {
         refreshList();  // Called when parent node is expanded
@@ -52,15 +53,16 @@ public class MuscleChildren extends Children.Keys {
         setKeys(Collections.EMPTY_SET);
     }
     protected Node[] createNodes(Object key) {
-        return new Node[] { new OneMuscleNode((String) key) };
+        AbstractActuator act = actuatorSet.get((String) key);
+        return new Node[] { new OneMuscleNode(act) };
     }
     
     private void refreshList() {
         List<String> keys = new ArrayList<String>();
-        // @FIXME Actuators can be different from muscles
-        int numMuscles = model.getNA();
-        for(int i=0; i < numMuscles; i++)
-            keys.add(model.getMuscle(i).getName());
+        int numActuators = actuatorSet.getSize();
+        for(int i=0; i < numActuators; i++)
+            keys.add(actuatorSet.get(i).getName());
+        
         Collections.sort(keys);
         setKeys(keys);
     }

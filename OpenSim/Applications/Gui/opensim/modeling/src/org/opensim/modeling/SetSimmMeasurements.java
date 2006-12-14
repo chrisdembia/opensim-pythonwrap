@@ -130,6 +130,10 @@ public class SetSimmMeasurements extends OpenSimObject {
     return opensimModelJNI.SetSimmMeasurements_remove__SWIG_1(swigCPtr, SimmMeasurement.getCPtr(aObject));
   }
 
+  public void clearAndDestroy() {
+    opensimModelJNI.SetSimmMeasurements_clearAndDestroy(swigCPtr);
+  }
+
   public boolean set(int aIndex, SimmMeasurement aObject) {
     return opensimModelJNI.SetSimmMeasurements_set(swigCPtr, aIndex, SimmMeasurement.getCPtr(aObject));
   }
@@ -142,6 +146,10 @@ public class SetSimmMeasurements extends OpenSimObject {
   public SimmMeasurement get(String aName) {
     long cPtr = opensimModelJNI.SetSimmMeasurements_get__SWIG_1(swigCPtr, aName);
     return (cPtr == 0) ? null : new SimmMeasurement(cPtr, false);
+  }
+
+  public void getNames(ArrayStr rNames) {
+    opensimModelJNI.SetSimmMeasurements_getNames(swigCPtr, ArrayStr.getCPtr(rNames));
   }
 
   public SimmMeasurement getLast() {

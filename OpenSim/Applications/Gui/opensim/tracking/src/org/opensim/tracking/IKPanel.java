@@ -12,7 +12,7 @@ import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.InvestigationIK;
-import org.opensim.modeling.Model;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.ViewDB;
@@ -88,15 +88,16 @@ public class IKPanel  extends workflowWizardPanelBase{
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Running Inverse Kinematics ");
         final InvestigationIK ik = component.getInvestigation();
         // @FIXME should be current trial
-        final double startTime = ik.getIKTrialParamsSet().get(0).getStartTime();
-        final double endTime = ik.getIKTrialParamsSet().get(0).getEndTime();
+        final double startTime = ik.getIKTrialSet().get(0).getStartTime();
+        final double endTime = ik.getIKTrialSet().get(0).getEndTime();
         final double investigationDuration = endTime - startTime;
-        final Model ikModel = ik.getModel();
+        final AbstractModel ikModel = ik.getModel();
         
          final SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(ikModel);
          //animationCallback.setStepInterval(5);
          ikModel.addIntegCallback(animationCallback);
          
+         /* Restructure
          final ModelWindowVTKTopComponent modelWindow = ViewDB.getCurrentModelWindow();
          if (modelWindow==null){
              // Show warning and proceed that no animation will be done
@@ -105,25 +106,26 @@ public class IKPanel  extends workflowWizardPanelBase{
          else {
              animationCallback.extractOffsets(modelWindow.getModel());
          }
-        
+        */
         progressHandle.start();
         
         int delay = 50; //milliseconds
-        ActionListener taskPerformer = new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          //...Perform a task...
-            if (modelWindow!=null){
-                    modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, true);
-                    modelWindow.getCanvas().repaint();
-            }
-            }};
-         Timer timer = new Timer(delay, taskPerformer);
-         timer.start();
+            ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+              //...Perform a task...
+           /* Restructure
+                if (modelWindow!=null){
+                        modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, true);
+                        modelWindow.getCanvas().repaint();
+            }*/
+                }};
+             Timer timer = new Timer(delay, taskPerformer);
+             timer.start();
         // Execute IK on a separate thread
          ik.run();
          
          timer.stop();
-                          
+         
         progressHandle.finish();
         
         component.putClientProperty("Step_executed", Boolean.TRUE);
@@ -139,5 +141,8 @@ public class IKPanel  extends workflowWizardPanelBase{
             updateValidity(!descriptor.getStepInProgress());            
         }
     }
+
+   public void updateVisibility() {
+}
 }
 

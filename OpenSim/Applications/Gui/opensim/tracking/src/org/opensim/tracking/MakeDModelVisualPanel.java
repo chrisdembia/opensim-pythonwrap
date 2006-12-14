@@ -4,7 +4,7 @@ import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
-import org.opensim.modeling.SimmMarkerPlacementParams;
+import org.opensim.modeling.SimmMarkerPlacer;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 
@@ -212,17 +212,17 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
     void updatePanel(WorkflowDescriptor aDescriptor) {
         // file is the output file from MarkerPlacement by default
         if (aDescriptor.getDynamicsModelFile() == null || aDescriptor.getDynamicsModelFile().equals("")){
-            SimmMarkerPlacementParams params = aDescriptor.getSubject().getMarkerPlacementParams();
+            SimmMarkerPlacer params = aDescriptor.getSubject().getMarkerPlacer();
             jModelTextField.setText(aDescriptor.getSubject().getPathToSubject()+params.getOutputModelFileName());
         }
         else
             jModelTextField.setText(aDescriptor.getDynamicsModelFile());
         jDynamicsDirTextField.setText(aDescriptor.getSubject().getPathToSubject());
         
-        String defaultFilename = aDescriptor.getSubject().getScalingParams().getOutputMuscleFileName();
+        String defaultFilename = aDescriptor.getSubject().getModelScaler().getOutputMuscleFileName();
         if (defaultFilename.equalsIgnoreCase("Unassigned") ||
                 defaultFilename.equalsIgnoreCase("")){
-            defaultFilename=aDescriptor.getSubject().getMarkerPlacementParams().getOutputMuscleFileName();
+            defaultFilename=aDescriptor.getSubject().getMarkerPlacer().getOutputMuscleFileName();
         }
         
         if (!defaultFilename.equalsIgnoreCase("Unassigned")){

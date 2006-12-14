@@ -1,33 +1,34 @@
 package org.opensim.view;
 
-import java.util.prefs.Preferences;
-import javax.swing.JFileChooser;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.SimmFileWriter;
 import org.opensim.utils.FileUtils;
-import org.opensim.utils.TheApp;
 
-
+/**
+ * A Class represnting the Action of exporting an OpenSim model to SIMM's jnt format.
+ * The exported model is the "Current" model in the GUI as indicated by the explorer window.
+ */
 public final class ExportSIMMJntAction extends CallableSystemAction {
     
-    ModelWindowVTKTopComponent active;
-
     public void performAction() {
         // TODO implement action body
-        active = ViewDB.getInstance().getCurrentModelWindow();
-        if (active != null){
-             String defaultDir="";
-            defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
-            final JFileChooser dlog = new JFileChooser(defaultDir);
-            dlog.setFileFilter(FileUtils.getFileFilter(".jnt", "SIMM .jnt file"));
-
-            SimmModel mdl = active.getModel();
-            StatusDisplayer.getDefault().setStatusText("Exporting SIMM jnts of "+mdl.getName()+"to file.");
-            mdl.writeSIMMJointFile("save.jnt");
-            StatusDisplayer.getDefault().setStatusText("");
+        AbstractModel mdl = OpenSimDB.getInstance().getCurrentModel();
+        if (mdl != null){
+            
+            String jntFileName = FileUtils.getInstance().browseForFilename(".jnt", "SIMM .jnt file", false);
+            if (jntFileName!=null){
+                // Make sure we have the right extension.
+                if (!jntFileName.endsWith(".jnt"))
+                    jntFileName = jntFileName+".jnt";
+                // Create a SimmFileWriter for the model and invoke its writeJointFile
+                new SimmFileWriter(mdl).writeJointFile(jntFileName);
+                StatusDisplayer.getDefault().setStatusText("Exported SIMM jnt file for model "+
+                        mdl.getName()+" to file "+jntFileName+".");
+            }
         }
     }
     
@@ -40,7 +41,7 @@ public final class ExportSIMMJntAction extends CallableSystemAction {
         // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
         putValue("noIconInMenu", Boolean.TRUE);
         setEnabled(false);
-        ViewDB.registerModelCommand(this);
+        ViewDB.getInstance().registerModelCommand(this);
     }
     
     public HelpCtx getHelpCtx() {

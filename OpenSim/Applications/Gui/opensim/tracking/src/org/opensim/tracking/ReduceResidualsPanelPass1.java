@@ -1,6 +1,5 @@
 package org.opensim.tracking;
 
-import com.realisticDynamics.InvestigationRRA;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,9 +10,10 @@ import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.Analysis;
-import org.opensim.modeling.Model;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.view.OpenOsimModelAction;
+import org.opensim.modeling.InvestigationCMCGait;
 
 public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{
     
@@ -81,7 +81,7 @@ public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{
 
     boolean executeStep() {
         component.updateWorkflow(descriptor);
-        final InvestigationRRA rra = new InvestigationRRA(descriptor.getSetupRRA_pass1Filename());
+        final InvestigationCMCGait rra = new InvestigationCMCGait(descriptor.getSetupRRA_pass1Filename());
         runDynamicInvestigation(rra, false);
          return true;
     }

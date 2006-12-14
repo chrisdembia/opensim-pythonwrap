@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.util.datatransfer.PasteType;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractModel;
 
 /**
  * 
@@ -27,7 +27,6 @@ import org.opensim.modeling.SimmModel;
  *  Ayman: modified the name to OpenSimNode.
  *
  * Intended as a common base node to enforce common behavior for all OpenSim created nodes.
- * Right now just a place holder.
  */
 public class OpenSimNode extends AbstractNode {
     
@@ -64,16 +63,16 @@ public class OpenSimNode extends AbstractNode {
         return retValue;
     }
 
-    /** Root node (has all open models as its children). */
+    /** Root node (has all open models as its children). Unused!*/
     public static class RootNode extends OpenSimNode {
         public RootNode() {
             setDisplayName("Models");
         }
     }
     /**
-     * Find the SimmModel for a node by traversingup the tree
+     * Find the AbstractModel for a node by traversing up the tree
      */
-    protected SimmModel getModelForNode() {
+    protected AbstractModel getModelForNode() {
         if (this instanceof ConcreteModelNode)
             return ((ConcreteModelNode)this).getModel();
         else 
@@ -81,7 +80,7 @@ public class OpenSimNode extends AbstractNode {
     }
 
     /**
-     * Icon for the body node 
+     * Icon for the node 
      **/
     public Image getIcon(int i) {
         URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/collapsedNode.gif");

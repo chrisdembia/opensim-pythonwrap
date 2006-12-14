@@ -8,12 +8,10 @@ import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.SimmIKSolverImpl;
-import org.opensim.modeling.SimmIKTrialParams;
-import org.opensim.modeling.SimmInverseKinematicsTarget;
+import org.opensim.modeling.SimmIKTrial;
 import org.opensim.modeling.SimmMarkerData;
-import org.opensim.modeling.SimmMarkerPlacementParams;
-import org.opensim.modeling.SimmMarkerSet;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.SimmMarkerPlacer;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.modeling.Storage;
@@ -59,88 +57,38 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
     public void storeSettings(Object settings) {}
 
     boolean executeStep() {
-            // Call scaling with the model and display it in GUI
-            SimmSubject subject = descriptor.getSubject();
-            SimmModel model = descriptor.getModel();
-            SimmMarkerPlacementParams params = subject.getMarkerPlacementParams();
-            SimmMarkerSet paramsMarkerSet=params.getMarkerSet();
-            model.updateMarkers(paramsMarkerSet); // This should be markerSet, could this work using proxy classes?
-            component.appendMessage("Updating markers and coordinates.\n");
-            SimmMotionData coordinateValues=null;
-            if (!params.getCoordinateFileName().equalsIgnoreCase("Unassigned")){
-                // @FIXME check that file exists
-                coordinateValues = new SimmMotionData(subject.getPathToSubject()+params.getCoordinateFileName());
-                model.updateCoordinates(params.getCoordinateSet());
-            }
-            if (coordinateValues==null)
-                coordinateValues = new SimmMotionData();
-            
-            // Make up a SimmIKTrialParams
-            component.appendMessage("Reading static pose.\n");
-            SimmMarkerData staticPose = new SimmMarkerData(subject.getPathToSubject()+params.getStaticPoseFilename());
-            // Convert read trc fil into "common" rdStroage format
-            Storage inputStorage = new Storage();
-            staticPose.makeRdStorage(inputStorage);
-            ArrayDouble timeRange = params.getTimeRange();
-            component.appendMessage("Averaging static pose.\n");
-            staticPose.averageFrames(0.01, timeRange.getitem(0), timeRange.getitem(1));
-            staticPose.convertToUnits(model.getLengthUnits());
-
-            // Delete any markers from the model that are not in the static
-            // pose marker file.
-            model.deleteUnusedMarkers(staticPose.getMarkerNames());
-            SimmIKTrialParams options = new SimmIKTrialParams();
-            options.setStartTime(timeRange.getitem(0));
-            options.setEndTime(timeRange.getitem(1));
-            options.setIncludeMarkers(true);
-            // Convert read trc fil into "common" rdStroage format
-            staticPose.makeRdStorage(inputStorage);
-            if(coordinateValues.getNumColumns()>0) {
-                 coordinateValues.addToRdStorage(inputStorage,timeRange.getitem(0),timeRange.getitem(1));
-            }
-            inputStorage.print("markers_coords.sto"); 
-                  // Create target 
-
-            // Create target
-            SimmInverseKinematicsTarget target = new SimmInverseKinematicsTarget(model, inputStorage);
-            // Create solver
-            SimmIKSolverImpl ikSolver = new SimmIKSolverImpl(target);
-            // Solve
-            Storage	outputStorage = new Storage();
-            component.appendMessage("Solving averaged frame from static pose.\n");
-            ikSolver.solveFrames(options, inputStorage, outputStorage);
-
-            // MOVE THE MARKERS TO CORRESPOND TO EXPERIMENTAL LOCATIONS
-            component.appendMessage("Moving markers on model.\n");
-            model.moveMarkersToCloud(outputStorage);
-            
-            String userSpecifiedName = params.getOutputModelFileName();
-            String localName;
-            if (userSpecifiedName.equalsIgnoreCase("Unassigned")){
-                 localName = FileUtils.getNextAvailableName(subject.getPathToSubject(), 
-                                                                   subject.getGenericModelParams().getModelFileName()+"MP");
-            }
-            else
-                localName= userSpecifiedName;
-            
-            String saveName = model.getName();
-            model.setName(saveName+"- Markers"); 
-            params.setOutputModelFileName(localName);
-            params.writeOutputFiles(model, outputStorage, subject.getPathToSubject());
-            model.setName(saveName);
-            component.appendMessage("Opening model with moved markers.\n");
-           try {
-                // Display original model
-                ((OpenOsimModelAction) OpenOsimModelAction.findObject(
-                        Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(subject.getPathToSubject()+localName);
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                DialogDisplayer.getDefault().notify(
-                    new NotifyDescriptor.Message("Model could not be located. Please file a bug!"));
-            };
-            component.putClientProperty("Step_executed", Boolean.TRUE);
-            return true;
+       // Call scaling with the model and display it in GUI
+       SimmSubject subject = descriptor.getSubject();
+       AbstractModel model = descriptor.getScaledModel();
+       SimmMarkerPlacer placer = subject.getMarkerPlacer();
+       AbstractModel markerPlacementModel = model.clone();
+       markerPlacementModel.setName(model.getName()+"-MarkersPlaced");
+       markerPlacementModel.setup();
+       if (placer.processModel(markerPlacementModel, subject.getPathToSubject())){
+          // @todo If output file is specified, associate it with scaledModel        
+          boolean success=false;
+          try {
+             try {
+                success = ((OpenOsimModelAction) OpenOsimModelAction.
+                        findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(markerPlacementModel);
+             } catch (IOException ex) {
+                success=false;
+             }
+             if (!success)
+                component.appendMessage("Marker placement model has failed to load.");
+             else
+                component.appendMessage("Loading model with placed markers- Done.");
+          } catch (ClassNotFoundException ex) {
+             ex.printStackTrace();
+             component.appendMessage("Model has failed to load.");
+          }
+          component.putClientProperty("Step_executed", Boolean.TRUE);
+       } else
+          component.putClientProperty("Step_executed", Boolean.FALSE);
+       ;
+       
+       component.putClientProperty("Step_executed", Boolean.TRUE);
+       return true;
     }
 
     public void updateAvailability()

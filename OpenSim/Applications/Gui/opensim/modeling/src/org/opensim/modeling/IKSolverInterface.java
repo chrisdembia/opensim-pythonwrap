@@ -33,12 +33,12 @@ public class IKSolverInterface {
     swigCPtr = 0;
   }
 
-  public IKSolverInterface(SimmInverseKinematicsTarget aOptimizationTarget) {
-    this(opensimModelJNI.new_IKSolverInterface(SimmInverseKinematicsTarget.getCPtr(aOptimizationTarget)), true);
+  public IKSolverInterface(SWIGTYPE_p_OpenSim__SimmInverseKinematicsTarget aOptimizationTarget) {
+    this(opensimModelJNI.new_IKSolverInterface(SWIGTYPE_p_OpenSim__SimmInverseKinematicsTarget.getCPtr(aOptimizationTarget)), true);
   }
 
-  public void solveFrames(SimmIKTrialParams aIKOptions, Storage inputData, Storage outputData) {
-    opensimModelJNI.IKSolverInterface_solveFrames(swigCPtr, SimmIKTrialParams.getCPtr(aIKOptions), Storage.getCPtr(inputData), Storage.getCPtr(outputData));
+  public void solveFrames(SimmIKTrial aIKOptions, Storage inputData, Storage outputData) {
+    opensimModelJNI.IKSolverInterface_solveFrames(swigCPtr, SimmIKTrial.getCPtr(aIKOptions), Storage.getCPtr(inputData), Storage.getCPtr(outputData));
   }
 
 }

@@ -1,70 +1,49 @@
 package org.opensim.view;
 
-import java.io.File;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.prefs.Preferences;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import org.openide.awt.UndoRedo;
 import org.openide.util.NbBundle;
-import org.openide.util.lookup.Lookups;
 import org.openide.windows.TopComponent;
-import org.opensim.modeling.SimmModel;
-import org.opensim.modeling.SimtkAnimationCallback;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.utils.TheApp;
 import vtk.vtkFileOutputWindow;
+
 /**
  * Top component which displays something.
  */
-public class ModelWindowVTKTopComponent extends TopComponent implements 
-                Observer
+public class ModelWindowVTKTopComponent extends TopComponent
 {
     
     private static final long serialVersionUID = 1L;
     private static int ct = 0; //A counter used to provide names for new models
-    private String displayName;
-    private SimmModel model;
+    private String tabDisplayName;
     Preferences prefs;
-    private SimmModel[] otherModels;
     /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
-        
-    public ModelWindowVTKTopComponent(SimmModel dModel) {
-        model = dModel;
-        otherModels = new SimmModel[0];
+    public ModelWindowVTKTopComponent() {
         initComponents();
-        
-        // Associate window with a model and a canvas so that other platform users can key on that
-        associateLookup (Lookups.singleton (this));
-
-        displayName = NbBundle.getMessage(
+        setTabDisplayName(NbBundle.getMessage(
                         ModelWindowVTKTopComponent.class,
                         "UnsavedModelNameFormat",
                         new Object[] { new Integer(ct++) }
-                );
-        // setName has to be invoked from the awt 
-        SwingUtilities.invokeLater(new Runnable(){
-            public void run() {
-                 setName(getDisplayName());
-            }});
+                ));
+//        SwingUtilities.invokeLater(new Runnable(){
+ //           public void run() {
+                 setName(tabDisplayName);
+//            }});
         
         // Set preferred directory for the TopComponent (to be used for all saving, loading, ...
         prefs = Preferences.userNodeForPackage(TheApp.class);
-        File f = new File(getModel().getInputFileName());
-        if (f.getParent()!= null)
-            prefs.put("Preferred Directory", f.getParent());
-        
-         vtkFileOutputWindow fow = new vtkFileOutputWindow();
-         fow.SetFileName("vtklog.log");
-         if (fow != null)
-            fow.SetInstance(fow);
-
-        
-     }
-   
+        vtkFileOutputWindow fow = new vtkFileOutputWindow();
+        fow.SetFileName("vtklog.log");
+        if (fow != null)
+           fow.SetInstance(fow);        
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -76,7 +55,6 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
         jModelWiondowToolBar = new javax.swing.JToolBar();
         jTakeSnapshotButton = new javax.swing.JButton();
         openSimCanvas1 = new org.opensim.view.OpenSimCanvas();
-        openSimCanvas1.setOwnerWindow(this);
 
         org.openide.awt.Mnemonics.setLocalizedText(jRefitModelButton, "Refit");
         jRefitModelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -151,54 +129,16 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
     public int getPersistenceType() {
         return TopComponent.PERSISTENCE_NEVER;
     }
-    
-    /**
-     * Check if the window can be closed before it's too late (Vetoable)
-     */
-    public boolean canClose(){
-        // TODO add custom code on component closing
-
-        int confirm = JOptionPane.showConfirmDialog(this, "Do you want to save model "+getModel().getName()+" ?");
-        if (confirm == JOptionPane.YES_OPTION || confirm ==JOptionPane.NO_OPTION){
-            if (confirm == JOptionPane.YES_OPTION){
-                getModel().print(""); // Model comes from file that can't be changed anyway!, when we do saveAs we'll make a fresh copy'
-            }
-            OpenSimDB.getInstance().removeModel(getModel());
-            ViewDB.getInstance().removeModel(getModel());
-            return super.canClose();
-        }
-        else
-            return false;
-    }
-    
+        
     public String preferredID() {
         return "Model";
     }     
     
     public String getDisplayName()
     {
-        if (getModel() != null)
-            return getModel().getName();
-        else
-            return displayName;
+        return tabDisplayName;
     }
     
-    public void update(Observable o, Object arg) {
-               // Observable is OpenSimDB
-        if (arg instanceof ModelEvent){
-            ModelEvent ev = (ModelEvent)arg;
-            // Create a frame for the new Model
-            if (ev.getModel() == getModel()){
-                if(ev.getOperation() == ModelEvent.Operation.Open){
-                    getCanvas().loadModel(getModel(), false);
-                    componentActivated();
-                }
-                else if(ev.getOperation() == ModelEvent.Operation.UpdateDisplay){
-                    getCanvas().updateModelDisplay();
-                }
-            }
-       }
-    }    
     /**
      * Potentially there could be multiple canvases inserted into this top component,
      * Use an accessor method just incase 
@@ -208,8 +148,10 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
     }
     
     public Action[] getActions(){
-        Action act = new LoadGaitModelAction();
-        return (new Action[]{act});
+        ViewReplicateAction act1 = new ViewReplicateAction();   // New...
+        ViewEditAction act2 = new ViewEditAction(); //Edit...
+                         
+        return (new Action[]{act1,act2});
     };
 
     protected void componentActivated() {
@@ -217,14 +159,27 @@ public class ModelWindowVTKTopComponent extends TopComponent implements
         ViewDB.getInstance().setCurrentModelWindow(this);
     }
 
-    public SimmModel getModel() {
-        return model;
+    /**
+     * update the view to reflect changes in whole model visibility. 
+     */
+    void updateDisplayedModels() {
+        ArrayList<SingleModelVisuals> modelsToDisplay = ViewDB.getInstance().getModelVisuals();
+        Iterator<SingleModelVisuals> modelVisualIter = modelsToDisplay.iterator();
+        while(modelVisualIter.hasNext()){
+            SingleModelVisuals nextModelVis = modelVisualIter.next();
+            getCanvas().setModelVisibility(nextModelVis, nextModelVis.isVisible());
+        }
+        repaint();
+    }
+    /**
+     * Window closing, remove self from ViewDB
+     **/
+    protected void componentClosed() {
+        super.componentClosed();
+        ViewDB.getInstance().removeWindow(this);
     }
 
-    public UndoRedo getUndoRedo() {
-        UndoRedo retValue;
-        
-        retValue = super.getUndoRedo();
-        return retValue;
-    }    
+    public void setTabDisplayName(String tabDisplayName) {
+        this.tabDisplayName = tabDisplayName;
+    }
 }

@@ -1,7 +1,6 @@
 package org.opensim.view;
 
 import java.awt.BorderLayout;
-import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
@@ -12,20 +11,19 @@ import javax.swing.ActionMap;
 import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultEditorKit;
 import org.openide.ErrorManager;
-import org.openide.util.HelpCtx;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
 import org.openide.util.Utilities;
-import org.openide.util.actions.CallableSystemAction;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.view.BeanTreeView;
+import org.openide.nodes.Children;
 import org.openide.nodes.Node;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.nodes.OpenSimNode;
 
@@ -45,7 +43,7 @@ final class ExplorerTopComponent extends TopComponent
     
    private final ExplorerManager manager = new ExplorerManager();
    private final BeanTreeView modelTree = new BeanTreeView();
-   private static HashMap<SimmModel, ConcreteModelNode> mapModels2Nodes = new HashMap<SimmModel, ConcreteModelNode>(4);
+   private static HashMap<AbstractModel, ConcreteModelNode> mapModels2Nodes = new HashMap<AbstractModel, ConcreteModelNode>(4);
    
    private Lookup.Result result = null;
    //private OpenSimObject  selectedFromTree;
@@ -159,9 +157,10 @@ final class ExplorerTopComponent extends TopComponent
     public void resultChanged(LookupEvent lookupEvent) {
         Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
         Collection c = r.allInstances();
+        /*
         if (!c.isEmpty()) {
             ModelWindowVTKTopComponent o = (ModelWindowVTKTopComponent) c.iterator().next();
-            SimmModel m = o.getModel();
+            AbstractModel m = o.getModel();
             Node modelNode = mapModels2Nodes.get(m);
             if (modelNode==null)
                 return;
@@ -170,6 +169,7 @@ final class ExplorerTopComponent extends TopComponent
             manager.setExploredContext(modelNode);
             setActivatedNodes(selectedNodes);
          } 
+         **/
     }
     
     /** replaces this in object stream */
@@ -194,24 +194,31 @@ final class ExplorerTopComponent extends TopComponent
                     switch(evnt.getOperation()){
                         case Open :
                         {
-                            SimmModel newModel = evnt.getModel();
+                            AbstractModel newModel = evnt.getModel();
                             ConcreteModelNode newModelNode = new ConcreteModelNode(newModel);
                             rootNode.getChildren().add(new Node[] { newModelNode});
                             mapModels2Nodes.put(newModel, newModelNode);
+                            updateCurrentModelNode(newModel);
                             break;
                         }
                         case Close:
                         {
-                            SimmModel closingModel = evnt.getModel();
+                            AbstractModel closingModel = evnt.getModel();
                             ConcreteModelNode modelNode = mapModels2Nodes.get(closingModel);
                             try {
                                 modelNode.destroy();
                                 mapModels2Nodes.remove(closingModel);
+                                updateCurrentModelNode(null);
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
+                            break;
                         }
-
+                        case SetCurrent :
+                        {
+                            updateCurrentModelNode(evnt.getModel());
+                            break;
+                        }
                     }
 
                 }});
@@ -242,8 +249,32 @@ final class ExplorerTopComponent extends TopComponent
 
         Object[] models = db.getAllModels();
         for(int i=0; i < models.length; i++)
-            rootNode.getChildren().add(new Node[] { new ConcreteModelNode((SimmModel)models[i]) });
+            rootNode.getChildren().add(new Node[] { new ConcreteModelNode((AbstractModel)models[i]) });
 
     }
+    /**
+     * Update marker of current model in navigator view
+     *
+     * @param new currentModel, null if not explicitly specified
+     */
+    public void updateCurrentModelNode(AbstractModel currentModel)
+    {
+        Object[] models = OpenSimDB.getInstance().getAllModels();
+        Children children = getExplorerManager().getRootContext().getChildren();
+        Node[] nodes = children.getNodes();
+        for(int i=0; i < nodes.length; i++){
+            if (nodes[i] instanceof ConcreteModelNode){
+               ConcreteModelNode node = ((ConcreteModelNode)(nodes[i]));
+               // Actually this just fires a change event so that the GUI updates
+               // The actual text is updated in ConcreteModelNode.getHtmlDisplayName!!
+               if (node.getModel()==currentModel){
+                   node.setDisplayName("<b>"+node.getModel().getName()+"</b>");
+               }
+               else
+                   node.setDisplayName(node.getModel().getName());
+            }
+        }
         
+                    
+    }
 }

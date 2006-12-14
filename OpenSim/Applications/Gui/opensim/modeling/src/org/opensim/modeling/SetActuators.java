@@ -94,12 +94,12 @@ public class SetActuators extends OpenSimObject {
     return opensimModelJNI.SetActuators_getSize(swigCPtr);
   }
 
-  public int getIndex(Actuator aObject, int aStartIndex) {
-    return opensimModelJNI.SetActuators_getIndex__SWIG_0(swigCPtr, Actuator.getCPtr(aObject), aStartIndex);
+  public int getIndex(AbstractActuator aObject, int aStartIndex) {
+    return opensimModelJNI.SetActuators_getIndex__SWIG_0(swigCPtr, AbstractActuator.getCPtr(aObject), aStartIndex);
   }
 
-  public int getIndex(Actuator aObject) {
-    return opensimModelJNI.SetActuators_getIndex__SWIG_1(swigCPtr, Actuator.getCPtr(aObject));
+  public int getIndex(AbstractActuator aObject) {
+    return opensimModelJNI.SetActuators_getIndex__SWIG_1(swigCPtr, AbstractActuator.getCPtr(aObject));
   }
 
   public int getIndex(String aName, int aStartIndex) {
@@ -110,59 +110,67 @@ public class SetActuators extends OpenSimObject {
     return opensimModelJNI.SetActuators_getIndex__SWIG_3(swigCPtr, aName);
   }
 
-  public boolean append(Actuator aObject) {
-    return opensimModelJNI.SetActuators_append__SWIG_0(swigCPtr, Actuator.getCPtr(aObject));
+  public boolean append(AbstractActuator aObject) {
+    return opensimModelJNI.SetActuators_append__SWIG_0(swigCPtr, AbstractActuator.getCPtr(aObject));
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Actuator_t aArray) {
-    return opensimModelJNI.SetActuators_append__SWIG_1(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Actuator_t.getCPtr(aArray));
+  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractActuator_t aArray) {
+    return opensimModelJNI.SetActuators_append__SWIG_1(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractActuator_t.getCPtr(aArray));
   }
 
-  public boolean insert(int aIndex, Actuator aObject) {
-    return opensimModelJNI.SetActuators_insert(swigCPtr, aIndex, Actuator.getCPtr(aObject));
+  public boolean insert(int aIndex, AbstractActuator aObject) {
+    return opensimModelJNI.SetActuators_insert(swigCPtr, aIndex, AbstractActuator.getCPtr(aObject));
   }
 
   public boolean remove(int aIndex) {
     return opensimModelJNI.SetActuators_remove__SWIG_0(swigCPtr, aIndex);
   }
 
-  public boolean remove(Actuator aObject) {
-    return opensimModelJNI.SetActuators_remove__SWIG_1(swigCPtr, Actuator.getCPtr(aObject));
+  public boolean remove(AbstractActuator aObject) {
+    return opensimModelJNI.SetActuators_remove__SWIG_1(swigCPtr, AbstractActuator.getCPtr(aObject));
   }
 
-  public boolean set(int aIndex, Actuator aObject) {
-    return opensimModelJNI.SetActuators_set(swigCPtr, aIndex, Actuator.getCPtr(aObject));
+  public void clearAndDestroy() {
+    opensimModelJNI.SetActuators_clearAndDestroy(swigCPtr);
   }
 
-  public Actuator get(int aIndex) {
+  public boolean set(int aIndex, AbstractActuator aObject) {
+    return opensimModelJNI.SetActuators_set(swigCPtr, aIndex, AbstractActuator.getCPtr(aObject));
+  }
+
+  public AbstractActuator get(int aIndex) {
     long cPtr = opensimModelJNI.SetActuators_get__SWIG_0(swigCPtr, aIndex);
-    return (cPtr == 0) ? null : new Actuator(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
   }
 
-  public Actuator get(String aName) {
+  public AbstractActuator get(String aName) {
     long cPtr = opensimModelJNI.SetActuators_get__SWIG_1(swigCPtr, aName);
-    return (cPtr == 0) ? null : new Actuator(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
   }
 
-  public Actuator getLast() {
+  public void getNames(ArrayStr rNames) {
+    opensimModelJNI.SetActuators_getNames(swigCPtr, ArrayStr.getCPtr(rNames));
+  }
+
+  public AbstractActuator getLast() {
     long cPtr = opensimModelJNI.SetActuators_getLast(swigCPtr);
-    return (cPtr == 0) ? null : new Actuator(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
   }
 
-  public int searchBinary(Actuator aObject, boolean aFindFirst, int aLo, int aHi) {
-    return opensimModelJNI.SetActuators_searchBinary__SWIG_0(swigCPtr, Actuator.getCPtr(aObject), aFindFirst, aLo, aHi);
+  public int searchBinary(AbstractActuator aObject, boolean aFindFirst, int aLo, int aHi) {
+    return opensimModelJNI.SetActuators_searchBinary__SWIG_0(swigCPtr, AbstractActuator.getCPtr(aObject), aFindFirst, aLo, aHi);
   }
 
-  public int searchBinary(Actuator aObject, boolean aFindFirst, int aLo) {
-    return opensimModelJNI.SetActuators_searchBinary__SWIG_1(swigCPtr, Actuator.getCPtr(aObject), aFindFirst, aLo);
+  public int searchBinary(AbstractActuator aObject, boolean aFindFirst, int aLo) {
+    return opensimModelJNI.SetActuators_searchBinary__SWIG_1(swigCPtr, AbstractActuator.getCPtr(aObject), aFindFirst, aLo);
   }
 
-  public int searchBinary(Actuator aObject, boolean aFindFirst) {
-    return opensimModelJNI.SetActuators_searchBinary__SWIG_2(swigCPtr, Actuator.getCPtr(aObject), aFindFirst);
+  public int searchBinary(AbstractActuator aObject, boolean aFindFirst) {
+    return opensimModelJNI.SetActuators_searchBinary__SWIG_2(swigCPtr, AbstractActuator.getCPtr(aObject), aFindFirst);
   }
 
-  public int searchBinary(Actuator aObject) {
-    return opensimModelJNI.SetActuators_searchBinary__SWIG_3(swigCPtr, Actuator.getCPtr(aObject));
+  public int searchBinary(AbstractActuator aObject) {
+    return opensimModelJNI.SetActuators_searchBinary__SWIG_3(swigCPtr, AbstractActuator.getCPtr(aObject));
   }
 
 }

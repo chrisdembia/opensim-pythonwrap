@@ -94,12 +94,12 @@ public class SetMarkers extends OpenSimObject {
     return opensimModelJNI.SetMarkers_getSize(swigCPtr);
   }
 
-  public int getIndex(Marker aObject, int aStartIndex) {
-    return opensimModelJNI.SetMarkers_getIndex__SWIG_0(swigCPtr, Marker.getCPtr(aObject), aStartIndex);
+  public int getIndex(AbstractMarker aObject, int aStartIndex) {
+    return opensimModelJNI.SetMarkers_getIndex__SWIG_0(swigCPtr, AbstractMarker.getCPtr(aObject), aStartIndex);
   }
 
-  public int getIndex(Marker aObject) {
-    return opensimModelJNI.SetMarkers_getIndex__SWIG_1(swigCPtr, Marker.getCPtr(aObject));
+  public int getIndex(AbstractMarker aObject) {
+    return opensimModelJNI.SetMarkers_getIndex__SWIG_1(swigCPtr, AbstractMarker.getCPtr(aObject));
   }
 
   public int getIndex(String aName, int aStartIndex) {
@@ -110,59 +110,67 @@ public class SetMarkers extends OpenSimObject {
     return opensimModelJNI.SetMarkers_getIndex__SWIG_3(swigCPtr, aName);
   }
 
-  public boolean append(Marker aObject) {
-    return opensimModelJNI.SetMarkers_append__SWIG_0(swigCPtr, Marker.getCPtr(aObject));
+  public boolean append(AbstractMarker aObject) {
+    return opensimModelJNI.SetMarkers_append__SWIG_0(swigCPtr, AbstractMarker.getCPtr(aObject));
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Marker_t aArray) {
-    return opensimModelJNI.SetMarkers_append__SWIG_1(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Marker_t.getCPtr(aArray));
+  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractMarker_t aArray) {
+    return opensimModelJNI.SetMarkers_append__SWIG_1(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractMarker_t.getCPtr(aArray));
   }
 
-  public boolean insert(int aIndex, Marker aObject) {
-    return opensimModelJNI.SetMarkers_insert(swigCPtr, aIndex, Marker.getCPtr(aObject));
+  public boolean insert(int aIndex, AbstractMarker aObject) {
+    return opensimModelJNI.SetMarkers_insert(swigCPtr, aIndex, AbstractMarker.getCPtr(aObject));
   }
 
   public boolean remove(int aIndex) {
     return opensimModelJNI.SetMarkers_remove__SWIG_0(swigCPtr, aIndex);
   }
 
-  public boolean remove(Marker aObject) {
-    return opensimModelJNI.SetMarkers_remove__SWIG_1(swigCPtr, Marker.getCPtr(aObject));
+  public boolean remove(AbstractMarker aObject) {
+    return opensimModelJNI.SetMarkers_remove__SWIG_1(swigCPtr, AbstractMarker.getCPtr(aObject));
   }
 
-  public boolean set(int aIndex, Marker aObject) {
-    return opensimModelJNI.SetMarkers_set(swigCPtr, aIndex, Marker.getCPtr(aObject));
+  public void clearAndDestroy() {
+    opensimModelJNI.SetMarkers_clearAndDestroy(swigCPtr);
   }
 
-  public Marker get(int aIndex) {
+  public boolean set(int aIndex, AbstractMarker aObject) {
+    return opensimModelJNI.SetMarkers_set(swigCPtr, aIndex, AbstractMarker.getCPtr(aObject));
+  }
+
+  public AbstractMarker get(int aIndex) {
     long cPtr = opensimModelJNI.SetMarkers_get__SWIG_0(swigCPtr, aIndex);
-    return (cPtr == 0) ? null : new Marker(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractMarker(cPtr, false);
   }
 
-  public Marker get(String aName) {
+  public AbstractMarker get(String aName) {
     long cPtr = opensimModelJNI.SetMarkers_get__SWIG_1(swigCPtr, aName);
-    return (cPtr == 0) ? null : new Marker(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractMarker(cPtr, false);
   }
 
-  public Marker getLast() {
+  public void getNames(ArrayStr rNames) {
+    opensimModelJNI.SetMarkers_getNames(swigCPtr, ArrayStr.getCPtr(rNames));
+  }
+
+  public AbstractMarker getLast() {
     long cPtr = opensimModelJNI.SetMarkers_getLast(swigCPtr);
-    return (cPtr == 0) ? null : new Marker(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractMarker(cPtr, false);
   }
 
-  public int searchBinary(Marker aObject, boolean aFindFirst, int aLo, int aHi) {
-    return opensimModelJNI.SetMarkers_searchBinary__SWIG_0(swigCPtr, Marker.getCPtr(aObject), aFindFirst, aLo, aHi);
+  public int searchBinary(AbstractMarker aObject, boolean aFindFirst, int aLo, int aHi) {
+    return opensimModelJNI.SetMarkers_searchBinary__SWIG_0(swigCPtr, AbstractMarker.getCPtr(aObject), aFindFirst, aLo, aHi);
   }
 
-  public int searchBinary(Marker aObject, boolean aFindFirst, int aLo) {
-    return opensimModelJNI.SetMarkers_searchBinary__SWIG_1(swigCPtr, Marker.getCPtr(aObject), aFindFirst, aLo);
+  public int searchBinary(AbstractMarker aObject, boolean aFindFirst, int aLo) {
+    return opensimModelJNI.SetMarkers_searchBinary__SWIG_1(swigCPtr, AbstractMarker.getCPtr(aObject), aFindFirst, aLo);
   }
 
-  public int searchBinary(Marker aObject, boolean aFindFirst) {
-    return opensimModelJNI.SetMarkers_searchBinary__SWIG_2(swigCPtr, Marker.getCPtr(aObject), aFindFirst);
+  public int searchBinary(AbstractMarker aObject, boolean aFindFirst) {
+    return opensimModelJNI.SetMarkers_searchBinary__SWIG_2(swigCPtr, AbstractMarker.getCPtr(aObject), aFindFirst);
   }
 
-  public int searchBinary(Marker aObject) {
-    return opensimModelJNI.SetMarkers_searchBinary__SWIG_3(swigCPtr, Marker.getCPtr(aObject));
+  public int searchBinary(AbstractMarker aObject) {
+    return opensimModelJNI.SetMarkers_searchBinary__SWIG_3(swigCPtr, AbstractMarker.getCPtr(aObject));
   }
 
 }

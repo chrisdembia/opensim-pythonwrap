@@ -63,37 +63,41 @@ public class SimmSubject extends OpenSimObject {
     opensimModelJNI.SimmSubject_copyData(swigCPtr, SimmSubject.getCPtr(aSubject));
   }
 
-  public SimmModel createModel() {
+  public boolean processModel() {
+    return opensimModelJNI.SimmSubject_processModel(swigCPtr);
+  }
+
+  public AbstractModel createModel() {
     long cPtr = opensimModelJNI.SimmSubject_createModel(swigCPtr);
-    return (cPtr == 0) ? null : new SimmModel(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
   }
 
-  public SimmGenericModelParams getGenericModelParams() {
-    return new SimmGenericModelParams(opensimModelJNI.SimmSubject_getGenericModelParams(swigCPtr), false);
+  public SimmGenericModelMaker getGenericModelMaker() {
+    return new SimmGenericModelMaker(opensimModelJNI.SimmSubject_getGenericModelMaker(swigCPtr), false);
   }
 
-  public SimmScalingParams getScalingParams() {
-    return new SimmScalingParams(opensimModelJNI.SimmSubject_getScalingParams(swigCPtr), false);
+  public SimmModelScaler getModelScaler() {
+    return new SimmModelScaler(opensimModelJNI.SimmSubject_getModelScaler(swigCPtr), false);
   }
 
-  public SimmMarkerPlacementParams getMarkerPlacementParams() {
-    return new SimmMarkerPlacementParams(opensimModelJNI.SimmSubject_getMarkerPlacementParams(swigCPtr), false);
+  public SimmMarkerPlacer getMarkerPlacer() {
+    return new SimmMarkerPlacer(opensimModelJNI.SimmSubject_getMarkerPlacer(swigCPtr), false);
   }
 
   public double getMass() {
     return opensimModelJNI.SimmSubject_getMass(swigCPtr);
   }
 
-  public boolean isDefaultGenericModelParams() {
-    return opensimModelJNI.SimmSubject_isDefaultGenericModelParams(swigCPtr);
+  public boolean isDefaultGenericModelMaker() {
+    return opensimModelJNI.SimmSubject_isDefaultGenericModelMaker(swigCPtr);
   }
 
-  public boolean isDefaultScalingParams() {
-    return opensimModelJNI.SimmSubject_isDefaultScalingParams(swigCPtr);
+  public boolean isDefaultModelScaler() {
+    return opensimModelJNI.SimmSubject_isDefaultModelScaler(swigCPtr);
   }
 
-  public boolean isDefaultMarkerPlacementParams() {
-    return opensimModelJNI.SimmSubject_isDefaultMarkerPlacementParams(swigCPtr);
+  public boolean isDefaultMarkerPlacer() {
+    return opensimModelJNI.SimmSubject_isDefaultMarkerPlacer(swigCPtr);
   }
 
   public static void registerTypes() {
@@ -122,10 +126,6 @@ public class SimmSubject extends OpenSimObject {
 
   public void peteTest() {
     opensimModelJNI.SimmSubject_peteTest(swigCPtr);
-  }
-
-  public static double getDefaultMass() {
-    return opensimModelJNI.SimmSubject_DefaultMass_get();
   }
 
 }

@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.event.ChangeListener;
 import org.openide.util.HelpCtx;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractModel;
 
 public class MakeDModelPanel  extends workflowWizardPanelBase{
     
@@ -75,10 +75,11 @@ public class MakeDModelPanel  extends workflowWizardPanelBase{
     boolean executeStep() {
         String modelFilename = descriptor.getDynamicsModelFile();
         String dynamicsDirectory=component.getDynamicsDirectory();
-        SimmModel model;
+        AbstractModel model;
         try { //String aFolderName, String aMuscleFileName, String aBonePath, String aKineticsFile)
-            model = new SimmModel(modelFilename);
+            model = new AbstractModel(modelFilename);
          model.setup();  // Just incase some setup is needed before Dynamcis are saved
+         /*Restructure
         if (dynamicsDirectory.endsWith(File.separator))
             model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory, 
                     component.getMuscleFilename(),
@@ -88,7 +89,7 @@ public class MakeDModelPanel  extends workflowWizardPanelBase{
             model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory+File.separator,
                     component.getMuscleFilename(),
                     ".",
-                    component.getKineticsFilename());
+                    component.getKineticsFilename());*/
         } catch (IOException ex) {
             ex.printStackTrace();
         }

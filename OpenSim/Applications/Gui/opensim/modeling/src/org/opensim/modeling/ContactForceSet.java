@@ -41,12 +41,87 @@ public class ContactForceSet extends ActuatorSet {
     this(opensimModelJNI.new_ContactForceSet__SWIG_1(aFileName), true);
   }
 
-  public boolean append(SWIGTYPE_p_ContactForce aContact) {
-    return opensimModelJNI.ContactForceSet_append(swigCPtr, SWIGTYPE_p_ContactForce.getCPtr(aContact));
+  public ContactForceSet(ContactForceSet aContactForceSet) {
+    this(opensimModelJNI.new_ContactForceSet__SWIG_2(ContactForceSet.getCPtr(aContactForceSet)), true);
   }
 
-  public boolean set(int aIndex, SWIGTYPE_p_ContactForce aContact) {
-    return opensimModelJNI.ContactForceSet_set(swigCPtr, aIndex, SWIGTYPE_p_ContactForce.getCPtr(aContact));
+  public OpenSimObject copy() {
+    long cPtr = opensimModelJNI.ContactForceSet_copy(swigCPtr);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void copyData(ContactForceSet aContactForceSet) {
+    opensimModelJNI.ContactForceSet_copyData(swigCPtr, ContactForceSet.getCPtr(aContactForceSet));
+  }
+
+  public boolean append(SWIGTYPE_p_OpenSim__ContactForce aContact) {
+    return opensimModelJNI.ContactForceSet_append(swigCPtr, SWIGTYPE_p_OpenSim__ContactForce.getCPtr(aContact));
+  }
+
+  public boolean set(int aIndex, SWIGTYPE_p_OpenSim__ContactForce aContact) {
+    return opensimModelJNI.ContactForceSet_set(swigCPtr, aIndex, SWIGTYPE_p_OpenSim__ContactForce.getCPtr(aContact));
+  }
+
+  public AbstractBody getContactBodyA(int aID) {
+    long cPtr = opensimModelJNI.ContactForceSet_getContactBodyA(swigCPtr, aID);
+    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
+  }
+
+  public AbstractBody getContactBodyB(int aID) {
+    long cPtr = opensimModelJNI.ContactForceSet_getContactBodyB(swigCPtr, aID);
+    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
+  }
+
+  public void setContactPointA(int aID, double[] aPoint) {
+    opensimModelJNI.ContactForceSet_setContactPointA(swigCPtr, aID, aPoint);
+  }
+
+  public void getContactPointA(int aID, double[] rPoint) {
+    opensimModelJNI.ContactForceSet_getContactPointA(swigCPtr, aID, rPoint);
+  }
+
+  public void setContactPointB(int aID, double[] aPoint) {
+    opensimModelJNI.ContactForceSet_setContactPointB(swigCPtr, aID, aPoint);
+  }
+
+  public void getContactPointB(int aID, double[] rPoint) {
+    opensimModelJNI.ContactForceSet_getContactPointB(swigCPtr, aID, rPoint);
+  }
+
+  public void getContactForce(int aID, double[] rF) {
+    opensimModelJNI.ContactForceSet_getContactForce__SWIG_0(swigCPtr, aID, rF);
+  }
+
+  public void getContactNormalForce(int aID, double[] rFP, double[] rFV, double[] rF) {
+    opensimModelJNI.ContactForceSet_getContactNormalForce(swigCPtr, aID, rFP, rFV, rF);
+  }
+
+  public void getContactTangentForce(int aID, double[] rFP, double[] rFV, double[] rF) {
+    opensimModelJNI.ContactForceSet_getContactTangentForce(swigCPtr, aID, rFP, rFV, rF);
+  }
+
+  public void getContactStiffness(int aID, double[] aDX, double[] rDF) {
+    opensimModelJNI.ContactForceSet_getContactStiffness(swigCPtr, aID, aDX, rDF);
+  }
+
+  public void getContactViscosity(int aID, double[] aDV, double[] rDF) {
+    opensimModelJNI.ContactForceSet_getContactViscosity(swigCPtr, aID, aDV, rDF);
+  }
+
+  public void getContactFrictionCorrection(int aID, double[] aDFFric) {
+    opensimModelJNI.ContactForceSet_getContactFrictionCorrection(swigCPtr, aID, aDFFric);
+  }
+
+  public double getContactForce(int aID) {
+    return opensimModelJNI.ContactForceSet_getContactForce__SWIG_1(swigCPtr, aID);
+  }
+
+  public double getContactSpeed(int aID) {
+    return opensimModelJNI.ContactForceSet_getContactSpeed(swigCPtr, aID);
+  }
+
+  public double getContactPower(int aID) {
+    return opensimModelJNI.ContactForceSet_getContactPower(swigCPtr, aID);
   }
 
   public void computeContact() {

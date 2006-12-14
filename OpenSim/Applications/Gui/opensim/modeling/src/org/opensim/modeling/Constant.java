@@ -107,8 +107,4 @@ public class Constant extends Function {
     opensimModelJNI.Constant_updateFromXMLNode(swigCPtr);
   }
 
-  public void writeSIMM(SWIGTYPE_p_std__ofstream out, int aFunctionIndex) {
-    opensimModelJNI.Constant_writeSIMM(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out), aFunctionIndex);
-  }
-
 }

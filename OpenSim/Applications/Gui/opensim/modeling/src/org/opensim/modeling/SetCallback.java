@@ -130,6 +130,10 @@ public class SetCallback extends OpenSimObject {
     return opensimModelJNI.SetCallback_remove__SWIG_1(swigCPtr, Callback.getCPtr(aObject));
   }
 
+  public void clearAndDestroy() {
+    opensimModelJNI.SetCallback_clearAndDestroy(swigCPtr);
+  }
+
   public boolean set(int aIndex, Callback aObject) {
     return opensimModelJNI.SetCallback_set(swigCPtr, aIndex, Callback.getCPtr(aObject));
   }
@@ -142,6 +146,10 @@ public class SetCallback extends OpenSimObject {
   public Callback get(String aName) {
     long cPtr = opensimModelJNI.SetCallback_get__SWIG_1(swigCPtr, aName);
     return (cPtr == 0) ? null : new Callback(cPtr, false);
+  }
+
+  public void getNames(ArrayStr rNames) {
+    opensimModelJNI.SetCallback_getNames(swigCPtr, ArrayStr.getCPtr(rNames));
   }
 
   public Callback getLast() {

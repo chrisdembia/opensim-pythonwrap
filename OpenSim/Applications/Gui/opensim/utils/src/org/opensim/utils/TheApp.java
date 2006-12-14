@@ -25,6 +25,7 @@
  */
 package org.opensim.utils;
 
+import javax.swing.JFrame;
 import org.openide.DialogDisplayer;
 import org.openide.LifecycleManager;
 import org.openide.NotifyDescriptor;
@@ -36,9 +37,9 @@ import org.openide.NotifyDescriptor;
  */
 public final class TheApp {
     
-    static TheApp instance=null;
-
-    /** Creates a new instance of TheApp */
+    //static TheApp instance=null;
+    private static JFrame appFrame;    // Application's frame, cached in for quick access'
+    /** Creates a new instance of TheApp 
     protected TheApp() {
     }
     
@@ -70,6 +71,20 @@ public final class TheApp {
         DialogDisplayer.getDefault().notify(
                 new NotifyDescriptor.Message(errorMessage));
         LifecycleManager.getDefault().exit();
+    }
+    /**
+     * cache the application's top frame for quick access when creating dialogs
+     * throughout the application.
+     */
+    public static void setAppFrame(JFrame dAppFrame)
+    {
+        appFrame=dAppFrame;
+    }
+    /**
+     * Retrieve the applicatio's top frame 
+     */
+    public static JFrame getAppFrame() {
+        return appFrame;
     }
     
 }

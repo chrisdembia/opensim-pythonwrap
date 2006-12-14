@@ -45,9 +45,9 @@ public class Controller {
     opensimModelJNI.Controller_setNull(swigCPtr);
   }
 
-  public Model getModel() {
+  public AbstractModel getModel() {
     long cPtr = opensimModelJNI.Controller_getModel(swigCPtr);
-    return (cPtr == 0) ? null : new Model(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
   }
 
   public void setOn(boolean aTrueFalse) {

@@ -10,10 +10,7 @@ import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.ScaleSet;
-import org.opensim.modeling.ScalerInterface;
-import org.opensim.modeling.SimmModel;
-import org.opensim.modeling.SimmScalerImpl;
-import org.opensim.modeling.SimmScalingParams;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.tracking.workflowWizardPanelBase;
 import org.opensim.view.OpenOsimModelAction;
@@ -75,7 +72,7 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
         
         component.updateWorkflow(descriptor);
         SimmSubject subject = descriptor.getSubject();
-        SimmModel model = descriptor.getModel(); 
+        AbstractModel model = descriptor.getModel(); 
         component.appendMessage("Start loading model.\n");
         if (model != null){
             boolean success=false;

@@ -34,7 +34,7 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
         initComponents();
         OpacitySlider.addChangeListener(this);
         saveProperty = new vtkProperty();
-        canvas.getObjectProperties(object, saveProperty);
+        ViewDB.getInstance().getObjectProperties(object, saveProperty);
         
     }
     
@@ -45,6 +45,7 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
+        jPanel1 = new javax.swing.JPanel();
         ObjectNameLabel = new javax.swing.JLabel();
         ObjectNameText = new javax.swing.JTextField();
         OpacityLabel = new javax.swing.JLabel();
@@ -56,7 +57,7 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
         setTitle("Object Visibility");
         setAlwaysOnTop(true);
         setResizable(false);
-        getAccessibleContext().setAccessibleParent(null);
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Visible Properties"));
         ObjectNameLabel.setText("Object Name:");
 
         ObjectNameText.setEditable(false);
@@ -78,42 +79,53 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
             }
         });
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
                         .add(OpacityLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(OpacitySlider, 0, 0, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                        .add(OpacitySlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
                         .add(ObjectNameLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(ObjectNameText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                        .add(ObjectNameText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(1, 1, 1)
                 .add(ColorLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jChooseColorBtn)
-                .add(36, 36, 36))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(ObjectNameLabel)
                     .add(ObjectNameText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(OpacitySlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(OpacityLabel)
                         .add(ColorLabel)
-                        .add(jChooseColorBtn)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(jChooseColorBtn))
+                    .add(OpacitySlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(23, 23, 23))
+        );
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -125,8 +137,7 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
         if (newColor != null){
              float[] colorComponents = newColor.getRGBComponents(null);
              double[] dColorComponents = new double[]{colorComponents[0], colorComponents[1], colorComponents[2]};
-             canvas.setObjectColor(object, dColorComponents);
-             canvas.repaint();
+             ViewDB.getInstance().setObjectColor(object, dColorComponents);
         }
     }//GEN-LAST:event_jChooseColorBtnActionPerformed
 
@@ -143,8 +154,7 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
     public void stateChanged(ChangeEvent e) {
         // Handle change in opacity slider
         int newOpacity = ((javax.swing.JSlider)e.getSource()).getValue();
-        canvas.setObjectOpacity(object, (double)newOpacity/100.0);
-        canvas.repaint();
+        ViewDB.getInstance().setObjectOpacity(object, (double)newOpacity/100.0);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -154,6 +164,7 @@ public class VisibilityJDialog extends javax.swing.JDialog implements ChangeList
     private javax.swing.JLabel OpacityLabel;
     private javax.swing.JSlider OpacitySlider;
     private javax.swing.JButton jChooseColorBtn;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
     
 }

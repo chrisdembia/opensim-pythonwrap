@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class SimmTranslationDof extends SimmDof {
+public class SimmTranslationDof extends AbstractDof {
   private long swigCPtr;
 
   public SimmTranslationDof(long cPtr, boolean cMemoryOwn) {
@@ -63,8 +63,8 @@ public class SimmTranslationDof extends SimmDof {
     opensimModelJNI.SimmTranslationDof_copyData(swigCPtr, SimmTranslationDof.getCPtr(aDof));
   }
 
-  public void getAxis(double[] axis) {
-    opensimModelJNI.SimmTranslationDof_getAxis(swigCPtr, axis);
+  public void getAxis(double[] rAxis) {
+    opensimModelJNI.SimmTranslationDof_getAxis(swigCPtr, rAxis);
   }
 
   public SWIGTYPE_p_double getAxisPtr() {
@@ -76,12 +76,12 @@ public class SimmTranslationDof extends SimmDof {
     return opensimModelJNI.SimmTranslationDof_getValue(swigCPtr);
   }
 
-  public SimmDof.DofType getDofType() {
-    return SimmDof.DofType.swigToEnum(opensimModelJNI.SimmTranslationDof_getDofType(swigCPtr));
+  public AbstractDof.DofType getMotionType() {
+    return AbstractDof.DofType.swigToEnum(opensimModelJNI.SimmTranslationDof_getMotionType(swigCPtr));
   }
 
-  public void getTranslation(double[] vec) {
-    opensimModelJNI.SimmTranslationDof_getTranslation(swigCPtr, vec);
+  public void getTranslation(double[] rVec) {
+    opensimModelJNI.SimmTranslationDof_getTranslation(swigCPtr, rVec);
   }
 
   public SimmTranslationDof.AxisIndex getAxisIndex() {

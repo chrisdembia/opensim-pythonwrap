@@ -33,17 +33,17 @@ public class ModelIntegrand extends Integrand {
     super.delete();
   }
 
-  public ModelIntegrand(Model aModel) {
-    this(opensimModelJNI.new_ModelIntegrand(Model.getCPtr(aModel)), true);
+  public ModelIntegrand(AbstractModel aModel) {
+    this(opensimModelJNI.new_ModelIntegrand(AbstractModel.getCPtr(aModel)), true);
   }
 
   public int getSize() {
     return opensimModelJNI.ModelIntegrand_getSize(swigCPtr);
   }
 
-  public Model getModel() {
+  public AbstractModel getModel() {
     long cPtr = opensimModelJNI.ModelIntegrand_getModel(swigCPtr);
-    return (cPtr == 0) ? null : new Model(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
   }
 
   public void setControlSet(ControlSet aControlSet) {

@@ -26,13 +26,13 @@
 package org.opensim.view.editors;
 
 import java.awt.Color;
-import java.util.Collection;
 import javax.swing.JColorChooser;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.OpenSimCanvas;
+import org.opensim.view.ViewDB;
 import vtk.vtkProperty;
 
 /**
@@ -50,7 +50,7 @@ public class VisibilityEditorPanel extends AbstractEditorPanel implements Change
         this.canvas = gfxwindow.getCanvas();
         initComponents();
         saveProperty = new vtkProperty();
-        canvas.getObjectProperties(object, saveProperty);
+        ViewDB.getInstance().getObjectProperties(object, saveProperty);
         OpacitySlider.setValue((int)(saveProperty.GetOpacity()*100));
         OpacitySlider.addChangeListener(this);
     }
@@ -62,16 +62,14 @@ public class VisibilityEditorPanel extends AbstractEditorPanel implements Change
         if (newColor != null){
              float[] colorComponents = newColor.getRGBComponents(null);
              double[] dColorComponents = new double[]{colorComponents[0], colorComponents[1], colorComponents[2]};
-             canvas.setObjectColor(object, dColorComponents);
-             canvas.repaint();
+             ViewDB.getInstance().setObjectColor(object, dColorComponents);
         }
     }                                               
 
     public void stateChanged(ChangeEvent e) {
         // Handle change in opacity slider
         int newOpacity = ((javax.swing.JSlider)e.getSource()).getValue();
-        canvas.setObjectOpacity(object, (double)newOpacity/100.0);
-        canvas.repaint();
+        ViewDB.getInstance().setObjectOpacity(object, (double)newOpacity/100.0);
     }
 
     private void initComponents() {
@@ -146,8 +144,7 @@ public class VisibilityEditorPanel extends AbstractEditorPanel implements Change
 
     public void cancelEdit() {
         // restore vtk property 
-        canvas.setObjectProperties(object, saveProperty);
-        canvas.repaint();
+        ViewDB.getInstance().setObjectProperties(object, saveProperty);
     }
                    
     private javax.swing.JButton CancelBtn;

@@ -33,16 +33,8 @@ public class AnalyticGeometry extends Geometry {
     super.delete();
   }
 
-  public AnalyticGeometry() {
-    this(opensimModelJNI.new_AnalyticGeometry(), true);
-  }
-
-  public boolean isAnalytic() {
-    return opensimModelJNI.AnalyticGeometry_isAnalytic(swigCPtr);
-  }
-
-  public AnalyticGeometry.AnalyticGeometryType getShape() {
-    return AnalyticGeometry.AnalyticGeometryType.swigToEnum(opensimModelJNI.AnalyticGeometry_getShape(swigCPtr));
+  public AnalyticGeometry(Geometry.GeometryType aGeometricType) {
+    this(opensimModelJNI.new_AnalyticGeometry(aGeometricType.swigValue()), true);
   }
 
   public double getSphereRadius() {
@@ -73,53 +65,6 @@ public class AnalyticGeometry extends Geometry {
   public static AnalyticGeometry dynamic_cast(Geometry geometry) {
     long cPtr = opensimModelJNI.AnalyticGeometry_dynamic_cast(Geometry.getCPtr(geometry));
     return (cPtr == 0) ? null : new AnalyticGeometry(cPtr, false);
-  }
-
-  public final static class AnalyticGeometryType {
-    public final static AnalyticGeometryType None = new AnalyticGeometryType("None");
-    public final static AnalyticGeometryType Sphere = new AnalyticGeometryType("Sphere");
-    public final static AnalyticGeometryType Cylinder = new AnalyticGeometryType("Cylinder");
-    public final static AnalyticGeometryType Cone = new AnalyticGeometryType("Cone");
-    public final static AnalyticGeometryType Ellipsoid = new AnalyticGeometryType("Ellipsoid");
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static AnalyticGeometryType swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + AnalyticGeometryType.class + " with value " + swigValue);
-    }
-
-    private AnalyticGeometryType(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private AnalyticGeometryType(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private AnalyticGeometryType(String swigName, AnalyticGeometryType swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static AnalyticGeometryType[] swigValues = { None, Sphere, Cylinder, Cone, Ellipsoid };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
   }
 
 }

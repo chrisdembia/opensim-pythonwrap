@@ -12,8 +12,7 @@ package org.opensim.view;
 import java.util.ArrayList;
 import java.util.Observable;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.modeling.SimmMarkerSet;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.view.ModelEvent;
 
 /**
@@ -24,8 +23,9 @@ final public class OpenSimDB extends Observable {
     
     static OpenSimDB instance;
     
-    static ArrayList<SimmModel>  models = new ArrayList<SimmModel>();
-    /** 
+    static ArrayList<AbstractModel>  models = new ArrayList<AbstractModel>();
+    static AbstractModel currentModel=null;
+    
     /** Creates a new instance of OpenSimDB */
     private OpenSimDB() {
     }
@@ -33,18 +33,22 @@ final public class OpenSimDB extends Observable {
     public static synchronized OpenSimDB getInstance() {
         if (instance == null) {
              instance = new OpenSimDB();
+             
         }
         return instance;
     }
     
-    public void addModel(SimmModel aModel) {
+    public void addModel(AbstractModel aModel) {
         models.add(aModel);
+        // Mark model as current
+        // Don't use setCurrent to avoid multiple events
+        currentModel=aModel;
         setChanged();
         ModelEvent evnt = new ModelEvent(aModel, ModelEvent.Operation.Open);
         notifyObservers(evnt);
     }
 
-    public static SimmModel getModel(String modelName)
+    public static AbstractModel getModel(String modelName)
     {
         for(int i=0; i<models.size(); i++){
             if (models.get(i).getName().equals(modelName))
@@ -58,26 +62,53 @@ final public class OpenSimDB extends Observable {
         return (Object[]) models.toArray();
     }
     
-    public void removeModel(SimmModel model)
+    public void removeModel(AbstractModel model)
     {
         models.remove(model);
+        if (models.size()>0)
+           setCurrentModel(models.get(0));
+        else
+           currentModel=null;
+        
         setChanged();
         ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Close);
         notifyObservers(evnt);
     }
     /**
-     * Add a markerSet to the simmModel.
-     * This operation modifies the model and triggers update of the visuals
+     * Number of models currently loaded.
      */
-    void addMarkerSet(SimmMarkerSet markerSet, SimmModel simmModel) {
-        simmModel.updateMarkers(markerSet);
-        // Needed to update display properties of markers
-        for(int i=0; i < markerSet.getSize(); i++){
-            markerSet.get(i).setup(simmModel.getSimmKinematicsEngine());
-        }
+    int getNumModels() {
+        return models.size();
+    }
+    /**
+     * For now this just fires an event to make sure the GUI indicates what's the current Model but
+     * the database itself does not keep track of which one in the models is Current.
+     */
+    public void setCurrentModel(AbstractModel aCurrentModel) {
+        currentModel = aCurrentModel;
         setChanged();
-        ModelEvent evnt = new ModelEvent(simmModel, ModelEvent.Operation.UpdateDisplay);
+        ModelEvent evnt = new ModelEvent(aCurrentModel, ModelEvent.Operation.SetCurrent);
         notifyObservers(evnt);
+    }
+    /**
+     * Get current model (as indicated by bold name in the explorer view)
+     * if none then the function returns null
+     *
+     * It's an error condition if this function returns null while the explorer view is nonempty
+     **/
+   public AbstractModel getCurrentModel() {
+      return currentModel;
    }
+   /**
+    * hasModel checks if the passed in model is already loaded.
+    **/
+   boolean hasModel(AbstractModel aModel) {
+     for(int i=0; i<models.size(); i++){
+         if (models.get(i).equals(aModel))
+             return true;
+     }
+      return false;
+   }
+
 
 }

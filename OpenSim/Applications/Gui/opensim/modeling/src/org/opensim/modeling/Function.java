@@ -119,8 +119,4 @@ public class Function extends OpenSimObject {
     opensimModelJNI.Function_scaleY(swigCPtr, aScaleFactor);
   }
 
-  public void writeSIMM(SWIGTYPE_p_std__ofstream out, int functionIndex) {
-    opensimModelJNI.Function_writeSIMM(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out), functionIndex);
-  }
-
 }

@@ -63,9 +63,9 @@ public class SimmMusclePoint extends OpenSimObject {
     return new ArrayDouble(opensimModelJNI.SimmMusclePoint_getAttachment(swigCPtr), false);
   }
 
-  public SimmBody getBody() {
+  public AbstractBody getBody() {
     long cPtr = opensimModelJNI.SimmMusclePoint_getBody(swigCPtr);
-    return (cPtr == 0) ? null : new SimmBody(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
   public SWIGTYPE_p_std__string getBodyName() {
@@ -76,21 +76,26 @@ public class SimmMusclePoint extends OpenSimObject {
     opensimModelJNI.SimmMusclePoint_scale(swigCPtr, ArrayDouble.getCPtr(aScaleFactors));
   }
 
-  public void writeSIMM(SWIGTYPE_p_std__ofstream out) {
-    opensimModelJNI.SimmMusclePoint_writeSIMM(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out));
-  }
-
   public boolean isActive() {
     return opensimModelJNI.SimmMusclePoint_isActive(swigCPtr);
   }
 
-  public void setup(SimmModel model, SimmKinematicsEngine ke) {
-    opensimModelJNI.SimmMusclePoint_setup(swigCPtr, SimmModel.getCPtr(model), SimmKinematicsEngine.getCPtr(ke));
+  public SWIGTYPE_p_OpenSim__AbstractWrapObject getWrapObject() {
+    long cPtr = opensimModelJNI.SimmMusclePoint_getWrapObject(swigCPtr);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__AbstractWrapObject(cPtr, false);
+  }
+
+  public void setup(AbstractModel aModel, SWIGTYPE_p_OpenSim__AbstractSimmMuscle aMuscle) {
+    opensimModelJNI.SimmMusclePoint_setup(swigCPtr, AbstractModel.getCPtr(aModel), SWIGTYPE_p_OpenSim__AbstractSimmMuscle.getCPtr(aMuscle));
   }
 
   public VisibleObject getDisplayer() {
     long cPtr = opensimModelJNI.SimmMusclePoint_getDisplayer(swigCPtr);
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
+  public void updateGeometry() {
+    opensimModelJNI.SimmMusclePoint_updateGeometry(swigCPtr);
   }
 
   public void peteTest() {

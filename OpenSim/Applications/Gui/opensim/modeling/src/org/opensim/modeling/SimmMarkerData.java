@@ -8,12 +8,11 @@
 
 package org.opensim.modeling;
 
-public class SimmMarkerData {
+public class SimmMarkerData extends OpenSimObject {
   private long swigCPtr;
-  protected boolean swigCMemOwn;
 
   public SimmMarkerData(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -31,6 +30,7 @@ public class SimmMarkerData {
       opensimModelJNI.delete_SimmMarkerData(swigCPtr);
     }
     swigCPtr = 0;
+    super.delete();
   }
 
   public SimmMarkerData() {
@@ -41,8 +41,8 @@ public class SimmMarkerData {
     this(opensimModelJNI.new_SimmMarkerData__SWIG_1(aFileName), true);
   }
 
-  public void findFrameRange(double aStartTime, double aEndTime, SWIGTYPE_p_int oStartFrame, SWIGTYPE_p_int oEndFrame) {
-    opensimModelJNI.SimmMarkerData_findFrameRange(swigCPtr, aStartTime, aEndTime, SWIGTYPE_p_int.getCPtr(oStartFrame), SWIGTYPE_p_int.getCPtr(oEndFrame));
+  public void findFrameRange(double aStartTime, double aEndTime, SWIGTYPE_p_int rStartFrame, SWIGTYPE_p_int rEndFrame) {
+    opensimModelJNI.SimmMarkerData_findFrameRange(swigCPtr, aStartTime, aEndTime, SWIGTYPE_p_int.getCPtr(rStartFrame), SWIGTYPE_p_int.getCPtr(rEndFrame));
   }
 
   public void averageFrames(double aThreshold, double aStartTime, double aEndTime) {
@@ -61,16 +61,12 @@ public class SimmMarkerData {
     opensimModelJNI.SimmMarkerData_averageFrames__SWIG_3(swigCPtr);
   }
 
-  public double takeMeasurement(SimmMeasurement aMeasurement) {
-    return opensimModelJNI.SimmMarkerData_takeMeasurement(swigCPtr, SimmMeasurement.getCPtr(aMeasurement));
-  }
-
   public String getFileName() {
     return opensimModelJNI.SimmMarkerData_getFileName(swigCPtr);
   }
 
-  public void makeRdStorage(Storage aStorage) {
-    opensimModelJNI.SimmMarkerData_makeRdStorage(swigCPtr, Storage.getCPtr(aStorage));
+  public void makeRdStorage(Storage rStorage) {
+    opensimModelJNI.SimmMarkerData_makeRdStorage(swigCPtr, Storage.getCPtr(rStorage));
   }
 
   public SWIGTYPE_p_SimmMarkerFrame getFrame(int aIndex) {
@@ -104,10 +100,6 @@ public class SimmMarkerData {
 
   public double getLastFrameTime() {
     return opensimModelJNI.SimmMarkerData_getLastFrameTime(swigCPtr);
-  }
-
-  public int countFramesBetweenTimes(double aStartTime, double aEndTime) {
-    return opensimModelJNI.SimmMarkerData_countFramesBetweenTimes(swigCPtr, aStartTime, aEndTime);
   }
 
   public void peteTest() {

@@ -31,8 +31,9 @@ import java.util.List;
 import javax.swing.event.ChangeListener;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
-import org.opensim.modeling.SimmModel;
-import org.opensim.view.nodes.OneJointNode;
+import org.opensim.modeling.AbstractJoint;
+import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.JointSet;
 
 /**
  *
@@ -41,9 +42,9 @@ import org.opensim.view.nodes.OneJointNode;
 public class JointsChildren extends Children.Keys {
     
     private ChangeListener listener;
-    SimmModel model;
+    AbstractModel model;
     
-    JointsChildren(SimmModel m) {
+    JointsChildren(AbstractModel m) {
         model = m;
     }
     protected void addNotify() {
@@ -53,14 +54,17 @@ public class JointsChildren extends Children.Keys {
         setKeys(Collections.EMPTY_SET);
     }
     protected Node[] createNodes(Object key) {
-        return new Node[] { new OneJointNode((String) key) };
+        AbstractJoint jnt = model.getDynamicsEngine().getJointSet().get((String) key);
+        return new Node[] { new OneJointNode(jnt) };
     }
     
     private void refreshList() {
         List<String> keys = new ArrayList<String>();
-        int numJoints = model.getNJ();
-        for(int i=0; i < numJoints; i++)
-            keys.add(model.getSimmKinematicsEngine().getJoint(i).getName());
+        JointSet jointSet = model.getDynamicsEngine().getJointSet();
+
+        for (int jointNum=0; jointNum < jointSet.getSize(); jointNum++ ){
+             keys.add(jointSet.get(jointNum).getName());
+        }
         setKeys(keys);
     }
     

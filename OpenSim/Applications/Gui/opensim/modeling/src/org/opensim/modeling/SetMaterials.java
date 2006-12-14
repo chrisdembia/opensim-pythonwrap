@@ -130,6 +130,10 @@ public class SetMaterials extends OpenSimObject {
     return opensimModelJNI.SetMaterials_remove__SWIG_1(swigCPtr, Material.getCPtr(aObject));
   }
 
+  public void clearAndDestroy() {
+    opensimModelJNI.SetMaterials_clearAndDestroy(swigCPtr);
+  }
+
   public boolean set(int aIndex, Material aObject) {
     return opensimModelJNI.SetMaterials_set(swigCPtr, aIndex, Material.getCPtr(aObject));
   }
@@ -142,6 +146,10 @@ public class SetMaterials extends OpenSimObject {
   public Material get(String aName) {
     long cPtr = opensimModelJNI.SetMaterials_get__SWIG_1(swigCPtr, aName);
     return (cPtr == 0) ? null : new Material(cPtr, false);
+  }
+
+  public void getNames(ArrayStr rNames) {
+    opensimModelJNI.SetMaterials_getNames(swigCPtr, ArrayStr.getCPtr(rNames));
   }
 
   public Material getLast() {

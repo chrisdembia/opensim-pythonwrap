@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class SimmMarker extends OpenSimObject {
+public class SimmMarker extends AbstractMarker {
   private long swigCPtr;
 
   public SimmMarker(long cPtr, boolean cMemoryOwn) {
@@ -59,12 +59,12 @@ public class SimmMarker extends OpenSimObject {
     opensimModelJNI.SimmMarker_copyData(swigCPtr, SimmMarker.getCPtr(aMarker));
   }
 
-  public void updateFromMarker(SimmMarker aMarker) {
-    opensimModelJNI.SimmMarker_updateFromMarker(swigCPtr, SimmMarker.getCPtr(aMarker));
+  public void updateFromMarker(AbstractMarker aMarker) {
+    opensimModelJNI.SimmMarker_updateFromMarker(swigCPtr, AbstractMarker.getCPtr(aMarker));
   }
 
-  public void getOffset(SWIGTYPE_p_double aOffset) {
-    opensimModelJNI.SimmMarker_getOffset__SWIG_0(swigCPtr, SWIGTYPE_p_double.getCPtr(aOffset));
+  public void getOffset(SWIGTYPE_p_double rOffset) {
+    opensimModelJNI.SimmMarker_getOffset__SWIG_0(swigCPtr, SWIGTYPE_p_double.getCPtr(rOffset));
   }
 
   public SWIGTYPE_p_double getOffset() {
@@ -72,16 +72,40 @@ public class SimmMarker extends OpenSimObject {
     return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
   }
 
-  public void setOffset(double[] pt) {
-    opensimModelJNI.SimmMarker_setOffset(swigCPtr, pt);
+  public boolean setOffset(ArrayDouble aOffset) {
+    return opensimModelJNI.SimmMarker_setOffset__SWIG_0(swigCPtr, ArrayDouble.getCPtr(aOffset));
+  }
+
+  public boolean setOffset(double[] aPoint) {
+    return opensimModelJNI.SimmMarker_setOffset__SWIG_1(swigCPtr, aPoint);
+  }
+
+  public boolean getOffsetUseDefault() {
+    return opensimModelJNI.SimmMarker_getOffsetUseDefault(swigCPtr);
   }
 
   public boolean getFixed() {
     return opensimModelJNI.SimmMarker_getFixed(swigCPtr);
   }
 
+  public boolean setFixed(boolean aFixed) {
+    return opensimModelJNI.SimmMarker_setFixed(swigCPtr, aFixed);
+  }
+
+  public boolean getFixedUseDefault() {
+    return opensimModelJNI.SimmMarker_getFixedUseDefault(swigCPtr);
+  }
+
   public double getWeight() {
     return opensimModelJNI.SimmMarker_getWeight(swigCPtr);
+  }
+
+  public boolean setWeight(double aWeight) {
+    return opensimModelJNI.SimmMarker_setWeight(swigCPtr, aWeight);
+  }
+
+  public boolean getWeightUseDefault() {
+    return opensimModelJNI.SimmMarker_getWeightUseDefault(swigCPtr);
   }
 
   public SWIGTYPE_p_std__string getBodyName() {
@@ -89,25 +113,46 @@ public class SimmMarker extends OpenSimObject {
     return (cPtr == 0) ? null : new SWIGTYPE_p_std__string(cPtr, false);
   }
 
-  public void setup(SimmKinematicsEngine aEngine) {
-    opensimModelJNI.SimmMarker_setup(swigCPtr, SimmKinematicsEngine.getCPtr(aEngine));
+  public boolean setBodyName(String aName) {
+    return opensimModelJNI.SimmMarker_setBodyName(swigCPtr, aName);
+  }
+
+  public boolean getBodyNameUseDefault() {
+    return opensimModelJNI.SimmMarker_getBodyNameUseDefault(swigCPtr);
+  }
+
+  public boolean setBodyNameUseDefault(boolean aValue) {
+    return opensimModelJNI.SimmMarker_setBodyNameUseDefault(swigCPtr, aValue);
+  }
+
+  public AbstractBody getBody() {
+    long cPtr = opensimModelJNI.SimmMarker_getBody(swigCPtr);
+    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
+  }
+
+  public void setBody(AbstractBody aBody) {
+    opensimModelJNI.SimmMarker_setBody(swigCPtr, AbstractBody.getCPtr(aBody));
   }
 
   public void scale(ArrayDouble aScaleFactors) {
     opensimModelJNI.SimmMarker_scale(swigCPtr, ArrayDouble.getCPtr(aScaleFactors));
   }
 
-  public void writeSIMM(SWIGTYPE_p_std__ofstream out) {
-    opensimModelJNI.SimmMarker_writeSIMM(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out));
+  public void setup(AbstractDynamicsEngine aEngine) {
+    opensimModelJNI.SimmMarker_setup(swigCPtr, AbstractDynamicsEngine.getCPtr(aEngine));
   }
 
-  public void peteTest() {
-    opensimModelJNI.SimmMarker_peteTest(swigCPtr);
+  public void updateGeometry() {
+    opensimModelJNI.SimmMarker_updateGeometry(swigCPtr);
   }
 
   public VisibleObject getDisplayer() {
     long cPtr = opensimModelJNI.SimmMarker_getDisplayer(swigCPtr);
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
+  public void removeSelfFromDisplay() {
+    opensimModelJNI.SimmMarker_removeSelfFromDisplay(swigCPtr);
   }
 
   public boolean isVirtual() {
@@ -116,6 +161,10 @@ public class SimmMarker extends OpenSimObject {
 
   public void setVirtual(boolean aTrueFalse) {
     opensimModelJNI.SimmMarker_setVirtual(swigCPtr, aTrueFalse);
+  }
+
+  public void peteTest() {
+    opensimModelJNI.SimmMarker_peteTest(swigCPtr);
   }
 
 }

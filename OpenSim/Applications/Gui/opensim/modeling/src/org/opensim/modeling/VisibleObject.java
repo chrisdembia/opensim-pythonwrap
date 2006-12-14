@@ -59,6 +59,10 @@ public class VisibleObject extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public void setup(AbstractDynamicsEngine aEngine) {
+    opensimModelJNI.VisibleObject_setup(swigCPtr, AbstractDynamicsEngine.getCPtr(aEngine));
+  }
+
   public void setOwner(OpenSimObject aObject) {
     opensimModelJNI.VisibleObject_setOwner(swigCPtr, OpenSimObject.getCPtr(aObject));
   }
@@ -112,8 +116,8 @@ public class VisibleObject extends OpenSimObject {
     opensimModelJNI.VisibleObject_rotateRadians__SWIG_0(swigCPtr, rR);
   }
 
-  public void rotateRadians(double[] rR, SWIGTYPE_p_Transform__RotationOrder order) {
-    opensimModelJNI.VisibleObject_rotateRadians__SWIG_1(swigCPtr, rR, SWIGTYPE_p_Transform__RotationOrder.getCPtr(order));
+  public void rotateRadians(double[] rR, Transform.RotationOrder order) {
+    opensimModelJNI.VisibleObject_rotateRadians__SWIG_1(swigCPtr, rR, order.swigValue());
   }
 
   public void rotateRadiansX(double rR) {
@@ -136,8 +140,8 @@ public class VisibleObject extends OpenSimObject {
     opensimModelJNI.VisibleObject_rotateDegrees__SWIG_0(swigCPtr, rR);
   }
 
-  public void rotateDegrees(double[] rR, SWIGTYPE_p_Transform__RotationOrder order) {
-    opensimModelJNI.VisibleObject_rotateDegrees__SWIG_1(swigCPtr, rR, SWIGTYPE_p_Transform__RotationOrder.getCPtr(order));
+  public void rotateDegrees(double[] rR, Transform.RotationOrder order) {
+    opensimModelJNI.VisibleObject_rotateDegrees__SWIG_1(swigCPtr, rR, order.swigValue());
   }
 
   public void rotateDegreesX(double rR) {
@@ -164,6 +168,10 @@ public class VisibleObject extends OpenSimObject {
     opensimModelJNI.VisibleObject_addDependent(swigCPtr, VisibleObject.getCPtr(aChild));
   }
 
+  public boolean hasDependent(VisibleObject aChild) {
+    return opensimModelJNI.VisibleObject_hasDependent(swigCPtr, VisibleObject.getCPtr(aChild));
+  }
+
   public void removeDependent(VisibleObject aChild) {
     opensimModelJNI.VisibleObject_removeDependent(swigCPtr, VisibleObject.getCPtr(aChild));
   }
@@ -181,6 +189,14 @@ public class VisibleObject extends OpenSimObject {
     opensimModelJNI.VisibleObject_addGeometry(swigCPtr, Geometry.getCPtr(aGeometry));
   }
 
+  public void removeGeometry(Geometry aGeometry) {
+    opensimModelJNI.VisibleObject_removeGeometry(swigCPtr, Geometry.getCPtr(aGeometry));
+  }
+
+  public void freeGeometry() {
+    opensimModelJNI.VisibleObject_freeGeometry(swigCPtr);
+  }
+
   public Geometry getGeometry(int i) {
     long cPtr = opensimModelJNI.VisibleObject_getGeometry(swigCPtr, i);
     return (cPtr == 0) ? null : new Geometry(cPtr, false);
@@ -195,12 +211,8 @@ public class VisibleObject extends OpenSimObject {
     return (cPtr == 0) ? null : new Geometry(cPtr, false);
   }
 
-  public boolean isActive() {
-    return opensimModelJNI.VisibleObject_isActive(swigCPtr);
-  }
-
-  public void setActive(boolean aActive) {
-    opensimModelJNI.VisibleObject_setActive(swigCPtr, aActive);
+  public void updateGeometry() {
+    opensimModelJNI.VisibleObject_updateGeometry(swigCPtr);
   }
 
   public void setupProperties() {

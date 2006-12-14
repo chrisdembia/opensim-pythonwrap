@@ -37,8 +37,8 @@ public class MarkerSet extends SetMarkers {
     this(opensimModelJNI.new_MarkerSet__SWIG_0(), true);
   }
 
-  public MarkerSet(String markersFileName) {
-    this(opensimModelJNI.new_MarkerSet__SWIG_1(markersFileName), true);
+  public MarkerSet(String aMarkersFileName) {
+    this(opensimModelJNI.new_MarkerSet__SWIG_1(aMarkersFileName), true);
   }
 
   public MarkerSet(MarkerSet aMarkerSet) {
@@ -49,24 +49,16 @@ public class MarkerSet extends SetMarkers {
     return opensimModelJNI.MarkerSet_usesWeights(swigCPtr);
   }
 
-  public boolean bindMarkersToModel(Model model) {
-    return opensimModelJNI.MarkerSet_bindMarkersToModel(swigCPtr, Model.getCPtr(model));
-  }
-
   public void getMarkerNames(ArrayStr aMarkerNamesArray) {
     opensimModelJNI.MarkerSet_getMarkerNames(swigCPtr, ArrayStr.getCPtr(aMarkerNamesArray));
   }
 
-  public void scale(ScaleSet scaleSet) {
-    opensimModelJNI.MarkerSet_scale(swigCPtr, ScaleSet.getCPtr(scaleSet));
+  public void scale(ScaleSet aScaleSet) {
+    opensimModelJNI.MarkerSet_scale(swigCPtr, ScaleSet.getCPtr(aScaleSet));
   }
 
-  public void makeRelativeToCom(Model model) {
-    opensimModelJNI.MarkerSet_makeRelativeToCom(swigCPtr, Model.getCPtr(model));
-  }
-
-  public SetMarkers getMarkers() {
-    return new SetMarkers(opensimModelJNI.MarkerSet_getMarkers(swigCPtr), false);
+  public void addNamePrefix(String prefix) {
+    opensimModelJNI.MarkerSet_addNamePrefix(swigCPtr, prefix);
   }
 
 }

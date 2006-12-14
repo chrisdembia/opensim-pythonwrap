@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class SimmRotationDof extends SimmDof {
+public class SimmRotationDof extends AbstractDof {
   private long swigCPtr;
 
   public SimmRotationDof(long cPtr, boolean cMemoryOwn) {
@@ -59,8 +59,8 @@ public class SimmRotationDof extends SimmDof {
     opensimModelJNI.SimmRotationDof_copyData(swigCPtr, SimmRotationDof.getCPtr(aDof));
   }
 
-  public void getAxis(double[] axis) {
-    opensimModelJNI.SimmRotationDof_getAxis__SWIG_0(swigCPtr, axis);
+  public void getAxis(double[] rAxis) {
+    opensimModelJNI.SimmRotationDof_getAxis__SWIG_0(swigCPtr, rAxis);
   }
 
   public ArrayDouble getAxis() {
@@ -76,8 +76,8 @@ public class SimmRotationDof extends SimmDof {
     return opensimModelJNI.SimmRotationDof_getValue(swigCPtr);
   }
 
-  public SimmDof.DofType getDofType() {
-    return SimmDof.DofType.swigToEnum(opensimModelJNI.SimmRotationDof_getDofType(swigCPtr));
+  public AbstractDof.DofType getMotionType() {
+    return AbstractDof.DofType.swigToEnum(opensimModelJNI.SimmRotationDof_getMotionType(swigCPtr));
   }
 
   public void peteTest() {

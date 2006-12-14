@@ -8,15 +8,15 @@ package org.opensim.tracking;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.opensim.modeling.SimmSubject;
-import org.opensim.modeling.SimmGenericModelParams;
+import org.opensim.modeling.SimmGenericModelMaker;
 import org.openide.windows.WindowManager;
-import org.opensim.modeling.Property;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.SimmMarkerSet;
+import org.opensim.modeling.MarkerSet;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 
@@ -551,6 +551,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
 
     private void setSubjectInfo(SimmSubject subject) {
         if (subject!= null){
+            /* Restructure
             Property massProp = subject.getPropertySet().get("mass");
             boolean def = massProp.getUseDefault();
             if (subject.getMass()!=subject.getDefaultMass()){
@@ -558,6 +559,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                 jHeightTextField2.setText(String.valueOf(subject.getSubjectHeight()));
                 jAgeTextField2.setText(String.valueOf(subject.getSubjectAge()));
             }
+             **/
             this.firePropertyChange("Model_Defined", false, true);
         }
         else {
@@ -602,19 +604,25 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
      */
     void updatePanel(WorkflowDescriptor aDescriptor) {
         this.aDescriptor = aDescriptor;
-        SimmGenericModelParams params = aDescriptor.getSubject().getGenericModelParams();
-        jModelNameTextField2.setToolTipText(params.getPropertySet().get("file_name").getComment());
-        jOwnMarkersTextField2.setToolTipText(params.getPropertySet().get("SimmMarkerSet").getComment());
+        SimmGenericModelMaker modelMaker = aDescriptor.getSubject().getGenericModelMaker();
+         try {
+        jModelNameTextField2.setToolTipText(modelMaker.getPropertySet().get("file_name").getComment());
+            jOwnMarkersTextField2.setToolTipText(modelMaker.getPropertySet().get("MarkerSet").getComment());
+        } catch (IOException ex) {
+             TheApp.exitApp("Internal Error:Property does not exist in SimmGenericModelMaker");
+         }
         if (aDescriptor.getUseOwnModel()){
             jModelOwnRadioButton2.setSelected(true);
-            setModelFile(params.getModelFileName());
+            setModelFile(modelMaker.getModelFileName());
             setSubjectInfo(aDescriptor.dSubject);
         }
         else {
             jModelDefaultRadioButton2.setSelected(true);
             setSubjectInfo(null);
          }
-        SimmMarkerSet markerSetObject = params.getMarkerSet();
+        
+        /* Restructure
+        SimmMarkerSet markerSetObject = modelMaker.getMarkerSet();
         if (markerSetObject != null && markerSetObject.getInlined()==false){
             jOwnMarkersTextField2.setText(markerSetObject.getOffLineFileName());
             jOwnMarkersRadioButton2.setSelected(true);
@@ -624,23 +632,24 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         }
         else {
             jDefaultMarkersRadioButton2.setSelected(true);
-        }
+        }**/
         setGuiCanAdvance(checkValidForm());
+        
    }
     
     void updateWorkflow(WorkflowDescriptor descriptor){
-        SimmGenericModelParams params = descriptor.getSubject().getGenericModelParams();
+        SimmGenericModelMaker params = descriptor.getSubject().getGenericModelMaker();
         if(!jModelNameTextField2.getText().equals("")){
             params.setModelFileName(jModelNameTextField2.getText());
             setModelFile(jModelNameTextField2.getText());
         }
         // We'll do the same for Markers when MarkerSet is exposed properly (bug 209)
-       
+        /*
         if(!jOwnMarkersTextField2.getText().equals("")){
-            SimmMarkerSet markerSet = new SimmMarkerSet(jOwnMarkersTextField2.getText());
-            descriptor.getModel().updateMarkers(markerSet);
-       }
-        
+            MarkerSet markerSet = new MarkerSet(jOwnMarkersTextField2.getText());
+            descriptor.getModel().getDynamicsEngine().updateMarkerSet(markerSet);
+       }*/
+       
     };
 
     protected boolean checkValidForm() {
@@ -648,7 +657,8 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         return(!jModelNameTextField2.getText().equalsIgnoreCase(""));
     }
 
-    public void checkConsistentPanel() {
-    }
+   public void checkConsistentPanel() {
+      //Restructure
+   }
 
  }

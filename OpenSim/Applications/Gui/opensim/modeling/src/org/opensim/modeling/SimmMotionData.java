@@ -8,12 +8,11 @@
 
 package org.opensim.modeling;
 
-public class SimmMotionData {
+public class SimmMotionData extends OpenSimObject {
   private long swigCPtr;
-  protected boolean swigCMemOwn;
 
   public SimmMotionData(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -31,6 +30,7 @@ public class SimmMotionData {
       opensimModelJNI.delete_SimmMotionData(swigCPtr);
     }
     swigCPtr = 0;
+    super.delete();
   }
 
   public SimmMotionData() {
@@ -43,6 +43,28 @@ public class SimmMotionData {
 
   public SimmMotionData(Storage aData) {
     this(opensimModelJNI.new_SimmMotionData__SWIG_2(Storage.getCPtr(aData)), true);
+  }
+
+  public SimmMotionData(SimmMotionData aData) {
+    this(opensimModelJNI.new_SimmMotionData__SWIG_3(SimmMotionData.getCPtr(aData)), true);
+  }
+
+  public SimmMotionData(SWIGTYPE_p_DOMElement aElement) {
+    this(opensimModelJNI.new_SimmMotionData__SWIG_4(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
+  }
+
+  public OpenSimObject copy() {
+    long cPtr = opensimModelJNI.SimmMotionData_copy__SWIG_0(swigCPtr);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
+    long cPtr = opensimModelJNI.SimmMotionData_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void copyData(SimmMotionData aData) {
+    opensimModelJNI.SimmMotionData_copyData(swigCPtr, SimmMotionData.getCPtr(aData));
   }
 
   public int getNumColumns() {
@@ -69,12 +91,32 @@ public class SimmMotionData {
     return opensimModelJNI.SimmMotionData_getRangeMax(swigCPtr);
   }
 
-  public void addToRdStorage(Storage aStorage, double startTime, double endTime) {
-    opensimModelJNI.SimmMotionData_addToRdStorage(swigCPtr, Storage.getCPtr(aStorage), startTime, endTime);
+  public void addToRdStorage(Storage rStorage, double aStartTime, double aEndTime) {
+    opensimModelJNI.SimmMotionData_addToRdStorage(swigCPtr, Storage.getCPtr(rStorage), aStartTime, aEndTime);
+  }
+
+  public boolean deleteColumn(String aColumnName) {
+    return opensimModelJNI.SimmMotionData_deleteColumn(swigCPtr, aColumnName);
+  }
+
+  public void scaleColumn(int aColumnIndex, double aScaleFactor) {
+    opensimModelJNI.SimmMotionData_scaleColumn(swigCPtr, aColumnIndex, aScaleFactor);
+  }
+
+  public void convertDegreesToRadians(AbstractModel aModel) {
+    opensimModelJNI.SimmMotionData_convertDegreesToRadians(swigCPtr, AbstractModel.getCPtr(aModel));
+  }
+
+  public void convertRadiansToDegrees(AbstractModel aModel) {
+    opensimModelJNI.SimmMotionData_convertRadiansToDegrees(swigCPtr, AbstractModel.getCPtr(aModel));
   }
 
   public void writeSIMMMotionFile(String aFileName, String aComment) {
     opensimModelJNI.SimmMotionData_writeSIMMMotionFile(swigCPtr, aFileName, aComment);
+  }
+
+  public String getUnassignedColName() {
+    return opensimModelJNI.SimmMotionData_getUnassignedColName(swigCPtr);
   }
 
   public void peteTest() {

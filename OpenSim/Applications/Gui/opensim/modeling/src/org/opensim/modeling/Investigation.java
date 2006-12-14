@@ -33,13 +33,13 @@ public class Investigation extends OpenSimObject {
     super.delete();
   }
 
-  public void setModel(Model aModel) {
-    opensimModelJNI.Investigation_setModel(swigCPtr, Model.getCPtr(aModel));
+  public void setModel(AbstractModel aModel) {
+    opensimModelJNI.Investigation_setModel(swigCPtr, AbstractModel.getCPtr(aModel));
   }
 
-  public Model getModel() {
+  public AbstractModel getModel() {
     long cPtr = opensimModelJNI.Investigation_getModel(swigCPtr);
-    return (cPtr == 0) ? null : new Model(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
   }
 
   public void setOutputPrecision(int aPrecision) {
@@ -78,10 +78,6 @@ public class Investigation extends OpenSimObject {
     opensimModelJNI.Investigation_setModelFilename(swigCPtr, aModelFile);
   }
 
-  public void constructCommandLineForLoadModel(ArrayStr args) {
-    opensimModelJNI.Investigation_constructCommandLineForLoadModel(swigCPtr, ArrayStr.getCPtr(args));
-  }
-
   public void loadModel() {
     opensimModelJNI.Investigation_loadModel(swigCPtr);
   }
@@ -90,7 +86,7 @@ public class Investigation extends OpenSimObject {
     opensimModelJNI.Investigation_addAnalysisSetToModel(swigCPtr);
   }
 
-  public void run() throws java.io.IOException {
+  public void run() {
     opensimModelJNI.Investigation_run(swigCPtr);
   }
 

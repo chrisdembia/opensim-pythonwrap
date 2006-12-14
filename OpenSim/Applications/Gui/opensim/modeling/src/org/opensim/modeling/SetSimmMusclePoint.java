@@ -130,6 +130,10 @@ public class SetSimmMusclePoint extends OpenSimObject {
     return opensimModelJNI.SetSimmMusclePoint_remove__SWIG_1(swigCPtr, SimmMusclePoint.getCPtr(aObject));
   }
 
+  public void clearAndDestroy() {
+    opensimModelJNI.SetSimmMusclePoint_clearAndDestroy(swigCPtr);
+  }
+
   public boolean set(int aIndex, SimmMusclePoint aObject) {
     return opensimModelJNI.SetSimmMusclePoint_set(swigCPtr, aIndex, SimmMusclePoint.getCPtr(aObject));
   }
@@ -142,6 +146,10 @@ public class SetSimmMusclePoint extends OpenSimObject {
   public SimmMusclePoint get(String aName) {
     long cPtr = opensimModelJNI.SetSimmMusclePoint_get__SWIG_1(swigCPtr, aName);
     return (cPtr == 0) ? null : new SimmMusclePoint(cPtr, false);
+  }
+
+  public void getNames(ArrayStr rNames) {
+    opensimModelJNI.SetSimmMusclePoint_getNames(swigCPtr, ArrayStr.getCPtr(rNames));
   }
 
   public SimmMusclePoint getLast() {

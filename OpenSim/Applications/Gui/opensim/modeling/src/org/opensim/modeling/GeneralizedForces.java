@@ -33,8 +33,8 @@ public class GeneralizedForces extends Analysis {
     super.delete();
   }
 
-  public GeneralizedForces(Model aModel) {
-    this(opensimModelJNI.new_GeneralizedForces__SWIG_0(Model.getCPtr(aModel)), true);
+  public GeneralizedForces(AbstractModel aModel) {
+    this(opensimModelJNI.new_GeneralizedForces__SWIG_0(AbstractModel.getCPtr(aModel)), true);
   }
 
   public GeneralizedForces() {
@@ -87,8 +87,8 @@ public class GeneralizedForces extends Analysis {
     return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
-  public void setModel(Model aModel) {
-    opensimModelJNI.GeneralizedForces_setModel(swigCPtr, Model.getCPtr(aModel));
+  public void setModel(AbstractModel aModel) {
+    opensimModelJNI.GeneralizedForces_setModel(swigCPtr, AbstractModel.getCPtr(aModel));
   }
 
   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_void aClientData) {

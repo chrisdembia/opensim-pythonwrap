@@ -126,6 +126,10 @@ public class ArrayInt {
     return new SWIGTYPE_p_int(opensimModelJNI.ArrayInt_getLast(swigCPtr), false);
   }
 
+  public int findIndex(int aValue) {
+    return opensimModelJNI.ArrayInt_findIndex(swigCPtr, aValue);
+  }
+
   public int searchBinary(int aValue, boolean aFindFirst, int aLo, int aHi) {
     return opensimModelJNI.ArrayInt_searchBinary__SWIG_0(swigCPtr, aValue, aFindFirst, aLo, aHi);
   }

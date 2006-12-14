@@ -29,10 +29,12 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.util.StringTokenizer;
+import java.util.prefs.Preferences;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
-import vtk.AxesActor;
-import vtk.vtkAssembly;
+import org.openide.util.NbBundle;
+import org.opensim.utils.TheApp;
 import vtk.vtkCamera;
 import vtk.vtkLightCollection;
 import vtk.vtkPanel;
@@ -51,19 +53,26 @@ public class OpenSimBaseCanvas extends vtkPanel
     JPopupMenu settingsMenu = new JPopupMenu();
     JMenu camerasMenu = new JMenu();
     
-    vtkAssembly     axesActor;
-    boolean axesDisplayed;
-    
     // Enable opoups to display on top of heavy weight component/canvas
     static {
      JPopupMenu.setDefaultLightWeightPopupEnabled(false);
     }
     /** Creates a new instance of OpenSimBaseCanvas */
     public OpenSimBaseCanvas() {
-         GetRenderer().SetBackground(0.15, 0.15, 0.15); 
+         String defaultBackgroundColor="0.15, 0.15, 0.15";
+         defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundPref", defaultBackgroundColor);
+         double[] background = parseColor(defaultBackgroundColor);
+         GetRenderer().SetBackground(background);
          createSettingsMenu();
          addKeyListener(this);
-         axesActor = null;
+         // AntiAliasing
+         String desiredAAFrames = NbBundle.getMessage(OpenSimBaseCanvas.class,"CTL_AAFrames");
+         if (desiredAAFrames != null){
+             int numAAFrames = Integer.parseInt(desiredAAFrames);
+             if (numAAFrames >=0 && numAAFrames <=10)
+                 GetRenderWindow().SetAAFrames(numAAFrames);
+         }
+
     }
     public void mousePressed(MouseEvent e)
    {
@@ -78,36 +87,25 @@ public class OpenSimBaseCanvas extends vtkPanel
   public void createSettingsMenu()
   {
       settingsMenu = new JPopupMenu();
-      settingsMenu.add(new ModifyWindowSettingsAction(this));
-      settingsMenu.add(new CamerasMenu(this));
-      settingsMenu.add(new ToggleAxesAction(this));
+      /** This should work and is more netBeans like style, but somehow fails to find Actions
+       * possibly because of layer file issues
+        try {
+            
+            Action act = (ModifyWindowSettingsAction) ModifyWindowSettingsAction.findObject(
+                              Class.forName("org.opensim.view.base.ModifyWindowSettingsAction"));
+            settingsMenu.add(act);
+            settingsMenu.add((ToggleAxesAction) ToggleAxesAction.findObject(
+                            Class.forName("org.opensim.view.base.ToggleAxesAction")));
+       } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+       **/
+      settingsMenu.add(new ModifyWindowSettingsAction());
+      settingsMenu.add(new ToggleAxesAction());
+      /*settingsMenu.add(*/new CamerasMenu(this);//);   // Already enough ways to do this better than crowding menus
   }
 
-    boolean getAxesDisplayed() {
-        return (axesDisplayed);
-    }
-
-    void displayAxes(boolean toDisplay) {
-        if (toDisplay){
-            axesActor = new AxesActor();
-            //vtkMapper axesMapper = new vtkMapper();
-            //axesActor.SetMapper(axesMapper);
-            GetRenderer().AddViewProp(axesActor);
-            setAxesDisplayed(true);
-            Render();
-        }
-        else {
-            this.GetRenderer().RemoveActor(axesActor);
-            setAxesDisplayed(false);
-            Render();
-        }
-    }
-
-    void setAxesDisplayed(boolean b) {
-        axesDisplayed = b;
-    }
-  
-    public JPopupMenu getMenu()
+  public JPopupMenu getMenu()
     {
         return settingsMenu;
     }
@@ -155,4 +153,16 @@ public class OpenSimBaseCanvas extends vtkPanel
         //GetRenderer().Render();
         repaint();
       }
+
+    private double[] parseColor(String defaultBackgroundColor) {
+        double[] color = new double[3];
+        int i=0;
+        StringTokenizer tokenizer = new StringTokenizer(defaultBackgroundColor, " \t\n\r\f,");
+        while (tokenizer.hasMoreTokens() && i<3){
+            String nextToken = tokenizer.nextToken();
+            color[i] = Double.parseDouble(nextToken);
+            i++;
+        }
+        return color;
+    }
 }

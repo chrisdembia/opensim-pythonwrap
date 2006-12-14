@@ -25,7 +25,9 @@
  */
 package org.opensim.view.nodes;
 
-import org.opensim.modeling.SimmModel;
+import java.util.ResourceBundle;
+import org.openide.util.NbBundle;
+import org.opensim.modeling.ActuatorSet;
 
 /**
  *
@@ -35,9 +37,10 @@ import org.opensim.modeling.SimmModel;
  */
 public class MusclesNode extends OpenSimNode {
     
+    private static ResourceBundle bundle = NbBundle.getBundle(MusclesNode.class);
     /** Creates a new instance of MusclesNode */
-    public MusclesNode(SimmModel m) {
-        super(new MuscleChildren(m));
-        setDisplayName("Muscles");
+    public MusclesNode(ActuatorSet as) {
+        super(new MuscleChildren(as));
+        setDisplayName(NbBundle.getMessage(MusclesNode.class, "CTL_Actuators"));
     }    
 }

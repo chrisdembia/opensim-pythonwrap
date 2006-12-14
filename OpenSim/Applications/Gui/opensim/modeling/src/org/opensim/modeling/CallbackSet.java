@@ -33,17 +33,17 @@ public class CallbackSet extends SetCallback {
     super.delete();
   }
 
-  public CallbackSet(Model aModel) {
-    this(opensimModelJNI.new_CallbackSet__SWIG_0(Model.getCPtr(aModel)), true);
+  public CallbackSet(AbstractModel aModel) {
+    this(opensimModelJNI.new_CallbackSet__SWIG_0(AbstractModel.getCPtr(aModel)), true);
   }
 
   public CallbackSet() {
     this(opensimModelJNI.new_CallbackSet__SWIG_1(), true);
   }
 
-  public Model getModel() {
+  public AbstractModel getModel() {
     long cPtr = opensimModelJNI.CallbackSet_getModel(swigCPtr);
-    return (cPtr == 0) ? null : new Model(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
   }
 
   public void setOn(boolean aTrueFalse) {

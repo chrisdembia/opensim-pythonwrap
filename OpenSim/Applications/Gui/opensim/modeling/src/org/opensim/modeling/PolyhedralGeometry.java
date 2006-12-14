@@ -41,8 +41,4 @@ public class PolyhedralGeometry extends Geometry {
     return opensimModelJNI.PolyhedralGeometry_getGeometryFilename(swigCPtr);
   }
 
-  public boolean isAnalytic() {
-    return opensimModelJNI.PolyhedralGeometry_isAnalytic(swigCPtr);
-  }
-
 }

@@ -1,9 +1,11 @@
 package org.opensim.tracking;
 
+import java.io.IOException;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.SimmMarkerData;
-import org.opensim.modeling.SimmMarkerPlacementParams;
+import org.opensim.modeling.SimmMarkerPlacer;
 import org.opensim.utils.FileUtils;
+import org.opensim.utils.TheApp;
 
 public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     
@@ -360,32 +362,40 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                browseForFilename(".trc", "Static trial file");
        if (staticTrialFilename != null) {
             jStaticTrialTextField.setText(staticTrialFilename);
-       } 
+       }
        // Get times from file and populate GUI
        SimmMarkerData trcData = new SimmMarkerData(staticTrialFilename);
        jStaticFromTextField.setText(String.valueOf(trcData.getStartFrameTime()));
        jStaticToTextField.setText(String.valueOf(trcData.getLastFrameTime()));
-
+        
     }//GEN-LAST:event_jBrowse4TrcButtonActionPerformed
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
-        SimmMarkerPlacementParams params = aDescriptor.getSubject().getMarkerPlacementParams();
-        jStaticTrialTextField.setText(params.getStaticPoseFilename());  //trc file of static trial
-        jStaticTrialTextField.setToolTipText(params.getPropertySet().get("marker_trial").getComment());
-        jCoordinatesFileTextField.setToolTipText(params.getPropertySet().get("SimmCoordinateSet").getComment());
-        jMarkersFileTextField.setToolTipText(params.getPropertySet().get("SimmMarkerSet").getComment());
+        SimmMarkerPlacer params = aDescriptor.getSubject().getMarkerPlacer();
+        jStaticTrialTextField.setText(params.getStaticPoseFilename());
+         try {
+            jStaticTrialTextField.setToolTipText(params.getPropertySet().get("marker_file").getComment());
+           jCoordinatesFileTextField.setToolTipText(params.getPropertySet().get("CoordinateSet").getComment());
+           jMarkersFileTextField.setToolTipText(params.getPropertySet().get("MarkerSet").getComment());
         jOutputJntTextField.setToolTipText(params.getPropertySet().get("output_joint_file").getComment());
         jOsimFilenameTextField.setToolTipText(params.getPropertySet().get("output_model_file").getComment());
         jOutputMarkersFileNameTextField.setToolTipText(params.getPropertySet().get("output_marker_file").getComment());
         jOutputMotionTextField.setToolTipText(params.getPropertySet().get("output_motion_file").getComment());
+         } catch (IOException ex) {
+            TheApp.exitApp("Internal Error:Property does not exist in SimmMarkerPlacer"+ex.getCause());
+         }
         ArrayDouble timeRange = params.getTimeRange();
         if (timeRange.getSize()==2){
             jStaticFromTextField.setText(String.valueOf(timeRange.getitem(0)));  // from time in trc
             jStaticToTextField.setText(String.valueOf(timeRange.getitem(1)));  // to time in trc
         }
         if (!params.getCoordinateFileName().equalsIgnoreCase("Unassigned")){
-            jCoordinatesFileTextField.setText(params.getCoordinateFileName());  // Coordinate file to init Single frame IK
-            jCoordinatesFileTextField.setToolTipText(params.getPropertySet().get("coordinate_trial").getComment());
+            jCoordinatesFileTextField.setText(params.getCoordinateFileName());
+            try {
+               jCoordinatesFileTextField.setToolTipText(params.getPropertySet().get("coordinate_file").getComment());
+            } catch (IOException ex) {
+             TheApp.exitApp("Internal Error:Property coordinate_file does not exist in SimmMarkerPlacer");
+        }
         }
         jMarkersFileTextField.setText("");      // Extra markers
 
@@ -437,7 +447,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     }
 
     void updateWorkflow(WorkflowDescriptor descriptor) {
-        SimmMarkerPlacementParams params = descriptor.getSubject().getMarkerPlacementParams();
+        SimmMarkerPlacer params = descriptor.getSubject().getMarkerPlacer();
         params.setStaticPoseFilename(jStaticTrialTextField.getText());
         ArrayDouble timeRange = new ArrayDouble(2);
         timeRange.setitem(0, Double.parseDouble(jStaticFromTextField.getText()));
@@ -491,7 +501,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
        boolean canProceed =  true;
         setGuiCanAdvance(canProceed);
     }
-
+    
     
 }
 

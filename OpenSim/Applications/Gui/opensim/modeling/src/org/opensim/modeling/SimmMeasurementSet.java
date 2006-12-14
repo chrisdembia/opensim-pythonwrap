@@ -41,8 +41,4 @@ public class SimmMeasurementSet extends SetSimmMeasurements {
     this(opensimModelJNI.new_SimmMeasurementSet__SWIG_1(SimmMeasurementSet.getCPtr(aSimmMeasurementSet)), true);
   }
 
-  public SimmMeasurementSet(String aFilename) {
-    this(opensimModelJNI.new_SimmMeasurementSet__SWIG_2(aFilename), true);
-  }
-
 }

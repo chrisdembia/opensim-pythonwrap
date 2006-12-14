@@ -13,7 +13,7 @@ import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.ViewDB;
@@ -23,6 +23,7 @@ public final class ScalingToolAction extends CallableSystemAction {
     CallableSystemAction executeStepAction;
     public void performAction() {
         // TODO implement action body
+       /*
         final WizardDescriptor.Iterator iterator = new ScalingToolWizardIterator();
         WorkflowDescriptor  descriptor = new WorkflowDescriptor();
         
@@ -33,7 +34,8 @@ public final class ScalingToolAction extends CallableSystemAction {
              DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("No model is currently open. Please file a bug with OpenSim"));
              return;
          }
-        SimmModel genericModel = modelWindow.getModel();
+        
+        AbstractModel genericModel = modelWindow.getModel();
         descriptor.setGenericModel(genericModel);
         SimmSubject subject = descriptor.getSubject();
         String modelPath = genericModel.getInputFileName();
@@ -72,7 +74,7 @@ public final class ScalingToolAction extends CallableSystemAction {
         boolean cancelled = wizardDescriptor.getValue() != WizardDescriptor.FINISH_OPTION;
         if (!cancelled) {
             // do something
-        }
+        }*/
     }
     
     public String getName() {

@@ -41,8 +41,7 @@ import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.opensim.modeling.Investigation;
-import org.opensim.modeling.Model;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.ViewDB;
@@ -53,7 +52,7 @@ import org.opensim.view.ViewDB;
  *
  * Base class for all Tracking Workflow panels 
  */
-abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
+public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
     
      public WorkflowDescriptor descriptor;
      private boolean canProceed=true; // Can proceed to next based on context only.
@@ -106,7 +105,6 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
             it.next().stateChanged(ev);
         }
     }
-    abstract public void updateAvailability();
 
     /**
      * runDynamicInvestigation does all the leg work of setting up the GUI, callback to run
@@ -114,15 +112,15 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
      */
     protected void runDynamicInvestigation(final Investigation dInvestigation, final Boolean isDeterministic) {
  
-        final Model model = dInvestigation.getModel();
-        SimmModel visModel=null;     // model used for visualization only
+        final AbstractModel model = dInvestigation.getModel();
+        AbstractModel visModel=null;     // model used for visualization only
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Run Investigation "+dInvestigation.getName());
         final double investigationDuration = (dInvestigation.getFinalTime() - dInvestigation.getStartTime());
         final double startTime = dInvestigation.getStartTime();
         final SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(model);
         
         dInvestigation.getModel().addIntegCallback(animationCallback);  
-        
+        /*Restructure
         // show model in new window if possible
          final ModelWindowVTKTopComponent modelWindow = ViewDB.getCurrentModelWindow();
          if (modelWindow==null){
@@ -132,40 +130,39 @@ abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
          else {
              animationCallback.extractOffsets(modelWindow.getModel());
          }
-         
+         */
         progressHandle.start();
         if (isDeterministic)
             progressHandle.switchToDeterminate(100);
         
         int delay = UPDATE_FREQUENCY; //milliseconds
-        ActionListener taskPerformer = new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          //...Perform a task...
-                if (modelWindow!=null){
+            ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+              //...Perform a task...
+/*Restructure                if (modelWindow!=null){
                         modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, false);
                         modelWindow.getCanvas().repaint();
-                }
-            }
-        };
-
-        Timer timer = new Timer(delay, taskPerformer);
+                }*/
+            }};
+            
+            Timer timer = new Timer(delay, taskPerformer);
         timer.start();
-        try {
-            dInvestigation.run();
-        } catch (IOException ex) {
+        //try {
+        dInvestigation.run();
+        /*} catch (IOException ex) {
              DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("The following error has been reported. Please fix and retry.\n "+ex.getMessage()));
-
+        
             ex.printStackTrace();
-        }
+        }*/
         
         timer.stop();
 
         if (isDeterministic)
             progressHandle.progress(100);
         progressHandle.finish();
-        dInvestigation.getModel().removeIntegCallback(animationCallback);
+//Restructure            dInvestigation.getModel().removeIntegCallback(animationCallback);
         ((JComponent) getComponent()).putClientProperty("Step_executed", Boolean.TRUE);
         System.gc();
     }
-
+    
 }

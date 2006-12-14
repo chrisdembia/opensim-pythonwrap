@@ -62,6 +62,14 @@ public class Transform {
     opensimModelJNI.Transform_setPosition(swigCPtr, pos);
   }
 
+  public void getOrientation(SWIGTYPE_p_a_3__double rOrientation) {
+    opensimModelJNI.Transform_getOrientation(swigCPtr, SWIGTYPE_p_a_3__double.getCPtr(rOrientation));
+  }
+
+  public void setOrientation(SWIGTYPE_p_a_3__double aOrientation) {
+    opensimModelJNI.Transform_setOrientation(swigCPtr, SWIGTYPE_p_a_3__double.getCPtr(aOrientation));
+  }
+
   public void setIdentity() {
     opensimModelJNI.Transform_setIdentity(swigCPtr);
   }
@@ -111,7 +119,11 @@ public class Transform {
   }
 
   public void transformVector(double[] vec) {
-    opensimModelJNI.Transform_transformVector(swigCPtr, vec);
+    opensimModelJNI.Transform_transformVector__SWIG_0(swigCPtr, vec);
+  }
+
+  public void transformVector(ArrayDouble vec) {
+    opensimModelJNI.Transform_transformVector__SWIG_1(swigCPtr, ArrayDouble.getCPtr(vec));
   }
 
   public SWIGTYPE_p_double getMatrix() {

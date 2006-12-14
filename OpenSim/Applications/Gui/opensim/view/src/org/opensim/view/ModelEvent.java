@@ -10,7 +10,7 @@
 package org.opensim.view;
 
 import java.util.EventObject;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractModel;
 
 /**
  *
@@ -18,20 +18,20 @@ import org.opensim.modeling.SimmModel;
  */
 public class ModelEvent extends EventObject {
     
-    public enum Operation{Open, Close, Save, UpdateDisplay, ObjectOperation};
+    public enum Operation{Open, Close, Save, ObjectOperation, SetCurrent};
     
     Operation op= Operation.Open;
     /**
      * Creates a new instance of ModelEvent
      */
-    public ModelEvent(SimmModel source, Operation op) {
+    public ModelEvent(AbstractModel source, Operation op) {
         super(source);
         this.op = op;
     }
     
-    public SimmModel getModel()
+    public AbstractModel getModel()
     {
-        return (SimmModel) source;
+        return (AbstractModel) source;
     }
     
     public ModelEvent.Operation getOperation()

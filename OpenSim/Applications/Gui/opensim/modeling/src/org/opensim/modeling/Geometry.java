@@ -37,4 +37,69 @@ public class Geometry {
     this(opensimModelJNI.new_Geometry(), true);
   }
 
+  public Geometry.GeometryType getShape() {
+    return Geometry.GeometryType.swigToEnum(opensimModelJNI.Geometry_getShape(swigCPtr));
+  }
+
+  public boolean isAnalytic() {
+    return opensimModelJNI.Geometry_isAnalytic(swigCPtr);
+  }
+
+  public void setFixed(boolean aFixed) {
+    opensimModelJNI.Geometry_setFixed(swigCPtr, aFixed);
+  }
+
+  public boolean getFixed() {
+    return opensimModelJNI.Geometry_getFixed(swigCPtr);
+  }
+
+  public final static class GeometryType {
+    public final static GeometryType None = new GeometryType("None");
+    public final static GeometryType Sphere = new GeometryType("Sphere");
+    public final static GeometryType Cylinder = new GeometryType("Cylinder");
+    public final static GeometryType Cone = new GeometryType("Cone");
+    public final static GeometryType Ellipsoid = new GeometryType("Ellipsoid");
+    public final static GeometryType Line = new GeometryType("Line");
+    public final static GeometryType Arrow = new GeometryType("Arrow");
+
+    public final int swigValue() {
+      return swigValue;
+    }
+
+    public String toString() {
+      return swigName;
+    }
+
+    public static GeometryType swigToEnum(int swigValue) {
+      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
+        return swigValues[swigValue];
+      for (int i = 0; i < swigValues.length; i++)
+        if (swigValues[i].swigValue == swigValue)
+          return swigValues[i];
+      throw new IllegalArgumentException("No enum " + GeometryType.class + " with value " + swigValue);
+    }
+
+    private GeometryType(String swigName) {
+      this.swigName = swigName;
+      this.swigValue = swigNext++;
+    }
+
+    private GeometryType(String swigName, int swigValue) {
+      this.swigName = swigName;
+      this.swigValue = swigValue;
+      swigNext = swigValue+1;
+    }
+
+    private GeometryType(String swigName, GeometryType swigEnum) {
+      this.swigName = swigName;
+      this.swigValue = swigEnum.swigValue;
+      swigNext = this.swigValue+1;
+    }
+
+    private static GeometryType[] swigValues = { None, Sphere, Cylinder, Cone, Ellipsoid, Line, Arrow };
+    private static int swigNext = 0;
+    private final int swigValue;
+    private final String swigName;
+  }
+
 }

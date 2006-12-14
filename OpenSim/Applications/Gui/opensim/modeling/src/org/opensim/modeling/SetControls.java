@@ -130,6 +130,10 @@ public class SetControls extends OpenSimObject {
     return opensimModelJNI.SetControls_remove__SWIG_1(swigCPtr, Control.getCPtr(aObject));
   }
 
+  public void clearAndDestroy() {
+    opensimModelJNI.SetControls_clearAndDestroy(swigCPtr);
+  }
+
   public boolean set(int aIndex, Control aObject) {
     return opensimModelJNI.SetControls_set(swigCPtr, aIndex, Control.getCPtr(aObject));
   }
@@ -142,6 +146,10 @@ public class SetControls extends OpenSimObject {
   public Control get(String aName) {
     long cPtr = opensimModelJNI.SetControls_get__SWIG_1(swigCPtr, aName);
     return (cPtr == 0) ? null : new Control(cPtr, false);
+  }
+
+  public void getNames(ArrayStr rNames) {
+    opensimModelJNI.SetControls_getNames(swigCPtr, ArrayStr.getCPtr(rNames));
   }
 
   public Control getLast() {

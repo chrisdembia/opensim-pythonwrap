@@ -63,20 +63,21 @@ public class SimmMuscleViaPoint extends SimmMusclePoint {
     return new ArrayDouble(opensimModelJNI.SimmMuscleViaPoint_getRange(swigCPtr), false);
   }
 
-  public SWIGTYPE_p_std__string getCoordinateName() {
-    return new SWIGTYPE_p_std__string(opensimModelJNI.SimmMuscleViaPoint_getCoordinateName(swigCPtr), false);
+  public AbstractCoordinate getCoordinate() {
+    long cPtr = opensimModelJNI.SimmMuscleViaPoint_getCoordinate(swigCPtr);
+    return (cPtr == 0) ? null : new AbstractCoordinate(cPtr, false);
   }
 
-  public void writeSIMM(SWIGTYPE_p_std__ofstream out) {
-    opensimModelJNI.SimmMuscleViaPoint_writeSIMM(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out));
+  public SWIGTYPE_p_std__string getCoordinateName() {
+    return new SWIGTYPE_p_std__string(opensimModelJNI.SimmMuscleViaPoint_getCoordinateName(swigCPtr), false);
   }
 
   public boolean isActive() {
     return opensimModelJNI.SimmMuscleViaPoint_isActive(swigCPtr);
   }
 
-  public void setup(SimmModel model, SimmKinematicsEngine ke) {
-    opensimModelJNI.SimmMuscleViaPoint_setup(swigCPtr, SimmModel.getCPtr(model), SimmKinematicsEngine.getCPtr(ke));
+  public void setup(AbstractModel aModel, SWIGTYPE_p_OpenSim__AbstractSimmMuscle aMuscle) {
+    opensimModelJNI.SimmMuscleViaPoint_setup(swigCPtr, AbstractModel.getCPtr(aModel), SWIGTYPE_p_OpenSim__AbstractSimmMuscle.getCPtr(aMuscle));
   }
 
   public void peteTest() {

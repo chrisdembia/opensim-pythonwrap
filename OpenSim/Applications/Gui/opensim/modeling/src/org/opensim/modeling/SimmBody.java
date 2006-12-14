@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class SimmBody extends OpenSimObject {
+public class SimmBody extends AbstractBody {
   private long swigCPtr;
 
   public SimmBody(long cPtr, boolean cMemoryOwn) {
@@ -59,50 +59,36 @@ public class SimmBody extends OpenSimObject {
     opensimModelJNI.SimmBody_copyData(swigCPtr, SimmBody.getCPtr(aBody));
   }
 
-  public void setup(SimmKinematicsEngine aEngine) {
-    opensimModelJNI.SimmBody_setup(swigCPtr, SimmKinematicsEngine.getCPtr(aEngine));
+  public void setup(AbstractDynamicsEngine aEngine) {
+    opensimModelJNI.SimmBody_setup(swigCPtr, AbstractDynamicsEngine.getCPtr(aEngine));
   }
 
   public double getMass() {
     return opensimModelJNI.SimmBody_getMass(swigCPtr);
   }
 
-  public void getMassCenter(double[] vec) {
-    opensimModelJNI.SimmBody_getMassCenter(swigCPtr, vec);
+  public boolean setMass(double aMass) {
+    return opensimModelJNI.SimmBody_setMass(swigCPtr, aMass);
   }
 
-  public ArrayDouble getInertia() {
-    return new ArrayDouble(opensimModelJNI.SimmBody_getInertia(swigCPtr), false);
+  public void getMassCenter(double[] rVec) {
+    opensimModelJNI.SimmBody_getMassCenter(swigCPtr, rVec);
   }
 
-  public VisibleObject getDisplayer() {
-    long cPtr = opensimModelJNI.SimmBody_getDisplayer(swigCPtr);
-    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  public boolean setMassCenter(double[] aVec) {
+    return opensimModelJNI.SimmBody_setMassCenter(swigCPtr, aVec);
   }
 
-  public int getNumMarkers() {
-    return opensimModelJNI.SimmBody_getNumMarkers(swigCPtr);
+  public void getInertia(SWIGTYPE_p_a_3__double rInertia) {
+    opensimModelJNI.SimmBody_getInertia(swigCPtr, SWIGTYPE_p_a_3__double.getCPtr(rInertia));
   }
 
-  public SimmMarker getMarker(int index) {
-    long cPtr = opensimModelJNI.SimmBody_getMarker(swigCPtr, index);
-    return (cPtr == 0) ? null : new SimmMarker(cPtr, false);
+  public boolean setInertia(ArrayDouble aInertia) {
+    return opensimModelJNI.SimmBody_setInertia(swigCPtr, ArrayDouble.getCPtr(aInertia));
   }
 
-  public int deleteAllMarkers() {
-    return opensimModelJNI.SimmBody_deleteAllMarkers(swigCPtr);
-  }
-
-  public void deleteMarker(SimmMarker aMarker) {
-    opensimModelJNI.SimmBody_deleteMarker(swigCPtr, SimmMarker.getCPtr(aMarker));
-  }
-
-  public int deleteUnusedMarkers(ArrayStr aMarkerNames) {
-    return opensimModelJNI.SimmBody_deleteUnusedMarkers(swigCPtr, ArrayStr.getCPtr(aMarkerNames));
-  }
-
-  public void scale(ArrayDouble aScaleFactors, boolean aPreserveMassDist) {
-    opensimModelJNI.SimmBody_scale__SWIG_0(swigCPtr, ArrayDouble.getCPtr(aScaleFactors), aPreserveMassDist);
+  public void scale(ArrayDouble aScaleFactors, boolean aScaleMass) {
+    opensimModelJNI.SimmBody_scale__SWIG_0(swigCPtr, ArrayDouble.getCPtr(aScaleFactors), aScaleMass);
   }
 
   public void scale(ArrayDouble aScaleFactors) {
@@ -113,24 +99,17 @@ public class SimmBody extends OpenSimObject {
     opensimModelJNI.SimmBody_scaleInertialProperties(swigCPtr, ArrayDouble.getCPtr(aScaleFactors));
   }
 
-  public void addMarker(SimmMarker aMarker) {
-    opensimModelJNI.SimmBody_addMarker(swigCPtr, SimmMarker.getCPtr(aMarker));
-  }
-
-  public void writeSIMM(SWIGTYPE_p_std__ofstream out) {
-    opensimModelJNI.SimmBody_writeSIMM(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out));
-  }
-
-  public void writeMarkers(SWIGTYPE_p_std__ofstream out) {
-    opensimModelJNI.SimmBody_writeMarkers(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out));
-  }
-
-  public void peteTest() {
-    opensimModelJNI.SimmBody_peteTest(swigCPtr);
+  public VisibleObject getDisplayer() {
+    long cPtr = opensimModelJNI.SimmBody_getDisplayer(swigCPtr);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
   public void getScaleFactors(ArrayDouble aScaleFactors) {
     opensimModelJNI.SimmBody_getScaleFactors(swigCPtr, ArrayDouble.getCPtr(aScaleFactors));
+  }
+
+  public void peteTest() {
+    opensimModelJNI.SimmBody_peteTest(swigCPtr);
   }
 
 }

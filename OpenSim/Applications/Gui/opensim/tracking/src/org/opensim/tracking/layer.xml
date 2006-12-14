@@ -4,13 +4,13 @@
     <folder name="Actions">
         <folder name="Edit">
             <file name="org-opensim-tracking-ExecuteWorkflowStepAction.instance"/>
-            <file name="org-opensim-tracking-ScalingToolAction.instance"/>
             <file name="org-opensim-tracking-TrackingWorkflowAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.tracking.TrackingWorkflowAction"/>
             </file>
-            </folder>
+                <file name="org-opensim-tracking-tools-ToolsScaleAction.instance"/>
+                <file name="org-opensim-tracking-tools-ToolsIKWizardAction.instance"/>                
+        </folder>
         <folder name="Tools">
-            <file name="org-opensim-toolbox-RRAction.instance"/>
             <file name="org-opensim-tracking-InvestigationAction.instance"/>
             <file name="org-opensim-tracking-TrackingWorkflowAction.shadow" url="org-opensim-tracking-TrackingWorkflowAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
@@ -20,45 +20,58 @@
     <folder name="Menu">
         <folder name="File"/>
         <folder name="Tools">
-            <attr name="org-opensim-tracking-CMCTrackAction.instance/org-opensim-tracking-InverseKinematicsAction.instance" boolvalue="false"/>
             <attr name="org-netbeans-modules-autoupdate-UpdateAction.instance/org-opensim-tracking-TrackingWorkflowAction.shadow" boolvalue="false"/>
-            <attr name="org-opensim-tracking-ScalingToolAction.instance/org-opensim-tracking-InverseKinematicsAction.instance" boolvalue="false"/>
-            <attr name="org-opensim-tracking-InverseKinematicsAction.instance/org-opensim-tracking-ReduceResidualsAction.instance" boolvalue="false"/>
-            <attr name="org-opensim-tracking-ReduceResidualsAction.instance/org-opensim-tracking-TrackingWorkflowAction.instance" boolvalue="false"/>
-            <attr name="org-opensim-tracking-InverseKinematicsAction.instance/org-opensim-tracking-CMCTrackAction.instance" boolvalue="true"/>
-            <attr name="org-opensim-tracking-CMCTrackAction.instance/org-opensim-tracking-ReduceResidualsAction.instance" boolvalue="false"/>
-            <attr name="org-opensim-tracking-ReduceResidualsAction.instance/org-opensim-tracking-CMCTrackAction.instance" boolvalue="false"/>
-            <attr name="org-opensim-tracking-CMCTrackAction.instance/org-opensim-tracking-TrackingWorkflowAction.instance" boolvalue="true"/>
-            <attr name="org-opensim-tracking-CMCTrackAction.instance/Separator3.instance" boolvalue="true"/>
             <attr name="org-opensim-tracking-TrackingWorkflowAction.instance/Separator3.instance" boolvalue="false"/>
             <attr name="org-opensim-tracking-TrackingWorkflowAction.instance/org-opensim-tracking-TrackingWorkflowAction.shadow" boolvalue="true"/>
             <attr name="org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance/org-netbeans-modules-autoupdate-UpdateAction.instance" boolvalue="false"/>
             <attr name="org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance/org-opensim-tracking-TrackingWorkflowAction.shadow" boolvalue="false"/>
             <attr name="Separator3.instance/org-opensim-tracking-TrackingWorkflowAction.shadow" boolvalue="true"/>
             <attr name="Separator2.instance/org-netbeans-core-actions-ConfigureShortcutsAction.instance" boolvalue="false"/>
-            <attr name="org-opensim-tracking-ReduceResidualsAction.instance/org-opensim-rd-RdReduceResidualsAction.instance" boolvalue="false"/>
-            <attr name="org-opensim-rd-RdReduceResidualsAction.instance/org-opensim-tracking-CMCTrackAction.instance" boolvalue="true"/>
             <attr name="org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance/org-opensim-toolbox-separatorBefore.instance" boolvalue="true"/>
+            <file name="org-opensim-plot-PlotAction.shadow_hidden"/>
             <file name="org-opensim-toolbox-separatorBefore.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
             <attr name="org-opensim-toolbox-separatorBefore.instance/org-opensim-toolbox-RRAction.shadow" boolvalue="true"/>
             <attr name="Separator3.instance/org-opensim-tracking-InvestigationAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-tracking-TrackingWorkflowAction.instance/org-opensim-tracking-ScalingToolAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-tracking-TrackingWorkflowAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
+            </file>
+            <attr name="org-opensim-tracking-TrackingWorkflowAction.shadow/org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance" boolvalue="false"/>
+            <attr name="org-opensim-tracking-TrackingWorkflowAction.shadow/Separator2.instance" boolvalue="true"/>
+            <attr name="Separator3.instance/org-opensim-tracking-tools-separatorBefore.instance" boolvalue="true"/>
+            <file name="org-opensim-tracking-tools-separatorBefore.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+            <attr name="org-opensim-tracking-tools-separatorBefore.instance/org-opensim-tracking-tools-ScaleAction.shadow" boolvalue="false"/>
+            <file name="org-opensim-tracking-tools-ScaleAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-tools-ToolsScaleAction.instance"/>
+            </file>
+            <attr name="org-opensim-tracking-tools-ToolsIKWizardAction.shadow/org-opensim-tracking-tools-separatorAfter.instance" boolvalue="true"/>
+            <attr name="org-opensim-toolbox-separatorBefore.instance/org-opensim-tracking-tools-ScaleAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-tracking-tools-ScaleAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-tools-ToolsScaleAction.instance"/>
+            </file>
+            <attr name="org-opensim-tracking-tools-ScaleAction.shadow/org-opensim-tracking-tools-ToolsIKWizardAction.instance" boolvalue="true"/>
+            <file name="org-opensim-tracking-tools-ToolsIKWizardAction.instance" url="org-opensim-tracking-tools-ToolsIKWizardAction.instance"/>
+            <attr name="org-opensim-tracking-tools-ToolsIKWizardAction.instance/org-opensim-tracking-tools-separatorAfter.instance" boolvalue="true"/>
+            <file name="org-opensim-tracking-tools-separatorAfter.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+            <attr name="org-opensim-tracking-tools-separatorAfter.instance/org-opensim-tracking-InvestigationAction.shadow" boolvalue="false"/>
             <file name="org-opensim-tracking-InvestigationAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Tools/org-opensim-tracking-InvestigationAction.instance"/>
             </file>
             <attr name="org-opensim-tracking-InvestigationAction.shadow/org-opensim-tracking-TrackingWorkflowAction.instance" boolvalue="true"/>
-            <attr name="org-opensim-tracking-TrackingWorkflowAction.instance/org-opensim-tracking-ScalingToolAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-tracking-ScalingToolAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-ScalingToolAction.instance"/>
-            </file>
-            <attr name="org-opensim-tracking-ScalingToolAction.shadow/org-opensim-tracking-TrackingWorkflowAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-tracking-TrackingWorkflowAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
-            </file>
-            <attr name="org-opensim-tracking-TrackingWorkflowAction.shadow/org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance" boolvalue="true"/>
-            <attr name="org-opensim-tracking-TrackingWorkflowAction.shadow/Separator2.instance" boolvalue="true"/>
-            <file name="org-openide-actions-ToolsAction.instance_hidden"/>
+            <attr name="org-opensim-tracking-InvestigationAction.shadow/org-opensim-tracking-tools-separatorBefore.instance" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-ToolsIKWizardAction.instance/org-opensim-tracking-InvestigationAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-tracking-InvestigationAction.shadow/org-opensim-tracking-tools-separatorAfter.instance" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-separatorAfter.instance/org-opensim-tracking-tools-separatorBefore.instance" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-separatorAfter.instance/org-opensim-tracking-TrackingWorkflowAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-tracking-TrackingWorkflowAction.shadow/org-opensim-tracking-tools-separatorBefore.instance" boolvalue="true"/>
+            <attr name="Separator3.instance/org-opensim-toolbox-separatorBefore.instance" boolvalue="true"/>
+            <attr name="Separator3.instance/org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance" boolvalue="false"/>
         </folder>
         </folder>
     <folder name="Services">

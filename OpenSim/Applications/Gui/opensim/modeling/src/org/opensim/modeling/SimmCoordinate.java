@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class SimmCoordinate extends Coordinate {
+public class SimmCoordinate extends AbstractCoordinate {
   private long swigCPtr;
 
   public SimmCoordinate(long cPtr, boolean cMemoryOwn) {
@@ -59,52 +59,32 @@ public class SimmCoordinate extends Coordinate {
     opensimModelJNI.SimmCoordinate_copyData(swigCPtr, SimmCoordinate.getCPtr(aCoordinate));
   }
 
-  public void addJointToList(SimmJoint aJoint) {
-    opensimModelJNI.SimmCoordinate_addJointToList(swigCPtr, SimmJoint.getCPtr(aJoint));
+  public void setup(AbstractDynamicsEngine aEngine) {
+    opensimModelJNI.SimmCoordinate_setup(swigCPtr, AbstractDynamicsEngine.getCPtr(aEngine));
   }
 
-  public void addPathToList(SimmPath aPath) {
-    opensimModelJNI.SimmCoordinate_addPathToList(swigCPtr, SimmPath.getCPtr(aPath));
-  }
-
-  public void setup(SimmKinematicsEngine aEngine) {
-    opensimModelJNI.SimmCoordinate_setup(swigCPtr, SimmKinematicsEngine.getCPtr(aEngine));
-  }
-
-  public boolean setValue(double value) {
-    return opensimModelJNI.SimmCoordinate_setValue__SWIG_0(swigCPtr, value);
-  }
-
-  public boolean setValue(SWIGTYPE_p_std__string aValueStr) {
-    return opensimModelJNI.SimmCoordinate_setValue__SWIG_1(swigCPtr, SWIGTYPE_p_std__string.getCPtr(aValueStr));
+  public void updateFromCoordinate(AbstractCoordinate aCoordinate) {
+    opensimModelJNI.SimmCoordinate_updateFromCoordinate(swigCPtr, AbstractCoordinate.getCPtr(aCoordinate));
   }
 
   public double getValue() {
     return opensimModelJNI.SimmCoordinate_getValue(swigCPtr);
   }
 
-  public String getValueStr() {
-    return opensimModelJNI.SimmCoordinate_getValueStr(swigCPtr);
+  public boolean setValue(double aValue) {
+    return opensimModelJNI.SimmCoordinate_setValue(swigCPtr, aValue);
   }
 
-  public double getTolerance() {
-    return opensimModelJNI.SimmCoordinate_getTolerance(swigCPtr);
+  public boolean getValueUseDefault() {
+    return opensimModelJNI.SimmCoordinate_getValueUseDefault(swigCPtr);
   }
 
-  public double getDefaultValue() {
-    return opensimModelJNI.SimmCoordinate_getDefaultValue(swigCPtr);
+  public void getRange(double[] rRange) {
+    opensimModelJNI.SimmCoordinate_getRange(swigCPtr, rRange);
   }
 
-  public double getPDStiffness() {
-    return opensimModelJNI.SimmCoordinate_getPDStiffness(swigCPtr);
-  }
-
-  public double getIKweight() {
-    return opensimModelJNI.SimmCoordinate_getIKweight(swigCPtr);
-  }
-
-  public void getRange(double[] range) {
-    opensimModelJNI.SimmCoordinate_getRange(swigCPtr, range);
+  public boolean setRange(double[] aRange) {
+    return opensimModelJNI.SimmCoordinate_setRange(swigCPtr, aRange);
   }
 
   public double getRangeMin() {
@@ -115,32 +95,100 @@ public class SimmCoordinate extends Coordinate {
     return opensimModelJNI.SimmCoordinate_getRangeMax(swigCPtr);
   }
 
-  public void getKeys(SWIGTYPE_p_std__string keys) {
-    opensimModelJNI.SimmCoordinate_getKeys(swigCPtr, SWIGTYPE_p_std__string.getCPtr(keys));
+  public boolean setRangeMin(double aMin) {
+    return opensimModelJNI.SimmCoordinate_setRangeMin(swigCPtr, aMin);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayTOpenSim__SimmJoint_p_t getJointList() {
-    return new SWIGTYPE_p_OpenSim__ArrayTOpenSim__SimmJoint_p_t(opensimModelJNI.SimmCoordinate_getJointList(swigCPtr), false);
+  public boolean setRangeMax(double aMax) {
+    return opensimModelJNI.SimmCoordinate_setRangeMax(swigCPtr, aMax);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayTOpenSim__SimmPath_p_t getPathList() {
-    return new SWIGTYPE_p_OpenSim__ArrayTOpenSim__SimmPath_p_t(opensimModelJNI.SimmCoordinate_getPathList(swigCPtr), false);
+  public boolean getRangeUseDefault() {
+    return opensimModelJNI.SimmCoordinate_getRangeUseDefault(swigCPtr);
+  }
+
+  public double getTolerance() {
+    return opensimModelJNI.SimmCoordinate_getTolerance(swigCPtr);
+  }
+
+  public boolean setTolerance(double aTolerance) {
+    return opensimModelJNI.SimmCoordinate_setTolerance(swigCPtr, aTolerance);
+  }
+
+  public boolean getToleranceUseDefault() {
+    return opensimModelJNI.SimmCoordinate_getToleranceUseDefault(swigCPtr);
+  }
+
+  public double getWeight() {
+    return opensimModelJNI.SimmCoordinate_getWeight(swigCPtr);
+  }
+
+  public boolean setWeight(double aWeight) {
+    return opensimModelJNI.SimmCoordinate_setWeight(swigCPtr, aWeight);
+  }
+
+  public boolean getWeightUseDefault() {
+    return opensimModelJNI.SimmCoordinate_getWeightUseDefault(swigCPtr);
+  }
+
+  public double getStiffness() {
+    return opensimModelJNI.SimmCoordinate_getStiffness(swigCPtr);
+  }
+
+  public boolean setStiffness(double aStiffness) {
+    return opensimModelJNI.SimmCoordinate_setStiffness(swigCPtr, aStiffness);
+  }
+
+  public boolean getStiffnessUseDefault() {
+    return opensimModelJNI.SimmCoordinate_getStiffnessUseDefault(swigCPtr);
+  }
+
+  public double getDefaultValue() {
+    return opensimModelJNI.SimmCoordinate_getDefaultValue(swigCPtr);
+  }
+
+  public boolean setDefaultValue(double aDefaultValue) {
+    return opensimModelJNI.SimmCoordinate_setDefaultValue(swigCPtr, aDefaultValue);
+  }
+
+  public boolean getDefaultValueUseDefault() {
+    return opensimModelJNI.SimmCoordinate_getDefaultValueUseDefault(swigCPtr);
+  }
+
+  public boolean getClamped() {
+    return opensimModelJNI.SimmCoordinate_getClamped(swigCPtr);
+  }
+
+  public boolean setClamped(boolean aClamped) {
+    return opensimModelJNI.SimmCoordinate_setClamped(swigCPtr, aClamped);
+  }
+
+  public boolean getClampedUseDefault() {
+    return opensimModelJNI.SimmCoordinate_getClampedUseDefault(swigCPtr);
+  }
+
+  public boolean getLocked() {
+    return opensimModelJNI.SimmCoordinate_getLocked(swigCPtr);
+  }
+
+  public boolean setLocked(boolean aLocked) {
+    return opensimModelJNI.SimmCoordinate_setLocked(swigCPtr, aLocked);
+  }
+
+  public boolean getLockedUseDefault() {
+    return opensimModelJNI.SimmCoordinate_getLockedUseDefault(swigCPtr);
+  }
+
+  public void addJointToList(AbstractJoint aJoint) {
+    opensimModelJNI.SimmCoordinate_addJointToList(swigCPtr, AbstractJoint.getCPtr(aJoint));
+  }
+
+  public void addPathToList(SWIGTYPE_p_OpenSim__SimmPath aPath) {
+    opensimModelJNI.SimmCoordinate_addPathToList(swigCPtr, SWIGTYPE_p_OpenSim__SimmPath.getCPtr(aPath));
   }
 
   public boolean isUsedInModel() {
     return opensimModelJNI.SimmCoordinate_isUsedInModel(swigCPtr);
-  }
-
-  public boolean isClamped() {
-    return opensimModelJNI.SimmCoordinate_isClamped(swigCPtr);
-  }
-
-  public boolean isLocked() {
-    return opensimModelJNI.SimmCoordinate_isLocked(swigCPtr);
-  }
-
-  public void setLocked(boolean aState) {
-    opensimModelJNI.SimmCoordinate_setLocked(swigCPtr, aState);
   }
 
   public boolean isRestraintActive() {
@@ -162,20 +210,32 @@ public class SimmCoordinate extends Coordinate {
     return (cPtr == 0) ? null : new Function(cPtr, false);
   }
 
-  public void updateFromCoordinate(SimmCoordinate aCoordinate) {
-    opensimModelJNI.SimmCoordinate_updateFromCoordinate(swigCPtr, SimmCoordinate.getCPtr(aCoordinate));
+  public AbstractDof.DofType getMotionType() {
+    return AbstractDof.DofType.swigToEnum(opensimModelJNI.SimmCoordinate_getMotionType(swigCPtr));
   }
 
-  public void writeSIMM(SWIGTYPE_p_std__ofstream out, SWIGTYPE_p_int aFunctionIndex) {
-    opensimModelJNI.SimmCoordinate_writeSIMM(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out), SWIGTYPE_p_int.getCPtr(aFunctionIndex));
+  public void getKeys(SWIGTYPE_p_std__string rKeys) {
+    opensimModelJNI.SimmCoordinate_getKeys__SWIG_0(swigCPtr, SWIGTYPE_p_std__string.getCPtr(rKeys));
+  }
+
+  public ArrayStr getKeys() {
+    return new ArrayStr(opensimModelJNI.SimmCoordinate_getKeys__SWIG_1(swigCPtr), false);
+  }
+
+  public SWIGTYPE_p_OpenSim__ArrayTOpenSim__AbstractJoint_p_t getJointList() {
+    return new SWIGTYPE_p_OpenSim__ArrayTOpenSim__AbstractJoint_p_t(opensimModelJNI.SimmCoordinate_getJointList(swigCPtr), false);
+  }
+
+  public SWIGTYPE_p_OpenSim__ArrayTOpenSim__SimmPath_p_t getPathList() {
+    return new SWIGTYPE_p_OpenSim__ArrayTOpenSim__SimmPath_p_t(opensimModelJNI.SimmCoordinate_getPathList(swigCPtr), false);
+  }
+
+  public void determineType() {
+    opensimModelJNI.SimmCoordinate_determineType(swigCPtr);
   }
 
   public void peteTest() {
     opensimModelJNI.SimmCoordinate_peteTest(swigCPtr);
-  }
-
-  public void setRestraintFunction(Function aFunction) {
-    opensimModelJNI.SimmCoordinate_setRestraintFunction(swigCPtr, Function.getCPtr(aFunction));
   }
 
 }

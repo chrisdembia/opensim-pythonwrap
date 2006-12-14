@@ -25,7 +25,9 @@
  */
 package org.opensim.view.nodes;
 
-import org.opensim.modeling.SimmModel;
+import java.util.ResourceBundle;
+import org.openide.util.NbBundle;
+import org.opensim.modeling.AbstractModel;
 
 /**
  *
@@ -35,8 +37,11 @@ import org.opensim.modeling.SimmModel;
  */
 public class JointsNode extends OpenSimNode {
     
+    AbstractModel   m;
+    private static ResourceBundle bundle = NbBundle.getBundle(JointsNode.class);
+    
     /** Creates a new instance of JointsNode */
-    public JointsNode(SimmModel m) {
+    public JointsNode(AbstractModel m) {
         super(new JointsChildren(m));
         setDisplayName("Joints");
     }    

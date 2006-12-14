@@ -29,6 +29,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ModelWindowVTKTopComponent;
+import org.opensim.view.OpenSimCanvas;
 
 /**
  *

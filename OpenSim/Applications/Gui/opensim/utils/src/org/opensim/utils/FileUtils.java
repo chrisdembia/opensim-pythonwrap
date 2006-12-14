@@ -163,7 +163,7 @@ public final class FileUtils {
         dlog.setFileFilter(FileUtils.getFileFilter(extensions, description));
         
         String outFilename=null;
-        JFrame topFrame = (JFrame) WindowManager.getDefault().getMainWindow();
+        JFrame topFrame = TheApp.getAppFrame();
         if (dlog.showOpenDialog(topFrame) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
              outFilename= dlog.getSelectedFile().getAbsolutePath();
              Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());

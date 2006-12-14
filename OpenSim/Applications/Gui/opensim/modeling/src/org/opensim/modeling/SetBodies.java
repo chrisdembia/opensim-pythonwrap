@@ -94,12 +94,12 @@ public class SetBodies extends OpenSimObject {
     return opensimModelJNI.SetBodies_getSize(swigCPtr);
   }
 
-  public int getIndex(Body aObject, int aStartIndex) {
-    return opensimModelJNI.SetBodies_getIndex__SWIG_0(swigCPtr, Body.getCPtr(aObject), aStartIndex);
+  public int getIndex(AbstractBody aObject, int aStartIndex) {
+    return opensimModelJNI.SetBodies_getIndex__SWIG_0(swigCPtr, AbstractBody.getCPtr(aObject), aStartIndex);
   }
 
-  public int getIndex(Body aObject) {
-    return opensimModelJNI.SetBodies_getIndex__SWIG_1(swigCPtr, Body.getCPtr(aObject));
+  public int getIndex(AbstractBody aObject) {
+    return opensimModelJNI.SetBodies_getIndex__SWIG_1(swigCPtr, AbstractBody.getCPtr(aObject));
   }
 
   public int getIndex(String aName, int aStartIndex) {
@@ -110,59 +110,67 @@ public class SetBodies extends OpenSimObject {
     return opensimModelJNI.SetBodies_getIndex__SWIG_3(swigCPtr, aName);
   }
 
-  public boolean append(Body aObject) {
-    return opensimModelJNI.SetBodies_append__SWIG_0(swigCPtr, Body.getCPtr(aObject));
+  public boolean append(AbstractBody aObject) {
+    return opensimModelJNI.SetBodies_append__SWIG_0(swigCPtr, AbstractBody.getCPtr(aObject));
   }
 
-  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Body_t aArray) {
-    return opensimModelJNI.SetBodies_append__SWIG_1(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Body_t.getCPtr(aArray));
+  public boolean append(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractBody_t aArray) {
+    return opensimModelJNI.SetBodies_append__SWIG_1(swigCPtr, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractBody_t.getCPtr(aArray));
   }
 
-  public boolean insert(int aIndex, Body aObject) {
-    return opensimModelJNI.SetBodies_insert(swigCPtr, aIndex, Body.getCPtr(aObject));
+  public boolean insert(int aIndex, AbstractBody aObject) {
+    return opensimModelJNI.SetBodies_insert(swigCPtr, aIndex, AbstractBody.getCPtr(aObject));
   }
 
   public boolean remove(int aIndex) {
     return opensimModelJNI.SetBodies_remove__SWIG_0(swigCPtr, aIndex);
   }
 
-  public boolean remove(Body aObject) {
-    return opensimModelJNI.SetBodies_remove__SWIG_1(swigCPtr, Body.getCPtr(aObject));
+  public boolean remove(AbstractBody aObject) {
+    return opensimModelJNI.SetBodies_remove__SWIG_1(swigCPtr, AbstractBody.getCPtr(aObject));
   }
 
-  public boolean set(int aIndex, Body aObject) {
-    return opensimModelJNI.SetBodies_set(swigCPtr, aIndex, Body.getCPtr(aObject));
+  public void clearAndDestroy() {
+    opensimModelJNI.SetBodies_clearAndDestroy(swigCPtr);
   }
 
-  public Body get(int aIndex) {
+  public boolean set(int aIndex, AbstractBody aObject) {
+    return opensimModelJNI.SetBodies_set(swigCPtr, aIndex, AbstractBody.getCPtr(aObject));
+  }
+
+  public AbstractBody get(int aIndex) {
     long cPtr = opensimModelJNI.SetBodies_get__SWIG_0(swigCPtr, aIndex);
-    return (cPtr == 0) ? null : new Body(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
-  public Body get(String aName) {
+  public AbstractBody get(String aName) {
     long cPtr = opensimModelJNI.SetBodies_get__SWIG_1(swigCPtr, aName);
-    return (cPtr == 0) ? null : new Body(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
-  public Body getLast() {
+  public void getNames(ArrayStr rNames) {
+    opensimModelJNI.SetBodies_getNames(swigCPtr, ArrayStr.getCPtr(rNames));
+  }
+
+  public AbstractBody getLast() {
     long cPtr = opensimModelJNI.SetBodies_getLast(swigCPtr);
-    return (cPtr == 0) ? null : new Body(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
-  public int searchBinary(Body aObject, boolean aFindFirst, int aLo, int aHi) {
-    return opensimModelJNI.SetBodies_searchBinary__SWIG_0(swigCPtr, Body.getCPtr(aObject), aFindFirst, aLo, aHi);
+  public int searchBinary(AbstractBody aObject, boolean aFindFirst, int aLo, int aHi) {
+    return opensimModelJNI.SetBodies_searchBinary__SWIG_0(swigCPtr, AbstractBody.getCPtr(aObject), aFindFirst, aLo, aHi);
   }
 
-  public int searchBinary(Body aObject, boolean aFindFirst, int aLo) {
-    return opensimModelJNI.SetBodies_searchBinary__SWIG_1(swigCPtr, Body.getCPtr(aObject), aFindFirst, aLo);
+  public int searchBinary(AbstractBody aObject, boolean aFindFirst, int aLo) {
+    return opensimModelJNI.SetBodies_searchBinary__SWIG_1(swigCPtr, AbstractBody.getCPtr(aObject), aFindFirst, aLo);
   }
 
-  public int searchBinary(Body aObject, boolean aFindFirst) {
-    return opensimModelJNI.SetBodies_searchBinary__SWIG_2(swigCPtr, Body.getCPtr(aObject), aFindFirst);
+  public int searchBinary(AbstractBody aObject, boolean aFindFirst) {
+    return opensimModelJNI.SetBodies_searchBinary__SWIG_2(swigCPtr, AbstractBody.getCPtr(aObject), aFindFirst);
   }
 
-  public int searchBinary(Body aObject) {
-    return opensimModelJNI.SetBodies_searchBinary__SWIG_3(swigCPtr, Body.getCPtr(aObject));
+  public int searchBinary(AbstractBody aObject) {
+    return opensimModelJNI.SetBodies_searchBinary__SWIG_3(swigCPtr, AbstractBody.getCPtr(aObject));
   }
 
 }

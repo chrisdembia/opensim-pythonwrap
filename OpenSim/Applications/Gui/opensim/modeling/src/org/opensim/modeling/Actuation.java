@@ -33,8 +33,8 @@ public class Actuation extends Analysis {
     super.delete();
   }
 
-  public Actuation(Model aModel) {
-    this(opensimModelJNI.new_Actuation__SWIG_0(Model.getCPtr(aModel)), true);
+  public Actuation(AbstractModel aModel) {
+    this(opensimModelJNI.new_Actuation__SWIG_0(AbstractModel.getCPtr(aModel)), true);
   }
 
   public Actuation() {
@@ -82,8 +82,8 @@ public class Actuation extends Analysis {
     return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
-  public void setModel(Model aModel) {
-    opensimModelJNI.Actuation_setModel(swigCPtr, Model.getCPtr(aModel));
+  public void setModel(AbstractModel aModel) {
+    opensimModelJNI.Actuation_setModel(swigCPtr, AbstractModel.getCPtr(aModel));
   }
 
   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_void aClientData) {

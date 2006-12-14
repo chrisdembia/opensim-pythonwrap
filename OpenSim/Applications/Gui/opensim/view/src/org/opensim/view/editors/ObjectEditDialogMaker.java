@@ -29,9 +29,9 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
-import org.openide.awt.UndoRedo;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ModelWindowVTKTopComponent;
+import org.opensim.view.ViewDB;
 
 /**
  *
@@ -51,7 +51,9 @@ public class ObjectEditDialogMaker {
         JPanel topDialogPanel = new JPanel();
         topDialogPanel.setLayout(new BorderLayout());
         topDialogPanel.add(propertiesEditorPanel, BorderLayout.SOUTH);
-        if (object.getDisplayer()!=null){   // This should be made more general to account for other editing
+        // @todo Check that the object is visible first to avoid crashing downstream
+        if (object.getDisplayer()!=null &&
+                ViewDB.getInstance().getActorForObject(object)!=null){   // This should be made more general to account for other editing
             typeSpecificEditorPanel = new VisibilityEditorPanel(object, owner);
             topDialogPanel.add(typeSpecificEditorPanel, BorderLayout.NORTH);
         }
@@ -61,6 +63,8 @@ public class ObjectEditDialogMaker {
     }
     /**
      * Just review, no edit
+     *
+     * @todo handle the case of null owner (if no ModelWindowVTKTopComponent is open)
      */
     public ObjectEditDialogMaker(OpenSimObject object, ModelWindowVTKTopComponent owner) {
         this(object, owner, false);

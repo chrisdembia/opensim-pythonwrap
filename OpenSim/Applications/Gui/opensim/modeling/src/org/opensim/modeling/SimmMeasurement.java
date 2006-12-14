@@ -71,24 +71,12 @@ public class SimmMeasurement extends OpenSimObject {
     return opensimModelJNI.SimmMeasurement_getApply(swigCPtr);
   }
 
-  public void setApply(boolean aApply) {
-    opensimModelJNI.SimmMeasurement_setApply(swigCPtr, aApply);
-  }
-
   public void applyScaleFactor(double aFactor, ScaleSet aScaleSet) {
     opensimModelJNI.SimmMeasurement_applyScaleFactor(swigCPtr, aFactor, ScaleSet.getCPtr(aScaleSet));
   }
 
   public static void registerTypes() {
     opensimModelJNI.SimmMeasurement_registerTypes();
-  }
-
-  public void addMarkerPair(SWIGTYPE_p_SimmMarkerPair aMarkerPair) {
-    opensimModelJNI.SimmMeasurement_addMarkerPair(swigCPtr, SWIGTYPE_p_SimmMarkerPair.getCPtr(aMarkerPair));
-  }
-
-  public void addBodyScale(SWIGTYPE_p_BodyScale aBodyScale) {
-    opensimModelJNI.SimmMeasurement_addBodyScale(swigCPtr, SWIGTYPE_p_BodyScale.getCPtr(aBodyScale));
   }
 
   public void peteTest() {

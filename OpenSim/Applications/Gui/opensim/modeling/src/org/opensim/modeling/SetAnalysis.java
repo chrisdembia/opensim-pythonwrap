@@ -130,6 +130,10 @@ public class SetAnalysis extends OpenSimObject {
     return opensimModelJNI.SetAnalysis_remove__SWIG_1(swigCPtr, Analysis.getCPtr(aObject));
   }
 
+  public void clearAndDestroy() {
+    opensimModelJNI.SetAnalysis_clearAndDestroy(swigCPtr);
+  }
+
   public boolean set(int aIndex, Analysis aObject) {
     return opensimModelJNI.SetAnalysis_set(swigCPtr, aIndex, Analysis.getCPtr(aObject));
   }
@@ -142,6 +146,10 @@ public class SetAnalysis extends OpenSimObject {
   public Analysis get(String aName) {
     long cPtr = opensimModelJNI.SetAnalysis_get__SWIG_1(swigCPtr, aName);
     return (cPtr == 0) ? null : new Analysis(cPtr, false);
+  }
+
+  public void getNames(ArrayStr rNames) {
+    opensimModelJNI.SetAnalysis_getNames(swigCPtr, ArrayStr.getCPtr(rNames));
   }
 
   public Analysis getLast() {

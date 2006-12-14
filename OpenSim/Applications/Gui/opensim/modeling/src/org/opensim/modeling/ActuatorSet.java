@@ -41,29 +41,54 @@ public class ActuatorSet extends SetActuators {
     this(opensimModelJNI.new_ActuatorSet__SWIG_1(aFileName), true);
   }
 
-  public void setModel(Model aModel) {
-    opensimModelJNI.ActuatorSet_setModel(swigCPtr, Model.getCPtr(aModel));
+  public ActuatorSet(ActuatorSet aActuatorSet) {
+    this(opensimModelJNI.new_ActuatorSet__SWIG_2(ActuatorSet.getCPtr(aActuatorSet)), true);
   }
 
-  public Model getModel() {
+  public OpenSimObject copy() {
+    long cPtr = opensimModelJNI.ActuatorSet_copy(swigCPtr);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void copyData(ActuatorSet aAbsActuatorSet) {
+    opensimModelJNI.ActuatorSet_copyData(swigCPtr, ActuatorSet.getCPtr(aAbsActuatorSet));
+  }
+
+  public void setup(AbstractModel aModel) {
+    opensimModelJNI.ActuatorSet_setup(swigCPtr, AbstractModel.getCPtr(aModel));
+  }
+
+  public void setModel(AbstractModel aModel) {
+    opensimModelJNI.ActuatorSet_setModel(swigCPtr, AbstractModel.getCPtr(aModel));
+  }
+
+  public AbstractModel getModel() {
     long cPtr = opensimModelJNI.ActuatorSet_getModel(swigCPtr);
-    return (cPtr == 0) ? null : new Model(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
   }
 
   public boolean remove(int aIndex) {
     return opensimModelJNI.ActuatorSet_remove(swigCPtr, aIndex);
   }
 
-  public boolean append(Actuator aActuator) {
-    return opensimModelJNI.ActuatorSet_append(swigCPtr, Actuator.getCPtr(aActuator));
+  public boolean append(AbstractActuator aActuator) {
+    return opensimModelJNI.ActuatorSet_append__SWIG_0(swigCPtr, AbstractActuator.getCPtr(aActuator));
   }
 
-  public boolean set(int aIndex, Actuator aActuator) {
-    return opensimModelJNI.ActuatorSet_set(swigCPtr, aIndex, Actuator.getCPtr(aActuator));
+  public boolean append(ActuatorSet aActuatorSet, boolean aAllowDuplicateNames) {
+    return opensimModelJNI.ActuatorSet_append__SWIG_1(swigCPtr, ActuatorSet.getCPtr(aActuatorSet), aAllowDuplicateNames);
   }
 
-  public int getNX() {
-    return opensimModelJNI.ActuatorSet_getNX(swigCPtr);
+  public boolean append(ActuatorSet aActuatorSet) {
+    return opensimModelJNI.ActuatorSet_append__SWIG_2(swigCPtr, ActuatorSet.getCPtr(aActuatorSet));
+  }
+
+  public boolean set(int aIndex, AbstractActuator aActuator) {
+    return opensimModelJNI.ActuatorSet_set(swigCPtr, aIndex, AbstractActuator.getCPtr(aActuator));
+  }
+
+  public int getNumControls() {
+    return opensimModelJNI.ActuatorSet_getNumControls(swigCPtr);
   }
 
   public int mapActuatorToControl(int aActuatorIndex) {
@@ -71,7 +96,12 @@ public class ActuatorSet extends SetActuators {
   }
 
   public int mapControlToActuator(int aControlIndex) {
-    return opensimModelJNI.ActuatorSet_mapControlToActuator(swigCPtr, aControlIndex);
+    return opensimModelJNI.ActuatorSet_mapControlToActuator__SWIG_0(swigCPtr, aControlIndex);
+  }
+
+  public AbstractActuator mapControlToActuator(int aControlIndex, SWIGTYPE_p_int rLocalIndex) {
+    long cPtr = opensimModelJNI.ActuatorSet_mapControlToActuator__SWIG_1(swigCPtr, aControlIndex, SWIGTYPE_p_int.getCPtr(rLocalIndex));
+    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
   }
 
   public int getControlIndex(String aName) {
@@ -106,8 +136,8 @@ public class ActuatorSet extends SetActuators {
     opensimModelJNI.ActuatorSet_getControls(swigCPtr, rX);
   }
 
-  public int getNY() {
-    return opensimModelJNI.ActuatorSet_getNY(swigCPtr);
+  public int getNumStates() {
+    return opensimModelJNI.ActuatorSet_getNumStates(swigCPtr);
   }
 
   public int mapActuatorToState(int aActuatorIndex) {
@@ -115,7 +145,12 @@ public class ActuatorSet extends SetActuators {
   }
 
   public int mapStateToActuator(int aStateIndex) {
-    return opensimModelJNI.ActuatorSet_mapStateToActuator(swigCPtr, aStateIndex);
+    return opensimModelJNI.ActuatorSet_mapStateToActuator__SWIG_0(swigCPtr, aStateIndex);
+  }
+
+  public AbstractActuator mapStateToActuator(int aStateIndex, SWIGTYPE_p_int rLocalIndex) {
+    long cPtr = opensimModelJNI.ActuatorSet_mapStateToActuator__SWIG_1(swigCPtr, aStateIndex, SWIGTYPE_p_int.getCPtr(rLocalIndex));
+    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
   }
 
   public int getStateIndex(String aName) {
@@ -124,6 +159,10 @@ public class ActuatorSet extends SetActuators {
 
   public String getStateName(int aIndex) {
     return opensimModelJNI.ActuatorSet_getStateName(swigCPtr, aIndex);
+  }
+
+  public void getStateNames(ArrayStr rNames) {
+    opensimModelJNI.ActuatorSet_getStateNames(swigCPtr, ArrayStr.getCPtr(rNames));
   }
 
   public void setState(int aIndex, double aValue) {
@@ -150,8 +189,8 @@ public class ActuatorSet extends SetActuators {
     opensimModelJNI.ActuatorSet_getStates(swigCPtr, rY);
   }
 
-  public int getNYP() {
-    return opensimModelJNI.ActuatorSet_getNYP(swigCPtr);
+  public int getNumPseudoStates() {
+    return opensimModelJNI.ActuatorSet_getNumPseudoStates(swigCPtr);
   }
 
   public int mapActuatorToPseudoState(int aActuatorIndex) {
@@ -159,7 +198,12 @@ public class ActuatorSet extends SetActuators {
   }
 
   public int mapPseudoStateToActuator(int aPseudoStateIndex) {
-    return opensimModelJNI.ActuatorSet_mapPseudoStateToActuator(swigCPtr, aPseudoStateIndex);
+    return opensimModelJNI.ActuatorSet_mapPseudoStateToActuator__SWIG_0(swigCPtr, aPseudoStateIndex);
+  }
+
+  public AbstractActuator mapPseudoStateToActuator(int aPseudoStateIndex, SWIGTYPE_p_int rLocalIndex) {
+    long cPtr = opensimModelJNI.ActuatorSet_mapPseudoStateToActuator__SWIG_1(swigCPtr, aPseudoStateIndex, SWIGTYPE_p_int.getCPtr(rLocalIndex));
+    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
   }
 
   public int getPseudoStateIndex(String aName) {

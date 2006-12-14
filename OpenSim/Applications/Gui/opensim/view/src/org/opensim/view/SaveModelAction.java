@@ -9,7 +9,7 @@ import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
 import org.openide.util.Utilities;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.SimmModel;
+import org.opensim.modeling.AbstractModel;
 
 public final class SaveModelAction extends CallableSystemAction {
     
@@ -18,12 +18,14 @@ public final class SaveModelAction extends CallableSystemAction {
     public void performAction() {
         // TODO implement action body
         // Get current active top component
-        active = ViewDB.getInstance().getCurrentModelWindow();
+        active = ViewDB.getInstance().getCurrenWindow();
         if (active != null){
-            SimmModel mdl = active.getModel();
+            /*
+            AbstractModel mdl = active.getModel();
             StatusDisplayer.getDefault().setStatusText("Saving model "+mdl.getName()+"to file.");
             mdl.print(mdl.getInputFileName());
             StatusDisplayer.getDefault().setStatusText("");
+             **/
         }
     }
     
@@ -36,7 +38,7 @@ public final class SaveModelAction extends CallableSystemAction {
         // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
         putValue("noIconInMenu", Boolean.TRUE);
         setEnabled(false);
-        ViewDB.registerModelCommand(this);
+        ViewDB.getInstance().registerModelCommand(this);
         
     }
     
@@ -47,5 +49,9 @@ public final class SaveModelAction extends CallableSystemAction {
     protected boolean asynchronous() {
         return false;
     }
+
+   public boolean isEnabled() {
+      return ViewDB.getInstance().getCurrentModel()!=null;
+   }
     
 }

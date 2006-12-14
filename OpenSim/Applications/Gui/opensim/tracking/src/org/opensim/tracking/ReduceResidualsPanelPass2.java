@@ -1,13 +1,13 @@
 package org.opensim.tracking;
 
-import com.realisticDynamics.InvestigationRRA;
+import org.opensim.modeling.InvestigationCMCGait;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
-import org.opensim.modeling.Model;
+import org.opensim.modeling.AbstractModel;
 
 public class ReduceResidualsPanelPass2  extends workflowWizardPanelBase{
     
@@ -76,7 +76,7 @@ public class ReduceResidualsPanelPass2  extends workflowWizardPanelBase{
     boolean executeStep() {
         
        component.updateWorkflow(descriptor);
-        final InvestigationRRA rra = new InvestigationRRA(descriptor.getSetupRRA_pass2Filename());
+        final InvestigationCMCGait rra = new InvestigationCMCGait(descriptor.getSetupRRA_pass2Filename());
         runDynamicInvestigation(rra,false);
         return true;
     }

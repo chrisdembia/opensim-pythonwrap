@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class SimmJoint extends OpenSimObject {
+public class SimmJoint extends AbstractJoint {
   private long swigCPtr;
 
   public SimmJoint(long cPtr, boolean cMemoryOwn) {
@@ -55,34 +55,27 @@ public class SimmJoint extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setup(SimmKinematicsEngine aEngine) {
-    opensimModelJNI.SimmJoint_setup(swigCPtr, SimmKinematicsEngine.getCPtr(aEngine));
+  public void setup(AbstractDynamicsEngine aEngine) {
+    opensimModelJNI.SimmJoint_setup(swigCPtr, AbstractDynamicsEngine.getCPtr(aEngine));
   }
 
   public void copyData(SimmJoint aJoint) {
     opensimModelJNI.SimmJoint_copyData(swigCPtr, SimmJoint.getCPtr(aJoint));
   }
 
-  public void invalidate() {
-    opensimModelJNI.SimmJoint_invalidate(swigCPtr);
+  public SWIGTYPE_p_OpenSim__DofSet getDofSet() {
+    long cPtr = opensimModelJNI.SimmJoint_getDofSet(swigCPtr);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__DofSet(cPtr, false);
   }
 
-  public ArrayStr getBodyNames() {
-    return new ArrayStr(opensimModelJNI.SimmJoint_getBodyNames(swigCPtr), false);
-  }
-
-  public SWIGTYPE_p_SimmDofSet getDofSet() {
-    return new SWIGTYPE_p_SimmDofSet(opensimModelJNI.SimmJoint_getDofSet(swigCPtr), false);
-  }
-
-  public SimmBody getChildBody() {
+  public AbstractBody getChildBody() {
     long cPtr = opensimModelJNI.SimmJoint_getChildBody(swigCPtr);
-    return (cPtr == 0) ? null : new SimmBody(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
-  public SimmBody getParentBody() {
+  public AbstractBody getParentBody() {
     long cPtr = opensimModelJNI.SimmJoint_getParentBody(swigCPtr);
-    return (cPtr == 0) ? null : new SimmBody(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
   public Transform getForwardTransform() {
@@ -93,24 +86,16 @@ public class SimmJoint extends OpenSimObject {
     return new Transform(opensimModelJNI.SimmJoint_getInverseTransform(swigCPtr), false);
   }
 
-  public boolean isCoordinateUsed(SimmCoordinate aCoordinate) {
-    return opensimModelJNI.SimmJoint_isCoordinateUsed(swigCPtr, SimmCoordinate.getCPtr(aCoordinate));
+  public boolean isCoordinateUsed(AbstractCoordinate aCoordinate) {
+    return opensimModelJNI.SimmJoint_isCoordinateUsed(swigCPtr, AbstractCoordinate.getCPtr(aCoordinate));
   }
 
-  public void identifyDpType(SimmModel aModel) {
-    opensimModelJNI.SimmJoint_identifyDpType(swigCPtr, SimmModel.getCPtr(aModel));
-  }
-
-  public void makeSdfastJoint(SWIGTYPE_p_std__ofstream out, SWIGTYPE_p_OpenSim__ArrayPtrsTSimmSdfastBody_t sdfastBodies, SWIGTYPE_p_int dofCount, SWIGTYPE_p_int constrainedCount, boolean writeFile) {
-    opensimModelJNI.SimmJoint_makeSdfastJoint(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out), SWIGTYPE_p_OpenSim__ArrayPtrsTSimmSdfastBody_t.getCPtr(sdfastBodies), SWIGTYPE_p_int.getCPtr(dofCount), SWIGTYPE_p_int.getCPtr(constrainedCount), writeFile);
+  public boolean hasXYZAxes() {
+    return opensimModelJNI.SimmJoint_hasXYZAxes(swigCPtr);
   }
 
   public void scale(ScaleSet aScaleSet) {
     opensimModelJNI.SimmJoint_scale(swigCPtr, ScaleSet.getCPtr(aScaleSet));
-  }
-
-  public void writeSIMM(SWIGTYPE_p_std__ofstream out, SWIGTYPE_p_int aFunctionIndex) {
-    opensimModelJNI.SimmJoint_writeSIMM(swigCPtr, SWIGTYPE_p_std__ofstream.getCPtr(out), SWIGTYPE_p_int.getCPtr(aFunctionIndex));
   }
 
   public void peteTest() {

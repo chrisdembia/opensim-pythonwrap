@@ -61,12 +61,12 @@ public class rdOptimizationTarget {
     return opensimModelJNI.rdOptimizationTarget_computeConstraintGradient(swigCPtr, SWIGTYPE_p_double.getCPtr(x), i, SWIGTYPE_p_double.getCPtr(dcdx));
   }
 
-  public void setNX(int aNX) {
-    opensimModelJNI.rdOptimizationTarget_setNX(swigCPtr, aNX);
+  public void setNumControls(int aNX) {
+    opensimModelJNI.rdOptimizationTarget_setNumControls(swigCPtr, aNX);
   }
 
-  public int getNX() {
-    return opensimModelJNI.rdOptimizationTarget_getNX(swigCPtr);
+  public int getNumControls() {
+    return opensimModelJNI.rdOptimizationTarget_getNumControls(swigCPtr);
   }
 
   public void setDX(double aVal) {
@@ -98,8 +98,8 @@ public class rdOptimizationTarget {
     return opensimModelJNI.rdOptimizationTarget_getNEvaluations(swigCPtr);
   }
 
-  public int getNP() {
-    return opensimModelJNI.rdOptimizationTarget_getNP(swigCPtr);
+  public int getNumContacts() {
+    return opensimModelJNI.rdOptimizationTarget_getNumContacts(swigCPtr);
   }
 
   public int getNC() {
