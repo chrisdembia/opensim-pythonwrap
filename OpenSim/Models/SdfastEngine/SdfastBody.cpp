@@ -25,6 +25,7 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
+#include <iostream>
 #include "SdfastBody.h"
 #include "SdfastEngine.h"
 #include <OpenSim/Simulation/SIMM/SimmMacros.h>

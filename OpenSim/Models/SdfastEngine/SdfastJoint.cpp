@@ -25,6 +25,8 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
+#include <iostream>
+#include <math.h>
 #include <OpenSim/Tools/rdMath.h>
 #include <OpenSim/Tools/Mtx.h>
 #include <OpenSim/Tools/Function.h>

@@ -28,7 +28,6 @@
 
 // INCLUDE
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <math.h>
 #include "SdfastEngineDLL.h"
@@ -37,7 +36,6 @@
 #include <OpenSim/Tools/PropertyDbl.h>
 #include <OpenSim/Tools/PropertyDblArray.h>
 #include <OpenSim/Tools/PropertyObj.h>
-#include <OpenSim/Tools/Storage.h>
 #include <OpenSim/Tools/XMLDocument.h>
 #include <OpenSim/Simulation/SIMM/AbstractBody.h>
 #include <OpenSim/Simulation/SDFast/sdfast.h>

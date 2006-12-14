@@ -27,15 +27,10 @@
 
 
 // INCLUDE
-#include <iostream>
 #include <string>
-#include <math.h>
 #include "SdfastEngineDLL.h"
-#include <OpenSim/Tools/PropertyObjArray.h>
 #include <OpenSim/Tools/PropertyStr.h>
 #include <OpenSim/Tools/PropertyStrArray.h>
-#include <OpenSim/Tools/Storage.h>
-#include <OpenSim/Tools/ArrayPtrs.h>
 #include <OpenSim/Tools/Transform.h>
 #include <OpenSim/Tools/XMLDocument.h>
 #include <OpenSim/Tools/ScaleSet.h>
