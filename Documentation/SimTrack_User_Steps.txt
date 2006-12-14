@@ -1,0 +1,331 @@
+STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
+
+1. From EVaRT, we have these files:
+   - SS_walking1.anc (from EVaRT)
+   - SS_walking1_smoothed.trc (post-processed correctly from EVaRT)
+   - Static1.anc (from EVaRT)
+   - Static1_smoothed.trc (post-processed correctly from EVaRT)
+   Correct post-processing includes running Join Cubic on all
+   trajectories, making sure all trajectories have no missing data
+   at the ends of the time interval, smoothing all trajectories as
+   appropriate, and making sure all unnamed markers are deleted.
+   
+   Copy these files to the directory containing Eran's scripts for
+   preprocessing data for SimTrack.  On my computer, that directory
+   is d:\programfiles\erang\matlab.
+
+2. In MATLAB, go to the directory containing Eran's scripts.
+
+3. Create new SS walking trc file with correct coordinate system.
+
+   Run this MATLAB command:
+   transform_trcFile('SS_walking1_smoothed.trc','delaware2_ss_walking1.trc',
+                     delaware_lcs);
+
+4. Create new static trc file with correct coordinate system.
+
+   Run this MATLAB command:
+   transform_trcFile('Static1_smoothed.trc','delaware2_static1.trc',
+                     delaware_lcs);
+
+5. Download unix2dos from http://www.esmerel.com/ewan/tools.html
+   if you don't have it already, and make sure it's in your Path
+   environment variable.  Try running it in DOS on a test file and
+   make sure it doesn't complain saying "No such file or directory"
+   on a file that does exist.  If it does complain, download the program
+   from the web site above, since it's designed specifically for DOS.
+   Some versions of unix2dos will work only in Cygwin or UNIX
+   environments and not in DOS, and won't work properly when MATLAB
+   calls them in Windows.
+
+6. Preprocess the force plate data and create a .mot file containing
+   the relevant data.
+
+   Run this MATLAB command:
+   process_grf('SS_walking1.anc',
+               'delaware2_ss_walking1_newgrfprocessing.mot',
+               'delaware2_ss_walking1.trc');
+
+7. Create a "delaware2" directory to store all setup and data files for
+   Delaware Subject 2, if you haven't already created such a directory.
+
+   In my case, this directory is
+   "d:\programfiles\FCA\SU\Testing\delaware2".
+
+8. Copy the following files to the Delaware Subject 2 setup directory:
+   - SS_walking1.anc
+   - delaware2_ss_walking1.trc
+   - Static1.anc
+   - delaware2_static1.trc
+
+9. Run Eran's program for computing functional joint centers to generate
+   the file "delaware2_scaleSet_fromFunctionalJointCenters.xml" in the
+   Delaware Subject 2 setup directory.
+
+10. In MATLAB, go to the directory containing miscellaneous scripts from
+    Eran.  For me this is "d:\programfiles\erang\matlab\misc".
+
+    Here I also had to copy "write_motionFile.m" from erang\matlab to
+    erang\matlab\misc.  This needs to be fixed!
+
+11. Run the script to create a .mot file with all zeros called
+    "delaware2_zeros.mot".
+
+    Run this MATLAB command:
+    write_static_motion
+
+    And then copy the created file, "delaware3_zeros.mot", to
+    "d:\programfiles\FCA\SU\Testing\delaware2\delaware2_zeros.mot".
+
+12. Make a copy of "delaware2_zeros.mot" in the erang/matlab
+    directory called "delaware2_ss_walking1.mot".
+
+    I had to copy "delaware2_ss_walking1_newgrfprocessing.mot",
+    "delaware2_ss_walking1.mot", and "read_motionFile.m"
+    to erang/matlab/misc.
+
+13. Run the script to add the force plate data columns to the motion file.
+
+    To do this, run this MATLAB command:
+    put_forces_in_mot('delaware2_ss_walking1_newgrfprocessing.mot',
+                      'delaware2_ss_walking1.mot');
+
+    Copy delaware2_ss_walking1.mot and
+    delaware2_ss_walking1_newgrfprocessing.mot
+    to the Delaware Subject 2 setup directory,
+    d:\programfiles\FCA\SU\Testing\delaware2.
+
+14. Open a DOS window and cd to the directory containing the Delaware
+    Subject 2 setup file for scaling.  In my case, I typed "D:" and then
+    "cd \programfiles\FCA\SU\Testing\delaware2".  Make sure this
+    directory has the files needed to do scaling, including:
+
+    - delaware2_CoordinateSet_ForMarkerPlacement.xml
+    - delaware2_scaleSet_fromFunctionalJointCenters.xml
+    - delaware2_setup_scale.xml
+    - delaware2_zeros.mot
+    - delaware2_static1.trc
+    - delaware_measurement_set.xml
+
+    Also, in the parent directory, you need the file
+    "delaware_marker_set.xml".
+
+15. Run scaling on Delaware Subject 2.
+
+    Type this command in the DOS window and press Enter:
+    scale -Setup delaware2_setup_scale.xml
+
+    Be sure the current/working directory is:
+    d:\programfiles\FCA\SU\Testing\delaware2.
+
+    This generates several files, including:
+    - delaware2_scaledOnly.jnt (before markers are moved)
+    - delaware2_scaledOnly.msl
+    - delaware2.jnt (after markers are moved)
+    - delaware2.msl
+    - delaware2.osim
+    - delaware2_scaleSet_applied.xml
+    - delaware2_static_trial.mot
+
+16. View the results of scaling in SIMM.
+
+    In SIMM, open the following files simultaneously:
+    - delaware2.jnt
+    - delaware2.msl
+    - delaware2_static_trial.mot
+
+    Then open the Model Viewer and click "start>" and "solved_motion",
+    which plays one frame of data in which the virtual and actual markers
+    are aligned in the display window.
+
+17. Make sure you have the files needed to run IK, including:
+
+    - delaware2.osim
+    - delaware2_MarkerSet_ForIK.xml
+    - delaware2_CoordinateSet_ForIK.xml
+    - delaware2_ss_walking1.trc
+    - delaware2_ss_walking1.mot
+      (This file should contain zeros for all kinematics and have columns
+       containing all the ground reaction data, since this kinetic data
+       will be put into the output file delaware2_setup_ik.xml which will
+       later be input to RRA.)
+
+18. Run IK on Delaware Subject 2.
+
+    Type this command in the DOS window and press Enter:
+    ik -Setup delaware2_setup_ik.xml
+
+    Be sure the current/working directory is:
+    d:\programfiles\FCA\SU\Testing\delaware2.
+
+    This generates the file "delaware2_ss_walking1_ik.mot".
+    It also generates a file called "ik_setup_check.xml".
+
+19. View the results of IK in SIMM.
+
+    In SIMM, open the following files simultaneously:
+    - delaware2.jnt
+    - delaware2.msl
+    - delaware2_ss_walking1_ik.mot
+
+    Then open the Model Viewer and click "start>" and "UNKNOWN",
+    which plays one frame of data in which the virtual and actual markers
+    are aligned in the display window.
+
+20. Create an SD/FAST model of the subject.
+
+    1. Load joint and muscle files in SIMM
+    2. Save dynamics:
+       - sdfor.c (pipeline code)
+       - params.txt
+       - model.sd
+       (You can close SIMM now if you want.)
+    3. The directory d:/programfiles/FCA/SU/Testing/delaware2 is the "root
+       directory" where I keep this subject's files.  From its subdirectory
+       dynsim/src, copy model.sd to <subject>.sd in the root directory.
+       Also copy sdfor.c and model.h to the root directory.
+       WARNING: <subject> must be a string starting with a letter of the alphabet;
+       if it starts with a number, the Visual Studio code created later will
+       confuse the C++ compiler!
+    4. Copy (scp) <subject>.sd to hill.stanford.edu
+    5. Run SD/FAST on hill.stanford.edu (type "sdfast" and enter <subject>.sd when
+       queried for system description file, and hit enter when it prompts for the
+       dynamics, information, and simplified analysis filenames) to generate:
+       - <subject>_dyn.c
+       - <subject>_sar.c
+       - <subject>_info (text file with gencoords, genspeeds, ...)
+    6. Copy (scp) these three files back to your PC from hill.stanford.edu, into
+       the root directory containing your subject data (where your joint and
+       muscle files usually are).
+    7. Run makeModelProject script in command line (fill in the path of the
+       makeModelProject.pl file as appropriate for your computer):
+       "perl /cygdrive/d/programfiles/OpenSim/OpenSim/Bin/makeModelProject.pl"
+       which generates:
+       - sdufuncs_darryl.c
+       - rdModels wrapper files: <subject>.cpp, <subject>.h
+       - Visual Studio files: <subject>.vcproj, <subject>.sln
+    8. Build subject model libraries: open subject project and build it
+
+21. Fix whitespaces in header of delaware2_ss_walking1_newgrfprocessing.mot by
+    running "unix2dos delaware2_ss_walking1_newgrfprocessing.mot" in a command
+    prompt or Cygwin window while you are in the directory
+    d:\programfiles\FCA\SU\Testing\delaware2.
+
+22. Create XML files:
+
+    - delaware2_ss_walking1_rra_control_constraints_pass1.xml,
+    - delaware2_ss_walking1_rra_control_constraints_pass2.xml, and
+    - delaware2_ss_walking1_cmc_control_constraints.xml
+
+    based on setup files from another subject like delaware3, and put these
+    XML files into the root directory of delaware2.
+
+23. In params.txt in the subject's root directory, make the following changes.
+    I made the following changes to my params.txt file; adapt these changes to
+    your own params.txt file.
+
+    I changed the five lines under "I/O Options" from:
+
+    muscle_file D:\programfiles\FCA\SU\Testing\delaware2\delaware2.msl
+    #bone_path path_to_bone_files
+    output_motion_file results.mot
+    #kinetics_file forces.ktx
+    output_kinetics_file results.ktx
+
+    to:
+
+    muscle_file delaware2.msl
+    #bone_path path_to_bone_files
+    #output_motion_file results.mot
+    kinetics_file delaware2_ss_walking1_ik.mot
+    #output_kinetics_file results.ktx
+
+24. Run "cmcgait -Setup delaware2_setup_rra_pass1.xml" in Visual Studio or in
+    the command line.
+
+    Be sure the current/working directory is:
+    d:\programfiles\FCA\SU\Testing\delaware2.
+
+    See my setup file, delaware2_setup_rra_pass1.xml, for reference on how to
+    setup your own setup file.
+
+25. Run "cmcgait -Setup delaware2_setup_rra_pass2.xml" in Visual Studio or in
+    the command line.
+
+    Be sure the current/working directory is:
+    d:\programfiles\FCA\SU\Testing\delaware2.
+
+    See my setup file, delaware2_setup_rra_pass2.xml, for reference on how to
+    setup your own setup file.
+
+26. Run "cmcgait -Setup delaware2_setup_cmcgait.xml" in Visual Studio or in
+    the command line.
+
+    Be sure the current/working directory is:
+    d:\programfiles\FCA\SU\Testing\delaware2.
+
+    See my setup file, delaware2_setup_cmcgait.xml, for reference on how to
+    setup your own setup file.
+
+27. To view the CMC simulation, in the ResultsCMC subdirectory of your subject's
+    root directory, make a copy of the delaware2_Kinematics_q.sto file called
+    delaware2_Kinematics_q.mot and then open it in SIMM along with delaware2.jnt
+    and delaware2.msl.
+
+28. Copy the Results and ResultsCMC directories from the subject's root
+    directory to d:\programfiles\erang\matlab\misc.
+
+    NOTE: Every time you re-run RRA or CMC, you must put the new Results and
+    ResultsCMC directories (and ResultsForward if you have run that already)
+    into the d:\programfiles\erang\matlab\misc directory.
+
+29. To compare the kinematics of IK with the kinematics of CMC, modify
+    the "prefix" and "prefix2" fields (which are the "trial" and "subject"
+    fields respectively) and then comment out and uncomment just the 2 lines
+    representing the two files you want to compare, and then run the "compare"
+    script in MATLAB.
+
+30. Run the MATLAB script "check_forces" in the directory
+    d:\programfiles\erang\matlab\misc after changing check_forces.m to match
+    the motion and muscle file names for your subject and trial and copying
+    the file delaware2.msl from the subject's root directory into the
+    directory d:\programfiles\erang\matlab\misc and copying read_mslFile.m
+    and find_columns_by_label.m
+    to d:\programfiles\erang\matlab\misc from its parent directory.
+
+31. Run the MATLAB script "check_errors" in the directory
+    d:\programfiles\erang\matlab\misc after changing check_errors.m to match
+    the subject and trial names for your subject and trial.
+
+32. Run "forward -Setup delaware2_setup_forward.xml" in Visual Studio or in
+    the command line.
+
+    Be sure the current/working directory is:
+    d:\programfiles\FCA\SU\Testing\delaware2.
+
+33. In d:\programfiles\FCA\SU\Testing\delaware2\ResultsForward, copy
+    delaware2_Kinematics_q.sto to delaware2_Kinematics_q.mot.
+
+34. Add the SIMM header to delaware2_Kinematics_q.mot.  This is a set of lines
+    that looks like:
+
+    # SIMM Motion File Header:
+    name Coordinates
+    datacolumns 34
+    datarows 1490
+    otherdata 1
+    range 0.500000 1.988500
+
+    I had to change the number of datacolumns and datarows to match the nRows
+    and nColumns, and the range to match the first and last values in the time
+    column.
+
+    Insert these lines between the "nColumns=34" line and the line saying
+    "Units are S.I. units (seconds, meters, Newtons, ...)".  I leave an empty
+    row between the SIMM header and the lines between which it is inserted, but
+    I'm not sure if this is necessary.
+
+35. Open delaware2.jnt, delaware2.msl in SIMM.
+
+36. Open ResultsForward\delaware2_Kinematics_q.mot in SIMM and view the
+    motion.
