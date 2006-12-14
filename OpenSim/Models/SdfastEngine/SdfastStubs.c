@@ -91,7 +91,7 @@ void sdcomptrq(double udotin[], double trqout[]) { }
 
 void sdreac(double force[][3], double torque[][3]) { }
 
-void sdmassmat(double mmat[][50]) { }
+void sdmassmat(double *rI) {}
 
 void sdst2ang(double *q, double *qang) { }
 
