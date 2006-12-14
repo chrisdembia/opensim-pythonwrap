@@ -5,7 +5,7 @@ FILE(GLOB SOURCE_FILES *.cpp *.c )
 FILE(GLOB INCLUDE_FILES *.h)
 
 INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} 
-		    ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src2_4_0/src
+		    ${XERCES_INCLUDE_DIR}
 		    ${OpenSim_SOURCE_DIR}/OpenSim/Models/SIMMPipeline/4.0/suPipeline40
 		    ${OpenSim_SOURCE_DIR}/OpenSim/Models/SIMMPipeline/4.0/suPipeline40/dp
 		    ${OpenSim_SOURCE_DIR}/OpenSim/Models/SIMMPipeline/4.0/Pipeline40Workflow

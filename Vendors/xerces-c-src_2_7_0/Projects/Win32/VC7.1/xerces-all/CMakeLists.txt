@@ -14,7 +14,7 @@ IF(WIN32)
         COMMAND ${CMAKE_COMMAND}
         ARGS -E copy
         ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7.1/Release/xerces-c_2_7.dll
-        ${EXECUTABLE_OUTPUT_PATH}/Release/xerces-c_2_7_0.dll)
+        ${EXECUTABLE_OUTPUT_PATH}/Release/xerces-c_2_7.dll)
 	ADD_CUSTOM_COMMAND(
         TARGET xerces-c_2D_cmake
         COMMAND ${CMAKE_COMMAND}
@@ -26,7 +26,7 @@ IF(WIN32)
         COMMAND ${CMAKE_COMMAND}
         ARGS -E copy
         ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7.1/Debug/xerces-c_2_7D.dll
-        ${EXECUTABLE_OUTPUT_PATH}/Debug/xerces-c_2_7_0D.dll)
+        ${EXECUTABLE_OUTPUT_PATH}/Debug/xerces-c_2_7D.dll)
     ## Essentially installation stuff
 	ADD_CUSTOM_COMMAND(
         TARGET xerces-c_2_cmake
@@ -39,7 +39,7 @@ IF(WIN32)
         COMMAND ${CMAKE_COMMAND}
         ARGS -E copy
         ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7.1/Release/xerces-c_2_7.dll
-        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2_7_0.dll)
+        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2_7.dll)
 	ADD_CUSTOM_COMMAND(
         TARGET xerces-c_2D_cmake
         COMMAND ${CMAKE_COMMAND}
@@ -51,7 +51,7 @@ IF(WIN32)
         COMMAND ${CMAKE_COMMAND}
         ARGS -E copy
         ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7.1/Debug/xerces-c_2_7D.dll
-        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2_7_0D.dll)
+        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2_7D.dll)
 ENDIF(WIN32)
 
 

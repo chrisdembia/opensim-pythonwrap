@@ -8,7 +8,7 @@ ENDIF(NOT NMBL_BUILD_LOCATION)
 
 INCLUDE_DIRECTORIES($(NMBL_INSTALL)/Include
 		    $(NMBL_INSTALL)/Include/Vendors 
-		    $(NMBL_INSTALL)/Include/Vendors/xerces-c-src2_4_0/src 
+		    $(NMBL_INSTALL)/Include/Vendors/xerces-c-src_2_7_0/src 
 		    $(NMBL_INSTALL)/Include/dp
 )
 
