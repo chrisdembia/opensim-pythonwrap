@@ -136,8 +136,8 @@ public final class ViewDB implements Observer {
                     // Compute placement so that model does not intersect others
                     vtkMatrix4x4 m= getInitialTransform(newModelVisual);
                     newModelVisual.getModelDisplayAssembly().SetUserMatrix(m);
+                    
                     sceneAssembly.AddPart(newModelVisual.getModelDisplayAssembly());
-                    //scene newModelVisual.addOffset(new double[]{lastX, lastY, 0.});
                     // add to list of models
                     getModelVisuals().add(newModelVisual);
                     // add to map from models to modelVisuals so that it's accesisble
@@ -155,11 +155,13 @@ public final class ViewDB implements Observer {
                    modelVisuals.remove(visModel);
                    updateCommandsVisibility();
                 }
+                // Current model has changed. For view purposes this affects available commands
+                // Changes in the Tree view are handled by the Explorer View
                 if (ev.getOperation()==ModelEvent.Operation.SetCurrent) {
                    updateCommandsVisibility();
                 }
+                
            }
-
         }
     }
 
@@ -263,34 +265,30 @@ public final class ViewDB implements Observer {
             setCurrentModelWindow(win);
         }
     }
-    /** Add passed in model to all the views. Called once when the model is loaded.
-     * changes in visibility (by show/hide/... are handled by updateAllViewWindows)
-     *
-    private void addModelToViews(SingleModelVisuals newModelVisual) {
-        Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
-        while(windowIter.hasNext()){
-            windowIter.next().getCanvas().addNewModelVisuals(newModelVisual);
-        }
-    }
     /**
      * Add arbitrary object to the displayed scene.
      */
-     public void addObjectToViews(vtkProp assembly) {
+     private void addObjectToViews(vtkProp assembly) {
         Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
         while(windowIter.hasNext()){
             windowIter.next().getCanvas().GetRenderer().AddViewProp(assembly);
         }
-        repaintAll();
      }
+     /**
+      * Add an arbirary Object to the scene (all views)
+      */
      public void addObjectToScene(vtkProp3D aProp) {
-         sceneAssembly. AddPart(aProp);
+         sceneAssembly.AddPart(aProp);
          repaintAll();
      }
+    
+     /**
+      * Remove an arbirary Object from the scene (all views)
+      */
      public void removeObjectFromScene(vtkProp3D aProp) {
          sceneAssembly.RemovePart(aProp);
          repaintAll();
      }
-    
     /**
      * Return a flag indicating whether the model is currently shown or hidden
      */
@@ -470,19 +468,15 @@ public final class ViewDB implements Observer {
     private vtkMatrix4x4 getInitialTransform(SingleModelVisuals newModelVisual) {
         vtkMatrix4x4 m = new vtkMatrix4x4();
         Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
-        double lastX=0.;
-        double lastZ=0.;
-        double bounds[];
-        while(iter.hasNext()){
-            SingleModelVisuals nextModelVis = iter.next();
-            bounds =  nextModelVis.getBounds();
-            if (bounds[1] > lastX)
-                lastX = bounds[1];
-            if (bounds[5] > lastZ)
-                lastZ = bounds[5];
+        double modelBounds[] = newModelVisual.getModelDisplayAssembly().GetBounds();
+        // If at least one model exists compute bounding box for the scene
+        // and place the new model outside the box along z-axis.
+        // This could be made into an option where models are placed along X, Y or Z
+        // Also possible to define a default offset in any direction and reuse it.
+        if (iter.hasNext()){    
+            double bounds[]= sceneAssembly.GetBounds();
+            m.SetElement(2, 3, bounds[5]-modelBounds[4]);
         }
-        m.SetElement(0, 3, lastX);
-        m.SetElement(2, 3, lastZ);
         return m;
     }
     /**

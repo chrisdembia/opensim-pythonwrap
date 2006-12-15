@@ -167,7 +167,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
                             .add(jGenderLabel2)
                             .add(jAgeTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jGenderTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(org.jdesktop.layout.GroupLayout.BASELINE, jSubjectFilePanel2Layout.createSequentialGroup()
+                    .add(jSubjectFilePanel2Layout.createSequentialGroup()
                         .add(jLabel9)
                         .add(39, 39, 39))))
         );

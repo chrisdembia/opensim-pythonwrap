@@ -11,9 +11,8 @@ package org.opensim.view;
 
 import java.util.ArrayList;
 import java.util.Observable;
-import org.opensim.modeling.OpenSimObject;
+import org.openide.awt.StatusDisplayer;
 import org.opensim.modeling.AbstractModel;
-import org.opensim.view.ModelEvent;
 
 /**
  *
@@ -89,6 +88,7 @@ final public class OpenSimDB extends Observable {
         setChanged();
         ModelEvent evnt = new ModelEvent(aCurrentModel, ModelEvent.Operation.SetCurrent);
         notifyObservers(evnt);
+        StatusDisplayer.getDefault().setStatusText("Current model:"+aCurrentModel.getName());
     }
     /**
      * Get current model (as indicated by bold name in the explorer view)

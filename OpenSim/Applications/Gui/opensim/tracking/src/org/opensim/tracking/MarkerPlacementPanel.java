@@ -14,6 +14,7 @@ import org.opensim.modeling.SimmMarkerPlacer;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.modeling.SimmSubject;
+import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Storage;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.OpenOsimModelAction;
@@ -64,8 +65,12 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
        AbstractModel markerPlacementModel = model.clone();
        markerPlacementModel.setName(model.getName()+"-MarkersPlaced");
        markerPlacementModel.setup();
+       // Create a callback to update geometry
+       SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(markerPlacementModel);
+       markerPlacementModel.addIntegCallback(animationCallback);
        if (placer.processModel(markerPlacementModel, subject.getPathToSubject())){
           // @todo If output file is specified, associate it with scaledModel        
+          //markerPlacementModel.setup();
           boolean success=false;
           try {
              try {

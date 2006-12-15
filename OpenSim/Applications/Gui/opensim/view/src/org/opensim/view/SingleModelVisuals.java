@@ -26,6 +26,7 @@ import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
+import vtk.vtkCubeSource;
 import vtk.vtkCylinderSource;
 import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
@@ -113,7 +114,6 @@ public class SingleModelVisuals {
             VisibleObject bodyDisplayer = body.getDisplayer();
             bodyDisplayer.getScaleFactors(scales);
 
-            System.out.println("Scale factors"+scales[0]+","+scales[1]+","+scales[2]);
             int ns = bodyDisplayer.getNumGeometryFiles();
             // For each bone in the current body.
             for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
@@ -185,6 +185,16 @@ public class SingleModelVisuals {
         mapObject2Actors.put(model, modelAssembly);
         mapActors2Objects.put(modelAssembly, model);
         // Postprocess model assembly
+        /* Draw a box around the model, for debugging purposes
+        vtkActor bboxActor = new vtkActor();
+        vtkCubeSource bboxSource = new vtkCubeSource();
+        bboxSource.SetBounds(modelAssembly.GetBounds());
+        vtkPolyDataMapper bboxMapper = new vtkPolyDataMapper();
+        bboxMapper.SetInput(bboxSource.GetOutput());
+        bboxActor.SetMapper(bboxMapper);
+        modelAssembly.AddPart(bboxActor);
+        bboxActor.GetProperty().SetRepresentationToWireframe();
+        */
         return modelAssembly;
     }
     

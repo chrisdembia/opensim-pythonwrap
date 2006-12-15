@@ -18,7 +18,7 @@ public class ConcreteModelNode extends OpenSimObjectNode {
     public ConcreteModelNode(AbstractModel m) {
         super(m);
         
-        getChildren().add(new Node[]  {new BodiesNode(m.getDynamicsEngine().getBodySet())});
+        getChildren().add(new Node[] {new BodiesNode(m.getDynamicsEngine().getBodySet())});
         getChildren().add(new Node[] {new MusclesNode(m.getActuatorSet())});
         getChildren().add(new Node[] {new JointsNode(m)});
    }
@@ -31,15 +31,25 @@ public class ConcreteModelNode extends OpenSimObjectNode {
      * @todo replace new'ing with the findObject substitute to avoid runtime "informational" exceptions
      */
     public Action[] getActions(boolean b) {
-         
-        Action[] classSpecificActions = new Action[]{
-                            new FileCloseAction(),
-                            new ViewMakeNewAction(), 
-                            getTreeModelMakeCurrentAction(),
-                            new ModelDisplayShowAction(),
-                            new ModelDisplayHideAction(),
-                            new ModelDisplayEditAction(),
-        };
+        Action[] classSpecificActions=null;
+        try {
+            classSpecificActions = new Action[]{
+                (FileCloseAction)FileCloseAction.findObject(
+                        Class.forName("org.opensim.view.actions.FileCloseAction")),
+                (ViewMakeNewAction)ViewMakeNewAction.findObject(
+                        Class.forName("org.opensim.view.nodes.ViewMakeNewAction")), 
+                getTreeModelMakeCurrentAction(),
+                (ModelDisplayShowAction)ModelDisplayShowAction.findObject(
+                        Class.forName("org.opensim.view.ModelDisplayShowAction")), 
+                (ModelDisplayHideAction)ModelDisplayHideAction.findObject(
+                        Class.forName("org.opensim.view.ModelDisplayHideAction")), 
+                (ModelDisplayEditAction)ModelDisplayEditAction.findObject(
+                        Class.forName("org.opensim.view.ModelDisplayEditAction")), 
+            };
+        }
+        catch(ClassNotFoundException e){
+            
+        }
         return classSpecificActions;
     }
 

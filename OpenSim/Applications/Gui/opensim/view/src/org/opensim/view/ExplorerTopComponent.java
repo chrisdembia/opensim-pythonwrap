@@ -265,13 +265,16 @@ final class ExplorerTopComponent extends TopComponent
         for(int i=0; i < nodes.length; i++){
             if (nodes[i] instanceof ConcreteModelNode){
                ConcreteModelNode node = ((ConcreteModelNode)(nodes[i]));
+               node.setName(node.getModel().getName());
+               /*
                // Actually this just fires a change event so that the GUI updates
                // The actual text is updated in ConcreteModelNode.getHtmlDisplayName!!
                if (node.getModel()==currentModel){
                    node.setDisplayName("<b>"+node.getModel().getName()+"</b>");
                }
                else
-                   node.setDisplayName(node.getModel().getName());
+                   node.setDisplayName();
+                **/
             }
         }
         
