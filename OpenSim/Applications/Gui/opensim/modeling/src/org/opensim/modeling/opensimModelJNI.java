@@ -628,6 +628,7 @@ public class opensimModelJNI {
   public final static native boolean Storage_print__SWIG_2(long jarg1, String jarg2);
   public final static native int Storage_print__SWIG_3(long jarg1, String jarg2, double jarg3, String jarg4);
   public final static native int Storage_print__SWIG_4(long jarg1, String jarg2, double jarg3);
+  public final static native void Storage_printResult(long jarg1, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native long new_AbstractModel__SWIG_0();
   public final static native long new_AbstractModel__SWIG_1(String jarg1) throws java.io.IOException;
   public final static native long new_AbstractModel__SWIG_2(long jarg1);
@@ -1345,7 +1346,8 @@ public class opensimModelJNI {
   public final static native long new_ArrayBool__SWIG_0(boolean jarg1, int jarg2, int jarg3);
   public final static native long new_ArrayBool__SWIG_1(boolean jarg1, int jarg2);
   public final static native long new_ArrayBool__SWIG_2(boolean jarg1);
-  public final static native long new_ArrayBool__SWIG_3(long jarg1);
+  public final static native long new_ArrayBool__SWIG_3();
+  public final static native long new_ArrayBool__SWIG_4(long jarg1);
   public final static native boolean ArrayBool_computeNewCapacity(long jarg1, int jarg2, long jarg3);
   public final static native boolean ArrayBool_ensureCapacity(long jarg1, int jarg2);
   public final static native void ArrayBool_trim(long jarg1);
@@ -1374,7 +1376,8 @@ public class opensimModelJNI {
   public final static native long new_ArrayDouble__SWIG_0(double jarg1, int jarg2, int jarg3);
   public final static native long new_ArrayDouble__SWIG_1(double jarg1, int jarg2);
   public final static native long new_ArrayDouble__SWIG_2(double jarg1);
-  public final static native long new_ArrayDouble__SWIG_3(long jarg1);
+  public final static native long new_ArrayDouble__SWIG_3();
+  public final static native long new_ArrayDouble__SWIG_4(long jarg1);
   public final static native boolean ArrayDouble_computeNewCapacity(long jarg1, int jarg2, long jarg3);
   public final static native boolean ArrayDouble_ensureCapacity(long jarg1, int jarg2);
   public final static native void ArrayDouble_trim(long jarg1);
@@ -1403,7 +1406,8 @@ public class opensimModelJNI {
   public final static native long new_ArrayInt__SWIG_0(int jarg1, int jarg2, int jarg3);
   public final static native long new_ArrayInt__SWIG_1(int jarg1, int jarg2);
   public final static native long new_ArrayInt__SWIG_2(int jarg1);
-  public final static native long new_ArrayInt__SWIG_3(long jarg1);
+  public final static native long new_ArrayInt__SWIG_3();
+  public final static native long new_ArrayInt__SWIG_4(long jarg1);
   public final static native boolean ArrayInt_computeNewCapacity(long jarg1, int jarg2, long jarg3);
   public final static native boolean ArrayInt_ensureCapacity(long jarg1, int jarg2);
   public final static native void ArrayInt_trim(long jarg1);
@@ -1432,7 +1436,8 @@ public class opensimModelJNI {
   public final static native long new_ArrayStr__SWIG_0(String jarg1, int jarg2, int jarg3);
   public final static native long new_ArrayStr__SWIG_1(String jarg1, int jarg2);
   public final static native long new_ArrayStr__SWIG_2(String jarg1);
-  public final static native long new_ArrayStr__SWIG_3(long jarg1);
+  public final static native long new_ArrayStr__SWIG_3();
+  public final static native long new_ArrayStr__SWIG_4(long jarg1);
   public final static native boolean ArrayStr_computeNewCapacity(long jarg1, int jarg2, long jarg3);
   public final static native boolean ArrayStr_ensureCapacity(long jarg1, int jarg2);
   public final static native void ArrayStr_trim(long jarg1);

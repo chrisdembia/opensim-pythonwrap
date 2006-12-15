@@ -408,4 +408,8 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_print__SWIG_4(swigCPtr, aFileName, aDT);
   }
 
+  public static void printResult(Storage aStorage, String aName, String aDir, double aDT, String aExtension) {
+    opensimModelJNI.Storage_printResult(Storage.getCPtr(aStorage), aName, aDir, aDT, aExtension);
+  }
+
 }

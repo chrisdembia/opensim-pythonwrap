@@ -9201,7 +9201,7 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_StateVector_1pr
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::StateVector **)&jarg1; 
-  (arg1)->print();
+  ((OpenSim::StateVector const *)arg1)->print();
 }
 
 
@@ -9215,7 +9215,7 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_StateVector_1pr
   (void)jcls;
   arg1 = *(OpenSim::StateVector **)&jarg1; 
   arg2 = *(FILE **)&jarg2; 
-  result = (int)(arg1)->print(arg2);
+  result = (int)((OpenSim::StateVector const *)arg1)->print(arg2);
   jresult = (jint)result; 
   return jresult;
 }
@@ -9328,20 +9328,23 @@ JNIEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1DEF
 JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Storage_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jint jarg1, jstring jarg2) {
   jlong jresult = 0 ;
   int arg1 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   OpenSim::Storage *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = (int)jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (OpenSim::Storage *)new OpenSim::Storage(arg1,(char const *)arg2);
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (OpenSim::Storage *)new OpenSim::Storage(arg1,(std::string const &)*arg2);
   *(OpenSim::Storage **)&jresult = result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
   return jresult;
 }
 
@@ -9374,19 +9377,22 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Storage_1
 
 JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Storage_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jlong jresult = 0 ;
-  char *arg1 = (char *) 0 ;
+  std::string *arg1 = 0 ;
   OpenSim::Storage *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = 0;
-  if (jarg1) {
-    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
-    if (!arg1) return 0;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (OpenSim::Storage *)new OpenSim::Storage((char const *)arg1);
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (OpenSim::Storage *)new OpenSim::Storage((std::string const &)*arg1);
   *(OpenSim::Storage **)&jresult = result; 
-  if (arg1) jenv->ReleaseStringUTFChars(jarg1, arg1);
   return jresult;
 }
 
@@ -9527,7 +9533,7 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getSma
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Storage **)&jarg1; 
-  result = (int)(arg1)->getSmallestNumberOfStates();
+  result = (int)((OpenSim::Storage const *)arg1)->getSmallestNumberOfStates();
   jresult = (jint)result; 
   return jresult;
 }
@@ -9571,7 +9577,7 @@ JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1get
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Storage **)&jarg1; 
-  result = (double)(arg1)->getFirstTime();
+  result = (double)((OpenSim::Storage const *)arg1)->getFirstTime();
   jresult = (jdouble)result; 
   return jresult;
 }
@@ -9585,7 +9591,7 @@ JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1get
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Storage **)&jarg1; 
-  result = (double)(arg1)->getLastTime();
+  result = (double)((OpenSim::Storage const *)arg1)->getLastTime();
   jresult = (jdouble)result; 
   return jresult;
 }
@@ -9755,7 +9761,7 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getDat
   arg2 = (double)jarg2; 
   arg3 = (int)jarg3; 
   arg4 = *(double ***)&jarg4; 
-  result = (int)(arg1)->getDataAtTime(arg2,arg3,arg4);
+  result = (int)((OpenSim::Storage const *)arg1)->getDataAtTime(arg2,arg3,arg4);
   jresult = (jint)result; 
   return jresult;
 }
@@ -9775,7 +9781,7 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getDat
   arg2 = (double)jarg2; 
   arg3 = (int)jarg3; 
   arg4 = *(double **)&jarg4; 
-  result = (int)(arg1)->getDataAtTime(arg2,arg3,arg4);
+  result = (int)((OpenSim::Storage const *)arg1)->getDataAtTime(arg2,arg3,arg4);
   jresult = (jint)result; 
   return jresult;
 }
@@ -10634,7 +10640,7 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1findIn
   (void)jcls;
   arg1 = *(OpenSim::Storage **)&jarg1; 
   arg2 = (double)jarg2; 
-  result = (int)(arg1)->findIndex(arg2);
+  result = (int)((OpenSim::Storage const *)arg1)->findIndex(arg2);
   jresult = (jint)result; 
   return jresult;
 }
@@ -10652,7 +10658,7 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1findIn
   arg1 = *(OpenSim::Storage **)&jarg1; 
   arg2 = (int)jarg2; 
   arg3 = (double)jarg3; 
-  result = (int)(arg1)->findIndex(arg2,arg3);
+  result = (int)((OpenSim::Storage const *)arg1)->findIndex(arg2,arg3);
   jresult = (jint)result; 
   return jresult;
 }
@@ -10678,34 +10684,40 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1print_
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Storage **)&jarg1; 
-  (arg1)->print();
+  ((OpenSim::Storage const *)arg1)->print();
 }
 
 
 JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1print_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
   jboolean jresult = 0 ;
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Storage **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (bool)(arg1)->print((char const *)arg2,(char const *)arg3);
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  result = (bool)((OpenSim::Storage const *)arg1)->print((std::string const &)*arg2,(std::string const &)*arg3);
   jresult = (jboolean)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -10713,20 +10725,23 @@ JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1pr
 JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1print_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
   jboolean jresult = 0 ;
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Storage **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (bool)(arg1)->print((char const *)arg2);
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (bool)((OpenSim::Storage const *)arg1)->print((std::string const &)*arg2);
   jresult = (jboolean)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
   return jresult;
 }
 
@@ -10734,29 +10749,35 @@ JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1pr
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1print_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jdouble jarg3, jstring jarg4) {
   jint jresult = 0 ;
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   double arg3 ;
-  char *arg4 = (char *) 0 ;
+  std::string *arg4 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Storage **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
   arg3 = (double)jarg3; 
-  arg4 = 0;
-  if (jarg4) {
-    arg4 = (char *)jenv->GetStringUTFChars(jarg4, 0);
-    if (!arg4) return 0;
+  if(!jarg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->print((char const *)arg2,arg3,(char const *)arg4);
+  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
+  if (!arg4_pstr) return 0;
+  std::string arg4_str(arg4_pstr);
+  arg4 = &arg4_str;
+  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
+  result = (int)((OpenSim::Storage const *)arg1)->print((std::string const &)*arg2,arg3,(std::string const &)*arg4);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg4) jenv->ReleaseStringUTFChars(jarg4, arg4);
   return jresult;
 }
 
@@ -10764,23 +10785,68 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1print_
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1print_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jdouble jarg3) {
   jint jresult = 0 ;
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   double arg3 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Storage **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
   arg3 = (double)jarg3; 
-  result = (int)(arg1)->print((char const *)arg2,arg3);
+  result = (int)((OpenSim::Storage const *)arg1)->print((std::string const &)*arg2,arg3);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
   return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1printResult(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4, jstring jarg5) {
+  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  double arg4 ;
+  std::string *arg5 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Storage **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  arg4 = (double)jarg4; 
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return ;
+  std::string arg5_str(arg5_pstr);
+  arg5 = &arg5_str;
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  OpenSim::Storage::printResult((OpenSim::Storage const *)arg1,(std::string const &)*arg2,(std::string const &)*arg3,arg4,(std::string const &)*arg5);
 }
 
 
@@ -18618,36 +18684,45 @@ JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1p
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1printResults_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4, jstring jarg5) {
   jint jresult = 0 ;
   OpenSim::Analysis *arg1 = (OpenSim::Analysis *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
-  char *arg5 = (char *) 0 ;
+  std::string *arg5 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Analysis **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  arg5 = 0;
-  if (jarg5) {
-    arg5 = (char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5) return 0;
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3,arg4,(char const *)arg5);
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return 0;
+  std::string arg5_str(arg5_pstr);
+  arg5 = &arg5_str;
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4,(std::string const &)*arg5);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
-  if (arg5) jenv->ReleaseStringUTFChars(jarg5, arg5);
   return jresult;
 }
 
@@ -18655,29 +18730,35 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1print
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1printResults_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4) {
   jint jresult = 0 ;
   OpenSim::Analysis *arg1 = (OpenSim::Analysis *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Analysis **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3,arg4);
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -18685,27 +18766,33 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1print
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1printResults_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
   jint jresult = 0 ;
   OpenSim::Analysis *arg1 = (OpenSim::Analysis *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Analysis **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3);
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -18713,20 +18800,23 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1print
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1printResults_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
   jint jresult = 0 ;
   OpenSim::Analysis *arg1 = (OpenSim::Analysis *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Analysis **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2);
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
   return jresult;
 }
 
@@ -19621,101 +19711,125 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalysisSet_1en
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalysisSet_1printResults_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4, jstring jarg5) {
   OpenSim::AnalysisSet *arg1 = (OpenSim::AnalysisSet *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
-  char *arg5 = (char *) 0 ;
+  std::string *arg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::AnalysisSet **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return ;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  arg5 = 0;
-  if (jarg5) {
-    arg5 = (char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5) return ;
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  (arg1)->printResults((char const *)arg2,(char const *)arg3,arg4,(char const *)arg5);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
-  if (arg5) jenv->ReleaseStringUTFChars(jarg5, arg5);
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return ;
+  std::string arg5_str(arg5_pstr);
+  arg5 = &arg5_str;
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  (arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4,(std::string const &)*arg5);
 }
 
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalysisSet_1printResults_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4) {
   OpenSim::AnalysisSet *arg1 = (OpenSim::AnalysisSet *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::AnalysisSet **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return ;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  (arg1)->printResults((char const *)arg2,(char const *)arg3,arg4);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
+  (arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4);
 }
 
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalysisSet_1printResults_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
   OpenSim::AnalysisSet *arg1 = (OpenSim::AnalysisSet *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::AnalysisSet **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return ;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  (arg1)->printResults((char const *)arg2,(char const *)arg3);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  (arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3);
 }
 
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalysisSet_1printResults_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
   OpenSim::AnalysisSet *arg1 = (OpenSim::AnalysisSet *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::AnalysisSet **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  (arg1)->printResults((char const *)arg2);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->printResults((std::string const &)*arg2);
 }
 
 
@@ -20030,101 +20144,125 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Investigation_1
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Investigation_1printResults_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4, jstring jarg5) {
   OpenSim::Investigation *arg1 = (OpenSim::Investigation *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
-  char *arg5 = (char *) 0 ;
+  std::string *arg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Investigation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return ;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  arg5 = 0;
-  if (jarg5) {
-    arg5 = (char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5) return ;
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  (arg1)->printResults((char const *)arg2,(char const *)arg3,arg4,(char const *)arg5);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
-  if (arg5) jenv->ReleaseStringUTFChars(jarg5, arg5);
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return ;
+  std::string arg5_str(arg5_pstr);
+  arg5 = &arg5_str;
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  (arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4,(std::string const &)*arg5);
 }
 
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Investigation_1printResults_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4) {
   OpenSim::Investigation *arg1 = (OpenSim::Investigation *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Investigation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return ;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  (arg1)->printResults((char const *)arg2,(char const *)arg3,arg4);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
+  (arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4);
 }
 
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Investigation_1printResults_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
   OpenSim::Investigation *arg1 = (OpenSim::Investigation *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Investigation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return ;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  (arg1)->printResults((char const *)arg2,(char const *)arg3);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  (arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3);
 }
 
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Investigation_1printResults_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
   OpenSim::Investigation *arg1 = (OpenSim::Investigation *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Investigation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  (arg1)->printResults((char const *)arg2);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->printResults((std::string const &)*arg2);
 }
 
 
@@ -20374,101 +20512,125 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationPe
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationPerturbation_1printResults_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4, jstring jarg5) {
   OpenSim::InvestigationPerturbation *arg1 = (OpenSim::InvestigationPerturbation *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
-  char *arg5 = (char *) 0 ;
+  std::string *arg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::InvestigationPerturbation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return ;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  arg5 = 0;
-  if (jarg5) {
-    arg5 = (char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5) return ;
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  (arg1)->printResults((char const *)arg2,(char const *)arg3,arg4,(char const *)arg5);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
-  if (arg5) jenv->ReleaseStringUTFChars(jarg5, arg5);
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return ;
+  std::string arg5_str(arg5_pstr);
+  arg5 = &arg5_str;
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  (arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4,(std::string const &)*arg5);
 }
 
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationPerturbation_1printResults_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4) {
   OpenSim::InvestigationPerturbation *arg1 = (OpenSim::InvestigationPerturbation *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::InvestigationPerturbation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return ;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  (arg1)->printResults((char const *)arg2,(char const *)arg3,arg4);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
+  (arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4);
 }
 
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationPerturbation_1printResults_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
   OpenSim::InvestigationPerturbation *arg1 = (OpenSim::InvestigationPerturbation *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::InvestigationPerturbation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return ;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  (arg1)->printResults((char const *)arg2,(char const *)arg3);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  (arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3);
 }
 
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationPerturbation_1printResults_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
   OpenSim::InvestigationPerturbation *arg1 = (OpenSim::InvestigationPerturbation *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::InvestigationPerturbation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
   }
-  (arg1)->printResults((char const *)arg2);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->printResults((std::string const &)*arg2);
 }
 
 
@@ -21019,36 +21181,45 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Kinematics_1end
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Kinematics_1printResults_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4, jstring jarg5) {
   jint jresult = 0 ;
   OpenSim::Kinematics *arg1 = (OpenSim::Kinematics *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
-  char *arg5 = (char *) 0 ;
+  std::string *arg5 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Kinematics **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  arg5 = 0;
-  if (jarg5) {
-    arg5 = (char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5) return 0;
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3,arg4,(char const *)arg5);
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return 0;
+  std::string arg5_str(arg5_pstr);
+  arg5 = &arg5_str;
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4,(std::string const &)*arg5);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
-  if (arg5) jenv->ReleaseStringUTFChars(jarg5, arg5);
   return jresult;
 }
 
@@ -21056,29 +21227,35 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Kinematics_1pri
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Kinematics_1printResults_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4) {
   jint jresult = 0 ;
   OpenSim::Kinematics *arg1 = (OpenSim::Kinematics *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Kinematics **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3,arg4);
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -21086,27 +21263,33 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Kinematics_1pri
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Kinematics_1printResults_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
   jint jresult = 0 ;
   OpenSim::Kinematics *arg1 = (OpenSim::Kinematics *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Kinematics **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3);
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -21114,20 +21297,23 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Kinematics_1pri
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Kinematics_1printResults_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
   jint jresult = 0 ;
   OpenSim::Kinematics *arg1 = (OpenSim::Kinematics *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Kinematics **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2);
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
   return jresult;
 }
 
@@ -21497,36 +21683,45 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Actuation_1end_
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Actuation_1printResults_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4, jstring jarg5) {
   jint jresult = 0 ;
   OpenSim::Actuation *arg1 = (OpenSim::Actuation *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
-  char *arg5 = (char *) 0 ;
+  std::string *arg5 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Actuation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  arg5 = 0;
-  if (jarg5) {
-    arg5 = (char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5) return 0;
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3,arg4,(char const *)arg5);
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return 0;
+  std::string arg5_str(arg5_pstr);
+  arg5 = &arg5_str;
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4,(std::string const &)*arg5);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
-  if (arg5) jenv->ReleaseStringUTFChars(jarg5, arg5);
   return jresult;
 }
 
@@ -21534,29 +21729,35 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Actuation_1prin
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Actuation_1printResults_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4) {
   jint jresult = 0 ;
   OpenSim::Actuation *arg1 = (OpenSim::Actuation *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Actuation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3,arg4);
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -21564,27 +21765,33 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Actuation_1prin
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Actuation_1printResults_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
   jint jresult = 0 ;
   OpenSim::Actuation *arg1 = (OpenSim::Actuation *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Actuation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3);
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -21592,20 +21799,23 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Actuation_1prin
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Actuation_1printResults_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
   jint jresult = 0 ;
   OpenSim::Actuation *arg1 = (OpenSim::Actuation *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::Actuation **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2);
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
   return jresult;
 }
 
@@ -22022,36 +22232,45 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_IndAcc_1store(J
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_IndAcc_1printResults_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4, jstring jarg5) {
   jint jresult = 0 ;
   OpenSim::IndAcc *arg1 = (OpenSim::IndAcc *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
-  char *arg5 = (char *) 0 ;
+  std::string *arg5 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::IndAcc **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  arg5 = 0;
-  if (jarg5) {
-    arg5 = (char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5) return 0;
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3,arg4,(char const *)arg5);
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return 0;
+  std::string arg5_str(arg5_pstr);
+  arg5 = &arg5_str;
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4,(std::string const &)*arg5);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
-  if (arg5) jenv->ReleaseStringUTFChars(jarg5, arg5);
   return jresult;
 }
 
@@ -22059,29 +22278,35 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_IndAcc_1printRe
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_IndAcc_1printResults_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4) {
   jint jresult = 0 ;
   OpenSim::IndAcc *arg1 = (OpenSim::IndAcc *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::IndAcc **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3,arg4);
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -22089,27 +22314,33 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_IndAcc_1printRe
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_IndAcc_1printResults_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
   jint jresult = 0 ;
   OpenSim::IndAcc *arg1 = (OpenSim::IndAcc *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::IndAcc **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3);
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -22117,20 +22348,23 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_IndAcc_1printRe
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_IndAcc_1printResults_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
   jint jresult = 0 ;
   OpenSim::IndAcc *arg1 = (OpenSim::IndAcc *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::IndAcc **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2);
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
   return jresult;
 }
 
@@ -22497,36 +22731,45 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_GeneralizedForc
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_GeneralizedForces_1printResults_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4, jstring jarg5) {
   jint jresult = 0 ;
   OpenSim::GeneralizedForces *arg1 = (OpenSim::GeneralizedForces *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
-  char *arg5 = (char *) 0 ;
+  std::string *arg5 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::GeneralizedForces **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  arg5 = 0;
-  if (jarg5) {
-    arg5 = (char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5) return 0;
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3,arg4,(char const *)arg5);
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return 0;
+  std::string arg5_str(arg5_pstr);
+  arg5 = &arg5_str;
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4,(std::string const &)*arg5);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
-  if (arg5) jenv->ReleaseStringUTFChars(jarg5, arg5);
   return jresult;
 }
 
@@ -22534,29 +22777,35 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_GeneralizedForc
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_GeneralizedForces_1printResults_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jdouble jarg4) {
   jint jresult = 0 ;
   OpenSim::GeneralizedForces *arg1 = (OpenSim::GeneralizedForces *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   double arg4 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::GeneralizedForces **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   arg4 = (double)jarg4; 
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3,arg4);
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3,arg4);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -22564,27 +22813,33 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_GeneralizedForc
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_GeneralizedForces_1printResults_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3) {
   jint jresult = 0 ;
   OpenSim::GeneralizedForces *arg1 = (OpenSim::GeneralizedForces *) 0 ;
-  char *arg2 = (char *) 0 ;
-  char *arg3 = (char *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::GeneralizedForces **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2,(char const *)arg3);
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2,(std::string const &)*arg3);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, arg3);
   return jresult;
 }
 
@@ -22592,20 +22847,23 @@ JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_GeneralizedForc
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_GeneralizedForces_1printResults_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
   jint jresult = 0 ;
   OpenSim::GeneralizedForces *arg1 = (OpenSim::GeneralizedForces *) 0 ;
-  char *arg2 = (char *) 0 ;
+  std::string *arg2 = 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::GeneralizedForces **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return 0;
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
   }
-  result = (int)(arg1)->printResults((char const *)arg2);
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (int)(arg1)->printResults((std::string const &)*arg2);
   jresult = (jint)result; 
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, arg2);
   return jresult;
 }
 
@@ -22675,7 +22933,19 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayBool
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayBool_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayBool_1_1SWIG_13(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::Array<bool > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::Array<bool > *)new OpenSim::Array<bool >();
+  *(OpenSim::Array<bool > **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayBool_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::Array<bool > *arg1 = 0 ;
   OpenSim::Array<bool > *result = 0 ;
@@ -23166,7 +23436,19 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayDoub
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayDouble_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayDouble_1_1SWIG_13(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::Array<double > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::Array<double > *)new OpenSim::Array<double >();
+  *(OpenSim::Array<double > **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayDouble_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::Array<double > *arg1 = 0 ;
   OpenSim::Array<double > *result = 0 ;
@@ -23657,7 +23939,19 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayInt_
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayInt_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayInt_1_1SWIG_13(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::Array<int > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::Array<int > *)new OpenSim::Array<int >();
+  *(OpenSim::Array<int > **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayInt_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::Array<int > *arg1 = 0 ;
   OpenSim::Array<int > *result = 0 ;
@@ -24166,7 +24460,19 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayStr_
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayStr_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayStr_1_1SWIG_13(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::Array<std::string > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::Array<std::string > *)new OpenSim::Array<std::string >();
+  *(OpenSim::Array<std::string > **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayStr_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::Array<std::string > *arg1 = 0 ;
   OpenSim::Array<std::string > *result = 0 ;
@@ -27559,6 +27865,20 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
   result = (AbstractWrapObject *)(arg1)->getWrapObject((std::string const &)*arg2);
   *(AbstractWrapObject **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1getWrapObjectSet(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
+  WrapObjectSet *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::AbstractBody **)&jarg1; 
+  result = (WrapObjectSet *)(arg1)->getWrapObjectSet();
+  *(WrapObjectSet **)&jresult = result; 
   return jresult;
 }
 
@@ -36566,6 +36886,20 @@ JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscleP
 }
 
 
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMusclePoint_1getWrapObject(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  OpenSim::SimmMusclePoint *arg1 = (OpenSim::SimmMusclePoint *) 0 ;
+  OpenSim::AbstractWrapObject *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMusclePoint **)&jarg1; 
+  result = (OpenSim::AbstractWrapObject *)((OpenSim::SimmMusclePoint const *)arg1)->getWrapObject();
+  *(OpenSim::AbstractWrapObject **)&jresult = result; 
+  return jresult;
+}
+
+
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMusclePoint_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
   OpenSim::SimmMusclePoint *arg1 = (OpenSim::SimmMusclePoint *) 0 ;
   OpenSim::AbstractModel *arg2 = (OpenSim::AbstractModel *) 0 ;
@@ -38704,7 +39038,7 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmModelScaler
 JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmModelScaler_1getTimeRange(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::SimmModelScaler *arg1 = (OpenSim::SimmModelScaler *) 0 ;
-  SwigValueWrapper<OpenSim::Array<double > > result;
+  OpenSim::Array<double > result;
   
   (void)jenv;
   (void)jcls;
@@ -38717,7 +39051,7 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmModelScale
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmModelScaler_1setTimeRange(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   OpenSim::SimmModelScaler *arg1 = (OpenSim::SimmModelScaler *) 0 ;
-  SwigValueWrapper<OpenSim::Array<double > > arg2 ;
+  OpenSim::Array<double > arg2 ;
   OpenSim::Array<double > *argp2 ;
   
   (void)jenv;
@@ -38748,7 +39082,7 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmModelScaler
 JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmModelScaler_1getScalingOrder(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::SimmModelScaler *arg1 = (OpenSim::SimmModelScaler *) 0 ;
-  SwigValueWrapper<OpenSim::Array<std::string > > result;
+  OpenSim::Array<std::string > result;
   
   (void)jenv;
   (void)jcls;
@@ -39202,7 +39536,7 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMarkerPlace
 JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMarkerPlacer_1getTimeRange(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::SimmMarkerPlacer *arg1 = (OpenSim::SimmMarkerPlacer *) 0 ;
-  SwigValueWrapper<OpenSim::Array<double > > result;
+  OpenSim::Array<double > result;
   
   (void)jenv;
   (void)jcls;
@@ -39215,7 +39549,7 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMarkerPlac
 
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMarkerPlacer_1setTimeRange(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   OpenSim::SimmMarkerPlacer *arg1 = (OpenSim::SimmMarkerPlacer *) 0 ;
-  SwigValueWrapper<OpenSim::Array<double > > arg2 ;
+  OpenSim::Array<double > arg2 ;
   OpenSim::Array<double > *argp2 ;
   
   (void)jenv;

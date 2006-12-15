@@ -45,8 +45,12 @@ public class ArrayStr {
     this(opensimModelJNI.new_ArrayStr__SWIG_2(aDefaultValue), true);
   }
 
+  public ArrayStr() {
+    this(opensimModelJNI.new_ArrayStr__SWIG_3(), true);
+  }
+
   public ArrayStr(ArrayStr aArray) {
-    this(opensimModelJNI.new_ArrayStr__SWIG_3(ArrayStr.getCPtr(aArray)), true);
+    this(opensimModelJNI.new_ArrayStr__SWIG_4(ArrayStr.getCPtr(aArray)), true);
   }
 
   public boolean computeNewCapacity(int aMinCapacity, SWIGTYPE_p_int rNewCapacity) {

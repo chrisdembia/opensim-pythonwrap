@@ -26,17 +26,18 @@
 package org.opensim.view;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.prefs.Preferences;
 import javax.swing.JDialog;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.utils.TheApp;
 import vtk.AxesActor;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
@@ -457,13 +458,13 @@ public final class ViewDB implements Observer {
     }
     /**
      * Compute initial offset for a model when displayed. 
-     * In the future, this will have to account for user prefs but for now we'll 
+     * To account for user prefs a property is made 
      * just put the model somewhere so that it does not intersect other models.
      *
      * newModelVisual has not been added to the list yet.
      *
      * @todo should we allow for rotations as well?
-     * @todo A builtin assumption is that you do offset in X, Z but this can change later
+     * 
      */
     private vtkMatrix4x4 getInitialTransform(SingleModelVisuals newModelVisual) {
         vtkMatrix4x4 m = new vtkMatrix4x4();
@@ -475,7 +476,16 @@ public final class ViewDB implements Observer {
         // Also possible to define a default offset in any direction and reuse it.
         if (iter.hasNext()){    
             double bounds[]= sceneAssembly.GetBounds();
-            m.SetElement(2, 3, bounds[5]-modelBounds[4]);
+            String defaultOffsetDirection = NbBundle.getMessage(ViewDB.class,"CTL_DisplayOffsetDir");
+            if (defaultOffsetDirection == null)
+               defaultOffsetDirection="Z";
+            if (defaultOffsetDirection.equalsIgnoreCase("X"))
+               m.SetElement(0, 3, bounds[1]-modelBounds[0]);
+            else if (defaultOffsetDirection.equalsIgnoreCase("Y"))
+               m.SetElement(1, 3, bounds[3]-modelBounds[2]);
+            else 
+               m.SetElement(2, 3, bounds[5]-modelBounds[4]);
+            
         }
         return m;
     }

@@ -36,15 +36,11 @@ public class ConcreteModelNode extends OpenSimObjectNode {
             classSpecificActions = new Action[]{
                 (FileCloseAction)FileCloseAction.findObject(
                         Class.forName("org.opensim.view.actions.FileCloseAction")),
-                (ViewMakeNewAction)ViewMakeNewAction.findObject(
-                        Class.forName("org.opensim.view.nodes.ViewMakeNewAction")), 
+                new ViewMakeNewAction(), 
                 getTreeModelMakeCurrentAction(),
-                (ModelDisplayShowAction)ModelDisplayShowAction.findObject(
-                        Class.forName("org.opensim.view.ModelDisplayShowAction")), 
-                (ModelDisplayHideAction)ModelDisplayHideAction.findObject(
-                        Class.forName("org.opensim.view.ModelDisplayHideAction")), 
-                (ModelDisplayEditAction)ModelDisplayEditAction.findObject(
-                        Class.forName("org.opensim.view.ModelDisplayEditAction")), 
+                new ModelDisplayShowAction(), 
+                new ModelDisplayHideAction(), 
+                new ModelDisplayEditAction(), 
             };
         }
         catch(ClassNotFoundException e){
