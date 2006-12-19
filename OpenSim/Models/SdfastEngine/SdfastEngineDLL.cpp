@@ -36,9 +36,28 @@
 // INCLUDES
 //=============================================================================
 #include "SdfastEngineDLL.h"
-#include <stdio.h>
+#include <iostream>
 
+using namespace std;
 
+//
+// Define Plugin_Attach and Plugin_Detach below to be called by both windows and linux
+//
+static void Plugin_Attach()
+{
+	cout<<"\n-------------------------------------------------------\n";
+	cout<<"Library SdfastEngine...\n";
+	cout<<"-------------------------------------------------------\n\n";
+}
+
+static void Plugin_Detach()
+{
+}
+
+//
+// The code below handles both windows and linux library entrypoints
+//
+#if defined(WIN32)
 //=============================================================================
 // DLL Main Entry Point
 //=============================================================================
@@ -55,19 +74,25 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     switch (ul_reason_for_call)
 	{
 		case DLL_PROCESS_ATTACH:
-			printf("SDFast.DllMain: process attach.\n");
-			break;
 		case DLL_THREAD_ATTACH:
-			printf("SDFast.DllMain: thread attach.\n");
+			Plugin_Attach();
 			break;
-		case DLL_THREAD_DETACH:
-			printf("SDFast.DllMain: thread detach.\n");
-			break;
+
 		case DLL_PROCESS_DETACH:
-			printf("SDFast.DllMain: process detach.\n");
+		case DLL_THREAD_DETACH:
+			Plugin_Detach();
 			break;
     }
 
     return TRUE;
 }
-
+#elif defined(__linux__)
+static void __attribute__((constructor)) Shared_Object_Constructor()
+{
+   Plugin_Attach();
+}
+static void __attribute__((destructor)) Shared_Object_Destructor()
+{
+   Plugin_Detach();
+}
+#endif
