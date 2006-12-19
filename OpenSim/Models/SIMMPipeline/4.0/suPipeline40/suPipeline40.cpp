@@ -11,7 +11,7 @@
 #include <iostream>
 #include <OpenSim/Tools/rdMath.h>
 #include <OpenSim/Simulation/Model/DerivCallbackSet.h>
-#include <OpenSim/Simulation/Simm/ActuatorSet.h>
+#include <OpenSim/Simulation/SIMM/ActuatorSet.h>
 #include <OpenSim/Simulation/Model/ContactForceSet.h>
 #include "suPipeline40.h"
 #include "suPipeline40-helper.h"

@@ -15,7 +15,7 @@
 #include <OpenSim/Analyses/GeneralizedForces.h>
 #include <OpenSim/Analyses/BodyKinematics.h>
 #include <OpenSim/Simulation/Model/AnalysisSet.h>
-#include <OpenSim/Simulation/Simm/AbstractBody.h>
+#include <OpenSim/Simulation/SIMM/AbstractBody.h>
 #include "suS26.h"
 
 

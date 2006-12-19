@@ -42,7 +42,7 @@
 #include <OpenSim/Simulation/SDFast/rdSDFastDLL.h>
 #include <OpenSim/Simulation/SDFast/ActuatedModel_SDFast.h>
 #include <OpenSim/Simulation/Model/ContactForceSet.h>
-#include <OpenSim/Simulation/Simm/AbsActuatorSet.h>
+#include <OpenSim/Simulation/SIMM/AbsActuatorSet.h>
 
 // NUMBERS OF THINGS
 const int rdUTWalking8Prescribed_NQ = 34;

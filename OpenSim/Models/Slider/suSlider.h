@@ -11,7 +11,7 @@
 //=============================================================================
 #include <OpenSim/Simulation/SDFast/rdSDFastDLL.h>
 #include <OpenSim/Simulation/Model/Model.h>
-#include <OpenSim/Simulation/Simm/ActuatorSet.h>
+#include <OpenSim/Simulation/SIMM/ActuatorSet.h>
 #include <OpenSim/Simulation/Model/ContactForceSet.h>
 #include <OpenSim/Simulation/SDFast/rdSDFast.h>
 #include <OpenSim/Simulation/SDFast/ActuatedModel_SDFast.h>
