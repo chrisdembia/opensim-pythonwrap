@@ -57,7 +57,7 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
    }
     public void storeSettings(Object settings) {}
 
-    boolean executeStep() {
+    public boolean executeStep() {
        // Call scaling with the model and display it in GUI
        SimmSubject subject = descriptor.getSubject();
        AbstractModel model = descriptor.getScaledModel();
@@ -66,11 +66,11 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
        markerPlacementModel.setName(model.getName()+"-MarkersPlaced");
        markerPlacementModel.setup();
        // Create a callback to update geometry
-       SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(markerPlacementModel);
-       markerPlacementModel.addIntegCallback(animationCallback);
+       SimtkAnimationCallback animationCallback = SimtkAnimationCallback.CreateAnimationCallback(markerPlacementModel);
        if (placer.processModel(markerPlacementModel, subject.getPathToSubject())){
           // @todo If output file is specified, associate it with scaledModel        
           //markerPlacementModel.setup();
+          descriptor.setIKModel(markerPlacementModel);
           boolean success=false;
           try {
              try {

@@ -64,7 +64,7 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
     }
     
     /** Execute the step  */
-    abstract boolean executeStep();   
+    public abstract boolean executeStep();   
     
     public void updateValidity(boolean canProceed){
         if (this.canProceed != canProceed){
@@ -117,9 +117,8 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Run Investigation "+dInvestigation.getName());
         final double investigationDuration = (dInvestigation.getFinalTime() - dInvestigation.getStartTime());
         final double startTime = dInvestigation.getStartTime();
-        final SimtkAnimationCallback animationCallback = new SimtkAnimationCallback(model);
+        final SimtkAnimationCallback animationCallback = SimtkAnimationCallback.CreateAnimationCallback(model);
         
-        dInvestigation.getModel().addIntegCallback(animationCallback);  
         /*Restructure
         // show model in new window if possible
          final ModelWindowVTKTopComponent modelWindow = ViewDB.getCurrentModelWindow();

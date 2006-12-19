@@ -2,14 +2,19 @@ package org.opensim.tracking.tools;
 
 import java.awt.Component;
 import java.awt.Dialog;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.MessageFormat;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import org.openide.DialogDisplayer;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.swingui.SwingWorker;
 import org.opensim.tracking.IKPanel;
 import org.opensim.tracking.WorkflowDescriptor;
+import org.opensim.tracking.workflowWizardPanelBase;
 import org.opensim.view.OpenSimDB;
 import org.opensim.view.ViewDB;
 
@@ -17,22 +22,33 @@ import org.opensim.view.ViewDB;
 // your code. You can copy-paste the code below wherever you need.
 public final class ToolsIKWizardAction extends CallableSystemAction {
    
-   private WizardDescriptor.Panel[] panels;
+   private workflowWizardPanelBase[] panels;   
    
    public void performAction() {
       WorkflowDescriptor descriptor = new WorkflowDescriptor();
-      descriptor.setScaledModel(OpenSimDB.getInstance().getCurrentModel());
+      descriptor.setIKModel(OpenSimDB.getInstance().getCurrentModel());
 
       WizardDescriptor wizardDescriptor = new WizardDescriptor(getPanels(), descriptor);
       // {0} will be replaced by WizardDesriptor.Panel.getComponent().getName()
       wizardDescriptor.setTitleFormat(new MessageFormat("{0}"));
       wizardDescriptor.setTitle("Inverse Kinematics");
+      //wizardDescriptor.setAdditionalOptions(new Object[] {executeButton});
+
       Dialog dialog = DialogDisplayer.getDefault().createDialog(wizardDescriptor);
       dialog.setVisible(true);
       dialog.toFront();
       boolean cancelled = wizardDescriptor.getValue() != WizardDescriptor.FINISH_OPTION;
       if (!cancelled) {
-         // do something
+         final SwingWorker worker = new SwingWorker() {
+            
+            public Object construct() { // runs in a worker thread
+               ((workflowWizardPanelBase)panels[0]).executeStep();
+               return this;
+            }
+            public void finished() {
+            }
+         };
+         worker.start();
       }
    }
    
@@ -42,7 +58,7 @@ public final class ToolsIKWizardAction extends CallableSystemAction {
     */
    private WizardDescriptor.Panel[] getPanels() {
       if (panels == null) {
-         panels = new WizardDescriptor.Panel[] {
+         panels = new workflowWizardPanelBase[] {
             new IKPanel()
          };
          String[] steps = new String[panels.length];

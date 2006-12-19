@@ -6,16 +6,16 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import org.openide.windows.WindowManager;
-import org.opensim.modeling.Investigation;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.InvestigationIK;
-import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmIKTrial;
 import org.opensim.modeling.SimmIKTrialSet;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
+import org.opensim.view.OpenSimDB;
+import org.opensim.view.SingleModelVisuals;
+import org.opensim.view.ViewDB;
 
 public final class IKVisualPanel extends workflowVisualPanelBase {
     
@@ -392,7 +392,10 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
             jSetupFilenameTextField.setText(setupFile);
             Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
             // create an investigation and fill in the fields
-            ik = new InvestigationIK(jSetupFilenameTextField.getText()); 
+            ik = new InvestigationIK(jSetupFilenameTextField.getText(), logicPanel.descriptor.getIKModel()); 
+            AbstractModel mdl = ik.getModel();
+            SingleModelVisuals visModel = ViewDB.getInstance().getModelVisuals(mdl);
+            
             logicPanel.descriptor.setSetupIKFilename(jSetupFilenameTextField.getText());
             jMessageTextArea.setText("");
             updatePanel(logicPanel.descriptor);
@@ -495,9 +498,10 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     void updatePanel(WorkflowDescriptor aDescriptor) {
         initialize(aDescriptor);    // Tooltip
         String filename = aDescriptor.getSetupIKFilename();
-        if (filename != null && ik==null)
-            ik = new InvestigationIK(filename);
-        
+        if (filename != null){
+            InvestigationIK.registerTypes();
+            ik = new InvestigationIK(filename, aDescriptor.getIKModel());
+        }
         String modelFile = ik.getModelFilename();
         if (modelFile.equalsIgnoreCase("Unassigned") || modelFile.equals("")){
             // Assume output of previous step

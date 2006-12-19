@@ -47,7 +47,7 @@ public class InvestigationRunPanel  extends workflowWizardPanelBase{
     }
     public void storeSettings(Object settings) {}
 
-    boolean executeStep() {
+    public boolean executeStep() {
         // Make investigation and run it
         final Investigation dInvestigation = component.getInvestigation();
         runDynamicInvestigation(dInvestigation, true);

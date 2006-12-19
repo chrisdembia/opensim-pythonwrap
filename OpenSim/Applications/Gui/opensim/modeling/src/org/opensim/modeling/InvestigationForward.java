@@ -63,8 +63,8 @@ public class InvestigationForward extends Investigation {
     opensimModelJNI.InvestigationForward_run(swigCPtr);
   }
 
-  public void initializeExternalLoads() {
-    opensimModelJNI.InvestigationForward_initializeExternalLoads(swigCPtr);
+  public static void initializeExternalLoads(AbstractModel aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics) {
+    opensimModelJNI.InvestigationForward_initializeExternalLoads(AbstractModel.getCPtr(aModel), aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics);
   }
 
 }

@@ -227,4 +227,12 @@ public class WorkflowDescriptor {
       this.scaledModel = scaledModel;
    }
 
+   public AbstractModel getIKModel() {
+      return ikModel;
+   }
+
+   public void setIKModel(AbstractModel aModel)
+   {
+      ikModel = aModel;
+   }
  }

@@ -37,16 +37,20 @@ public class InvestigationIK extends Investigation {
     this(opensimModelJNI.new_InvestigationIK__SWIG_0(), true);
   }
 
+  public InvestigationIK(String aFileName, AbstractModel guiModel) {
+    this(opensimModelJNI.new_InvestigationIK__SWIG_1(aFileName, AbstractModel.getCPtr(guiModel)), true);
+  }
+
   public InvestigationIK(String aFileName) {
-    this(opensimModelJNI.new_InvestigationIK__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_InvestigationIK__SWIG_2(aFileName), true);
   }
 
   public InvestigationIK(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_InvestigationIK__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
+    this(opensimModelJNI.new_InvestigationIK__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
   }
 
   public InvestigationIK(InvestigationIK aObject) {
-    this(opensimModelJNI.new_InvestigationIK__SWIG_3(InvestigationIK.getCPtr(aObject)), true);
+    this(opensimModelJNI.new_InvestigationIK__SWIG_4(InvestigationIK.getCPtr(aObject)), true);
   }
 
   public OpenSimObject copy() {

@@ -72,7 +72,7 @@ public class MakeDModelPanel  extends workflowWizardPanelBase{
         component.updateWorkflow(descriptor);
     }
 
-    boolean executeStep() {
+    public boolean executeStep() {
         String modelFilename = descriptor.getDynamicsModelFile();
         String dynamicsDirectory=component.getDynamicsDirectory();
         AbstractModel model;

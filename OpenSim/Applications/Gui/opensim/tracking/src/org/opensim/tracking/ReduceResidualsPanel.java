@@ -72,7 +72,7 @@ public class ReduceResidualsPanel  extends workflowWizardPanelBase{
        component.updateWorkflow(descriptor);
     }
 
-    boolean executeStep() {
+    public boolean executeStep() {
          return true;
     }
 

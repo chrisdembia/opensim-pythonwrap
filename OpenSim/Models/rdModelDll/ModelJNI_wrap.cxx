@@ -20383,13 +20383,55 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationFo
 }
 
 
-JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationForward_1initializeExternalLoads(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  OpenSim::InvestigationForward *arg1 = (OpenSim::InvestigationForward *) 0 ;
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationForward_1initializeExternalLoads(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jstring jarg3, jstring jarg4, jstring jarg5, jdouble jarg6) {
+  OpenSim::AbstractModel *arg1 = (OpenSim::AbstractModel *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  std::string *arg4 = 0 ;
+  std::string *arg5 = 0 ;
+  double arg6 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(OpenSim::InvestigationForward **)&jarg1; 
-  (arg1)->initializeExternalLoads();
+  arg1 = *(OpenSim::AbstractModel **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  if(!jarg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
+  if (!arg4_pstr) return ;
+  std::string arg4_str(arg4_pstr);
+  arg4 = &arg4_str;
+  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return ;
+  std::string arg5_str(arg5_pstr);
+  arg5 = &arg5_str;
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  arg6 = (double)jarg6; 
+  OpenSim::InvestigationForward::initializeExternalLoads(arg1,(std::string const &)*arg2,(std::string const &)*arg3,(std::string const &)*arg4,(std::string const &)*arg5,arg6);
 }
 
 
@@ -20634,7 +20676,7 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_InvestigationPe
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimtkAnimationCallback(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1CreateAnimationCallback(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::AbstractModel *arg1 = (OpenSim::AbstractModel *) 0 ;
   OpenSim::SimtkAnimationCallback *result = 0 ;
@@ -20642,20 +20684,9 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimtkAnim
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::AbstractModel **)&jarg1; 
-  result = (OpenSim::SimtkAnimationCallback *)new OpenSim::SimtkAnimationCallback(arg1);
+  result = (OpenSim::SimtkAnimationCallback *)OpenSim::SimtkAnimationCallback::CreateAnimationCallback(arg1);
   *(OpenSim::SimtkAnimationCallback **)&jresult = result; 
   return jresult;
-}
-
-
-JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1SimtkAnimationCallback(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(OpenSim::SimtkAnimationCallback **)&jarg1; 
-  delete arg1;
-  
 }
 
 
@@ -20794,26 +20825,6 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimation
   result = (OpenSim::Transform *)((OpenSim::SimtkAnimationCallback const *)arg1)->getBodyTransform(arg2);
   *(OpenSim::Transform **)&jresult = result; 
   return jresult;
-}
-
-
-JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1getMutex(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(OpenSim::SimtkAnimationCallback **)&jarg1; 
-  (arg1)->getMutex();
-}
-
-
-JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1releaseMutex(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(OpenSim::SimtkAnimationCallback **)&jarg1; 
-  (arg1)->releaseMutex();
 }
 
 
@@ -42087,7 +42098,31 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Investiga
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1InvestigationIK_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1InvestigationIK_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  OpenSim::AbstractModel *arg2 = (OpenSim::AbstractModel *) 0 ;
+  OpenSim::InvestigationIK *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  arg2 = *(OpenSim::AbstractModel **)&jarg2; 
+  result = (OpenSim::InvestigationIK *)new OpenSim::InvestigationIK((std::string const &)*arg1,arg2);
+  *(OpenSim::InvestigationIK **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1InvestigationIK_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jlong jresult = 0 ;
   std::string *arg1 = 0 ;
   OpenSim::InvestigationIK *result = 0 ;
@@ -42109,7 +42144,7 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Investiga
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1InvestigationIK_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1InvestigationIK_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   DOMElement *arg1 = (DOMElement *) 0 ;
   OpenSim::InvestigationIK *result = 0 ;
@@ -42123,7 +42158,7 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Investiga
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1InvestigationIK_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1InvestigationIK_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::InvestigationIK *arg1 = 0 ;
   OpenSim::InvestigationIK *result = 0 ;

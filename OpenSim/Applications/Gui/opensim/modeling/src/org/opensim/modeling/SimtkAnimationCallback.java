@@ -20,21 +20,18 @@ public class SimtkAnimationCallback extends IntegCallback {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
-  protected void finalize() {
-    delete();
-  }
-
   public void delete() {
     if(swigCPtr != 0 && swigCMemOwn) {
       swigCMemOwn = false;
-      opensimModelJNI.delete_SimtkAnimationCallback(swigCPtr);
+      throw new UnsupportedOperationException("C++ destructor does not have public access");
     }
     swigCPtr = 0;
     super.delete();
   }
 
-  public SimtkAnimationCallback(AbstractModel aModel) {
-    this(opensimModelJNI.new_SimtkAnimationCallback(AbstractModel.getCPtr(aModel)), true);
+  public static SimtkAnimationCallback CreateAnimationCallback(AbstractModel aModel) {
+    long cPtr = opensimModelJNI.SimtkAnimationCallback_CreateAnimationCallback(AbstractModel.getCPtr(aModel));
+    return (cPtr == 0) ? null : new SimtkAnimationCallback(cPtr, false);
   }
 
   public double getCurrentTime() {
@@ -60,14 +57,6 @@ public class SimtkAnimationCallback extends IntegCallback {
   public Transform getBodyTransform(int bodyIndex) {
     long cPtr = opensimModelJNI.SimtkAnimationCallback_getBodyTransform(swigCPtr, bodyIndex);
     return (cPtr == 0) ? null : new Transform(cPtr, false);
-  }
-
-  public void getMutex() {
-    opensimModelJNI.SimtkAnimationCallback_getMutex(swigCPtr);
-  }
-
-  public void releaseMutex() {
-    opensimModelJNI.SimtkAnimationCallback_releaseMutex(swigCPtr);
   }
 
   public void extractOffsets(AbstractModel displayModel) {

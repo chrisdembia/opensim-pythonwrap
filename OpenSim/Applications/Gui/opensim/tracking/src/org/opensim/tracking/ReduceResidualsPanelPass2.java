@@ -73,7 +73,7 @@ public class ReduceResidualsPanelPass2  extends workflowWizardPanelBase{
        component.updateWorkflow(descriptor);
     }
 
-    boolean executeStep() {
+    public boolean executeStep() {
         
        component.updateWorkflow(descriptor);
         final InvestigationCMCGait rra = new InvestigationCMCGait(descriptor.getSetupRRA_pass2Filename());
