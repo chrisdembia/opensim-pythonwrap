@@ -843,6 +843,22 @@ AbstractBody* SdfastEngine::identifyGroundBody()
 }
 //_____________________________________________________________________________
 /**
+ * Get tree joint whose child is the given body.
+ *
+ * @param aBody Pointer to the body.
+ */
+SdfastJoint *SdfastEngine::getInboardTreeJoint(SdfastBody* aBody) const
+{
+	for(int i=0; i<_jointSet.getSize(); i++) {
+		SdfastJoint *joint = dynamic_cast<SdfastJoint*>(_jointSet[i]);
+		if(joint->getChildBody() == aBody && joint->isTreeJoint())
+			return joint;
+	}
+	return 0;
+} 
+
+//_____________________________________________________________________________
+/**
  * Adjust to body-to-joint and inboard-to-joint vectors to account for the
  * changed center of mass location of an SD/Fast body
  *
@@ -851,8 +867,10 @@ AbstractBody* SdfastEngine::identifyGroundBody()
  */
 bool SdfastEngine::adjustJointVectorsForNewMassCenter(SdfastBody* aBody, double aNewMassCenter[3])
 {
+	SdfastJoint *btjJoint = getInboardTreeJoint(aBody);
+
 	double btj[3], massCenterDelta[3];
-	sdgetbtj(aBody->getSdfastIndex(), btj);
+	sdgetbtj(btjJoint->getSdfastIndex(), btj);
 
 	// Note: old center of mass is -btj
 	for(int i=0; i<3; i++) massCenterDelta[i] = aNewMassCenter[i] + btj[i];
@@ -860,7 +878,7 @@ bool SdfastEngine::adjustJointVectorsForNewMassCenter(SdfastBody* aBody, double 
 	// Set the sdfast body's body-to-joint vector to the negative
 	// of the mass center coordinates.
 	for(int i=0; i<3; i++) btj[i] = -aNewMassCenter[i];
-	sdbtj(aBody->getSdfastIndex(), btj);
+	sdbtj(btjJoint->getSdfastIndex(), btj);
 
 	// Adjust the inboard-to-joint vectors for all joints that
 	// have this body as the parent.

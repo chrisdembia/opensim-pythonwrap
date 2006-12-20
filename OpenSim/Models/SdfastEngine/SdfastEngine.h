@@ -148,6 +148,7 @@ private:
 	void setupProperties();
 	void copyData(const SdfastEngine &aEngine);
 	AbstractBody* identifyGroundBody();
+	SdfastJoint* getInboardTreeJoint(SdfastBody *aBody) const;
 	void constructSystemVariables();
 
 public:

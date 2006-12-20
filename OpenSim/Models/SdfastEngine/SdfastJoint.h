@@ -111,6 +111,7 @@ public:
 	void setParentBodyName(const std::string& aName);
 	void setChildBodyName(const std::string& aName);
 	void setSdfastType(const char* aName);
+	bool isTreeJoint() const;
 
 	virtual void peteTest();
 

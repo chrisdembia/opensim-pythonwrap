@@ -422,6 +422,13 @@ bool SdfastJoint::hasXYZAxes() const
    return true;
 }
 
+bool SdfastJoint::isTreeJoint() const
+{
+	int info[50], slider[6];
+	sdjnt(getSdfastIndex(), info, slider);
+	return info[1] == 0;
+}
+
 //=============================================================================
 // SCALING
 //=============================================================================
