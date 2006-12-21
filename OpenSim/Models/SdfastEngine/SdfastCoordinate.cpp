@@ -54,15 +54,15 @@ SdfastCoordinate::SdfastCoordinate() :
 	_keys(_keysProp.getValueStrArray()),
 	_clamped(_clampedProp.getValueBool()),
 	_locked(_lockedProp.getValueBool()),
+	_QType(_QTypeProp.getValueInt()),
 	_restraintFunction((ArrayPtrs<Function>&)_restraintFunctionProp.getValueObjArray()),
 	_minRestraintFunction((ArrayPtrs<Function>&)_minRestraintFunctionProp.getValueObjArray()),
 	_maxRestraintFunction((ArrayPtrs<Function>&)_maxRestraintFunctionProp.getValueObjArray()),
 	_restraintActive(_restraintActiveProp.getValueBool()),
+	_motionType(AbstractDof::Rotational),
 	_index(_indexProp.getValueInt()),
 	_joint(_jointProp.getValueInt()),
 	_axis(_axisProp.getValueInt()),
-	_motionType(AbstractDof::Rotational),
-	_QType(_QTypeProp.getValueInt()),
 	_SdfastEngine(NULL)
 {
 	setNull();
@@ -82,15 +82,15 @@ SdfastCoordinate::SdfastCoordinate(DOMElement *aElement) :
 	_keys(_keysProp.getValueStrArray()),
 	_clamped(_clampedProp.getValueBool()),
 	_locked(_lockedProp.getValueBool()),
+	_QType(_QTypeProp.getValueInt()),
 	_restraintFunction((ArrayPtrs<Function>&)_restraintFunctionProp.getValueObjArray()),
 	_minRestraintFunction((ArrayPtrs<Function>&)_minRestraintFunctionProp.getValueObjArray()),
 	_maxRestraintFunction((ArrayPtrs<Function>&)_maxRestraintFunctionProp.getValueObjArray()),
 	_restraintActive(_restraintActiveProp.getValueBool()),
+	_motionType(AbstractDof::Rotational),
 	_index(_indexProp.getValueInt()),
 	_joint(_jointProp.getValueInt()),
 	_axis(_axisProp.getValueInt()),
-	_motionType(AbstractDof::Rotational),
-	_QType(_QTypeProp.getValueInt()),
 	_SdfastEngine(NULL)
 {
 	setNull();
@@ -122,15 +122,15 @@ SdfastCoordinate::SdfastCoordinate(const SdfastCoordinate &aCoordinate) :
 	_keys(_keysProp.getValueStrArray()),
 	_clamped(_clampedProp.getValueBool()),
 	_locked(_lockedProp.getValueBool()),
+	_QType(_QTypeProp.getValueInt()),
 	_restraintFunction((ArrayPtrs<Function>&)_restraintFunctionProp.getValueObjArray()),
 	_minRestraintFunction((ArrayPtrs<Function>&)_minRestraintFunctionProp.getValueObjArray()),
 	_maxRestraintFunction((ArrayPtrs<Function>&)_maxRestraintFunctionProp.getValueObjArray()),
 	_restraintActive(_restraintActiveProp.getValueBool()),
+	_motionType(AbstractDof::Rotational),
 	_index(_indexProp.getValueInt()),
 	_joint(_jointProp.getValueInt()),
 	_axis(_axisProp.getValueInt()),
-	_motionType(AbstractDof::Rotational),
-	_QType(_QTypeProp.getValueInt()),
 	_SdfastEngine(NULL)
 {
 	setNull();
@@ -154,15 +154,15 @@ SdfastCoordinate::SdfastCoordinate(const AbstractCoordinate &aCoordinate) :
 	_keys(_keysProp.getValueStrArray()),
 	_clamped(_clampedProp.getValueBool()),
 	_locked(_lockedProp.getValueBool()),
+	_QType(_QTypeProp.getValueInt()),
 	_restraintFunction((ArrayPtrs<Function>&)_restraintFunctionProp.getValueObjArray()),
 	_minRestraintFunction((ArrayPtrs<Function>&)_minRestraintFunctionProp.getValueObjArray()),
 	_maxRestraintFunction((ArrayPtrs<Function>&)_maxRestraintFunctionProp.getValueObjArray()),
 	_restraintActive(_restraintActiveProp.getValueBool()),
+	_motionType(AbstractDof::Rotational),
 	_index(_indexProp.getValueInt()),
 	_joint(_jointProp.getValueInt()),
 	_axis(_axisProp.getValueInt()),
-	_motionType(AbstractDof::Rotational),
-	_QType(_QTypeProp.getValueInt()),
 	_SdfastEngine(NULL)
 {
 	setNull();

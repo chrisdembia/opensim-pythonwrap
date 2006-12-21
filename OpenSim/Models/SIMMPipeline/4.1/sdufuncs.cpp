@@ -804,7 +804,7 @@ void init_joints(void)
 void apply_joint_restraint_torques(double q[], double u[])
 {
    int i;
-   double state_value, difference, torque, dampingFactor = 1.0;
+   double state_value, difference, torque; //, dampingFactor = 1.0;
 
    for (i = 0; i < sdm.nq; i++)
    {

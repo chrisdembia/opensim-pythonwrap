@@ -52,8 +52,8 @@ using namespace OpenSim;
 SdfastJoint::SdfastJoint() :
 	AbstractJoint(),
 	_bodies(_bodiesProp.getValueStrArray()),
-	_parentBody(NULL),
 	_childBody(NULL),
+	_parentBody(NULL),
 	_index(_indexProp.getValueInt()),
 	_SdfastTypeName(_SdfastTypeNameProp.getValueStr())
 {
@@ -68,8 +68,8 @@ SdfastJoint::SdfastJoint() :
 SdfastJoint::SdfastJoint(DOMElement *aElement) :
    AbstractJoint(aElement),
 	_bodies(_bodiesProp.getValueStrArray()),
-	_parentBody(NULL),
 	_childBody(NULL),
+	_parentBody(NULL),
 	_index(_indexProp.getValueInt()),
 	_SdfastTypeName(_SdfastTypeNameProp.getValueStr())
 {
@@ -95,8 +95,8 @@ SdfastJoint::~SdfastJoint()
 SdfastJoint::SdfastJoint(const SdfastJoint &aJoint) :
    AbstractJoint(aJoint),
 	_bodies(_bodiesProp.getValueStrArray()),
-	_parentBody(NULL),
 	_childBody(NULL),
+	_parentBody(NULL),
 	_index(_indexProp.getValueInt()),
 	_SdfastTypeName(_SdfastTypeNameProp.getValueStr())
 {
@@ -417,8 +417,6 @@ void SdfastJoint::setSdfastType(const char* aName)
 //=============================================================================
 bool SdfastJoint::hasXYZAxes() const
 {
-   bool xTaken = false, yTaken = false, zTaken = false;
-
    return true;
 }
 
