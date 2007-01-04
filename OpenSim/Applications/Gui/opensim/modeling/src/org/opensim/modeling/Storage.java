@@ -164,8 +164,8 @@ public class Storage extends OpenSimObject {
     opensimModelJNI.Storage_setDataColumn(swigCPtr, aStateIndex, ArrayDouble.getCPtr(aData));
   }
 
-  public int getDataColumn(SWIGTYPE_p_std__string columnName, SWIGTYPE_p_double rData) {
-    return opensimModelJNI.Storage_getDataColumn__SWIG_1(swigCPtr, SWIGTYPE_p_std__string.getCPtr(columnName), SWIGTYPE_p_double.getCPtr(rData));
+  public int getDataColumn(String columnName, SWIGTYPE_p_double rData) {
+    return opensimModelJNI.Storage_getDataColumn__SWIG_1(swigCPtr, columnName, SWIGTYPE_p_double.getCPtr(rData));
   }
 
   public void setStepInterval(int aStepInterval) {

@@ -63,4 +63,8 @@ public class SimtkAnimationCallback extends IntegCallback {
     opensimModelJNI.SimtkAnimationCallback_extractOffsets(swigCPtr, AbstractModel.getCPtr(displayModel));
   }
 
+  public void getTransformsFromKinematicsEngine(AbstractModel simmModel) {
+    opensimModelJNI.SimtkAnimationCallback_getTransformsFromKinematicsEngine(swigCPtr, AbstractModel.getCPtr(simmModel));
+  }
+
 }

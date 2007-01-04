@@ -11,7 +11,7 @@ import org.openide.util.Utilities;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractModel;
 
-public final class SaveModelAction extends CallableSystemAction {
+public final class FileSaveModelAction extends CallableSystemAction {
     
     ModelWindowVTKTopComponent active;
     
@@ -30,7 +30,7 @@ public final class SaveModelAction extends CallableSystemAction {
     }
     
     public String getName() {
-        return NbBundle.getMessage(SaveModelAction.class, "CTL_SaveModelAction");
+        return NbBundle.getMessage(FileSaveModelAction.class, "CTL_SaveModelAction");
     }
     
     protected void initialize() {

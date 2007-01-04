@@ -12,7 +12,7 @@ import org.openide.util.HelpCtx;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimtkAnimationCallback;
-import org.opensim.view.OpenOsimModelAction;
+import org.opensim.view.FileOpenOsimModelAction;
 import org.opensim.modeling.InvestigationCMCGait;
 
 public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{

@@ -12,7 +12,7 @@ public final class LoadDemoModelAction extends CallableSystemAction {
     public void performAction() {
         try {
             // TODO better layout for models, bones, use relative path
-            ((OpenOsimModelAction) OpenOsimModelAction.findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel("./resources/models/demoModel/dynamic.xml");
+            ((FileOpenOsimModelAction) FileOpenOsimModelAction.findObject(Class.forName("org.opensim.view.FileOpenOsimModelAction"))).loadModel("./resources/models/demoModel/dynamic.xml");
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {

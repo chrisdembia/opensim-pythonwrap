@@ -1,5 +1,6 @@
 package org.opensim.view.nodes;
 
+import java.util.Vector;
 import javax.swing.Action;
 import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
@@ -36,16 +37,35 @@ public class ConcreteModelNode extends OpenSimObjectNode {
             classSpecificActions = new Action[]{
                 (FileCloseAction)FileCloseAction.findObject(
                         Class.forName("org.opensim.view.actions.FileCloseAction")),
-                new ViewMakeNewAction(), 
+                (ViewMakeNewAction)ViewMakeNewAction.findObject(
+                        Class.forName("org.opensim.view.nodes.ViewMakeNewAction")), 
                 getTreeModelMakeCurrentAction(),
-                new ModelDisplayShowAction(), 
-                new ModelDisplayHideAction(), 
                 new ModelDisplayEditAction(), 
+                new ModelDisplayHideAction(),
+                new ModelDisplayShowAction(),
+                
             };
         }
         catch(ClassNotFoundException e){
             
         }
+        /**
+         * Consolidate the two lists
+         * The following is very inefficent. Just testing the idea.
+         *
+        Action[] superActions;
+        
+        superActions = super.getActions(b);
+        Vector<Action> allActions = new Vector<Action>(10);
+        for(int i=0; i<classSpecificActions.length; i++)
+           allActions.add(classSpecificActions[i]);
+        for(int i=0; i<superActions.length; i++)
+           allActions.add(superActions[i]);
+        Action[] actionArray = new Action[allActions.size()];
+        
+        for(int i=0; i <actionArray.length; i++)
+           actionArray[i] = allActions.get(i);
+        */
         return classSpecificActions;
     }
 
@@ -62,9 +82,6 @@ public class ConcreteModelNode extends OpenSimObjectNode {
     Action getTreeModelMakeCurrentAction()
     {
            return new CallableSystemAction(){
-            /**
-             * @todo handle no views situation where getCurrenWindow() returns null
-             */
             public void performAction() {
                  OpenSimDB.getInstance().setCurrentModel(getModel());
             }

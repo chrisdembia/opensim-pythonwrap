@@ -190,7 +190,7 @@ public final class ViewDB implements Observer {
    public static ArrayList<SingleModelVisuals> getModelVisuals() {
       return modelVisuals;
    }
-   
+
    OpenSimObject pickObject(vtkAssemblyPath asmPath) {
       Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
       while(iter.hasNext()){
@@ -202,6 +202,9 @@ public final class ViewDB implements Observer {
       return null;
    }
    
+   /**
+    * Get the object corresponding to selected vtkAssemblyPath
+    **/
    OpenSimObject getObjectForActor(vtkAssembly prop) {
       Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
       while(iter.hasNext()){
@@ -213,6 +216,9 @@ public final class ViewDB implements Observer {
       return null;
    }
    
+   /**
+    * Get the vtk object corresponding to passed in opensim object
+    **/
    public vtkAssembly getActorForObject(OpenSimObject obj) {
       Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
       while(iter.hasNext()){
@@ -307,7 +313,7 @@ public final class ViewDB implements Observer {
       return OpenSimDB.getInstance().getCurrentModel();
    }
    
-   void adjustModelDisplay(AbstractModel abstractModel) {
+   void adjustModelDisplayOffset(AbstractModel abstractModel) {
       // Show dialog for model display ajdustment
       SingleModelVisuals rep = mapModelsToVisuals.get(abstractModel);
       JDialog dlg = new ModelDisplayEditJDialog(null, false, rep, abstractModel);
@@ -551,4 +557,82 @@ public final class ViewDB implements Observer {
       visModel.updateModelDisplay(animationCallback);
       repaintAll();
    }
+
+   /**
+    * For a single OpenSimObject, toggle display hide/show
+    */
+   void toggleObjectDisplay(OpenSimObject openSimObject) {
+      vtkAssembly asm = ViewDB.getInstance().getActorForObject(openSimObject);
+      if (asm==null)  // Object is not displayed for some reason
+         return ;
+      vtkProp3DCollection parts = asm.GetParts();
+      parts.InitTraversal();
+      vtkProp3D prop = parts.GetNextProp3D();
+      vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      boolean visible=false;
+      while (prop != null) {
+         if (part != null){
+            part.SetVisibility(1-part.GetVisibility());
+         }
+         prop = parts.GetNextProp3D();
+         part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      }
+      repaintAll();
+   }
+   /**
+    * Return a flag indicating if an object is displayed or not
+    **/
+   boolean getDisplayStatus(OpenSimObject openSimObject) {
+      vtkAssembly asm = ViewDB.getInstance().getActorForObject(openSimObject);
+      if (asm==null)  // Object is not displayed for some reason
+         return false;
+      vtkProp3DCollection parts = asm.GetParts();
+      parts.InitTraversal();
+      vtkProp3D prop = parts.GetNextProp3D();
+      vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      boolean visible=false;
+      while (prop != null) {
+         if (part != null){
+            if (part.GetVisibility()==1){ // if any part is visible the object is visible
+               visible=true;
+               break;
+            };
+          }
+         prop = parts.GetNextProp3D();
+         part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      }
+      return visible;
+   }
+   /**
+    * Change representation of a visible object to the one passed in.
+    * The encoding is from VTK and is defined as follows:
+    * 0. Points
+    * 1. Wireframe
+    * 2. Surface
+    *
+    * Shading is defined similarly but only if representation is Surface(2)
+    * 0. Flat
+    * 1. Gouraud
+    * 2. Phong
+    * defined in vtkProperty.h
+    */
+   void setObjectRepresentation(OpenSimObject object, int rep, int newShading) {
+      vtkAssembly asm = ViewDB.getInstance().getActorForObject(object);
+      vtkProp3DCollection parts = asm.GetParts();
+      parts.InitTraversal();
+      vtkProp3D prop = parts.GetNextProp3D();
+      vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      while (prop != null) {
+         if (part != null){
+            part.GetProperty().SetRepresentation(rep);
+            if (rep==2){   // Surface shading
+               part.GetProperty().SetInterpolation(newShading);
+            }
+         }
+         prop = parts.GetNextProp3D();
+         part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      }
+      repaintAll();
+   }
+
 }

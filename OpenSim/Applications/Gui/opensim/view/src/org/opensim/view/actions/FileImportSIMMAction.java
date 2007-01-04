@@ -9,7 +9,7 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.view.base.ExecOpenSimProcess;
 import org.opensim.utils.FileUtils;
-import org.opensim.view.OpenOsimModelAction;
+import org.opensim.view.FileOpenOsimModelAction;
 
 public final class FileImportSIMMAction extends CallableSystemAction {
     
@@ -37,8 +37,8 @@ public final class FileImportSIMMAction extends CallableSystemAction {
             if (success){
                 try {
                     // Display original model
-                    ((OpenOsimModelAction) OpenOsimModelAction.findObject(
-                            Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(tempFilename);
+                    ((FileOpenOsimModelAction) FileOpenOsimModelAction.findObject(
+                            Class.forName("org.opensim.view.FileOpenOsimModelAction"))).loadModel(tempFilename);
                 } catch (ClassNotFoundException ex) {
                     ex.printStackTrace();
                 } catch (IOException ex) {

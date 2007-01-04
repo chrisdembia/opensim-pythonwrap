@@ -10,7 +10,7 @@ import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmModelScaler;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.utils.FileUtils;
-import org.opensim.view.OpenOsimModelAction;
+import org.opensim.view.FileOpenOsimModelAction;
 
 public class ScalingPanel  extends workflowWizardPanelBase {
     
@@ -95,8 +95,8 @@ public class ScalingPanel  extends workflowWizardPanelBase {
            boolean success=false;
            try {
               try {
-                 success = ((OpenOsimModelAction) OpenOsimModelAction.
-                         findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(scaledModel);
+                 success = ((FileOpenOsimModelAction) FileOpenOsimModelAction.
+                         findObject(Class.forName("org.opensim.view.FileOpenOsimModelAction"))).loadModel(scaledModel);
               } catch (IOException ex) {
                  success=false;
               }
@@ -149,8 +149,8 @@ public class ScalingPanel  extends workflowWizardPanelBase {
                     modelFileName = subject.getPathToSubject()+File.separatorChar+outputModelName;
                 }
                 // Display original model
-                ((OpenOsimModelAction) OpenOsimModelAction.findObject(
-                        Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(modelFileName);
+                ((FileOpenOsimModelAction) FileOpenOsimModelAction.findObject(
+                        Class.forName("org.opensim.view.FileOpenOsimModelAction"))).loadModel(modelFileName);
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             } catch (IOException ex) {

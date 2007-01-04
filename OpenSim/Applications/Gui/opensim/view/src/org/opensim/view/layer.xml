@@ -8,15 +8,15 @@
             <file name="org-opensim-view-ModelDisplayHideAction.instance"/>
             <file name="org-opensim-view-ModelDisplayShowAction.instance"/>
             <file name="org-opensim-view-ViewEditAction.instance"/>
-            <file name="org-opensim-view-ExportSIMMJntAction.instance"/>
+            <file name="org-opensim-view-FileExportSIMMJntAction.instance"/>
             <file name="org-opensim-view-ImportSIMMModelAction.instance"/>
             <file name="org-opensim-view-ViewReplicateAction.instance"/>
             <file name="org-opensim-view-SaveAction.instance"/>
             <file name="org-opensim-view-LoadGaitModelAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.LoadGaitModelAction"/>
             </file>
-            <file name="org-opensim-view-OpenOsimModelAction.instance"/>
-                    <file name="org-opensim-view-SaveModelAction.instance"/>
+            <file name="org-opensim-view-FileOpenOsimModelAction.instance"/>
+                    <file name="org-opensim-view-FileSaveModelAction.instance"/>
             <file name="org-opensim-view-actions-FileCloseAction.instance"/>
             <file name="org-opensim-view-actions-FileImportSIMMAction.instance"/>
             <file name="org-opensim-view-actions-FileLoadMarkersAction.instance"/>
@@ -46,11 +46,11 @@
             <attr name="org-opensim-view-nodes-TrackNodeSelectionAction.shadow/Separator4.instance" boolvalue="true"/>
             <attr name="org-netbeans-modules-project-ui-CustomizeProject.shadow/org-opensim-view-LoadDemoModelAction.shadow" boolvalue="true"/>
             <file name="org-opensim-view-ExportSIMMJntAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-ExportSIMMJntAction.instance"/>
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileExportSIMMJntAction.instance"/>
             </file>
             <attr name="org-opensim-view-LoadDemoModelAction.shadow/org-opensim-view-OpenOsimModel.shadow" boolvalue="true"/>
             <file name="org-opensim-view-OpenOsimModel.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-OpenOsimModelAction.instance"/>
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileOpenOsimModelAction.instance"/>
             </file>
             <attr name="org-opensim-view-OpenOsimModel.shadow/Separator2.instance" boolvalue="true"/>
             <attr name="Separator2.instance/org-opensim-view-separatorBefore.instance" boolvalue="true"/>
@@ -70,7 +70,7 @@
             </file>
             <attr name="org-opensim-view-separatorBefore.instance/org-opensim-view-SaveModelAction.shadow" boolvalue="false"/>
             <file name="org-opensim-view-SaveModelAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-SaveModelAction.instance"/>
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileSaveModelAction.instance"/>
             </file>
             <attr name="org-opensim-view-SaveModelAction.shadow/org-openide-actions-SaveAction.instance" boolvalue="true"/>
             <attr name="org-opensim-view-separatorBefore.instance/org-opensim-view-ExportSIMMJntAction.shadow" boolvalue="true"/>
@@ -143,6 +143,9 @@
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-ViewAddNewAction.instance"/>
             </file>
             <attr name="org-opensim-view-actions-ViewAddNewAction.shadow/org-netbeans-core-actions-HTMLViewAction.instance" boolvalue="true"/>
+        </folder>
+        <folder name="Window">
+            <file name="ViewRuntimeTabAction.shadow_hidden"/>
         </folder>
     </folder>
     <folder name="Services">

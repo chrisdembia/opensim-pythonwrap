@@ -17,7 +17,7 @@ import org.opensim.modeling.SimmSubject;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Storage;
 import org.opensim.utils.FileUtils;
-import org.opensim.view.OpenOsimModelAction;
+import org.opensim.view.FileOpenOsimModelAction;
 
 public class MarkerPlacementPanel  extends workflowWizardPanelBase{
     
@@ -74,8 +74,8 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
           boolean success=false;
           try {
              try {
-                success = ((OpenOsimModelAction) OpenOsimModelAction.
-                        findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(markerPlacementModel);
+                success = ((FileOpenOsimModelAction) FileOpenOsimModelAction.
+                        findObject(Class.forName("org.opensim.view.FileOpenOsimModelAction"))).loadModel(markerPlacementModel);
              } catch (IOException ex) {
                 success=false;
              }

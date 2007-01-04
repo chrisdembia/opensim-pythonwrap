@@ -119,8 +119,8 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     return (cPtr == 0) ? null : new MarkerSet(cPtr, false);
   }
 
-  public void writeMarkerFile(SWIGTYPE_p_std__string aFileName) {
-    opensimModelJNI.AbstractDynamicsEngine_writeMarkerFile(swigCPtr, SWIGTYPE_p_std__string.getCPtr(aFileName));
+  public void writeMarkerFile(String aFileName) {
+    opensimModelJNI.AbstractDynamicsEngine_writeMarkerFile(swigCPtr, aFileName);
   }
 
   public int replaceMarkerSet(MarkerSet aMarkerSet) {

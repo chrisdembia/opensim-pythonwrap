@@ -12,7 +12,7 @@ import org.opensim.utils.FileUtils;
  * A Class represnting the Action of exporting an OpenSim model to SIMM's jnt format.
  * The exported model is the "Current" model in the GUI as indicated by the explorer window.
  */
-public final class ExportSIMMJntAction extends CallableSystemAction {
+public final class FileExportSIMMJntAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
@@ -33,7 +33,7 @@ public final class ExportSIMMJntAction extends CallableSystemAction {
     }
     
     public String getName() {
-        return NbBundle.getMessage(ExportSIMMJntAction.class, "CTL_ExportSIMMJntAction");
+        return NbBundle.getMessage(FileExportSIMMJntAction.class, "CTL_ExportSIMMJntAction");
     }
     
     protected void initialize() {

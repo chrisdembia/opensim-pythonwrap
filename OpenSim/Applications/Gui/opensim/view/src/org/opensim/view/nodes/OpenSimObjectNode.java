@@ -30,6 +30,13 @@ import org.openide.util.HelpCtx;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.ObjectDisplayHideAction;
+import org.opensim.view.ObjectDisplayMenuAction;
+import org.opensim.view.ObjectDisplayShowAction;
+import org.opensim.view.ObjectDisplaySurfaceAction;
+import org.opensim.view.ObjectDisplaySurfaceFlatAction;
+import org.opensim.view.ObjectDisplaySurfaceGouraudAction;
+import org.opensim.view.ObjectDisplayWireframeAction;
 import org.opensim.view.ViewDB;
 import org.opensim.view.editors.ObjectEditDialogMaker;
 
@@ -58,14 +65,29 @@ public class OpenSimObjectNode extends OpenSimNode {
      * Action to be invoked on double clicking.
      */
     public Action getPreferredAction() {
-        return getReviewAction();
+         return getReviewAction();
     }
+          
     /**
      * Return the list of available actions.
      * Subclasses should user super.getActions() to use this
      */
     public Action[] getActions(boolean b) {
-        return (new Action[] {getReviewAction()});
+      /*
+       try {
+         return (new Action[] {
+                     (ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(Class.forName("org.opensim.view.ObjectDisplayHideAction")),
+                     (ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(Class.forName("org.opensim.view.ObjectDisplayShowAction")),
+                     (ObjectReviewAction)      ObjectReviewAction.findObject(Class.forName("org.opensim.view.ObjectReviewAction")),
+         });
+      } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+         return (new Action[]{null});
+      }*/
+      return new Action[]{getReviewAction(), 
+                           null,
+                           new ObjectDisplayMenuAction()
+      };
     }
     /**
      * Action to review the object associated with the node
@@ -89,7 +111,11 @@ public class OpenSimObjectNode extends OpenSimNode {
 
             public HelpCtx getHelpCtx() {
                 return null;
-            }}; 
+            }
+
+         protected boolean asynchronous() {
+            return false;
+         }}; 
         return reviewAction;
     }
     /**

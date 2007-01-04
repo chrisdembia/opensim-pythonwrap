@@ -11,7 +11,7 @@ import org.opensim.modeling.AbstractModel;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.base.SerializationHelper;
 
-public class OpenOsimModelAction extends CallableSystemAction {
+public class FileOpenOsimModelAction extends CallableSystemAction {
     
     protected String fileName;
     
@@ -82,7 +82,7 @@ public class OpenOsimModelAction extends CallableSystemAction {
     }
     
     public String getName() {
-        return NbBundle.getMessage(OpenOsimModelAction.class, "CTL_OpenOsimModel");
+        return NbBundle.getMessage(FileOpenOsimModelAction.class, "CTL_OpenOsimModel");
     }
     
     protected String iconResource() {
@@ -90,7 +90,7 @@ public class OpenOsimModelAction extends CallableSystemAction {
     }
     
     public HelpCtx getHelpCtx() {
-        return new HelpCtx(OpenOsimModelAction.class);
+        return new HelpCtx(FileOpenOsimModelAction.class);
     }
     
     protected boolean asynchronous() {

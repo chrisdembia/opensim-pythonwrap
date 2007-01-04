@@ -67,4 +67,8 @@ public class InvestigationForward extends Investigation {
     opensimModelJNI.InvestigationForward_initializeExternalLoads(AbstractModel.getCPtr(aModel), aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics);
   }
 
+  public static void adjustCOM(AbstractModel aModel, String aAdjustedCOMFileName, String aAdjustedCOMBody) {
+    opensimModelJNI.InvestigationForward_adjustCOM(AbstractModel.getCPtr(aModel), aAdjustedCOMFileName, aAdjustedCOMBody);
+  }
+
 }

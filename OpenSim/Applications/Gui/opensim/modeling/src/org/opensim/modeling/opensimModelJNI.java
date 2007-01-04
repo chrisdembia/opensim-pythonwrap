@@ -568,7 +568,7 @@ public class opensimModelJNI {
   public final static native int Storage_getDataAtTime__SWIG_1(long jarg1, double jarg2, int jarg3, long jarg4);
   public final static native int Storage_getDataColumn__SWIG_0(long jarg1, int jarg2, long jarg3);
   public final static native void Storage_setDataColumn(long jarg1, int jarg2, long jarg3);
-  public final static native int Storage_getDataColumn__SWIG_1(long jarg1, long jarg2, long jarg3);
+  public final static native int Storage_getDataColumn__SWIG_1(long jarg1, String jarg2, long jarg3);
   public final static native void Storage_setStepInterval(long jarg1, int jarg2);
   public final static native int Storage_getStepInterval(long jarg1);
   public final static native void Storage_setCapacityIncrement(long jarg1, int jarg2);
@@ -1217,6 +1217,7 @@ public class opensimModelJNI {
   public final static native long InvestigationForward_copy__SWIG_1(long jarg1, long jarg2);
   public final static native void InvestigationForward_run(long jarg1);
   public final static native void InvestigationForward_initializeExternalLoads(long jarg1, String jarg2, String jarg3, String jarg4, String jarg5, double jarg6);
+  public final static native void InvestigationForward_adjustCOM(long jarg1, String jarg2, String jarg3);
   public final static native long new_InvestigationPerturbation__SWIG_0();
   public final static native long new_InvestigationPerturbation__SWIG_1(String jarg1);
   public final static native long new_InvestigationPerturbation__SWIG_2(long jarg1);
@@ -1237,6 +1238,7 @@ public class opensimModelJNI {
   public final static native int SimtkAnimationCallback_begin__SWIG_1(long jarg1, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native long SimtkAnimationCallback_getBodyTransform(long jarg1, int jarg2);
   public final static native void SimtkAnimationCallback_extractOffsets(long jarg1, long jarg2);
+  public final static native void SimtkAnimationCallback_getTransformsFromKinematicsEngine(long jarg1, long jarg2);
   public final static native long new_Kinematics__SWIG_0(long jarg1);
   public final static native long new_Kinematics__SWIG_1();
   public final static native long new_Kinematics__SWIG_2(String jarg1);
@@ -1939,7 +1941,7 @@ public class opensimModelJNI {
   public final static native long AbstractDynamicsEngine_findUnconstrainedDof(long jarg1, long jarg2, long jarg3);
   public final static native long AbstractDynamicsEngine_getSpeedSet__SWIG_0(long jarg1);
   public final static native long AbstractDynamicsEngine_getMarkerSet__SWIG_0(long jarg1);
-  public final static native void AbstractDynamicsEngine_writeMarkerFile(long jarg1, long jarg2);
+  public final static native void AbstractDynamicsEngine_writeMarkerFile(long jarg1, String jarg2);
   public final static native int AbstractDynamicsEngine_replaceMarkerSet(long jarg1, long jarg2);
   public final static native void AbstractDynamicsEngine_updateMarkerSet(long jarg1, long jarg2);
   public final static native int AbstractDynamicsEngine_deleteUnusedMarkers(long jarg1, long jarg2);
@@ -2493,8 +2495,8 @@ public class opensimModelJNI {
   public final static native double SimmMarkerData_getLastFrameTime(long jarg1);
   public final static native void SimmMarkerData_peteTest(long jarg1);
   public final static native long new_IKSolverInterface(long jarg1);
-  public final static native void IKSolverInterface_solveFrames(long jarg1, long jarg2, long jarg3, long jarg4);
   public final static native void delete_IKSolverInterface(long jarg1);
+  public final static native void IKSolverInterface_solveFrames(long jarg1, long jarg2, long jarg3, long jarg4);
   public final static native void delete_InvestigationIK(long jarg1);
   public final static native long new_InvestigationIK__SWIG_0();
   public final static native long new_InvestigationIK__SWIG_1(String jarg1, long jarg2);
@@ -2560,8 +2562,8 @@ public class opensimModelJNI {
   public final static native long new_SimmMeasurementSet__SWIG_1(long jarg1);
   public final static native void delete_SimmMeasurementSet(long jarg1);
   public final static native long new_SimmIKSolverImpl(long jarg1);
-  public final static native void SimmIKSolverImpl_solveFrames(long jarg1, long jarg2, long jarg3, long jarg4);
   public final static native void delete_SimmIKSolverImpl(long jarg1);
+  public final static native void SimmIKSolverImpl_solveFrames(long jarg1, long jarg2, long jarg3, long jarg4);
   public final static native double rdOptimizationTarget_SMALLDX_get();
   public final static native void delete_rdOptimizationTarget(long jarg1);
   public final static native int rdOptimizationTarget_compute(long jarg1, long jarg2, long jarg3, long jarg4);

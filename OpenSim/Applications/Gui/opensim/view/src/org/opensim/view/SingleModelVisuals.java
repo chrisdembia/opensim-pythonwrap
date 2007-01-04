@@ -20,6 +20,8 @@ import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.LineGeometry;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.SWIGTYPE_p_double;
+import org.opensim.modeling.SWIGTYPE_p_void;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
@@ -136,7 +138,7 @@ public class SingleModelVisuals {
                 mapActors2Objects.put(actor, body);
 
             }
-
+            
             // Bodies have things attached to them as handled by the
             // dependents mechanism. For each one of these a new assembly is created and attached 
             // to the same xform as the owner body.
@@ -360,6 +362,7 @@ public class SingleModelVisuals {
             modelAssembly.AddPart(muscleRep); 
             //System.out.println("Processing muscle "+nextMuscle.getName());
         }
+        
     }
     /**
      * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points

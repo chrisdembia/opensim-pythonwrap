@@ -26,6 +26,7 @@
 package org.opensim.view.nodes;
 
 import java.util.ResourceBundle;
+import javax.swing.Action;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.ActuatorSet;
 
@@ -43,4 +44,11 @@ public class MusclesNode extends OpenSimNode {
         super(new MuscleChildren(as));
         setDisplayName(NbBundle.getMessage(MusclesNode.class, "CTL_Actuators"));
     }    
+
+   public Action[] getActions(boolean b) {
+      Action[] retValue;
+      
+      retValue = super.getActions(b);
+      return retValue;
+   }
 }

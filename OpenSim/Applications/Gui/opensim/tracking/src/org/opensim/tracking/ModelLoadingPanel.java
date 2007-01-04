@@ -13,7 +13,7 @@ import org.opensim.modeling.ScaleSet;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.tracking.workflowWizardPanelBase;
-import org.opensim.view.OpenOsimModelAction;
+import org.opensim.view.FileOpenOsimModelAction;
 
 
 public class ModelLoadingPanel extends workflowWizardPanelBase{
@@ -78,7 +78,7 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
             boolean success=false;
             try {
                 try {
-                    success = ((OpenOsimModelAction) OpenOsimModelAction.findObject(Class.forName("org.opensim.view.OpenOsimModelAction"))).loadModel(model);
+                    success = ((FileOpenOsimModelAction) FileOpenOsimModelAction.findObject(Class.forName("org.opensim.view.FileOpenOsimModelAction"))).loadModel(model);
                 } catch (IOException ex) {
                     success=false;
                 }
