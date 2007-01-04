@@ -119,18 +119,40 @@ public class OpenSimBaseCanvas extends vtkPanel
 
         if ('x' == keyChar)
           {
-            applyCamera(CamerasMenu.pickStandardCamera("Front"));
+         applyCameraX();
           }
         else if ('y' == keyChar)
           {
-            applyCamera(CamerasMenu.pickStandardCamera("Side"));
+            applyCameraY();   
           }
         else if ('z' == keyChar)
           {
-            applyCamera(CamerasMenu.pickStandardCamera("Top"));
+               applyCameraZ();
           }
+        else if ('i' == keyChar)
+        {
+           GetRenderer().GetActiveCamera().Zoom(1.1);
+           repaint();
+        }
+        else if ('o' == keyChar)
+        {
+           GetRenderer().GetActiveCamera().Zoom(0.9);
+           repaint();
+        }
         super.keyPressed(e);
       }
+
+   public void applyCameraY() { 
+      applyCamera(CamerasMenu.pickStandardCamera("Top"));
+   }
+
+   public void applyCameraZ() {
+      applyCamera(CamerasMenu.pickStandardCamera("Side"));
+   }
+
+   public void applyCameraX() {
+      applyCamera(CamerasMenu.pickStandardCamera("Front"));
+   }
       
       /**
        * A method to apply a prespecified Camera (selectedCamera) to the current Canvas

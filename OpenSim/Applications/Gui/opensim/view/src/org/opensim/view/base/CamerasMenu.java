@@ -42,7 +42,7 @@ import vtk.vtkLightCollection;
 public class CamerasMenu extends JMenu {
     
     OpenSimBaseCanvas dCanvas;
-    static vtkCamera frontCamera, topCamera, sideCamera;
+    static vtkCamera upXCamera, upZCamera, upYCamera;
     
     static ArrayList<vtkCamera> availableCameras = new ArrayList<vtkCamera>();
     static ArrayList<String> availableCameraNames = new ArrayList<String>();
@@ -64,36 +64,36 @@ public class CamerasMenu extends JMenu {
     
     private void createDefaultCameras()
     {
-        frontCamera = new vtkCamera(); //x
-        frontCamera.Azimuth(90);
-        frontCamera.Elevation(0);
-        frontCamera.Roll(0);
-        frontCamera.SetViewAngle(30);
-        frontCamera.SetFocalPoint(0, 0, 0);
-        frontCamera.SetViewUp(0, 1, 0);
+        upXCamera = new vtkCamera(); //x
+        upXCamera.Azimuth(90);
+        upXCamera.Elevation(0);
+        upXCamera.Roll(0);
+        upXCamera.SetViewAngle(30);
+        upXCamera.SetFocalPoint(0, 0, 0);
+        upXCamera.SetViewUp(0, 1, 0);
 
-        topCamera = new vtkCamera();    //z
-        topCamera.Azimuth(0);
-        topCamera.Elevation(0);
-        topCamera.Roll(0);
-        topCamera.SetViewAngle(30);
-        topCamera.SetFocalPoint(0, 0, 0);
-        topCamera.SetViewUp(0, 1, 0);
+        upZCamera = new vtkCamera();    //z
+        upZCamera.Azimuth(0);
+        upZCamera.Elevation(0);
+        upZCamera.Roll(0);
+        upZCamera.SetViewAngle(30);
+        upZCamera.SetFocalPoint(0, 0, 0);
+        upZCamera.SetViewUp(0, 1, 0);
         
-        sideCamera = new vtkCamera();   //y
-        sideCamera.Azimuth(0);
-        sideCamera.Elevation(90);
-        sideCamera.Roll(180);
-        sideCamera.SetViewAngle(30);
-        sideCamera.SetFocalPoint(0, 0, 0);
-        sideCamera.SetViewUp(0, 0, -1);
+        upYCamera = new vtkCamera();   //y
+        upYCamera.Azimuth(0);
+        upYCamera.Elevation(90);
+        upYCamera.Roll(180);
+        upYCamera.SetViewAngle(30);
+        upYCamera.SetFocalPoint(0, 0, 0);
+        upYCamera.SetViewUp(0, 0, -1);
 
-        availableCameras.add(frontCamera);
+        availableCameras.add(upXCamera);
         availableCameraNames.add("Front");
-        availableCameras.add(topCamera);
-        availableCameraNames.add("Top");
-        availableCameras.add(sideCamera);
+        availableCameras.add(upZCamera);
         availableCameraNames.add("Side");
+        availableCameras.add(upYCamera);
+        availableCameraNames.add("Top");
     }
 
     private void createCameraActions()
