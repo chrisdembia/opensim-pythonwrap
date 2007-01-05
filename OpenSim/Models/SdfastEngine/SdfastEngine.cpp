@@ -44,6 +44,7 @@
 #include <OpenSim/Simulation/SIMM/JointSet.h>
 #include <OpenSim/Simulation/SIMM/AbstractDof.h>
 #include <OpenSim/Simulation/SIMM/AbstractModel.h>
+#include <OpenSim/Simulation/SIMM/AbstractSimmMuscle.h>
 #include <OpenSim/Simulation/SIMM/SimmCoordinate.h>
 #include <OpenSim/Simulation/SIMM/SimmBody.h>
 #include <OpenSim/Simulation/SIMM/SimmJoint.h>
@@ -537,6 +538,15 @@ void SdfastEngine::setConfiguration(const double aY[])
 	int nqnu = nq + nu;
 	memcpy(_y,aY,nqnu*sizeof(double));
 	sdstate(getModel()->getTime(),_y,&_y[nq]);
+
+	// TODO: use Observer mechanism
+	int i;
+	ActuatorSet* act = getModel()->getActuatorSet();
+	for (i = 0; i < act->getSize(); i++) {
+		AbstractSimmMuscle* sm = dynamic_cast<AbstractSimmMuscle*>(act->get(i));
+		if (sm)
+			sm->invalidatePath();
+	}
 }
 //_____________________________________________________________________________
 /**
@@ -566,6 +576,15 @@ void SdfastEngine::setConfiguration(const double aQ[],const double aU[])
 	memcpy(_y,aQ,nq*sizeof(double));
 	memcpy(&_y[nq],aU,nu*sizeof(double));
 	sdstate(_model->getTime(),_y,&_y[nq]);
+
+	// TODO: use Observer mechanism
+	int i;
+	ActuatorSet* act = getModel()->getActuatorSet();
+	for (i = 0; i < act->getSize(); i++) {
+		AbstractSimmMuscle* sm = dynamic_cast<AbstractSimmMuscle*>(act->get(i));
+		if (sm)
+			sm->invalidatePath();
+	}
 }
 //_____________________________________________________________________________
 /**
