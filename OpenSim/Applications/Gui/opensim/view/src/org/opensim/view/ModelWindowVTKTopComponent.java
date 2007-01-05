@@ -57,7 +57,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
       jFrontViewButton = new javax.swing.JButton();
       jSideViewButton = new javax.swing.JButton();
       jTopViewButton = new javax.swing.JButton();
-      openSimCanvas1 = new OpenSimCanvas();
+      openSimCanvas1 = new org.opensim.view.OpenSimCanvas();
 
       org.openide.awt.Mnemonics.setLocalizedText(jRefitModelButton, "Refit");
       jRefitModelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -111,9 +111,20 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
       add(jModelWiondowToolBar, java.awt.BorderLayout.NORTH);
 
+      openSimCanvas1.addMouseListener(new java.awt.event.MouseAdapter() {
+         public void mousePressed(java.awt.event.MouseEvent evt) {
+            openSimCanvas1MousePressed(evt);
+         }
+      });
+
       add(openSimCanvas1, java.awt.BorderLayout.CENTER);
 
    }// </editor-fold>//GEN-END:initComponents
+
+   private void openSimCanvas1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openSimCanvas1MousePressed
+// TODO add your handling code here:
+      processMousePressed(evt);
+   }//GEN-LAST:event_openSimCanvas1MousePressed
 
    private void jFrontViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFrontViewButtonActionPerformed
 // TODO add your handling code here:
@@ -170,7 +181,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
    private javax.swing.JButton jSideViewButton;
    private javax.swing.JButton jTakeSnapshotButton;
    private javax.swing.JButton jTopViewButton;
-   private OpenSimCanvas openSimCanvas1;
+   private org.opensim.view.OpenSimCanvas openSimCanvas1;
    // End of variables declaration//GEN-END:variables
     
     public int getPersistenceType() {
