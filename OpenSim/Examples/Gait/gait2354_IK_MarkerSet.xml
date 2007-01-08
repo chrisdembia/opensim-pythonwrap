@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SimmMarkerSet>
+<MarkerSet>
 
 	<!-- Pelvis -->
 	<SimmMarker name="asis_r">
@@ -136,4 +136,4 @@
 	<SimmMarker name="xyphoidprocess">
 		<weight>1.0</weight>
 	</SimmMarker>
-</SimmMarkerSet>
+</MarkerSet>

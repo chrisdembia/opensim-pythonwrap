@@ -19,8 +19,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(OPENSIM_INCLUDE_PATH);$(OPENSIM_INCLUDE_PATH)/Vendors/xerces-c-src2_4_0/src;$(OPENSIM_INCLUDE_PATH)/OpenSim/Models/SIMMPipeline/4.0/suPipeline40/dp/"
-				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,RDSDFAST_EXPORTS"
+				AdditionalIncludeDirectories="$(OPENSIM_INCLUDE_PATH);$(OPENSIM_INCLUDE_PATH)/Vendors/xerces-c-src_2_7_0/src;$(OPENSIM_INCLUDE_PATH)/OpenSim/Models/SIMMPipeline/4.1"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,SDFAST_ENGINE_EXPORTS"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -35,10 +35,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="suPipeline40Workflow_d.lib suPipeline40_d.lib suAnalyses_d.lib rdSimulation_d.lib rdSDFast_d.lib rdTools_d.lib acpp_d.lib"
+				AdditionalLibraryDirectories="$(OPENSIM_LIB_PATH)/Debug"
+				AdditionalDependencies="suAnalyses_d.lib rdSimulation_d.lib rdTools_d.lib acpp_d.lib SdfastEngine_d.lib"
 				OutputFile="./subject01_d.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(OPENSIM_LIB_PATH)/Debug"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/subject01.pdb"
 				SubSystem="1"
@@ -72,8 +72,8 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(OPENSIM_INCLUDE_PATH);$(OPENSIM_INCLUDE_PATH)/Vendors/xerces-c-src2_4_0/src;$(OPENSIM_INCLUDE_PATH)/OpenSim/Models/SIMMPipeline/4.0/suPipeline40/dp"
-				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,RDSDFAST_EXPORTS"
+				AdditionalIncludeDirectories="$(OPENSIM_INCLUDE_PATH);$(OPENSIM_INCLUDE_PATH)/Vendors/xerces-c-src_2_7_0/src;$(OPENSIM_INCLUDE_PATH)/OpenSim/Models/SIMMPipeline/4.1"
+				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,SDFAST_ENGINE_EXPORTS"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
@@ -84,10 +84,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="suPipeline40Workflow.lib suPipeline40.lib suAnalyses.lib rdSimulation.lib rdSDFast.lib rdTools.lib acpp.lib"
+				AdditionalLibraryDirectories="$(OPENSIM_LIB_PATH)/Release"
+				AdditionalDependencies="suAnalyses.lib rdSimulation.lib rdTools.lib acpp.lib SdfastEngine.lib"
 				OutputFile="./subject01.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(OPENSIM_LIB_PATH)/Release"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -126,28 +126,25 @@
 				RelativePath=".\sdfor.c">
 			</File>
 			<File
-				RelativePath=".\sdlib.c">
-			</File>
-			<File
-				RelativePath=".\sdufuncs_darryl.c">
-			</File>
-			<File
-				RelativePath=".\subject01.cpp">
-			</File>
-			<File
 				RelativePath=".\subject01_dyn.c">
 			</File>
 			<File
 				RelativePath=".\subject01_sar.c">
+			</File>
+			<File
+				RelativePath="$(OPENSIM_INCLUDE_PATH)\OpenSim\Models\SIMMPipeline\4.1\sdufuncs.cpp">
+			</File>
+			<File
+				RelativePath="$(OPENSIM_INCLUDE_PATH)\OpenSim\Models\SIMMPipeline\4.1\gcvspl.c">
+			</File>
+			<File
+				RelativePath="$(OPENSIM_INCLUDE_PATH)\OpenSim\Models\SIMMPipeline\4.1\sdlib.c">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
-			<File
-				RelativePath=".\subject01.h">
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

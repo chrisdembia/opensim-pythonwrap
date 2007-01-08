@@ -748,12 +748,14 @@ begingencoord subtalar_angle_r
 range -90.000000 90.000000
 keys a_key
 default_value 0.000000
+locked yes
 endgencoord
 
 begingencoord mtp_angle_r
 range -90.000000 90.000000
 keys t_key
 default_value 0.000000
+locked yes
 endgencoord
 
 
@@ -794,12 +796,14 @@ begingencoord subtalar_angle_l
 range -90.000000 90.000000
 keys a_key
 default_value 0.000000
+locked yes
 endgencoord
 
 begingencoord mtp_angle_l
 range -60.000000 60.000000
 keys t_key
 default_value 0.000000
+locked yes
 endgencoord
 
 

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AbstractModel name="3DGaitModelSimple">
+	<angle_units> radians </angle_units>
 	<gravity>0.0 -9.80665 0.0</gravity>
 	<ActuatorSet>
 	<objects>
-		<SimmZajacHill name="glut_med1_r">
+		<SimmDarrylMuscle name="glut_med1_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -19,10 +20,10 @@
 			<max_isometric_force>1119.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.053500000000</optimal_fiber_length>
 			<tendon_slack_length>0.078000000000</tendon_slack_length>
-			<pennation_angle>8.000000000000</pennation_angle>
+			<pennation_angle>0.139626340160</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -61,8 +62,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_abd R_hip_flex R_hip_inrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_med2_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_med2_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -81,7 +82,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -120,8 +121,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_abd </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_med3_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_med3_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -137,10 +138,10 @@
 			<max_isometric_force>1000.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.064600000000</optimal_fiber_length>
 			<tendon_slack_length>0.053000000000</tendon_slack_length>
-			<pennation_angle>19.000000000000</pennation_angle>
+			<pennation_angle>0.331612557879</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -179,8 +180,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_abd R_hip_exrot R_hip_ext </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="bifemlh_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="bifemlh_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -203,7 +204,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -242,8 +243,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_ext R_hip_add R_knee_bend </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="bifemsh_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="bifemsh_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -263,10 +264,10 @@
 			<max_isometric_force>804.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.173000000000</optimal_fiber_length>
 			<tendon_slack_length>0.089000000000</tendon_slack_length>
-			<pennation_angle>23.000000000000</pennation_angle>
+			<pennation_angle>0.401425727959</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -305,8 +306,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_knee_bend </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="sar_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="sar_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -337,7 +338,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -376,8 +377,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_flex R_hip_abd R_knee_bend </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="add_mag2_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="add_mag2_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -393,10 +394,10 @@
 			<max_isometric_force>2343.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.121000000000</optimal_fiber_length>
 			<tendon_slack_length>0.120000000000</tendon_slack_length>
-			<pennation_angle>3.000000000000</pennation_angle>
+			<pennation_angle>0.052359877560</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -435,8 +436,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_ext R_hip_add </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="tfl_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="tfl_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -460,10 +461,10 @@
 			<max_isometric_force>233.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.095000000000</optimal_fiber_length>
 			<tendon_slack_length>0.425000000000</tendon_slack_length>
-			<pennation_angle>3.000000000000</pennation_angle>
+			<pennation_angle>0.052359877560</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -502,8 +503,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_abd R_hip_flex R_hip_inrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="pect_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="pect_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -522,7 +523,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -561,8 +562,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_add R_hip_flex </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="grac_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="grac_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -573,7 +574,7 @@
 					<location>-0.026570000000 -0.031900000000 -0.037740000000</location>
 					<body>tibia_r</body>
 					<coordinate>knee_angle_r</coordinate>
-					<range>-25.000000000000 10.000000000000</range>
+					<range>-0.436332312999 0.174532925199</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>-0.019430000000 -0.051530000000 -0.035800000000</location>
@@ -588,10 +589,10 @@
 			<max_isometric_force>162.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.352000000000</optimal_fiber_length>
 			<tendon_slack_length>0.126000000000</tendon_slack_length>
-			<pennation_angle>3.000000000000</pennation_angle>
+			<pennation_angle>0.052359877560</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -630,8 +631,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_add R_knee_bend R_hip_flex </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_max1_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_max1_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -655,10 +656,10 @@
 			<max_isometric_force>573.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.142000000000</optimal_fiber_length>
 			<tendon_slack_length>0.125000000000</tendon_slack_length>
-			<pennation_angle>5.000000000000</pennation_angle>
+			<pennation_angle>0.087266462600</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -697,8 +698,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_ext R_hip_abd </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_max2_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_max2_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -725,7 +726,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -764,8 +765,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_ext </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_max3_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_max3_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -789,10 +790,10 @@
 			<max_isometric_force>552.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.144000000000</optimal_fiber_length>
 			<tendon_slack_length>0.145000000000</tendon_slack_length>
-			<pennation_angle>5.000000000000</pennation_angle>
+			<pennation_angle>0.087266462600</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -831,8 +832,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_ext </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="iliacus_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="iliacus_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -847,7 +848,7 @@
 					<location>-0.028800000000 -0.080500000000 0.081600000000</location>
 					<body>pelvis</body>
 					<coordinate>hip_flexion_r</coordinate>
-					<range>-90.000000000000 45.000000000000</range>
+					<range>-1.570796326795 0.785398163397</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>0.001700000000 -0.054300000000 0.005700000000</location>
@@ -862,10 +863,10 @@
 			<max_isometric_force>1073.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
-			<pennation_angle>7.000000000000</pennation_angle>
+			<pennation_angle>0.122173047640</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -904,8 +905,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_flex R_hip_inrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="psoas_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="psoas_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -920,7 +921,7 @@
 					<location>-0.028800000000 -0.080500000000 0.081600000000</location>
 					<body>pelvis</body>
 					<coordinate>hip_flexion_r</coordinate>
-					<range>-90.000000000000 45.000000000000</range>
+					<range>-1.570796326795 0.785398163397</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>0.001600000000 -0.050700000000 0.003800000000</location>
@@ -935,10 +936,10 @@
 			<max_isometric_force>1113.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.160000000000</tendon_slack_length>
-			<pennation_angle>8.000000000000</pennation_angle>
+			<pennation_angle>0.139626340160</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -977,8 +978,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_flex R_hip_inrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="quad_fem_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="quad_fem_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -997,7 +998,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1036,8 +1037,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_exrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="gem_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="gem_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1056,7 +1057,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1095,8 +1096,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_exrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="peri_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="peri_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1116,10 +1117,10 @@
 			<max_isometric_force>444.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.026000000000</optimal_fiber_length>
 			<tendon_slack_length>0.115000000000</tendon_slack_length>
-			<pennation_angle>10.000000000000</pennation_angle>
+			<pennation_angle>0.174532925199</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1158,8 +1159,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_exrot R_hip_abd </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="rect_fem_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="rect_fem_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1170,7 +1171,7 @@
 					<location>0.033400000000 -0.403000000000 0.001900000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
-					<range>-150.000000000000 -83.650000000000</range>
+					<range>-2.617993877991 -1.459967919293</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>0.012100000000 0.043700000000 -0.001000000000</location>
@@ -1181,10 +1182,10 @@
 			<max_isometric_force>1169.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.114000000000</optimal_fiber_length>
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
-			<pennation_angle>5.000000000000</pennation_angle>
+			<pennation_angle>0.087266462600</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1223,8 +1224,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_hip_flex R_knee_ext </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="vas_int_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="vas_int_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1239,7 +1240,7 @@
 					<location>0.034300000000 -0.403000000000 0.005500000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
-					<range>-150.000000000000 -81.360000000000</range>
+					<range>-2.617993877991 -1.419999879423</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>0.005800000000 0.048000000000 -0.000600000000</location>
@@ -1250,10 +1251,10 @@
 			<max_isometric_force>5000.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.107000000000</optimal_fiber_length>
 			<tendon_slack_length>0.116000000000</tendon_slack_length>
-			<pennation_angle>3.000000000000</pennation_angle>
+			<pennation_angle>0.052359877560</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1292,8 +1293,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_knee_ext </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="med_gas_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="med_gas_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1304,7 +1305,7 @@
 					<location>-0.030000000000 -0.402200000000 -0.025800000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
-					<range>-45.000000000000 10.000000000000</range>
+					<range>-0.785398163397 0.174532925199</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>0.000000000000 0.031000000000 -0.005300000000</location>
@@ -1315,10 +1316,10 @@
 			<max_isometric_force>2500.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.090000000000</optimal_fiber_length>
 			<tendon_slack_length>0.360000000000</tendon_slack_length>
-			<pennation_angle>17.000000000000</pennation_angle>
+			<pennation_angle>0.296705972839</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1357,8 +1358,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_knee_bend R_ankle_pf </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="soleus_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="soleus_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1374,10 +1375,10 @@
 			<max_isometric_force>4000.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.080000000000</optimal_fiber_length>
 			<tendon_slack_length>0.220000000000</tendon_slack_length>
-			<pennation_angle>25.000000000000</pennation_angle>
+			<pennation_angle>0.436332312999</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1416,8 +1417,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_ankle_pf </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="tib_post_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="tib_post_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1441,10 +1442,10 @@
 			<max_isometric_force>3600.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.031000000000</optimal_fiber_length>
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
-			<pennation_angle>12.000000000000</pennation_angle>
+			<pennation_angle>0.209439510239</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1483,8 +1484,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_ankle_pf R_inverter </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="tib_ant_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="tib_ant_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1504,10 +1505,10 @@
 			<max_isometric_force>3000.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.098000000000</optimal_fiber_length>
 			<tendon_slack_length>0.223000000000</tendon_slack_length>
-			<pennation_angle>5.000000000000</pennation_angle>
+			<pennation_angle>0.087266462600</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1546,8 +1547,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>R_ankle_df R_inverter </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_med1_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_med1_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1563,10 +1564,10 @@
 			<max_isometric_force>1119.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.053500000000</optimal_fiber_length>
 			<tendon_slack_length>0.078000000000</tendon_slack_length>
-			<pennation_angle>8.000000000000</pennation_angle>
+			<pennation_angle>0.139626340160</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1605,8 +1606,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_abd L_hip_flex L_hip_inrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_med2_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_med2_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1625,7 +1626,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1664,8 +1665,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_abd </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_med3_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_med3_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1681,10 +1682,10 @@
 			<max_isometric_force>1000.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.064600000000</optimal_fiber_length>
 			<tendon_slack_length>0.053000000000</tendon_slack_length>
-			<pennation_angle>19.000000000000</pennation_angle>
+			<pennation_angle>0.331612557879</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1723,8 +1724,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_abd L_hip_exrot L_hip_ext </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="bifemlh_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="bifemlh_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1747,7 +1748,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1786,8 +1787,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_ext L_hip_add L_knee_bend </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="bifemsh_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="bifemsh_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1807,10 +1808,10 @@
 			<max_isometric_force>804.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.173000000000</optimal_fiber_length>
 			<tendon_slack_length>0.089000000000</tendon_slack_length>
-			<pennation_angle>23.000000000000</pennation_angle>
+			<pennation_angle>0.401425727959</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1849,8 +1850,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_knee_bend </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="sar_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="sar_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1881,7 +1882,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1920,8 +1921,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_flex L_hip_abd L_knee_bend </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="add_mag2_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="add_mag2_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -1937,10 +1938,10 @@
 			<max_isometric_force>2343.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.121000000000</optimal_fiber_length>
 			<tendon_slack_length>0.120000000000</tendon_slack_length>
-			<pennation_angle>3.000000000000</pennation_angle>
+			<pennation_angle>0.052359877560</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -1979,8 +1980,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_ext L_hip_add </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="tfl_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="tfl_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2004,10 +2005,10 @@
 			<max_isometric_force>233.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.095000000000</optimal_fiber_length>
 			<tendon_slack_length>0.425000000000</tendon_slack_length>
-			<pennation_angle>3.000000000000</pennation_angle>
+			<pennation_angle>0.052359877560</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2046,8 +2047,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_abd L_hip_flex L_hip_inrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="pect_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="pect_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2066,7 +2067,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2105,8 +2106,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_add L_hip_flex </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="grac_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="grac_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2117,7 +2118,7 @@
 					<location>-0.026570000000 -0.031900000000 0.037740000000</location>
 					<body>tibia_l</body>
 					<coordinate>knee_angle_l</coordinate>
-					<range>-25.000000000000 10.000000000000</range>
+					<range>-0.436332312999 0.174532925199</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>-0.019430000000 -0.051530000000 0.035800000000</location>
@@ -2132,10 +2133,10 @@
 			<max_isometric_force>162.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.352000000000</optimal_fiber_length>
 			<tendon_slack_length>0.126000000000</tendon_slack_length>
-			<pennation_angle>3.000000000000</pennation_angle>
+			<pennation_angle>0.052359877560</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2174,8 +2175,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_add L_knee_bend L_hip_flex </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_max1_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_max1_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2199,10 +2200,10 @@
 			<max_isometric_force>573.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.142000000000</optimal_fiber_length>
 			<tendon_slack_length>0.125000000000</tendon_slack_length>
-			<pennation_angle>5.000000000000</pennation_angle>
+			<pennation_angle>0.087266462600</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2241,8 +2242,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_ext L_hip_abd </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_max2_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_max2_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2269,7 +2270,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2308,8 +2309,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_ext </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="glut_max3_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="glut_max3_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2333,10 +2334,10 @@
 			<max_isometric_force>552.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.144000000000</optimal_fiber_length>
 			<tendon_slack_length>0.145000000000</tendon_slack_length>
-			<pennation_angle>5.000000000000</pennation_angle>
+			<pennation_angle>0.087266462600</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2375,8 +2376,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_ext </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="iliacus_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="iliacus_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2391,7 +2392,7 @@
 					<location>-0.028800000000 -0.080500000000 -0.081600000000</location>
 					<body>pelvis</body>
 					<coordinate>hip_flexion_l</coordinate>
-					<range>-90.000000000000 45.000000000000</range>
+					<range>-1.570796326795 0.785398163397</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>0.001700000000 -0.054300000000 -0.005700000000</location>
@@ -2406,10 +2407,10 @@
 			<max_isometric_force>1073.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
-			<pennation_angle>7.000000000000</pennation_angle>
+			<pennation_angle>0.122173047640</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2448,8 +2449,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_flex L_hip_inrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="psoas_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="psoas_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2479,10 +2480,10 @@
 			<max_isometric_force>1113.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.160000000000</tendon_slack_length>
-			<pennation_angle>8.000000000000</pennation_angle>
+			<pennation_angle>0.139626340160</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2521,8 +2522,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_flex L_hip_inrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="quad_fem_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="quad_fem_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2541,7 +2542,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2580,8 +2581,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_exrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="gem_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="gem_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2600,7 +2601,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2639,8 +2640,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_exrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="peri_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="peri_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2660,10 +2661,10 @@
 			<max_isometric_force>444.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.026000000000</optimal_fiber_length>
 			<tendon_slack_length>0.115000000000</tendon_slack_length>
-			<pennation_angle>10.000000000000</pennation_angle>
+			<pennation_angle>0.174532925199</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2702,8 +2703,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_exrot L_hip_abd </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="rect_fem_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="rect_fem_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2714,7 +2715,7 @@
 					<location>0.033400000000 -0.403000000000 -0.001900000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
-					<range>-150.000000000000 -83.650000000000</range>
+					<range>-2.617993877991 -1.459967919293</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>0.012100000000 0.043700000000 0.001000000000</location>
@@ -2725,10 +2726,10 @@
 			<max_isometric_force>1169.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.114000000000</optimal_fiber_length>
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
-			<pennation_angle>5.000000000000</pennation_angle>
+			<pennation_angle>0.087266462600</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2767,8 +2768,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_hip_flex L_knee_ext </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="vas_int_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="vas_int_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2783,7 +2784,7 @@
 					<location>0.034300000000 -0.403000000000 -0.005500000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
-					<range>-150.000000000000 -81.360000000000</range>
+					<range>-2.617993877991 -1.419999879423</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>0.005800000000 0.048000000000 0.000600000000</location>
@@ -2794,10 +2795,10 @@
 			<max_isometric_force>5000.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.107000000000</optimal_fiber_length>
 			<tendon_slack_length>0.116000000000</tendon_slack_length>
-			<pennation_angle>3.000000000000</pennation_angle>
+			<pennation_angle>0.052359877560</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2836,8 +2837,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_knee_ext </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="med_gas_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="med_gas_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2848,7 +2849,7 @@
 					<location>-0.030000000000 -0.402200000000 0.025800000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
-					<range>-45.000000000000 10.000000000000</range>
+					<range>-0.785398163397 0.174532925199</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>0.000000000000 0.031000000000 0.005300000000</location>
@@ -2859,10 +2860,10 @@
 			<max_isometric_force>2500.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.090000000000</optimal_fiber_length>
 			<tendon_slack_length>0.360000000000</tendon_slack_length>
-			<pennation_angle>17.000000000000</pennation_angle>
+			<pennation_angle>0.296705972839</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2901,8 +2902,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_knee_bend L_ankle_pf </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="soleus_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="soleus_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2918,10 +2919,10 @@
 			<max_isometric_force>4000.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.080000000000</optimal_fiber_length>
 			<tendon_slack_length>0.220000000000</tendon_slack_length>
-			<pennation_angle>25.000000000000</pennation_angle>
+			<pennation_angle>0.436332312999</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -2960,8 +2961,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_ankle_pf </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="tib_post_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="tib_post_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -2985,10 +2986,10 @@
 			<max_isometric_force>3600.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.031000000000</optimal_fiber_length>
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
-			<pennation_angle>12.000000000000</pennation_angle>
+			<pennation_angle>0.209439510239</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -3027,8 +3028,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_ankle_pf L_inverter </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="tib_ant_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="tib_ant_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -3048,10 +3049,10 @@
 			<max_isometric_force>3000.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.098000000000</optimal_fiber_length>
 			<tendon_slack_length>0.223000000000</tendon_slack_length>
-			<pennation_angle>5.000000000000</pennation_angle>
+			<pennation_angle>0.087266462600</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -3090,8 +3091,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>L_ankle_df L_inverter </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="ercspn_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="ercspn_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -3110,7 +3111,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -3149,8 +3150,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>back_ext back_rlb back_introt </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="ercspn_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="ercspn_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -3169,7 +3170,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -3208,8 +3209,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>back_ext back_llb back_extrot </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="intobl_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="intobl_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -3228,7 +3229,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -3267,8 +3268,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>back_introt back_flex back_rlb </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="intobl_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="intobl_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -3287,7 +3288,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -3326,8 +3327,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>back_extrot back_flex back_llb </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="extobl_r">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="extobl_r">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -3346,7 +3347,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -3385,8 +3386,8 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>back_extrot back_flex back_rlb </groups>
-		</SimmZajacHill>
-		<SimmZajacHill name="extobl_l">
+		</SimmDarrylMuscle>
+		<SimmDarrylMuscle name="extobl_l">
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -3405,7 +3406,7 @@
 			<pennation_angle>0.000000000000</pennation_angle>
 			<max_contraction_velocity>10.000000000000</max_contraction_velocity>
 			<muscle_model>9</muscle_model>
-			<timescale>0.100000000000</timescale>
+			<time_scale>0.100000000000</time_scale>
 			<damping>0.050000000000</damping>
 			<activation_time_constant>0.010000000000</activation_time_constant>
 			<deactivation_time_constant>0.040000000000</deactivation_time_constant>
@@ -3444,11 +3445,255 @@
 				</natCubicSpline>
 			</force_velocity_curve>
 			<groups>back_introt back_flex back_llb </groups>
-		</SimmZajacHill>
+		</SimmDarrylMuscle>
 	</objects>
 	</ActuatorSet>
 	<DynamicsEngine>
 		<SimmKinematicsEngine>
+			<MarkerSet>
+			<objects>
+				<SimmMarker name="asis_r">
+					<body>pelvis</body>
+					<location>0.014000000000 0.000000000000 0.128000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="asis_l">
+					<body>pelvis</body>
+					<location>0.014000000000 0.000000000000 -0.128000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="midasis">
+					<body>pelvis</body>
+					<location>0.014000000000 0.000000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="psis_r">
+					<body>pelvis</body>
+					<location>-0.158000000000 0.037853000000 0.055989000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="psis_l">
+					<body>pelvis</body>
+					<location>-0.158000000000 0.037853000000 -0.055989000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="sacralwand">
+					<body>pelvis</body>
+					<location>-0.200000000000 0.050000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="hip_r">
+					<body>pelvis</body>
+					<location>-0.070700000000 -0.066100000000 0.083500000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="hip_l">
+					<body>pelvis</body>
+					<location>-0.070700000000 -0.066100000000 -0.083500000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="midhip">
+					<body>pelvis</body>
+					<location>-0.070700000000 -0.066100000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="epicondLat_r">
+					<body>femur_r</body>
+					<location>-0.002000000000 -0.401000000000 0.045000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="epicondMed_r">
+					<body>femur_r</body>
+					<location>0.007000000000 -0.403000000000 -0.040000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="thighwand_r">
+					<body>femur_r</body>
+					<location>0.000000000000 -0.240000000000 0.150000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="upperleg1_r">
+					<body>femur_r</body>
+					<location>0.000000000000 -0.140000000000 0.100000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="upperleg2_r">
+					<body>femur_r</body>
+					<location>0.000000000000 -0.340000000000 0.075000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="malleolusLat_r">
+					<body>tibia_r</body>
+					<location>-0.007000000000 -0.415000000000 0.050000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="malleolusMedv_r">
+					<body>tibia_r</body>
+					<location>0.009000000000 -0.401000000000 -0.035000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="shankwand_r">
+					<body>tibia_r</body>
+					<location>0.000000000000 -0.300000000000 0.125000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="lowerleg1_r">
+					<body>tibia_r</body>
+					<location>0.000000000000 -0.130000000000 0.060000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="knee_r">
+					<body>tibia_r</body>
+					<location>0.000000000000 0.000000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="ankle_r">
+					<body>tibia_r</body>
+					<location>0.000000000000 -0.430000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="toe_r">
+					<body>calcn_r</body>
+					<location>0.170000000000 0.025000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="heel_r">
+					<body>calcn_r</body>
+					<location>-0.011000000000 0.025000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="epicondLat_l">
+					<body>femur_l</body>
+					<location>-0.002000000000 -0.401000000000 -0.045000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="epicondMed_l">
+					<body>femur_l</body>
+					<location>0.007000000000 -0.403000000000 0.040000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="thighwand_l">
+					<body>femur_l</body>
+					<location>0.000000000000 -0.240000000000 -0.150000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="upperleg1_l">
+					<body>femur_l</body>
+					<location>0.000000000000 -0.140000000000 -0.100000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="upperleg2_l">
+					<body>femur_l</body>
+					<location>0.000000000000 -0.340000000000 -0.075000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="malleolusLat_l">
+					<body>tibia_l</body>
+					<location>-0.007000000000 -0.415000000000 -0.050000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="malleolusMedv_l">
+					<body>tibia_l</body>
+					<location>0.009000000000 -0.401000000000 0.035000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="shankwand_l">
+					<body>tibia_l</body>
+					<location>0.000000000000 -0.300000000000 -0.125000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="lowerleg1_l">
+					<body>tibia_l</body>
+					<location>0.000000000000 -0.130000000000 -0.060000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="knee_l">
+					<body>tibia_l</body>
+					<location>0.000000000000 0.000000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="ankle_l">
+					<body>tibia_l</body>
+					<location>0.000000000000 -0.430000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="toe_l">
+					<body>calcn_l</body>
+					<location>0.170000000000 0.025000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="heel_l">
+					<body>calcn_l</body>
+					<location>-0.011000000000 0.025000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="subclavicle_r">
+					<body>torso</body>
+					<location>0.030000000000 0.380000000000 0.067500000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="subclavicle_l">
+					<body>torso</body>
+					<location>0.030000000000 0.380000000000 -0.067500000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="neck">
+					<body>torso</body>
+					<location>-0.075000000000 0.422500000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="sternalnotch">
+					<body>torso</body>
+					<location>0.030000000000 0.380000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+				<SimmMarker name="xyphoidprocess">
+					<body>torso</body>
+					<location>0.097500000000 0.230000000000 0.000000000000</location>
+					<weight>1.000000000000</weight>
+					<fixed>false</fixed>
+				</SimmMarker>
+			</objects>
+			</MarkerSet>
 			<BodySet>
 			<objects>
 				<SimmBody name="ground">
@@ -3460,55 +3705,6 @@
 					<mass>11.777000000000</mass>
 					<mass_center>-0.070700000000 0.000000000000 0.000000000000</mass_center>
 					<inertia>0.102800000000 0.000000000000 0.000000000000 0.000000000000 0.087100000000 0.000000000000 0.000000000000 0.000000000000 0.057900000000</inertia>
-					<MarkerSet>
-					<objects>
-						<SimmMarker name="asis_r">
-							<location>0.014000000000 0.000000000000 0.128000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="asis_l">
-							<location>0.014000000000 0.000000000000 -0.128000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="midasis">
-							<location>0.014000000000 0.000000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="psis_r">
-							<location>-0.158000000000 0.037853000000 0.055989000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="psis_l">
-							<location>-0.158000000000 0.037853000000 -0.055989000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="sacralwand">
-							<location>-0.200000000000 0.050000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="hip_r">
-							<location>-0.070700000000 -0.066100000000 0.083500000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="hip_l">
-							<location>-0.070700000000 -0.066100000000 -0.083500000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="midhip">
-							<location>-0.070700000000 -0.066100000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-					</objects>
-					</MarkerSet>
 					<VisibleObject name="">
 						<geometry_files> sacrum2.vtp pelvis.vtp l_pelvis.vtp </geometry_files>
 					</VisibleObject>
@@ -3517,35 +3713,6 @@
 					<mass>9.301400000000</mass>
 					<mass_center>0.000000000000 -0.170000000000 0.000000000000</mass_center>
 					<inertia>0.133900000000 0.000000000000 0.000000000000 0.000000000000 0.035100000000 0.000000000000 0.000000000000 0.000000000000 0.141200000000</inertia>
-					<MarkerSet>
-					<objects>
-						<SimmMarker name="epicondLat_r">
-							<location>-0.002000000000 -0.401000000000 0.045000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="epicondMed_r">
-							<location>0.007000000000 -0.403000000000 -0.040000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="thighwand_r">
-							<location>0.000000000000 -0.240000000000 0.150000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="upperleg1_r">
-							<location>0.000000000000 -0.140000000000 0.100000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="upperleg2_r">
-							<location>0.000000000000 -0.340000000000 0.075000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-					</objects>
-					</MarkerSet>
 					<VisibleObject name="">
 						<geometry_files> femur.vtp </geometry_files>
 					</VisibleObject>
@@ -3554,40 +3721,6 @@
 					<mass>3.707500000000</mass>
 					<mass_center>0.000000000000 -0.186700000000 0.000000000000</mass_center>
 					<inertia>0.050400000000 0.000000000000 0.000000000000 0.000000000000 0.005100000000 0.000000000000 0.000000000000 0.000000000000 0.051100000000</inertia>
-					<MarkerSet>
-					<objects>
-						<SimmMarker name="malleolusLat_r">
-							<location>-0.007000000000 -0.415000000000 0.050000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="malleolusMedv_r">
-							<location>0.009000000000 -0.401000000000 -0.035000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="shankwand_r">
-							<location>0.000000000000 -0.300000000000 0.125000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="lowerleg1_r">
-							<location>0.000000000000 -0.130000000000 0.060000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="knee_r">
-							<location>0.000000000000 0.000000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="ankle_r">
-							<location>0.000000000000 -0.430000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-					</objects>
-					</MarkerSet>
 					<VisibleObject name="">
 						<geometry_files> tibia.vtp fibula.vtp </geometry_files>
 					</VisibleObject>
@@ -3612,20 +3745,6 @@
 					<mass>1.250000000000</mass>
 					<mass_center>0.100000000000 0.030000000000 0.000000000000</mass_center>
 					<inertia>0.001400000000 0.000000000000 0.000000000000 0.000000000000 0.003900000000 0.000000000000 0.000000000000 0.000000000000 0.004100000000</inertia>
-					<MarkerSet>
-					<objects>
-						<SimmMarker name="toe_r">
-							<location>0.170000000000 0.025000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="heel_r">
-							<location>-0.011000000000 0.025000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-					</objects>
-					</MarkerSet>
 					<VisibleObject name="">
 						<geometry_files> foot.vtp </geometry_files>
 					</VisibleObject>
@@ -3642,35 +3761,6 @@
 					<mass>9.301400000000</mass>
 					<mass_center>0.000000000000 -0.170000000000 0.000000000000</mass_center>
 					<inertia>0.133900000000 0.000000000000 0.000000000000 0.000000000000 0.035100000000 0.000000000000 0.000000000000 0.000000000000 0.141200000000</inertia>
-					<MarkerSet>
-					<objects>
-						<SimmMarker name="epicondLat_l">
-							<location>-0.002000000000 -0.401000000000 -0.045000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="epicondMed_l">
-							<location>0.007000000000 -0.403000000000 0.040000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="thighwand_l">
-							<location>0.000000000000 -0.240000000000 -0.150000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="upperleg1_l">
-							<location>0.000000000000 -0.140000000000 -0.100000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="upperleg2_l">
-							<location>0.000000000000 -0.340000000000 -0.075000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-					</objects>
-					</MarkerSet>
 					<VisibleObject name="">
 						<geometry_files> l_femur.vtp </geometry_files>
 					</VisibleObject>
@@ -3679,40 +3769,6 @@
 					<mass>3.707500000000</mass>
 					<mass_center>0.000000000000 -0.186700000000 0.000000000000</mass_center>
 					<inertia>0.050400000000 0.000000000000 0.000000000000 0.000000000000 0.005100000000 0.000000000000 0.000000000000 0.000000000000 0.051100000000</inertia>
-					<MarkerSet>
-					<objects>
-						<SimmMarker name="malleolusLat_l">
-							<location>-0.007000000000 -0.415000000000 -0.050000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="malleolusMedv_l">
-							<location>0.009000000000 -0.401000000000 0.035000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="shankwand_l">
-							<location>0.000000000000 -0.300000000000 -0.125000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="lowerleg1_l">
-							<location>0.000000000000 -0.130000000000 -0.060000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="knee_l">
-							<location>0.000000000000 0.000000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="ankle_l">
-							<location>0.000000000000 -0.430000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-					</objects>
-					</MarkerSet>
 					<VisibleObject name="">
 						<geometry_files> l_tibia.vtp l_fibula.vtp </geometry_files>
 					</VisibleObject>
@@ -3737,20 +3793,6 @@
 					<mass>1.250000000000</mass>
 					<mass_center>0.100000000000 0.030000000000 0.000000000000</mass_center>
 					<inertia>0.001400000000 0.000000000000 0.000000000000 0.000000000000 0.003900000000 0.000000000000 0.000000000000 0.000000000000 0.004100000000</inertia>
-					<MarkerSet>
-					<objects>
-						<SimmMarker name="toe_l">
-							<location>0.170000000000 0.025000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="heel_l">
-							<location>-0.011000000000 0.025000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-					</objects>
-					</MarkerSet>
 					<VisibleObject name="">
 						<geometry_files> l_foot.vtp </geometry_files>
 					</VisibleObject>
@@ -3767,35 +3809,6 @@
 					<mass>34.236600000000</mass>
 					<mass_center>-0.030000000000 0.320000000000 0.000000000000</mass_center>
 					<inertia>1.474500000000 0.000000000000 0.000000000000 0.000000000000 0.755500000000 0.000000000000 0.000000000000 0.000000000000 1.431400000000</inertia>
-					<MarkerSet>
-					<objects>
-						<SimmMarker name="subclavicle_r">
-							<location>0.030000000000 0.380000000000 0.067500000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="subclavicle_l">
-							<location>0.030000000000 0.380000000000 -0.067500000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="neck">
-							<location>-0.075000000000 0.422500000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="sternalnotch">
-							<location>0.030000000000 0.380000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-						<SimmMarker name="xyphoidprocess">
-							<location>0.097500000000 0.230000000000 0.000000000000</location>
-							<weight>1.000000000000</weight>
-							<fixed>false</fixed>
-						</SimmMarker>
-					</objects>
-					</MarkerSet>
 					<VisibleObject name="">
 						<geometry_files> hat_spine.vtp hat_jaw.vtp hat_skull.vtp hat_ribs.vtp </geometry_files>
 					</VisibleObject>
@@ -3835,7 +3848,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="pelvis_list">
-					<range>-90.000000000000 90.000000000000</range>
+					<range>-1.570796326795 1.570796326795</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3845,7 +3858,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="pelvis_rotation">
-					<range>-90.000000000000 90.000000000000</range>
+					<range>-1.570796326795 1.570796326795</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3855,7 +3868,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="pelvis_tilt">
-					<range>-90.000000000000 90.000000000000</range>
+					<range>-1.570796326795 1.570796326795</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3865,7 +3878,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="hip_flexion_r">
-					<range>-120.000000000000 120.000000000000</range>
+					<range>-2.094395102393 2.094395102393</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3875,7 +3888,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="hip_adduction_r">
-					<range>-120.000000000000 120.000000000000</range>
+					<range>-2.094395102393 2.094395102393</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3885,7 +3898,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="hip_rotation_r">
-					<range>-120.000000000000 120.000000000000</range>
+					<range>-2.094395102393 2.094395102393</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3895,7 +3908,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="knee_angle_r">
-					<range>-120.000000000000 10.000000000000</range>
+					<range>-2.094395102393 0.174532925199</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3905,7 +3918,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="ankle_angle_r">
-					<range>-90.000000000000 90.000000000000</range>
+					<range>-1.570796326795 1.570796326795</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3915,27 +3928,27 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="subtalar_angle_r">
-					<range>-90.000000000000 90.000000000000</range>
+					<range>-1.570796326795 1.570796326795</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
 					<keys>a_key</keys>
 					<clamped>true</clamped>
-					<locked>false</locked>
+					<locked>true</locked>
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="mtp_angle_r">
-					<range>-90.000000000000 90.000000000000</range>
+					<range>-1.570796326795 1.570796326795</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
 					<keys>t_key</keys>
 					<clamped>true</clamped>
-					<locked>false</locked>
+					<locked>true</locked>
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="hip_flexion_l">
-					<range>-120.000000000000 120.000000000000</range>
+					<range>-2.094395102393 2.094395102393</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3945,7 +3958,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="hip_adduction_l">
-					<range>-120.000000000000 120.000000000000</range>
+					<range>-2.094395102393 2.094395102393</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3955,7 +3968,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="hip_rotation_l">
-					<range>-120.000000000000 120.000000000000</range>
+					<range>-2.094395102393 2.094395102393</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3965,7 +3978,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="knee_angle_l">
-					<range>-120.000000000000 10.000000000000</range>
+					<range>-2.094395102393 0.174532925199</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3975,7 +3988,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="ankle_angle_l">
-					<range>-60.000000000000 60.000000000000</range>
+					<range>-1.047197551197 1.047197551197</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -3985,27 +3998,27 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="subtalar_angle_l">
-					<range>-90.000000000000 90.000000000000</range>
+					<range>-1.570796326795 1.570796326795</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
 					<keys>a_key</keys>
 					<clamped>true</clamped>
-					<locked>false</locked>
+					<locked>true</locked>
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="mtp_angle_l">
-					<range>-60.000000000000 60.000000000000</range>
+					<range>-1.047197551197 1.047197551197</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
 					<keys>t_key</keys>
 					<clamped>true</clamped>
-					<locked>false</locked>
+					<locked>true</locked>
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="lumbar_extension">
-					<range>-90.000000000000 90.000000000000</range>
+					<range>-1.570796326795 1.570796326795</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -4015,7 +4028,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="lumbar_bending">
-					<range>-90.000000000000 90.000000000000</range>
+					<range>-1.570796326795 1.570796326795</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -4025,7 +4038,7 @@
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="lumbar_rotation">
-					<range>-90.000000000000 90.000000000000</range>
+					<range>-1.570796326795 1.570796326795</range>
 					<default_value>0.000000000000</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
@@ -4074,8 +4087,8 @@
 							<coordinate>pelvis_tilt</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4084,8 +4097,8 @@
 							<coordinate>pelvis_list</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4094,8 +4107,8 @@
 							<coordinate>pelvis_rotation</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4132,8 +4145,8 @@
 							<coordinate>hip_flexion_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4142,8 +4155,8 @@
 							<coordinate>hip_adduction_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4152,8 +4165,8 @@
 							<coordinate>hip_rotation_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4168,7 +4181,7 @@
 							<coordinate>knee_angle_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-120.000000000000 -100.000000000000 -80.000000000000 -60.000000000000 -40.000000000000 -20.000000000000 -10.000000000000 11.306991000000 19.331307000000 28.085106000000 87.173252000000 120.000000000000 </x>
+									<x>-2.094395102393 -1.745329251994 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.197344221443 0.337394955864 0.490177570472 1.521460267071 2.094395102393 </x>
 									<y>-0.003200000000 0.001790000000 0.004110000000 0.004100000000 0.002120000000 -0.001000000000 -0.003100000000 -0.005227000000 -0.005435000000 -0.005574000000 -0.005435000000 -0.005250000000 </y>
 								</natCubicSpline>
 							</Value>
@@ -4177,7 +4190,7 @@
 							<coordinate>knee_angle_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-120.000000000000 -70.000000000000 -30.000000000000 -20.000000000000 -10.000000000000 9.118541000000 120.000000000000 </x>
+									<x>-2.094395102393 -1.221730476396 -0.523598775598 -0.349065850399 -0.174532925199 0.159148563428 2.094395102393 </x>
 									<y>-0.422600000000 -0.408200000000 -0.399000000000 -0.397600000000 -0.396600000000 -0.395264000000 -0.396000000000 </y>
 								</natCubicSpline>
 							</Value>
@@ -4194,8 +4207,8 @@
 							<coordinate>knee_angle_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4226,7 +4239,7 @@
 							<coordinate>knee_angle_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-120.000000000000 -80.000000000000 -60.000000000000 -40.000000000000 -20.000000000000 -10.000000000000 0.000000000000 0.010000000000 0.020000000000 5.000000000000 120.000000000000 </x>
+									<x>-2.094395102393 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.000000000000 0.000174532925 0.000349065850 0.087266462600 2.094395102393 </x>
 									<y>0.017300000000 0.032400000000 0.038100000000 0.043000000000 0.046900000000 0.048400000000 0.049600000000 0.049600000000 0.049600000000 0.049600000000 0.049600000000 </y>
 								</natCubicSpline>
 							</Value>
@@ -4235,7 +4248,7 @@
 							<coordinate>knee_angle_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-120.000000000000 -90.000000000000 -80.000000000000 -60.000000000000 -40.000000000000 -20.000000000000 -10.000000000000 0.000000000000 0.010000000000 0.020000000000 5.000000000000 120.000000000000 </x>
+									<x>-2.094395102393 -1.570796326795 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.000000000000 0.000174532925 0.000349065850 0.087266462600 2.094395102393 </x>
 									<y>-0.021900000000 -0.020200000000 -0.020000000000 -0.020400000000 -0.021100000000 -0.021900000000 -0.022300000000 -0.022700000000 -0.022700000000 -0.022700000000 -0.022700000000 -0.022700000000 </y>
 								</natCubicSpline>
 							</Value>
@@ -4252,8 +4265,8 @@
 							<coordinate>knee_angle_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-120.000000000000 -114.590000000000 -83.510000000000 -30.160000000000 1.600000000000 10.000000000000 </x>
-									<y>17.650000000000 17.650000000000 17.550000000000 15.480000000000 -2.120000000000 -16.040000000000 </y>
+									<x>-2.094395102393 -1.999972789860 -1.457524458340 -0.526391302401 0.027925268032 0.174532925199 </x>
+									<y>0.308050612977 0.308050612977 0.306305283725 0.270176968209 -0.037000980142 -0.279950812020 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4306,8 +4319,8 @@
 							<coordinate>ankle_angle_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4360,8 +4373,8 @@
 							<coordinate>subtalar_angle_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4414,8 +4427,8 @@
 							<coordinate>mtp_angle_r</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4468,8 +4481,8 @@
 							<coordinate>hip_flexion_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4478,8 +4491,8 @@
 							<coordinate>hip_adduction_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4488,8 +4501,8 @@
 							<coordinate>hip_rotation_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4504,7 +4517,7 @@
 							<coordinate>knee_angle_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-120.000000000000 -100.000000000000 -80.000000000000 -60.000000000000 -40.000000000000 -20.000000000000 -10.000000000000 11.306991000000 19.331307000000 28.085106000000 87.173252000000 120.000000000000 </x>
+									<x>-2.094395102393 -1.745329251994 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.197344221443 0.337394955864 0.490177570472 1.521460267071 2.094395102393 </x>
 									<y>-0.003200000000 0.001790000000 0.004110000000 0.004100000000 0.002120000000 -0.001000000000 -0.003100000000 -0.005227000000 -0.005435000000 -0.005574000000 -0.005435000000 -0.005250000000 </y>
 								</natCubicSpline>
 							</Value>
@@ -4513,7 +4526,7 @@
 							<coordinate>knee_angle_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-120.000000000000 -70.000000000000 -30.000000000000 -20.000000000000 -10.000000000000 9.118541000000 120.000000000000 </x>
+									<x>-2.094395102393 -1.221730476396 -0.523598775598 -0.349065850399 -0.174532925199 0.159148563428 2.094395102393 </x>
 									<y>-0.422600000000 -0.408200000000 -0.399000000000 -0.397600000000 -0.396600000000 -0.395264000000 -0.396000000000 </y>
 								</natCubicSpline>
 							</Value>
@@ -4530,8 +4543,8 @@
 							<coordinate>knee_angle_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4562,7 +4575,7 @@
 							<coordinate>knee_angle_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-120.000000000000 -80.000000000000 -60.000000000000 -40.000000000000 -20.000000000000 -10.000000000000 0.000000000000 0.010000000000 0.020000000000 5.000000000000 120.000000000000 </x>
+									<x>-2.094395102393 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.000000000000 0.000174532925 0.000349065850 0.087266462600 2.094395102393 </x>
 									<y>0.017300000000 0.032400000000 0.038100000000 0.043000000000 0.046900000000 0.048400000000 0.049600000000 0.049600000000 0.049600000000 0.049600000000 0.049600000000 </y>
 								</natCubicSpline>
 							</Value>
@@ -4571,7 +4584,7 @@
 							<coordinate>knee_angle_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-120.000000000000 -90.000000000000 -80.000000000000 -60.000000000000 -40.000000000000 -20.000000000000 -10.000000000000 0.000000000000 0.010000000000 0.020000000000 5.000000000000 120.000000000000 </x>
+									<x>-2.094395102393 -1.570796326795 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.000000000000 0.000174532925 0.000349065850 0.087266462600 2.094395102393 </x>
 									<y>-0.021900000000 -0.020200000000 -0.020000000000 -0.020400000000 -0.021100000000 -0.021900000000 -0.022300000000 -0.022700000000 -0.022700000000 -0.022700000000 -0.022700000000 -0.022700000000 </y>
 								</natCubicSpline>
 							</Value>
@@ -4588,8 +4601,8 @@
 							<coordinate>knee_angle_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-120.000000000000 -114.590000000000 -83.510000000000 -30.160000000000 1.600000000000 10.000000000000 </x>
-									<y>17.650000000000 17.650000000000 17.550000000000 15.480000000000 -2.120000000000 -16.040000000000 </y>
+									<x>-2.094395102393 -1.999972789860 -1.457524458340 -0.526391302401 0.027925268032 0.174532925199 </x>
+									<y>0.308050612977 0.308050612977 0.306305283725 0.270176968209 -0.037000980142 -0.279950812020 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4642,8 +4655,8 @@
 							<coordinate>ankle_angle_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4696,8 +4709,8 @@
 							<coordinate>subtalar_angle_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4750,8 +4763,8 @@
 							<coordinate>mtp_angle_l</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4804,8 +4817,8 @@
 							<coordinate>lumbar_extension</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4814,8 +4827,8 @@
 							<coordinate>lumbar_bending</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>
@@ -4824,8 +4837,8 @@
 							<coordinate>lumbar_rotation</coordinate>
 							<Value>
 								<natCubicSpline>
-									<x>-360.000000000000 360.000000000000 </x>
-									<y>-360.000000000000 360.000000000000 </y>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
 								</natCubicSpline>
 							</Value>
 						</SimmRotationDof>

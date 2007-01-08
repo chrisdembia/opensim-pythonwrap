@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <InvestigationCMCGait name="subject01_walk01">
 	<model_library> subject01 </model_library>
-	<actuator_set_file> gait2354_CMC_Actuators.xml</actuator_set_file>
+	<model_file> subject01.xml </model_file>
+	<actuator_set_files> gait2354_CMC_Actuators.xml subject01_Muscles.xml </actuator_set_files>
 	<contact_force_set_file> </contact_force_set_file>
 	<params_file> params.txt </params_file>
 	<results_directory> ./ResultsCMC </results_directory>
@@ -26,20 +27,29 @@
 			</Actuation>
 		</objects>
 	</AnalysisSet>
+
 	<desired_kinematics_file_name> ./Results/subject01_walk01_ik_rra_Kinematics_q.sto </desired_kinematics_file_name>
+	<lowpass_cutoff_frequency> -10.0 </lowpass_cutoff_frequency>
+	<task_set_file_name> gait2354_CMC_Tasks.xml </task_set_file_name>
+	<constraints_file_name> gait2354_CMC_ControlConstraints.xml </constraints_file_name>
+
 	<external_loads_file_name> subject01_walk01.mot </external_loads_file_name>
 	<external_loads_model_kinematics_file_name> subject01_walk01_ik.mot </external_loads_model_kinematics_file_name>
 	<external_loads_body1> calcn_r </external_loads_body1>
 	<external_loads_body2> calcn_l </external_loads_body2>
-	<task_set_file_name> gait2354_CMC_Tasks.xml </task_set_file_name>
-	<constraints_file_name> gait2354_CMC_ControlConstraints.xml </constraints_file_name>
-	<lowpass_cutoff_frequency> -10.0 </lowpass_cutoff_frequency>
 	<lowpass_cutoff_frequency_for_load_kinematics> 6.0 </lowpass_cutoff_frequency_for_load_kinematics>
-	<cmc_time_window> 0.010 </cmc_time_window>
-	<use_curvature_filter> true </use_curvature_filter>
+
 	<use_fast_optimization_target> true </use_fast_optimization_target>
+	<optimizer_derivative_dx> 1.0 </optimizer_derivative_dx>
 	<optimizer_convergence_criterion> 1.0e-1 </optimizer_convergence_criterion>
 	<optimizer_max_iterations> 2000 </optimizer_max_iterations>
 	<optimizer_print_level> 0 </optimizer_print_level>
+
+	<cmc_time_window> 0.010 </cmc_time_window>
+	<use_curvature_filter> true </use_curvature_filter>
+	<adjusted_com_body> torso </adjusted_com_body>
+	<adjusted_com_file_name> rra_newTorsoCOM.txt </adjusted_com_file_name>
+	<compute_average_residuals> true </compute_average_residuals>
+	<adjust_com_to_reduce_residuals> false </adjust_com_to_reduce_residuals>
 </InvestigationCMCGait>
 

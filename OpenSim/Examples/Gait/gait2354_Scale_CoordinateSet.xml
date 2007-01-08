@@ -1,128 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SimmCoordinateSet>
+<CoordinateSet>
 
 	<!-- Pelvis -->
 	<SimmCoordinate name="pelvis_tx">
-		<value>fromFile</value> 
 		<locked>false</locked> 
 		<weight>1.0</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="pelvis_ty">
-		<value>fromFile</value> 
 		<locked>false</locked> 
 		<weight>1.0</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="pelvis_tz">
-		<value>fromFile</value> 
 		<locked>false</locked> 
 		<weight>1.0</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="pelvis_tilt">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1.0</weight> 
+		<weight>3282.80635</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="pelvis_list">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1.0</weight> 
+		<weight>3282.80635</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="pelvis_rotation">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1.0</weight> 
+		<weight>3282.80635</weight> 
 	</SimmCoordinate>
 	
 	<!-- Right leg -->
 	<SimmCoordinate name="hip_flexion_r">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="hip_adduction_r">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1.0</weight> 
+		<weight>3282.80635</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="hip_rotation_r">
-		<value>fromFile</value> 
 		<locked>false</locked>
-		<weight>1.0</weight> 
+		<weight>3282.80635</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="knee_angle_r">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="ankle_angle_r">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="subtalar_angle_r">
-		<value>fromFile</value> 
-		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<locked>true</locked> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="mtp_angle_r">
-		<value>fromFile</value> 
-		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<locked>true</locked> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	
 	<!-- Left Leg -->
 	<SimmCoordinate name="hip_flexion_l">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="hip_adduction_l">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1.0</weight> 
+		<weight>3282.806350635</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="hip_rotation_l">
-		<value>fromFile</value> 
 		<locked>false</locked> 
 		<weight>10.0</weight> 
-		<weight>1.0</weight> 
+		<weight>3282.806350635</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="knee_angle_l">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="ankle_angle_l">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="subtalar_angle_l">
-		<value>fromFile</value> 
-		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<locked>true</locked> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="mtp_angle_l">
-		<value>fromFile</value> 
-		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<locked>true</locked> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	
 	<!-- Back -->
 	<SimmCoordinate name="lumbar_extension">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="lumbar_bending">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="lumbar_rotation">
-		<value>fromFile</value> 
 		<locked>false</locked> 
-		<weight>1000.0</weight> 
+		<weight>3282806.35</weight> 
 	</SimmCoordinate>
 
-</SimmCoordinateSet>
+</CoordinateSet>

@@ -14,8 +14,7 @@
 			<R0> 0.0 0.0 0.0 </R0>
 			<R1> 0.0 0.0 0.0 </R1>
 			<R2> 0.0 0.0 0.0 </R2>
-			<qid> -1 </qid>
-			<limit> 0 </limit>
+			<coordinate> </coordinate>
 		</rdCMC_Joint>
 	</defaults>
 
@@ -31,8 +30,7 @@
 			<weight> 5.0e0 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 0 </qid>
-			<!-- <limit> 0.05 </limit> -->
+			<coordinate> pelvis_tz </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="pelvis_tx">
@@ -43,8 +41,7 @@
 			<weight> 5.0e0 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 1 </qid>
-			<!-- <limit> 0.05 </limit> -->
+			<coordinate> pelvis_tx </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="pelvis_ty">
@@ -55,8 +52,7 @@
 			<weight> 5.0e0 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 2 </qid>
-			<!-- <limit> 0.05 </limit> -->
+			<coordinate> pelvis_ty </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="pelvis_tilt">
@@ -67,8 +63,7 @@
 			<weight> 1.0e3 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 3 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> pelvis_tilt </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="pelvis_list">
@@ -79,8 +74,7 @@
 			<weight> 5.0e2 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 4 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> pelvis_list </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="pelvis_rotation">
@@ -91,8 +85,7 @@
 			<weight> 1.0e2 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 5 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> pelvis_rotation </coordinate>
 		</rdCMC_Joint>
 
 
@@ -106,8 +99,7 @@
 			<weight> 2.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 6 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> hip_flexion_r </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="hip_adduction_r">
@@ -118,8 +110,7 @@
 			<weight> 2.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 7 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> hip_adduction_r </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="hip_rotation_r">
@@ -130,8 +121,7 @@
 			<weight> 2.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 8 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> hip_rotation_r </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="knee_angle_r">
@@ -142,8 +132,7 @@
 			<weight> 2.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 9 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> knee_angle_r </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="ankle_angle_r">
@@ -154,8 +143,7 @@
 			<weight> 2.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 10 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> ankle_angle_r </coordinate>
 		</rdCMC_Joint>
 
 		<!-- Left Leg -->
@@ -168,8 +156,7 @@
 			<weight> 2.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 12 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> hip_flexion_l </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="hip_adduction_l">
@@ -180,8 +167,7 @@
 			<weight> 2.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 13 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> hip_adduction_l </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="hip_rotation_l">
@@ -192,8 +178,7 @@
 			<weight> 2.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 14 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> hip_rotation_l </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="knee_angle_l">
@@ -204,8 +189,7 @@
 			<weight> 2.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 15 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> knee_angle_l </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="ankle_angle_l">
@@ -216,8 +200,7 @@
 			<weight> 2.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 16 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> ankle_angle_l </coordinate>
 		</rdCMC_Joint>
 		
 		<!-- Back Joint -->
@@ -230,8 +213,7 @@
 			<weight> 5.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 18 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> lumbar_extension </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="lumbar_bending">
@@ -242,8 +224,7 @@
 			<weight> 5.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 19 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> lumbar_bending </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="lumbar_rotation">
@@ -254,8 +235,7 @@
 			<weight> 1.0e1 </weight>
 			<kp> 100.0 </kp>
 			<kv>  20.0 </kv>
-			<qid> 20 </qid>
-			<!-- <limit> 0.01745 </limit> -->
+			<coordinate> lumbar_rotation </coordinate>
 		</rdCMC_Joint>
 
 	</objects>
