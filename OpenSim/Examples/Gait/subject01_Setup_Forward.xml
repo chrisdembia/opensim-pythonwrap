@@ -2,7 +2,8 @@
 <InvestigationForward name="subject01_walk01">
 	<model_library> subject01 </model_library>
 	<model_file> subject01.xml </model_file>
-	<actuator_set_files> gait2354_CMC_Actuators.xml subject01_Muscles.xml </actuator_set_files>
+	<replace_actuator_set> false </replace_actuator_set>
+	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
 	<contact_force_set_file> </contact_force_set_file>
 	<params_file> params.txt </params_file>
 	<results_directory> ./ResultsForward </results_directory>

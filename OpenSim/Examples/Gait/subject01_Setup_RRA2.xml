@@ -6,6 +6,7 @@
 	<model_library>subject01</model_library>
 	<!--Name of the xml file used to deserialize or construct a model.-->
 	<model_file>subject01.xml</model_file>
+	<replace_actuator_set> true </replace_actuator_set>
 	<!--Name of the xml file used to construct an actuator set for the model.-->
 	<actuator_set_files>gait2354_RRA2_Actuators.xml</actuator_set_files>
 	<!--Name of the xml file used to construct a contact force set for the model.-->
