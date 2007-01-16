@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.1//EN" "http://www.netbeans.org/dtds/filesystem-1_1.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Edit">
+            <file name="org-opensim-motionviewer-FileLoadMotionAction.instance"/>
+            <file name="org-opensim-motionviewer-ShowMotionSliderAction.instance"/>
+            <file name="org-opensim-motionviewer-ViewMotionsAction.instance"/>
+        </folder>
+        <folder name="Window">
+            <file name="org-opensim-motionviewer-MotionViewerAction.instance"/>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="File">
+            <attr name="org-opensim-view-OpenOsimModel.shadow/org-opensim-motionviewer-FileLoadMotionAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-motionviewer-FileLoadMotionAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-motionviewer-FileLoadMotionAction.instance"/>
+            </file>
+            <attr name="org-opensim-motionviewer-FileLoadMotionAction.shadow/org-opensim-view-actions-FileCloseAction.shadow" boolvalue="true"/>
+        </folder>
+        <folder name="View">
+            <attr name="Separator1.instance/org-opensim-motionviewer-separatorBefore.instance" boolvalue="true"/>
+            <file name="org-opensim-motionviewer-separatorBefore.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+            <attr name="org-opensim-motionviewer-separatorBefore.instance/org-opensim-motionviewer-ViewMotionsAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-motionviewer-ViewMotionsAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-motionviewer-ViewMotionsAction.instance"/>
+            </file>
+            <attr name="org-opensim-motionviewer-ViewMotionsAction.shadow/org-opensim-motionviewer-separatorAfter.instance" boolvalue="true"/>
+            <file name="org-opensim-motionviewer-separatorAfter.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+            <attr name="org-opensim-motionviewer-separatorAfter.instance/org-netbeans-core-multiview-EditorsAction.instance" boolvalue="true"/>
+        </folder>
+        <folder name="Window">
+            <file name="MotionViewerAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-motionviewer-MotionViewerAction.instance"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Toolbars">
+        <folder name="Edit">
+            <attr name="org-openide-actions-RedoAction.instance/org-opensim-motionviewer-ShowMotionSliderAction.instance" boolvalue="true"/>
+            <attr name="org-openide-actions-FindAction.instance/org-opensim-motionviewer-ShowMotionSliderAction.instance" boolvalue="true"/>
+            <file name="org-opensim-motionviewer-ShowMotionSliderAction.instance" url="org-opensim-motionviewer-ShowMotionSliderAction.instance"/>
+            <attr name="org-opensim-motionviewer-ShowMotionSliderAction.instance/org-openide-actions-FindAction.instance" boolvalue="false"/>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="MotionViewerTopComponent.settings" url="MotionViewerTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="leftSlidingSide">
+                <file name="MotionViewerTopComponent.wstcref" url="MotionViewerTopComponentWstcref.xml"/>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>
