@@ -8,16 +8,16 @@
 
 package org.opensim.modeling;
 
-public class SWIGTYPE_p_OpenSim__ArrayPtrsTControlLinearNode_t {
+public class SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractCoordinate_t {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTControlLinearNode_t(long cPtr, boolean cMemoryOwn) {
+  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractCoordinate_t(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  public static long getCPtr(SWIGTYPE_p_OpenSim__ArrayPtrsTControlLinearNode_t obj) {
+  public static long getCPtr(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__AbstractCoordinate_t obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

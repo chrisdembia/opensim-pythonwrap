@@ -262,6 +262,7 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 #include <OpenSim/Tools/Constant.h>
 #include <OpenSim/Simulation/SIMM/AbstractCoordinate.h>
 #include <OpenSim/Simulation/SIMM/SimmCoordinate.h>
+#include <OpenSim/Simulation/SIMM/CoordinateSet.h>
 
 #include <OpenSim/Simulation/SIMM/AbstractDof.h>
 
@@ -3920,6 +3921,48 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1rota
   (arg1)->rotateAxis(arg2,arg3,(double const (*))arg4);
   SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
   delete [] arg4; 
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1rotateXBodyFixed(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jint jarg3) {
+  OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
+  double arg2 ;
+  OpenSim::Transform::AnglePreference arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Transform **)&jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (OpenSim::Transform::AnglePreference)jarg3; 
+  (arg1)->rotateXBodyFixed(arg2,arg3);
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1rotateYBodyFixed(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jint jarg3) {
+  OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
+  double arg2 ;
+  OpenSim::Transform::AnglePreference arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Transform **)&jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (OpenSim::Transform::AnglePreference)jarg3; 
+  (arg1)->rotateYBodyFixed(arg2,arg3);
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1rotateZBodyFixed(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jint jarg3) {
+  OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
+  double arg2 ;
+  OpenSim::Transform::AnglePreference arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Transform **)&jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (OpenSim::Transform::AnglePreference)jarg3; 
+  (arg1)->rotateZBodyFixed(arg2,arg3);
 }
 
 
@@ -14296,57 +14339,7 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlConstan
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1DEFAULT_1NODE_1get(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ControlLinearNode result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ControlLinearNode)OpenSim::ControlLinear::DEFAULT_NODE;
-  *(ControlLinearNode **)&jresult = new ControlLinearNode((ControlLinearNode &)result); 
-  return jresult;
-}
-
-
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinear_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
-  jlong jresult = 0 ;
-  OpenSim::ArrayPtrs<ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<ControlLinearNode > *) 0 ;
-  std::string *arg2 = 0 ;
-  OpenSim::ControlLinear *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(OpenSim::ArrayPtrs<ControlLinearNode > **)&jarg1; 
-  if(!jarg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
-    return 0;
-  }
-  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
-  if (!arg2_pstr) return 0;
-  std::string arg2_str(arg2_pstr);
-  arg2 = &arg2_str;
-  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  result = (OpenSim::ControlLinear *)new OpenSim::ControlLinear(arg1,(std::string const &)*arg2);
-  *(OpenSim::ControlLinear **)&jresult = result; 
-  return jresult;
-}
-
-
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinear_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
-  OpenSim::ArrayPtrs<ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<ControlLinearNode > *) 0 ;
-  OpenSim::ControlLinear *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(OpenSim::ArrayPtrs<ControlLinearNode > **)&jarg1; 
-  result = (OpenSim::ControlLinear *)new OpenSim::ControlLinear(arg1);
-  *(OpenSim::ControlLinear **)&jresult = result; 
-  return jresult;
-}
-
-
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinear_1_1SWIG_12(JNIEnv *jenv, jclass jcls) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinear_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::ControlLinear *result = 0 ;
   
@@ -14358,7 +14351,7 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLi
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinear_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinear_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   DOMElement *arg1 = (DOMElement *) 0 ;
   OpenSim::ControlLinear *result = 0 ;
@@ -14372,7 +14365,7 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLi
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinear_1_1SWIG_14(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinear_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::ControlLinear *arg1 = 0 ;
   OpenSim::ControlLinear *result = 0 ;
@@ -14817,20 +14810,13 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1getNodeArray(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1clearControlNodes(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
-  OpenSim::ArrayPtrs<ControlLinearNode > *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::ControlLinear **)&jarg1; 
-  {
-    OpenSim::ArrayPtrs<ControlLinearNode > &_result_ref = (arg1)->getNodeArray();
-    result = (OpenSim::ArrayPtrs<ControlLinearNode > *) &_result_ref;
-  }
-  *(OpenSim::ArrayPtrs<ControlLinearNode > **)&jresult = result; 
-  return jresult;
+  (arg1)->clearControlNodes();
 }
 
 
@@ -27930,7 +27916,7 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  result = (AbstractWrapObject *)(arg1)->getWrapObject((std::string const &)*arg2);
+  result = (AbstractWrapObject *)((OpenSim::AbstractBody const *)arg1)->getWrapObject((std::string const &)*arg2);
   *(AbstractWrapObject **)&jresult = result; 
   return jresult;
 }
@@ -31065,6 +31051,642 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmCoordinate_
   (void)jcls;
   arg1 = *(OpenSim::SimmCoordinate **)&jarg1; 
   ((OpenSim::SimmCoordinate const *)arg1)->peteTest();
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1SetCoordinates(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  delete arg1;
+  
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SetCoordinates_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::Set<OpenSim::AbstractCoordinate > *)new OpenSim::Set<OpenSim::AbstractCoordinate >();
+  *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SetCoordinates_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  std::string arg1_str(arg1_pstr);
+  arg1 = &arg1_str;
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (OpenSim::Set<OpenSim::AbstractCoordinate > *)new OpenSim::Set<OpenSim::AbstractCoordinate >((std::string const &)*arg1);
+  *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SetCoordinates_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  DOMElement *arg1 = (DOMElement *) 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(DOMElement **)&jarg1; 
+  result = (OpenSim::Set<OpenSim::AbstractCoordinate > *)new OpenSim::Set<OpenSim::AbstractCoordinate >(arg1);
+  *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SetCoordinates_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Set<OpenSim::AbstractCoordinate > const & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::Set<OpenSim::AbstractCoordinate > *)new OpenSim::Set<OpenSim::AbstractCoordinate >((OpenSim::Set<OpenSim::AbstractCoordinate > const &)*arg1);
+  *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::Object *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  result = (OpenSim::Object *)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->copy();
+  *(OpenSim::Object **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1setMemoryOwner(JNIEnv *jenv, jclass jcls, jlong jarg1, jboolean jarg2) {
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setMemoryOwner(arg2);
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1getMemoryOwner(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jboolean jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  result = (bool)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->getMemoryOwner();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1computeNewCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jlong jarg3) {
+  jboolean jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int arg2 ;
+  int *arg3 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(int **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "int & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->computeNewCapacity(arg2,*arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1ensureCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->ensureCapacity(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1trim(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  (arg1)->trim();
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1getCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->getCapacity();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1setCapacityIncrement(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setCapacityIncrement(arg2);
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1getCapacityIncrement(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->getCapacityIncrement();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1setSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->setSize(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1getSize(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->getSize();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1getIndex_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jint jarg3) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::AbstractCoordinate *arg2 = (OpenSim::AbstractCoordinate *) 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(OpenSim::AbstractCoordinate **)&jarg2; 
+  arg3 = (int)jarg3; 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->getIndex((OpenSim::AbstractCoordinate const *)arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1getIndex_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::AbstractCoordinate *arg2 = (OpenSim::AbstractCoordinate *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(OpenSim::AbstractCoordinate **)&jarg2; 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->getIndex((OpenSim::AbstractCoordinate const *)arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1getIndex_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jint jarg3) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  std::string *arg2 = 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  arg3 = (int)jarg3; 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->getIndex((std::string const &)*arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1getIndex_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  std::string *arg2 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->getIndex((std::string const &)*arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1append_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::AbstractCoordinate *arg2 = (OpenSim::AbstractCoordinate *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(OpenSim::AbstractCoordinate **)&jarg2; 
+  result = (bool)(arg1)->append(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1append_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::ArrayPtrs<OpenSim::AbstractCoordinate > *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(OpenSim::ArrayPtrs<OpenSim::AbstractCoordinate > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ArrayPtrs<OpenSim::AbstractCoordinate > & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->append(*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1insert(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jlong jarg3) {
+  jboolean jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int arg2 ;
+  OpenSim::AbstractCoordinate *arg3 = (OpenSim::AbstractCoordinate *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(OpenSim::AbstractCoordinate **)&jarg3; 
+  result = (bool)(arg1)->insert(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1remove_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->remove(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1remove_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::AbstractCoordinate *arg2 = (OpenSim::AbstractCoordinate *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(OpenSim::AbstractCoordinate **)&jarg2; 
+  result = (bool)(arg1)->remove((OpenSim::AbstractCoordinate const *)arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1clearAndDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  (arg1)->clearAndDestroy();
+}
+
+
+JNIEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jlong jarg3) {
+  jboolean jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int arg2 ;
+  OpenSim::AbstractCoordinate *arg3 = (OpenSim::AbstractCoordinate *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(OpenSim::AbstractCoordinate **)&jarg3; 
+  result = (bool)(arg1)->set(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1get_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  jlong jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  int arg2 ;
+  OpenSim::AbstractCoordinate *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (OpenSim::AbstractCoordinate *)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->get(arg2);
+  *(OpenSim::AbstractCoordinate **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1get_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
+  jlong jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  std::string *arg2 = 0 ;
+  OpenSim::AbstractCoordinate *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (OpenSim::AbstractCoordinate *)(arg1)->get((std::string const &)*arg2);
+  *(OpenSim::AbstractCoordinate **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1getNames(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::Array<std::string > *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(OpenSim::Array<std::string > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<std::string > & reference is null");
+    return ;
+  } 
+  ((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->getNames(*arg2);
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1getLast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::AbstractCoordinate *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  result = (OpenSim::AbstractCoordinate *)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->getLast();
+  *(OpenSim::AbstractCoordinate **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1searchBinary_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jboolean jarg3, jint jarg4, jint jarg5) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::AbstractCoordinate *arg2 = 0 ;
+  bool arg3 ;
+  int arg4 ;
+  int arg5 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(OpenSim::AbstractCoordinate **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractCoordinate const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->searchBinary((OpenSim::AbstractCoordinate const &)*arg2,arg3,arg4,arg5);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1searchBinary_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jboolean jarg3, jint jarg4) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::AbstractCoordinate *arg2 = 0 ;
+  bool arg3 ;
+  int arg4 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(OpenSim::AbstractCoordinate **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractCoordinate const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  arg4 = (int)jarg4; 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->searchBinary((OpenSim::AbstractCoordinate const &)*arg2,arg3,arg4);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1searchBinary_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jboolean jarg3) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::AbstractCoordinate *arg2 = 0 ;
+  bool arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(OpenSim::AbstractCoordinate **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractCoordinate const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->searchBinary((OpenSim::AbstractCoordinate const &)*arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1searchBinary_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  jint jresult = 0 ;
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  OpenSim::AbstractCoordinate *arg2 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(OpenSim::AbstractCoordinate **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractCoordinate const & reference is null");
+    return 0;
+  } 
+  result = (int)((OpenSim::Set<OpenSim::AbstractCoordinate > const *)arg1)->searchBinary((OpenSim::AbstractCoordinate const &)*arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1CoordinateSet_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::CoordinateSet *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::CoordinateSet *)new OpenSim::CoordinateSet();
+  *(OpenSim::CoordinateSet **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1CoordinateSet_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  OpenSim::CoordinateSet *arg1 = 0 ;
+  OpenSim::CoordinateSet *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::CoordinateSet **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::CoordinateSet const & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::CoordinateSet *)new OpenSim::CoordinateSet((OpenSim::CoordinateSet const &)*arg1);
+  *(OpenSim::CoordinateSet **)&jresult = result; 
+  return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1CoordinateSet(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::CoordinateSet *arg1 = (OpenSim::CoordinateSet *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::CoordinateSet **)&jarg1; 
+  delete arg1;
+  
 }
 
 
@@ -36896,6 +37518,25 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMusclePoin
 }
 
 
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMusclePoint_1setAttachment(JNIEnv *jenv, jclass jcls, jlong jarg1, jdoubleArray jarg2) {
+  OpenSim::SimmMusclePoint *arg1 = (OpenSim::SimmMusclePoint *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMusclePoint **)&jarg1; 
+  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+    return ;
+  }
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  (arg1)->setAttachment(arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
+}
+
+
 JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMusclePoint_1getBody(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::SimmMusclePoint *arg1 = (OpenSim::SimmMusclePoint *) 0 ;
@@ -36907,6 +37548,22 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMusclePoin
   result = (OpenSim::AbstractBody *)((OpenSim::SimmMusclePoint const *)arg1)->getBody();
   *(OpenSim::AbstractBody **)&jresult = result; 
   return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMusclePoint_1setBody(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  OpenSim::SimmMusclePoint *arg1 = (OpenSim::SimmMusclePoint *) 0 ;
+  OpenSim::AbstractBody *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMusclePoint **)&jarg1; 
+  arg2 = *(OpenSim::AbstractBody **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody & reference is null");
+    return ;
+  } 
+  (arg1)->setBody(*arg2);
 }
 
 
@@ -37945,6 +38602,18 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmPoint_1get
   result = (double *)(arg1)->get();
   *(double **)&jresult = result; 
   return jresult;
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmPoint_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
+  OpenSim::SimmPoint *arg1 = (OpenSim::SimmPoint *) 0 ;
+  double arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmPoint **)&jarg1; 
+  arg2 = (double)jarg2; 
+  (arg1)->scale(arg2);
 }
 
 
@@ -44159,6 +44828,22 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGSimmCoordi
     (void)jenv;
     (void)jcls;
     *(OpenSim::AbstractCoordinate **)&baseptr = *(OpenSim::SimmCoordinate **)&jarg1;
+    return baseptr;
+}
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGSetCoordinatesUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(OpenSim::Object **)&baseptr = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1;
+    return baseptr;
+}
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGCoordinateSetUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&baseptr = *(OpenSim::CoordinateSet **)&jarg1;
     return baseptr;
 }
 
