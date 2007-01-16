@@ -2465,7 +2465,7 @@
 					<location>-0.028800000000 -0.080500000000 -0.081600000000</location>
 					<body>pelvis</body>
 					<coordinate>hip_flexion_l</coordinate>
-					<range>-90.000000000000 45.000000000000</range>
+					<range>-1.570796326795 0.785398163397</range>
 				</SimmMuscleViaPoint>
 				<SimmMusclePoint>
 					<location>0.001600000000 -0.050700000000 -0.003800000000</location>
