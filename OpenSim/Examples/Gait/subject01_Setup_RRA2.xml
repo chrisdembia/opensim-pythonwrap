@@ -11,8 +11,6 @@
 	<actuator_set_files>gait2354_RRA2_Actuators.xml</actuator_set_files>
 	<!--Name of the xml file used to construct a contact force set for the model.-->
 	<contact_force_set_file>  </contact_force_set_file>
-	<!--Name of the params files used to construct a SIMM Pipeline model.-->
-	<params_file>params.txt</params_file>
 	<!--Directory used for writing results.-->
 	<results_directory> ./Results </results_directory>
 	<!--Output precision.-->

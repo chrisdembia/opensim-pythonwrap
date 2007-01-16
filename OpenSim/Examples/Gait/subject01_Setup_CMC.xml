@@ -5,7 +5,6 @@
 	<replace_actuator_set> false </replace_actuator_set>
 	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
 	<contact_force_set_file> </contact_force_set_file>
-	<params_file> params.txt </params_file>
 	<results_directory> ./ResultsCMC </results_directory>
 	<output_precision> 20 </output_precision>
 	<initial_time> 0.16 </initial_time>
