@@ -3,6 +3,7 @@ package org.opensim.view;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.view.pub.ViewDB;
 
 /**
  * A Class representing the action of replicating a graphics window. 

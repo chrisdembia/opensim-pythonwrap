@@ -18,7 +18,7 @@ import org.opensim.modeling.AbstractModel;
  */
 public class ModelEvent extends EventObject {
     
-    public enum Operation{Open, Close, Save, ObjectOperation, SetCurrent};
+    public enum Operation{Open, Close, Save, ObjectOperation, SetCurrent, CurrentMotion};
     
     Operation op= Operation.Open;
     /**

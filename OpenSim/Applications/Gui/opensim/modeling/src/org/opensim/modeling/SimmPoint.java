@@ -59,6 +59,10 @@ public class SimmPoint extends OpenSimObject {
     return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
   }
 
+  public void scale(double aScaleFactor) {
+    opensimModelJNI.SimmPoint_scale(swigCPtr, aScaleFactor);
+  }
+
   public boolean isVisible() {
     return opensimModelJNI.SimmPoint_isVisible(swigCPtr);
   }

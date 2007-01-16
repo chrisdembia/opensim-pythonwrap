@@ -16,7 +16,7 @@ import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.SingleModelVisuals;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.ViewDB;
 
 public class IKPanel  extends workflowWizardPanelBase{
     

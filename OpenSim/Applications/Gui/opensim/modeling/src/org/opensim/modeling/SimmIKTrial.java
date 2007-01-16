@@ -95,12 +95,12 @@ public class SimmIKTrial extends OpenSimObject {
     opensimModelJNI.SimmIKTrial_findFrameRange(swigCPtr, Storage.getCPtr(aData), SWIGTYPE_p_int.getCPtr(oStartFrame), SWIGTYPE_p_int.getCPtr(oEndFrame));
   }
 
-  public boolean processTrial(AbstractModel aModel, SWIGTYPE_p_OpenSim__CoordinateSet aCoordinateSet, ArrayStr aCoordinatesFromFile) {
-    return opensimModelJNI.SimmIKTrial_processTrial(swigCPtr, AbstractModel.getCPtr(aModel), SWIGTYPE_p_OpenSim__CoordinateSet.getCPtr(aCoordinateSet), ArrayStr.getCPtr(aCoordinatesFromFile));
+  public boolean processTrial(AbstractModel aModel, CoordinateSet aCoordinateSet, ArrayStr aCoordinatesFromFile) {
+    return opensimModelJNI.SimmIKTrial_processTrial(swigCPtr, AbstractModel.getCPtr(aModel), CoordinateSet.getCPtr(aCoordinateSet), ArrayStr.getCPtr(aCoordinatesFromFile));
   }
 
-  public boolean processTrialCommon(AbstractModel aModel, SWIGTYPE_p_OpenSim__CoordinateSet aCoordinateSet, ArrayStr aCoordinatesFromFile, SimmMarkerData aMarkerData, Storage aOutputStorage) {
-    return opensimModelJNI.SimmIKTrial_processTrialCommon(swigCPtr, AbstractModel.getCPtr(aModel), SWIGTYPE_p_OpenSim__CoordinateSet.getCPtr(aCoordinateSet), ArrayStr.getCPtr(aCoordinatesFromFile), SimmMarkerData.getCPtr(aMarkerData), Storage.getCPtr(aOutputStorage));
+  public boolean processTrialCommon(AbstractModel aModel, CoordinateSet aCoordinateSet, ArrayStr aCoordinatesFromFile, SimmMarkerData aMarkerData, Storage aOutputStorage) {
+    return opensimModelJNI.SimmIKTrial_processTrialCommon(swigCPtr, AbstractModel.getCPtr(aModel), CoordinateSet.getCPtr(aCoordinateSet), ArrayStr.getCPtr(aCoordinatesFromFile), SimmMarkerData.getCPtr(aMarkerData), Storage.getCPtr(aOutputStorage));
   }
 
   public String getMarkerDataFilename() {

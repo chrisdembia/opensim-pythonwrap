@@ -5,6 +5,7 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.view.nodes.ConcreteModelNode;
+import org.opensim.view.pub.ViewDB;
 
 public final class ModelDisplayHideAction extends CallableSystemAction {
     

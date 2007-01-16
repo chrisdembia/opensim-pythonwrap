@@ -3,7 +3,7 @@ package org.opensim.view.base;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.ViewDB;
 
 /**
  * An action to toggle the display of axes at the origin of the world's scene

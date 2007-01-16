@@ -33,14 +33,28 @@ public final class ObjectDisplayMenuAction extends CallableSystemAction implemen
    }
 
    public JMenuItem getPopupPresenter() {
-       JMenu displayMenu = new JMenu("Display");
-       displayMenu.add(new JMenuItem(    new ObjectDisplayHideAction()));
-       displayMenu.add(new JMenuItem(    new ObjectDisplayShowAction()));
-       displayMenu.add(new JMenuItem(    new ObjectDisplayWireframeAction()));
-       displayMenu.add(new JMenuItem(    new ObjectDisplaySurfaceFlatAction()));
-       displayMenu.add(new JMenuItem(    new ObjectDisplaySurfaceGouraudAction()));
-       displayMenu.add(new JMenuItem(    new ObjectDisplaySurfaceAction()));
+      JMenu displayMenu = new JMenu("Display");
+      try {
       
+         displayMenu.add(new JMenuItem(
+                 (ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(
+                 Class.forName("org.opensim.view.ObjectDisplayHideAction"), true)));
+         displayMenu.add(new JMenuItem(
+                 (ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
+                 Class.forName("org.opensim.view.ObjectDisplayShowAction"), true)));
+         displayMenu.add(new JMenuItem(
+                 (ObjectDisplayWireframeAction) ObjectDisplayWireframeAction.findObject(
+                 Class.forName("org.opensim.view.ObjectDisplayWireframeAction"), true)));
+         displayMenu.add(new JMenuItem(
+                 (ObjectDisplaySurfaceFlatAction) ObjectDisplaySurfaceFlatAction.findObject(
+                 Class.forName("org.opensim.view.ObjectDisplaySurfaceFlatAction"), true)));
+         displayMenu.add(new JMenuItem(
+                 (ObjectDisplaySurfaceGouraudAction) ObjectDisplaySurfaceGouraudAction.findObject(
+                 Class.forName("org.opensim.view.ObjectDisplaySurfaceGouraudAction"), true)));
+       } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+      }     
+         
       return displayMenu;
    }
     

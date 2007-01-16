@@ -33,28 +33,16 @@ public class ControlLinear extends Control {
     super.delete();
   }
 
-  public static SWIGTYPE_p_ControlLinearNode getDEFAULT_NODE() {
-    return new SWIGTYPE_p_ControlLinearNode(opensimModelJNI.ControlLinear_DEFAULT_NODE_get(), true);
-  }
-
-  public ControlLinear(SWIGTYPE_p_OpenSim__ArrayPtrsTControlLinearNode_t aX, String aName) {
-    this(opensimModelJNI.new_ControlLinear__SWIG_0(SWIGTYPE_p_OpenSim__ArrayPtrsTControlLinearNode_t.getCPtr(aX), aName), true);
-  }
-
-  public ControlLinear(SWIGTYPE_p_OpenSim__ArrayPtrsTControlLinearNode_t aX) {
-    this(opensimModelJNI.new_ControlLinear__SWIG_1(SWIGTYPE_p_OpenSim__ArrayPtrsTControlLinearNode_t.getCPtr(aX)), true);
-  }
-
   public ControlLinear() {
-    this(opensimModelJNI.new_ControlLinear__SWIG_2(), true);
+    this(opensimModelJNI.new_ControlLinear__SWIG_0(), true);
   }
 
   public ControlLinear(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_ControlLinear__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
+    this(opensimModelJNI.new_ControlLinear__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
   }
 
   public ControlLinear(ControlLinear aControl) {
-    this(opensimModelJNI.new_ControlLinear__SWIG_4(ControlLinear.getCPtr(aControl)), true);
+    this(opensimModelJNI.new_ControlLinear__SWIG_2(ControlLinear.getCPtr(aControl)), true);
   }
 
   public OpenSimObject copy() {
@@ -167,8 +155,8 @@ public class ControlLinear extends Control {
     opensimModelJNI.ControlLinear_setControlValueMax(swigCPtr, aT, aX);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTControlLinearNode_t getNodeArray() {
-    return new SWIGTYPE_p_OpenSim__ArrayPtrsTControlLinearNode_t(opensimModelJNI.ControlLinear_getNodeArray(swigCPtr), false);
+  public void clearControlNodes() {
+    opensimModelJNI.ControlLinear_clearControlNodes(swigCPtr);
   }
 
   public double getFirstTime() {

@@ -8,6 +8,7 @@ package org.opensim.view;
 
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import org.opensim.view.pub.ViewDB;
 
 /**
  *

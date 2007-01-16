@@ -9,6 +9,8 @@ import org.openide.modules.ModuleInstall;
 import org.openide.util.NbBundle;
 import org.openide.windows.WindowManager;
 import org.opensim.utils.TheApp;
+import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 /**
  * Manages a module's lifecycle. Remember that an installer is optional and

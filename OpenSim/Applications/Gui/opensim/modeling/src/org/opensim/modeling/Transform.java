@@ -94,6 +94,18 @@ public class Transform {
     opensimModelJNI.Transform_rotateAxis(swigCPtr, r, preference.swigValue(), axis);
   }
 
+  public void rotateXBodyFixed(double r, Transform.AnglePreference preference) {
+    opensimModelJNI.Transform_rotateXBodyFixed(swigCPtr, r, preference.swigValue());
+  }
+
+  public void rotateYBodyFixed(double r, Transform.AnglePreference preference) {
+    opensimModelJNI.Transform_rotateYBodyFixed(swigCPtr, r, preference.swigValue());
+  }
+
+  public void rotateZBodyFixed(double r, Transform.AnglePreference preference) {
+    opensimModelJNI.Transform_rotateZBodyFixed(swigCPtr, r, preference.swigValue());
+  }
+
   public void translateX(double t) {
     opensimModelJNI.Transform_translateX(swigCPtr, t);
   }

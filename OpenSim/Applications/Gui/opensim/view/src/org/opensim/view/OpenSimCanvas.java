@@ -15,6 +15,7 @@ import javax.swing.JPopupMenu;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.editors.ObjectEditDialogMaker;
+import org.opensim.view.pub.ViewDB;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyPath;
 import vtk.vtkPropPicker;
@@ -39,11 +40,6 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
    {
        if ( (e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.CTRL_MASK))) {
           ViewDB.getInstance().setSelectedObject(findObjectAt(lastX, lastY));
-          //if (getSelectedObject() != null){
-            //JPopupMenu visPopup = new JPopupMenu();
-            //visPopup.add(new ModifyObjectVisibilityAction(getSelectedObject(), ownerTopComponent));
-            //visPopup.show(this, e.getX(), e.getY());
-         //}
         }        // Show popup if right mouse otherwise pass along to super implementation
         super.mousePressed(e);
     }

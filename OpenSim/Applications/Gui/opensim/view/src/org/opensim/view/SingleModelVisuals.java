@@ -20,8 +20,6 @@ import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.LineGeometry;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.modeling.SWIGTYPE_p_double;
-import org.opensim.modeling.SWIGTYPE_p_void;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
@@ -29,6 +27,7 @@ import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
+import vtk.vtkCubeSource;
 import vtk.vtkCylinderSource;
 import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
@@ -39,25 +38,34 @@ import vtk.vtkProp3DCollection;
 import vtk.vtkSphereSource;
 import vtk.vtkXMLPolyDataReader;
 import vtk.vtkActorCollection;
+import vtk.vtkAppendPolyData;
 /**
  *
  * @author Ayman. A class representing the visuals of one model.
  * This class does not actually display the model. Instead it builds the
  * data structures (vtkAssembly) needed to display the model and also
  * maintains the maps for finding an object based on selection and vice versa.
+ *
+ * Sources of slow down:
+ * 1. Too many assemblies (1 per muscle).
+ * 2. Too many actors (markers, muscle points) these should replaced with Glyph3D or TensorGlyphs
+ * 3. Selection is slow because hashing vtkProp3D apparently doesn't destribute objects evenly use 
+ *       some form of Id instead (e.g. vtkId).
  */
 public class SingleModelVisuals {
     
     private vtkAssembly modelDisplayAssembly;   // assembly representing the model
     private vtkLinearTransform modelDisplayTransform; // extra transform to shift, rotate model
     private double opacity;
-    private double[] bounds = new double[6];    // bounding box around the model assembly, in assembly's frame'
+    private double[] bounds = new double[6];
     private boolean visible;
     private double[] defaultMuscleColor = new double[]{0.8, 0.1, 0.1};
     private double defaultMuscleRadius = .005;
-    // Maps between objects and vtkAssemblies for going from Actor to Object and vice versa
-    private Hashtable<OpenSimObject, vtkAssembly> mapObject2Actors = new Hashtable<OpenSimObject, vtkAssembly>();
-    private Hashtable<vtkProp3D, OpenSimObject> mapActors2Objects = new Hashtable<vtkProp3D, OpenSimObject>();
+    // Maps between objects and vtkProp3D for going from Actor to Object and vice versa
+    // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
+    // e.g. Muscles, Models
+    private Hashtable<OpenSimObject, vtkProp3D> mapObject2VtkObjects = new Hashtable<OpenSimObject, vtkProp3D>();
+    private Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects = new Hashtable<vtkProp3D, OpenSimObject>(500);
     
     private Hashtable<OpenSimObject, vtkActorCollection> mapObject2ActorCollections = new
             Hashtable<OpenSimObject, vtkActorCollection>();
@@ -66,22 +74,22 @@ public class SingleModelVisuals {
      */
     public SingleModelVisuals(AbstractModel aModel) {
         modelDisplayAssembly = createModelAssembly(aModel);
-        computeModelBoundingbox();
+        //computeModelBoundingbox();
         setVisible(true);
     }
     /**
-     * Find the vtkActor for the passed in object
+     * Find the vtkProp3D for the passed in object
      */
-    public vtkAssembly getActorForObject(OpenSimObject obj)
+    public vtkProp3D getVtkRepForObject(OpenSimObject obj)
     {
-        return mapObject2Actors.get(obj);
+        return mapObject2VtkObjects.get(obj);
     }
     /**
-     * find the Object for passed in actor
+     * find the Object for passed in vtkProp3D
      */
-    public OpenSimObject getObjectForActor(vtkAssembly prop)
+    public OpenSimObject getObjectForVtkRep(vtkProp3D prop)
     {
-        return mapActors2Objects.get(prop);
+        return mapVtkObjects2Objects.get(prop);
     }
     /**
      * Create one vtkAssembly representing the model and return it.
@@ -95,24 +103,23 @@ public class SingleModelVisuals {
                 
         double[] scales = new double[3];
         vtkAssembly modelAssembly = new vtkAssembly();
-        // Traverse the bodies of the simmModel in depth-first order.
-        //SimmModelIterator i = new SimmModelIterator(model);
         // Keep track of ground body to avoid recomputation
         AbstractBody gnd = model.getDynamicsEngine().getGroundBody();
         BodySet bodies = model.getDynamicsEngine().getBodySet();
+
         for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
 
             AbstractBody body = bodies.get(bodyNum);
 
-            // Add a vtkAssembly to the vtk scene graph to represent
+            // Add a vtkActor to the vtk scene graph to represent
             // the current body.
-            vtkAssembly bodyRep = new vtkAssembly();
+            vtkActor bodyRep = new vtkActor();
 
             // Fill the maps between objects and display to support picking, highlighting, etc..
             // The reverse map takes an actor to an Object and is filled as actors are created.
-            mapObject2Actors.put(body, bodyRep);
+            mapObject2VtkObjects.put(body, bodyRep);
 
-             modelAssembly.AddPart(bodyRep);
+            modelAssembly.AddPart(bodyRep);
             vtkMatrix4x4 m= getBodyTransform(model, body);
             bodyRep.SetUserMatrix(m);
 
@@ -121,6 +128,8 @@ public class SingleModelVisuals {
             bodyDisplayer.getScaleFactors(scales);
 
             int ns = bodyDisplayer.getNumGeometryFiles();
+            long timepre = System.currentTimeMillis();
+            vtkAppendPolyData bodyPolyData = new vtkAppendPolyData();
             // For each bone in the current body.
             for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
                 vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
@@ -128,32 +137,38 @@ public class SingleModelVisuals {
                 polyReader.SetFileName(boneFile);
 
                 vtkPolyData poly = polyReader.GetOutput();
-                vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-                mapper.SetInput(poly);
-
-                vtkActor actor = new vtkActor();
-                actor.SetMapper(mapper);
-                actor.SetScale(scales);
-                bodyRep.AddPart(actor);
-                mapActors2Objects.put(actor, body);
-
+                // Create polyData and append it to one common polyData object
+                bodyPolyData.AddInput(poly);
             }
-            
+             vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
+             // Shrink filter to be used for selection
+             /*
+             vtkShrinkPolyData shrink = new vtkShrinkPolyData();
+             shrink.SetInput(poly);
+             shrink.SetShrinkFactor(1.0);
+             */
+             bodyMapper.SetInput(bodyPolyData.GetOutput());
+
+             bodyRep.SetMapper(bodyMapper);
+             bodyRep.SetScale(scales);
+             mapVtkObjects2Objects.put(bodyRep, body);
+
             // Bodies have things attached to them as handled by the
-            // dependents mechanism. For each one of these a new assembly is created and attached 
+            // dependents mechanism. For each one of these a new vtkActor is created and attached 
             // to the same xform as the owner body.
             int ct = bodyDisplayer.countDependents();
             //System.out.println("Body "+body+" has "+ct+ " dependents");
+            
             double[] color = new double[3];
             for(int j=0; j < ct;j++){
                 VisibleObject Dependent = bodyDisplayer.getDependent(j);
-                vtkAssembly attachmentRep = new vtkAssembly();
+                vtkActor attachmentRep = new vtkActor();
                 attachmentRep.SetUserMatrix(m);
                 int geomcount = Dependent.countGeometry();
                 // Create actor for the dpendent
                 for(int gc=0; gc<geomcount; gc++){
                     Geometry g = Dependent.getGeometry(gc);
-                    vtkActor dActor = new vtkActor();
+                    //vtkActor dActor = new vtkActor();
                     AnalyticGeometry ag=null;
                     ag = AnalyticGeometry.dynamic_cast(g);
                     if (ag != null){    
@@ -168,30 +183,31 @@ public class SingleModelVisuals {
                             mapper.SetInput(sphere.GetOutput());
 
                             Dependent.getVisibleProperties().getColor(color);
-                            dActor.GetProperty().SetColor(color);
+                            attachmentRep.GetProperty().SetColor(color);
 
-                            dActor.SetMapper(mapper);
-                            attachmentRep.AddPart(dActor);
-                            mapActors2Objects.put(dActor, Dependent.getOwner());
+                            attachmentRep.SetMapper(mapper);
+                            //attachmentRep.AddPart(dActor);
+                            mapVtkObjects2Objects.put(attachmentRep, Dependent.getOwner());
                         }
                     }
                     else {  // General geometry
                         // throw an exception for not implemented though should be identical
                         throw new UnsupportedOperationException(
-                                "Single Model Visuals: Geometry visualization Not yet implemented");                    }
+                                "SingleModelVisuals: Geometry visualization Not yet implemented");                    }
                 }
                 modelAssembly.AddPart(attachmentRep);
-                mapObject2Actors.put(Dependent.getOwner(), attachmentRep);
+                mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
             }
-        } //body
+       } //body
+        //System.out.println("Before adding muscles:"+modelAssembly.Print());
         /**
          * Now the muscles and other actuators
          */
         addActuatorsGeometry(model, modelAssembly);
-        mapObject2Actors.put(model, modelAssembly);
-        mapActors2Objects.put(modelAssembly, model);
+        mapObject2VtkObjects.put(model, modelAssembly);
+        mapVtkObjects2Objects.put(modelAssembly, model);
         // Postprocess model assembly
-        /* Draw a box around the model, uncomment for debugging purposes
+        /* Draw a box around the model, uncomment for debugging purposes 
         vtkActor bboxActor = new vtkActor();
         vtkCubeSource bboxSource = new vtkCubeSource();
         bboxSource.SetBounds(modelAssembly.GetBounds());
@@ -201,7 +217,8 @@ public class SingleModelVisuals {
         modelAssembly.AddPart(bboxActor);
         bboxActor.GetProperty().SetRepresentationToWireframe();
         */
-        return modelAssembly;
+        //System.out.println("after adding muscles"+modelAssembly.Print());
+         return modelAssembly;
     }
     
      /**
@@ -224,7 +241,7 @@ public class SingleModelVisuals {
     public OpenSimObject pickObject(vtkAssemblyPath asmPath) {
         if (asmPath != null) {
          vtkAssemblyNode pickedAsm = asmPath.GetLastNode();
-         return mapActors2Objects.get(pickedAsm.GetViewProp());
+         return mapVtkObjects2Objects.get(pickedAsm.GetViewProp());
         }  
         return null;    // No selection
     }
@@ -255,14 +272,11 @@ public class SingleModelVisuals {
         this.opacity = opacity;
     }
 
-    public double[] getBounds() {
-        return bounds;
-    }
     /**
      * Compute bounding box for model as this can be useful for initial placement
      *  This is supposed to be a ballpark rather than an accurate estimate so that minor changes to
      * model do not cause overlap, but the bboox is not intended to be kept up-to-date
-     */
+     * unused and turned out to be very slow for some reason*/
     private void computeModelBoundingbox() {
         modelDisplayAssembly.GetBounds(bounds);
     }
@@ -304,7 +318,7 @@ public class SingleModelVisuals {
     private void addActuatorsGeometry(AbstractModel  mdl, vtkAssembly modelAssembly) {
         // Now the muscles which are different creatures since they don't have a frame of their own
         // We'll display them by asking the "actuators for their geometry which may contain 
-        // muscle poitns as well as segments connecting them
+        // muscle points as well as segments connecting them
         ActuatorSet acts = mdl.getActuatorSet();
         for(int actNumber=0; actNumber < acts.getSize(); actNumber++){   
             AbstractActuator nextMuscle = acts.get(actNumber);
@@ -313,7 +327,7 @@ public class SingleModelVisuals {
 
             vtkActorCollection segmentCollection = new vtkActorCollection();
             // Fill the object to display map
-            mapObject2Actors.put(nextMuscle, muscleRep);
+            mapObject2VtkObjects.put(nextMuscle, muscleRep);
 
             // Get attachments and connect them
             VisibleObject actuatorDisplayer = nextMuscle.getDisplayer();
@@ -354,7 +368,7 @@ public class SingleModelVisuals {
                     
                     muscleRep.AddPart(dActor);
                     // Fill the display to object map
-                    mapActors2Objects.put(dActor, nextMuscle);
+                    mapVtkObjects2Objects.put(dActor, nextMuscle);
                 } // Attachments
                 mapObject2ActorCollections.put(nextMuscle, segmentCollection);
                 
@@ -367,48 +381,42 @@ public class SingleModelVisuals {
     /**
      * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points
      */
-    private vtkMatrix4x4 getCylinderTransform(double[] axis, double[] origin)
-    {
+    private vtkMatrix4x4 getCylinderTransform(double[] axis, double[] origin) {
        double length = normalizeAndGetLength(axis);
        vtkMatrix4x4 retTransform = new vtkMatrix4x4();
-        // yaxis is the unit vector
-        for (int i=0; i < 3; i++)
-            retTransform.SetElement(i, 1, axis[i]);
-        double[] newX = new double[3];
-        double[] oldXCrossNewY = new double[3]; // NewZ
-        oldXCrossNewY[0] = 0.0;
-        oldXCrossNewY[1] = -axis[2];
-        oldXCrossNewY[2] = axis[1];
-        
-        normalizeAndGetLength(oldXCrossNewY);
-        for (int i=0; i < 3; i++)
-            retTransform.SetElement(i, 2, oldXCrossNewY[i]);
-
-        newX[0] = axis[1]*oldXCrossNewY[2]-axis[2]*oldXCrossNewY[1];
-        newX[1] = axis[2]*oldXCrossNewY[0]-axis[0]*oldXCrossNewY[2];
-        newX[2] = axis[0]*oldXCrossNewY[1]-axis[1]*oldXCrossNewY[0];
-        normalizeAndGetLength(newX);
-        for (int i=0; i < 3; i++)
-            retTransform.SetElement(i, 0, newX[i]);
-        
-        // Scale by length
-         for (int i=0; i < 3; i++){
-                retTransform.SetElement(i, 1, retTransform.GetElement(i, 1)*length);
-         }
-        
-        for (int i=0; i < 3; i++)
-            retTransform.SetElement(i, 3, origin[i]);
-        
-        return retTransform;
+       // yaxis is the unit vector
+       for (int i=0; i < 3; i++)
+          retTransform.SetElement(i, 1, axis[i]);
+       double[] newX = new double[3];
+       double[] oldXCrossNewY = new double[3]; // NewZ
+       oldXCrossNewY[0] = 0.0;
+       oldXCrossNewY[1] = -axis[2];
+       oldXCrossNewY[2] = axis[1];
+       
+       normalizeAndGetLength(oldXCrossNewY);
+       for (int i=0; i < 3; i++)
+          retTransform.SetElement(i, 2, oldXCrossNewY[i]);
+       
+       newX[0] = axis[1]*oldXCrossNewY[2]-axis[2]*oldXCrossNewY[1];
+       newX[1] = axis[2]*oldXCrossNewY[0]-axis[0]*oldXCrossNewY[2];
+       newX[2] = axis[0]*oldXCrossNewY[1]-axis[1]*oldXCrossNewY[0];
+       normalizeAndGetLength(newX);
+       for (int i=0; i < 3; i++){
+          retTransform.SetElement(i, 0, newX[i]);
+          // Scale by length
+          retTransform.SetElement(i, 1, retTransform.GetElement(i, 1)*length);
+          retTransform.SetElement(i, 3, origin[i]);
+       }
+       return retTransform;
     }
     /**
      * Normalize a vector and return its length
      */
     private double normalizeAndGetLength(double[] vector3)
     {
-        double length = Math.sqrt(Math.pow(vector3[0], 2)+
-                                  Math.pow(vector3[1], 2)+
-                                  Math.pow(vector3[2], 2));
+        double length = Math.sqrt(vector3[0]*vector3[0]+
+                                  vector3[1]*vector3[1]+
+                                  vector3[2]*vector3[2]);
         // normalize
         for(int d=0; d <3; d++)
             vector3[d]=vector3[d]/length;
@@ -430,7 +438,7 @@ public class SingleModelVisuals {
 
             // Fill the maps between objects and display to support picking, highlighting, etc..
             // The reverse map takes an actor to an Object and is filled as actors are created.
-            vtkAssembly bodyRep= mapObject2Actors.get(body);
+            vtkProp3D bodyRep= mapObject2VtkObjects.get(body);
             Transform opensimTransform = animationCallback.getBodyTransform(bodyNum);
             vtkMatrix4x4 bodyVtkTransform = convertTransformToVtkMatrix4x4(opensimTransform);
             bodyRep.SetUserMatrix(bodyVtkTransform);
@@ -441,7 +449,7 @@ public class SingleModelVisuals {
             double[] color = new double[3];
             for(int j=0; j < ct;j++){
                 VisibleObject dependent = bodyDisplayer.getDependent(j);
-                vtkAssembly deptAssembly = mapObject2Actors.get(dependent.getOwner());
+                vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
                 deptAssembly.SetUserMatrix(bodyVtkTransform);
             }
         }
@@ -481,7 +489,7 @@ public class SingleModelVisuals {
       for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
          AbstractActuator nextMuscle = acts.get(actNumber);
          // Create assembly for muscle
-         vtkAssembly muscleRep = mapObject2Actors.get(nextMuscle);
+         vtkAssembly muscleRep = (vtkAssembly) mapObject2VtkObjects.get(nextMuscle);
          vtkActorCollection segmentCollection = mapObject2ActorCollections.get(nextMuscle);
          // Get attachments and connect them
          VisibleObject actuatorDisplayer = nextMuscle.getDisplayer();

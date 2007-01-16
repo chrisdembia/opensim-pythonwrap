@@ -26,19 +26,9 @@
 package org.opensim.view.nodes;
 
 import javax.swing.Action;
-import org.openide.util.HelpCtx;
-import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.view.ObjectDisplayHideAction;
 import org.opensim.view.ObjectDisplayMenuAction;
-import org.opensim.view.ObjectDisplayShowAction;
-import org.opensim.view.ObjectDisplaySurfaceAction;
-import org.opensim.view.ObjectDisplaySurfaceFlatAction;
-import org.opensim.view.ObjectDisplaySurfaceGouraudAction;
-import org.opensim.view.ObjectDisplayWireframeAction;
-import org.opensim.view.ViewDB;
-import org.opensim.view.editors.ObjectEditDialogMaker;
+import org.opensim.view.ObjectGenericReviewAction;
 
 /**
  *
@@ -73,50 +63,17 @@ public class OpenSimObjectNode extends OpenSimNode {
      * Subclasses should user super.getActions() to use this
      */
     public Action[] getActions(boolean b) {
-      /*
-       try {
-         return (new Action[] {
-                     (ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(Class.forName("org.opensim.view.ObjectDisplayHideAction")),
-                     (ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(Class.forName("org.opensim.view.ObjectDisplayShowAction")),
-                     (ObjectReviewAction)      ObjectReviewAction.findObject(Class.forName("org.opensim.view.ObjectReviewAction")),
-         });
+      Action[] objectNodeActions;
+      try {
+         objectNodeActions = new Action[]  {getReviewAction(), 
+                                          null, 
+                                          (ObjectDisplayMenuAction) ObjectDisplayMenuAction.findObject(
+                 Class.forName("org.opensim.view.ObjectDisplayMenuAction"), true)};
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
-         return (new Action[]{null});
-      }*/
-      return new Action[]{getReviewAction(), 
-                           null,
-                           new ObjectDisplayMenuAction()
-      };
-    }
-    /**
-     * Action to review the object associated with the node
-     */
-    public Action getReviewAction() {
-        final AbstractModel ownerModel = getModelForNode();
-        //retValue = super.getActions(opensimObject);
-        Action reviewAction = new CallableSystemAction(){
-            /**
-             * @todo handle no views situation where getCurrenWindow() returns null
-             */
-            public void performAction() {
-                 ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(OpenSimObjectNode.this.getOpensimObject(),
-                         ViewDB.getInstance().getCurrenWindow());
-                 editorDialog.process();
-            }
-
-            public String getName() {
-                return "Review...";
-            }
-
-            public HelpCtx getHelpCtx() {
-                return null;
-            }
-
-         protected boolean asynchronous() {
-            return false;
-         }}; 
-        return reviewAction;
+         objectNodeActions = new Action[] {null};
+      }
+      return objectNodeActions;
     }
     /**
      * return the Object presented by this node
@@ -124,5 +81,16 @@ public class OpenSimObjectNode extends OpenSimNode {
     public OpenSimObject getOpensimObject() {
         return opensimObject;
     }
+
+   private Action getReviewAction() {
+      Action act =null;
+      try {
+         act = (ObjectGenericReviewAction) ObjectGenericReviewAction.findObject(
+                    Class.forName("org.opensim.view.ObjectGenericReviewAction"), true);
+      } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+      }
+      return act;
+   }
     
 }

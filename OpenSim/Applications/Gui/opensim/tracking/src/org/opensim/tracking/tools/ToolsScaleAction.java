@@ -13,8 +13,8 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.tracking.ExecuteWorkflowStepAction;
 import org.opensim.tracking.WorkflowDescriptor;
-import org.opensim.view.OpenSimDB;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 public final class ToolsScaleAction extends CallableSystemAction {
    

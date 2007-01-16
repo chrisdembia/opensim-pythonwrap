@@ -91,17 +91,17 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     return (cPtr == 0) ? null : new JointSet(cPtr, false);
   }
 
-  public SWIGTYPE_p_OpenSim__CoordinateSet getCoordinateSet() {
+  public CoordinateSet getCoordinateSet() {
     long cPtr = opensimModelJNI.AbstractDynamicsEngine_getCoordinateSet__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__CoordinateSet(cPtr, false);
+    return (cPtr == 0) ? null : new CoordinateSet(cPtr, false);
   }
 
-  public void updateCoordinateSet(SWIGTYPE_p_OpenSim__CoordinateSet aCoordinateSet) {
-    opensimModelJNI.AbstractDynamicsEngine_updateCoordinateSet(swigCPtr, SWIGTYPE_p_OpenSim__CoordinateSet.getCPtr(aCoordinateSet));
+  public void updateCoordinateSet(CoordinateSet aCoordinateSet) {
+    opensimModelJNI.AbstractDynamicsEngine_updateCoordinateSet(swigCPtr, CoordinateSet.getCPtr(aCoordinateSet));
   }
 
-  public void getUnlockedCoordinates(SWIGTYPE_p_OpenSim__CoordinateSet aUnlockedCoordinates) {
-    opensimModelJNI.AbstractDynamicsEngine_getUnlockedCoordinates(swigCPtr, SWIGTYPE_p_OpenSim__CoordinateSet.getCPtr(aUnlockedCoordinates));
+  public void getUnlockedCoordinates(CoordinateSet aUnlockedCoordinates) {
+    opensimModelJNI.AbstractDynamicsEngine_getUnlockedCoordinates(swigCPtr, CoordinateSet.getCPtr(aUnlockedCoordinates));
   }
 
   public AbstractDof findUnconstrainedDof(AbstractCoordinate aCoordinate, AbstractJoint rJoint) {

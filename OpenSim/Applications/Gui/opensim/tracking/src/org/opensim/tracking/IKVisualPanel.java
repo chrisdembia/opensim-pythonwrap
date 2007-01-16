@@ -13,9 +13,9 @@ import org.opensim.modeling.SimmIKTrial;
 import org.opensim.modeling.SimmIKTrialSet;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
-import org.opensim.view.OpenSimDB;
+import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.SingleModelVisuals;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.ViewDB;
 
 public final class IKVisualPanel extends workflowVisualPanelBase {
     

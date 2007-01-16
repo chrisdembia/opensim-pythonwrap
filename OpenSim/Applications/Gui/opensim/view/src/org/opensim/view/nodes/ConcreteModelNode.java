@@ -8,6 +8,8 @@ import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.view.*;
 import org.opensim.view.actions.FileCloseAction;
+import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 
 

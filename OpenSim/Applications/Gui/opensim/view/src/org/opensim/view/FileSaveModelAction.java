@@ -1,31 +1,22 @@
 package org.opensim.view;
 
-import java.util.Collection;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
-import org.openide.util.Lookup;
-import org.openide.util.LookupEvent;
-import org.openide.util.LookupListener;
 import org.openide.util.NbBundle;
-import org.openide.util.Utilities;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractModel;
+import org.opensim.view.pub.ViewDB;
 
 public final class FileSaveModelAction extends CallableSystemAction {
-    
-    ModelWindowVTKTopComponent active;
     
     public void performAction() {
         // TODO implement action body
         // Get current active top component
-        active = ViewDB.getInstance().getCurrenWindow();
-        if (active != null){
-            /*
-            AbstractModel mdl = active.getModel();
+        AbstractModel mdl = ViewDB.getInstance().getCurrentModel();
+        if (mdl != null){
             StatusDisplayer.getDefault().setStatusText("Saving model "+mdl.getName()+"to file.");
             mdl.print(mdl.getInputFileName());
             StatusDisplayer.getDefault().setStatusText("");
-             **/
         }
     }
     

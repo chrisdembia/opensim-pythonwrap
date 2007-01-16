@@ -63,9 +63,17 @@ public class SimmMusclePoint extends OpenSimObject {
     return new ArrayDouble(opensimModelJNI.SimmMusclePoint_getAttachment(swigCPtr), false);
   }
 
+  public void setAttachment(double[] aAttachment) {
+    opensimModelJNI.SimmMusclePoint_setAttachment(swigCPtr, aAttachment);
+  }
+
   public AbstractBody getBody() {
     long cPtr = opensimModelJNI.SimmMusclePoint_getBody(swigCPtr);
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
+  }
+
+  public void setBody(AbstractBody aBody) {
+    opensimModelJNI.SimmMusclePoint_setBody(swigCPtr, AbstractBody.getCPtr(aBody));
   }
 
   public SWIGTYPE_p_std__string getBodyName() {

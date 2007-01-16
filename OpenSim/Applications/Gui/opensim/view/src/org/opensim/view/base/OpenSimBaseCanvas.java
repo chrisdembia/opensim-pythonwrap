@@ -51,7 +51,7 @@ public class OpenSimBaseCanvas extends vtkPanel
         implements KeyListener {
     
     JPopupMenu settingsMenu = new JPopupMenu();
-    JMenu camerasMenu = new JMenu();
+    CamerasMenu camerasMenu;
     
     // Enable opoups to display on top of heavy weight component/canvas
     static {
@@ -64,6 +64,7 @@ public class OpenSimBaseCanvas extends vtkPanel
          double[] background = parseColor(defaultBackgroundColor);
          GetRenderer().SetBackground(background);
          createSettingsMenu();
+         camerasMenu = new CamerasMenu(this);
          addKeyListener(this);
          // AntiAliasing
          String desiredAAFrames = NbBundle.getMessage(OpenSimBaseCanvas.class,"CTL_AAFrames");
@@ -88,21 +89,20 @@ public class OpenSimBaseCanvas extends vtkPanel
   {
       settingsMenu = new JPopupMenu();
       /** This should work and is more netBeans like style, but somehow fails to find Actions
-       * possibly because of layer file issues
+       * possibly because of layer file issues*/
         try {
             
-            Action act = (ModifyWindowSettingsAction) ModifyWindowSettingsAction.findObject(
-                              Class.forName("org.opensim.view.base.ModifyWindowSettingsAction"));
-            settingsMenu.add(act);
+            settingsMenu.add((ModifyWindowSettingsAction) (ModifyWindowSettingsAction.findObject(
+                              Class.forName("org.opensim.view.base.ModifyWindowSettingsAction"), true)));
             settingsMenu.add((ToggleAxesAction) ToggleAxesAction.findObject(
-                            Class.forName("org.opensim.view.base.ToggleAxesAction")));
+                            Class.forName("org.opensim.view.base.ToggleAxesAction"), true));
        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-       **/
+       /*
       settingsMenu.add(new ModifyWindowSettingsAction());
       settingsMenu.add(new ToggleAxesAction());
-      /*settingsMenu.add(*/new CamerasMenu(this);//);   // Already enough ways to do this better than crowding menus
+        **/
   }
 
   public JPopupMenu getMenu()
@@ -143,15 +143,15 @@ public class OpenSimBaseCanvas extends vtkPanel
       }
 
    public void applyCameraY() { 
-      applyCamera(CamerasMenu.pickStandardCamera("Top"));
+      applyCamera(camerasMenu.pickStandardCamera("Top"));
    }
 
    public void applyCameraZ() {
-      applyCamera(CamerasMenu.pickStandardCamera("Side"));
+      applyCamera(camerasMenu.pickStandardCamera("Side"));
    }
 
    public void applyCameraX() {
-      applyCamera(CamerasMenu.pickStandardCamera("Front"));
+      applyCamera(camerasMenu.pickStandardCamera("Front"));
    }
       
       /**

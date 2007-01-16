@@ -31,7 +31,7 @@ import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ModelWindowVTKTopComponent;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.ViewDB;
 
 /**
  *
@@ -53,7 +53,7 @@ public class ObjectEditDialogMaker {
         topDialogPanel.add(propertiesEditorPanel, BorderLayout.SOUTH);
         // @todo Check that the object is visible first to avoid crashing downstream
         if (object.getDisplayer()!=null &&
-                ViewDB.getInstance().getActorForObject(object)!=null){   // This should be made more general to account for other editing
+                ViewDB.getInstance().getVtkRepForObject(object)!=null){   // This should be made more general to account for other editing
             typeSpecificEditorPanel = new VisibilityEditorPanel(object, owner);
             topDialogPanel.add(typeSpecificEditorPanel, BorderLayout.NORTH);
         }

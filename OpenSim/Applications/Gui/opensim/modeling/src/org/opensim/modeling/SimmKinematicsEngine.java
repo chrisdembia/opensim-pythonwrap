@@ -71,12 +71,12 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     opensimModelJNI.SimmKinematicsEngine_makePaths(swigCPtr);
   }
 
-  public void updateCoordinateSet(SWIGTYPE_p_OpenSim__CoordinateSet aCoordinateSet) {
-    opensimModelJNI.SimmKinematicsEngine_updateCoordinateSet(swigCPtr, SWIGTYPE_p_OpenSim__CoordinateSet.getCPtr(aCoordinateSet));
+  public void updateCoordinateSet(CoordinateSet aCoordinateSet) {
+    opensimModelJNI.SimmKinematicsEngine_updateCoordinateSet(swigCPtr, CoordinateSet.getCPtr(aCoordinateSet));
   }
 
-  public void getUnlockedCoordinates(SWIGTYPE_p_OpenSim__CoordinateSet rUnlockedCoordinates) {
-    opensimModelJNI.SimmKinematicsEngine_getUnlockedCoordinates(swigCPtr, SWIGTYPE_p_OpenSim__CoordinateSet.getCPtr(rUnlockedCoordinates));
+  public void getUnlockedCoordinates(CoordinateSet rUnlockedCoordinates) {
+    opensimModelJNI.SimmKinematicsEngine_getUnlockedCoordinates(swigCPtr, CoordinateSet.getCPtr(rUnlockedCoordinates));
   }
 
   public AbstractDof findUnconstrainedDof(AbstractCoordinate aCoordinate, AbstractJoint rJoint) {

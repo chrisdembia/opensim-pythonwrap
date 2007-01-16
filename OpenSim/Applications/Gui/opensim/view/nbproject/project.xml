@@ -149,6 +149,7 @@
                 <package>org.opensim.view</package>
                 <package>org.opensim.view.base</package>
                 <package>org.opensim.view.editors</package>
+                <package>org.opensim.view.pub</package>
             </public-packages>
         </data>
     </configuration>

@@ -23,28 +23,27 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.opensim.view;
+package org.opensim.view.pub;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.prefs.Preferences;
 import javax.swing.JDialog;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.openide.windows.TopComponent;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimtkAnimationCallback;
-import org.opensim.utils.TheApp;
+import org.opensim.view.*;
 import vtk.AxesActor;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyPath;
 import vtk.vtkMatrix4x4;
-import vtk.vtkProp;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkProperty;
@@ -80,6 +79,9 @@ public final class ViewDB implements Observer {
    
    private vtkAssembly     axesAssembly=null;
    private boolean axesDisplayed=false;
+   
+   private boolean picking = false;
+
    /** Creates a new instance of ViewDB */
    private ViewDB() {
    }
@@ -182,7 +184,7 @@ public final class ViewDB implements Observer {
             if (ev.getOperation()==ModelEvent.Operation.SetCurrent) {
                updateCommandsVisibility();
             }
-            
+           
          }
       }
    }
@@ -191,13 +193,16 @@ public final class ViewDB implements Observer {
       return modelVisuals;
    }
 
-   OpenSimObject pickObject(vtkAssemblyPath asmPath) {
+   public OpenSimObject pickObject(vtkAssemblyPath asmPath) {
       Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
       while(iter.hasNext()){
          SingleModelVisuals nextModel = iter.next();
          OpenSimObject obj = nextModel.pickObject(asmPath);
-         if (obj != null)
+         if (obj != null){
+            // Find corresponding tree node
+            
             return obj;
+         }
       }
       return null;
    }
@@ -205,11 +210,11 @@ public final class ViewDB implements Observer {
    /**
     * Get the object corresponding to selected vtkAssemblyPath
     **/
-   OpenSimObject getObjectForActor(vtkAssembly prop) {
+   OpenSimObject getObjectForVtkRep(vtkAssembly prop) {
       Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
       while(iter.hasNext()){
          SingleModelVisuals nextModel = iter.next();
-         OpenSimObject obj = nextModel.getObjectForActor(prop);
+         OpenSimObject obj = nextModel.getObjectForVtkRep(prop);
          if (obj != null)
             return obj;
       }
@@ -219,11 +224,11 @@ public final class ViewDB implements Observer {
    /**
     * Get the vtk object corresponding to passed in opensim object
     **/
-   public vtkAssembly getActorForObject(OpenSimObject obj) {
+   public vtkProp3D getVtkRepForObject(OpenSimObject obj) {
       Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
       while(iter.hasNext()){
          SingleModelVisuals nextModel = iter.next();
-         vtkAssembly objAssembly = nextModel.getActorForObject(obj);
+         vtkProp3D objAssembly = nextModel.getVtkRepForObject(obj);
          if (objAssembly != null)
             return objAssembly;
       }
@@ -233,7 +238,7 @@ public final class ViewDB implements Observer {
     * removeWindow removes the passed in window form the list of windows maintaiined
     * by ViewDB
     **/
-   void removeWindow(ModelWindowVTKTopComponent modelWindowVTKTopComponent) {
+   public void removeWindow(ModelWindowVTKTopComponent modelWindowVTKTopComponent) {
       openWindows.remove(modelWindowVTKTopComponent);
    }
    /**
@@ -313,11 +318,11 @@ public final class ViewDB implements Observer {
       return OpenSimDB.getInstance().getCurrentModel();
    }
    
-   void adjustModelDisplayOffset(AbstractModel abstractModel) {
+   public void adjustModelDisplayOffset(AbstractModel abstractModel, TopComponent tc) {
       // Show dialog for model display ajdustment
       SingleModelVisuals rep = mapModelsToVisuals.get(abstractModel);
       JDialog dlg = new ModelDisplayEditJDialog(null, false, rep, abstractModel);
-      dlg.setLocationRelativeTo(ExplorerTopComponent.getDefault());
+      dlg.setLocationRelativeTo(tc);
       dlg.setVisible(true);
       
    }
@@ -335,16 +340,25 @@ public final class ViewDB implements Observer {
     * Set the color of the passed in object.
     */
    public void setObjectColor(OpenSimObject object, double[] colorComponents) {
-      vtkAssembly asm = ViewDB.getInstance().getActorForObject(object);
-      vtkProp3DCollection parts = asm.GetParts();
-      parts.InitTraversal();
-      vtkProp3D prop = parts.GetNextProp3D();
-      vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-      while (prop != null) {
-         if (part != null)
-            part.GetProperty().SetColor(colorComponents);
-         prop = parts.GetNextProp3D();
-         part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
+      applyColor(colorComponents, asm);
+   }
+
+   private void applyColor(final double[] colorComponents, final vtkProp3D asm) {
+      if (asm instanceof vtkAssembly){
+         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
+         parts.InitTraversal();
+         vtkProp3D prop = parts.GetNextProp3D();
+         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+         while (prop != null) {
+            if (part != null)
+               part.GetProperty().SetColor(colorComponents);
+            prop = parts.GetNextProp3D();
+            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+         }
+      }
+      else if (asm instanceof vtkActor){
+         ((vtkActor) asm).GetProperty().SetColor(colorComponents);
       }
       repaintAll();
    }
@@ -352,23 +366,31 @@ public final class ViewDB implements Observer {
     * Set the Opacity of the passed in object to newOpacity
     */
    public void setObjectOpacity(OpenSimObject object, double newOpacity) {
-      vtkAssembly asm = ViewDB.getInstance().getActorForObject(object);
-      
-      vtkProp3DCollection parts = asm.GetParts();
-      parts.InitTraversal();
-      int n =parts.GetNumberOfItems();
-      for(int i=0; i<n; i++){
-         vtkProp3D prop = parts.GetNextProp3D();
-         if (prop instanceof vtkAssembly){   //recur
-            applyOpacityToAssembly((vtkAssembly) prop, newOpacity);
-            // Should continue traversal here
-         } else if (prop instanceof vtkActor){ // Could be Actor or ?
-            ((vtkActor)prop).GetProperty().SetOpacity(newOpacity);
+      vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
+      applyOpacity(newOpacity, asm);
+   }
+   
+   private void applyOpacity(final double newOpacity, final vtkProp3D asm) {
+      if (asm instanceof vtkAssembly){
+         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
+         parts.InitTraversal();
+         int n =parts.GetNumberOfItems();
+         for(int i=0; i<n; i++){
+            vtkProp3D prop = parts.GetNextProp3D();
+            if (prop instanceof vtkAssembly){   //recur
+               applyOpacity(newOpacity, (vtkAssembly) prop);
+               // Should continue traversal here
+            } else if (prop instanceof vtkActor){ // Could be Actor or ?
+               ((vtkActor)prop).GetProperty().SetOpacity(newOpacity);
+            }
          }
+      }
+      else if (asm instanceof vtkActor){
+         ((vtkActor) asm).GetProperty().SetOpacity(newOpacity);
       }
       repaintAll();
    }
-   
+   /*
    public void applyOpacityToAssembly(vtkAssembly assembly, double opacity) {
       vtkProp3DCollection parts = assembly.GetParts();
       parts.InitTraversal();
@@ -385,24 +407,32 @@ public final class ViewDB implements Observer {
          applyOpacityToAssembly((vtkAssembly)prop, opacity);
       }
    }
+    **/
    /**
     * Retrieve the display properties for the passed in object.
     */
    public void getObjectProperties(OpenSimObject object, vtkProperty saveProperty) {
-      vtkAssembly asm = ViewDB.getInstance().getActorForObject(object);
+      vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
       if (asm==null)  // Object is not displayed for some reason
          return;
-      vtkProp3DCollection parts = asm.GetParts();
-      parts.InitTraversal();
-      vtkProp3D prop = parts.GetNextProp3D();
-      vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-      while (prop != null) {
-         if (part != null){
-            saveProperty.SetColor(part.GetProperty().GetColor());
-            saveProperty.SetOpacity(part.GetProperty().GetOpacity());
+      if (asm instanceof vtkAssembly){
+         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
+         parts.InitTraversal();
+         vtkProp3D prop = parts.GetNextProp3D();
+         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+         while (prop != null) {
+            if (part != null){
+               saveProperty.SetColor(part.GetProperty().GetColor());
+               saveProperty.SetOpacity(part.GetProperty().GetOpacity());
+            }
+            prop = parts.GetNextProp3D();
+            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
          }
-         prop = parts.GetNextProp3D();
-         part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      }
+      else if (asm instanceof vtkActor){
+         vtkActor part = (vtkActor)asm;
+         saveProperty.SetColor(part.GetProperty().GetColor());
+         saveProperty.SetOpacity(part.GetProperty().GetOpacity());
       }
    }
    public void setObjectProperties(OpenSimObject object, vtkProperty saveProperty) {
@@ -416,21 +446,11 @@ public final class ViewDB implements Observer {
    
    /**
     * Mark an object as selected (on/off).
-    * Shows name of selected object id status bar if selected = on
+    * Does nothing ofr now but we may change it to indicate selection by showing in 
+    * different color, or in different representation or both
     */
    public void markSelected(OpenSimObject selectedObject, boolean onOff) {
-      vtkAssembly asm = ViewDB.getInstance().getActorForObject(selectedObject);
-      vtkProp3DCollection parts = asm.GetParts();
-      parts.InitTraversal();
-      vtkProp3D prop = parts.GetNextProp3D();
-      vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-      while (prop != null) {
-         if (part != null){
-         }
-         prop = parts.GetNextProp3D();
-         part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-      }
-      
+
    }
    
    public OpenSimObject getSelectedObject() {
@@ -451,7 +471,7 @@ public final class ViewDB implements Observer {
     *
     * returns true if newName is a valid name for the passed in view, false otherwise
     */
-   boolean checkValidViewName(String newName, ModelWindowVTKTopComponent view) {
+   public boolean checkValidViewName(String newName, ModelWindowVTKTopComponent view) {
       boolean valid = true;
       Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
       while(windowIter.hasNext() && valid){
@@ -561,45 +581,57 @@ public final class ViewDB implements Observer {
    /**
     * For a single OpenSimObject, toggle display hide/show
     */
-   void toggleObjectDisplay(OpenSimObject openSimObject) {
-      vtkAssembly asm = ViewDB.getInstance().getActorForObject(openSimObject);
+   public void toggleObjectDisplay(OpenSimObject openSimObject) {
+      vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(openSimObject);
       if (asm==null)  // Object is not displayed for some reason
          return ;
-      vtkProp3DCollection parts = asm.GetParts();
-      parts.InitTraversal();
-      vtkProp3D prop = parts.GetNextProp3D();
-      vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-      boolean visible=false;
-      while (prop != null) {
-         if (part != null){
-            part.SetVisibility(1-part.GetVisibility());
+      if (asm instanceof vtkAssembly){
+         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
+         parts.InitTraversal();
+         vtkProp3D prop = parts.GetNextProp3D();
+         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+         boolean visible=false;
+         while (prop != null) {
+            if (part != null){
+               part.SetVisibility(1-part.GetVisibility());
+            }
+            prop = parts.GetNextProp3D();
+            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
          }
-         prop = parts.GetNextProp3D();
-         part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      }
+      else if (asm instanceof vtkActor){
+         vtkActor part = (vtkActor)asm;
+         part.SetVisibility(1-part.GetVisibility());
       }
       repaintAll();
    }
    /**
     * Return a flag indicating if an object is displayed or not
     **/
-   boolean getDisplayStatus(OpenSimObject openSimObject) {
-      vtkAssembly asm = ViewDB.getInstance().getActorForObject(openSimObject);
-      if (asm==null)  // Object is not displayed for some reason
-         return false;
-      vtkProp3DCollection parts = asm.GetParts();
-      parts.InitTraversal();
-      vtkProp3D prop = parts.GetNextProp3D();
-      vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+   public boolean getDisplayStatus(OpenSimObject openSimObject) {
+      vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(openSimObject);
       boolean visible=false;
-      while (prop != null) {
-         if (part != null){
-            if (part.GetVisibility()==1){ // if any part is visible the object is visible
-               visible=true;
-               break;
-            };
-          }
-         prop = parts.GetNextProp3D();
-         part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      if (asm==null)  // Object is not displayed for some reason
+         return visible;
+      if (asm instanceof vtkAssembly){
+         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
+         parts.InitTraversal();
+         vtkProp3D prop = parts.GetNextProp3D();
+         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+         while (prop != null) {
+            if (part != null){
+               if (part.GetVisibility()==1){ // if any part is visible the object is visible
+                  visible=true;
+                  break;
+               };
+            }
+            prop = parts.GetNextProp3D();
+            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+         }
+      } else if (asm instanceof vtkActor){
+         if (((vtkActor)asm).GetVisibility()==1) // if any part is visible the object is visible
+            visible=true;
+         
       }
       return visible;
    }
@@ -616,23 +648,39 @@ public final class ViewDB implements Observer {
     * 2. Phong
     * defined in vtkProperty.h
     */
-   void setObjectRepresentation(OpenSimObject object, int rep, int newShading) {
-      vtkAssembly asm = ViewDB.getInstance().getActorForObject(object);
-      vtkProp3DCollection parts = asm.GetParts();
-      parts.InitTraversal();
-      vtkProp3D prop = parts.GetNextProp3D();
-      vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-      while (prop != null) {
-         if (part != null){
-            part.GetProperty().SetRepresentation(rep);
-            if (rep==2){   // Surface shading
-               part.GetProperty().SetInterpolation(newShading);
+   public void setObjectRepresentation(OpenSimObject object, int rep, int newShading) {
+      vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
+      if (asm instanceof vtkAssembly){
+         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
+         parts.InitTraversal();
+         vtkProp3D prop = parts.GetNextProp3D();
+         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+         while (prop != null) {
+            if (part != null){
+               part.GetProperty().SetRepresentation(rep);
+               if (rep==2){   // Surface shading
+                  part.GetProperty().SetInterpolation(newShading);
+               }
             }
+            prop = parts.GetNextProp3D();
+            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
          }
-         prop = parts.GetNextProp3D();
-         part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+      } else if (asm instanceof vtkActor){
+         vtkActor part = (vtkActor)asm;
+         part.GetProperty().SetRepresentation(rep);
+         if (rep==2){   // Surface shading
+            part.GetProperty().SetInterpolation(newShading);
+         }
       }
       repaintAll();
+   }
+
+   public boolean isPicking() {
+      return picking;
+   }
+
+   public void setPicking(boolean picking) {
+      this.picking = picking;
    }
 
 }

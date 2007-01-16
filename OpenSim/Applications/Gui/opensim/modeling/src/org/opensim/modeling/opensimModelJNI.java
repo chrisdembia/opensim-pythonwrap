@@ -778,6 +778,7 @@ public class opensimModelJNI {
   public final static native long new_ControlSet__SWIG_1(String jarg1);
   public final static native long new_ControlSet__SWIG_2(long jarg1);
   public final static native void delete_ControlSet(long jarg1);
+  public final static native long ControlSet_copy(long jarg1);
   public final static native int ControlSet_getSize__SWIG_0(long jarg1, boolean jarg2);
   public final static native int ControlSet_getSize__SWIG_1(long jarg1);
   public final static native void ControlSet_getControlList__SWIG_0(long jarg1, String jarg2, long jarg3, boolean jarg4);
@@ -911,6 +912,7 @@ public class opensimModelJNI {
   public final static native int ModelIntegrand_getSize(long jarg1);
   public final static native long ModelIntegrand_getModel(long jarg1);
   public final static native void ModelIntegrand_setControlSet(long jarg1, long jarg2);
+  public final static native void ModelIntegrand_setControlSetReference(long jarg1, long jarg2);
   public final static native long ModelIntegrand_getControlSet(long jarg1);
   public final static native void ModelIntegrand_setControlStorage(long jarg1, long jarg2);
   public final static native long ModelIntegrand_getControlStorage(long jarg1);

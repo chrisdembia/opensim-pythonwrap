@@ -7,6 +7,8 @@ import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmFileWriter;
 import org.opensim.utils.FileUtils;
+import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 /**
  * A Class represnting the Action of exporting an OpenSim model to SIMM's jnt format.

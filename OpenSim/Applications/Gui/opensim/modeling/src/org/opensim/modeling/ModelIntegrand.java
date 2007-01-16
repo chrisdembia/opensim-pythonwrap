@@ -50,6 +50,10 @@ public class ModelIntegrand extends Integrand {
     opensimModelJNI.ModelIntegrand_setControlSet(swigCPtr, ControlSet.getCPtr(aControlSet));
   }
 
+  public void setControlSetReference(ControlSet aControlSet) {
+    opensimModelJNI.ModelIntegrand_setControlSetReference(swigCPtr, ControlSet.getCPtr(aControlSet));
+  }
+
   public ControlSet getControlSet() {
     long cPtr = opensimModelJNI.ModelIntegrand_getControlSet(swigCPtr);
     return (cPtr == 0) ? null : new ControlSet(cPtr, false);

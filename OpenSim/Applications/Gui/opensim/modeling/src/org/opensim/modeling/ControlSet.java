@@ -45,6 +45,11 @@ public class ControlSet extends SetControls {
     this(opensimModelJNI.new_ControlSet__SWIG_2(ControlSet.getCPtr(aSet)), true);
   }
 
+  public OpenSimObject copy() {
+    long cPtr = opensimModelJNI.ControlSet_copy(swigCPtr);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
   public int getSize(boolean aForModelControls) {
     return opensimModelJNI.ControlSet_getSize__SWIG_0(swigCPtr, aForModelControls);
   }

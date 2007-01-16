@@ -8,7 +8,7 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.utils.TheApp;
 import org.opensim.view.OpenSimCanvas;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.ViewDB;
 
 public final class ModifyWindowSettingsAction extends CallableSystemAction {
         

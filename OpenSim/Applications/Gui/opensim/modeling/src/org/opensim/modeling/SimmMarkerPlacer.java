@@ -95,8 +95,8 @@ public class SimmMarkerPlacer extends OpenSimObject {
     return opensimModelJNI.SimmMarkerPlacer_getCoordinateFileName(swigCPtr);
   }
 
-  public SWIGTYPE_p_OpenSim__CoordinateSet getCoordinateSet() {
-    return new SWIGTYPE_p_OpenSim__CoordinateSet(opensimModelJNI.SimmMarkerPlacer_getCoordinateSet(swigCPtr), false);
+  public CoordinateSet getCoordinateSet() {
+    return new CoordinateSet(opensimModelJNI.SimmMarkerPlacer_getCoordinateSet(swigCPtr), false);
   }
 
   public double getMaxMarkerMovement() {

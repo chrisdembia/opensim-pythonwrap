@@ -26,6 +26,7 @@ import org.openide.nodes.Node;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.nodes.OpenSimNode;
+import org.opensim.view.pub.OpenSimDB;
 
 /**
  * Top component which displays something.

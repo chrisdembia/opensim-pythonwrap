@@ -16,7 +16,7 @@ import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.view.ModelWindowVTKTopComponent;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.ViewDB;
 
 public final class ScalingToolAction extends CallableSystemAction {
     

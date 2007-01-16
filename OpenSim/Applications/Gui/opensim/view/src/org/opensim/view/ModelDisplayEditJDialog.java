@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.opensim.modeling.AbstractModel;
+import org.opensim.view.pub.ViewDB;
 import vtk.vtkMatrix4x4;
 
 /**

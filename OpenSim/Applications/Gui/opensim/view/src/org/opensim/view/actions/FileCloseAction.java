@@ -3,8 +3,8 @@ package org.opensim.view.actions;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.view.OpenSimDB;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 public final class FileCloseAction extends CallableSystemAction {
    

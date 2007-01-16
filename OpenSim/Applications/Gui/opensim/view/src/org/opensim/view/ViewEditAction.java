@@ -4,6 +4,7 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.utils.TheApp;
+import org.opensim.view.pub.ViewDB;
 
 /**
  * A Class representing the action of renaming a graphics window.

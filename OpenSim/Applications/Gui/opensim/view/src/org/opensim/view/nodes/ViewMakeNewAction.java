@@ -2,7 +2,7 @@ package org.opensim.view.nodes;
 
 import org.openide.util.HelpCtx;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.ViewDB;
 
 
 class ViewMakeNewAction extends CallableSystemAction {

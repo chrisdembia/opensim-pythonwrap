@@ -11,6 +11,7 @@ import javax.swing.JColorChooser;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.pub.ViewDB;
 import vtk.vtkProperty;
 
 /**

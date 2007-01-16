@@ -32,7 +32,7 @@ import javax.swing.event.ChangeListener;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.OpenSimCanvas;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.ViewDB;
 import vtk.vtkProperty;
 
 /**

@@ -112,7 +112,7 @@ public class TextSliderJPanel extends javax.swing.JPanel implements ChangeListen
         this.fromSlider = fromSlider;
     }
     
-    void setRange(double d, double d0) {
+    public void setRange(double d, double d0) {
         sliderModel = new DoubleRangeModel(d, d0);
         getJXSlider().setModel(sliderModel);        
     }

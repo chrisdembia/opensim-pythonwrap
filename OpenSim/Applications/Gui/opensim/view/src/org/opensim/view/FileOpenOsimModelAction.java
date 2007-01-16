@@ -10,6 +10,7 @@ import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.base.SerializationHelper;
+import org.opensim.view.pub.OpenSimDB;
 
 public class FileOpenOsimModelAction extends CallableSystemAction {
     

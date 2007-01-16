@@ -15,8 +15,8 @@ import org.opensim.swingui.SwingWorker;
 import org.opensim.tracking.IKPanel;
 import org.opensim.tracking.WorkflowDescriptor;
 import org.opensim.tracking.workflowWizardPanelBase;
-import org.opensim.view.OpenSimDB;
-import org.opensim.view.ViewDB;
+import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 // An example action demonstrating how the wizard could be called from within
 // your code. You can copy-paste the code below wherever you need.

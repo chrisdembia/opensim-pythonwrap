@@ -11,7 +11,6 @@ public class Installer extends ModuleInstall {
     public void restored() {
         // By default, do nothing.
         // Put your startup code here.
-        System.out.println("Installing modeling utils");
         super.restored();
     }
     

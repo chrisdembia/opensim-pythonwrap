@@ -5,12 +5,10 @@ import java.util.Iterator;
 import java.util.prefs.Preferences;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
-import javax.swing.SwingUtilities;
-import org.openide.awt.UndoRedo;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
-import org.opensim.modeling.AbstractModel;
 import org.opensim.utils.TheApp;
+import org.opensim.view.pub.ViewDB;
 import vtk.vtkFileOutputWindow;
 
 /**
@@ -42,7 +40,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         vtkFileOutputWindow fow = new vtkFileOutputWindow();
         fow.SetFileName("vtklog.log");
         if (fow != null)
-           fow.SetInstance(fow);        
+           fow.SetInstance(fow);   
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -164,7 +162,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
     private void processMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processMousePressed
 // TODO add your handling code here:
-        if(evt.getClickCount()==1){
+        if(evt.getClickCount()==1 && ViewDB.getInstance().isPicking()){
             getCanvas().selectObject(evt);
         }
         if(evt.getClickCount()==2){
@@ -240,4 +238,5 @@ public class ModelWindowVTKTopComponent extends TopComponent
     public void setTabDisplayName(String tabDisplayName) {
         this.tabDisplayName = tabDisplayName;
     }
+
 }

@@ -71,8 +71,8 @@ public class InvestigationIK extends Investigation {
     return new MarkerSet(opensimModelJNI.InvestigationIK_getMarkerSet(swigCPtr), false);
   }
 
-  public SWIGTYPE_p_OpenSim__CoordinateSet getCoordinateSet() {
-    return new SWIGTYPE_p_OpenSim__CoordinateSet(opensimModelJNI.InvestigationIK_getCoordinateSet(swigCPtr), false);
+  public CoordinateSet getCoordinateSet() {
+    return new CoordinateSet(opensimModelJNI.InvestigationIK_getCoordinateSet(swigCPtr), false);
   }
 
   public SimmIKTrialSet getIKTrialSet() {
