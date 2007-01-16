@@ -1,5 +1,5 @@
 /**********************************************************/
-/*            Joint file created by NMBLTS                */
+/*            Joint file created by OpenSim               */
 /* name of original model file: gait2354.osim */
 /**********************************************************/
 
@@ -30,14 +30,14 @@ inertia 0.094676 0.000000 0.000000
 bone sacrum2.asc
 bone pelvis.asc
 bone l_pelvis.asc
-marker asis_r	0.023544 0.041374 0.125225 1.000000
-marker asis_l	0.026797 0.039297 -0.112990 1.000000
-marker midasis	0.025171 0.040335 0.006118 1.000000
-marker psis_r	-0.164132 0.080136 0.035390 1.000000
-marker psis_l	-0.158362 0.076266 -0.050192 1.000000
-marker hip_r	-0.061498 -0.046650 0.080919 1.000000
-marker hip_l	-0.059444 -0.047962 -0.069488 1.000000
-marker midhip	-0.060471 -0.047306 0.005716 1.000000
+marker asis_r	0.022908 0.041368 0.124624 1.000000
+marker asis_l	0.025722 0.039296 -0.113597 1.000000
+marker midasis	0.024315 0.040332 0.005513 1.000000
+marker psis_r	-0.164935 0.080124 0.035136 1.000000
+marker psis_l	-0.159323 0.076256 -0.050457 1.000000
+marker hip_r	-0.062212 -0.046658 0.080473 1.000000
+marker hip_l	-0.060435 -0.047967 -0.069938 1.000000
+marker midhip	-0.061323 -0.047313 0.005267 1.000000
 scale 0.930651 0.930651 0.930651
 endsegment
 
@@ -48,11 +48,11 @@ inertia 0.123319 0.000000 0.000000
         0.000000 0.032326 0.000000
         0.000000 0.000000 0.130042
 bone femur.asc
-marker epicondLat_r	0.002776 -0.397295 0.074887 1.000000
-marker epicondMed_r	-0.005013 -0.388066 -0.037200 1.000000
-marker thighwand_r	0.036966 -0.284480 0.156080 1.000000
-marker upperleg1_r	0.059585 -0.217438 0.091354 1.000000
-marker upperleg2_r	0.059892 -0.304044 0.068586 1.000000
+marker epicondLat_r	0.002373 -0.397204 0.074429 1.000000
+marker epicondMed_r	-0.005622 -0.388007 -0.037647 1.000000
+marker thighwand_r	0.036686 -0.284360 0.155529 1.000000
+marker upperleg1_r	0.059173 -0.217330 0.090743 1.000000
+marker upperleg2_r	0.059457 -0.303943 0.067999 1.000000
 scale 1.043722 1.043722 1.043722
 endsegment
 
@@ -64,12 +64,12 @@ inertia 0.046417 0.000000 0.000000
         0.000000 0.000000 0.047062
 bone tibia.asc
 bone fibula.asc
-marker malleolusLat_r	-0.015051 -0.389141 0.020452 1000.000000
-marker malleolusMedv_r	0.018371 -0.369432 -0.040483 1000.000000
-marker shankwand_r	-0.013690 -0.261540 0.118446 1.000000
-marker lowerleg1_r	-0.011041 -0.289084 0.042523 1.000000
-marker knee_r	0.007805 0.014461 0.016410 1.000000
-marker ankle_r	0.005311 -0.386674 -0.013889 1000.000000
+marker malleolusLat_r	-0.015468 -0.389075 0.020152 7.907755
+marker malleolusMedv_r	0.017840 -0.369377 -0.040849 7.907755
+marker shankwand_r	-0.013957 -0.261445 0.118107 1.000000
+marker lowerleg1_r	-0.011439 -0.289010 0.042187 1.000000
+marker knee_r	0.007295 0.014530 0.015951 1.000000
+marker ankle_r	0.004832 -0.386613 -0.014225 7.907755
 scale 0.935545 0.935545 0.935545
 endsegment
 
@@ -100,8 +100,8 @@ inertia 0.001289 0.000000 0.000000
         0.000000 0.003592 0.000000
         0.000000 0.000000 0.003776
 bone foot.asc
-marker toe_r	0.166246 0.020627 0.022532 1000.000000
-marker heel_r	-0.008146 0.029569 -0.047941 1000.000000
+marker toe_r	0.165856 0.020764 0.021999 7.907755
+marker heel_r	-0.008666 0.029656 -0.048156 7.907755
 scale 1.040361 1.040361 1.040361
 endsegment
 
@@ -122,11 +122,11 @@ inertia 0.123319 0.000000 0.000000
         0.000000 0.032326 0.000000
         0.000000 0.000000 0.130042
 bone l_femur.asc
-marker epicondLat_l	0.008258 -0.411386 -0.055083 1.000000
-marker epicondMed_l	0.009599 -0.404628 0.056261 1.000000
-marker thighwand_l	0.160553 -0.302726 -0.008137 1.000000
-marker upperleg1_l	0.088805 -0.245894 -0.043102 1.000000
-marker upperleg2_l	0.071842 -0.331169 -0.040202 1.000000
+marker epicondLat_l	0.021294 -0.411386 -0.051829 1.000000
+marker epicondMed_l	-0.006124 -0.404665 0.056098 1.000000
+marker thighwand_l	0.156325 -0.302745 0.032839 1.000000
+marker upperleg1_l	0.096016 -0.245900 -0.019427 1.000000
+marker upperleg2_l	0.078885 -0.331175 -0.021027 1.000000
 scale 1.043722 1.043722 1.043722
 endsegment
 
@@ -138,12 +138,12 @@ inertia 0.046417 0.000000 0.000000
         0.000000 0.000000 0.047062
 bone l_tibia.asc
 bone l_fibula.asc
-marker malleolusLat_l	-0.011090 -0.392128 -0.016397 1000.000000
-marker malleolusMedv_l	0.021213 -0.376214 0.041726 1000.000000
-marker shankwand_l	0.002395 -0.255482 -0.106552 1.000000
-marker lowerleg1_l	-0.004709 -0.291630 -0.033990 1.000000
-marker knee_l	0.012415 0.001434 0.002912 1.000000
-marker ankle_l	0.011066 -0.391160 0.015684 1000.000000
+marker malleolusLat_l	-0.006955 -0.392066 -0.022576 7.907755
+marker malleolusMedv_l	0.009259 -0.376462 0.041989 7.907755
+marker shankwand_l	0.029225 -0.254981 -0.105524 1.000000
+marker lowerleg1_l	0.003678 -0.291486 -0.037428 1.000000
+marker knee_l	0.010510 0.001380 0.004100 1.000000
+marker ankle_l	0.006179 -0.391272 0.014137 7.907755
 scale 0.935545 0.935545 0.935545
 endsegment
 
@@ -174,8 +174,8 @@ inertia 0.001289 0.000000 0.000000
         0.000000 0.003592 0.000000
         0.000000 0.000000 0.003776
 bone l_foot.asc
-marker toe_l	0.169497 0.017987 -0.029620 1000.000000
-marker heel_l	-0.004013 0.021205 0.046732 1000.000000
+marker toe_l	0.174313 0.017902 0.000037 7.907755
+marker heel_l	-0.012984 0.021808 0.029194 7.907755
 scale 1.040361 1.040361 1.040361
 endsegment
 
@@ -199,11 +199,11 @@ bone hat_spine.asc
 bone hat_jaw.asc
 bone hat_skull.asc
 bone hat_ribs.asc
-marker subclavicle_r	0.027408 0.357483 0.044607 1.000000
-marker subclavicle_l	0.028880 0.357191 -0.063675 1.000000
-marker neck	-0.106029 0.422786 -0.002189 1.000000
-marker sternalnotch	0.011587 0.364411 -0.006865 1.000000
-marker xyphoidprocess	0.103715 0.206079 -0.016932 1.000000
+marker subclavicle_r	0.026646 0.357486 0.044247 1.000000
+marker subclavicle_l	0.027812 0.357202 -0.064039 1.000000
+marker neck	-0.106921 0.422795 -0.002168 1.000000
+marker sternalnotch	0.010680 0.364418 -0.007180 1.000000
+marker xyphoidprocess	0.102776 0.206085 -0.017520 1.000000
 scale 0.953202 0.953202 0.953202
 endsegment
 
@@ -656,6 +656,7 @@ begingencoord pelvis_tx
 default_value 0.120000
 range -5.000000 5.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys p_key 
 clamped yes
 locked no
@@ -666,6 +667,7 @@ begingencoord pelvis_ty
 default_value 0.930000
 range -1.000000 2.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys q_key 
 clamped yes
 locked no
@@ -676,6 +678,7 @@ begingencoord pelvis_tz
 default_value 0.000000
 range -3.000000 3.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys q_key 
 clamped yes
 locked no
@@ -686,6 +689,7 @@ begingencoord pelvis_list
 default_value 0.000000
 range -90.000000 90.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys q_key 
 clamped yes
 locked no
@@ -696,6 +700,7 @@ begingencoord pelvis_rotation
 default_value 0.000000
 range -90.000000 90.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys q_key 
 clamped yes
 locked no
@@ -706,6 +711,7 @@ begingencoord pelvis_tilt
 default_value 0.000000
 range -90.000000 90.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys q_key 
 clamped yes
 locked no
@@ -716,6 +722,7 @@ begingencoord hip_flexion_r
 default_value 0.000000
 range -120.000000 120.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys h_key leftmouse_button 
 clamped yes
 locked no
@@ -726,6 +733,7 @@ begingencoord hip_adduction_r
 default_value 0.000000
 range -120.000000 120.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys h_key leftmouse_button 
 clamped yes
 locked no
@@ -736,6 +744,7 @@ begingencoord hip_rotation_r
 default_value 0.000000
 range -120.000000 120.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys h_key leftmouse_button 
 clamped yes
 locked no
@@ -746,6 +755,7 @@ begingencoord knee_angle_r
 default_value 0.000000
 range -120.000000 10.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys k_key 
 clamped yes
 locked no
@@ -756,6 +766,7 @@ begingencoord ankle_angle_r
 default_value 0.000000
 range -90.000000 90.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys a_key 
 clamped yes
 locked no
@@ -766,9 +777,10 @@ begingencoord subtalar_angle_r
 default_value 0.000000
 range -90.000000 90.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys a_key 
 clamped yes
-locked no
+locked yes
 active no
 endgencoord
 
@@ -776,9 +788,10 @@ begingencoord mtp_angle_r
 default_value 0.000000
 range -90.000000 90.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys t_key 
 clamped yes
-locked no
+locked yes
 active no
 endgencoord
 
@@ -786,6 +799,7 @@ begingencoord hip_flexion_l
 default_value 0.000000
 range -120.000000 120.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys h_key leftmouse_button 
 clamped yes
 locked no
@@ -796,6 +810,7 @@ begingencoord hip_adduction_l
 default_value 0.000000
 range -120.000000 120.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys h_key leftmouse_button 
 clamped yes
 locked no
@@ -806,6 +821,7 @@ begingencoord hip_rotation_l
 default_value 0.000000
 range -120.000000 120.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys h_key leftmouse_button 
 clamped yes
 locked no
@@ -816,6 +832,7 @@ begingencoord knee_angle_l
 default_value 0.000000
 range -120.000000 10.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys k_key 
 clamped yes
 locked no
@@ -826,6 +843,7 @@ begingencoord ankle_angle_l
 default_value 0.000000
 range -60.000000 60.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys a_key 
 clamped yes
 locked no
@@ -836,9 +854,10 @@ begingencoord subtalar_angle_l
 default_value 0.000000
 range -90.000000 90.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys a_key 
 clamped yes
-locked no
+locked yes
 active no
 endgencoord
 
@@ -846,9 +865,10 @@ begingencoord mtp_angle_l
 default_value 0.000000
 range -60.000000 60.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys t_key 
 clamped yes
-locked no
+locked yes
 active no
 endgencoord
 
@@ -856,6 +876,7 @@ begingencoord lumbar_extension
 default_value 0.000000
 range -90.000000 90.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys q_key 
 clamped yes
 locked no
@@ -866,6 +887,7 @@ begingencoord lumbar_bending
 default_value 0.000000
 range -90.000000 90.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys q_key 
 clamped yes
 locked no
@@ -876,12 +898,17 @@ begingencoord lumbar_rotation
 default_value 0.000000
 range -90.000000 90.000000
 tolerance 0.000000
+pd_stiffness 0.000000
 keys q_key 
 clamped yes
 locked no
 active no
 endgencoord
 
+
+/****************************************************/
+/*                    WRAP OBJECTS                  */
+/****************************************************/
 
 /****************************************************/
 /*                     MATERIALS                    */

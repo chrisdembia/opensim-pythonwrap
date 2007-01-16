@@ -1,5 +1,5 @@
 /*
-Generated  5-Oct-2006 12:36:38 by SD/FAST, Kane's formulation
+Generated  5-Jan-2007 16:53:32 by SD/FAST, Kane's formulation
 (sdfast B.2.6 #70405) on machine ID 690ee52e
 Copyright (c) 1990-1996 Symbolic Dynamics, Inc.
 Copyright (c) 1990-1996 Parametric Technology Corp.
@@ -2120,7 +2120,7 @@ sdstate(timein,qin,uin)
 /*
 Compute kinematic information and store it in sdgstate.
 
-Generated  5-Oct-2006 12:36:38 by SD/FAST, Kane's formulation
+Generated  5-Jan-2007 16:53:32 by SD/FAST, Kane's formulation
 (sdfast B.2.6 #70405) on machine ID 690ee52e
 Copyright (c) 1990-1996 Symbolic Dynamics, Inc.
 Copyright (c) 1990-1996 Parametric Technology Corp.
@@ -8307,7 +8307,7 @@ Compute Vpk (partial velocities)
         vpkflg = 1;
     }
 /*
- Used 1.29 seconds CPU time,
+ Used 1.30 seconds CPU time,
  188416 additional bytes of memory.
  Equations contain 3198 adds/subtracts/negates
                    4176 multiplies
@@ -13505,7 +13505,7 @@ Check for singular mass matrix
         mmflg = 1;
     }
 /*
- Used 1.89 seconds CPU time,
+ Used 1.88 seconds CPU time,
  163840 additional bytes of memory.
  Equations contain 5262 adds/subtracts/negates
                    7088 multiplies
@@ -16351,7 +16351,7 @@ Compute Fs (incl generic mult & other forces)
 sdrhs()
 {
 /*
-Generated  5-Oct-2006 12:36:45 by SD/FAST, Kane's formulation
+Generated  5-Jan-2007 16:53:39 by SD/FAST, Kane's formulation
 (sdfast B.2.6 #70405) on machine ID 690ee52e
 Copyright (c) 1990-1996 Symbolic Dynamics, Inc.
 Copyright (c) 1990-1996 Parametric Technology Corp.
@@ -19461,7 +19461,7 @@ Form QR decomposition of WW
         wwflg = 1;
     }
 /*
- Used 2.17 seconds CPU time,
+ Used 2.16 seconds CPU time,
  0 additional bytes of memory.
  Equations contain 18513 adds/subtracts/negates
                    18513 multiplies
@@ -19735,7 +19735,7 @@ sdreac(force,torque)
     double force[14][3],torque[14][3];
 {
 /*
-Generated  5-Oct-2006 12:36:47 by SD/FAST, Kane's formulation
+Generated  5-Jan-2007 16:53:41 by SD/FAST, Kane's formulation
 (sdfast B.2.6 #70405) on machine ID 690ee52e
 Copyright (c) 1990-1996 Symbolic Dynamics, Inc.
 Copyright (c) 1990-1996 Parametric Technology Corp.
@@ -20693,7 +20693,7 @@ sdmom(lm,am,ke)
 /*
 Compute system linear and angular momentum, and kinetic energy.
 
-Generated  5-Oct-2006 12:36:47 by SD/FAST, Kane's formulation
+Generated  5-Jan-2007 16:53:41 by SD/FAST, Kane's formulation
 (sdfast B.2.6 #70405) on machine ID 690ee52e
 Copyright (c) 1990-1996 Symbolic Dynamics, Inc.
 Copyright (c) 1990-1996 Parametric Technology Corp.
@@ -20985,7 +20985,7 @@ sdsys(mtoto,cm,icm)
 Compute system total mass, and instantaneous center of mass and
 inertia matrix.
 
-Generated  5-Oct-2006 12:36:47 by SD/FAST, Kane's formulation
+Generated  5-Jan-2007 16:53:41 by SD/FAST, Kane's formulation
 (sdfast B.2.6 #70405) on machine ID 690ee52e
 Copyright (c) 1990-1996 Symbolic Dynamics, Inc.
 Copyright (c) 1990-1996 Parametric Technology Corp.
@@ -22325,10 +22325,10 @@ sdgentime(gentm)
     int *gentm;
 {
 
-    *gentm = 123625;
+    *gentm = 165332;
 }
 /*
-Done. CPU seconds used: 9.36  Memory used: 1646592 bytes.
+Done. CPU seconds used: 9.34  Memory used: 1646592 bytes.
 Equation complexity:
   sdstate:  2568 adds  3588 multiplies     3 divides  1785 assignments
   sdderiv: 105337 adds 110150 multiplies  1251 divides 108291 assignments

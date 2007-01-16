@@ -1,5 +1,5 @@
 /*
-Generated  5-Oct-2006 12:36:48 by SD/FAST, Kane's formulation
+Generated  5-Jan-2007 16:53:42 by SD/FAST, Kane's formulation
 (sdfast B.2.6 #70405) on machine ID 690ee52e
 Copyright (c) 1990-1996 Symbolic Dynamics, Inc.
 Copyright (c) 1990-1996 Parametric Technology Corp.
@@ -107,7 +107,7 @@ sdassemble(time,state,lock,tol,maxevals,fcnt,err)
     int iw[264],rooterr;
 
     sdgentime(&i);
-    if (i != 123625) {
+    if (i != 165332) {
         sdseterr(50,42);
     }
     param[0] = time;
@@ -140,7 +140,7 @@ sdinitvel(time,state,lock,tol,maxevals,fcnt,err)
     int iw[264],rooterr;
 
     sdgentime(&i);
-    if (i != 123625) {
+    if (i != 165332) {
         sdseterr(51,42);
     }
     for (i = 0; i < 33; i++) {
@@ -174,7 +174,7 @@ sdstatic(time,state,lock,ctol,tol,maxevals,fcnt,err)
     int iw[396],rooterr,i;
 
     sdgentime(&i);
-    if (i != 123625) {
+    if (i != 165332) {
         sdseterr(52,42);
     }
     for (i = 0; i < 33; i++) {
@@ -209,7 +209,7 @@ sdsteady(time,state,lock,ctol,tol,maxevals,fcnt,err)
     int iw[660],rooterr,i;
 
     sdgentime(&i);
-    if (i != 123625) {
+    if (i != 165332) {
         sdseterr(53,42);
     }
     param[0] = time;
@@ -239,7 +239,7 @@ sdmotion(time,state,dstate,dt,ctol,tol,flag,err)
     int vintgerr,which,ferr,i;
 
     sdgentime(&i);
-    if (i != 123625) {
+    if (i != 165332) {
         sdseterr(54,42);
     }
     param[0] = ctol;
@@ -270,7 +270,7 @@ sdfmotion(time,state,dstate,dt,ctol,flag,errest,err)
     int ferr,i;
 
     sdgentime(&i);
-    if (i != 123625) {
+    if (i != 165332) {
         sdseterr(55,42);
     }
     param[0] = ctol;
