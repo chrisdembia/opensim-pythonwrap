@@ -52,5 +52,7 @@
 	<external_loads_body2> calcn_l </external_loads_body2>
 	<lowpass_cutoff_frequency_for_load_kinematics> 6.0 </lowpass_cutoff_frequency_for_load_kinematics>
 	
+	<adjusted_com_body> torso </adjusted_com_body>
+	<adjusted_com_file_name> rra_newTorsoCOM.txt </adjusted_com_file_name>
 </InvestigationPerturbation>
 
