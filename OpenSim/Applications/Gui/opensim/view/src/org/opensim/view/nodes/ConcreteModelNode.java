@@ -1,6 +1,5 @@
 package org.opensim.view.nodes;
 
-import java.util.Vector;
 import javax.swing.Action;
 import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
@@ -10,8 +9,6 @@ import org.opensim.view.*;
 import org.opensim.view.actions.FileCloseAction;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
-
-
 
 /**
  * Node class to wrap AbstractModel objects
@@ -45,6 +42,7 @@ public class ConcreteModelNode extends OpenSimObjectNode {
                 new ModelDisplayEditAction(), 
                 new ModelDisplayHideAction(),
                 new ModelDisplayShowAction(),
+                new ModelInfoAction()
                 
             };
         }

@@ -30,6 +30,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import org.openide.util.NbBundle;
+import org.openide.util.actions.SystemAction;
 import org.opensim.modeling.OpenSimObject;
 
 /**
@@ -54,5 +55,12 @@ public class OneMuscleNode extends OpenSimObjectNode{
     }
    public Image getOpenedIcon(int i) {
         return getIcon(i);
+    }
+
+    public SystemAction[] getActions() {
+        SystemAction[] retValue;
+        
+        retValue = super.getActions();
+        return retValue;
     }
 }

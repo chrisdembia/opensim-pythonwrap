@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.opensim.modelinfo
+OpenIDE-Module-Layer: org/opensim/modelinfo/layer.xml
+OpenIDE-Module-Localizing-Bundle: org/opensim/modelinfo/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

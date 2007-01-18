@@ -35,7 +35,8 @@
             <file name="org-netbeans-core-actions-ViewRuntimeTabAction.instance_hidden"/>
             <file name="org-opensim-view-BottomPanelAction.instance"/>
             <file name="org-opensim-view-ExplorerAction.instance"/>
-            </folder>
+                <file name="org-opensim-view-editors-MuscleEditorAction.instance"/>
+        </folder>
     </folder>
     <file name="HTMLPalette_hidden"/>
     <file name="HTTPServer_DUMMY_hidden"/>
@@ -116,6 +117,9 @@
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-editors-ObjectPropertiesEditor.instance"/>
             </file>
             <attr name="org-opensim-view-editors-ObjectPropertiesEditor.shadow/org-opensim-view-PreferencesAction.shadow" boolvalue="true"/>
+            <attr name="org-openide-actions-CopyAction.instance/org-openide-actions-PasteAction.instance" boolvalue="false"/>
+            <attr name="org-openide-actions-CutAction.instance/org-opensim-view-nodes-ModelInfoAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-nodes-ModelInfoAction.instance/org-openide-actions-CopyAction.instance" boolvalue="true"/>
             <file name="org-netbeans-core-actions-JumpNextAction.shadow_hidden"/>
             <file name="org-netbeans-core-actions-JumpPrevAction.shadow_hidden"/>
             <file name="org-openide-actions-ReplaceAction.instance_hidden"/>
@@ -146,6 +150,9 @@
             <attr name="org-opensim-view-actions-ViewAddNewAction.shadow/org-netbeans-core-actions-HTMLViewAction.instance" boolvalue="true"/>
         </folder>
         <folder name="Window">
+            <file name="MuscleEditorAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-editors-MuscleEditorAction.instance"/>
+            </file>
             <file name="ViewRuntimeTabAction.shadow_hidden"/>
         </folder>
     </folder>
@@ -181,10 +188,14 @@
         <folder name="Components">
             <file name="BottomPanelTopComponent.settings" url="BottomPanelTopComponentSettings.xml"/>
             <file name="ExplorerTopComponent.settings" url="ExplorerTopComponentSettings.xml"/>
+            <file name="MuscleEditorTopComponent.settings" url="MuscleEditorTopComponentSettings.xml"/>
         </folder>
         <folder name="Modes">
             <folder name="explorer">
                 <file name="ExplorerTopComponent.wstcref" url="ExplorerTopComponentWstcref.xml"/>
+            </folder>
+            <folder name="leftSlidingSide">
+                <file name="MuscleEditorTopComponent.wstcref" url="MuscleEditorTopComponentWstcref.xml"/>
             </folder>
             <file name="leftSlidingSide_hidden"/>
             <folder name="output">

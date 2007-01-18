@@ -31,7 +31,7 @@ import org.opensim.view.pub.OpenSimDB;
 /**
  * Top component which displays something.
  */
-final class ExplorerTopComponent extends TopComponent 
+final public class ExplorerTopComponent extends TopComponent 
         implements Observer, ExplorerManager.Provider, LookupListener, Lookup.Provider{
 
     private static final long serialVersionUID = 1L;
