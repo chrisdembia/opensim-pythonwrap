@@ -91,6 +91,10 @@ public class SimmMotionData extends OpenSimObject {
     return opensimModelJNI.SimmMotionData_getRangeMax(swigCPtr);
   }
 
+  public int getNumberOfFrames() {
+    return opensimModelJNI.SimmMotionData_getNumberOfFrames(swigCPtr);
+  }
+
   public void addToRdStorage(Storage rStorage, double aStartTime, double aEndTime) {
     opensimModelJNI.SimmMotionData_addToRdStorage(swigCPtr, Storage.getCPtr(rStorage), aStartTime, aEndTime);
   }

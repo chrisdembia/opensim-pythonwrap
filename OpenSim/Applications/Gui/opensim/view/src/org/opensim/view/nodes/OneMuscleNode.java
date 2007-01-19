@@ -27,11 +27,13 @@ package org.opensim.view.nodes;
 
 import java.awt.Image;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import org.openide.util.NbBundle;
-import org.openide.util.actions.SystemAction;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.editors.MuscleEditorAction;
 
 /**
  *
@@ -57,10 +59,16 @@ public class OneMuscleNode extends OpenSimObjectNode{
         return getIcon(i);
     }
 
-    public SystemAction[] getActions() {
-        SystemAction[] retValue;
-        
-        retValue = super.getActions();
-        return retValue;
+    public Action[] getActions(boolean b) {
+        // Get actions from parent (generic object menu for review, display)
+        Action[] superActions = (Action[]) super.getActions(b);
+        // Arrays are fixed size, onvert to a List
+        List<Action> actions = java.util.Arrays.asList(superActions);
+        // Create new Array of proper size
+        Action[] retActions = new Action[actions.size()+1];
+        actions.toArray(retActions);
+        // append new command to the end of the list of actions
+        retActions[actions.size()] = new MuscleEditorAction();
+        return retActions;
     }
 }

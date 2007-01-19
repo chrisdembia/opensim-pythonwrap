@@ -1,6 +1,6 @@
 /*
  *
- * MotionEvent
+ * JointsNode
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -23,37 +23,27 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.opensim.motionviewer;
+package org.opensim.view.nodes;
 
-import java.util.EventObject;
+import java.util.ResourceBundle;
+import org.openide.util.NbBundle;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmMotionData;
 
 /**
  *
- * @author Ayman
+ * @author Ayman Habib
+ *
+ * Top level motions node in Navigator view
  */
-   /** Creates a new instance of MotionEvent */
-public class MotionEvent extends EventObject {
+public class MotionsNode extends OpenSimNode {
     
-    public enum Operation{Open, Close, Save, SetCurrent};
+    private static ResourceBundle bundle = NbBundle.getBundle(MotionsNode.class);
     
-    Operation op= Operation.Open;
-    /**
-     * Creates a new instance of MotionEvent
-     */
-    public MotionEvent(SimmMotionData source, Operation op) {
-        super(source);
-        this.op = op;
-    }
+    /** Creates a new instance of MotionsNode */
+    public MotionsNode() {
+        setDisplayName("Motions");
+        setName("Motions"); // To be used by findNode();
+    }    
     
-    public SimmMotionData getMotion()
-    {
-        return (SimmMotionData) source;
-    }
-    
-    public MotionEvent.Operation getOperation()
-    {
-        return op;
-    }
 }
-

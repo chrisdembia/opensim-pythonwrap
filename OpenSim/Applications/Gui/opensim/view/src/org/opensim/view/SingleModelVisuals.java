@@ -24,6 +24,7 @@ import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
 import vtk.vtkActor;
+import vtk.vtkAppendPolyData;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
@@ -38,6 +39,9 @@ import vtk.vtkProp3DCollection;
 import vtk.vtkSphereSource;
 import vtk.vtkXMLPolyDataReader;
 import vtk.vtkActorCollection;
+import vtk.vtkGlyph3D;
+import vtk.vtkPoints;
+import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkAppendPolyData;
 /**
  *
@@ -69,12 +73,23 @@ public class SingleModelVisuals {
     
     private Hashtable<OpenSimObject, vtkActorCollection> mapObject2ActorCollections = new
             Hashtable<OpenSimObject, vtkActorCollection>();
+
+    private OpenSimGlyph[] objectClouds = new OpenSimGlyph[3]; //Markers, musclePoints, muscleSegments
+    private vtkPolyDataAlgorithm[] glyphShapes = new vtkPolyDataAlgorithm[]{
+            new vtkSphereSource(),
+            new vtkSphereSource(),
+            new vtkCylinderSource()
+        };
+    
     /**
      * Creates a new instance of SingleModelVisuals
      */
     public SingleModelVisuals(AbstractModel aModel) {
+        for(int i=0; i<3; i++){
+            objectClouds[i]=new OpenSimGlyph();
+            objectClouds[i].setGlyphSource(glyphShapes[i].GetOutput());
+        }
         modelDisplayAssembly = createModelAssembly(aModel);
-        //computeModelBoundingbox();
         setVisible(true);
     }
     /**
@@ -119,7 +134,7 @@ public class SingleModelVisuals {
             // The reverse map takes an actor to an Object and is filled as actors are created.
             mapObject2VtkObjects.put(body, bodyRep);
 
-            modelAssembly.AddPart(bodyRep);
+             modelAssembly.AddPart(bodyRep);
             vtkMatrix4x4 m= getBodyTransform(model, body);
             bodyRep.SetUserMatrix(m);
 
@@ -158,7 +173,7 @@ public class SingleModelVisuals {
             // to the same xform as the owner body.
             int ct = bodyDisplayer.countDependents();
             //System.out.println("Body "+body+" has "+ct+ " dependents");
-            
+            /*
             double[] color = new double[3];
             for(int j=0; j < ct;j++){
                 VisibleObject Dependent = bodyDisplayer.getDependent(j);
@@ -178,6 +193,8 @@ public class SingleModelVisuals {
                             sphere.SetRadius(ag.getSphereRadius());
                             double[] pos = new double[3];
                             Dependent.getTransform().getPosition(pos);
+                            //linePoints.InsertPoint(pointCount++,
+                            //        pos[0], pos[1], pos[2]);
                             sphere.SetCenter(pos);
                             vtkPolyDataMapper mapper = new vtkPolyDataMapper();
                             mapper.SetInput(sphere.GetOutput());
@@ -193,23 +210,26 @@ public class SingleModelVisuals {
                     else {  // General geometry
                         // throw an exception for not implemented though should be identical
                         throw new UnsupportedOperationException(
-                                "SingleModelVisuals: Geometry visualization Not yet implemented");                    }
+                                "Single Model Visuals: Geometry visualization Not yet implemented");                    }
                 }
-                modelAssembly.AddPart(attachmentRep);
+                //modelAssembly.AddPart(markersActor);
+                //modelAssembly.AddPart(attachmentRep);
                 mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
-            }
-       } //body
+            }*/
+        } //body
         //System.out.println("Before adding muscles:"+modelAssembly.Print());
         /**
          * Now the muscles and other actuators
          */
-        addActuatorsGeometry(model, modelAssembly);
+        //addActuatorsGeometry(model, modelAssembly);
         mapObject2VtkObjects.put(model, modelAssembly);
         mapVtkObjects2Objects.put(modelAssembly, model);
         // Postprocess model assembly
-        /* Draw a box around the model, uncomment for debugging purposes 
+        // Draw a box around the model, uncomment for debugging purposes
+        /*
         vtkActor bboxActor = new vtkActor();
         vtkCubeSource bboxSource = new vtkCubeSource();
+        
         bboxSource.SetBounds(modelAssembly.GetBounds());
         vtkPolyDataMapper bboxMapper = new vtkPolyDataMapper();
         bboxMapper.SetInput(bboxSource.GetOutput());
@@ -218,7 +238,7 @@ public class SingleModelVisuals {
         bboxActor.GetProperty().SetRepresentationToWireframe();
         */
         //System.out.println("after adding muscles"+modelAssembly.Print());
-         return modelAssembly;
+        return modelAssembly;
     }
     
      /**
@@ -373,7 +393,7 @@ public class SingleModelVisuals {
                 mapObject2ActorCollections.put(nextMuscle, segmentCollection);
                 
             } // ArraySize
-            modelAssembly.AddPart(muscleRep); 
+            //modelAssembly.AddPart(muscleRep); 
             //System.out.println("Processing muscle "+nextMuscle.getName());
         }
         
@@ -384,30 +404,30 @@ public class SingleModelVisuals {
     private vtkMatrix4x4 getCylinderTransform(double[] axis, double[] origin) {
        double length = normalizeAndGetLength(axis);
        vtkMatrix4x4 retTransform = new vtkMatrix4x4();
-       // yaxis is the unit vector
-       for (int i=0; i < 3; i++)
-          retTransform.SetElement(i, 1, axis[i]);
-       double[] newX = new double[3];
-       double[] oldXCrossNewY = new double[3]; // NewZ
-       oldXCrossNewY[0] = 0.0;
-       oldXCrossNewY[1] = -axis[2];
-       oldXCrossNewY[2] = axis[1];
-       
-       normalizeAndGetLength(oldXCrossNewY);
-       for (int i=0; i < 3; i++)
-          retTransform.SetElement(i, 2, oldXCrossNewY[i]);
-       
-       newX[0] = axis[1]*oldXCrossNewY[2]-axis[2]*oldXCrossNewY[1];
-       newX[1] = axis[2]*oldXCrossNewY[0]-axis[0]*oldXCrossNewY[2];
-       newX[2] = axis[0]*oldXCrossNewY[1]-axis[1]*oldXCrossNewY[0];
-       normalizeAndGetLength(newX);
+        // yaxis is the unit vector
+        for (int i=0; i < 3; i++)
+            retTransform.SetElement(i, 1, axis[i]);
+        double[] newX = new double[3];
+        double[] oldXCrossNewY = new double[3]; // NewZ
+        oldXCrossNewY[0] = 0.0;
+        oldXCrossNewY[1] = -axis[2];
+        oldXCrossNewY[2] = axis[1];
+        
+        normalizeAndGetLength(oldXCrossNewY);
+        for (int i=0; i < 3; i++)
+            retTransform.SetElement(i, 2, oldXCrossNewY[i]);
+
+        newX[0] = axis[1]*oldXCrossNewY[2]-axis[2]*oldXCrossNewY[1];
+        newX[1] = axis[2]*oldXCrossNewY[0]-axis[0]*oldXCrossNewY[2];
+        newX[2] = axis[0]*oldXCrossNewY[1]-axis[1]*oldXCrossNewY[0];
+        normalizeAndGetLength(newX);
        for (int i=0; i < 3; i++){
-          retTransform.SetElement(i, 0, newX[i]);
-          // Scale by length
-          retTransform.SetElement(i, 1, retTransform.GetElement(i, 1)*length);
+            retTransform.SetElement(i, 0, newX[i]);
+        // Scale by length
+                retTransform.SetElement(i, 1, retTransform.GetElement(i, 1)*length);
           retTransform.SetElement(i, 3, origin[i]);
-       }
-       return retTransform;
+         }
+        return retTransform;
     }
     /**
      * Normalize a vector and return its length
@@ -455,6 +475,42 @@ public class SingleModelVisuals {
         }
         // Now the muscles
         updateActuatorsGeometry(model);
+        //animationCallback.mutex_end(1);
+   }
+    /**
+     * updateModelDisplay with new transforms cached in animationCallback.
+     * This method must be optimized since it's invoked during live animation
+     * of simulations and/or analyses (ala IK).
+     */
+   public void updateModelDisplay(AbstractModel model) {
+      // Cycle thru bodies and update their transforms from the kinematics engine
+        BodySet bodies = model.getDynamicsEngine().getBodySet();
+        for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
+
+            AbstractBody body = bodies.get(bodyNum);
+
+            // Fill the maps between objects and display to support picking, highlighting, etc..
+            // The reverse map takes an actor to an Object and is filled as actors are created.
+            vtkProp3D bodyRep= mapObject2VtkObjects.get(body);
+            vtkMatrix4x4 bodyVtkTransform= getBodyTransform(model, body);
+            //Transform opensimTransform = animationCallback.getBodyTransform(bodyNum);
+            //vtkMatrix4x4 bodyVtkTransform = convertTransformToVtkMatrix4x4(opensimTransform);
+            bodyRep.SetUserMatrix(bodyVtkTransform);
+            // For dependents (markers, muscle points, update xforms as well)
+            VisibleObject bodyDisplayer = body.getDisplayer();
+            int ct = bodyDisplayer.countDependents();
+            //System.out.println("Body "+body+" has "+ct+ " dependents");
+            /*
+            double[] color = new double[3];
+            for(int j=0; j < ct;j++){
+                VisibleObject dependent = bodyDisplayer.getDependent(j);
+                vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
+                deptAssembly.SetUserMatrix(bodyVtkTransform);
+            }
+             **/
+        }
+        // Now the muscles
+        //updateActuatorsGeometry(model);
         //animationCallback.mutex_end(1);
    }
    /**
@@ -512,14 +568,14 @@ public class SingleModelVisuals {
               dActor.SetMapper(mapper);
               // Add new Actor to collection representing the muscle for faster update
               segmentCollection.AddItem(dActor);
-              muscleRep.AddPart(dActor);          
+              //muscleRep.AddPart(dActor);          
          }
          else if (origGeomSize>geomSize){ // remove unused segments
             int segmentsToRemove = origGeomSize-geomSize;
             segmentCollection.InitTraversal();
             for(int i=0; i<segmentsToRemove; i++){
                 vtkActor nextActor = segmentCollection.GetNextActor();
-                muscleRep.RemovePart(nextActor);
+                //muscleRep.RemovePart(nextActor);
                 segmentCollection.RemoveItem(nextActor);
             }
          }

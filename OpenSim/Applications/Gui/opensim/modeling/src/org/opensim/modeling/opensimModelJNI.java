@@ -2510,6 +2510,7 @@ public class opensimModelJNI {
   public final static native double SimmMotionData_getValue(long jarg1, String jarg2, int jarg3);
   public final static native double SimmMotionData_getRangeMin(long jarg1);
   public final static native double SimmMotionData_getRangeMax(long jarg1);
+  public final static native int SimmMotionData_getNumberOfFrames(long jarg1);
   public final static native void SimmMotionData_addToRdStorage(long jarg1, long jarg2, double jarg3, double jarg4);
   public final static native boolean SimmMotionData_deleteColumn(long jarg1, String jarg2);
   public final static native void SimmMotionData_scaleColumn(long jarg1, int jarg2, double jarg3);

@@ -25,14 +25,102 @@
  */
 package org.opensim.view.pub;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Observable;
+import org.openide.awt.StatusDisplayer;
+import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.SimmMotionData;
+import org.opensim.view.MotionEvent;
+
 /**
  *
  * @author Ayman
  */
-public class MotionsDB {
-   
-   /** Creates a new instance of MotionsDB */
-   public MotionsDB() {
+public class MotionsDB extends Observable {
+    
+    static MotionsDB instance;
+    // Map model to an ArrayList of Motions linked with it
+    static Hashtable<AbstractModel, ArrayList<SimmMotionData>> mapModels2Motions = 
+            new Hashtable<AbstractModel, ArrayList<SimmMotionData>>(4);
+    //static SimmMotionData currentMotion=null;
+        
+    /** Creates a new instance of MotionsDB */
+    private MotionsDB() {
+    }
+    
+    public static synchronized MotionsDB getInstance() {
+        if (instance == null) {
+             instance = new MotionsDB();
+             
+        }
+        return instance;
+    }
+
+   /**
+    * Load a motion file, and associate it with a model.
+    * We try to associate the motion with current model first if something doesn't look
+    * right (e.g. no coordinates or markers match, warn and ask user either to select another model 
+    * or abort loading.
+    * A side effect of changing the model associated with a loaded motion is that the new model becomes
+    * current.
+    */
+   public void loadMotionFile(String fileName) {
+      SimmMotionData newMotion = new SimmMotionData(fileName);
+      String name = newMotion.getName();
+      boolean associated = false;
+      while(!associated){
+         AbstractModel modelForMotion = OpenSimDB.getInstance().selectModel(OpenSimDB.getInstance().getCurrentModel());
+         if (modelForMotion == null){ // user cancelled
+            break;
+         }
+         // user selected a model, try to associate it
+         if(MotionsDB.getInstance().AssociateMotionToModel(newMotion, modelForMotion)){
+            associated = true;
+         }
+         else  // Show error that motion couldn't be associated and repeat'
+            throw new UnsupportedOperationException();
+       }
    }
-   
+
+   /**
+    * Criteria for associating motionto a model:
+    * At least one genccord or marker (_tx?) in motion file/SimmMotionData
+    */
+   boolean AssociateMotionToModel(SimmMotionData newMotion, AbstractModel modelForMotion) {
+      ArrayStr coordinateNames = new ArrayStr();
+      modelForMotion.getDynamicsEngine().getCoordinateSet().getNames(coordinateNames);
+      int numCoordinates = coordinateNames.getSize();
+      int numUsedColumns = 0;    // Keep track of how many columns correspond to Coords or Markers
+      for(int i=0; i<numCoordinates; i++){
+         if (newMotion.getColumnIndex(coordinateNames.getitem(i))!=-1)
+            numUsedColumns++;
+      }
+      ArrayStr markerNames = new ArrayStr();
+      modelForMotion.getDynamicsEngine().getMarkerSet().getNames(markerNames);
+      for(int i=0; i<markerNames.getSize(); i++){
+         if ((newMotion.getColumnIndex(markerNames.getitem(i)+"_tx")!=-1) ||
+                 (newMotion.getColumnIndex(markerNames.getitem(i)+"_Tx")!=-1) ||
+                 (newMotion.getColumnIndex(markerNames.getitem(i)+"_TX")!=-1))
+            numUsedColumns++;
+      }
+     
+      boolean associationPossible=(numUsedColumns>=1); // At least one column makes sense
+      if (associationPossible){
+          if(mapModels2Motions.get(modelForMotion)==null){  // First motion for model
+              mapModels2Motions.put(modelForMotion, new  ArrayList<SimmMotionData>(4));
+          }
+         ArrayList<SimmMotionData> motions= mapModels2Motions.get(modelForMotion);
+         newMotion.convertDegreesToRadians(modelForMotion);
+         motions.add(newMotion);
+         MotionEvent evt = new MotionEvent(modelForMotion, newMotion, MotionEvent.Operation.Open);
+         setChanged();
+         //int c = this.countObservers();
+         notifyObservers(evt);
+         StatusDisplayer.getDefault().setStatusText("Associated motion: "+newMotion.getName()+" to model:"+modelForMotion.getName());
+      }
+      return associationPossible;
+   }
+    
 }

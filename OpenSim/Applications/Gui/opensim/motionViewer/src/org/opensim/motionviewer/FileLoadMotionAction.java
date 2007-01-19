@@ -4,7 +4,7 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.utils.FileUtils;
-import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.MotionsDB;
 
 public final class FileLoadMotionAction extends CallableSystemAction {
    
@@ -15,15 +15,15 @@ public final class FileLoadMotionAction extends CallableSystemAction {
         if (fileName != null){
            // Load file and associate it to a model
            // File is loaded into a SimmMotionData object first then associated with a particular
-           // model. This's done in OpenSimDB so that created SimmMotionData is not gc'd early.
-           // also because OpenSimDB has access to all models and as such can decide if it makese sense 
+           // model. This's done in OpenSimDB so that created SimmMotionData is not garbage collected early.
+           // also because OpenSimDB has access to all models and as such can decide if it makes sense 
            // to associate the loaded motion with a prticular model.
-           OpenSimDB.getInstance().loadMotionFile(fileName);
+           MotionsDB.getInstance().loadMotionFile(fileName);
+           // Add it to the motion viewer's model'
+           /*MotionViewerTopComponent tc = MotionViewerTopComponent.findInstance();
+           tc.open();
+           tc.requestActive();*/
         }
-      // Add it to the motion viewer's model'
-        MotionViewerTopComponent tc = MotionViewerTopComponent.findInstance();
-        tc.open();
-        tc.requestActive();
         
    }
    

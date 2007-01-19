@@ -26,6 +26,8 @@ import org.openide.nodes.Node;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.nodes.OpenSimNode;
+import org.opensim.view.nodes.OpenSimObjectNode;
+import org.opensim.view.pub.MotionsDB;
 import org.opensim.view.pub.OpenSimDB;
 
 /**
@@ -55,6 +57,7 @@ final public class ExplorerTopComponent extends TopComponent
         setToolTipText(NbBundle.getMessage(ExplorerTopComponent.class, "HINT_ExplorerTopComponent"));
         // Add explorer as observer of the database
         OpenSimDB.getInstance().addObserver(this);
+        MotionsDB.getInstance().addObserver(this);
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
         setLayout(new BorderLayout());
         add(modelTree, BorderLayout.CENTER);
@@ -224,7 +227,31 @@ final public class ExplorerTopComponent extends TopComponent
 
                 }});
  
-        }    
+        }
+        else if (arg instanceof MotionEvent){
+            final MotionEvent evnt = (MotionEvent)arg;
+             // Add the model to the Tree window.
+            SwingUtilities.invokeLater(new Runnable(){
+                public void run() {
+                    ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
+
+                    Node rootNode = tree.getExplorerManager().getRootContext();
+                    switch(evnt.getOperation()){
+                        case Open :
+                        {
+                            AbstractModel motionModel = evnt.getModel();
+                            ConcreteModelNode modelNode = mapModels2Nodes.get(motionModel);
+                            Node[] nds = modelNode.getChildren().getNodes();
+                            Node motionsNode = modelNode.getChildren().findChild("Motions");
+                            // Create node for motion and append it
+                            Node newMotionNode = new OpenSimObjectNode(evnt.getMotion());
+                            motionsNode.getChildren().add(new Node[]{newMotionNode});
+                            break;
+                        }
+                    }
+                }
+            });
+        }
 
 
     }

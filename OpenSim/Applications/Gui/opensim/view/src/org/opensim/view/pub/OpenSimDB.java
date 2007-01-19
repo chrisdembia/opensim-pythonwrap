@@ -28,10 +28,6 @@ final public class OpenSimDB extends Observable {
     
     static ArrayList<AbstractModel>  models = new ArrayList<AbstractModel>();
     static AbstractModel currentModel=null;
-    // Map model to an ArrayList of Motions linked with it
-    static Hashtable<AbstractModel, ArrayList<SimmMotionData>> mapModels2Motions = 
-            new Hashtable<AbstractModel, ArrayList<SimmMotionData>>(4);
-    //static SimmMotionData currentMotion=null;
     
     /** Creates a new instance of OpenSimDB */
     private OpenSimDB() {
@@ -117,65 +113,9 @@ final public class OpenSimDB extends Observable {
      }
       return false;
    }
-   /**
-    * Load a motion file, and associate it with a model.
-    * We try to associate the motion with current model first if something doesn't look
-    * right (e.g. no coordinates or markers match, warn and ask user either to select another model 
-    * or abort loading.
-    * A side effect of changing the model associated with a loaded motion is that the new model becomes
-    * current.
-    */
-   public void loadMotionFile(String fileName) {
-      SimmMotionData newMotion = new SimmMotionData(fileName);
-      boolean associated = false;
-      while(!associated){
-         AbstractModel modelForMotion = selectModel(currentModel);
-         if (modelForMotion == null){ // user cancelled
-            break;
-         }
-         // user selected a model, try to associate it
-         if(canAssociateMotionToModel(newMotion, modelForMotion)){
-            ArrayList<SimmMotionData> currentMotions = mapModels2Motions.get(modelForMotion);
-            setCurrentModel(modelForMotion);
-            if (currentMotions==null){
-               currentMotions = new ArrayList<SimmMotionData>(3);
-               mapModels2Motions.put(modelForMotion, currentMotions);
-            }
-            currentMotions.add(newMotion);
-            associated = true;
-            //setCurrentMotion(newMotion);
-         }
-         else  // Show error that motion couldn't be associated and repeat'
-            ;
-      }
-   }
 
-   private static AbstractModel selectModel(AbstractModel currentModel) {
+   public static AbstractModel selectModel(AbstractModel currentModel) {
       return currentModel;
-   }
-   /**
-    * Criteria for associating motionto a model:
-    * At least one genccord or marker (_tx?) in motion file/SimmMotionData
-    */
-   private static boolean canAssociateMotionToModel(SimmMotionData newMotion, AbstractModel modelForMotion) {
-      ArrayStr coordinateNames = new ArrayStr();
-      modelForMotion.getDynamicsEngine().getCoordinateSet().getNames(coordinateNames);
-      int numCoordinates = coordinateNames.getSize();
-      int numUsedColumns = 0;    // Keep track of how many columns correspond to Coords or Markers
-      for(int i=0; i<numCoordinates; i++){
-         if (newMotion.getColumnIndex(coordinateNames.getitem(i))!=-1)
-            numUsedColumns++;
-      }
-      ArrayStr markerNames = new ArrayStr();
-      modelForMotion.getDynamicsEngine().getMarkerSet().getNames(markerNames);
-      for(int i=0; i<markerNames.getSize(); i++){
-         if ((newMotion.getColumnIndex(markerNames.getitem(i)+"_tx")!=-1) ||
-                 (newMotion.getColumnIndex(markerNames.getitem(i)+"_Tx")!=-1) ||
-                 (newMotion.getColumnIndex(markerNames.getitem(i)+"_TX")!=-1))
-            numUsedColumns++;
-      }
-     
-      return numUsedColumns>=1;   // At least one column makes sense
    }
 
 

@@ -13210,6 +13210,20 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1Control
 }
 
 
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlSet_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  OpenSim::ControlSet *arg1 = (OpenSim::ControlSet *) 0 ;
+  OpenSim::Object *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::ControlSet **)&jarg1; 
+  result = (OpenSim::Object *)((OpenSim::ControlSet const *)arg1)->copy();
+  *(OpenSim::Object **)&jresult = result; 
+  return jresult;
+}
+
+
 JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlSet_1getSize_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jboolean jarg2) {
   jint jresult = 0 ;
   OpenSim::ControlSet *arg1 = (OpenSim::ControlSet *) 0 ;
@@ -15347,6 +15361,22 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelIntegrand_
     return ;
   } 
   (arg1)->setControlSet((OpenSim::ControlSet const &)*arg2);
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelIntegrand_1setControlSetReference(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  OpenSim::ModelIntegrand *arg1 = (OpenSim::ModelIntegrand *) 0 ;
+  OpenSim::ControlSet *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::ModelIntegrand **)&jarg1; 
+  arg2 = *(OpenSim::ControlSet **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ControlSet & reference is null");
+    return ;
+  } 
+  (arg1)->setControlSetReference(*arg2);
 }
 
 
@@ -42301,6 +42331,20 @@ JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionDa
   arg1 = *(OpenSim::SimmMotionData **)&jarg1; 
   result = (double)((OpenSim::SimmMotionData const *)arg1)->getRangeMax();
   jresult = (jdouble)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionData_1getNumberOfFrames(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jint jresult = 0 ;
+  OpenSim::SimmMotionData *arg1 = (OpenSim::SimmMotionData *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMotionData **)&jarg1; 
+  result = (int)((OpenSim::SimmMotionData const *)arg1)->getNumberOfFrames();
+  jresult = (jint)result; 
   return jresult;
 }
 
