@@ -45,16 +45,26 @@ IV. Compile OpenSim (!!!) NOTE: Future versions of OpenSim will come with precom
 4. Click Configure and choose to build for Visual Studio 7 .NET 2003 (or whatever your VS is)
 5. Choose to allow CMake to create the build directory. Choose OPENSIM_MINIMAL_BUILD as OFF. Click Configure. When CMake is finished, click Configure again. When the OK button is enabled, click it.
 6. At this point, your LibDevOpenSim directory should include the OpenSim.sln file. Open OpenSim.sln in VS.
-7. In the Solution Explorer, right-click on xerces_c_2_cmake and click Build.
-8. When VS is done building, right-click on xerces_c_2D_cmake and click Build.
-9. Close OpenSim.sln
-10. Open CMake again.  Choose OPENSIM_MINIMAL_BUILD as ON. Click Configure. When CMake is finished, click Configure again. When the OK button is enabled, click it.
-11. Go to the LibDevOpenSim directory and open the (rebuilt) OpenSim.sln file in VS.
-12. Go to Build menu->Configuration Manager..For Active Solution Configuration, choose Debug. Close the Configuration Manager.
-13. Go to Build menu->Build solution.
-14. Go to Build menu->Configuration Manager..For Active Solution Configuration, choose Release. Close the Configuration Manager.
-15. Go to Build menu->Build solution.
-16. Celebrate.
+7. If you don't have a C: drive (like Chand's laptop, where there is only an E: drive), then do the following.  If you do have a C: drive, you may skip these steps and go on to step 8.
+   a) In the Solution Explorer, right-click xerces-c_2_cmake.
+   b) Click Properties.
+   c) In the menu on the left, click on Configuration Properties->Build Events->Post-Build Event.
+   d) Under Command Line, click the "..." button.
+   e) A window pops up.  Expand it horizontally so you can see every letter on every line of text.
+   f) In the third and fourth line, change "c:" to "e:".
+   g) Click OK.
+   h) In the xerces-c_2_cmake Property Pages window, click OK.
+   i) Repeat steps 1-8 with "xerces-c_2D_cmake".
+8. In the Solution Explorer, right-click on xerces_c_2_cmake and click Build.
+9. When VS is done building, right-click on xerces_c_2D_cmake and click Build.
+10. Close OpenSim.sln
+11. Open CMake again.  Choose OPENSIM_MINIMAL_BUILD as ON. Click Configure. When CMake is finished, click Configure again. When the OK button is enabled, click it.
+12. Go to the LibDevOpenSim directory and open the (rebuilt) OpenSim.sln file in VS.
+13. Go to Build menu->Configuration Manager..For Active Solution Configuration, choose Debug. Close the Configuration Manager.
+14. Go to Build menu->Build solution.
+15. Go to Build menu->Configuration Manager..For Active Solution Configuration, choose Release. Close the Configuration Manager.
+16. Go to Build menu->Build solution.
+17. Celebrate!
 
 ----------------------------------------------------------------------
 STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
@@ -259,19 +269,12 @@ Residual Reduction Algorithm (RRA)
 
 21. Create an SD/FAST model of the subject.
 
-    1. Load joint and muscle files in SIMM
-    2. Save dynamics:
-       - sdfor.c (pipeline code)
-       - params.txt
-       - model.sd
-       (You can close SIMM now if you want.)
-    3. The directory d:/programfiles/FCA/SU/Testing/delaware2 is the "root
-       directory" where I keep this subject's files.  From its subdirectory
-       dynsim/src, copy model.sd to <subject>.sd in the root directory.
-       Also copy sdfor.c and model.h to the root directory.
-       WARNING: <subject> must be a string starting with a letter of the alphabet;
-       if it starts with a number, the Visual Studio code created later will
-       confuse the C++ compiler!
+    1. cd to d:\programfiles\FCA\SU\Testing\delaware2 in the command line.
+       This directory is the "root directory" where I keep this subject's files.
+    2. Run "mkModel -IM delaware2.osim -SD delaware2.sd -FF sdfor.c -MH model.h
+                    -OM delaware2.xml".
+    3. If you are not inside the Clark Center network, use the Stanford VPN Client
+       to log into the Clark network before proceeding to step 4.
     4. Copy (scp) <subject>.sd to hill.stanford.edu
     5. Run SD/FAST on hill.stanford.edu (type "sdfast" and enter <subject>.sd when
        queried for system description file, and hit enter when it prompts for the
@@ -289,7 +292,8 @@ Residual Reduction Algorithm (RRA)
        - sdufuncs_darryl.c
        - rdModels wrapper files: <subject>.cpp, <subject>.h
        - Visual Studio files: <subject>.vcproj, <subject>.sln
-    8. Build subject model libraries: open subject project and build it
+    8. Build subject model libraries: open subject project in Visual Studio,
+       clean it, and build it.
 
 22. Fix whitespaces in header of delaware2_ss_walking1_newgrfprocessing.mot by
     running "unix2dos delaware2_ss_walking1_newgrfprocessing.mot" in a command
