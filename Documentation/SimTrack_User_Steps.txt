@@ -1,4 +1,66 @@
+(Directions based on Chand’s document “DelawareSubject2.txt”. Modified by May to work for subjects from Gillette and to include steps to set up OpenSim on a “clean” computer.)
+----------------------------------------------------------------------
+STEPS TO DOWNLOAD AND SET UP ENVIRONMENT VARIABLES FOR OPENSIM
+
+Notes: 
+1. Need to download TortoiseSVN (tortoisesvn.tigris.org) before downloading OpenSim
+2. Need to have a simtk.org account and appropriate permissions before downloading OpenSim
+
+Let <dir> = working directory
+
+I. Download the OpenSim repository
+1. Create directory <dir>/OpenSim
+2. Open <dir>/OpenSim
+3. Right-click and go to SVN Checkout...
+4. When prompted, enter the URL for the repository: https://simtk.org/svn/opensim/Trunk
+5. When prompted, enter username and password for simtk.org
+6. Downloading the entire repository may take a long time (>20-30 minutes)
+
+II. Set the environment variables
+1. Go to Start Menu->Control Panel->Performance and Maintenance->System->Advanced tab->Environment Variables
+2. Make a new user variable, using the full path of <dir>:
+	variable name: OPENSIM_INCLUDE_PATH
+	variable value: <dir>\OpenSim 
+3. Make a new user variable, using the full path of <dir>:
+	variable name: OPENSIM_LIB_PATH
+	variable value: <dir>\LibDevOpenSim\VC71
+4. Make a new user variable, using the full path of <dir>:
+	variable name: OPENSIM_TEMPLATE_DIR
+	variable value: <dir>\OpenSim\OpenSim\Models\Subjects\Template
+5. Go to System Variables and choose to edit "Path". Add the following to the end of the Path, using full path of <dir>:
+	;<dir>\LibDevOpenSim\VC71\Debug;<dir>\LibDevOpenSim\VC71\Release
+
+
+III. Install CMake
+1. Go to http://cmake.org/HTML/Download.html
+2. Click on the latest Win32 Installer *.exe file
+3. Click "Run" in dialogue box
+4. Accept all default installation parameters
+
+
+IV. Compile OpenSim (!!!) NOTE: Future versions of OpenSim will come with precompiled xerces, which will simplify the following steps.
+1. Go to Start Menu->All Programs->CMake 2.4->CMake
+2. For location of source code, enter <dir>\OpenSim
+3. For location of binaries, enter <dir>\LibDevOpenSim
+4. Click Configure and choose to build for Visual Studio 7 .NET 2003 (or whatever your VS is)
+5. Choose to allow CMake to create the build directory. Choose OPENSIM_MINIMAL_BUILD as OFF. Click Configure. When CMake is finished, click Configure again. When the OK button is enabled, click it.
+6. At this point, your LibDevOpenSim directory should include the OpenSim.sln file. Open OpenSim.sln in VS.
+7. In the Solution Explorer, right-click on xerces_c_2_cmake and click Build.
+8. When VS is done building, right-click on xerces_c_2D_cmake and click Build.
+9. Close OpenSim.sln
+10. Open CMake again.  Choose OPENSIM_MINIMAL_BUILD as ON. Click Configure. When CMake is finished, click Configure again. When the OK button is enabled, click it.
+11. Go to the LibDevOpenSim directory and open the (rebuilt) OpenSim.sln file in VS.
+12. Go to Build menu->Configuration Manager..For Active Solution Configuration, choose Debug. Close the Configuration Manager.
+13. Go to Build menu->Build solution.
+14. Go to Build menu->Configuration Manager..For Active Solution Configuration, choose Release. Close the Configuration Manager.
+15. Go to Build menu->Build solution.
+16. Celebrate.
+
+----------------------------------------------------------------------
 STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
+
+0. Add Eran's scripts directory (e.g. d:\programfiles\erang\matlab) to Path
+   environment variable.
 
 1. From EVaRT, we have these files:
    - SS_walking1.anc (from EVaRT)
@@ -13,6 +75,9 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
    Copy these files to the directory containing Eran's scripts for
    preprocessing data for SimTrack.  On my computer, that directory
    is d:\programfiles\erang\matlab.
+
+Preprocessing
+=============
 
 2. In MATLAB, go to the directory containing Eran's scripts.
 
@@ -95,6 +160,9 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     to the Delaware Subject 2 setup directory,
     d:\programfiles\FCA\SU\Testing\delaware2.
 
+Scaling
+=======
+
 14. Open a DOS window and cd to the directory containing the Delaware
     Subject 2 setup file for scaling.  In my case, I typed "D:" and then
     "cd \programfiles\FCA\SU\Testing\delaware2".  Make sure this
@@ -138,6 +206,9 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     which plays one frame of data in which the virtual and actual markers
     are aligned in the display window.
 
+Inverse Kinematics (IK)
+=======================
+
 17. Make sure you have the files needed to run IK, including:
 
     - delaware2.osim
@@ -150,7 +221,18 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
        will be put into the output file delaware2_setup_ik.xml which will
        later be input to RRA.)
 
-18. Run IK on Delaware Subject 2.
+18. Fill in the setup file for IK.
+
+    The following fields never change for a single subject:
+    InvestigationIK name
+    model_file
+    objects file (under SimmMarkerSet)
+    objects file (under SimmCoordinateSet)
+
+    All fields under SimmIKTrialParamsSet change based on what trial is
+    being simulated.
+
+19. Run IK on Delaware Subject 2.
 
     Type this command in the DOS window and press Enter:
     ik -Setup delaware2_setup_ik.xml
@@ -161,7 +243,7 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     This generates the file "delaware2_ss_walking1_ik.mot".
     It also generates a file called "ik_setup_check.xml".
 
-19. View the results of IK in SIMM.
+20. View the results of IK in SIMM.
 
     In SIMM, open the following files simultaneously:
     - delaware2.jnt
@@ -172,7 +254,10 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     which plays one frame of data in which the virtual and actual markers
     are aligned in the display window.
 
-20. Create an SD/FAST model of the subject.
+Residual Reduction Algorithm (RRA)
+==================================
+
+21. Create an SD/FAST model of the subject.
 
     1. Load joint and muscle files in SIMM
     2. Save dynamics:
@@ -206,12 +291,12 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
        - Visual Studio files: <subject>.vcproj, <subject>.sln
     8. Build subject model libraries: open subject project and build it
 
-21. Fix whitespaces in header of delaware2_ss_walking1_newgrfprocessing.mot by
+22. Fix whitespaces in header of delaware2_ss_walking1_newgrfprocessing.mot by
     running "unix2dos delaware2_ss_walking1_newgrfprocessing.mot" in a command
     prompt or Cygwin window while you are in the directory
     d:\programfiles\FCA\SU\Testing\delaware2.
 
-22. Create XML files:
+23. Create XML files:
 
     - delaware2_ss_walking1_rra_control_constraints_pass1.xml,
     - delaware2_ss_walking1_rra_control_constraints_pass2.xml, and
@@ -220,7 +305,7 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     based on setup files from another subject like delaware3, and put these
     XML files into the root directory of delaware2.
 
-23. In params.txt in the subject's root directory, make the following changes.
+24. In params.txt in the subject's root directory, make the following changes.
     I made the following changes to my params.txt file; adapt these changes to
     your own params.txt file.
 
@@ -240,7 +325,41 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     kinetics_file delaware2_ss_walking1_ik.mot
     #output_kinetics_file results.ktx
 
-24. Run "cmcgait -Setup delaware2_setup_rra_pass1.xml" in Visual Studio or in
+25. Modify delaware2_setup_rra_pass1.xml.
+
+    InvestigationCMCGait name = delaware2_ss_walking1_ik
+    model_library = delaware2
+    actuator_set_file = delaware2_rra_actuators.xml
+    params_file = params.txt
+    desired_kinematics_file_name = delaware2_ss_walking1_ik.mot
+    task_set_file_name = ../gillette_rra_tracking.xml
+    constraints_file_name = delaware2_ss_walking1_rra_control_constraints_pass1.xml
+    external_loads_file_name = delaware2_ss_walking1_newgrfprocessing.mot
+    external_loads_model_kinematics_file_name = delaware2_ss_walking1_ik.mot
+    The adjusted_com_file_name field should be blank.
+
+26. Modify delaware2_setup_rra_pass2.xml.
+
+    InvestigationCMCGait name = delaware2_ss_walking1_ik_rra
+    model_library = delaware2
+    actuator_set_file = delaware2_rra_actuators_pass2.xml
+    params_file = params.txt
+    desired_kinematics_file_name = delaware2_ss_walking1_ik.mot
+    task_set_file_name = ../gillette_rra_tracking_pass2.xml
+    constraints_file_name = delaware2_ss_walking1_rra_control_constraints_pass2.xml
+    external_loads_file_name = delaware2_ss_walking1_newgrfprocessing.mot
+    external_loads_model_kinematics_file_name = delaware2_ss_walking1_ik.mot
+    adjusted_com_file_name = rra_newBTJ.txt
+
+27. Create the files
+
+    delaware2_ss_walking1_rra_control_constraints_pass1.xml and
+    delaware2_ss_walking1_rra_control_constraints_pass2.xml
+
+    which I have created for this trial from existing files for another subject
+    and trial.
+
+28. Run "cmcgait -Setup delaware2_setup_rra_pass1.xml" in Visual Studio or in
     the command line.
 
     Be sure the current/working directory is:
@@ -249,7 +368,7 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     See my setup file, delaware2_setup_rra_pass1.xml, for reference on how to
     setup your own setup file.
 
-25. Run "cmcgait -Setup delaware2_setup_rra_pass2.xml" in Visual Studio or in
+29. Run "cmcgait -Setup delaware2_setup_rra_pass2.xml" in Visual Studio or in
     the command line.
 
     Be sure the current/working directory is:
@@ -258,7 +377,23 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     See my setup file, delaware2_setup_rra_pass2.xml, for reference on how to
     setup your own setup file.
 
-26. Run "cmcgait -Setup delaware2_setup_cmcgait.xml" in Visual Studio or in
+Computed Muscle Control (CMC)
+=============================
+
+30. Modify delaware2_setup_cmcgait.xml.
+
+    InvestigationCMCGait name = delaware2
+    model_library = delaware2
+    actuator_set_file = delaware2_cmc_actuators.xml
+    params_file = params.txt
+    desired_kinematics_file_name = ./Results/delaware2_ss_walking1_ik_rra_Kinematics_q.sto
+    task_set_file_name = ../gillette_cmc_tracking.xml
+    constraints_file_name = delaware2_ss_walking1_cmc_control_constraints.xml
+    external_loads_file_name = delaware2_ss_walking1_newgrfprocessing.mot
+    external_loads_model_kinematics_file_name = delaware2_ss_walking1_ik.mot
+    adjusted_com_file_name = rra_newBTJ.txt
+
+31. Run "cmcgait -Setup delaware2_setup_cmcgait.xml" in Visual Studio or in
     the command line.
 
     Be sure the current/working directory is:
@@ -267,25 +402,25 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     See my setup file, delaware2_setup_cmcgait.xml, for reference on how to
     setup your own setup file.
 
-27. To view the CMC simulation, in the ResultsCMC subdirectory of your subject's
+32. To view the CMC simulation, in the ResultsCMC subdirectory of your subject's
     root directory, make a copy of the delaware2_Kinematics_q.sto file called
     delaware2_Kinematics_q.mot and then open it in SIMM along with delaware2.jnt
     and delaware2.msl.
 
-28. Copy the Results and ResultsCMC directories from the subject's root
+33. Copy the Results and ResultsCMC directories from the subject's root
     directory to d:\programfiles\erang\matlab\misc.
 
     NOTE: Every time you re-run RRA or CMC, you must put the new Results and
     ResultsCMC directories (and ResultsForward if you have run that already)
     into the d:\programfiles\erang\matlab\misc directory.
 
-29. To compare the kinematics of IK with the kinematics of CMC, modify
+34. To compare the kinematics of IK with the kinematics of CMC, modify
     the "prefix" and "prefix2" fields (which are the "trial" and "subject"
     fields respectively) and then comment out and uncomment just the 2 lines
     representing the two files you want to compare, and then run the "compare"
     script in MATLAB.
 
-30. Run the MATLAB script "check_forces" in the directory
+35. Run the MATLAB script "check_forces" in the directory
     d:\programfiles\erang\matlab\misc after changing check_forces.m to match
     the motion and muscle file names for your subject and trial and copying
     the file delaware2.msl from the subject's root directory into the
@@ -293,20 +428,35 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     and find_columns_by_label.m
     to d:\programfiles\erang\matlab\misc from its parent directory.
 
-31. Run the MATLAB script "check_errors" in the directory
+36. Run the MATLAB script "check_errors" in the directory
     d:\programfiles\erang\matlab\misc after changing check_errors.m to match
     the subject and trial names for your subject and trial.
 
-32. Run "forward -Setup delaware2_setup_forward.xml" in Visual Studio or in
+Forward
+=======
+
+37. Modify delaware2_setup_forward.xml.
+
+    InvestigationForward name = delaware2
+    model_library = delaware2
+    actuator_set_file = delaware2_cmc_actuators.xml
+    params_file = params.txt
+    controls_file_name = ResultsCMC/delaware2_controls.xml
+    initial_states_file_name = ResultsCMC/delaware2_states.sto
+    use_specified_dt = true
+    external_loads_file_name = delaware2_ss_walking1_newgrfprocessing.mot
+    external_loads_model_kinematics_file_name = delaware2_ss_walking1_ik.mot
+
+38. Run "forward -Setup delaware2_setup_forward.xml" in Visual Studio or in
     the command line.
 
     Be sure the current/working directory is:
     d:\programfiles\FCA\SU\Testing\delaware2.
 
-33. In d:\programfiles\FCA\SU\Testing\delaware2\ResultsForward, copy
+39. In d:\programfiles\FCA\SU\Testing\delaware2\ResultsForward, copy
     delaware2_Kinematics_q.sto to delaware2_Kinematics_q.mot.
 
-34. Add the SIMM header to delaware2_Kinematics_q.mot.  This is a set of lines
+40. Add the SIMM header to delaware2_Kinematics_q.mot.  This is a set of lines
     that looks like:
 
     # SIMM Motion File Header:
@@ -325,7 +475,9 @@ STEPS FOR SIMULATING DELAWARE SUBJECT 2 SELF-SELECTED WALKING TRIAL
     row between the SIMM header and the lines between which it is inserted, but
     I'm not sure if this is necessary.
 
-35. Open delaware2.jnt, delaware2.msl in SIMM.
+41. Open delaware2.jnt, delaware2.msl in SIMM.
 
-36. Open ResultsForward\delaware2_Kinematics_q.mot in SIMM and view the
+42. Open ResultsForward\delaware2_Kinematics_q.mot in SIMM and view the
     motion.
+
+
