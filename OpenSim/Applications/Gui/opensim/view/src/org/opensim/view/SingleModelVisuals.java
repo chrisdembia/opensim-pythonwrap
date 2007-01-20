@@ -173,7 +173,7 @@ public class SingleModelVisuals {
             // to the same xform as the owner body.
             int ct = bodyDisplayer.countDependents();
             //System.out.println("Body "+body+" has "+ct+ " dependents");
-            /*
+            
             double[] color = new double[3];
             for(int j=0; j < ct;j++){
                 VisibleObject Dependent = bodyDisplayer.getDependent(j);
@@ -213,9 +213,9 @@ public class SingleModelVisuals {
                                 "Single Model Visuals: Geometry visualization Not yet implemented");                    }
                 }
                 //modelAssembly.AddPart(markersActor);
-                //modelAssembly.AddPart(attachmentRep);
+                modelAssembly.AddPart(attachmentRep);
                 mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
-            }*/
+            }
         } //body
         //System.out.println("Before adding muscles:"+modelAssembly.Print());
         /**
@@ -393,7 +393,7 @@ public class SingleModelVisuals {
                 mapObject2ActorCollections.put(nextMuscle, segmentCollection);
                 
             } // ArraySize
-            //modelAssembly.AddPart(muscleRep); 
+            modelAssembly.AddPart(muscleRep); 
             //System.out.println("Processing muscle "+nextMuscle.getName());
         }
         
@@ -474,7 +474,7 @@ public class SingleModelVisuals {
             }
         }
         // Now the muscles
-        updateActuatorsGeometry(model);
+        //updateActuatorsGeometry(model);
         //animationCallback.mutex_end(1);
    }
     /**
@@ -500,14 +500,12 @@ public class SingleModelVisuals {
             VisibleObject bodyDisplayer = body.getDisplayer();
             int ct = bodyDisplayer.countDependents();
             //System.out.println("Body "+body+" has "+ct+ " dependents");
-            /*
-            double[] color = new double[3];
             for(int j=0; j < ct;j++){
                 VisibleObject dependent = bodyDisplayer.getDependent(j);
                 vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
                 deptAssembly.SetUserMatrix(bodyVtkTransform);
             }
-             **/
+            
         }
         // Now the muscles
         //updateActuatorsGeometry(model);
@@ -535,8 +533,7 @@ public class SingleModelVisuals {
       return m;
    }
    /**
-    * Update display of muscles and forces if any during analysis. Geometry may have changed
-    * due to via points becoming active/inactive, wrapping, ..
+    * Update display of muscles and forces if any during playing back animation/motion, ..
     */
    private void updateActuatorsGeometry(AbstractModel mdl) {
       ActuatorSet acts = mdl.getActuatorSet();

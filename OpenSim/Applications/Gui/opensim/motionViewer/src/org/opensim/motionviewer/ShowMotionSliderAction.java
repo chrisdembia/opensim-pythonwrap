@@ -30,7 +30,7 @@ public final class ShowMotionSliderAction extends CallableSystemAction {
    }
 
    public Component getToolbarPresenter() {
-      return new MotionSliderJPanel();
+      return new MotionControlJPanel();
    }
    
 }
