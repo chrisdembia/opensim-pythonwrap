@@ -293,7 +293,7 @@ Residual Reduction Algorithm (RRA)
        - rdModels wrapper files: <subject>.cpp, <subject>.h
        - Visual Studio files: <subject>.vcproj, <subject>.sln
     8. Build subject model libraries: open subject project in Visual Studio,
-       clean it, and build it.
+       clean it, and build it.  Do this for both Debug and Release versions.
 
 22. Fix whitespaces in header of delaware2_ss_walking1_newgrfprocessing.mot by
     running "unix2dos delaware2_ss_walking1_newgrfprocessing.mot" in a command
@@ -309,32 +309,11 @@ Residual Reduction Algorithm (RRA)
     based on setup files from another subject like delaware3, and put these
     XML files into the root directory of delaware2.
 
-24. In params.txt in the subject's root directory, make the following changes.
-    I made the following changes to my params.txt file; adapt these changes to
-    your own params.txt file.
-
-    I changed the five lines under "I/O Options" from:
-
-    muscle_file D:\programfiles\FCA\SU\Testing\delaware2\delaware2.msl
-    #bone_path path_to_bone_files
-    output_motion_file results.mot
-    #kinetics_file forces.ktx
-    output_kinetics_file results.ktx
-
-    to:
-
-    muscle_file delaware2.msl
-    #bone_path path_to_bone_files
-    #output_motion_file results.mot
-    kinetics_file delaware2_ss_walking1_ik.mot
-    #output_kinetics_file results.ktx
-
-25. Modify delaware2_setup_rra_pass1.xml.
+24. Modify delaware2_setup_rra_pass1.xml.
 
     InvestigationCMCGait name = delaware2_ss_walking1_ik
     model_library = delaware2
     actuator_set_file = delaware2_rra_actuators.xml
-    params_file = params.txt
     desired_kinematics_file_name = delaware2_ss_walking1_ik.mot
     task_set_file_name = ../gillette_rra_tracking.xml
     constraints_file_name = delaware2_ss_walking1_rra_control_constraints_pass1.xml
@@ -342,12 +321,11 @@ Residual Reduction Algorithm (RRA)
     external_loads_model_kinematics_file_name = delaware2_ss_walking1_ik.mot
     The adjusted_com_file_name field should be blank.
 
-26. Modify delaware2_setup_rra_pass2.xml.
+25. Modify delaware2_setup_rra_pass2.xml.
 
     InvestigationCMCGait name = delaware2_ss_walking1_ik_rra
     model_library = delaware2
     actuator_set_file = delaware2_rra_actuators_pass2.xml
-    params_file = params.txt
     desired_kinematics_file_name = delaware2_ss_walking1_ik.mot
     task_set_file_name = ../gillette_rra_tracking_pass2.xml
     constraints_file_name = delaware2_ss_walking1_rra_control_constraints_pass2.xml
@@ -355,7 +333,7 @@ Residual Reduction Algorithm (RRA)
     external_loads_model_kinematics_file_name = delaware2_ss_walking1_ik.mot
     adjusted_com_file_name = rra_newBTJ.txt
 
-27. Create the files
+26. Create the files
 
     delaware2_ss_walking1_rra_control_constraints_pass1.xml and
     delaware2_ss_walking1_rra_control_constraints_pass2.xml
@@ -363,7 +341,7 @@ Residual Reduction Algorithm (RRA)
     which I have created for this trial from existing files for another subject
     and trial.
 
-28. Run "cmcgait -Setup delaware2_setup_rra_pass1.xml" in Visual Studio or in
+27. Run "cmcgait -Setup delaware2_setup_rra_pass1.xml" in Visual Studio or in
     the command line.
 
     Be sure the current/working directory is:
@@ -372,7 +350,7 @@ Residual Reduction Algorithm (RRA)
     See my setup file, delaware2_setup_rra_pass1.xml, for reference on how to
     setup your own setup file.
 
-29. Run "cmcgait -Setup delaware2_setup_rra_pass2.xml" in Visual Studio or in
+28. Run "cmcgait -Setup delaware2_setup_rra_pass2.xml" in Visual Studio or in
     the command line.
 
     Be sure the current/working directory is:
@@ -389,7 +367,6 @@ Computed Muscle Control (CMC)
     InvestigationCMCGait name = delaware2
     model_library = delaware2
     actuator_set_file = delaware2_cmc_actuators.xml
-    params_file = params.txt
     desired_kinematics_file_name = ./Results/delaware2_ss_walking1_ik_rra_Kinematics_q.sto
     task_set_file_name = ../gillette_cmc_tracking.xml
     constraints_file_name = delaware2_ss_walking1_cmc_control_constraints.xml
@@ -444,7 +421,6 @@ Forward
     InvestigationForward name = delaware2
     model_library = delaware2
     actuator_set_file = delaware2_cmc_actuators.xml
-    params_file = params.txt
     controls_file_name = ResultsCMC/delaware2_controls.xml
     initial_states_file_name = ResultsCMC/delaware2_states.sto
     use_specified_dt = true
