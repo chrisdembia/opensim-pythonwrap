@@ -115,6 +115,10 @@ public class SimmMotionData extends OpenSimObject {
     opensimModelJNI.SimmMotionData_convertRadiansToDegrees(swigCPtr, AbstractModel.getCPtr(aModel));
   }
 
+  public int getFrameNumberForTime(double time) {
+    return opensimModelJNI.SimmMotionData_getFrameNumberForTime(swigCPtr, time);
+  }
+
   public void writeSIMMMotionFile(String aFileName, String aComment) {
     opensimModelJNI.SimmMotionData_writeSIMMMotionFile(swigCPtr, aFileName, aComment);
   }

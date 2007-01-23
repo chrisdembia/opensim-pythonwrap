@@ -6,12 +6,13 @@
 
 package org.opensim.motionviewer;
 
+import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.BoundedRangeModel;
 import javax.swing.DefaultBoundedRangeModel;
-import javax.swing.JSlider;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
@@ -33,22 +34,21 @@ import javax.swing.SwingUtilities;
  */
 public class MotionControlJPanel extends javax.swing.JPanel implements Observer, ChangeListener {
    
-    SimmMotionData simmMotionData;
-    DefaultBoundedRangeModel sliderModel = new DefaultBoundedRangeModel(0, 100, 0, 100);
-    MotionDisplayer     displayer;
-    int                 currentFrame=0;
-    boolean             wrapMotion=false;
-    Timer               animationTimer;
-    long                animationSpeed=100L;
-    SpinnerModel        smodel = new SpinnerNumberModel(100, 10, 500, 10);
-    
+   boolean             wrapMotion=false;
+   Timer               animationTimer;
+   long                animationSpeed=100L;
+   SpinnerModel        smodel = new SpinnerNumberModel(100, 10, 500, 10);
+   int                 currentFrame=0;
+   SimmMotionData      simmMotionData;
+   DefaultBoundedRangeModel sliderModel = new DefaultBoundedRangeModel();
+   MotionDisplayer     displayer;
+   private boolean     motionLoaded=false;
    /**
     * Creates new form MotionControlJPanel
     */
    public MotionControlJPanel() {
       initComponents();
-      jMotionSlider.setValue(0);
-      jMotionSlider.setModel(sliderModel);
+      jMotionSlider.getModel().addChangeListener(this);
       MotionsDB.getInstance().addObserver(this);
    }
    
@@ -101,6 +101,7 @@ public class MotionControlJPanel extends javax.swing.JPanel implements Observer,
 
       jMotionSlider.setMajorTickSpacing(50);
       jMotionSlider.setMinorTickSpacing(5);
+      jMotionSlider.setPaintLabels(true);
       jMotionSlider.setPaintTicks(true);
       jMotionSlider.setPaintTrack(false);
       jMotionSlider.setModel(sliderModel
@@ -109,11 +110,22 @@ public class MotionControlJPanel extends javax.swing.JPanel implements Observer,
       jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
       jLabel2.setText("Motion:");
 
+      jTimeTextField.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jTimeTextFieldActionPerformed(evt);
+         }
+      });
+      jTimeTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusLost(java.awt.event.FocusEvent evt) {
+            jTimeTextFieldFocusLost(evt);
+         }
+      });
+
       jSpeedSpinner.setModel(smodel);
       jSpeedSpinner.setToolTipText("animation speed ");
 
       jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
-      jLabel1.setText("Speed");
+      jLabel1.setText("rate (ms):");
 
       jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/step.gif")));
       jButton1.setMaximumSize(new java.awt.Dimension(50, 25));
@@ -135,7 +147,7 @@ public class MotionControlJPanel extends javax.swing.JPanel implements Observer,
       jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
       jLabel4.setText("time");
 
-      jWrapToggleButton.setText("wrap");
+      jWrapToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap.gif")));
       jWrapToggleButton.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             jWrapToggleButtonActionPerformed(evt);
@@ -169,8 +181,8 @@ public class MotionControlJPanel extends javax.swing.JPanel implements Observer,
             .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jWrapToggleButton)
-            .add(63, 63, 63)
-            .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 39, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(45, 45, 45)
+            .add(jLabel1)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .add(316, 316, 316))
@@ -180,7 +192,7 @@ public class MotionControlJPanel extends javax.swing.JPanel implements Observer,
          .add(layout.createSequentialGroup()
             .addContainerGap()
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(jMotionSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jMotionSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, Short.MAX_VALUE)
                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                   .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                      .add(jPlayButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -190,151 +202,192 @@ public class MotionControlJPanel extends javax.swing.JPanel implements Observer,
                      .add(jReverseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                      .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                      .add(jWrapToggleButton)
-                     .add(jLabel1)
-                     .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                     .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(jLabel1))
                   .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                      .add(jLabel2)
                      .add(jLabel4)
                      .add(jMotionNameLabel)
                      .add(jTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-            .addContainerGap(22, Short.MAX_VALUE))
+            .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
 
+   private void jTimeTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTimeTextFieldFocusLost
+// TODO add your handling code here:
+      handleTimeChange();
+   }//GEN-LAST:event_jTimeTextFieldFocusLost
+
+   private void jTimeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTimeTextFieldActionPerformed
+      handleTimeChange();
+// TODO add your handling code here:
+   }//GEN-LAST:event_jTimeTextFieldActionPerformed
+   
    private void jBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackButtonActionPerformed
-       currentFrame = backFrame(currentFrame);
-       applyFrame(currentFrame);
-
+      if (isMotionLoaded()){
+         currentFrame = backFrame(currentFrame);
+         applyFrame(currentFrame);
+      }
    }//GEN-LAST:event_jBackButtonActionPerformed
-
+   
    private void jPlayReverseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlayReverseButtonActionPerformed
-        applyFrame(currentFrame);
-        animationTimer = new Timer();
-        final Timer fTimer = animationTimer;
-        animationTimer.scheduleAtFixedRate(new TimerTask() {
+      if (isMotionLoaded()){
+         applyFrame(currentFrame);
+         animationTimer = new Timer();
+         final Timer fTimer = animationTimer;
+         animationTimer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                currentFrame = backFrame(currentFrame);
-                applyFrame(currentFrame);
-                // Kill self if done and wrapMotion is off
-                if (currentFrame==0 && !wrapMotion)
-                   fTimer.cancel();
+               currentFrame = backFrame(currentFrame);
+               applyFrame(currentFrame);
+               // Kill self if done and wrapMotion is off
+               if (currentFrame==0 && !wrapMotion)
+                  fTimer.cancel();
             }
-        }, ((Integer)smodel.getValue()).longValue(), ((Integer)smodel.getValue()).longValue());
-
+         }, ((Integer)smodel.getValue()).longValue(), ((Integer)smodel.getValue()).longValue());
+      }
+      
    }//GEN-LAST:event_jPlayReverseButtonActionPerformed
-
+   
     private void jStopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStopButtonActionPerformed
-
-        animationTimer.cancel();
+       if (isMotionLoaded()){
+          animationTimer.cancel();
+       }
     }//GEN-LAST:event_jStopButtonActionPerformed
-
+    
     private void jWrapToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jWrapToggleButtonActionPerformed
-
-        wrapMotion= !wrapMotion;
+       
+       wrapMotion= !wrapMotion;
     }//GEN-LAST:event_jWrapToggleButtonActionPerformed
-
+    
     private void jAdvanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdvanceButtonActionPerformed
-
-       currentFrame = advanceFrame(currentFrame);
-       applyFrame(currentFrame);
+       if (isMotionLoaded()){
+          
+          currentFrame = advanceFrame(currentFrame);
+          applyFrame(currentFrame);
+       }
     }//GEN-LAST:event_jAdvanceButtonActionPerformed
-
+    
     private void jPlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlayButtonActionPerformed
-
-        applyFrame(currentFrame);
-        animationTimer = new Timer();
-        final Timer fTimer = animationTimer;
-        animationTimer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
+       if (isMotionLoaded()){
+          
+          applyFrame(currentFrame);
+          animationTimer = new Timer();
+          final Timer fTimer = animationTimer;
+          animationTimer.scheduleAtFixedRate(new TimerTask() {
+             public void run() {
                 currentFrame = advanceFrame(currentFrame);
                 applyFrame(currentFrame);
                 // Kill self if done and wrapMotion is off
                 if (currentFrame==simmMotionData.getNumberOfFrames()-1 && !wrapMotion)
                    fTimer.cancel();
-            }
-        }, ((Integer)smodel.getValue()).longValue(), ((Integer)smodel.getValue()).longValue());
-    }//GEN-LAST:event_jPlayButtonActionPerformed
-   // Observable is MotionsDB
-   public void update(Observable o, Object arg) {
-      // Recover motion info, update toolbar accordingly
-       if (o instanceof MotionsDB){
-           MotionsDB mdb = (MotionsDB)o;
-           MotionEvent evt = (MotionEvent)arg;
-           if (evt.getOperation()==MotionEvent.Operation.Open ||
-                   evt.getOperation()==MotionEvent.Operation.SetCurrent){
-               // new motion is loaded or is set current. Update panel display
-               this.simmMotionData=evt.getMotion();
-               displayer = new MotionDisplayer(evt.getMotion(), evt.getModel());
-               currentFrame=0;
-               updateDisplay(evt.getMotion());
-           }
+             }
+          }, ((Integer)smodel.getValue()).longValue(), ((Integer)smodel.getValue()).longValue());
        }
-   }
-   /**
-    * update the panel to reflect current motion's name, range, ...etc.
-    */
+    }//GEN-LAST:event_jPlayButtonActionPerformed
+    // Observable is MotionsDB
+    public void update(Observable o, Object arg) {
+       // Recover motion info, update toolbar accordingly
+       if (o instanceof MotionsDB){
+          MotionsDB mdb = (MotionsDB)o;
+          MotionEvent evt = (MotionEvent)arg;
+          if (evt.getOperation()==MotionEvent.Operation.Open ||
+                  evt.getOperation()==MotionEvent.Operation.SetCurrent){
+             // new motion is loaded or is set current. Update panel display
+             this.simmMotionData=evt.getMotion();
+             displayer = new MotionDisplayer(evt.getMotion(), evt.getModel());
+             motionLoaded=true;   // enable buttons as needed
+             currentFrame=0;
+             updateDisplay(evt.getMotion());
+          }
+       }
+    }
+    /**
+     * update the panel to reflect current motion's name, range, ...etc.
+     */
     private void updateDisplay(SimmMotionData simmMotionData) {
-        jMotionNameLabel.setText(simmMotionData.getName());
-        jTimeTextField.setText(String.valueOf(simmMotionData.getRangeMin()));
-        sliderModel.setMinimum(0);
-        sliderModel.setMaximum(simmMotionData.getNumberOfFrames()-1);
-        sliderModel.setValue(0);
-        sliderModel.setExtent(simmMotionData.getNumberOfFrames()-1);
-        jTimeTextField.setText(String.valueOf(simmMotionData.getRangeMin()));
+       jMotionNameLabel.setText(simmMotionData.getName());
+       jTimeTextField.setText(String.valueOf(simmMotionData.getRangeMin()));
+       sliderModel.setMinimum(0);
+       sliderModel.setMaximum(simmMotionData.getNumberOfFrames()-1);
+       //sliderModel.setExtent(simmMotionData.getNumberOfFrames()-1);
+       jTimeTextField.setText(String.valueOf(simmMotionData.getRangeMin()));
+       Hashtable labels = jMotionSlider.createStandardLabels(50);
+       jMotionSlider.setLabelTable(labels);
     }
-
+    
     private void applyFrame(int currentFrame) {
-        // Apply gcs from file then update model display!
-        CoordinateSet coords = displayer.getModel().getDynamicsEngine().getCoordinateSet();
-        for(int i=0; i<coords.getSize(); i++){
-            AbstractCoordinate co = coords.get(i);
-            if (displayer.getIndexInStorage(co.getName())!=-1){
-                double value = simmMotionData.getValue(co.getName(), currentFrame);
-                co.setValue(value);
-                //System.out.println("Setting coord:"+co.getName()+" to value:"+value+" at frame:"+currentFrame);
-            }
-        }
-        jMotionSlider.setValue(currentFrame);
-        jMotionSlider.repaint();
-        jTimeTextField.setText(String.valueOf(simmMotionData.getValue("time", currentFrame)));
-        SwingUtilities.invokeLater(new Runnable(){
-           public void run(){
-              ViewDB.getInstance().getModelVisuals(displayer.getModel()).updateModelDisplay(displayer.getModel());
-              ViewDB.getInstance().repaintAll();
-              //sliderModel.setValue(currentFrame);              
-           }
-        });
+       // Apply gcs from file then update model display!
+       CoordinateSet coords = displayer.getModel().getDynamicsEngine().getCoordinateSet();
+       for(int i=0; i<coords.getSize(); i++){
+          AbstractCoordinate co = coords.get(i);
+          if (displayer.getIndexInStorage(co.getName())!=-1){
+             double value = simmMotionData.getValue(co.getName(), currentFrame);
+             co.setValue(value);
+             //System.out.println("Setting coord:"+co.getName()+" to value:"+value+" at frame:"+currentFrame);
+          }
+       }
+       jMotionSlider.getModel().setValue(currentFrame);
+       jTimeTextField.setText(String.valueOf(simmMotionData.getValue("time", currentFrame)));
+       SwingUtilities.invokeLater(new Runnable(){
+          public void run(){
+             ViewDB.getInstance().getModelVisuals(displayer.getModel()).updateModelDisplay(displayer.getModel());
+             ViewDB.getInstance().repaintAll();
+          }
+       });
+       sliderModel.setValue(currentFrame);
     }
-
+    
     private int advanceFrame(int currentFrame) {
-        if (currentFrame<=simmMotionData.getNumberOfFrames()-2)
-            return currentFrame+1;
-        else //restart only if wrap is on
-            return (wrapMotion)?0:currentFrame;
+       if (currentFrame<=simmMotionData.getNumberOfFrames()-2)
+          return currentFrame+1;
+       else //restart only if wrap is on
+          return (wrapMotion)?0:currentFrame;
     }
     
     private int backFrame(int currentFrame) {
-        if (currentFrame>=1)
-            return currentFrame-1;
-        else //restart only if wrap is on
-            return (wrapMotion)?simmMotionData.getNumberOfFrames()-1:currentFrame;
+       if (currentFrame>=1)
+          return currentFrame-1;
+       else //restart only if wrap is on
+          return (wrapMotion)?simmMotionData.getNumberOfFrames()-1:currentFrame;
     }
-
-
+    
+    
     public void stateChanged(ChangeEvent e) {
-        // Get frame number from slider (if not adjusting) and set model to it
-        if (e.getSource()==jMotionSlider){
-           javax.swing.JSlider slider= (javax.swing.JSlider)e.getSource();
-           if (slider.getValueIsAdjusting())
+       // Get frame number from slider (if not adjusting) and set model to it
+       if (isMotionLoaded()){
+          if (e.getSource()==jMotionSlider.getModel()){
+             BoundedRangeModel sliderModel= (BoundedRangeModel)e.getSource();
+             if (sliderModel.getValueIsAdjusting())
                 return;
-           currentFrame = slider.getValue();
-           applyFrame(currentFrame);
-           // set Text to reflect time
-           
-        }
+             int test = jMotionSlider.getValue();
+             currentFrame = sliderModel.getValue();
+             applyFrame(currentFrame);
+             // set Text to reflect time
+             
+          }
+       }
     }
-   
-   
+    
+    public boolean isMotionLoaded() {
+       return motionLoaded;
+    }
+
+   private void handleTimeChange() {
+       if (isMotionLoaded()){
+          //get frame corresponding to enetered time
+          double userTime = 0.0;
+          try {
+             userTime = Double.valueOf(jTimeTextField.getText());
+          }catch (NumberFormatException e){
+             userTime = 0.0;
+          }
+          
+          currentFrame=simmMotionData.getFrameNumberForTime(userTime);
+          applyFrame(currentFrame);
+      }
+   }
+    
+    
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton jButton1;
    private javax.swing.JButton jButton2;

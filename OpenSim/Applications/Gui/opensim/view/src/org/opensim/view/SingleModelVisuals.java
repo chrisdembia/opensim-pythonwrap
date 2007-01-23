@@ -24,11 +24,9 @@ import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
 import vtk.vtkActor;
-import vtk.vtkAppendPolyData;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
-import vtk.vtkCubeSource;
 import vtk.vtkCylinderSource;
 import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
@@ -39,10 +37,9 @@ import vtk.vtkProp3DCollection;
 import vtk.vtkSphereSource;
 import vtk.vtkXMLPolyDataReader;
 import vtk.vtkActorCollection;
-import vtk.vtkGlyph3D;
-import vtk.vtkPoints;
 import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkAppendPolyData;
+import vtk.vtkLODActor;
 /**
  *
  * @author Ayman. A class representing the visuals of one model.
@@ -171,13 +168,13 @@ public class SingleModelVisuals {
             // Bodies have things attached to them as handled by the
             // dependents mechanism. For each one of these a new vtkActor is created and attached 
             // to the same xform as the owner body.
+             /*
             int ct = bodyDisplayer.countDependents();
-            //System.out.println("Body "+body+" has "+ct+ " dependents");
             
             double[] color = new double[3];
             for(int j=0; j < ct;j++){
                 VisibleObject Dependent = bodyDisplayer.getDependent(j);
-                vtkActor attachmentRep = new vtkActor();
+                vtkActor attachmentRep = new vtkLODActor();
                 attachmentRep.SetUserMatrix(m);
                 int geomcount = Dependent.countGeometry();
                 // Create actor for the dpendent
@@ -215,7 +212,7 @@ public class SingleModelVisuals {
                 //modelAssembly.AddPart(markersActor);
                 modelAssembly.AddPart(attachmentRep);
                 mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
-            }
+            }**/
         } //body
         //System.out.println("Before adding muscles:"+modelAssembly.Print());
         /**
@@ -379,7 +376,7 @@ public class SingleModelVisuals {
                     cylinder.CappingOff();
                     vtkPolyDataMapper mapper = new vtkPolyDataMapper();
                     mapper.SetInput(cylinder.GetOutput());
-                    vtkActor dActor = new vtkActor();
+                    vtkActor dActor = new vtkLODActor();
                     dActor.GetProperty().SetColor(defaultMuscleColor);
                     dActor.SetUserMatrix(getCylinderTransform(axis, center));
                     dActor.SetMapper(mapper);
@@ -499,13 +496,14 @@ public class SingleModelVisuals {
             // For dependents (markers, muscle points, update xforms as well)
             VisibleObject bodyDisplayer = body.getDisplayer();
             int ct = bodyDisplayer.countDependents();
+            /*
             //System.out.println("Body "+body+" has "+ct+ " dependents");
             for(int j=0; j < ct;j++){
                 VisibleObject dependent = bodyDisplayer.getDependent(j);
                 vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
                 deptAssembly.SetUserMatrix(bodyVtkTransform);
             }
-            
+            */
         }
         // Now the muscles
         //updateActuatorsGeometry(model);
@@ -559,7 +557,7 @@ public class SingleModelVisuals {
               cylinder.CappingOff();
               vtkPolyDataMapper mapper = new vtkPolyDataMapper();
               mapper.SetInput(cylinder.GetOutput());
-              vtkActor dActor = new vtkActor();
+              vtkActor dActor = new vtkLODActor();
               dActor.GetProperty().SetColor(defaultMuscleColor);
               dActor.SetUserMatrix(getCylinderTransform(axis, center));
               dActor.SetMapper(mapper);

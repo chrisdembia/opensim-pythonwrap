@@ -474,6 +474,7 @@ public class opensimModelJNI {
   public final static native double ActuatorSet_getPseudoState__SWIG_0(long jarg1, int jarg2);
   public final static native double ActuatorSet_getPseudoState__SWIG_1(long jarg1, String jarg2);
   public final static native void ActuatorSet_getPseudoStates(long jarg1, double[] jarg2);
+  public final static native void ActuatorSet_setComputeActuationEnabled(long jarg1, boolean jarg2);
   public final static native void ActuatorSet_promoteControlsToStates(long jarg1, double[] jarg2, double jarg3);
   public final static native void ActuatorSet_computeActuation(long jarg1);
   public final static native void ActuatorSet_computeStateDerivatives(long jarg1, double[] jarg2);
@@ -2516,6 +2517,7 @@ public class opensimModelJNI {
   public final static native void SimmMotionData_scaleColumn(long jarg1, int jarg2, double jarg3);
   public final static native void SimmMotionData_convertDegreesToRadians(long jarg1, long jarg2);
   public final static native void SimmMotionData_convertRadiansToDegrees(long jarg1, long jarg2);
+  public final static native int SimmMotionData_getFrameNumberForTime(long jarg1, double jarg2);
   public final static native void SimmMotionData_writeSIMMMotionFile(long jarg1, String jarg2, String jarg3);
   public final static native String SimmMotionData_getUnassignedColName(long jarg1);
   public final static native void SimmMotionData_peteTest(long jarg1);

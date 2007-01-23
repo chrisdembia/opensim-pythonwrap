@@ -238,6 +238,10 @@ public class ActuatorSet extends SetActuators {
     opensimModelJNI.ActuatorSet_getPseudoStates(swigCPtr, rY);
   }
 
+  public void setComputeActuationEnabled(boolean aTrueFalse) {
+    opensimModelJNI.ActuatorSet_setComputeActuationEnabled(swigCPtr, aTrueFalse);
+  }
+
   public void promoteControlsToStates(double[] aX, double aDT) {
     opensimModelJNI.ActuatorSet_promoteControlsToStates(swigCPtr, aX, aDT);
   }

@@ -8243,6 +8243,18 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ActuatorSet_1ge
 }
 
 
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ActuatorSet_1setComputeActuationEnabled(JNIEnv *jenv, jclass jcls, jlong jarg1, jboolean jarg2) {
+  OpenSim::ActuatorSet *arg1 = (OpenSim::ActuatorSet *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::ActuatorSet **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setComputeActuationEnabled(arg2);
+}
+
+
 JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ActuatorSet_1promoteControlsToStates(JNIEnv *jenv, jclass jcls, jlong jarg1, jdoubleArray jarg2, jdouble jarg3) {
   OpenSim::ActuatorSet *arg1 = (OpenSim::ActuatorSet *) 0 ;
   double *arg2 ;
@@ -42436,6 +42448,22 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionData_
     return ;
   } 
   (arg1)->convertRadiansToDegrees(*arg2);
+}
+
+
+JNIEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionData_1getFrameNumberForTime(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
+  jint jresult = 0 ;
+  OpenSim::SimmMotionData *arg1 = (OpenSim::SimmMotionData *) 0 ;
+  double arg2 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMotionData **)&jarg1; 
+  arg2 = (double)jarg2; 
+  result = (int)((OpenSim::SimmMotionData const *)arg1)->getFrameNumberForTime(arg2);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
