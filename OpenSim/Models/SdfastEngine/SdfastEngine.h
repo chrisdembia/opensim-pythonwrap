@@ -213,7 +213,7 @@ public:
 	virtual AbstractBody& getGroundBody() const;
 	int getGroundBodyIndex() const;
 	virtual AbstractBody* getLeafBody(AbstractJoint* aJoint) const { return NULL; }
-	bool adjustJointVectorsForNewMassCenter(SdfastBody* aBody, double aNewMassCenter[3]);
+	bool adjustJointVectorsForNewMassCenter(SdfastBody* aBody);
 
 	//--------------------------------------------------------------------------
 	// INERTIA

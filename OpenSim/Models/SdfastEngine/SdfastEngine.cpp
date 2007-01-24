@@ -312,6 +312,12 @@ void SdfastEngine::setup(AbstractModel* aModel)
 	_groundBody = identifyGroundBody();
 
 	init();
+
+	// Center of mass locations
+	// This adjusts the SDFast body-to-joint and inboard-to-joint vectors
+	for(int i=0;i<_bodySet.getSize();i++) {
+		adjustJointVectorsForNewMassCenter((SdfastBody*)_bodySet.get(i));
+	}
 }
 
 //=============================================================================
@@ -870,7 +876,8 @@ SdfastJoint *SdfastEngine::getInboardTreeJoint(SdfastBody* aBody) const
 {
 	for(int i=0; i<_jointSet.getSize(); i++) {
 		SdfastJoint *joint = dynamic_cast<SdfastJoint*>(_jointSet[i]);
-		if(joint->getChildBody() == aBody && joint->isTreeJoint())
+		SdfastBody *child = joint->getChildBody();
+		if((child==aBody) && joint->isTreeJoint())
 			return joint;
 	}
 	return 0;
@@ -884,31 +891,39 @@ SdfastJoint *SdfastEngine::getInboardTreeJoint(SdfastBody* aBody) const
  * @param aBody Pointer to the body.
  * @param aNewMassCenter New mass center location in the SIMM body frame.
  */
-bool SdfastEngine::adjustJointVectorsForNewMassCenter(SdfastBody* aBody, double aNewMassCenter[3])
+bool SdfastEngine::adjustJointVectorsForNewMassCenter(SdfastBody* aBody)
 {
+
+	// COMPUTE NEW BODY TO JOINT VECTOR FOR THE BODY
+	// While it is true that the joint location is just the negaive of the mass center
+	// in all SIMM models, this is not generally true.
+	// A body could have a reference frame that does not coincide with its joint.
+	// The code below accounts for this possibility.
+	double newMassCenter[3],jointLocation[3],btj[3];
+	aBody->getMassCenter(newMassCenter);
 	SdfastJoint *btjJoint = getInboardTreeJoint(aBody);
+	if(btjJoint!=NULL) {
+		sdgetbtj(btjJoint->getSdfastIndex(),btj);
+		cout<<"Joint "<<btjJoint->getName()<<": origBTJ="<<btj[0]<<","<<btj[1]<<","<<btj[2];
+		btjJoint->getLocationInChild(jointLocation);
+		Mtx::Subtract(1,3,jointLocation,newMassCenter,btj);
+		sdbtj(btjJoint->getSdfastIndex(),btj);
+		sdgetbtj(btjJoint->getSdfastIndex(),btj);
+		cout<<"  scaledBTJ = "<<btj[0]<<","<<btj[1]<<","<<btj[2]<<endl;
+	}
 
-	double btj[3], massCenterDelta[3];
-	sdgetbtj(btjJoint->getSdfastIndex(), btj);
-
-	// Note: old center of mass is -btj
-	for(int i=0; i<3; i++) massCenterDelta[i] = aNewMassCenter[i] + btj[i];
-
-	// Set the sdfast body's body-to-joint vector to the negative
-	// of the mass center coordinates.
-	for(int i=0; i<3; i++) btj[i] = -aNewMassCenter[i];
-	sdbtj(btjJoint->getSdfastIndex(), btj);
-
-	// Adjust the inboard-to-joint vectors for all joints that
-	// have this body as the parent.
-	for (int i = 0; i < _jointSet.getSize(); i++) {
-		if(aBody == _jointSet.get(i)->getParentBody()) {
-			SdfastJoint *sdj=dynamic_cast<SdfastJoint*>(_jointSet.get(i));
-			double itj[3];
-			sdgetitj(sdj->getSdfastIndex(), itj);
-			for(int j=0; j<3; j++) itj[j] -= massCenterDelta[j];
-			sditj(sdj->getSdfastIndex(), itj);
-		}
+	// COMPUTE NEW INBOARD TO JOINT VECTORS FOR ALL CHILD BODIES
+	for (int i=0; i<_jointSet.getSize(); i++) {
+		if(aBody != _jointSet.get(i)->getParentBody()) continue;
+		double itj[3];
+		SdfastJoint *itjJoint = (SdfastJoint*)_jointSet.get(i);
+		sdgetitj(itjJoint->getSdfastIndex(),itj);
+		cout<<"Joint "<<itjJoint->getName()<<": origITJ="<<itj[0]<<","<<itj[1]<<","<<itj[2];
+		itjJoint->getLocationInParent(jointLocation);
+		Mtx::Subtract(1,3,jointLocation,newMassCenter,itj);
+		sditj(itjJoint->getSdfastIndex(),itj);
+		sdgetitj(itjJoint->getSdfastIndex(),itj);
+		cout<<"  scaledITJ = "<<itj[0]<<","<<itj[1]<<","<<itj[2]<<endl;
 	}
 
 	sdinit();
@@ -1200,25 +1215,18 @@ Transform SdfastEngine::getTransform(const AbstractBody &aBody)
  */
 void SdfastEngine::applyForce(const AbstractBody &aBody, const double aPoint[3], const double aForce[3])
 {
-	const SdfastBody* sdBody = dynamic_cast<const SdfastBody*>(&aBody);
+	int i;
+	double p[3], f[3];
+	const SdfastBody* sdBody = (const SdfastBody*)&aBody;
 
-	// aBody must be an SdfastBody in order to apply a force to it
-	if (sdBody)
-	{
-		int i;
-		double p[3], f[3];
-
-		sdBody->transformToSdfastFrame(aPoint, p);
-		for (i = 0; i < 3; i++)
-		{
-			f[i] = aForce[i];
-		}
-
-		double force[3];
-
-		sdtrans(GROUND, f, sdBody->getSdfastIndex(), force);
-		sdpointf(sdBody->getSdfastIndex(), p, force);
+	sdBody->transformToSdfastFrame(aPoint,p);
+	for (i=0; i<3; i++) {
+		f[i] = aForce[i];
 	}
+
+	double force[3];
+	sdtrans(GROUND, f, sdBody->getSdfastIndex(), force);
+	sdpointf(sdBody->getSdfastIndex(), p, force);
 }
 
 //_____________________________________________________________________________

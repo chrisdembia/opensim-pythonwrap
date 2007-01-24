@@ -28,6 +28,7 @@
 #include <iostream>
 #include "SdfastBody.h"
 #include "SdfastEngine.h"
+#include <OpenSim/Tools/rdMath.h>
 #include <OpenSim/Simulation/SIMM/SimmMacros.h>
 
 //=============================================================================
@@ -44,7 +45,9 @@ using namespace OpenSim;
  * Default constructor.
  */
 SdfastBody::SdfastBody() :
+	_mass(_massProp.getValueDbl()),
    _massCenter(_massCenterProp.getValueDblArray()),
+	_inertia(_inertiaProp.getValueDblArray()),
 	_displayerProp(PropertyObj("", VisibleObject())),
    _displayer((VisibleObject&)_displayerProp.getValueObj()),
 	_index(_indexProp.getValueInt()),
@@ -52,6 +55,7 @@ SdfastBody::SdfastBody() :
 {
 	setNull();
 	setupProperties();
+	updateSdfast();
 }
 
 //_____________________________________________________________________________
@@ -60,7 +64,9 @@ SdfastBody::SdfastBody() :
  */
 SdfastBody::SdfastBody(DOMElement *aElement) :
    AbstractBody(aElement),
+	_mass(_massProp.getValueDbl()),
    _massCenter(_massCenterProp.getValueDblArray()),
+	_inertia(_inertiaProp.getValueDblArray()),
 	_displayerProp(PropertyObj("", VisibleObject())),
    _displayer((VisibleObject&)_displayerProp.getValueObj()),
 	_index(_indexProp.getValueInt()),
@@ -69,6 +75,7 @@ SdfastBody::SdfastBody(DOMElement *aElement) :
 	setNull();
 	setupProperties();
 	updateFromXMLNode();
+	updateSdfast();
 }
 
 //_____________________________________________________________________________
@@ -87,7 +94,9 @@ SdfastBody::~SdfastBody()
  */
 SdfastBody::SdfastBody(const SdfastBody &aBody) :
    AbstractBody(aBody),
+	_mass(_massProp.getValueDbl()),
    _massCenter(_massCenterProp.getValueDblArray()),
+	_inertia(_inertiaProp.getValueDblArray()),
 	_displayerProp(PropertyObj("", VisibleObject())),
    _displayer((VisibleObject&)_displayerProp.getValueObj()),
 	_index(_indexProp.getValueInt()),
@@ -106,7 +115,9 @@ SdfastBody::SdfastBody(const SdfastBody &aBody) :
  */
 SdfastBody::SdfastBody(const AbstractBody &aBody) :
    AbstractBody(aBody),
+	_mass(_massProp.getValueDbl()),
    _massCenter(_massCenterProp.getValueDblArray()),
+	_inertia(_inertiaProp.getValueDblArray()),
 	_displayerProp(PropertyObj("", VisibleObject())),
    _displayer((VisibleObject&)_displayerProp.getValueObj()),
 	_index(_indexProp.getValueInt()),
@@ -150,6 +161,7 @@ Object* SdfastBody::copy(DOMElement *aElement) const
 	SdfastBody *body = new SdfastBody(aElement);
 	*body = *this;
 	body->updateFromXMLNode();
+	body->updateSdfast();
 	return(body);
 }
 
@@ -164,10 +176,13 @@ Object* SdfastBody::copy(DOMElement *aElement) const
  */
 void SdfastBody::copyData(const SdfastBody &aBody)
 {
+	_mass = aBody._mass;
 	_massCenter = aBody._massCenter;
+	_inertia = aBody._inertia;
 	_displayer = aBody._displayer;
 	_index = aBody._index;
 	_SdfastEngine = aBody._SdfastEngine;
+	updateSdfast();
 }
 
 //_____________________________________________________________________________
@@ -178,8 +193,24 @@ void SdfastBody::copyData(const SdfastBody &aBody)
  */
 void SdfastBody::copyData(const AbstractBody &aBody)
 {
+	// Mass
+	_mass = aBody.getMass();
+
+	// Mass center
 	aBody.getMassCenter(&_massCenter[0]);
+
+	// Inertia tensor
+	double inertia[3][3];
+	aBody.getInertia(inertia);
+	for(int i=0; i<3; i++)
+		for(int j=0; j<3; j++)
+			_inertia[3*i+j] = inertia[i][j];
+
+	// Displayer
 	_displayer = *aBody.getDisplayer();
+
+	// Update SDFast
+	updateSdfast();
 }
 
 //_____________________________________________________________________________
@@ -189,6 +220,7 @@ void SdfastBody::copyData(const AbstractBody &aBody)
 void SdfastBody::setNull()
 {
 	setType("SdfastBody");
+	_SdfastEngine = NULL;
 }
 
 //_____________________________________________________________________________
@@ -197,16 +229,40 @@ void SdfastBody::setNull()
  */
 void SdfastBody::setupProperties()
 {
+	double mass = 1.0;
+	_massProp.setName("mass");
+	_massProp.setValue(mass);
+	_propertySet.append(&_massProp);
+
 	const double defaultMC[] = {0.0, 0.0, 0.0};
 	_massCenterProp.setName("mass_center");
 	_massCenterProp.setValue(3, defaultMC);
 	_propertySet.append(&_massCenterProp);
 
+	const double inertia[] = {1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0};
+	_inertiaProp.setName("inertia");
+	_inertiaProp.setValue(9,inertia);
+	_propertySet.append(&_inertiaProp);
+
 	_displayerProp.setName("Displayer");
 	_propertySet.append(&_displayerProp);
 
 	_indexProp.setName("index");
+	_indexProp.setValue(-2);
 	_propertySet.append(&_indexProp);
+}
+
+//_____________________________________________________________________________
+/**
+ * Update the underlying SDFast parameters, such as mass, to reflect any
+ * changes in the properties for this body.  This method should be called,
+ * for example, after updateFromXMLNode() is called.
+ */
+void SdfastBody::updateSdfast()
+{
+	setMass(_mass);
+	setMassCenter(&_massCenter[0]);
+	setInertia(_inertia);
 }
 
 //_____________________________________________________________________________
@@ -224,6 +280,8 @@ void SdfastBody::setup(AbstractDynamicsEngine* aEngine)
 	_displayer.setOwner(this);
 
 	_SdfastEngine = dynamic_cast<SdfastEngine*>(aEngine);
+
+	updateSdfast();
 }
 
 //=============================================================================
@@ -256,16 +314,11 @@ SdfastBody& SdfastBody::operator=(const SdfastBody &aBody)
  */
 double SdfastBody::getMass() const
 {
-	if (_index < 0)
-		return 0.0;
-
+	if(_index<0) return 0.0;
 	double mass = 0.0;
-
-	sdgetmass(_index, &mass);
-
+	sdgetmass(_index,&mass);
 	return mass;
 }
-
 //_____________________________________________________________________________
 /**
  * Set the mass of the body.
@@ -275,14 +328,23 @@ double SdfastBody::getMass() const
  */
 bool SdfastBody::setMass(double aMass)
 {
-	if (aMass >= 0.0)
-	{
-		sdmass(_index, aMass);
-		sdinit();
-		return true;
+	if(aMass<0.0) {
+		cerr<<"SdfastBody.setMass(): ERROR- zero or negative mass not allowed.\n";
+		return false;
 	}
 
-	return false;
+	// Check to see if the mass is different from what SDFast already has
+	double mass = getMass();
+	if(rdMath::IsEqual(mass,aMass,rdMath::ZERO)) return true;
+
+	// Set new mass
+	cout<<"SdfastBody.setMass: body="<<getName()<<"  orig="<<mass;
+	sdmass(_index, aMass);
+	sdinit();
+	_mass = getMass();
+	cout<<"  new="<<_mass<<endl;
+
+	return true;
 }
 
 //_____________________________________________________________________________
@@ -297,7 +359,6 @@ void SdfastBody::getMassCenter(double rVec[3]) const
 	rVec[1] = _massCenter[1];
 	rVec[2] = _massCenter[2];
 }
- 
 //_____________________________________________________________________________
 /**
  * Set the mass center of the body.
@@ -312,8 +373,10 @@ bool SdfastBody::setMassCenter(double aVec[3])
 	_massCenter[2] = aVec[2];
 
 	SdfastEngine* engine = dynamic_cast<SdfastEngine*>(_dynamicsEngine);
-	if (engine) return engine->adjustJointVectorsForNewMassCenter(this, aVec);
-	else return false;
+	if(engine)
+		return engine->adjustJointVectorsForNewMassCenter(this);
+	else
+		return false;
 }
 
 //_____________________________________________________________________________
@@ -324,9 +387,25 @@ bool SdfastBody::setMassCenter(double aVec[3])
  */
 void SdfastBody::getInertia(double rInertia[3][3]) const
 {
-	sdiner(_index, rInertia);
+	sdgetiner(_index,rInertia);
 }
+//_____________________________________________________________________________
+/**
+ * Get the inertia matrix of the body.
+ *
+ * @param 3x3 inertia matrix.
+ */
+void SdfastBody::getInertia(Array<double> &rInertia) const
+{
+	double inertia[3][3];
+	sdgetiner(_index,inertia);
+	for(int i=0; i<3; i++) {
+		for(int j=0; j<3; j++) {
+			rInertia[i*3+j] = inertia[i][j];
+		}
+	}
 
+}
 //_____________________________________________________________________________
 /**
  * Set the inertia matrix of the body.
@@ -336,19 +415,70 @@ void SdfastBody::getInertia(double rInertia[3][3]) const
  */
 bool SdfastBody::setInertia(const Array<double>& aInertia)
 {
-	if (aInertia.getSize() >= 9)
-	{
-		double inertia[3][3];
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 3; j++)
-				inertia[i][j] = aInertia[i*3+j];
-
-		sdiner(_index, inertia);
-		sdinit();
-		return true;
+	if(aInertia.getSize()<9) {
+		cerr<<"SdfastBody.setInertia: ERROR- inertia requires 9 elements.\n";
+		return false;
 	}
 
-	return false;
+	// Check to see if the inertia is different from what SDFast already has
+	bool same = true;
+	double inertia[3][3];
+	getInertia(inertia);
+	for(int i=0; i<3; i++) {
+		for(int j=0; j<3; j++) {
+			if(!rdMath::IsEqual(inertia[i][j],aInertia[3*i+j],rdMath::ZERO)) same = false;
+		}
+	}
+	if(same==true) return true;
+
+
+	// Update SDFast
+	cout<<"SdfastBody.setInertia: body="<<getName()<<"\n\torig=";
+	for(int i=0; i<3; i++) {
+		for(int j=0; j<3; j++) {
+			cout<<" "<<inertia[i][j];
+			inertia[i][j] = aInertia[i*3+j];
+		}
+	}
+	sdiner(_index,inertia);
+	sdinit();
+
+	// Update property
+	getInertia(_inertia);
+	cout<<"\t"<<_inertia<<endl;
+	return true;
+}
+//_____________________________________________________________________________
+/**
+ * Set the inertia matrix of the body.
+ *
+ * @param aInertia 9-element inertia matrix.
+ * @return Whether inertia matrix was successfully changed.
+ */
+bool SdfastBody::setInertia(const double aInertia[3][3])
+{
+	// Check to see if the inertia is different from what SDFast already has
+	bool same = true;
+	double inertia[3][3];
+	getInertia(inertia);
+	for(int i=0; i<3; i++)
+		for(int j=0; j<3; j++)
+			if(!rdMath::IsEqual(inertia[i][j],aInertia[i][j],rdMath::ZERO)) same = false;
+	if(same==true) return true;
+
+	// Set property
+	for(int i=0; i<3; i++)
+		for(int j=0; j<3; j++)
+			_inertia[i*3+j] = aInertia[i][j];
+
+	// Update SDFast
+	for(int i=0; i<3; i++)
+		for(int j=0; j<3; j++)
+			inertia[i][j] = aInertia[i][j];
+	sdiner(_index,inertia);
+	sdinit();
+
+	return true;
 }
 
 //=============================================================================
@@ -385,15 +515,14 @@ void SdfastBody::scale(Array<double>& aScaleFactors, bool aScaleMass)
 	double oldScaleFactors[3];
 	getDisplayer()->getScaleFactors(oldScaleFactors);
 
-	for (i = 0; i < 3; i++)
-	{
+	for(i=0; i<3; i++) {
 		_massCenter[i] *= aScaleFactors[i];
 		oldScaleFactors[i] *= aScaleFactors[i];
 	}
 	// Update scale factors for displayer
 	getDisplayer()->setScaleFactors(aScaleFactors.get());
 
-	if (aScaleMass)
+	if(aScaleMass)
 		scaleInertialProperties(aScaleFactors);
 }
 
@@ -419,23 +548,20 @@ void SdfastBody::scaleInertialProperties(Array<double>& aScaleFactors)
 	 * factors are equal, ignore reflections-- look only at the
 	 * absolute value of the factors.
 	 */
-	if (mass <= ROUNDOFF_ERROR)
-	{
+	if (mass <= ROUNDOFF_ERROR) {
 		for (i = 0; i < 3; i++)
 			for (j = 0; j < 3; j++)
 				inertia[i][j] = 0.0;
-	}
-	else if (EQUAL_WITHIN_ERROR(DABS(aScaleFactors[0]), DABS(aScaleFactors[1])) &&
-		      EQUAL_WITHIN_ERROR(DABS(aScaleFactors[1]), DABS(aScaleFactors[2])))
-	{
+
+	} else if (EQUAL_WITHIN_ERROR(DABS(aScaleFactors[0]), DABS(aScaleFactors[1])) &&
+		      EQUAL_WITHIN_ERROR(DABS(aScaleFactors[1]), DABS(aScaleFactors[2]))) {
 		mass *= DABS((aScaleFactors[0] * aScaleFactors[1] * aScaleFactors[2]));
 
 		for (i = 0; i < 3; i++)
 			for (j = 0; j < 3; j++)
 				inertia[i][j] *= (aScaleFactors[0] * aScaleFactors[0]);
-	}
-	else
-	{
+
+	} else {
 		/* If the scale factors are not equal, then assume that the segment
 		 * is a cylinder and the inertia is calculated about one end of it.
 		 */
@@ -444,19 +570,16 @@ void SdfastBody::scaleInertialProperties(Array<double>& aScaleFactors)
 		/* 1. Find the smallest diagonal component. This dimension is the axis
 		 *    of the cylinder.
 		 */
-		if (inertia[0][0] <= inertia[1][1])
-		{
+		if (inertia[0][0] <= inertia[1][1]){
 			if (inertia[0][0] <= inertia[2][2])
 				axis = 0;
 			else
 				axis = 2;
-		}
-		else if (inertia[1][1] <= inertia[2][2])
-		{
+
+		} else if (inertia[1][1] <= inertia[2][2]) {
 			axis = 1;
-		}
-		else
-		{
+
+		} else {
 			axis = 2;
 		}
 
@@ -489,22 +612,19 @@ void SdfastBody::scaleInertialProperties(Array<double>& aScaleFactors)
 		mass *= DABS((aScaleFactors[0] * aScaleFactors[1] * aScaleFactors[2]));
 		length *= DABS(aScaleFactors[axis]);
 
-		if (axis == 0)
-		{
+		if (axis == 0) {
 			rad_sqr = radius * DABS(aScaleFactors[1]) * radius * DABS(aScaleFactors[2]);
 			inertia[0][0] = 0.5 * mass * rad_sqr;
 			inertia[1][1] = mass * ((length * length / 3.0) + 0.25 * rad_sqr);
 			inertia[2][2] = mass * ((length * length / 3.0) + 0.25 * rad_sqr);
-		}
-		else if (axis == 1)
-		{
+
+		} else if (axis == 1) {
 			rad_sqr = radius * DABS(aScaleFactors[0]) * radius * DABS(aScaleFactors[2]);
 			inertia[0][0] = mass * ((length * length / 3.0) + 0.25 * rad_sqr);
 			inertia[1][1] = 0.5 * mass * rad_sqr;
 			inertia[2][2] = mass * ((length * length / 3.0) + 0.25 * rad_sqr);
-		}
-		else
-		{
+
+		} else {
 			rad_sqr = radius * DABS(aScaleFactors[0]) * radius * DABS(aScaleFactors[1]);
 			inertia[0][0] = mass * ((length * length / 3.0) + 0.25 * rad_sqr);
 			inertia[1][1] = mass * ((length * length / 3.0) + 0.25 * rad_sqr);
@@ -520,28 +640,12 @@ void SdfastBody::scaleInertialProperties(Array<double>& aScaleFactors)
 		inertia[2][1] *= DABS((aScaleFactors[2] * aScaleFactors[1]));
 	}
 
-	sdmass(_index, mass);
-	sdiner(_index, inertia);
-	// TODO: check for SD/FAST errors
+	// Update properties and SDFast
+	setMass(mass);
+	setInertia(inertia);
 }
 
-//=============================================================================
-// ITERATORS FOR COMPONENTS
-//=============================================================================
-//_____________________________________________________________________________
-/**
- * Make an iterator for the body's bone set.
- *
- * @return Pointer to the bone iterator.
-BoneIterator* SdfastBody::newBoneIterator() const
-{
-	return new BoneSetIterator(_boneSet);
-}
- */
 
-//=============================================================================
-// I/O
-//=============================================================================
 //=============================================================================
 // UTILITY
 //=============================================================================
@@ -555,9 +659,9 @@ BoneIterator* SdfastBody::newBoneIterator() const
  * @param aPos The point in the body frame to transform
  * @param rPos The point transformed into the SD/FAST frame
  */
-void SdfastBody::transformToSdfastFrame(const double aPos[3], double rPos[3]) const
+void SdfastBody::transformToSdfastFrame(const double aPos[3],double rPos[3]) const
 {
-	for (int i = 0; i < 3; i++)
+	for(int i=0; i<3; i++)
 		rPos[i] = aPos[i] - _massCenter[i];
 }
 
@@ -573,7 +677,7 @@ void SdfastBody::transformToSdfastFrame(const double aPos[3], double rPos[3]) co
  */
 void SdfastBody::transformToSdfastFrame(const Array<double>& aPos, double rPos[3]) const
 {
-	for (int i = 0; i < 3; i++)
+	for(int i=0; i<3; i++)
 		rPos[i] = aPos[i] - _massCenter[i];
 }
 
@@ -589,7 +693,7 @@ void SdfastBody::transformToSdfastFrame(const Array<double>& aPos, double rPos[3
  */
 void SdfastBody::transformFromSdfastFrame(const double aPos[3], double rPos[3]) const
 {
-	for (int i = 0; i < 3; i++)
+	for(int i=0; i<3; i++)
 		rPos[i] = aPos[i] + _massCenter[i];
 }
 
@@ -605,7 +709,7 @@ void SdfastBody::transformFromSdfastFrame(const double aPos[3], double rPos[3]) 
  */
 void SdfastBody::transformFromSdfastFrame(const Array<double>& aPos, double rPos[3]) const
 {
-	for (int i = 0; i < 3; i++)
+	for(int i=0; i<3; i++)
 		rPos[i] = aPos[i] + _massCenter[i];
 }
 

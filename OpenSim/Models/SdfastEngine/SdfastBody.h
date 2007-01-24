@@ -49,7 +49,7 @@ class SdfastEngine;
 /**
  * A class implementing a SIMM body segment.
  *
- * @author Peter Loan
+ * @author Peter Loan, Frank C. Anderson
  * @version 1.0
  */
 class SDFAST_ENGINE_API SdfastBody : public AbstractBody  
@@ -59,19 +59,32 @@ class SDFAST_ENGINE_API SdfastBody : public AbstractBody
 // DATA
 //=============================================================================
 protected:
+	/** Mass of the body. */
+	PropertyDbl _massProp;
+	double &_mass;
+
+	/** Mass center of body. */
 	PropertyDblArray _massCenterProp;
 	Array<double> &_massCenter;
 
-	// Support of display.
+	/** Inertia tensor of the body about the center of mass when the local body
+	reference frame is aligned with the global reference frame.  This is a
+	9-element array in the following order:
+	Ixx, Ixy, Ixz, Iyx, Iyy, Iyz, Izx, Izy, Izz. */
+	PropertyDblArray _inertiaProp;
+	Array<double> &_inertia;
+
+	/** For display of the body. */
 	PropertyObj _displayerProp;
 	VisibleObject &_displayer;
 
-	// index of this body in the SD/FAST code
+	/** Index of this body in the SD/FAST code. */
 	PropertyInt _indexProp;
 	int &_index;
 
-	// Sdfast engine that contains this body
+	/** Pointer to the SdfastEngine that contains this body. */
 	SdfastEngine* _SdfastEngine;
+
 //=============================================================================
 // METHODS
 //=============================================================================
@@ -97,8 +110,10 @@ public:
 	virtual bool setMass(double aMass);
 	virtual void getMassCenter(double rVec[3]) const;
 	virtual bool setMassCenter(double aVec[3]);
+	virtual void getInertia(Array<double> &rInertia) const;
 	virtual void getInertia(double rInertia[3][3]) const;
 	virtual bool setInertia(const Array<double>& aInertia);
+	virtual bool setInertia(const double aInertia[3][3]);
 	virtual void scale(Array<double>& aScaleFactors, bool aScaleMass = false);
 	virtual void scaleInertialProperties(Array<double>& aScaleFactors);
 	virtual VisibleObject* getDisplayer() const { return &_displayer; }
@@ -115,6 +130,7 @@ public:
 private:
 	void setNull();
 	void setupProperties();
+	void updateSdfast();
 //=============================================================================
 };	// END of class SdfastBody
 //=============================================================================
