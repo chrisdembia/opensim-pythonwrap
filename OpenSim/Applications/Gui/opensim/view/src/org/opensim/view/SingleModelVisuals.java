@@ -62,6 +62,7 @@ public class SingleModelVisuals {
     private double[] bounds = new double[6];
     private boolean visible;
     private double[] defaultMuscleColor = new double[]{0.8, 0.1, 0.1};
+    private double[] defaultMarkerColor = new double[]{0.0, 0.0, 1.0};
     private double defaultMuscleRadius = .005;
     // Maps between objects and vtkProp3D for going from Actor to Object and vice versa
     // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
@@ -72,21 +73,16 @@ public class SingleModelVisuals {
     private Hashtable<OpenSimObject, vtkActorCollection> mapObject2ActorCollections = new
             Hashtable<OpenSimObject, vtkActorCollection>();
 
-    private OpenSimGlyph[] objectClouds = new OpenSimGlyph[3]; //Markers, musclePoints, muscleSegments
-    private vtkPolyDataAlgorithm[] glyphShapes = new vtkPolyDataAlgorithm[]{
-            new vtkSphereSource(),
-            new vtkSphereSource(),
-            new vtkCylinderSource()
-        };
+    //OpenSimVisObjectCloud  markersRep=new OpenSimVisObjectCloud();
+    //OpenSimVisObjectCloud  musclePointsRep=new OpenSimVisObjectCloud();
+    //OpenSimVisObjectCloud  muscleSegmentsRep=new OpenSimVisObjectCloud();
+    
     private vtkProp3DCollection    userObjects = new vtkProp3DCollection();
     /**
      * Creates a new instance of SingleModelVisuals
      */
     public SingleModelVisuals(AbstractModel aModel) {
-        for(int i=0; i<3; i++){
-            objectClouds[i]=new OpenSimGlyph();
-            objectClouds[i].setGlyphSource(glyphShapes[i].GetOutput());
-        }
+        initDefaultShapesAndColors();
         modelDisplayAssembly = createModelAssembly(aModel);
         setVisible(true);
     }
@@ -615,5 +611,13 @@ public class SingleModelVisuals {
       userObjects.RemoveItem(userObj);
       modelDisplayAssembly.RemovePart(userObj);
    }
+
+    private void initDefaultShapesAndColors() {
+        //markersRep.setShape();
+        //markersRep.setColor(defaultMarkerColor);
+        //musclePointsRep.setShape();
+        //musclePointsRep.setColor(defaultMuscleColor);
+        
+    }
    
 }

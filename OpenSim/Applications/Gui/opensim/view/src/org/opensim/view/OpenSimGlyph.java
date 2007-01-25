@@ -9,10 +9,12 @@
 
 package org.opensim.view;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 import vtk.vtkActor;
 import vtk.vtkDataArray;
@@ -31,12 +33,11 @@ public class OpenSimGlyph {
    
     private vtkGlyph3D lineGlyph = new vtkGlyph3D();
 
-    protected double highlightFactor = 1.01;
-    private vtkGlyph3D highlightGlyph = new vtkGlyph3D();   
-    
     private vtkActor actor = new vtkActor();
     private vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-
+    private List<String> shapeNames = new ArrayList<String>(5);
+    private List<vtkPolyData> shapes = new ArrayList<vtkPolyData>(5);
+    
     OpenSimGlyph() {
         
         colorScalars.SetNumberOfComponents(1);
@@ -55,39 +56,37 @@ public class OpenSimGlyph {
         
         actor.SetMapper(mapper);
 
-        highlightGlyph.SetInput(lineData);
-        highlightGlyph.SetScaleFactor(highlightFactor);
-        
-        //highlightMapper.SetInput(highlightGlyph.GetOutput());
-
-        //highlightActor.SetMapper(highlightMapper);
-        //highlightActor.GetProperty().SetRepresentationToWireframe();
     }
-
+    // Empty arrays/lists and restart
+    void flushShapes()
+    {
+        shapeNames.clear();
+        shapes.clear();
+    }
     // Override these functions to use TensorGlyph rather than vtkGlyph3D
-    public void setGlyphSource(vtkPolyData data) {
+    public int addGlyphSource(String name, vtkPolyData data) {
         lineGlyph.SetSource(data);
-        highlightGlyph.SetSource(data);
         // growPointsFilter.SetInput(data);
+        return 0;
     }
     public void scaleByNormal() {
         lineGlyph.SetScaleModeToScaleByVector(); // Take length from normal
         lineGlyph.SetVectorModeToUseNormal(); // Take direction from normal
 
-        highlightGlyph.SetScaleModeToScaleByVector(); // Take length from normal
-        highlightGlyph.SetVectorModeToUseNormal(); // Take direction from normal
+        //highlightGlyph.SetScaleModeToScaleByVector(); // Take length from normal
+        //highlightGlyph.SetVectorModeToUseNormal(); // Take direction from normal
     }
     public void scaleNone() {
         lineGlyph.SetScaleModeToDataScalingOff(); // Do not adjust size
-        highlightGlyph.SetScaleModeToDataScalingOff(); // Do not adjust size
+        //highlightGlyph.SetScaleModeToDataScalingOff(); // Do not adjust size
     }
     public void orientByNormal() {
         lineGlyph.SetVectorModeToUseNormal(); // Take direction from normal        
-        highlightGlyph.SetVectorModeToUseNormal(); // Take direction from normal        
+        //highlightGlyph.SetVectorModeToUseNormal(); // Take direction from normal        
     }
     public void colorByScalar() {
         lineGlyph.SetColorModeToColorByScalar(); // Take color from scalar        
-        highlightGlyph.SetColorModeToColorByScalar(); // Take color from scalar
+        //highlightGlyph.SetColorModeToColorByScalar(); // Take color from scalar
     }
 
     class GlyphPosition {

@@ -9,8 +9,6 @@
 
 package org.opensim.motionviewer;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
@@ -20,16 +18,17 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.MarkerSet;
-import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmMotionData;
+import org.opensim.view.OpenSimvGlyphCloud;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkActor;
 
 /**
- *
+ * 
+ * 
  * @author Ayman. This class is used to preprocess motion files (SimmMotionData or similar) so taht
- * 1. Maping column indices to markers, gcs, ... is done only once.
- * 2. If additional objects need to be created for force or other markers they are maintained here.
+ * 1. Maping column indices to markersRep, gcs, ... is done only once.
+ * 2. If additional objects need to be created for force or other markersRep they are maintained here.
  * 3. This isolates the display code from the specifics of SimmMotionData so that OpenSim proper creatures can be used.
  */
 public class MotionDisplayer {
@@ -56,13 +55,17 @@ public class MotionDisplayer {
 
     Hashtable<Integer, ObjectTypesInMotionFiles> mapIndicesToObjectTypes=new Hashtable<Integer, ObjectTypesInMotionFiles>(40);
     Hashtable<Integer, Object> mapIndicesToObjects=new Hashtable<Integer, Object>(40);
+    OpenSimvGlyphCloud  forcesRep=new OpenSimvGlyphCloud();
+    OpenSimvGlyphCloud  markersRep=new OpenSimvGlyphCloud();
+    
     // A local copy of motionObjects so that different motions have different motion objects
     //Hashtable<String, vtkActor> motionObjectInstances =new Hashtable<String, vtkActor>(10);
     
     /** Creates a new instance of MotionDisplayer */
     public MotionDisplayer(SimmMotionData motionData, AbstractModel model) {
         this.model = model;
-
+        AddMotionObjectsRep(model);
+        
         ArrayStr colNames = motionData.getColumnNames();
         // We should build sorted lists of object names so that we can find them easily
         for(int i=0; i < motionData.getNumColumns(); i++){
@@ -73,6 +76,20 @@ public class MotionDisplayer {
            if (numClassified>1)  // If we did a group then skip the group
               i += (numClassified-1);
         }
+    }
+
+    private void AddMotionObjectsRep(final AbstractModel model) {
+        forcesRep.setShape(MotionObjectsDB.getInstance().getShape("force"));
+        forcesRep.setColor(new double[]{0., 1.0, 0.});
+        forcesRep.setOpacity(0.7);
+        forcesRep.orientByNormal();
+        forcesRep.setScaleFactor(0.001);
+        forcesRep.scaleByVector();
+        
+        markersRep.setShape(MotionObjectsDB.getInstance().getShape("marker"));
+        markersRep.setColor(new double[]{1.0, 0.6, 0.8});
+        ViewDB.getInstance().getModelVisuals(model).addUserObject(forcesRep.getVtkActor());
+        ViewDB.getInstance().getModelVisuals(model).addUserObject(markersRep.getVtkActor());
     }
 
     public AbstractModel getModel() {
@@ -88,7 +105,8 @@ public class MotionDisplayer {
      * to the map "mapIndicesToObjects" for quick access during animation
      *
      * returns the number of columns that has been classified since _px may lead to _py, _pz
-     * so we don't want to start name searching from scratch!
+     * so we don't want to start name searching from scratch.
+     * A side effect is the creation of motion object instances and adding them to the model
      **/
    private int classifyColumn(int columnIndex, String columnName) 
    {
@@ -138,7 +156,7 @@ public class MotionDisplayer {
             return 1;
          }
       }
-     // Body segment since experimental markers are in ground frame as ground_marker_??
+     // Body segment since experimental markersRep are in ground frame as ground_marker_??
        BodySet bodySet = model.getDynamicsEngine().getBodySet();
        String[] motionObjectNames=MotionObjectsDB.getInstance().getAvailableNames();
        for (int i = 0; i<bodySet.getSize(); i++){
@@ -151,12 +169,12 @@ public class MotionDisplayer {
                   mapIndicesToObjectTypes.put(columnIndex,   ObjectTypesInMotionFiles.Segment_marker_p1);
                   mapIndicesToObjectTypes.put(columnIndex+1, ObjectTypesInMotionFiles.Segment_marker_p2);
                   mapIndicesToObjectTypes.put(columnIndex+2, ObjectTypesInMotionFiles.Segment_marker_p3);
-                  vtkActor actorRep = MotionObjectsDB.getInstance().getMotionObject("marker");
-                  mapIndicesToObjects.put(columnIndex, actorRep);
-                  mapIndicesToObjects.put(columnIndex+1, actorRep);
-                  mapIndicesToObjects.put(columnIndex+2, actorRep);
+                  int index= markersRep.addPoint(0., 0., 0.);
+                  mapIndicesToObjects.put(columnIndex, new Integer(index));
+                  mapIndicesToObjects.put(columnIndex+1, new Integer(index));
+                  mapIndicesToObjects.put(columnIndex+2, new Integer(index));
                   System.out.println("Added marker user object to model");
-                  ViewDB.getInstance().getModelVisuals(model).addUserObject(actorRep);
+                  //ViewDB.getInstance().getModelVisuals(model).addUserObject(actorRep);
                   return 3;
                }
                else {
@@ -173,15 +191,16 @@ public class MotionDisplayer {
                   mapIndicesToObjectTypes.put(columnIndex+3, ObjectTypesInMotionFiles.Segment_force_p4);
                   mapIndicesToObjectTypes.put(columnIndex+4, ObjectTypesInMotionFiles.Segment_force_p5);
                   mapIndicesToObjectTypes.put(columnIndex+5, ObjectTypesInMotionFiles.Segment_force_p6);
-                  vtkActor actorRep = MotionObjectsDB.getInstance().getMotionObject("force");
-                  mapIndicesToObjects.put(columnIndex, actorRep);
-                  mapIndicesToObjects.put(columnIndex+1, actorRep);
-                  mapIndicesToObjects.put(columnIndex+2, actorRep);
-                  mapIndicesToObjects.put(columnIndex+3, actorRep);
-                  mapIndicesToObjects.put(columnIndex+4, actorRep);
-                  mapIndicesToObjects.put(columnIndex+5, actorRep);
+                  //vtkActor actorRep = MotionObjectsDB.getInstance().getMotionObject("force");
+                  int index= forcesRep.addPoint(0., 0., 0.);
+                  mapIndicesToObjects.put(columnIndex, new Integer(index));
+                  mapIndicesToObjects.put(columnIndex+1, new Integer(index));
+                  mapIndicesToObjects.put(columnIndex+2, new Integer(index));
+                  mapIndicesToObjects.put(columnIndex+3, new Integer(index));
+                  mapIndicesToObjects.put(columnIndex+4, new Integer(index));
+                  mapIndicesToObjects.put(columnIndex+5, new Integer(index));
                   System.out.println("Added force user object to model");
-                  ViewDB.getInstance().getModelVisuals(model).addUserObject(actorRep);
+                  //ViewDB.getInstance().getModelVisuals(model).addUserObject(actorRep);
                   return 6;
                }
                else{
@@ -209,27 +228,27 @@ public class MotionDisplayer {
                ((AbstractCoordinate)(mapIndicesToObjects.get(i))).setValue(simmMotionData.getValue(colName, currentFrame));
                break;
             case Segment_marker_p1:
-               vtkActor rep = ((vtkActor)(mapIndicesToObjects.get(i)));
-               rep.SetPosition(simmMotionData.getValue(i, currentFrame), 
+               int markerIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
+               markersRep.setPoint(markerIndex, simmMotionData.getValue(i, currentFrame), 
                        simmMotionData.getValue(i+1, currentFrame),
                        simmMotionData.getValue(i+2, currentFrame));
                break;
             case Segment_force_p1:
-               vtkActor rep2 = ((vtkActor)(mapIndicesToObjects.get(i)));
-               //rep2.SetUserTransform()  // orientation
-               rep2.SetPosition(simmMotionData.getValue(i+3, currentFrame), 
-                       simmMotionData.getValue(i+4, currentFrame),
-                       simmMotionData.getValue(i+5, currentFrame));
                System.out.println("Force:pos"+simmMotionData.getValue(i+3, currentFrame)+", "
                        + simmMotionData.getValue(i+4, currentFrame)+", "
                        + simmMotionData.getValue(i+5, currentFrame));
-                       
+               int forceIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
+               forcesRep.setNormalAtPoint(forceIndex, simmMotionData.getValue(i, currentFrame), 
+                       simmMotionData.getValue(i+1, currentFrame),
+                       simmMotionData.getValue(i+2, currentFrame));
+               forcesRep.setPoint(forceIndex, simmMotionData.getValue(i+3, currentFrame), 
+                       simmMotionData.getValue(i+4, currentFrame),
+                       simmMotionData.getValue(i+5, currentFrame));
                break;
             default:
                break;
          }
       }
-
-   }
+    }
 
 }

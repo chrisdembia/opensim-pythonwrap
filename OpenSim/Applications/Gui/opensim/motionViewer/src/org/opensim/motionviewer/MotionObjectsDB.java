@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.Set;
 import vtk.vtkActor;
 import vtk.vtkArrowSource;
+import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkSphereSource;
 
@@ -43,8 +44,8 @@ public class MotionObjectsDB {
    /** Creates a new instance of MotionObjectsDB */
    static MotionObjectsDB instance;
    // Map model to an ArrayList of Motions linked with it
-   static Hashtable<String, vtkActor> motionObjectsMap =
-           new Hashtable<String, vtkActor>(10);
+   static Hashtable<String, vtkPolyData> motionObjectsMap =
+           new Hashtable<String, vtkPolyData>(10);
    
    /** Creates a new instance of MotionsDB */
    private MotionObjectsDB() {
@@ -81,54 +82,34 @@ public class MotionObjectsDB {
       
       return names;
    }
-
-   vtkActor getMotionObject(String motionObjectName) { 
-      if (motionObjectName.equals("marker"))
-         return createMarker();
-      else if (motionObjectName.equals("force"))
-         return createArrow();
-      else
-         return null;
-   }
    
-   void addNewMotionObject(String newObjectName, vtkActor newObjectRep) {
+   void addNewMotionObject(String newObjectName, vtkPolyData newObjectRep) {
       motionObjectsMap.put(newObjectName, newObjectRep);
    }
 
-   private vtkActor createBall() {
+   private vtkPolyData createBall() {
       vtkSphereSource ball = new vtkSphereSource();
-      vtkActor objectActor = new vtkActor();
       ball.SetRadius(1.0);
       ball.SetCenter(0., 0., 0.);
-      vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-      mapper.SetInput(ball.GetOutput());
-      objectActor.GetProperty().SetColor(1., 0., .75);
-      objectActor.SetMapper(mapper);
-      return objectActor;
+      return ball.GetOutput();
    }
 
-   private vtkActor createMarker() {
+   private vtkPolyData createMarker() {
       vtkSphereSource marker=new vtkSphereSource();
-      vtkActor markerActor = new vtkActor();
       marker.SetRadius(.01);
       marker.SetCenter(0., 0., 0.);
-      vtkPolyDataMapper markerMapper = new vtkPolyDataMapper();
-      markerMapper.SetInput(marker.GetOutput());
-      markerActor.GetProperty().SetColor(1., 0., .75);
-      markerActor.SetMapper(markerMapper);
-      return markerActor;
+      return marker.GetOutput();
    }
 
-   private vtkActor createArrow() {
+   private vtkPolyData createArrow() {
       vtkArrowSource force=new vtkArrowSource();
-      vtkActor forceActor = new vtkActor();
       force.SetShaftRadius(0.02);
       force.SetTipLength(0.1);
-      vtkPolyDataMapper forceMapper = new vtkPolyDataMapper();
-      forceMapper.SetInput(force.GetOutput());
-      forceActor.GetProperty().SetColor(0.6, 1., .2);
-      forceActor.SetMapper(forceMapper);
-      return forceActor;
+      return force.GetOutput();
    }
+
+    vtkPolyData getShape(String shapeName) {
+        return motionObjectsMap.get(shapeName);
+    }
    
 }
