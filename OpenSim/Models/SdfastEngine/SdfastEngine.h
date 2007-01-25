@@ -33,7 +33,6 @@
 #include <OpenSim/Tools/Array.h>
 #include <OpenSim/Tools/Object.h>
 #include <OpenSim/Tools/PropertyObj.h>
-#include <OpenSim/Tools/PropertyDblArray.h>
 #include <OpenSim/Tools/ArrayPtrs.h>
 #include <OpenSim/Tools/Function.h>
 #include <OpenSim/Tools/NatCubicSpline.h>
@@ -101,9 +100,6 @@ public:
 protected:
 	/** Body number for ground. */
 	static const int GROUND;
-
-	PropertyDblArray _gravityProp;
-	Array<double> &_gravity;
 
 	AbstractBody* _groundBody;
 
@@ -204,7 +200,6 @@ public:
 	//--------------------------------------------------------------------------
 	// GRAVITY
 	//--------------------------------------------------------------------------
-	virtual void getGravity(double rGrav[3]) const;
 	virtual bool setGravity(double aGrav[3]);
 
 	//--------------------------------------------------------------------------

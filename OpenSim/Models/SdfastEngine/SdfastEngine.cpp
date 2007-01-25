@@ -74,8 +74,7 @@ static char simmGroundName[] = "ground";
  * Default constructor.
  */
 SdfastEngine::SdfastEngine() :
-	AbstractDynamicsEngine(),
-   _gravity(_gravityProp.getValueDblArray())
+	AbstractDynamicsEngine()
 {
 	setNull();
 	setupProperties();
@@ -87,8 +86,7 @@ SdfastEngine::SdfastEngine() :
  * Constructor from an XML Document
  */
 SdfastEngine::SdfastEngine(const string &aFileName) :
-	AbstractDynamicsEngine(aFileName),
-   _gravity(_gravityProp.getValueDblArray())
+	AbstractDynamicsEngine(aFileName)
 {
 	setNull();
 	setupProperties();
@@ -101,8 +99,7 @@ SdfastEngine::SdfastEngine(const string &aFileName) :
  * Constructor from an XML node
  */
 SdfastEngine::SdfastEngine(DOMElement *aElement) :
-	AbstractDynamicsEngine(aElement),
-   _gravity(_gravityProp.getValueDblArray())
+	AbstractDynamicsEngine(aElement)
 {
 	setNull();
 	setupProperties();
@@ -129,8 +126,7 @@ SdfastEngine::~SdfastEngine()
  * Copy constructor.
  */
 SdfastEngine::SdfastEngine(const SdfastEngine& aEngine) :
-   AbstractDynamicsEngine(aEngine),
-   _gravity(_gravityProp.getValueDblArray())
+   AbstractDynamicsEngine(aEngine)
 {
 	// Should the copy constructor ever be called???
 	setNull();
@@ -200,6 +196,8 @@ void SdfastEngine::init()
 
 	// static instance
 	_Instance = this;
+
+	setGravity(&_gravity[0]); // force sdgrav to be called
 }
 
 //_____________________________________________________________________________
@@ -262,7 +260,6 @@ void SdfastEngine::constructSystemVariables()
  */
 void SdfastEngine::copyData(const SdfastEngine &aEngine)
 {
-	_gravity = aEngine._gravity;
 	_groundBody = aEngine._groundBody;
 	_numBodies = aEngine._numBodies;
 	_numQs = aEngine._numQs;
@@ -362,11 +359,6 @@ void SdfastEngine::setupProperties()
 
 	_jointSetProp.setName("SdfastJointSet");
 	_propertySet.append(&_jointSetProp);
-
-	const double defaultGravity[] = {0.0, -9.80665, 0.0};
-	_gravityProp.setName("gravity");
-	_gravityProp.setValue(3, defaultGravity);
-	_propertySet.append(&_gravityProp);
 }
 
 //_____________________________________________________________________________
@@ -791,31 +783,17 @@ void SdfastEngine::assemble()
 //--------------------------------------------------------------------------
 //_____________________________________________________________________________
 /**
- * Get the gravity vector in the gloabl frame.
- *
- * @param rGrav the XYZ gravity vector in the global frame is returned here.
- */
-void SdfastEngine::getGravity(double rGrav[3]) const
-{
-	for (int i = 0; i < 3; i++)
-		rGrav[i] = _gravity[i];
-}
-
-//_____________________________________________________________________________
-/**
- * Set the gravity vector in the gloabl frame.
+ * Set the gravity vector in the gloabl frame (and calls down to SD/Fast to
+ * update its gravity vector)
  *
  * @param aGrav the XYZ gravity vector
  * @return Whether or not the gravity vector was successfully set.
  */
 bool SdfastEngine::setGravity(double aGrav[3])
 {
-	for (int i = 0; i < 3; i++)
-		_gravity[i] = aGrav[i];
-
+	AbstractDynamicsEngine::setGravity(aGrav);
 	sdgrav(aGrav);
 	sdinit(); // it is imporant to call this after sdgrav
-
 	return true;
 }
 
@@ -2306,8 +2284,6 @@ void SdfastEngine::peteTest() const
 	int i;
 
 	cout << "Kinematics Engine:" << endl;
-
-	cout << "gravity = " << _gravity << endl;
 
 	if (_bodySet.getSize() < 1)
 	{

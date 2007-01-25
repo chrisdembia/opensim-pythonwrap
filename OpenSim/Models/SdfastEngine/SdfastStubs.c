@@ -112,3 +112,5 @@ void compute_constrained_coords(double *y) { }
 void sdjnt(int joint, int info[50], int tran[6]) { }
 
 void sdgrav(double gravin[3]) { }
+
+void sdgetgrav(double gravout[3]) { }
