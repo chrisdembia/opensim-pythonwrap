@@ -68,7 +68,6 @@
 	</SimmCoordinate>
 	<SimmCoordinate name="hip_rotation_l">
 		<locked>false</locked> 
-		<weight>10.0</weight> 
 		<weight>3282.806350635</weight> 
 	</SimmCoordinate>
 	<SimmCoordinate name="knee_angle_l">
