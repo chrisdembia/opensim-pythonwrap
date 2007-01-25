@@ -813,6 +813,9 @@ bool SdfastEngine::setGravity(double aGrav[3])
 	for (int i = 0; i < 3; i++)
 		_gravity[i] = aGrav[i];
 
+	sdgrav(aGrav);
+	sdinit(); // it is imporant to call this after sdgrav
+
 	return true;
 }
 
