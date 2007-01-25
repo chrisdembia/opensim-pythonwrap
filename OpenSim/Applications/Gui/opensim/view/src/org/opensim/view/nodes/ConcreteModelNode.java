@@ -21,7 +21,6 @@ public class ConcreteModelNode extends OpenSimObjectNode {
         getChildren().add(new Node[] {new BodiesNode(m.getDynamicsEngine().getBodySet())});
         getChildren().add(new Node[] {new MusclesNode(m.getActuatorSet())});
         getChildren().add(new Node[] {new JointsNode(m)});
-        getChildren().add(new Node[] {new MotionsNode()});
    }
     public AbstractModel getModel()
     {

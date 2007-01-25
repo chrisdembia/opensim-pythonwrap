@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package org.opensim.view;
+package org.opensim.motionviewer;
 
 import java.util.EventObject;
 import org.opensim.modeling.AbstractModel;

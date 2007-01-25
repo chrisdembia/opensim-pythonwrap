@@ -27,7 +27,6 @@ import org.opensim.modeling.AbstractModel;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.nodes.OpenSimNode;
 import org.opensim.view.nodes.OpenSimObjectNode;
-import org.opensim.view.pub.MotionsDB;
 import org.opensim.view.pub.OpenSimDB;
 
 /**
@@ -57,7 +56,6 @@ final public class ExplorerTopComponent extends TopComponent
         setToolTipText(NbBundle.getMessage(ExplorerTopComponent.class, "HINT_ExplorerTopComponent"));
         // Add explorer as observer of the database
         OpenSimDB.getInstance().addObserver(this);
-        MotionsDB.getInstance().addObserver(this);
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
         setLayout(new BorderLayout());
         add(modelTree, BorderLayout.CENTER);
@@ -228,6 +226,7 @@ final public class ExplorerTopComponent extends TopComponent
                 }});
  
         }
+        /* Take Motions node out for now, we'll add it from the motionviewer project later.
         else if (arg instanceof MotionEvent){
             final MotionEvent evnt = (MotionEvent)arg;
              // Add the model to the Tree window.
@@ -251,7 +250,7 @@ final public class ExplorerTopComponent extends TopComponent
                     }
                 }
             });
-        }
+        } */
 
 
     }
@@ -307,5 +306,12 @@ final public class ExplorerTopComponent extends TopComponent
         }
         
                     
+    }
+    /**
+     * Get a reference to the navigator/explorer node represtning the passed in model 
+     */
+    public ConcreteModelNode getModelNode(final AbstractModel abstractModel)
+    {
+       return mapModels2Nodes.get(abstractModel);
     }
 }

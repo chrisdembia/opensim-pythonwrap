@@ -133,7 +133,7 @@
         <Property name="paintTicks" type="boolean" value="true"/>
         <Property name="paintTrack" type="boolean" value="false"/>
         <Property name="model" type="javax.swing.BoundedRangeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="sliderModel&#xa;" type="code"/>
+          <Connection code="masterMotion.getSliderModel()" type="code"/>
         </Property>
       </Properties>
     </Component>

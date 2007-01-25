@@ -40,6 +40,7 @@ import vtk.vtkActorCollection;
 import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkAppendPolyData;
 import vtk.vtkLODActor;
+
 /**
  *
  * @author Ayman. A class representing the visuals of one model.
@@ -77,7 +78,7 @@ public class SingleModelVisuals {
             new vtkSphereSource(),
             new vtkCylinderSource()
         };
-    
+    private vtkProp3DCollection    userObjects = new vtkProp3DCollection();
     /**
      * Creates a new instance of SingleModelVisuals
      */
@@ -168,7 +169,7 @@ public class SingleModelVisuals {
             // Bodies have things attached to them as handled by the
             // dependents mechanism. For each one of these a new vtkActor is created and attached 
             // to the same xform as the owner body.
-             /*
+             
             int ct = bodyDisplayer.countDependents();
             
             double[] color = new double[3];
@@ -212,7 +213,7 @@ public class SingleModelVisuals {
                 //modelAssembly.AddPart(markersActor);
                 modelAssembly.AddPart(attachmentRep);
                 mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
-            }**/
+            }
         } //body
         //System.out.println("Before adding muscles:"+modelAssembly.Print());
         /**
@@ -496,18 +497,19 @@ public class SingleModelVisuals {
             // For dependents (markers, muscle points, update xforms as well)
             VisibleObject bodyDisplayer = body.getDisplayer();
             int ct = bodyDisplayer.countDependents();
-            /*
+            
             //System.out.println("Body "+body+" has "+ct+ " dependents");
             for(int j=0; j < ct;j++){
                 VisibleObject dependent = bodyDisplayer.getDependent(j);
                 vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
                 deptAssembly.SetUserMatrix(bodyVtkTransform);
             }
-            */
+            
         }
         // Now the muscles
         //updateActuatorsGeometry(model);
         //animationCallback.mutex_end(1);
+        updateUserObjects();
    }
    /**
     * Utility to convert Transform as defined by OpenSim to the form used by vtk
@@ -595,4 +597,23 @@ public class SingleModelVisuals {
          } // ArraySize        
       }
    }
+   /**
+    * Method used to update display of motion objects during animation 
+    */
+   private void updateUserObjects() {
+      
+   }
+   
+   public void addUserObject(vtkActor userObj){
+      if (userObjects.IsItemPresent(userObj)==0){
+        userObjects.AddItem(userObj);
+        modelDisplayAssembly.AddPart(userObj);
+      }
+   }
+   
+   public void removeUserObject(vtkActor userObj){
+      userObjects.RemoveItem(userObj);
+      modelDisplayAssembly.RemovePart(userObj);
+   }
+   
 }

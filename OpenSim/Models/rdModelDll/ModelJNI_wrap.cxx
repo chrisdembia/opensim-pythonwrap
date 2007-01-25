@@ -42293,7 +42293,7 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionData_
 }
 
 
-JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionData_1getValue(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jint jarg3) {
+JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionData_1getValue_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2, jint jarg3) {
   jdouble jresult = 0 ;
   OpenSim::SimmMotionData *arg1 = (OpenSim::SimmMotionData *) 0 ;
   std::string *arg2 = 0 ;
@@ -42314,6 +42314,24 @@ JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionDa
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
   arg3 = (int)jarg3; 
   result = (double)(arg1)->getValue((std::string const &)*arg2,arg3);
+  jresult = (jdouble)result; 
+  return jresult;
+}
+
+
+JNIEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionData_1getValue_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jint jarg3) {
+  jdouble jresult = 0 ;
+  OpenSim::SimmMotionData *arg1 = (OpenSim::SimmMotionData *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  double result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMotionData **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  result = (double)(arg1)->getValue(arg2,arg3);
   jresult = (jdouble)result; 
   return jresult;
 }
@@ -42494,6 +42512,23 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionData_
   arg3 = &arg3_str;
   jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
   ((OpenSim::SimmMotionData const *)arg1)->writeSIMMMotionFile((std::string const &)*arg2,(std::string const &)*arg3);
+}
+
+
+JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMotionData_1getColumnNames(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  OpenSim::SimmMotionData *arg1 = (OpenSim::SimmMotionData *) 0 ;
+  OpenSim::Array<std::string > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmMotionData **)&jarg1; 
+  {
+    OpenSim::Array<std::string > const &_result_ref = ((OpenSim::SimmMotionData const *)arg1)->getColumnNames();
+    result = (OpenSim::Array<std::string > *) &_result_ref;
+  }
+  *(OpenSim::Array<std::string > **)&jresult = result; 
+  return jresult;
 }
 
 

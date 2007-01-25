@@ -4,7 +4,7 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.utils.FileUtils;
-import org.opensim.view.pub.MotionsDB;
+import org.opensim.motionviewer.MotionsDB;
 
 public final class FileLoadMotionAction extends CallableSystemAction {
    

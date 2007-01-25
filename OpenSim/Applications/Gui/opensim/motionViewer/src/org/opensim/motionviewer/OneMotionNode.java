@@ -1,6 +1,6 @@
 /*
  *
- * JointsNode
+ * OneMotionNode
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -23,27 +23,35 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.opensim.view.nodes;
+package org.opensim.motionviewer;
 
-import java.util.ResourceBundle;
-import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractModel;
+import java.awt.Image;
 import org.opensim.modeling.SimmMotionData;
+import org.opensim.view.nodes.OpenSimObjectNode;
 
 /**
  *
- * @author Ayman Habib
- *
- * Top level motions node in Navigator view
+ * @author Ayman
  */
-public class MotionsNode extends OpenSimNode {
-    
-    private static ResourceBundle bundle = NbBundle.getBundle(MotionsNode.class);
-    
-    /** Creates a new instance of MotionsNode */
-    public MotionsNode() {
-        setDisplayName("Motions");
-        setName("Motions"); // To be used by findNode();
-    }    
-    
+public class OneMotionNode extends OpenSimObjectNode{
+   
+   /** Creates a new instance of OneMotionNode */
+   public OneMotionNode(SimmMotionData motion) {
+      super(motion);
+   }
+
+   public Image getIcon(int i) {
+      Image retValue;
+      
+      retValue = super.getIcon(i);
+      return retValue;
+   }
+
+   public Image getOpenedIcon(int i) {
+      Image retValue;
+      
+      retValue = super.getOpenedIcon(i);
+      return retValue;
+   }
+   
 }

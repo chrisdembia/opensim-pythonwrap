@@ -2508,7 +2508,8 @@ public class opensimModelJNI {
   public final static native int SimmMotionData_getNumColumns(long jarg1);
   public final static native int SimmMotionData_getColumnIndex(long jarg1, String jarg2);
   public final static native void SimmMotionData_setColumnLabel(long jarg1, int jarg2, String jarg3);
-  public final static native double SimmMotionData_getValue(long jarg1, String jarg2, int jarg3);
+  public final static native double SimmMotionData_getValue__SWIG_0(long jarg1, String jarg2, int jarg3);
+  public final static native double SimmMotionData_getValue__SWIG_1(long jarg1, int jarg2, int jarg3);
   public final static native double SimmMotionData_getRangeMin(long jarg1);
   public final static native double SimmMotionData_getRangeMax(long jarg1);
   public final static native int SimmMotionData_getNumberOfFrames(long jarg1);
@@ -2519,6 +2520,7 @@ public class opensimModelJNI {
   public final static native void SimmMotionData_convertRadiansToDegrees(long jarg1, long jarg2);
   public final static native int SimmMotionData_getFrameNumberForTime(long jarg1, double jarg2);
   public final static native void SimmMotionData_writeSIMMMotionFile(long jarg1, String jarg2, String jarg3);
+  public final static native long SimmMotionData_getColumnNames(long jarg1);
   public final static native String SimmMotionData_getUnassignedColName(long jarg1);
   public final static native void SimmMotionData_peteTest(long jarg1);
   public final static native long new_SimmMarkerData__SWIG_0();

@@ -80,7 +80,11 @@ public class SimmMotionData extends OpenSimObject {
   }
 
   public double getValue(String aName, int aFrameIndex) {
-    return opensimModelJNI.SimmMotionData_getValue(swigCPtr, aName, aFrameIndex);
+    return opensimModelJNI.SimmMotionData_getValue__SWIG_0(swigCPtr, aName, aFrameIndex);
+  }
+
+  public double getValue(int columnIndex, int aFrameIndex) {
+    return opensimModelJNI.SimmMotionData_getValue__SWIG_1(swigCPtr, columnIndex, aFrameIndex);
   }
 
   public double getRangeMin() {
@@ -121,6 +125,10 @@ public class SimmMotionData extends OpenSimObject {
 
   public void writeSIMMMotionFile(String aFileName, String aComment) {
     opensimModelJNI.SimmMotionData_writeSIMMMotionFile(swigCPtr, aFileName, aComment);
+  }
+
+  public ArrayStr getColumnNames() {
+    return new ArrayStr(opensimModelJNI.SimmMotionData_getColumnNames(swigCPtr), false);
   }
 
   public String getUnassignedColName() {
