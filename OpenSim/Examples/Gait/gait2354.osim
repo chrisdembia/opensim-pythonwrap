@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AbstractModel name="3DGaitModelSimple">
 	<angle_units> radians </angle_units>
-	<gravity>0.0 -9.80665 0.0</gravity>
 	<ActuatorSet>
 	<objects>
 		<SimmDarrylMuscle name="glut_med1_r">
@@ -3450,6 +3449,7 @@
 	</ActuatorSet>
 	<DynamicsEngine>
 		<SimmKinematicsEngine>
+			<gravity>0.0 -9.80665 0.0</gravity>
 			<MarkerSet>
 			<objects>
 				<SimmMarker name="asis_r">

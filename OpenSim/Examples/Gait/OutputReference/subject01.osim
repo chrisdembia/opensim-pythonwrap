@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AbstractModel name="3DGaitModelSimple">
 	<angle_units> radians </angle_units>
-	<gravity>   0.00000000  -9.80665000   0.00000000 </gravity>
 	<ActuatorSet name="">
 	<objects>
 		<SimmDarrylMuscle name="glut_med1_r">
@@ -5812,11 +5811,12 @@
 	</ActuatorSet>
 	<DynamicsEngine>
 		<SimmKinematicsEngine name="">
+			<gravity>   0.00000000  -9.80665000   0.00000000 </gravity>
 			<MarkerSet name="">
 			<objects>
 				<SimmMarker name="asis_r">
 					<body> pelvis </body>
-					<location>   0.02290834   0.04136833   0.12462379 </location>
+					<location>   0.02354602   0.04139910   0.12520864 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5832,7 +5832,7 @@
 					</SimmMarker>
 				<SimmMarker name="asis_l">
 					<body> pelvis </body>
-					<location>   0.02572207   0.03929632  -0.11359719 </location>
+					<location>   0.02679469   0.03931873  -0.11300674 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5848,7 +5848,7 @@
 					</SimmMarker>
 				<SimmMarker name="midasis">
 					<body> pelvis </body>
-					<location>   0.02431520   0.04033232   0.00551334 </location>
+					<location>   0.02517035   0.04035891   0.00610099 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5864,7 +5864,7 @@
 					</SimmMarker>
 				<SimmMarker name="psis_r">
 					<body> pelvis </body>
-					<location>  -0.16493470   0.08012409   0.03513566 </location>
+					<location>  -0.16413181   0.08015888   0.03537629 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5880,7 +5880,7 @@
 					</SimmMarker>
 				<SimmMarker name="psis_l">
 					<body> pelvis </body>
-					<location>  -0.15932290   0.07625635  -0.05045710 </location>
+					<location>  -0.15836387   0.07628795  -0.05020595 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5902,7 +5902,7 @@
 				</SimmMarker>
 				<SimmMarker name="hip_r">
 					<body> pelvis </body>
-					<location>  -0.06221203  -0.04665842   0.08047261 </location>
+					<location>  -0.06149692  -0.04662595   0.08090513 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5918,7 +5918,7 @@
 					</SimmMarker>
 				<SimmMarker name="hip_l">
 					<body> pelvis </body>
-					<location>  -0.06043474  -0.04796719  -0.06993795 </location>
+					<location>  -0.05944502  -0.04794001  -0.06950189 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5934,7 +5934,7 @@
 					</SimmMarker>
 				<SimmMarker name="midhip">
 					<body> pelvis </body>
-					<location>  -0.06132341  -0.04731283   0.00526735 </location>
+					<location>  -0.06047100  -0.04728301   0.00570164 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5950,7 +5950,7 @@
 					</SimmMarker>
 				<SimmMarker name="epicondLat_r">
 					<body> femur_r </body>
-					<location>   0.00237289  -0.39720376   0.07442865 </location>
+					<location>   0.00278491  -0.39726893   0.07488151 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5966,7 +5966,7 @@
 					</SimmMarker>
 				<SimmMarker name="epicondMed_r">
 					<body> femur_r </body>
-					<location>  -0.00562200  -0.38800674  -0.03764712 </location>
+					<location>  -0.00500797  -0.38804101  -0.03720594 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5982,7 +5982,7 @@
 					</SimmMarker>
 				<SimmMarker name="thighwand_r">
 					<body> femur_r </body>
-					<location>   0.03668572  -0.28435963   0.15552891 </location>
+					<location>   0.03697630  -0.28445309   0.15607238 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -5998,7 +5998,7 @@
 					</SimmMarker>
 				<SimmMarker name="upperleg1_r">
 					<body> femur_r </body>
-					<location>   0.05917287  -0.21733031   0.09074348 </location>
+					<location>   0.05959297  -0.21741155   0.09134470 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6014,7 +6014,7 @@
 					</SimmMarker>
 				<SimmMarker name="upperleg2_r">
 					<body> femur_r </body>
-					<location>   0.05945694  -0.30394257   0.06799864 </location>
+					<location>   0.05989969  -0.30401793   0.06857779 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6030,7 +6030,7 @@
 					</SimmMarker>
 				<SimmMarker name="malleolusLat_r">
 					<body> tibia_r </body>
-					<location>  -0.01546797  -0.38907506   0.02015250 </location>
+					<location>  -0.01504243  -0.38911555   0.02045159 </location>
 					<weight> 1000.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6046,7 +6046,7 @@
 					</SimmMarker>
 				<SimmMarker name="malleolusMedv_r">
 					<body> tibia_r </body>
-					<location>   0.01783998  -0.36937652  -0.04084859 </location>
+					<location>   0.01837826  -0.36940676  -0.04048449 </location>
 					<weight> 1000.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6062,7 +6062,7 @@
 					</SimmMarker>
 				<SimmMarker name="shankwand_r">
 					<body> tibia_r </body>
-					<location>  -0.01395665  -0.26144523   0.11810665 </location>
+					<location>  -0.01367924  -0.26151361   0.11844424 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6078,7 +6078,7 @@
 					</SimmMarker>
 				<SimmMarker name="lowerleg1_r">
 					<body> tibia_r </body>
-					<location>  -0.01143868  -0.28901038   0.04218666 </location>
+					<location>  -0.01103168  -0.28905791   0.04252109 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6094,7 +6094,7 @@
 					</SimmMarker>
 				<SimmMarker name="knee_r">
 					<body> tibia_r </body>
-					<location>   0.00729471   0.01453017   0.01595065 </location>
+					<location>   0.00781136   0.01448611   0.01640404 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6110,7 +6110,7 @@
 					</SimmMarker>
 				<SimmMarker name="ankle_r">
 					<body> tibia_r </body>
-					<location>   0.00483162  -0.38661335  -0.01422541 </location>
+					<location>   0.00531890  -0.38664839  -0.01388939 </location>
 					<weight> 1000.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6126,7 +6126,7 @@
 					</SimmMarker>
 				<SimmMarker name="toe_r">
 					<body> calcn_r </body>
-					<location>   0.16585611   0.02076445   0.02199911 </location>
+					<location>   0.16625730   0.02065282   0.02252828 </location>
 					<weight> 1000.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6142,7 +6142,7 @@
 					</SimmMarker>
 				<SimmMarker name="heel_r">
 					<body> calcn_r </body>
-					<location>  -0.00866643   0.02965564  -0.04815598 </location>
+					<location>  -0.00813681   0.02959229  -0.04793933 </location>
 					<weight> 1000.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6158,7 +6158,7 @@
 					</SimmMarker>
 				<SimmMarker name="epicondLat_l">
 					<body> femur_l </body>
-					<location>   0.02129412  -0.41138577  -0.05182872 </location>
+					<location>   0.00837912  -0.41136553  -0.05506885 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6174,7 +6174,7 @@
 					</SimmMarker>
 				<SimmMarker name="epicondMed_l">
 					<body> femur_l </body>
-					<location>  -0.00612419  -0.40466528   0.05609792 </location>
+					<location>   0.00947639  -0.40460457   0.05627823 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6190,7 +6190,7 @@
 					</SimmMarker>
 				<SimmMarker name="thighwand_l">
 					<body> femur_l </body>
-					<location>   0.15632465  -0.30274481   0.03283890 </location>
+					<location>   0.16057041  -0.30270321  -0.00779285 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6206,7 +6206,7 @@
 					</SimmMarker>
 				<SimmMarker name="upperleg1_l">
 					<body> femur_l </body>
-					<location>   0.09601627  -0.24589984  -0.01942715 </location>
+					<location>   0.08889857  -0.24587297  -0.04291638 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6222,7 +6222,7 @@
 					</SimmMarker>
 				<SimmMarker name="upperleg2_l">
 					<body> femur_l </body>
-					<location>   0.07888450  -0.33117509  -0.02102707 </location>
+					<location>   0.07192976  -0.33114764  -0.04005041 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6238,7 +6238,7 @@
 					</SimmMarker>
 				<SimmMarker name="malleolusLat_l">
 					<body> tibia_l </body>
-					<location>  -0.00695546  -0.39206574  -0.02257635 </location>
+					<location>  -0.01105142  -0.39210617  -0.01644050 </location>
 					<weight> 1000.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6254,7 +6254,7 @@
 					</SimmMarker>
 				<SimmMarker name="malleolusMedv_l">
 					<body> tibia_l </body>
-					<location>   0.00925944  -0.37646177   0.04198866 </location>
+					<location>   0.02112496  -0.37619240   0.04175298 </location>
 					<weight> 1000.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6270,7 +6270,7 @@
 					</SimmMarker>
 				<SimmMarker name="shankwand_l">
 					<body> tibia_l </body>
-					<location>   0.02922522  -0.25498054  -0.10552422 </location>
+					<location>   0.00262949  -0.25545904  -0.10656338 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6286,7 +6286,7 @@
 					</SimmMarker>
 				<SimmMarker name="lowerleg1_l">
 					<body> tibia_l </body>
-					<location>   0.00367773  -0.29148564  -0.03742810 </location>
+					<location>  -0.00463246  -0.29160824  -0.03401769 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6302,7 +6302,7 @@
 					</SimmMarker>
 				<SimmMarker name="knee_l">
 					<body> tibia_l </body>
-					<location>   0.01050969   0.00137989   0.00410023 </location>
+					<location>   0.01240879   0.00145540   0.00292542 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6318,7 +6318,7 @@
 					</SimmMarker>
 				<SimmMarker name="ankle_l">
 					<body> tibia_l </body>
-					<location>   0.00617943  -0.39127225   0.01413653 </location>
+					<location>   0.01103436  -0.39113904   0.01568852 </location>
 					<weight> 1000.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6334,7 +6334,7 @@
 					</SimmMarker>
 				<SimmMarker name="toe_l">
 					<body> calcn_l </body>
-					<location>   0.17431330   0.01790216   0.00003681 </location>
+					<location>   0.16958311   0.01800343  -0.02936586 </location>
 					<weight> 1000.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6350,7 +6350,7 @@
 					</SimmMarker>
 				<SimmMarker name="heel_l">
 					<body> calcn_l </body>
-					<location>  -0.01298427   0.02180831   0.02919376 </location>
+					<location>  -0.00409256   0.02123369   0.04660846 </location>
 					<weight> 1000.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6366,7 +6366,7 @@
 					</SimmMarker>
 				<SimmMarker name="subclavicle_r">
 					<body> torso </body>
-					<location>   0.02664647   0.35748572   0.04424683 </location>
+					<location>   0.02744918   0.35750611   0.04455988 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6382,7 +6382,7 @@
 					</SimmMarker>
 				<SimmMarker name="subclavicle_l">
 					<body> torso </body>
-					<location>   0.02781248   0.35720231  -0.06403904 </location>
+					<location>   0.02881275   0.35721285  -0.06372366 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6398,7 +6398,7 @@
 					</SimmMarker>
 				<SimmMarker name="neck">
 					<body> torso </body>
-					<location>  -0.10692055   0.42279529  -0.00216753 </location>
+					<location>  -0.10603506   0.42280707  -0.00210403 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6414,7 +6414,7 @@
 					</SimmMarker>
 				<SimmMarker name="sternalnotch">
 					<body> torso </body>
-					<location>   0.01068010   0.36441805  -0.00718026 </location>
+					<location>   0.01157644   0.36443322  -0.00689689 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6430,7 +6430,7 @@
 					</SimmMarker>
 				<SimmMarker name="xyphoidprocess">
 					<body> torso </body>
-					<location>   0.10277559   0.20608452  -0.01752030 </location>
+					<location>   0.10369578   0.20610176  -0.01705443 </location>
 					<weight>   1.00000000 </weight>
 					<fixed> false </fixed>
 					<VisibleObject name="">
@@ -6927,7 +6927,7 @@
 					<clamped> true </clamped>
 					<locked> false </locked>
 					<restraint_active> false </restraint_active>
-					<weight>  10.00000000 </weight>
+					<weight> 3282.80635063 </weight>
 						<restraint_function/>
 						<min_restraint_function/>
 						<max_restraint_function/>
