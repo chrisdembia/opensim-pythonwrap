@@ -4,11 +4,11 @@
 	<model_file> subject01.xml </model_file>
 	<replace_actuator_set> false </replace_actuator_set>
 	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
-	<results_directory> ./ResultsPerturbed </results_directory>
+	<results_directory> ./ResultsPerturb </results_directory>
 
 	<!-- Basic simulation paramters -->
 	<output_precision> 12 </output_precision>
-	<initial_time> 0.50 </initial_time>
+	<initial_time> 0.20 </initial_time>
 	<final_time> 0.71 </final_time>
 
 	<perturbation_time_window> 0.03 </perturbation_time_window>

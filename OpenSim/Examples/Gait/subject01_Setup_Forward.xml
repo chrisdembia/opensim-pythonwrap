@@ -25,6 +25,11 @@
 				<step_interval> 10 </step_interval>
 				<in_degrees> true </in_degrees>
 			</Actuation>
+			<BodyKinematics name="BodyKinematics">
+				<on> true </on>
+				<step_interval> 10 </step_interval>
+				<in_degrees> true </in_degrees>
+			</BodyKinematics>
 		</objects>
 	</AnalysisSet>
 
