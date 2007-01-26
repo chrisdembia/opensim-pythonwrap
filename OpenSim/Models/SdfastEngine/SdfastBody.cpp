@@ -343,7 +343,7 @@ bool SdfastBody::setMass(double aMass)
 	// Update sdfast
 	sdmass(_index,aMass);
 	sdinit();
-	cout<<"SdfastBody.setMass: body="<<getName()<<"  orig="<<mass<<"  new="<<_mass<<endl;
+	//cout<<"SdfastBody.setMass: body="<<getName()<<"  orig="<<mass<<"  new="<<_mass<<endl;
 
 	return true;
 }
@@ -433,17 +433,17 @@ bool SdfastBody::setInertia(const Array<double>& aInertia)
 	if(same==true) return true;
 
 	// Update SDFast
-	cout<<"SdfastBody.setInertia: body="<<getName()<<"\n\torig=";
+	//cout<<"SdfastBody.setInertia: body="<<getName()<<"\n\torig=";
 	for(int i=0; i<3; i++) {
 		for(int j=0; j<3; j++) {
-			cout<<" "<<inertia[i][j];
+			//cout<<" "<<inertia[i][j];
 			inertia[i][j] = aInertia[i*3+j];
 			_inertia[i*3+j] = aInertia[i*3+j];
 		}
 	}
 	sdiner(_index,inertia);
 	sdinit();
-	cout<<"\t"<<_inertia<<endl;
+	//cout<<"\t"<<_inertia<<endl;
 	return true;
 }
 //_____________________________________________________________________________
@@ -465,14 +465,14 @@ bool SdfastBody::setInertia(const double aInertia[3][3])
 	if(same==true) return true;
 
 	// Update property
-	cout<<"SdfastBody.setInertia: body="<<getName()<<"\n\torig=";
+	//cout<<"SdfastBody.setInertia: body="<<getName()<<"\n\torig=";
 	for(int i=0; i<3; i++) {
 		for(int j=0; j<3; j++) {
-			cout<<" "<<inertia[i][j];
+			//cout<<" "<<inertia[i][j];
 			_inertia[i*3+j] = aInertia[i][j];
 		}
 	}
-	cout<<"\t"<<_inertia<<endl;
+	//cout<<"\t"<<_inertia<<endl;
 
 	// Update SDFast
 	for(int i=0; i<3; i++)
