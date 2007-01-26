@@ -28,6 +28,7 @@ package org.opensim.motionviewer;
 import java.awt.Image;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import org.openide.util.NbBundle;
 import org.opensim.view.nodes.*;
@@ -78,5 +79,5 @@ public class MotionsNode extends OpenSimNode {
          return null;
       }
    }
-   
+
 }

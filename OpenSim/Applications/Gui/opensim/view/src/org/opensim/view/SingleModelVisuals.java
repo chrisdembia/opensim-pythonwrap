@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.Hashtable;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.AnalyticGeometry;
@@ -20,6 +21,7 @@ import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.LineGeometry;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.SimmMusclePoint;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
@@ -37,7 +39,6 @@ import vtk.vtkProp3DCollection;
 import vtk.vtkSphereSource;
 import vtk.vtkXMLPolyDataReader;
 import vtk.vtkActorCollection;
-import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkAppendPolyData;
 import vtk.vtkLODActor;
 
@@ -63,6 +64,7 @@ public class SingleModelVisuals {
     private boolean visible;
     private double[] defaultMuscleColor = new double[]{0.8, 0.1, 0.1};
     private double[] defaultMarkerColor = new double[]{0.0, 0.0, 1.0};
+    
     private double defaultMuscleRadius = .005;
     // Maps between objects and vtkProp3D for going from Actor to Object and vice versa
     // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
@@ -73,9 +75,9 @@ public class SingleModelVisuals {
     private Hashtable<OpenSimObject, vtkActorCollection> mapObject2ActorCollections = new
             Hashtable<OpenSimObject, vtkActorCollection>();
 
-    //OpenSimVisObjectCloud  markersRep=new OpenSimVisObjectCloud();
-    //OpenSimVisObjectCloud  musclePointsRep=new OpenSimVisObjectCloud();
-    //OpenSimVisObjectCloud  muscleSegmentsRep=new OpenSimVisObjectCloud();
+    // Markers and muscle points are represented as Glyphs for performance
+    //OpenSimvGlyphCloud  markersRep=new OpenSimvGlyphCloud();
+    //OpenSimvGlyphCloud  musclePointsRep=new OpenSimvGlyphCloud();
     
     private vtkProp3DCollection    userObjects = new vtkProp3DCollection();
     /**
@@ -171,6 +173,24 @@ public class SingleModelVisuals {
             double[] color = new double[3];
             for(int j=0; j < ct;j++){
                 VisibleObject Dependent = bodyDisplayer.getDependent(j);
+                /*
+                OpenSimObject owner = Dependent.getOwner();
+                if (owner.getType().equals("SimmMarker")){
+                    // Convert marker pos to global pos.
+                    double[] pos = new double[3];
+                    Dependent.getTransform().getPosition(pos);
+                    // xfrom to ground frame
+                    markersRep.addPoint(m.MultiplyDoublePoint(pos));
+                    continue;
+                }
+                else if (owner.getType().equals("SimmMusclePoint")){
+                    // Convert marker pos to global pos.
+                    double[] pos = new double[3];
+                    Dependent.getTransform().getPosition(pos);
+                    // xfrom to ground frame
+                    musclePointsRep.addPoint(m.MultiplyDoublePoint(pos));                    
+                    continue;
+                } */
                 vtkActor attachmentRep = new vtkLODActor();
                 attachmentRep.SetUserMatrix(m);
                 int geomcount = Dependent.countGeometry();
@@ -211,6 +231,8 @@ public class SingleModelVisuals {
                 mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
             }
         } //body
+        //modelAssembly.AddPart(markersRep.getVtkActor());
+        //modelAssembly.AddPart(musclePointsRep.getVtkActor());
         //System.out.println("Before adding muscles:"+modelAssembly.Print());
         /**
          * Now the muscles and other actuators
@@ -613,11 +635,20 @@ public class SingleModelVisuals {
    }
 
     private void initDefaultShapesAndColors() {
-        //markersRep.setShape();
-        //markersRep.setColor(defaultMarkerColor);
-        //musclePointsRep.setShape();
-        //musclePointsRep.setColor(defaultMuscleColor);
-        
+        // Markers
+        /*
+       vtkSphereSource marker=new vtkSphereSource();
+       marker.SetRadius(.01);
+       marker.SetCenter(0., 0., 0.);
+       markersRep.setColor(defaultMarkerColor);
+       markersRep.setShape(marker.GetOutput());
+       // MusclePoints
+       vtkSphereSource viaPoint=new vtkSphereSource();
+       viaPoint.SetRadius(defaultMuscleRadius);
+       viaPoint.SetCenter(0., 0., 0.);
+       musclePointsRep.setColor(defaultMuscleColor);
+       musclePointsRep.setShape(viaPoint.GetOutput());
+      */
     }
    
 }

@@ -4,7 +4,8 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.utils.FileUtils;
-import org.opensim.motionviewer.MotionsDB;
+import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 public final class FileLoadMotionAction extends CallableSystemAction {
    
@@ -19,10 +20,6 @@ public final class FileLoadMotionAction extends CallableSystemAction {
            // also because OpenSimDB has access to all models and as such can decide if it makes sense 
            // to associate the loaded motion with a prticular model.
            MotionsDB.getInstance().loadMotionFile(fileName);
-           // Add it to the motion viewer's model'
-           /*MotionViewerTopComponent tc = MotionViewerTopComponent.findInstance();
-           tc.open();
-           tc.requestActive();*/
         }
         
    }
@@ -35,6 +32,8 @@ public final class FileLoadMotionAction extends CallableSystemAction {
       super.initialize();
       // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
       putValue("noIconInMenu", Boolean.TRUE);
+      setEnabled(false);
+      ViewDB.getInstance().registerModelCommand(this);
    }
    
    public HelpCtx getHelpCtx() {
@@ -44,5 +43,10 @@ public final class FileLoadMotionAction extends CallableSystemAction {
    protected boolean asynchronous() {
       return false;
    }
+   
+   public boolean isEnabled() {
+       return OpenSimDB.getInstance().getCurrentModel()!=null;
+   }
+   
    
 }

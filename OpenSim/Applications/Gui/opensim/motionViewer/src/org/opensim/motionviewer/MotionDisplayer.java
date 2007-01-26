@@ -72,7 +72,6 @@ public class MotionDisplayer {
            String columnName = colNames.getitem(i);
            int numClassified = classifyColumn(i, columnName); // find out if column is gencord/muscle/segment/...etc.
            ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
-           System.out.println("col= "+columnName+" type= "+cType.toString());
            if (numClassified>1)  // If we did a group then skip the group
               i += (numClassified-1);
         }
@@ -173,8 +172,6 @@ public class MotionDisplayer {
                   mapIndicesToObjects.put(columnIndex, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+1, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+2, new Integer(index));
-                  System.out.println("Added marker user object to model");
-                  //ViewDB.getInstance().getModelVisuals(model).addUserObject(actorRep);
                   return 3;
                }
                else {
@@ -191,7 +188,6 @@ public class MotionDisplayer {
                   mapIndicesToObjectTypes.put(columnIndex+3, ObjectTypesInMotionFiles.Segment_force_p4);
                   mapIndicesToObjectTypes.put(columnIndex+4, ObjectTypesInMotionFiles.Segment_force_p5);
                   mapIndicesToObjectTypes.put(columnIndex+5, ObjectTypesInMotionFiles.Segment_force_p6);
-                  //vtkActor actorRep = MotionObjectsDB.getInstance().getMotionObject("force");
                   int index= forcesRep.addPoint(0., 0., 0.);
                   mapIndicesToObjects.put(columnIndex, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+1, new Integer(index));
@@ -199,8 +195,6 @@ public class MotionDisplayer {
                   mapIndicesToObjects.put(columnIndex+3, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+4, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+5, new Integer(index));
-                  System.out.println("Added force user object to model");
-                  //ViewDB.getInstance().getModelVisuals(model).addUserObject(actorRep);
                   return 6;
                }
                else{
@@ -234,9 +228,6 @@ public class MotionDisplayer {
                        simmMotionData.getValue(i+2, currentFrame));
                break;
             case Segment_force_p1:
-               System.out.println("Force:pos"+simmMotionData.getValue(i+3, currentFrame)+", "
-                       + simmMotionData.getValue(i+4, currentFrame)+", "
-                       + simmMotionData.getValue(i+5, currentFrame));
                int forceIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
                forcesRep.setNormalAtPoint(forceIndex, simmMotionData.getValue(i, currentFrame), 
                        simmMotionData.getValue(i+1, currentFrame),
@@ -249,6 +240,13 @@ public class MotionDisplayer {
                break;
          }
       }
+    }
+    /*
+     * cleanupDisplay is called when the motion is mode non-current either explicitly by the user or by selecting
+     * another motion for the same model and making it current */
+    void cleanupDisplay() {
+        ViewDB.getInstance().getModelVisuals(model).removeUserObject(forcesRep.getVtkActor());
+        ViewDB.getInstance().getModelVisuals(model).removeUserObject(markersRep.getVtkActor());
     }
 
 }

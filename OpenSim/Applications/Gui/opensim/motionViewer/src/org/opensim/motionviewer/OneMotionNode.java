@@ -26,6 +26,8 @@
 package org.opensim.motionviewer;
 
 import java.awt.Image;
+import javax.swing.Action;
+import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.view.nodes.OpenSimObjectNode;
 
@@ -54,4 +56,25 @@ public class OneMotionNode extends OpenSimObjectNode{
       return retValue;
    }
    
+   public AbstractModel getModel()
+   {
+       return getModelForNode();
+   }
+
+    public Action[] getActions(boolean b) {
+        Action[] retValue=null;
+        try {
+            
+            retValue = new Action[]{
+                (MotionsSetCurrentAction) MotionsSetCurrentAction.findObject(
+                     Class.forName("org.opensim.motionviewer.MotionsSetCurrentAction"), true),
+                (MotionsSynchronizeAction) MotionsSynchronizeAction.findObject(
+                     Class.forName("org.opensim.motionviewer.MotionsSynchronizeAction"), true),
+            };
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        return retValue;
+    }
 }

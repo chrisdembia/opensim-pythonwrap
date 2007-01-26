@@ -33,6 +33,7 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.nodes.Node;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.pub.*;
@@ -139,5 +140,12 @@ public class MotionsDB extends Observable {
       }
       return associationPossible;
    }
+
+    void setCurrent(AbstractModel model, SimmMotionData motion) {
+         MotionEvent evt = new MotionEvent(model, motion, MotionEvent.Operation.SetCurrent);
+         setChanged();
+         //int c = this.countObservers();
+         notifyObservers(evt);
+    }
    
 }

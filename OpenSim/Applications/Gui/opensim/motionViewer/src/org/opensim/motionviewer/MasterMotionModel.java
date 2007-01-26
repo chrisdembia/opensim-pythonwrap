@@ -23,7 +23,7 @@ class MasterMotionModel{
    int currentFrame = 0;
    SimmMotionData simmMotionData;
    private DefaultBoundedRangeModel sliderModel = new DefaultBoundedRangeModel();
-   MotionDisplayer displayer;
+   MotionDisplayer displayer=null;  // null indicates no motion
    private boolean wrapMotion=false;
    
    MasterMotionModel() {
@@ -85,6 +85,10 @@ class MasterMotionModel{
    }
 
    void add(AbstractModel abstractModel, SimmMotionData simmMotionData) {
+       if (displayer != null){
+           // unload previously loaded motion of the same model
+           displayer.cleanupDisplay();
+       }
        displayer = new MotionDisplayer(simmMotionData, abstractModel);
        this.simmMotionData=simmMotionData;
    }
