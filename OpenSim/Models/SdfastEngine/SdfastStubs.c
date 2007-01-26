@@ -113,4 +113,6 @@ void sdjnt(int joint, int info[50], int tran[6]) { }
 
 void sdgrav(double gravin[3]) { }
 
+void scaleConstraints(int SdfastBodyIndex, double scaleFactor[3]) { }
+
 void sdgetgrav(double gravout[3]) { }

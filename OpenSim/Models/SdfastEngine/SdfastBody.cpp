@@ -31,6 +31,10 @@
 #include <OpenSim/Tools/rdMath.h>
 #include <OpenSim/Simulation/SIMM/SimmMacros.h>
 
+extern "C" {
+void scaleConstraints(int SdfastBodyIndex, double scaleFactor[3]);
+}
+
 //=============================================================================
 // STATICS
 //=============================================================================
@@ -527,6 +531,9 @@ void SdfastBody::scale(Array<double>& aScaleFactors, bool aScaleMass)
 
 	if(aScaleMass)
 		scaleInertialProperties(aScaleFactors);
+
+	// Scale the kinematic constraint functions in sdfor.c
+	scaleConstraints(_index, aScaleFactors.get());
 }
 
 //_____________________________________________________________________________
