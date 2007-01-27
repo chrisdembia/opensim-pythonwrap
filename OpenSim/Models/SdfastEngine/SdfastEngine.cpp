@@ -192,12 +192,24 @@ void SdfastEngine::init()
 	prescribe();
 
 	assemble();
+
+
+	// setGravity and adjustJointVectorsForNewMassCenter should be called
+	// before setConfiguration because they call sdinit which would clear
+	// the state set in setConfiguration...
+
+	setGravity(&_gravity[0]); // force sdgrav to be called
+
+	// Center of mass locations
+	// This adjusts the SDFast body-to-joint and inboard-to-joint vectors
+	for(int i=0;i<_bodySet.getSize();i++) {
+		adjustJointVectorsForNewMassCenter((SdfastBody*)_bodySet.get(i));
+	}
+
 	if(_y) setConfiguration(_y);
 
 	// static instance
 	_Instance = this;
-
-	setGravity(&_gravity[0]); // force sdgrav to be called
 }
 
 //_____________________________________________________________________________
@@ -309,12 +321,6 @@ void SdfastEngine::setup(AbstractModel* aModel)
 	_groundBody = identifyGroundBody();
 
 	init();
-
-	// Center of mass locations
-	// This adjusts the SDFast body-to-joint and inboard-to-joint vectors
-	for(int i=0;i<_bodySet.getSize();i++) {
-		adjustJointVectorsForNewMassCenter((SdfastBody*)_bodySet.get(i));
-	}
 }
 
 //=============================================================================

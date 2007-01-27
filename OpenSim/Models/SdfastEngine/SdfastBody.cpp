@@ -332,6 +332,8 @@ double SdfastBody::getMass() const
  */
 bool SdfastBody::setMass(double aMass)
 {
+	if(_index<0) return false;
+
 	if(aMass<0.0) {
 		cerr<<"SdfastBody.setMass(): ERROR- zero or negative mass not allowed.\n";
 		return false;
@@ -392,7 +394,15 @@ bool SdfastBody::setMassCenter(double aVec[3])
  */
 void SdfastBody::getInertia(double rInertia[3][3]) const
 {
-	sdgetiner(_index,rInertia);
+	if(_index<0) {
+		for(int i=0; i<3; i++) {
+			for(int j=0; j<3; j++) {
+				rInertia[i][j] = 0;
+			}
+		}
+	} else {
+		sdgetiner(_index,rInertia);
+	}
 }
 //_____________________________________________________________________________
 /**
@@ -403,13 +413,12 @@ void SdfastBody::getInertia(double rInertia[3][3]) const
 void SdfastBody::getInertia(Array<double> &rInertia) const
 {
 	double inertia[3][3];
-	sdgetiner(_index,inertia);
+	getInertia(inertia);
 	for(int i=0; i<3; i++) {
 		for(int j=0; j<3; j++) {
 			rInertia[i*3+j] = inertia[i][j];
 		}
 	}
-
 }
 //_____________________________________________________________________________
 /**
@@ -425,30 +434,12 @@ bool SdfastBody::setInertia(const Array<double>& aInertia)
 		return false;
 	}
 
-	// Check to see if the inertia is different from what SDFast already has
-	bool same = true;
 	double inertia[3][3];
-	getInertia(inertia);
-	for(int i=0; i<3; i++) {
-		for(int j=0; j<3; j++) {
-			if(!rdMath::IsEqual(inertia[i][j],aInertia[3*i+j],rdMath::ZERO)) same = false;
-		}
-	}
-	if(same==true) return true;
+	for(int i=0; i<3; i++)
+		for(int j=0; j<3; j++)
+			inertia[i][j] = aInertia[3*i+j];
 
-	// Update SDFast
-	//cout<<"SdfastBody.setInertia: body="<<getName()<<"\n\torig=";
-	for(int i=0; i<3; i++) {
-		for(int j=0; j<3; j++) {
-			//cout<<" "<<inertia[i][j];
-			inertia[i][j] = aInertia[i*3+j];
-			_inertia[i*3+j] = aInertia[i*3+j];
-		}
-	}
-	sdiner(_index,inertia);
-	sdinit();
-	//cout<<"\t"<<_inertia<<endl;
-	return true;
+	return setInertia(inertia);
 }
 //_____________________________________________________________________________
 /**
@@ -459,6 +450,8 @@ bool SdfastBody::setInertia(const Array<double>& aInertia)
  */
 bool SdfastBody::setInertia(const double aInertia[3][3])
 {
+	if(_index<0) return false;
+
 	// Check to see if the inertia is different from what SDFast already has
 	bool same = true;
 	double inertia[3][3];
@@ -472,16 +465,11 @@ bool SdfastBody::setInertia(const double aInertia[3][3])
 	//cout<<"SdfastBody.setInertia: body="<<getName()<<"\n\torig=";
 	for(int i=0; i<3; i++) {
 		for(int j=0; j<3; j++) {
-			//cout<<" "<<inertia[i][j];
-			_inertia[i*3+j] = aInertia[i][j];
+			inertia[i][j] = aInertia[i][j]; // to remove the const'ness (I think)
+			_inertia[i*3+j] = aInertia[i][j]; // set local member
 		}
 	}
-	//cout<<"\t"<<_inertia<<endl;
 
-	// Update SDFast
-	for(int i=0; i<3; i++)
-		for(int j=0; j<3; j++)
-			inertia[i][j] = aInertia[i][j];
 	sdiner(_index,inertia);
 	sdinit();
 
