@@ -13,7 +13,7 @@
 	<!--File name for the (nominal model).osim to use is specified here.-->
 	<SimmGenericModelMaker name="">
 		<!--Name of the file for the OpenSim model (unscaled generic model)-->
-		<file_name> gait2354.osim </file_name>
+		<model_file> gait2354.osim </model_file>
 		<MarkerSet><objects file="gait2354_MarkerSet.xml"/></MarkerSet>
 	</SimmGenericModelMaker>
 	

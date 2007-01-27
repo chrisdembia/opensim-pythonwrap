@@ -135,6 +135,9 @@
 				RelativePath="$(OPENSIM_INCLUDE_PATH)\OpenSim\Models\SIMMPipeline\4.1\sdufuncs.cpp">
 			</File>
 			<File
+				RelativePath="$(OPENSIM_INCLUDE_PATH)\OpenSim\Models\SIMMPipeline\4.1\scale.cpp">
+			</File>
+			<File
 				RelativePath="$(OPENSIM_INCLUDE_PATH)\OpenSim\Models\SIMMPipeline\4.1\gcvspl.c">
 			</File>
 			<File
