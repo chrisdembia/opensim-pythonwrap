@@ -17,10 +17,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.opensim.modeling.SimmMotionData;
-import org.opensim.motionviewer.MotionDisplayer;
-import org.opensim.motionviewer.MotionEvent;
 import org.opensim.motionviewer.MotionEvent.Operation;
-import org.opensim.motionviewer.MotionsDB;
 
 /**
  *
@@ -310,18 +307,30 @@ public class MotionControlJPanel extends javax.swing.JPanel
        }
     }
 
-      /**
+   /**
     * update the panel to reflect current motion's name, range, ...etc.
     */
    private void updatePanelDisplay(SimmMotionData simmMotionData) {
-      jMotionNameLabel.setText(simmMotionData.getName());
-      jTimeTextField.setText(String.valueOf(simmMotionData.getRangeMin()));
-      masterMotion.getSliderModel().setMinimum(masterMotion.getStartFrame());
-      masterMotion.getSliderModel().setMaximum(masterMotion.getLastFrame());
-      //sliderModel.setExtent(simmMotionData.getNumberOfFrames()-1);
-      jTimeTextField.setText(String.valueOf(simmMotionData.getRangeMin()));
-      Hashtable labels = jMotionSlider.createStandardLabels(50);
-      jMotionSlider.setLabelTable(labels);
+      if (simmMotionData==null){
+         jMotionNameLabel.setText("");
+         jTimeTextField.setText("");
+         masterMotion.getSliderModel().setMinimum(0);
+         masterMotion.getSliderModel().setMaximum(100);
+         //sliderModel.setExtent(simmMotionData.getNumberOfFrames()-1);
+         jTimeTextField.setText("");
+         Hashtable labels = jMotionSlider.createStandardLabels(50);
+         jMotionSlider.setLabelTable(labels);        
+      }
+      else {
+         jMotionNameLabel.setText(simmMotionData.getName());
+         jTimeTextField.setText(String.valueOf(simmMotionData.getRangeMin()));
+         masterMotion.getSliderModel().setMinimum(masterMotion.getStartFrame());
+         masterMotion.getSliderModel().setMaximum(masterMotion.getLastFrame());
+         //sliderModel.setExtent(simmMotionData.getNumberOfFrames()-1);
+         jTimeTextField.setText(String.valueOf(simmMotionData.getRangeMin()));
+         Hashtable labels = jMotionSlider.createStandardLabels(50);
+         jMotionSlider.setLabelTable(labels);
+      }
    }
    
    // Observable is MotionsDB
@@ -335,6 +344,16 @@ public class MotionControlJPanel extends javax.swing.JPanel
             motionLoaded = true;   // enable buttons as needed
             masterMotion.add(evt.getModel(), evt.getMotion());
             updatePanelDisplay(evt.getMotion());
+         }
+         else if (evt.getOperation() == Operation.Clear){
+            motionLoaded = false;
+            masterMotion.clear();
+            updatePanelDisplay(null);
+         }
+         else if (evt.getOperation() == Operation.AddSyncMotion)
+         {
+            motionLoaded = true;
+            masterMotion.add(evt.getModel(), evt.getMotion(), true);
          }
       }
    }

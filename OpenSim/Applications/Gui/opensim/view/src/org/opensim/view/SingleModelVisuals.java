@@ -130,10 +130,6 @@ public class SingleModelVisuals {
             // The reverse map takes an actor to an Object and is filled as actors are created.
             mapObject2VtkObjects.put(body, bodyRep);
 
-             modelAssembly.AddPart(bodyRep);
-            vtkMatrix4x4 m= getBodyTransform(model, body);
-            bodyRep.SetUserMatrix(m);
-
             // Add a vtkActor object to the vtk scene graph to represent
             VisibleObject bodyDisplayer = body.getDisplayer();
             bodyDisplayer.getScaleFactors(scales);
@@ -151,6 +147,13 @@ public class SingleModelVisuals {
                 // Create polyData and append it to one common polyData object
                 bodyPolyData.AddInput(poly);
             }
+            // Add to assembly only if populated to avoid artificially big bounding box
+            if (bodyDisplayer.getNumGeometryFiles()>0){
+               modelAssembly.AddPart(bodyRep);
+            }
+            vtkMatrix4x4 m= getBodyTransform(model, body);
+            bodyRep.SetUserMatrix(m);
+            
              vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
              // Shrink filter to be used for selection
              /*

@@ -33,7 +33,6 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.nodes.Node;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.ArrayStr;
-import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.pub.*;
@@ -147,5 +146,20 @@ public class MotionsDB extends Observable {
          //int c = this.countObservers();
          notifyObservers(evt);
     }
+
+    /**
+     * model is actually unused here, just need a model to construct the event but this could be done better
+     **/
+   void flushMotions(AbstractModel model) {
+         MotionEvent evt = new MotionEvent(model, null, MotionEvent.Operation.Clear);
+         setChanged();
+         notifyObservers(evt);
+   }
+
+   void addSyncMotion(AbstractModel model, SimmMotionData simmMotionData) {
+         MotionEvent evt = new MotionEvent(model, simmMotionData, MotionEvent.Operation.AddSyncMotion);
+         setChanged();
+         notifyObservers(evt);
+   }
    
 }

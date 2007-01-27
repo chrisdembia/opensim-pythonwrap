@@ -1,5 +1,5 @@
 /*
- * OpenSimvGlyphCloud.java
+ * OpenSimvtkGlyphCloud.java
  *
  * Created on January 25, 2007, 9:39 AM
  *
@@ -41,7 +41,7 @@ import vtk.vtkSphereSource;
  *
  * @author Ayman Habib
  */
-public class OpenSimvGlyphCloud {    // Assume same shape
+public class OpenSimvtkGlyphCloud {    // Assume same shape
     
     private vtkPoints           pointCloud = new vtkPoints(); // object centers
     private vtkPolyData         pointPolyData = new vtkPolyData();
@@ -52,9 +52,9 @@ public class OpenSimvGlyphCloud {    // Assume same shape
     private vtkFloatArray       lineNormals = new vtkFloatArray();
     
     /**
-     * Creates a new instance of OpenSimvGlyphCloud
-     */
-    public OpenSimvGlyphCloud() {
+    * Creates a new instance of OpenSimvtkGlyphCloud
+    */
+    public OpenSimvtkGlyphCloud() {
         lineNormals.SetNumberOfTuples(1);
         lineNormals.SetNumberOfComponents(3);
         pointPolyData.SetPoints(pointCloud);

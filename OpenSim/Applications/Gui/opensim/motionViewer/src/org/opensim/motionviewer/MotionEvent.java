@@ -19,7 +19,7 @@ import org.opensim.modeling.SimmMotionData;
  */
 public class MotionEvent extends EventObject {
     
-    public enum Operation{Open, Close, SetCurrent, Play};
+    public enum Operation{Open, Close, SetCurrent, Clear, AddSyncMotion};
     SimmMotionData  motion;
     
     Operation op= Operation.Open;
@@ -31,7 +31,7 @@ public class MotionEvent extends EventObject {
         this.motion = motion;
         this.op = op;
     }
-    
+        
     public AbstractModel getModel()
     {
         return (AbstractModel) source;

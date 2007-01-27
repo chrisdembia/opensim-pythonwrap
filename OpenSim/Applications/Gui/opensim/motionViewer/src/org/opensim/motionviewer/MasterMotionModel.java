@@ -1,18 +1,10 @@
 package org.opensim.motionviewer;
 
-import java.util.Hashtable;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.Vector;
 import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.SwingUtilities;
-import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.AbstractModel;
-import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.SimmMotionData;
-import org.opensim.motionviewer.MotionDisplayer;
-import org.opensim.motionviewer.MotionEvent;
-import org.opensim.motionviewer.MotionEvent.Operation;
-import org.opensim.motionviewer.MotionsDB;
 import org.opensim.view.pub.ViewDB;
 
 // End of variables declaration                   
@@ -20,11 +12,12 @@ import org.opensim.view.pub.ViewDB;
 
 class MasterMotionModel{
 
-   int currentFrame = 0;
-   SimmMotionData simmMotionData;
+   int currentMotion=0; // Master slider switches between motions finding local frame numbers 
+   // Info specific to a motion/model combination is pushed down to the displayer object.
    private DefaultBoundedRangeModel sliderModel = new DefaultBoundedRangeModel();
-   MotionDisplayer displayer=null;  // null indicates no motion
+   Vector<MotionDisplayer> displayers=new Vector<MotionDisplayer>(10);  
    private boolean wrapMotion=false;
+   int currentFrame = 0;
    
    MasterMotionModel() {
    }
@@ -32,26 +25,33 @@ class MasterMotionModel{
    public void applyFrame(int currentFrame) {
       // Apply frame from file then update model display!
       this.currentFrame=currentFrame;
-      displayer.applyFrameToModel(currentFrame, simmMotionData);
+      displayers.get(currentMotion).applyFrameToModel(currentFrame);
       SwingUtilities.invokeLater(new Runnable(){
          public void run(){
-            ViewDB.getInstance().getModelVisuals(displayer.getModel()).updateModelDisplay(displayer.getModel());
+            AbstractModel dModel = displayers.get(currentMotion).getModel();
+            ViewDB.getInstance().getModelVisuals(dModel).updateModelDisplay(dModel);
             ViewDB.getInstance().repaintAll();
          }
          });
       getSliderModel().setValue(currentFrame);
+      if (displayers.size()>1){
+         int numMotions = displayers.size();
+         currentMotion++;
+         if (currentMotion==numMotions)
+            currentMotion=0;
+      }
    }
    
    public void back() {
      if (currentFrame>=1)
          currentFrame= currentFrame-1;
       else
-         currentFrame= (wrapMotion) ? simmMotionData.getNumberOfFrames()-1 : currentFrame;
+         currentFrame= (wrapMotion) ? displayers.get(currentMotion).getSimmMotionData().getNumberOfFrames()-1 : currentFrame;
       applyFrame(currentFrame);
    }
    
    public void advance() {
-      if (currentFrame<=simmMotionData.getNumberOfFrames()-2)
+      if (currentFrame<=displayers.get(currentMotion).getSimmMotionData().getNumberOfFrames()-2)
          currentFrame= currentFrame+1;
       else
          currentFrame= (wrapMotion) ? 0 : currentFrame;
@@ -60,7 +60,7 @@ class MasterMotionModel{
    
    
    public void setTime(double userTime) {
-      currentFrame=simmMotionData.getFrameNumberForTime(userTime);
+      currentFrame=displayers.get(currentMotion).getSimmMotionData().getFrameNumberForTime(userTime);
       applyFrame(currentFrame);
    }
 
@@ -69,7 +69,7 @@ class MasterMotionModel{
    }
 
    public int getLastFrame() {
-      return simmMotionData.getNumberOfFrames()-1;
+      return displayers.get(currentMotion).getSimmMotionData().getNumberOfFrames()-1;
    }
 
    public boolean isWrapMotion() {
@@ -85,16 +85,21 @@ class MasterMotionModel{
    }
 
    void add(AbstractModel abstractModel, SimmMotionData simmMotionData) {
-       if (displayer != null){
+       if (displayers.size() != 0){
            // unload previously loaded motion of the same model
-           displayer.cleanupDisplay();
+          for(int i=0; i<displayers.size(); i++)
+           displayers.get(i).cleanupDisplay();
        }
-       displayer = new MotionDisplayer(simmMotionData, abstractModel);
-       this.simmMotionData=simmMotionData;
+       displayers.clear();
+       displayers.add(0, new MotionDisplayer(simmMotionData, abstractModel));
+   }
+
+   void add(AbstractModel abstractModel, SimmMotionData simmMotionData, boolean merge) {
+       displayers.add( new MotionDisplayer(simmMotionData, abstractModel));
    }
 
    boolean finished(int direction) {
-      if (currentFrame==simmMotionData.getNumberOfFrames()-1 && direction==1 ||
+      if (currentFrame==displayers.get(currentMotion).getSimmMotionData().getNumberOfFrames()-1 && direction==1 ||
               currentFrame==0 && direction==-1)
          return !wrapMotion;
       else
@@ -102,7 +107,16 @@ class MasterMotionModel{
    }
 
    public double getCurrentTime() {
-      return simmMotionData.getValue("time", currentFrame);
+      return displayers.get(currentMotion).getSimmMotionData().getValue("time", currentFrame);
+   }
+
+   void clear() {
+       if (displayers.size()!=0){
+           // unload previously loaded motion of the same model
+          for(int i=0; i<displayers.size(); i++)
+           displayers.get(i).cleanupDisplay();
+       }
+      sliderModel = new DefaultBoundedRangeModel();
    }
    
 }

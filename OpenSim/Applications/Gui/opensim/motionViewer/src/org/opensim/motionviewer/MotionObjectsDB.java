@@ -104,7 +104,7 @@ public class MotionObjectsDB {
    private vtkPolyData createArrow() {
       vtkArrowSource force=new vtkArrowSource();
       force.SetShaftRadius(0.02);
-      force.SetTipLength(0.1);
+      force.SetTipLength(0.2);
       return force.GetOutput();
    }
 
