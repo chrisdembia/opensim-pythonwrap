@@ -42,7 +42,6 @@
 #include <OpenSim/Simulation/SIMM/SimmUnits.h>
 #include <OpenSim/Simulation/SIMM/CoordinateSet.h>
 #include <OpenSim/Simulation/SDFast/sdfast.h>
-#include "SdfastBodySet.h"
 #include "SdfastCoordinateSet.h"
 #include "SdfastSpeedSet.h"
 #include "SdfastJointSet.h"
