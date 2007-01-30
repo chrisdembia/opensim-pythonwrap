@@ -583,7 +583,7 @@ typedef struct
    int force_matte_array_size;
    dpForceMatte* force_matte;   /* force mattes used for applying ground-based forces */
    dpQStruct* q;
-   dpBodyStruct* body_segment;
+//   dpBodyStruct* body_segment;
    dpMuscleStruct* muscles;
    dpMuscleStruct default_muscle;
    dpJointStruct* joint;

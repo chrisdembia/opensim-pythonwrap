@@ -683,7 +683,6 @@ void init_sdm()
 	sdm.neq = sdm.nq + sdm.nu; // not used in the new code, so don't bother adding num_muscle_states
 
    init_qs();
-   init_segments();
    init_joints();
    init_wrap_objects();
    init_constraint_objects();
