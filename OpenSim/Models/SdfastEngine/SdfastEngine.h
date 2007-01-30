@@ -147,7 +147,7 @@ private:
 	void constructSystemVariables();
 
 public:
-	void init();
+	void init(AbstractModel* aModel);
 	virtual void setup(AbstractModel* aModel);
 
 	virtual void peteTest() const;

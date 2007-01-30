@@ -59,6 +59,7 @@ SdfastCoordinate::SdfastCoordinate() :
 	_minRestraintFunction((ArrayPtrs<Function>&)_minRestraintFunctionProp.getValueObjArray()),
 	_maxRestraintFunction((ArrayPtrs<Function>&)_maxRestraintFunctionProp.getValueObjArray()),
 	_restraintActive(_restraintActiveProp.getValueBool()),
+	_constraintFunction((ArrayPtrs<Function>&)_constraintFunctionProp.getValueObjArray()),
 	_motionType(AbstractDof::Rotational),
 	_index(_indexProp.getValueInt()),
 	_joint(_jointProp.getValueInt()),
@@ -87,6 +88,7 @@ SdfastCoordinate::SdfastCoordinate(DOMElement *aElement) :
 	_minRestraintFunction((ArrayPtrs<Function>&)_minRestraintFunctionProp.getValueObjArray()),
 	_maxRestraintFunction((ArrayPtrs<Function>&)_maxRestraintFunctionProp.getValueObjArray()),
 	_restraintActive(_restraintActiveProp.getValueBool()),
+	_constraintFunction((ArrayPtrs<Function>&)_constraintFunctionProp.getValueObjArray()),
 	_motionType(AbstractDof::Rotational),
 	_index(_indexProp.getValueInt()),
 	_joint(_jointProp.getValueInt()),
@@ -127,6 +129,7 @@ SdfastCoordinate::SdfastCoordinate(const SdfastCoordinate &aCoordinate) :
 	_minRestraintFunction((ArrayPtrs<Function>&)_minRestraintFunctionProp.getValueObjArray()),
 	_maxRestraintFunction((ArrayPtrs<Function>&)_maxRestraintFunctionProp.getValueObjArray()),
 	_restraintActive(_restraintActiveProp.getValueBool()),
+	_constraintFunction((ArrayPtrs<Function>&)_constraintFunctionProp.getValueObjArray()),
 	_motionType(AbstractDof::Rotational),
 	_index(_indexProp.getValueInt()),
 	_joint(_jointProp.getValueInt()),
@@ -159,6 +162,7 @@ SdfastCoordinate::SdfastCoordinate(const AbstractCoordinate &aCoordinate) :
 	_minRestraintFunction((ArrayPtrs<Function>&)_minRestraintFunctionProp.getValueObjArray()),
 	_maxRestraintFunction((ArrayPtrs<Function>&)_maxRestraintFunctionProp.getValueObjArray()),
 	_restraintActive(_restraintActiveProp.getValueBool()),
+	_constraintFunction((ArrayPtrs<Function>&)_constraintFunctionProp.getValueObjArray()),
 	_motionType(AbstractDof::Rotational),
 	_index(_indexProp.getValueInt()),
 	_joint(_jointProp.getValueInt()),
@@ -229,6 +233,7 @@ void SdfastCoordinate::copyData(const SdfastCoordinate &aCoordinate)
 	_minRestraintFunction = aCoordinate._minRestraintFunction;
 	_maxRestraintFunction = aCoordinate._maxRestraintFunction;
 	_restraintActive = aCoordinate._restraintActive;
+	_constraintFunction = aCoordinate._constraintFunction;
 	_index = aCoordinate._index;
 	_joint = aCoordinate._joint;
 	_axis = aCoordinate._axis;
@@ -256,6 +261,7 @@ void SdfastCoordinate::copyData(const AbstractCoordinate &aCoordinate)
 	_minRestraintFunction = aCoordinate._minRestraintFunction;
 	_maxRestraintFunction = aCoordinate._maxRestraintFunction;
 	_restraintActive = aCoordinate._restraintActive;
+	_constraintFunction = aCoordinate.getConstraintFunction();
 #endif
 }
 
@@ -336,6 +342,11 @@ void SdfastCoordinate::setupProperties(void)
 	_restraintActiveProp.setName("restraint_active");
 	_restraintActiveProp.setValue(true);
 	_propertySet.append(&_restraintActiveProp);
+
+	_constraintFunctionProp.setName("constraint_function");
+	_constraintFunctionProp.setValue(func);
+	_propertySet.append(&_constraintFunctionProp);
+
 }
 
 //_____________________________________________________________________________
@@ -474,6 +485,9 @@ void SdfastCoordinate::updateFromCoordinate(const AbstractCoordinate &aCoordinat
 
 	if (!aCoordinate._restraintActiveProp.getUseDefault())
 		_restraintActive = aCoordinate._restraintActive;
+
+	if (!aCoordinate._constraintFunctionProp.getUseDefault())
+		_constraintFunction = aCoordinate._constraintFunction;
 #endif
 }
 
@@ -707,6 +721,29 @@ Function* SdfastCoordinate::getMaxRestraintFunction(void) const
 	return _maxRestraintFunction[0];
 }
 
+//_____________________________________________________________________________
+/**
+ * Get the constraint function.
+ *
+ * @return Pointer to the constraint function.
+ */
+Function* SdfastCoordinate::getConstraintFunction() const
+{
+	if (_constraintFunction.getSize() < 1)
+		return NULL;
+
+	return _constraintFunction[0];
+}
+
+//_____________________________________________________________________________
+/**
+ * Set the constraint function.
+ */
+void SdfastCoordinate::setConstraintFunction(const Function *function)
+{
+	_constraintFunction.set(0,(Function*)function->copy());
+}
+
 void SdfastCoordinate::peteTest(void) const
 {
 	cout << "Coordinate: " << getName() << endl;
@@ -728,5 +765,7 @@ void SdfastCoordinate::peteTest(void) const
 	if (_maxRestraintFunction.getSize() > 0)
 		cout << "   maxRestraintFunction: " << *(_maxRestraintFunction[0]) << endl;
 	cout << "   restraintActive: " << ((_restraintActive) ? ("true") : ("false")) << endl;
+	if (_constraintFunction.getSize() > 0)
+		cout << "   constraintFunction: " << *(_constraintFunction[0]) << endl;
 }
 

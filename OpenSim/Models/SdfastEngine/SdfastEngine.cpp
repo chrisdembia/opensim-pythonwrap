@@ -66,6 +66,9 @@ SdfastEngine* SdfastEngine::_Instance = NULL;
 const double SdfastEngine::ASSEMBLY_TOLERANCE = 1e-7;
 static char simmGroundName[] = "ground";
 
+// Function defined in jointconstraints.cpp
+void setJointConstraintFunctions(CoordinateSet *aCoordinateSet);
+
 //=============================================================================
 // CONSTRUCTOR(S) AND DESTRUCTOR
 //=============================================================================
@@ -180,7 +183,7 @@ Object* SdfastEngine::copy(DOMElement *aElement) const
  * Initialize the engine and the SD/FAST model.
  *
  */
-void SdfastEngine::init()
+void SdfastEngine::init(AbstractModel *aModel)
 {
 	sdinit();
 
@@ -188,6 +191,7 @@ void SdfastEngine::init()
 	constructSystemVariables();
 
 	init_sdm();
+	setJointConstraintFunctions(getCoordinateSet());
 	initializeState();
 	prescribe();
 
@@ -320,7 +324,7 @@ void SdfastEngine::setup(AbstractModel* aModel)
 
 	_groundBody = identifyGroundBody();
 
-	init();
+	init(aModel);
 }
 
 //=============================================================================

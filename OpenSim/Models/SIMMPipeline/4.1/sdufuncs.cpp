@@ -687,7 +687,6 @@ void init_sdm()
    init_joints();
    init_wrap_objects();
    init_constraint_objects();
-   init_joint_functions();
    init_q_restraint_functions();
 
 	const double BAUMGARTE_STAB = 20.0;

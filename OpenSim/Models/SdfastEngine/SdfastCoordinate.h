@@ -115,6 +115,9 @@ protected:
 	PropertyBool _restraintActiveProp;
 	bool &_restraintActive;
 
+	PropertyObjArray _constraintFunctionProp;
+	ArrayPtrs<Function> &_constraintFunction;
+
 	/** Type of motion of this coordinate (rotational or translationa). */
 	AbstractDof::DofType _motionType;
 
@@ -191,6 +194,8 @@ public:
 	Function* getRestraintFunction() const;
 	Function* getMinRestraintFunction() const;
 	Function* getMaxRestraintFunction() const;
+	Function* getConstraintFunction() const;
+	void setConstraintFunction(const Function *function);
 
 	void setSdfastType(SdfastQType aType) { _QType = aType; }
 	int getSdfastQType() const { return _QType; }
