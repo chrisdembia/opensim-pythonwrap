@@ -67,6 +67,7 @@ const double SdfastEngine::ASSEMBLY_TOLERANCE = 1e-7;
 static char simmGroundName[] = "ground";
 
 // Function defined in jointconstraints.cpp
+void setCoordinateInitialValues(CoordinateSet *aCoordinateSet);
 void setJointConstraintFunctions(CoordinateSet *aCoordinateSet);
 
 //=============================================================================
@@ -191,6 +192,7 @@ void SdfastEngine::init(AbstractModel *aModel)
 	constructSystemVariables();
 
 	init_sdm();
+	setCoordinateInitialValues(getCoordinateSet());
 	setJointConstraintFunctions(getCoordinateSet());
 	initializeState();
 	prescribe();

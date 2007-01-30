@@ -47,6 +47,7 @@ using namespace OpenSim;
  */
 SdfastCoordinate::SdfastCoordinate() :
    _defaultValue(_defaultValueProp.getValueDbl()),
+   _initialValue(_initialValueProp.getValueDbl()),
    _tolerance(_toleranceProp.getValueDbl()),
    _stiffness(_stiffnessProp.getValueDbl()),
    _weight(_weightProp.getValueDbl()),
@@ -76,6 +77,7 @@ SdfastCoordinate::SdfastCoordinate() :
 SdfastCoordinate::SdfastCoordinate(DOMElement *aElement) :
    AbstractCoordinate(aElement),
 	_defaultValue(_defaultValueProp.getValueDbl()),
+   _initialValue(_initialValueProp.getValueDbl()),
    _tolerance(_toleranceProp.getValueDbl()),
    _stiffness(_stiffnessProp.getValueDbl()),
    _weight(_weightProp.getValueDbl()),
@@ -117,6 +119,7 @@ SdfastCoordinate::~SdfastCoordinate()
 SdfastCoordinate::SdfastCoordinate(const SdfastCoordinate &aCoordinate) :
    AbstractCoordinate(aCoordinate),
 	_defaultValue(_defaultValueProp.getValueDbl()),
+   _initialValue(_initialValueProp.getValueDbl()),
    _tolerance(_toleranceProp.getValueDbl()),
    _stiffness(_stiffnessProp.getValueDbl()),
    _weight(_weightProp.getValueDbl()),
@@ -150,6 +153,7 @@ SdfastCoordinate::SdfastCoordinate(const SdfastCoordinate &aCoordinate) :
 SdfastCoordinate::SdfastCoordinate(const AbstractCoordinate &aCoordinate) :
    AbstractCoordinate(aCoordinate),
 	_defaultValue(_defaultValueProp.getValueDbl()),
+   _initialValue(_initialValueProp.getValueDbl()),
    _tolerance(_toleranceProp.getValueDbl()),
    _stiffness(_stiffnessProp.getValueDbl()),
    _weight(_weightProp.getValueDbl()),
@@ -222,6 +226,7 @@ Object* SdfastCoordinate::copy(DOMElement *aElement) const
 void SdfastCoordinate::copyData(const SdfastCoordinate &aCoordinate)
 {
 	_defaultValue = aCoordinate.getDefaultValue();
+	_initialValue = aCoordinate.getDefaultValue();
 	_tolerance = aCoordinate.getTolerance();
 	_stiffness = aCoordinate._stiffness;
 	_weight = aCoordinate._weight;
@@ -250,6 +255,7 @@ void SdfastCoordinate::copyData(const SdfastCoordinate &aCoordinate)
 void SdfastCoordinate::copyData(const AbstractCoordinate &aCoordinate)
 {
 	_defaultValue = aCoordinate.getDefaultValue();
+	_initialValue = aCoordinate.getDefaultValue();
 	_tolerance = aCoordinate.getTolerance();
 	_stiffness = aCoordinate.getStiffness();
 	_weight = aCoordinate.getWeight();
@@ -283,6 +289,10 @@ void SdfastCoordinate::setupProperties(void)
 	_defaultValueProp.setName("default_value");
 	_defaultValueProp.setValue(0.0);
 	_propertySet.append(&_defaultValueProp);
+
+	_initialValueProp.setName("initial_value");
+	_initialValueProp.setValue(0.0);
+	_propertySet.append(&_initialValueProp);
 
 	_toleranceProp.setName("tolerance");
 	_toleranceProp.setValue(0.0);
@@ -611,6 +621,15 @@ bool SdfastCoordinate::setDefaultValue(double aDefaultValue)
 	}
 
 	return false;
+}
+
+//_____________________________________________________________________________
+/**
+ * Set the initial value.  Used to initialize the initial_value field in sdm.q
+ */
+void SdfastCoordinate::setInitialValue(double aInitialValue)
+{
+	_initialValue = aInitialValue;
 }
 
 //_____________________________________________________________________________

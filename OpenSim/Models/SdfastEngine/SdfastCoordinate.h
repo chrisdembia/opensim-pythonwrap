@@ -74,6 +74,9 @@ protected:
 	PropertyDbl _defaultValueProp;
 	double &_defaultValue;
 
+	PropertyDbl _initialValueProp;
+	double &_initialValue;
+
 	PropertyDbl _toleranceProp;
 	double &_tolerance;
 
@@ -178,6 +181,8 @@ public:
 	virtual bool getStiffnessUseDefault() const { return _stiffnessProp.getUseDefault(); }
 	virtual double getDefaultValue() const { return _defaultValue; }
 	virtual bool setDefaultValue(double aDefaultValue);
+	virtual double getInitialValue() const { return _initialValue; }
+	virtual void setInitialValue(double aInitialValue);
 	virtual bool getDefaultValueUseDefault() const { return _defaultValueProp.getUseDefault(); }
 	virtual bool getClamped() const { return _clamped; }
 	virtual bool setClamped(bool aClamped) { _clamped = aClamped; return true; }

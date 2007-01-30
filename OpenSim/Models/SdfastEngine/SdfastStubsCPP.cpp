@@ -31,4 +31,5 @@
 // STATICS
 //=============================================================================
 
+void setCoordinateInitialValues(OpenSim::CoordinateSet *aCoordinateSet) { }
 void setJointConstraintFunctions(OpenSim::CoordinateSet *aCoordinateSet) { }

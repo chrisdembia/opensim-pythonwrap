@@ -72,3 +72,15 @@ void setJointConstraintFunctions(CoordinateSet *aCoordinateSet)
 		}
 	}
 }
+
+void setCoordinateInitialValues(CoordinateSet *aCoordinateSet)
+{
+	for (int i = 0; i < sdm.nq; i++) {
+		int index = aCoordinateSet->getIndex(sdm.q[i].name);
+		if(index<0) throw Exception("setJointConstraintFunctions: ERR- could not find coordinate named '"+string(sdm.q[i].name)+"'",__FILE__,__LINE__);
+		SdfastCoordinate *coordinate = dynamic_cast<SdfastCoordinate*>(aCoordinateSet->get(index));
+		if(!coordinate) throw Exception("setJointConstraintFunctions: ERR- dynamic_cast to SdfastCoordinate failed",__FILE__,__LINE__);
+		//std::cout << sdm.q[i].name << ": " << coordinate->getInitialValue() << endl;
+		sdm.q[i].initial_value = coordinate->getInitialValue();
+	}
+}
