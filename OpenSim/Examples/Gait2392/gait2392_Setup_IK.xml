@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<IKTool name="gait2392">
+	<!--Name of the OpenSim model file after scaling and marker relocation.-->
+	<model_file> gait2392.osim </model_file>
+	<MarkerSet><objects file="gait2392_IK_MarkerSet.xml"/></MarkerSet>
+	<!--Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial values. Filename is specified in the appropriate trial block.-->
+	<CoordinateSet><objects file="gait2392_IK_CoordinateSet.xml"/></CoordinateSet>
+	<coordinates_from_file>subtalar_angle_r subtalar_angle_l mtp_angle_r mtp_angle_l</coordinates_from_file>
+	<!--Trial paramaters, one block per trial-->
+	<SimmIKTrialSet><objects>
+		<SimmIKTrial name="first trial">
+			<!--Name of the .trc file containing the marker trail data.-->
+			<marker_file> gait2392_walk1.trc </marker_file>
+			<!--Name of the .mot file containing precomputed joint angles for the trial.  These are used to guide and weight the IK solution.-->
+			<coordinate_file> gait2392_walk1.mot </coordinate_file>
+			<!--Time range over which to solve the IK problem.-->
+			<time_range> 0.5 4.0 </time_range>
+			<!--Cutoff frequency for a low-pass filter on the kinematics.-->
+			<kinematics_smoothing> 10.0 </kinematics_smoothing>
+			<!--Cutoff frequency for a low-pass filter on the ground reaction forces.-->
+			<ground_reaction_smoothing> 1000.0 </ground_reaction_smoothing>
+			<!--Name of the .mot file containing the IK solution for the joint angles.-->
+			<output_motion_file> gait2392_walk1_ik.mot </output_motion_file>
+			<!--Flag for whether or not to includ marker positions in the output .mot file.-->
+			<include_markers> false </include_markers>
+		</SimmIKTrial>
+	</objects></SimmIKTrialSet>
+</IKTool>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CMCTool name="gait2392_walk1_RRA1">
+	<defaults>
+	</defaults>
+	<!--Name of the model library to load. Do not include the library extension (e.g., .dll or .lib).-->
+	<model_library>gait23</model_library>
+	<!--Name of the xml file used to deserialize or construct a model.-->
+	<model_file> gait2392_sdfast.osim </model_file>
+	<!--Name of the xml file used to construct an actuator set for the model.-->
+	<replace_actuator_set> true </replace_actuator_set>
+	<actuator_set_files> gait2392_RRA1_Actuators.xml </actuator_set_files>
+	<!--Name of the xml file used to construct a contact force set for the model.-->
+	<contact_force_set_file>  </contact_force_set_file>
+	<!--Directory used for writing results.-->
+	<results_directory> Results/ </results_directory>
+	<!--Output precision.-->
+	<output_precision> 8 </output_precision>
+	<!--Initial time for the investigation.-->
+	<initial_time> 0.5 </initial_time>
+	<!--Final time for the investigation.-->
+	<final_time> 2.0 </final_time>
+	<!--Maximum number of steps for the integrator.-->
+	<maximum_number_of_integrator_steps> 20000 </maximum_number_of_integrator_steps>
+	<!--Maximum integration step size.-->
+	<maximum_integrator_step_size> 0.001 </maximum_integrator_step_size>
+	<!--Integrator error tolerance. When the error is greater, the integrator step size is decreased.-->
+	<integrator_error_tolerance>       0.00100000 </integrator_error_tolerance>
+	<!--Integrator fine tolerance. When the error is less, the integrator step size is increased.-->
+	<integrator_fine_tolerance>       0.00001000 </integrator_fine_tolerance>
+
+	<desired_kinematics_file> gait2392_walk1_ik.mot </desired_kinematics_file>
+	<lowpass_cutoff_frequency> 6.0 </lowpass_cutoff_frequency>
+	<task_set_file>gait2392_RRA1_Tasks.xml</task_set_file>
+	<constraints_file> gait2392_RRA1_ControlConstraints.xml </constraints_file>
+
+	<external_loads_file> gait2392_walk1_grf.mot </external_loads_file>
+	<external_loads_model_kinematics_file> gait2392_walk1_ik.mot </external_loads_model_kinematics_file>
+	<external_loads_body1> calcn_r </external_loads_body1>
+	<external_loads_body2> calcn_l </external_loads_body2>
+	<lowpass_cutoff_frequency_for_load_kinematics> 6.0 </lowpass_cutoff_frequency_for_load_kinematics>
+
+	<use_fast_optimization_target> false </use_fast_optimization_target>
+	<optimizer_derivative_dx> 1.0e-4 </optimizer_derivative_dx>
+	<optimizer_convergence_criterion> 1.0e-6 </optimizer_convergence_criterion>
+	<optimizer_max_iterations> 2000 </optimizer_max_iterations>
+	<optimizer_print_level> 0 </optimizer_print_level>
+
+	<cmc_time_window> 0.001 </cmc_time_window>
+	<use_curvature_filter> false </use_curvature_filter>
+	<adjusted_com_body> torso </adjusted_com_body>
+	<output_model_file> gait2392_sdfast_adjusted.osim </output_model_file>
+	<compute_average_residuals> true </compute_average_residuals>
+	<adjust_com_to_reduce_residuals> true </adjust_com_to_reduce_residuals>
+</CMCTool>
