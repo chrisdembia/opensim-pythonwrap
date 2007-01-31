@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<SimmSubject name="gait2392">
+<SimmSubject name="subject01">
 
 	<!--Mass of the subject in kg.-->
 	<mass> 72.6 </mass>
@@ -8,12 +8,12 @@
 	<!--Age of the subject in years.-->
 	<age> 99 </age>
 	<!--Save record-keeping info. here.-->
-	<notes> </notes>
+	<notes> This is an example setup file for scale.exe. </notes>
 	
 	<!--File name for the (nominal model).osim to use is specified here.-->
 	<SimmGenericModelMaker name="">
 		<!--Name of the file for the OpenSim model (unscaled generic model)-->
-		<model_file> gait2392_unscaled.osim </model_file>
+		<model_file> gait2392.osim </model_file>
 		<MarkerSet><objects file="gait2392_Scale_MarkerSet.xml"/></MarkerSet>
 	</SimmGenericModelMaker>
 	
@@ -26,26 +26,26 @@
 		<!--A measurement set specifies which marker locations are used to scale which body segments.-->
 		<SimmMeasurementSet><objects file="gait2392_Scale_MeasurementSet.xml"/></SimmMeasurementSet>
 		<!--Name of .trc file containing the time history of marker positions. Used only in measurement-based scaling.-->
-		<marker_file> gait2392_static.trc </marker_file>
+		<marker_file> subject01_static.trc </marker_file>
 		<!--Range of time in the markers trial to use for scaling.-->
 		<time_range> 1 2 </time_range>
 		<!--Whether to preserve relative mass between segments.-->
 		<preserve_mass_distribution> true </preserve_mass_distribution>
 		<!--Name of SIMM joint file to write when done scaling.-->
-		<output_joint_file> gait2392_scaledOnly.jnt </output_joint_file>
+		<output_joint_file> subject01_scaledOnly.jnt </output_joint_file>
 		<!--Name of SIMM muscle file to write when done scaling.-->
-		<output_muscle_file> gait2392_scaledOnly.msl </output_muscle_file>
+		<output_muscle_file> subject01_scaledOnly.msl </output_muscle_file>
 		<!--Name of OpenSim xml file to write when done scaling.-->
-		<output_model_file> gait2392_scaledOnly.osim </output_model_file>
+		<output_model_file> subject01_scaledOnly.osim </output_model_file>
 		<!--Name of scales file to write when done scaling.-->
-		<output_scale_file> gait2392_scaleSet_applied.xml </output_scale_file>
+		<output_scale_file> subject01_scaleSet_applied.xml </output_scale_file>
 	</SimmModelScaler>
 	
 	<!--Parameters for moving a model's marker locations to match measured ones. Marker weighting and whether or not a marker should be moved is specified in the marker set for the generic model.-->
 	<SimmMarkerPlacer name="">
 		<!--Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial values. Filename is specified in the appropriate trial block.-->
 		<!--Name of .trc file containing the time history of marker positions (usually a static trial).-->
-		<marker_file> gait2392_static.trc </marker_file>
+		<marker_file> subject01_static.trc </marker_file>
 		<!--Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial values. Filename is specified in the appropriate trial block.-->
 		<CoordinateSet> <objects file="gait2392_Scale_CoordinateSet.xml"/> </CoordinateSet>
 		<!--Name of .mot file containing the joint angles used to set the initial configuration of the model for the purpose of relocating the non-fixed markers.-->
@@ -54,12 +54,12 @@
 		<!--Range of time in the markers trial to use for measurement-based scaling.-->
 		<time_range> 1 2 </time_range>
 		<!--Name of the new SIMM Joint file after scaling and marker relocation.-->
-		<output_joint_file> gait2392.jnt </output_joint_file>
+		<output_joint_file> subject01.jnt </output_joint_file>
 		<!--Name of SIMM muscle file to write when done scaling.-->
-		<output_muscle_file> gait2392.msl </output_muscle_file>
+		<output_muscle_file> subject01.msl </output_muscle_file>
 		<!-- Name of the new model file after scaling and marker relocation. This file will not be written if a name is not specfied.-->
-		<output_model_file> gait2392.osim </output_model_file>
+		<output_model_file> subject01.osim </output_model_file>
 
-		<output_motion_file> gait2392_static_output.mot </output_motion_file>
+		<output_motion_file> subject01_static_output.mot </output_motion_file>
 	</SimmMarkerPlacer>
 </SimmSubject>

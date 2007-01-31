@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PerturbationTool name="gait2392_walk1">
+<PerturbationTool name="subject01_walk1">
 	<model_library> gait23 </model_library>
-	<model_file> gait2392_sdfast_adjusted.osim </model_file>
+	<model_file> subject01_sdfast_adjusted.osim </model_file>
 	<replace_actuator_set> false </replace_actuator_set>
 	<actuator_set_files>gait2392_CMC_Actuators.xml</actuator_set_files>
 	<results_directory> ./ResultsPerturb </results_directory>
@@ -29,11 +29,11 @@
 	<corrective_spring_torsional_damping> 1.0e3 1.0e3 1.0e3 </corrective_spring_torsional_damping>
 	
 	<!-- Input files -->
-	<controls_file> ResultsCMC/gait2392_walk1_controls.xml </controls_file>
-	<cop_file> gait2392_walk1_grf.mot </cop_file>
-	<coordinates_file> ResultsCMC/gait2392_walk1_Kinematics_q.sto </coordinates_file>
-	<speeds_file> ResultsCMC/gait2392_walk1_Kinematics_u.sto </speeds_file>
-	<states_file> ResultsCMC/gait2392_walk1_states.sto </states_file>
+	<controls_file> ResultsCMC/subject01_walk1_controls.xml </controls_file>
+	<cop_file> subject01_walk1_grf.mot </cop_file>
+	<coordinates_file> ResultsCMC/subject01_walk1_Kinematics_q.sto </coordinates_file>
+	<speeds_file> ResultsCMC/subject01_walk1_Kinematics_u.sto </speeds_file>
+	<states_file> ResultsCMC/subject01_walk1_states.sto </states_file>
 	
 	<!-- Foot contact event times - approximated from animation -->
 	<r_heel_strike> 0.63 </r_heel_strike>
@@ -46,8 +46,8 @@
 	<l_toe_off>     2.00 </l_toe_off>
 
 	<!-- Ground reaction forces -->
-	<external_loads_file> gait2392_walk1_grf.mot </external_loads_file>
-	<external_loads_model_kinematics_file> gait2392_walk1_ik.mot </external_loads_model_kinematics_file>
+	<external_loads_file> subject01_walk1_grf.mot </external_loads_file>
+	<external_loads_model_kinematics_file> subject01_walk1_ik.mot </external_loads_model_kinematics_file>
 	<external_loads_body1> calcn_r </external_loads_body1>
 	<external_loads_body2> calcn_l </external_loads_body2>
 	<lowpass_cutoff_frequency_for_load_kinematics> 6.0 </lowpass_cutoff_frequency_for_load_kinematics>
