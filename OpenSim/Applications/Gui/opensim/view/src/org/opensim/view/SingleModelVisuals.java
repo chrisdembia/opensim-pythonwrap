@@ -395,7 +395,7 @@ public class SingleModelVisuals {
                     vtkMatrix4x4 xform = getCylinderTransform(axis, center) ;
                     
                     int idx = muscleSegmentsRep.addLocation(center[0], center[1], center[2]);
-                    muscleSegmentsRep.setTensorDataAtPoint(idx, 
+                    muscleSegmentsRep.setTensorDataAtLocation(idx, 
                             xform.GetElement(0, 0), xform.GetElement(1, 0), xform.GetElement(2, 0),
                             length*xform.GetElement(0, 1), length*xform.GetElement(1, 1), length*xform.GetElement(2, 1),
                             xform.GetElement(0, 2), xform.GetElement(1, 2), xform.GetElement(2, 2)
@@ -619,8 +619,8 @@ public class SingleModelVisuals {
               double length = normalizeAndGetLength(axis);
               vtkMatrix4x4 xform = getCylinderTransform(axis, center) ;
               int idx = glyphIds.get(i).intValue();
-              muscleSegmentsRep.setPoint(idx, center[0], center[1], center[2]);
-              muscleSegmentsRep.setTensorDataAtPoint(idx, 
+              muscleSegmentsRep.setLocation(idx, center[0], center[1], center[2]);
+              muscleSegmentsRep.setTensorDataAtLocation(idx, 
                       xform.GetElement(0, 0), xform.GetElement(1, 0), xform.GetElement(2, 0),
                       length*xform.GetElement(0, 1), length*xform.GetElement(1, 1), length*xform.GetElement(2, 1),
                       xform.GetElement(0, 2), xform.GetElement(1, 2), xform.GetElement(2, 2)

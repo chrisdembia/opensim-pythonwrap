@@ -97,17 +97,16 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
         return actor;
     }
     
-    public void setPoint(int index, double x, double y, double z) {
+    public void setLocation(int index, double x, double y, double z) {
         
         pointCloud.SetPoint(index, x, y, z);
     }
     
-    public void setTensorDataAtPoint(int index, double xx, double xy, double xz,
+    public void setTensorDataAtLocation(int index, double xx, double xy, double xz,
             double yx, double yy, double yz,
             double zx, double zy, double zz) {
         vtkPointData t = pointPolyData.GetPointData();
         t.GetTensors().SetTuple9(index, xx, xy, xz, yx, yy, yz, zx, zy, zz);
-        //t.GetTensors().SetTuple9(index, xx, yx, zx, xy, yy, zy, zx, zy, zz);
     }
 
    public vtkFloatArray getTensorData() {
@@ -118,11 +117,15 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
       this.tensorData = tensorData;
    }
 
-   void setModified() {
+   public void setModified() {
       glyph.Modified();
       mapper.Modified();
    }
-
+   /*
+    * Remove the specified index from view. 
+    * There should be a better way to do this but vtkPoints doesn't have an interface
+    * to remove points AFAIK !!
+    */
    void remove(int index) {
         vtkPointData t = pointPolyData.GetPointData();
         t.GetTensors().SetTuple9(index, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);

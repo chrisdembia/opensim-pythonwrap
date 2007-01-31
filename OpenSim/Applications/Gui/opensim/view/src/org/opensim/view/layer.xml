@@ -64,9 +64,6 @@
             <file name="org-opensim-view-actions-FileImportSIMMAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-FileImportSIMMAction.instance"/>
             </file>
-            <file name="org-opensim-view-actions-FileLoadMarkersAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-FileLoadMarkersAction.instance"/>
-            </file>
             <file name="org-opensim-view-separatorBefore.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>

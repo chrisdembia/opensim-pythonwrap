@@ -29,11 +29,14 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Observable;
 import javax.swing.SwingUtilities;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.awt.StatusDisplayer;
 import org.openide.nodes.Node;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.SimmMotionData;
+import org.opensim.modeling.Storage;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.pub.*;
 
@@ -69,7 +72,10 @@ public class MotionsDB extends Observable {
     * current.
     */
    public void loadMotionFile(String fileName) {
-      final SimmMotionData newMotion = new SimmMotionData(fileName);
+      Storage storage;
+      final SimmMotionData newMotion = (fileName.endsWith(".sto"))?
+         new SimmMotionData(new Storage(fileName)):
+         new SimmMotionData(fileName);
       String name = newMotion.getName();
       boolean associated = false;
       while(!associated){
@@ -96,8 +102,11 @@ public class MotionsDB extends Observable {
                   motionsNode.getChildren().add(new Node[]{newMotionNode});
                }
             });
-         } else  // Show error that motion couldn't be associated and repeat'
-            throw new UnsupportedOperationException();
+         } else { // Show error that motion couldn't be associated and repeat'
+            DialogDisplayer.getDefault().notify( 
+                    new NotifyDescriptor.Message("Could not associate motion to current model."));
+            break;
+         }
       }
    }
    
