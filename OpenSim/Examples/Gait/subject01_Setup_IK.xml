@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<InvestigationIK name="subject01">
+<IKTool name="subject01">
 	<!--Name of the OpenSim model file after scaling and marker relocation.-->
 	<model_file> subject01.osim </model_file>
 	<MarkerSet><objects file="gait2354_IK_MarkerSet.xml"/></MarkerSet>
@@ -28,4 +28,4 @@
 		</SimmIKTrial>
 		</objects>
 	</SimmIKTrialSet>
-</InvestigationIK>
+</IKTool>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<InvestigationCMCGait name="subject01_walk01_ik_rra">
+<CMCTool name="subject01_walk01_ik_rra">
 	<defaults>
 	</defaults>
 	<!--Name of the model library to load. Do not include the library extension (e.g., .dll or .lib).-->
 	<model_library>subject01</model_library>
 	<!--Name of the xml file used to deserialize or construct a model.-->
-	<model_file>subject01.xml</model_file>
+	<model_file>subject01_sdfast_adjusted.osim</model_file>
 	<replace_actuator_set> true </replace_actuator_set>
 	<!--Name of the xml file used to construct an actuator set for the model.-->
 	<actuator_set_files>gait2354_RRA2_Actuators.xml</actuator_set_files>
@@ -47,8 +47,6 @@
 
 	<cmc_time_window> 0.001 </cmc_time_window>
 	<use_curvature_filter> false </use_curvature_filter>
-	<adjusted_com_body> torso </adjusted_com_body>
-	<adjusted_com_file> rra_newTorsoCOM.txt </adjusted_com_file>
 	<compute_average_residuals> true </compute_average_residuals>
 	<adjust_com_to_reduce_residuals> false </adjust_com_to_reduce_residuals>
-</InvestigationCMCGait>
+</CMCTool>

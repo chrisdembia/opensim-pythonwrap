@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<InvestigationForward name="subject01_walk01">
+<ForwardTool name="subject01_walk01">
 	<model_library> subject01 </model_library>
-	<model_file> subject01.xml </model_file>
+	<model_file> subject01_sdfast_adjusted.osim </model_file>
 	<replace_actuator_set> false </replace_actuator_set>
 	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
 	<contact_force_set_file> </contact_force_set_file>
@@ -42,8 +42,4 @@
 	<external_loads_body1> calcn_r </external_loads_body1>
 	<external_loads_body2> calcn_l </external_loads_body2>
 	<lowpass_cutoff_frequency_for_load_kinematics> 6.0 </lowpass_cutoff_frequency_for_load_kinematics>
-
-	<adjusted_com_body> torso </adjusted_com_body>
-	<adjusted_com_file> rra_newTorsoCOM.txt </adjusted_com_file>
-</InvestigationForward>
-
+</ForwardTool>
