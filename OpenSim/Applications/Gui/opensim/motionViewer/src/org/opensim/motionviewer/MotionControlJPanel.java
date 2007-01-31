@@ -280,9 +280,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
        if (isMotionLoaded()){
           if (e.getSource()==jMotionSlider.getModel()){
              BoundedRangeModel sliderModel= (BoundedRangeModel)e.getSource();
-             /*if (sliderModel.getValueIsAdjusting())
-                return;*/
-             masterMotion.applyFrame(sliderModel.getValue());
+             //masterMotion.applyFrame(sliderModel.getValue());
              jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
       
           }
@@ -310,8 +308,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
    /**
     * update the panel to reflect current motion's name, range, ...etc.
     */
-   private void updatePanelDisplay(SimmMotionData simmMotionData) {
-      if (simmMotionData==null){
+   private void updatePanelDisplay() {
+      if (masterMotion==null || masterMotion.getNumMotions()==0){
          jMotionNameLabel.setText("");
          jTimeTextField.setText("");
          masterMotion.getSliderModel().setMinimum(0);
@@ -322,14 +320,14 @@ public class MotionControlJPanel extends javax.swing.JPanel
          jMotionSlider.setLabelTable(labels);        
       }
       else {
-         jMotionNameLabel.setText(simmMotionData.getName());
-         jTimeTextField.setText(String.valueOf(simmMotionData.getRangeMin()));
-         masterMotion.getSliderModel().setMinimum(masterMotion.getStartFrame());
-         masterMotion.getSliderModel().setMaximum(masterMotion.getLastFrame());
-         //sliderModel.setExtent(simmMotionData.getNumberOfFrames()-1);
-         jTimeTextField.setText(String.valueOf(simmMotionData.getRangeMin()));
-         Hashtable labels = jMotionSlider.createStandardLabels(50);
-         jMotionSlider.setLabelTable(labels);
+         if (masterMotion.getNumMotions()==1){
+            jMotionNameLabel.setText(masterMotion.getDisplayName());
+            jTimeTextField.setText(String.valueOf(masterMotion.getStartTime()));
+            masterMotion.getSliderModel().setMinimum(masterMotion.getStartFrame());
+            masterMotion.getSliderModel().setMaximum(masterMotion.getLastFrame());
+             Hashtable labels = jMotionSlider.createStandardLabels(50);
+            jMotionSlider.setLabelTable(labels);
+         }
       }
    }
    
@@ -343,17 +341,17 @@ public class MotionControlJPanel extends javax.swing.JPanel
             // new motion is loaded or is set current. Update panel display
             motionLoaded = true;   // enable buttons as needed
             masterMotion.add(evt.getModel(), evt.getMotion());
-            updatePanelDisplay(evt.getMotion());
+            updatePanelDisplay();
          }
          else if (evt.getOperation() == Operation.Clear){
             motionLoaded = false;
             masterMotion.clear();
-            updatePanelDisplay(null);
+            updatePanelDisplay();
          }
          else if (evt.getOperation() == Operation.AddSyncMotion)
          {
             motionLoaded = true;
-            masterMotion.add(evt.getModel(), evt.getMotion(), true);
+            masterMotion.addMerge(evt.getModel(), evt.getMotion());
          }
       }
    }

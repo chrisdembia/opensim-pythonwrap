@@ -27,54 +27,51 @@
 package org.opensim.view;
 
 import vtk.vtkActor;
+import vtk.vtkCylinderSource;
 import vtk.vtkDataArray;
 import vtk.vtkFloatArray;
-import vtk.vtkGlyph3D;
 import vtk.vtkPointData;
 import vtk.vtkPoints;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProperty;
-import vtk.vtkSphereSource;
+import vtk.vtkTensorGlyph;
 
 /**
  *
  * @author Ayman Habib. An object representing a cloud of visual objects used to display markers, muscle points 
  * efficiently.
  */
-public class OpenSimvtkGlyphCloud {    // Assume same shape
+public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
     
     private vtkPoints           pointCloud = new vtkPoints(); // object centers
     private vtkPolyData         pointPolyData = new vtkPolyData();
-    private vtkPolyData         shape=new vtkSphereSource().GetOutput();
+    private vtkPolyData         shape=new vtkCylinderSource().GetOutput();
     private vtkActor            actor = new vtkActor();
     private vtkPolyDataMapper   mapper = new vtkPolyDataMapper();
-    private vtkGlyph3D          glyph= new vtkGlyph3D();
-    private vtkFloatArray       lineNormals = new vtkFloatArray();
-    private vtkFloatArray       vectorData = new vtkFloatArray();
+    private vtkTensorGlyph      glyph= new vtkTensorGlyph();
+    private vtkFloatArray       tensorData = new vtkFloatArray();
+    
     /**
     * Creates a new instance of OpenSimvtkGlyphCloud
     */
-    public OpenSimvtkGlyphCloud() {
-        lineNormals.SetNumberOfTuples(1);
-        lineNormals.SetNumberOfComponents(3);
+    public OpenSimvtkOrientedGlyphCloud() {
+        tensorData.SetNumberOfTuples(1);
+        tensorData.SetNumberOfComponents(9);
         pointPolyData.SetPoints(pointCloud);
-        pointPolyData.GetPointData().SetNormals(lineNormals);
-        vectorData.SetNumberOfTuples(1);
-        vectorData.SetNumberOfComponents(3);
-        pointPolyData.GetPointData().SetVectors(vectorData);
-       
+        pointPolyData.GetPointData().SetTensors(tensorData);
+        glyph.ExtractEigenvaluesOff();
+        glyph.ThreeGlyphsOff();
+        glyph.SymmetricOff();
     }
     public int addLocation(double[] newPoint) {
         int id = pointCloud.InsertNextPoint(newPoint);
-        lineNormals.InsertTuple3(id, 0., 0., 0.);
-        vectorData.InsertTuple3(id, 0., 0., 0.);
+        tensorData.InsertTuple9(id, 1., 0., 0., 0., 1., 0., 0., 0., 1.);
         return id;
     }
     public int addLocation(double px, double py, double pz) {
         int id= pointCloud.InsertNextPoint(px, py, pz);
-        lineNormals.InsertTuple3(id, 0., 0., 0.);
-        vectorData.InsertTuple3(id, 0., 0., 0.);
+        tensorData.InsertTuple9(id, 1., 0., 0., 0., 1., 0., 0., 0., 1.);
         return id;
     }
     
@@ -100,46 +97,29 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         return actor;
     }
     
-    public void setLocation(int index, double x, double y, double z) {
+    public void setPoint(int index, double x, double y, double z) {
         
         pointCloud.SetPoint(index, x, y, z);
     }
     
-    public void setNormalAtLocation(int index, double x, double y, double z) {
+    public void setTensorDataAtPoint(int index, double xx, double xy, double xz,
+            double yx, double yy, double yz,
+            double zx, double zy, double zz) {
         vtkPointData t = pointPolyData.GetPointData();
-        vtkDataArray u = t.GetNormals();
-        u.SetTuple3(index, x, y, z);
-    }
-    
-    public void setVectorDataAtLocation(int index, double x, double y, double z) {
-        vtkPointData t = pointPolyData.GetPointData();
-        vtkDataArray u = t.GetVectors();
-        u.SetTuple3(index, x, y, z);
-    }
-    
-    public void orientByNormal() {
-        glyph.SetVectorModeToUseNormal(); 
-    }
-    
-    public void colorByScalar() {
-        glyph.SetColorModeToColorByScalar(); 
+        t.GetTensors().SetTuple9(index, xx, xy, xz, yx, yy, yz, zx, zy, zz);
+        //t.GetTensors().SetTuple9(index, xx, yx, zx, xy, yy, zy, zx, zy, zz);
     }
 
-    public void setScaleFactor(double d) {
-        glyph.SetScaleFactor(d);
-    }
-    
-    public void scaleByVector()
-    {
-        glyph.SetScaleModeToScaleByVector();
-    }
-
-   public void setModified() {
-      glyph.Modified();
+   public vtkFloatArray getTensorData() {
+      return tensorData;
    }
 
-   void scaleByVectorComponents() {
-      glyph.SetScaleModeToScaleByVectorComponents();
+   public void setTensorData(vtkFloatArray tensorData) {
+      this.tensorData = tensorData;
    }
-   
+
+   void setModified() {
+      mapper.Modified();
+   }
+        
 }

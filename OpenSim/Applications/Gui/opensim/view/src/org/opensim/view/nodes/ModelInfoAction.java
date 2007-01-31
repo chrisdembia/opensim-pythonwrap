@@ -21,8 +21,9 @@ public final class ModelInfoAction extends CallableSystemAction {
         AbstractModel mdl = modelNode.getModel();
         dlg.setModelName(mdl.getName());
         dlg.setModelFile(mdl.getInputFileName());
-        dlg.setAuthors("Bart Simpson");
-        dlg.setReferences("none yet");
+        dlg.setAuthors(
+                "Delp, S.L., Loan, J.P., Thelen, D., Anderson, F.C.");
+        dlg.setReferences("IEEE TBME, vol. 37, pp. 757-767, 1990.");
         dlg.setVisible(true);
     }
     

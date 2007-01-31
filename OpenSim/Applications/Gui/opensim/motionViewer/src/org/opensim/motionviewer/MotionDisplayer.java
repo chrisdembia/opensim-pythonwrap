@@ -10,6 +10,8 @@
 package org.opensim.motionviewer;
 
 import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.AbstractMarker;
@@ -18,7 +20,6 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.MarkerSet;
-import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.view.OpenSimvtkGlyphCloud;
 import org.opensim.view.pub.ViewDB;
@@ -167,7 +168,7 @@ public class MotionDisplayer {
                   mapIndicesToObjectTypes.put(columnIndex,   ObjectTypesInMotionFiles.Segment_marker_p1);
                   mapIndicesToObjectTypes.put(columnIndex+1, ObjectTypesInMotionFiles.Segment_marker_p2);
                   mapIndicesToObjectTypes.put(columnIndex+2, ObjectTypesInMotionFiles.Segment_marker_p3);
-                  int index= markersRep.addPoint(0., 0., 0.);
+                  int index= markersRep.addLocation(0., 0., 0.);
                   mapIndicesToObjects.put(columnIndex, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+1, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+2, new Integer(index));
@@ -190,7 +191,7 @@ public class MotionDisplayer {
                   mapIndicesToObjectTypes.put(columnIndex+3, ObjectTypesInMotionFiles.Segment_force_p4);
                   mapIndicesToObjectTypes.put(columnIndex+4, ObjectTypesInMotionFiles.Segment_force_p5);
                   mapIndicesToObjectTypes.put(columnIndex+5, ObjectTypesInMotionFiles.Segment_force_p6);
-                  int index= forcesRep.addPoint(0., 0., 0.);
+                  int index= forcesRep.addLocation(0., 0., 0.);
                   mapIndicesToObjects.put(columnIndex, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+1, new Integer(index));
                   mapIndicesToObjects.put(columnIndex+2, new Integer(index));
@@ -225,16 +226,16 @@ public class MotionDisplayer {
                break;
             case Segment_marker_p1:
                int markerIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
-               markersRep.setPoint(markerIndex, simmMotionData.getValue(i, currentFrame), 
+               markersRep.setLocation(markerIndex, simmMotionData.getValue(i, currentFrame), 
                        simmMotionData.getValue(i+1, currentFrame),
                        simmMotionData.getValue(i+2, currentFrame));
                break;
             case Segment_force_p1:
                int forceIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
-               forcesRep.setNormalAtPoint(forceIndex, simmMotionData.getValue(i, currentFrame), 
+               forcesRep.setNormalAtLocation(forceIndex, simmMotionData.getValue(i, currentFrame), 
                        simmMotionData.getValue(i+1, currentFrame),
                        simmMotionData.getValue(i+2, currentFrame));
-               forcesRep.setPoint(forceIndex, simmMotionData.getValue(i+3, currentFrame), 
+               forcesRep.setLocation(forceIndex, simmMotionData.getValue(i+3, currentFrame), 
                        simmMotionData.getValue(i+4, currentFrame),
                        simmMotionData.getValue(i+5, currentFrame));
                break;
@@ -242,6 +243,8 @@ public class MotionDisplayer {
                break;
          }
       }
+      markersRep.setModified();
+      forcesRep.setModified();
     }
     /*
      * cleanupDisplay is called when the motion is mode non-current either explicitly by the user or by selecting

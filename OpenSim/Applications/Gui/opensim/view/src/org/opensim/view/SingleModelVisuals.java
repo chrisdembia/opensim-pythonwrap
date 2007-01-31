@@ -13,7 +13,6 @@ import java.io.File;
 import java.util.Hashtable;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
-import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.AnalyticGeometry;
@@ -21,7 +20,6 @@ import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.LineGeometry;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.modeling.SimmMusclePoint;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
@@ -70,14 +68,18 @@ public class SingleModelVisuals {
     // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
     // e.g. Muscles, Models
     private Hashtable<OpenSimObject, vtkProp3D> mapObject2VtkObjects = new Hashtable<OpenSimObject, vtkProp3D>();
-    private Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects = new Hashtable<vtkProp3D, OpenSimObject>(500);
+    private Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects = new Hashtable<vtkProp3D, OpenSimObject>(50);
     
     private Hashtable<OpenSimObject, vtkActorCollection> mapObject2ActorCollections = new
             Hashtable<OpenSimObject, vtkActorCollection>();
 
+    private Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
+    private Hashtable<OpenSimObject, Integer> mapMusclePoints2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
+    
     // Markers and muscle points are represented as Glyphs for performance
-    //OpenSimvGlyphCloud  markersRep=new OpenSimvGlyphCloud();
-    //OpenSimvGlyphCloud  musclePointsRep=new OpenSimvGlyphCloud();
+    OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud();
+    OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud();
+    OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
     
     private vtkProp3DCollection    userObjects = new vtkProp3DCollection();
     /**
@@ -176,24 +178,32 @@ public class SingleModelVisuals {
             double[] color = new double[3];
             for(int j=0; j < ct;j++){
                 VisibleObject Dependent = bodyDisplayer.getDependent(j);
-                /*
+                
                 OpenSimObject owner = Dependent.getOwner();
+                // There should be a better way to do this type checking
+                // than String comparison but dynamic casting across JNI doesn't work!
                 if (owner.getType().equals("SimmMarker")){
                     // Convert marker pos to global pos.
                     double[] pos = new double[3];
+                    double[] gPos = new double[3];
                     Dependent.getTransform().getPosition(pos);
                     // xfrom to ground frame
-                    markersRep.addPoint(m.MultiplyDoublePoint(pos));
+                    model.getDynamicsEngine().transformPosition(body, pos, gPos);
+                    int index= markersRep.addLocation(gPos);
+                    mapMarkers2Glyphs.put(owner, new Integer(index));
                     continue;
                 }
-                else if (owner.getType().equals("SimmMusclePoint")){
-                    // Convert marker pos to global pos.
+                else if (owner.getType().equals("SimmMusclePoint")||
+                        owner.getType().equals("SimmMuscleViaPoint")){
                     double[] pos = new double[3];
+                    double[] gPos = new double[3];
                     Dependent.getTransform().getPosition(pos);
                     // xfrom to ground frame
-                    musclePointsRep.addPoint(m.MultiplyDoublePoint(pos));                    
+                    model.getDynamicsEngine().transformPosition(body, pos, gPos);
+                    int index= musclePointsRep.addLocation(gPos);
+                    mapMusclePoints2Glyphs.put(owner, new Integer(index));
                     continue;
-                } */
+                }
                 vtkActor attachmentRep = new vtkLODActor();
                 attachmentRep.SetUserMatrix(m);
                 int geomcount = Dependent.countGeometry();
@@ -234,13 +244,16 @@ public class SingleModelVisuals {
                 mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
             }
         } //body
-        //modelAssembly.AddPart(markersRep.getVtkActor());
-        //modelAssembly.AddPart(musclePointsRep.getVtkActor());
+        modelAssembly.AddPart(markersRep.getVtkActor());
+        modelAssembly.AddPart(musclePointsRep.getVtkActor());
+        markersRep.setModified();
+        musclePointsRep.setModified();
+
         //System.out.println("Before adding muscles:"+modelAssembly.Print());
         /**
          * Now the muscles and other actuators
          */
-        //addActuatorsGeometry(model, modelAssembly);
+        addActuatorsGeometry(model, modelAssembly);
         mapObject2VtkObjects.put(model, modelAssembly);
         mapVtkObjects2Objects.put(modelAssembly, model);
         // Postprocess model assembly
@@ -383,13 +396,16 @@ public class SingleModelVisuals {
                     double[] position2 = new double[3];
                     LineGeometry geomLine = LineGeometry.dynamic_cast(geomEntry);
                     geomLine.getPoints(position1, position2);
-
+                    
                     double[] axis = new double[3];
                     double[] center = new double[3];
                     for(int d=0; d <3; d++){
                         axis[d]=position1[d]-position2[d];
                         center[d] = (position1[d]+position2[d])/2.0;
                     }
+                    double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
+                    double length = normalizeAndGetLength(axis);
+                    /*
                     // Create a cylinder connecting position1, position2
                     // We should obtain this from the muscle so that shape,size and defaultMuscleColor are customizable
                     vtkCylinderSource cylinder = new vtkCylinderSource();
@@ -402,20 +418,23 @@ public class SingleModelVisuals {
                     dActor.GetProperty().SetColor(defaultMuscleColor);
                     dActor.SetUserMatrix(getCylinderTransform(axis, center));
                     dActor.SetMapper(mapper);
+                    
                     // Add new Actor to collection representing the muscle for faster update
                     segmentCollection.AddItem(dActor);
+                     **/
+                    vtkMatrix4x4 xform = getCylinderTransform(axis, center) ;
                     
-                    muscleRep.AddPart(dActor);
-                    // Fill the display to object map
-                    mapVtkObjects2Objects.put(dActor, nextMuscle);
+                    int idx = muscleSegmentsRep.addLocation(center[0], center[1], center[2]);
+                    muscleSegmentsRep.setTensorDataAtPoint(idx, 
+                            xform.GetElement(0, 0), xform.GetElement(1, 0), xform.GetElement(2, 0),
+                            length*xform.GetElement(0, 1), length*xform.GetElement(1, 1), length*xform.GetElement(2, 1),
+                            xform.GetElement(0, 2), xform.GetElement(1, 2), xform.GetElement(2, 2)
+                            );
                 } // Attachments
-                mapObject2ActorCollections.put(nextMuscle, segmentCollection);
-                
             } // ArraySize
-            modelAssembly.AddPart(muscleRep); 
-            //System.out.println("Processing muscle "+nextMuscle.getName());
         }
-        
+        modelAssembly.AddPart(muscleSegmentsRep.getVtkActor());
+        muscleSegmentsRep.setModified();
     }
     /**
      * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points
@@ -503,6 +522,8 @@ public class SingleModelVisuals {
      */
    public void updateModelDisplay(AbstractModel model) {
       // Cycle thru bodies and update their transforms from the kinematics engine
+        double[] pos = new double[3];
+        double[] gPos = new double[3];
         BodySet bodies = model.getDynamicsEngine().getBodySet();
         for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
 
@@ -522,6 +543,26 @@ public class SingleModelVisuals {
             //System.out.println("Body "+body+" has "+ct+ " dependents");
             for(int j=0; j < ct;j++){
                 VisibleObject dependent = bodyDisplayer.getDependent(j);
+                OpenSimObject owner = dependent.getOwner();
+
+                if (owner.getType().equals("SimmMarker")){
+                    // Convert marker pos to global pos.
+                    dependent.getTransform().getPosition(pos);
+                    // xfrom to ground frame
+                    model.getDynamicsEngine().transformPosition(body, pos, gPos);
+                    int index = ((Integer)mapMarkers2Glyphs.get(owner)).intValue();
+                    markersRep.setLocation(index, gPos[0], gPos[1], gPos[2]);
+                    continue;
+                }
+                else if (owner.getType().equals("SimmMusclePoint")||
+                        owner.getType().equals("SimmMuscleViaPoint")){
+                    dependent.getTransform().getPosition(pos);
+                    // xfrom to ground frame
+                    model.getDynamicsEngine().transformPosition(body, pos, gPos);
+                    int index = ((Integer)mapMusclePoints2Glyphs.get(owner)).intValue();
+                    musclePointsRep.setLocation(index, gPos[0], gPos[1], gPos[2]);
+                    continue;
+                }
                 vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
                 deptAssembly.SetUserMatrix(bodyVtkTransform);
             }
@@ -530,6 +571,8 @@ public class SingleModelVisuals {
         // Now the muscles
         //updateActuatorsGeometry(model);
         //animationCallback.mutex_end(1);
+        markersRep.setModified();
+        musclePointsRep.setModified();
         updateUserObjects();
    }
    /**
@@ -639,7 +682,7 @@ public class SingleModelVisuals {
 
     private void initDefaultShapesAndColors() {
         // Markers
-        /*
+       
        vtkSphereSource marker=new vtkSphereSource();
        marker.SetRadius(.01);
        marker.SetCenter(0., 0., 0.);
@@ -651,7 +694,17 @@ public class SingleModelVisuals {
        viaPoint.SetCenter(0., 0., 0.);
        musclePointsRep.setColor(defaultMuscleColor);
        musclePointsRep.setShape(viaPoint.GetOutput());
-      */
-    }
+       
+       vtkCylinderSource muscleSegment=new vtkCylinderSource();
+       muscleSegment.SetRadius(defaultMuscleRadius);
+       muscleSegment.SetHeight(1.0);
+       muscleSegment.SetCenter(0.0, 0.0, 0.0);
+       muscleSegment.CappingOff();
+       
+       muscleSegmentsRep.setColor(defaultMuscleColor);
+       muscleSegmentsRep.setShape(muscleSegment.GetOutput());
+       
+       
+     }
    
 }

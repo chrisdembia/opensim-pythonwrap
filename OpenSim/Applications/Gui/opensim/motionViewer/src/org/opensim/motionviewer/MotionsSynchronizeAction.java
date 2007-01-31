@@ -23,8 +23,9 @@ public final class MotionsSynchronizeAction extends CallableSystemAction {
        for(int i=0; i<selected.length; i++){
             OneMotionNode node =((OneMotionNode)selected[i]);
             AbstractModel model = node.getModel();
-            if (i==0)
+            if (i==0){
                 MotionsDB.getInstance().flushMotions(model);
+            }
             MotionsDB.getInstance().addSyncMotion(model, (SimmMotionData) node.getOpensimObject());
        }
     }
