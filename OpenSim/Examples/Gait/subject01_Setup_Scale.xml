@@ -31,7 +31,6 @@
 		<preserve_mass_distribution> true </preserve_mass_distribution>
 		<!--Name of scales file to write when done scaling.-->
 		<output_scale_file> subject01_ScaleSet_Applied.xml </output_scale_file>
-
 		<output_joint_file> subject01_scaledOnly.jnt </output_joint_file>
 		<output_muscle_file> subject01_scaledOnly.msl </output_muscle_file>
 	</SimmModelScaler>
@@ -53,7 +52,6 @@
 		<output_muscle_file> subject01.msl </output_muscle_file>
 		<!-- Name of the new model file after scaling and marker relocation. This file will not be written if a name is not specfied.-->
 		<output_model_file> subject01.osim </output_model_file>
-
 		<output_motion_file> subject01_static_output.mot </output_motion_file>
 	</SimmMarkerPlacer>
 	

@@ -3,7 +3,7 @@
 	<defaults>
 	</defaults>
 	<!--Name of the model library to load. Do not include the library extension (e.g., .dll or .lib).-->
-	<model_library>subject01</model_library>
+	<model_library>gait23</model_library>
 	<!--Name of the xml file used to deserialize or construct a model.-->
 	<model_file>subject01_sdfast.osim</model_file>
 	<replace_actuator_set> true </replace_actuator_set>
