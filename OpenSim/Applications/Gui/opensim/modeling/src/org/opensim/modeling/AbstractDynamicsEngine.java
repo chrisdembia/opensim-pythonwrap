@@ -72,6 +72,14 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
   }
 
+  public void getGravity(double[] rGrav) {
+    opensimModelJNI.AbstractDynamicsEngine_getGravity(swigCPtr, rGrav);
+  }
+
+  public boolean setGravity(double[] aGrav) {
+    return opensimModelJNI.AbstractDynamicsEngine_setGravity(swigCPtr, aGrav);
+  }
+
   public BodySet getBodySet() {
     long cPtr = opensimModelJNI.AbstractDynamicsEngine_getBodySet__SWIG_0(swigCPtr);
     return (cPtr == 0) ? null : new BodySet(cPtr, false);

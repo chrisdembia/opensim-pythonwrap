@@ -178,6 +178,14 @@ public class OpenSimObject {
     return opensimModelJNI.OpenSimObject_print(swigCPtr, aFileName);
   }
 
+  public static void PrintPropertyInfo(SWIGTYPE_p_std__ostream aOStream, String aClassNameDotPropertyName) {
+    opensimModelJNI.OpenSimObject_PrintPropertyInfo__SWIG_0(SWIGTYPE_p_std__ostream.getCPtr(aOStream), aClassNameDotPropertyName);
+  }
+
+  public static void PrintPropertyInfo(SWIGTYPE_p_std__ostream aOStream, String aClassName, String aPropertyName) {
+    opensimModelJNI.OpenSimObject_PrintPropertyInfo__SWIG_1(SWIGTYPE_p_std__ostream.getCPtr(aOStream), aClassName, aPropertyName);
+  }
+
   public void addObserver(OpenSimObject aObserver) {
     opensimModelJNI.OpenSimObject_addObserver(swigCPtr, OpenSimObject.getCPtr(aObserver));
   }

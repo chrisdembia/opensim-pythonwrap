@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import javax.swing.SwingUtilities;
+import org.netbeans.api.progress.ProgressHandle;
+import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -22,7 +24,11 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
         String fileName = FileUtils.getInstance().browseForFilename(".xml,.osim", "Model file to open");
         if (fileName != null){
             try {
+                ProgressHandle progressHandle = ProgressHandleFactory.createHandle(
+                "Start loading model from file"+fileName+"...");
+                progressHandle.start();
                 loadModel(fileName);
+                progressHandle.finish();
             } catch (IOException ex) {
                 ex.printStackTrace();
                 
