@@ -119,7 +119,13 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
    }
 
    void setModified() {
+      glyph.Modified();
       mapper.Modified();
+   }
+
+   void remove(int index) {
+        vtkPointData t = pointPolyData.GetPointData();
+        t.GetTensors().SetTuple9(index, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
    }
         
 }

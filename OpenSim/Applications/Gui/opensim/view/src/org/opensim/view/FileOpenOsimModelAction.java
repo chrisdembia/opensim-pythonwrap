@@ -25,7 +25,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
         if (fileName != null){
             try {
                 ProgressHandle progressHandle = ProgressHandleFactory.createHandle(
-                "Start loading model from file"+fileName+"...");
+                "Loading model file "+fileName+"...");
                 progressHandle.start();
                 loadModel(fileName);
                 progressHandle.finish();

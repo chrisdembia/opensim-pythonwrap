@@ -11,6 +11,7 @@ package org.opensim.view;
 
 import java.io.File;
 import java.util.Hashtable;
+import java.util.Vector;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractModel;
@@ -70,8 +71,8 @@ public class SingleModelVisuals {
     private Hashtable<OpenSimObject, vtkProp3D> mapObject2VtkObjects = new Hashtable<OpenSimObject, vtkProp3D>();
     private Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects = new Hashtable<vtkProp3D, OpenSimObject>(50);
     
-    private Hashtable<OpenSimObject, vtkActorCollection> mapObject2ActorCollections = new
-            Hashtable<OpenSimObject, vtkActorCollection>();
+    private Hashtable<OpenSimObject, Vector<Integer>> mapObject2GlyphIds = new
+            Hashtable<OpenSimObject, Vector<Integer>>();
 
     private Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
     private Hashtable<OpenSimObject, Integer> mapMusclePoints2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
@@ -157,12 +158,6 @@ public class SingleModelVisuals {
             bodyRep.SetUserMatrix(m);
             
              vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
-             // Shrink filter to be used for selection
-             /*
-             vtkShrinkPolyData shrink = new vtkShrinkPolyData();
-             shrink.SetInput(poly);
-             shrink.SetShrinkFactor(1.0);
-             */
              bodyMapper.SetInput(bodyPolyData.GetOutput());
 
              bodyRep.SetMapper(bodyMapper);
@@ -204,6 +199,7 @@ public class SingleModelVisuals {
                     mapMusclePoints2Glyphs.put(owner, new Integer(index));
                     continue;
                 }
+                /** unused but may be restored later 4 wrap objects
                 vtkActor attachmentRep = new vtkLODActor();
                 attachmentRep.SetUserMatrix(m);
                 int geomcount = Dependent.countGeometry();
@@ -242,6 +238,7 @@ public class SingleModelVisuals {
                 //modelAssembly.AddPart(markersActor);
                 modelAssembly.AddPart(attachmentRep);
                 mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
+                 */
             }
         } //body
         modelAssembly.AddPart(markersRep.getVtkActor());
@@ -249,7 +246,6 @@ public class SingleModelVisuals {
         markersRep.setModified();
         musclePointsRep.setModified();
 
-        //System.out.println("Before adding muscles:"+modelAssembly.Print());
         /**
          * Now the muscles and other actuators
          */
@@ -261,7 +257,6 @@ public class SingleModelVisuals {
         /*
         vtkActor bboxActor = new vtkActor();
         vtkCubeSource bboxSource = new vtkCubeSource();
-        
         bboxSource.SetBounds(modelAssembly.GetBounds());
         vtkPolyDataMapper bboxMapper = new vtkPolyDataMapper();
         bboxMapper.SetInput(bboxSource.GetOutput());
@@ -269,7 +264,6 @@ public class SingleModelVisuals {
         modelAssembly.AddPart(bboxActor);
         bboxActor.GetProperty().SetRepresentationToWireframe();
         */
-        //System.out.println("after adding muscles"+modelAssembly.Print());
         return modelAssembly;
     }
     
@@ -374,13 +368,7 @@ public class SingleModelVisuals {
         ActuatorSet acts = mdl.getActuatorSet();
         for(int actNumber=0; actNumber < acts.getSize(); actNumber++){   
             AbstractActuator nextMuscle = acts.get(actNumber);
-            // Create assembly for muscle
-            vtkAssembly muscleRep = new vtkAssembly();
-
-            vtkActorCollection segmentCollection = new vtkActorCollection();
-            // Fill the object to display map
-            mapObject2VtkObjects.put(nextMuscle, muscleRep);
-
+            Vector<Integer>   glyphIds = new Vector<Integer>(3);
             // Get attachments and connect them
             VisibleObject actuatorDisplayer = nextMuscle.getDisplayer();
             if (actuatorDisplayer == null){
@@ -396,7 +384,6 @@ public class SingleModelVisuals {
                     double[] position2 = new double[3];
                     LineGeometry geomLine = LineGeometry.dynamic_cast(geomEntry);
                     geomLine.getPoints(position1, position2);
-                    
                     double[] axis = new double[3];
                     double[] center = new double[3];
                     for(int d=0; d <3; d++){
@@ -405,23 +392,6 @@ public class SingleModelVisuals {
                     }
                     double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
                     double length = normalizeAndGetLength(axis);
-                    /*
-                    // Create a cylinder connecting position1, position2
-                    // We should obtain this from the muscle so that shape,size and defaultMuscleColor are customizable
-                    vtkCylinderSource cylinder = new vtkCylinderSource();
-                    cylinder.SetRadius(defaultMuscleRadius);
-                    cylinder.SetHeight(1.0);
-                    cylinder.CappingOff();
-                    vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-                    mapper.SetInput(cylinder.GetOutput());
-                    vtkActor dActor = new vtkLODActor();
-                    dActor.GetProperty().SetColor(defaultMuscleColor);
-                    dActor.SetUserMatrix(getCylinderTransform(axis, center));
-                    dActor.SetMapper(mapper);
-                    
-                    // Add new Actor to collection representing the muscle for faster update
-                    segmentCollection.AddItem(dActor);
-                     **/
                     vtkMatrix4x4 xform = getCylinderTransform(axis, center) ;
                     
                     int idx = muscleSegmentsRep.addLocation(center[0], center[1], center[2]);
@@ -430,7 +400,9 @@ public class SingleModelVisuals {
                             length*xform.GetElement(0, 1), length*xform.GetElement(1, 1), length*xform.GetElement(2, 1),
                             xform.GetElement(0, 2), xform.GetElement(1, 2), xform.GetElement(2, 2)
                             );
+                    glyphIds.add(new Integer(idx));
                 } // Attachments
+                mapObject2GlyphIds.put(nextMuscle, glyphIds);
             } // ArraySize
         }
         modelAssembly.AddPart(muscleSegmentsRep.getVtkActor());
@@ -462,7 +434,7 @@ public class SingleModelVisuals {
        for (int i=0; i < 3; i++){
             retTransform.SetElement(i, 0, newX[i]);
         // Scale by length
-                retTransform.SetElement(i, 1, retTransform.GetElement(i, 1)*length);
+                retTransform.SetElement(i, 1, retTransform.GetElement(i, 1));
           retTransform.SetElement(i, 3, origin[i]);
          }
         return retTransform;
@@ -512,7 +484,7 @@ public class SingleModelVisuals {
             }
         }
         // Now the muscles
-        //updateActuatorsGeometry(model);
+        updateActuatorsGeometry(model);
         //animationCallback.mutex_end(1);
    }
     /**
@@ -569,7 +541,7 @@ public class SingleModelVisuals {
             
         }
         // Now the muscles
-        //updateActuatorsGeometry(model);
+        updateActuatorsGeometry(model);
         //animationCallback.mutex_end(1);
         markersRep.setModified();
         musclePointsRep.setModified();
@@ -605,42 +577,30 @@ public class SingleModelVisuals {
       double[] center = new double[]{0.0, 0.0, 0.0};
       for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
          AbstractActuator nextMuscle = acts.get(actNumber);
-         // Create assembly for muscle
-         vtkAssembly muscleRep = (vtkAssembly) mapObject2VtkObjects.get(nextMuscle);
-         vtkActorCollection segmentCollection = mapObject2ActorCollections.get(nextMuscle);
+         nextMuscle.updateGeometry();
          // Get attachments and connect them
          VisibleObject actuatorDisplayer = nextMuscle.getDisplayer();
          if (actuatorDisplayer == null){
             continue;
          }
+         
          // A displayer is found, get geometry
          int geomSize = actuatorDisplayer.countGeometry();
-         int origGeomSize = segmentCollection.GetNumberOfItems();
+         Vector<Integer> glyphIds = mapObject2GlyphIds.get(nextMuscle);
+         
+         int origGeomSize = glyphIds.size();
          if (geomSize>origGeomSize){   // Make extra segments and attach them 
-              vtkCylinderSource cylinder = new vtkCylinderSource();
-              cylinder.SetRadius(defaultMuscleRadius);
-              cylinder.SetHeight(1.0);
-              cylinder.CappingOff();
-              vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-              mapper.SetInput(cylinder.GetOutput());
-              vtkActor dActor = new vtkLODActor();
-              dActor.GetProperty().SetColor(defaultMuscleColor);
-              dActor.SetUserMatrix(getCylinderTransform(axis, center));
-              dActor.SetMapper(mapper);
-              // Add new Actor to collection representing the muscle for faster update
-              segmentCollection.AddItem(dActor);
-              //muscleRep.AddPart(dActor);          
+            // Create new segments with ids and add them. 
+            int idx = muscleSegmentsRep.addLocation(0.0, 0.0, 0.0);
+            glyphIds.add(idx);
          }
          else if (origGeomSize>geomSize){ // remove unused segments
             int segmentsToRemove = origGeomSize-geomSize;
-            segmentCollection.InitTraversal();
-            for(int i=0; i<segmentsToRemove; i++){
-                vtkActor nextActor = segmentCollection.GetNextActor();
-                //muscleRep.RemovePart(nextActor);
-                segmentCollection.RemoveItem(nextActor);
+            for(int i=segmentsToRemove-1; i>=0; i--){
+               muscleSegmentsRep.remove(glyphIds.get(i).intValue());
+               glyphIds.remove(i);
             }
          }
-         segmentCollection.InitTraversal();
          double[] position1 = new double[3];
          double[] position2 = new double[3];
          if (geomSize > 0){
@@ -655,8 +615,17 @@ public class SingleModelVisuals {
                   center[d] = (position1[d]+position2[d])/2.0;
                }
                // Create a cylinder connecting position1, position2
-               vtkActor nextActor = segmentCollection.GetNextActor();
-               nextActor.SetUserMatrix(getCylinderTransform(axis, center));
+              double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
+              double length = normalizeAndGetLength(axis);
+              vtkMatrix4x4 xform = getCylinderTransform(axis, center) ;
+              int idx = glyphIds.get(i).intValue();
+              muscleSegmentsRep.setPoint(idx, center[0], center[1], center[2]);
+              muscleSegmentsRep.setTensorDataAtPoint(idx, 
+                      xform.GetElement(0, 0), xform.GetElement(1, 0), xform.GetElement(2, 0),
+                      length*xform.GetElement(0, 1), length*xform.GetElement(1, 1), length*xform.GetElement(2, 1),
+                      xform.GetElement(0, 2), xform.GetElement(1, 2), xform.GetElement(2, 2)
+                      );
+              muscleSegmentsRep.setModified();
             } // Attachments
          } // ArraySize        
       }

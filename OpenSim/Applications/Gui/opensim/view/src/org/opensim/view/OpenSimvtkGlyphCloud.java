@@ -63,6 +63,7 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         vectorData.SetNumberOfTuples(1);
         vectorData.SetNumberOfComponents(3);
         pointPolyData.GetPointData().SetVectors(vectorData);
+        glyph.GeneratePointIdsOn();
        
     }
     public int addLocation(double[] newPoint) {
