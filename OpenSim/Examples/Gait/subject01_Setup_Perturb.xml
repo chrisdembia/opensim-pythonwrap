@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PerturbationTool name="subject01_walk01">
 	<model_library> gait23 </model_library>
-	<model_file> subject01_sdfast_adjusted.xml </model_file>
+	<model_file> subject01_sdfast_adjusted.osim </model_file>
 	<replace_actuator_set> false </replace_actuator_set>
 	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
 	<results_directory> ./ResultsPerturb </results_directory>
