@@ -10,7 +10,7 @@
 	    <actuator_set_files>? If false, the actuator set is appended to.-->
 	<replace_actuator_set> true </replace_actuator_set>
 	<!--List of xml files used to construct an actuator set for the model.-->
-	<actuator_set_files> gait2392_RRA2_Actuators.xml </actuator_set_files>
+	<actuator_set_files> gait2354_RRA2_Actuators.xml </actuator_set_files>
 	<!--Name of the xml file used to construct a contact set for the model.-->
 	<contact_force_set_file>  </contact_force_set_file>
 	<!--Directory used for writing results.-->
@@ -20,7 +20,7 @@
 	<!--Initial time for the simulation.-->
 	<initial_time> 0.5 </initial_time>
 	<!--Final time for the simulation.-->
-	<final_time> 2 </final_time>
+	<final_time> 1.5 </final_time>
 	<!--Maximum number of integrator steps.-->
 	<maximum_number_of_integrator_steps> 20000 </maximum_number_of_integrator_steps>
 	<!--Maximum integration step size.-->
@@ -41,9 +41,9 @@
 	<lowpass_cutoff_frequency> 6 </lowpass_cutoff_frequency>
 	<!--File containing the tracking tasks. Which coordinates are tracked and
 	    with what weights are specified here.-->
-	<task_set_file> gait2392_RRA2_Tasks.xml </task_set_file>
+	<task_set_file> gait2354_RRA2_Tasks.xml </task_set_file>
 	<!--File containing the constraints on the controls.-->
-	<constraints_file> gait2392_RRA2_ControlConstraints.xml </constraints_file>
+	<constraints_file> gait2354_RRA2_ControlConstraints.xml </constraints_file>
 
 	<!--Motion file (.mot) or storage file (.sto) containing the external
 	    loads applied to the model.-->

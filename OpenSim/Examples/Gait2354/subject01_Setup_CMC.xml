@@ -9,7 +9,7 @@
 	    <actuator_set_files>? If false, the actuator set is appended to.-->
 	<replace_actuator_set> false </replace_actuator_set>
 	<!--List of xml files used to construct an actuator set for the model.-->
-	<actuator_set_files> gait2392_CMC_Actuators.xml </actuator_set_files>
+	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
 	<!--Name of the xml file used to construct a contact set for the model.-->
 	<contact_force_set_file>  </contact_force_set_file>
 	<!--Directory used for writing results.-->
@@ -17,9 +17,9 @@
 	<!--Output precision.  It is 8 by default.-->
 	<output_precision> 20 </output_precision>
 	<!--Initial time for the simulation.-->
-	<initial_time> 0.5 </initial_time>
+	<initial_time> 0.80 </initial_time>
 	<!--Final time for the simulation.-->
-	<final_time> 2 </final_time>
+	<final_time> 1.20 </final_time>
 	<!--Maximum number of integrator steps.-->
 	<maximum_number_of_integrator_steps> 30000 </maximum_number_of_integrator_steps>
 	<!--Maximum integration step size.-->
@@ -69,9 +69,9 @@
 	<lowpass_cutoff_frequency> -10 </lowpass_cutoff_frequency>
 	<!--File containing the tracking tasks. Which coordinates are tracked and
 	    with what weights are specified here.-->
-	<task_set_file> gait2392_CMC_Tasks.xml </task_set_file>
+	<task_set_file> gait2354_CMC_Tasks.xml </task_set_file>
 	<!--File containing the constraints on the controls.-->
-	<constraints_file> gait2392_CMC_ControlConstraints.xml </constraints_file>
+	<constraints_file> gait2354_CMC_ControlConstraints.xml </constraints_file>
 
 	<!--Motion file (.mot) or storage file (.sto) containing the external
 	    loads applied to the model.-->
@@ -105,7 +105,7 @@
 	<!--Convergence criterion for the optimizer. The smaller this value, the
 	    deeper the convergence. Decreasing this number can improve a solution,
 	    but will also likely increase computation time.-->
-	<optimizer_convergence_criterion> 1e-006 </optimizer_convergence_criterion>
+	<optimizer_convergence_criterion> 1e-001 </optimizer_convergence_criterion>
 	<!--Maximum number of iterations for the optimizer.-->
 	<optimizer_max_iterations> 2000 </optimizer_max_iterations>
 	<!--Print level for the optimizer, 0 - 3. 0=no printing, 3=detailed

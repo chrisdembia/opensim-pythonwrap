@@ -3,10 +3,10 @@
 	<!--Name of the .osim file used to construct a model.-->
 	<model_file> subject01.osim </model_file>
 	<!--Marker set to be used for solving the IK trials.-->
-	<MarkerSet file="gait2392_IK_MarkerSet.xml"/>
+	<MarkerSet file="gait2354_IK_MarkerSet.xml"/>
 	<!--Specifies weights for matching coordinates specified in a file (the
 	    coordinate_file)-->
-	<CoordinateSet file="gait2392_IK_CoordinateSet.xml"/>
+	<CoordinateSet file="gait2354_IK_CoordinateSet.xml"/>
 	<!--List specifying which coordinate values should be taken from the
 	    coordinate_file.-->
 	<coordinates_from_file> subtalar_angle_r subtalar_angle_l mtp_angle_r mtp_angle_l </coordinates_from_file>
@@ -37,7 +37,7 @@
 				    is used to solve the IK problem.-->
 				<coordinate_file> subject01_walk1.mot </coordinate_file>
 				<!--Time range over which the IK problem is solved.-->
-				<time_range> 0.5 4 </time_range>
+				<time_range> 0.4 2.0 </time_range>
 				<!--Smoothing factor for preprocessing the kinematic data. Not currently
 				    used.-->
 				<kinematics_smoothing> 10 </kinematics_smoothing>

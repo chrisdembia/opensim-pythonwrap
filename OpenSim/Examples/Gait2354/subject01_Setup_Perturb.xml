@@ -9,16 +9,16 @@
 	    <actuator_set_files>? If false, the actuator set is appended to.-->
 	<replace_actuator_set> false </replace_actuator_set>
 	<!--List of xml files used to construct an actuator set for the model.-->
-	<actuator_set_files> gait2392_CMC_Actuators.xml </actuator_set_files>
+	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
 	<!--Directory used for writing results.-->
 	<results_directory> ./ResultsPerturb </results_directory>
 
 	<!--Output precision.  It is 8 by default.-->
 	<output_precision> 12 </output_precision>
 	<!--Initial time for the simulation.-->
-	<initial_time> 0.63 </initial_time>
+	<initial_time> 0.80 </initial_time>
 	<!--Final time for the simulation.-->
-	<final_time> 1.2 </final_time>
+	<final_time> 1.19 </final_time>
 
 	<!--Time over which the model states are integrated following a
 	    perturbation. To allow reaction forces to adjust to adjust to the
