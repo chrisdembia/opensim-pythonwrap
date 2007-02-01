@@ -22,7 +22,7 @@ public final class ModelInfoAction extends CallableSystemAction {
         dlg.setModelName(mdl.getName());
         dlg.setModelFile(mdl.getInputFileName());
         dlg.setAuthors(
-                "Delp, S.L., Loan, J.P., Thelen, D., Anderson, F.C.");
+                "Bart, Homer and Maggi Simpson.");
         dlg.setReferences("IEEE TBME, vol. 37, pp. 757-767, 1990.");
         dlg.setVisible(true);
     }

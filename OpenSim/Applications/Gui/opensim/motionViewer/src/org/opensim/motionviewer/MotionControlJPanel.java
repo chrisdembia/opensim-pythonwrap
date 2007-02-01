@@ -11,7 +11,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.BoundedRangeModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
@@ -41,6 +40,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
    public MotionControlJPanel() {
       masterMotion = new MasterMotionModel();   // initialize the object backing the GUI.
       initComponents();
+      jMotionSlider.setModel(masterMotion.getSliderModel());
       jMotionSlider.getModel().addChangeListener(this); 
       MotionsDB.getInstance().addObserver(this);
    }
@@ -97,7 +97,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
       jMotionSlider.setPaintLabels(true);
       jMotionSlider.setPaintTicks(true);
       jMotionSlider.setPaintTrack(false);
-      jMotionSlider.setModel(masterMotion.getSliderModel());
+      jMotionSlider.setExtent(100);
 
       jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
       jLabel2.setText("Motion:");
@@ -219,7 +219,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
       if (isMotionLoaded()){
          masterMotion.back();
           jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
-      }
+          jMotionSlider.setValue(masterMotion.getSliderModel().getValue());
+     }
    }//GEN-LAST:event_jBackButtonActionPerformed
    
    private void jPlayReverseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlayReverseButtonActionPerformed
@@ -230,6 +231,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
             public void run() {
                masterMotion.back();
                jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
+               jMotionSlider.setValue(masterMotion.getSliderModel().getValue());
               // Kill self if done and wrapMotion is off
                 if (masterMotion.finished(-1))
                    fTimer.cancel();
@@ -255,6 +257,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
        if (isMotionLoaded()){
           masterMotion.advance();
           jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
+          jMotionSlider.setValue(masterMotion.getSliderModel().getValue());
        }
     }//GEN-LAST:event_jAdvanceButtonActionPerformed
     
@@ -266,6 +269,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
              public void run() {
                 masterMotion.advance();
                 jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
+                jMotionSlider.setValue(masterMotion.getSliderModel().getValue());
                 // Kill self if done and wrapMotion is off
                 if (masterMotion.finished(1))
                    fTimer.cancel();
@@ -278,9 +282,12 @@ public class MotionControlJPanel extends javax.swing.JPanel
     public void stateChanged(ChangeEvent e) {
        // Get frame number from slider (if not adjusting) and set model to it
        if (isMotionLoaded()){
-          if (e.getSource()==jMotionSlider.getModel()){
-             BoundedRangeModel sliderModel= (BoundedRangeModel)e.getSource();
-             //masterMotion.applyFrame(sliderModel.getValue());
+          if (e.getSource().equals(jMotionSlider.getModel())){
+            //javax.swing.JSlider slider= (javax.swing.JSlider)e.getSource();
+            /*if (slider.getValueIsAdjusting())
+                return;*/
+             int gValue = jMotionSlider.getModel().getValue();
+             masterMotion.setTimePercent(gValue);
              jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
       
           }
@@ -302,6 +309,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
           }
           masterMotion.setTime(userTime);
           jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
+          jMotionSlider.setValue(masterMotion.getSliderModel().getValue());
        }
     }
 
@@ -312,20 +320,15 @@ public class MotionControlJPanel extends javax.swing.JPanel
       if (masterMotion==null || masterMotion.getNumMotions()==0){
          jMotionNameLabel.setText("");
          jTimeTextField.setText("");
-         masterMotion.getSliderModel().setMinimum(0);
-         masterMotion.getSliderModel().setMaximum(100);
-         //sliderModel.setExtent(simmMotionData.getNumberOfFrames()-1);
          jTimeTextField.setText("");
-         Hashtable labels = jMotionSlider.createStandardLabels(50);
+         Hashtable labels = jMotionSlider.createStandardLabels(25);
          jMotionSlider.setLabelTable(labels);        
       }
       else {
-         if (masterMotion.getNumMotions()==1){
+         if (masterMotion.getNumMotions()>=1){
             jMotionNameLabel.setText(masterMotion.getDisplayName());
             jTimeTextField.setText(String.valueOf(masterMotion.getStartTime()));
-            masterMotion.getSliderModel().setMinimum(masterMotion.getStartFrame());
-            masterMotion.getSliderModel().setMaximum(masterMotion.getLastFrame());
-             Hashtable labels = jMotionSlider.createStandardLabels(50);
+             Hashtable labels = masterMotion.makeLabels();
             jMotionSlider.setLabelTable(labels);
          }
       }
@@ -352,6 +355,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
          {
             motionLoaded = true;
             masterMotion.addMerge(evt.getModel(), evt.getMotion());
+            updatePanelDisplay();
          }
       }
    }

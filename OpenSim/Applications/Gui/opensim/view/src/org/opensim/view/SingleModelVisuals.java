@@ -598,8 +598,8 @@ public class SingleModelVisuals {
             int segmentsToRemove = origGeomSize-geomSize;
             for(int i=segmentsToRemove-1; i>=0; i--){
                muscleSegmentsRep.remove(glyphIds.get(i).intValue());
-               glyphIds.remove(i);
             }
+            glyphIds.setSize(geomSize);
          }
          double[] position1 = new double[3];
          double[] position2 = new double[3];

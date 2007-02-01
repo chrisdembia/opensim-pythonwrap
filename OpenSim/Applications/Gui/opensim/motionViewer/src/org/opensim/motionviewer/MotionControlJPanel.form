@@ -132,9 +132,7 @@
         <Property name="paintLabels" type="boolean" value="true"/>
         <Property name="paintTicks" type="boolean" value="true"/>
         <Property name="paintTrack" type="boolean" value="false"/>
-        <Property name="model" type="javax.swing.BoundedRangeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="masterMotion.getSliderModel()" type="code"/>
-        </Property>
+        <Property name="extent" type="int" value="100"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

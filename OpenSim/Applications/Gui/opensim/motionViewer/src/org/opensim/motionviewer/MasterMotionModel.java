@@ -1,11 +1,11 @@
 package org.opensim.motionviewer;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimmMotionData;
@@ -43,7 +43,7 @@ public class MasterMotionModel{
    private boolean wrapMotion=false;
    int currentMotion = 0; // Master slider switches between motions finding local frame numbers 
    int currentFrame = 0;   // in currentMotion
-   double      startTime, endTime;
+   //double      startTime, endTime;
    // superMotion is the merged motion of multiple motions if many are displayed, otherwise
    // it's just a single motion.
    int         currentSuperFrame=0;       // index of current frame, motion in superMotion
@@ -65,7 +65,6 @@ public class MasterMotionModel{
          });
         
        System.out.println("motion, frame"+currentMotion+", "+currentFrame);
-      //?getSliderModel().setValue(currentFrame);
    }
    
     public void back() {
@@ -82,6 +81,8 @@ public class MasterMotionModel{
           currentMotion = c.getMotionNumber();
      }
       applyFrame(currentFrame);
+      int percent = (int)((double)currentSuperFrame*100/(superMotion.size()-1));
+      sliderModel.setValue(percent);
    }
    
    public void advance() {
@@ -98,6 +99,8 @@ public class MasterMotionModel{
           currentMotion = c.getMotionNumber();
       }
       applyFrame(currentFrame);
+      int percent = (int)((double)currentSuperFrame*100/(superMotion.size()-1));
+      sliderModel.setValue(percent);
    }
    
    
@@ -116,19 +119,13 @@ public class MasterMotionModel{
         currentSuperFrame=superMotion.size()-1;
      else { // search
          int i=0;
-         while( i< superMotion.get(superMotion.size()-1).getFrameTime()){
+         while( i< (superMotion.size()-1) && superMotion.get(i).getFrameTime()<userTime){
             i++;
          }
          currentSuperFrame=i;
      }
-   }
-
-   public int getStartFrame() {
-      return 0;
-   }
-
-   public int getLastFrame() {
-      return superMotion.size()-1;
+      int percent = (int)((double)currentSuperFrame*100/(superMotion.size()-1));
+      sliderModel.setValue(percent);
    }
 
    public boolean isWrapMotion() {
@@ -149,8 +146,8 @@ public class MasterMotionModel{
            // unload previously loaded motion of the same model
           for(int i=0; i<displayers.size(); i++)
            displayers.get(i).cleanupDisplay();
-          startTime=1000.0;
-          endTime=0.0;
+          //startTime=1000.0;
+          //endTime=0.0;
           displayers.clear();
        }
        clear();
@@ -161,10 +158,10 @@ public class MasterMotionModel{
    void addMerge(AbstractModel abstractModel, SimmMotionData simmMotionData) {
       int nextMotionNumber = displayers.size();
         displayers.add(new MotionDisplayer(simmMotionData, abstractModel));
-       if (simmMotionData.getRangeMin() <startTime)
+       /*if (simmMotionData.getRangeMin() <startTime)
           startTime = simmMotionData.getRangeMin();
        if (simmMotionData.getRangeMax() >endTime)
-          endTime = simmMotionData.getRangeMax();
+          endTime = simmMotionData.getRangeMax();*/
        // updateBounds.
        buildSuperMotion(abstractModel, simmMotionData, displayers.size()-1);
    }
@@ -214,10 +211,10 @@ public class MasterMotionModel{
          MotionFrame newFrame = new MotionFrame(idx, i, time);
          while(superMotion.get(j).getFrameTime()<time && j<superMotion.size()-1){
             mergedMotion.add(superMotion.get(j));
-            System.out.println("Add frame "+
+            /*System.out.println("Add frame "+
                     superMotion.get(j).getFrameNumber()+" from motion "+
                     superMotion.get(j).getMotionNumber()+" at time"+
-                    superMotion.get(j).getFrameTime());
+                    superMotion.get(j).getFrameTime());*/
             j++;
          }
          mergedMotion.add(newFrame);
@@ -225,10 +222,10 @@ public class MasterMotionModel{
       }
        while (j < superMotion.size()-1){
             mergedMotion.add(superMotion.get(j));
-            System.out.println("Add frame "+
+            /*System.out.println("Add frame "+
                     superMotion.get(j).getFrameNumber()+" from motion "+
                     superMotion.get(j).getMotionNumber()+" at time"+
-                    superMotion.get(j).getFrameTime());
+                    superMotion.get(j).getFrameTime());*/
             j++;
       }
       superMotion = mergedMotion;
@@ -251,10 +248,46 @@ public class MasterMotionModel{
 
    double getStartTime()
    {
-      return startTime;
+      if (superMotion.size()>0)
+         return superMotion.get(0).getFrameTime();
+      else
+         return 0.0;
    }
    double getEndTime()
    {
-      return endTime;
+      if (superMotion.size()>0)
+         return superMotion.get(superMotion.size()-1).getFrameTime();
+      else
+         return 0.0;
+   }
+
+   /**
+    * Make labels for slider at 0, 25, 50, 75, 100% of time labeled with time
+    **/
+   Hashtable makeLabels() {
+      // Go thru stored frames in superMotion and create 5 entries
+      Hashtable labels = new Hashtable(5);
+      int numFrames =  superMotion.size();
+      if (numFrames <5){
+         for(int i=0; i<5; i++){
+            MotionFrame c = superMotion.get(i);
+            String label = Double.toString(c.getFrameTime());
+            if (label.length()>5) label=label.substring(0, 5);
+            labels.put(new Integer(25*i), new JLabel(label));
+         }
+      }
+      else {
+         for(int i=0; i<5; i++){
+            MotionFrame c = superMotion.get((superMotion.size()-1)*i/4);
+            String label = Double.toString(c.getFrameTime());
+            if (label.length()>5) label=label.substring(0, 5);
+            labels.put(new Integer(25*i), new JLabel(label));
+         }
+      }
+      return labels;
+   }
+
+   void setTimePercent(int percentageOnSlider) {
+      this.setTime(getStartTime()+(getEndTime()-getStartTime())*percentageOnSlider/100.0);
    }
 }

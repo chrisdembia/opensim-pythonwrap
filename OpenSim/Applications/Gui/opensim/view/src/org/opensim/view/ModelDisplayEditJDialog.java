@@ -6,7 +6,6 @@
 
 package org.opensim.view;
 
-import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
