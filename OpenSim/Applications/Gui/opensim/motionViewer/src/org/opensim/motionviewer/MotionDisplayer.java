@@ -215,14 +215,12 @@ public class MotionDisplayer {
    }
 
    void applyFrameToModel(int currentFrame) {
-      ArrayStr colNames = simmMotionData.getColumnNames();
-      for (int i = 0; i<simmMotionData.getNumColumns(); i++){
+       for (int i = 0; i<simmMotionData.getNumColumns(); i++){
          // get Type and apply value
          ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
-         String colName = colNames.getitem(i);
-         switch(cType){
+          switch(cType){
             case GenCoord:
-               ((AbstractCoordinate)(mapIndicesToObjects.get(i))).setValue(simmMotionData.getValue(colName, currentFrame));
+               ((AbstractCoordinate)(mapIndicesToObjects.get(i))).setValue(simmMotionData.getValue(i, currentFrame));
                break;
             case Segment_marker_p1:
                int markerIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();

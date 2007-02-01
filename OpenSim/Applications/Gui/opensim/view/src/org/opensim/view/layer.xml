@@ -10,7 +10,6 @@
             <file name="org-opensim-view-SelectObjectAction.instance"/>
             <file name="org-opensim-view-ViewEditAction.instance"/>
             <file name="org-opensim-view-FileExportSIMMJntAction.instance"/>
-            <file name="org-opensim-view-ImportSIMMModelAction.instance"/>
             <file name="org-opensim-view-ViewReplicateAction.instance"/>
             <file name="org-opensim-view-SaveAction.instance"/>
             <file name="org-opensim-view-LoadGaitModelAction.instance">
@@ -146,12 +145,7 @@
             </file>
             <attr name="org-opensim-view-actions-ViewAddNewAction.shadow/org-netbeans-core-actions-HTMLViewAction.instance" boolvalue="true"/>
         </folder>
-        <folder name="Window">
-            <file name="MuscleEditorAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-view-editors-MuscleEditorAction.instance"/>
-            </file>
-            <file name="ViewRuntimeTabAction.shadow_hidden"/>
-        </folder>
+            <file name="Window_hidden"/>
     </folder>
     <folder name="Services">
         <folder name="JavaHelp">

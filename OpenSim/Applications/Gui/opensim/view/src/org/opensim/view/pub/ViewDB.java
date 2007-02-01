@@ -155,11 +155,15 @@ public final class ViewDB implements Observer {
                
                sceneAssembly.AddPart(newModelVisual.getModelDisplayAssembly());
                // Check if this refits scene into window
+               
                Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
                while(windowIter.hasNext()){
                   ModelWindowVTKTopComponent nextWindow = windowIter.next();
                   // This line may need to be enclosed in a Lock /UnLock pair per vtkPanel
-                  nextWindow.getCanvas().GetRenderer().ResetCamera(sceneAssembly.GetBounds());
+                  synchronized(nextWindow.getCanvas()){
+                     nextWindow.getCanvas().GetRenderer().ResetCamera(sceneAssembly.GetBounds());
+                  }
+           
                }
                
                // add to list of models

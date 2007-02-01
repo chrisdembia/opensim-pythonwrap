@@ -27,6 +27,8 @@ package org.opensim.tracking;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
+import javax.swing.SwingUtilities;
 import org.openide.WizardDescriptor;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -40,123 +42,111 @@ import org.netbeans.api.progress.ProgressHandleFactory;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.SimulationTool;
+import org.opensim.view.SingleModelVisuals;
+import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 /**
  *
  * @author Ayman Habib
  *
- * Base class for all Tracking Workflow panels 
+ * Base class for all Tracking Workflow panels
  */
 public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel {
-    
-     public WorkflowDescriptor descriptor;
-     private boolean canProceed=true; // Can proceed to next based on context only.
-     protected final int UPDATE_FREQUENCY=100; // How often we update the display in milliseconds
-    /**
-     * Creates a new instance of workflowWizardPanelBase
-     */
-    public workflowWizardPanelBase() {
-    }
-    
-    /** Execute the step  */
-    public abstract boolean executeStep();   
-    
-    public void updateValidity(boolean canProceed){
-        if (this.canProceed != canProceed){
-            this.canProceed = canProceed;
-            fireChangeEvent();
-        }
-    }
-
-     final public boolean isValid() {
-        // If it is always OK to press Next or Finish, then:
-        //System.out.println("Is Valid = "+canProceed+" Gui"+((workflowVisualPanelBase)getComponent()).isGuiCanAdvance());
-        return (canProceed && ((workflowVisualPanelBase)getComponent()).isGuiCanAdvance());
-        // If it depends on some condition (form filled out...), then:
-        // return someCondition();
-        // and when this condition changes (last form field filled in...) then:
-        // fireChangeEvent();
-        // and uncomment the complicated stuff below.
-    }
-     
-    private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
-    public final void addChangeListener(ChangeListener l) {
-        synchronized (listeners) {
-            listeners.add(l);
-        }
-    }
-    public final void removeChangeListener(ChangeListener l) {
-        synchronized (listeners) {
-            listeners.remove(l);
-        }
-    }
-    protected final void fireChangeEvent() {
-        Iterator<ChangeListener> it;
-        synchronized (listeners) {
-            it = new HashSet<ChangeListener>(listeners).iterator();
-        }
-        ChangeEvent ev = new ChangeEvent(this);
-        while (it.hasNext()) {
-            it.next().stateChanged(ev);
-        }
-    }
-
-    /**
+   
+   public WorkflowDescriptor descriptor;
+   private boolean canProceed=true; // Can proceed to next based on context only.
+   protected final int UPDATE_FREQUENCY=100; // How often we update the display in milliseconds
+   /**
+    * Creates a new instance of workflowWizardPanelBase
+    */
+   public workflowWizardPanelBase() {
+   }
+   
+   /** Execute the step  */
+   public abstract boolean executeStep();
+   
+   public void updateValidity(boolean canProceed){
+      if (this.canProceed != canProceed){
+         this.canProceed = canProceed;
+         fireChangeEvent();
+      }
+   }
+   
+   final public boolean isValid() {
+      // If it is always OK to press Next or Finish, then:
+      //System.out.println("Is Valid = "+canProceed+" Gui"+((workflowVisualPanelBase)getComponent()).isGuiCanAdvance());
+      return (canProceed && ((workflowVisualPanelBase)getComponent()).isGuiCanAdvance());
+      // If it depends on some condition (form filled out...), then:
+      // return someCondition();
+      // and when this condition changes (last form field filled in...) then:
+      // fireChangeEvent();
+      // and uncomment the complicated stuff below.
+   }
+   
+   private final Set<ChangeListener> listeners = new HashSet<ChangeListener>(1);
+   public final void addChangeListener(ChangeListener l) {
+      synchronized (listeners) {
+         listeners.add(l);
+      }
+   }
+   public final void removeChangeListener(ChangeListener l) {
+      synchronized (listeners) {
+         listeners.remove(l);
+      }
+   }
+   protected final void fireChangeEvent() {
+      Iterator<ChangeListener> it;
+      synchronized (listeners) {
+         it = new HashSet<ChangeListener>(listeners).iterator();
+      }
+      ChangeEvent ev = new ChangeEvent(this);
+      while (it.hasNext()) {
+         it.next().stateChanged(ev);
+      }
+   }
+   
+   /**
     * runDynamicTool does all the leg work of setting up the GUI, callback to run
     * a Dynamic investigation and update display with the resulting animation
     */
-    protected void runDynamicTool(final SimulationTool dInvestigation, final Boolean isDeterministic) {
- 
-        final AbstractModel model = dInvestigation.getModel();
-        AbstractModel visModel=null;     // model used for visualization only
-        final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Run Investigation "+dInvestigation.getName());
-        final double investigationDuration = (dInvestigation.getFinalTime() - dInvestigation.getStartTime());
-        final double startTime = dInvestigation.getStartTime();
-        final SimtkAnimationCallback animationCallback = SimtkAnimationCallback.CreateAnimationCallback(model);
-        
-        /*Restructure
-        // show model in new window if possible
-         final ModelWindowVTKTopComponent modelWindow = ViewDB.getCurrentModelWindow();
-         if (modelWindow==null){
-             // Show warning and proceed thatno animation will be done
-             DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("No model is currently open. Results will not be visualized"));
-         }
-         else {
-             animationCallback.extractOffsets(modelWindow.getModel());
-         }
-         */
-        progressHandle.start();
-        if (isDeterministic)
-            progressHandle.switchToDeterminate(100);
-        
-        int delay = UPDATE_FREQUENCY; //milliseconds
-            ActionListener taskPerformer = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-              //...Perform a task...
-/*Restructure                if (modelWindow!=null){
-                        modelWindow.getCanvas().updateDisplayFromDynamicModel(animationCallback, false);
-                        modelWindow.getCanvas().repaint();
-                }*/
-            }};
-            
-            Timer timer = new Timer(delay, taskPerformer);
-        timer.start();
-        //try {
-        dInvestigation.run();
-        /*} catch (IOException ex) {
-             DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("The following error has been reported. Please fix and retry.\n "+ex.getMessage()));
-        
-            ex.printStackTrace();
-        }*/
-        
-        timer.stop();
-
-        if (isDeterministic)
+   protected void runDynamicTool(final SimulationTool dInvestigation, final Boolean isDeterministic) {
+      
+      final AbstractModel model = dInvestigation.getModel();
+      final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Run Investigation "+dInvestigation.getName());
+      final double investigationDuration = (dInvestigation.getFinalTime() - dInvestigation.getStartTime());
+      final double startTime = dInvestigation.getStartTime();
+      final SimtkAnimationCallback animationCallback = SimtkAnimationCallback.CreateAnimationCallback(model);
+      
+      model.setup();
+      SwingUtilities.invokeLater(new Runnable(){
+         public void run() {
+            OpenSimDB.getInstance().addModel(model);
+         }});
+      progressHandle.start();
+      if (isDeterministic)
+         progressHandle.switchToDeterminate(100);
+      
+      int delay = UPDATE_FREQUENCY; //milliseconds
+      final ViewDB viewdb = ViewDB.getInstance();
+      final SingleModelVisuals visModel = viewdb.getModelVisuals(model);
+      ActionListener taskPerformer = new ActionListener() {
+         public void actionPerformed(ActionEvent evt) {
+            //...Perform a task...
+            //viewdb.updateModelDisplay(visModel, animationCallback);
+         }};
+         
+         Timer timer = new Timer(delay, taskPerformer);
+         timer.start();
+         dInvestigation.run();
+         
+         timer.stop();
+         
+         if (isDeterministic)
             progressHandle.progress(100);
-        progressHandle.finish();
-//Restructure            dInvestigation.getModel().removeIntegCallback(animationCallback);
-        ((JComponent) getComponent()).putClientProperty("Step_executed", Boolean.TRUE);
-        System.gc();
-    }
-    
+         progressHandle.finish();
+         ((JComponent) getComponent()).putClientProperty("Step_executed", Boolean.TRUE);
+         System.gc();
+   }
+   
 }
