@@ -2,9 +2,9 @@
 <IKTool name="subject01">
 	<!--Name of the OpenSim model file after scaling and marker relocation.-->
 	<model_file> subject01.osim </model_file>
-	<MarkerSet><objects file="gait2392_IK_MarkerSet.xml"/></MarkerSet>
+	<MarkerSet file="gait2392_IK_MarkerSet.xml"/>
 	<!--Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial values. Filename is specified in the appropriate trial block.-->
-	<CoordinateSet><objects file="gait2392_IK_CoordinateSet.xml"/></CoordinateSet>
+	<CoordinateSet file="gait2392_IK_CoordinateSet.xml"/>
 	<coordinates_from_file>subtalar_angle_r subtalar_angle_l mtp_angle_r mtp_angle_l</coordinates_from_file>
 	<!--Trial paramaters, one block per trial-->
 	<SimmIKTrialSet><objects>

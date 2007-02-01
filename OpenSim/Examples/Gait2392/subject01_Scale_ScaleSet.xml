@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ScaleSet name="gait2392_Scale">
+	<objects>
 		<Scale name="">
 			<scales>   1.14724 1.14724 1.14724 </scales>
 			<segment> femur_r </segment>
@@ -21,5 +22,5 @@
 			<segment> tibia_l </segment>
 			<apply> true </apply>
 		</Scale>
+	</objects>
 </ScaleSet>
-

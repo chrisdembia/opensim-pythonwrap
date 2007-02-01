@@ -14,7 +14,7 @@
 	<SimmGenericModelMaker name="">
 		<!--Name of the file for the OpenSim model (unscaled generic model)-->
 		<model_file> gait2392.osim </model_file>
-		<MarkerSet><objects file="gait2392_Scale_MarkerSet.xml"/></MarkerSet>
+		<MarkerSet file="gait2392_Scale_MarkerSet.xml"/>
 	</SimmGenericModelMaker>
 	
 	<!--Parameters to control model scaling.-->
@@ -22,9 +22,9 @@
 		<!--Valid options are 'measurements', 'manualScale', possibly in sequence.-->
 		<scaling_order> measurements manualScale </scaling_order>
 		<!--Scale factors to be used for 'manual' scaling. Used only in 'maunal' scaling.-->
-		<ScaleSet><objects file="subject01_Scale_ScaleSet.xml"/></ScaleSet>
+		<ScaleSet file="subject01_Scale_ScaleSet.xml"/>
 		<!--A measurement set specifies which marker locations are used to scale which body segments.-->
-		<SimmMeasurementSet><objects file="gait2392_Scale_MeasurementSet.xml"/></SimmMeasurementSet>
+		<SimmMeasurementSet file="gait2392_Scale_MeasurementSet.xml"/>
 		<!--Name of .trc file containing the time history of marker positions. Used only in measurement-based scaling.-->
 		<marker_file> subject01_static.trc </marker_file>
 		<!--Range of time in the markers trial to use for scaling.-->
@@ -47,7 +47,7 @@
 		<!--Name of .trc file containing the time history of marker positions (usually a static trial).-->
 		<marker_file> subject01_static.trc </marker_file>
 		<!--Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial values. Filename is specified in the appropriate trial block.-->
-		<CoordinateSet> <objects file="gait2392_Scale_CoordinateSet.xml"/> </CoordinateSet>
+		<CoordinateSet file="gait2392_Scale_CoordinateSet.xml"/>
 		<!--Name of .mot file containing the joint angles used to set the initial configuration of the model for the purpose of relocating the non-fixed markers.-->
 		<coordinate_file>gait2392_zeros.mot</coordinate_file>
 		<coordinates_from_file>subtalar_angle_r subtalar_angle_l mtp_angle_r mtp_angle_l lumbar_extension</coordinates_from_file>
