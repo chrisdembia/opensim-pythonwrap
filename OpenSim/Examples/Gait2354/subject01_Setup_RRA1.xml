@@ -20,7 +20,7 @@
 	<!--Initial time for the simulation.-->
 	<initial_time> 0.75 </initial_time>
 	<!--Final time for the simulation.-->
-	<final_time> 1.5 </final_time>
+	<final_time> 1.25 </final_time>
 	<!--Maximum number of integrator steps.-->
 	<maximum_number_of_integrator_steps> 20000 </maximum_number_of_integrator_steps>
 	<!--Maximum integration step size.-->
