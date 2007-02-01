@@ -22,7 +22,7 @@
 		<!--Valid options are 'measurements', 'manualScale', possibly in sequence.-->
 		<scaling_order> measurements manualScale </scaling_order>
 		<!--Scale factors to be used for 'manual' scaling. Used only in 'maunal' scaling.-->
-		<ScaleSet><objects file="gait2392_Scale_ScaleSet.xml"/></ScaleSet>
+		<ScaleSet><objects file="subject01_Scale_ScaleSet.xml"/></ScaleSet>
 		<!--A measurement set specifies which marker locations are used to scale which body segments.-->
 		<SimmMeasurementSet><objects file="gait2392_Scale_MeasurementSet.xml"/></SimmMeasurementSet>
 		<!--Name of .trc file containing the time history of marker positions. Used only in measurement-based scaling.-->
