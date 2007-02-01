@@ -1,19 +1,8 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import org.netbeans.api.progress.ProgressHandle;
-import org.netbeans.api.progress.ProgressHandleFactory;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
-import org.opensim.modeling.Analysis;
-import org.opensim.modeling.AbstractModel;
-import org.opensim.modeling.SimtkAnimationCallback;
-import org.opensim.view.FileOpenOsimModelAction;
-import org.opensim.modeling.InvestigationCMCGait;
+import org.opensim.modeling.CMCTool;
 
 public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{
     
@@ -81,8 +70,8 @@ public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{
 
     public boolean executeStep() {
         component.updateWorkflow(descriptor);
-        final InvestigationCMCGait rra = new InvestigationCMCGait(descriptor.getSetupRRA_pass1Filename());
-        runDynamicInvestigation(rra, false);
+        final CMCTool rra = new CMCTool(descriptor.getSetupRRA_pass1Filename());
+        runDynamicTool(rra, false);
          return true;
     }
     

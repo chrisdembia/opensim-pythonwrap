@@ -27,7 +27,6 @@ package org.opensim.tracking;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import org.openide.WizardDescriptor;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -38,13 +37,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
-import org.opensim.modeling.Investigation;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.SimtkAnimationCallback;
-import org.opensim.view.ModelWindowVTKTopComponent;
-import org.opensim.view.pub.ViewDB;
+import org.opensim.modeling.SimulationTool;
 
 /**
  *
@@ -107,10 +102,10 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
     }
 
     /**
-     * runDynamicInvestigation does all the leg work of setting up the GUI, callback to run
-     * a Dynamic investigation and update display with the resulting animation
-     */
-    protected void runDynamicInvestigation(final Investigation dInvestigation, final Boolean isDeterministic) {
+    * runDynamicTool does all the leg work of setting up the GUI, callback to run
+    * a Dynamic investigation and update display with the resulting animation
+    */
+    protected void runDynamicTool(final SimulationTool dInvestigation, final Boolean isDeterministic) {
  
         final AbstractModel model = dInvestigation.getModel();
         AbstractModel visModel=null;     // model used for visualization only

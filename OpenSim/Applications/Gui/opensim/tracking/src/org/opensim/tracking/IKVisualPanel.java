@@ -8,7 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractModel;
-import org.opensim.modeling.InvestigationIK;
+import org.opensim.modeling.IKTool;
 import org.opensim.modeling.SimmIKTrial;
 import org.opensim.modeling.SimmIKTrialSet;
 import org.opensim.utils.FileUtils;
@@ -23,7 +23,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
    SimmIKTrialSet trialSet=null;
    SimmIKTrial[] availableTrials=null;
     static boolean initialized=false;   // Tooltips and other GUI elements need to be set only once
-    InvestigationIK ik = new InvestigationIK();
+    IKTool ik = new IKTool();
     /**
      * Creates new form IKVisualPanel
      */
@@ -392,7 +392,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
             jSetupFilenameTextField.setText(setupFile);
             Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
             // create an investigation and fill in the fields
-            ik = new InvestigationIK(jSetupFilenameTextField.getText(), logicPanel.descriptor.getIKModel()); 
+            ik = new IKTool(jSetupFilenameTextField.getText(), logicPanel.descriptor.getIKModel()); 
             AbstractModel mdl = ik.getModel();
             SingleModelVisuals visModel = ViewDB.getInstance().getModelVisuals(mdl);
             
@@ -499,8 +499,8 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         initialize(aDescriptor);    // Tooltip
         String filename = aDescriptor.getSetupIKFilename();
         if (filename != null){
-            InvestigationIK.registerTypes();
-            ik = new InvestigationIK(filename, aDescriptor.getIKModel());
+            IKTool.registerTypes();
+            ik = new IKTool(filename, aDescriptor.getIKModel());
         }
         String modelFile = ik.getModelFilename();
         if (modelFile.equalsIgnoreCase("Unassigned") || modelFile.equals("")){
@@ -562,7 +562,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         return (jOutputMotionTextField.getText().length()!=0);
     }
     
-    public InvestigationIK getInvestigation() {
+    public IKTool getInvestigation() {
         return ik;
     }
     /**

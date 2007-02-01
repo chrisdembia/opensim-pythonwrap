@@ -606,7 +606,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
         this.aDescriptor = aDescriptor;
         SimmGenericModelMaker modelMaker = aDescriptor.getSubject().getGenericModelMaker();
          try {
-        jModelNameTextField2.setToolTipText(modelMaker.getPropertySet().get("file_name").getComment());
+        jModelNameTextField2.setToolTipText(modelMaker.getPropertySet().get("model_file").getComment());
             jOwnMarkersTextField2.setToolTipText(modelMaker.getPropertySet().get("MarkerSet").getComment());
         } catch (IOException ex) {
              TheApp.exitApp("Internal Error:Property does not exist in SimmGenericModelMaker");

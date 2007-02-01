@@ -3,6 +3,7 @@
 <Form version="1.3" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="2"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
@@ -11,8 +12,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jMessageTextArea" alignment="0" pref="393" max="32767" attributes="0"/>
           <Component id="jModelSpecPanel" alignment="0" max="32767" attributes="0"/>
+          <Component id="jMessageTextArea" alignment="0" pref="407" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -20,8 +21,8 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jModelSpecPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jMessageTextArea" min="-2" pref="163" max="-2" attributes="0"/>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <Component id="jMessageTextArea" min="-2" pref="264" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -31,7 +32,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Model Specification"/>
+            <TitledBorder title="Make SDFast model"/>
           </Border>
         </Property>
       </Properties>
@@ -39,32 +40,22 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jDynamicsDirTextField" min="-2" pref="186" max="-2" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBrowseForDynamicsDirButton" min="-2" pref="32" max="-2" attributes="1"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="KineticsFileTextField" max="32767" attributes="1"/>
-                              <Component id="jMusclefileTextField" alignment="0" max="32767" attributes="1"/>
-                              <Component id="jModelTextField" alignment="0" pref="185" max="32767" attributes="1"/>
-                          </Group>
-                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Component id="jBrowse4ModelButton" min="-2" pref="32" max="-2" attributes="1"/>
-                      </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jLabel2" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jLabel1" alignment="0" max="32767" attributes="1"/>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jSDFastTextField" max="32767" attributes="1"/>
+                      <Component id="jModelTextField" alignment="0" pref="247" max="32767" attributes="1"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jBrowse4ModelButton" min="-2" pref="32" max="-2" attributes="1"/>
+                      <Component id="jBrowse4SDFastFileButton" min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -74,26 +65,16 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jModelTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBrowse4ModelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jModelTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jMusclefileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jSDFastTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBrowse4SDFastFileButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="KineticsFileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jBrowseForDynamicsDirButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jDynamicsDirTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -101,7 +82,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Model file"/>
+            <Property name="text" type="java.lang.String" value="Scaled model"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jModelTextField">
@@ -118,40 +99,20 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Directory for dynamics files:"/>
+            <Property name="text" type="java.lang.String" value="SDFast model"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jDynamicsDirTextField">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jDynamicsDirTextFieldActionPerformed"/>
-          </Events>
+        <Component class="javax.swing.JTextField" name="jSDFastTextField">
         </Component>
-        <Component class="javax.swing.JButton" name="jBrowseForDynamicsDirButton">
+        <Component class="javax.swing.JButton" name="jBrowse4SDFastFileButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/swingui/FolderOpen.gif"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowseForDynamicsDirButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4SDFastFileButtonActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="SIMM Muscle file"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jMusclefileTextField">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMusclefileTextFieldActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Kinetics file"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="KineticsFileTextField">
         </Component>
       </SubComponents>
     </Container>
@@ -169,7 +130,7 @@
           <Color blue="33" green="0" red="cc" type="rgb"/>
         </Property>
         <Property name="rows" type="int" value="5"/>
-        <Property name="text" type="java.lang.String" value="Create a shared library to represent the dynamics &#xa;of your model (.dll on Windows, .so on linux). &#xa;Use SD/Fast, C compiler and the files created &#xa;by OpenSim (model.h, model.sd, sdfor.c).&#xa;Place the generated shared library in your PATH.&#xa;"/>
+        <Property name="text" type="java.lang.String" value="The scale step produced a model that needs to&#xa;be converted to an SDFast based model. &#xa;This step performs this conversion. The input is &#xa;the model file created by the scale step &#xa;and the output model will be used by later steps &#xa;that require dynamics."/>
         <Property name="wrapStyleWord" type="boolean" value="true"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>

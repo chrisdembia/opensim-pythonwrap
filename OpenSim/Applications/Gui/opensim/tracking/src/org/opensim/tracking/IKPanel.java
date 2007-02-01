@@ -3,18 +3,13 @@ package org.opensim.tracking;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.TimerTask;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
-import org.opensim.modeling.InvestigationIK;
 import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.IKTool;
 import org.opensim.modeling.SimtkAnimationCallback;
-import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.pub.ViewDB;
 
@@ -87,7 +82,7 @@ public class IKPanel  extends workflowWizardPanelBase{
      */
     public boolean executeStep() {
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Running Inverse Kinematics ");
-        final InvestigationIK ik = component.getInvestigation();
+        final IKTool ik = component.getInvestigation();
         // @FIXME should be current trial
         final double startTime = ik.getIKTrialSet().get(0).getStartTime();
         final double endTime = ik.getIKTrialSet().get(0).getEndTime();

@@ -462,6 +462,8 @@ public class SingleModelVisuals {
         //animationCallback.mutex_begin(1);
         AbstractModel model = animationCallback.getModel();
         BodySet bodies = model.getDynamicsEngine().getBodySet();
+        double[] pos = new double[3];
+        double[] gPos = new double[3];
         for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
 
             AbstractBody body = bodies.get(bodyNum);
@@ -477,11 +479,33 @@ public class SingleModelVisuals {
             int ct = bodyDisplayer.countDependents();
             //System.out.println("Body "+body+" has "+ct+ " dependents");
             double[] color = new double[3];
+            /*
             for(int j=0; j < ct;j++){
                 VisibleObject dependent = bodyDisplayer.getDependent(j);
+                OpenSimObject owner = dependent.getOwner();
+
+                if (owner.getType().equals("SimmMarker")){
+                    // Convert marker pos to global pos.
+                    dependent.getTransform().getPosition(pos);
+                    // xfrom to ground frame using xforms only, no engine
+                    //model.getDynamicsEngine().transformPosition(body, pos, gPos);
+                    int index = ((Integer)mapMarkers2Glyphs.get(owner)).intValue();
+                    markersRep.setLocation(index, gPos[0], gPos[1], gPos[2]);
+                    continue;
+                }
+                else if (owner.getType().equals("SimmMusclePoint")||
+                        owner.getType().equals("SimmMuscleViaPoint")){
+                    dependent.getTransform().getPosition(pos);
+                    // xfrom to ground frame
+                    //model.getDynamicsEngine().transformPosition(body, pos, gPos);
+                    int index = ((Integer)mapMusclePoints2Glyphs.get(owner)).intValue();
+                    musclePointsRep.setLocation(index, gPos[0], gPos[1], gPos[2]);
+                    continue;
+                }
                 vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
                 deptAssembly.SetUserMatrix(bodyVtkTransform);
             }
+             **/
         }
         // Now the muscles
         updateActuatorsGeometry(model);

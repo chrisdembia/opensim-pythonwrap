@@ -1,19 +1,16 @@
 package org.opensim.tracking;
 
-import java.util.prefs.Preferences;
-import javax.swing.JFileChooser;
-import org.opensim.modeling.Investigation;
-import org.opensim.modeling.InvestigationForward;
-import org.opensim.modeling.InvestigationPerturbation;
+import org.opensim.modeling.SimulationTool;
+import org.opensim.modeling.ForwardTool;
+import org.opensim.modeling.PerturbationTool;
 import org.opensim.utils.FileUtils;
-import org.opensim.utils.TheApp;
 import org.opensim.view.editors.ObjectEditDialogMaker;
 
 public final class InvestigationVisualPanel extends workflowVisualPanelBase {
     
     enum investigtionType{Forward, Perurb};
     InvestigationVisualPanel.investigtionType invType=investigtionType.Forward;
-    Investigation inv;
+    SimulationTool inv;
     /**
      * Creates new form InvestigationVisualPanel
      */
@@ -213,14 +210,14 @@ public final class InvestigationVisualPanel extends workflowVisualPanelBase {
         return !jSetupFileTextField.getText().equalsIgnoreCase("");
     }
     
-    public Investigation getInvestigation()
+    public SimulationTool getInvestigation()
     {
         String fileName=jSetupFileTextField.getText();
         if (invType==investigtionType.Perurb){
-            inv= new InvestigationPerturbation(fileName);
+            inv= new PerturbationTool(fileName);
         }
         else if (invType==investigtionType.Forward){
-            inv= new InvestigationForward(fileName);
+            inv= new ForwardTool(fileName);
         }
         return inv;
     }

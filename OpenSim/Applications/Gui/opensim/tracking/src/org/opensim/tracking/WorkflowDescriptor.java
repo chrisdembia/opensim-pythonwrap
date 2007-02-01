@@ -57,7 +57,7 @@ public class WorkflowDescriptor {
     private String      setupIKFilename;
     
     private String      RRAoutputMotionFilename;
-    private String      dynamicsDir;
+    private String      sdfastFilename;
     private String      IKoutfilename;
     public Boolean      stepInProgress=false;
     
@@ -167,12 +167,12 @@ public class WorkflowDescriptor {
         this.dynamicsModelFile = dynamicsModelFile;
     }
 
-    void setDynamicsDir(String string) {
-        dynamicsDir = string;
+    void setSDFastFilename(String string) {
+        sdfastFilename = string;
     }
 
     public String getDynamicsDir() {
-        return dynamicsDir;
+        return sdfastFilename;
     }
 
     public Boolean getStepInProgress() {

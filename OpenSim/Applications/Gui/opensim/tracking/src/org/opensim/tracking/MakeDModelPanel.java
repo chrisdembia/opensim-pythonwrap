@@ -2,10 +2,8 @@ package org.opensim.tracking;
 
 import java.awt.Component;
 import java.io.File;
-import java.io.IOException;
-import javax.swing.event.ChangeListener;
 import org.openide.util.HelpCtx;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.view.base.ExecOpenSimProcess;
 
 public class MakeDModelPanel  extends workflowWizardPanelBase{
     
@@ -74,32 +72,18 @@ public class MakeDModelPanel  extends workflowWizardPanelBase{
 
     public boolean executeStep() {
         String modelFilename = descriptor.getDynamicsModelFile();
-        String dynamicsDirectory=component.getDynamicsDirectory();
-        AbstractModel model;
-        try { //String aFolderName, String aMuscleFileName, String aBonePath, String aKineticsFile)
-            model = new AbstractModel(modelFilename);
-         model.setup();  // Just incase some setup is needed before Dynamcis are saved
-         /*Restructure
-        if (dynamicsDirectory.endsWith(File.separator))
-            model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory, 
-                    component.getMuscleFilename(),
-                    ".",
-                    component.getKineticsFilename());
-        else
-            model.getSimmKinematicsEngine().saveDynamics(dynamicsDirectory+File.separator,
-                    component.getMuscleFilename(),
-                    ".",
-                    component.getKineticsFilename());*/
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        String sdfastfile=component.getSDFastfilename();
+        String command="mkModel -IM "+modelFilename+" -OM "+sdfastfile;
+        File f = new File(modelFilename);
+        File outFileDir = f.getParentFile();
+        boolean success = ExecOpenSimProcess.execute(command, new String[]{""}, outFileDir );
         component.putClientProperty("Step_executed", Boolean.TRUE);
         return true;
    }
     
     public void updateAvailability()
     {
-        System.out.println("Prog="+descriptor.getStepInProgress()+" Gui"+component.isGuiCanAdvance());
+        //System.out.println("Prog="+descriptor.getStepInProgress()+" Gui"+component.isGuiCanAdvance());
         updateValidity(!descriptor.getStepInProgress() && component.isGuiCanAdvance());
     }
 }
