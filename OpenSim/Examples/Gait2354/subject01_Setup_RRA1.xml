@@ -18,7 +18,7 @@
 	<!--Output precision.  It is 8 by default.-->
 	<output_precision> 8 </output_precision>
 	<!--Initial time for the simulation.-->
-	<initial_time> 0.5 </initial_time>
+	<initial_time> 0.75 </initial_time>
 	<!--Final time for the simulation.-->
 	<final_time> 1.5 </final_time>
 	<!--Maximum number of integrator steps.-->

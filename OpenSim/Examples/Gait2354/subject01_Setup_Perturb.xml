@@ -18,7 +18,7 @@
 	<!--Initial time for the simulation.-->
 	<initial_time> 0.80 </initial_time>
 	<!--Final time for the simulation.-->
-	<final_time> 1.19 </final_time>
+	<final_time> 1.18 </final_time>
 
 	<!--Time over which the model states are integrated following a
 	    perturbation. To allow reaction forces to adjust to adjust to the
