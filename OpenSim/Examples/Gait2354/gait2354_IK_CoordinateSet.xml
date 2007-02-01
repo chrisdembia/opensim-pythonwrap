@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CoordinateSet name="gait2392_IK">
+<CoordinateSet name="gait2354_IK">
 	<objects>
 		<!-- Pelvis -->
 		<SimmCoordinate name="pelvis_tx">

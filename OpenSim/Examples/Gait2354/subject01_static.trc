@@ -1,4 +1,4 @@
-PathFileType	4	(X/Y/Z)	gait2392_static.trc
+PathFileType	4	(X/Y/Z)	subject01_static.trc
 DataRate	CameraRate	NumFrames	NumMarkers	Units	OrigDataRate	OrigDataStartFrame	OrigNumFrames
 60.00	60.00	       300	49	mm	60.00	1	       300
 Frame#	Time	R.ASIS			L.ASIS			V.Sacral			R.Thigh.Upper			R.Thigh.Front			R.Thigh.Rear			L.Thigh.Upper			L.Thigh.Front			L.Thigh.Rear			R.Knee.Lat			R.Knee.Med			L.Knee.Lat			L.Knee.Med			R.Shank.Upper			R.Shank.Front			R.Shank.Rear			L.Shank.Upper			L.Shank.Front			L.Shank.Rear			R.Ankle.Lat			R.Ankle.Med			L.Ankle.Lat			L.Ankle.Med			R.Heel			R.Midfoot.Sup			R.Midfoot.Lat			R.Toe.Tip			L.Heel			L.Midfoot.Sup			L.Midfoot.Lat			L.Toe.Tip			Sternum			R.Acromium			L.Acromium			R.Bicep			L.Bicep			R.Elbow			L.Elbow			R.Wrist.Med			R.Wrist.Lat			L.Wrist.Med			L.Wrist.Lat			R.Toe.Lat			R.Toe.Med			L.Toe.Lat			L.Toe.Med			R.Temple			L.Temple			Top.Head			

@@ -3,7 +3,7 @@
 specified marker pairs.  The ratio between the averaged distance to the
 distance in the generic model is then used to scale each specified segment
 in the specified axis directions (e.g., X Y Z).-->
-<SimmMeasurementSet name="gait2392">
+<SimmMeasurementSet name="gait2354">
 	<objects>
 		<SimmMeasurement name="torso">
 			<!--Flag to turn on and off scaling for this measurement.-->
