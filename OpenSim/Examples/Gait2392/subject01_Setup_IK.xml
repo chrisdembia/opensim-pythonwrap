@@ -1,28 +1,58 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <IKTool name="subject01">
-	<!--Name of the OpenSim model file after scaling and marker relocation.-->
+	<!--Name of the .osim file used to construct a model.-->
 	<model_file> subject01.osim </model_file>
+	<!--Marker set to be used for solving the IK trials.-->
 	<MarkerSet file="gait2392_IK_MarkerSet.xml"/>
-	<!--Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial values. Filename is specified in the appropriate trial block.-->
+	<!--Specifies weights for matching coordinates specified in a file (the
+	    coordinate_file)-->
 	<CoordinateSet file="gait2392_IK_CoordinateSet.xml"/>
-	<coordinates_from_file>subtalar_angle_r subtalar_angle_l mtp_angle_r mtp_angle_l</coordinates_from_file>
-	<!--Trial paramaters, one block per trial-->
-	<SimmIKTrialSet><objects>
+	<!--List specifying which coordinate values should be taken from the
+	    coordinate_file.-->
+	<coordinates_from_file> subtalar_angle_r subtalar_angle_l mtp_angle_r mtp_angle_l </coordinates_from_file>
+	<!--Parameters for solving the IK problem for each trial. Each trial
+	    should get a seperate SimmIKTril block.-->
+	<SimmIKTrialSet name=""><objects>
 		<SimmIKTrial name="first trial">
-			<!--Name of the .trc file containing the marker trail data.-->
+			<!--TRC file (.trc) containing the time history of experimental marker
+				    positions.-->
 			<marker_file> subject01_walk1.trc </marker_file>
-			<!--Name of the .mot file containing precomputed joint angles for the trial.  These are used to guide and weight the IK solution.-->
+			<!--Name of file containing the joint angles used to set the initial
+				    configuration of the model for the purpose of placing the markers.
+				    These coordinate values can also be included in the optimization
+				    problem used to place the markers. Before the model markers are
+				    placed, a single frame of an inverse kinematics (IK) problem is
+				    solved. The IK problem can be solved simply by matching marker
+				    positions, but if the model markers are not in the correct locations,
+				    the IK solution will not be very good and neither will marker
+				    placement. Alternatively, coordinate values (specified in this file)
+				    can be specified and used to influence the IK solution. This is
+				    valuable particularly if you have high confidence in the coordinate
+				    values. For example, you know for the static trial the subject was
+				    standing will all joint angles close to zero. If the coordinate set
+				    (see the CoordinateSet property) contains non-zero weights for
+				    coordinates, the IK solution will try to match not only the marker
+				    positions, but also the coordinates in this file. Least-squared error
+				    is used to solve the IK problem.-->
 			<coordinate_file> subject01_walk1.mot </coordinate_file>
-			<!--Time range over which to solve the IK problem.-->
-			<time_range> 0.5 4.0 </time_range>
-			<!--Cutoff frequency for a low-pass filter on the kinematics.-->
-			<kinematics_smoothing> 10.0 </kinematics_smoothing>
-			<!--Cutoff frequency for a low-pass filter on the ground reaction forces.-->
-			<ground_reaction_smoothing> 1000.0 </ground_reaction_smoothing>
-			<!--Name of the .mot file containing the IK solution for the joint angles.-->
+			<!--Time range over which the IK problem is solved.-->
+			<time_range> 0.5 4 </time_range>
+			<!--Smoothing factor for preprocessing the kinematic data. Not currently
+				    used.-->
+			<kinematics_smoothing> 10 </kinematics_smoothing>
+			<!--Smoothing factor for preprocessing reaction force data. Not currently
+				    used.-->
+			<ground_reaction_smoothing> 1000 </ground_reaction_smoothing>
+			<!--Name of the motion file (.mot) to which the results should be written.-->
 			<output_motion_file> subject01_walk1_ik.mot </output_motion_file>
-			<!--Flag for whether or not to includ marker positions in the output .mot file.-->
+			<!--Flag (true or false) indicating whether or not to include marker
+				    positions in the output motion (.mot) file.-->
 			<include_markers> false </include_markers>
 		</SimmIKTrial>
 	</objects></SimmIKTrialSet>
+	
+	<AnalysisSet name="Analyses">
+		<objects/>
+	</AnalysisSet>
 </IKTool>
+

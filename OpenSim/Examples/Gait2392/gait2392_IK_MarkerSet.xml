@@ -2,7 +2,12 @@
 <MarkerSet name="gait2392_IK">
 	<objects>
 		<!-- Torso -->
-		<SimmMarker name="Sternum"><weight>1.0</weight></SimmMarker>
+		<SimmMarker name="Sternum">
+			<!--Weight given to a marker relative to the other markers for solving
+			    inverse kinematics problems.-->
+			<weight> 1 </weight>
+		</SimmMarker>
+		
 		<SimmMarker name="R.Acromium"><weight>0.5</weight></SimmMarker>
 		<SimmMarker name="L.Acromium"><weight>0.5</weight></SimmMarker>
 		<SimmMarker name="Top.Head"><weight>0.1</weight></SimmMarker>
