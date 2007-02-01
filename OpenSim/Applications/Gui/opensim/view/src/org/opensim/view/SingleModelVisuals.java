@@ -624,8 +624,7 @@ public class SingleModelVisuals {
             glyphIds.add(idx);
          }
          else if (origGeomSize>geomSize){ // remove unused segments
-            int segmentsToRemove = origGeomSize-geomSize;
-            for(int i=segmentsToRemove-1; i>=0; i--){
+            for(int i=geomSize; i<origGeomSize; i++) {
                muscleSegmentsRep.remove(glyphIds.get(i).intValue());
             }
             glyphIds.setSize(geomSize);
@@ -728,8 +727,7 @@ public class SingleModelVisuals {
             glyphIds.add(idx);
          }
          else if (origGeomSize>geomSize){ // remove unused segments
-            int segmentsToRemove = origGeomSize-geomSize;
-            for(int i=segmentsToRemove-1; i>=0; i--){
+            for(int i=geomSize; i<origGeomSize; i++) {
                muscleSegmentsRep.remove(glyphIds.get(i).intValue());
             }
             glyphIds.setSize(geomSize);
