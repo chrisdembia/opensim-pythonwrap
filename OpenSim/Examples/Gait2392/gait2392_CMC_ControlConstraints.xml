@@ -137,18 +137,7 @@
 		<ControlLinear name="tib_post_r.excitation" />
 		<ControlLinear name="flex_dig_r.excitation" />
 		<ControlLinear name="flex_hal_r.excitation" />
-
-		<ControlLinear name="tib_ant_r.excitation">
-			<max_nodes>
-				<ControlLinearNode> <t> -1e30 </t> <value> 1.0 </value> </ControlLinearNode>
-				<ControlLinearNode> <t> 1 </t> <value> 1.0 </value> </ControlLinearNode>
-				<ControlLinearNode> <t> 1.01 </t> <value> 0.3 </value> </ControlLinearNode>
-				<ControlLinearNode> <t> 1.3 </t> <value> 0.3 </value> </ControlLinearNode>
-				<ControlLinearNode> <t> 1.31 </t> <value> 1.0 </value> </ControlLinearNode>
-				<ControlLinearNode> <t> 1e30 </t> <value> 1.0 </value> </ControlLinearNode>
-			</max_nodes>
-		</ControlLinear>
-
+		<ControlLinear name="tib_ant_r.excitation" />
 		<ControlLinear name="per_brev_r.excitation" />
 		<ControlLinear name="per_long_r.excitation" />
 		<ControlLinear name="per_tert_r.excitation" />
@@ -187,16 +176,7 @@
 		<ControlLinear name="vas_lat_l.excitation" />
 		<ControlLinear name="med_gas_l.excitation" />
 		<ControlLinear name="lat_gas_l.excitation" />
-
-		<ControlLinear name="soleus_l.excitation">
-			<max_nodes>
-				<ControlLinearNode> <t> -1e30 </t> <value> 0.3 </value> </ControlLinearNode>
-				<ControlLinearNode> <t> 1 </t> <value> 0.3 </value> </ControlLinearNode>
-				<ControlLinearNode> <t> 1.01 </t> <value> 1.0 </value> </ControlLinearNode>
-				<ControlLinearNode> <t> 1e30 </t> <value> 1.0 </value> </ControlLinearNode>
-			</max_nodes>
-		</ControlLinear>
-
+		<ControlLinear name="soleus_l.excitation" />
 		<ControlLinear name="tib_post_l.excitation" />
 		<ControlLinear name="flex_dig_l.excitation" />
 		<ControlLinear name="flex_hal_l.excitation" />
