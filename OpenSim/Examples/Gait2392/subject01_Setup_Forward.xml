@@ -57,6 +57,18 @@
 				    not.-->
 				<in_degrees> true </in_degrees>
 			</Actuation>
+			<BodyKinematics name="BodyKinematics">
+				<!--Flag (true or false) specifying whether whether on. True by default.-->
+				<on> true </on>
+				<!--Specifies how often to store results during a simulation. More
+				    specifically, the interval (a positive integer) specifies how many
+				    successful integration steps should be taken before results are
+				    recorded again.-->
+				<step_interval> 10 </step_interval>
+				<!--Flag (true or false) indicating whether the results are in degrees or
+				    not.-->
+				<in_degrees> true </in_degrees>
+			</BodyKinematics>
 		</objects>
 	</AnalysisSet>
 	<!--XML file containing the controls (e.g., muscle excitations) for the
