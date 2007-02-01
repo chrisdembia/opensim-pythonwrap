@@ -119,7 +119,7 @@
 	<!--Flag (true or false) indicating whether or not to use the curvature
 	    filter. Setting this flag to true can reduce oscillations in the
 	    computed muscle excitations.-->
-	<use_curvature_filter> false </use_curvature_filter>
+	<use_curvature_filter> true </use_curvature_filter>
 	<!--Flag (true or false) indicating whether or not to compute average
 	    residuals. No actions are taken based on this flag other than printing
 	    the average residuals, which can be useful for seeing if the solution
