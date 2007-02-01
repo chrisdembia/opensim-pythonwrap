@@ -99,7 +99,6 @@ public class IKPanel  extends workflowWizardPanelBase{
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                //...Perform a task...
-               System.out.println("task-actionPerformed");
                viewdb.updateModelDisplay(visModel, animationCallback);
             }
          };
@@ -108,6 +107,7 @@ public class IKPanel  extends workflowWizardPanelBase{
          // Execute IK. We're already on a worker thread
          ik.run();
 
+         viewdb.updateModelDisplay(visModel, animationCallback);
          timer.stop();
 
          progressHandle.finish();

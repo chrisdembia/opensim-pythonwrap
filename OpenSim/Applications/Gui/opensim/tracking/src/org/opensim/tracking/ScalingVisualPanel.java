@@ -578,7 +578,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
        SimmModelScaler scalingParams = aDescriptor.dSubject.getModelScaler();
        try {
         scaleMethodSelect.setToolTipText(scalingParams.getPropertySet().get("scaling_order").getComment());
-        markerTrialTextField.setToolTipText(scalingParams.getPropertySet().get("marker_trial").getComment());
+        markerTrialTextField.setToolTipText(scalingParams.getPropertySet().get("marker_file").getComment());
         jMeasurementsFileTextField.setToolTipText(scalingParams.getPropertySet().get("SimmMeasurementSet").getComment());
         jManualScaleTextField.setToolTipText(scalingParams.getPropertySet().get("ScaleSet").getComment());
         preserveMass.setToolTipText(scalingParams.getPropertySet().get("preserve_mass_distribution").getComment());

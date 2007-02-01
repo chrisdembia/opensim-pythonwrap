@@ -105,6 +105,9 @@ public class SingleModelVisuals {
     {
         return mapVtkObjects2Objects.get(prop);
     }
+    /**************************************************************
+     * First Creation of Model Visuals
+     **************************************************************/
     /**
      * Create one vtkAssembly representing the model and return it.
      */
@@ -252,25 +255,11 @@ public class SingleModelVisuals {
         addActuatorsGeometry(model, modelAssembly);
         mapObject2VtkObjects.put(model, modelAssembly);
         mapVtkObjects2Objects.put(modelAssembly, model);
-        // Postprocess model assembly
-        // Draw a box around the model, uncomment for debugging purposes
-        /*
-        vtkActor bboxActor = new vtkActor();
-        vtkCubeSource bboxSource = new vtkCubeSource();
-        bboxSource.SetBounds(modelAssembly.GetBounds());
-        vtkPolyDataMapper bboxMapper = new vtkPolyDataMapper();
-        bboxMapper.SetInput(bboxSource.GetOutput());
-        bboxActor.SetMapper(bboxMapper);
-        modelAssembly.AddPart(bboxActor);
-        bboxActor.GetProperty().SetRepresentationToWireframe();
-        */
         return modelAssembly;
     }
     
      /**
       * Get the vtkTransform matrix between ground and a body frame,
-      * There could be a more efficient way to do that than xform a frame
-      * at body origin.
       */
      vtkMatrix4x4 getBodyTransform(AbstractModel model, AbstractBody body)
      {
@@ -411,7 +400,7 @@ public class SingleModelVisuals {
     /**
      * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points
      */
-    private vtkMatrix4x4 getCylinderTransform(double[] axis, double[] origin) {
+    private vtkMatrix4x4 getCylinderTransform(double[] axis, double[] origin) { 
        double length = normalizeAndGetLength(axis);
        vtkMatrix4x4 retTransform = new vtkMatrix4x4();
         // yaxis is the unit vector
@@ -452,10 +441,18 @@ public class SingleModelVisuals {
             vector3[d]=vector3[d]/length;
         return length;
     }
+    /************************************************************************
+     * Support for animation callbacks and various Dynamic analyses/Tools
+     **************************************************************************/
     /**
      * updateModelDisplay with new transforms cached in animationCallback.
      * This method must be optimized since it's invoked during live animation
-     * of simulations and/or analyses (ala IK).
+     * of simulations and/or analyses (ala IK)..
+     *
+     * Warning: this method and whatever methods it calls should not count on 
+     * any state maintained by the DynamicsEngine since it's executed on a separate
+     * thread and the cached in transforms will gnenerally be out of sync. with 
+     * the dynamics engine of the model
      */
    public void updateModelDisplay(SimtkAnimationCallback animationCallback) {
       // Cycle thru bodies and update their transforms from the kinematics engine
@@ -463,7 +460,7 @@ public class SingleModelVisuals {
         AbstractModel model = animationCallback.getModel();
         BodySet bodies = model.getDynamicsEngine().getBodySet();
         double[] pos = new double[3];
-        double[] gPos = new double[3];
+        double[] gPos = new double[4];
         for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
 
             AbstractBody body = bodies.get(bodyNum);
@@ -479,7 +476,7 @@ public class SingleModelVisuals {
             int ct = bodyDisplayer.countDependents();
             //System.out.println("Body "+body+" has "+ct+ " dependents");
             double[] color = new double[3];
-            /*
+            
             for(int j=0; j < ct;j++){
                 VisibleObject dependent = bodyDisplayer.getDependent(j);
                 OpenSimObject owner = dependent.getOwner();
@@ -489,6 +486,9 @@ public class SingleModelVisuals {
                     dependent.getTransform().getPosition(pos);
                     // xfrom to ground frame using xforms only, no engine
                     //model.getDynamicsEngine().transformPosition(body, pos, gPos);
+                    for(int i=0; i<3; i++) gPos[i]=pos[i];
+                    gPos[3]=1.0;
+                    bodyVtkTransform.MultiplyPoint(gPos, gPos);
                     int index = ((Integer)mapMarkers2Glyphs.get(owner)).intValue();
                     markersRep.setLocation(index, gPos[0], gPos[1], gPos[2]);
                     continue;
@@ -498,6 +498,9 @@ public class SingleModelVisuals {
                     dependent.getTransform().getPosition(pos);
                     // xfrom to ground frame
                     //model.getDynamicsEngine().transformPosition(body, pos, gPos);
+                    for(int i=0; i<3; i++) gPos[i]=pos[i];
+                    gPos[3]=1.0;
+                    bodyVtkTransform.MultiplyPoint(gPos, gPos);
                     int index = ((Integer)mapMusclePoints2Glyphs.get(owner)).intValue();
                     musclePointsRep.setLocation(index, gPos[0], gPos[1], gPos[2]);
                     continue;
@@ -505,10 +508,12 @@ public class SingleModelVisuals {
                 vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
                 deptAssembly.SetUserMatrix(bodyVtkTransform);
             }
-             **/
+             
         }
+        markersRep.setModified();
+        musclePointsRep.setModified();
         // Now the muscles
-        updateActuatorsGeometry(model);
+        updateActuatorsGeometry(animationCallback);
         //animationCallback.mutex_end(1);
    }
     /**
@@ -699,5 +704,65 @@ public class SingleModelVisuals {
        
        
      }
+
+    private void updateActuatorsGeometry(SimtkAnimationCallback animationCallback) {
+      ActuatorSet acts = animationCallback.getModel().getActuatorSet();
+      double[] axis = new double[]{0.0, 0.0, 0.0};
+      double[] center = new double[]{0.0, 0.0, 0.0};
+      for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
+         AbstractActuator nextMuscle = acts.get(actNumber);
+         // Get attachments and connect them
+         VisibleObject actuatorDisplayer = nextMuscle.getDisplayer();
+         if (actuatorDisplayer == null){
+            continue;
+         }
+         
+         // A displayer is found, get geometry
+         int geomSize = actuatorDisplayer.countGeometry();
+         Vector<Integer> glyphIds = mapObject2GlyphIds.get(nextMuscle);
+         
+         int origGeomSize = glyphIds.size();
+         if (geomSize>origGeomSize){   // Make extra segments and attach them 
+            // Create new segments with ids and add them. 
+            int idx = muscleSegmentsRep.addLocation(0.0, 0.0, 0.0);
+            glyphIds.add(idx);
+         }
+         else if (origGeomSize>geomSize){ // remove unused segments
+            int segmentsToRemove = origGeomSize-geomSize;
+            for(int i=segmentsToRemove-1; i>=0; i--){
+               muscleSegmentsRep.remove(glyphIds.get(i).intValue());
+            }
+            glyphIds.setSize(geomSize);
+         }
+         double[] position1 = new double[3];
+         double[] position2 = new double[3];
+         if (geomSize > 0){
+            // Points are already in inertial frame
+            for(int i=0; i<geomSize; i++) {
+               Geometry geomEntry = actuatorDisplayer.getGeometry(i);
+               LineGeometry geomLine = LineGeometry.dynamic_cast(geomEntry);
+               geomLine.getPoints(position1, position2);
+               
+               for(int d=0; d <3; d++){
+                  axis[d]=position1[d]-position2[d];
+                  center[d] = (position1[d]+position2[d])/2.0;
+               }
+               // Create a cylinder connecting position1, position2
+              double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
+              double length = normalizeAndGetLength(axis);
+              vtkMatrix4x4 xform = getCylinderTransform(axis, center) ;
+              int idx = glyphIds.get(i).intValue();
+              muscleSegmentsRep.setLocation(idx, center[0], center[1], center[2]);
+              muscleSegmentsRep.setTensorDataAtLocation(idx, 
+                      xform.GetElement(0, 0), xform.GetElement(1, 0), xform.GetElement(2, 0),
+                      length*xform.GetElement(0, 1), length*xform.GetElement(1, 1), length*xform.GetElement(2, 1),
+                      xform.GetElement(0, 2), xform.GetElement(1, 2), xform.GetElement(2, 2)
+                      );
+            } // Attachments
+         } // ArraySize        
+      }
+      muscleSegmentsRep.setModified();
+
+   }
    
 }

@@ -26,6 +26,7 @@
 package org.opensim.view.base;
 
 import java.io.*;
+import javax.swing.SwingUtilities;
 import org.opensim.view.BottomPanelTopComponent;
 
 public class ExecOpenSimProcess
@@ -37,15 +38,23 @@ public class ExecOpenSimProcess
             Process proc = rt.exec(command, env, dirToExecuteIn);
             InputStream stderr = proc.getInputStream();
             InputStreamReader isr = new InputStreamReader(stderr);
-            BufferedReader br = new BufferedReader(isr);
-            String line = null;
+            final BufferedReader br = new BufferedReader(isr);
             // Append a tab in front of text to distinguish process output.
             // We may need to do this on separate thread. Also this will
             // need to be piped to a plce in the GUI instead of System.out.
-            BottomPanelTopComponent.findInstance().showLogMessage("\n");
-            while ( (line = br.readLine()) != null)
-                BottomPanelTopComponent.findInstance().showLogMessage("\t"+line+"\n");
-            BottomPanelTopComponent.findInstance().showLogMessage("\n");
+            SwingUtilities.invokeLater(new Runnable(){
+                public void run() {
+                    String line = null;
+                    BottomPanelTopComponent.findInstance().showLogMessage("\n");
+                    try {
+                        while ( (line = br.readLine()) != null)
+                            BottomPanelTopComponent.findInstance().showLogMessage("\t"+line+"\n");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    BottomPanelTopComponent.findInstance().showLogMessage("\n");
+                }});
+            
             int exitVal = proc.waitFor();
             return (exitVal==0);	// More detailed error message will be needed
         } 

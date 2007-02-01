@@ -2,7 +2,7 @@ package org.opensim.tracking;
 
 import org.opensim.utils.FileUtils;
 import org.opensim.view.editors.ObjectEditDialogMaker;
-import org.opensim.modeling.InvestigationCMCGait;
+import org.opensim.modeling.CMCTool;
 
 public final class ReduceResidualsVisualPanelPass2 extends workflowVisualPanelBase {
     
@@ -104,7 +104,7 @@ public final class ReduceResidualsVisualPanelPass2 extends workflowVisualPanelBa
 
     private void jEditRRA2SetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditRRA2SetupButtonActionPerformed
           String setupFilename = jRRAPass2SetupFileTextField.getText();
-          InvestigationCMCGait rra = new InvestigationCMCGait(setupFilename);
+          CMCTool rra = new CMCTool(setupFilename);
           new ObjectEditDialogMaker(rra, true).process();
           rra.print(setupFilename);
 // TODO add your handling code here:
