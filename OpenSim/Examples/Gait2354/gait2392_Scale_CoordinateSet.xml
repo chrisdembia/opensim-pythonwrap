@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CoordinateSet name="gait2392_Scale">
+	<objects>
+		<!-- Pelvis -->
+		<SimmCoordinate name="pelvis_tx">
+			<!--Flag (true or false) indicating whether a coordinate is fixed or
+			    locked at its current value.-->
+			<locked> false </locked> 
+			<!--Weight of a coordinate. For solving inverse kinematics (IK) problems,
+			    making this weight higher results in closer matching to any target
+			    coordinate values, which are usually specified in a file.-->
+			<weight> 0 </weight> 
+			<!--Pointer to a restraint function that applies generalized forces at a
+			    joint to keep the coordinate from moving outside its range.-->
+			<restraint_function/>
+			<!--Minimum restraint function.-->
+			<min_restraint_function/>
+			<!--Maximum restraint function.-->
+			<max_restraint_function/>
+		</SimmCoordinate>
+		<SimmCoordinate name="pelvis_ty">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="pelvis_tz">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="pelvis_tilt">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="pelvis_list">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="pelvis_rotation">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		
+		<!-- Right leg -->
+		<SimmCoordinate name="hip_flexion_r">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="hip_adduction_r">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="hip_rotation_r">
+			<locked> false </locked>
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="knee_angle_r">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="ankle_angle_r">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="subtalar_angle_r">
+			<locked> true </locked> 
+			<weight>1000.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="mtp_angle_r">
+			<locked> true </locked> 
+			<weight>1000.0</weight> 
+		</SimmCoordinate>
+		
+		<!-- Left Leg -->
+		<SimmCoordinate name="hip_flexion_l">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="hip_adduction_l">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="hip_rotation_l">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="knee_angle_l">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="ankle_angle_l">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="subtalar_angle_l">
+			<locked> true </locked> 
+			<weight>1000.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="mtp_angle_l">
+			<locked> true </locked> 
+			<weight>1000.0</weight> 
+		</SimmCoordinate>
+		
+		<!-- Back -->
+		<SimmCoordinate name="lumbar_extension">
+			<locked> false </locked> 
+			<weight>1000.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="lumbar_bending">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+		<SimmCoordinate name="lumbar_rotation">
+			<locked> false </locked> 
+			<weight>0.0</weight> 
+		</SimmCoordinate>
+	</objects>
+</CoordinateSet>
