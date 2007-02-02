@@ -102,8 +102,11 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     }
     
     public void setLocation(int index, double x, double y, double z) {
-        
         pointCloud.SetPoint(index, x, y, z);
+    }
+
+    public void setLocation(int index, double[] point) {
+        pointCloud.SetPoint(index, point[0], point[1], point[2]);
     }
     
     public void setNormalAtLocation(int index, double x, double y, double z) {
@@ -134,7 +137,7 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     {
         glyph.SetScaleModeToScaleByVector();
     }
-
+    
    public void setModified() {
       glyph.Modified();
    }
@@ -143,4 +146,8 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
       glyph.SetScaleModeToScaleByVectorComponents();
    }
    
+   // This works as long as you've associated scaling with the vector channel
+   void remove(int index) {
+      setVectorDataAtLocation(index, 0., 0., 0.);
+   }
 }

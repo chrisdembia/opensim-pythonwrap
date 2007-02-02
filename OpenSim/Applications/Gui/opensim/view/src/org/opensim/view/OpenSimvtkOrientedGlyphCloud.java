@@ -98,8 +98,11 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
     }
     
     public void setLocation(int index, double x, double y, double z) {
-        
         pointCloud.SetPoint(index, x, y, z);
+    }
+
+    public void setLocation(int index, double[] point) {
+        pointCloud.SetPoint(index, point[0], point[1], point[2]);
     }
     
     public void setTensorDataAtLocation(int index, double xx, double xy, double xz,
