@@ -90,7 +90,7 @@ public class MotionDisplayer {
         forcesRep.scaleByVector();
         
         markersRep.setShape(MotionObjectsDB.getInstance().getShape("marker"));
-        markersRep.setColor(new double[]{1.0, 0.6, 0.8});
+        markersRep.setColor(new double[]{0.0, 0.0, 1.0});
         ViewDB.getInstance().getModelVisuals(model).addUserObject(forcesRep.getVtkActor());
         ViewDB.getInstance().getModelVisuals(model).addUserObject(markersRep.getVtkActor());
     }
