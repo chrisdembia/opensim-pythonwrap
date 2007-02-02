@@ -1188,6 +1188,7 @@ Transform SdfastEngine::getTransform(const AbstractBody &aBody)
 
 		// 4. Fill in the transform with the translation and rotation.
 		t.setPosition(opos2);
+		Mtx::Transpose(3, 3, (double*)dirCos, (double*)dirCos);
 		t.setOrientation(dirCos);
 	}
 
