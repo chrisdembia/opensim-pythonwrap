@@ -64,7 +64,7 @@ public class MasterMotionModel{
          }
          });
         
-       System.out.println("motion, frame"+currentMotion+", "+currentFrame);
+       //System.out.println("motion, frame"+currentMotion+", "+currentFrame);
    }
    
     public void back() {
@@ -106,7 +106,7 @@ public class MasterMotionModel{
    
    public void setTime(double userTime) {
       // Find time for all motions and set it
-      for(int i=0; i<displayers.size(); i++){
+      /*for(int i=0; i<displayers.size(); i++){
          MotionDisplayer md = displayers.get(i);
          currentFrame=md.getSimmMotionData().getFrameNumberForTime(userTime);
          currentMotion=i;
@@ -125,7 +125,7 @@ public class MasterMotionModel{
          currentSuperFrame=i;
      }
       int percent = (int)((double)currentSuperFrame*100/(superMotion.size()-1));
-      sliderModel.setValue(percent);
+      sliderModel.setValue(percent);*/
    }
 
    public boolean isWrapMotion() {

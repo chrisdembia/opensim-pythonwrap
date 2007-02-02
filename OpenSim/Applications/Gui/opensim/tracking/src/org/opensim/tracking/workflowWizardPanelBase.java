@@ -124,16 +124,19 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
             OpenSimDB.getInstance().addModel(model);
          }});
       progressHandle.start();
-      if (isDeterministic)
-         progressHandle.switchToDeterminate(100);
       
-      int delay = UPDATE_FREQUENCY; //milliseconds
-      final ViewDB viewdb = ViewDB.getInstance();
-      final SingleModelVisuals visModel = viewdb.getModelVisuals(model);
+      int delay = 200; //milliseconds
       ActionListener taskPerformer = new ActionListener() {
          public void actionPerformed(ActionEvent evt) {
             //...Perform a task...
-            //viewdb.updateModelDisplay(visModel, animationCallback);
+            ViewDB viewdb = ViewDB.getInstance();
+            SingleModelVisuals visModel = viewdb.getModelVisuals(model);
+            if (visModel!=null){
+               viewdb.updateModelDisplay(visModel, animationCallback);
+               System.out.println("+++++++++++++++++++++++++++++++++++++++++++++");
+            }
+            else
+               System.out.println("---------------------------------------------");
          }};
          
          Timer timer = new Timer(delay, taskPerformer);
@@ -142,8 +145,6 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
          
          timer.stop();
          
-         if (isDeterministic)
-            progressHandle.progress(100);
          progressHandle.finish();
          ((JComponent) getComponent()).putClientProperty("Step_executed", Boolean.TRUE);
          System.gc();
