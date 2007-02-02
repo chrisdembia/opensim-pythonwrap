@@ -517,7 +517,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         Object obj = evt.getSource();
         if (obj == scaleMethodSelect){
             String selectedMethod = (String) scaleMethodSelect.getSelectedItem();
-            // Based on scaling "order" that is if Manual, Measurements or mix enable/disable fields in the Panel
+            // Based on scaling "order" that is if manualScale, Measurements or mix enable/disable fields in the Panel
             updateBasedOnScalingOrder();
            
         }
@@ -594,7 +594,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         String order = mapScalingOrderToIndex(scalingOrder);
         scaleMethodSelect.setSelectedItem(order);
         
-        // Based on scaling "order" that is if Manual, Measurements or mix enable/disable fields in the Panel
+        // Based on scaling "order" that is if manualScale, Measurements or mix enable/disable fields in the Panel
         updateBasedOnScalingOrder();
         
         markerTrialTextField.setText(scalingParams.getMarkerFileName());
@@ -652,9 +652,10 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
     private String mapScalingOrderToIndex(ArrayStr scalingOrder) {
         String scalingOrderString="";
         for(int i=0; i < scalingOrder.getSize(); i++){
+           String temp = scalingOrder.getitem(i);
             if (i > 0)
                 scalingOrderString = scalingOrderString+"+";
-            if (scalingOrder.getitem(i).equalsIgnoreCase("manual")){
+            if (scalingOrder.getitem(i).equalsIgnoreCase("manualScale")){
                 scalingOrderString = scalingOrderString+"manual";
             }
             if (scalingOrder.getitem(i).equalsIgnoreCase("measurements")){
