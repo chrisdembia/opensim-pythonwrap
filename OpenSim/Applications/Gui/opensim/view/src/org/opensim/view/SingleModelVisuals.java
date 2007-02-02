@@ -593,7 +593,7 @@ public class SingleModelVisuals {
 
    private void updateActuatorGlyphIds(Vector<Integer> segmentGlyphIds, Vector<Integer> pointGlyphIds, int newNumSegments) {
       int origNumSegments = segmentGlyphIds.size();
-      System.out.println("ORIG="+origNumSegments+" NEW="+newNumSegments+"");
+      //System.out.println("ORIG="+origNumSegments+" NEW="+newNumSegments+"");
       if (newNumSegments>origNumSegments){   // Make extra segments (and points) and attach them 
          // We always want to maintain one more point than number of segments
          if(origNumSegments==0) {
