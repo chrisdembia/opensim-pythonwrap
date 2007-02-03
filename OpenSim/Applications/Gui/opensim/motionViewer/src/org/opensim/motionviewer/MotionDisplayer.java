@@ -220,7 +220,8 @@ public class MotionDisplayer {
          ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
           switch(cType){
             case GenCoord:
-               ((AbstractCoordinate)(mapIndicesToObjects.get(i))).setValue(simmMotionData.getValue(i, currentFrame));
+               AbstractCoordinate coord=(AbstractCoordinate)(mapIndicesToObjects.get(i));
+               if(!coord.getLocked()) coord.setValue(simmMotionData.getValue(i, currentFrame));
                break;
             case Segment_marker_p1:
                int markerIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
