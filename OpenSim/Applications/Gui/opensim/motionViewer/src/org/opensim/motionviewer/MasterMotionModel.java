@@ -35,10 +35,9 @@ class MotionFrame{
    }   
 }
 
-public class MasterMotionModel{
+public class MasterMotionModel extends DefaultBoundedRangeModel{
 
    // Info specific to a motion/model combination is pushed down to the displayer object.
-   private DefaultBoundedRangeModel sliderModel = new DefaultBoundedRangeModel();
    List<MotionDisplayer> displayers=new ArrayList<MotionDisplayer>(10);  
    private boolean wrapMotion=false;
    int currentMotion = 0; // Master slider switches between motions finding local frame numbers 
@@ -81,8 +80,7 @@ public class MasterMotionModel{
           currentMotion = c.getMotionNumber();
      }
       applyFrame(currentFrame);
-      int percent = (int)((double)currentSuperFrame*100/(superMotion.size()-1));
-      sliderModel.setValue(percent);
+      setValue(currentSuperFrame);
    }
    
    public void advance() {
@@ -99,14 +97,13 @@ public class MasterMotionModel{
           currentMotion = c.getMotionNumber();
       }
       applyFrame(currentFrame);
-      int percent = (int)((double)currentSuperFrame*100/(superMotion.size()-1));
-      sliderModel.setValue(percent);
+      setValue(currentSuperFrame);
    }
    
    
    public void setTime(double userTime) {
       // Find time for all motions and set it
-      /*for(int i=0; i<displayers.size(); i++){
+      for(int i=0; i<displayers.size(); i++){
          MotionDisplayer md = displayers.get(i);
          currentFrame=md.getSimmMotionData().getFrameNumberForTime(userTime);
          currentMotion=i;
@@ -124,8 +121,7 @@ public class MasterMotionModel{
          }
          currentSuperFrame=i;
      }
-      int percent = (int)((double)currentSuperFrame*100/(superMotion.size()-1));
-      sliderModel.setValue(percent);*/
+      setValue(currentSuperFrame);
    }
 
    public boolean isWrapMotion() {
@@ -134,10 +130,6 @@ public class MasterMotionModel{
 
    public void setWrapMotion(boolean wrapMotion) {
       this.wrapMotion = wrapMotion;
-   }
-
-   public DefaultBoundedRangeModel getSliderModel() {
-      return sliderModel;
    }
 
    void add(AbstractModel abstractModel, SimmMotionData simmMotionData) {
@@ -153,6 +145,7 @@ public class MasterMotionModel{
        clear();
        displayers.add(new MotionDisplayer(simmMotionData, abstractModel));
        buildSuperMotion(abstractModel, simmMotionData, 0);
+       updateBounds();
    }
    
    void addMerge(AbstractModel abstractModel, SimmMotionData simmMotionData) {
@@ -186,7 +179,7 @@ public class MasterMotionModel{
         displayers.get(i).cleanupDisplay();
      displayers.clear();
      superMotion.clear();  
-     sliderModel = new DefaultBoundedRangeModel();
+     
    }
 
    private void buildSuperMotion(AbstractModel model, SimmMotionData mot, int idx) {
@@ -201,6 +194,7 @@ public class MasterMotionModel{
             // insert frame at position j and continue
             superMotion.add(newFrame);
          }
+         updateBounds();
          return;
       }
       Vector<MotionFrame>   mergedMotion=new Vector<MotionFrame>(numFrames+superMotion.size());
@@ -211,24 +205,17 @@ public class MasterMotionModel{
          MotionFrame newFrame = new MotionFrame(idx, i, time);
          while(superMotion.get(j).getFrameTime()<time && j<superMotion.size()-1){
             mergedMotion.add(superMotion.get(j));
-            /*System.out.println("Add frame "+
-                    superMotion.get(j).getFrameNumber()+" from motion "+
-                    superMotion.get(j).getMotionNumber()+" at time"+
-                    superMotion.get(j).getFrameTime());*/
             j++;
          }
          mergedMotion.add(newFrame);
-         //System.out.println("Add frame "+i+" from motion "+idx+" at time"+time);
+         System.out.println("Add frame "+i+" from motion "+idx+" at time"+time);
       }
        while (j < superMotion.size()-1){
             mergedMotion.add(superMotion.get(j));
-            /*System.out.println("Add frame "+
-                    superMotion.get(j).getFrameNumber()+" from motion "+
-                    superMotion.get(j).getMotionNumber()+" at time"+
-                    superMotion.get(j).getFrameTime());*/
             j++;
       }
       superMotion = mergedMotion;
+      updateBounds();
    }
    /**
     * How many motions currently playing/ready to play
@@ -278,16 +265,33 @@ public class MasterMotionModel{
       }
       else {
          for(int i=0; i<5; i++){
-            MotionFrame c = superMotion.get((superMotion.size()-1)*i/4);
+            MotionFrame c = superMotion.get((numFrames-1)*i/4);
             String label = Double.toString(c.getFrameTime());
             if (label.length()>5) label=label.substring(0, 5);
-            labels.put(new Integer(25*i), new JLabel(label));
+            labels.put((numFrames-1)*i/4, new JLabel(label));
          }
       }
       return labels;
    }
+   /**
+    * Apply a frame based on the user moving the slider
+    */
+   void setFrameNumber(int userSelectedFrame) {
+      setValue(userSelectedFrame);  // update Range model
+      applySuperFrame(userSelectedFrame); // update display
+   }
 
-   void setTimePercent(int percentageOnSlider) {
-      this.setTime(getStartTime()+(getEndTime()-getStartTime())*percentageOnSlider/100.0);
+   private void applySuperFrame(int superFrame) {
+      if (superFrame != currentSuperFrame){
+         currentSuperFrame = superFrame;
+         MotionFrame c = superMotion.get(currentSuperFrame);
+         currentFrame = c.getFrameNumber();
+         currentMotion = c.getMotionNumber();
+         applyFrame(currentFrame);  
+      }
+   }
+
+   private void updateBounds() {
+      setRangeProperties(currentSuperFrame, 0, 0, superMotion.size()-1, false);
    }
 }
