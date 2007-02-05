@@ -430,8 +430,6 @@ public class SingleModelVisuals {
         normalizeAndGetLength(newX);
        for (int i=0; i < 3; i++){
             retTransform.SetElement(i, 0, newX[i]);
-        // Scale by length
-                retTransform.SetElement(i, 1, retTransform.GetElement(i, 1));
           retTransform.SetElement(i, 3, origin[i]);
          }
         return retTransform;
