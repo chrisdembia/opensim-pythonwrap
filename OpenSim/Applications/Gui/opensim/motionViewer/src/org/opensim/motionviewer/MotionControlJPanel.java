@@ -84,9 +84,9 @@ public class MotionControlJPanel extends javax.swing.JPanel
       });
 
       jPlayButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/play.gif")));
-      jPlayButton.setMaximumSize(new java.awt.Dimension(50, 25));
-      jPlayButton.setMinimumSize(new java.awt.Dimension(50, 25));
-      jPlayButton.setPreferredSize(new java.awt.Dimension(50, 25));
+      jPlayButton.setMaximumSize(new java.awt.Dimension(25, 25));
+      jPlayButton.setMinimumSize(new java.awt.Dimension(25, 25));
+      jPlayButton.setPreferredSize(new java.awt.Dimension(25, 25));
       jPlayButton.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             jPlayButtonActionPerformed(evt);
@@ -106,6 +106,11 @@ public class MotionControlJPanel extends javax.swing.JPanel
       jTimeTextField.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             jTimeTextFieldActionPerformed(evt);
+         }
+      });
+      jTimeTextField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+         public void propertyChange(java.beans.PropertyChangeEvent evt) {
+            jTimeTextFieldPropertyChange(evt);
          }
       });
       jTimeTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -166,7 +171,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
             .add(jPlayButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jStopButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 47, Short.MAX_VALUE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jReverseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -174,11 +179,11 @@ public class MotionControlJPanel extends javax.swing.JPanel
             .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jWrapToggleButton)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jLabel1)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(316, 316, 316))
+            .add(226, 226, 226))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -189,14 +194,14 @@ public class MotionControlJPanel extends javax.swing.JPanel
                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                   .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                      .add(jPlayButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                     .add(jStopButton))
-                  .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                     .add(jButton2)
+                     .add(jStopButton)
                      .add(jReverseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(jButton2)
                      .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                     .add(jWrapToggleButton)
-                     .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                     .add(jLabel1))
+                     .add(jWrapToggleButton))
+                  .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(jLabel1)
+                     .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                   .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                      .add(jLabel2)
                      .add(jLabel4)
@@ -205,6 +210,12 @@ public class MotionControlJPanel extends javax.swing.JPanel
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void jTimeTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTimeTextFieldPropertyChange
+   // Listen to "value" changes
+      handleUserTimeChange();
+// TODO add your handling code here:
+   }//GEN-LAST:event_jTimeTextFieldPropertyChange
    
    private void jTimeTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTimeTextFieldFocusLost
 // TODO add your handling code here:
@@ -224,6 +235,10 @@ public class MotionControlJPanel extends javax.swing.JPanel
    }//GEN-LAST:event_jBackButtonActionPerformed
    
    private void jPlayReverseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlayReverseButtonActionPerformed
+      if (animationTimer!=null){
+         animationTimer.cancel();
+         animationTimer=null;
+      }
       if (isMotionLoaded() && animationTimer==null){
          animationTimer = new Timer();
          final Timer fTimer = animationTimer;
@@ -262,6 +277,10 @@ public class MotionControlJPanel extends javax.swing.JPanel
     }//GEN-LAST:event_jAdvanceButtonActionPerformed
     
     private void jPlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlayButtonActionPerformed
+      if (animationTimer!=null){
+         animationTimer.cancel();
+         animationTimer=null;
+      }
        if (isMotionLoaded() && animationTimer==null){
           animationTimer = new Timer();
           final Timer fTimer = animationTimer;
@@ -291,7 +310,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
              jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
              jMotionSlider.setValue(gValue);
           }
-          if (e.getSource().equals(jMotionSlider)){ // move slider
+          else if (e.getSource().equals(jMotionSlider)){ // move slider
             //javax.swing.JSlider slider= (javax.swing.JSlider)e.getSource();
             /*if (jMotionSlider.getValueIsAdjusting())
                 return;*/
