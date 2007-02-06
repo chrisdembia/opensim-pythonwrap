@@ -562,7 +562,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         return (jOutputMotionTextField.getText().length()!=0);
     }
     
-    public IKTool getInvestigation() {
+    public IKTool getSimulationTool() {
         return ik;
     }
     /**

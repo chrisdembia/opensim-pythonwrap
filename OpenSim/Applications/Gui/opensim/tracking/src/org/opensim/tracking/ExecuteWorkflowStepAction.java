@@ -34,9 +34,7 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
             
             public Object construct() { // runs in a worker thread
                 ((workflowWizardPanelBase)currentPanel).descriptor.stepInProgress=true;
-                StatusDisplayer.getDefault().setStatusText("Start");
                 ((workflowWizardPanelBase)currentPanel).executeStep();
-                StatusDisplayer.getDefault().setStatusText("Finish");
                 ((workflowWizardPanelBase)currentPanel).descriptor.stepInProgress=false;
                  return this;
             };

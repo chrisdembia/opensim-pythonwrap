@@ -2,7 +2,6 @@ package org.opensim.tracking;
 
 import org.opensim.modeling.CMCTool;
 import org.opensim.utils.FileUtils;
-import org.opensim.modeling.InvestigationCMCGait;
 import org.opensim.view.editors.ObjectEditDialogMaker;
 
 public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBase {
@@ -146,7 +145,6 @@ public final class ReduceResidualsVisualPanelPass1 extends workflowVisualPanelBa
     public void checkConsistentPanel() {
         boolean emptyFile = jRRAPass1SetupFileTextField.getText().equals("");
          jEditRRA1SetupButton.setEnabled(! emptyFile);
-         System.out.println("RRA gui panel can advance "+!emptyFile);
          setGuiCanAdvance(!emptyFile);
        
     }

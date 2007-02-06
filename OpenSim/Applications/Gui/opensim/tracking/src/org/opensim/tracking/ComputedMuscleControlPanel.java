@@ -1,21 +1,16 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import javax.swing.event.ChangeListener;
 import org.openide.util.HelpCtx;
+import org.opensim.modeling.CMCTool;
 
-public class ReduceResidualsPanel  extends workflowWizardPanelBase{
+public class ComputedMuscleControlPanel  extends workflowWizardPanelBase{
     
     /**
      * The visual component that displays this panel. If you need to access the
      * component from this class, just use getComponent().
      */
-    private ReduceResidualsVisualPanel component;
+    private ComputedMuscleControlVisualPanel component;
     
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
@@ -23,7 +18,7 @@ public class ReduceResidualsPanel  extends workflowWizardPanelBase{
     // create only those which really need to be visible.
     public Component getComponent() {
         if (component == null) {
-            component = new ReduceResidualsVisualPanel(this);
+            component = new ComputedMuscleControlVisualPanel(this);
         }
         return component;
     }
@@ -66,6 +61,7 @@ public class ReduceResidualsPanel  extends workflowWizardPanelBase{
     public void readSettings(Object settings) {
         descriptor = (WorkflowDescriptor) settings;
         component.updatePanel(descriptor);
+        updateAvailability();
     }
     public void storeSettings(Object settings) {
        descriptor = (WorkflowDescriptor) settings;
@@ -73,12 +69,16 @@ public class ReduceResidualsPanel  extends workflowWizardPanelBase{
     }
 
     public boolean executeStep() {
+        component.updateWorkflow(descriptor);
+        final CMCTool cmc = new CMCTool(descriptor.getSetupCMCFilename());
+        runDynamicTool(cmc, false);
          return true;
     }
-
-    public void updateAvailability() {
+    
+    public void updateAvailability()
+    {
         updateValidity(!descriptor.getStepInProgress() && component.isGuiCanAdvance());
     }
-    
+   
 }
 

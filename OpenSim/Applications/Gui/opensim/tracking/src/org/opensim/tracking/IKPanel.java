@@ -82,7 +82,7 @@ public class IKPanel  extends workflowWizardPanelBase{
      */
     public boolean executeStep() {
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Running Inverse Kinematics ");
-        final IKTool ik = component.getInvestigation();
+        final IKTool ik = component.getSimulationTool();
         // @FIXME should be current trial
         final double startTime = ik.getIKTrialSet().get(0).getStartTime();
         final double endTime = ik.getIKTrialSet().get(0).getEndTime();
@@ -90,7 +90,7 @@ public class IKPanel  extends workflowWizardPanelBase{
         final AbstractModel ikModel = ik.getModel();
         
          final SimtkAnimationCallback animationCallback = SimtkAnimationCallback.CreateAnimationCallback(ikModel);
-         animationCallback.setStepInterval(5);         
+         animationCallback.setStepInterval(1);         
          progressHandle.start();
          
          int delay = 50; //milliseconds

@@ -110,15 +110,14 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
     * runDynamicTool does all the leg work of setting up the GUI, callback to run
     * a Dynamic investigation and update display with the resulting animation
     */
-   protected void runDynamicTool(final SimulationTool dInvestigation, final Boolean isDeterministic) {
+   protected void runDynamicTool(final SimulationTool dTool, final Boolean isDeterministic) {
       
-      final AbstractModel model = dInvestigation.getModel();
-      final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Run Investigation "+dInvestigation.getName());
-      final double investigationDuration = (dInvestigation.getFinalTime() - dInvestigation.getStartTime());
-      final double startTime = dInvestigation.getStartTime();
-      final SimtkAnimationCallback animationCallback = SimtkAnimationCallback.CreateAnimationCallback(model);
-      
+      final AbstractModel model = dTool.getModel();
       model.setup();
+      final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Run Tool "+dTool.getName());
+      final double investigationDuration = (dTool.getFinalTime() - dTool.getStartTime());
+      final double startTime = dTool.getStartTime();
+      final SimtkAnimationCallback animationCallback = SimtkAnimationCallback.CreateAnimationCallback(model);
       SwingUtilities.invokeLater(new Runnable(){
          public void run() {
             OpenSimDB.getInstance().addModel(model);
@@ -133,15 +132,12 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
             SingleModelVisuals visModel = viewdb.getModelVisuals(model);
             if (visModel!=null){
                viewdb.updateModelDisplay(visModel, animationCallback);
-               System.out.println("+++++++++++++++++++++++++++++++++++++++++++++");
-            }
-            else
-               System.out.println("---------------------------------------------");
+             }
          }};
          
          Timer timer = new Timer(delay, taskPerformer);
          timer.start();
-         dInvestigation.run();
+         dTool.run();
          
          timer.stop();
          
