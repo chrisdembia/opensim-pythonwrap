@@ -55,6 +55,8 @@ in the specified axis directions (e.g., X Y Z).-->
 			<objects>
 			<SimmMarkerPair>
 				<markers>hip_r knee_r</markers>
+			</SimmMarkerPair>
+			<SimmMarkerPair>
 				<markers>hip_l knee_l</markers>
 			</SimmMarkerPair>
 			</objects>
@@ -86,6 +88,8 @@ in the specified axis directions (e.g., X Y Z).-->
 			<objects>
 			<SimmMarkerPair>
 				<markers>knee_r ankle_r</markers>
+			</SimmMarkerPair>
+			<SimmMarkerPair>
 				<markers>knee_l ankle_l</markers>
 			</SimmMarkerPair>
 			</objects>
@@ -117,6 +121,8 @@ in the specified axis directions (e.g., X Y Z).-->
 			<objects>
 			<SimmMarkerPair>
 				<markers>heel_r toe_r</markers>
+			</SimmMarkerPair>
+			<SimmMarkerPair>
 				<markers>heel_l toe_l</markers>
 			</SimmMarkerPair>
 			</objects>
