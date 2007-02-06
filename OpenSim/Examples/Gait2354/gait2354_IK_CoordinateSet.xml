@@ -62,11 +62,9 @@
 		</SimmCoordinate>
 		<SimmCoordinate name="subtalar_angle_r">
 			<locked> true </locked> 
-			<weight>1.00</weight> 
 		</SimmCoordinate>
 		<SimmCoordinate name="mtp_angle_r">
 			<locked> true </locked> 
-			<weight>1.00</weight> 
 		</SimmCoordinate>
 		
 		<!-- Left Leg -->
@@ -92,11 +90,9 @@
 		</SimmCoordinate>
 		<SimmCoordinate name="subtalar_angle_l">
 			<locked> true </locked> 
-			<weight>1.00</weight> 
 		</SimmCoordinate>
 		<SimmCoordinate name="mtp_angle_l">
 			<locked> true </locked> 
-			<weight>1.00</weight> 
 		</SimmCoordinate>
 		
 		<!-- Back -->
