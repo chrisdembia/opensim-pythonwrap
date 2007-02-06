@@ -99,9 +99,6 @@
 		<!--Name of the motion file (.mot) written after marker relocation
 		    (optional).-->
 		<output_motion_file> subject01_static_output.mot </output_motion_file>
-		<MarkerSet name="">
-			<objects/>
-		</MarkerSet>
 	</SimmMarkerPlacer>
 	
 </SimmSubject>
