@@ -114,8 +114,9 @@ public:
 	virtual void getInertia(double rInertia[3][3]) const;
 	virtual bool setInertia(const Array<double>& aInertia);
 	virtual bool setInertia(const double aInertia[3][3]);
-	virtual void scale(Array<double>& aScaleFactors, bool aScaleMass = false);
-	virtual void scaleInertialProperties(Array<double>& aScaleFactors);
+	virtual void scale(const Array<double>& aScaleFactors, bool aScaleMass = false);
+	virtual void scaleInertialProperties(const Array<double>& aScaleFactors, bool aScaleMass = true);
+	virtual void scaleMass(double aScaleFactor);
 	virtual VisibleObject* getDisplayer() const { return &_displayer; }
 
 	void setSdfastIndex(int aIndex) { _index = aIndex; }
