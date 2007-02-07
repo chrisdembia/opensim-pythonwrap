@@ -28,6 +28,37 @@ package org.opensim.view.base;
 import java.io.*;
 import javax.swing.SwingUtilities;
 import org.opensim.view.BottomPanelTopComponent;
+import java.util.*;
+import java.io.*;
+
+/**
+ * Stream Gobbler class ref. http://www.javaworld.com/javaworld/jw-12-2000/jw-1229-traps.html
+ * to deal with stdout, stderr.
+ */
+class StreamGobbler extends Thread
+{
+    InputStream is;
+    String type;
+    
+    StreamGobbler(InputStream is, String type)
+    {
+        this.is = is;
+        this.type = type;
+    }
+    
+    public void run() {
+       try {
+          InputStreamReader isr = new InputStreamReader(is);
+          BufferedReader br = new BufferedReader(isr);
+          String line=null;
+          while ( (line = br.readLine()) != null){
+             System.out.println(type + ">" + line);
+          }
+       } catch (IOException ioe) {
+          ioe.printStackTrace();
+       }
+    }
+}
 
 public class ExecOpenSimProcess
 {
@@ -36,24 +67,17 @@ public class ExecOpenSimProcess
         try {            
             Runtime rt = Runtime.getRuntime();
             Process proc = rt.exec(command, env, dirToExecuteIn);
-            InputStream stderr = proc.getInputStream();
-            InputStreamReader isr = new InputStreamReader(stderr);
-            final BufferedReader br = new BufferedReader(isr);
-            // Append a tab in front of text to distinguish process output.
-            // We may need to do this on separate thread. Also this will
-            // need to be piped to a plce in the GUI instead of System.out.
-            SwingUtilities.invokeLater(new Runnable(){
-                public void run() {
-                    String line = null;
-                    BottomPanelTopComponent.findInstance().showLogMessage("\n");
-                    try {
-                        while ( (line = br.readLine()) != null)
-                            BottomPanelTopComponent.findInstance().showLogMessage("\t"+line+"\n");
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    BottomPanelTopComponent.findInstance().showLogMessage("\n");
-                }});
+            // any error message?
+            StreamGobbler errorGobbler = new 
+                StreamGobbler(proc.getErrorStream(), "ERROR");            
+            
+            // any output?
+            StreamGobbler outputGobbler = new 
+                StreamGobbler(proc.getInputStream(), "OUTPUT");
+                
+            // kick them off
+            errorGobbler.start();
+            outputGobbler.start();                
             
             int exitVal = proc.waitFor();
             return (exitVal==0);	// More detailed error message will be needed
