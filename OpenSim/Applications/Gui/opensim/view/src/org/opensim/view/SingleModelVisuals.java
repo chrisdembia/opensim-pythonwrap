@@ -193,10 +193,6 @@ public class SingleModelVisuals {
                     mapMarkers2Glyphs.put(owner, new Integer(index));
                     continue;
                 }
-                else if (owner.getType().equals("SimmMusclePoint")||
-                        owner.getType().equals("SimmMuscleViaPoint")){
-                    continue;
-                }
                 /** unused but may be restored later 4 wrap objects
                 vtkActor attachmentRep = new vtkLODActor();
                 attachmentRep.SetUserMatrix(m);
@@ -408,14 +404,15 @@ public class SingleModelVisuals {
     /**
      * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points
      */
+    vtkMatrix4x4 retTransform = new vtkMatrix4x4();
+    double[] newX = new double[3];
+    double[] oldXCrossNewY = new double[3]; // NewZ
+    
     private vtkMatrix4x4 getCylinderTransform(double[] axis, double[] origin) { 
        double length = normalizeAndGetLength(axis);
-       vtkMatrix4x4 retTransform = new vtkMatrix4x4();
         // yaxis is the unit vector
         for (int i=0; i < 3; i++)
             retTransform.SetElement(i, 1, axis[i]);
-        double[] newX = new double[3];
-        double[] oldXCrossNewY = new double[3]; // NewZ
         oldXCrossNewY[0] = 0.0;
         oldXCrossNewY[1] = -axis[2];
         oldXCrossNewY[2] = axis[1];
@@ -429,7 +426,7 @@ public class SingleModelVisuals {
         newX[2] = axis[0]*oldXCrossNewY[1]-axis[1]*oldXCrossNewY[0];
         normalizeAndGetLength(newX);
        for (int i=0; i < 3; i++){
-            retTransform.SetElement(i, 0, newX[i]);
+          retTransform.SetElement(i, 0, newX[i]);
           retTransform.SetElement(i, 3, origin[i]);
          }
         return retTransform;
