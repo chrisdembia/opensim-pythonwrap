@@ -105,7 +105,7 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
         pointCloud.SetPoint(index, point[0], point[1], point[2]);
     }
     
-    public void setTensorDataAtLocation(int index, double xx, double xy, double xz,
+    synchronized public void setTensorDataAtLocation(int index, double xx, double xy, double xz,
             double yx, double yy, double yz,
             double zx, double zy, double zz) {
         vtkPointData t = pointPolyData.GetPointData();

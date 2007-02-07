@@ -92,5 +92,12 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
             assembly.VisibilityOff();
         repaint();
     }
+
+   public void lockDrawingSurface(boolean toLock) {
+      if (toLock)
+         Lock();
+      else
+         UnLock();
+   }
     
 }

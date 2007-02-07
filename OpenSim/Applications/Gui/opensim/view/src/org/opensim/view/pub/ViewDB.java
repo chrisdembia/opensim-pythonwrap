@@ -578,7 +578,9 @@ public final class ViewDB implements Observer {
     * but that's another map search.
     */
    public void updateModelDisplay(SingleModelVisuals visModel, SimtkAnimationCallback animationCallback) {
+      lockDrawingSurfaces(true);
       visModel.updateModelDisplay(animationCallback);
+      lockDrawingSurfaces(false);
       repaintAll();
    }
 
@@ -685,6 +687,14 @@ public final class ViewDB implements Observer {
 
    public void setPicking(boolean picking) {
       this.picking = picking;
+   }
+
+   private void lockDrawingSurfaces(boolean toLock) {
+      Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
+      while(windowIter.hasNext()){
+         ModelWindowVTKTopComponent nextWindow = windowIter.next();
+         nextWindow.getCanvas().lockDrawingSurface(toLock);
+      }
    }
 
 }
