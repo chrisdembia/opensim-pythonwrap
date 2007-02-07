@@ -38,12 +38,6 @@
 				<coordinate_file> subject01_walk1.mot </coordinate_file>
 				<!--Time range over which the IK problem is solved.-->
 				<time_range> 0.4 2.0 </time_range>
-				<!--Smoothing factor for preprocessing the kinematic data. Not currently
-				    used.-->
-				<kinematics_smoothing> 10 </kinematics_smoothing>
-				<!--Smoothing factor for preprocessing reaction force data. Not currently
-				    used.-->
-				<ground_reaction_smoothing> 1000 </ground_reaction_smoothing>
 				<!--Name of the motion file (.mot) to which the results should be written.-->
 				<output_motion_file> subject01_walk1_ik.mot </output_motion_file>
 				<!--Flag (true or false) indicating whether or not to include marker
