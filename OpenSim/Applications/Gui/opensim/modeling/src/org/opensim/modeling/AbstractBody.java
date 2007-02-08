@@ -88,8 +88,16 @@ public class AbstractBody extends OpenSimObject {
     opensimModelJNI.AbstractBody_scale__SWIG_1(swigCPtr, ArrayDouble.getCPtr(aScaleFactors));
   }
 
+  public void scaleInertialProperties(ArrayDouble aScaleFactors, boolean aScaleMass) {
+    opensimModelJNI.AbstractBody_scaleInertialProperties__SWIG_0(swigCPtr, ArrayDouble.getCPtr(aScaleFactors), aScaleMass);
+  }
+
   public void scaleInertialProperties(ArrayDouble aScaleFactors) {
-    opensimModelJNI.AbstractBody_scaleInertialProperties(swigCPtr, ArrayDouble.getCPtr(aScaleFactors));
+    opensimModelJNI.AbstractBody_scaleInertialProperties__SWIG_1(swigCPtr, ArrayDouble.getCPtr(aScaleFactors));
+  }
+
+  public void scaleMass(double aScaleFactor) {
+    opensimModelJNI.AbstractBody_scaleMass(swigCPtr, aScaleFactor);
   }
 
   public VisibleObject getDisplayer() {

@@ -1642,7 +1642,9 @@ public class opensimModelJNI {
   public final static native boolean AbstractBody_setInertia(long jarg1, long jarg2);
   public final static native void AbstractBody_scale__SWIG_0(long jarg1, long jarg2, boolean jarg3);
   public final static native void AbstractBody_scale__SWIG_1(long jarg1, long jarg2);
-  public final static native void AbstractBody_scaleInertialProperties(long jarg1, long jarg2);
+  public final static native void AbstractBody_scaleInertialProperties__SWIG_0(long jarg1, long jarg2, boolean jarg3);
+  public final static native void AbstractBody_scaleInertialProperties__SWIG_1(long jarg1, long jarg2);
+  public final static native void AbstractBody_scaleMass(long jarg1, double jarg2);
   public final static native long AbstractBody_getDisplayer(long jarg1);
   public final static native long AbstractBody_getWrapObject(long jarg1, String jarg2);
   public final static native long AbstractBody_getWrapObjectSet(long jarg1);
@@ -1663,7 +1665,9 @@ public class opensimModelJNI {
   public final static native boolean SimmBody_setInertia(long jarg1, long jarg2);
   public final static native void SimmBody_scale__SWIG_0(long jarg1, long jarg2, boolean jarg3);
   public final static native void SimmBody_scale__SWIG_1(long jarg1, long jarg2);
-  public final static native void SimmBody_scaleInertialProperties(long jarg1, long jarg2);
+  public final static native void SimmBody_scaleInertialProperties__SWIG_0(long jarg1, long jarg2, boolean jarg3);
+  public final static native void SimmBody_scaleInertialProperties__SWIG_1(long jarg1, long jarg2);
+  public final static native void SimmBody_scaleMass(long jarg1, double jarg2);
   public final static native long SimmBody_getDisplayer(long jarg1);
   public final static native void SimmBody_getScaleFactors(long jarg1, long jarg2);
   public final static native void SimmBody_peteTest(long jarg1);

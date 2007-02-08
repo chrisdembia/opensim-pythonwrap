@@ -27914,11 +27914,11 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1s
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
   arg2 = *(OpenSim::Array<double > **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
     return ;
   } 
   arg3 = jarg3 ? true : false; 
-  (arg1)->scale(*arg2,arg3);
+  (arg1)->scale((OpenSim::Array<double > const &)*arg2,arg3);
 }
 
 
@@ -27931,14 +27931,32 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1s
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
   arg2 = *(OpenSim::Array<double > **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
     return ;
   } 
-  (arg1)->scale(*arg2);
+  (arg1)->scale((OpenSim::Array<double > const &)*arg2);
 }
 
 
-JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scaleInertialProperties(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scaleInertialProperties_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jboolean jarg3) {
+  OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
+  OpenSim::Array<double > *arg2 = 0 ;
+  bool arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::AbstractBody **)&jarg1; 
+  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    return ;
+  } 
+  arg3 = jarg3 ? true : false; 
+  (arg1)->scaleInertialProperties((OpenSim::Array<double > const &)*arg2,arg3);
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scaleInertialProperties_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
   OpenSim::Array<double > *arg2 = 0 ;
   
@@ -27947,10 +27965,22 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1s
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
   arg2 = *(OpenSim::Array<double > **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
     return ;
   } 
-  (arg1)->scaleInertialProperties(*arg2);
+  (arg1)->scaleInertialProperties((OpenSim::Array<double > const &)*arg2);
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scaleMass(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
+  OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
+  double arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::AbstractBody **)&jarg1; 
+  arg2 = (double)jarg2; 
+  (arg1)->scaleMass(arg2);
 }
 
 
@@ -28244,11 +28274,11 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scale
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
   arg2 = *(OpenSim::Array<double > **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
     return ;
   } 
   arg3 = jarg3 ? true : false; 
-  (arg1)->scale(*arg2,arg3);
+  (arg1)->scale((OpenSim::Array<double > const &)*arg2,arg3);
 }
 
 
@@ -28261,14 +28291,32 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scale
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
   arg2 = *(OpenSim::Array<double > **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
     return ;
   } 
-  (arg1)->scale(*arg2);
+  (arg1)->scale((OpenSim::Array<double > const &)*arg2);
 }
 
 
-JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scaleInertialProperties(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scaleInertialProperties_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jboolean jarg3) {
+  OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
+  OpenSim::Array<double > *arg2 = 0 ;
+  bool arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmBody **)&jarg1; 
+  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    return ;
+  } 
+  arg3 = jarg3 ? true : false; 
+  (arg1)->scaleInertialProperties((OpenSim::Array<double > const &)*arg2,arg3);
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scaleInertialProperties_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
   OpenSim::Array<double > *arg2 = 0 ;
   
@@ -28277,10 +28325,22 @@ JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scale
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
   arg2 = *(OpenSim::Array<double > **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
     return ;
   } 
-  (arg1)->scaleInertialProperties(*arg2);
+  (arg1)->scaleInertialProperties((OpenSim::Array<double > const &)*arg2);
+}
+
+
+JNIEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scaleMass(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2) {
+  OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
+  double arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::SimmBody **)&jarg1; 
+  arg2 = (double)jarg2; 
+  (arg1)->scaleMass(arg2);
 }
 
 
