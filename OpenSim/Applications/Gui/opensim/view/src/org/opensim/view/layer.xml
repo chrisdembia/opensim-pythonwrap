@@ -29,6 +29,7 @@
             </file>
                         <file name="org-opensim-view-editors-ObjectPropertiesEditor.instance"/>
             <file name="org-opensim-view-nodes-EditFromNodeAction.instance"/>
+            <file name="org-opensim-view-nodes-ModelCloseSelectedAction.instance"/>
             </folder>
         <folder name="Window">
             <file name="org-netbeans-core-actions-ViewRuntimeTabAction.instance_hidden"/>
