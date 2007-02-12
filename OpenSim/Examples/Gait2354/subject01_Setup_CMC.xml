@@ -10,8 +10,6 @@
 	<replace_actuator_set> false </replace_actuator_set>
 	<!--List of xml files used to construct an actuator set for the model.-->
 	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
-	<!--Name of the xml file used to construct a contact set for the model.-->
-	<contact_force_set_file>  </contact_force_set_file>
 	<!--Directory used for writing results.-->
 	<results_directory> ./ResultsCMC </results_directory>
 	<!--Output precision.  It is 8 by default.-->
