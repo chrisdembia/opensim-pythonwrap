@@ -100,19 +100,6 @@ SdfastEngine::SdfastEngine(const string &aFileName) :
 
 //_____________________________________________________________________________
 /**
- * Constructor from an XML node
- */
-SdfastEngine::SdfastEngine(DOMElement *aElement) :
-	AbstractDynamicsEngine(aElement)
-{
-	setNull();
-	setupProperties();
-	updateFromXMLNode();
-	//init();
-}
-
-//_____________________________________________________________________________
-/**
  * Destructor.
  */
 
@@ -148,30 +135,6 @@ SdfastEngine::SdfastEngine(const SdfastEngine& aEngine) :
 Object* SdfastEngine::copy() const
 {
 	SdfastEngine *object = new SdfastEngine(*this);
-
-	return object;
-}
-
-//_____________________________________________________________________________
-/**
- * Copy this SdfastEngine and modify the copy so that it is consistent
- * with a specified XML element node.
- *
- * The copy is constructed by first using
- * SdfastEngine::SdfastEngine(DOMElement*) in order to establish
- * the relationship of the SdfastEngine object with the XML node. Then,
- * the assignment operator is used to set all data members of the copy to the
- * values of this SdfastEngine object. Finally, the data members of the
- * copy are updated using SdfastEngine::updateFromXMLNode().
- *
- * @param aElement XML element. 
- * @return Pointer to a copy of this SdfastEngine.
- */
-Object* SdfastEngine::copy(DOMElement *aElement) const
-{
-	SdfastEngine *object = new SdfastEngine(aElement);
-	*object = *this;
-	object->updateFromXMLNode();
 
 	return object;
 }

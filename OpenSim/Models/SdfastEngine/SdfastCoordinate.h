@@ -38,7 +38,6 @@
 #include <OpenSim/Tools/PropertyStr.h>
 #include <OpenSim/Tools/PropertyStrArray.h>
 #include <OpenSim/Tools/PropertyObjArray.h>
-#include <OpenSim/Tools/XMLDocument.h>
 #include <OpenSim/Tools/Function.h>
 #include <OpenSim/Simulation/SIMM/AbstractCoordinate.h>
 #include <OpenSim/Simulation/SIMM/AbstractDof.h>
@@ -146,12 +145,10 @@ protected:
 	//--------------------------------------------------------------------------
 public:
 	SdfastCoordinate();
-	SdfastCoordinate(DOMElement *aElement);
 	SdfastCoordinate(const SdfastCoordinate &aCoordinate);
 	SdfastCoordinate(const AbstractCoordinate &aCoordinate);
 	virtual ~SdfastCoordinate();
 	virtual Object* copy() const;
-	virtual Object* copy(DOMElement *aElement) const;
 
 	SdfastCoordinate& operator=(const SdfastCoordinate &aCoordinate);
 	void copyData(const SdfastCoordinate &aCoordinate);

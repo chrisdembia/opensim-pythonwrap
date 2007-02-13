@@ -60,26 +60,6 @@ SdfastBody::SdfastBody() :
 
 //_____________________________________________________________________________
 /**
- * Constructor from an XML node
- */
-SdfastBody::SdfastBody(DOMElement *aElement) :
-   AbstractBody(aElement),
-	_mass(_massProp.getValueDbl()),
-   _massCenter(_massCenterProp.getValueDblArray()),
-	_inertia(_inertiaProp.getValueDblArray()),
-	_displayerProp(PropertyObj("", VisibleObject())),
-   _displayer((VisibleObject&)_displayerProp.getValueObj()),
-	_index(_indexProp.getValueInt()),
-	_SdfastEngine(NULL)
-{
-	setNull();
-	setupProperties();
-	updateFromXMLNode();
-	updateSdfast();
-}
-
-//_____________________________________________________________________________
-/**
  * Destructor.
  */
 SdfastBody::~SdfastBody()
@@ -138,30 +118,6 @@ SdfastBody::SdfastBody(const AbstractBody &aBody) :
 Object* SdfastBody::copy() const
 {
 	SdfastBody *body = new SdfastBody(*this);
-	return(body);
-}
-
-//_____________________________________________________________________________
-/**
- * Copy this SdfastBody and modify the copy so that it is consistent
- * with a specified XML element node.
- *
- * The copy is constructed by first using
- * SdfastBody::SdfastBody(DOMElement*) in order to establish the
- * relationship of the SdfastBody object with the XML node. Then, the
- * assignment operator is used to set all data members of the copy to the
- * values of this SdfastBody object. Finally, the data members of the copy are
- * updated using SdfastBody::updateFromXMLNode().
- *
- * @param aElement XML element. 
- * @return Pointer to a copy of this SdfastBody.
- */
-Object* SdfastBody::copy(DOMElement *aElement) const
-{
-	SdfastBody *body = new SdfastBody(aElement);
-	*body = *this;
-	body->updateFromXMLNode();
-	body->updateSdfast();
 	return(body);
 }
 

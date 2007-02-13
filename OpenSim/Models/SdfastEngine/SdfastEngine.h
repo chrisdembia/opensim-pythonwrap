@@ -128,11 +128,9 @@ private:
 public:
 	SdfastEngine();
 	SdfastEngine(const std::string &aFileName);
-	SdfastEngine(DOMElement *aElement);
 	virtual ~SdfastEngine();
 	SdfastEngine(const SdfastEngine& aEngine);
 	virtual Object* copy() const;
-	virtual Object* copy(DOMElement *aElement) const;
 #ifndef SWIG
 	SdfastEngine& operator=(const SdfastEngine &aEngine);
 #endif

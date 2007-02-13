@@ -38,7 +38,6 @@
 #include <OpenSim/Tools/PropertyStrArray.h>
 #include <OpenSim/Tools/PropertyObjArray.h>
 #include <OpenSim/Tools/Storage.h>
-#include <OpenSim/Tools/XMLDocument.h>
 #include <OpenSim/Tools/Function.h>
 #include <OpenSim/Simulation/SIMM/AbstractSpeed.h>
 #include <OpenSim/Simulation/SDFast/sdfast.h>
@@ -87,12 +86,10 @@ protected:
 	//--------------------------------------------------------------------------
 public:
 	SdfastSpeed();
-	SdfastSpeed(DOMElement *aElement);
 	SdfastSpeed(const SdfastSpeed &aSpeed);
 	SdfastSpeed(const AbstractSpeed &aSpeed);
 	virtual ~SdfastSpeed();
 	virtual Object* copy() const;
-	virtual Object* copy(DOMElement *aElement) const;
 
 	SdfastSpeed& operator=(const SdfastSpeed &aSpeed);
 	void copyData(const SdfastSpeed &aSpeed);

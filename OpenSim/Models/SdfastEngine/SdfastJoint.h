@@ -32,7 +32,6 @@
 #include <OpenSim/Tools/PropertyStr.h>
 #include <OpenSim/Tools/PropertyStrArray.h>
 #include <OpenSim/Tools/Transform.h>
-#include <OpenSim/Tools/XMLDocument.h>
 #include <OpenSim/Tools/ScaleSet.h>
 #include <OpenSim/Simulation/SIMM/AbstractJoint.h>
 #include <OpenSim/Simulation/SDFast/sdfast.h>
@@ -102,11 +101,9 @@ protected:
 	//--------------------------------------------------------------------------
 public:
 	SdfastJoint();
-	SdfastJoint(DOMElement *aElement);
 	SdfastJoint(const SdfastJoint &aJoint);
 	virtual ~SdfastJoint();
 	virtual Object* copy() const;
-	virtual Object* copy(DOMElement *aElement) const;
 
 	void setup(AbstractDynamicsEngine* aEngine);
 

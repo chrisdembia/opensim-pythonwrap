@@ -36,7 +36,6 @@
 #include <OpenSim/Tools/PropertyDbl.h>
 #include <OpenSim/Tools/PropertyDblArray.h>
 #include <OpenSim/Tools/PropertyObj.h>
-#include <OpenSim/Tools/XMLDocument.h>
 #include <OpenSim/Simulation/SIMM/AbstractBody.h>
 #include <OpenSim/Simulation/SDFast/sdfast.h>
 
@@ -93,12 +92,10 @@ protected:
 	//--------------------------------------------------------------------------
 public:
 	SdfastBody();
-	SdfastBody(DOMElement *aElement);
 	SdfastBody(const SdfastBody &aBody);
 	SdfastBody(const AbstractBody &aBody);
 	virtual ~SdfastBody();
 	virtual Object* copy() const;
-	virtual Object* copy(DOMElement *aElement) const;
 
 	SdfastBody& operator=(const SdfastBody &aBody);
 	void copyData(const SdfastBody &aBody);

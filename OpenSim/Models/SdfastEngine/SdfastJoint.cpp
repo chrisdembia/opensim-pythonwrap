@@ -66,26 +66,6 @@ SdfastJoint::SdfastJoint() :
 
 //_____________________________________________________________________________
 /**
- * Constructor from an XML node
- */
-SdfastJoint::SdfastJoint(DOMElement *aElement) :
-   AbstractJoint(aElement),
-	_bodies(_bodiesProp.getValueStrArray()),
-	_locationInParent(_locationInParentProp.getValueDblArray()),
-	_locationInChild(_locationInChildProp.getValueDblArray()),
-	_childBody(NULL),
-	_parentBody(NULL),
-	_index(_indexProp.getValueInt()),
-	_SdfastTypeName(_SdfastTypeNameProp.getValueStr())
-{
-	setNull();
-	setupProperties();
-	updateFromXMLNode();
-	updateSdfast();
-}
-
-//_____________________________________________________________________________
-/**
  * Destructor.
  */
 SdfastJoint::~SdfastJoint()
@@ -123,29 +103,6 @@ SdfastJoint::SdfastJoint(const SdfastJoint &aJoint) :
 Object* SdfastJoint::copy() const
 {
 	SdfastJoint *joint = new SdfastJoint(*this);
-	return(joint);
-}
-//_____________________________________________________________________________
-/**
- * Copy this SdfastJoint and modify the copy so that it is consistent
- * with a specified XML element node.
- *
- * The copy is constructed by first using
- * SdfastJoint::SdfastJoint(DOMElement*) in order to establish the
- * relationship of the SdfastJoint object with the XML node. Then, the
- * assignment operator is used to set all data members of the copy to the
- * values of this SdfastJoint object. Finally, the data members of the copy are
- * updated using SdfastJoint::updateFromXMLNode().
- *
- * @param aElement XML element. 
- * @return Pointer to a copy of this SdfastJoint.
- */
-Object* SdfastJoint::copy(DOMElement *aElement) const
-{
-	SdfastJoint *joint = new SdfastJoint(aElement);
-	*joint = *this;
-	joint->updateFromXMLNode();
-	joint->updateSdfast();
 	return(joint);
 }
 

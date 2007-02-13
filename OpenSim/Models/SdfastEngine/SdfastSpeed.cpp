@@ -52,20 +52,6 @@ SdfastSpeed::SdfastSpeed() :
 	setNull();
 	setupProperties();
 }
-//_____________________________________________________________________________
-/**
- * Constructor from an XML node
- */
-SdfastSpeed::SdfastSpeed(DOMElement *aElement) :
-   AbstractSpeed(aElement),
-   _defaultValue(_defaultValueProp.getValueDbl()),
-	_index(_indexProp.getValueInt()),
-	_coordinateName(_coordinateNameProp.getValueStr())
-{
-	setNull();
-	setupProperties();
-	updateFromXMLNode();
-}
 
 //_____________________________________________________________________________
 /**
@@ -119,29 +105,6 @@ SdfastSpeed::SdfastSpeed(const AbstractSpeed &aSpeed) :
 Object* SdfastSpeed::copy() const
 {
 	SdfastSpeed *gc = new SdfastSpeed(*this);
-	return(gc);
-}
-
-//_____________________________________________________________________________
-/**
- * Copy this speed and modify the copy so that it is consistent
- * with a specified XML element node.
- *
- * The copy is constructed by first using
- * SdfastSpeed::SdfastSpeed(DOMElement) in order to establish the
- * relationship of the SdfastSpeed object with the XML node. Then, the
- * assignment operator is used to set all data members of the copy to the
- * values of this SdfastSpeed object. Finally, the data members of the
- * copy are updated using SdfastSpeed::updateFromXMLNode().
- *
- * @param aElement XML element. 
- * @return Pointer to a copy of this SdfastSpeed.
- */
-Object* SdfastSpeed::copy(DOMElement *aElement) const
-{
-	SdfastSpeed *gc = new SdfastSpeed(aElement);
-	*gc = *this;
-	gc->updateFromXMLNode();
 	return(gc);
 }
 

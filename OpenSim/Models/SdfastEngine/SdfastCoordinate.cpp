@@ -70,37 +70,6 @@ SdfastCoordinate::SdfastCoordinate() :
 	setNull();
 	setupProperties();
 }
-//_____________________________________________________________________________
-/**
- * Constructor from an XML node
- */
-SdfastCoordinate::SdfastCoordinate(DOMElement *aElement) :
-   AbstractCoordinate(aElement),
-	_defaultValue(_defaultValueProp.getValueDbl()),
-   _initialValue(_initialValueProp.getValueDbl()),
-   _tolerance(_toleranceProp.getValueDbl()),
-   _stiffness(_stiffnessProp.getValueDbl()),
-   _weight(_weightProp.getValueDbl()),
-	_range(_rangeProp.getValueDblArray()),
-	_keys(_keysProp.getValueStrArray()),
-	_clamped(_clampedProp.getValueBool()),
-	_locked(_lockedProp.getValueBool()),
-	_QType(_QTypeProp.getValueInt()),
-	_restraintFunction((ArrayPtrs<Function>&)_restraintFunctionProp.getValueObjArray()),
-	_minRestraintFunction((ArrayPtrs<Function>&)_minRestraintFunctionProp.getValueObjArray()),
-	_maxRestraintFunction((ArrayPtrs<Function>&)_maxRestraintFunctionProp.getValueObjArray()),
-	_restraintActive(_restraintActiveProp.getValueBool()),
-	_constraintFunction((ArrayPtrs<Function>&)_constraintFunctionProp.getValueObjArray()),
-	_motionType(AbstractDof::Rotational),
-	_index(_indexProp.getValueInt()),
-	_joint(_jointProp.getValueInt()),
-	_axis(_axisProp.getValueInt()),
-	_SdfastEngine(NULL)
-{
-	setNull();
-	setupProperties();
-	updateFromXMLNode();
-}
 
 //_____________________________________________________________________________
 /**
@@ -188,29 +157,6 @@ SdfastCoordinate::SdfastCoordinate(const AbstractCoordinate &aCoordinate) :
 Object* SdfastCoordinate::copy() const
 {
 	SdfastCoordinate *gc = new SdfastCoordinate(*this);
-	return(gc);
-}
-
-//_____________________________________________________________________________
-/**
- * Copy this SdfastCoordinate and modify the copy so that it is consistent
- * with a specified XML element node.
- *
- * The copy is constructed by first using
- * SdfastCoordinate::SdfastCoordinate(DOMElement) in order to establish the
- * relationship of the SdfastCoordinate object with the XML node. Then, the
- * assignment operator is used to set all data members of the copy to the
- * values of this SdfastCoordinate object. Finally, the data members of the
- * copy are updated using SdfastCoordinate::updateFromXMLNode().
- *
- * @param aElement XML element. 
- * @return Pointer to a copy of this SdfastCoordinate.
- */
-Object* SdfastCoordinate::copy(DOMElement *aElement) const
-{
-	SdfastCoordinate *gc = new SdfastCoordinate(aElement);
-	*gc = *this;
-	gc->updateFromXMLNode();
 	return(gc);
 }
 
