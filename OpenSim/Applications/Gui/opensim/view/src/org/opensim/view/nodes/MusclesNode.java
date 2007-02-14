@@ -36,19 +36,13 @@ import org.opensim.modeling.ActuatorSet;
  *
  * Top level Muscles node in Navigator view
  */
-public class MusclesNode extends OpenSimNode {
+public class MusclesNode extends OpenSimObjectNode {
     
     private static ResourceBundle bundle = NbBundle.getBundle(MusclesNode.class);
     /** Creates a new instance of MusclesNode */
     public MusclesNode(ActuatorSet as) {
-        super(new MuscleChildren(as));
+        super(as);
         setDisplayName(NbBundle.getMessage(MusclesNode.class, "CTL_Actuators"));
     }    
 
-   public Action[] getActions(boolean b) {
-      Action[] retValue;
-      
-      retValue = super.getActions(b);
-      return retValue;
-   }
 }
