@@ -26,8 +26,10 @@
 package org.opensim.view.nodes;
 
 import java.util.ResourceBundle;
-import javax.swing.Action;
+import org.openide.nodes.Children;
+import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
+import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.ActuatorSet;
 
 /**
@@ -37,12 +39,29 @@ import org.opensim.modeling.ActuatorSet;
  * Top level Muscles node in Navigator view
  */
 public class MusclesNode extends OpenSimObjectNode {
-    
-    private static ResourceBundle bundle = NbBundle.getBundle(MusclesNode.class);
-    /** Creates a new instance of MusclesNode */
-    public MusclesNode(ActuatorSet as) {
-        super(as);
-        setDisplayName(NbBundle.getMessage(MusclesNode.class, "CTL_Actuators"));
-    }    
-
+   
+   private static ResourceBundle bundle = NbBundle.getBundle(MusclesNode.class);
+   /** Creates a new instance of MusclesNode */
+   public MusclesNode(ActuatorSet as) {
+      super(as);
+      setDisplayName(NbBundle.getMessage(MusclesNode.class, "CTL_Actuators"));
+      Children children = getChildren();
+      for (int actuatorNum=0; actuatorNum < as.getSize(); actuatorNum++ ){
+         
+         AbstractActuator actuator = as.get(actuatorNum);
+         
+         OneMuscleNode node = new OneMuscleNode(actuator);
+         Node[] arrNodes = new Node[1];
+         arrNodes[0] = node;
+         children.add(arrNodes);         
+      }
+   }
+    /**
+     * Display name 
+     */
+    public String getHtmlDisplayName() {
+        
+        return NbBundle.getMessage(MusclesNode.class, "CTL_Actuators");
+    }
+   
 }

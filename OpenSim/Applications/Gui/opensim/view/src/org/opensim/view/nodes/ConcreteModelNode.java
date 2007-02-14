@@ -34,13 +34,17 @@ public class ConcreteModelNode extends OpenSimObjectNode {
         Action[] classSpecificActions=null;
         try {
             classSpecificActions = new Action[]{
-                (ModelCloseSelectedAction) ModelCloseSelectedAction.findObject(
+                (ModelCloseSelectedAction) ModelDisplayEditAction.findObject(
                         Class.forName("org.opensim.view.nodes.ModelCloseSelectedAction"), true),
                 getTreeModelMakeCurrentAction(),
-                new ModelDisplayEditAction(), 
-                new ModelDisplayHideAction(),
-                new ModelDisplayShowAction(),
-                new ModelInfoAction()
+                (ModelDisplayEditAction) ModelDisplayEditAction.findObject(
+                        Class.forName("org.opensim.view.ModelDisplayEditAction"), true),
+                (ModelDisplayHideAction) ModelDisplayHideAction.findObject(
+                        Class.forName("org.opensim.view.ModelDisplayHideAction"), true),
+                (ModelDisplayShowAction) ModelDisplayShowAction.findObject(
+                        Class.forName("org.opensim.view.ModelDisplayShowAction"), true),
+                (ModelInfoAction) ModelInfoAction.findObject(
+                        Class.forName("org.opensim.view.nodes.ModelInfoAction"), true),
                 
             };
         }
