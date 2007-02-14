@@ -57,7 +57,6 @@
 	<!--Specifies parameters for placing markers on the model once a model is
 	    scaled.-->
 	<SimmMarkerPlacer name="">
-		<!--Specify how to initialize coodinates for IK. Use value 'fromFile' to force IK to use a file to set the initial values. Filename is specified in the appropriate trial block.-->
 		<!--TRC file (.trc) containing the time history of experimental marker
 		    positions (usually a static trial).-->
 		<marker_file> subject01_static.trc </marker_file>
