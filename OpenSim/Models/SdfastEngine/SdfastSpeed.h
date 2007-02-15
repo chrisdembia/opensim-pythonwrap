@@ -30,13 +30,9 @@
 #include <string>
 #include <math.h>
 #include "SdfastEngineDLL.h"
-#include <OpenSim/Tools/PropertyBool.h>
 #include <OpenSim/Tools/PropertyInt.h>
 #include <OpenSim/Tools/PropertyDbl.h>
-#include <OpenSim/Tools/PropertyDblArray.h>
 #include <OpenSim/Tools/PropertyStr.h>
-#include <OpenSim/Tools/PropertyStrArray.h>
-#include <OpenSim/Tools/PropertyObjArray.h>
 #include <OpenSim/Tools/Storage.h>
 #include <OpenSim/Tools/Function.h>
 #include <OpenSim/Simulation/SIMM/AbstractSpeed.h>

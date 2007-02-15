@@ -37,7 +37,7 @@
 #include <OpenSim/Tools/PropertyDblArray.h>
 #include <OpenSim/Tools/PropertyStr.h>
 #include <OpenSim/Tools/PropertyStrArray.h>
-#include <OpenSim/Tools/PropertyObjArray.h>
+#include <OpenSim/Tools/PropertyObjPtr.h>
 #include <OpenSim/Tools/Function.h>
 #include <OpenSim/Simulation/SIMM/AbstractCoordinate.h>
 #include <OpenSim/Simulation/SIMM/AbstractDof.h>
@@ -105,20 +105,20 @@ protected:
 	PropertyInt _QTypeProp;
 	int &_QType;
 
-	PropertyObjArray _restraintFunctionProp;
-	ArrayPtrs<Function> &_restraintFunction;
+	PropertyObjPtr<Function> _restraintFunctionProp;
+	Function *&_restraintFunction;
 
-	PropertyObjArray _minRestraintFunctionProp;
-	ArrayPtrs<Function> &_minRestraintFunction;
+	PropertyObjPtr<Function> _minRestraintFunctionProp;
+	Function *&_minRestraintFunction;
 
-	PropertyObjArray _maxRestraintFunctionProp;
-	ArrayPtrs<Function> &_maxRestraintFunction;
+	PropertyObjPtr<Function> _maxRestraintFunctionProp;
+	Function *&_maxRestraintFunction;
 
 	PropertyBool _restraintActiveProp;
 	bool &_restraintActive;
 
-	PropertyObjArray _constraintFunctionProp;
-	ArrayPtrs<Function> &_constraintFunction;
+	PropertyObjPtr<Function> _constraintFunctionProp;
+	Function *&_constraintFunction;
 
 	/** Type of motion of this coordinate (rotational or translationa). */
 	AbstractDof::DofType _motionType;
