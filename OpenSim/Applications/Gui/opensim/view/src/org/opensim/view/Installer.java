@@ -1,14 +1,12 @@
 package org.opensim.view;
 
-import java.lang.reflect.InvocationTargetException;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import java.util.prefs.Preferences;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.openide.modules.ModuleInstall;
 import org.openide.util.NbBundle;
-import org.openide.windows.WindowManager;
 import org.opensim.utils.TheApp;
+import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
@@ -42,8 +40,26 @@ public class Installer extends ModuleInstall {
         /**
          * @todo open explorer window, Restore default directory and Bones directories, ..
          */
+        restorePrefs();
         super.restored();
 
     }
     
+    private void restorePrefs()
+    {
+         String AAFRamesDefaultStr = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_AAFrames");        
+         String saved=Preferences.userNodeForPackage(TheApp.class).get("AntiAliasingFrames", AAFRamesDefaultStr);
+         Preferences.userNodeForPackage(TheApp.class).put("AntiAliasingFrames", saved);
+         
+         String defaultOffsetDirection = NbBundle.getMessage(ViewDB.class,"CTL_DisplayOffsetDir");
+         saved=Preferences.userNodeForPackage(TheApp.class).get("DisplayOffsetDir", defaultOffsetDirection);
+         Preferences.userNodeForPackage(TheApp.class).put("DisplayOffsetDir", saved);
+         
+         saved=Preferences.userNodeForPackage(TheApp.class).get("GeometryPath", ".");
+         Preferences.userNodeForPackage(TheApp.class).put("GeometryPath", saved);
+
+         String defaultBgColor = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_BackgroundColorRGB");        
+         saved = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBgColor);
+         Preferences.userNodeForPackage(TheApp.class).put("BackgroundColor", saved);
+    }
 }

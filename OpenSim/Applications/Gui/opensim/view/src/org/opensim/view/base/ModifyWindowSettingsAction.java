@@ -23,7 +23,7 @@ public final class ModifyWindowSettingsAction extends CallableSystemAction {
              String defaultBackgroundColor=String.valueOf(colorComponents[0])+", "+
                      String.valueOf(colorComponents[1])+", "+
                      String.valueOf(colorComponents[2]);
-            Preferences.userNodeForPackage(TheApp.class).put("BackgroundPref", defaultBackgroundColor);
+            Preferences.userNodeForPackage(TheApp.class).put("BackgroundColor", defaultBackgroundColor);
 
              dCanvas.repaint();
         }

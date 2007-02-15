@@ -24,6 +24,7 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
+import org.opensim.utils.GeometryFileLocator;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
@@ -148,7 +149,9 @@ public class SingleModelVisuals {
             // For each bone in the current body.
             for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
                 vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
-                String boneFile = modelFilePath + "bones\\"+bodyDisplayer.getGeometryFileName(k);
+                String boneFile = GeometryFileLocator.getInstance().getFullname(modelFilePath,bodyDisplayer.getGeometryFileName(k));
+                if (boneFile==null)
+                   continue;
                 polyReader.SetFileName(boneFile);
 
                 vtkPolyData poly = polyReader.GetOutput();

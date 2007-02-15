@@ -6,6 +6,8 @@ import java.io.ObjectOutput;
 import javax.swing.SwingUtilities;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -23,15 +25,18 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
         // Browse for model file
         String fileName = FileUtils.getInstance().browseForFilename(".xml,.osim", "Model file to open");
         if (fileName != null){
+            ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Loading model file "+fileName+"...");
             try {
-                ProgressHandle progressHandle = ProgressHandleFactory.createHandle(
-                "Loading model file "+fileName+"...");
                 progressHandle.start();
                 loadModel(fileName);
                 progressHandle.finish();
             } catch (IOException ex) {
-                ex.printStackTrace();
-                
+                DialogDisplayer.getDefault().notify(
+                        new NotifyDescriptor.Message(
+                        "Could not construct a model from "+fileName+".\nConsider using File/import instead.\n"));
+
+                progressHandle.finish();
+               
             }
             
             try {

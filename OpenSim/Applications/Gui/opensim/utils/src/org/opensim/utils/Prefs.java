@@ -24,17 +24,27 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package org.opensim.utils;
+import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
+import org.openide.util.NbBundle;
 
 /**
  *
- * @author Ayman
+ * @author Ayman. Utilities to support/back preferences.
  */
 public final class Prefs {
+   
+   private static Prefs instance;
     /**
      * Creates a new instance of Prefs
      */
-    
+    public static Prefs getInstance()
+    {
+       if (instance==null)
+          instance = new Prefs();
+       return instance;
+       
+    }
     public void putPref(String key, String value)
     {
         Preferences.userNodeForPackage(this.getClass()).put(key, value);
@@ -51,4 +61,19 @@ public final class Prefs {
  
         return defaultDir;
     }
+    /**
+     * Parse a string of color attributes and return it in an array of doubles
+     */
+    public double[] parseColor(String aColor) {
+        double[] color = new double[3];
+        int i=0;
+        StringTokenizer tokenizer = new StringTokenizer(aColor, " \t\n\r\f,");
+        while (tokenizer.hasMoreTokens() && i<3){
+            String nextToken = tokenizer.nextToken();
+            color[i] = Double.parseDouble(nextToken);
+            i++;
+        }
+        return color;
+    }
+
 }

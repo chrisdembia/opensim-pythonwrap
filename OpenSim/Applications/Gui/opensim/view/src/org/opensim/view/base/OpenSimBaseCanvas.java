@@ -29,11 +29,10 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
-import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 import org.openide.util.NbBundle;
+import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
 import vtk.vtkCamera;
 import vtk.vtkLightCollection;
@@ -50,6 +49,8 @@ import vtk.vtkPanel;
 public class OpenSimBaseCanvas extends vtkPanel 
         implements KeyListener {
     
+    String defaultBackgroundColor="0.15, 0.15, 0.15";
+    int    numAAFrames;
     JPopupMenu settingsMenu = new JPopupMenu();
     CamerasMenu camerasMenu;
     
@@ -59,21 +60,19 @@ public class OpenSimBaseCanvas extends vtkPanel
     }
     /** Creates a new instance of OpenSimBaseCanvas */
     public OpenSimBaseCanvas() {
-         String defaultBackgroundColor="0.15, 0.15, 0.15";
-         defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundPref", defaultBackgroundColor);
-         double[] background = parseColor(defaultBackgroundColor);
+         defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBackgroundColor);
+         double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);
          GetRenderer().SetBackground(background);
          createSettingsMenu();
          camerasMenu = new CamerasMenu(this);
          addKeyListener(this);
          // AntiAliasing
-         String desiredAAFrames = NbBundle.getMessage(OpenSimBaseCanvas.class,"CTL_AAFrames");
-         if (desiredAAFrames != null){
-             int numAAFrames = Integer.parseInt(desiredAAFrames);
-             if (numAAFrames >=0 && numAAFrames <=10)
-                 GetRenderWindow().SetAAFrames(numAAFrames);
-         }
-
+          int desiredAAFrames = Preferences.userNodeForPackage(TheApp.class).getInt("AntiAliasingFrames", numAAFrames);
+          if (desiredAAFrames >=0 && desiredAAFrames<=10){
+             numAAFrames=desiredAAFrames;
+          }
+          GetRenderWindow().SetAAFrames(numAAFrames);
+         
     }
     public void mousePressed(MouseEvent e)
    {
@@ -176,15 +175,4 @@ public class OpenSimBaseCanvas extends vtkPanel
         repaint();
       }
 
-    private double[] parseColor(String defaultBackgroundColor) {
-        double[] color = new double[3];
-        int i=0;
-        StringTokenizer tokenizer = new StringTokenizer(defaultBackgroundColor, " \t\n\r\f,");
-        while (tokenizer.hasMoreTokens() && i<3){
-            String nextToken = tokenizer.nextToken();
-            color[i] = Double.parseDouble(nextToken);
-            i++;
-        }
-        return color;
-    }
 }

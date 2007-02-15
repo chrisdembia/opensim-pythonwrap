@@ -30,6 +30,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.prefs.Preferences;
 import javax.swing.JDialog;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
@@ -38,6 +39,7 @@ import org.openide.windows.TopComponent;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimtkAnimationCallback;
+import org.opensim.utils.TheApp;
 import org.opensim.view.*;
 import vtk.AxesActor;
 import vtk.vtkActor;
@@ -140,6 +142,9 @@ public final class ViewDB implements Observer {
                createNewViewWindowIfNeeded();
                // Create visuals for the model
                SingleModelVisuals newModelVisual = new SingleModelVisuals(ev.getModel());
+               
+               //From here on we're adding things to display so we better lock'
+               
                if (sceneAssembly==null){
                   createScene();
                   // Add assembly to all views
@@ -160,12 +165,10 @@ public final class ViewDB implements Observer {
                while(windowIter.hasNext()){
                   ModelWindowVTKTopComponent nextWindow = windowIter.next();
                   // This line may need to be enclosed in a Lock /UnLock pair per vtkPanel
-                  synchronized(nextWindow.getCanvas()){
-                     nextWindow.getCanvas().GetRenderer().ResetCamera(sceneAssembly.GetBounds());
-                  }
-           
+                  lockDrawingSurfaces(true);
+                  nextWindow.getCanvas().GetRenderer().ResetCamera(sceneAssembly.GetBounds());
+                  lockDrawingSurfaces(false);
                }
-               
                // add to list of models
                getModelVisuals().add(newModelVisual);
                // add to map from models to modelVisuals so that it's accesisble
@@ -508,6 +511,7 @@ public final class ViewDB implements Observer {
       if (iter.hasNext()){
          double bounds[]= sceneAssembly.GetBounds();
          String defaultOffsetDirection = NbBundle.getMessage(ViewDB.class,"CTL_DisplayOffsetDir");
+         defaultOffsetDirection=Preferences.userNodeForPackage(TheApp.class).get("DisplayOffsetDir", defaultOffsetDirection);
          if (defaultOffsetDirection == null)
             defaultOffsetDirection="Z";
          if (defaultOffsetDirection.equalsIgnoreCase("X"))

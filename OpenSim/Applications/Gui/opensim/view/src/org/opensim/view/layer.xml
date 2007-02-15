@@ -17,6 +17,7 @@
             </file>
             <file name="org-opensim-view-FileOpenOsimModelAction.instance"/>
                     <file name="org-opensim-view-FileSaveModelAction.instance"/>
+            <file name="org-opensim-view-actions-EditPreferencesAction.instance"/>
             <file name="org-opensim-view-actions-FileCloseAction.instance"/>
             <file name="org-opensim-view-actions-FileImportSIMMAction.instance"/>
             <file name="org-opensim-view-actions-FileLoadMarkersAction.instance"/>
@@ -101,6 +102,9 @@
         <attr name="File/Edit" boolvalue="true"/>
         <folder name="Edit">
             <attr name="Separator2.instance/org-opensim-view-separatorBefore.instance" boolvalue="true"/>
+            <file name="org-opensim-view-actions-EditPreferencesAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-EditPreferencesAction.instance"/>
+            </file>
             <file name="org-opensim-view-separatorBefore.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
@@ -117,6 +121,7 @@
             <attr name="org-openide-actions-CopyAction.instance/org-openide-actions-PasteAction.instance" boolvalue="false"/>
             <attr name="org-openide-actions-CutAction.instance/org-opensim-view-nodes-ModelInfoAction.instance" boolvalue="true"/>
             <attr name="org-opensim-view-nodes-ModelInfoAction.instance/org-openide-actions-CopyAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-actions-EditPreferencesAction.shadow/Separator3.instance" boolvalue="true"/>
             <file name="org-netbeans-core-actions-JumpNextAction.shadow_hidden"/>
             <file name="org-netbeans-core-actions-JumpPrevAction.shadow_hidden"/>
             <file name="org-openide-actions-ReplaceAction.instance_hidden"/>

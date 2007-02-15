@@ -224,35 +224,8 @@ final public class ExplorerTopComponent extends TopComponent
                     }
 
                 }});
- 
+
         }
-        /* Take Motions node out for now, we'll add it from the motionviewer project later.
-        else if (arg instanceof MotionEvent){
-            final MotionEvent evnt = (MotionEvent)arg;
-             // Add the model to the Tree window.
-            SwingUtilities.invokeLater(new Runnable(){
-                public void run() {
-                    ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
-
-                    Node rootNode = tree.getExplorerManager().getRootContext();
-                    switch(evnt.getOperation()){
-                        case Open :
-                        {
-                            AbstractModel motionModel = evnt.getModel();
-                            ConcreteModelNode modelNode = mapModels2Nodes.get(motionModel);
-                            Node[] nds = modelNode.getChildren().getNodes();
-                            Node motionsNode = modelNode.getChildren().findChild("Motions");
-                            // Create node for motion and append it
-                            Node newMotionNode = new OpenSimObjectNode(evnt.getMotion());
-                            motionsNode.getChildren().add(new Node[]{newMotionNode});
-                            break;
-                        }
-                    }
-                }
-            });
-        } */
-
-
     }
 
     public ExplorerManager getExplorerManager() {
@@ -293,15 +266,6 @@ final public class ExplorerTopComponent extends TopComponent
             if (nodes[i] instanceof ConcreteModelNode){
                ConcreteModelNode node = ((ConcreteModelNode)(nodes[i]));
                node.setName(node.getModel().getName());
-               /*
-               // Actually this just fires a change event so that the GUI updates
-               // The actual text is updated in ConcreteModelNode.getHtmlDisplayName!!
-               if (node.getModel()==currentModel){
-                   node.setDisplayName("<b>"+node.getModel().getName()+"</b>");
-               }
-               else
-                   node.setDisplayName();
-                **/
             }
         }
         
@@ -314,4 +278,11 @@ final public class ExplorerTopComponent extends TopComponent
     {
        return mapModels2Nodes.get(abstractModel);
     }
+
+    /**
+     * Disallow closing the explorer view as we depend on it everywhere
+     */
+   public boolean canClose() {
+      return false;
+   }
 }
