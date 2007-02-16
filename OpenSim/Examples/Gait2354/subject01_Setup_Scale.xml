@@ -94,7 +94,6 @@
 		<output_muscle_file> subject01.msl </output_muscle_file>
 		<!--Output OpenSim model file (.osim) after scaling and maker placement.-->
 		<output_model_file> subject01.osim </output_model_file>
-
 		<!--Name of the motion file (.mot) written after marker relocation
 		    (optional).-->
 		<output_motion_file> subject01_static_output.mot </output_motion_file>
