@@ -60,9 +60,8 @@
 		<!--TRC file (.trc) containing the time history of experimental marker
 		    positions (usually a static trial).-->
 		<marker_file> subject01_static.trc </marker_file>
-		<!--Specifies weights for matching coordinates specified in a file (the
-		    coordinate_file)-->
-		<CoordinateSet file="gait2354_Scale_CoordinateSet.xml"/>
+		<!--Task set used to specify weights used in the IK computation of the static pose.-->
+		<IKTaskSet file="gait2354_Scale_Tasks.xml"/>
 		<!--Name of file containing the joint angles used to set the initial
 		    configuration of the model for the purpose of placing the markers.
 		    These coordinate values can also be included in the optimization
@@ -81,9 +80,6 @@
 		    positions, but also the coordinates in this file. Least-squared error
 		    is used to solve the IK problem.-->
 		<coordinate_file> gait2354_zeros.mot </coordinate_file>
-		<!--List specifying which coordinate values should be taken from the
-		    coordinate_file.-->
-		<coordinates_from_file> subtalar_angle_r subtalar_angle_l mtp_angle_r mtp_angle_l lumbar_extension </coordinates_from_file>
 		<!--Time range over which the marker positions are averaged.-->
 		<time_range> 1 2 </time_range>
 		<!--Name of the new SIMM Joint file (.jnt) after scaling and marker
