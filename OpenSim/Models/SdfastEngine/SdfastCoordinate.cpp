@@ -50,7 +50,6 @@ SdfastCoordinate::SdfastCoordinate() :
    _initialValue(_initialValueProp.getValueDbl()),
    _tolerance(_toleranceProp.getValueDbl()),
    _stiffness(_stiffnessProp.getValueDbl()),
-   _weight(_weightProp.getValueDbl()),
 	_range(_rangeProp.getValueDblArray()),
 	_keys(_keysProp.getValueStrArray()),
 	_clamped(_clampedProp.getValueBool()),
@@ -91,7 +90,6 @@ SdfastCoordinate::SdfastCoordinate(const SdfastCoordinate &aCoordinate) :
    _initialValue(_initialValueProp.getValueDbl()),
    _tolerance(_toleranceProp.getValueDbl()),
    _stiffness(_stiffnessProp.getValueDbl()),
-   _weight(_weightProp.getValueDbl()),
 	_range(_rangeProp.getValueDblArray()),
 	_keys(_keysProp.getValueStrArray()),
 	_clamped(_clampedProp.getValueBool()),
@@ -125,7 +123,6 @@ SdfastCoordinate::SdfastCoordinate(const AbstractCoordinate &aCoordinate) :
    _initialValue(_initialValueProp.getValueDbl()),
    _tolerance(_toleranceProp.getValueDbl()),
    _stiffness(_stiffnessProp.getValueDbl()),
-   _weight(_weightProp.getValueDbl()),
 	_range(_rangeProp.getValueDblArray()),
 	_keys(_keysProp.getValueStrArray()),
 	_clamped(_clampedProp.getValueBool()),
@@ -175,7 +172,6 @@ void SdfastCoordinate::copyData(const SdfastCoordinate &aCoordinate)
 	_initialValue = aCoordinate.getDefaultValue();
 	_tolerance = aCoordinate.getTolerance();
 	_stiffness = aCoordinate._stiffness;
-	_weight = aCoordinate._weight;
 	_range = aCoordinate._range;
 	_keys = aCoordinate._keys;
 	_clamped = aCoordinate._clamped;
@@ -204,7 +200,6 @@ void SdfastCoordinate::copyData(const AbstractCoordinate &aCoordinate)
 	_initialValue = aCoordinate.getDefaultValue();
 	_tolerance = aCoordinate.getTolerance();
 	_stiffness = aCoordinate.getStiffness();
-	_weight = aCoordinate.getWeight();
 	aCoordinate.getRange(&_range[0]);
 	_clamped = aCoordinate.getClamped();
 	_locked = aCoordinate.getLocked();
@@ -247,10 +242,6 @@ void SdfastCoordinate::setupProperties(void)
 	_stiffnessProp.setName("stiffness");
 	_stiffnessProp.setValue(0.0);
 	_propertySet.append(&_stiffnessProp);
-
-	_weightProp.setName("weight");
-	_weightProp.setValue(1.0);
-	_propertySet.append(&_weightProp);
 
 	const double defaultRange[] = {-999999.9, 999999.9};
 	_rangeProp.setName("range");
@@ -409,9 +400,6 @@ void SdfastCoordinate::updateFromCoordinate(const AbstractCoordinate &aCoordinat
 
 	if (!aCoordinate.getToleranceUseDefault())
 		setTolerance(aCoordinate.getTolerance());
-
-	if (!aCoordinate.getWeightUseDefault())
-		setWeight(aCoordinate.getWeight());
 
 	if (!aCoordinate.getStiffnessUseDefault())
 		setStiffness(aCoordinate.getStiffness());
@@ -591,23 +579,6 @@ bool SdfastCoordinate::setTolerance(double aTolerance)
 
 //_____________________________________________________________________________
 /**
- * Set the weight.
- *
- * @param aWeight weight to change to.
- * @return Whether or not the weight was changed.
- */
-bool SdfastCoordinate::setWeight(double aWeight)
-{
-	if (aWeight >= 0.0) {
-		_weight = aWeight;
-		return true;
-	}
-
-	return false;
-}
-
-//_____________________________________________________________________________
-/**
  * Set the stiffness.
  *
  * @param aStiffness stiffness to change to.
@@ -697,7 +668,6 @@ void SdfastCoordinate::peteTest(void) const
 	cout << "   default_value: " << _defaultValue << endl;
 	cout << "   tolerance: " << _tolerance << endl;
 	cout << "   stiffness: " << _stiffness << endl;
-	cout << "   weight: " << _weight << endl;
 	cout << "   range: " << _range << endl;
 	cout << "   keys: " << _keys << endl;
 	cout << "   clamped: " << ((_clamped) ? ("true") : ("false")) << endl;
