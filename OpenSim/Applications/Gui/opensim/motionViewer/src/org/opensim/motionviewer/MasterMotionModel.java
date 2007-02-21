@@ -179,7 +179,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
         displayers.get(i).cleanupDisplay();
      displayers.clear();
      superMotion.clear();  
-     
+     currentSuperFrame=0;
    }
 
    private void buildSuperMotion(AbstractModel model, SimmMotionData mot, int idx) {
@@ -208,7 +208,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
             j++;
          }
          mergedMotion.add(newFrame);
-         System.out.println("Add frame "+i+" from motion "+idx+" at time"+time);
+         //System.out.println("Add frame "+i+" from motion "+idx+" at time"+time);
       }
        while (j < superMotion.size()-1){
             mergedMotion.add(superMotion.get(j));

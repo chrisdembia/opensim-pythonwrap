@@ -28,6 +28,7 @@ package org.opensim.motionviewer;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Observable;
+import java.util.Observer;
 import javax.swing.SwingUtilities;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -38,13 +39,15 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.modeling.Storage;
 import org.opensim.view.ExplorerTopComponent;
+import org.opensim.view.ModelEvent;
 import org.opensim.view.pub.*;
 
 /**
  *
  * @author Ayman
  */
-public class MotionsDB extends Observable {
+public class MotionsDB extends Observable // Observed by other entities in motionviewer
+        implements Observer {   // Observer OpenSimDB to sync. up when models are deleted
    
    static MotionsDB instance;
    // Map model to an ArrayList of Motions linked with it
@@ -53,6 +56,7 @@ public class MotionsDB extends Observable {
    
    /** Creates a new instance of MotionsDB */
    private MotionsDB() {
+       OpenSimDB.getInstance().addObserver(this);
    }
    
    public static synchronized MotionsDB getInstance() {
@@ -170,5 +174,15 @@ public class MotionsDB extends Observable {
          setChanged();
          notifyObservers(evt);
    }
+
+    public void update(Observable o, Object arg) {
+        if (o instanceof OpenSimDB && arg instanceof ModelEvent){
+             ModelEvent evnt = (ModelEvent) arg;
+             if (evnt.getOperation()==ModelEvent.Operation.Close){
+                 flushMotions(evnt.getModel());
+             }
+
+        }
+    }
    
 }
