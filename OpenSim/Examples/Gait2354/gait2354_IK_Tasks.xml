@@ -46,5 +46,11 @@
 		<IKMarkerTask name="L.Toe.Lat"><weight>1.0</weight></IKMarkerTask>
 		<IKMarkerTask name="L.Toe.Med"><weight>1.0</weight></IKMarkerTask>
 		<IKMarkerTask name="L.Toe.Tip"><weight>10.0</weight></IKMarkerTask>
+
+		<!-- Coordinates -->
+		<IKCoordinateTask name="subtalar_angle_r"> <value>0</value> </IKCoordinateTask>
+		<IKCoordinateTask name="mtp_angle_r"> <value>0</value> </IKCoordinateTask>
+		<IKCoordinateTask name="subtalar_angle_l"> <value>0</value> </IKCoordinateTask>
+		<IKCoordinateTask name="mtp_angle_l"> <value>0</value> </IKCoordinateTask>
 	</objects>
 </IKTaskSet>

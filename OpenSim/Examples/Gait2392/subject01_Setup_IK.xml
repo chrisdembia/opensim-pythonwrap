@@ -34,9 +34,6 @@
 				<time_range> 0.5 4 </time_range>
 				<!--Name of the motion file (.mot) to which the results should be written.-->
 				<output_motion_file> subject01_walk1_ik.mot </output_motion_file>
-				<!--Flag (true or false) indicating whether or not to include marker
-				    positions in the output motion (.mot) file.-->
-				<include_markers> false </include_markers>
 			</SimmIKTrial>
 		</objects>
 	</SimmIKTrialSet>

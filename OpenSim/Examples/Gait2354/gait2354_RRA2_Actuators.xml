@@ -42,7 +42,7 @@
 			<point_A> 0.000 0.000 0.000 </point_A>
 			<direction_A> -1.000 0.000 0.000 </direction_A>
 			<body_B> pelvis </body_B>
-			<point_B> -0.07243756 0.00000000 0.00000000 </point_B>
+			<point_B> -0.0724376 0.00000000 0.00000000 </point_B>
 		</Force>
 
 		<Force name="FY">
@@ -51,7 +51,7 @@
 			<point_A> 0.000 0.000 0.000 </point_A>
 			<direction_A> 0.000 -1.000 0.000 </direction_A>
 			<body_B> pelvis </body_B>
-			<point_B> -0.07243756 0.00000000 0.00000000 </point_B>
+			<point_B> -0.0724376 0.00000000 0.00000000 </point_B>
 		</Force>
 
 		<Force name="FZ">
@@ -60,7 +60,7 @@
 			<point_A> 0.000 0.000 0.000 </point_A>
 			<direction_A> 0.000 0.000 -1.000 </direction_A>
 			<body_B> pelvis </body_B>
-			<point_B> -0.07243756 0.00000000 0.00000000 </point_B>
+			<point_B> -0.0724376 0.00000000 0.00000000 </point_B>
 		</Force>
 
 		<Torque name="MX">
