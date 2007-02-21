@@ -37,21 +37,12 @@ public class SimmIKTrial extends OpenSimObject {
     this(opensimModelJNI.new_SimmIKTrial__SWIG_0(), true);
   }
 
-  public SimmIKTrial(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmIKTrial__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmIKTrial(SimmIKTrial aIKTrialParams) {
-    this(opensimModelJNI.new_SimmIKTrial__SWIG_2(SimmIKTrial.getCPtr(aIKTrialParams)), true);
+    this(opensimModelJNI.new_SimmIKTrial__SWIG_1(SimmIKTrial.getCPtr(aIKTrialParams)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmIKTrial_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmIKTrial_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmIKTrial_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -95,12 +86,12 @@ public class SimmIKTrial extends OpenSimObject {
     opensimModelJNI.SimmIKTrial_findFrameRange(swigCPtr, Storage.getCPtr(aData), SWIGTYPE_p_int.getCPtr(oStartFrame), SWIGTYPE_p_int.getCPtr(oEndFrame));
   }
 
-  public boolean processTrial(AbstractModel aModel, CoordinateSet aCoordinateSet, ArrayStr aCoordinatesFromFile) {
-    return opensimModelJNI.SimmIKTrial_processTrial(swigCPtr, AbstractModel.getCPtr(aModel), CoordinateSet.getCPtr(aCoordinateSet), ArrayStr.getCPtr(aCoordinatesFromFile));
+  public boolean processTrial(AbstractModel aModel, IKTaskSet aIKTaskSet) {
+    return opensimModelJNI.SimmIKTrial_processTrial(swigCPtr, AbstractModel.getCPtr(aModel), IKTaskSet.getCPtr(aIKTaskSet));
   }
 
-  public boolean processTrialCommon(AbstractModel aModel, CoordinateSet aCoordinateSet, ArrayStr aCoordinatesFromFile, SimmMarkerData aMarkerData, Storage aOutputStorage) {
-    return opensimModelJNI.SimmIKTrial_processTrialCommon(swigCPtr, AbstractModel.getCPtr(aModel), CoordinateSet.getCPtr(aCoordinateSet), ArrayStr.getCPtr(aCoordinatesFromFile), SimmMarkerData.getCPtr(aMarkerData), Storage.getCPtr(aOutputStorage));
+  public boolean processTrialCommon(AbstractModel aModel, IKTaskSet aIKTaskSet, SimmMarkerData aMarkerData, Storage aOutputStorage) {
+    return opensimModelJNI.SimmIKTrial_processTrialCommon(swigCPtr, AbstractModel.getCPtr(aModel), IKTaskSet.getCPtr(aIKTaskSet), SimmMarkerData.getCPtr(aMarkerData), Storage.getCPtr(aOutputStorage));
   }
 
   public String getMarkerDataFilename() {

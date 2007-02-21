@@ -45,34 +45,17 @@ public class IKTool extends SimulationTool {
     this(opensimModelJNI.new_IKTool__SWIG_2(aFileName), true);
   }
 
-  public IKTool(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_IKTool__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public IKTool(IKTool aObject) {
-    this(opensimModelJNI.new_IKTool__SWIG_4(IKTool.getCPtr(aObject)), true);
+    this(opensimModelJNI.new_IKTool__SWIG_3(IKTool.getCPtr(aObject)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.IKTool_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.IKTool_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.IKTool_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
   public static void registerTypes() {
     opensimModelJNI.IKTool_registerTypes();
-  }
-
-  public MarkerSet getMarkerSet() {
-    return new MarkerSet(opensimModelJNI.IKTool_getMarkerSet(swigCPtr), false);
-  }
-
-  public CoordinateSet getCoordinateSet() {
-    return new CoordinateSet(opensimModelJNI.IKTool_getCoordinateSet(swigCPtr), false);
   }
 
   public SimmIKTrialSet getIKTrialSet() {

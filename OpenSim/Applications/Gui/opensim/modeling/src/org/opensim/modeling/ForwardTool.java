@@ -41,21 +41,12 @@ public class ForwardTool extends SimulationTool {
     this(opensimModelJNI.new_ForwardTool__SWIG_1(aFileName), true);
   }
 
-  public ForwardTool(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_ForwardTool__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public ForwardTool(ForwardTool aObject) {
-    this(opensimModelJNI.new_ForwardTool__SWIG_3(ForwardTool.getCPtr(aObject)), true);
+    this(opensimModelJNI.new_ForwardTool__SWIG_2(ForwardTool.getCPtr(aObject)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.ForwardTool_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.ForwardTool_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.ForwardTool_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

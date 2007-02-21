@@ -8,15 +8,15 @@
 
 package org.opensim.modeling;
 
-public class Range extends OpenSimObject {
+public class IKTask extends OpenSimObject {
   private long swigCPtr;
 
-  public Range(long cPtr, boolean cMemoryOwn) {
+  public IKTask(long cPtr, boolean cMemoryOwn) {
     super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  public static long getCPtr(Range obj) {
+  public static long getCPtr(IKTask obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -27,39 +27,19 @@ public class Range extends OpenSimObject {
   public void delete() {
     if(swigCPtr != 0 && swigCMemOwn) {
       swigCMemOwn = false;
-      opensimModelJNI.delete_Range(swigCPtr);
+      opensimModelJNI.delete_IKTask(swigCPtr);
     }
     swigCPtr = 0;
     super.delete();
   }
 
-  public Range() {
-    this(opensimModelJNI.new_Range__SWIG_0(), true);
-  }
-
-  public Range(Range aRange) {
-    this(opensimModelJNI.new_Range__SWIG_1(Range.getCPtr(aRange)), true);
-  }
-
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Range_copy(swigCPtr);
+    long cPtr = opensimModelJNI.IKTask_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public double getMin() {
-    return opensimModelJNI.Range_getMin(swigCPtr);
-  }
-
-  public void setMin(double aMin) {
-    opensimModelJNI.Range_setMin(swigCPtr, aMin);
-  }
-
-  public double getMax() {
-    return opensimModelJNI.Range_getMax(swigCPtr);
-  }
-
-  public void setMax(double aMax) {
-    opensimModelJNI.Range_setMax(swigCPtr, aMax);
+  public double getWeight() {
+    return opensimModelJNI.IKTask_getWeight(swigCPtr);
   }
 
 }

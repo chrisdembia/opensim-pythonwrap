@@ -41,12 +41,8 @@ public class SetBodies extends OpenSimObject {
     this(opensimModelJNI.new_SetBodies__SWIG_1(aFileName), true);
   }
 
-  public SetBodies(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SetBodies__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SetBodies(SetBodies aSet) {
-    this(opensimModelJNI.new_SetBodies__SWIG_3(SetBodies.getCPtr(aSet)), true);
+    this(opensimModelJNI.new_SetBodies__SWIG_2(SetBodies.getCPtr(aSet)), true);
   }
 
   public OpenSimObject copy() {

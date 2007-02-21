@@ -37,21 +37,12 @@ public class SimmRotationDof extends AbstractDof {
     this(opensimModelJNI.new_SimmRotationDof__SWIG_0(), true);
   }
 
-  public SimmRotationDof(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmRotationDof__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmRotationDof(SimmRotationDof aDof) {
-    this(opensimModelJNI.new_SimmRotationDof__SWIG_2(SimmRotationDof.getCPtr(aDof)), true);
+    this(opensimModelJNI.new_SimmRotationDof__SWIG_1(SimmRotationDof.getCPtr(aDof)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmRotationDof_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmRotationDof_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmRotationDof_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

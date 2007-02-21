@@ -45,10 +45,6 @@ public class MarkerSet extends SetMarkers {
     this(opensimModelJNI.new_MarkerSet__SWIG_2(MarkerSet.getCPtr(aMarkerSet)), true);
   }
 
-  public boolean usesWeights() {
-    return opensimModelJNI.MarkerSet_usesWeights(swigCPtr);
-  }
-
   public void getMarkerNames(ArrayStr aMarkerNamesArray) {
     opensimModelJNI.MarkerSet_getMarkerNames(swigCPtr, ArrayStr.getCPtr(aMarkerNamesArray));
   }

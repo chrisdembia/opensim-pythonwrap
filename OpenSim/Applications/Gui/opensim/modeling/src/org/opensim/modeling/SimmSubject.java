@@ -41,21 +41,12 @@ public class SimmSubject extends OpenSimObject {
     this(opensimModelJNI.new_SimmSubject__SWIG_1(aFileName), true);
   }
 
-  public SimmSubject(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmSubject__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmSubject(SimmSubject aSubject) {
-    this(opensimModelJNI.new_SimmSubject__SWIG_3(SimmSubject.getCPtr(aSubject)), true);
+    this(opensimModelJNI.new_SimmSubject__SWIG_2(SimmSubject.getCPtr(aSubject)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmSubject_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmSubject_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmSubject_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

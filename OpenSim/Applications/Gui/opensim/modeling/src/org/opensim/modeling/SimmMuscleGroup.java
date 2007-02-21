@@ -41,17 +41,8 @@ public class SimmMuscleGroup extends OpenSimObject {
     this(opensimModelJNI.new_SimmMuscleGroup__SWIG_1(SimmMuscleGroup.getCPtr(aGroup)), true);
   }
 
-  public SimmMuscleGroup(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmMuscleGroup__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmMuscleGroup_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmMuscleGroup_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmMuscleGroup_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

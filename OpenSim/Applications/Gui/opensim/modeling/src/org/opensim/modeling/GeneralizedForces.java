@@ -45,21 +45,12 @@ public class GeneralizedForces extends Analysis {
     this(opensimModelJNI.new_GeneralizedForces__SWIG_2(aFileName), true);
   }
 
-  public GeneralizedForces(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_GeneralizedForces__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public GeneralizedForces(GeneralizedForces aObject) {
-    this(opensimModelJNI.new_GeneralizedForces__SWIG_4(GeneralizedForces.getCPtr(aObject)), true);
+    this(opensimModelJNI.new_GeneralizedForces__SWIG_3(GeneralizedForces.getCPtr(aObject)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.GeneralizedForces_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.GeneralizedForces_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.GeneralizedForces_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

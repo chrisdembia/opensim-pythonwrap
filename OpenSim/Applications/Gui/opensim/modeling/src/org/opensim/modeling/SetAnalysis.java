@@ -41,12 +41,8 @@ public class SetAnalysis extends OpenSimObject {
     this(opensimModelJNI.new_SetAnalysis__SWIG_1(aFileName), true);
   }
 
-  public SetAnalysis(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SetAnalysis__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SetAnalysis(SetAnalysis aSet) {
-    this(opensimModelJNI.new_SetAnalysis__SWIG_3(SetAnalysis.getCPtr(aSet)), true);
+    this(opensimModelJNI.new_SetAnalysis__SWIG_2(SetAnalysis.getCPtr(aSet)), true);
   }
 
   public OpenSimObject copy() {

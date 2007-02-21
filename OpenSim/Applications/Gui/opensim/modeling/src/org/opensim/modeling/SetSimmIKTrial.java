@@ -41,12 +41,8 @@ public class SetSimmIKTrial extends OpenSimObject {
     this(opensimModelJNI.new_SetSimmIKTrial__SWIG_1(aFileName), true);
   }
 
-  public SetSimmIKTrial(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SetSimmIKTrial__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SetSimmIKTrial(SetSimmIKTrial aSet) {
-    this(opensimModelJNI.new_SetSimmIKTrial__SWIG_3(SetSimmIKTrial.getCPtr(aSet)), true);
+    this(opensimModelJNI.new_SetSimmIKTrial__SWIG_2(SetSimmIKTrial.getCPtr(aSet)), true);
   }
 
   public OpenSimObject copy() {

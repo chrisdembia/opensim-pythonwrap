@@ -37,21 +37,12 @@ public class SimmBody extends AbstractBody {
     this(opensimModelJNI.new_SimmBody__SWIG_0(), true);
   }
 
-  public SimmBody(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmBody__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmBody(SimmBody aBody) {
-    this(opensimModelJNI.new_SimmBody__SWIG_2(SimmBody.getCPtr(aBody)), true);
+    this(opensimModelJNI.new_SimmBody__SWIG_1(SimmBody.getCPtr(aBody)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmBody_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmBody_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmBody_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

@@ -45,21 +45,12 @@ public class Analysis extends IntegCallback {
     this(opensimModelJNI.new_Analysis__SWIG_2(aFileName), true);
   }
 
-  public Analysis(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_Analysis__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public Analysis(Analysis aObject) {
-    this(opensimModelJNI.new_Analysis__SWIG_4(Analysis.getCPtr(aObject)), true);
+    this(opensimModelJNI.new_Analysis__SWIG_3(Analysis.getCPtr(aObject)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Analysis_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.Analysis_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.Analysis_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

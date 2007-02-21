@@ -37,21 +37,12 @@ public class SimmCoordinate extends AbstractCoordinate {
     this(opensimModelJNI.new_SimmCoordinate__SWIG_0(), true);
   }
 
-  public SimmCoordinate(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmCoordinate__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmCoordinate(SimmCoordinate aCoordinate) {
-    this(opensimModelJNI.new_SimmCoordinate__SWIG_2(SimmCoordinate.getCPtr(aCoordinate)), true);
+    this(opensimModelJNI.new_SimmCoordinate__SWIG_1(SimmCoordinate.getCPtr(aCoordinate)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmCoordinate_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmCoordinate_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmCoordinate_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -117,18 +108,6 @@ public class SimmCoordinate extends AbstractCoordinate {
 
   public boolean getToleranceUseDefault() {
     return opensimModelJNI.SimmCoordinate_getToleranceUseDefault(swigCPtr);
-  }
-
-  public double getWeight() {
-    return opensimModelJNI.SimmCoordinate_getWeight(swigCPtr);
-  }
-
-  public boolean setWeight(double aWeight) {
-    return opensimModelJNI.SimmCoordinate_setWeight(swigCPtr, aWeight);
-  }
-
-  public boolean getWeightUseDefault() {
-    return opensimModelJNI.SimmCoordinate_getWeightUseDefault(swigCPtr);
   }
 
   public double getStiffness() {

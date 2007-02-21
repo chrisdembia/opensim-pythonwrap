@@ -41,12 +41,8 @@ public class SetScales extends OpenSimObject {
     this(opensimModelJNI.new_SetScales__SWIG_1(aFileName), true);
   }
 
-  public SetScales(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SetScales__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SetScales(SetScales aSet) {
-    this(opensimModelJNI.new_SetScales__SWIG_3(SetScales.getCPtr(aSet)), true);
+    this(opensimModelJNI.new_SetScales__SWIG_2(SetScales.getCPtr(aSet)), true);
   }
 
   public OpenSimObject copy() {

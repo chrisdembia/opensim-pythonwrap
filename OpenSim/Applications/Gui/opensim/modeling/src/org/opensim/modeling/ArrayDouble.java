@@ -134,6 +134,10 @@ public class ArrayDouble {
     return opensimModelJNI.ArrayDouble_findIndex(swigCPtr, aValue);
   }
 
+  public int rfindIndex(double aValue) {
+    return opensimModelJNI.ArrayDouble_rfindIndex(swigCPtr, aValue);
+  }
+
   public int searchBinary(double aValue, boolean aFindFirst, int aLo, int aHi) {
     return opensimModelJNI.ArrayDouble_searchBinary__SWIG_0(swigCPtr, aValue, aFindFirst, aLo, aHi);
   }

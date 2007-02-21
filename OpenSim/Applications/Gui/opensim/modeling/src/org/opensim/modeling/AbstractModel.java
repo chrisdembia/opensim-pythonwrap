@@ -41,21 +41,12 @@ public class AbstractModel extends OpenSimObject {
     this(opensimModelJNI.new_AbstractModel__SWIG_1(aFileName), true);
   }
 
-  public AbstractModel(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_AbstractModel__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public AbstractModel(AbstractModel aModel) {
-    this(opensimModelJNI.new_AbstractModel__SWIG_3(AbstractModel.getCPtr(aModel)), true);
+    this(opensimModelJNI.new_AbstractModel__SWIG_2(AbstractModel.getCPtr(aModel)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AbstractModel_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.AbstractModel_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.AbstractModel_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -151,6 +142,10 @@ public class AbstractModel extends OpenSimObject {
 
   public int getNumConfigurations() {
     return opensimModelJNI.AbstractModel_getNumConfigurations(swigCPtr);
+  }
+
+  public boolean hasDynamicsEngine() {
+    return opensimModelJNI.AbstractModel_hasDynamicsEngine(swigCPtr);
   }
 
   public AbstractDynamicsEngine getDynamicsEngine() {

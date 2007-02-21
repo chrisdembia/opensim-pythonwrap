@@ -37,21 +37,12 @@ public class SimmGenericModelMaker extends OpenSimObject {
     this(opensimModelJNI.new_SimmGenericModelMaker__SWIG_0(), true);
   }
 
-  public SimmGenericModelMaker(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmGenericModelMaker__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmGenericModelMaker(SimmGenericModelMaker aGenericModelMaker) {
-    this(opensimModelJNI.new_SimmGenericModelMaker__SWIG_2(SimmGenericModelMaker.getCPtr(aGenericModelMaker)), true);
+    this(opensimModelJNI.new_SimmGenericModelMaker__SWIG_1(SimmGenericModelMaker.getCPtr(aGenericModelMaker)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmGenericModelMaker_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmGenericModelMaker_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmGenericModelMaker_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

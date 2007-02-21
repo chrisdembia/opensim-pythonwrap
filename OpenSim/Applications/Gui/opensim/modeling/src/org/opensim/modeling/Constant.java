@@ -45,21 +45,12 @@ public class Constant extends Function {
     this(opensimModelJNI.new_Constant__SWIG_2(aN, SWIGTYPE_p_double.getCPtr(aTimes), SWIGTYPE_p_double.getCPtr(aValues)), true);
   }
 
-  public Constant(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_Constant__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public Constant(Constant aSpline) {
-    this(opensimModelJNI.new_Constant__SWIG_4(Constant.getCPtr(aSpline)), true);
+    this(opensimModelJNI.new_Constant__SWIG_3(Constant.getCPtr(aSpline)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Constant_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.Constant_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.Constant_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

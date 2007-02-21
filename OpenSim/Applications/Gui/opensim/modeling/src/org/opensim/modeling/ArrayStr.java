@@ -134,6 +134,10 @@ public class ArrayStr {
     return opensimModelJNI.ArrayStr_findIndex(swigCPtr, aValue);
   }
 
+  public int rfindIndex(String aValue) {
+    return opensimModelJNI.ArrayStr_rfindIndex(swigCPtr, aValue);
+  }
+
   public int searchBinary(String aValue, boolean aFindFirst, int aLo, int aHi) {
     return opensimModelJNI.ArrayStr_searchBinary__SWIG_0(swigCPtr, aValue, aFindFirst, aLo, aHi);
   }

@@ -34,12 +34,7 @@ public class AbstractCoordinate extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AbstractCoordinate_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.AbstractCoordinate_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.AbstractCoordinate_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -110,18 +105,6 @@ public class AbstractCoordinate extends OpenSimObject {
 
   public boolean getToleranceUseDefault() {
     return opensimModelJNI.AbstractCoordinate_getToleranceUseDefault(swigCPtr);
-  }
-
-  public double getWeight() {
-    return opensimModelJNI.AbstractCoordinate_getWeight(swigCPtr);
-  }
-
-  public boolean setWeight(double aWeight) {
-    return opensimModelJNI.AbstractCoordinate_setWeight(swigCPtr, aWeight);
-  }
-
-  public boolean getWeightUseDefault() {
-    return opensimModelJNI.AbstractCoordinate_getWeightUseDefault(swigCPtr);
   }
 
   public double getStiffness() {

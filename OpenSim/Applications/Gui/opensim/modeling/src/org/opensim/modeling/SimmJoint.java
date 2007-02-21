@@ -37,21 +37,12 @@ public class SimmJoint extends AbstractJoint {
     this(opensimModelJNI.new_SimmJoint__SWIG_0(), true);
   }
 
-  public SimmJoint(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmJoint__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmJoint(SimmJoint aJoint) {
-    this(opensimModelJNI.new_SimmJoint__SWIG_2(SimmJoint.getCPtr(aJoint)), true);
+    this(opensimModelJNI.new_SimmJoint__SWIG_1(SimmJoint.getCPtr(aJoint)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmJoint_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmJoint_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmJoint_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

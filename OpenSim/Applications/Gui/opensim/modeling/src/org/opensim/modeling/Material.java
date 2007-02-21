@@ -114,21 +114,12 @@ public class Material extends OpenSimObject {
     this(opensimModelJNI.new_Material__SWIG_1(aFileName), true);
   }
 
-  public Material(SWIGTYPE_p_DOMElement aNode) {
-    this(opensimModelJNI.new_Material__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aNode)), true);
-  }
-
   public Material(Material aMaterial) {
-    this(opensimModelJNI.new_Material__SWIG_3(Material.getCPtr(aMaterial)), true);
+    this(opensimModelJNI.new_Material__SWIG_2(Material.getCPtr(aMaterial)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Material_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.Material_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.Material_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -173,11 +164,6 @@ public class Material extends OpenSimObject {
 
   public static Material GetDefaultMaterial() {
     return new Material(opensimModelJNI.Material_GetDefaultMaterial(), false);
-  }
-
-  public SWIGTYPE_p_DOMElement getNode() {
-    long cPtr = opensimModelJNI.Material_getNode(swigCPtr);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_DOMElement(cPtr, false);
   }
 
 }

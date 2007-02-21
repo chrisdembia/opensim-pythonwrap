@@ -41,12 +41,8 @@ public class SetJoints extends OpenSimObject {
     this(opensimModelJNI.new_SetJoints__SWIG_1(aFileName), true);
   }
 
-  public SetJoints(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SetJoints__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SetJoints(SetJoints aSet) {
-    this(opensimModelJNI.new_SetJoints__SWIG_3(SetJoints.getCPtr(aSet)), true);
+    this(opensimModelJNI.new_SetJoints__SWIG_2(SetJoints.getCPtr(aSet)), true);
   }
 
   public OpenSimObject copy() {

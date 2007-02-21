@@ -45,21 +45,12 @@ public class Actuation extends Analysis {
     this(opensimModelJNI.new_Actuation__SWIG_2(aFileName), true);
   }
 
-  public Actuation(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_Actuation__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public Actuation(Actuation aObject) {
-    this(opensimModelJNI.new_Actuation__SWIG_4(Actuation.getCPtr(aObject)), true);
+    this(opensimModelJNI.new_Actuation__SWIG_3(Actuation.getCPtr(aObject)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Actuation_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.Actuation_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.Actuation_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

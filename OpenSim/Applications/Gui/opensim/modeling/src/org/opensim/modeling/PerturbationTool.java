@@ -41,21 +41,12 @@ public class PerturbationTool extends SimulationTool {
     this(opensimModelJNI.new_PerturbationTool__SWIG_1(aFileName), true);
   }
 
-  public PerturbationTool(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_PerturbationTool__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public PerturbationTool(PerturbationTool aObject) {
-    this(opensimModelJNI.new_PerturbationTool__SWIG_3(PerturbationTool.getCPtr(aObject)), true);
+    this(opensimModelJNI.new_PerturbationTool__SWIG_2(PerturbationTool.getCPtr(aObject)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.PerturbationTool_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.PerturbationTool_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.PerturbationTool_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

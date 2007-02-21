@@ -41,12 +41,8 @@ public class SetMaterials extends OpenSimObject {
     this(opensimModelJNI.new_SetMaterials__SWIG_1(aFileName), true);
   }
 
-  public SetMaterials(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SetMaterials__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SetMaterials(SetMaterials aSet) {
-    this(opensimModelJNI.new_SetMaterials__SWIG_3(SetMaterials.getCPtr(aSet)), true);
+    this(opensimModelJNI.new_SetMaterials__SWIG_2(SetMaterials.getCPtr(aSet)), true);
   }
 
   public OpenSimObject copy() {

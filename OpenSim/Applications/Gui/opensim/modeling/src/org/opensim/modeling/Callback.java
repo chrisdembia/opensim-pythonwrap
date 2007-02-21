@@ -49,17 +49,8 @@ public class Callback extends OpenSimObject {
     this(opensimModelJNI.new_Callback__SWIG_3(aFileName), true);
   }
 
-  public Callback(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_Callback__SWIG_4(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Callback_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.Callback_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.Callback_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

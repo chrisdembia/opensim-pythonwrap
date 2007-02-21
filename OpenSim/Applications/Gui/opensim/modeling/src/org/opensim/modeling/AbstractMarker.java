@@ -34,12 +34,7 @@ public class AbstractMarker extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AbstractMarker_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.AbstractMarker_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.AbstractMarker_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -78,18 +73,6 @@ public class AbstractMarker extends OpenSimObject {
 
   public boolean getFixedUseDefault() {
     return opensimModelJNI.AbstractMarker_getFixedUseDefault(swigCPtr);
-  }
-
-  public double getWeight() {
-    return opensimModelJNI.AbstractMarker_getWeight(swigCPtr);
-  }
-
-  public boolean setWeight(double aWeight) {
-    return opensimModelJNI.AbstractMarker_setWeight(swigCPtr, aWeight);
-  }
-
-  public boolean getWeightUseDefault() {
-    return opensimModelJNI.AbstractMarker_getWeightUseDefault(swigCPtr);
   }
 
   public SWIGTYPE_p_std__string getBodyName() {

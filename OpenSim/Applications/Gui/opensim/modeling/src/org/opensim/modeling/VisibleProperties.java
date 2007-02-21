@@ -45,21 +45,12 @@ public class VisibleProperties extends OpenSimObject {
     this(opensimModelJNI.new_VisibleProperties__SWIG_2(SWIGTYPE_p_OpenSim__XMLDocument.getCPtr(aDocument)), true);
   }
 
-  public VisibleProperties(SWIGTYPE_p_DOMElement aNode) {
-    this(opensimModelJNI.new_VisibleProperties__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aNode)), true);
-  }
-
   public VisibleProperties(VisibleProperties aVisibleProperties) {
-    this(opensimModelJNI.new_VisibleProperties__SWIG_4(VisibleProperties.getCPtr(aVisibleProperties)), true);
+    this(opensimModelJNI.new_VisibleProperties__SWIG_3(VisibleProperties.getCPtr(aVisibleProperties)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.VisibleProperties_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.VisibleProperties_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.VisibleProperties_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

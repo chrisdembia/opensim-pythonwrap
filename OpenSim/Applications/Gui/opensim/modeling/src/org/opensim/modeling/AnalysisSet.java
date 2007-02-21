@@ -45,21 +45,12 @@ public class AnalysisSet extends SetAnalysis {
     this(opensimModelJNI.new_AnalysisSet__SWIG_2(aFileName), true);
   }
 
-  public AnalysisSet(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_AnalysisSet__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public AnalysisSet(AnalysisSet aSet) {
-    this(opensimModelJNI.new_AnalysisSet__SWIG_4(AnalysisSet.getCPtr(aSet)), true);
+    this(opensimModelJNI.new_AnalysisSet__SWIG_3(AnalysisSet.getCPtr(aSet)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AnalysisSet_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.AnalysisSet_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.AnalysisSet_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

@@ -41,21 +41,12 @@ public class Scale extends OpenSimObject {
     this(opensimModelJNI.new_Scale__SWIG_1(Scale.getCPtr(aMarker)), true);
   }
 
-  public Scale(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_Scale__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public Scale(String scaleFileName) {
-    this(opensimModelJNI.new_Scale__SWIG_3(scaleFileName), true);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.Scale_copy__SWIG_0(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+    this(opensimModelJNI.new_Scale__SWIG_2(scaleFileName), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Scale_copy__SWIG_1(swigCPtr);
+    long cPtr = opensimModelJNI.Scale_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

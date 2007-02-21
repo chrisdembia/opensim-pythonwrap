@@ -37,21 +37,12 @@ public class SimmMeasurement extends OpenSimObject {
     this(opensimModelJNI.new_SimmMeasurement__SWIG_0(), true);
   }
 
-  public SimmMeasurement(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmMeasurement__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmMeasurement(SimmMeasurement aMeasurement) {
-    this(opensimModelJNI.new_SimmMeasurement__SWIG_2(SimmMeasurement.getCPtr(aMeasurement)), true);
+    this(opensimModelJNI.new_SimmMeasurement__SWIG_1(SimmMeasurement.getCPtr(aMeasurement)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmMeasurement_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmMeasurement_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmMeasurement_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

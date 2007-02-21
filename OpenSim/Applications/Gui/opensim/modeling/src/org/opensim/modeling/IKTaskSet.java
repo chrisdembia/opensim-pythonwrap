@@ -8,15 +8,15 @@
 
 package org.opensim.modeling;
 
-public class CMCTool extends SimulationTool {
+public class IKTaskSet extends SetIKTasks {
   private long swigCPtr;
 
-  public CMCTool(long cPtr, boolean cMemoryOwn) {
+  public IKTaskSet(long cPtr, boolean cMemoryOwn) {
     super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
-  public static long getCPtr(CMCTool obj) {
+  public static long getCPtr(IKTaskSet obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -27,31 +27,22 @@ public class CMCTool extends SimulationTool {
   public void delete() {
     if(swigCPtr != 0 && swigCMemOwn) {
       swigCMemOwn = false;
-      opensimModelJNI.delete_CMCTool(swigCPtr);
+      opensimModelJNI.delete_IKTaskSet(swigCPtr);
     }
     swigCPtr = 0;
     super.delete();
   }
 
-  public CMCTool() {
-    this(opensimModelJNI.new_CMCTool__SWIG_0(), true);
+  public IKTaskSet() {
+    this(opensimModelJNI.new_IKTaskSet__SWIG_0(), true);
   }
 
-  public CMCTool(String aFileName) {
-    this(opensimModelJNI.new_CMCTool__SWIG_1(aFileName), true);
+  public IKTaskSet(IKTaskSet aIKTaskSet) {
+    this(opensimModelJNI.new_IKTaskSet__SWIG_1(IKTaskSet.getCPtr(aIKTaskSet)), true);
   }
 
-  public CMCTool(CMCTool aObject) {
-    this(opensimModelJNI.new_CMCTool__SWIG_2(CMCTool.getCPtr(aObject)), true);
-  }
-
-  public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.CMCTool_copy(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public void run() {
-    opensimModelJNI.CMCTool_run(swigCPtr);
+  public IKTaskSet(String aFileName) {
+    this(opensimModelJNI.new_IKTaskSet__SWIG_2(aFileName), true);
   }
 
 }

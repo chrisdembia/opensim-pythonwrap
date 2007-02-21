@@ -41,21 +41,12 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     this(opensimModelJNI.new_SimmKinematicsEngine__SWIG_1(aFileName), true);
   }
 
-  public SimmKinematicsEngine(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmKinematicsEngine__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmKinematicsEngine(SimmKinematicsEngine aEngine) {
-    this(opensimModelJNI.new_SimmKinematicsEngine__SWIG_3(SimmKinematicsEngine.getCPtr(aEngine)), true);
+    this(opensimModelJNI.new_SimmKinematicsEngine__SWIG_2(SimmKinematicsEngine.getCPtr(aEngine)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmKinematicsEngine_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmKinematicsEngine_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmKinematicsEngine_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

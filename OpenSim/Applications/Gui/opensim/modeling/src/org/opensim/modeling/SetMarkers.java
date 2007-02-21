@@ -41,12 +41,8 @@ public class SetMarkers extends OpenSimObject {
     this(opensimModelJNI.new_SetMarkers__SWIG_1(aFileName), true);
   }
 
-  public SetMarkers(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SetMarkers__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SetMarkers(SetMarkers aSet) {
-    this(opensimModelJNI.new_SetMarkers__SWIG_3(SetMarkers.getCPtr(aSet)), true);
+    this(opensimModelJNI.new_SetMarkers__SWIG_2(SetMarkers.getCPtr(aSet)), true);
   }
 
   public OpenSimObject copy() {

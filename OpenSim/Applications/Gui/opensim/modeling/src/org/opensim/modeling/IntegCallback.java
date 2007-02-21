@@ -45,21 +45,12 @@ public class IntegCallback extends Callback {
     this(opensimModelJNI.new_IntegCallback__SWIG_2(aFileName), true);
   }
 
-  public IntegCallback(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_IntegCallback__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public IntegCallback(IntegCallback aIntegCallback) {
-    this(opensimModelJNI.new_IntegCallback__SWIG_4(IntegCallback.getCPtr(aIntegCallback)), true);
+    this(opensimModelJNI.new_IntegCallback__SWIG_3(IntegCallback.getCPtr(aIntegCallback)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.IntegCallback_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.IntegCallback_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.IntegCallback_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

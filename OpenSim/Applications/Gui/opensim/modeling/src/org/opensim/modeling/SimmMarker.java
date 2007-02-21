@@ -37,21 +37,12 @@ public class SimmMarker extends AbstractMarker {
     this(opensimModelJNI.new_SimmMarker__SWIG_0(), true);
   }
 
-  public SimmMarker(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmMarker__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmMarker(SimmMarker aMarker) {
-    this(opensimModelJNI.new_SimmMarker__SWIG_2(SimmMarker.getCPtr(aMarker)), true);
+    this(opensimModelJNI.new_SimmMarker__SWIG_1(SimmMarker.getCPtr(aMarker)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmMarker_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmMarker_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmMarker_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -94,18 +85,6 @@ public class SimmMarker extends AbstractMarker {
 
   public boolean getFixedUseDefault() {
     return opensimModelJNI.SimmMarker_getFixedUseDefault(swigCPtr);
-  }
-
-  public double getWeight() {
-    return opensimModelJNI.SimmMarker_getWeight(swigCPtr);
-  }
-
-  public boolean setWeight(double aWeight) {
-    return opensimModelJNI.SimmMarker_setWeight(swigCPtr, aWeight);
-  }
-
-  public boolean getWeightUseDefault() {
-    return opensimModelJNI.SimmMarker_getWeightUseDefault(swigCPtr);
   }
 
   public SWIGTYPE_p_std__string getBodyName() {

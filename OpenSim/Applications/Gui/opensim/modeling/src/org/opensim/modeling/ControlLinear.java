@@ -37,21 +37,12 @@ public class ControlLinear extends Control {
     this(opensimModelJNI.new_ControlLinear__SWIG_0(), true);
   }
 
-  public ControlLinear(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_ControlLinear__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public ControlLinear(ControlLinear aControl) {
-    this(opensimModelJNI.new_ControlLinear__SWIG_2(ControlLinear.getCPtr(aControl)), true);
+    this(opensimModelJNI.new_ControlLinear__SWIG_1(ControlLinear.getCPtr(aControl)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.ControlLinear_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.ControlLinear_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.ControlLinear_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

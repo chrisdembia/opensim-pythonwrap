@@ -41,12 +41,8 @@ public class SetCallback extends OpenSimObject {
     this(opensimModelJNI.new_SetCallback__SWIG_1(aFileName), true);
   }
 
-  public SetCallback(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SetCallback__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SetCallback(SetCallback aSet) {
-    this(opensimModelJNI.new_SetCallback__SWIG_3(SetCallback.getCPtr(aSet)), true);
+    this(opensimModelJNI.new_SetCallback__SWIG_2(SetCallback.getCPtr(aSet)), true);
   }
 
   public OpenSimObject copy() {

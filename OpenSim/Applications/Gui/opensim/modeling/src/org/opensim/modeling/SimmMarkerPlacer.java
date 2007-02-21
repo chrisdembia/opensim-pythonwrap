@@ -37,21 +37,12 @@ public class SimmMarkerPlacer extends OpenSimObject {
     this(opensimModelJNI.new_SimmMarkerPlacer__SWIG_0(), true);
   }
 
-  public SimmMarkerPlacer(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmMarkerPlacer__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmMarkerPlacer(SimmMarkerPlacer aMarkerPlacementParams) {
-    this(opensimModelJNI.new_SimmMarkerPlacer__SWIG_2(SimmMarkerPlacer.getCPtr(aMarkerPlacementParams)), true);
+    this(opensimModelJNI.new_SimmMarkerPlacer__SWIG_1(SimmMarkerPlacer.getCPtr(aMarkerPlacementParams)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmMarkerPlacer_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmMarkerPlacer_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmMarkerPlacer_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -65,14 +56,6 @@ public class SimmMarkerPlacer extends OpenSimObject {
 
   public boolean processModel(AbstractModel aModel) {
     return opensimModelJNI.SimmMarkerPlacer_processModel__SWIG_1(swigCPtr, AbstractModel.getCPtr(aModel));
-  }
-
-  public MarkerSet getMarkerSet() {
-    return new MarkerSet(opensimModelJNI.SimmMarkerPlacer_getMarkerSet(swigCPtr), false);
-  }
-
-  public void setMarkerSet(MarkerSet aMarkerSet) {
-    opensimModelJNI.SimmMarkerPlacer_setMarkerSet(swigCPtr, MarkerSet.getCPtr(aMarkerSet));
   }
 
   public String getStaticPoseFilename() {
@@ -93,10 +76,6 @@ public class SimmMarkerPlacer extends OpenSimObject {
 
   public String getCoordinateFileName() {
     return opensimModelJNI.SimmMarkerPlacer_getCoordinateFileName(swigCPtr);
-  }
-
-  public CoordinateSet getCoordinateSet() {
-    return new CoordinateSet(opensimModelJNI.SimmMarkerPlacer_getCoordinateSet(swigCPtr), false);
   }
 
   public double getMaxMarkerMovement() {

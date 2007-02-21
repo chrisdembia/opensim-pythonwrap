@@ -41,12 +41,8 @@ public class SetActuators extends OpenSimObject {
     this(opensimModelJNI.new_SetActuators__SWIG_1(aFileName), true);
   }
 
-  public SetActuators(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SetActuators__SWIG_2(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SetActuators(SetActuators aSet) {
-    this(opensimModelJNI.new_SetActuators__SWIG_3(SetActuators.getCPtr(aSet)), true);
+    this(opensimModelJNI.new_SetActuators__SWIG_2(SetActuators.getCPtr(aSet)), true);
   }
 
   public OpenSimObject copy() {

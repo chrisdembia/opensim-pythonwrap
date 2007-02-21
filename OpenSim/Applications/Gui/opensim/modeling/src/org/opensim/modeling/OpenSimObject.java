@@ -56,8 +56,8 @@ public class OpenSimObject {
     this(opensimModelJNI.new_OpenSimObject__SWIG_1(aFileName), true);
   }
 
-  public OpenSimObject(SWIGTYPE_p_XMLDocument aDocument) {
-    this(opensimModelJNI.new_OpenSimObject__SWIG_2(SWIGTYPE_p_XMLDocument.getCPtr(aDocument)), true);
+  public OpenSimObject(SWIGTYPE_p_OpenSim__XMLDocument aDocument) {
+    this(opensimModelJNI.new_OpenSimObject__SWIG_2(SWIGTYPE_p_OpenSim__XMLDocument.getCPtr(aDocument)), true);
   }
 
   public OpenSimObject(SWIGTYPE_p_DOMElement aNode) {
@@ -75,6 +75,11 @@ public class OpenSimObject {
 
   public OpenSimObject copy(SWIGTYPE_p_DOMElement aNode) {
     long cPtr = opensimModelJNI.OpenSimObject_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aNode));
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public static OpenSimObject SafeCopy(OpenSimObject aObject) {
+    long cPtr = opensimModelJNI.OpenSimObject_SafeCopy(OpenSimObject.getCPtr(aObject));
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -145,6 +150,10 @@ public class OpenSimObject {
     opensimModelJNI.OpenSimObject_updateXMLNode(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aParent));
   }
 
+  public void updateDefaultObjectsXMLNode(SWIGTYPE_p_DOMElement aParent) {
+    opensimModelJNI.OpenSimObject_updateDefaultObjectsXMLNode(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aParent));
+  }
+
   public void generateXMLNode(SWIGTYPE_p_DOMElement aParent) {
     opensimModelJNI.OpenSimObject_generateXMLNode(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aParent));
   }
@@ -161,17 +170,17 @@ public class OpenSimObject {
     return opensimModelJNI.OpenSimObject_getInlined(swigCPtr);
   }
 
-  public String getOffLineFileName() {
-    return opensimModelJNI.OpenSimObject_getOffLineFileName(swigCPtr);
-  }
-
   public void clearXMLNodes() {
     opensimModelJNI.OpenSimObject_clearXMLNodes(swigCPtr);
   }
 
-  public SWIGTYPE_p_XMLDocument getDocument() {
+  public SWIGTYPE_p_OpenSim__XMLDocument getDocument() {
     long cPtr = opensimModelJNI.OpenSimObject_getDocument(swigCPtr);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_XMLDocument(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__XMLDocument(cPtr, false);
+  }
+
+  public String getDocumentFileName() {
+    return opensimModelJNI.OpenSimObject_getDocumentFileName(swigCPtr);
   }
 
   public SWIGTYPE_p_DOMElement getXMLNode() {

@@ -37,21 +37,12 @@ public class SimmMuscleViaPoint extends SimmMusclePoint {
     this(opensimModelJNI.new_SimmMuscleViaPoint__SWIG_0(), true);
   }
 
-  public SimmMuscleViaPoint(SWIGTYPE_p_DOMElement aElement) {
-    this(opensimModelJNI.new_SimmMuscleViaPoint__SWIG_1(SWIGTYPE_p_DOMElement.getCPtr(aElement)), true);
-  }
-
   public SimmMuscleViaPoint(SimmMuscleViaPoint aPoint) {
-    this(opensimModelJNI.new_SimmMuscleViaPoint__SWIG_2(SimmMuscleViaPoint.getCPtr(aPoint)), true);
+    this(opensimModelJNI.new_SimmMuscleViaPoint__SWIG_1(SimmMuscleViaPoint.getCPtr(aPoint)), true);
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmMuscleViaPoint_copy__SWIG_0(swigCPtr);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public OpenSimObject copy(SWIGTYPE_p_DOMElement aElement) {
-    long cPtr = opensimModelJNI.SimmMuscleViaPoint_copy__SWIG_1(swigCPtr, SWIGTYPE_p_DOMElement.getCPtr(aElement));
+    long cPtr = opensimModelJNI.SimmMuscleViaPoint_copy(swigCPtr);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

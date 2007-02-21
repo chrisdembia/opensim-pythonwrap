@@ -106,12 +106,21 @@ public class Property {
     return new SWIGTYPE_p_std__string(opensimModelJNI.Property_getValueStr(swigCPtr), false);
   }
 
+  public OpenSimObject getValueObj() {
+    return new OpenSimObject(opensimModelJNI.Property_getValueObj(swigCPtr), false);
+  }
+
+  public boolean isValidObject(OpenSimObject aValue) {
+    return opensimModelJNI.Property_isValidObject(swigCPtr, OpenSimObject.getCPtr(aValue));
+  }
+
   public void setValue(OpenSimObject aValue) {
     opensimModelJNI.Property_setValue__SWIG_4(swigCPtr, OpenSimObject.getCPtr(aValue));
   }
 
-  public OpenSimObject getValueObj() {
-    return new OpenSimObject(opensimModelJNI.Property_getValueObj(swigCPtr), false);
+  public OpenSimObject getValueObjPtr() {
+    long cPtr = opensimModelJNI.Property_getValueObjPtr(swigCPtr);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
   public void setValue(int aSize, boolean[] aArray) {
@@ -190,6 +199,7 @@ public class Property {
     public final static PropertyType Dbl = new PropertyType("Dbl");
     public final static PropertyType Str = new PropertyType("Str");
     public final static PropertyType Obj = new PropertyType("Obj");
+    public final static PropertyType ObjPtr = new PropertyType("ObjPtr");
     public final static PropertyType BoolArray = new PropertyType("BoolArray");
     public final static PropertyType IntArray = new PropertyType("IntArray");
     public final static PropertyType FltArray = new PropertyType("FltArray");
@@ -231,7 +241,7 @@ public class Property {
       swigNext = this.swigValue+1;
     }
 
-    private static PropertyType[] swigValues = { None, Bool, Int, Flt, Dbl, Str, Obj, BoolArray, IntArray, FltArray, DblArray, StrArray, ObjArray };
+    private static PropertyType[] swigValues = { None, Bool, Int, Flt, Dbl, Str, Obj, ObjPtr, BoolArray, IntArray, FltArray, DblArray, StrArray, ObjArray };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;
