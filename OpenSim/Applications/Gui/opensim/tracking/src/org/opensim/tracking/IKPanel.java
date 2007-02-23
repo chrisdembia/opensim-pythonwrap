@@ -78,7 +78,7 @@ public class IKPanel  extends workflowWizardPanelBase{
     }
     
     /**
-     * @Todo handle new model for IK
+     * Execute IK Step
      */
     public boolean executeStep() {
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Running Inverse Kinematics ");
@@ -96,13 +96,21 @@ public class IKPanel  extends workflowWizardPanelBase{
          int delay = 50; //milliseconds
          final SingleModelVisuals visModel = ViewDB.getInstance().getModelVisuals(ikModel);
          final ViewDB viewdb = ViewDB.getInstance();
+         
+         // Adaptively compute frame display time and use it as guess for timer period
+         long t0 = 0, t1=0;
+         int frameDisplayTime=0;
+         t0 = System.currentTimeMillis();
+         viewdb.updateModelDisplay(visModel, animationCallback);
+         t1 = System.currentTimeMillis();
+         frameDisplayTime = (int)(t1-t0);
+         //System.out.println("frameDisplayTime="+frameDisplayTime)       ;
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-               //...Perform a task...
                viewdb.updateModelDisplay(visModel, animationCallback);
             }
          };
-         Timer timer = new Timer(delay, taskPerformer);
+         Timer timer = new Timer(frameDisplayTime, taskPerformer);
          timer.start();
          // Execute IK. We're already on a worker thread
          ik.run();

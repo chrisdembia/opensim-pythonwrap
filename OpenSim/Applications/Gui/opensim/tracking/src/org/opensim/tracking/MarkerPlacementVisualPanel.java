@@ -2,10 +2,12 @@ package org.opensim.tracking;
 
 import java.io.IOException;
 import org.opensim.modeling.ArrayDouble;
+import org.opensim.modeling.IKTaskSet;
 import org.opensim.modeling.SimmMarkerData;
 import org.opensim.modeling.SimmMarkerPlacer;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
+import org.opensim.view.editors.ObjectEditDialogMaker;
 
 public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     
@@ -38,11 +40,9 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         jLabel3 = new javax.swing.JLabel();
         jStaticToTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jCoordinatesFileTextField = new javax.swing.JTextField();
-        jMarkersFileTextField = new javax.swing.JTextField();
-        jInitCoordinatesFileButton = new javax.swing.JButton();
-        jAdditionalMarkersFileButton = new javax.swing.JButton();
+        jIKTasksFileTextField = new javax.swing.JTextField();
+        jBrowseForIKTasksButton = new javax.swing.JButton();
+        jEditIKTasksButton = new javax.swing.JButton();
         jOutputFilesPanel = new javax.swing.JPanel();
         jOutputMarkersFileNameTextField = new javax.swing.JTextField();
         jSimmJntCheckBox = new javax.swing.JCheckBox();
@@ -80,21 +80,25 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "to");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "Coordinates file");
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "IK Tasks file");
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel5, "Markers file");
-
-        jInitCoordinatesFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
-        jInitCoordinatesFileButton.addActionListener(new java.awt.event.ActionListener() {
+        jIKTasksFileTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jInitCoordinatesFileButtonActionPerformed(evt);
+                jIKTasksFileTextFieldActionPerformed(evt);
             }
         });
 
-        jAdditionalMarkersFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
-        jAdditionalMarkersFileButton.addActionListener(new java.awt.event.ActionListener() {
+        jBrowseForIKTasksButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
+        jBrowseForIKTasksButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAdditionalMarkersFileButtonActionPerformed(evt);
+                jBrowseForIKTasksButtonActionPerformed(evt);
+            }
+        });
+
+        jEditIKTasksButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/editor.gif")));
+        jEditIKTasksButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditIKTasksButtonActionPerformed(evt);
             }
         });
 
@@ -113,25 +117,21 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                         .add(jLabel3)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jStaticToTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jSolveStaticPosePanelLayout.createSequentialGroup()
-                        .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jSolveStaticPosePanelLayout.createSequentialGroup()
-                                .add(jLabel1)
-                                .add(13, 13, 13)
-                                .add(jStaticTrialTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jSolveStaticPosePanelLayout.createSequentialGroup()
-                                .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel4)
-                                    .add(jLabel5))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jCoordinatesFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(jAdditionalMarkersFileButton, 0, 0, Short.MAX_VALUE)
-                            .add(jInitCoordinatesFileButton, 0, 0, Short.MAX_VALUE)
-                            .add(jBrowse4TrcButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, Short.MAX_VALUE))))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jSolveStaticPosePanelLayout.createSequentialGroup()
+                            .add(jLabel1)
+                            .add(13, 13, 13)
+                            .add(jStaticTrialTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jSolveStaticPosePanelLayout.createSequentialGroup()
+                            .add(jLabel4)
+                            .add(20, 20, 20)
+                            .add(jIKTasksFileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jBrowseForIKTasksButton, 0, 0, Short.MAX_VALUE)
+                    .add(jBrowse4TrcButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jEditIKTasksButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jSolveStaticPosePanelLayout.setVerticalGroup(
@@ -150,13 +150,10 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                 .add(15, 15, 15)
                 .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
-                    .add(jInitCoordinatesFileButton)
-                    .add(jCoordinatesFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(14, 14, 14)
-                .add(jSolveStaticPosePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel5)
-                    .add(jMarkersFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jAdditionalMarkersFileButton)))
+                    .add(jBrowseForIKTasksButton)
+                    .add(jEditIKTasksButton)
+                    .add(jIKTasksFileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jOutputFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Output files"));
@@ -223,12 +220,12 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                     .add(jSaveOsimCheckBox))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jOutputJntTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                    .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                    .add(jOutputMarkersFileNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                    .add(jOutputJntTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                    .add(jOutputMotionTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                    .add(jOutputMarkersFileNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                     .add(jOutputFilesPanelLayout.createSequentialGroup()
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jOsimFilenameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)))
+                        .add(jOsimFilenameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputFilesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jBrowseJntButton, 0, 0, Short.MAX_VALUE)
@@ -283,9 +280,9 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
             .add(jSolveStaticPosePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jOutputFilesPanel, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -293,11 +290,23 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
                 .add(jSolveStaticPosePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jOutputFilesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(34, 34, 34)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jIKTasksFileTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIKTasksFileTextFieldActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_jIKTasksFileTextFieldActionPerformed
+
+    private void jEditIKTasksButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditIKTasksButtonActionPerformed
+        String ikTasksFilename = jIKTasksFileTextField.getText();
+        IKTaskSet taskSet = new IKTaskSet(jIKTasksFileTextField.getText());
+        new ObjectEditDialogMaker(taskSet, true).process();
+        taskSet.print(ikTasksFilename);
+// TODO add your handling code here:
+    }//GEN-LAST:event_jEditIKTasksButtonActionPerformed
 
     private void jOutputMarkersFileNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOutputMarkersFileNameTextFieldActionPerformed
 // TODO add your handling code here:
@@ -339,22 +348,14 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
 // TODO add your handling code here:
     }//GEN-LAST:event_jStaticFromTextFieldActionPerformed
 
-    private void jAdditionalMarkersFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdditionalMarkersFileButtonActionPerformed
-       String markersFilename = FileUtils.getInstance().browseForFilename(".xml", "Additional markers for static pose solution");
-       if (markersFilename != null) {
-            jMarkersFileTextField.setText(markersFilename);
+    private void jBrowseForIKTasksButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowseForIKTasksButtonActionPerformed
+       String ikTasksFilename = FileUtils.getInstance().
+               browseForFilename(".xml", "File specifying IK tasks");
+       if (ikTasksFilename != null) {
+            jIKTasksFileTextField.setText(ikTasksFilename);
        }
 // TODO add your handling code here:
-    }//GEN-LAST:event_jAdditionalMarkersFileButtonActionPerformed
-
-    private void jInitCoordinatesFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInitCoordinatesFileButtonActionPerformed
-       String coordinatesFilename = FileUtils.getInstance().
-               browseForFilename(".mot", "Motion file to initialize static pose solution");
-       if (coordinatesFilename != null) {
-            jCoordinatesFileTextField.setText(coordinatesFilename);
-       }
-// TODO add your handling code here:
-    }//GEN-LAST:event_jInitCoordinatesFileButtonActionPerformed
+    }//GEN-LAST:event_jBrowseForIKTasksButtonActionPerformed
 
     private void jBrowse4TrcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4TrcButtonActionPerformed
 // TODO add your handling code here:
@@ -375,8 +376,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         jStaticTrialTextField.setText(params.getStaticPoseFilename());
          try {
             jStaticTrialTextField.setToolTipText(params.getPropertySet().get("marker_file").getComment());
-           jCoordinatesFileTextField.setToolTipText(params.getPropertySet().get("CoordinateSet").getComment());
-           jMarkersFileTextField.setToolTipText(params.getPropertySet().get("MarkerSet").getComment());
+           jIKTasksFileTextField.setToolTipText(params.getPropertySet().get("IKTaskSet").getComment());
         jOutputJntTextField.setToolTipText(params.getPropertySet().get("output_joint_file").getComment());
         jOsimFilenameTextField.setToolTipText(params.getPropertySet().get("output_model_file").getComment());
         jOutputMarkersFileNameTextField.setToolTipText(params.getPropertySet().get("output_marker_file").getComment());
@@ -389,15 +389,6 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
             jStaticFromTextField.setText(String.valueOf(timeRange.getitem(0)));  // from time in trc
             jStaticToTextField.setText(String.valueOf(timeRange.getitem(1)));  // to time in trc
         }
-        if (!params.getCoordinateFileName().equalsIgnoreCase("Unassigned")){
-            jCoordinatesFileTextField.setText(params.getCoordinateFileName());
-            try {
-               jCoordinatesFileTextField.setToolTipText(params.getPropertySet().get("coordinate_file").getComment());
-            } catch (IOException ex) {
-             TheApp.exitApp("Internal Error:Property coordinate_file does not exist in SimmMarkerPlacer");
-        }
-        }
-        jMarkersFileTextField.setText("");      // Extra markers
 
         // We need to make a name for output files (at least the xml file) for
         // our own sake so that we can open it later.
@@ -462,20 +453,18 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox iSaveMarkersCheckBox;
-    private javax.swing.JButton jAdditionalMarkersFileButton;
     private javax.swing.JButton jBrowse4TrcButton;
+    private javax.swing.JButton jBrowseForIKTasksButton;
     private javax.swing.JButton jBrowseJntButton;
     private javax.swing.JButton jBrowseMarkersButton;
     private javax.swing.JButton jBrowseMotionButton;
     private javax.swing.JButton jBrowseOsimButton;
-    private javax.swing.JTextField jCoordinatesFileTextField;
-    private javax.swing.JButton jInitCoordinatesFileButton;
+    private javax.swing.JButton jEditIKTasksButton;
+    private javax.swing.JTextField jIKTasksFileTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jMarkersFileTextField;
     private javax.swing.JTextArea jMessageTextArea;
     private javax.swing.JTextField jOsimFilenameTextField;
     private javax.swing.JPanel jOutputFilesPanel;

@@ -11,7 +11,7 @@ public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{
      * component from this class, just use getComponent().
      */
     private ReduceResidualsVisualPanelPass1 component;
-    
+    CMCTool rra;
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
     // but never displayed, or not all panels are displayed, it is better to
@@ -70,7 +70,7 @@ public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{
 
     public boolean executeStep() {
         component.updateWorkflow(descriptor);
-        final CMCTool rra = new CMCTool(descriptor.getSetupRRA_pass1Filename());
+        rra = new CMCTool(descriptor.getSetupRRA_pass1Filename());
         runDynamicTool(rra, false);
          return true;
     }
