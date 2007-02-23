@@ -164,6 +164,10 @@ public class OpenSimObjectModel
    * @param aValue Object
    * @param node Object
    * @param column int
+   *
+   * This has the side effect of turning off the switch to useDefault value.
+   * Might be better to do it inside appropriate setValue() method except that array properties 
+   * and scalar properties are not handled the same. -Ayman 02/07
    */
   public void setValueAt(Object aValue, Object node, int column) {
     if (column==1){// Changing Value
@@ -178,6 +182,7 @@ public class OpenSimObjectModel
       // Only primitive properties and array entries can be edited
       if (((PropertyNode) node).property instanceof Property){
         Property p = (Property) ((PropertyNode) node).property;
+        p.setUseDefault(false);
         if (p.getType()== Property.PropertyType.Dbl){
           double newdbl = Double.parseDouble(newValueString);
           p.setValue(newdbl);
@@ -196,6 +201,7 @@ public class OpenSimObjectModel
       }
       else if (((PropertyNode) node).idx != -1){// Array index of an aggregate/array property
          Property p = (Property) ((PropertyNode) node).getParent().property;
+         p.setUseDefault(false);
          if (p.getType()== Property.PropertyType.DblArray){
            double newdbl = Double.parseDouble(newValueString);
            ArrayDouble dblArray = p.getValueDblArray();
