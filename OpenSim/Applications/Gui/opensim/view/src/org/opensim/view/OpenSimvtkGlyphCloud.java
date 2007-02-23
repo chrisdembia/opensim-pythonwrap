@@ -139,7 +139,7 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     }
     
    public void setModified() {
-      glyph.Modified();
+      pointPolyData.Modified();
    }
 
    void scaleByVectorComponents() {

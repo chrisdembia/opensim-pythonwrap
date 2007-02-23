@@ -12,11 +12,11 @@ package org.opensim.view;
 import java.io.File;
 import java.util.Hashtable;
 import java.util.Vector;
+import org.openide.modules.InstalledFileLocator;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.ActuatorSet;
-import org.opensim.modeling.AnalyticGeometry;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.LineGeometry;
@@ -38,9 +38,9 @@ import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkSphereSource;
 import vtk.vtkXMLPolyDataReader;
-import vtk.vtkActorCollection;
 import vtk.vtkAppendPolyData;
-import vtk.vtkLODActor;
+import vtk.vtkFollower;
+import vtk.vtkVectorText;
 
 /**
  *
@@ -86,6 +86,7 @@ public class SingleModelVisuals {
     OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
     
     private vtkProp3DCollection    userObjects = new vtkProp3DCollection();
+    public static int numCalls=0;
     /**
      * Creates a new instance of SingleModelVisuals
      */
@@ -126,7 +127,7 @@ public class SingleModelVisuals {
         // Keep track of ground body to avoid recomputation
         AbstractBody gnd = model.getDynamicsEngine().getGroundBody();
         BodySet bodies = model.getDynamicsEngine().getBodySet();
-
+ 
         for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
 
             AbstractBody body = bodies.get(bodyNum);
@@ -239,6 +240,19 @@ public class SingleModelVisuals {
             }
         } //body
         modelAssembly.AddPart(markersRep.getVtkActor());
+        /*
+        // Mark origin.
+        // works but need to expose it properly.
+        vtkVectorText atext = new vtkVectorText();
+        atext.SetText("Origin");
+        vtkPolyDataMapper textMapper = new vtkPolyDataMapper();
+        textMapper.SetInput(atext.GetOutput());
+        vtkFollower textActor = new vtkFollower();
+        textActor.SetMapper(textMapper);
+        textActor.SetScale(0.1, 0.1, 0.1);
+        textActor.AddPosition(0., 0., 0.);
+        modelAssembly.AddPart(textActor);
+        */
         markersRep.setModified();
 
         /**
@@ -520,6 +534,7 @@ public class SingleModelVisuals {
      */
    public void updateModelDisplay(AbstractModel model) {
       // Cycle thru bodies and update their transforms from the kinematics engine
+       numCalls++;
         double[] pos = new double[3];
         double[] gPos = new double[3];
         BodySet bodies = model.getDynamicsEngine().getBodySet();
@@ -722,7 +737,7 @@ public class SingleModelVisuals {
        markersRep.setShape(marker.GetOutput());
        // MusclePoints
        vtkSphereSource viaPoint=new vtkSphereSource();
-       viaPoint.SetRadius(defaultMuscleRadius);
+       viaPoint.SetRadius(defaultMuscleRadius/2);
        viaPoint.SetCenter(0., 0., 0.);
        musclePointsRep.setColor(defaultMusclePointColor);
        musclePointsRep.setShape(viaPoint.GetOutput());

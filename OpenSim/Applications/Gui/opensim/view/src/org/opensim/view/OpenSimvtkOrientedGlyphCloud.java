@@ -30,6 +30,7 @@ import vtk.vtkActor;
 import vtk.vtkCylinderSource;
 import vtk.vtkDataArray;
 import vtk.vtkFloatArray;
+import vtk.vtkLODActor;
 import vtk.vtkPointData;
 import vtk.vtkPoints;
 import vtk.vtkPolyData;
@@ -121,8 +122,7 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
    }
 
    public void setModified() {
-      glyph.Modified();
-      mapper.Modified();
+      pointPolyData.Modified();	//Enough to mark the polyData object as modified to trigger re-execution of the pipeline.
    }
    /*
     * Remove the specified index from view. 

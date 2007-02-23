@@ -9,7 +9,7 @@ public final class SelectObjectAction extends CallableSystemAction {
    
    public void performAction() {
       // TODO implement action body
-      ViewDB.getInstance().setPicking(true);
+      ViewDB.getInstance().setPicking(!ViewDB.getInstance().isPicking());
    }
    
    public String getName() {

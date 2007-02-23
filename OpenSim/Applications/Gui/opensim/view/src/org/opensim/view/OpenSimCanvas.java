@@ -16,9 +16,13 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.editors.ObjectEditDialogMaker;
 import org.opensim.view.pub.ViewDB;
+import vtk.vtkAVIWriter;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyPath;
+import vtk.vtkJPEGWriter;
+import vtk.vtkMPEG2Writer;
 import vtk.vtkPropPicker;
+import vtk.vtkWindowToImageFilter;
 
 /**
  *
@@ -99,5 +103,41 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
       else
          UnLock();
    }
+   
+   // support for writing AVI movies.
+   vtkAVIWriter movieWriter=null;
+   boolean movieWriterReady=false;
+   vtkWindowToImageFilter imageFilter=null;
+   /**
+    * Create a movie with the specified filename
+    */
+   public void createMovie(String fileName) {
+       movieWriter = new vtkAVIWriter();
+       movieWriter.SetFileName(fileName);
+              
+       imageFilter = new vtkWindowToImageFilter();
+       imageFilter.SetMagnification(1);
+       imageFilter.SetInput(rw);
+       imageFilter.Update();
+       
+       movieWriter.SetInputConnection(imageFilter.GetOutputPort());
+       movieWriter.Start();
+       movieWriterReady=true;
+   }
+
+    public void Render() {
+        super.Render();
+        if (movieWriter!=null && movieWriterReady){
+            imageFilter.Modified();
+            imageFilter.Update();
+            movieWriter.Write();
+        }
+    }
+    
+    public void finishMovie() {
+        movieWriter.End();
+        movieWriter=null;
+        movieWriterReady=false;
+    }
     
 }

@@ -68,8 +68,10 @@ final public class OpenSimDB extends Observable {
     public void removeModel(AbstractModel model)
     {
         models.remove(model);
-        if (models.size()>0)
-           setCurrentModel(models.get(0));
+        if (models.size()>0){
+             if (model==currentModel)
+                setCurrentModel(models.get(0));
+        }
         else
            currentModel=null;
         

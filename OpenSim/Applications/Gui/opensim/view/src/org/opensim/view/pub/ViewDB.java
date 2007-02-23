@@ -25,13 +25,17 @@
  */
 package org.opensim.view.pub;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 import java.util.prefs.Preferences;
 import javax.swing.JDialog;
+import javax.swing.Timer;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -45,10 +49,13 @@ import vtk.AxesActor;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyPath;
+import vtk.vtkFollower;
 import vtk.vtkMatrix4x4;
+import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkProperty;
+import vtk.vtkVectorText;
 
 /**
  *
@@ -62,6 +69,7 @@ public final class ViewDB implements Observer {
    static ArrayList<ModelWindowVTKTopComponent> openWindows = new ArrayList<ModelWindowVTKTopComponent>(4);
    // List of models currently available in all views
    private static ArrayList<SingleModelVisuals> modelVisuals = new ArrayList<SingleModelVisuals>(4);
+   private static ArrayList<Boolean> saveStatus = new ArrayList<Boolean>(4);
    // One single vtAssemby for the whole Scene
    private static vtkAssembly sceneAssembly;
    // Map models to visuals
@@ -700,5 +708,55 @@ public final class ViewDB implements Observer {
          nextWindow.getCanvas().lockDrawingSurface(toLock);
       }
    }
+
+    public void IsolateCurrentModel() {
+        final SingleModelVisuals vis = mapModelsToVisuals.get(getCurrentModel());
+        vtkVectorText atext = new vtkVectorText();
+        atext.SetText("Current Model");
+        vtkPolyDataMapper textMapper = new vtkPolyDataMapper();
+        textMapper.SetInput(atext.GetOutput());
+        final vtkFollower textActor = new vtkFollower();
+        textActor.SetMapper(textMapper);
+        textActor.SetScale(0.1, 0.1, 0.1);
+        textActor.AddPosition(0., 0., 0.);
+        vis.addUserObject(textActor);
+        repaintAll();
+        
+        // start timer to hide annotation in 5 secs
+        ActionListener hideAnnotationAction = new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                vis.removeUserObject(textActor);
+                repaintAll();
+            }};
+        Timer hideAnnotationTimer = new Timer(5000, hideAnnotationAction);
+        hideAnnotationTimer.setRepeats(false);
+        hideAnnotationTimer.start();
+        
+    }
+
+    public void hideOthers(AbstractModel mdl, boolean b) {
+        int sz = mapModelsToVisuals.size();
+        Set<AbstractModel> modelSet=mapModelsToVisuals.keySet();
+        Iterator<AbstractModel> modelit = modelSet.iterator();
+        if (b)
+            saveStatus.clear();
+        int i=0;
+        while(modelit.hasNext()){
+            AbstractModel nextModel = modelit.next();
+            boolean isVisible = getDisplayStatus(nextModel);
+            // remember old state then turn off (if b = true)
+            if (b){
+                saveStatus.add(new Boolean(isVisible));
+                if (isVisible && mdl != nextModel)
+                    toggleModelDisplay(nextModel);                
+            }
+            else{ // restore from saveStatus array
+                boolean savedVis = saveStatus.get(i).booleanValue();
+                if (savedVis && nextModel!=mdl)
+                    toggleModelDisplay(nextModel);
+            }
+            i++;
+        }
+    }
 
 }
