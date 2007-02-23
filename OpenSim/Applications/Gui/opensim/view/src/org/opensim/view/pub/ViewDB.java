@@ -192,6 +192,8 @@ public final class ViewDB implements Observer {
                removeObjectFromScene(visModel.getModelDisplayAssembly());
                // Remove from lists
                modelVisuals.remove(visModel);
+               mapModelsToVisuals.remove(dModel);
+               StatusDisplayer.getDefault().setStatusText("mapModelsToVisuals size="+mapModelsToVisuals.size());
                updateCommandsVisibility();
             }
             // Current model has changed. For view purposes this affects available commands

@@ -53,5 +53,9 @@ public final class FileExportSIMMJntAction extends CallableSystemAction {
     protected boolean asynchronous() {
         return false;
     }
-    
+
+    public boolean isEnabled() {
+       return OpenSimDB.getInstance().getCurrentModel()!=null;
+   }
+
 }

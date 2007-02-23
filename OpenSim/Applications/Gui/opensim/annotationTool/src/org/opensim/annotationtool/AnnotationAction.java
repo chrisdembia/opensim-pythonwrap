@@ -70,4 +70,7 @@ public final class AnnotationAction extends CallableSystemAction {
         return false;
     }
     
+    public boolean isEnabled() {
+       return OpenSimDB.getInstance().getCurrentModel()!=null;
+   }
 }
