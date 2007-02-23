@@ -36,7 +36,6 @@ public class ConcreteModelNode extends OpenSimObjectNode {
             classSpecificActions = new Action[]{
                 (ModelCloseSelectedAction) ModelDisplayEditAction.findObject(
                         Class.forName("org.opensim.view.nodes.ModelCloseSelectedAction"), true),
-                getTreeModelMakeCurrentAction(),
                 (ModelDisplayEditAction) ModelDisplayEditAction.findObject(
                         Class.forName("org.opensim.view.ModelDisplayEditAction"), true),
                 (ModelDisplayHideAction) ModelDisplayHideAction.findObject(
@@ -45,29 +44,14 @@ public class ConcreteModelNode extends OpenSimObjectNode {
                         Class.forName("org.opensim.view.ModelDisplayShowAction"), true),
                 (ModelInfoAction) ModelInfoAction.findObject(
                         Class.forName("org.opensim.view.nodes.ModelInfoAction"), true),
+                (ModelMakeCurrentAction) ModelMakeCurrentAction.findObject(
+                        Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true),
                 
             };
         }
         catch(ClassNotFoundException e){
             
         }
-        /**
-         * Consolidate the two lists
-         * The following is very inefficent. Just testing the idea.
-         *
-        Action[] superActions;
-        
-        superActions = super.getActions(b);
-        Vector<Action> allActions = new Vector<Action>(10);
-        for(int i=0; i<classSpecificActions.length; i++)
-           allActions.add(classSpecificActions[i]);
-        for(int i=0; i<superActions.length; i++)
-           allActions.add(superActions[i]);
-        Action[] actionArray = new Action[allActions.size()];
-        
-        for(int i=0; i <actionArray.length; i++)
-           actionArray[i] = allActions.get(i);
-        */
         return classSpecificActions;
     }
 
@@ -81,23 +65,4 @@ public class ConcreteModelNode extends OpenSimObjectNode {
         return retValue;
     }
 
-    Action getTreeModelMakeCurrentAction()
-    {
-           return new CallableSystemAction(){
-            public void performAction() {
-                 OpenSimDB.getInstance().setCurrentModel(getModel());
-            }
-
-            public String getName() {
-                return "Make Current";
-            }
-
-            public HelpCtx getHelpCtx() {
-                return null;
-            }
-            public boolean isEnabled() {
-                return OpenSimDB.getInstance().getCurrentModel()!=getModel();
-            }};
-
-    }
-}
+ }
