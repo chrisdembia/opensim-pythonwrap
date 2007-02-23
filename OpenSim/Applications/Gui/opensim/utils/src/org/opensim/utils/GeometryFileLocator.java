@@ -56,7 +56,7 @@ public class GeometryFileLocator {
       String candidate=modelFilePath+File.separator+bareFileName;
       if (new File(candidate).exists())
          return candidate;
-      candidate = modelFilePath+File.separator+"geometry"+File.separator+bareFileName;
+      candidate = modelFilePath+File.separator+"Geometry"+File.separator+bareFileName;
       if (new File(candidate).exists())
          return candidate;
       String GeometryPath=Preferences.userNodeForPackage(TheApp.class).get("GeometryPath", ".");
