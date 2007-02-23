@@ -2471,7 +2471,7 @@ public class opensimModelJNI {
   public final static native void SimmMotionData_convertDegreesToRadians(long jarg1, long jarg2);
   public final static native void SimmMotionData_convertRadiansToDegrees(long jarg1, long jarg2);
   public final static native int SimmMotionData_getFrameNumberForTime(long jarg1, double jarg2);
-  public final static native void SimmMotionData_writeSIMMMotionFile(long jarg1, String jarg2, String jarg3);
+  public final static native void SimmMotionData_writeSIMMMotionFile(long jarg1, String jarg2, String jarg3, String jarg4);
   public final static native long SimmMotionData_getColumnNames(long jarg1);
   public final static native String SimmMotionData_getUnassignedColName(long jarg1);
   public final static native void SimmMotionData_peteTest(long jarg1);

@@ -114,8 +114,8 @@ public class SimmMotionData extends OpenSimObject {
     return opensimModelJNI.SimmMotionData_getFrameNumberForTime(swigCPtr, time);
   }
 
-  public void writeSIMMMotionFile(String aFileName, String aComment) {
-    opensimModelJNI.SimmMotionData_writeSIMMMotionFile(swigCPtr, aFileName, aComment);
+  public void writeSIMMMotionFile(String aFileName, String aName, String aComment) {
+    opensimModelJNI.SimmMotionData_writeSIMMMotionFile(swigCPtr, aFileName, aName, aComment);
   }
 
   public ArrayStr getColumnNames() {
