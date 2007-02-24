@@ -17,7 +17,8 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
     String manualScaleFile;
     ArrayStr scalingOrder;
     String subjectPath;
-    
+    final String manualScaleString="manualScale";
+    final String measurementScaleString="measurements";
     /**
      * Creates new form ScalingVisualPanel
      */
@@ -655,21 +656,21 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
            String temp = scalingOrder.getitem(i);
             if (i > 0)
                 scalingOrderString = scalingOrderString+"+";
-            if (scalingOrder.getitem(i).equalsIgnoreCase("manualScale")){
-                scalingOrderString = scalingOrderString+"manualScale";
+            if (scalingOrder.getitem(i).equalsIgnoreCase(manualScaleString)){
+                scalingOrderString = scalingOrderString+manualScaleString;
             }
-            if (scalingOrder.getitem(i).equalsIgnoreCase("measurements")){
-                scalingOrderString = scalingOrderString+"measurements";
+            if (scalingOrder.getitem(i).equalsIgnoreCase(measurementScaleString)){
+                scalingOrderString = scalingOrderString+measurementScaleString;
             }
         }
         return scalingOrderString;
     }
    
     private boolean hasManual() {
-        return ((String)scaleMethodSelect.getSelectedItem()).contains("manualScale");
+        return ((String)scaleMethodSelect.getSelectedItem()).contains(manualScaleString);
     }
     private boolean hasMeasurements() {
-        return ((String)scaleMethodSelect.getSelectedItem()).contains("measurements");
+        return ((String)scaleMethodSelect.getSelectedItem()).contains(measurementScaleString);
     }
 
     private void updateBasedOnScalingOrder() {
@@ -718,6 +719,10 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         scalingOrder = new ArrayStr("", 2);
         
         parseOrderIntoStrArr(order, scalingOrder);
+        
+        //for(int i=0; i<scalingOrder.getSize();i++)
+        //   System.out.println("|"+scalingOrder.getitem(i)+"|");
+        
         scalingParams.setScalingOrder(scalingOrder);
         boolean includesManual = hasManual();
         boolean includesMeasurements = hasMeasurements();
@@ -768,18 +773,22 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
 
     private void parseOrderIntoStrArr(String order, ArrayStr scalingOrder) {
         String temp = order;
+        int i=0;
         if (temp.contains("+")){
             // Parse up to first +, append to scalingOrder, skip+ and repeat
             while(!temp.equals("")){
                 int plusLocation = temp.indexOf('+');
                 if (plusLocation==-1){  // No more +
-                    scalingOrder.append(temp);
+                    scalingOrder.setitem(i,temp);
+                    i++;
                     break;
                 }
-                scalingOrder.append(temp.substring(0, plusLocation));
+                scalingOrder.setitem(i, temp.substring(0, plusLocation));
+                i++;
                 temp = temp.substring(plusLocation+1);
             }
        } else { // Just one
+            scalingOrder.setSize(1);
             if (temp.equals("None"))
                 scalingOrder.set(0, "");
             else{
