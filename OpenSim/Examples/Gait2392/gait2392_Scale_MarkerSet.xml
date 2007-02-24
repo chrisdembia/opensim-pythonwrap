@@ -5,9 +5,6 @@
 		<SimmMarker name="Sternum">
 			<!--Location of a marker on the body segment.-->
 			<location> 0.07 0.3 0 </location>
-			<!--Weight given to a marker relative to the other markers for solving
-			    inverse kinematics problems.-->
-			<weight> 1 </weight>
 			<!--Flag (true or false) specifying whether or not a marker is allowed to
 			    move in the marker placement step.-->
 			<fixed> false </fixed>
@@ -16,19 +13,16 @@
 		</SimmMarker>
 		<SimmMarker name="R.Acromium">
 			<location> -0.03 0.44 0.15 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> torso </body>
 		</SimmMarker>
 		<SimmMarker name="L.Acromium">
 			<location> -0.03 0.44 -0.15 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> torso </body>
 		</SimmMarker>
 		<SimmMarker name="Top.Head">
 			<location>0.00084 0.657 0.0</location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> torso </body>
 		</SimmMarker>
@@ -37,19 +31,16 @@
 		<!-- Pelvis -->
 		<SimmMarker name="R.ASIS">
 			<location> 0.02 0.03 0.128 </location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> pelvis </body>
 		</SimmMarker>
 		<SimmMarker name="L.ASIS">
 			<location> 0.02 0.03 -0.128 </location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> pelvis </body>
 		</SimmMarker>
 		<SimmMarker name="V.Sacral">
 			<location>-0.16 0.04 0.0</location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> pelvis </body>
 		</SimmMarker>
@@ -57,31 +48,26 @@
 		<!-- Right femur -->
 		<SimmMarker name="R.Thigh.Upper">
 			<location>0.018 -0.20 0.064</location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> femur_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Thigh.Front">
 			<location> 0.08 -0.25 0.0047 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> femur_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Thigh.Rear">
 			<location>0.01 -0.30 0.06</location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> femur_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Knee.Lat">
 			<location>0.0 -0.404 0.05</location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> femur_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Knee.Med">
 			<location>0.0 -0.404 -0.05</location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> femur_r </body>
 		</SimmMarker>
@@ -89,31 +75,26 @@
 		<!-- Right tibia -->
 		<SimmMarker name="R.Shank.Upper">
 			<location> 0.005 -0.065 0.05 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> tibia_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Shank.Front">
 			<location> 0.05 -0.08 0 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> tibia_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Shank.Rear">
 			<location> 0.02 -0.13 0.05 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> tibia_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Ankle.Lat">
 			<location> -0.005 -0.41 0.053 </location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> tibia_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Ankle.Med">
 			<location> 0.006 -0.3888 -0.038 </location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> tibia_r </body>
 		</SimmMarker>
@@ -121,37 +102,31 @@
 		<!-- Right calcaneous -->
 		<SimmMarker name="R.Heel">
 			<location>-0.02 0.02 0.0</location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Midfoot.Sup">
 			<location> 0.13 0.03 -0.03 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Midfoot.Lat">
 			<location> 0.1 0.02 0.04 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Toe.Lat">
 			<location>0.190 0.0 0.065</location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Toe.Med">
 			<location>0.190 0.005 -0.04</location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_r </body>
 		</SimmMarker>
 		<SimmMarker name="R.Toe.Tip">
 			<location>0.26 0.005 0.0</location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_r </body>
 		</SimmMarker>
@@ -159,31 +134,26 @@
 		<!-- Left femur -->
 		<SimmMarker name="L.Thigh.Upper">
 			<location> 0.018 -0.2 -0.064 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> femur_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Thigh.Front">
 			<location> 0.08 -0.25 -0.0047 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> femur_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Thigh.Rear">
 			<location>0.01 -0.30 -0.06</location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> femur_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Knee.Lat">
 			<location>0.0 -0.404 -0.05</location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> femur_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Knee.Med">
 			<location>0.0 -0.404 0.05</location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> femur_l </body>
 		</SimmMarker>
@@ -191,31 +161,26 @@
 		<!-- Left tibia -->
 		<SimmMarker name="L.Shank.Upper">
 			<location> 0.005 -0.065 -0.05 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> tibia_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Shank.Front">
 			<location> 0.05 -0.08 0 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> tibia_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Shank.Rear">
 			<location> -0.02 -0.13 -0.05 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> tibia_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Ankle.Lat">
 			<location> -0.005 -0.41 -0.053 </location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> tibia_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Ankle.Med">
 			<location> 0.006 -0.3888 0.038 </location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> tibia_l </body>
 		</SimmMarker>
@@ -223,37 +188,31 @@
 		<!-- Left calcaneous -->
 		<SimmMarker name="L.Heel">
 			<location>-0.02 0.02 0.0</location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Midfoot.Sup">
 			<location> 0.13 0.03 0.03 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Midfoot.Lat">
 			<location> 0.1 0.02 -0.04 </location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Toe.Lat">
 			<location>0.190 0.0 -0.065</location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Toe.Med">
 			<location>0.190 0.005 0.04</location>
-			<weight>1.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_l </body>
 		</SimmMarker>
 		<SimmMarker name="L.Toe.Tip">
 			<location>0.26 0.005 0.0</location>
-			<weight>1000.000000000000</weight>
 			<fixed> false </fixed>
 			<body> calcn_l </body>
 		</SimmMarker>

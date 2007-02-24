@@ -76,7 +76,10 @@
 	    simulation. These states are used to set the initial states of the
 	    model for each perturbed simulation.-->
 	<states_file> ResultsCMC/subject01_walk1_states.sto </states_file>
-	
+
+	<right_foot_body> calcn_r </right_foot_body>
+	<left_foot_body> calcn_l </left_foot_body>
+
 	<!--Time of right heel strike.-->
 	<r_heel_strike> 0.63 </r_heel_strike>
 	<!--Time of right foot flat.-->

@@ -55,6 +55,7 @@
 		<IKMarkerTask name="L.Toe.Med"> <weight>1</weight> </IKMarkerTask>
 		<IKMarkerTask name="L.Toe.Tip"> <weight>1000</weight> </IKMarkerTask>
 
+		<!-- Helps keep static pose solution from having back bent too much -->
 		<IKCoordinateTask name="lumbar_extension">
 			<value>0</value>
 			<weight>1000.0</weight> 
