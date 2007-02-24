@@ -2,7 +2,7 @@
 <IKTool name="subject01">
 	<!--Name of the .osim file used to construct a model.-->
 	<model_file> subject01.osim </model_file>
-	<!-- IK task set.-->
+	<!--Task set used to specify IK weights.-->
 	<IKTaskSet file="gait2392_IK_Tasks.xml"/>
 	<!--Parameters for solving the IK problem for each trial. Each trial
 	    should get a seperate SimmIKTril block.-->
@@ -10,7 +10,7 @@
 		<objects>
 			<SimmIKTrial name="first trial">
 				<!--TRC file (.trc) containing the time history of experimental marker
-					    positions.-->
+				    positions.-->
 				<marker_file> subject01_walk1.trc </marker_file>
 				<!--Name of file containing the joint angles used to set the initial
 				    configuration of the model for the purpose of placing the markers.

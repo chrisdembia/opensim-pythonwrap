@@ -26,7 +26,8 @@
 			<!--Velocity error feedback gain (damping). To achieve critical damping of
 			    errors, choose kv = 2*sqrt(kp).-->
 			<kv> 1 1 1 </kv>
-			<!--Acceleration feedback gain.  This is normally set to 1.0, so no gain.-->
+			<!--Feedforward acceleration gain.  This is normally set to 1.0, so no
+			    gain.-->
 			<ka> 1 1 1 </ka>
 			<!--Direction vector[3] for component 0 of a task. Joint tasks do not use
 			    this propery.-->
@@ -37,12 +38,8 @@
 			<!--Direction vector[3] for component 2 of a task. Joint tasks do not use
 			    this property.-->
 			<r2> 0 0 0 </r2>
-			<!--Name of the cooridnate to be tracked.-->
+			<!--Name of the coordinate to be tracked.-->
 			<coordinate>  </coordinate>
-			<!--Error limit on the tracking accuracy for this coordinate. If the
-			    tracking errors approach this limit, the weighting for this coordinate
-			    is increased.-->
-			<limit> 0 </limit>
 		</rdCMC_Joint>
 	</defaults>
 

@@ -112,7 +112,8 @@
 
 	<!--Time window over which the desired actuator forces are achieved.
 	    Muscles forces cannot change instantaneously, so a finite time window
-	    must be allowed. The recommended time window is about 0.010 sec.-->
+	    must be allowed. The recommended time window for RRA is about 0.001
+	    sec, and for CMC is about 0.010 sec.-->
 	<cmc_time_window> 0.01 </cmc_time_window>
 	<!--Flag (true or false) indicating whether or not to use the curvature
 	    filter. Setting this flag to true can reduce oscillations in the
