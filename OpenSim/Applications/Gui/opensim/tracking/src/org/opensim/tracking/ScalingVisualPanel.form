@@ -3,6 +3,7 @@
 <Form version="1.3" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="2"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
@@ -92,10 +93,10 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="5">
                 <StringItem index="0" value="None"/>
-                <StringItem index="1" value="manual"/>
+                <StringItem index="1" value="manualScale"/>
                 <StringItem index="2" value="measurements"/>
-                <StringItem index="3" value="manual+measurements"/>
-                <StringItem index="4" value="measurements+manual"/>
+                <StringItem index="3" value="manualScale+measurements"/>
+                <StringItem index="4" value="measurements+manualScale"/>
               </StringArray>
             </Property>
           </Properties>
