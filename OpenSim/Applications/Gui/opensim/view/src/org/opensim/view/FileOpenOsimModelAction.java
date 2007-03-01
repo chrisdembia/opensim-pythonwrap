@@ -23,7 +23,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
     public void performAction() {
         // TODO implement action body
         // Browse for model file
-        String fileName = FileUtils.getInstance().browseForFilename(".xml,.osim", "Model file to open");
+        String fileName = FileUtils.getInstance().browseForFilename(".osim", "OpenSim model");
         if (fileName != null){
             ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Loading model file "+fileName+"...");
             try {
