@@ -12,7 +12,6 @@ package org.opensim.view.pub;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Observable;
-import org.openide.awt.StatusDisplayer;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.SimmMotionData;
@@ -94,7 +93,7 @@ final public class OpenSimDB extends Observable {
         setChanged();
         ModelEvent evnt = new ModelEvent(aCurrentModel, ModelEvent.Operation.SetCurrent);
         notifyObservers(evnt);
-        StatusDisplayer.getDefault().setStatusText("Current model:"+aCurrentModel.getName());
+        //StatusDisplayer.getDefault().setStatusText("Current model:"+aCurrentModel.getName());
     }
     /**
      * Get current model (as indicated by bold name in the explorer view)

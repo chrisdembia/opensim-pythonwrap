@@ -55,7 +55,8 @@ public class Installer extends ModuleInstall {
          saved=Preferences.userNodeForPackage(TheApp.class).get("DisplayOffsetDir", defaultOffsetDirection);
          Preferences.userNodeForPackage(TheApp.class).put("DisplayOffsetDir", saved);
          
-         saved=Preferences.userNodeForPackage(TheApp.class).get("GeometryPath", ".");
+         String defaultGeometryPath = NbBundle.getMessage(OpenSimBaseCanvas.class,"CTL_GeometryPath");
+         saved=Preferences.userNodeForPackage(TheApp.class).get("GeometryPath", defaultGeometryPath);
          Preferences.userNodeForPackage(TheApp.class).put("GeometryPath", saved);
 
          String defaultBgColor = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_BackgroundColorRGB");        
