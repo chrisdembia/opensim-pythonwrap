@@ -53,10 +53,10 @@ public class ModelWindowVTKTopComponent extends TopComponent
     private void initComponents() {
         jRefitModelButton = new javax.swing.JButton();
         jModelWiondowToolBar = new javax.swing.JToolBar();
-        jTakeSnapshotButton = new javax.swing.JButton();
         jFrontViewButton = new javax.swing.JButton();
-        jSideViewButton = new javax.swing.JButton();
         jTopViewButton = new javax.swing.JButton();
+        jSideViewButton = new javax.swing.JButton();
+        jTakeSnapshotButton = new javax.swing.JButton();
         jStartStopMovieToggleButton = new javax.swing.JToggleButton();
         openSimCanvas1 = new org.opensim.view.OpenSimCanvas();
 
@@ -69,18 +69,8 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         setLayout(new java.awt.BorderLayout());
 
-        jTakeSnapshotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/camera.gif")));
-        jTakeSnapshotButton.setMaximumSize(new java.awt.Dimension(32, 21));
-        jTakeSnapshotButton.setPreferredSize(new java.awt.Dimension(32, 21));
-        jTakeSnapshotButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTakeSnapshotButtonActionPerformed(evt);
-            }
-        });
-
-        jModelWiondowToolBar.add(jTakeSnapshotButton);
-
         jFrontViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/front.gif")));
+        jFrontViewButton.setToolTipText("View model from front (look along -X)");
         jFrontViewButton.setMaximumSize(new java.awt.Dimension(32, 21));
         jFrontViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +80,19 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWiondowToolBar.add(jFrontViewButton);
 
+        jTopViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/top.gif")));
+        jTopViewButton.setToolTipText("View model from above (look along -Y)");
+        jTopViewButton.setMaximumSize(new java.awt.Dimension(32, 21));
+        jTopViewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTopViewButtonActionPerformed(evt);
+            }
+        });
+
+        jModelWiondowToolBar.add(jTopViewButton);
+
         jSideViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/side.gif")));
+        jSideViewButton.setToolTipText("View model from the side (look along -Z)");
         jSideViewButton.setMaximumSize(new java.awt.Dimension(32, 21));
         jSideViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,15 +102,17 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWiondowToolBar.add(jSideViewButton);
 
-        jTopViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/top.gif")));
-        jTopViewButton.setMaximumSize(new java.awt.Dimension(32, 21));
-        jTopViewButton.addActionListener(new java.awt.event.ActionListener() {
+        jTakeSnapshotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/camera.gif")));
+        jTakeSnapshotButton.setToolTipText("Take a snapshot image");
+        jTakeSnapshotButton.setMaximumSize(new java.awt.Dimension(32, 21));
+        jTakeSnapshotButton.setPreferredSize(new java.awt.Dimension(32, 21));
+        jTakeSnapshotButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTopViewButtonActionPerformed(evt);
+                jTakeSnapshotButtonActionPerformed(evt);
             }
         });
 
-        jModelWiondowToolBar.add(jTopViewButton);
+        jModelWiondowToolBar.add(jTakeSnapshotButton);
 
         jStartStopMovieToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/movie_camera.gif")));
         jStartStopMovieToggleButton.setToolTipText("Press to start recording, press again to finish.");

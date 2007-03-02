@@ -57,6 +57,7 @@ public class OpenSimBaseCanvas extends vtkPanel
     // Enable opoups to display on top of heavy weight component/canvas
     static {
      JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+     javax.swing.ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);     
     }
     /** Creates a new instance of OpenSimBaseCanvas */
     public OpenSimBaseCanvas() {
