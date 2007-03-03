@@ -17,6 +17,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
+import org.openide.nodes.Node;
 import org.openide.util.datatransfer.PasteType;
 import org.opensim.modeling.AbstractModel;
 
@@ -99,6 +100,20 @@ public class OpenSimNode extends AbstractNode {
             return null;
         }
     }
-    
+    public OpenSimObjectNode findChild(Object objectToMatch){
+       if (this instanceof OpenSimObjectNode){
+          if(((OpenSimObjectNode)this).getOpensimObject().equals(objectToMatch))
+             return (OpenSimObjectNode)this;
+       }
+       
+       Node[] children = getChildren().getNodes();
+       for(int i=0; i<children.length; i++){
+          OpenSimObjectNode matchingNode = ((OpenSimNode)children[i]).findChild(objectToMatch);
+          if(matchingNode !=null)
+             return matchingNode;
+       }
+       
+       return null;
+    }
 
 } // class OpenSimNode
