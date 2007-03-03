@@ -202,6 +202,9 @@ public final class ViewDB implements Observer {
                updateCommandsVisibility();
             }
            
+         } else if (arg instanceof NameChangedEvent){
+            NameChangedEvent ev = (NameChangedEvent)arg;
+            repaintAll();
          }
       }
    }

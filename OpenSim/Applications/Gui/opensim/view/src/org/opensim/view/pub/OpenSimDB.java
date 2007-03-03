@@ -32,6 +32,11 @@ final public class OpenSimDB extends Observable {
     private OpenSimDB() {
     }
     
+    // The setChanged() protected method must overridden to make it public
+    public synchronized void setChanged() {
+        super.setChanged();
+    }
+    
     public static synchronized OpenSimDB getInstance() {
         if (instance == null) {
              instance = new OpenSimDB();
