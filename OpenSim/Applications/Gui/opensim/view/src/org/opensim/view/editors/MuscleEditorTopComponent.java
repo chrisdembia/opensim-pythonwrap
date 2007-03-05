@@ -1,5 +1,7 @@
 package org.opensim.view.editors;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +9,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.lang.String;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import org.openide.ErrorManager;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
@@ -36,6 +39,11 @@ final class MuscleEditorTopComponent extends TopComponent {
    
    private static MuscleEditorTopComponent instance;
    private AbstractActuator act; // the actuator that is currently shown in the Muscle Editor window
+   private static Dimension AttachmentsPref = new Dimension(100, 100);
+   private static Dimension ForcePref = new Dimension(100, 100);
+   private static Dimension DynamicPref = new Dimension(100, 100);
+   private static Dimension FunctionsPref = new Dimension(100, 100);
+   private static Dimension WrapPref = new Dimension(100, 100);
    
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
@@ -65,11 +73,11 @@ final class MuscleEditorTopComponent extends TopComponent {
       ParametersTabbedPanel = new javax.swing.JTabbedPane();
       AttachmentsTab = new javax.swing.JScrollPane();
       AttachmentsPanel = new javax.swing.JPanel();
-      jLabel20 = new javax.swing.JLabel();
-      jLabel21 = new javax.swing.JLabel();
-      jLabel22 = new javax.swing.JLabel();
-      jLabel23 = new javax.swing.JLabel();
-      jLabel24 = new javax.swing.JLabel();
+      AttachmentXLabel = new javax.swing.JLabel();
+      AttachmentYLabel = new javax.swing.JLabel();
+      AttachmentZLabel = new javax.swing.JLabel();
+      AttachmentBodyLabel = new javax.swing.JLabel();
+      AttachmentSelectedLabel = new javax.swing.JLabel();
       ForceTab = new javax.swing.JScrollPane();
       ForcePanel = new javax.swing.JPanel();
       DynamicTab = new javax.swing.JScrollPane();
@@ -78,10 +86,10 @@ final class MuscleEditorTopComponent extends TopComponent {
       FunctionsPanel = new javax.swing.JPanel();
       WrappingTab = new javax.swing.JScrollPane();
       WrapPanel = new javax.swing.JPanel();
-      jLabel26 = new javax.swing.JLabel();
-      jLabel27 = new javax.swing.JLabel();
-      jLabel32 = new javax.swing.JLabel();
-      jLabel33 = new javax.swing.JLabel();
+      WrapObjectLabel = new javax.swing.JLabel();
+      WrapMethodLabel = new javax.swing.JLabel();
+      WrapRangeStartLabel = new javax.swing.JLabel();
+      WrapRangeEndLabel = new javax.swing.JLabel();
       jLabel10 = new javax.swing.JLabel();
       jComboBox12 = new javax.swing.JComboBox();
       jComboBox13 = new javax.swing.JComboBox();
@@ -92,6 +100,7 @@ final class MuscleEditorTopComponent extends TopComponent {
 
       MuscleNameTextField.setText("glut_med1_r");
 
+      MuscleTypeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
       org.openide.awt.Mnemonics.setLocalizedText(MuscleTypeLabel, "type:");
 
       MuscleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DarrylMuscle", "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -107,25 +116,25 @@ final class MuscleEditorTopComponent extends TopComponent {
 
       AttachmentsPanel.setLayout(null);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel20, "X");
-      AttachmentsPanel.add(jLabel20);
-      jLabel20.setBounds(50, 10, 8, 16);
+      org.openide.awt.Mnemonics.setLocalizedText(AttachmentXLabel, "X");
+      AttachmentsPanel.add(AttachmentXLabel);
+      AttachmentXLabel.setBounds(50, 10, 8, 16);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel21, "Y");
-      AttachmentsPanel.add(jLabel21);
-      jLabel21.setBounds(110, 10, 7, 16);
+      org.openide.awt.Mnemonics.setLocalizedText(AttachmentYLabel, "Y");
+      AttachmentsPanel.add(AttachmentYLabel);
+      AttachmentYLabel.setBounds(110, 10, 7, 16);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel22, "Z");
-      AttachmentsPanel.add(jLabel22);
-      jLabel22.setBounds(170, 10, 7, 16);
+      org.openide.awt.Mnemonics.setLocalizedText(AttachmentZLabel, "Z");
+      AttachmentsPanel.add(AttachmentZLabel);
+      AttachmentZLabel.setBounds(170, 10, 7, 16);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel23, "body");
-      AttachmentsPanel.add(jLabel23);
-      jLabel23.setBounds(240, 10, 27, 16);
+      org.openide.awt.Mnemonics.setLocalizedText(AttachmentBodyLabel, "body");
+      AttachmentsPanel.add(AttachmentBodyLabel);
+      AttachmentBodyLabel.setBounds(240, 10, 27, 16);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel24, "sel");
-      AttachmentsPanel.add(jLabel24);
-      jLabel24.setBounds(320, 10, 16, 16);
+      org.openide.awt.Mnemonics.setLocalizedText(AttachmentSelectedLabel, "sel");
+      AttachmentsPanel.add(AttachmentSelectedLabel);
+      AttachmentSelectedLabel.setBounds(320, 10, 16, 16);
 
       AttachmentsTab.setViewportView(AttachmentsPanel);
 
@@ -151,21 +160,21 @@ final class MuscleEditorTopComponent extends TopComponent {
 
       WrapPanel.setLayout(null);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel26, "object");
-      WrapPanel.add(jLabel26);
-      jLabel26.setBounds(70, 50, 35, 16);
+      org.openide.awt.Mnemonics.setLocalizedText(WrapObjectLabel, "object");
+      WrapPanel.add(WrapObjectLabel);
+      WrapObjectLabel.setBounds(70, 50, 35, 16);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel27, "  method");
-      WrapPanel.add(jLabel27);
-      jLabel27.setBounds(150, 50, 51, 16);
+      org.openide.awt.Mnemonics.setLocalizedText(WrapMethodLabel, "  method");
+      WrapPanel.add(WrapMethodLabel);
+      WrapMethodLabel.setBounds(150, 50, 51, 16);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel32, "start");
-      WrapPanel.add(jLabel32);
-      jLabel32.setBounds(220, 50, 26, 16);
+      org.openide.awt.Mnemonics.setLocalizedText(WrapRangeStartLabel, "start");
+      WrapPanel.add(WrapRangeStartLabel);
+      WrapRangeStartLabel.setBounds(220, 50, 26, 16);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel33, "end");
-      WrapPanel.add(jLabel33);
-      jLabel33.setBounds(280, 50, 21, 16);
+      org.openide.awt.Mnemonics.setLocalizedText(WrapRangeEndLabel, "end");
+      WrapPanel.add(WrapRangeEndLabel);
+      WrapRangeEndLabel.setBounds(280, 50, 21, 16);
 
       org.openide.awt.Mnemonics.setLocalizedText(jLabel10, "1.");
       WrapPanel.add(jLabel10);
@@ -199,19 +208,19 @@ final class MuscleEditorTopComponent extends TopComponent {
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                   .addContainerGap()
-                  .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
+                  .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                   .addContainerGap()
                   .add(ResetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 286, Short.MAX_VALUE)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 290, Short.MAX_VALUE)
                   .add(ApplyButton))
-               .add(layout.createSequentialGroup()
+               .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                   .add(14, 14, 14)
                   .add(MuscleNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 173, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 31, Short.MAX_VALUE)
-                  .add(MuscleTypeLabel)
+                  .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(MuscleTypeLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(MuscleTypeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap())
@@ -223,10 +232,10 @@ final class MuscleEditorTopComponent extends TopComponent {
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(MuscleNameLabel)
                .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(MuscleTypeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(MuscleTypeLabel))
+               .add(MuscleTypeLabel)
+               .add(MuscleTypeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .add(19, 19, 19)
-            .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 503, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(ResetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -238,6 +247,11 @@ final class MuscleEditorTopComponent extends TopComponent {
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton ApplyButton;
+   private javax.swing.JLabel AttachmentBodyLabel;
+   private javax.swing.JLabel AttachmentSelectedLabel;
+   private javax.swing.JLabel AttachmentXLabel;
+   private javax.swing.JLabel AttachmentYLabel;
+   private javax.swing.JLabel AttachmentZLabel;
    private javax.swing.JPanel AttachmentsPanel;
    private javax.swing.JScrollPane AttachmentsTab;
    private javax.swing.JPanel DynamicPanel;
@@ -252,22 +266,17 @@ final class MuscleEditorTopComponent extends TopComponent {
    private javax.swing.JLabel MuscleTypeLabel;
    private javax.swing.JTabbedPane ParametersTabbedPanel;
    private javax.swing.JButton ResetButton;
+   private javax.swing.JLabel WrapMethodLabel;
+   private javax.swing.JLabel WrapObjectLabel;
    private javax.swing.JPanel WrapPanel;
+   private javax.swing.JLabel WrapRangeEndLabel;
+   private javax.swing.JLabel WrapRangeStartLabel;
    private javax.swing.JScrollPane WrappingTab;
    private javax.swing.JComboBox jComboBox12;
    private javax.swing.JComboBox jComboBox13;
    private javax.swing.JComboBox jComboBox14;
    private javax.swing.JComboBox jComboBox15;
    private javax.swing.JLabel jLabel10;
-   private javax.swing.JLabel jLabel20;
-   private javax.swing.JLabel jLabel21;
-   private javax.swing.JLabel jLabel22;
-   private javax.swing.JLabel jLabel23;
-   private javax.swing.JLabel jLabel24;
-   private javax.swing.JLabel jLabel26;
-   private javax.swing.JLabel jLabel27;
-   private javax.swing.JLabel jLabel32;
-   private javax.swing.JLabel jLabel33;
    // End of variables declaration//GEN-END:variables
    
    /**
@@ -313,39 +322,63 @@ final class MuscleEditorTopComponent extends TopComponent {
       int i, j;
       AbstractSimmMuscle asm = AbstractSimmMuscle.safeDownCast(act);
       if (true) {
-         // Put the properties that are doubles in the dynamics tab (for now)
-         DynamicTab.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-         DynamicTab.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-         DynamicTab.getVerticalScrollBar().setUnitIncrement(10);
-         DynamicTab.getVerticalScrollBar().setEnabled(true);
-         int dCount = 0, fCount = 0;
+         int dCount = 0, fCount = 0, iCount = 0;
          for (i = 0; i < ps.getSize(); i++) {
             Property p;
             try {
                p = ps.get(i);
+               // for testing, add doubles to Force panel and Dynamic panel
                if (p.getType() == org.opensim.modeling.Property.PropertyType.Dbl) {
                   javax.swing.JLabel propLabel = new javax.swing.JLabel();
                   propLabel.setText(p.getName());
-                  propLabel.setBounds(20, 20 + dCount * 22, 150, 16);
+                  propLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+                  propLabel.setBounds(20, 22 + dCount * 22, 180, 16);
                   propLabel.setToolTipText(p.getComment());
                   javax.swing.JTextField propField = new javax.swing.JTextField();
-                  propField.setBounds(180, 20 + dCount * 22, 74, 21);
+                  propField.setBounds(210, 20 + dCount * 22, 120, 21);
                   propField.setText(p.toString());
                   propField.setToolTipText(p.getComment());
                   DynamicPanel.add(propLabel);
                   DynamicPanel.add(propField);
+                  ////////////////////////////
+                  javax.swing.JLabel propLabel2 = new javax.swing.JLabel();
+                  propLabel2.setText(p.getName());
+                  propLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
+                  propLabel2.setBounds(20, 22 + dCount * 22, 180, 16);
+                  propLabel2.setToolTipText(p.getComment());
+                  javax.swing.JTextField propField2 = new javax.swing.JTextField();
+                  propField2.setBounds(210, 20 + dCount * 22, 120, 21);
+                  propField2.setText(p.toString());
+                  propField2.setToolTipText(p.getComment());
+                  ForcePanel.add(propLabel2);
+                  ForcePanel.add(propField2);
+                  ////////////////////////////
                   dCount++;
-               } else if (p.getType() == org.opensim.modeling.Property.PropertyType.Obj) {
-                  OpenSimObject obj = p.getValueObj();
-                  String n = obj.getType();
+               } else if (p.getType() == org.opensim.modeling.Property.PropertyType.Int) {
+                  // for testing...
+                  javax.swing.JLabel propLabel = new javax.swing.JLabel();
+                  propLabel.setText(p.getName());
+                  propLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+                  propLabel.setBounds(20, 22 + iCount * 22, 180, 16);
+                  propLabel.setToolTipText(p.getComment());
+                  javax.swing.JTextField propField = new javax.swing.JTextField();
+                  propField.setBounds(210, 20 + iCount * 22, 120, 21);
+                  propField.setText(p.toString());
+                  propField.setToolTipText(p.getComment());
+                  //ForcePanel.add(propLabel);
+                  //ForcePanel.add(propField);
+                  iCount++;
+               } else if (p.getType() == org.opensim.modeling.Property.PropertyType.ObjPtr) {
+                  OpenSimObject obj = p.getValueObjPtr();
                   Function func = Function.safeDownCast(obj);
                   if (func != null) {
                      javax.swing.JLabel propLabel = new javax.swing.JLabel();
                      propLabel.setText(p.getName());
-                     propLabel.setBounds(20, 20 + fCount * 22, 150, 16);
+                     propLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+                     propLabel.setBounds(20, 22 + fCount * 22, 200, 16);
                      propLabel.setToolTipText(p.getComment());
                      javax.swing.JButton propButton = new javax.swing.JButton();
-                     propButton.setBounds(200, 20 + fCount * 22, 60, 21);
+                     propButton.setBounds(230, 20 + fCount * 22, 60, 21);
                      propButton.setText("edit");
                      FunctionsPanel.add(propLabel);
                      FunctionsPanel.add(propButton);
@@ -356,26 +389,8 @@ final class MuscleEditorTopComponent extends TopComponent {
                ex.printStackTrace();
             }
          }
-         Dimension d = DynamicPanel.getSize();
-         int newHeight = 60 + dCount * 22;
-         if (newHeight > d.height) {
-            d.setSize(d.width, newHeight);
-            DynamicPanel.setPreferredSize(d);
-            DynamicPanel.revalidate();
-         }
-         d = FunctionsPanel.getSize();
-         newHeight = 60 + fCount * 22;
-         if (newHeight > d.height) {
-            d.setSize(d.width, newHeight);
-            FunctionsPanel.setPreferredSize(d);
-            FunctionsPanel.revalidate();
-         }
-         
+
          // Put the attachment points in the attachments tab
-         AttachmentsTab.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-         AttachmentsTab.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-         AttachmentsTab.getVerticalScrollBar().setUnitIncrement(10);
-         AttachmentsTab.getVerticalScrollBar().setEnabled(true);
          SetSimmMusclePoint ssmp = asm.getAttachmentSet();
          int X = 30;
          int Y = 40;
@@ -415,13 +430,31 @@ final class MuscleEditorTopComponent extends TopComponent {
             AttachmentsPanel.add(comboBox);
             AttachmentsPanel.add(selectBox);
          }
-         d = AttachmentsPanel.getSize();
-         newHeight = Y + ssmp.getSize() * 22;
-         if (newHeight > d.height) {
-            d.setSize(d.width - 30, newHeight);
-            AttachmentsPanel.setPreferredSize(d);
-            AttachmentsPanel.revalidate();
-         }
+
+         AttachmentsPref.width = 350;
+         AttachmentsPref.height = Y + ssmp.getSize() * 22;
+         AttachmentsPanel.setPreferredSize(AttachmentsPref);
+         AttachmentsPanel.revalidate();
+
+         ForcePref.width = 350;
+         ForcePref.height = 30 + dCount * 22;
+         ForcePanel.setPreferredSize(ForcePref);
+         ForcePanel.revalidate();
+
+         DynamicPref.width = 350;
+         DynamicPref.height = 30 + dCount * 22;
+         DynamicPanel.setPreferredSize(DynamicPref);
+         DynamicPanel.revalidate();
+
+         FunctionsPref.width = 350;
+         FunctionsPref.height = 30 + fCount * 22;
+         FunctionsPanel.setPreferredSize(FunctionsPref);
+         FunctionsPanel.revalidate();
+
+         WrapPref.width = 350;
+         WrapPref.height = 30 + dCount * 22;
+         WrapPanel.setPreferredSize(WrapPref);
+         WrapPanel.revalidate();
       }
       
       this.revalidate();

@@ -16,21 +16,21 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ParametersTabbedPanel" pref="412" max="32767" attributes="0"/>
+                      <Component id="ParametersTabbedPanel" pref="416" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="286" max="32767" attributes="0"/>
+                      <EmptySpace pref="290" max="32767" attributes="0"/>
                       <Component id="ApplyButton" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Component id="MuscleNameLabel" min="-2" pref="41" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="MuscleNameTextField" min="-2" pref="173" max="-2" attributes="0"/>
-                      <EmptySpace pref="31" max="32767" attributes="0"/>
-                      <Component id="MuscleTypeLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="MuscleNameTextField" min="-2" pref="185" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="MuscleTypeLabel" min="-2" pref="47" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="MuscleTypeComboBox" min="-2" pref="126" max="-2" attributes="0"/>
                   </Group>
@@ -46,11 +46,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="MuscleNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="MuscleNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="MuscleTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="MuscleTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="MuscleTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-              <Component id="ParametersTabbedPanel" min="-2" pref="503" max="-2" attributes="0"/>
+              <Component id="ParametersTabbedPanel" pref="503" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="ResetButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -74,6 +74,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="MuscleTypeLabel">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="type:"/>
       </Properties>
     </Component>
@@ -136,7 +137,7 @@
                 <Property name="useNullLayout" type="boolean" value="true"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel20">
+                <Component class="javax.swing.JLabel" name="AttachmentXLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="X"/>
                   </Properties>
@@ -146,7 +147,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel21">
+                <Component class="javax.swing.JLabel" name="AttachmentYLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Y"/>
                   </Properties>
@@ -156,7 +157,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel22">
+                <Component class="javax.swing.JLabel" name="AttachmentZLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Z"/>
                   </Properties>
@@ -166,7 +167,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel23">
+                <Component class="javax.swing.JLabel" name="AttachmentBodyLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="body"/>
                   </Properties>
@@ -176,7 +177,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel24">
+                <Component class="javax.swing.JLabel" name="AttachmentSelectedLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="sel"/>
                   </Properties>
@@ -264,7 +265,7 @@
                 <Property name="useNullLayout" type="boolean" value="true"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel26">
+                <Component class="javax.swing.JLabel" name="WrapObjectLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="object"/>
                   </Properties>
@@ -274,7 +275,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel27">
+                <Component class="javax.swing.JLabel" name="WrapMethodLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="  method"/>
                   </Properties>
@@ -284,7 +285,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel32">
+                <Component class="javax.swing.JLabel" name="WrapRangeStartLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="start"/>
                   </Properties>
@@ -294,7 +295,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel33">
+                <Component class="javax.swing.JLabel" name="WrapRangeEndLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="end"/>
                   </Properties>
