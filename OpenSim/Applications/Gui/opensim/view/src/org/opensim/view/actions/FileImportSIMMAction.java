@@ -24,7 +24,7 @@ public final class FileImportSIMMAction extends CallableSystemAction {
             File jntFileDir = f.getParentFile();
             String tempFilename=null;
             try {
-                File tmpFile = File.createTempFile("Simm2OpenSim", ".xml", jntFileDir);
+                File tmpFile = File.createTempFile("Simm2OpenSim", ".osim", jntFileDir);
                 tempFilename= tmpFile.getAbsolutePath();
             } catch (IOException ex) {
                 DialogDisplayer.getDefault().notify(
