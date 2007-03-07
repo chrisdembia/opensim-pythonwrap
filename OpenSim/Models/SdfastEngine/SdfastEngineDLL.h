@@ -43,6 +43,7 @@
 #else
 
 #define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 #include <windows.h>
 #ifdef SDFAST_ENGINE_EXPORTS
 #define SDFAST_ENGINE_API __declspec(dllexport)

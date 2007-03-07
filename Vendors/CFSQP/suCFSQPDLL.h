@@ -12,6 +12,7 @@
 #else
 
 #define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 #include <windows.h>
 #ifdef SUCFSQP_EXPORTS
 #define SUCFSQP_API __declspec(dllexport)
