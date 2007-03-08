@@ -12,11 +12,15 @@ package org.opensim.view;
 import java.io.File;
 import java.util.Hashtable;
 import java.util.Vector;
-import org.openide.modules.InstalledFileLocator;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.AnalyticCylinder;
+import org.opensim.modeling.AnalyticEllipsoid;
+import org.opensim.modeling.AnalyticGeometry;
+import org.opensim.modeling.AnalyticSphere;
+import org.opensim.modeling.AnalyticTorus;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.LineGeometry;
@@ -29,18 +33,22 @@ import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
+import vtk.vtkClipPolyData;
 import vtk.vtkCylinderSource;
 import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
+import vtk.vtkParametricFunctionSource;
+import vtk.vtkParametricTorus;
+import vtk.vtkPlane;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkSphereSource;
+import vtk.vtkTransform;
+import vtk.vtkTransformPolyDataFilter;
 import vtk.vtkXMLPolyDataReader;
 import vtk.vtkAppendPolyData;
-import vtk.vtkFollower;
-import vtk.vtkVectorText;
 
 /**
  *
@@ -65,8 +73,13 @@ public class SingleModelVisuals {
     private double[] defaultMuscleColor = new double[]{0.8, 0.1, 0.1};
     private double[] defaultMusclePointColor = new double[]{1.0, 0.0, 0.0};
     private double[] defaultMarkerColor = new double[]{1.0, 0.6, 0.8};
+    private double[] defaultWrapObjectColor = new double[]{0.0, 1.0, 1.0};
     
-    private double defaultMuscleRadius = .005;
+    private int RESOLUTION_PHI=32;
+    private int RESOLUTION_THETA=32;
+    private int CYL_RESOLUTION=32;
+    
+    private double DEFAULT_MUSCLE_RADIUS = .003;
     // Maps between objects and vtkProp3D for going from Actor to Object and vice versa
     // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
     // e.g. Muscles, Models
@@ -197,8 +210,7 @@ public class SingleModelVisuals {
                     mapMarkers2Glyphs.put(owner, new Integer(index));
                     continue;
                 }
-                /** unused but may be restored later 4 wrap objects
-                vtkActor attachmentRep = new vtkLODActor();
+                vtkActor attachmentRep = new vtkActor();
                 attachmentRep.SetUserMatrix(m);
                 int geomcount = Dependent.countGeometry();
                 // Create actor for the dpendent
@@ -207,26 +219,26 @@ public class SingleModelVisuals {
                     //vtkActor dActor = new vtkActor();
                     AnalyticGeometry ag=null;
                     ag = AnalyticGeometry.dynamic_cast(g);
-                    if (ag != null){    
-                        Geometry.GeometryType analyticType = ag.getShape();
-                        if (analyticType == Geometry.GeometryType.Sphere){
-                            vtkSphereSource sphere = new vtkSphereSource();
-                            sphere.SetRadius(ag.getSphereRadius());
-                            double[] pos = new double[3];
-                            Dependent.getTransform().getPosition(pos);
-                            //linePoints.InsertPoint(pointCount++,
-                            //        pos[0], pos[1], pos[2]);
-                            sphere.SetCenter(pos);
-                            vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-                            mapper.SetInput(sphere.GetOutput());
+                    if (ag != null){  
+                        //System.out.println("Processing "+Dependent.getOwner().getName());
+                         vtkPolyData analyticPolyData = getPolyDataForAnalyticGeometry(ag);
+                         
+                         // Move rep to proper location 
+                         vtkTransformPolyDataFilter mover = new vtkTransformPolyDataFilter();
+                         vtkTransform moverTransform = new vtkTransform();
+                         moverTransform.SetMatrix(convertTransformToVtkMatrix4x4(Dependent.getTransform()));
+                         mover.SetInput(analyticPolyData);
+                         mover.SetTransform(moverTransform);
+                         vtkPolyDataMapper mapper = new vtkPolyDataMapper();
+                         mapper.SetInput(mover.GetOutput());
+                         
+                         //Dependent.getVisibleProperties().getColor(color);
+                         attachmentRep.GetProperty().SetColor(defaultWrapObjectColor);
 
-                            Dependent.getVisibleProperties().getColor(color);
-                            attachmentRep.GetProperty().SetColor(color);
-
-                            attachmentRep.SetMapper(mapper);
-                            //attachmentRep.AddPart(dActor);
-                            mapVtkObjects2Objects.put(attachmentRep, Dependent.getOwner());
-                        }
+                         attachmentRep.SetMapper(mapper);
+                         attachmentRep.GetProperty().SetRepresentationToWireframe();
+                         //attachmentRep.AddPart(dActor);
+                         mapVtkObjects2Objects.put(attachmentRep, Dependent.getOwner());
                     }
                     else {  // General geometry
                         // throw an exception for not implemented though should be identical
@@ -236,23 +248,10 @@ public class SingleModelVisuals {
                 //modelAssembly.AddPart(markersActor);
                 modelAssembly.AddPart(attachmentRep);
                 mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
-                 */
+                 
             }
         } //body
         modelAssembly.AddPart(markersRep.getVtkActor());
-        /*
-        // Mark origin.
-        // works but need to expose it properly.
-        vtkVectorText atext = new vtkVectorText();
-        atext.SetText("Origin");
-        vtkPolyDataMapper textMapper = new vtkPolyDataMapper();
-        textMapper.SetInput(atext.GetOutput());
-        vtkFollower textActor = new vtkFollower();
-        textActor.SetMapper(textMapper);
-        textActor.SetScale(0.1, 0.1, 0.1);
-        textActor.AddPosition(0., 0., 0.);
-        modelAssembly.AddPart(textActor);
-        */
         markersRep.setModified();
 
         /**
@@ -372,6 +371,7 @@ public class SingleModelVisuals {
             }
             // A displayer is found, get geometry
             int geomSize = actuatorDisplayer.countGeometry();
+            //System.out.println("Number of points for Actutor"+nextMuscle.getName()+"="+geomSize);
             if (geomSize > 0){
                 // Points are already in inertial frame
                 for(int i=0; i<geomSize; i++) {
@@ -737,14 +737,14 @@ public class SingleModelVisuals {
        markersRep.setShape(marker.GetOutput());
        // MusclePoints
        vtkSphereSource viaPoint=new vtkSphereSource();
-       viaPoint.SetRadius(defaultMuscleRadius/2);
+       viaPoint.SetRadius(DEFAULT_MUSCLE_RADIUS/2);
        viaPoint.SetCenter(0., 0., 0.);
        musclePointsRep.setColor(defaultMusclePointColor);
        musclePointsRep.setShape(viaPoint.GetOutput());
        musclePointsRep.scaleByVector();
        
        vtkCylinderSource muscleSegment=new vtkCylinderSource();
-       muscleSegment.SetRadius(defaultMuscleRadius);
+       muscleSegment.SetRadius(DEFAULT_MUSCLE_RADIUS);
        muscleSegment.SetHeight(1.0);
        muscleSegment.SetCenter(0.0, 0.0, 0.0);
        muscleSegment.CappingOff();
@@ -752,4 +752,133 @@ public class SingleModelVisuals {
        muscleSegmentsRep.setColor(defaultMuscleColor);
        muscleSegmentsRep.setShape(muscleSegment.GetOutput());
      }
+
+    /**
+     * Convert AnalyticGeometry object passed in to the corresponding vtk polyhedral representation.
+     * Transform is passed in as well since the way it applies to PolyData depends on source
+     */
+    private vtkPolyData getPolyDataForAnalyticGeometry(AnalyticGeometry ag) {
+       Geometry.GeometryType analyticType = ag.getShape();
+       boolean quadrants[] = new boolean[6];
+       ag.getQuadrants(quadrants);
+       double[] pos = new double[3];
+       if (analyticType == Geometry.GeometryType.Sphere){
+          vtkSphereSource sphere = new vtkSphereSource();
+          AnalyticSphere typed = AnalyticSphere.dynamic_cast(ag);
+          sphere.LatLongTessellationOn(); 
+          sphere.SetPhiResolution(RESOLUTION_PHI);
+          sphere.SetThetaResolution(RESOLUTION_THETA);
+          sphere.SetRadius(typed.getRadius());
+          if (ag.isPiece())
+            setQuadrants(quadrants, sphere);
+          return sphere.GetOutput();
+       }
+       else if (analyticType == Geometry.GeometryType.Ellipsoid){
+          vtkSphereSource sphere = new vtkSphereSource();
+          sphere.LatLongTessellationOn(); 
+          sphere.SetPhiResolution(RESOLUTION_PHI);
+          sphere.SetThetaResolution(RESOLUTION_THETA);
+          sphere.SetRadius(1.0);
+          if (ag.isPiece())
+            setQuadrants(quadrants, sphere);
+          
+          AnalyticEllipsoid typed = AnalyticEllipsoid.dynamic_cast(ag);
+          // Make a stretching transform to take the sphere into an ellipsoid
+          vtkTransformPolyDataFilter stretch = new vtkTransformPolyDataFilter();
+          vtkTransform stretchSphereToEllipsoid = new vtkTransform();
+          double[] params = new double[]{1.0, 1.0, 1.0};
+          typed.getEllipsoidParams(params);
+          stretchSphereToEllipsoid.Scale(params[0], params[1], params[2]);
+          stretch.SetTransform(stretchSphereToEllipsoid);
+          stretch.SetInputConnection(sphere.GetOutputPort());
+          return stretch.GetOutput();
+       }
+       else if (analyticType == Geometry.GeometryType.Cylinder){
+          vtkCylinderSource cylinder = new vtkCylinderSource();
+          cylinder.SetResolution(CYL_RESOLUTION);
+          AnalyticCylinder typed = AnalyticCylinder.dynamic_cast(ag);
+          double[] params = new double[]{1.0, 1.0};
+          typed.getCylinderParams(params);
+          //System.out.println("Processing cyl (r, l)"+params[0]+","+params[1]);
+          cylinder.SetRadius(params[0]);
+          cylinder.SetHeight(params[1]);
+          // Transform vtk cylinder (Y-axis aligned at origin) to match SIMM's along Z-axis at center
+          vtkTransformPolyDataFilter xformOriginDirsFilter = new vtkTransformPolyDataFilter();
+          vtkTransform xformOriginDirs = new vtkTransform();
+          xformOriginDirs.RotateX(90);
+          xformOriginDirsFilter.SetTransform(xformOriginDirs);
+          xformOriginDirsFilter.SetInputConnection(cylinder.GetOutputPort());
+          vtkPolyData full = xformOriginDirsFilter.GetOutput();
+          if (ag.isPiece())
+            return clipPolyData(quadrants, full);
+          else
+             return full;
+       }
+       else if (analyticType == Geometry.GeometryType.Torus){
+          vtkParametricTorus torus=new vtkParametricTorus();
+          vtkParametricFunctionSource torusSource = new vtkParametricFunctionSource();
+          torusSource.SetParametricFunction(torus);
+          vtkPolyDataMapper torusMapper=new vtkPolyDataMapper();
+          torusMapper.SetInputConnection(torusSource.GetOutputPort());
+
+          AnalyticTorus typed = AnalyticTorus.dynamic_cast(ag);
+          double[] params = new double[]{1.0, 1.0};
+          typed.getTorusParams(params);
+          //System.out.println("Processing torus (r1, r2)"+params[0]+","+params[1]);
+          torus.SetRingRadius(params[0]);
+          torus.SetCrossSectionRadius(params[1]);
+          vtkPolyData full = torusSource.GetOutput();
+          if (ag.isPiece())
+            return clipPolyData(quadrants, full);
+          else
+             return full;
+       }
+       return null;
+    }
+    /**
+     * Based on the array of quadrants, clip the wrap-object sphere/ellipsoid 
+     */
+   private void setQuadrants(final boolean quadrants[], final vtkSphereSource sphere) {
+      if (!quadrants[0]){ //TMIN ok
+         sphere.SetStartTheta(270.0);
+         sphere.SetEndTheta(90.0);
+      }
+      else if (!quadrants[1]){
+         sphere.SetStartTheta(90.0);
+         sphere.SetEndTheta(270.0);
+      }
+      else if (!quadrants[2]){
+        sphere.SetEndTheta(180.0);
+      }
+      else if (!quadrants[3]){  //Deltoid2 ok
+         sphere.SetStartTheta(180.0);
+      }
+      else if (!quadrants[4])   //DELThh ok
+        sphere.SetEndPhi(90.0);
+      else if (!quadrants[5])
+         sphere.SetStartPhi(90.0);
+   }
+
+   /** 
+    * Clip poly data of Cylinder, torus to proper half per passed in quadrants array
+    * only x, y are considered here as they are supported by the kinematics engine
+    */
+   private vtkPolyData clipPolyData(boolean[] quadrants, vtkPolyData full) {
+      vtkPlane cutPlane = new vtkPlane();
+      if (!quadrants[0])
+         cutPlane.SetNormal(1.0, 0.0, 0.0);
+      else if (!quadrants[1])
+         cutPlane.SetNormal(-1.0, 0.0, 0.0);
+      else if (!quadrants[2]) 
+         cutPlane.SetNormal(0.0, 1.0, 0.0);
+      else if (!quadrants[3])
+         cutPlane.SetNormal(0.0, -1.0, 0.0);
+      else  // do nothing
+         return full;
+      vtkClipPolyData clipper = new vtkClipPolyData();
+      clipper.SetClipFunction(cutPlane);
+      clipper.SetInput(full);
+      
+      return clipper.GetOutput();
+   }
 }

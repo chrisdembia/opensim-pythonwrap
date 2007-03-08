@@ -50,7 +50,7 @@ public class OpenSimBaseCanvas extends vtkPanel
         implements KeyListener {
     
     String defaultBackgroundColor="0.15, 0.15, 0.15";
-    int    numAAFrames;
+    int    numAAFrames=0;
     JPopupMenu settingsMenu = new JPopupMenu();
     CamerasMenu camerasMenu;
     

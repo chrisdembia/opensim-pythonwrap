@@ -27,7 +27,6 @@ package org.opensim.tracking;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
 import javax.swing.SwingUtilities;
 import org.openide.WizardDescriptor;
 import java.util.HashSet;

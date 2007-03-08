@@ -158,12 +158,4 @@ public class ControlLinear extends Control {
     opensimModelJNI.ControlLinear_filter(swigCPtr, this, aT);
   }
 
-  public static boolean isA(Control p) {
-    return opensimModelJNI.ControlLinear_isA(Control.getCPtr(p), p);
-  }
-
-  public static ControlLinear downcast(Control p) {
-    return new ControlLinear(opensimModelJNI.ControlLinear_downcast__SWIG_0(Control.getCPtr(p), p), false);
-  }
-
 }

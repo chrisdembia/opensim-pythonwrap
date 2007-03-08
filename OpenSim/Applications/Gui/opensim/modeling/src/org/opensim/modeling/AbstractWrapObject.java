@@ -106,6 +106,10 @@ public class AbstractWrapObject extends OpenSimObject {
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
+  public void updateGeometry() {
+    opensimModelJNI.AbstractWrapObject_updateGeometry(swigCPtr, this);
+  }
+
   public void peteTest() {
     opensimModelJNI.AbstractWrapObject_peteTest(swigCPtr, this);
   }

@@ -114,12 +114,4 @@ public class ControlConstant extends Control {
     opensimModelJNI.ControlConstant_setControlValueMax(swigCPtr, this, aT, aX);
   }
 
-  public static boolean isA(Control p) {
-    return opensimModelJNI.ControlConstant_isA(Control.getCPtr(p), p);
-  }
-
-  public static ControlConstant downcast(Control p) {
-    return new ControlConstant(opensimModelJNI.ControlConstant_downcast__SWIG_0(Control.getCPtr(p), p), false);
-  }
-
 }

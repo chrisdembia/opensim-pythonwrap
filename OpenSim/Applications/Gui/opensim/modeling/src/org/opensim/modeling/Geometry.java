@@ -59,6 +59,7 @@ public class Geometry {
     public final static GeometryType Cylinder = new GeometryType("Cylinder");
     public final static GeometryType Cone = new GeometryType("Cone");
     public final static GeometryType Ellipsoid = new GeometryType("Ellipsoid");
+    public final static GeometryType Torus = new GeometryType("Torus");
     public final static GeometryType Line = new GeometryType("Line");
     public final static GeometryType Arrow = new GeometryType("Arrow");
 
@@ -96,7 +97,7 @@ public class Geometry {
       swigNext = this.swigValue+1;
     }
 
-    private static GeometryType[] swigValues = { None, Sphere, Cylinder, Cone, Ellipsoid, Line, Arrow };
+    private static GeometryType[] swigValues = { None, Sphere, Cylinder, Cone, Ellipsoid, Torus, Line, Arrow };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

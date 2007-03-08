@@ -37,29 +37,16 @@ public class AnalyticGeometry extends Geometry {
     this(opensimModelJNI.new_AnalyticGeometry(aGeometricType.swigValue()), true);
   }
 
-  public double getSphereRadius() {
-    return opensimModelJNI.AnalyticGeometry_getSphereRadius(swigCPtr, this);
+  public void setQuadrants(boolean[] quadrants) {
+    opensimModelJNI.AnalyticGeometry_setQuadrants(swigCPtr, this, quadrants);
   }
 
-  public void setSphereRadius(double radius) {
-    opensimModelJNI.AnalyticGeometry_setSphereRadius(swigCPtr, this, radius);
+  public void getQuadrants(boolean[] quadrants) {
+    opensimModelJNI.AnalyticGeometry_getQuadrants(swigCPtr, this, quadrants);
   }
 
-  public void getCylinderParams(SWIGTYPE_p_double radius, SWIGTYPE_p_double height) {
-    opensimModelJNI.AnalyticGeometry_getCylinderParams(swigCPtr, this, SWIGTYPE_p_double.getCPtr(radius), SWIGTYPE_p_double.getCPtr(height));
-  }
-
-  public void getConeParams(SWIGTYPE_p_double baseRadius, SWIGTYPE_p_double topRadius, SWIGTYPE_p_double height) {
-    opensimModelJNI.AnalyticGeometry_getConeParams(swigCPtr, this, SWIGTYPE_p_double.getCPtr(baseRadius), SWIGTYPE_p_double.getCPtr(topRadius), SWIGTYPE_p_double.getCPtr(height));
-  }
-
-  public void getEllipsoidParams(SWIGTYPE_p_double radiusX, SWIGTYPE_p_double radiusY, SWIGTYPE_p_double radiusZ) {
-    opensimModelJNI.AnalyticGeometry_getEllipsoidParams(swigCPtr, this, SWIGTYPE_p_double.getCPtr(radiusX), SWIGTYPE_p_double.getCPtr(radiusY), SWIGTYPE_p_double.getCPtr(radiusZ));
-  }
-
-  public static AnalyticGeometry createSphere(double radius) {
-    long cPtr = opensimModelJNI.AnalyticGeometry_createSphere(radius);
-    return (cPtr == 0) ? null : new AnalyticGeometry(cPtr, false);
+  public boolean isPiece() {
+    return opensimModelJNI.AnalyticGeometry_isPiece(swigCPtr, this);
   }
 
   public static AnalyticGeometry dynamic_cast(Geometry geometry) {

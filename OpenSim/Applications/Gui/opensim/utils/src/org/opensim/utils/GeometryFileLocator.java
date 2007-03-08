@@ -41,6 +41,7 @@ import java.util.prefs.Preferences;
 public class GeometryFileLocator {
    
    static GeometryFileLocator locator;
+   static String geometryInstallationDirectory=".."+File.separator+"Models"+File.separator+"Geometry";
    /** Creates a new instance of GeometryFileLocator */
    public GeometryFileLocator() {
    }
@@ -54,9 +55,11 @@ public class GeometryFileLocator {
 
    public String getFullname(String modelFilePath, String bareFileName) {
       String candidate=modelFilePath+File.separator+bareFileName;
+      //System.out.println("Try:"+candidate);
       if (new File(candidate).exists())
          return candidate;
       candidate = modelFilePath+File.separator+"Geometry"+File.separator+bareFileName;
+      //System.out.println("Try:"+candidate);
       if (new File(candidate).exists())
          return candidate;
       String GeometryPath=Preferences.userNodeForPackage(TheApp.class).get("GeometryPath", ".");
@@ -68,10 +71,15 @@ public class GeometryFileLocator {
          while(tokenizer.hasMoreElements()){
                 String nextDir = tokenizer.nextToken();
                 candidate = nextDir+File.separator+bareFileName;
+               //System.out.println("Try:"+candidate);
                if (new File(candidate).exists())
                   return candidate;
          }
       }
+      // Either "GeometryPath" is unspecified or was searched and nothing was found, now try installation dir.
+      candidate= ".."+File.separator+"Models"+File.separator+"Geometry"+File.separator+bareFileName;
+      if (new File(candidate).exists())
+         return candidate;
       return null;
    }
    

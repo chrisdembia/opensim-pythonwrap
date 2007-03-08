@@ -118,6 +118,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
        imageFilter = new vtkWindowToImageFilter();
        imageFilter.SetMagnification(1);
        imageFilter.SetInput(rw);
+       imageFilter.ReadFrontBufferOff();
        imageFilter.Update();
        
        movieWriter.SetInputConnection(imageFilter.GetOutputPort());

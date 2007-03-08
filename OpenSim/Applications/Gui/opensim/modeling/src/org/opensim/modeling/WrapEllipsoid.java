@@ -75,11 +75,6 @@ public class WrapEllipsoid extends AbstractWrapObject {
     return opensimModelJNI.WrapEllipsoid_wrapLine(swigCPtr, this, ArrayDouble.getCPtr(aPoint1), aPoint1, ArrayDouble.getCPtr(aPoint2), aPoint2, MuscleWrap.getCPtr(aMuscleWrap), aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(aWrapResult), SWIGTYPE_p_bool.getCPtr(aFlag));
   }
 
-  public VisibleObject getDisplayer() {
-    long cPtr = opensimModelJNI.WrapEllipsoid_getDisplayer(swigCPtr, this);
-    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
-  }
-
   public void peteTest() {
     opensimModelJNI.WrapEllipsoid_peteTest(swigCPtr, this);
   }
