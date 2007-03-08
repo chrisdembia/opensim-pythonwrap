@@ -3,6 +3,7 @@ package org.opensim.tracking;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.Timer;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
@@ -10,7 +11,9 @@ import org.openide.util.HelpCtx;
 import org.opensim.modeling.AbstractModel;
 import org.opensim.modeling.IKTool;
 import org.opensim.modeling.SimtkAnimationCallback;
+import org.opensim.motionviewer.MotionsDB;
 import org.opensim.view.SingleModelVisuals;
+import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
 public class IKPanel  extends workflowWizardPanelBase{
@@ -119,8 +122,15 @@ public class IKPanel  extends workflowWizardPanelBase{
          timer.stop();
 
          progressHandle.finish();
-        
+        // Associate motion to model
         component.putClientProperty("Step_executed", Boolean.TRUE);
+        
+        // Load resulting motion and associate it with ik model
+        OpenSimDB.getInstance().setCurrentModel(ikModel);        
+        String ikFilePath = new File(ik.getDocumentFileName()).getParent();
+        String motionFilePath = ikFilePath+File.separator+ik.getIKTrialSet().get(0).getOutputMotionFilename();
+        if (new File(motionFilePath).exists())
+            MotionsDB.getInstance().loadMotionFile(motionFilePath);
         return false;
     }
     
