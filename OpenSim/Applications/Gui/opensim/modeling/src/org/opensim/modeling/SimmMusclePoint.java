@@ -79,9 +79,9 @@ public class SimmMusclePoint extends OpenSimObject {
     return opensimModelJNI.SimmMusclePoint_isActive(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_OpenSim__AbstractWrapObject getWrapObject() {
+  public AbstractWrapObject getWrapObject() {
     long cPtr = opensimModelJNI.SimmMusclePoint_getWrapObject(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__AbstractWrapObject(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractWrapObject(cPtr, false);
   }
 
   public void setup(AbstractModel aModel, AbstractSimmMuscle aMuscle) {

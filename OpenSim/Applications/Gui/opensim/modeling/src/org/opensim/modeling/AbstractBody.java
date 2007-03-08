@@ -100,14 +100,13 @@ public class AbstractBody extends OpenSimObject {
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
-  public SWIGTYPE_p_AbstractWrapObject getWrapObject(String aName) {
+  public AbstractWrapObject getWrapObject(String aName) {
     long cPtr = opensimModelJNI.AbstractBody_getWrapObject(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_AbstractWrapObject(cPtr, false);
+    return (cPtr == 0) ? null : new AbstractWrapObject(cPtr, false);
   }
 
-  public SWIGTYPE_p_WrapObjectSet getWrapObjectSet() {
-    long cPtr = opensimModelJNI.AbstractBody_getWrapObjectSet(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_WrapObjectSet(cPtr, false);
+  public WrapObjectSet getWrapObjectSet() {
+    return new WrapObjectSet(opensimModelJNI.AbstractBody_getWrapObjectSet(swigCPtr, this), false);
   }
 
   public void peteTest() {

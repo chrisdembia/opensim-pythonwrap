@@ -50,6 +50,11 @@ public class SimmMuscleViaPoint extends SimmMusclePoint {
     opensimModelJNI.SimmMuscleViaPoint_copyData(swigCPtr, this, SimmMuscleViaPoint.getCPtr(aPoint), aPoint);
   }
 
+  public static SimmMuscleViaPoint safeDownCast(OpenSimObject aObject) {
+    long cPtr = opensimModelJNI.SimmMuscleViaPoint_safeDownCast(OpenSimObject.getCPtr(aObject), aObject);
+    return (cPtr == 0) ? null : new SimmMuscleViaPoint(cPtr, false);
+  }
+
   public ArrayDouble getRange() {
     return new ArrayDouble(opensimModelJNI.SimmMuscleViaPoint_getRange(swigCPtr, this), false);
   }

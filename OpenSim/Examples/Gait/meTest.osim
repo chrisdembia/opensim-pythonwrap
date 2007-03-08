@@ -3,7 +3,32 @@
 	<angle_units> radians </angle_units>
 	<ActuatorSet>
 	<objects>
-		<SimmZajacHill name="glut_med1_r">
+        <GeneralizedForceAtv name="extensor">
+            <area> 1.0 </area>
+            <min_force> -10000.0 </min_force>
+            <max_force>  10000.0 </max_force>
+            <optimal_force> 4000.0 </optimal_force>
+            <qid> 1 </qid>
+            <rise_time> 0.010 </rise_time>
+            <fall_time> 0.050 </fall_time>
+        </GeneralizedForceAtv>
+   		<SimmZajacHill name="glut_med1_r">
+			<MuscleWrapSet>
+			<objects>
+				<MuscleWrap>
+					<wrap_object> TRI </wrap_object>
+					<range> -1 3 </range>
+				</MuscleWrap>
+				<MuscleWrap>
+					<wrap_object> TRIlonghh </wrap_object>
+					<method> hybrid </method>
+					<range> 2 -1 </range>
+				</MuscleWrap>
+				<MuscleWrap>
+					<wrap_object> TRIlongglen </wrap_object>
+				</MuscleWrap>
+			</objects>
+			</MuscleWrapSet>
 			<SimmMusclePointSet>
 			<objects>
 				<SimmMusclePoint>
@@ -13,6 +38,14 @@
 				<SimmMusclePoint>
 					<location>-0.021800000000 -0.011700000000 0.055500000000</location>
 					<body>femur_r</body>
+				</SimmMusclePoint>
+				<SimmMusclePoint>
+					<location>-0.021800000000 -0.011700000000 0.155500000000</location>
+					<body>femur_r</body>
+				</SimmMusclePoint>
+				<SimmMusclePoint>
+					<location>-0.021800000000 -0.011700000000 0.255500000000</location>
+					<body>tibia_r</body>
 				</SimmMusclePoint>
 			</objects>
 			</SimmMusclePointSet>
@@ -3472,6 +3505,24 @@
 					<VisibleObject name="">
 						<geometry_files> femur.vtp </geometry_files>
 					</VisibleObject>
+					<WrapObjectSet>
+					<objects>
+						<WrapEllipsoid name="TRIlonghh">
+							<dimensions> 0.03500000 0.02000000 0.02000000 </dimensions>
+							<active> true </active>
+							<xyz_body_rotation> 3.00161725 -0.85346600 2.57418611 </xyz_body_rotation>
+							<translation> -0.00780000 -0.00410000 -0.00140000 </translation>
+							<quadrant> z </quadrant>
+						</WrapEllipsoid>
+						<WrapCylinder name="TRI">
+							<radius> 0.01600000 </radius>
+							<length> 0.10000000 </length>
+							<active> true </active>
+							<xyz_body_rotation> -0.14014994 -0.00628319 0.15498524 </xyz_body_rotation>
+							<translation> 0.00280000 -0.29190000 -0.01190000 </translation>
+						</WrapCylinder>
+					</objects>
+					</WrapObjectSet>
 				</SimmBody>
 				<SimmBody name="tibia_r">
 					<mass>3.707500000000</mass>
@@ -3480,6 +3531,18 @@
 					<VisibleObject name="">
 						<geometry_files> tibia.vtp fibula.vtp </geometry_files>
 					</VisibleObject>
+					<WrapObjectSet>
+					<objects>
+						<WrapCylinder name="TRIlongglen">
+							<radius> 0.00300000 </radius>
+							<length> 0.10000000 </length>
+							<active> true </active>
+							<xyz_body_rotation> 1.37531945 -0.29461158 2.43595604 </xyz_body_rotation>
+							<translation> -0.03590000 -0.03090000 -0.01320000 </translation>
+							<quadrant> x </quadrant>
+						</WrapCylinder>
+					</objects>
+					</WrapObjectSet>
 				</SimmBody>
 				<SimmBody name="patella_r">
 					<mass>0.100000000000</mass>

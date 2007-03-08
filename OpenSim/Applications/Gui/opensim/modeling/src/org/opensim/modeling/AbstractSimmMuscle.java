@@ -55,12 +55,20 @@ public class AbstractSimmMuscle extends AbstractActuator {
     return new SimmMusclePointSet(opensimModelJNI.AbstractSimmMuscle_getAttachmentSet(swigCPtr, this), false);
   }
 
+  public ArraySimmMusclePoint getCurrentPath() {
+    return new ArraySimmMusclePoint(opensimModelJNI.AbstractSimmMuscle_getCurrentPath(swigCPtr, this), true);
+  }
+
   public int getMuscleModelIndex() {
     return opensimModelJNI.AbstractSimmMuscle_getMuscleModelIndex(swigCPtr, this);
   }
 
   public boolean getMuscleModelIndexUseDefault() {
     return opensimModelJNI.AbstractSimmMuscle_getMuscleModelIndexUseDefault(swigCPtr, this);
+  }
+
+  public MuscleWrapSet getWrapSet() {
+    return new MuscleWrapSet(opensimModelJNI.AbstractSimmMuscle_getWrapSet(swigCPtr, this), false);
   }
 
   public ArrayStr getGroupNames() {
@@ -88,8 +96,8 @@ public class AbstractSimmMuscle extends AbstractActuator {
     opensimModelJNI.AbstractSimmMuscle_applyWrapObjects(swigCPtr, this);
   }
 
-  public double _calc_muscle_length_change(SWIGTYPE_p_OpenSim__AbstractWrapObject wo, SWIGTYPE_p_OpenSim__WrapResult wr) {
-    return opensimModelJNI.AbstractSimmMuscle__calc_muscle_length_change(swigCPtr, this, SWIGTYPE_p_OpenSim__AbstractWrapObject.getCPtr(wo), SWIGTYPE_p_OpenSim__WrapResult.getCPtr(wr));
+  public double _calc_muscle_length_change(AbstractWrapObject wo, SWIGTYPE_p_OpenSim__WrapResult wr) {
+    return opensimModelJNI.AbstractSimmMuscle__calc_muscle_length_change(swigCPtr, this, AbstractWrapObject.getCPtr(wo), wo, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(wr));
   }
 
   public void calculateLength() {

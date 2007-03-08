@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.lang.String;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import java.text.NumberFormat;
 import org.openide.ErrorManager;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
@@ -17,12 +18,18 @@ import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.AbstractWrapObject;
+import org.opensim.modeling.SimmMuscleViaPoint;
+import org.opensim.modeling.WrapEllipsoid;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Property;
 import org.opensim.modeling.PropertySet;
+import org.opensim.modeling.SetMuscleWrap;
 import org.opensim.modeling.SetSimmMusclePoint;
+import org.opensim.modeling.ArraySimmMusclePoint;
+import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.SimmDarrylMuscle;
 import org.opensim.modeling.SimmMusclePoint;
 import org.opensim.modeling.SimmMusclePointSet;
@@ -39,11 +46,14 @@ final class MuscleEditorTopComponent extends TopComponent {
    
    private static MuscleEditorTopComponent instance;
    private AbstractActuator act; // the actuator that is currently shown in the Muscle Editor window
+   private AbstractActuator actSaved; // the state that gets restored when "reset" is pressed
    private static Dimension AttachmentsPref = new Dimension(100, 100);
    private static Dimension ForcePref = new Dimension(100, 100);
    private static Dimension DynamicPref = new Dimension(100, 100);
    private static Dimension FunctionsPref = new Dimension(100, 100);
    private static Dimension WrapPref = new Dimension(100, 100);
+   private static Dimension CurrentPathPref = new Dimension(100, 100);
+   private static String[] wrapMethodNames = new String[] {"midpoint", "axial", "hybrid"};
    
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
@@ -90,11 +100,13 @@ final class MuscleEditorTopComponent extends TopComponent {
       WrapMethodLabel = new javax.swing.JLabel();
       WrapRangeStartLabel = new javax.swing.JLabel();
       WrapRangeEndLabel = new javax.swing.JLabel();
-      jLabel10 = new javax.swing.JLabel();
-      jComboBox12 = new javax.swing.JComboBox();
-      jComboBox13 = new javax.swing.JComboBox();
-      jComboBox14 = new javax.swing.JComboBox();
-      jComboBox15 = new javax.swing.JComboBox();
+      CurrentPathTab = new javax.swing.JScrollPane();
+      CurrentPathPanel = new javax.swing.JPanel();
+      CurrentPathXLabel1 = new javax.swing.JLabel();
+      CurrentPathYLabel1 = new javax.swing.JLabel();
+      CurrentPathZLabel1 = new javax.swing.JLabel();
+      CurrentPathBodyLabel1 = new javax.swing.JLabel();
+      CurrentPathTypeLabel = new javax.swing.JLabel();
 
       org.openide.awt.Mnemonics.setLocalizedText(MuscleNameLabel, "name:");
 
@@ -105,17 +117,26 @@ final class MuscleEditorTopComponent extends TopComponent {
 
       MuscleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DarrylMuscle", "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-      ApplyButton.setBackground(new java.awt.Color(51, 153, 0));
       org.openide.awt.Mnemonics.setLocalizedText(ApplyButton, "apply");
+      ApplyButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ApplyButtonActionPerformed(evt);
+         }
+      });
 
-      ResetButton.setBackground(new java.awt.Color(204, 0, 0));
       org.openide.awt.Mnemonics.setLocalizedText(ResetButton, "reset");
       ResetButton.setMaximumSize(new java.awt.Dimension(63, 25));
       ResetButton.setMinimumSize(new java.awt.Dimension(63, 25));
       ResetButton.setPreferredSize(new java.awt.Dimension(63, 25));
+      ResetButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ResetButtonActionPerformed(evt);
+         }
+      });
 
       AttachmentsPanel.setLayout(null);
 
+      AttachmentsPanel.setBackground(new java.awt.Color(200, 200, 255));
       org.openide.awt.Mnemonics.setLocalizedText(AttachmentXLabel, "X");
       AttachmentsPanel.add(AttachmentXLabel);
       AttachmentXLabel.setBounds(50, 10, 8, 16);
@@ -142,63 +163,75 @@ final class MuscleEditorTopComponent extends TopComponent {
 
       ForcePanel.setLayout(null);
 
+      ForcePanel.setBackground(new java.awt.Color(200, 255, 200));
       ForceTab.setViewportView(ForcePanel);
 
       ParametersTabbedPanel.addTab("force", ForceTab);
 
       DynamicPanel.setLayout(null);
 
+      DynamicPanel.setBackground(new java.awt.Color(255, 200, 200));
       DynamicTab.setViewportView(DynamicPanel);
 
       ParametersTabbedPanel.addTab("dynamic", DynamicTab);
 
       FunctionsPanel.setLayout(null);
 
+      FunctionsPanel.setBackground(new java.awt.Color(200, 255, 255));
       FunctionsTab.setViewportView(FunctionsPanel);
 
       ParametersTabbedPanel.addTab("functions", FunctionsTab);
 
       WrapPanel.setLayout(null);
 
+      WrapPanel.setBackground(new java.awt.Color(255, 200, 255));
       org.openide.awt.Mnemonics.setLocalizedText(WrapObjectLabel, "object");
       WrapPanel.add(WrapObjectLabel);
-      WrapObjectLabel.setBounds(70, 50, 35, 16);
+      WrapObjectLabel.setBounds(70, 10, 35, 16);
 
       org.openide.awt.Mnemonics.setLocalizedText(WrapMethodLabel, "  method");
       WrapPanel.add(WrapMethodLabel);
-      WrapMethodLabel.setBounds(150, 50, 51, 16);
+      WrapMethodLabel.setBounds(170, 10, 51, 16);
 
       org.openide.awt.Mnemonics.setLocalizedText(WrapRangeStartLabel, "start");
       WrapPanel.add(WrapRangeStartLabel);
-      WrapRangeStartLabel.setBounds(220, 50, 26, 16);
+      WrapRangeStartLabel.setBounds(260, 10, 26, 16);
 
       org.openide.awt.Mnemonics.setLocalizedText(WrapRangeEndLabel, "end");
       WrapPanel.add(WrapRangeEndLabel);
-      WrapRangeEndLabel.setBounds(280, 50, 21, 16);
-
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel10, "1.");
-      WrapPanel.add(jLabel10);
-      jLabel10.setBounds(10, 80, 11, 16);
-
-      jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "wrap_obj23" }));
-      WrapPanel.add(jComboBox12);
-      jComboBox12.setBounds(34, 80, 110, 24);
-
-      jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "hybrid", "Item 1", "Item 2", "Item 3", "Item 4" }));
-      WrapPanel.add(jComboBox13);
-      jComboBox13.setBounds(150, 80, 63, 24);
-
-      jComboBox14.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "Item 1", "Item 2", "Item 3", "Item 4" }));
-      WrapPanel.add(jComboBox14);
-      jComboBox14.setBounds(220, 80, 40, 24);
-
-      jComboBox15.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "end", "Item 1", "Item 2", "Item 3", "Item 4" }));
-      WrapPanel.add(jComboBox15);
-      jComboBox15.setBounds(270, 80, 50, 24);
+      WrapRangeEndLabel.setBounds(320, 10, 21, 16);
 
       WrappingTab.setViewportView(WrapPanel);
 
       ParametersTabbedPanel.addTab("wrapping", WrappingTab);
+
+      CurrentPathPanel.setLayout(null);
+
+      CurrentPathPanel.setBackground(new java.awt.Color(255, 255, 200));
+      org.openide.awt.Mnemonics.setLocalizedText(CurrentPathXLabel1, "X");
+      CurrentPathPanel.add(CurrentPathXLabel1);
+      CurrentPathXLabel1.setBounds(50, 10, 8, 16);
+
+      org.openide.awt.Mnemonics.setLocalizedText(CurrentPathYLabel1, "Y");
+      CurrentPathPanel.add(CurrentPathYLabel1);
+      CurrentPathYLabel1.setBounds(110, 10, 7, 16);
+
+      org.openide.awt.Mnemonics.setLocalizedText(CurrentPathZLabel1, "Z");
+      CurrentPathPanel.add(CurrentPathZLabel1);
+      CurrentPathZLabel1.setBounds(170, 10, 7, 16);
+
+      org.openide.awt.Mnemonics.setLocalizedText(CurrentPathBodyLabel1, "body");
+      CurrentPathPanel.add(CurrentPathBodyLabel1);
+      CurrentPathBodyLabel1.setBounds(240, 10, 27, 16);
+
+      org.openide.awt.Mnemonics.setLocalizedText(CurrentPathTypeLabel, "type");
+      CurrentPathPanel.add(CurrentPathTypeLabel);
+      CurrentPathTypeLabel.setBounds(320, 10, 30, 16);
+      CurrentPathTypeLabel.getAccessibleContext().setAccessibleName("type");
+
+      CurrentPathTab.setViewportView(CurrentPathPanel);
+
+      ParametersTabbedPanel.addTab("current path", CurrentPathTab);
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
@@ -243,8 +276,20 @@ final class MuscleEditorTopComponent extends TopComponent {
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
-   
-   
+
+   private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
+      //act = actSaved;
+      setupComponent(act);
+   }//GEN-LAST:event_ResetButtonActionPerformed
+
+   private void ApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyButtonActionPerformed
+      act.setName(MuscleNameTextField.getText());
+      OpenSimDB.getInstance().setChanged();
+      NameChangedEvent evnt = new NameChangedEvent(act);
+      OpenSimDB.getInstance().notifyObservers(evnt);
+      actSaved = AbstractSimmMuscle.safeDownCast(act.copy());
+   }//GEN-LAST:event_ApplyButtonActionPerformed
+
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton ApplyButton;
    private javax.swing.JLabel AttachmentBodyLabel;
@@ -254,6 +299,13 @@ final class MuscleEditorTopComponent extends TopComponent {
    private javax.swing.JLabel AttachmentZLabel;
    private javax.swing.JPanel AttachmentsPanel;
    private javax.swing.JScrollPane AttachmentsTab;
+   private javax.swing.JLabel CurrentPathBodyLabel1;
+   private javax.swing.JPanel CurrentPathPanel;
+   private javax.swing.JScrollPane CurrentPathTab;
+   private javax.swing.JLabel CurrentPathTypeLabel;
+   private javax.swing.JLabel CurrentPathXLabel1;
+   private javax.swing.JLabel CurrentPathYLabel1;
+   private javax.swing.JLabel CurrentPathZLabel1;
    private javax.swing.JPanel DynamicPanel;
    private javax.swing.JScrollPane DynamicTab;
    private javax.swing.JPanel ForcePanel;
@@ -272,11 +324,6 @@ final class MuscleEditorTopComponent extends TopComponent {
    private javax.swing.JLabel WrapRangeEndLabel;
    private javax.swing.JLabel WrapRangeStartLabel;
    private javax.swing.JScrollPane WrappingTab;
-   private javax.swing.JComboBox jComboBox12;
-   private javax.swing.JComboBox jComboBox13;
-   private javax.swing.JComboBox jComboBox14;
-   private javax.swing.JComboBox jComboBox15;
-   private javax.swing.JLabel jLabel10;
    // End of variables declaration//GEN-END:variables
    
    /**
@@ -316,13 +363,20 @@ final class MuscleEditorTopComponent extends TopComponent {
       // Action shouldn't be available otherwise'
       OneMuscleNode muscleNode = (OneMuscleNode) selected[0];
       act = (AbstractActuator)muscleNode.getOpensimObject();
+      actSaved = AbstractSimmMuscle.safeDownCast(act.copy());
+      setupComponent(act);
+   }
+
+   public void setupComponent(AbstractActuator act) {
       MuscleNameTextField.setText(act.getName());
-      //PropertiesPanel.setBounds(80, 80, 400, 600);
       PropertySet ps = act.getPropertySet();
+      NumberFormat nf = NumberFormat.getInstance();
+      nf.setMaximumFractionDigits(5); // TODO
+      nf.setMinimumFractionDigits(5); // TODO
       int i, j;
       AbstractSimmMuscle asm = AbstractSimmMuscle.safeDownCast(act);
-      if (true) {
-         int dCount = 0, fCount = 0, iCount = 0;
+      if (asm != null) {
+         int dCount = 0, fCount = 0, iCount = 0, aCount = 0, wCount = 0;
          for (i = 0; i < ps.getSize(); i++) {
             Property p;
             try {
@@ -399,36 +453,157 @@ final class MuscleEditorTopComponent extends TopComponent {
          for (i = 0; i < bodies.getSize(); i++)
             bodyNames[i] = new String(bodies.get(i).getName());
          for (i = 0; i < ssmp.getSize(); i++) {
-            javax.swing.JLabel indexLabel = new javax.swing.JLabel();
+            boolean isWrapPoint = false;
+            if (ssmp.get(i).getWrapObject() != null)
+               isWrapPoint = true;
+            javax.swing.JLabel indexLabel = null;
+            if (isWrapPoint == false) {
+               indexLabel = new javax.swing.JLabel();
+               indexLabel.setText(String.valueOf(aCount+1));
+            }
             javax.swing.JTextField xField = new javax.swing.JTextField();
             javax.swing.JTextField yField = new javax.swing.JTextField();
             javax.swing.JTextField zField = new javax.swing.JTextField();
             javax.swing.JComboBox comboBox = new javax.swing.JComboBox();
             javax.swing.JCheckBox selectBox = new javax.swing.JCheckBox();
-            indexLabel.setText(String.valueOf(i+1));
             comboBox.setModel(new javax.swing.DefaultComboBoxModel(bodyNames));
-            SimmMusclePoint smp = ssmp.get(i);
-            String foo = smp.getBodyName();
-            int bar = findElement(bodyNames, ssmp.get(i).getBodyName());
             comboBox.setSelectedIndex(findElement(bodyNames, ssmp.get(i).getBodyName()));
-            comboBox.setEnabled(true);
+            if (isWrapPoint == true) {
+               xField.setEnabled(false);
+               yField.setEnabled(false);
+               zField.setEnabled(false);
+               comboBox.setEnabled(false);
+               selectBox.setEnabled(false);
+            }
+            int height = Y + i * 22;
+            int width = 60;
+            if (isWrapPoint == false)
+               indexLabel.setBounds(X - 20, height, 20, 21);
+            xField.setBounds(X, height, width, 21);
+            yField.setBounds(X + width + 1, height, width, 21);
+            zField.setBounds(X + 2*width + 2, height, width, 21);
+            comboBox.setBounds(X + 3*width + 10, height, 90, 21);
+            selectBox.setBounds(X + 3*width + 110, height, 21, 21);
+            xField.setText(nf.format(ssmp.get(i).getAttachment().getitem(0)));
+            yField.setText(nf.format(ssmp.get(i).getAttachment().getitem(1)));
+            zField.setText(nf.format(ssmp.get(i).getAttachment().getitem(2)));
+            if (isWrapPoint == false) {
+               AttachmentsPanel.add(indexLabel);
+               aCount++;
+            }
+            AttachmentsPanel.add(xField);
+            AttachmentsPanel.add(yField);
+            AttachmentsPanel.add(zField);
+            AttachmentsPanel.add(comboBox);
+            AttachmentsPanel.add(selectBox);
+         }
+
+         SetMuscleWrap smw = asm.getWrapSet();
+         String[] startPointNames = new String[aCount + 1];
+         startPointNames[0] = new String("start");
+         String[] endPointNames = new String[aCount + 1];
+         endPointNames[aCount] = new String("end");
+         for (i = 0; i < aCount; i++) {
+            startPointNames[i+1] = String.valueOf(i+1);
+            endPointNames[i] = String.valueOf(i+1);
+         }
+         int numWrapObjects = 0;
+         for (i = 0; i < bodies.getSize(); i++) {
+            numWrapObjects += bodies.get(i).getWrapObjectSet().getSize();
+         }
+         String[] wrapObjectNames = new String[numWrapObjects];
+         for (i = 0, wCount = 0; i < bodies.getSize(); i++) {
+            SetWrapObject wrapObjects = bodies.get(i).getWrapObjectSet();
+            for (j = 0; j < wrapObjects.getSize(); j++)
+               wrapObjectNames[wCount++] = new String(wrapObjects.get(j).getName());
+         }
+         for (i = 0; i < smw.getSize(); i++) {
+            boolean isEllipsoid = false;
+            AbstractWrapObject awo = smw.get(i).getWrapObject();
+            WrapEllipsoid we = WrapEllipsoid.safeDownCast(awo);
+            if (we != null)
+               isEllipsoid = true;
+            javax.swing.JLabel indexLabel = new javax.swing.JLabel();
+            javax.swing.JComboBox objComboBox = new javax.swing.JComboBox();
+            javax.swing.JComboBox methodComboBox = null;
+            if (isEllipsoid == true)
+               methodComboBox = new javax.swing.JComboBox();
+            javax.swing.JComboBox startComboBox = new javax.swing.JComboBox();
+            javax.swing.JComboBox endComboBox = new javax.swing.JComboBox();
+            indexLabel.setText(String.valueOf(i+1));
+            objComboBox.setModel(new javax.swing.DefaultComboBoxModel(wrapObjectNames));
+            objComboBox.setSelectedIndex(findElement(wrapObjectNames, smw.get(i).getWrapObjectName()));
+            if (isEllipsoid == true) {
+               methodComboBox.setModel(new javax.swing.DefaultComboBoxModel(wrapMethodNames));
+               methodComboBox.setSelectedIndex(findElement(wrapMethodNames, smw.get(i).getMethodName()));
+            }
+            startComboBox.setModel(new javax.swing.DefaultComboBoxModel(startPointNames));
+            int start = smw.get(i).getStartPoint();
+            if (start < 0)
+               startComboBox.setSelectedIndex(0);
+            else
+               startComboBox.setSelectedIndex(findElement(startPointNames, String.valueOf(start)));
+            endComboBox.setModel(new javax.swing.DefaultComboBoxModel(endPointNames));
+            int end = smw.get(i).getEndPoint();
+            if (end < 0)
+               endComboBox.setSelectedIndex(endComboBox.getItemCount()-1);
+            else
+               endComboBox.setSelectedIndex(findElement(endPointNames, String.valueOf(end)));
+            indexLabel.setBounds(10, 40 + i * 22, 20, 21);
+            objComboBox.setBounds(30, 40 + i * 22, 120, 21);
+            if (isEllipsoid == true)
+               methodComboBox.setBounds(160, 40 + i * 22, 80, 21);
+            startComboBox.setBounds(250, 40 + i * 22, 50, 21);
+            endComboBox.setBounds(310, 40 + i * 22, 50, 21);
+            WrapPanel.add(indexLabel);
+            WrapPanel.add(objComboBox);
+            if (isEllipsoid == true)
+               WrapPanel.add(methodComboBox);
+            WrapPanel.add(startComboBox);
+            WrapPanel.add(endComboBox);
+         }
+
+         // Put the points in the current path in the CurrentPath tab
+         ArraySimmMusclePoint asmp = asm.getCurrentPath();
+         for (i = 0; i < asmp.getSize(); i++) {
+            boolean isWrapPoint = false;
+            if (asmp.get(i).getWrapObject() != null)
+               isWrapPoint = true;
+            javax.swing.JLabel indexLabel = new javax.swing.JLabel();
+            javax.swing.JLabel xField = new javax.swing.JLabel();
+            javax.swing.JLabel yField = new javax.swing.JLabel();
+            javax.swing.JLabel zField = new javax.swing.JLabel();
+            javax.swing.JLabel bodyLabel = new javax.swing.JLabel();
+            javax.swing.JLabel typeLabel = new javax.swing.JLabel();
+            indexLabel.setText(String.valueOf(i+1));
+            xField.setText(nf.format(asmp.get(i).getAttachment().getitem(0)));
+            yField.setText(nf.format(asmp.get(i).getAttachment().getitem(1)));
+            zField.setText(nf.format(asmp.get(i).getAttachment().getitem(2)));
+            bodyLabel.setText(asmp.get(i).getBodyName());
+            if (isWrapPoint)
+               typeLabel.setText("wrap" + " (" + asmp.get(i).getWrapObject().getName() + ")");
+            else {
+               if (SimmMuscleViaPoint.safeDownCast(asmp.get(i)) == null)
+                  typeLabel.setText("fixed");
+               else
+                  typeLabel.setText("via");
+            }
+            X = 30;
+            Y = 40;
             int height = Y + i * 22;
             int width = 60;
             indexLabel.setBounds(X - 20, height, 20, 21);
             xField.setBounds(X, height, width, 21);
             yField.setBounds(X + width + 1, height, width, 21);
             zField.setBounds(X + 2*width + 2, height, width, 21);
-            comboBox.setBounds(X + 3*width + 10, height, 90, 21);
-            selectBox.setBounds(X + 3*width + 110, height, 21, 21);
-            xField.setText(String.valueOf(ssmp.get(i).getAttachment().getitem(0)));
-            yField.setText(String.valueOf(ssmp.get(i).getAttachment().getitem(1)));
-            zField.setText(String.valueOf(ssmp.get(i).getAttachment().getitem(2)));
-            AttachmentsPanel.add(indexLabel);
-            AttachmentsPanel.add(xField);
-            AttachmentsPanel.add(yField);
-            AttachmentsPanel.add(zField);
-            AttachmentsPanel.add(comboBox);
-            AttachmentsPanel.add(selectBox);
+            bodyLabel.setBounds(X + 3*width + 10, height, 90, 21);
+            typeLabel.setBounds(X + 3*width + 110, height, 120, 21);
+            CurrentPathPanel.add(indexLabel);
+            CurrentPathPanel.add(xField);
+            CurrentPathPanel.add(yField);
+            CurrentPathPanel.add(zField);
+            CurrentPathPanel.add(bodyLabel);
+            CurrentPathPanel.add(typeLabel);
          }
 
          AttachmentsPref.width = 350;
@@ -452,9 +627,14 @@ final class MuscleEditorTopComponent extends TopComponent {
          FunctionsPanel.revalidate();
 
          WrapPref.width = 350;
-         WrapPref.height = 30 + dCount * 22;
+         WrapPref.height = 60 + smw.getSize() * 22;
          WrapPanel.setPreferredSize(WrapPref);
          WrapPanel.revalidate();
+
+         CurrentPathPref.width = 400;
+         CurrentPathPref.height = Y + asmp.getSize() * 22;
+         CurrentPathPanel.setPreferredSize(AttachmentsPref);
+         CurrentPathPanel.revalidate();
       }
       
       this.revalidate();
@@ -474,10 +654,10 @@ final class MuscleEditorTopComponent extends TopComponent {
       return PREFERRED_ID;
    }
 
-   private int findElement(String[] bodyNames, String name) {
+   private int findElement(String[] nameList, String name) {
       int i;
-      for (i = 0; i < bodyNames.length; i++)
-         if (bodyNames[i].equals(name))
+      for (i = 0; i < nameList.length; i++)
+         if (nameList[i].equals(name))
             return i;
       return -1;
    }
