@@ -39955,8 +39955,8 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscleViaP
 }
 
 
-JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscleViaPoint_1getCoordinateName(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
+SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscleViaPoint_1getCoordinateName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
   OpenSim::SimmMuscleViaPoint *arg1 = (OpenSim::SimmMuscleViaPoint *) 0 ;
   std::string *result = 0 ;
   
@@ -39964,10 +39964,10 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmMuscleViaP
   (void)jcls;
   arg1 = *(OpenSim::SimmMuscleViaPoint **)&jarg1; 
   {
-    std::string &_result_ref = ((OpenSim::SimmMuscleViaPoint const *)arg1)->getCoordinateName();
+    std::string const &_result_ref = ((OpenSim::SimmMuscleViaPoint const *)arg1)->getCoordinateName();
     result = (std::string *) &_result_ref;
   }
-  *(std::string **)&jresult = result; 
+  jresult = jenv->NewStringUTF(result->c_str()); 
   return jresult;
 }
 
@@ -41245,7 +41245,7 @@ JNIEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractSimmMu
   (void)jenv;
   (void)jcls;
   arg1 = *(OpenSim::AbstractSimmMuscle **)&jarg1; 
-  result = ((OpenSim::AbstractSimmMuscle const *)arg1)->getCurrentPath();
+  result = (arg1)->getCurrentPath();
   *(OpenSim::Array<OpenSim::SimmMusclePoint * > **)&jresult = new OpenSim::Array<OpenSim::SimmMusclePoint * >((OpenSim::Array<OpenSim::SimmMusclePoint * > &)result); 
   return jresult;
 }

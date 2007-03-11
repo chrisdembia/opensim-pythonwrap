@@ -64,8 +64,8 @@ public class SimmMuscleViaPoint extends SimmMusclePoint {
     return (cPtr == 0) ? null : new AbstractCoordinate(cPtr, false);
   }
 
-  public SWIGTYPE_p_std__string getCoordinateName() {
-    return new SWIGTYPE_p_std__string(opensimModelJNI.SimmMuscleViaPoint_getCoordinateName(swigCPtr), false);
+  public String getCoordinateName() {
+    return opensimModelJNI.SimmMuscleViaPoint_getCoordinateName(swigCPtr, this);
   }
 
   public boolean isActive() {
