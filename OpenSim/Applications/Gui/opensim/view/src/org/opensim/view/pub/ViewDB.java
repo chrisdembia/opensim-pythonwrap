@@ -153,6 +153,10 @@ public final class ViewDB implements Observer {
                // Create visuals for the model
                SingleModelVisuals newModelVisual = new SingleModelVisuals(ev.getModel());
                SingleModelGuiElements newModelGuiElements = new SingleModelGuiElements(ev.getModel());
+               // add to map from models to modelVisuals so that it's accesisble
+               // thru tree picks
+               mapModelsToVisuals.put(ev.getModel(), newModelVisual);
+               mapModelsToGuiElements.put(ev.getModel(), newModelGuiElements);
                //From here on we're adding things to display so we better lock'
                
                if (sceneAssembly==null){
@@ -181,10 +185,6 @@ public final class ViewDB implements Observer {
                }
                // add to list of models
                getModelVisuals().add(newModelVisual);
-               // add to map from models to modelVisuals so that it's accesisble
-               // thru tree picks
-               mapModelsToVisuals.put(ev.getModel(), newModelVisual);
-               
                repaintAll();
             }
             if (ev.getOperation()==ModelEvent.Operation.Close){
@@ -195,6 +195,7 @@ public final class ViewDB implements Observer {
                // Remove from lists
                modelVisuals.remove(visModel);
                mapModelsToVisuals.remove(dModel);
+               mapModelsToGuiElements.remove(dModel);
                //StatusDisplayer.getDefault().setStatusText("mapModelsToVisuals size="+mapModelsToVisuals.size());
                updateCommandsVisibility();
             }
