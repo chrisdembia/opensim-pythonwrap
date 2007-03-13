@@ -75,6 +75,8 @@ public final class ViewDB implements Observer {
    // Map models to visuals
    private Hashtable<AbstractModel, SingleModelVisuals> mapModelsToVisuals =
            new Hashtable<AbstractModel, SingleModelVisuals>();
+   private Hashtable<AbstractModel, SingleModelGuiElements> mapModelsToGuiElements =
+           new Hashtable<AbstractModel, SingleModelGuiElements>();
    
    static ViewDB instance=null;
    // Window currently designated as current.
@@ -150,7 +152,7 @@ public final class ViewDB implements Observer {
                createNewViewWindowIfNeeded();
                // Create visuals for the model
                SingleModelVisuals newModelVisual = new SingleModelVisuals(ev.getModel());
-               
+               SingleModelGuiElements newModelGuiElements = new SingleModelGuiElements(ev.getModel());
                //From here on we're adding things to display so we better lock'
                
                if (sceneAssembly==null){
@@ -587,6 +589,13 @@ public final class ViewDB implements Observer {
     */
    public SingleModelVisuals getModelVisuals(AbstractModel aModel) {
       return mapModelsToVisuals.get(aModel);
+   }
+   
+   /**
+    * Get gui elements for passed in model
+    */
+   public SingleModelGuiElements getModelGuiElements(AbstractModel aModel) {
+      return mapModelsToGuiElements.get(aModel);
    }
    /**
     * This function is called from a timer thread that runs parallel to the simulation thread
