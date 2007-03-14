@@ -2,21 +2,12 @@ package org.opensim.tracking;
 
 import java.awt.Component;
 import java.io.IOException;
-import javax.swing.event.ChangeListener;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
-import org.opensim.modeling.ArrayDouble;
-import org.opensim.modeling.SimmIKSolverImpl;
-import org.opensim.modeling.SimmIKTrial;
-import org.opensim.modeling.SimmMarkerData;
 import org.opensim.modeling.SimmMarkerPlacer;
 import org.opensim.modeling.AbstractModel;
-import org.opensim.modeling.SimmMotionData;
+import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.SimmSubject;
 import org.opensim.modeling.SimtkAnimationCallback;
-import org.opensim.modeling.Storage;
-import org.opensim.utils.FileUtils;
 import org.opensim.view.FileOpenOsimModelAction;
 
 public class MarkerPlacementPanel  extends workflowWizardPanelBase{
@@ -63,6 +54,11 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
        AbstractModel model = descriptor.getScaledModel();
        SimmMarkerPlacer placer = subject.getMarkerPlacer();
        AbstractModel markerPlacementModel = model.clone();
+       // save coords
+       int nStates = model.getNumStates();
+       double[] saveStates = new double[nStates];
+       model.getDynamicsEngine().getConfiguration(saveStates);
+       
        markerPlacementModel.setName(model.getName()+"-MarkersPlaced");
        markerPlacementModel.setup();
        // Create a callback to update geometry
@@ -71,6 +67,10 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
           // @todo If output file is specified, associate it with scaledModel        
           //markerPlacementModel.setup();
           descriptor.setIKModel(markerPlacementModel);
+          // restore states
+          markerPlacementModel.getDynamicsEngine().setConfiguration(saveStates);
+          markerPlacementModel.getActuatorSet().updateGeometry();
+          
           boolean success=false;
           try {
              try {
