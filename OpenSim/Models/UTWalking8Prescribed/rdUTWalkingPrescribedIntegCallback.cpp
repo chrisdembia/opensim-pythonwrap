@@ -9,7 +9,7 @@
 //=============================================================================
 #include <iostream>
 #include <string>
-#include <OpenSim/Tools/rdMath.h>
+#include <OpenSim/Common/rdMath.h>
 #include <OpenSim/Simulation/Model/Model.h>
 #include "rdUTWalkingPrescribedIntegCallback.h"
 

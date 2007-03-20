@@ -10,10 +10,9 @@
 #include <string.h>
 #include <math.h>
 #include <float.h>
-#include <OpenSim/Tools/rdMath.h>
-#include <OpenSim/Simulation/Model/Body.h>
+#include <OpenSim/Common/rdMath.h>
 #include <OpenSim/Simulation/Model/Model.h>
-#include <OpenSim/Simulation/Model/Springs.h>
+#include <OpenSim/Actuators/Springs.h>
 #include <OpenSim/Simulation/SDFast/sdfast.h>
 #include "cgmalWalking01.h"
 

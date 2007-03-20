@@ -9,11 +9,10 @@
 //=============================================================================
 #include <string>
 #include <math.h>
-#include <OpenSim/Tools/rdTools.h>
-#include <OpenSim/Tools/rdMath.h>
-#include <OpenSim/Tools/Mtx.h>
-#include <OpenSim/Tools/Memory.h>
-#include <OpenSim/Simulation/Model/Springs.h>
+#include <OpenSim/Common/rdMath.h>
+#include <OpenSim/Common/Mtx.h>
+#include <OpenSim/Common/Memory.h>
+#include <OpenSim/Actuators/Springs.h>
 #include <OpenSim/Simulation/Model/Analysis.h>
 #include <OpenSim/Simulation/Model/IntegCallbackSet.h>
 #include <OpenSim/Simulation/Model/DerivCallbackSet.h>

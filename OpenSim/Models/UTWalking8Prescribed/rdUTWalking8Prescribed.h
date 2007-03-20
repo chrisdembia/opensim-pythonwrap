@@ -37,7 +37,6 @@
 //=============================================================================
 // INCLUDES
 //=============================================================================
-#include <OpenSim/Tools/rdTools.h>
 //#include <Storage.h>
 #include <OpenSim/Simulation/SDFast/rdSDFastDLL.h>
 #include <OpenSim/Simulation/SDFast/ActuatedModel_SDFast.h>
