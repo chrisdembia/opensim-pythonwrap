@@ -1,14 +1,16 @@
 SET(KIT gait23)
 SET(UKIT GAIT23)
 
-FILE(GLOB SOURCE_FILES *.cpp *.c ${OpenSim_SOURCE_DIR}/OpenSim/Models/SIMMPipeline/4.1/*.cpp ${OpenSim_SOURCE_DIR}/OpenSim/Models/SIMMPipeline/4.1/*.c)
+FILE(GLOB SOURCE_FILES *.cpp *.c ${OpenSim_SOURCE_DIR}/OpenSim/DynamicsEngines/SdfastEngine/SIMMPipeline/*.cpp ${OpenSim_SOURCE_DIR}/OpenSim/DynamicsEngines/SdfastEngine/SIMMPipeline/*.c)
 FILE(GLOB INCLUDE_FILES *.h)
 
-INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} ${XERCES_INCLUDE_DIR} ${OpenSim_SOURCE_DIR}/OpenSim/Models/SIMMPipeline/4.1)
+INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} ${XERCES_INCLUDE_DIR} ${OpenSim_SOURCE_DIR}/OpenSim/DynamicsEngines/SdfastEngine/SIMMPipeline)
 
-ADD_DEFINITIONS(-DSDFAST_ENGINE_EXPORTS -D_USRDLL)
+ADD_DEFINITIONS(-DOSIMSDFASTENGINE_EXPORTS -D_USRDLL)
 
-LINK_LIBRARIES(rdTools rdSimulation suAnalyses SdfastEngine)
+LINK_LIBRARIES(
+	debug osimSimulation_d optimized osimSimulation
+	debug osimSdfastEngine_d optimized osimSdfastEngine)
 
 ADD_LIBRARY(${KIT} SHARED ${SOURCE_FILES} ${INCLUDE_FILES}) 
 
