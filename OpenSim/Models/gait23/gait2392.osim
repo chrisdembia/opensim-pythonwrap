@@ -92,18 +92,18 @@
 	<ActuatorSet>
 	<objects>
 		<SimmDarrylMuscle name="glut_med1_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.040800000000 0.030400000000 0.120900000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.021800000000 -0.011700000000 0.055500000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>819.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.053500000000</optimal_fiber_length>
 			<tendon_slack_length>0.078000000000</tendon_slack_length>
@@ -112,18 +112,18 @@
 			<groups>R_hip_abd R_hip_flex R_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_med2_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.085500000000 0.044500000000 0.076600000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.025800000000 -0.005800000000 0.052700000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>573.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.084500000000</optimal_fiber_length>
 			<tendon_slack_length>0.053000000000</tendon_slack_length>
@@ -132,18 +132,18 @@
 			<groups>R_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_med3_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.122300000000 0.010500000000 0.064800000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.030900000000 -0.004700000000 0.051800000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>653.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.064600000000</optimal_fiber_length>
 			<tendon_slack_length>0.053000000000</tendon_slack_length>
@@ -152,18 +152,18 @@
 			<groups>R_hip_abd R_hip_exrot R_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_min1_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.046700000000 -0.008000000000 0.105600000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.007200000000 -0.010400000000 0.056000000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>270.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.068000000000</optimal_fiber_length>
 			<tendon_slack_length>0.016000000000</tendon_slack_length>
@@ -172,18 +172,18 @@
 			<groups>R_hip_abd R_hip_flex R_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_min2_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.063300000000 -0.006500000000 0.099100000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.009600000000 -0.010400000000 0.056000000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>285.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.056000000000</optimal_fiber_length>
 			<tendon_slack_length>0.026000000000</tendon_slack_length>
@@ -192,18 +192,18 @@
 			<groups>R_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_min3_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.083400000000 -0.006300000000 0.085600000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.013500000000 -0.008300000000 0.055000000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>323.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.038000000000</optimal_fiber_length>
 			<tendon_slack_length>0.051000000000</tendon_slack_length>
@@ -212,24 +212,24 @@
 			<groups>R_hip_abd R_hip_exrot R_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="semimem_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.119200000000 -0.097470000000 0.071510000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.034800000000 -0.035190000000 -0.018910000000</location>
 					<body>tibia_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-0.558505360638 0.174532925199</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>-0.027000000000 -0.047710000000 -0.019570000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1288.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.080000000000</optimal_fiber_length>
 			<tendon_slack_length>0.359000000000</tendon_slack_length>
@@ -238,32 +238,32 @@
 			<groups>R_hip_ext R_hip_add R_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="semiten_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.126350000000 -0.109880000000 0.060390000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.042030000000 -0.028590000000 -0.022770000000</location>
 					<body>tibia_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-0.331612557879 0.174532925199</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>-0.033220000000 -0.052820000000 -0.022880000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.011300000000 -0.074600000000 -0.024500000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.002700000000 -0.095600000000 -0.019300000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>410.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.201000000000</optimal_fiber_length>
 			<tendon_slack_length>0.255500000000</tendon_slack_length>
@@ -272,22 +272,22 @@
 			<groups>R_hip_ext R_hip_add R_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="bifemlh_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.125960000000 -0.102570000000 0.069440000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.030100000000 -0.036000000000 0.029430000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.023400000000 -0.056300000000 0.034300000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>896.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.109000000000</optimal_fiber_length>
 			<tendon_slack_length>0.326000000000</tendon_slack_length>
@@ -296,22 +296,22 @@
 			<groups>R_hip_ext R_hip_add R_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="bifemsh_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.005000000000 -0.211100000000 0.023400000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.030100000000 -0.036000000000 0.029430000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.023400000000 -0.056300000000 0.034300000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>804.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.173000000000</optimal_fiber_length>
 			<tendon_slack_length>0.089000000000</tendon_slack_length>
@@ -320,30 +320,30 @@
 			<groups>R_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="sar_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.015300000000 -0.001300000000 0.124200000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.003000000000 -0.356800000000 -0.042100000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.005600000000 -0.041900000000 -0.039900000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.006000000000 -0.058900000000 -0.038300000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.024300000000 -0.084000000000 -0.025200000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>156.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.520000000000</optimal_fiber_length>
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
@@ -352,18 +352,18 @@
 			<groups>R_hip_flex R_hip_abd R_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_long_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.031600000000 -0.083600000000 0.016900000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.005000000000 -0.211100000000 0.023400000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>627.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.138000000000</optimal_fiber_length>
 			<tendon_slack_length>0.110000000000</tendon_slack_length>
@@ -372,18 +372,18 @@
 			<groups>R_hip_add R_hip_ext R_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_brev_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.058700000000 -0.091500000000 0.016400000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.000900000000 -0.119600000000 0.029400000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>429.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.133000000000</optimal_fiber_length>
 			<tendon_slack_length>0.020000000000</tendon_slack_length>
@@ -392,18 +392,18 @@
 			<groups>R_hip_add R_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_mag1_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.073200000000 -0.117400000000 0.025500000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.004500000000 -0.121100000000 0.033900000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>381.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.087000000000</optimal_fiber_length>
 			<tendon_slack_length>0.060000000000</tendon_slack_length>
@@ -412,18 +412,18 @@
 			<groups>R_hip_ext R_hip_add </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_mag2_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.083100000000 -0.119200000000 0.030800000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.005400000000 -0.228500000000 0.022700000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>343.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.121000000000</optimal_fiber_length>
 			<tendon_slack_length>0.120000000000</tendon_slack_length>
@@ -432,18 +432,18 @@
 			<groups>R_hip_ext R_hip_add </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_mag3_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.111080000000 -0.114130000000 0.048820000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.007000000000 -0.383700000000 -0.026600000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>488.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.131000000000</optimal_fiber_length>
 			<tendon_slack_length>0.249000000000</tendon_slack_length>
@@ -452,26 +452,26 @@
 			<groups>R_hip_ext R_hip_add </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tfl_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.031100000000 0.021400000000 0.124100000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.029400000000 -0.099500000000 0.059700000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.005400000000 -0.404900000000 0.035700000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.006000000000 -0.048700000000 0.029700000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>233.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.095000000000</optimal_fiber_length>
 			<tendon_slack_length>0.425000000000</tendon_slack_length>
@@ -480,18 +480,18 @@
 			<groups>R_hip_abd R_hip_flex R_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="pect_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.043100000000 -0.076800000000 0.045100000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.012200000000 -0.082200000000 0.025300000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>266.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.033000000000</tendon_slack_length>
@@ -500,28 +500,28 @@
 			<groups>R_hip_add R_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="grac_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.074010000000 -0.118700000000 0.027940000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.026570000000 -0.031900000000 -0.037740000000</location>
 					<body>tibia_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-0.436332312999 0.174532925199</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>-0.019430000000 -0.051530000000 -0.035800000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.006000000000 -0.083600000000 -0.022800000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>162.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.352000000000</optimal_fiber_length>
 			<tendon_slack_length>0.126000000000</tendon_slack_length>
@@ -530,26 +530,26 @@
 			<groups>R_hip_add R_knee_bend R_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max1_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.119500000000 0.061200000000 0.070000000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.129100000000 0.001200000000 0.088600000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.045700000000 -0.024800000000 0.039200000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.027700000000 -0.056600000000 0.047000000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>573.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.142000000000</optimal_fiber_length>
 			<tendon_slack_length>0.125000000000</tendon_slack_length>
@@ -558,26 +558,26 @@
 			<groups>R_hip_ext R_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max2_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.134900000000 0.017600000000 0.056300000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.137600000000 -0.052000000000 0.091400000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.042600000000 -0.053000000000 0.029300000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.015600000000 -0.101600000000 0.041900000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>819.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.147000000000</optimal_fiber_length>
 			<tendon_slack_length>0.127000000000</tendon_slack_length>
@@ -586,26 +586,26 @@
 			<groups>R_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max3_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.155600000000 -0.031400000000 0.005800000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.152900000000 -0.105200000000 0.040300000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.029900000000 -0.104100000000 0.013500000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.006000000000 -0.141900000000 0.041100000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>552.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.144000000000</optimal_fiber_length>
 			<tendon_slack_length>0.145000000000</tendon_slack_length>
@@ -614,32 +614,32 @@
 			<groups>R_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="iliacus_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.067400000000 0.036500000000 0.085400000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.025800000000 -0.055000000000 0.081100000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.028800000000 -0.080500000000 0.081600000000</location>
 					<body>pelvis</body>
 					<coordinate>hip_flexion_r</coordinate>
 					<range>-1.570796326795 0.785398163397</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.001700000000 -0.054300000000 0.005700000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.019300000000 -0.062100000000 0.012900000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1073.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
@@ -648,32 +648,32 @@
 			<groups>R_hip_flex R_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="psoas_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.064700000000 0.088700000000 0.028900000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.023800000000 -0.057000000000 0.075900000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.028800000000 -0.080500000000 0.081600000000</location>
 					<body>pelvis</body>
 					<coordinate>hip_flexion_r</coordinate>
 					<range>-1.570796326795 0.785398163397</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.001600000000 -0.050700000000 0.003800000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.018800000000 -0.059700000000 0.010400000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1113.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.160000000000</tendon_slack_length>
@@ -682,18 +682,18 @@
 			<groups>R_hip_flex R_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="quad_fem_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.114300000000 -0.115100000000 0.052000000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.038100000000 -0.035900000000 0.036600000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>381.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.054000000000</optimal_fiber_length>
 			<tendon_slack_length>0.024000000000</tendon_slack_length>
@@ -702,18 +702,18 @@
 			<groups>R_hip_exrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="gem_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.113300000000 -0.082000000000 0.071400000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.014200000000 -0.003300000000 0.044300000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>164.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.024000000000</optimal_fiber_length>
 			<tendon_slack_length>0.039000000000</tendon_slack_length>
@@ -722,22 +722,22 @@
 			<groups>R_hip_exrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="peri_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.139600000000 0.000300000000 0.023500000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.119300000000 -0.027600000000 0.065700000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.014800000000 -0.003600000000 0.043700000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>444.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.026000000000</optimal_fiber_length>
 			<tendon_slack_length>0.115000000000</tendon_slack_length>
@@ -746,24 +746,24 @@
 			<groups>R_hip_exrot R_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="rect_fem_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.029500000000 -0.031100000000 0.096800000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>0.033400000000 -0.403000000000 0.001900000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-2.617993877991 -1.459967919293</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.012100000000 0.043700000000 -0.001000000000</location>
 					<body>patella_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1169.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.114000000000</optimal_fiber_length>
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
@@ -772,34 +772,34 @@
 			<groups>R_hip_flex R_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="vas_med_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.014000000000 -0.209900000000 0.018800000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.035600000000 -0.276900000000 0.000900000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>0.037000000000 -0.404800000000 -0.012500000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-2.617993877991 -1.210036770408</range>
-				</SimmMuscleViaPoint>
-				<SimmMuscleViaPoint>
+				</MuscleViaPoint>
+				<MuscleViaPoint>
 					<location>0.027400000000 -0.425500000000 -0.013100000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-2.617993877991 -1.780061304109</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.006300000000 0.044500000000 -0.017000000000</location>
 					<body>patella_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1294.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.089000000000</optimal_fiber_length>
 			<tendon_slack_length>0.126000000000</tendon_slack_length>
@@ -808,28 +808,28 @@
 			<groups>R_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="vas_int_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.029000000000 -0.192400000000 0.031000000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.033500000000 -0.208400000000 0.028500000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>0.034300000000 -0.403000000000 0.005500000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-2.617993877991 -1.419999879423</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.005800000000 0.048000000000 -0.000600000000</location>
 					<body>patella_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1365.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.087000000000</optimal_fiber_length>
 			<tendon_slack_length>0.136000000000</tendon_slack_length>
@@ -838,34 +838,34 @@
 			<groups>R_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="vas_lat_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.004800000000 -0.185400000000 0.034900000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.026900000000 -0.259100000000 0.040900000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>0.036100000000 -0.403000000000 0.020500000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-2.617993877991 -1.210036770408</range>
-				</SimmMuscleViaPoint>
-				<SimmMuscleViaPoint>
+				</MuscleViaPoint>
+				<MuscleViaPoint>
 					<location>0.025300000000 -0.424300000000 0.018400000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-2.617993877991 -1.920036710119</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.010300000000 0.042300000000 0.014100000000</location>
 					<body>patella_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1871.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.084000000000</optimal_fiber_length>
 			<tendon_slack_length>0.157000000000</tendon_slack_length>
@@ -874,24 +874,24 @@
 			<groups>R_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="med_gas_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.019000000000 -0.392900000000 -0.023500000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.030000000000 -0.402200000000 -0.025800000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-0.785398163397 0.174532925199</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.000000000000 0.031000000000 -0.005300000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1558.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.060000000000</optimal_fiber_length>
 			<tendon_slack_length>0.390000000000</tendon_slack_length>
@@ -900,24 +900,24 @@
 			<groups>R_knee_bend R_ankle_pf </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="lat_gas_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.022000000000 -0.394600000000 0.027200000000</location>
 					<body>femur_r</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.030000000000 -0.401800000000 0.027400000000</location>
 					<body>femur_r</body>
 					<coordinate>knee_angle_r</coordinate>
 					<range>-0.785398163397 0.174532925199</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.000000000000 0.031000000000 -0.005300000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>683.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.064000000000</optimal_fiber_length>
 			<tendon_slack_length>0.380000000000</tendon_slack_length>
@@ -926,18 +926,18 @@
 			<groups>R_knee_bend R_ankle_pf </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="soleus_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.002400000000 -0.153300000000 0.007100000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.000000000000 0.031000000000 -0.005300000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>3549.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.050000000000</optimal_fiber_length>
 			<tendon_slack_length>0.250000000000</tendon_slack_length>
@@ -946,26 +946,26 @@
 			<groups>R_ankle_pf </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tib_post_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.009400000000 -0.134800000000 0.001900000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.014400000000 -0.405100000000 -0.022900000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.041700000000 0.033400000000 -0.028600000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.077200000000 0.015900000000 -0.028100000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1588.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.031000000000</optimal_fiber_length>
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
@@ -974,42 +974,42 @@
 			<groups>R_ankle_pf R_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="flex_dig_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.008300000000 -0.204600000000 -0.001800000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.015400000000 -0.405100000000 -0.019600000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.043600000000 0.031500000000 -0.028000000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.070800000000 0.017600000000 -0.026300000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.165800000000 -0.008100000000 0.011600000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.001900000000 -0.007800000000 0.014700000000</location>
 					<body>toes_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.028500000000 -0.007100000000 0.021500000000</location>
 					<body>toes_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.044100000000 -0.006000000000 0.024200000000</location>
 					<body>toes_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>310.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.034000000000</optimal_fiber_length>
 			<tendon_slack_length>0.400000000000</tendon_slack_length>
@@ -1018,38 +1018,38 @@
 			<groups>R_ankle_pf R_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="flex_hal_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.007900000000 -0.233400000000 0.024400000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.018600000000 -0.407900000000 -0.017400000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.037400000000 0.027600000000 -0.024100000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.103800000000 0.006800000000 -0.025600000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.172600000000 -0.005300000000 -0.026900000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.015500000000 -0.006400000000 -0.026500000000</location>
 					<body>toes_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.056200000000 -0.010200000000 -0.018100000000</location>
 					<body>toes_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>322.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.043000000000</optimal_fiber_length>
 			<tendon_slack_length>0.380000000000</tendon_slack_length>
@@ -1058,22 +1058,22 @@
 			<groups>R_ankle_pf R_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tib_ant_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.017900000000 -0.162400000000 0.011500000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.032900000000 -0.395100000000 -0.017700000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.116600000000 0.017800000000 -0.030500000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>905.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.098000000000</optimal_fiber_length>
 			<tendon_slack_length>0.223000000000</tendon_slack_length>
@@ -1082,30 +1082,30 @@
 			<groups>R_ankle_df R_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="per_brev_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.007000000000 -0.264600000000 0.032500000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.019800000000 -0.418400000000 0.028300000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.014400000000 -0.429500000000 0.028900000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.047100000000 0.027000000000 0.023300000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.067700000000 0.021900000000 0.034300000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>435.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.050000000000</optimal_fiber_length>
 			<tendon_slack_length>0.161000000000</tendon_slack_length>
@@ -1114,38 +1114,38 @@
 			<groups>R_ankle_pf R_everter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="per_long_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.000500000000 -0.156800000000 0.036200000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.020700000000 -0.420500000000 0.028600000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.016200000000 -0.431900000000 0.028900000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.043800000000 0.023000000000 0.022100000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.068100000000 0.010600000000 0.028400000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.085200000000 0.006900000000 0.011800000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.120300000000 0.008500000000 -0.018400000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>943.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.049000000000</optimal_fiber_length>
 			<tendon_slack_length>0.345000000000</tendon_slack_length>
@@ -1154,22 +1154,22 @@
 			<groups>R_ankle_pf R_everter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="per_tert_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.001000000000 -0.280400000000 0.023100000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.022900000000 -0.406900000000 0.015900000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.085700000000 0.022800000000 0.029900000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>180.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.079000000000</optimal_fiber_length>
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
@@ -1178,34 +1178,34 @@
 			<groups>R_ankle_df R_everter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="ext_dig_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.003200000000 -0.138100000000 0.027600000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.028900000000 -0.400700000000 0.007200000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.092200000000 0.038800000000 -0.000100000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.161600000000 0.005500000000 0.013000000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.000300000000 0.004700000000 0.015300000000</location>
 					<body>toes_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.044300000000 -0.000400000000 0.025000000000</location>
 					<body>toes_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>512.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.102000000000</optimal_fiber_length>
 			<tendon_slack_length>0.345000000000</tendon_slack_length>
@@ -1214,38 +1214,38 @@
 			<groups>R_ankle_df R_everter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="ext_hal_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.001200000000 -0.176700000000 0.022800000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.032600000000 -0.398500000000 -0.008500000000</location>
 					<body>tibia_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.097000000000 0.038900000000 -0.021100000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.129300000000 0.030900000000 -0.025700000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.173400000000 0.013900000000 -0.028000000000</location>
 					<body>calcn_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.029800000000 0.004100000000 -0.024500000000</location>
 					<body>toes_r</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.056300000000 0.003400000000 -0.018600000000</location>
 					<body>toes_r</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>162.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.111000000000</optimal_fiber_length>
 			<tendon_slack_length>0.305000000000</tendon_slack_length>
@@ -1254,18 +1254,18 @@
 			<groups>R_ankle_df R_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_med1_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.040800000000 0.030400000000 -0.120900000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.021800000000 -0.011700000000 -0.055500000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>819.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.053500000000</optimal_fiber_length>
 			<tendon_slack_length>0.078000000000</tendon_slack_length>
@@ -1274,18 +1274,18 @@
 			<groups>L_hip_abd L_hip_flex L_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_med2_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.085500000000 0.044500000000 -0.076600000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.025800000000 -0.005800000000 -0.052700000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>573.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.084500000000</optimal_fiber_length>
 			<tendon_slack_length>0.053000000000</tendon_slack_length>
@@ -1294,18 +1294,18 @@
 			<groups>L_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_med3_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.122300000000 0.010500000000 -0.064800000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.030900000000 -0.004700000000 -0.051800000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>653.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.064600000000</optimal_fiber_length>
 			<tendon_slack_length>0.053000000000</tendon_slack_length>
@@ -1314,18 +1314,18 @@
 			<groups>L_hip_abd L_hip_exrot L_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_min1_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.046700000000 -0.008000000000 -0.105600000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.007200000000 -0.010400000000 -0.056000000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>270.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.068000000000</optimal_fiber_length>
 			<tendon_slack_length>0.016000000000</tendon_slack_length>
@@ -1334,18 +1334,18 @@
 			<groups>L_hip_abd L_hip_flex L_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_min2_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.063300000000 -0.006500000000 -0.099100000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.009600000000 -0.010400000000 -0.056000000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>285.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.056000000000</optimal_fiber_length>
 			<tendon_slack_length>0.026000000000</tendon_slack_length>
@@ -1354,18 +1354,18 @@
 			<groups>L_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_min3_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.083400000000 -0.006300000000 -0.085600000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.013500000000 -0.008300000000 -0.055000000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>323.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.038000000000</optimal_fiber_length>
 			<tendon_slack_length>0.051000000000</tendon_slack_length>
@@ -1374,24 +1374,24 @@
 			<groups>L_hip_abd L_hip_exrot L_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="semimem_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.119200000000 -0.097470000000 -0.071510000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.034800000000 -0.035190000000 0.018910000000</location>
 					<body>tibia_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-0.558505360638 0.174532925199</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>-0.027000000000 -0.047710000000 0.019570000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1288.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.080000000000</optimal_fiber_length>
 			<tendon_slack_length>0.359000000000</tendon_slack_length>
@@ -1400,32 +1400,32 @@
 			<groups>L_hip_ext L_hip_add L_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="semiten_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.126350000000 -0.109880000000 -0.060390000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.042030000000 -0.028590000000 0.022770000000</location>
 					<body>tibia_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-0.331612557879 0.174532925199</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>-0.033220000000 -0.052820000000 0.022880000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.011300000000 -0.074600000000 0.024500000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.002700000000 -0.095600000000 0.019300000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>410.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.201000000000</optimal_fiber_length>
 			<tendon_slack_length>0.255500000000</tendon_slack_length>
@@ -1434,22 +1434,22 @@
 			<groups>L_hip_ext L_hip_add L_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="bifemlh_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.125960000000 -0.102570000000 -0.069440000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.030100000000 -0.036000000000 -0.029430000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.023400000000 -0.056300000000 -0.034300000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>896.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.109000000000</optimal_fiber_length>
 			<tendon_slack_length>0.326000000000</tendon_slack_length>
@@ -1458,22 +1458,22 @@
 			<groups>L_hip_ext L_hip_add L_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="bifemsh_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.005000000000 -0.211100000000 -0.023400000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.030100000000 -0.036000000000 -0.029430000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.023400000000 -0.056300000000 -0.034300000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>804.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.173000000000</optimal_fiber_length>
 			<tendon_slack_length>0.089000000000</tendon_slack_length>
@@ -1482,30 +1482,30 @@
 			<groups>L_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="sar_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.015300000000 -0.001300000000 -0.124200000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.003000000000 -0.356800000000 0.042100000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.005600000000 -0.041900000000 0.039900000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.006000000000 -0.058900000000 0.038300000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.024300000000 -0.084000000000 0.025200000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>156.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.520000000000</optimal_fiber_length>
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
@@ -1514,18 +1514,18 @@
 			<groups>L_hip_flex L_hip_abd L_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_long_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.031600000000 -0.083600000000 -0.016900000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.005000000000 -0.211100000000 -0.023400000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>627.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.138000000000</optimal_fiber_length>
 			<tendon_slack_length>0.110000000000</tendon_slack_length>
@@ -1534,18 +1534,18 @@
 			<groups>L_hip_add L_hip_ext L_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_brev_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.058700000000 -0.091500000000 -0.016400000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.000900000000 -0.119600000000 -0.029400000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>429.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.133000000000</optimal_fiber_length>
 			<tendon_slack_length>0.020000000000</tendon_slack_length>
@@ -1554,18 +1554,18 @@
 			<groups>L_hip_add L_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_mag1_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.073200000000 -0.117400000000 -0.025500000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.004500000000 -0.121100000000 -0.033900000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>381.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.087000000000</optimal_fiber_length>
 			<tendon_slack_length>0.060000000000</tendon_slack_length>
@@ -1574,18 +1574,18 @@
 			<groups>L_hip_ext L_hip_add </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_mag2_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.083100000000 -0.119200000000 -0.030800000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.005400000000 -0.228500000000 -0.022700000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>343.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.121000000000</optimal_fiber_length>
 			<tendon_slack_length>0.120000000000</tendon_slack_length>
@@ -1594,18 +1594,18 @@
 			<groups>L_hip_ext L_hip_add </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_mag3_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.111080000000 -0.114130000000 -0.048820000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.007000000000 -0.383700000000 0.026600000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>488.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.131000000000</optimal_fiber_length>
 			<tendon_slack_length>0.249000000000</tendon_slack_length>
@@ -1614,26 +1614,26 @@
 			<groups>L_hip_ext L_hip_add </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tfl_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.031100000000 0.021400000000 -0.124100000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.029400000000 -0.099500000000 -0.059700000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.005400000000 -0.404900000000 -0.035700000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.006000000000 -0.048700000000 -0.029700000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>233.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.095000000000</optimal_fiber_length>
 			<tendon_slack_length>0.425000000000</tendon_slack_length>
@@ -1642,18 +1642,18 @@
 			<groups>L_hip_abd L_hip_flex L_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="pect_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.043100000000 -0.076800000000 -0.045100000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.012200000000 -0.082200000000 -0.025300000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>266.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.033000000000</tendon_slack_length>
@@ -1662,28 +1662,28 @@
 			<groups>L_hip_add L_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="grac_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.074010000000 -0.118700000000 -0.027940000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.026570000000 -0.031900000000 0.037740000000</location>
 					<body>tibia_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-0.436332312999 0.174532925199</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>-0.019430000000 -0.051530000000 0.035800000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.006000000000 -0.083600000000 0.022800000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>162.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.352000000000</optimal_fiber_length>
 			<tendon_slack_length>0.126000000000</tendon_slack_length>
@@ -1692,26 +1692,26 @@
 			<groups>L_hip_add L_knee_bend L_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max1_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.119500000000 0.061200000000 -0.070000000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.129100000000 0.001200000000 -0.088600000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.045700000000 -0.024800000000 -0.039200000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.027700000000 -0.056600000000 -0.047000000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>573.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.142000000000</optimal_fiber_length>
 			<tendon_slack_length>0.125000000000</tendon_slack_length>
@@ -1720,26 +1720,26 @@
 			<groups>L_hip_ext L_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max2_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.134900000000 0.017600000000 -0.056300000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.137600000000 -0.052000000000 -0.091400000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.042600000000 -0.053000000000 -0.029300000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.015600000000 -0.101600000000 -0.041900000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>819.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.147000000000</optimal_fiber_length>
 			<tendon_slack_length>0.127000000000</tendon_slack_length>
@@ -1748,26 +1748,26 @@
 			<groups>L_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max3_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.155600000000 -0.031400000000 -0.005800000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.152900000000 -0.105200000000 -0.040300000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.029900000000 -0.104100000000 -0.013500000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.006000000000 -0.141900000000 -0.041100000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>552.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.144000000000</optimal_fiber_length>
 			<tendon_slack_length>0.145000000000</tendon_slack_length>
@@ -1776,32 +1776,32 @@
 			<groups>L_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="iliacus_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.067400000000 0.036500000000 -0.085400000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.025800000000 -0.055000000000 -0.081100000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.028800000000 -0.080500000000 -0.081600000000</location>
 					<body>pelvis</body>
 					<coordinate>hip_flexion_l</coordinate>
 					<range>-1.570796326795 0.785398163397</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.001700000000 -0.054300000000 -0.005700000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.019300000000 -0.062100000000 -0.012900000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1073.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
@@ -1810,32 +1810,32 @@
 			<groups>L_hip_flex L_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="psoas_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.064700000000 0.088700000000 -0.028900000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.023800000000 -0.057000000000 -0.075900000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.028800000000 -0.080500000000 -0.081600000000</location>
 					<body>pelvis</body>
 					<coordinate>hip_flexion_l</coordinate>
 					<range>-1.570796326795 0.785398163397</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.001600000000 -0.050700000000 -0.003800000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.018800000000 -0.059700000000 -0.010400000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1113.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.160000000000</tendon_slack_length>
@@ -1844,18 +1844,18 @@
 			<groups>L_hip_flex L_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="quad_fem_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.114300000000 -0.115100000000 -0.052000000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.038100000000 -0.035900000000 -0.036600000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>381.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.054000000000</optimal_fiber_length>
 			<tendon_slack_length>0.024000000000</tendon_slack_length>
@@ -1864,18 +1864,18 @@
 			<groups>L_hip_exrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="gem_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.113300000000 -0.082000000000 -0.071400000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.014200000000 -0.003300000000 -0.044300000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>164.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.024000000000</optimal_fiber_length>
 			<tendon_slack_length>0.039000000000</tendon_slack_length>
@@ -1884,22 +1884,22 @@
 			<groups>L_hip_exrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="peri_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.139600000000 0.000300000000 -0.023500000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.119300000000 -0.027600000000 -0.065700000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.014800000000 -0.003600000000 -0.043700000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>444.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.026000000000</optimal_fiber_length>
 			<tendon_slack_length>0.115000000000</tendon_slack_length>
@@ -1908,24 +1908,24 @@
 			<groups>L_hip_exrot L_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="rect_fem_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.029500000000 -0.031100000000 -0.096800000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>0.033400000000 -0.403000000000 -0.001900000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-2.617993877991 -1.459967919293</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.012100000000 0.043700000000 0.001000000000</location>
 					<body>patella_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1169.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.114000000000</optimal_fiber_length>
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
@@ -1934,34 +1934,34 @@
 			<groups>L_hip_flex L_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="vas_med_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.014000000000 -0.209900000000 -0.018800000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.035600000000 -0.276900000000 -0.000900000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>0.037000000000 -0.404800000000 0.012500000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-2.617993877991 -1.210036770408</range>
-				</SimmMuscleViaPoint>
-				<SimmMuscleViaPoint>
+				</MuscleViaPoint>
+				<MuscleViaPoint>
 					<location>0.027400000000 -0.425500000000 0.013100000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-2.617993877991 -1.780061304109</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.006300000000 0.044500000000 0.017000000000</location>
 					<body>patella_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1294.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.089000000000</optimal_fiber_length>
 			<tendon_slack_length>0.126000000000</tendon_slack_length>
@@ -1970,28 +1970,28 @@
 			<groups>L_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="vas_int_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.029000000000 -0.192400000000 -0.031000000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.033500000000 -0.208400000000 -0.028500000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>0.034300000000 -0.403000000000 -0.005500000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-2.617993877991 -1.419999879423</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.005800000000 0.048000000000 0.000600000000</location>
 					<body>patella_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1365.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.087000000000</optimal_fiber_length>
 			<tendon_slack_length>0.136000000000</tendon_slack_length>
@@ -2000,34 +2000,34 @@
 			<groups>L_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="vas_lat_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.004800000000 -0.185400000000 -0.034900000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.026900000000 -0.259100000000 -0.040900000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>0.036100000000 -0.403000000000 -0.020500000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-2.617993877991 -1.210036770408</range>
-				</SimmMuscleViaPoint>
-				<SimmMuscleViaPoint>
+				</MuscleViaPoint>
+				<MuscleViaPoint>
 					<location>0.025300000000 -0.424300000000 -0.018400000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-2.617993877991 -1.920036710119</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.010300000000 0.042300000000 -0.014100000000</location>
 					<body>patella_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1871.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.084000000000</optimal_fiber_length>
 			<tendon_slack_length>0.157000000000</tendon_slack_length>
@@ -2036,24 +2036,24 @@
 			<groups>L_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="med_gas_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.019000000000 -0.392900000000 0.023500000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.030000000000 -0.402200000000 0.025800000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-0.785398163397 0.174532925199</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.000000000000 0.031000000000 0.005300000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1558.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.060000000000</optimal_fiber_length>
 			<tendon_slack_length>0.390000000000</tendon_slack_length>
@@ -2062,24 +2062,24 @@
 			<groups>L_knee_bend L_ankle_pf </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="lat_gas_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.022000000000 -0.394600000000 -0.027200000000</location>
 					<body>femur_l</body>
-				</SimmMusclePoint>
-				<SimmMuscleViaPoint>
+				</MusclePoint>
+				<MuscleViaPoint>
 					<location>-0.030000000000 -0.401800000000 -0.027400000000</location>
 					<body>femur_l</body>
 					<coordinate>knee_angle_l</coordinate>
 					<range>-0.785398163397 0.174532925199</range>
-				</SimmMuscleViaPoint>
-				<SimmMusclePoint>
+				</MuscleViaPoint>
+				<MusclePoint>
 					<location>0.000000000000 0.031000000000 0.005300000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>683.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.064000000000</optimal_fiber_length>
 			<tendon_slack_length>0.380000000000</tendon_slack_length>
@@ -2088,18 +2088,18 @@
 			<groups>L_knee_bend L_ankle_pf </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="soleus_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.002400000000 -0.153300000000 -0.007100000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.000000000000 0.031000000000 0.005300000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>3549.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.050000000000</optimal_fiber_length>
 			<tendon_slack_length>0.250000000000</tendon_slack_length>
@@ -2108,26 +2108,26 @@
 			<groups>L_ankle_pf </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tib_post_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.009400000000 -0.134800000000 -0.001900000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.014400000000 -0.405100000000 0.022900000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.041700000000 0.033400000000 0.028600000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.077200000000 0.015900000000 0.028100000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>1588.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.031000000000</optimal_fiber_length>
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
@@ -2136,42 +2136,42 @@
 			<groups>L_ankle_pf L_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="flex_dig_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.008300000000 -0.204600000000 0.001800000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.015400000000 -0.405100000000 0.019600000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.043600000000 0.031500000000 0.028000000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.070800000000 0.017600000000 0.026300000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.165800000000 -0.008100000000 -0.011600000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.001900000000 -0.007800000000 -0.014700000000</location>
 					<body>toes_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.028500000000 -0.007100000000 -0.021500000000</location>
 					<body>toes_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.044100000000 -0.006000000000 -0.024200000000</location>
 					<body>toes_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>310.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.034000000000</optimal_fiber_length>
 			<tendon_slack_length>0.400000000000</tendon_slack_length>
@@ -2180,38 +2180,38 @@
 			<groups>L_ankle_pf L_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="flex_hal_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.007900000000 -0.233400000000 -0.024400000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.018600000000 -0.407900000000 0.017400000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.037400000000 0.027600000000 0.024100000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.103800000000 0.006800000000 0.025600000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.172600000000 -0.005300000000 0.026900000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.015500000000 -0.006400000000 0.026500000000</location>
 					<body>toes_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.056200000000 -0.010200000000 0.018100000000</location>
 					<body>toes_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>322.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.043000000000</optimal_fiber_length>
 			<tendon_slack_length>0.380000000000</tendon_slack_length>
@@ -2220,22 +2220,22 @@
 			<groups>L_ankle_pf L_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tib_ant_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.017900000000 -0.162400000000 -0.011500000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.032900000000 -0.395100000000 0.017700000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.116600000000 0.017800000000 0.030500000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>905.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.098000000000</optimal_fiber_length>
 			<tendon_slack_length>0.223000000000</tendon_slack_length>
@@ -2244,30 +2244,30 @@
 			<groups>L_ankle_df L_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="per_brev_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.007000000000 -0.264600000000 -0.032500000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.019800000000 -0.418400000000 -0.028300000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.014400000000 -0.429500000000 -0.028900000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.047100000000 0.027000000000 -0.023300000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.067700000000 0.021900000000 -0.034300000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>435.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.050000000000</optimal_fiber_length>
 			<tendon_slack_length>0.161000000000</tendon_slack_length>
@@ -2276,38 +2276,38 @@
 			<groups>L_ankle_pf L_everter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="per_long_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.000500000000 -0.156800000000 -0.036200000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.020700000000 -0.420500000000 -0.028600000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.016200000000 -0.431900000000 -0.028900000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.043800000000 0.023000000000 -0.022100000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.068100000000 0.010600000000 -0.028400000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.085200000000 0.006900000000 -0.011800000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.120300000000 0.008500000000 0.018400000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>943.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.049000000000</optimal_fiber_length>
 			<tendon_slack_length>0.345000000000</tendon_slack_length>
@@ -2316,22 +2316,22 @@
 			<groups>L_ankle_pf L_everter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="per_tert_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.001000000000 -0.280400000000 -0.023100000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.022900000000 -0.406900000000 -0.015900000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.085700000000 0.022800000000 -0.029900000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>180.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.079000000000</optimal_fiber_length>
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
@@ -2340,34 +2340,34 @@
 			<groups>L_ankle_df L_everter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="ext_dig_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.003200000000 -0.138100000000 -0.027600000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.028900000000 -0.400700000000 -0.007200000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.092200000000 0.038800000000 0.000100000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.161600000000 0.005500000000 -0.013000000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.000300000000 0.004700000000 -0.015300000000</location>
 					<body>toes_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.044300000000 -0.000400000000 -0.025000000000</location>
 					<body>toes_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>512.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.102000000000</optimal_fiber_length>
 			<tendon_slack_length>0.345000000000</tendon_slack_length>
@@ -2376,38 +2376,38 @@
 			<groups>L_ankle_df L_everter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="ext_hal_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>0.001200000000 -0.176700000000 -0.022800000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.032600000000 -0.398500000000 0.008500000000</location>
 					<body>tibia_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.097000000000 0.038900000000 0.021100000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.129300000000 0.030900000000 0.025700000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.173400000000 0.013900000000 0.028000000000</location>
 					<body>calcn_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.029800000000 0.004100000000 0.024500000000</location>
 					<body>toes_l</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.056300000000 0.003400000000 0.018600000000</location>
 					<body>toes_l</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>162.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.111000000000</optimal_fiber_length>
 			<tendon_slack_length>0.305000000000</tendon_slack_length>
@@ -2416,18 +2416,18 @@
 			<groups>L_ankle_df L_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="ercspn_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.140000000000 0.043900000000 0.043600000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.055000000000 0.110000000000 0.024100000000</location>
 					<body>torso</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>2500.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.120000000000</optimal_fiber_length>
 			<tendon_slack_length>0.030000000000</tendon_slack_length>
@@ -2436,18 +2436,18 @@
 			<groups>back_ext back_rlb back_introt </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="ercspn_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.140000000000 0.043900000000 -0.043600000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>-0.055000000000 0.110000000000 -0.024100000000</location>
 					<body>torso</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>2500.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.120000000000</optimal_fiber_length>
 			<tendon_slack_length>0.030000000000</tendon_slack_length>
@@ -2456,18 +2456,18 @@
 			<groups>back_ext back_llb back_extrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="intobl_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.040000000000 0.070000000000 0.115700000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.070000000000 0.160000000000 0.015000000000</location>
 					<body>torso</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>900.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
@@ -2476,18 +2476,18 @@
 			<groups>back_introt back_flex back_rlb </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="intobl_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.040000000000 0.070000000000 -0.115700000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.070000000000 0.160000000000 -0.015000000000</location>
 					<body>torso</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>900.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.100000000000</optimal_fiber_length>
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
@@ -2496,18 +2496,18 @@
 			<groups>back_extrot back_flex back_llb </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="extobl_r">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.030000000000 -0.063600000000 0.010000000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.065000000000 0.110000000000 0.110000000000</location>
 					<body>torso</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>900.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.120000000000</optimal_fiber_length>
 			<tendon_slack_length>0.140000000000</tendon_slack_length>
@@ -2516,18 +2516,18 @@
 			<groups>back_extrot back_flex back_rlb </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="extobl_l">
-			<SimmMusclePointSet>
+			<MusclePointSet>
 			<objects>
-				<SimmMusclePoint>
+				<MusclePoint>
 					<location>-0.030000000000 -0.063600000000 -0.010000000000</location>
 					<body>pelvis</body>
-				</SimmMusclePoint>
-				<SimmMusclePoint>
+				</MusclePoint>
+				<MusclePoint>
 					<location>0.065000000000 0.110000000000 -0.110000000000</location>
 					<body>torso</body>
-				</SimmMusclePoint>
+				</MusclePoint>
 			</objects>
-			</SimmMusclePointSet>
+			</MusclePointSet>
 			<max_isometric_force>900.000000000000</max_isometric_force>
 			<optimal_fiber_length>0.120000000000</optimal_fiber_length>
 			<tendon_slack_length>0.140000000000</tendon_slack_length>
