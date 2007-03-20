@@ -3,21 +3,21 @@
 specified marker pairs.  The ratio between the averaged distance to the
 distance in the generic model is then used to scale each specified segment
 in the specified axis directions (e.g., X Y Z).-->
-<SimmMeasurementSet name="gait2392">
+<MeasurementSet name="gait2392">
 	<objects>
-		<SimmMeasurement name="torso">
+		<Measurement name="torso">
 			<!--Flag to turn on and off scaling for this measurement.-->
 			<apply> true </apply>
 			<!--Set of marker pairs used to determine the scale factors.-->
-			<SimmMarkerPairSet name="">
+			<MarkerPairSet name="">
 				<objects>
-					<SimmMarkerPair name="">
+					<MarkerPair name="">
 						<!--Names of two markers, the distance between which is used to compute a
 						    body scale factor.-->
 						<markers> V.Sacral Top.Head </markers>
-					</SimmMarkerPair>
+					</MarkerPair>
 				</objects>
-			</SimmMarkerPairSet>
+			</MarkerPairSet>
 			<!--Set of bodies to be scaled by this measurement.-->
 			<BodyScaleSet name="">
 				<objects>
@@ -28,19 +28,19 @@ in the specified axis directions (e.g., X Y Z).-->
 					</BodyScale>
 				</objects>
 			</BodyScaleSet>
-		</SimmMeasurement>
+		</Measurement>
 		
-		<SimmMeasurement name="pelvis">
+		<Measurement name="pelvis">
 			<!--Flag to turn on and off scaling for this measurement.-->
 			<apply> true </apply>
 			<!--Set of marker pairs used to determine the scale factors.-->
-			<SimmMarkerPairSet>
+			<MarkerPairSet>
 				<objects>
-					<SimmMarkerPair>
+					<MarkerPair>
 						<markers> R.ASIS L.ASIS </markers>
-					</SimmMarkerPair>
+					</MarkerPair>
 				</objects>
-			</SimmMarkerPairSet>
+			</MarkerPairSet>
 			<!--Set of bodies to be scaled by this measurement.-->
 			<BodyScaleSet>
 				<objects>
@@ -49,22 +49,22 @@ in the specified axis directions (e.g., X Y Z).-->
 					</BodyScale>
 				</objects>
 			</BodyScaleSet>
-		</SimmMeasurement>
+		</Measurement>
 		
-		<SimmMeasurement name="thigh">
+		<Measurement name="thigh">
 			<!--Flag to turn on and off scaling for this measurement.-->
 			<apply> true </apply>
 			<!--Set of marker pairs used to determine the scale factors.-->
-			<SimmMarkerPairSet>
+			<MarkerPairSet>
 				<objects>
-					<SimmMarkerPair>
+					<MarkerPair>
 						<markers> R.ASIS R.Knee.Lat </markers>
-					</SimmMarkerPair>
-					<SimmMarkerPair>
+					</MarkerPair>
+					<MarkerPair>
 						<markers>L.ASIS L.Knee.Lat</markers>
-					</SimmMarkerPair>
+					</MarkerPair>
 				</objects>
-			</SimmMarkerPairSet>
+			</MarkerPairSet>
 			<!--Set of bodies to be scaled by this measurement.-->
 			<BodyScaleSet>
 				<objects>
@@ -82,22 +82,22 @@ in the specified axis directions (e.g., X Y Z).-->
 					</BodyScale>
 				</objects>
 			</BodyScaleSet>
-		</SimmMeasurement>
+		</Measurement>
 		
-		<SimmMeasurement name="shank">
+		<Measurement name="shank">
 			<!--Flag to turn on and off scaling for this measurement.-->
 			<apply> true </apply>
 			<!--Set of marker pairs used to determine the scale factors.-->
-			<SimmMarkerPairSet>
+			<MarkerPairSet>
 				<objects>
-					<SimmMarkerPair>
+					<MarkerPair>
 						<markers> R.Knee.Lat R.Ankle.Lat </markers>
-					</SimmMarkerPair>
-					<SimmMarkerPair>
+					</MarkerPair>
+					<MarkerPair>
 						<markers>L.Knee.Lat L.Ankle.Lat</markers>
-					</SimmMarkerPair>
+					</MarkerPair>
 				</objects>
-			</SimmMarkerPairSet>
+			</MarkerPairSet>
 			<!--Set of bodies to be scaled by this measurement.-->
 			<BodyScaleSet>
 				<objects>
@@ -115,22 +115,22 @@ in the specified axis directions (e.g., X Y Z).-->
 					</BodyScale>
 				</objects>
 			</BodyScaleSet>
-		</SimmMeasurement>
+		</Measurement>
 		
-		<SimmMeasurement name="foot">
+		<Measurement name="foot">
 			<!--Flag to turn on and off scaling for this measurement.-->
 			<apply> true </apply>
 			<!--Set of marker pairs used to determine the scale factors.-->
-			<SimmMarkerPairSet>
+			<MarkerPairSet>
 				<objects>
-					<SimmMarkerPair>
+					<MarkerPair>
 						<markers> R.Heel R.Toe.Tip </markers>
-					</SimmMarkerPair>
-					<SimmMarkerPair>
+					</MarkerPair>
+					<MarkerPair>
 						<markers>L.Heel L.Toe.Tip</markers>
-					</SimmMarkerPair>
+					</MarkerPair>
 				</objects>
-			</SimmMarkerPairSet>
+			</MarkerPairSet>
 			<!--Set of bodies to be scaled by this measurement.-->
 			<BodyScaleSet>
 				<objects>
@@ -154,6 +154,6 @@ in the specified axis directions (e.g., X Y Z).-->
 					</BodyScale>
 				</objects>
 			</BodyScaleSet>
-		</SimmMeasurement>
+		</Measurement>
 	</objects>
-</SimmMeasurementSet>
+</MeasurementSet>

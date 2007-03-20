@@ -6,9 +6,9 @@
 	<IKTaskSet file="gait2354_IK_Tasks.xml"/>
 	<!--Parameters for solving the IK problem for each trial. Each trial
 	    should get a seperate SimmIKTril block.-->
-	<SimmIKTrialSet name="">
+	<IKTrialSet name="">
 		<objects>
-			<SimmIKTrial name="first trial">
+			<IKTrial name="first trial">
 				<!--TRC file (.trc) containing the time history of experimental marker
 				    positions.-->
 				<marker_file> subject01_walk1.trc </marker_file>
@@ -34,8 +34,8 @@
 				<time_range> 0.4 2.0 </time_range>
 				<!--Name of the motion file (.mot) to which the results should be written.-->
 				<output_motion_file> subject01_walk1_ik.mot </output_motion_file>
-			</SimmIKTrial>
+			</IKTrial>
 		</objects>
-	</SimmIKTrialSet>
+	</IKTrialSet>
 </IKTool>
 
