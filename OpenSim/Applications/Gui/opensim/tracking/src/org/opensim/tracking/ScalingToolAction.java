@@ -13,8 +13,8 @@ import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.AbstractModel;
-import org.opensim.modeling.SimmSubject;
+import org.opensim.modeling.Model;
+import org.opensim.modeling.ScaleTool;
 import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.pub.ViewDB;
 
@@ -35,7 +35,7 @@ public final class ScalingToolAction extends CallableSystemAction {
              return;
          }
         
-        AbstractModel genericModel = modelWindow.getModel();
+        Model genericModel = modelWindow.getModel();
         descriptor.setGenericModel(genericModel);
         SimmSubject subject = descriptor.getSubject();
         String modelPath = genericModel.getInputFileName();

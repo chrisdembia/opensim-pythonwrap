@@ -29,8 +29,8 @@ public class SimtkAnimationCallback extends IntegCallback {
     super.delete();
   }
 
-  public static SimtkAnimationCallback CreateAnimationCallback(AbstractModel aModel) {
-    long cPtr = opensimModelJNI.SimtkAnimationCallback_CreateAnimationCallback(AbstractModel.getCPtr(aModel), aModel);
+  public static SimtkAnimationCallback CreateAnimationCallback(Model aModel) {
+    long cPtr = opensimModelJNI.SimtkAnimationCallback_CreateAnimationCallback(Model.getCPtr(aModel), aModel);
     return (cPtr == 0) ? null : new SimtkAnimationCallback(cPtr, false);
   }
 
@@ -59,12 +59,12 @@ public class SimtkAnimationCallback extends IntegCallback {
     return (cPtr == 0) ? null : new Transform(cPtr, false);
   }
 
-  public void extractOffsets(AbstractModel displayModel) {
-    opensimModelJNI.SimtkAnimationCallback_extractOffsets(swigCPtr, this, AbstractModel.getCPtr(displayModel), displayModel);
+  public void extractOffsets(Model displayModel) {
+    opensimModelJNI.SimtkAnimationCallback_extractOffsets(swigCPtr, this, Model.getCPtr(displayModel), displayModel);
   }
 
-  public void getTransformsFromKinematicsEngine(AbstractModel simmModel) {
-    opensimModelJNI.SimtkAnimationCallback_getTransformsFromKinematicsEngine(swigCPtr, this, AbstractModel.getCPtr(simmModel), simmModel);
+  public void getTransformsFromKinematicsEngine(Model simmModel) {
+    opensimModelJNI.SimtkAnimationCallback_getTransformsFromKinematicsEngine(swigCPtr, this, Model.getCPtr(simmModel), simmModel);
   }
 
 }

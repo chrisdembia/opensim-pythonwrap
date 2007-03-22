@@ -93,8 +93,8 @@ public class AbstractWrapObject extends OpenSimObject {
     return opensimModelJNI.AbstractWrapObject_getDimensionsString(swigCPtr, this);
   }
 
-  public int wrapMuscleSegment(SimmMusclePoint aPoint1, SimmMusclePoint aPoint2, MuscleWrap aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult aWrapResult) {
-    return opensimModelJNI.AbstractWrapObject_wrapMuscleSegment(swigCPtr, this, SimmMusclePoint.getCPtr(aPoint1), aPoint1, SimmMusclePoint.getCPtr(aPoint2), aPoint2, MuscleWrap.getCPtr(aMuscleWrap), aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(aWrapResult));
+  public int wrapMuscleSegment(MusclePoint aPoint1, MusclePoint aPoint2, MuscleWrap aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult aWrapResult) {
+    return opensimModelJNI.AbstractWrapObject_wrapMuscleSegment(swigCPtr, this, MusclePoint.getCPtr(aPoint1), aPoint1, MusclePoint.getCPtr(aPoint2), aPoint2, MuscleWrap.getCPtr(aMuscleWrap), aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(aWrapResult));
   }
 
   public int wrapLine(ArrayDouble aPoint1, ArrayDouble aPoint2, MuscleWrap aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult aWrapResult, SWIGTYPE_p_bool aFlag) {

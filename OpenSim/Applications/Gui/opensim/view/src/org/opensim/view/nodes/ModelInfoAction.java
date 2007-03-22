@@ -8,7 +8,7 @@ import org.opensim.utils.TheApp;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.pub.ViewDB;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 
 
 public final class ModelInfoAction extends CallableSystemAction {
@@ -18,7 +18,7 @@ public final class ModelInfoAction extends CallableSystemAction {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         // Action shouldn't be available otherwise'
         ConcreteModelNode modelNode = (ConcreteModelNode) selected[0];
-        AbstractModel mdl = modelNode.getModel();
+        Model mdl = modelNode.getModel();
         dlg.setModelName(mdl.getName());
         dlg.setModelFile(mdl.getInputFileName());
         dlg.setAuthors(

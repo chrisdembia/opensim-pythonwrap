@@ -38,9 +38,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.SimtkAnimationCallback;
-import org.opensim.modeling.SimulationTool;
+import org.opensim.modeling.AbstractTool;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
@@ -109,9 +109,9 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
     * runDynamicTool does all the leg work of setting up the GUI, callback to run
     * a Dynamic investigation and update display with the resulting animation
     */
-   protected void runDynamicTool(final SimulationTool dTool, final Boolean isDeterministic) {
+   protected void runDynamicTool(final AbstractTool dTool, final Boolean isDeterministic) {
       
-      final AbstractModel model = dTool.getModel();
+      final Model model = dTool.getModel();
       model.setup();
       final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Run Tool "+dTool.getName());
       final double investigationDuration = (dTool.getFinalTime() - dTool.getStartTime());

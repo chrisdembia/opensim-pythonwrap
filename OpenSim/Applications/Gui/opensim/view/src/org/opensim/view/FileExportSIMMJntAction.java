@@ -4,7 +4,7 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.SimmFileWriter;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.pub.OpenSimDB;
@@ -18,7 +18,7 @@ public final class FileExportSIMMJntAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
-        AbstractModel mdl = OpenSimDB.getInstance().getCurrentModel();
+        Model mdl = OpenSimDB.getInstance().getCurrentModel();
         if (mdl != null){
             
             String jntFileName = FileUtils.getInstance().browseForFilename(".jnt", "SIMM .jnt file", false);

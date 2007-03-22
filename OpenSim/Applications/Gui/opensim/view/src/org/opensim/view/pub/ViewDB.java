@@ -40,7 +40,7 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.openide.windows.TopComponent;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.utils.TheApp;
@@ -73,10 +73,10 @@ public final class ViewDB implements Observer {
    // One single vtAssemby for the whole Scene
    private static vtkAssembly sceneAssembly;
    // Map models to visuals
-   private Hashtable<AbstractModel, SingleModelVisuals> mapModelsToVisuals =
-           new Hashtable<AbstractModel, SingleModelVisuals>();
-   private Hashtable<AbstractModel, SingleModelGuiElements> mapModelsToGuiElements =
-           new Hashtable<AbstractModel, SingleModelGuiElements>();
+   private Hashtable<Model, SingleModelVisuals> mapModelsToVisuals =
+           new Hashtable<Model, SingleModelVisuals>();
+   private Hashtable<Model, SingleModelGuiElements> mapModelsToGuiElements =
+           new Hashtable<Model, SingleModelGuiElements>();
    
    static ViewDB instance=null;
    // Window currently designated as current.
@@ -86,7 +86,7 @@ public final class ViewDB implements Observer {
    // Flag indicating whether new models are open in a new window or in the same window
    static boolean openModelInNewWindow=true;
    
-   //private static AbstractModel currentModel=null;
+   //private static Model currentModel=null;
    private OpenSimObject selectedObject=null;
    
    private vtkAssembly     axesAssembly=null;
@@ -188,7 +188,7 @@ public final class ViewDB implements Observer {
                repaintAll();
             }
             if (ev.getOperation()==ModelEvent.Operation.Close){
-               AbstractModel dModel = ev.getModel();
+               Model dModel = ev.getModel();
                SingleModelVisuals visModel = mapModelsToVisuals.get(dModel);
                // Remove from display
                removeObjectFromScene(visModel.getModelDisplayAssembly());
@@ -291,7 +291,7 @@ public final class ViewDB implements Observer {
     * Helper function to implement model hide/show.
     *
     */
-   public void toggleModelDisplay(AbstractModel model) {
+   public void toggleModelDisplay(Model model) {
       SingleModelVisuals modelVis = mapModelsToVisuals.get(model);
       modelVis.setVisible(!modelVis.isVisible());
       if (modelVis.isVisible())
@@ -332,16 +332,16 @@ public final class ViewDB implements Observer {
    /**
     * Return a flag indicating whether the model is currently shown or hidden
     */
-   public boolean getDisplayStatus(AbstractModel m) {
+   public boolean getDisplayStatus(Model m) {
       return mapModelsToVisuals.get(m).isVisible();
       
    }
    
-   public static AbstractModel getCurrentModel() {
+   public static Model getCurrentModel() {
       return OpenSimDB.getInstance().getCurrentModel();
    }
    
-   public void adjustModelDisplayOffset(AbstractModel abstractModel, TopComponent tc) {
+   public void adjustModelDisplayOffset(Model abstractModel, TopComponent tc) {
       // Show dialog for model display ajdustment
       SingleModelVisuals rep = mapModelsToVisuals.get(abstractModel);
       JDialog dlg = new ModelDisplayEditJDialog(null, false, rep, abstractModel);
@@ -588,14 +588,14 @@ public final class ViewDB implements Observer {
     * Search the list of displayed models for the passed in model and if found return
     * its visuals, otherwise return null
     */
-   public SingleModelVisuals getModelVisuals(AbstractModel aModel) {
+   public SingleModelVisuals getModelVisuals(Model aModel) {
       return mapModelsToVisuals.get(aModel);
    }
    
    /**
     * Get gui elements for passed in model
     */
-   public SingleModelGuiElements getModelGuiElements(AbstractModel aModel) {
+   public SingleModelGuiElements getModelGuiElements(Model aModel) {
       return mapModelsToGuiElements.get(aModel);
    }
    /**
@@ -749,15 +749,15 @@ public final class ViewDB implements Observer {
         
     }
 
-    public void hideOthers(AbstractModel mdl, boolean b) {
+    public void hideOthers(Model mdl, boolean b) {
         int sz = mapModelsToVisuals.size();
-        Set<AbstractModel> modelSet=mapModelsToVisuals.keySet();
-        Iterator<AbstractModel> modelit = modelSet.iterator();
+        Set<Model> modelSet=mapModelsToVisuals.keySet();
+        Iterator<Model> modelit = modelSet.iterator();
         if (b)
             saveStatus.clear();
         int i=0;
         while(modelit.hasNext()){
-            AbstractModel nextModel = modelit.next();
+            Model nextModel = modelit.next();
             boolean isVisible = getDisplayStatus(nextModel);
             // remember old state then turn off (if b = true)
             if (b){

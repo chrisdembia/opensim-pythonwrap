@@ -11,7 +11,7 @@ import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.base.SerializationHelper;
 import org.opensim.view.pub.OpenSimDB;
@@ -48,10 +48,10 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
     }
 
      /**
-     * A wrapper around loadModel that handles a AbstractModel rather than a filename
-      * setup was invoked already on the model
+     * A wrapper around loadModel that handles a Model rather than a filename
+     * setup was invoked already on the model
      */
-    public boolean loadModel(final AbstractModel aModel) throws IOException {
+    public boolean loadModel(final Model aModel) throws IOException {
         boolean retValue = false;
         boolean isOk = aModel.builtOK();
         if (!isOk){
@@ -84,7 +84,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
      }
      public boolean loadModel(final String fileName, boolean loadInForground) throws IOException {
         boolean retValue = false;
-        final AbstractModel aModel = new AbstractModel(fileName);
+        final Model aModel = new Model(fileName);
         if (aModel == null){
              BottomPanelTopComponent.findInstance().showErrorMessage("Failed to construct model from file "+fileName+"\n");
             return retValue;

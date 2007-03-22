@@ -33,8 +33,8 @@ public class Kinematics extends Analysis {
     super.delete();
   }
 
-  public Kinematics(AbstractModel aModel) {
-    this(opensimModelJNI.new_Kinematics__SWIG_0(AbstractModel.getCPtr(aModel), aModel), true);
+  public Kinematics(Model aModel) {
+    this(opensimModelJNI.new_Kinematics__SWIG_0(Model.getCPtr(aModel), aModel), true);
   }
 
   public Kinematics() {
@@ -73,8 +73,8 @@ public class Kinematics extends Analysis {
     return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
-  public void setModel(AbstractModel aModel) {
-    opensimModelJNI.Kinematics_setModel(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setModel(Model aModel) {
+    opensimModelJNI.Kinematics_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_void aClientData) {

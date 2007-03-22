@@ -8,7 +8,7 @@ import javax.swing.Timer;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.IKTool;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.motionviewer.MotionsDB;
@@ -90,7 +90,7 @@ public class IKPanel  extends workflowWizardPanelBase{
         final double startTime = ik.getIKTrialSet().get(0).getStartTime();
         final double endTime = ik.getIKTrialSet().get(0).getEndTime();
         final double investigationDuration = endTime - startTime;
-        final AbstractModel ikModel = ik.getModel();
+        final Model ikModel = ik.getModel();
         
          final SimtkAnimationCallback animationCallback = SimtkAnimationCallback.CreateAnimationCallback(ikModel);
          animationCallback.setStepInterval(1);         

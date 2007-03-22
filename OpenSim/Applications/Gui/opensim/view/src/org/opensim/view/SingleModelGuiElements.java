@@ -9,7 +9,7 @@
 
 package org.opensim.view;
 
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.CoordinateSet;
 
@@ -19,12 +19,12 @@ import org.opensim.modeling.CoordinateSet;
  */
 public class SingleModelGuiElements {
     String preferredUnits; // Place holder for model specific Gui pref.
-    AbstractModel model;   // model that Gui elements are created for
+    Model model;   // model that Gui elements are created for
     
     private static String[] bodyNames=null;
     private static String[] coordinateNames=null;
     
-    public SingleModelGuiElements(AbstractModel model)
+    public SingleModelGuiElements(Model model)
     {
        this.model=model;
     }

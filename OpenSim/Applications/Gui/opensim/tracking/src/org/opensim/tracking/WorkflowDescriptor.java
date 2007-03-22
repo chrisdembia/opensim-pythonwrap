@@ -26,10 +26,10 @@
 package org.opensim.tracking;
 
 import java.util.ArrayList;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.ScaleSet;
-import org.opensim.modeling.SimmSubject;
+import org.opensim.modeling.ScaleTool;
 
 /**
  *
@@ -40,12 +40,12 @@ import org.opensim.modeling.SimmSubject;
  */
 public class WorkflowDescriptor {
     
-    SimmSubject dSubject=null;
+    ScaleTool dSubject=null;
     boolean     useOwnModel=false;
     boolean     useOwnMarkers = false;
-    AbstractModel   dGenericModel = null;
-    private AbstractModel   scaledModel = null;
-    AbstractModel   ikModel = null;
+    Model   dGenericModel = null;
+    private Model   scaledModel = null;
+    Model   ikModel = null;
     
     private String      genericModelMarkersFilename;
     // Extra items needed for RRA, CMC, Forward/perturb
@@ -70,20 +70,20 @@ public class WorkflowDescriptor {
      */
     public WorkflowDescriptor()
     {
-        dSubject = new SimmSubject();
+        dSubject = new ScaleTool();
     }
     /**  init subject to a subject created from an external file */
-    public void setSubject(SimmSubject aSubject)
+    public void setSubject(ScaleTool aSubject)
     {
         dSubject = aSubject;
     }
 
-    public SimmSubject getSubject()
+    public ScaleTool getSubject()
     {
         return dSubject;
     }
     
-    public AbstractModel getModel() {   // Lazily get the Model 
+    public Model getModel() {   // Lazily get the Model 
         if (dGenericModel==null && dSubject != null){
             setGenericModel(dSubject.createModel());
         }
@@ -118,7 +118,7 @@ public class WorkflowDescriptor {
     }
 
     void setSubjectFile(String fullPathToSubjectFile) {
-        SimmSubject newSubject = new SimmSubject(fullPathToSubjectFile);
+        ScaleTool newSubject = new ScaleTool(fullPathToSubjectFile);
         if (newSubject!=null){
             dSubject = newSubject;
             updateCachedValues();
@@ -199,7 +199,7 @@ public class WorkflowDescriptor {
         this.IKoutfilename = IKoutfilename;
     }
 
-    public void setGenericModel(AbstractModel genericModel) {
+    public void setGenericModel(Model genericModel) {
         this.dGenericModel = genericModel;
  }
     /**
@@ -219,19 +219,19 @@ public class WorkflowDescriptor {
       this.genericModelMarkersFilename = genericModelMarkersFilename;
    }
 
-   AbstractModel getScaledModel() {
+   Model getScaledModel() {
       return scaledModel;
    }
 
-   public void setScaledModel(AbstractModel scaledModel) {
+   public void setScaledModel(Model scaledModel) {
       this.scaledModel = scaledModel;
    }
 
-   public AbstractModel getIKModel() {
+   public Model getIKModel() {
       return ikModel;
    }
 
-   public void setIKModel(AbstractModel aModel)
+   public void setIKModel(Model aModel)
    {
       ikModel = aModel;
    }

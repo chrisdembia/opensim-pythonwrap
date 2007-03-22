@@ -4,27 +4,27 @@ import javax.swing.Action;
 import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.view.*;
 import org.opensim.view.actions.FileCloseAction;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
 /**
- * Node class to wrap AbstractModel objects
+ * Node class to wrap Model objects
  */
 public class ConcreteModelNode extends OpenSimObjectNode {
 
-    public ConcreteModelNode(AbstractModel m) {
+    public ConcreteModelNode(Model m) {
         super(m);
         
         getChildren().add(new Node[] {new BodiesNode(m.getDynamicsEngine().getBodySet())});
         getChildren().add(new Node[] {new MusclesNode(m.getActuatorSet())});
         getChildren().add(new Node[] {new JointsNode(m)});
    }
-    public AbstractModel getModel()
+    public Model getModel()
     {
-        return (AbstractModel) getOpensimObject();
+        return (Model) getOpensimObject();
     }
     /**
      * Actions available in model node popup.

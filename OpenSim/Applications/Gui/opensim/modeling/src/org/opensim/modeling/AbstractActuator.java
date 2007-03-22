@@ -42,17 +42,17 @@ public class AbstractActuator extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setup(AbstractModel aModel) {
-    opensimModelJNI.AbstractActuator_setup(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setup(Model aModel) {
+    opensimModelJNI.AbstractActuator_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public void setModel(AbstractModel aModel) {
-    opensimModelJNI.AbstractActuator_setModel(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setModel(Model aModel) {
+    opensimModelJNI.AbstractActuator_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public AbstractModel getModel() {
+  public Model getModel() {
     long cPtr = opensimModelJNI.AbstractActuator_getModel(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
+    return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
   public int getNumControls() {

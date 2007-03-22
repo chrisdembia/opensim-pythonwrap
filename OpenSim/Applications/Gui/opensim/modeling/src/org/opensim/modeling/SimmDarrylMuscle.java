@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class SimmDarrylMuscle extends AbstractSimmMuscle {
+public class SimmDarrylMuscle extends AbstractMuscle {
   private long swigCPtr;
 
   public SimmDarrylMuscle(long cPtr, boolean cMemoryOwn) {
@@ -70,8 +70,8 @@ public class SimmDarrylMuscle extends AbstractSimmMuscle {
     opensimModelJNI.SimmDarrylMuscle_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
-  public void setup(AbstractModel aModel) {
-    opensimModelJNI.SimmDarrylMuscle_setup(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setup(Model aModel) {
+    opensimModelJNI.SimmDarrylMuscle_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public double calcTendonForce(double aNormTendonLength) {

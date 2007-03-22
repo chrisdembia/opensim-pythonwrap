@@ -38,8 +38,8 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setup(AbstractModel aModel) {
-    opensimModelJNI.AbstractDynamicsEngine_setup(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setup(Model aModel) {
+    opensimModelJNI.AbstractDynamicsEngine_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public int getNumBodies() {
@@ -62,9 +62,9 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     return opensimModelJNI.AbstractDynamicsEngine_getNumMarkers(swigCPtr, this);
   }
 
-  public AbstractModel getModel() {
+  public Model getModel() {
     long cPtr = opensimModelJNI.AbstractDynamicsEngine_getModel(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
+    return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
   public void getGravity(double[] rGrav) {
@@ -414,12 +414,20 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_convertDegreesToRadians__SWIG_0(swigCPtr, this, Storage.getCPtr(rStorage), rStorage);
   }
 
+  public void convertRadiansToDegrees(SimmMotionData rMotionData) {
+    opensimModelJNI.AbstractDynamicsEngine_convertRadiansToDegrees__SWIG_1(swigCPtr, this, SimmMotionData.getCPtr(rMotionData), rMotionData);
+  }
+
+  public void convertDegreesToRadians(SimmMotionData rMotionData) {
+    opensimModelJNI.AbstractDynamicsEngine_convertDegreesToRadians__SWIG_1(swigCPtr, this, SimmMotionData.getCPtr(rMotionData), rMotionData);
+  }
+
   public void convertDegreesToRadians(SWIGTYPE_p_double aQDeg, SWIGTYPE_p_double rQRad) {
-    opensimModelJNI.AbstractDynamicsEngine_convertDegreesToRadians__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aQDeg), SWIGTYPE_p_double.getCPtr(rQRad));
+    opensimModelJNI.AbstractDynamicsEngine_convertDegreesToRadians__SWIG_2(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aQDeg), SWIGTYPE_p_double.getCPtr(rQRad));
   }
 
   public void convertRadiansToDegrees(SWIGTYPE_p_double aQRad, SWIGTYPE_p_double rQDeg) {
-    opensimModelJNI.AbstractDynamicsEngine_convertRadiansToDegrees__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aQRad), SWIGTYPE_p_double.getCPtr(rQDeg));
+    opensimModelJNI.AbstractDynamicsEngine_convertRadiansToDegrees__SWIG_2(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aQRad), SWIGTYPE_p_double.getCPtr(rQDeg));
   }
 
   public void convertAnglesToDirectionCosines(double aE1, double aE2, double aE3, SWIGTYPE_p_a_3__double rDirCos) {

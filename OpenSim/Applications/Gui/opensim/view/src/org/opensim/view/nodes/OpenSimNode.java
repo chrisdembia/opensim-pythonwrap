@@ -19,7 +19,7 @@ import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.datatransfer.PasteType;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 
 /**
  * 
@@ -71,9 +71,9 @@ public class OpenSimNode extends AbstractNode {
         }
     }
     /**
-     * Find the AbstractModel for a node by traversing up the tree
+     * Find the Model for a node by traversing up the tree
      */
-    protected AbstractModel getModelForNode() {
+    protected Model getModelForNode() {
         if (this instanceof ConcreteModelNode)
             return ((ConcreteModelNode)this).getModel();
         else 

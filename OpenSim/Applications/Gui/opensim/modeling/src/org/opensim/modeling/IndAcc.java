@@ -33,20 +33,20 @@ public class IndAcc extends Analysis {
     super.delete();
   }
 
-  public IndAcc(AbstractModel aModel) {
-    this(opensimModelJNI.new_IndAcc__SWIG_0(AbstractModel.getCPtr(aModel), aModel), true);
+  public IndAcc(Model aModel) {
+    this(opensimModelJNI.new_IndAcc__SWIG_0(Model.getCPtr(aModel), aModel), true);
   }
 
-  public IndAcc(AbstractModel aModel, Storage aStates, Storage aControls, String aBaseName, String aDir, String aExtension) {
-    this(opensimModelJNI.new_IndAcc__SWIG_1(AbstractModel.getCPtr(aModel), aModel, Storage.getCPtr(aStates), aStates, Storage.getCPtr(aControls), aControls, aBaseName, aDir, aExtension), true);
+  public IndAcc(Model aModel, Storage aStates, Storage aControls, String aBaseName, String aDir, String aExtension) {
+    this(opensimModelJNI.new_IndAcc__SWIG_1(Model.getCPtr(aModel), aModel, Storage.getCPtr(aStates), aStates, Storage.getCPtr(aControls), aControls, aBaseName, aDir, aExtension), true);
   }
 
-  public IndAcc(AbstractModel aModel, Storage aStates, Storage aControls, String aBaseName, String aDir) {
-    this(opensimModelJNI.new_IndAcc__SWIG_2(AbstractModel.getCPtr(aModel), aModel, Storage.getCPtr(aStates), aStates, Storage.getCPtr(aControls), aControls, aBaseName, aDir), true);
+  public IndAcc(Model aModel, Storage aStates, Storage aControls, String aBaseName, String aDir) {
+    this(opensimModelJNI.new_IndAcc__SWIG_2(Model.getCPtr(aModel), aModel, Storage.getCPtr(aStates), aStates, Storage.getCPtr(aControls), aControls, aBaseName, aDir), true);
   }
 
-  public IndAcc(AbstractModel aModel, Storage aStates, Storage aControls, String aBaseName) {
-    this(opensimModelJNI.new_IndAcc__SWIG_3(AbstractModel.getCPtr(aModel), aModel, Storage.getCPtr(aStates), aStates, Storage.getCPtr(aControls), aControls, aBaseName), true);
+  public IndAcc(Model aModel, Storage aStates, Storage aControls, String aBaseName) {
+    this(opensimModelJNI.new_IndAcc__SWIG_3(Model.getCPtr(aModel), aModel, Storage.getCPtr(aStates), aStates, Storage.getCPtr(aControls), aControls, aBaseName), true);
   }
 
   public int getNumComponents() {

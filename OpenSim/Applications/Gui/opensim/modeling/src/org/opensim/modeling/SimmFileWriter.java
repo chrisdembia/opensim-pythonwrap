@@ -37,8 +37,8 @@ public class SimmFileWriter {
     this(opensimModelJNI.new_SimmFileWriter__SWIG_0(), true);
   }
 
-  public SimmFileWriter(AbstractModel aModel) {
-    this(opensimModelJNI.new_SimmFileWriter__SWIG_1(AbstractModel.getCPtr(aModel), aModel), true);
+  public SimmFileWriter(Model aModel) {
+    this(opensimModelJNI.new_SimmFileWriter__SWIG_1(Model.getCPtr(aModel), aModel), true);
   }
 
   public boolean writeJointFile(String aFileName) {

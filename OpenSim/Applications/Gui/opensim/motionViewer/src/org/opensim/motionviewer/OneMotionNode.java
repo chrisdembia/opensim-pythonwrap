@@ -27,7 +27,7 @@ package org.opensim.motionviewer;
 
 import java.awt.Image;
 import javax.swing.Action;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.view.nodes.OpenSimObjectNode;
 
@@ -56,7 +56,7 @@ public class OneMotionNode extends OpenSimObjectNode{
       return retValue;
    }
    
-   public AbstractModel getModel()
+   public Model getModel()
    {
        return getModelForNode();
    }

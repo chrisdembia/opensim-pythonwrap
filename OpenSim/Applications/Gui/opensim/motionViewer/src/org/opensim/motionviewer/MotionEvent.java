@@ -10,7 +10,7 @@
 package org.opensim.motionviewer;
 
 import java.util.EventObject;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.SimmMotionData;
 
 /**
@@ -26,15 +26,15 @@ public class MotionEvent extends EventObject {
     /**
      * Creates a new instance of MotionEvent
      */
-    public MotionEvent(AbstractModel source, SimmMotionData motion, Operation op) {
+    public MotionEvent(Model source, SimmMotionData motion, Operation op) {
         super(source);
         this.motion = motion;
         this.op = op;
     }
         
-    public AbstractModel getModel()
+    public Model getModel()
     {
-        return (AbstractModel) source;
+        return (Model) source;
     }
     
     public SimmMotionData getMotion()

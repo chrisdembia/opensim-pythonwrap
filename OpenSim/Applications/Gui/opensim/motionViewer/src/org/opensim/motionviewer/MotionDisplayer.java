@@ -15,7 +15,7 @@ import java.util.List;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.AbstractMarker;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.CoordinateSet;
@@ -59,13 +59,13 @@ public class MotionDisplayer {
     OpenSimvtkGlyphCloud  forcesRep=new OpenSimvtkGlyphCloud();
     OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud();
     private SimmMotionData simmMotionData;
-    private AbstractModel model;
+    private Model model;
     
     // A local copy of motionObjects so that different motions have different motion objects
     //Hashtable<String, vtkActor> motionObjectInstances =new Hashtable<String, vtkActor>(10);
     
     /** Creates a new instance of MotionDisplayer */
-    public MotionDisplayer(SimmMotionData motionData, AbstractModel model) {
+    public MotionDisplayer(SimmMotionData motionData, Model model) {
         this.model = model;
         simmMotionData = motionData;
         AddMotionObjectsRep(model);
@@ -81,7 +81,7 @@ public class MotionDisplayer {
         }
     }
 
-    private void AddMotionObjectsRep(final AbstractModel model) {
+    private void AddMotionObjectsRep(final Model model) {
         forcesRep.setShape(MotionObjectsDB.getInstance().getShape("force"));
         forcesRep.setColor(new double[]{0., 1.0, 0.});
         forcesRep.setOpacity(0.7);
@@ -107,7 +107,7 @@ public class MotionDisplayer {
      * so we don't want to start name searching from scratch.
      * A side effect is the creation of motion object instances and adding them to the model
      **/
-   private int classifyColumn(AbstractModel model, int columnIndex, String columnName) 
+   private int classifyColumn(Model model, int columnIndex, String columnName) 
    {
       CoordinateSet coords = model.getDynamicsEngine().getCoordinateSet();
       ObjectTypesInMotionFiles retType = ObjectTypesInMotionFiles.UNKNOWN;
@@ -257,7 +257,7 @@ public class MotionDisplayer {
       return simmMotionData;
    }
 
-   public AbstractModel getModel() {
+   public Model getModel() {
       return model;
    }
 

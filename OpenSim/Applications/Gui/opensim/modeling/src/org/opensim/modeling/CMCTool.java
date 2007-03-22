@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class CMCTool extends SimulationTool {
+public class CMCTool extends AbstractTool {
   private long swigCPtr;
 
   public CMCTool(long cPtr, boolean cMemoryOwn) {

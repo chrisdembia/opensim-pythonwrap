@@ -3,8 +3,8 @@ package org.opensim.tracking;
 import java.io.IOException;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.IKTaskSet;
-import org.opensim.modeling.SimmMarkerData;
-import org.opensim.modeling.SimmMarkerPlacer;
+import org.opensim.modeling.MarkerData;
+import org.opensim.modeling.MarkerPlacer;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 import org.opensim.view.editors.ObjectEditDialogMaker;
@@ -365,14 +365,14 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
             jStaticTrialTextField.setText(staticTrialFilename);
        }
        // Get times from file and populate GUI
-       SimmMarkerData trcData = new SimmMarkerData(staticTrialFilename);
+       MarkerData trcData = new MarkerData(staticTrialFilename);
        jStaticFromTextField.setText(String.valueOf(trcData.getStartFrameTime()));
        jStaticToTextField.setText(String.valueOf(trcData.getLastFrameTime()));
         
     }//GEN-LAST:event_jBrowse4TrcButtonActionPerformed
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
-        SimmMarkerPlacer params = aDescriptor.getSubject().getMarkerPlacer();
+        MarkerPlacer params = aDescriptor.getSubject().getMarkerPlacer();
         jStaticTrialTextField.setText(params.getStaticPoseFilename());
          try {
             jStaticTrialTextField.setToolTipText(params.getPropertySet().get("marker_file").getComment());
@@ -382,7 +382,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
         jOutputMarkersFileNameTextField.setToolTipText(params.getPropertySet().get("output_marker_file").getComment());
         jOutputMotionTextField.setToolTipText(params.getPropertySet().get("output_motion_file").getComment());
          } catch (IOException ex) {
-            TheApp.exitApp("Internal Error:Property does not exist in SimmMarkerPlacer"+ex.getCause());
+            TheApp.exitApp("Internal Error:Property does not exist in MarkerPlacer"+ex.getCause());
          }
         ArrayDouble timeRange = params.getTimeRange();
         if (timeRange.getSize()==2){
@@ -438,7 +438,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
     }
 
     void updateWorkflow(WorkflowDescriptor descriptor) {
-        SimmMarkerPlacer params = descriptor.getSubject().getMarkerPlacer();
+        MarkerPlacer params = descriptor.getSubject().getMarkerPlacer();
         params.setStaticPoseFilename(jStaticTrialTextField.getText());
         ArrayDouble timeRange = new ArrayDouble(2);
         timeRange.setitem(0, Double.parseDouble(jStaticFromTextField.getText()));

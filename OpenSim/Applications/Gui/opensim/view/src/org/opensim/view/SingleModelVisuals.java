@@ -14,7 +14,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.AnalyticCylinder;
 import org.opensim.modeling.AnalyticEllipsoid;
@@ -103,7 +103,7 @@ public class SingleModelVisuals {
     /**
      * Creates a new instance of SingleModelVisuals
      */
-    public SingleModelVisuals(AbstractModel aModel) {
+    public SingleModelVisuals(Model aModel) {
         initDefaultShapesAndColors();
         modelDisplayAssembly = createModelAssembly(aModel);
         setVisible(true);
@@ -128,7 +128,7 @@ public class SingleModelVisuals {
     /**
      * Create one vtkAssembly representing the model and return it.
      */
-    protected vtkAssembly createModelAssembly(AbstractModel model)
+    protected vtkAssembly createModelAssembly(Model model)
     {
         File modelFile = new File(model.getInputFileName());
         String modelFilePath = "";
@@ -266,7 +266,7 @@ public class SingleModelVisuals {
      /**
       * Get the vtkTransform matrix between ground and a body frame,
       */
-     vtkMatrix4x4 getBodyTransform(AbstractModel model, AbstractBody body)
+     vtkMatrix4x4 getBodyTransform(Model model, AbstractBody body)
      {
             Transform xform = model.getDynamicsEngine().getTransform(body);
             return convertTransformToVtkMatrix4x4(xform);
@@ -355,7 +355,7 @@ public class SingleModelVisuals {
      * Visualize all actuators and add created vtk creatures to the model Assembly
      * Potentially can be used to add muscles separately from a file to an existing model.
      */
-    private void addActuatorsGeometry(AbstractModel  mdl, vtkAssembly modelAssembly) {
+    private void addActuatorsGeometry(Model  mdl, vtkAssembly modelAssembly) {
         // Now the muscles which are different creatures since they don't have a frame of their own
         // We'll display them by asking the "actuators for their geometry which may contain 
         // muscle points as well as segments connecting them
@@ -477,7 +477,7 @@ public class SingleModelVisuals {
    public void updateModelDisplay(SimtkAnimationCallback animationCallback) {
       // Cycle thru bodies and update their transforms from the kinematics engine
         //animationCallback.mutex_begin(1);
-        AbstractModel model = animationCallback.getModel();
+        Model model = animationCallback.getModel();
         BodySet bodies = model.getDynamicsEngine().getBodySet();
         double[] pos = new double[3];
         double[] gPos = new double[4];
@@ -532,7 +532,7 @@ public class SingleModelVisuals {
      * This method must be optimized since it's invoked during live animation
      * of simulations and/or analyses (ala IK).
      */
-   public void updateModelDisplay(AbstractModel model) {
+   public void updateModelDisplay(Model model) {
       // Cycle thru bodies and update their transforms from the kinematics engine
        numCalls++;
         double[] pos = new double[3];
@@ -700,7 +700,7 @@ public class SingleModelVisuals {
       musclePointsRep.setModified();
    }
 
-   private void updateActuatorsGeometry(AbstractModel mdl) {
+   private void updateActuatorsGeometry(Model mdl) {
       updateActuatorsGeometry(mdl.getActuatorSet(), true);
    }
 

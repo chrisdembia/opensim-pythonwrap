@@ -4,7 +4,7 @@ import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
-import org.opensim.modeling.SimmMarkerPlacer;
+import org.opensim.modeling.MarkerPlacer;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 
@@ -156,7 +156,7 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
     void updatePanel(WorkflowDescriptor aDescriptor) {
         // file is the output file from MarkerPlacement by default
         if (aDescriptor.getDynamicsModelFile() == null || aDescriptor.getDynamicsModelFile().equals("")){
-            SimmMarkerPlacer params = aDescriptor.getSubject().getMarkerPlacer();
+            MarkerPlacer params = aDescriptor.getSubject().getMarkerPlacer();
             jModelTextField.setText(aDescriptor.getSubject().getPathToSubject()+params.getOutputModelFileName());
         }
         else

@@ -32,7 +32,7 @@ import javax.swing.event.ChangeListener;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.opensim.modeling.AbstractJoint;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.JointSet;
 
 /**
@@ -42,9 +42,9 @@ import org.opensim.modeling.JointSet;
 public class JointsChildren extends Children.Keys {
     
     private ChangeListener listener;
-    AbstractModel model;
+    Model model;
     
-    JointsChildren(AbstractModel m) {
+    JointsChildren(Model m) {
         model = m;
     }
     protected void addNotify() {

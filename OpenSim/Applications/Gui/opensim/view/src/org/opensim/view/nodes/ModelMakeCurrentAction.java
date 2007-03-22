@@ -4,7 +4,7 @@ import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
@@ -15,7 +15,7 @@ public final class ModelMakeCurrentAction extends CallableSystemAction {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         // Action shouldn't be available otherwise'
         ConcreteModelNode modelNode = (ConcreteModelNode) selected[0];
-        AbstractModel mdl = modelNode.getModel();
+        Model mdl = modelNode.getModel();
         OpenSimDB.getInstance().setCurrentModel(mdl);
     }
     
@@ -41,7 +41,7 @@ public final class ModelMakeCurrentAction extends CallableSystemAction {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         // Action shouldn't be available otherwise'
         ConcreteModelNode modelNode = (ConcreteModelNode) selected[0];
-        AbstractModel mdl = modelNode.getModel();
+        Model mdl = modelNode.getModel();
         return OpenSimDB.getInstance().getCurrentModel()!=mdl;
     }
     

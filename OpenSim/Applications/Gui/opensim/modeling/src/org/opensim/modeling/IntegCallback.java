@@ -33,8 +33,8 @@ public class IntegCallback extends Callback {
     super.delete();
   }
 
-  public IntegCallback(AbstractModel aModel) {
-    this(opensimModelJNI.new_IntegCallback__SWIG_0(AbstractModel.getCPtr(aModel), aModel), true);
+  public IntegCallback(Model aModel) {
+    this(opensimModelJNI.new_IntegCallback__SWIG_0(Model.getCPtr(aModel), aModel), true);
   }
 
   public IntegCallback() {

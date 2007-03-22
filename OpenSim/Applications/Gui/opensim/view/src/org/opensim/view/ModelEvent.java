@@ -10,7 +10,7 @@
 package org.opensim.view;
 
 import java.util.EventObject;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 
 /**
  *
@@ -24,14 +24,14 @@ public class ModelEvent extends EventObject {
     /**
      * Creates a new instance of ModelEvent
      */
-    public ModelEvent(AbstractModel source, Operation op) {
+    public ModelEvent(Model source, Operation op) {
         super(source);
         this.op = op;
     }
     
-    public AbstractModel getModel()
+    public Model getModel()
     {
-        return (AbstractModel) source;
+        return (Model) source;
     }
     
     public ModelEvent.Operation getOperation()

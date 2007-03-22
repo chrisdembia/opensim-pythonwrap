@@ -12,7 +12,7 @@ package org.opensim.view.pub;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Observable;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.view.*;
@@ -25,8 +25,8 @@ final public class OpenSimDB extends Observable {
     
     static OpenSimDB instance;
     
-    static ArrayList<AbstractModel>  models = new ArrayList<AbstractModel>();
-    static AbstractModel currentModel=null;
+    static ArrayList<Model>  models = new ArrayList<Model>();
+    static Model currentModel=null;
     
     /** Creates a new instance of OpenSimDB */
     private OpenSimDB() {
@@ -45,7 +45,7 @@ final public class OpenSimDB extends Observable {
         return instance;
     }
     
-    public void addModel(AbstractModel aModel) {
+    public void addModel(Model aModel) {
         models.add(aModel);
         // Mark model as current
         // Don't use setCurrent to avoid multiple events
@@ -55,7 +55,7 @@ final public class OpenSimDB extends Observable {
         notifyObservers(evnt);
     }
 
-    public static AbstractModel getModel(String modelName)
+    public static Model getModel(String modelName)
     {
         for(int i=0; i<models.size(); i++){
             if (models.get(i).getName().equals(modelName))
@@ -69,7 +69,7 @@ final public class OpenSimDB extends Observable {
         return (Object[]) models.toArray();
     }
     
-    public void removeModel(AbstractModel model)
+    public void removeModel(Model model)
     {
         models.remove(model);
         if (models.size()>0){
@@ -93,7 +93,7 @@ final public class OpenSimDB extends Observable {
      * For now this just fires an event to make sure the GUI indicates what's the current Model but
      * the database itself does not keep track of which one in the models is Current.
      */
-    public void setCurrentModel(AbstractModel aCurrentModel) {
+    public void setCurrentModel(Model aCurrentModel) {
         currentModel = aCurrentModel;
         setChanged();
         ModelEvent evnt = new ModelEvent(aCurrentModel, ModelEvent.Operation.SetCurrent);
@@ -106,13 +106,13 @@ final public class OpenSimDB extends Observable {
      *
      * It's an error condition if this function returns null while the explorer view is nonempty
      **/
-   public AbstractModel getCurrentModel() {
+   public Model getCurrentModel() {
       return currentModel;
    }
    /**
     * hasModel checks if the passed in model is already loaded.
     **/
-   public boolean hasModel(AbstractModel aModel) {
+   public boolean hasModel(Model aModel) {
      for(int i=0; i<models.size(); i++){
          if (models.get(i).equals(aModel))
              return true;
@@ -120,7 +120,7 @@ final public class OpenSimDB extends Observable {
       return false;
    }
 
-   public static AbstractModel selectModel(AbstractModel currentModel) {
+   public static Model selectModel(Model currentModel) {
       return currentModel;
    }
 

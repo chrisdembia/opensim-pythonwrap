@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class SimmZajacHill extends AbstractSimmMuscle {
+public class SimmZajacHill extends AbstractMuscle {
   private long swigCPtr;
 
   public SimmZajacHill(long cPtr, boolean cMemoryOwn) {
@@ -70,8 +70,8 @@ public class SimmZajacHill extends AbstractSimmMuscle {
     opensimModelJNI.SimmZajacHill_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
-  public void setup(AbstractModel aModel) {
-    opensimModelJNI.SimmZajacHill_setup(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setup(Model aModel) {
+    opensimModelJNI.SimmZajacHill_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public double getMaxIsometricForce() {

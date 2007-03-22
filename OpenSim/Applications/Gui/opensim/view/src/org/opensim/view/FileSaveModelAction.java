@@ -4,7 +4,7 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.view.pub.ViewDB;
 
 public final class FileSaveModelAction extends CallableSystemAction {
@@ -12,7 +12,7 @@ public final class FileSaveModelAction extends CallableSystemAction {
     public void performAction() {
         // TODO implement action body
         // Get current active top component
-        AbstractModel mdl = ViewDB.getInstance().getCurrentModel();
+        Model mdl = ViewDB.getInstance().getCurrentModel();
         if (mdl != null){
             StatusDisplayer.getDefault().setStatusText("Saving model "+mdl.getName()+"to file.");
             mdl.print(mdl.getInputFileName());

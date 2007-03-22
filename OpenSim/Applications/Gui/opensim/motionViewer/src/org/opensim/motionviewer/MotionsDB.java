@@ -34,7 +34,7 @@ import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.awt.StatusDisplayer;
 import org.openide.nodes.Node;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.modeling.Storage;
@@ -51,8 +51,8 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    
    static MotionsDB instance;
    // Map model to an ArrayList of Motions linked with it
-   static Hashtable<AbstractModel, ArrayList<SimmMotionData>> mapModels2Motions =
-           new Hashtable<AbstractModel, ArrayList<SimmMotionData>>(4);
+   static Hashtable<Model, ArrayList<SimmMotionData>> mapModels2Motions =
+           new Hashtable<Model, ArrayList<SimmMotionData>>(4);
    
    /** Creates a new instance of MotionsDB */
    private MotionsDB() {
@@ -83,14 +83,14 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       String name = newMotion.getName();
       boolean associated = false;
       while(!associated){
-         AbstractModel modelForMotion = OpenSimDB.getInstance().selectModel(OpenSimDB.getInstance().getCurrentModel());
+         Model modelForMotion = OpenSimDB.getInstance().selectModel(OpenSimDB.getInstance().getCurrentModel());
          if (modelForMotion == null){ // user cancelled
             break;
          }
          // user selected a model, try to associate it
          if(MotionsDB.getInstance().AssociateMotionToModel(newMotion, modelForMotion)){
             associated = true;
-            final AbstractModel dModel = modelForMotion;
+            final Model dModel = modelForMotion;
             SwingUtilities.invokeLater(new Runnable(){
                public void run() {  // Update tree display on event thread
                   ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
@@ -118,7 +118,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
     * Criteria for associating motionto a model:
     * At least one genccord or marker (_tx?) in motion file/SimmMotionData
     */
-   boolean AssociateMotionToModel(SimmMotionData newMotion, AbstractModel modelForMotion) {
+   boolean AssociateMotionToModel(SimmMotionData newMotion, Model modelForMotion) {
       ArrayStr coordinateNames = new ArrayStr();
       modelForMotion.getDynamicsEngine().getCoordinateSet().getNames(coordinateNames);
       int numCoordinates = coordinateNames.getSize();
@@ -142,7 +142,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
             mapModels2Motions.put(modelForMotion, new  ArrayList<SimmMotionData>(4));
          }
          ArrayList<SimmMotionData> motions= mapModels2Motions.get(modelForMotion);
-         newMotion.convertDegreesToRadians(modelForMotion);
+         modelForMotion.getDynamicsEngine().convertDegreesToRadians(newMotion);
          motions.add(newMotion);
          MotionEvent evt = new MotionEvent(modelForMotion, newMotion, MotionEvent.Operation.Open);
          setChanged();
@@ -153,7 +153,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       return associationPossible;
    }
 
-    void setCurrent(AbstractModel model, SimmMotionData motion) {
+    void setCurrent(Model model, SimmMotionData motion) {
          MotionEvent evt = new MotionEvent(model, motion, MotionEvent.Operation.SetCurrent);
          setChanged();
          //int c = this.countObservers();
@@ -163,13 +163,13 @@ public class MotionsDB extends Observable // Observed by other entities in motio
     /**
      * model is actually unused here, just need a model to construct the event but this could be done better
      **/
-   void flushMotions(AbstractModel model) {
+   void flushMotions(Model model) {
          MotionEvent evt = new MotionEvent(model, null, MotionEvent.Operation.Clear);
          setChanged();
          notifyObservers(evt);
    }
 
-   void addSyncMotion(AbstractModel model, SimmMotionData simmMotionData) {
+   void addSyncMotion(Model model, SimmMotionData simmMotionData) {
          MotionEvent evt = new MotionEvent(model, simmMotionData, MotionEvent.Operation.AddSyncMotion);
          setChanged();
          notifyObservers(evt);

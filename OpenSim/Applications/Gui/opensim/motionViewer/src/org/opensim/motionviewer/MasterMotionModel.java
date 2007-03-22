@@ -7,7 +7,7 @@ import java.util.Vector;
 import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.view.pub.ViewDB;
 
@@ -57,7 +57,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
       disp.applyFrameToModel(currentFrame);
       SwingUtilities.invokeLater(new Runnable(){
          public void run(){
-            AbstractModel dModel = disp.getModel();
+            Model dModel = disp.getModel();
             ViewDB.getInstance().getModelVisuals(dModel).updateModelDisplay(dModel);
             ViewDB.getInstance().repaintAll();
          }
@@ -132,7 +132,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
       this.wrapMotion = wrapMotion;
    }
 
-   void add(AbstractModel abstractModel, SimmMotionData simmMotionData) {
+   void add(Model abstractModel, SimmMotionData simmMotionData) {
       
       if (displayers.size() != 0){
            // unload previously loaded motion of the same model
@@ -148,7 +148,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
        updateBounds();
    }
    
-   void addMerge(AbstractModel abstractModel, SimmMotionData simmMotionData) {
+   void addMerge(Model abstractModel, SimmMotionData simmMotionData) {
       int nextMotionNumber = displayers.size();
         displayers.add(new MotionDisplayer(simmMotionData, abstractModel));
        /*if (simmMotionData.getRangeMin() <startTime)
@@ -182,7 +182,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
      currentSuperFrame=0;
    }
 
-   private void buildSuperMotion(AbstractModel model, SimmMotionData mot, int idx) {
+   private void buildSuperMotion(Model model, SimmMotionData mot, int idx) {
       // need <time, frame number, motion number>.
       // Create a vector of motion frames and merge it with 
       int numFrames = mot.getNumberOfFrames();

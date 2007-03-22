@@ -17,10 +17,10 @@ import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractActuator;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.AbstractWrapObject;
 import org.opensim.modeling.CoordinateSet;
-import org.opensim.modeling.SimmMuscleViaPoint;
+import org.opensim.modeling.MuscleViaPoint;
 import org.opensim.modeling.WrapEllipsoid;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Function;
@@ -28,13 +28,13 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Property;
 import org.opensim.modeling.PropertySet;
 import org.opensim.modeling.SetMuscleWrap;
-import org.opensim.modeling.SetSimmMusclePoint;
-import org.opensim.modeling.ArraySimmMusclePoint;
+import org.opensim.modeling.MusclePointSet;
+import org.opensim.modeling.ArrayMusclePoint;
 import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.SimmDarrylMuscle;
-import org.opensim.modeling.SimmMusclePoint;
-import org.opensim.modeling.SimmMusclePointSet;
-import org.opensim.modeling.AbstractSimmMuscle;
+import org.opensim.modeling.MusclePoint;
+import org.opensim.modeling.MusclePointSet;
+import org.opensim.modeling.AbstractMuscle;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.NameChangedEvent;
 import org.opensim.view.nodes.OneMuscleNode;
@@ -232,8 +232,8 @@ final class MuscleEditorTopComponent extends TopComponent {
    }//GEN-LAST:event_MuscleNameTextFieldActionPerformed
    
    private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
-      AbstractSimmMuscle asm = AbstractSimmMuscle.safeDownCast(act);
-      AbstractSimmMuscle asmSaved = AbstractSimmMuscle.safeDownCast(actSaved);
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+      AbstractMuscle asmSaved = AbstractMuscle.safeDownCast(actSaved);
       asm.copyData(asmSaved);
       asm.setName(asmSaved.getName()); // TODO: what about other properties of parent classes?
       OpenSimDB.getInstance().setChanged();
@@ -247,7 +247,7 @@ final class MuscleEditorTopComponent extends TopComponent {
       OpenSimDB.getInstance().setChanged();
       NameChangedEvent evnt = new NameChangedEvent(act);
       OpenSimDB.getInstance().notifyObservers(evnt);
-      actSaved = AbstractSimmMuscle.safeDownCast(act.copy());
+      actSaved = AbstractMuscle.safeDownCast(act.copy());
       actSaved.setName(act.getName()); // TODO: what about other properties of parent classes?
    }//GEN-LAST:event_ApplyButtonActionPerformed
    
@@ -306,8 +306,8 @@ final class MuscleEditorTopComponent extends TopComponent {
    }
    
    public void AttachmentActionPerformed(java.awt.event.ActionEvent evt, int attachmentNum, int coordNum) {
-      AbstractSimmMuscle asm = AbstractSimmMuscle.safeDownCast(act);
-      SetSimmMusclePoint ssmp = asm.getAttachmentSet();
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+      MusclePointSet ssmp = asm.getAttachmentSet();
       double newValue = Double.parseDouble(evt.getActionCommand());
       ssmp.get(attachmentNum).getAttachment().set(coordNum, newValue);
       asm.invalidatePath();
@@ -315,8 +315,8 @@ final class MuscleEditorTopComponent extends TopComponent {
    }
    
    public void AttachmentFocusLost(java.awt.event.FocusEvent evt, int attachmentNum, int coordNum) {
-      AbstractSimmMuscle asm = AbstractSimmMuscle.safeDownCast(act);
-      SetSimmMusclePoint ssmp = asm.getAttachmentSet();
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+      MusclePointSet ssmp = asm.getAttachmentSet();
       double newValue = Double.parseDouble(((javax.swing.JTextField)evt.getComponent()).getText());
       ssmp.get(attachmentNum).getAttachment().set(coordNum, newValue);
       asm.invalidatePath();
@@ -328,15 +328,15 @@ final class MuscleEditorTopComponent extends TopComponent {
       // Action shouldn't be available otherwise'
       OneMuscleNode muscleNode = (OneMuscleNode) selected[0];
       act = (AbstractActuator)muscleNode.getOpensimObject();
-      actSaved = AbstractSimmMuscle.safeDownCast(act.copy());
+      actSaved = AbstractMuscle.safeDownCast(act.copy());
       setupComponent(act);
    }
    
-   public void setupCurrentPathPanel(AbstractSimmMuscle asm) {
+   public void setupCurrentPathPanel(AbstractMuscle asm) {
       CurrentPathPanel.removeAll();
       
       // Put the points in the current path in the CurrentPath tab
-      ArraySimmMusclePoint asmp = asm.getCurrentPath();
+      ArrayMusclePoint asmp = asm.getCurrentPath();
       NumberFormat nf = NumberFormat.getInstance();
       nf.setMaximumFractionDigits(5); // TODO
       nf.setMinimumFractionDigits(5); // TODO
@@ -394,7 +394,7 @@ final class MuscleEditorTopComponent extends TopComponent {
          if (isWrapPoint)
             typeLabel.setText("wrap" + " (" + asmp.get(i).getWrapObject().getName() + ")");
          else {
-            if (SimmMuscleViaPoint.safeDownCast(asmp.get(i)) == null)
+            if (MuscleViaPoint.safeDownCast(asmp.get(i)) == null)
                typeLabel.setText("fixed");
             else
                typeLabel.setText("via");
@@ -420,7 +420,7 @@ final class MuscleEditorTopComponent extends TopComponent {
       CurrentPathPanel.revalidate();
    }
    
-   public void setupWrapPanel(AbstractSimmMuscle asm) {
+   public void setupWrapPanel(AbstractMuscle asm) {
       WrapPanel.removeAll();
       
       // Set up the Wrap Panel
@@ -536,7 +536,7 @@ final class MuscleEditorTopComponent extends TopComponent {
       nf.setMaximumFractionDigits(5); // TODO
       nf.setMinimumFractionDigits(5); // TODO
       int i, j;
-      AbstractSimmMuscle asm = AbstractSimmMuscle.safeDownCast(act);
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
       if (asm != null) {
          int dCount = 0, fCount = 0, iCount = 0, aCount = 0, wCount = 0;
          for (i = 0; i < ps.getSize(); i++) {
@@ -607,7 +607,7 @@ final class MuscleEditorTopComponent extends TopComponent {
          }
          
          // Put the attachment points in the attachments tab
-         SetSimmMusclePoint ssmp = asm.getAttachmentSet();
+         MusclePointSet ssmp = asm.getAttachmentSet();
          int X = 30;
          int Y = 40;
          BodySet bodies = asm.getModel().getDynamicsEngine().getBodySet();
@@ -655,7 +655,7 @@ final class MuscleEditorTopComponent extends TopComponent {
          AttachmentsPanel.add(rangeMaxLabel);
          
          for (i = 0; i < ssmp.getSize(); i++) {
-            SimmMuscleViaPoint via = SimmMuscleViaPoint.safeDownCast(ssmp.get(i));
+            MuscleViaPoint via = MuscleViaPoint.safeDownCast(ssmp.get(i));
             javax.swing.JLabel indexLabel = null;
             indexLabel = new javax.swing.JLabel();
             indexLabel.setText(String.valueOf(aCount+1) + ".");

@@ -18,10 +18,10 @@ import org.openide.util.datatransfer.NewType;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.SimmBody;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 
 /**
- * Node class to wrap AbstractModel's collection of SimmBodies
+ * Node class to wrap Model's collection of SimmBodies
  */
 public class BodiesNode extends OpenSimObjectNode {
     boolean topological=false;

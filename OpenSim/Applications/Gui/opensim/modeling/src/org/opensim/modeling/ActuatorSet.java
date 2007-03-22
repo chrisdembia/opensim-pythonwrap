@@ -54,21 +54,21 @@ public class ActuatorSet extends SetActuators {
     opensimModelJNI.ActuatorSet_copyData(swigCPtr, this, ActuatorSet.getCPtr(aAbsActuatorSet), aAbsActuatorSet);
   }
 
-  public void setup(AbstractModel aModel) {
-    opensimModelJNI.ActuatorSet_setup(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setup(Model aModel) {
+    opensimModelJNI.ActuatorSet_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public void updateGeometry() {
     opensimModelJNI.ActuatorSet_updateGeometry(swigCPtr, this);
   }
 
-  public void setModel(AbstractModel aModel) {
-    opensimModelJNI.ActuatorSet_setModel(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setModel(Model aModel) {
+    opensimModelJNI.ActuatorSet_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public AbstractModel getModel() {
+  public Model getModel() {
     long cPtr = opensimModelJNI.ActuatorSet_getModel(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
+    return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
   public boolean remove(int aIndex) {

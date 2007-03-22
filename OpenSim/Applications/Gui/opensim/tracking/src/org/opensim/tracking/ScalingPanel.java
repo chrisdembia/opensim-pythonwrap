@@ -6,9 +6,9 @@ import java.io.IOException;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ScaleSet;
-import org.opensim.modeling.AbstractModel;
-import org.opensim.modeling.SimmModelScaler;
-import org.opensim.modeling.SimmSubject;
+import org.opensim.modeling.Model;
+import org.opensim.modeling.ModelScaler;
+import org.opensim.modeling.ScaleTool;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.FileOpenOsimModelAction;
 
@@ -19,7 +19,7 @@ public class ScalingPanel  extends workflowWizardPanelBase {
      * component from this class, just use getComponent().
      */
     private ScalingVisualPanel component;
-    AbstractModel scaledModel;
+    Model scaledModel;
     
     // Get the visual component for the panel. In this template, the component
     // is kept separate. This can be more efficient: if the wizard is created
@@ -80,10 +80,10 @@ public class ScalingPanel  extends workflowWizardPanelBase {
     public boolean executeStep()
     {   
         // Call scaling with the model and display it in GUI
-        SimmSubject subject = descriptor.getSubject();
-        SimmModelScaler params = subject.getModelScaler();
-        AbstractModel model = descriptor.getModel();
-        AbstractModel scaledModel = model.clone();
+        ScaleTool subject = descriptor.getSubject();
+        ModelScaler params = subject.getModelScaler();
+        Model model = descriptor.getModel();
+        Model scaledModel = model.clone();
         scaledModel.setName(model.getName()+"-Scaled");
         // This should be moved after processModel or geometry changes caused by scaling
         // should be probagated properly.
@@ -162,8 +162,8 @@ public class ScalingPanel  extends workflowWizardPanelBase {
     }    
 
     private String getOutputModelPath(WorkflowDescriptor descriptor) {
-        SimmSubject subject = descriptor.getSubject();
-        SimmModelScaler params = subject.getModelScaler();
+        ScaleTool subject = descriptor.getSubject();
+        ModelScaler params = subject.getModelScaler();
         String userSpecifiedName = params.getOutputModelFileName();
            /** Restructure
         if (userSpecifiedName.equalsIgnoreCase("Unassigned")){

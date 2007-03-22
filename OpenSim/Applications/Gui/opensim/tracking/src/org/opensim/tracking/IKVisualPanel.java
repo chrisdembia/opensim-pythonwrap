@@ -7,11 +7,11 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.openide.windows.WindowManager;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.IKTaskSet;
 import org.opensim.modeling.IKTool;
-import org.opensim.modeling.SimmIKTrial;
-import org.opensim.modeling.SimmIKTrialSet;
+import org.opensim.modeling.IKTrial;
+import org.opensim.modeling.IKTrialSet;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 import org.opensim.view.SingleModelVisuals;
@@ -21,8 +21,8 @@ import org.opensim.view.pub.ViewDB;
 public final class IKVisualPanel extends workflowVisualPanelBase {
     
     int numTrials;
-   SimmIKTrialSet trialSet=null;
-   SimmIKTrial[] availableTrials=null;
+   IKTrialSet trialSet=null;
+   IKTrial[] availableTrials=null;
     static boolean initialized=false;   // Tooltips and other GUI elements need to be set only once
     IKTool ik = new IKTool();
     /**
@@ -336,7 +336,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
             Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
             // create an investigation and fill in the fields
             ik = new IKTool(jSetupFilenameTextField.getText(), logicPanel.descriptor.getIKModel()); 
-            AbstractModel mdl = ik.getModel();
+            Model mdl = ik.getModel();
             SingleModelVisuals visModel = ViewDB.getInstance().getModelVisuals(mdl);
             
             logicPanel.descriptor.setSetupIKFilename(jSetupFilenameTextField.getText());
@@ -376,7 +376,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     private void jTrialSelectComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTrialSelectComboBoxActionPerformed
 // TODO add your handling code here:
         JComboBox trialSelect = (JComboBox)evt.getSource();
-       makeTrialCurrent((SimmIKTrial) trialSelect.getSelectedItem());
+       makeTrialCurrent((IKTrial) trialSelect.getSelectedItem());
     }//GEN-LAST:event_jTrialSelectComboBoxActionPerformed
     
     
@@ -411,7 +411,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     void updateWorkflow(WorkflowDescriptor descriptor) {
       
        // model file, markers, coords, trial-name, trial-file, from, to, motfile, inc markers, inc-others
-       SimmIKTrialSet trialSet = ik.getIKTrialSet();
+       IKTrialSet trialSet = ik.getIKTrialSet();
        if (trialSet.getSize()>0){
            trialSet.get(0).setEndTime(Double.parseDouble(jToTextField.getText()));
            trialSet.get(0).setStartTime(Double.parseDouble(jFromTextField.getText()));
@@ -433,7 +433,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
            jTrialSelectComboBox.setEnabled(false);
            appendMessage("No trials are available");
        } else { // at least one
-          availableTrials = new SimmIKTrial[numTrials];
+          availableTrials = new IKTrial[numTrials];
             for(int i=0; i < numTrials; i++){
              availableTrials[i] = ik.getIKTrialSet().get(i);
             }
@@ -451,18 +451,18 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     /**
      * Mark one of the trials as current and update the GUI accordingly
      */
-    private void makeTrialCurrent(SimmIKTrial simmIKTrialParams) {
-        String trialName = simmIKTrialParams.getName();
-        jTrialFileTextField.setText(simmIKTrialParams.getMarkerDataFilename());  //.trc
-        jFromTextField.setText(String.valueOf(simmIKTrialParams.getStartTime()));
-        jToTextField.setText(String.valueOf(simmIKTrialParams.getEndTime()));
-        jOutputMotionTextField.setText(simmIKTrialParams.getOutputMotionFilename());
+    private void makeTrialCurrent(IKTrial IKTrialParams) {
+        String trialName = IKTrialParams.getName();
+        jTrialFileTextField.setText(IKTrialParams.getMarkerDataFilename());  //.trc
+        jFromTextField.setText(String.valueOf(IKTrialParams.getStartTime()));
+        jToTextField.setText(String.valueOf(IKTrialParams.getEndTime()));
+        jOutputMotionTextField.setText(IKTrialParams.getOutputMotionFilename());
        try {
-        jOutputMotionTextField.setToolTipText(simmIKTrialParams.getPropertySet().get("output_motion_file").getComment());
+        jOutputMotionTextField.setToolTipText(IKTrialParams.getPropertySet().get("output_motion_file").getComment());
        } catch (IOException ex) {
-          TheApp.exitApp("Internal Error:Property output_motion_file does not exist in SimmIKTrial");
+          TheApp.exitApp("Internal Error:Property output_motion_file does not exist in IKTrial");
        }
-        jIncludeMarkersInOutputCheckBox.setSelected(simmIKTrialParams.getIncludeMarkers());
+        jIncludeMarkersInOutputCheckBox.setSelected(IKTrialParams.getIncludeMarkers());
     }
 
     private void initialize(WorkflowDescriptor aDescriptor) {
@@ -470,8 +470,8 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
     /**
      * @returns trial selected by the user 
      */
-    public SimmIKTrial getSelectedTrial() {
-       return ((SimmIKTrial)jTrialSelectComboBox.getSelectedItem());
+    public IKTrial getSelectedTrial() {
+       return ((IKTrial)jTrialSelectComboBox.getSelectedItem());
     }
 
     public void appendMessage(String message) {

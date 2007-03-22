@@ -10,8 +10,8 @@ import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.ScaleSet;
-import org.opensim.modeling.AbstractModel;
-import org.opensim.modeling.SimmSubject;
+import org.opensim.modeling.Model;
+import org.opensim.modeling.ScaleTool;
 import org.opensim.tracking.workflowWizardPanelBase;
 import org.opensim.view.FileOpenOsimModelAction;
 
@@ -68,11 +68,11 @@ public class ModelLoadingPanel extends workflowWizardPanelBase{
         // Load model and markers into GUI
         // Create a subject instance. This should be moved to the non-GUI counterpart class.
         // Calling setSubject also creates the model in descriptor;
-        //descriptor.setSubject(new SimmSubject(component.getSubjectPath()));
+        //descriptor.setSubject(new ScaleTool(component.getSubjectPath()));
         
         component.updateWorkflow(descriptor);
-        SimmSubject subject = descriptor.getSubject();
-        AbstractModel model = descriptor.getModel(); 
+        ScaleTool subject = descriptor.getSubject();
+        Model model = descriptor.getModel(); 
         component.appendMessage("Start loading model.\n");
         if (model != null){
             boolean success=false;

@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import org.opensim.modeling.SimmSubject;
-import org.opensim.modeling.SimmGenericModelMaker;
+import org.opensim.modeling.ScaleTool;
+import org.opensim.modeling.GenericModelMaker;
 import org.openide.windows.WindowManager;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.MarkerSet;
@@ -549,7 +549,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
             jDefaultMarkersRadioButton2.setSelected(true);
     }
 
-    private void setSubjectInfo(SimmSubject subject) {
+    private void setSubjectInfo(ScaleTool subject) {
         if (subject!= null){
             /* Restructure
             Property massProp = subject.getPropertySet().get("mass");
@@ -604,12 +604,12 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
      */
     void updatePanel(WorkflowDescriptor aDescriptor) {
         this.aDescriptor = aDescriptor;
-        SimmGenericModelMaker modelMaker = aDescriptor.getSubject().getGenericModelMaker();
+        GenericModelMaker modelMaker = aDescriptor.getSubject().getGenericModelMaker();
          try {
         jModelNameTextField2.setToolTipText(modelMaker.getPropertySet().get("model_file").getComment());
             jOwnMarkersTextField2.setToolTipText(modelMaker.getPropertySet().get("MarkerSet").getComment());
         } catch (IOException ex) {
-             TheApp.exitApp("Internal Error:Property does not exist in SimmGenericModelMaker");
+             TheApp.exitApp("Internal Error:Property does not exist in GenericModelMaker");
          }
         if (aDescriptor.getUseOwnModel()){
             jModelOwnRadioButton2.setSelected(true);
@@ -638,7 +638,7 @@ public class ModelLoadingVisualPanel extends workflowVisualPanelBase {
    }
     
     void updateWorkflow(WorkflowDescriptor descriptor){
-        SimmGenericModelMaker params = descriptor.getSubject().getGenericModelMaker();
+        GenericModelMaker params = descriptor.getSubject().getGenericModelMaker();
         if(!jModelNameTextField2.getText().equals("")){
             params.setModelFileName(jModelNameTextField2.getText());
             setModelFile(jModelNameTextField2.getText());

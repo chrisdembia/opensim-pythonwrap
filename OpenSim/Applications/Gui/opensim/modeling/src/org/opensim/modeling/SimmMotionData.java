@@ -102,14 +102,6 @@ public class SimmMotionData extends OpenSimObject {
     opensimModelJNI.SimmMotionData_scaleColumn(swigCPtr, this, aColumnIndex, aScaleFactor);
   }
 
-  public void convertDegreesToRadians(AbstractModel aModel) {
-    opensimModelJNI.SimmMotionData_convertDegreesToRadians(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
-  }
-
-  public void convertRadiansToDegrees(AbstractModel aModel) {
-    opensimModelJNI.SimmMotionData_convertRadiansToDegrees(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
-  }
-
   public int getFrameNumberForTime(double time) {
     return opensimModelJNI.SimmMotionData_getFrameNumberForTime(swigCPtr, this, time);
   }

@@ -23,7 +23,7 @@ import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.nodes.OpenSimNode;
@@ -46,7 +46,7 @@ final public class ExplorerTopComponent extends TopComponent
    
    private final ExplorerManager manager = new ExplorerManager();
    private final BeanTreeView modelTree = new BeanTreeView();
-   private static HashMap<AbstractModel, ConcreteModelNode> mapModels2Nodes = new HashMap<AbstractModel, ConcreteModelNode>(4);
+   private static HashMap<Model, ConcreteModelNode> mapModels2Nodes = new HashMap<Model, ConcreteModelNode>(4);
    
    private Lookup.Result result = null;
    //private OpenSimObject  selectedFromTree;
@@ -164,7 +164,7 @@ final public class ExplorerTopComponent extends TopComponent
                 /*
                  if (!c.isEmpty()) {
                  ModelWindowVTKTopComponent o = (ModelWindowVTKTopComponent) c.iterator().next();
-                 AbstractModel m = o.getModel();
+                 Model m = o.getModel();
                  Node modelNode = mapModels2Nodes.get(m);
                  if (modelNode==null)
                  return;
@@ -198,7 +198,7 @@ final public class ExplorerTopComponent extends TopComponent
                     switch(evnt.getOperation()) {
                        case Open :
                        {
-                          AbstractModel newModel = evnt.getModel();
+                          Model newModel = evnt.getModel();
                           ConcreteModelNode newModelNode = new ConcreteModelNode(newModel);
                           rootNode.getChildren().add(new Node[] { newModelNode});
                           mapModels2Nodes.put(newModel, newModelNode);
@@ -207,7 +207,7 @@ final public class ExplorerTopComponent extends TopComponent
                        }
                        case Close:
                        {
-                          AbstractModel closingModel = evnt.getModel();
+                          Model closingModel = evnt.getModel();
                           ConcreteModelNode modelNode = mapModels2Nodes.get(closingModel);
                           try {
                              modelNode.destroy();
@@ -266,7 +266,7 @@ final public class ExplorerTopComponent extends TopComponent
            
            Object[] models = db.getAllModels();
            for(int i=0; i < models.length; i++)
-              rootNode.getChildren().add(new Node[] { new ConcreteModelNode((AbstractModel)models[i]) });
+              rootNode.getChildren().add(new Node[] { new ConcreteModelNode((Model)models[i]) });
            
         }
         /**
@@ -274,7 +274,7 @@ final public class ExplorerTopComponent extends TopComponent
          *
          * @param new currentModel, null if not explicitly specified
          */
-        public void updateCurrentModelNode(AbstractModel currentModel) {
+        public void updateCurrentModelNode(Model currentModel) {
            Object[] models = OpenSimDB.getInstance().getAllModels();
            Children children = getExplorerManager().getRootContext().getChildren();
            Node[] nodes = children.getNodes();
@@ -290,7 +290,7 @@ final public class ExplorerTopComponent extends TopComponent
         /**
          * Get a reference to the navigator/explorer node represtning the passed in model
          */
-        public ConcreteModelNode getModelNode(final AbstractModel abstractModel) {
+        public ConcreteModelNode getModelNode(final Model abstractModel) {
            return mapModels2Nodes.get(abstractModel);
         }
         

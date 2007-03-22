@@ -6,7 +6,7 @@ import javax.swing.Timer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
@@ -23,7 +23,7 @@ public final class AnnotationAction extends CallableSystemAction {
     
     public void performAction() {
         // Create a Text actor and associate it with th
-        final AbstractModel mdl = OpenSimDB.getInstance().getCurrentModel();
+        final Model mdl = OpenSimDB.getInstance().getCurrentModel();
         if (mdl ==null)
             return;
         final SingleModelVisuals vis =ViewDB.getInstance().getModelVisuals(mdl);

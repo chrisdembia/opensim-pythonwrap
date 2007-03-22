@@ -33,8 +33,8 @@ public class Analysis extends IntegCallback {
     super.delete();
   }
 
-  public Analysis(AbstractModel aModel) {
-    this(opensimModelJNI.new_Analysis__SWIG_0(AbstractModel.getCPtr(aModel), aModel), true);
+  public Analysis(Model aModel) {
+    this(opensimModelJNI.new_Analysis__SWIG_0(Model.getCPtr(aModel), aModel), true);
   }
 
   public Analysis() {
@@ -54,8 +54,8 @@ public class Analysis extends IntegCallback {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setModel(AbstractModel aModel) {
-    opensimModelJNI.Analysis_setModel(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setModel(Model aModel) {
+    opensimModelJNI.Analysis_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public void setInDegrees(boolean aTrueFalse) {

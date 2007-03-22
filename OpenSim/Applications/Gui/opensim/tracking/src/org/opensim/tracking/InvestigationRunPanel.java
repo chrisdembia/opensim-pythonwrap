@@ -4,8 +4,8 @@ import java.awt.Component;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
-import org.opensim.modeling.SimulationTool;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.AbstractTool;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.pub.ViewDB;
@@ -49,7 +49,7 @@ public class InvestigationRunPanel  extends workflowWizardPanelBase{
 
     public boolean executeStep() {
         // Make investigation and run it
-        final SimulationTool dInvestigation = component.getInvestigation();
+        final AbstractTool dInvestigation = component.getInvestigation();
         runDynamicTool(dInvestigation, true);
         return true;
     }

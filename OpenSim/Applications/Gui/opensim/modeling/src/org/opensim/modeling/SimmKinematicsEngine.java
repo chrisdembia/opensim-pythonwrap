@@ -54,8 +54,8 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     opensimModelJNI.SimmKinematicsEngine_registerTypes();
   }
 
-  public void setup(AbstractModel aModel) {
-    opensimModelJNI.SimmKinematicsEngine_setup(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setup(Model aModel) {
+    opensimModelJNI.SimmKinematicsEngine_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public void makePaths() {

@@ -1,6 +1,6 @@
 package org.opensim.tracking;
 
-import org.opensim.modeling.SimulationTool;
+import org.opensim.modeling.AbstractTool;
 import org.opensim.modeling.ForwardTool;
 import org.opensim.modeling.PerturbationTool;
 import org.opensim.utils.FileUtils;
@@ -10,7 +10,7 @@ public final class InvestigationVisualPanel extends workflowVisualPanelBase {
     
     enum investigtionType{Forward, Perurb};
     InvestigationVisualPanel.investigtionType invType=investigtionType.Forward;
-    SimulationTool inv;
+    AbstractTool inv;
     /**
      * Creates new form InvestigationVisualPanel
      */
@@ -210,7 +210,7 @@ public final class InvestigationVisualPanel extends workflowVisualPanelBase {
         return !jSetupFileTextField.getText().equalsIgnoreCase("");
     }
     
-    public SimulationTool getInvestigation()
+    public AbstractTool getInvestigation()
     {
         String fileName=jSetupFileTextField.getText();
         if (invType==investigtionType.Perurb){

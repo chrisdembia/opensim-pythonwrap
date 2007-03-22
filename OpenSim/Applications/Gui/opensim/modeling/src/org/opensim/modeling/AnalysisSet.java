@@ -33,8 +33,8 @@ public class AnalysisSet extends SetAnalysis {
     super.delete();
   }
 
-  public AnalysisSet(AbstractModel aModel) {
-    this(opensimModelJNI.new_AnalysisSet__SWIG_0(AbstractModel.getCPtr(aModel), aModel), true);
+  public AnalysisSet(Model aModel) {
+    this(opensimModelJNI.new_AnalysisSet__SWIG_0(Model.getCPtr(aModel), aModel), true);
   }
 
   public AnalysisSet() {
@@ -54,13 +54,13 @@ public class AnalysisSet extends SetAnalysis {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setModel(AbstractModel aModel) {
-    opensimModelJNI.AnalysisSet_setModel(swigCPtr, this, AbstractModel.getCPtr(aModel), aModel);
+  public void setModel(Model aModel) {
+    opensimModelJNI.AnalysisSet_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public AbstractModel getModel() {
+  public Model getModel() {
     long cPtr = opensimModelJNI.AnalysisSet_getModel(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
+    return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
   public void setOn(boolean aTrueFalse) {

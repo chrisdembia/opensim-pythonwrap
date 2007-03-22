@@ -3,10 +3,10 @@ package org.opensim.tracking;
 import java.awt.Component;
 import java.io.IOException;
 import org.openide.util.HelpCtx;
-import org.opensim.modeling.SimmMarkerPlacer;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.MarkerPlacer;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.CoordinateSet;
-import org.opensim.modeling.SimmSubject;
+import org.opensim.modeling.ScaleTool;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.view.FileOpenOsimModelAction;
 
@@ -50,10 +50,10 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
 
     public boolean executeStep() {
        // Call scaling with the model and display it in GUI
-       SimmSubject subject = descriptor.getSubject();
-       AbstractModel model = descriptor.getScaledModel();
-       SimmMarkerPlacer placer = subject.getMarkerPlacer();
-       AbstractModel markerPlacementModel = model.clone();
+       ScaleTool subject = descriptor.getSubject();
+       Model model = descriptor.getScaledModel();
+       MarkerPlacer placer = subject.getMarkerPlacer();
+       Model markerPlacementModel = model.clone();
        // save coords
        int nStates = model.getNumStates();
        double[] saveStates = new double[nStates];

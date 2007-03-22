@@ -13,7 +13,7 @@ package org.opensim.view;
 import java.util.ArrayList;
 import org.openide.explorer.ExplorerManager;
 import org.openide.nodes.AbstractNode;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 
 /**
  *
@@ -25,7 +25,7 @@ public final class ModelManager implements ExplorerManager.Provider {
     
     private final ExplorerManager _manager = new ExplorerManager();
     
-    private ArrayList<AbstractModel> _models = new ArrayList<AbstractModel>();
+    private ArrayList<Model> _models = new ArrayList<Model>();
     
     /** Get the single instance of the ModelManger */
     public static synchronized ModelManager getDefault() {
@@ -38,11 +38,11 @@ public final class ModelManager implements ExplorerManager.Provider {
     public ModelManager() {
     }
     
-    public ArrayList<AbstractModel> getModels() { // TODO: make this const
+    public ArrayList<Model> getModels() { // TODO: make this const
         return _models;
     }
     
-    public void addModel(AbstractModel m) {
+    public void addModel(Model m) {
         _models.add(m);
     }
 

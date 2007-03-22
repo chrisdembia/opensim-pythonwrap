@@ -4,7 +4,7 @@ import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.SimmMotionData;
 import org.opensim.view.ExplorerTopComponent;
 
@@ -22,7 +22,7 @@ public final class MotionsSynchronizeAction extends CallableSystemAction {
        Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
        for(int i=0; i<selected.length; i++){
             OneMotionNode node =((OneMotionNode)selected[i]);
-            AbstractModel model = node.getModel();
+            Model model = node.getModel();
             if (i==0){
                 MotionsDB.getInstance().flushMotions(model);
             }

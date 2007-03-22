@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class ForwardTool extends SimulationTool {
+public class ForwardTool extends AbstractTool {
   private long swigCPtr;
 
   public ForwardTool(long cPtr, boolean cMemoryOwn) {
@@ -54,24 +54,24 @@ public class ForwardTool extends SimulationTool {
     opensimModelJNI.ForwardTool_run(swigCPtr, this);
   }
 
-  public static void initializeExternalLoads(AbstractModel aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp, SWIGTYPE_p_p_OpenSim__ForceApplier rLeftForceApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rRightTorqueApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rLeftTorqueApp) {
-    opensimModelJNI.ForwardTool_initializeExternalLoads__SWIG_0(AbstractModel.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp), SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rLeftForceApp), SWIGTYPE_p_p_OpenSim__TorqueApplier.getCPtr(rRightTorqueApp), SWIGTYPE_p_p_OpenSim__TorqueApplier.getCPtr(rLeftTorqueApp));
+  public static void initializeExternalLoads(Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp, SWIGTYPE_p_p_OpenSim__ForceApplier rLeftForceApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rRightTorqueApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rLeftTorqueApp) {
+    opensimModelJNI.ForwardTool_initializeExternalLoads__SWIG_0(Model.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp), SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rLeftForceApp), SWIGTYPE_p_p_OpenSim__TorqueApplier.getCPtr(rRightTorqueApp), SWIGTYPE_p_p_OpenSim__TorqueApplier.getCPtr(rLeftTorqueApp));
   }
 
-  public static void initializeExternalLoads(AbstractModel aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp, SWIGTYPE_p_p_OpenSim__ForceApplier rLeftForceApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rRightTorqueApp) {
-    opensimModelJNI.ForwardTool_initializeExternalLoads__SWIG_1(AbstractModel.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp), SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rLeftForceApp), SWIGTYPE_p_p_OpenSim__TorqueApplier.getCPtr(rRightTorqueApp));
+  public static void initializeExternalLoads(Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp, SWIGTYPE_p_p_OpenSim__ForceApplier rLeftForceApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rRightTorqueApp) {
+    opensimModelJNI.ForwardTool_initializeExternalLoads__SWIG_1(Model.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp), SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rLeftForceApp), SWIGTYPE_p_p_OpenSim__TorqueApplier.getCPtr(rRightTorqueApp));
   }
 
-  public static void initializeExternalLoads(AbstractModel aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp, SWIGTYPE_p_p_OpenSim__ForceApplier rLeftForceApp) {
-    opensimModelJNI.ForwardTool_initializeExternalLoads__SWIG_2(AbstractModel.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp), SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rLeftForceApp));
+  public static void initializeExternalLoads(Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp, SWIGTYPE_p_p_OpenSim__ForceApplier rLeftForceApp) {
+    opensimModelJNI.ForwardTool_initializeExternalLoads__SWIG_2(Model.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp), SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rLeftForceApp));
   }
 
-  public static void initializeExternalLoads(AbstractModel aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp) {
-    opensimModelJNI.ForwardTool_initializeExternalLoads__SWIG_3(AbstractModel.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp));
+  public static void initializeExternalLoads(Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp) {
+    opensimModelJNI.ForwardTool_initializeExternalLoads__SWIG_3(Model.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier.getCPtr(rRightForceApp));
   }
 
-  public static void initializeExternalLoads(AbstractModel aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics) {
-    opensimModelJNI.ForwardTool_initializeExternalLoads__SWIG_4(AbstractModel.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics);
+  public static void initializeExternalLoads(Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics) {
+    opensimModelJNI.ForwardTool_initializeExternalLoads__SWIG_4(Model.getCPtr(aModel), aModel, aExternalLoadsFileName, aExternalLoadsModelKinematicsFileName, aExternalLoadsBody1, aExternalLoadsBody2, aLowpassCutoffFrequencyForLoadKinematics);
   }
 
 }

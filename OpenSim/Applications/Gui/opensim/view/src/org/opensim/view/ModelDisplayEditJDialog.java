@@ -10,7 +10,7 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.opensim.modeling.AbstractModel;
+import org.opensim.modeling.Model;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkMatrix4x4;
 
@@ -21,7 +21,7 @@ import vtk.vtkMatrix4x4;
 public class ModelDisplayEditJDialog extends javax.swing.JDialog implements ChangeListener {
     
     private SingleModelVisuals rep;
-    private AbstractModel dModel;
+    private Model dModel;
     private String modelName;
     private vtkMatrix4x4 offset;
     private vtkMatrix4x4 saveOffset=new vtkMatrix4x4();
@@ -30,7 +30,7 @@ public class ModelDisplayEditJDialog extends javax.swing.JDialog implements Chan
     /** Creates new form ModelDisplayEditJDialog */
     public ModelDisplayEditJDialog(java.awt.Frame parent, boolean modal, 
             SingleModelVisuals rep,
-            AbstractModel abstractModel) {
+            Model abstractModel) {
         super(parent, modal);
         this.rep = rep;
         offset= ViewDB.getInstance().getModelVisualsTranform(rep);

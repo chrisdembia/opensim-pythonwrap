@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class IKTool extends SimulationTool {
+public class IKTool extends AbstractTool {
   private long swigCPtr;
 
   public IKTool(long cPtr, boolean cMemoryOwn) {
@@ -37,8 +37,8 @@ public class IKTool extends SimulationTool {
     this(opensimModelJNI.new_IKTool__SWIG_0(), true);
   }
 
-  public IKTool(String aFileName, AbstractModel guiModel) {
-    this(opensimModelJNI.new_IKTool__SWIG_1(aFileName, AbstractModel.getCPtr(guiModel), guiModel), true);
+  public IKTool(String aFileName, Model guiModel) {
+    this(opensimModelJNI.new_IKTool__SWIG_1(aFileName, Model.getCPtr(guiModel), guiModel), true);
   }
 
   public IKTool(String aFileName) {
@@ -58,8 +58,8 @@ public class IKTool extends SimulationTool {
     opensimModelJNI.IKTool_registerTypes();
   }
 
-  public SimmIKTrialSet getIKTrialSet() {
-    return new SimmIKTrialSet(opensimModelJNI.IKTool_getIKTrialSet(swigCPtr, this), false);
+  public IKTrialSet getIKTrialSet() {
+    return new IKTrialSet(opensimModelJNI.IKTool_getIKTrialSet(swigCPtr, this), false);
   }
 
   public void run() {

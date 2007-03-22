@@ -33,8 +33,8 @@ public class Callback extends OpenSimObject {
     super.delete();
   }
 
-  public Callback(AbstractModel aModel) {
-    this(opensimModelJNI.new_Callback__SWIG_0(AbstractModel.getCPtr(aModel), aModel), true);
+  public Callback(Model aModel) {
+    this(opensimModelJNI.new_Callback__SWIG_0(Model.getCPtr(aModel), aModel), true);
   }
 
   public Callback() {
@@ -54,13 +54,13 @@ public class Callback extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void setModel(AbstractModel arg0) {
-    opensimModelJNI.Callback_setModel(swigCPtr, this, AbstractModel.getCPtr(arg0), arg0);
+  public void setModel(Model arg0) {
+    opensimModelJNI.Callback_setModel(swigCPtr, this, Model.getCPtr(arg0), arg0);
   }
 
-  public AbstractModel getModel() {
+  public Model getModel() {
     long cPtr = opensimModelJNI.Callback_getModel(swigCPtr, this);
-    return (cPtr == 0) ? null : new AbstractModel(cPtr, false);
+    return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
   public void setOn(boolean aTrueFalse) {

@@ -8,7 +8,7 @@
 
 package org.opensim.modeling;
 
-public class PerturbationTool extends SimulationTool {
+public class PerturbationTool extends AbstractTool {
   private long swigCPtr;
 
   public PerturbationTool(long cPtr, boolean cMemoryOwn) {

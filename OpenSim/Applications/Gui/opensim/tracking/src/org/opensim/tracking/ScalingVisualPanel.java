@@ -6,9 +6,9 @@ import javax.swing.JFileChooser;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.ScaleSet;
-import org.opensim.modeling.SimmMarkerData;
-import org.opensim.modeling.SimmMeasurementSet;
-import org.opensim.modeling.SimmModelScaler;
+import org.opensim.modeling.MarkerData;
+import org.opensim.modeling.MeasurementSet;
+import org.opensim.modeling.ModelScaler;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.editors.ObjectEditDialogMaker;
 
@@ -479,7 +479,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
        }
        // get end times from the motion file to populate the GUI
        //
-       SimmMarkerData trcData = new SimmMarkerData(trialFilename);
+       MarkerData trcData = new MarkerData(trialFilename);
        jFromTimeTextField.setText(String.valueOf(trcData.getStartFrameTime()));
        jToTimeTextField.setText(String.valueOf(trcData.getLastFrameTime()));
        checkConsistentPanel();
@@ -576,7 +576,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
    // End of variables declaration//GEN-END:variables
      
     public void updatePanel(WorkflowDescriptor aDescriptor) {
-       SimmModelScaler scalingParams = aDescriptor.dSubject.getModelScaler();
+       ModelScaler scalingParams = aDescriptor.dSubject.getModelScaler();
        try {
         scaleMethodSelect.setToolTipText(scalingParams.getPropertySet().get("scaling_order").getComment());
         markerTrialTextField.setToolTipText(scalingParams.getPropertySet().get("marker_file").getComment());
@@ -713,7 +713,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
 
     
     void updateWorkflow(WorkflowDescriptor descriptor){
-       SimmModelScaler scalingParams = descriptor.dSubject.getModelScaler();
+       ModelScaler scalingParams = descriptor.dSubject.getModelScaler();
         scalingParams.setPreserveMassDist(preserveMass.getModel().isSelected());
         String order = (String)scaleMethodSelect.getSelectedItem();
         scalingOrder = new ArrayStr("", 2);
@@ -814,7 +814,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         }
         if (canProceed && hasMeasurements()){
             // A measurment set has to be specified, along with a trial file and a valid time range
-            SimmModelScaler params=logicPanel.descriptor.getSubject().getModelScaler();
+            ModelScaler params=logicPanel.descriptor.getSubject().getModelScaler();
             /* Restructure
             if (params.getMeasurementSet().getSize()==0 && 
                     (jMeasurementsFileTextField.getText().equals("") ||

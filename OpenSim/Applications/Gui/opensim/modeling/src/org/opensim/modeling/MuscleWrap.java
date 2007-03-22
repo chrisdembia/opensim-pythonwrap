@@ -71,8 +71,8 @@ public class MuscleWrap extends OpenSimObject {
     return (cPtr == 0) ? null : new AbstractWrapObject(cPtr, false);
   }
 
-  public SWIGTYPE_p_SimmMuscleWrapPoint getWrapPoint(int aIndex) {
-    return new SWIGTYPE_p_SimmMuscleWrapPoint(opensimModelJNI.MuscleWrap_getWrapPoint(swigCPtr, this, aIndex), false);
+  public SWIGTYPE_p_MuscleWrapPoint getWrapPoint(int aIndex) {
+    return new SWIGTYPE_p_MuscleWrapPoint(opensimModelJNI.MuscleWrap_getWrapPoint(swigCPtr, this, aIndex), false);
   }
 
   public MuscleWrap.WrapMethod getMethod() {
