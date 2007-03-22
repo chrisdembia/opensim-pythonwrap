@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<AbstractModel name="3DGaitModelSimple">
+<Model name="3DGaitModelSimple">
 	<defaults>
 		<SimmZajacHill name="defaultmuscle">
 			<pennation_angle>0.000000000000</pennation_angle>
@@ -2587,4 +2587,4 @@
 			</JointSet>
 		</SimmKinematicsEngine>
 	</DynamicsEngine>
-</AbstractModel>
+</Model>
