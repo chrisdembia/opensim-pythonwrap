@@ -3,7 +3,7 @@
 /*          program.                                         */
 /*************************************************************/
 
-#include "suCFSQPDLL.h"
+#include "osimCFSQPDLL.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -28,26 +28,26 @@ extern char *calloc();
 /* Declare and initialize user-accessible flag indicating    */
 /* whether x sent to user functions has been changed within  */
 /* CFSQP.				 		     */
-extern SUCFSQP_API int x_is_new;
+extern OSIMCFSQP_API int x_is_new;
 
 /* Declare and initialize user-accessible stopping criterion */
-extern SUCFSQP_API double objeps;
-extern SUCFSQP_API double objrep;
-extern SUCFSQP_API double gLgeps;
-extern SUCFSQP_API int nstop;
+extern OSIMCFSQP_API double objeps;
+extern OSIMCFSQP_API double objrep;
+extern OSIMCFSQP_API double gLgeps;
+extern OSIMCFSQP_API int nstop;
 
 /**************************************************************/
 /*     Gradients - Finite Difference                          */
 /**************************************************************/
 
 #ifdef __STDC__
-SUCFSQP_API void grobfd(int,int,double *,double *,void (*)(int,int,
+OSIMCFSQP_API void grobfd(int,int,double *,double *,void (*)(int,int,
                double *,double *,void *),void *);
-SUCFSQP_API void grcnfd(int,int,double *,double *,void (*)(int,int,
+OSIMCFSQP_API void grcnfd(int,int,double *,double *,void (*)(int,int,
                double *,double *,void *),void *);
 #else
-SUCFSQP_API void grobfd();
-SUCFSQP_API void grcnfd();
+OSIMCFSQP_API void grobfd();
+OSIMCFSQP_API void grcnfd();
 #endif
 
 /**************************************************************/
@@ -55,7 +55,7 @@ SUCFSQP_API void grcnfd();
 /**************************************************************/
 
 #ifdef __STDC__
-SUCFSQP_API void cfsqp(int,int,int,int,int,int,int,int,int,int *,int,int,
+OSIMCFSQP_API void cfsqp(int,int,int,int,int,int,int,int,int,int *,int,int,
               int,int *,double,double,double,double,double *,
               double *,double *,double *,double *,double *,
               void (*)(int,int,double *,double *,void *),
@@ -66,7 +66,7 @@ SUCFSQP_API void cfsqp(int,int,int,int,int,int,int,int,int,int *,int,int,
                    void (*)(int,int,double *,double *,void *),void *),
               void *);
 #else
-SUCFSQP_API void cfsqp();
+OSIMCFSQP_API void cfsqp();
 #endif
 
 // FOR LINKING WITH C++ PROGRAMS

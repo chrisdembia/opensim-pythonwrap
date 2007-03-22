@@ -25,7 +25,7 @@
  */
 
 
-#include "suCFSQPDLL.h"
+#include "osimCFSQPDLL.h"
 
 #include <string>
 #include <cstring>
@@ -38,22 +38,22 @@
 #define MAKE_STRING(a) STR(a)
 
 #define GET_VERSION_STRING  \
-    MAKE_VERSION_STRING(OPENSIM_SUCFSQP_MAJOR_VERSION,  \
-                        OPENSIM_SUCFSQP_MINOR_VERSION,  \
-                        OPENSIM_SUCFSQP_BUILD_VERSION)
+    MAKE_VERSION_STRING(OPENSIM_CFSQP_MAJOR_VERSION,  \
+                        OPENSIM_CFSQP_MINOR_VERSION,  \
+                        OPENSIM_CFSQP_BUILD_VERSION)
 
 #define GET_COPYRIGHT_STRING \
-    MAKE_COPYRIGHT_STRING(OPENSIM_SUCFSQP_COPYRIGHT_YEARS, \
-                          OPENSIM_SUCFSQP_AUTHORS)
+    MAKE_COPYRIGHT_STRING(OPENSIM_CFSQP_COPYRIGHT_YEARS, \
+                          OPENSIM_CFSQP_AUTHORS)
 
 #define GET_AUTHORS_STRING \
-    MAKE_STRING(OPENSIM_SUCFSQP_AUTHORS)
+    MAKE_STRING(OPENSIM_CFSQP_AUTHORS)
 
 #define GET_LIBRARY_STRING \
-    MAKE_STRING(OPENSIM_SUCFSQP_LIBRARY_NAME)
+    MAKE_STRING(OPENSIM_CFSQP_LIBRARY_NAME)
 
 #define GET_TYPE_STRING \
-    MAKE_STRING(OPENSIM_SUCFSQP_TYPE)
+    MAKE_STRING(OPENSIM_CFSQP_TYPE)
 
 #ifndef NDEBUG
     #define GET_DEBUG_STRING "debug"
@@ -67,16 +67,16 @@ using namespace std;
 
 extern "C" {
 
-void opensim_version_suCFSQP(int* major, int* minor, int* build) {
+void opensim_version_osimCFSQP(int* major, int* minor, int* build) {
     static const char* l = "OPENSIM library="   GET_LIBRARY_STRING;
     static const char* t = "OPENSIM type="      GET_TYPE_STRING;
     static const char* d = "OPENSIM debug="     GET_DEBUG_STRING;
     static const char* v = "OPENSIM version="   GET_VERSION_STRING;
     static const char* c = "OPENSIM copyright=" GET_COPYRIGHT_STRING;
 
-    if (major) *major = OPENSIM_SUCFSQP_MAJOR_VERSION;
-    if (minor) *minor = OPENSIM_SUCFSQP_MINOR_VERSION;
-    if (build) *build = OPENSIM_SUCFSQP_BUILD_VERSION;
+    if (major) *major = OPENSIM_CFSQP_MAJOR_VERSION;
+    if (minor) *minor = OPENSIM_CFSQP_MINOR_VERSION;
+    if (build) *build = OPENSIM_CFSQP_BUILD_VERSION;
 
     // Force statics to be present in the binary (Release mode otherwise 
     // optimizes them away).
@@ -86,7 +86,7 @@ void opensim_version_suCFSQP(int* major, int* minor, int* build) {
     }
 }
 
-void opensim_about_suCFSQP(const char* key, int maxlen, char* value) {
+void opensim_about_osimCFSQP(const char* key, int maxlen, char* value) {
     if (maxlen <= 0 || value==0) return;
     value[0] = '\0'; // in case we don't find a match
     if (key==0) return;

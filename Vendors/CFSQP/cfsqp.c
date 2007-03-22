@@ -9,7 +9,7 @@
 /*     CFSQP - Main Header                                     */
 /***************************************************************/
 
-#include "suCFSQPDLL.h"
+#include "osimCFSQPDLL.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -94,10 +94,10 @@ struct {
 } glob_log;
 
 /* User-accessible stopping criterion (see cfsqpusr.h)          */
-SUCFSQP_API double objeps=-1.e0;
-SUCFSQP_API double objrep=-1.e0;
-SUCFSQP_API double gLgeps=-1.e0;
-SUCFSQP_API int x_is_new=TRUE;
+OSIMCFSQP_API double objeps=-1.e0;
+OSIMCFSQP_API double objrep=-1.e0;
+OSIMCFSQP_API double gLgeps=-1.e0;
+OSIMCFSQP_API int x_is_new=TRUE;
 
 /* Workspace                                                     */
 int     *iw;
@@ -184,13 +184,13 @@ static int      element();
 /**************************************************************/
 
 #ifdef __STDC__
-SUCFSQP_API void    grobfd(int,int,double *,double *,void (*)(int,int,
+OSIMCFSQP_API void    grobfd(int,int,double *,double *,void (*)(int,int,
                double *,double *,void *),void *);
-SUCFSQP_API void    grcnfd(int,int,double *,double *,void (*)(int,int,
+OSIMCFSQP_API void    grcnfd(int,int,double *,double *,void (*)(int,int,
                double *,double *,void *),void *);
 #else
-SUCFSQP_API void    grobfd();
-SUCFSQP_API void    grcnfd();
+OSIMCFSQP_API void    grobfd();
+OSIMCFSQP_API void    grcnfd();
 #endif
 
 /**************************************************************/
@@ -281,7 +281,7 @@ static void dealloc();
 
 #ifdef __STDC__
 void
-SUCFSQP_API cfsqp(int nparam,int nf,int nfsr,int nineqn,int nineq,int neqn,
+OSIMCFSQP_API cfsqp(int nparam,int nf,int nfsr,int nineqn,int nineq,int neqn,
       int neq,int ncsrl,int ncsrn,int *mesh_pts,
       int mode,int iprint,int miter,int *inform,double bigbnd,
       double eps,double epseqn,double udelta,double *bl,double *bu,
@@ -294,7 +294,7 @@ SUCFSQP_API cfsqp(int nparam,int nf,int nfsr,int nineqn,int nineq,int neqn,
                      void (*)(int,int,double *,double *,void *),void *),
       void *cd)
 #else
-SUCFSQP_API void
+OSIMCFSQP_API void
 cfsqp(nparam,nf,nfsr,nineqn,nineq,neqn,neq,ncsrl,ncsrn,mesh_pts,
       mode,iprint,miter,inform,bigbnd,eps,epseqn,udelta,bl,bu,x,
       f,g,lambda,obj,constr,gradob,gradcn,cd)
@@ -3522,10 +3522,10 @@ L9000:
 /*************************************************************/
 
 #ifdef __STDC__
-SUCFSQP_API void grobfd(int nparam,int j,double *x,double *gradf,
+OSIMCFSQP_API void grobfd(int nparam,int j,double *x,double *gradf,
             void (*obj)(int,int,double *,double *,void *),void *cd)
 #else
-SUCFSQP_API void grobfd(nparam,j,x,gradf,obj,cd)
+OSIMCFSQP_API void grobfd(nparam,j,x,gradf,obj,cd)
 int nparam,j;
 double *x,*gradf;
 void   (*obj)();
@@ -3561,10 +3561,10 @@ void   *cd;
 /***********************************************************/
 
 #ifdef __STDC__
-SUCFSQP_API void grcnfd(int nparam,int j,double *x,double *gradg,
+OSIMCFSQP_API void grcnfd(int nparam,int j,double *x,double *gradg,
             void (*constr)(int,int,double *,double *,void *),void *cd)
 #else
-SUCFSQP_API void grcnfd(nparam,j,x,gradg,constr,cd)
+OSIMCFSQP_API void grcnfd(nparam,j,x,gradg,constr,cd)
 int nparam,j;
 double *x,*gradg;
 void   (*constr)();
