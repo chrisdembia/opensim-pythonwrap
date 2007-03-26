@@ -14,6 +14,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.AnalyticCylinder;
@@ -24,6 +25,8 @@ import org.opensim.modeling.AnalyticTorus;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.LineGeometry;
+import org.opensim.modeling.MusclePoint;
+import org.opensim.modeling.MuscleViaPoint;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Transform;
@@ -199,7 +202,8 @@ public class SingleModelVisuals {
                 OpenSimObject owner = Dependent.getOwner();
                 // There should be a better way to do this type checking
                 // than String comparison but dynamic casting across JNI doesn't work!
-                if (owner.getType().equals("SimmMarker")){
+                String test = owner.getType();
+                if (AbstractMarker.safeDownCast(owner)!=null){
                     // Convert marker pos to global pos.
                     double[] pos = new double[3];
                     double[] gPos = new double[3];
@@ -501,7 +505,7 @@ public class SingleModelVisuals {
                 VisibleObject dependent = bodyDisplayer.getDependent(j);
                 OpenSimObject owner = dependent.getOwner();
 
-                if (owner.getType().equals("SimmMarker")){
+                if (AbstractMarker.safeDownCast(owner)!=null){
                     // Convert marker pos to global pos.
                     dependent.getTransform().getPosition(pos);
                     // xfrom to ground frame using xforms only, no engine
@@ -513,8 +517,8 @@ public class SingleModelVisuals {
                     markersRep.setLocation(index, gPos);
                     continue;
                 }
-                else if (owner.getType().equals("SimmMusclePoint")||
-                        owner.getType().equals("SimmMuscleViaPoint")){
+                else if (MusclePoint.safeDownCast(owner)!=null||
+                        MuscleViaPoint.safeDownCast(owner)!=null){
                     continue;
                 }
                 vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
@@ -558,7 +562,7 @@ public class SingleModelVisuals {
                 VisibleObject dependent = bodyDisplayer.getDependent(j);
                 OpenSimObject owner = dependent.getOwner();
 
-                if (owner.getType().equals("SimmMarker")){
+                if (AbstractMarker.safeDownCast(owner)!=null){
                     // Convert marker pos to global pos.
                     dependent.getTransform().getPosition(pos);
                     // xfrom to ground frame
@@ -567,8 +571,8 @@ public class SingleModelVisuals {
                     markersRep.setLocation(index, gPos);
                     continue;
                 }
-                else if (owner.getType().equals("SimmMusclePoint")||
-                        owner.getType().equals("SimmMuscleViaPoint")){
+                else if (MusclePoint.safeDownCast(owner)!=null||
+                        MuscleViaPoint.safeDownCast(owner)!=null){
                     continue;
                 }
                 vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
