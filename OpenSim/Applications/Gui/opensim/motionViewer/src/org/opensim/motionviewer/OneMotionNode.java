@@ -28,7 +28,7 @@ package org.opensim.motionviewer;
 import java.awt.Image;
 import javax.swing.Action;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.SimmMotionData;
+import org.opensim.modeling.Storage;
 import org.opensim.view.nodes.OpenSimObjectNode;
 
 /**
@@ -38,7 +38,7 @@ import org.opensim.view.nodes.OpenSimObjectNode;
 public class OneMotionNode extends OpenSimObjectNode{
    
    /** Creates a new instance of OneMotionNode */
-   public OneMotionNode(SimmMotionData motion) {
+   public OneMotionNode(Storage motion) {
       super(motion);
    }
 

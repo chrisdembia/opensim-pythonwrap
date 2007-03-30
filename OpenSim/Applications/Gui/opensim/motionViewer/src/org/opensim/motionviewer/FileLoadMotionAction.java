@@ -12,7 +12,7 @@ public final class FileLoadMotionAction extends CallableSystemAction {
    public void performAction() {
       // TODO implement action body
       // Browse for a SIMM motion file
-        String fileName = FileUtils.getInstance().browseForFilename(".mot", "Motion file");
+        String fileName = FileUtils.getInstance().browseForFilename(".mot,.sto", "Motion or storage file");
         if (fileName != null){
            // Load file and associate it to a model
            // File is loaded into a SimmMotionData object first then associated with a particular

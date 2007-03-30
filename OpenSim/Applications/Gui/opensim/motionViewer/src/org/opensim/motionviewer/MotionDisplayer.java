@@ -20,17 +20,19 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.MarkerSet;
-import org.opensim.modeling.SimmMotionData;
+import org.opensim.modeling.StateVector;
+import org.opensim.modeling.Storage;
 import org.opensim.view.OpenSimvtkGlyphCloud;
 import org.opensim.view.pub.ViewDB;
 
 /**
  * 
  * 
- * @author Ayman. This class is used to preprocess motion files (SimmMotionData or similar) so that
+ * 
+ * @author Ayman. This class is used to preprocess motion files (Storage or similar) so that
  * 1. Mapping column indices to markersRep, gcs, ... is done only once.
  * 2. If additional objects need to be created for force or other markersRep they are maintained here.
- * 3. This isolates the display code from the specifics of SimmMotionData so that OpenSim proper creatures can be used.
+ * 3. This isolates the display code from the specifics of Storage so that OpenSim proper creatures can be used.
  */
 
 public class MotionDisplayer {
@@ -58,22 +60,22 @@ public class MotionDisplayer {
     Hashtable<Integer, Object> mapIndicesToObjects=new Hashtable<Integer, Object>(40);
     OpenSimvtkGlyphCloud  forcesRep=new OpenSimvtkGlyphCloud();
     OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud();
-    private SimmMotionData simmMotionData;
+    private Storage simmMotionData;
     private Model model;
     
     // A local copy of motionObjects so that different motions have different motion objects
     //Hashtable<String, vtkActor> motionObjectInstances =new Hashtable<String, vtkActor>(10);
     
     /** Creates a new instance of MotionDisplayer */
-    public MotionDisplayer(SimmMotionData motionData, Model model) {
+    public MotionDisplayer(Storage motionData, Model model) {
         this.model = model;
         simmMotionData = motionData;
         AddMotionObjectsRep(model);
         
-        ArrayStr colNames = motionData.getColumnNames();
+        ArrayStr colNames = motionData.getColumnLabels();
         // We should build sorted lists of object names so that we can find them easily
         for(int i=0; i < motionData.getNumColumns(); i++){
-           String columnName = colNames.getitem(i);
+           String columnName = colNames.getitem(i+1);   // Time is included in labels
            int numClassified = classifyColumn(model, i, columnName); // find out if column is gencord/muscle/segment/...etc.
            ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
            if (numClassified>1)  // If we did a group then skip the group
@@ -218,25 +220,26 @@ public class MotionDisplayer {
        for (int i = 0; i<simmMotionData.getNumColumns(); i++){
          // get Type and apply value
          ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
+         StateVector states=simmMotionData.getStateVector(currentFrame);
           switch(cType){
             case GenCoord:
                AbstractCoordinate coord=(AbstractCoordinate)(mapIndicesToObjects.get(i));
-               if(!coord.getLocked()) coord.setValue(simmMotionData.getValue(i, currentFrame));
+               if(!coord.getLocked()) coord.setValue(states.getData().getitem(i));
                break;
             case Segment_marker_p1:
                int markerIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
-               markersRep.setLocation(markerIndex, simmMotionData.getValue(i, currentFrame), 
-                       simmMotionData.getValue(i+1, currentFrame),
-                       simmMotionData.getValue(i+2, currentFrame));
+               markersRep.setLocation(markerIndex, states.getData().getitem(i), 
+                       states.getData().getitem(i+1),
+                       states.getData().getitem(i+2));
                break;
             case Segment_force_p1:
                int forceIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
-               forcesRep.setNormalAtLocation(forceIndex, simmMotionData.getValue(i, currentFrame), 
-                       simmMotionData.getValue(i+1, currentFrame),
-                       simmMotionData.getValue(i+2, currentFrame));
-               forcesRep.setLocation(forceIndex, simmMotionData.getValue(i+3, currentFrame), 
-                       simmMotionData.getValue(i+4, currentFrame),
-                       simmMotionData.getValue(i+5, currentFrame));
+               forcesRep.setNormalAtLocation(forceIndex, states.getData().getitem(i), 
+                       states.getData().getitem(i+1),
+                       states.getData().getitem(i+2));
+               forcesRep.setLocation(forceIndex, states.getData().getitem(i+3), 
+                       states.getData().getitem(i+4),
+                       states.getData().getitem(i+5));
                break;
             default:
                break;
@@ -253,7 +256,7 @@ public class MotionDisplayer {
         ViewDB.getInstance().getModelVisuals(model).removeUserObject(markersRep.getVtkActor());
     }
 
-   public SimmMotionData getSimmMotionData() {
+   public Storage getSimmMotionData() {
       return simmMotionData;
    }
 

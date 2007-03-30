@@ -98,6 +98,10 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_getSize(swigCPtr, this);
   }
 
+  public int getNumColumns() {
+    return opensimModelJNI.Storage_getNumColumns(swigCPtr, this);
+  }
+
   public int getSmallestNumberOfStates() {
     return opensimModelJNI.Storage_getSmallestNumberOfStates(swigCPtr, this);
   }
@@ -134,6 +138,18 @@ public class Storage extends OpenSimObject {
 
   public int getTimeColumn(SWIGTYPE_p_double rTimes) {
     return opensimModelJNI.Storage_getTimeColumn__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rTimes));
+  }
+
+  public void addKeyValuePair(String aKey, String aValue) {
+    opensimModelJNI.Storage_addKeyValuePair(swigCPtr, this, aKey, aValue);
+  }
+
+  public void getValueForKey(String aKey, SWIGTYPE_p_std__string rValue) {
+    opensimModelJNI.Storage_getValueForKey(swigCPtr, this, aKey, SWIGTYPE_p_std__string.getCPtr(rValue));
+  }
+
+  public boolean hasKey(String aKey) {
+    return opensimModelJNI.Storage_hasKey(swigCPtr, this, aKey);
   }
 
   public int getData(int aTimeIndex, int aStateIndex, SWIGTYPE_p_double rValue) {
@@ -204,12 +220,12 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_getHeaderToken(swigCPtr, this);
   }
 
-  public int getColumnIndex(String aColumnName, int startIndex) {
-    return opensimModelJNI.Storage_getColumnIndex__SWIG_0(swigCPtr, this, aColumnName, startIndex);
+  public int getStateIndex(String aColumnName, int startIndex) {
+    return opensimModelJNI.Storage_getStateIndex__SWIG_0(swigCPtr, this, aColumnName, startIndex);
   }
 
-  public int getColumnIndex(String aColumnName) {
-    return opensimModelJNI.Storage_getColumnIndex__SWIG_1(swigCPtr, this, aColumnName);
+  public int getStateIndex(String aColumnName) {
+    return opensimModelJNI.Storage_getStateIndex__SWIG_1(swigCPtr, this, aColumnName);
   }
 
   public void setColumnLabels(ArrayStr aColumnLabels) {
@@ -372,6 +388,10 @@ public class Storage extends OpenSimObject {
     opensimModelJNI.Storage_lowpassFIR(swigCPtr, this, aOrder, aCutoffFequency);
   }
 
+  public void addToRdStorage(Storage rStorage, double aStartTime, double aEndTime) {
+    opensimModelJNI.Storage_addToRdStorage(swigCPtr, this, Storage.getCPtr(rStorage), rStorage, aStartTime, aEndTime);
+  }
+
   public int findIndex(double aT) {
     return opensimModelJNI.Storage_findIndex__SWIG_0(swigCPtr, this, aT);
   }
@@ -388,20 +408,24 @@ public class Storage extends OpenSimObject {
     opensimModelJNI.Storage_print__SWIG_0(swigCPtr, this);
   }
 
+  public boolean print(String aFileName, String aMode, String aComment) {
+    return opensimModelJNI.Storage_print__SWIG_1(swigCPtr, this, aFileName, aMode, aComment);
+  }
+
   public boolean print(String aFileName, String aMode) {
-    return opensimModelJNI.Storage_print__SWIG_1(swigCPtr, this, aFileName, aMode);
+    return opensimModelJNI.Storage_print__SWIG_2(swigCPtr, this, aFileName, aMode);
   }
 
   public boolean print(String aFileName) {
-    return opensimModelJNI.Storage_print__SWIG_2(swigCPtr, this, aFileName);
+    return opensimModelJNI.Storage_print__SWIG_3(swigCPtr, this, aFileName);
   }
 
   public int print(String aFileName, double aDT, String aMode) {
-    return opensimModelJNI.Storage_print__SWIG_3(swigCPtr, this, aFileName, aDT, aMode);
+    return opensimModelJNI.Storage_print__SWIG_4(swigCPtr, this, aFileName, aDT, aMode);
   }
 
   public int print(String aFileName, double aDT) {
-    return opensimModelJNI.Storage_print__SWIG_4(swigCPtr, this, aFileName, aDT);
+    return opensimModelJNI.Storage_print__SWIG_5(swigCPtr, this, aFileName, aDT);
   }
 
   public static void printResult(Storage aStorage, String aName, String aDir, double aDT, String aExtension) {

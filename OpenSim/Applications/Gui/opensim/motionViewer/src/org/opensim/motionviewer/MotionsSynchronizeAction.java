@@ -5,7 +5,7 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.SimmMotionData;
+import org.opensim.modeling.Storage;
 import org.opensim.view.ExplorerTopComponent;
 
 public final class MotionsSynchronizeAction extends CallableSystemAction {
@@ -26,7 +26,7 @@ public final class MotionsSynchronizeAction extends CallableSystemAction {
             if (i==0){
                 MotionsDB.getInstance().flushMotions(model);
             }
-            MotionsDB.getInstance().addSyncMotion(model, (SimmMotionData) node.getOpensimObject());
+            MotionsDB.getInstance().addSyncMotion(model, (Storage) node.getOpensimObject());
        }
     }
     

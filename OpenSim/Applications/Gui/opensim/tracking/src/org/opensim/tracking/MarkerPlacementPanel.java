@@ -60,7 +60,11 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
        model.getDynamicsEngine().getConfiguration(saveStates);
        
        markerPlacementModel.setName(model.getName()+"-MarkersPlaced");
-       markerPlacementModel.setup();
+        try {
+            markerPlacementModel.setup();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
        // Create a callback to update geometry
        SimtkAnimationCallback animationCallback = SimtkAnimationCallback.CreateAnimationCallback(markerPlacementModel);
        if (placer.processModel(markerPlacementModel, subject.getPathToSubject())){

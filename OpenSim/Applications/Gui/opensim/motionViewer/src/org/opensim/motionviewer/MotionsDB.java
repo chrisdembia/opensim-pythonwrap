@@ -36,7 +36,6 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.nodes.Node;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
-import org.opensim.modeling.SimmMotionData;
 import org.opensim.modeling.Storage;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.ModelEvent;
@@ -51,8 +50,8 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    
    static MotionsDB instance;
    // Map model to an ArrayList of Motions linked with it
-   static Hashtable<Model, ArrayList<SimmMotionData>> mapModels2Motions =
-           new Hashtable<Model, ArrayList<SimmMotionData>>(4);
+   static Hashtable<Model, ArrayList<Storage>> mapModels2Motions =
+           new Hashtable<Model, ArrayList<Storage>>(4);
    
    /** Creates a new instance of MotionsDB */
    private MotionsDB() {
@@ -77,9 +76,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
     */
    public void loadMotionFile(String fileName) {
       Storage storage;
-      final SimmMotionData newMotion = (fileName.endsWith(".sto"))?
-         new SimmMotionData(new Storage(fileName)):
-         new SimmMotionData(fileName);
+      final Storage newMotion = new Storage(fileName);
       String name = newMotion.getName();
       boolean associated = false;
       while(!associated){
@@ -115,33 +112,33 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    }
    
    /**
-    * Criteria for associating motionto a model:
-    * At least one genccord or marker (_tx?) in motion file/SimmMotionData
-    */
-   boolean AssociateMotionToModel(SimmMotionData newMotion, Model modelForMotion) {
+     * Criteria for associating motionto a model:
+     * At least one genccord or marker (_tx?) in motion file/Storage
+     */
+   boolean AssociateMotionToModel(Storage newMotion, Model modelForMotion) {
       ArrayStr coordinateNames = new ArrayStr();
       modelForMotion.getDynamicsEngine().getCoordinateSet().getNames(coordinateNames);
       int numCoordinates = coordinateNames.getSize();
       int numUsedColumns = 0;    // Keep track of how many columns correspond to Coords or Markers
       for(int i=0; i<numCoordinates; i++){
-         if (newMotion.getColumnIndex(coordinateNames.getitem(i))!=-1)
+         if (newMotion.getStateIndex(coordinateNames.getitem(i))!=-1)
             numUsedColumns++;
       }
       ArrayStr markerNames = new ArrayStr();
       modelForMotion.getDynamicsEngine().getMarkerSet().getNames(markerNames);
       for(int i=0; i<markerNames.getSize(); i++){
-         if ((newMotion.getColumnIndex(markerNames.getitem(i)+"_tx")!=-1) ||
-                 (newMotion.getColumnIndex(markerNames.getitem(i)+"_Tx")!=-1) ||
-                 (newMotion.getColumnIndex(markerNames.getitem(i)+"_TX")!=-1))
+         if ((newMotion.getStateIndex(markerNames.getitem(i)+"_tx")!=-1) ||
+                 (newMotion.getStateIndex(markerNames.getitem(i)+"_Tx")!=-1) ||
+                 (newMotion.getStateIndex(markerNames.getitem(i)+"_TX")!=-1))
             numUsedColumns++;
       }
       
       boolean associationPossible=(numUsedColumns>=1); // At least one column makes sense
       if (associationPossible){
          if(mapModels2Motions.get(modelForMotion)==null){  // First motion for model
-            mapModels2Motions.put(modelForMotion, new  ArrayList<SimmMotionData>(4));
+            mapModels2Motions.put(modelForMotion, new  ArrayList<Storage>(4));
          }
-         ArrayList<SimmMotionData> motions= mapModels2Motions.get(modelForMotion);
+         ArrayList<Storage> motions= mapModels2Motions.get(modelForMotion);
          modelForMotion.getDynamicsEngine().convertDegreesToRadians(newMotion);
          motions.add(newMotion);
          MotionEvent evt = new MotionEvent(modelForMotion, newMotion, MotionEvent.Operation.Open);
@@ -153,7 +150,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       return associationPossible;
    }
 
-    void setCurrent(Model model, SimmMotionData motion) {
+    void setCurrent(Model model, Storage motion) {
          MotionEvent evt = new MotionEvent(model, motion, MotionEvent.Operation.SetCurrent);
          setChanged();
          notifyObservers(evt);
@@ -168,7 +165,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
          notifyObservers(evt);
    }
 
-   void addSyncMotion(Model model, SimmMotionData simmMotionData) {
+   void addSyncMotion(Model model, Storage simmMotionData) {
          MotionEvent evt = new MotionEvent(model, simmMotionData, MotionEvent.Operation.AddSyncMotion);
          setChanged();
          notifyObservers(evt);

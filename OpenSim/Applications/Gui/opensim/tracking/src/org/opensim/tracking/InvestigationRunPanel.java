@@ -51,7 +51,12 @@ public class InvestigationRunPanel  extends workflowWizardPanelBase{
     public boolean executeStep() throws IOException {
         // Make investigation and run it
         final AbstractTool dInvestigation = component.getInvestigation();
-        runDynamicTool(dInvestigation, true);
+        try {
+            runDynamicTool(dInvestigation, true);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return false;
+        }
         return true;
     }
     public void updateAvailability()

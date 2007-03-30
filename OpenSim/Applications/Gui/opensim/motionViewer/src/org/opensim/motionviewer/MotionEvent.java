@@ -11,7 +11,7 @@ package org.opensim.motionviewer;
 
 import java.util.EventObject;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.SimmMotionData;
+import org.opensim.modeling.Storage;
 
 /**
  *
@@ -20,13 +20,13 @@ import org.opensim.modeling.SimmMotionData;
 public class MotionEvent extends EventObject {
     
     public enum Operation{Open, Close, SetCurrent, Clear, AddSyncMotion};
-    SimmMotionData  motion;
+    Storage  motion;
     
     Operation op= Operation.Open;
     /**
      * Creates a new instance of MotionEvent
      */
-    public MotionEvent(Model source, SimmMotionData motion, Operation op) {
+    public MotionEvent(Model source, Storage motion, Operation op) {
         super(source);
         this.motion = motion;
         this.op = op;
@@ -37,7 +37,7 @@ public class MotionEvent extends EventObject {
         return (Model) source;
     }
     
-    public SimmMotionData getMotion()
+    public Storage getMotion()
     {
         return motion;
     }

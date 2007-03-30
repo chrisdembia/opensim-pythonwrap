@@ -85,9 +85,13 @@ public class ScalingPanel  extends workflowWizardPanelBase {
         Model model = descriptor.getModel();
         Model scaledModel = model.clone();
         scaledModel.setName(model.getName()+"-Scaled");
+        try {
         // This should be moved after processModel or geometry changes caused by scaling
         // should be probagated properly.
-         scaledModel.setup(); 
+            scaledModel.setup(); 
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } 
          
          if (params.processModel(scaledModel, subject.getPathToSubject(), subject.getMass())){
            // @todo If output file is specified, associate it with scaledModel

@@ -15,7 +15,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.opensim.modeling.SimmMotionData;
+import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.MotionEvent.Operation;
 
 /**

@@ -72,7 +72,12 @@ public class ReduceResidualsPanelPass1  extends workflowWizardPanelBase{
     public boolean executeStep() throws IOException {
         component.updateWorkflow(descriptor);
         rra = new CMCTool(descriptor.getSetupRRA_pass1Filename());
-        runDynamicTool(rra, false);
+        try {
+            runDynamicTool(rra, false);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return false;
+        }
          return true;
     }
     

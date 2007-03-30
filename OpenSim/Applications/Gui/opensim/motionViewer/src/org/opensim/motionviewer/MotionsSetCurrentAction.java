@@ -4,7 +4,7 @@ import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.SimmMotionData;
+import org.opensim.modeling.Storage;
 import org.opensim.view.ExplorerTopComponent;
 
 public final class MotionsSetCurrentAction extends CallableSystemAction {
@@ -19,7 +19,7 @@ public final class MotionsSetCurrentAction extends CallableSystemAction {
         // pass request along to MotionsDB
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         OneMotionNode node = (OneMotionNode)selected[0];
-        MotionsDB.getInstance().setCurrent(node.getModel(),  (SimmMotionData)node.getOpensimObject());
+        MotionsDB.getInstance().setCurrent(node.getModel(),  (Storage)node.getOpensimObject());
     }
     
     public String getName() {

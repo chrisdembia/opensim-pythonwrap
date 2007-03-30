@@ -14,7 +14,6 @@ import java.util.Hashtable;
 import java.util.Observable;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
-import org.opensim.modeling.SimmMotionData;
 import org.opensim.view.*;
 
 /**

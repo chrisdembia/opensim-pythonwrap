@@ -8,7 +8,7 @@ import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.SimmMotionData;
+import org.opensim.modeling.Storage;
 import org.opensim.view.pub.ViewDB;
 
 // End of variables declaration                   
@@ -105,7 +105,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
       // Find time for all motions and set it
       for(int i=0; i<displayers.size(); i++){
          MotionDisplayer md = displayers.get(i);
-         currentFrame=md.getSimmMotionData().getFrameNumberForTime(userTime);
+         currentFrame=md.getSimmMotionData().findIndex(userTime);
          currentMotion=i;
          applyFrame(currentFrame);
      }
@@ -132,7 +132,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
       this.wrapMotion = wrapMotion;
    }
 
-   void add(Model abstractModel, SimmMotionData simmMotionData) {
+   void add(Model abstractModel, Storage simmMotionData) {
       
       if (displayers.size() != 0){
            // unload previously loaded motion of the same model
@@ -148,7 +148,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
        updateBounds();
    }
    
-   void addMerge(Model abstractModel, SimmMotionData simmMotionData) {
+   void addMerge(Model abstractModel, Storage simmMotionData) {
       int nextMotionNumber = displayers.size();
         displayers.add(new MotionDisplayer(simmMotionData, abstractModel));
        /*if (simmMotionData.getRangeMin() <startTime)
@@ -182,14 +182,14 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
      currentSuperFrame=0;
    }
 
-   private void buildSuperMotion(Model model, SimmMotionData mot, int idx) {
+   private void buildSuperMotion(Model model, Storage mot, int idx) {
       // need <time, frame number, motion number>.
       // Create a vector of motion frames and merge it with 
-      int numFrames = mot.getNumberOfFrames();
+      int numFrames = mot.getSize();
       // Merge lists (superMotion, newFrames);
       if (superMotion.size()==0){   // Nothing to merge
          for(int i=0; i< numFrames; i++){
-            double time = mot.getValue("time", i);
+            double time = mot.getStateVector(i).getTime();
             MotionFrame newFrame = new MotionFrame(idx, i, time);
             // insert frame at position j and continue
             superMotion.add(newFrame);
@@ -201,7 +201,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
       // Merge m,otions into one
       int j=0;
       for(int i=0; i< numFrames; i++){
-         double time = mot.getValue("time", i);
+         double time = mot.getStateVector(i).getTime();
          MotionFrame newFrame = new MotionFrame(idx, i, time);
          while(superMotion.get(j).getFrameTime()<time && j<superMotion.size()-1){
             mergedMotion.add(superMotion.get(j));
@@ -253,14 +253,14 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
     **/
    Hashtable makeLabels() {
       // Go thru stored frames in superMotion and create 5 entries
-      Hashtable labels = new Hashtable(5);
+      Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>(5);
       int numFrames =  superMotion.size();
       if (numFrames <5){
          for(int i=0; i<5; i++){
             MotionFrame c = superMotion.get(i);
             String label = Double.toString(c.getFrameTime());
             if (label.length()>5) label=label.substring(0, 5);
-            labels.put(new Integer(25*i), new JLabel(label));
+            labels.put(25*i, new JLabel(label));
          }
       }
       else {
