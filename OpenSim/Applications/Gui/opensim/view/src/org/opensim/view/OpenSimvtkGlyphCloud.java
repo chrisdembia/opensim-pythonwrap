@@ -26,6 +26,9 @@
 
 package org.opensim.view;
 
+import java.util.HashMap;
+import org.opensim.modeling.AbstractMarker;
+import org.opensim.modeling.OpenSimObject;
 import vtk.vtkActor;
 import vtk.vtkDataArray;
 import vtk.vtkFloatArray;
@@ -52,6 +55,9 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     private vtkGlyph3D          glyph= new vtkGlyph3D();
     private vtkFloatArray       lineNormals = new vtkFloatArray();
     private vtkFloatArray       vectorData = new vtkFloatArray();
+    private HashMap<OpenSimObject,Integer> mapObjectIdsToPointIds = new HashMap<OpenSimObject,Integer>(100);
+    private HashMap<Integer,OpenSimObject> mapPointIdsToObjectIds = new HashMap<Integer,OpenSimObject>(100);
+    
     /**
     * Creates a new instance of OpenSimvtkGlyphCloud
     */
@@ -150,4 +156,19 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
    void remove(int index) {
       setVectorDataAtLocation(index, 0., 0., 0.);
    }
+
+    int addLocation(double[] gPos, OpenSimObject obj) {
+        int idx = addLocation(gPos);
+        mapObjectIdsToPointIds.put(obj, idx);
+        mapPointIdsToObjectIds.put(idx, obj);
+        System.out.println("Glyph point id="+idx+" obj.hashCode="+obj.hashCode());
+        return idx;
+    }
+
+    public OpenSimObject getPickedObject(int pickedId) {
+        vtkDataArray inputIds = 
+            glyph.GetOutput().GetPointData().GetArray("InputPointIds");
+        int inputId = (int)inputIds.GetTuple1(pickedId);
+        return mapPointIdsToObjectIds.get(inputId);
+    }
 }

@@ -40,6 +40,7 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.openide.windows.TopComponent;
+import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimtkAnimationCallback;
@@ -772,6 +773,17 @@ public final class ViewDB implements Observer {
             }
             i++;
         }
+    }
+
+    public OpenSimObject getSelectedGlyphObject(int pointId, vtkActor glyphActor) {
+        Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
+        while(iter.hasNext()){
+             SingleModelVisuals nextModel = iter.next();
+            OpenSimvtkGlyphCloud glyph = nextModel.getGlyphObjectForActor(glyphActor);
+            if (glyph!=null)
+                return glyph.getPickedObject(pointId);
+        }
+        return null;
     }
 
 }

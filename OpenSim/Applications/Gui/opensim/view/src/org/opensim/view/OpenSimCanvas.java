@@ -12,15 +12,16 @@ package org.opensim.view;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import javax.swing.JPopupMenu;
+import org.openide.awt.StatusDisplayer;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.editors.ObjectEditDialogMaker;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkAVIWriter;
+import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyPath;
-import vtk.vtkJPEGWriter;
-import vtk.vtkMPEG2Writer;
+import vtk.vtkPointPicker;
 import vtk.vtkPropPicker;
 import vtk.vtkWindowToImageFilter;
 
@@ -60,7 +61,22 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         UnLock();
 
         vtkAssemblyPath asmPath = picker.GetPath();
-        return ViewDB.getInstance().pickObject(asmPath);
+        if (asmPath==null)
+            return null;
+        OpenSimObject obj= ViewDB.getInstance().pickObject(asmPath);
+        if (obj !=null) return obj;
+        // Could be an object that's part of a glyph
+        vtkActor candidateActor = (vtkActor) asmPath.GetLastNode().GetViewProp();
+        // Try point Picker
+        vtkPointPicker pPicker=new vtkPointPicker();
+        Lock();
+        pPicker.Pick(x, rw.GetSize()[1] - y, 0, ren);
+        UnLock();
+        int pointId = pPicker.GetPointId();
+        obj = ViewDB.getInstance().getSelectedGlyphObject(pointId, candidateActor);
+        if (obj != null)
+               StatusDisplayer.getDefault().setStatusText(obj.getType()+", "+obj.getName());
+        return obj;
     }
      /**
      * Callback invoked when the user doubleclicks an object in the graphics window
@@ -140,5 +156,6 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         movieWriter=null;
         movieWriterReady=false;
     }
+
     
 }
