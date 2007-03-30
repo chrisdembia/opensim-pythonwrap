@@ -38,11 +38,6 @@ public class Function extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public static Function safeDownCast(OpenSimObject aObject) {
-    long cPtr = opensimModelJNI.Function_safeDownCast(OpenSimObject.getCPtr(aObject), aObject);
-    return (cPtr == 0) ? null : new Function(cPtr, false);
-  }
-
   public void setMinX(double aMinX) {
     opensimModelJNI.Function_setMinX(swigCPtr, this, aMinX);
   }
@@ -115,8 +110,29 @@ public class Function extends OpenSimObject {
     return opensimModelJNI.Function_evaluate__SWIG_3(swigCPtr, this, aDerivOrder);
   }
 
+  public double evaluateTotalFirstDerivative(double aX, double aDxdt) {
+    return opensimModelJNI.Function_evaluateTotalFirstDerivative(swigCPtr, this, aX, aDxdt);
+  }
+
+  public double evaluateTotalSecondDerivative(double aX, double aDxdt, double aD2xdt2) {
+    return opensimModelJNI.Function_evaluateTotalSecondDerivative(swigCPtr, this, aX, aDxdt, aD2xdt2);
+  }
+
   public void scaleY(double aScaleFactor) {
     opensimModelJNI.Function_scaleY(swigCPtr, this, aScaleFactor);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.Function_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.Function_isA(swigCPtr, this, type);
+  }
+
+  public static Function safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.Function_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Function(cPtr, false);
   }
 
 }

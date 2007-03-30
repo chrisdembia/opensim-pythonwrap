@@ -68,7 +68,7 @@ public class Model extends OpenSimObject {
     return (cPtr == 0) ? null : new SWIGTYPE_p_MuscleGroup(cPtr, false);
   }
 
-  public void setup() {
+  public void setup() throws java.io.IOException {
     opensimModelJNI.Model_setup(swigCPtr, this);
   }
 

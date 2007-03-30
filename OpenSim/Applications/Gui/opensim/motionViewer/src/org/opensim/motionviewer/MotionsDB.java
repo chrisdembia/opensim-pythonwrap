@@ -156,7 +156,6 @@ public class MotionsDB extends Observable // Observed by other entities in motio
     void setCurrent(Model model, SimmMotionData motion) {
          MotionEvent evt = new MotionEvent(model, motion, MotionEvent.Operation.SetCurrent);
          setChanged();
-         //int c = this.countObservers();
          notifyObservers(evt);
     }
 

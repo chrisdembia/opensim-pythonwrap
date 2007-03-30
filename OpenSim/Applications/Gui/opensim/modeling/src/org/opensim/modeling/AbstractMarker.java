@@ -126,4 +126,17 @@ public class AbstractMarker extends OpenSimObject {
     opensimModelJNI.AbstractMarker_peteTest(swigCPtr, this);
   }
 
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.AbstractMarker_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.AbstractMarker_isA(swigCPtr, this, type);
+  }
+
+  public static AbstractMarker safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.AbstractMarker_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new AbstractMarker(cPtr, false);
+  }
+
 }

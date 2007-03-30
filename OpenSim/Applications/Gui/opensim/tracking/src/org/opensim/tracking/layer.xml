@@ -9,6 +9,7 @@
             </file>
                 <file name="org-opensim-tracking-tools-ToolsScaleAction.instance"/>
                 <file name="org-opensim-tracking-tools-ToolsIKWizardAction.instance"/>                
+                <file name="org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance"/>                
         </folder>
         <folder name="Tools">
             <file name="org-opensim-tracking-InvestigationAction.instance"/>
@@ -41,6 +42,7 @@
             <attr name="org-opensim-tracking-TrackingWorkflowAction.shadow/org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance" boolvalue="false"/>
             <attr name="org-opensim-tracking-TrackingWorkflowAction.shadow/Separator2.instance" boolvalue="true"/>
             <attr name="Separator3.instance/org-opensim-tracking-tools-separatorBefore.instance" boolvalue="true"/>
+            <file name="org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance" url="org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance"/>
             <file name="org-opensim-tracking-tools-separatorBefore.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
@@ -72,6 +74,10 @@
             <attr name="org-opensim-tracking-TrackingWorkflowAction.shadow/org-opensim-tracking-tools-separatorBefore.instance" boolvalue="true"/>
             <attr name="Separator3.instance/org-opensim-toolbox-separatorBefore.instance" boolvalue="true"/>
             <attr name="Separator3.instance/org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance" boolvalue="false"/>
+            <attr name="Separator1.instance/org-opensim-toolbox-separatorBefore.instance" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-ToolsIKWizardAction.instance/org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance/org-opensim-tracking-InvestigationAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-separatorBefore.instance/org-opensim-annotationtool-AnnotationAction.shadow" boolvalue="true"/>
         </folder>
         </folder>
     <folder name="Services">

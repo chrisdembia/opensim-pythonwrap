@@ -101,4 +101,17 @@ public class MusclePoint extends OpenSimObject {
     opensimModelJNI.MusclePoint_peteTest(swigCPtr, this);
   }
 
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.MusclePoint_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.MusclePoint_isA(swigCPtr, this, type);
+  }
+
+  public static MusclePoint safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.MusclePoint_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new MusclePoint(cPtr, false);
+  }
+
 }

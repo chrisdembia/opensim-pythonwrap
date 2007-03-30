@@ -48,7 +48,7 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
    }
     public void storeSettings(Object settings) {}
 
-    public boolean executeStep() {
+    public boolean executeStep() throws IOException {
        // Call scaling with the model and display it in GUI
        ScaleTool subject = descriptor.getSubject();
        Model model = descriptor.getScaledModel();

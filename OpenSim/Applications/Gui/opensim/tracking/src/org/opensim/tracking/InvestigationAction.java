@@ -1,6 +1,7 @@
 package org.opensim.tracking;
 
 import java.awt.Dialog;
+import java.io.IOException;
 import java.text.MessageFormat;
 import org.openide.DialogDisplayer;
 import org.openide.WizardDescriptor;
@@ -27,8 +28,12 @@ public final class InvestigationAction extends CallableSystemAction {
             final InvestigationRunPanel curPanel = (InvestigationRunPanel) iterator.current();
                 final SwingWorker worker = new SwingWorker() {
 
-                public Object construct() { // runs in a worker thread
-                    curPanel.executeStep(); 
+                public Object construct()  { // runs in a worker thread
+               try {
+                  curPanel.executeStep(); 
+               } catch (IOException ex) {
+                  ex.printStackTrace();
+               } 
                    return this;
                 }
                 public void finished() {

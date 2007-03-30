@@ -27,6 +27,7 @@ package org.opensim.tracking;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import javax.swing.SwingUtilities;
 import org.openide.WizardDescriptor;
 import java.util.HashSet;
@@ -63,7 +64,7 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
    }
    
    /** Execute the step  */
-   public abstract boolean executeStep();
+   public abstract boolean executeStep() throws IOException;
    
    public void updateValidity(boolean canProceed){
       if (this.canProceed != canProceed){
@@ -109,7 +110,7 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
     * runDynamicTool does all the leg work of setting up the GUI, callback to run
     * a Dynamic investigation and update display with the resulting animation
     */
-   protected void runDynamicTool(final AbstractTool dTool, final Boolean isDeterministic) {
+   protected void runDynamicTool(final AbstractTool dTool, final Boolean isDeterministic) throws IOException {
       
       final Model model = dTool.getModel();
       model.setup();

@@ -12,10 +12,11 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("rdModelDll");
+        System.loadLibrary("osimJavaJNI");		// All OpenSim classes required for GUI operation.
+        System.loadLibrary("osimSdfastEngine");	//to load sdfast based models
       }
       catch(UnsatisfiedLinkError e){
-           TheApp.exitApp("Required library failed to load. Check that the dynamic library rdModelDll is in your PATH\n"+e);
+           TheApp.exitApp("Required library failed to load. Check that the dynamic library osimJavaJNI is in your PATH\n"+e);
       }
   }
 
@@ -128,6 +129,8 @@ public class opensimModelJNI {
   public final static native void OpenSimObject_update(long jarg1, OpenSimObject jarg1_, long jarg2, OpenSimObject jarg2_, long jarg3);
   public final static native void OpenSimObject_setSerializeAllDefaults(boolean jarg1);
   public final static native boolean OpenSimObject_getSerializeAllDefaults();
+  public final static native boolean OpenSimObject_isKindOf(String jarg1);
+  public final static native boolean OpenSimObject_isA(long jarg1, OpenSimObject jarg1_, String jarg2);
   public final static native void Material__propTranslucency_set(long jarg1, Material jarg1_, long jarg2);
   public final static native long Material__propTranslucency_get(long jarg1, Material jarg1_);
   public final static native void Material__propAmbientColor_set(long jarg1, Material jarg1_, long jarg2);
@@ -419,7 +422,8 @@ public class opensimModelJNI {
   public final static native int Storage_getTimeColumn__SWIG_1(long jarg1, Storage jarg1_, long jarg2);
   public final static native int Storage_getData__SWIG_0(long jarg1, Storage jarg1_, int jarg2, int jarg3, long jarg4);
   public final static native int Storage_getData__SWIG_1(long jarg1, Storage jarg1_, int jarg2, int jarg3, int jarg4, long jarg5);
-  public final static native int Storage_getData__SWIG_2(long jarg1, Storage jarg1_, int jarg2, int jarg3, long jarg4);
+  public final static native int Storage_getData__SWIG_2(long jarg1, Storage jarg1_, int jarg2, int jarg3, int jarg4, long jarg5);
+  public final static native int Storage_getData__SWIG_3(long jarg1, Storage jarg1_, int jarg2, int jarg3, long jarg4);
   public final static native int Storage_getDataAtTime__SWIG_0(long jarg1, Storage jarg1_, double jarg2, int jarg3, long jarg4);
   public final static native int Storage_getDataAtTime__SWIG_1(long jarg1, Storage jarg1_, double jarg2, int jarg3, long jarg4);
   public final static native int Storage_getDataColumn__SWIG_0(long jarg1, Storage jarg1_, int jarg2, long jarg3);
@@ -435,10 +439,8 @@ public class opensimModelJNI {
   public final static native String Storage_getHeaderToken(long jarg1, Storage jarg1_);
   public final static native int Storage_getColumnIndex__SWIG_0(long jarg1, Storage jarg1_, String jarg2, int jarg3);
   public final static native int Storage_getColumnIndex__SWIG_1(long jarg1, Storage jarg1_, String jarg2);
-  public final static native void Storage_setColumnLabels__SWIG_0(long jarg1, Storage jarg1_, String jarg2);
-  public final static native void Storage_setColumnLabels__SWIG_1(long jarg1, Storage jarg1_);
-  public final static native String Storage_getColumnLabels(long jarg1, Storage jarg1_);
-  public final static native long Storage_getColumnLabelsArray(long jarg1, Storage jarg1_);
+  public final static native void Storage_setColumnLabels(long jarg1, Storage jarg1_, long jarg2, ArrayStr jarg2_);
+  public final static native long Storage_getColumnLabels(long jarg1, Storage jarg1_);
   public final static native int Storage_reset__SWIG_0(long jarg1, Storage jarg1_, int jarg2);
   public final static native int Storage_reset__SWIG_1(long jarg1, Storage jarg1_);
   public final static native int Storage_reset__SWIG_2(long jarg1, Storage jarg1_, double jarg2);
@@ -485,6 +487,29 @@ public class opensimModelJNI {
   public final static native int Storage_print__SWIG_3(long jarg1, Storage jarg1_, String jarg2, double jarg3, String jarg4);
   public final static native int Storage_print__SWIG_4(long jarg1, Storage jarg1_, String jarg2, double jarg3);
   public final static native void Storage_printResult(long jarg1, Storage jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
+  public final static native long new_SimmMotionData__SWIG_0();
+  public final static native long new_SimmMotionData__SWIG_1(String jarg1);
+  public final static native long new_SimmMotionData__SWIG_2(long jarg1, Storage jarg1_);
+  public final static native long new_SimmMotionData__SWIG_3(long jarg1, SimmMotionData jarg1_);
+  public final static native void delete_SimmMotionData(long jarg1);
+  public final static native long SimmMotionData_copy(long jarg1, SimmMotionData jarg1_);
+  public final static native void SimmMotionData_copyData(long jarg1, SimmMotionData jarg1_, long jarg2, SimmMotionData jarg2_);
+  public final static native int SimmMotionData_getNumColumns(long jarg1, SimmMotionData jarg1_);
+  public final static native int SimmMotionData_getColumnIndex(long jarg1, SimmMotionData jarg1_, String jarg2);
+  public final static native void SimmMotionData_setColumnLabel(long jarg1, SimmMotionData jarg1_, int jarg2, String jarg3);
+  public final static native double SimmMotionData_getValue__SWIG_0(long jarg1, SimmMotionData jarg1_, String jarg2, int jarg3);
+  public final static native double SimmMotionData_getValue__SWIG_1(long jarg1, SimmMotionData jarg1_, int jarg2, int jarg3);
+  public final static native double SimmMotionData_getRangeMin(long jarg1, SimmMotionData jarg1_);
+  public final static native double SimmMotionData_getRangeMax(long jarg1, SimmMotionData jarg1_);
+  public final static native int SimmMotionData_getNumberOfFrames(long jarg1, SimmMotionData jarg1_);
+  public final static native void SimmMotionData_addToRdStorage(long jarg1, SimmMotionData jarg1_, long jarg2, Storage jarg2_, double jarg3, double jarg4);
+  public final static native boolean SimmMotionData_deleteColumn(long jarg1, SimmMotionData jarg1_, String jarg2);
+  public final static native void SimmMotionData_scaleColumn(long jarg1, SimmMotionData jarg1_, int jarg2, double jarg3);
+  public final static native int SimmMotionData_getFrameNumberForTime(long jarg1, SimmMotionData jarg1_, double jarg2);
+  public final static native void SimmMotionData_writeSIMMMotionFile(long jarg1, SimmMotionData jarg1_, String jarg2, String jarg3, String jarg4);
+  public final static native long SimmMotionData_getColumnNames(long jarg1, SimmMotionData jarg1_);
+  public final static native String SimmMotionData_getUnassignedColName(long jarg1, SimmMotionData jarg1_);
+  public final static native void SimmMotionData_peteTest(long jarg1, SimmMotionData jarg1_);
   public final static native double AbstractActuator_LARGE_get();
   public final static native void delete_AbstractActuator(long jarg1);
   public final static native long AbstractActuator_copy(long jarg1, AbstractActuator jarg1_);
@@ -659,7 +684,7 @@ public class opensimModelJNI {
   public final static native void Model_setupProperties(long jarg1, Model jarg1_);
   public final static native long Model_clone(long jarg1, Model jarg1_);
   public final static native long Model_enterGroup(long jarg1, Model jarg1_, String jarg2);
-  public final static native void Model_setup(long jarg1, Model jarg1_);
+  public final static native void Model_setup(long jarg1, Model jarg1_) throws java.io.IOException;
   public final static native boolean Model_builtOK(long jarg1, Model jarg1_);
   public final static native String Model_getInputFileName(long jarg1, Model jarg1_);
   public final static native long Model_getLengthUnits(long jarg1, Model jarg1_);
@@ -1115,8 +1140,8 @@ public class opensimModelJNI {
   public final static native void Analysis_setModel(long jarg1, Analysis jarg1_, long jarg2, Model jarg2_);
   public final static native void Analysis_setInDegrees(long jarg1, Analysis jarg1_, boolean jarg2);
   public final static native boolean Analysis_getInDegrees(long jarg1, Analysis jarg1_);
-  public final static native void Analysis_setColumnLabels(long jarg1, Analysis jarg1_, String jarg2);
-  public final static native String Analysis_getColumnLabels(long jarg1, Analysis jarg1_);
+  public final static native void Analysis_setColumnLabels(long jarg1, Analysis jarg1_, long jarg2, ArrayStr jarg2_);
+  public final static native long Analysis_getColumnLabels(long jarg1, Analysis jarg1_);
   public final static native long Analysis_getStorageList(long jarg1, Analysis jarg1_);
   public final static native boolean Analysis_proceed__SWIG_0(long jarg1, Analysis jarg1_, int jarg2);
   public final static native boolean Analysis_proceed__SWIG_1(long jarg1, Analysis jarg1_);
@@ -1501,6 +1526,9 @@ public class opensimModelJNI {
   public final static native long AbstractMarker_getDisplayer(long jarg1, AbstractMarker jarg1_);
   public final static native void AbstractMarker_updateGeometry(long jarg1, AbstractMarker jarg1_);
   public final static native void AbstractMarker_peteTest(long jarg1, AbstractMarker jarg1_);
+  public final static native boolean AbstractMarker_isKindOf(String jarg1);
+  public final static native boolean AbstractMarker_isA(long jarg1, AbstractMarker jarg1_, String jarg2);
+  public final static native long AbstractMarker_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native void delete_SetMarkers(long jarg1);
   public final static native long new_SetMarkers__SWIG_0();
   public final static native long new_SetMarkers__SWIG_1(String jarg1);
@@ -1662,11 +1690,13 @@ public class opensimModelJNI {
   public final static native void WrapEllipsoid_copyData(long jarg1, WrapEllipsoid jarg1_, long jarg2, WrapEllipsoid jarg2_);
   public final static native String WrapEllipsoid_getWrapTypeName(long jarg1, WrapEllipsoid jarg1_);
   public final static native String WrapEllipsoid_getDimensionsString(long jarg1, WrapEllipsoid jarg1_);
-  public final static native long WrapEllipsoid_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native void WrapEllipsoid_scale(long jarg1, WrapEllipsoid jarg1_, long jarg2, ArrayDouble jarg2_);
   public final static native void WrapEllipsoid_setup(long jarg1, WrapEllipsoid jarg1_, long jarg2, AbstractDynamicsEngine jarg2_, long jarg3, AbstractBody jarg3_);
   public final static native int WrapEllipsoid_wrapLine(long jarg1, WrapEllipsoid jarg1_, long jarg2, ArrayDouble jarg2_, long jarg3, ArrayDouble jarg3_, long jarg4, MuscleWrap jarg4_, long jarg5, long jarg6);
   public final static native void WrapEllipsoid_peteTest(long jarg1, WrapEllipsoid jarg1_);
+  public final static native boolean WrapEllipsoid_isKindOf(String jarg1);
+  public final static native boolean WrapEllipsoid_isA(long jarg1, WrapEllipsoid jarg1_, String jarg2);
+  public final static native long WrapEllipsoid_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native void delete_SetWrapObject(long jarg1);
   public final static native long new_SetWrapObject__SWIG_0();
   public final static native long new_SetWrapObject__SWIG_1(String jarg1);
@@ -1837,7 +1867,6 @@ public class opensimModelJNI {
   public final static native void delete_BodySet(long jarg1);
   public final static native void delete_Function(long jarg1);
   public final static native long Function_copy(long jarg1, Function jarg1_);
-  public final static native long Function_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native void Function_setMinX(long jarg1, Function jarg1_, double jarg2);
   public final static native double Function_getMinX(long jarg1, Function jarg1_);
   public final static native void Function_setMaxX(long jarg1, Function jarg1_, double jarg2);
@@ -1856,7 +1885,12 @@ public class opensimModelJNI {
   public final static native double Function_evaluate__SWIG_1(long jarg1, Function jarg1_, int jarg2, double jarg3, double jarg4);
   public final static native double Function_evaluate__SWIG_2(long jarg1, Function jarg1_, int jarg2, double jarg3);
   public final static native double Function_evaluate__SWIG_3(long jarg1, Function jarg1_, int jarg2);
+  public final static native double Function_evaluateTotalFirstDerivative(long jarg1, Function jarg1_, double jarg2, double jarg3);
+  public final static native double Function_evaluateTotalSecondDerivative(long jarg1, Function jarg1_, double jarg2, double jarg3, double jarg4);
   public final static native void Function_scaleY(long jarg1, Function jarg1_, double jarg2);
+  public final static native boolean Function_isKindOf(String jarg1);
+  public final static native boolean Function_isA(long jarg1, Function jarg1_, String jarg2);
+  public final static native long Function_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native long new_Constant__SWIG_0();
   public final static native long new_Constant__SWIG_1(int jarg1, long jarg2, long jarg3, String jarg4);
   public final static native long new_Constant__SWIG_2(int jarg1, long jarg2, long jarg3);
@@ -2290,18 +2324,23 @@ public class opensimModelJNI {
   public final static native long MusclePoint_getDisplayer(long jarg1, MusclePoint jarg1_);
   public final static native void MusclePoint_updateGeometry(long jarg1, MusclePoint jarg1_);
   public final static native void MusclePoint_peteTest(long jarg1, MusclePoint jarg1_);
+  public final static native boolean MusclePoint_isKindOf(String jarg1);
+  public final static native boolean MusclePoint_isA(long jarg1, MusclePoint jarg1_, String jarg2);
+  public final static native long MusclePoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native long new_MuscleViaPoint__SWIG_0();
   public final static native long new_MuscleViaPoint__SWIG_1(long jarg1, MuscleViaPoint jarg1_);
   public final static native void delete_MuscleViaPoint(long jarg1);
   public final static native long MuscleViaPoint_copy(long jarg1, MuscleViaPoint jarg1_);
   public final static native void MuscleViaPoint_copyData(long jarg1, MuscleViaPoint jarg1_, long jarg2, MuscleViaPoint jarg2_);
-  public final static native long MuscleViaPoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native long MuscleViaPoint_getRange(long jarg1, MuscleViaPoint jarg1_);
   public final static native long MuscleViaPoint_getCoordinate(long jarg1, MuscleViaPoint jarg1_);
   public final static native String MuscleViaPoint_getCoordinateName(long jarg1, MuscleViaPoint jarg1_);
   public final static native boolean MuscleViaPoint_isActive(long jarg1, MuscleViaPoint jarg1_);
   public final static native void MuscleViaPoint_setup(long jarg1, MuscleViaPoint jarg1_, long jarg2, Model jarg2_, long jarg3, AbstractMuscle jarg3_);
   public final static native void MuscleViaPoint_peteTest(long jarg1, MuscleViaPoint jarg1_);
+  public final static native boolean MuscleViaPoint_isKindOf(String jarg1);
+  public final static native boolean MuscleViaPoint_isA(long jarg1, MuscleViaPoint jarg1_, String jarg2);
+  public final static native long MuscleViaPoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native void delete_SetMusclePoint(long jarg1);
   public final static native long new_SetMusclePoint__SWIG_0();
   public final static native long new_SetMusclePoint__SWIG_1(String jarg1);
@@ -2373,7 +2412,6 @@ public class opensimModelJNI {
   public final static native void delete_AbstractMuscle(long jarg1);
   public final static native long AbstractMuscle_copy(long jarg1, AbstractMuscle jarg1_);
   public final static native void AbstractMuscle_setup(long jarg1, AbstractMuscle jarg1_, long jarg2, Model jarg2_);
-  public final static native long AbstractMuscle_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native void AbstractMuscle_copyData(long jarg1, AbstractMuscle jarg1_, long jarg2, AbstractMuscle jarg2_);
   public final static native long AbstractMuscle_getAttachmentSet(long jarg1, AbstractMuscle jarg1_);
   public final static native long AbstractMuscle_getCurrentPath(long jarg1, AbstractMuscle jarg1_);
@@ -2399,6 +2437,9 @@ public class opensimModelJNI {
   public final static native long AbstractMuscle_getDisplayer(long jarg1, AbstractMuscle jarg1_);
   public final static native void AbstractMuscle_updateGeometry(long jarg1, AbstractMuscle jarg1_);
   public final static native void AbstractMuscle_registerTypes();
+  public final static native boolean AbstractMuscle_isKindOf(String jarg1);
+  public final static native boolean AbstractMuscle_isA(long jarg1, AbstractMuscle jarg1_, String jarg2);
+  public final static native long AbstractMuscle_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native long new_SimmDarrylMuscle__SWIG_0();
   public final static native long new_SimmDarrylMuscle__SWIG_1(long jarg1, SimmDarrylMuscle jarg1_);
   public final static native void delete_SimmDarrylMuscle(long jarg1);
@@ -2538,7 +2579,7 @@ public class opensimModelJNI {
   public final static native long ModelScaler_getMeasurementSet(long jarg1, ModelScaler jarg1_);
   public final static native void ModelScaler_setMeasurementSet(long jarg1, ModelScaler jarg1_, long jarg2);
   public final static native long ModelScaler_getScaleSet(long jarg1, ModelScaler jarg1_);
-  public final static native void ModelScaler_setScaleSet(long jarg1, ModelScaler jarg1_, long jarg2, ScaleSet jarg2_);
+  public final static native void ModelScaler_setScaleSetFile(long jarg1, ModelScaler jarg1_, String jarg2);
   public final static native long ModelScaler_getTimeRange(long jarg1, ModelScaler jarg1_);
   public final static native void ModelScaler_setTimeRange(long jarg1, ModelScaler jarg1_, long jarg2, ArrayDouble jarg2_);
   public final static native void ModelScaler_setPreserveMassDist(long jarg1, ModelScaler jarg1_, boolean jarg2);
@@ -2686,29 +2727,6 @@ public class opensimModelJNI {
   public final static native long new_IKTaskSet__SWIG_1(long jarg1, IKTaskSet jarg1_);
   public final static native long new_IKTaskSet__SWIG_2(String jarg1);
   public final static native void delete_IKTaskSet(long jarg1);
-  public final static native long new_SimmMotionData__SWIG_0();
-  public final static native long new_SimmMotionData__SWIG_1(String jarg1);
-  public final static native long new_SimmMotionData__SWIG_2(long jarg1, Storage jarg1_);
-  public final static native long new_SimmMotionData__SWIG_3(long jarg1, SimmMotionData jarg1_);
-  public final static native void delete_SimmMotionData(long jarg1);
-  public final static native long SimmMotionData_copy(long jarg1, SimmMotionData jarg1_);
-  public final static native void SimmMotionData_copyData(long jarg1, SimmMotionData jarg1_, long jarg2, SimmMotionData jarg2_);
-  public final static native int SimmMotionData_getNumColumns(long jarg1, SimmMotionData jarg1_);
-  public final static native int SimmMotionData_getColumnIndex(long jarg1, SimmMotionData jarg1_, String jarg2);
-  public final static native void SimmMotionData_setColumnLabel(long jarg1, SimmMotionData jarg1_, int jarg2, String jarg3);
-  public final static native double SimmMotionData_getValue__SWIG_0(long jarg1, SimmMotionData jarg1_, String jarg2, int jarg3);
-  public final static native double SimmMotionData_getValue__SWIG_1(long jarg1, SimmMotionData jarg1_, int jarg2, int jarg3);
-  public final static native double SimmMotionData_getRangeMin(long jarg1, SimmMotionData jarg1_);
-  public final static native double SimmMotionData_getRangeMax(long jarg1, SimmMotionData jarg1_);
-  public final static native int SimmMotionData_getNumberOfFrames(long jarg1, SimmMotionData jarg1_);
-  public final static native void SimmMotionData_addToRdStorage(long jarg1, SimmMotionData jarg1_, long jarg2, Storage jarg2_, double jarg3, double jarg4);
-  public final static native boolean SimmMotionData_deleteColumn(long jarg1, SimmMotionData jarg1_, String jarg2);
-  public final static native void SimmMotionData_scaleColumn(long jarg1, SimmMotionData jarg1_, int jarg2, double jarg3);
-  public final static native int SimmMotionData_getFrameNumberForTime(long jarg1, SimmMotionData jarg1_, double jarg2);
-  public final static native void SimmMotionData_writeSIMMMotionFile(long jarg1, SimmMotionData jarg1_, String jarg2, String jarg3, String jarg4);
-  public final static native long SimmMotionData_getColumnNames(long jarg1, SimmMotionData jarg1_);
-  public final static native String SimmMotionData_getUnassignedColName(long jarg1, SimmMotionData jarg1_);
-  public final static native void SimmMotionData_peteTest(long jarg1, SimmMotionData jarg1_);
   public final static native long new_MarkerData__SWIG_0();
   public final static native long new_MarkerData__SWIG_1(String jarg1);
   public final static native void delete_MarkerData(long jarg1);
@@ -2860,6 +2878,7 @@ public class opensimModelJNI {
   public final static native long SWIGSetMaterialsUpcast(long jarg1);
   public final static native long SWIGMaterialSetUpcast(long jarg1);
   public final static native long SWIGStorageUpcast(long jarg1);
+  public final static native long SWIGSimmMotionDataUpcast(long jarg1);
   public final static native long SWIGAbstractActuatorUpcast(long jarg1);
   public final static native long SWIGSetActuatorsUpcast(long jarg1);
   public final static native long SWIGActuatorSetUpcast(long jarg1);
@@ -2941,7 +2960,6 @@ public class opensimModelJNI {
   public final static native long SWIGIKTaskUpcast(long jarg1);
   public final static native long SWIGSetIKTasksUpcast(long jarg1);
   public final static native long SWIGIKTaskSetUpcast(long jarg1);
-  public final static native long SWIGSimmMotionDataUpcast(long jarg1);
   public final static native long SWIGMarkerDataUpcast(long jarg1);
   public final static native long SWIGIKToolUpcast(long jarg1);
   public final static native long SWIGMeasurementUpcast(long jarg1);

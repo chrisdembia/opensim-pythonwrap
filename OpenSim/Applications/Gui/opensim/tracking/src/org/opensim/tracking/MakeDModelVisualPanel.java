@@ -37,6 +37,8 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
       jLabel2 = new javax.swing.JLabel();
       jSDFastTextField = new javax.swing.JTextField();
       jBrowse4SDFastFileButton = new javax.swing.JButton();
+      jLabel3 = new javax.swing.JLabel();
+      jLibraryNameTextField = new javax.swing.JTextField();
       jMessageTextArea = new javax.swing.JTextArea();
 
       jModelSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Make SDFast model"));
@@ -58,16 +60,28 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
          }
       });
 
+      org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Model Library");
+
+      jLibraryNameTextField.setToolTipText("Library containing SDFast generated code for the selected model.");
+      jLibraryNameTextField.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jLibraryNameTextFieldActionPerformed(evt);
+         }
+      });
+
       org.jdesktop.layout.GroupLayout jModelSpecPanelLayout = new org.jdesktop.layout.GroupLayout(jModelSpecPanel);
       jModelSpecPanel.setLayout(jModelSpecPanelLayout);
       jModelSpecPanelLayout.setHorizontalGroup(
          jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jModelSpecPanelLayout.createSequentialGroup()
-            .add(jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+               .add(jLabel3))
             .add(31, 31, 31)
             .add(jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+               .add(jLibraryNameTextField)
                .add(jSDFastTextField)
                .add(jModelTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -89,7 +103,10 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
                .add(jLabel2)
                .add(jSDFastTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(jBrowse4SDFastFileButton))
-            .addContainerGap(22, Short.MAX_VALUE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 11, Short.MAX_VALUE)
+            .add(jModelSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(jLabel3)
+               .add(jLibraryNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
       );
 
       jMessageTextArea.setBackground(new java.awt.Color(224, 223, 227));
@@ -98,7 +115,7 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
       jMessageTextArea.setFont(new java.awt.Font("Courier", 0, 12));
       jMessageTextArea.setForeground(new java.awt.Color(204, 0, 51));
       jMessageTextArea.setRows(5);
-      jMessageTextArea.setText("The scale step produced a model that needs to\nbe converted to an SDFast based model. \nThis step performs this conversion. The input is \nthe model file created by the scale step \nand the output model will be used by later steps \nthat require dynamics.");
+      jMessageTextArea.setText("The scale step produced a model that needs to\nbe converted to an SDFast based model. \nThis step performs this conversion. The input is \nthe model file created by the scale step \nand the output model will be used by later steps \nthat require dynamics. ");
       jMessageTextArea.setWrapStyleWord(true);
       jMessageTextArea.setBorder(null);
       jMessageTextArea.setFocusable(false);
@@ -120,6 +137,10 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void jLibraryNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLibraryNameTextFieldActionPerformed
+// TODO add your handling code here:
+   }//GEN-LAST:event_jLibraryNameTextFieldActionPerformed
 
    private void jBrowse4SDFastFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4SDFastFileButtonActionPerformed
 // TODO add your handling code here:
@@ -143,6 +164,8 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
    private javax.swing.JButton jBrowse4SDFastFileButton;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
+   private javax.swing.JLabel jLabel3;
+   private javax.swing.JTextField jLibraryNameTextField;
    private javax.swing.JTextArea jMessageTextArea;
    private javax.swing.JPanel jModelSpecPanel;
    private javax.swing.JTextField jModelTextField;
@@ -189,6 +212,10 @@ public final class MakeDModelVisualPanel extends workflowVisualPanelBase {
     public void checkConsistentPanel() {
         setGuiCanAdvance(true);
     }
+
+   String getModelLibrary() {
+      return jLibraryNameTextField.getText();
+   }
 
 }
 

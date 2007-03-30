@@ -1,6 +1,7 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.io.IOException;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.CMCTool;
 
@@ -68,7 +69,7 @@ public class ComputedMuscleControlPanel  extends workflowWizardPanelBase{
        component.updateWorkflow(descriptor);
     }
 
-    public boolean executeStep() {
+    public boolean executeStep() throws IOException {
         component.updateWorkflow(descriptor);
         final CMCTool cmc = new CMCTool(descriptor.getSetupCMCFilename());
         runDynamicTool(cmc, false);
@@ -77,8 +78,14 @@ public class ComputedMuscleControlPanel  extends workflowWizardPanelBase{
     
     public void updateAvailability()
     {
-        updateValidity(!descriptor.getStepInProgress() && component.isGuiCanAdvance());
+        Object state = component.getClientProperty("Step_executed");
+        if (state instanceof Boolean && ((Boolean)state).booleanValue()==true)
+            updateValidity(true);
+        else {
+            updateValidity(!descriptor.getStepInProgress());            
+        }
     }
+
    
 }
 

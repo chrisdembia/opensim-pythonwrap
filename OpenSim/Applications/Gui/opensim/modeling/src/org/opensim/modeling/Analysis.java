@@ -66,12 +66,12 @@ public class Analysis extends IntegCallback {
     return opensimModelJNI.Analysis_getInDegrees(swigCPtr, this);
   }
 
-  public void setColumnLabels(String aLabels) {
-    opensimModelJNI.Analysis_setColumnLabels(swigCPtr, this, aLabels);
+  public void setColumnLabels(ArrayStr aLabels) {
+    opensimModelJNI.Analysis_setColumnLabels(swigCPtr, this, ArrayStr.getCPtr(aLabels), aLabels);
   }
 
-  public String getColumnLabels() {
-    return opensimModelJNI.Analysis_getColumnLabels(swigCPtr, this);
+  public ArrayStr getColumnLabels() {
+    return new ArrayStr(opensimModelJNI.Analysis_getColumnLabels(swigCPtr, this), false);
   }
 
   public ArrayStorage getStorageList() {

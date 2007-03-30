@@ -94,8 +94,8 @@ public class ModelScaler extends OpenSimObject {
     return new ScaleSet(opensimModelJNI.ModelScaler_getScaleSet(swigCPtr, this), false);
   }
 
-  public void setScaleSet(ScaleSet aScaleSet) {
-    opensimModelJNI.ModelScaler_setScaleSet(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  public void setScaleSetFile(String aScaleSetFilename) {
+    opensimModelJNI.ModelScaler_setScaleSetFile(swigCPtr, this, aScaleSetFilename);
   }
 
   public ArrayDouble getTimeRange() {

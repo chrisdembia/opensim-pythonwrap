@@ -1,6 +1,7 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.io.IOException;
 import org.openide.util.HelpCtx;
 import org.opensim.modeling.CMCTool;
 
@@ -68,7 +69,7 @@ public class ReduceResidualsPanelPass2  extends workflowWizardPanelBase{
        component.updateWorkflow(descriptor);
     }
 
-    public boolean executeStep() {
+    public boolean executeStep() throws IOException {
         
        component.updateWorkflow(descriptor);
         final CMCTool rra = new CMCTool(descriptor.getSetupRRA_pass2Filename());

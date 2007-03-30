@@ -42,11 +42,6 @@ public class AbstractMuscle extends AbstractActuator {
     opensimModelJNI.AbstractMuscle_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public static AbstractMuscle safeDownCast(OpenSimObject aObject) {
-    long cPtr = opensimModelJNI.AbstractMuscle_safeDownCast(OpenSimObject.getCPtr(aObject), aObject);
-    return (cPtr == 0) ? null : new AbstractMuscle(cPtr, false);
-  }
-
   public void copyData(AbstractMuscle aMuscle) {
     opensimModelJNI.AbstractMuscle_copyData(swigCPtr, this, AbstractMuscle.getCPtr(aMuscle), aMuscle);
   }
@@ -147,6 +142,19 @@ public class AbstractMuscle extends AbstractActuator {
 
   public static void registerTypes() {
     opensimModelJNI.AbstractMuscle_registerTypes();
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.AbstractMuscle_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.AbstractMuscle_isA(swigCPtr, this, type);
+  }
+
+  public static AbstractMuscle safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.AbstractMuscle_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new AbstractMuscle(cPtr, false);
   }
 
 }

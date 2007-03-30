@@ -40,13 +40,17 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jLabel2" alignment="0" max="32767" attributes="1"/>
-                      <Component id="jLabel1" alignment="0" max="32767" attributes="1"/>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jLabel2" alignment="0" max="32767" attributes="1"/>
+                          <Component id="jLabel1" alignment="0" max="32767" attributes="1"/>
+                      </Group>
+                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLibraryNameTextField" max="32767" attributes="1"/>
                       <Component id="jSDFastTextField" max="32767" attributes="1"/>
                       <Component id="jModelTextField" alignment="0" pref="247" max="32767" attributes="1"/>
                   </Group>
@@ -74,7 +78,11 @@
                       <Component id="jSDFastTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBrowse4SDFastFileButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="22" max="32767" attributes="0"/>
+                  <EmptySpace pref="11" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLibraryNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -114,6 +122,19 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBrowse4SDFastFileButtonActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Model Library"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jLibraryNameTextField">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Library containing SDFast generated code for the selected model."/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jLibraryNameTextFieldActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextArea" name="jMessageTextArea">
@@ -130,7 +151,7 @@
           <Color blue="33" green="0" red="cc" type="rgb"/>
         </Property>
         <Property name="rows" type="int" value="5"/>
-        <Property name="text" type="java.lang.String" value="The scale step produced a model that needs to&#xa;be converted to an SDFast based model. &#xa;This step performs this conversion. The input is &#xa;the model file created by the scale step &#xa;and the output model will be used by later steps &#xa;that require dynamics."/>
+        <Property name="text" type="java.lang.String" value="The scale step produced a model that needs to&#xa;be converted to an SDFast based model. &#xa;This step performs this conversion. The input is &#xa;the model file created by the scale step &#xa;and the output model will be used by later steps &#xa;that require dynamics. "/>
         <Property name="wrapStyleWord" type="boolean" value="true"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>

@@ -7659,6 +7659,29 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getDa
   int arg2 ;
   int arg3 ;
   int arg4 ;
+  double **arg5 = (double **) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Storage **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = *(double ***)&jarg5; 
+  result = (int)((OpenSim::Storage const *)arg1)->getData(arg2,arg3,arg4,arg5);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getData_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4, jlong jarg5) {
+  jint jresult = 0 ;
+  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
   double *arg5 = (double *) 0 ;
   int result;
   
@@ -7676,7 +7699,7 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getDa
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getData_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jlong jarg4) {
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getData_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jlong jarg4) {
   jint jresult = 0 ;
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
   int arg2 ;
@@ -7984,51 +8007,25 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getCo
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1setColumnLabels_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1setColumnLabels(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
-  char *arg2 = (char *) 0 ;
+  OpenSim::Array<std::string > *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(OpenSim::Storage **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  (arg1)->setColumnLabels((char const *)arg2);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  arg2 = *(OpenSim::Array<std::string > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<std::string > const & reference is null");
+    return ;
+  } 
+  (arg1)->setColumnLabels((OpenSim::Array<std::string > const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1setColumnLabels_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::Storage **)&jarg1; 
-  (arg1)->setColumnLabels();
-}
-
-
-SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getColumnLabels(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::Storage **)&jarg1; 
-  result = (char *)((OpenSim::Storage const *)arg1)->getColumnLabels();
-  if(result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getColumnLabelsArray(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getColumnLabels(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
   OpenSim::Array<std::string > *result = 0 ;
@@ -8038,7 +8035,7 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getC
   (void)jarg1_;
   arg1 = *(OpenSim::Storage **)&jarg1; 
   {
-    OpenSim::Array<std::string > const &_result_ref = ((OpenSim::Storage const *)arg1)->getColumnLabelsArray();
+    OpenSim::Array<std::string > const &_result_ref = ((OpenSim::Storage const *)arg1)->getColumnLabels();
     result = (OpenSim::Array<std::string > *) &_result_ref;
   }
   *(OpenSim::Array<std::string > **)&jresult = result; 
@@ -8487,7 +8484,7 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1inte
   arg1 = *(OpenSim::Storage **)&jarg1; 
   arg2 = (int)jarg2; 
   arg3 = (int)jarg3; 
-  result = (OpenSim::Storage *)(arg1)->integrate(arg2,arg3);
+  result = (OpenSim::Storage *)((OpenSim::Storage const *)arg1)->integrate(arg2,arg3);
   *(OpenSim::Storage **)&jresult = result; 
   return jresult;
 }
@@ -8504,7 +8501,7 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1inte
   (void)jarg1_;
   arg1 = *(OpenSim::Storage **)&jarg1; 
   arg2 = (int)jarg2; 
-  result = (OpenSim::Storage *)(arg1)->integrate(arg2);
+  result = (OpenSim::Storage *)((OpenSim::Storage const *)arg1)->integrate(arg2);
   *(OpenSim::Storage **)&jresult = result; 
   return jresult;
 }
@@ -8519,7 +8516,7 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1inte
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Storage **)&jarg1; 
-  result = (OpenSim::Storage *)(arg1)->integrate();
+  result = (OpenSim::Storage *)((OpenSim::Storage const *)arg1)->integrate();
   *(OpenSim::Storage **)&jresult = result; 
   return jresult;
 }
@@ -8538,7 +8535,7 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1inte
   arg1 = *(OpenSim::Storage **)&jarg1; 
   arg2 = (double)jarg2; 
   arg3 = (double)jarg3; 
-  result = (OpenSim::Storage *)(arg1)->integrate(arg2,arg3);
+  result = (OpenSim::Storage *)((OpenSim::Storage const *)arg1)->integrate(arg2,arg3);
   *(OpenSim::Storage **)&jresult = result; 
   return jresult;
 }
@@ -8557,7 +8554,7 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1compu
   arg1 = *(OpenSim::Storage **)&jarg1; 
   arg2 = (int)jarg2; 
   arg3 = *(double **)&jarg3; 
-  result = (int)(arg1)->computeArea(arg2,arg3);
+  result = (int)((OpenSim::Storage const *)arg1)->computeArea(arg2,arg3);
   jresult = (jint)result; 
   return jresult;
 }
@@ -8580,7 +8577,7 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1compu
   arg3 = (double)jarg3; 
   arg4 = (int)jarg4; 
   arg5 = *(double **)&jarg5; 
-  result = (int)(arg1)->computeArea(arg2,arg3,arg4,arg5);
+  result = (int)((OpenSim::Storage const *)arg1)->computeArea(arg2,arg3,arg4,arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -8599,7 +8596,7 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1compu
   arg1 = *(OpenSim::Storage **)&jarg1; 
   arg2 = (int)jarg2; 
   arg3 = *(double **)&jarg3; 
-  result = (int)(arg1)->computeAverage(arg2,arg3);
+  result = (int)((OpenSim::Storage const *)arg1)->computeAverage(arg2,arg3);
   jresult = (jint)result; 
   return jresult;
 }
@@ -8622,7 +8619,7 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1compu
   arg3 = (double)jarg3; 
   arg4 = (int)jarg4; 
   arg5 = *(double **)&jarg5; 
-  result = (int)(arg1)->computeAverage(arg2,arg3,arg4,arg5);
+  result = (int)((OpenSim::Storage const *)arg1)->computeAverage(arg2,arg3,arg4,arg5);
   jresult = (jint)result; 
   return jresult;
 }
@@ -20100,35 +20097,38 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1setColumnLabels(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1setColumnLabels(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   OpenSim::Analysis *arg1 = (OpenSim::Analysis *) 0 ;
-  char *arg2 = (char *) 0 ;
+  OpenSim::Array<std::string > *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(OpenSim::Analysis **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  (arg1)->setColumnLabels((char const *)arg2);
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  arg2 = *(OpenSim::Array<std::string > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<std::string > const & reference is null");
+    return ;
+  } 
+  (arg1)->setColumnLabels((OpenSim::Array<std::string > const &)*arg2);
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1getColumnLabels(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1getColumnLabels(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
   OpenSim::Analysis *arg1 = (OpenSim::Analysis *) 0 ;
-  char *result = 0 ;
+  OpenSim::Array<std::string > *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Analysis **)&jarg1; 
-  result = (char *)((OpenSim::Analysis const *)arg1)->getColumnLabels();
-  if(result) jresult = jenv->NewStringUTF((const char *)result);
+  {
+    OpenSim::Array<std::string > const &_result_ref = ((OpenSim::Analysis const *)arg1)->getColumnLabels();
+    result = (OpenSim::Array<std::string > *) &_result_ref;
+  }
+  *(OpenSim::Array<std::string > **)&jresult = result; 
   return jresult;
 }
 
@@ -46395,21 +46395,24 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelScaler_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelScaler_1setScaleSet(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelScaler_1setScaleSetFile(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   OpenSim::ModelScaler *arg1 = (OpenSim::ModelScaler *) 0 ;
-  OpenSim::ScaleSet *arg2 = 0 ;
+  std::string *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::ModelScaler **)&jarg1; 
-  arg2 = *(OpenSim::ScaleSet **)&jarg2;
-  if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ScaleSet & reference is null");
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
     return ;
-  } 
-  (arg1)->setScaleSet(*arg2);
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->setScaleSetFile((std::string const &)*arg2);
 }
 
 

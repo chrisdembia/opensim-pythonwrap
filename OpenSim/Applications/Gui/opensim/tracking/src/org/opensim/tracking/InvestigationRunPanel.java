@@ -1,6 +1,7 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.io.IOException;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
@@ -47,7 +48,7 @@ public class InvestigationRunPanel  extends workflowWizardPanelBase{
     }
     public void storeSettings(Object settings) {}
 
-    public boolean executeStep() {
+    public boolean executeStep() throws IOException {
         // Make investigation and run it
         final AbstractTool dInvestigation = component.getInvestigation();
         runDynamicTool(dInvestigation, true);

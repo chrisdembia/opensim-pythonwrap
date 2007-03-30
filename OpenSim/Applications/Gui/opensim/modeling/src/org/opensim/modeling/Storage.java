@@ -140,12 +140,16 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_getData__SWIG_0(swigCPtr, this, aTimeIndex, aStateIndex, SWIGTYPE_p_double.getCPtr(rValue));
   }
 
+  public int getData(int aTimeIndex, int aStateIndex, int aN, SWIGTYPE_p_p_double rData) {
+    return opensimModelJNI.Storage_getData__SWIG_1(swigCPtr, this, aTimeIndex, aStateIndex, aN, SWIGTYPE_p_p_double.getCPtr(rData));
+  }
+
   public int getData(int aTimeIndex, int aStateIndex, int aN, SWIGTYPE_p_double rData) {
-    return opensimModelJNI.Storage_getData__SWIG_1(swigCPtr, this, aTimeIndex, aStateIndex, aN, SWIGTYPE_p_double.getCPtr(rData));
+    return opensimModelJNI.Storage_getData__SWIG_2(swigCPtr, this, aTimeIndex, aStateIndex, aN, SWIGTYPE_p_double.getCPtr(rData));
   }
 
   public int getData(int aTimeIndex, int aN, SWIGTYPE_p_p_double rData) {
-    return opensimModelJNI.Storage_getData__SWIG_2(swigCPtr, this, aTimeIndex, aN, SWIGTYPE_p_p_double.getCPtr(rData));
+    return opensimModelJNI.Storage_getData__SWIG_3(swigCPtr, this, aTimeIndex, aN, SWIGTYPE_p_p_double.getCPtr(rData));
   }
 
   public int getDataAtTime(double aTime, int aN, SWIGTYPE_p_p_double rData) {
@@ -208,20 +212,12 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_getColumnIndex__SWIG_1(swigCPtr, this, aColumnName);
   }
 
-  public void setColumnLabels(String aLabels) {
-    opensimModelJNI.Storage_setColumnLabels__SWIG_0(swigCPtr, this, aLabels);
+  public void setColumnLabels(ArrayStr aColumnLabels) {
+    opensimModelJNI.Storage_setColumnLabels(swigCPtr, this, ArrayStr.getCPtr(aColumnLabels), aColumnLabels);
   }
 
-  public void setColumnLabels() {
-    opensimModelJNI.Storage_setColumnLabels__SWIG_1(swigCPtr, this);
-  }
-
-  public String getColumnLabels() {
-    return opensimModelJNI.Storage_getColumnLabels(swigCPtr, this);
-  }
-
-  public ArrayStr getColumnLabelsArray() {
-    return new ArrayStr(opensimModelJNI.Storage_getColumnLabelsArray(swigCPtr, this), false);
+  public ArrayStr getColumnLabels() {
+    return new ArrayStr(opensimModelJNI.Storage_getColumnLabels(swigCPtr, this), false);
   }
 
   public int reset(int aIndex) {

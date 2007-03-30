@@ -58,11 +58,6 @@ public class WrapEllipsoid extends AbstractWrapObject {
     return opensimModelJNI.WrapEllipsoid_getDimensionsString(swigCPtr, this);
   }
 
-  public static WrapEllipsoid safeDownCast(OpenSimObject aObject) {
-    long cPtr = opensimModelJNI.WrapEllipsoid_safeDownCast(OpenSimObject.getCPtr(aObject), aObject);
-    return (cPtr == 0) ? null : new WrapEllipsoid(cPtr, false);
-  }
-
   public void scale(ArrayDouble aScaleFactors) {
     opensimModelJNI.WrapEllipsoid_scale(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
   }
@@ -77,6 +72,19 @@ public class WrapEllipsoid extends AbstractWrapObject {
 
   public void peteTest() {
     opensimModelJNI.WrapEllipsoid_peteTest(swigCPtr, this);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.WrapEllipsoid_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.WrapEllipsoid_isA(swigCPtr, this, type);
+  }
+
+  public static WrapEllipsoid safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.WrapEllipsoid_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new WrapEllipsoid(cPtr, false);
   }
 
 }

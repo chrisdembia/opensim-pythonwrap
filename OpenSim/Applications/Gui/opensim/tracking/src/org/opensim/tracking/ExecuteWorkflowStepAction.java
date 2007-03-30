@@ -1,5 +1,6 @@
 package org.opensim.tracking;
 
+import java.io.IOException;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.WizardDescriptor;
@@ -34,7 +35,11 @@ public final class ExecuteWorkflowStepAction extends CallableSystemAction {
             
             public Object construct() { // runs in a worker thread
                 ((workflowWizardPanelBase)currentPanel).descriptor.stepInProgress=true;
-                ((workflowWizardPanelBase)currentPanel).executeStep();
+               try {
+                  ((workflowWizardPanelBase)currentPanel).executeStep();
+               } catch (IOException ex) {
+                  ex.printStackTrace();   //Abort workflow
+               }
                 ((workflowWizardPanelBase)currentPanel).descriptor.stepInProgress=false;
                  return this;
             };

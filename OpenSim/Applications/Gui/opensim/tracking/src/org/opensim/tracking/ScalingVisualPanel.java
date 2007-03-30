@@ -580,7 +580,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
        try {
         scaleMethodSelect.setToolTipText(scalingParams.getPropertySet().get("scaling_order").getComment());
         markerTrialTextField.setToolTipText(scalingParams.getPropertySet().get("marker_file").getComment());
-        jMeasurementsFileTextField.setToolTipText(scalingParams.getPropertySet().get("SimmMeasurementSet").getComment());
+        jMeasurementsFileTextField.setToolTipText(scalingParams.getPropertySet().get("MeasurementSet").getComment());
         jManualScaleTextField.setToolTipText(scalingParams.getPropertySet().get("ScaleSet").getComment());
         preserveMass.setToolTipText(scalingParams.getPropertySet().get("preserve_mass_distribution").getComment());
         saveScalesTextField.setToolTipText(scalingParams.getPropertySet().get("output_scale_file").getComment());
@@ -730,10 +730,9 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             if(jManualScaleTextField.getText().equals(""))
                 this.appendMessage("Manual scaling was selected but no Scales file was presented.");
             else {
+               //subjectPath = descriptor.dSubject.getPathToSubject();
              /* Create a ScaleSet based on selected file and set it in Subject.*/
-             ScaleSet manualScales = new ScaleSet(jManualScaleTextField.getText());
-             scalingParams.setScaleSet(manualScales);
-             //Restructure descriptor.keepRef(manualScales);   // A hack to work around early garbage collection
+             scalingParams.setScaleSetFile(jManualScaleTextField.getText());
             }
         }
         // Now measurements
@@ -745,7 +744,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             timeRange.setitem(1, toTime);
             scalingParams.setTimeRange(timeRange);
             scalingParams.setMaxMarkerMovement(Double.valueOf(jMaxMarkerMoveTextField.getText()).doubleValue());
-          scalingParams.setMarkerFileName(markerTrialTextField.getText());
+            scalingParams.setMarkerFileName(markerTrialTextField.getText());
           
             /*if (!(jMeasurementsFileTextField.getText().equals("")))
                 scalingParams.setMeasurementSetFile(jMeasurementsFileTextField.getText()); */

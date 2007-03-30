@@ -73,7 +73,7 @@ public class MakeDModelPanel  extends workflowWizardPanelBase{
     public boolean executeStep() {
         String modelFilename = descriptor.getDynamicsModelFile();
         String sdfastfile=component.getSDFastfilename();
-        String command="makeSDFastModel -IM "+modelFilename+" -OM "+sdfastfile;
+        String command="makeSDFastModel -IM "+modelFilename+" -OM "+sdfastfile+" -ML "+component.getModelLibrary();
         File f = new File(modelFilename);
         File outFileDir = f.getParentFile();
         boolean success = ExecOpenSimProcess.execute(command, new String[]{""}, outFileDir );

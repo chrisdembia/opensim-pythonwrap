@@ -126,7 +126,7 @@ public class IKPanel  extends workflowWizardPanelBase{
         component.putClientProperty("Step_executed", Boolean.TRUE);
         
         // Load resulting motion and associate it with ik model
-        OpenSimDB.getInstance().setCurrentModel(ikModel);        
+        //unnecessary OpenSimDB.getInstance().setCurrentModel(ikModel);        
         String ikFilePath = new File(ik.getDocumentFileName()).getParent();
         String motionFilePath = ikFilePath+File.separator+ik.getIKTrialSet().get(0).getOutputMotionFilename();
         if (new File(motionFilePath).exists())

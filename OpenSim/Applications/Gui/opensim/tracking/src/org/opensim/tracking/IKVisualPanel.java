@@ -424,8 +424,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         initialize(aDescriptor);    // Tooltip
         String filename = aDescriptor.getSetupIKFilename();
         if (filename != null){
-            IKTool.registerTypes();
-            ik = new IKTool(filename, aDescriptor.getIKModel());
+             ik = new IKTool(filename, aDescriptor.getIKModel());
         }
         String modelFile = ik.getModelFilename();
        numTrials = ik.getIKTrialSet().getSize();

@@ -13,7 +13,7 @@ import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.swingui.SwingWorker;
-import org.opensim.tracking.IKPanel;
+import org.opensim.tracking.ComputedMuscleControlPanel;
 import org.opensim.tracking.WorkflowDescriptor;
 import org.opensim.tracking.workflowWizardPanelBase;
 import org.opensim.view.pub.OpenSimDB;
@@ -21,20 +21,18 @@ import org.opensim.view.pub.ViewDB;
 
 // An example action demonstrating how the wizard could be called from within
 // your code. You can copy-paste the code below wherever you need.
-public final class ToolsIKWizardAction extends CallableSystemAction {
+public final class ToolsRunCMCWizardAction extends CallableSystemAction {
    
    private workflowWizardPanelBase[] panels;   
    
    public void performAction() {
       WorkflowDescriptor descriptor = new WorkflowDescriptor();
-      descriptor.setIKModel(OpenSimDB.getInstance().getCurrentModel());
 
       WizardDescriptor wizardDescriptor = new WizardDescriptor(getPanels(), descriptor);
       // {0} will be replaced by WizardDesriptor.Panel.getComponent().getName()
       wizardDescriptor.setTitleFormat(new MessageFormat("{0}"));
-      wizardDescriptor.setTitle("Inverse Kinematics");
+      wizardDescriptor.setTitle("Computed Muscle Control");
       //wizardDescriptor.setAdditionalOptions(new Object[] {executeButton});
-
       Dialog dialog = DialogDisplayer.getDefault().createDialog(wizardDescriptor);
       dialog.setVisible(true);
       dialog.toFront();
@@ -64,7 +62,7 @@ public final class ToolsIKWizardAction extends CallableSystemAction {
    private WizardDescriptor.Panel[] getPanels() {
       if (panels == null) {
          panels = new workflowWizardPanelBase[] {
-            new IKPanel()
+            new ComputedMuscleControlPanel()
          };
          String[] steps = new String[panels.length];
          for (int i = 0; i < panels.length; i++) {
@@ -85,6 +83,7 @@ public final class ToolsIKWizardAction extends CallableSystemAction {
                jc.putClientProperty("WizardPanel_contentDisplayed", Boolean.TRUE);
                // Turn on numbering of all steps
                jc.putClientProperty("WizardPanel_contentNumbered", Boolean.TRUE);
+               
             }
          }
       }
@@ -92,7 +91,7 @@ public final class ToolsIKWizardAction extends CallableSystemAction {
    }
    
    public String getName() {
-      return "Inverse Kinematics...";
+      return "Computed Muscle Control...";
    }
    
    public String iconResource() {
@@ -108,13 +107,11 @@ public final class ToolsIKWizardAction extends CallableSystemAction {
    }
    
    public boolean isEnabled() {
- 
-      return ViewDB.getInstance().getCurrentModel()!=null;
+      return true;
    }
 
    protected void initialize() {
       super.initialize();
-      ViewDB.getInstance().registerModelCommand(this);
    }
    
 }

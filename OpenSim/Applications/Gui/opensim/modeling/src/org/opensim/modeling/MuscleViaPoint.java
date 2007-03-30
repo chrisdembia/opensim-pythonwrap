@@ -50,11 +50,6 @@ public class MuscleViaPoint extends MusclePoint {
     opensimModelJNI.MuscleViaPoint_copyData(swigCPtr, this, MuscleViaPoint.getCPtr(aPoint), aPoint);
   }
 
-  public static MuscleViaPoint safeDownCast(OpenSimObject aObject) {
-    long cPtr = opensimModelJNI.MuscleViaPoint_safeDownCast(OpenSimObject.getCPtr(aObject), aObject);
-    return (cPtr == 0) ? null : new MuscleViaPoint(cPtr, false);
-  }
-
   public ArrayDouble getRange() {
     return new ArrayDouble(opensimModelJNI.MuscleViaPoint_getRange(swigCPtr, this), false);
   }
@@ -78,6 +73,19 @@ public class MuscleViaPoint extends MusclePoint {
 
   public void peteTest() {
     opensimModelJNI.MuscleViaPoint_peteTest(swigCPtr, this);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.MuscleViaPoint_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.MuscleViaPoint_isA(swigCPtr, this, type);
+  }
+
+  public static MuscleViaPoint safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.MuscleViaPoint_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new MuscleViaPoint(cPtr, false);
   }
 
 }

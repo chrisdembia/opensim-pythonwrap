@@ -77,7 +77,7 @@ public class ScalingPanel  extends workflowWizardPanelBase {
         component.updateWorkflow(descriptor);
     }
     
-    public boolean executeStep()
+    public boolean executeStep() throws IOException
     {   
         // Call scaling with the model and display it in GUI
         ScaleTool subject = descriptor.getSubject();

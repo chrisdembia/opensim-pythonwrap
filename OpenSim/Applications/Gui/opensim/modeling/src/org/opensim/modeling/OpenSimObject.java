@@ -236,4 +236,12 @@ public class OpenSimObject {
     return opensimModelJNI.OpenSimObject_getSerializeAllDefaults();
   }
 
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.OpenSimObject_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.OpenSimObject_isA(swigCPtr, this, type);
+  }
+
 }
