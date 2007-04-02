@@ -12,260 +12,150 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ParametersTabbedPanel" pref="416" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="290" max="32767" attributes="0"/>
-                      <Component id="ApplyButton" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="MuscleNameLabel" min="-2" pref="41" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="MuscleNameTextField" min="-2" pref="185" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="MuscleTypeLabel" min="-2" pref="47" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="MuscleTypeComboBox" min="-2" pref="126" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-          </Group>
+          <Component id="MuscleEditorScrollPane" alignment="0" pref="594" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace min="18" pref="18" max="18" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="MuscleNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="MuscleNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="MuscleTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="MuscleTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-              <Component id="ParametersTabbedPanel" pref="503" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ResetButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ApplyButton" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <Component id="MuscleEditorScrollPane" pref="306" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="MuscleNameLabel">
+    <Container class="javax.swing.JScrollPane" name="MuscleEditorScrollPane">
       <Properties>
-        <Property name="text" type="java.lang.String" value="name:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="MuscleNameTextField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="glut_med1_r"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MuscleNameTextFieldActionPerformed"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="MuscleNameTextFieldFocusLost"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="MuscleTypeLabel">
-      <Properties>
-        <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="type:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="MuscleTypeComboBox">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="DarrylMuscle"/>
-            <StringItem index="1" value="Item 1"/>
-            <StringItem index="2" value="Item 2"/>
-            <StringItem index="3" value="Item 3"/>
-            <StringItem index="4" value="Item 4"/>
-          </StringArray>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="ApplyButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="apply"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ApplyButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="ResetButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="reset"/>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[63, 25]"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[63, 25]"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[63, 25]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResetButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Container class="javax.swing.JTabbedPane" name="ParametersTabbedPanel">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="AttachmentsTab">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="attachments">
-                <Property name="tabTitle" type="java.lang.String" value="attachments"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
+        <Container class="javax.swing.JPanel" name="MuscleEditorPanel">
+          <Properties>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[5, 5]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[5, 5]"/>
+            </Property>
+          </Properties>
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="MuscleNameLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="MuscleNameTextField" min="-2" pref="125" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                      <Component id="MuscleTypeLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="MuscleTypeComboBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="217" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="ParametersTabbedPanel" pref="570" max="32767" attributes="2"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                      <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="195" max="32767" attributes="0"/>
+                      <Component id="ApplyButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="MuscleNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="MuscleTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="MuscleTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="MuscleNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="ParametersTabbedPanel" pref="223" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="ResetButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ApplyButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="AttachmentsPanel">
+            <Component class="javax.swing.JComboBox" name="MuscleTypeComboBox">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="c8" red="c8" type="rgb"/>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="5">
+                    <StringItem index="0" value="DarrylMuscle"/>
+                    <StringItem index="1" value="Item 1"/>
+                    <StringItem index="2" value="Item 2"/>
+                    <StringItem index="3" value="Item 3"/>
+                    <StringItem index="4" value="Item 4"/>
+                  </StringArray>
                 </Property>
               </Properties>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                <Property name="useNullLayout" type="boolean" value="true"/>
-              </Layout>
-            </Container>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="ForceTab">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="force">
-                <Property name="tabTitle" type="java.lang.String" value="force"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Container class="javax.swing.JPanel" name="ForcePanel">
+            </Component>
+            <Component class="javax.swing.JButton" name="ApplyButton">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="c8" green="ff" red="c8" type="rgb"/>
+                <Property name="text" type="java.lang.String" value="save"/>
+                <Property name="toolTipText" type="java.lang.String" value="save changes to this muscle"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ApplyButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="ResetButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="reset"/>
+                <Property name="toolTipText" type="java.lang.String" value="undo changes to last saved version"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[63, 25]"/>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[63, 25]"/>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[63, 25]"/>
                 </Property>
               </Properties>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                <Property name="useNullLayout" type="boolean" value="true"/>
-              </Layout>
-            </Container>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="DynamicTab">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="dynamic">
-                <Property name="tabTitle" type="java.lang.String" value="dynamic"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Container class="javax.swing.JPanel" name="DynamicPanel">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResetButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="MuscleNameTextField">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="c8" green="c8" red="ff" type="rgb"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="&lt;muscle name&gt;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MuscleNameTextFieldActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="MuscleNameTextFieldFocusLost"/>
+              </Events>
+            </Component>
+            <Container class="javax.swing.JTabbedPane" name="ParametersTabbedPanel">
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                <Property name="useNullLayout" type="boolean" value="true"/>
-              </Layout>
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
             </Container>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="FunctionsTab">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="functions">
-                <Property name="tabTitle" type="java.lang.String" value="functions"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Container class="javax.swing.JPanel" name="FunctionsPanel">
+            <Component class="javax.swing.JLabel" name="MuscleNameLabel">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="c8" type="rgb"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="name:"/>
               </Properties>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                <Property name="useNullLayout" type="boolean" value="true"/>
-              </Layout>
-            </Container>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="WrappingTab">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="wrapping">
-                <Property name="tabTitle" type="java.lang.String" value="wrapping"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Container class="javax.swing.JPanel" name="WrapPanel">
+            </Component>
+            <Component class="javax.swing.JLabel" name="MuscleTypeLabel">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="c8" red="ff" type="rgb"/>
-                </Property>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="type:"/>
               </Properties>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                <Property name="useNullLayout" type="boolean" value="true"/>
-              </Layout>
-            </Container>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="CurrentPathTab">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="current path">
-                <Property name="tabTitle" type="java.lang.String" value="current path"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Container class="javax.swing.JPanel" name="CurrentPathPanel">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="c8" green="ff" red="ff" type="rgb"/>
-                </Property>
-              </Properties>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                <Property name="useNullLayout" type="boolean" value="true"/>
-              </Layout>
-            </Container>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

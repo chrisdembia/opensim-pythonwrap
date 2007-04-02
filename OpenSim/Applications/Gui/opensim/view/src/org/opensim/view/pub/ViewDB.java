@@ -65,7 +65,7 @@ import vtk.vtkVectorText;
  * A Database of Displayed models, and displayed windows ModelWindowVTKTopComponents
  * Also keeps track of currently activated model window ModelWindowVTKTopComponent
  */
-public final class ViewDB implements Observer {
+public final class ViewDB extends Observable implements Observer {
    // List of view windows currently displayed
    static ArrayList<ModelWindowVTKTopComponent> openWindows = new ArrayList<ModelWindowVTKTopComponent>(4);
    // List of models currently available in all views

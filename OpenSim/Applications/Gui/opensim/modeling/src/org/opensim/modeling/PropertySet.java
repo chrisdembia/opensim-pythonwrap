@@ -33,13 +33,13 @@ public class PropertySet {
     swigCPtr = 0;
   }
 
-  public void set_array(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Property_t value) {
-    opensimModelJNI.PropertySet__array_set(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Property_t.getCPtr(value));
+  public void set_array(ArrayPtrsProperty value) {
+    opensimModelJNI.PropertySet__array_set(swigCPtr, this, ArrayPtrsProperty.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Property_t get_array() {
+  public ArrayPtrsProperty get_array() {
     long cPtr = opensimModelJNI.PropertySet__array_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Property_t(cPtr, false);
+    return (cPtr == 0) ? null : new ArrayPtrsProperty(cPtr, false);
   }
 
   public PropertySet() {
@@ -78,6 +78,40 @@ public class PropertySet {
 
   public void clear() {
     opensimModelJNI.PropertySet_clear(swigCPtr, this);
+  }
+
+  public PropertyGroup addGroup(String aGroupName) {
+    long cPtr = opensimModelJNI.PropertySet_addGroup(swigCPtr, this, aGroupName);
+    return (cPtr == 0) ? null : new PropertyGroup(cPtr, false);
+  }
+
+  public void addPropertyToGroup(String aGroupName, String aPropertyName) {
+    opensimModelJNI.PropertySet_addPropertyToGroup__SWIG_0(swigCPtr, this, aGroupName, aPropertyName);
+  }
+
+  public void addPropertyToGroup(PropertyGroup aGroup, String aPropertyName) {
+    opensimModelJNI.PropertySet_addPropertyToGroup__SWIG_1(swigCPtr, this, PropertyGroup.getCPtr(aGroup), aGroup, aPropertyName);
+  }
+
+  public void addPropertyToGroup(PropertyGroup aGroup, Property aProperty) {
+    opensimModelJNI.PropertySet_addPropertyToGroup__SWIG_2(swigCPtr, this, PropertyGroup.getCPtr(aGroup), aGroup, Property.getCPtr(aProperty), aProperty);
+  }
+
+  public void addPropertyToGroup(String aGroupName, Property aProperty) {
+    opensimModelJNI.PropertySet_addPropertyToGroup__SWIG_3(swigCPtr, this, aGroupName, Property.getCPtr(aProperty), aProperty);
+  }
+
+  public ArrayPtrsPropertyGroup getGroups() {
+    return new ArrayPtrsPropertyGroup(opensimModelJNI.PropertySet_getGroups(swigCPtr, this), false);
+  }
+
+  public PropertyGroup getGroupContaining(Property aProperty) {
+    long cPtr = opensimModelJNI.PropertySet_getGroupContaining(swigCPtr, this, Property.getCPtr(aProperty), aProperty);
+    return (cPtr == 0) ? null : new PropertyGroup(cPtr, false);
+  }
+
+  public int getGroupIndexContaining(Property aProperty) {
+    return opensimModelJNI.PropertySet_getGroupIndexContaining(swigCPtr, this, Property.getCPtr(aProperty), aProperty);
   }
 
 }

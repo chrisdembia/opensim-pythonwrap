@@ -78,32 +78,32 @@ public class Property {
     opensimModelJNI.Property_setValue__SWIG_0(swigCPtr, this, aValue);
   }
 
-  public SWIGTYPE_p_bool getValueBool() {
-    return new SWIGTYPE_p_bool(opensimModelJNI.Property_getValueBool(swigCPtr, this), false);
+  public boolean getValueBool() {
+    return opensimModelJNI.Property_getValueBool(swigCPtr, this);
   }
 
   public void setValue(int aValue) {
     opensimModelJNI.Property_setValue__SWIG_1(swigCPtr, this, aValue);
   }
 
-  public SWIGTYPE_p_int getValueInt() {
-    return new SWIGTYPE_p_int(opensimModelJNI.Property_getValueInt(swigCPtr, this), false);
+  public int getValueInt() {
+    return opensimModelJNI.Property_getValueInt(swigCPtr, this);
   }
 
   public void setValue(double aValue) {
     opensimModelJNI.Property_setValue__SWIG_2(swigCPtr, this, aValue);
   }
 
-  public SWIGTYPE_p_double getValueDbl() {
-    return new SWIGTYPE_p_double(opensimModelJNI.Property_getValueDbl(swigCPtr, this), false);
+  public double getValueDbl() {
+    return opensimModelJNI.Property_getValueDbl(swigCPtr, this);
   }
 
   public void setValue(String aValue) {
     opensimModelJNI.Property_setValue__SWIG_3(swigCPtr, this, aValue);
   }
 
-  public SWIGTYPE_p_std__string getValueStr() {
-    return new SWIGTYPE_p_std__string(opensimModelJNI.Property_getValueStr(swigCPtr, this), false);
+  public String getValueStr() {
+    return opensimModelJNI.Property_getValueStr(swigCPtr, this);
   }
 
   public OpenSimObject getValueObj() {

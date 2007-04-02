@@ -83,6 +83,15 @@ public class AbstractMuscle extends AbstractActuator {
     opensimModelJNI.AbstractMuscle_postScale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
+  public MusclePoint addAttachmentPoint(int aIndex, AbstractBody aBody) {
+    long cPtr = opensimModelJNI.AbstractMuscle_addAttachmentPoint(swigCPtr, this, aIndex, AbstractBody.getCPtr(aBody), aBody);
+    return (cPtr == 0) ? null : new MusclePoint(cPtr, false);
+  }
+
+  public void deleteAttachmentPoint(int aIndex) {
+    opensimModelJNI.AbstractMuscle_deleteAttachmentPoint(swigCPtr, this, aIndex);
+  }
+
   public void calculatePath() {
     opensimModelJNI.AbstractMuscle_calculatePath(swigCPtr, this);
   }

@@ -169,4 +169,12 @@ public class SetMarkers extends OpenSimObject {
     return opensimModelJNI.SetMarkers_searchBinary__SWIG_3(swigCPtr, this, AbstractMarker.getCPtr(aObject), aObject);
   }
 
+  public void addGroup(SWIGTYPE_p_std__string aGroupName) {
+    opensimModelJNI.SetMarkers_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
+  }
+
+  public void addObjectToGroup(SWIGTYPE_p_std__string aGroupName, SWIGTYPE_p_std__string aObjectName) {
+    opensimModelJNI.SetMarkers_addObjectToGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName), SWIGTYPE_p_std__string.getCPtr(aObjectName));
+  }
+
 }

@@ -55,7 +55,11 @@ public class MusclePoint extends OpenSimObject {
   }
 
   public void setAttachment(double[] aAttachment) {
-    opensimModelJNI.MusclePoint_setAttachment(swigCPtr, this, aAttachment);
+    opensimModelJNI.MusclePoint_setAttachment__SWIG_0(swigCPtr, this, aAttachment);
+  }
+
+  public void setAttachment(int aCoordIndex, double aAttachment) {
+    opensimModelJNI.MusclePoint_setAttachment__SWIG_1(swigCPtr, this, aCoordIndex, aAttachment);
   }
 
   public AbstractBody getBody() {

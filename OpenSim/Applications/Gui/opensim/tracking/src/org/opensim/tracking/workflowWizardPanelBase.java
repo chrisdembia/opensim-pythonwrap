@@ -113,7 +113,11 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
    protected void runDynamicTool(final AbstractTool dTool, final Boolean isDeterministic) throws IOException {
       
       final Model model = dTool.getModel();
-      model.setup();
+      try {
+         model.setup();
+      } catch (IOException ex) {
+         ex.printStackTrace();
+      }
       final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Run Tool "+dTool.getName());
       final double investigationDuration = (dTool.getFinalTime() - dTool.getStartTime());
       final double startTime = dTool.getStartTime();

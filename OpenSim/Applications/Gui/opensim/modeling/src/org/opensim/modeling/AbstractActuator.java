@@ -148,6 +148,19 @@ public class AbstractActuator extends OpenSimObject {
     opensimModelJNI.AbstractActuator_updateGeometry(swigCPtr, this);
   }
 
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.AbstractActuator_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.AbstractActuator_isA(swigCPtr, this, type);
+  }
+
+  public static AbstractActuator safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.AbstractActuator_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
+  }
+
   public boolean getAppliesForce() {
     return opensimModelJNI.AbstractActuator_getAppliesForce(swigCPtr, this);
   }

@@ -169,4 +169,12 @@ public class SetScales extends OpenSimObject {
     return opensimModelJNI.SetScales_searchBinary__SWIG_3(swigCPtr, this, Scale.getCPtr(aObject), aObject);
   }
 
+  public void addGroup(SWIGTYPE_p_std__string aGroupName) {
+    opensimModelJNI.SetScales_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
+  }
+
+  public void addObjectToGroup(SWIGTYPE_p_std__string aGroupName, SWIGTYPE_p_std__string aObjectName) {
+    opensimModelJNI.SetScales_addObjectToGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName), SWIGTYPE_p_std__string.getCPtr(aObjectName));
+  }
+
 }

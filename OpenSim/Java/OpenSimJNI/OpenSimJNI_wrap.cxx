@@ -197,8 +197,10 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 #include <OpenSim/Common/Array.h>
 #include <OpenSim/Common/ArrayPtrs.h>
 #include <OpenSim/Common/Property.h>
+#include <OpenSim/Common/PropertyGroup.h>
 #include <OpenSim/Common/PropertySet.h>
 #include <OpenSim/Common/Object.h>
+#include <OpenSim/Common/ObjectGroup.h>
 #include <OpenSim/Common/Material.h>
 #include <OpenSim/Common/VisibleProperties.h>
 #include <OpenSim/Common/Transform.h>
@@ -276,7 +278,9 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 
 #include <OpenSim/DynamicsEngines/SimmKinematicsEngine/SimmKinematicsEngine.h>
 #include <OpenSim/Simulation/Model/AbstractMarker.h>
+#include <OpenSim/Simulation/Model/Marker.h>
 
+#include <OpenSim/Simulation/Model/MuscleGroup.h>
 #include <OpenSim/Simulation/Model/MusclePoint.h>
 #include <OpenSim/Simulation/Model/MusclePointSet.h>
 #include <OpenSim/Simulation/Model/MuscleViaPoint.h>
@@ -1369,8 +1373,8 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1setV
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1getValueBool(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1getValueBool(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
   OpenSim::Property *arg1 = (OpenSim::Property *) 0 ;
   bool *result = 0 ;
   
@@ -1379,10 +1383,10 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1get
   (void)jarg1_;
   arg1 = *(OpenSim::Property **)&jarg1; 
   {
-    bool &_result_ref = (arg1)->getValueBool();
+    bool const &_result_ref = ((OpenSim::Property const *)arg1)->getValueBool();
     result = (bool *) &_result_ref;
   }
-  *(bool **)&jresult = result; 
+  jresult = (jboolean)*result; 
   return jresult;
 }
 
@@ -1400,8 +1404,8 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1setV
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1getValueInt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1getValueInt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
   OpenSim::Property *arg1 = (OpenSim::Property *) 0 ;
   int *result = 0 ;
   
@@ -1410,10 +1414,10 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1get
   (void)jarg1_;
   arg1 = *(OpenSim::Property **)&jarg1; 
   {
-    int &_result_ref = (arg1)->getValueInt();
+    int const &_result_ref = ((OpenSim::Property const *)arg1)->getValueInt();
     result = (int *) &_result_ref;
   }
-  *(int **)&jresult = result; 
+  jresult = (jint)*result; 
   return jresult;
 }
 
@@ -1431,8 +1435,8 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1setV
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1getValueDbl(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1getValueDbl(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jdouble jresult = 0 ;
   OpenSim::Property *arg1 = (OpenSim::Property *) 0 ;
   double *result = 0 ;
   
@@ -1441,10 +1445,10 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1get
   (void)jarg1_;
   arg1 = *(OpenSim::Property **)&jarg1; 
   {
-    double &_result_ref = (arg1)->getValueDbl();
+    double const &_result_ref = ((OpenSim::Property const *)arg1)->getValueDbl();
     result = (double *) &_result_ref;
   }
-  *(double **)&jresult = result; 
+  jresult = (jdouble)*result; 
   return jresult;
 }
 
@@ -1470,8 +1474,8 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1setV
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1getValueStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1getValueStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
   OpenSim::Property *arg1 = (OpenSim::Property *) 0 ;
   std::string *result = 0 ;
   
@@ -1480,10 +1484,10 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1get
   (void)jarg1_;
   arg1 = *(OpenSim::Property **)&jarg1; 
   {
-    std::string &_result_ref = (arg1)->getValueStr();
+    std::string const &_result_ref = ((OpenSim::Property const *)arg1)->getValueStr();
     result = (std::string *) &_result_ref;
   }
-  *(std::string **)&jresult = result; 
+  jresult = jenv->NewStringUTF(result->c_str()); 
   return jresult;
 }
 
@@ -1846,13 +1850,1429 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Property_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1_1array_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1ArrayPtrsProperty(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  delete arg1;
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayPtrsProperty_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (OpenSim::ArrayPtrs<OpenSim::Property > *)new OpenSim::ArrayPtrs<OpenSim::Property >(arg1);
+  *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayPtrsProperty_1_1SWIG_11(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::ArrayPtrs<OpenSim::Property > *)new OpenSim::ArrayPtrs<OpenSim::Property >();
+  *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayPtrsProperty_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ArrayPtrs<OpenSim::Property > const & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::ArrayPtrs<OpenSim::Property > *)new OpenSim::ArrayPtrs<OpenSim::Property >((OpenSim::ArrayPtrs<OpenSim::Property > const &)*arg1);
+  *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1clearAndDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  (arg1)->clearAndDestroy();
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1setMemoryOwner(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setMemoryOwner(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1getMemoryOwner(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  result = (bool)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->getMemoryOwner();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1computeNewCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int arg2 ;
+  int *arg3 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(int **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "int & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->computeNewCapacity(arg2,*arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1ensureCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->ensureCapacity(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1trim(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  (arg1)->trim();
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1getCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->getCapacity();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1setCapacityIncrement(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setCapacityIncrement(arg2);
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1getCapacityIncrement(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->getCapacityIncrement();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1setSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->setSize(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1getSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->getSize();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1getIndex_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  OpenSim::Property *arg2 = (OpenSim::Property *) 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2; 
+  arg3 = (int)jarg3; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->getIndex((OpenSim::Property const *)arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1getIndex_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  OpenSim::Property *arg2 = (OpenSim::Property *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->getIndex((OpenSim::Property const *)arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1getIndex_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  std::string *arg2 = 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  arg3 = (int)jarg3; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->getIndex((std::string const &)*arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1getIndex_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  std::string *arg2 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->getIndex((std::string const &)*arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1append_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  OpenSim::Property *arg2 = (OpenSim::Property *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2; 
+  result = (bool)(arg1)->append(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1append_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ArrayPtrs<OpenSim::Property > & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->append(*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1insert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int arg2 ;
+  OpenSim::Property *arg3 = (OpenSim::Property *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(OpenSim::Property **)&jarg3; 
+  result = (bool)(arg1)->insert(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1remove_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->remove(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1remove_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  OpenSim::Property *arg2 = (OpenSim::Property *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2; 
+  result = (bool)(arg1)->remove((OpenSim::Property const *)arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int arg2 ;
+  OpenSim::Property *arg3 = (OpenSim::Property *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(OpenSim::Property **)&jarg3; 
+  result = (bool)(arg1)->set(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1get_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  int arg2 ;
+  OpenSim::Property *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (OpenSim::Property *)(arg1)->get(arg2);
+  *(OpenSim::Property **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1get_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  std::string *arg2 = 0 ;
+  OpenSim::Property *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (OpenSim::Property *)(arg1)->get((std::string const &)*arg2);
+  *(OpenSim::Property **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1getLast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  OpenSim::Property *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  result = (OpenSim::Property *)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->getLast();
+  *(OpenSim::Property **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1searchBinary_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3, jint jarg4, jint jarg5) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  OpenSim::Property *arg2 = 0 ;
+  bool arg3 ;
+  int arg4 ;
+  int arg5 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Property const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->searchBinary((OpenSim::Property const &)*arg2,arg3,arg4,arg5);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1searchBinary_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3, jint jarg4) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  OpenSim::Property *arg2 = 0 ;
+  bool arg3 ;
+  int arg4 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Property const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  arg4 = (int)jarg4; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->searchBinary((OpenSim::Property const &)*arg2,arg3,arg4);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1searchBinary_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  OpenSim::Property *arg2 = 0 ;
+  bool arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Property const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->searchBinary((OpenSim::Property const &)*arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsProperty_1searchBinary_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::Property > *arg1 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
+  OpenSim::Property *arg2 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Property const & reference is null");
+    return 0;
+  } 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::Property > const *)arg1)->searchBinary((OpenSim::Property const &)*arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1PropertyGroup_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::PropertyGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::PropertyGroup *)new OpenSim::PropertyGroup();
+  *(OpenSim::PropertyGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1PropertyGroup_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  OpenSim::PropertyGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(std::string **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::PropertyGroup *)new OpenSim::PropertyGroup(*arg1);
+  *(OpenSim::PropertyGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1PropertyGroup_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::PropertyGroup *arg1 = 0 ;
+  OpenSim::PropertyGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::PropertyGroup const & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::PropertyGroup *)new OpenSim::PropertyGroup((OpenSim::PropertyGroup const &)*arg1);
+  *(OpenSim::PropertyGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1PropertyGroup(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  delete arg1;
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  OpenSim::PropertyGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  result = (OpenSim::PropertyGroup *)((OpenSim::PropertyGroup const *)arg1)->copy();
+  *(OpenSim::PropertyGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1copyData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  OpenSim::PropertyGroup *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::PropertyGroup const & reference is null");
+    return ;
+  } 
+  (arg1)->copyData((OpenSim::PropertyGroup const &)*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  (arg1)->clear();
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1contains(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  std::string *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (bool)((OpenSim::PropertyGroup const *)arg1)->contains((std::string const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1addProperty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  OpenSim::Property *arg2 = (OpenSim::Property *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2; 
+  (arg1)->addProperty(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1removeProperty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  OpenSim::Property *arg2 = (OpenSim::Property *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2; 
+  (arg1)->removeProperty(arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1getProperties(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  OpenSim::Array<OpenSim::Property * > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  {
+    OpenSim::Array<OpenSim::Property * > const &_result_ref = ((OpenSim::PropertyGroup const *)arg1)->getProperties();
+    result = (OpenSim::Array<OpenSim::Property * > *) &_result_ref;
+  }
+  *(OpenSim::Array<OpenSim::Property * > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1getProperty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  int arg2 ;
+  OpenSim::Property *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (OpenSim::Property *)(arg1)->getProperty(arg2);
+  *(OpenSim::Property **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1getPropertyIndex(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  OpenSim::Property *arg2 = (OpenSim::Property *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2; 
+  result = (int)((OpenSim::PropertyGroup const *)arg1)->getPropertyIndex(arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1setName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->setName((std::string const &)*arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertyGroup_1getName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  OpenSim::PropertyGroup *arg1 = (OpenSim::PropertyGroup *) 0 ;
+  std::string *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertyGroup **)&jarg1; 
+  {
+    std::string const &_result_ref = ((OpenSim::PropertyGroup const *)arg1)->getName();
+    result = (std::string *) &_result_ref;
+  }
+  jresult = jenv->NewStringUTF(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1ArrayPtrsPropertyGroup(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  delete arg1;
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayPtrsPropertyGroup_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *)new OpenSim::ArrayPtrs<OpenSim::PropertyGroup >(arg1);
+  *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayPtrsPropertyGroup_1_1SWIG_11(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *)new OpenSim::ArrayPtrs<OpenSim::PropertyGroup >();
+  *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrayPtrsPropertyGroup_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *)new OpenSim::ArrayPtrs<OpenSim::PropertyGroup >((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const &)*arg1);
+  *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1clearAndDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  (arg1)->clearAndDestroy();
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1setMemoryOwner(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setMemoryOwner(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1getMemoryOwner(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  result = (bool)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->getMemoryOwner();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1computeNewCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int arg2 ;
+  int *arg3 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(int **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "int & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->computeNewCapacity(arg2,*arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1ensureCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->ensureCapacity(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1trim(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  (arg1)->trim();
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1getCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->getCapacity();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1setCapacityIncrement(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setCapacityIncrement(arg2);
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1getCapacityIncrement(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->getCapacityIncrement();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1setSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->setSize(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1getSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->getSize();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1getIndex_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  OpenSim::PropertyGroup *arg2 = (OpenSim::PropertyGroup *) 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2; 
+  arg3 = (int)jarg3; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->getIndex((OpenSim::PropertyGroup const *)arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1getIndex_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  OpenSim::PropertyGroup *arg2 = (OpenSim::PropertyGroup *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->getIndex((OpenSim::PropertyGroup const *)arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1getIndex_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  std::string *arg2 = 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  arg3 = (int)jarg3; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->getIndex((std::string const &)*arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1getIndex_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  std::string *arg2 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->getIndex((std::string const &)*arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1append_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  OpenSim::PropertyGroup *arg2 = (OpenSim::PropertyGroup *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2; 
+  result = (bool)(arg1)->append(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1append_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ArrayPtrs<OpenSim::PropertyGroup > & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->append(*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1insert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int arg2 ;
+  OpenSim::PropertyGroup *arg3 = (OpenSim::PropertyGroup *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(OpenSim::PropertyGroup **)&jarg3; 
+  result = (bool)(arg1)->insert(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1remove_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->remove(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1remove_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  OpenSim::PropertyGroup *arg2 = (OpenSim::PropertyGroup *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2; 
+  result = (bool)(arg1)->remove((OpenSim::PropertyGroup const *)arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int arg2 ;
+  OpenSim::PropertyGroup *arg3 = (OpenSim::PropertyGroup *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(OpenSim::PropertyGroup **)&jarg3; 
+  result = (bool)(arg1)->set(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1get_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  int arg2 ;
+  OpenSim::PropertyGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (OpenSim::PropertyGroup *)(arg1)->get(arg2);
+  *(OpenSim::PropertyGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1get_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  std::string *arg2 = 0 ;
+  OpenSim::PropertyGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (OpenSim::PropertyGroup *)(arg1)->get((std::string const &)*arg2);
+  *(OpenSim::PropertyGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1getLast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  OpenSim::PropertyGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  result = (OpenSim::PropertyGroup *)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->getLast();
+  *(OpenSim::PropertyGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1searchBinary_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3, jint jarg4, jint jarg5) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  OpenSim::PropertyGroup *arg2 = 0 ;
+  bool arg3 ;
+  int arg4 ;
+  int arg5 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::PropertyGroup const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->searchBinary((OpenSim::PropertyGroup const &)*arg2,arg3,arg4,arg5);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1searchBinary_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3, jint jarg4) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  OpenSim::PropertyGroup *arg2 = 0 ;
+  bool arg3 ;
+  int arg4 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::PropertyGroup const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  arg4 = (int)jarg4; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->searchBinary((OpenSim::PropertyGroup const &)*arg2,arg3,arg4);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1searchBinary_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  OpenSim::PropertyGroup *arg2 = 0 ;
+  bool arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::PropertyGroup const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->searchBinary((OpenSim::PropertyGroup const &)*arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_ArrayPtrsPropertyGroup_1searchBinary_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *arg1 = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) 0 ;
+  OpenSim::PropertyGroup *arg2 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::PropertyGroup const & reference is null");
+    return 0;
+  } 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::PropertyGroup > const *)arg1)->searchBinary((OpenSim::PropertyGroup const &)*arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1_1array_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   OpenSim::PropertySet *arg1 = (OpenSim::PropertySet *) 0 ;
   OpenSim::ArrayPtrs<OpenSim::Property > *arg2 = (OpenSim::ArrayPtrs<OpenSim::Property > *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg2_;
   arg1 = *(OpenSim::PropertySet **)&jarg1; 
   arg2 = *(OpenSim::ArrayPtrs<OpenSim::Property > **)&jarg2; 
   if (arg1) (arg1)->_array = *arg2;
@@ -2054,6 +3474,176 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1c
   (void)jarg1_;
   arg1 = *(OpenSim::PropertySet **)&jarg1; 
   (arg1)->clear();
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jlong jresult = 0 ;
+  OpenSim::PropertySet *arg1 = (OpenSim::PropertySet *) 0 ;
+  std::string arg2 ;
+  OpenSim::PropertyGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertySet **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  } 
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  arg2 =  std::string(arg2_pstr);
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (OpenSim::PropertyGroup *)(arg1)->addGroup(arg2);
+  *(OpenSim::PropertyGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1addPropertyToGroup_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jstring jarg3) {
+  OpenSim::PropertySet *arg1 = (OpenSim::PropertySet *) 0 ;
+  std::string arg2 ;
+  std::string arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertySet **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  } 
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  arg2 =  std::string(arg2_pstr);
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  } 
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  arg3 =  std::string(arg3_pstr);
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  (arg1)->addPropertyToGroup(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1addPropertyToGroup_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jstring jarg3) {
+  OpenSim::PropertySet *arg1 = (OpenSim::PropertySet *) 0 ;
+  OpenSim::PropertyGroup *arg2 = (OpenSim::PropertyGroup *) 0 ;
+  std::string arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::PropertySet **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2; 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  } 
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  arg3 =  std::string(arg3_pstr);
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  (arg1)->addPropertyToGroup(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1addPropertyToGroup_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  OpenSim::PropertySet *arg1 = (OpenSim::PropertySet *) 0 ;
+  OpenSim::PropertyGroup *arg2 = (OpenSim::PropertyGroup *) 0 ;
+  OpenSim::Property *arg3 = (OpenSim::Property *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  arg1 = *(OpenSim::PropertySet **)&jarg1; 
+  arg2 = *(OpenSim::PropertyGroup **)&jarg2; 
+  arg3 = *(OpenSim::Property **)&jarg3; 
+  (arg1)->addPropertyToGroup(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1addPropertyToGroup_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3, jobject jarg3_) {
+  OpenSim::PropertySet *arg1 = (OpenSim::PropertySet *) 0 ;
+  std::string arg2 ;
+  OpenSim::Property *arg3 = (OpenSim::Property *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(OpenSim::PropertySet **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  } 
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  arg2 =  std::string(arg2_pstr);
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  arg3 = *(OpenSim::Property **)&jarg3; 
+  (arg1)->addPropertyToGroup(arg2,arg3);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1getGroups(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::PropertySet *arg1 = (OpenSim::PropertySet *) 0 ;
+  OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::PropertySet **)&jarg1; 
+  {
+    OpenSim::ArrayPtrs<OpenSim::PropertyGroup > &_result_ref = (arg1)->getGroups();
+    result = (OpenSim::ArrayPtrs<OpenSim::PropertyGroup > *) &_result_ref;
+  }
+  *(OpenSim::ArrayPtrs<OpenSim::PropertyGroup > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1getGroupContaining(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  OpenSim::PropertySet *arg1 = (OpenSim::PropertySet *) 0 ;
+  OpenSim::Property *arg2 = (OpenSim::Property *) 0 ;
+  OpenSim::PropertyGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::PropertySet **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2; 
+  result = (OpenSim::PropertyGroup *)(arg1)->getGroupContaining(arg2);
+  *(OpenSim::PropertyGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_PropertySet_1getGroupIndexContaining(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  OpenSim::PropertySet *arg1 = (OpenSim::PropertySet *) 0 ;
+  OpenSim::Property *arg2 = (OpenSim::Property *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::PropertySet **)&jarg1; 
+  arg2 = *(OpenSim::Property **)&jarg2; 
+  result = (int)(arg1)->getGroupIndexContaining(arg2);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
@@ -2893,6 +4483,138 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObj
   jresult = (jboolean)result; 
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
   return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ObjectGroup_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::ObjectGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::ObjectGroup *)new OpenSim::ObjectGroup();
+  *(OpenSim::ObjectGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ObjectGroup_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  std::string *arg1 = 0 ;
+  OpenSim::ObjectGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(std::string **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::ObjectGroup *)new OpenSim::ObjectGroup(*arg1);
+  *(OpenSim::ObjectGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ObjectGroup_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ObjectGroup *arg1 = 0 ;
+  OpenSim::ObjectGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ObjectGroup **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ObjectGroup const & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::ObjectGroup *)new OpenSim::ObjectGroup((OpenSim::ObjectGroup const &)*arg1);
+  *(OpenSim::ObjectGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1ObjectGroup(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::ObjectGroup *arg1 = (OpenSim::ObjectGroup *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::ObjectGroup **)&jarg1; 
+  delete arg1;
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ObjectGroup_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ObjectGroup *arg1 = (OpenSim::ObjectGroup *) 0 ;
+  OpenSim::Object *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ObjectGroup **)&jarg1; 
+  result = (OpenSim::Object *)((OpenSim::ObjectGroup const *)arg1)->copy();
+  *(OpenSim::Object **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ObjectGroup_1copyData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::ObjectGroup *arg1 = (OpenSim::ObjectGroup *) 0 ;
+  OpenSim::ObjectGroup *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ObjectGroup **)&jarg1; 
+  arg2 = *(OpenSim::ObjectGroup **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ObjectGroup const & reference is null");
+    return ;
+  } 
+  (arg1)->copyData((OpenSim::ObjectGroup const &)*arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ObjectGroup_1contains(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ObjectGroup *arg1 = (OpenSim::ObjectGroup *) 0 ;
+  std::string *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ObjectGroup **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (bool)((OpenSim::ObjectGroup const *)arg1)->contains((std::string const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ObjectGroup_1addObject(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::ObjectGroup *arg1 = (OpenSim::ObjectGroup *) 0 ;
+  OpenSim::Object *arg2 = (OpenSim::Object *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ObjectGroup **)&jarg1; 
+  arg2 = *(OpenSim::Object **)&jarg2; 
+  (arg1)->addObject(arg2);
 }
 
 
@@ -6475,6 +8197,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMaterials_1
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMaterials_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::Material > *arg1 = (OpenSim::Set<OpenSim::Material > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Material > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMaterials_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::Material > *arg1 = (OpenSim::Set<OpenSim::Material > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Material > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1MaterialSet_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::MaterialSet *result = 0 ;
@@ -9516,6 +11278,62 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuat
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuator_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jboolean jresult = 0 ;
+  char *arg1 = (char *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return 0;
+  }
+  result = (bool)OpenSim::AbstractActuator::isKindOf((char const *)arg1);
+  jresult = (jboolean)result; 
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuator_1isA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::AbstractActuator *arg1 = (OpenSim::AbstractActuator *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractActuator **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return 0;
+  }
+  result = (bool)(arg1)->isA((char const *)arg2);
+  jresult = (jboolean)result; 
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuator_1safeDownCast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::Object *arg1 = (OpenSim::Object *) 0 ;
+  OpenSim::AbstractActuator *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Object **)&jarg1; 
+  result = (OpenSim::AbstractActuator *)OpenSim::AbstractActuator::safeDownCast(arg1);
+  *(OpenSim::AbstractActuator **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuator_1getAppliesForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jboolean jresult = 0 ;
   OpenSim::AbstractActuator *arg1 = (OpenSim::AbstractActuator *) 0 ;
@@ -10372,6 +12190,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetActuators_1
   result = (int)((OpenSim::Set<OpenSim::AbstractActuator > const *)arg1)->searchBinary((OpenSim::AbstractActuator const &)*arg2);
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetActuators_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::AbstractActuator > *arg1 = (OpenSim::Set<OpenSim::AbstractActuator > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractActuator > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetActuators_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::AbstractActuator > *arg1 = (OpenSim::Set<OpenSim::AbstractActuator > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractActuator > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
 }
 
 
@@ -14329,6 +16187,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControls_1s
   result = (int)((OpenSim::Set<OpenSim::Control > const *)arg1)->searchBinary((OpenSim::Control const &)*arg2);
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControls_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::Control > *arg1 = (OpenSim::Set<OpenSim::Control > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Control > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControls_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::Control > *arg1 = (OpenSim::Set<OpenSim::Control > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Control > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
 }
 
 
@@ -18756,6 +20654,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCallback_1s
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCallback_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::Callback > *arg1 = (OpenSim::Set<OpenSim::Callback > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Callback > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCallback_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::Callback > *arg1 = (OpenSim::Set<OpenSim::Callback > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Callback > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1CallbackSet_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
@@ -20677,6 +22615,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetAnalysis_1s
   result = (int)((OpenSim::Set<OpenSim::Analysis > const *)arg1)->searchBinary((OpenSim::Analysis const &)*arg2);
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetAnalysis_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::Analysis > *arg1 = (OpenSim::Set<OpenSim::Analysis > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Analysis > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetAnalysis_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::Analysis > *arg1 = (OpenSim::Set<OpenSim::Analysis > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Analysis > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
 }
 
 
@@ -28161,6 +30139,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMarkers_1se
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMarkers_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::AbstractMarker > *arg1 = (OpenSim::Set<OpenSim::AbstractMarker > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractMarker > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMarkers_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::AbstractMarker > *arg1 = (OpenSim::Set<OpenSim::AbstractMarker > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractMarker > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1MarkerSet_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::MarkerSet *result = 0 ;
@@ -29197,6 +31215,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetScales_1sea
   result = (int)((OpenSim::Set<OpenSim::Scale > const *)arg1)->searchBinary((OpenSim::Scale const &)*arg2);
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetScales_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::Scale > *arg1 = (OpenSim::Set<OpenSim::Scale > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Scale > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetScales_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::Scale > *arg1 = (OpenSim::Set<OpenSim::Scale > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Scale > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
 }
 
 
@@ -31138,6 +33196,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetWrapObject_
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetWrapObject_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::AbstractWrapObject > *arg1 = (OpenSim::Set<OpenSim::AbstractWrapObject > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractWrapObject > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetWrapObject_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::AbstractWrapObject > *arg1 = (OpenSim::Set<OpenSim::AbstractWrapObject > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractWrapObject > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1WrapObjectSet_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::WrapObjectSet *result = 0 ;
@@ -31255,17 +33353,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1co
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
   OpenSim::MuscleWrap *arg1 = (OpenSim::MuscleWrap *) 0 ;
   OpenSim::AbstractDynamicsEngine *arg2 = (OpenSim::AbstractDynamicsEngine *) 0 ;
+  OpenSim::AbstractMuscle *arg3 = (OpenSim::AbstractMuscle *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
+  (void)jarg3_;
   arg1 = *(OpenSim::MuscleWrap **)&jarg1; 
   arg2 = *(OpenSim::AbstractDynamicsEngine **)&jarg2; 
-  (arg1)->setup(arg2);
+  arg3 = *(OpenSim::AbstractMuscle **)&jarg3; 
+  (arg1)->setup(arg2,arg3);
 }
 
 
@@ -32062,6 +34163,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMuscleWrap_
   result = (int)((OpenSim::Set<OpenSim::MuscleWrap > const *)arg1)->searchBinary((OpenSim::MuscleWrap const &)*arg2);
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMuscleWrap_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::MuscleWrap > *arg1 = (OpenSim::Set<OpenSim::MuscleWrap > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::MuscleWrap > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMuscleWrap_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::MuscleWrap > *arg1 = (OpenSim::Set<OpenSim::MuscleWrap > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::MuscleWrap > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
 }
 
 
@@ -33404,6 +35545,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetBodies_1sea
   result = (int)((OpenSim::Set<OpenSim::AbstractBody > const *)arg1)->searchBinary((OpenSim::AbstractBody const &)*arg2);
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetBodies_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::AbstractBody > *arg1 = (OpenSim::Set<OpenSim::AbstractBody > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractBody > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetBodies_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::AbstractBody > *arg1 = (OpenSim::Set<OpenSim::AbstractBody > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractBody > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
 }
 
 
@@ -36274,6 +38455,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetCoordinates_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::AbstractCoordinate > *arg1 = (OpenSim::Set<OpenSim::AbstractCoordinate > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractCoordinate > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1CoordinateSet_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::CoordinateSet *result = 0 ;
@@ -37395,6 +39616,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetJoints_1sea
   result = (int)((OpenSim::Set<OpenSim::AbstractJoint > const *)arg1)->searchBinary((OpenSim::AbstractJoint const &)*arg2);
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetJoints_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::AbstractJoint > *arg1 = (OpenSim::Set<OpenSim::AbstractJoint > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractJoint > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetJoints_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::AbstractJoint > *arg1 = (OpenSim::Set<OpenSim::AbstractJoint > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::AbstractJoint > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
 }
 
 
@@ -41725,6 +43986,131 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1MuscleGroup_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::MuscleGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::MuscleGroup *)new OpenSim::MuscleGroup();
+  *(OpenSim::MuscleGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1MuscleGroup_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::MuscleGroup *arg1 = 0 ;
+  OpenSim::MuscleGroup *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MuscleGroup **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::MuscleGroup const & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::MuscleGroup *)new OpenSim::MuscleGroup((OpenSim::MuscleGroup const &)*arg1);
+  *(OpenSim::MuscleGroup **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1MuscleGroup(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::MuscleGroup *arg1 = (OpenSim::MuscleGroup *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::MuscleGroup **)&jarg1; 
+  delete arg1;
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleGroup_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::MuscleGroup *arg1 = (OpenSim::MuscleGroup *) 0 ;
+  OpenSim::Object *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MuscleGroup **)&jarg1; 
+  result = (OpenSim::Object *)((OpenSim::MuscleGroup const *)arg1)->copy();
+  *(OpenSim::Object **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleGroup_1copyData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::MuscleGroup *arg1 = (OpenSim::MuscleGroup *) 0 ;
+  OpenSim::MuscleGroup *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::MuscleGroup **)&jarg1; 
+  arg2 = *(OpenSim::MuscleGroup **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::MuscleGroup const & reference is null");
+    return ;
+  } 
+  (arg1)->copyData((OpenSim::MuscleGroup const &)*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleGroup_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::MuscleGroup *arg1 = (OpenSim::MuscleGroup *) 0 ;
+  OpenSim::Model *arg2 = (OpenSim::Model *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::MuscleGroup **)&jarg1; 
+  arg2 = *(OpenSim::Model **)&jarg2; 
+  (arg1)->setup(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleGroup_1contains(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::MuscleGroup *arg1 = (OpenSim::MuscleGroup *) 0 ;
+  std::string *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MuscleGroup **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (bool)((OpenSim::MuscleGroup const *)arg1)->contains((std::string const &)*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleGroup_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::MuscleGroup *arg1 = (OpenSim::MuscleGroup *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MuscleGroup **)&jarg1; 
+  ((OpenSim::MuscleGroup const *)arg1)->peteTest();
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1MusclePoint_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::MusclePoint *result = 0 ;
@@ -41818,7 +44204,7 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1setAttachment(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1setAttachment_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
   OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
   double *arg2 ;
   jdouble *jarr2 ;
@@ -41835,6 +44221,21 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1s
   (arg1)->setAttachment(arg2);
   SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
   delete [] arg2; 
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1setAttachment_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdouble jarg3) {
+  OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
+  int arg2 ;
+  double arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MusclePoint **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (double)jarg3; 
+  (arg1)->setAttachment(arg2,arg3);
 }
 
 
@@ -42895,6 +45296,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMusclePoint
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMusclePoint_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::MusclePoint > *arg1 = (OpenSim::Set<OpenSim::MusclePoint > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::MusclePoint > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMusclePoint_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::MusclePoint > *arg1 = (OpenSim::Set<OpenSim::MusclePoint > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::MusclePoint > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1ArrayMusclePoint(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   OpenSim::Array<OpenSim::MusclePoint * > *arg1 = (OpenSim::Array<OpenSim::MusclePoint * > *) 0 ;
   
@@ -43691,6 +46132,43 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMuscle
     return ;
   } 
   (arg1)->postScale((OpenSim::ScaleSet const &)*arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMuscle_1addAttachmentPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jlong jresult = 0 ;
+  OpenSim::AbstractMuscle *arg1 = (OpenSim::AbstractMuscle *) 0 ;
+  int arg2 ;
+  OpenSim::AbstractBody *arg3 = 0 ;
+  OpenSim::MusclePoint *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(OpenSim::AbstractMuscle **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(OpenSim::AbstractBody **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::MusclePoint *)(arg1)->addAttachmentPoint(arg2,*arg3);
+  *(OpenSim::MusclePoint **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMuscle_1deleteAttachmentPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  OpenSim::AbstractMuscle *arg1 = (OpenSim::AbstractMuscle *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractMuscle **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->deleteAttachmentPoint(arg2);
 }
 
 
@@ -47876,6 +50354,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetIKTrial_1se
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetIKTrial_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::IKTrial > *arg1 = (OpenSim::Set<OpenSim::IKTrial > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::IKTrial > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetIKTrial_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::IKTrial > *arg1 = (OpenSim::Set<OpenSim::IKTrial > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::IKTrial > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1IKTrialSet_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::IKTrialSet *result = 0 ;
@@ -48667,6 +51185,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetIKTasks_1se
   result = (int)((OpenSim::Set<OpenSim::IKTask > const *)arg1)->searchBinary((OpenSim::IKTask const &)*arg2);
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetIKTasks_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::IKTask > *arg1 = (OpenSim::Set<OpenSim::IKTask > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::IKTask > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetIKTasks_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::IKTask > *arg1 = (OpenSim::Set<OpenSim::IKTask > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::IKTask > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
 }
 
 
@@ -50037,6 +52595,46 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMeasurement
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMeasurements_1addGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Set<OpenSim::Measurement > *arg1 = (OpenSim::Set<OpenSim::Measurement > *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Measurement > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addGroup(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetMeasurements_1addObjectToGroup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::Set<OpenSim::Measurement > *arg1 = (OpenSim::Set<OpenSim::Measurement > *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Set<OpenSim::Measurement > **)&jarg1; 
+  arg2 = *(std::string **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  arg3 = *(std::string **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::string & reference is null");
+    return ;
+  } 
+  (arg1)->addObjectToGroup(*arg2,*arg3);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1MeasurementSet_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::MeasurementSet *result = 0 ;
@@ -51010,6 +53608,14 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ScaleTool_1pet
 }
 
 
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGObjectGroupUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(OpenSim::Object **)&baseptr = *(OpenSim::ObjectGroup **)&jarg1;
+    return baseptr;
+}
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGMaterialUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong baseptr = 0;
     (void)jenv;
@@ -51615,6 +54221,14 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGSimmKinem
     (void)jenv;
     (void)jcls;
     *(OpenSim::AbstractDynamicsEngine **)&baseptr = *(OpenSim::SimmKinematicsEngine **)&jarg1;
+    return baseptr;
+}
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGMuscleGroupUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(OpenSim::Object **)&baseptr = *(OpenSim::MuscleGroup **)&jarg1;
     return baseptr;
 }
 

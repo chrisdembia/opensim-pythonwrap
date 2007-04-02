@@ -1,25 +1,31 @@
 package org.opensim.view.editors;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.Serializable;
-import java.lang.String;
-import javax.swing.ScrollPaneConstants;
+import java.util.Observable;
+import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import java.text.NumberFormat;
+import java.util.Observer;
 import org.openide.ErrorManager;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
+import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractActuator;
+import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.AbstractWrapObject;
+import org.opensim.modeling.ArrayPtrsPropertyGroup;
 import org.opensim.modeling.CoordinateSet;
+import org.opensim.modeling.PropertyGroup;
+import org.opensim.modeling.MusclePointSet;
 import org.opensim.modeling.MuscleViaPoint;
 import org.opensim.modeling.WrapEllipsoid;
 import org.opensim.modeling.BodySet;
@@ -28,41 +34,40 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Property;
 import org.opensim.modeling.PropertySet;
 import org.opensim.modeling.SetMuscleWrap;
-import org.opensim.modeling.MusclePointSet;
 import org.opensim.modeling.ArrayMusclePoint;
 import org.opensim.modeling.SetWrapObject;
-import org.opensim.modeling.SimmDarrylMuscle;
-import org.opensim.modeling.MusclePoint;
-import org.opensim.modeling.MusclePointSet;
 import org.opensim.modeling.AbstractMuscle;
+import org.opensim.modeling.MusclePoint;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.NameChangedEvent;
+import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.nodes.OneMuscleNode;
 import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 /**
  * Top component which displays the Muscle Editor window.
  */
-final class MuscleEditorTopComponent extends TopComponent {
+final class MuscleEditorTopComponent extends TopComponent implements Observer {
    
    private static MuscleEditorTopComponent instance;
    private AbstractActuator act; // the actuator that is currently shown in the Muscle Editor window
    private AbstractActuator actSaved; // the state that gets restored when "reset" is pressed
-   private static Dimension AttachmentsPref = new Dimension(100, 100);
-   private static Dimension ForcePref = new Dimension(100, 100);
-   private static Dimension DynamicPref = new Dimension(100, 100);
-   private static Dimension FunctionsPref = new Dimension(100, 100);
-   private static Dimension WrapPref = new Dimension(100, 100);
-   private static Dimension CurrentPathPref = new Dimension(100, 100);
-   private static String[] wrapMethodNames = new String[] {"midpoint", "axial", "hybrid"};
+   private static final String[] wrapMethodNames = new String[] {"midpoint", "axial", "hybrid"};
+   private javax.swing.JScrollPane AttachmentsTab = null;
+   private javax.swing.JScrollPane WrapTab = null;
+   private javax.swing.JScrollPane CurrentPathTab = null;
+   private String selectedTabName = null;
    
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
    
    private static final String PREFERRED_ID = "MuscleEditorTopComponent";
+   private static String s_mode="leftSlidingSide";
    
    private MuscleEditorTopComponent() {
       initComponents();
+      ViewDB.getInstance().addObserver(this);
       setName(NbBundle.getMessage(MuscleEditorTopComponent.class, "CTL_MuscleEditorTopComponent"));
       setToolTipText(NbBundle.getMessage(MuscleEditorTopComponent.class, "HINT_MuscleEditorTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
@@ -75,29 +80,41 @@ final class MuscleEditorTopComponent extends TopComponent {
     */
    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
    private void initComponents() {
-      MuscleNameLabel = new javax.swing.JLabel();
-      MuscleNameTextField = new javax.swing.JTextField();
-      MuscleTypeLabel = new javax.swing.JLabel();
+      MuscleEditorScrollPane = new javax.swing.JScrollPane();
+      MuscleEditorPanel = new javax.swing.JPanel();
       MuscleTypeComboBox = new javax.swing.JComboBox();
       ApplyButton = new javax.swing.JButton();
       ResetButton = new javax.swing.JButton();
+      MuscleNameTextField = new javax.swing.JTextField();
       ParametersTabbedPanel = new javax.swing.JTabbedPane();
-      AttachmentsTab = new javax.swing.JScrollPane();
-      AttachmentsPanel = new javax.swing.JPanel();
-      ForceTab = new javax.swing.JScrollPane();
-      ForcePanel = new javax.swing.JPanel();
-      DynamicTab = new javax.swing.JScrollPane();
-      DynamicPanel = new javax.swing.JPanel();
-      FunctionsTab = new javax.swing.JScrollPane();
-      FunctionsPanel = new javax.swing.JPanel();
-      WrappingTab = new javax.swing.JScrollPane();
-      WrapPanel = new javax.swing.JPanel();
-      CurrentPathTab = new javax.swing.JScrollPane();
-      CurrentPathPanel = new javax.swing.JPanel();
+      MuscleNameLabel = new javax.swing.JLabel();
+      MuscleTypeLabel = new javax.swing.JLabel();
 
-      org.openide.awt.Mnemonics.setLocalizedText(MuscleNameLabel, "name:");
+      MuscleEditorScrollPane.setBorder(null);
+      MuscleEditorPanel.setMinimumSize(new java.awt.Dimension(5, 5));
+      MuscleEditorPanel.setPreferredSize(new java.awt.Dimension(5, 5));
+      MuscleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DarrylMuscle", "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-      MuscleNameTextField.setText("glut_med1_r");
+      org.openide.awt.Mnemonics.setLocalizedText(ApplyButton, "save");
+      ApplyButton.setToolTipText("save changes to this muscle");
+      ApplyButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ApplyButtonActionPerformed(evt);
+         }
+      });
+
+      org.openide.awt.Mnemonics.setLocalizedText(ResetButton, "reset");
+      ResetButton.setToolTipText("undo changes to last saved version");
+      ResetButton.setMaximumSize(new java.awt.Dimension(63, 25));
+      ResetButton.setMinimumSize(new java.awt.Dimension(63, 25));
+      ResetButton.setPreferredSize(new java.awt.Dimension(63, 25));
+      ResetButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ResetButtonActionPerformed(evt);
+         }
+      });
+
+      MuscleNameTextField.setText("<muscle name>");
       MuscleNameTextField.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             MuscleNameTextFieldActionPerformed(evt);
@@ -109,111 +126,64 @@ final class MuscleEditorTopComponent extends TopComponent {
          }
       });
 
+      org.openide.awt.Mnemonics.setLocalizedText(MuscleNameLabel, "name:");
+
       MuscleTypeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
       org.openide.awt.Mnemonics.setLocalizedText(MuscleTypeLabel, "type:");
 
-      MuscleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DarrylMuscle", "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-      org.openide.awt.Mnemonics.setLocalizedText(ApplyButton, "apply");
-      ApplyButton.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            ApplyButtonActionPerformed(evt);
-         }
-      });
-
-      org.openide.awt.Mnemonics.setLocalizedText(ResetButton, "reset");
-      ResetButton.setMaximumSize(new java.awt.Dimension(63, 25));
-      ResetButton.setMinimumSize(new java.awt.Dimension(63, 25));
-      ResetButton.setPreferredSize(new java.awt.Dimension(63, 25));
-      ResetButton.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            ResetButtonActionPerformed(evt);
-         }
-      });
-
-      AttachmentsPanel.setLayout(null);
-
-      AttachmentsPanel.setBackground(new java.awt.Color(200, 200, 255));
-      AttachmentsTab.setViewportView(AttachmentsPanel);
-
-      ParametersTabbedPanel.addTab("attachments", AttachmentsTab);
-
-      ForcePanel.setLayout(null);
-
-      ForcePanel.setBackground(new java.awt.Color(200, 255, 200));
-      ForceTab.setViewportView(ForcePanel);
-
-      ParametersTabbedPanel.addTab("force", ForceTab);
-
-      DynamicPanel.setLayout(null);
-
-      DynamicPanel.setBackground(new java.awt.Color(255, 200, 200));
-      DynamicTab.setViewportView(DynamicPanel);
-
-      ParametersTabbedPanel.addTab("dynamic", DynamicTab);
-
-      FunctionsPanel.setLayout(null);
-
-      FunctionsPanel.setBackground(new java.awt.Color(200, 255, 255));
-      FunctionsTab.setViewportView(FunctionsPanel);
-
-      ParametersTabbedPanel.addTab("functions", FunctionsTab);
-
-      WrapPanel.setLayout(null);
-
-      WrapPanel.setBackground(new java.awt.Color(255, 200, 255));
-      WrappingTab.setViewportView(WrapPanel);
-
-      ParametersTabbedPanel.addTab("wrapping", WrappingTab);
-
-      CurrentPathPanel.setLayout(null);
-
-      CurrentPathPanel.setBackground(new java.awt.Color(255, 255, 200));
-      CurrentPathTab.setViewportView(CurrentPathPanel);
-
-      ParametersTabbedPanel.addTab("current path", CurrentPathTab);
+      org.jdesktop.layout.GroupLayout MuscleEditorPanelLayout = new org.jdesktop.layout.GroupLayout(MuscleEditorPanel);
+      MuscleEditorPanel.setLayout(MuscleEditorPanelLayout);
+      MuscleEditorPanelLayout.setHorizontalGroup(
+         MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(MuscleEditorPanelLayout.createSequentialGroup()
+            .addContainerGap()
+            .add(MuscleNameLabel)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(65, 65, 65)
+            .add(MuscleTypeLabel)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(MuscleTypeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(217, Short.MAX_VALUE))
+         .add(MuscleEditorPanelLayout.createSequentialGroup()
+            .addContainerGap()
+            .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+            .addContainerGap())
+         .add(MuscleEditorPanelLayout.createSequentialGroup()
+            .add(119, 119, 119)
+            .add(ResetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 195, Short.MAX_VALUE)
+            .add(ApplyButton)
+            .add(158, 158, 158))
+      );
+      MuscleEditorPanelLayout.setVerticalGroup(
+         MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(MuscleEditorPanelLayout.createSequentialGroup()
+            .addContainerGap()
+            .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(MuscleNameLabel)
+               .add(MuscleTypeLabel)
+               .add(MuscleTypeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(ResetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(ApplyButton))
+            .add(10, 10, 10))
+      );
+      MuscleEditorScrollPane.setViewportView(MuscleEditorPanel);
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                  .addContainerGap()
-                  .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
-               .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                  .addContainerGap()
-                  .add(ResetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 290, Short.MAX_VALUE)
-                  .add(ApplyButton))
-               .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                  .add(14, 14, 14)
-                  .add(MuscleNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(MuscleTypeLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(MuscleTypeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap())
+         .add(MuscleEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(layout.createSequentialGroup()
-            .add(18, 18, 18)
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(MuscleNameLabel)
-               .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(MuscleTypeLabel)
-               .add(MuscleTypeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(19, 19, 19)
-            .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(ResetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(ApplyButton))
-            .addContainerGap())
+         .add(MuscleEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
       );
    }// </editor-fold>//GEN-END:initComponents
    
@@ -236,6 +206,7 @@ final class MuscleEditorTopComponent extends TopComponent {
       AbstractMuscle asmSaved = AbstractMuscle.safeDownCast(actSaved);
       asm.copyData(asmSaved);
       asm.setName(asmSaved.getName()); // TODO: what about other properties of parent classes?
+      asm.setup(asmSaved.getModel());
       OpenSimDB.getInstance().setChanged();
       NameChangedEvent evnt = new NameChangedEvent(act); // TODO: what about other changes to the muscle?
       OpenSimDB.getInstance().notifyObservers(evnt);
@@ -253,24 +224,14 @@ final class MuscleEditorTopComponent extends TopComponent {
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton ApplyButton;
-   private javax.swing.JPanel AttachmentsPanel;
-   private javax.swing.JScrollPane AttachmentsTab;
-   private javax.swing.JPanel CurrentPathPanel;
-   private javax.swing.JScrollPane CurrentPathTab;
-   private javax.swing.JPanel DynamicPanel;
-   private javax.swing.JScrollPane DynamicTab;
-   private javax.swing.JPanel ForcePanel;
-   private javax.swing.JScrollPane ForceTab;
-   private javax.swing.JPanel FunctionsPanel;
-   private javax.swing.JScrollPane FunctionsTab;
+   private javax.swing.JPanel MuscleEditorPanel;
+   private javax.swing.JScrollPane MuscleEditorScrollPane;
    private javax.swing.JLabel MuscleNameLabel;
    private javax.swing.JTextField MuscleNameTextField;
    private javax.swing.JComboBox MuscleTypeComboBox;
    private javax.swing.JLabel MuscleTypeLabel;
    private javax.swing.JTabbedPane ParametersTabbedPanel;
    private javax.swing.JButton ResetButton;
-   private javax.swing.JPanel WrapPanel;
-   private javax.swing.JScrollPane WrappingTab;
    // End of variables declaration//GEN-END:variables
    
    /**
@@ -305,35 +266,112 @@ final class MuscleEditorTopComponent extends TopComponent {
       return TopComponent.PERSISTENCE_ALWAYS;
    }
    
-   public void AttachmentActionPerformed(java.awt.event.ActionEvent evt, int attachmentNum, int coordNum) {
+   public void AttachmentPointEntered(javax.swing.JTextField field, int attachmentNum, int coordNum) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
-      MusclePointSet ssmp = asm.getAttachmentSet();
-      double newValue = Double.parseDouble(evt.getActionCommand());
-      ssmp.get(attachmentNum).getAttachment().set(coordNum, newValue);
-      asm.invalidatePath();
-      setupCurrentPathPanel(asm);
+      MusclePointSet musclePoints = asm.getAttachmentSet();
+      double oldValue = musclePoints.get(attachmentNum).getAttachment().getitem(coordNum);
+      double newValue = Double.parseDouble(field.getText());
+      if (oldValue != newValue) {
+         musclePoints.get(attachmentNum).setAttachment(coordNum, newValue);
+         // tell the ViewDB to redraw the model
+         Model model = asm.getModel();
+         SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+         vis.updateModelDisplay(model);
+         ViewDB.getInstance().repaintAll();
+         // update the current path panel
+         setupCurrentPathPanel(asm);
+      }
    }
    
-   public void AttachmentFocusLost(java.awt.event.FocusEvent evt, int attachmentNum, int coordNum) {
+   public void AttachmentBodyChosen(javax.swing.JComboBox bodyComboBox, int attachmentNum) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
-      MusclePointSet ssmp = asm.getAttachmentSet();
-      double newValue = Double.parseDouble(((javax.swing.JTextField)evt.getComponent()).getText());
-      ssmp.get(attachmentNum).getAttachment().set(coordNum, newValue);
-      asm.invalidatePath();
-      setupCurrentPathPanel(asm);
+      MusclePointSet musclePoints = asm.getAttachmentSet();
+      AbstractBody oldBody = musclePoints.get(attachmentNum).getBody();
+      Model model = asm.getModel();
+      BodySet bodies = model.getDynamicsEngine().getBodySet();
+      AbstractBody newBody = bodies.get(bodyComboBox.getSelectedIndex());
+      if (newBody.getName().equals(oldBody.getName()) == false) { // TODO why doesn't newBody.getCPtr() work?
+         musclePoints.get(attachmentNum).setBody(newBody);
+         // tell the ViewDB to redraw the model
+         SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+         ViewDB.getInstance().repaintAll();
+         // update the current path panel
+         setupCurrentPathPanel(asm);
+      }
+   }
+   public void DoublePropertyEntered(javax.swing.JTextField field, int propertyNum) {
+      Property prop = null;
+      try {
+         prop = act.getPropertySet().get(propertyNum);
+      } catch (IOException ex) {
+         ex.printStackTrace();
+      }
+      if (prop != null) {
+         double oldValue = prop.getValueDbl();
+         double newValue = Double.parseDouble(field.getText());
+         if (newValue != oldValue) {
+            prop.setValue(newValue);
+            // TODO generate an event for this??
+         }
+      }
+   }
+   
+   public void IntPropertyEntered(javax.swing.JTextField field, int propertyNum) {
+      Property prop = null;
+      try {
+         prop = act.getPropertySet().get(propertyNum);
+      } catch (IOException ex) {
+         ex.printStackTrace();
+      }
+      if (prop != null) {
+         int oldValue = prop.getValueInt();
+         int newValue = Integer.parseInt(field.getText());
+         if (newValue != oldValue) {
+            prop.setValue(newValue);
+            // TODO generate an event for this??
+         }
+      }
+   }
+   
+   public void addAttachmentPerformed(int menuChoice) {
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+      MusclePointSet musclePoints = asm.getAttachmentSet();
+      int index = menuChoice;
+      if (index > musclePoints.getSize() - 1)
+         index = musclePoints.getSize() - 1;
+      MusclePoint closestPoint = musclePoints.get(index);
+      asm.addAttachmentPoint(menuChoice, closestPoint.getBody());
+      setupComponent(act);
+   }
+   
+   public void deleteAttachmentPerformed(int menuChoice) {
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+      asm.deleteAttachmentPoint(menuChoice);
+      setupComponent(act);
    }
    
    public void componentOpened() {
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
-      // Action shouldn't be available otherwise'
       OneMuscleNode muscleNode = (OneMuscleNode) selected[0];
       act = (AbstractActuator)muscleNode.getOpensimObject();
-      actSaved = AbstractMuscle.safeDownCast(act.copy());
+      actSaved = AbstractActuator.safeDownCast(act.copy());
+      AttachmentsTab = null;
+      WrapTab = null;
+      CurrentPathTab = null;
+      selectedTabName = null;
       setupComponent(act);
    }
    
    public void setupCurrentPathPanel(AbstractMuscle asm) {
-      CurrentPathPanel.removeAll();
+      if (CurrentPathTab != null)
+         ParametersTabbedPanel.remove(CurrentPathTab);
+      CurrentPathTab = new javax.swing.JScrollPane();
+      javax.swing.JPanel CurrentPathPanel = new javax.swing.JPanel();
+      CurrentPathPanel.setLayout(null);
+      CurrentPathPanel.setBackground(new java.awt.Color(200, 200, 255));
+      CurrentPathTab.setViewportView(CurrentPathPanel);
+      CurrentPathTab.setName("current path");
+      ParametersTabbedPanel.insertTab("current path", null, CurrentPathTab, "current path of muscle", ParametersTabbedPanel.getTabCount());
       
       // Put the points in the current path in the CurrentPath tab
       ArrayMusclePoint asmp = asm.getCurrentPath();
@@ -414,14 +452,20 @@ final class MuscleEditorTopComponent extends TopComponent {
          CurrentPathPanel.add(bodyLabel);
          CurrentPathPanel.add(typeLabel);
       }
-      CurrentPathPref.width = 400;
-      CurrentPathPref.height = Y + asmp.getSize() * 22;
-      CurrentPathPanel.setPreferredSize(AttachmentsPref);
-      CurrentPathPanel.revalidate();
+      Dimension d = new Dimension(400, Y + asmp.getSize() * 22);
+      CurrentPathPanel.setPreferredSize(d);
    }
    
    public void setupWrapPanel(AbstractMuscle asm) {
-      WrapPanel.removeAll();
+      if (WrapTab != null)
+         ParametersTabbedPanel.remove(WrapTab);
+      javax.swing.JScrollPane WrapTab = new javax.swing.JScrollPane();
+      javax.swing.JPanel WrapPanel = new javax.swing.JPanel();
+      WrapPanel.setLayout(null);
+      WrapPanel.setBackground(new java.awt.Color(200, 200, 255));
+      WrapTab.setViewportView(WrapPanel);
+      WrapTab.setName("wrapping");
+      ParametersTabbedPanel.insertTab("wrapping", null, WrapTab, "wrapping parameters", ParametersTabbedPanel.getTabCount());
       
       // Set up the Wrap Panel
       int i, j, wCount = 0;
@@ -514,263 +558,435 @@ final class MuscleEditorTopComponent extends TopComponent {
          WrapPanel.add(endComboBox);
       }
       
-      WrapPref.width = 350;
-      WrapPref.height = Y + 20 + smw.getSize() * 22;
-      WrapPanel.setPreferredSize(WrapPref);
-      WrapPanel.revalidate();
+      Dimension d = new Dimension(350, Y + 20 + smw.getSize() * 22);
+      WrapPanel.setPreferredSize(d);
    }
    
-   public void setupComponent(AbstractActuator act) {
-      // Remove all previous GUI components from the panels.
-      // If the type of actuator changed since the last time
-      // the panels were set up, there could be different
-      // numbers and types of components.
-      AttachmentsPanel.removeAll();
-      ForcePanel.removeAll();
-      DynamicPanel.removeAll();
-      FunctionsPanel.removeAll();
+   public void setupAttachmentPanel(AbstractMuscle asm) {
+      if (AttachmentsTab != null)
+         ParametersTabbedPanel.remove(AttachmentsTab);
+      AttachmentsTab = new javax.swing.JScrollPane();
+      javax.swing.JPanel AttachmentsPanel = new javax.swing.JPanel();
+      AttachmentsPanel.setLayout(null);
+      AttachmentsPanel.setBackground(new java.awt.Color(200, 200, 255));
+      AttachmentsTab.setViewportView(AttachmentsPanel);
+      AttachmentsTab.setName("attachments");
+      ParametersTabbedPanel.insertTab("attachments", null, AttachmentsTab, "attachment points", 0);
       
-      MuscleNameTextField.setText(act.getName());
-      PropertySet ps = act.getPropertySet();
+      // Put the attachment points in the attachments tab
+      MusclePointSet musclePoints = asm.getAttachmentSet();
+      int i, aCount = 0;
+      int X = 30;
+      int Y = 40;
       NumberFormat nf = NumberFormat.getInstance();
       nf.setMaximumFractionDigits(5); // TODO
       nf.setMinimumFractionDigits(5); // TODO
-      int i, j;
+      BodySet bodies = asm.getModel().getDynamicsEngine().getBodySet();
+      String[] bodyNames = new String[bodies.getSize()];
+      for (i = 0; i < bodies.getSize(); i++)
+         bodyNames[i] = new String(bodies.get(i).getName());
+      CoordinateSet coordinates = asm.getModel().getDynamicsEngine().getCoordinateSet();
+      String[] coordinateNames = new String[coordinates.getSize()];
+      for (i = 0; i < coordinates.getSize(); i++)
+         coordinateNames[i] = new String(coordinates.get(i).getName());
+      
+      // Set up the muscle-independent labels
+      boolean anyViaPoints = false;
+      javax.swing.JLabel attachmentXLabel = new javax.swing.JLabel();
+      attachmentXLabel.setText("X");
+      attachmentXLabel.setBounds(X + 20, Y - 30, 8, 16);
+      javax.swing.JLabel attachmentYLabel = new javax.swing.JLabel();
+      attachmentYLabel.setText("Y");
+      attachmentYLabel.setBounds(X + 80, Y - 30, 8, 16);
+      javax.swing.JLabel attachmentZLabel = new javax.swing.JLabel();
+      attachmentZLabel.setText("Z");
+      attachmentZLabel.setBounds(X + 140, Y - 30, 8, 16);
+      javax.swing.JLabel attachmentBodyLabel = new javax.swing.JLabel();
+      attachmentBodyLabel.setText("body");
+      attachmentBodyLabel.setBounds(X + 210, Y - 30, 30, 16);
+      javax.swing.JLabel attachmentSelLabel = new javax.swing.JLabel();
+      attachmentSelLabel.setText("sel");
+      attachmentSelLabel.setBounds(X + 290, Y - 30, 25, 16);
+      javax.swing.JLabel coordLabel = new javax.swing.JLabel();
+      coordLabel.setText("coordinate");
+      coordLabel.setBounds(X + 360, Y - 30, 60, 16);
+      javax.swing.JLabel rangeMinLabel = new javax.swing.JLabel();
+      rangeMinLabel.setText("min");
+      rangeMinLabel.setBounds(X + 480, Y - 30, 60, 16);
+      javax.swing.JLabel rangeMaxLabel = new javax.swing.JLabel();
+      rangeMaxLabel.setText("max");
+      rangeMaxLabel.setBounds(X + 542, Y - 30, 60, 16);
+      AttachmentsPanel.add(attachmentXLabel);
+      AttachmentsPanel.add(attachmentYLabel);
+      AttachmentsPanel.add(attachmentZLabel);
+      AttachmentsPanel.add(attachmentBodyLabel);
+      AttachmentsPanel.add(attachmentSelLabel);
+      AttachmentsPanel.add(coordLabel);
+      AttachmentsPanel.add(rangeMinLabel);
+      AttachmentsPanel.add(rangeMaxLabel);
+      
+      for (i = 0; i < musclePoints.getSize(); i++) {
+         MuscleViaPoint via = MuscleViaPoint.safeDownCast(musclePoints.get(i));
+         javax.swing.JLabel indexLabel = null;
+         indexLabel = new javax.swing.JLabel();
+         indexLabel.setText(String.valueOf(aCount+1) + ".");
+         
+         javax.swing.JTextField xField = new javax.swing.JTextField();
+         javax.swing.JTextField yField = new javax.swing.JTextField();
+         javax.swing.JTextField zField = new javax.swing.JTextField();
+         javax.swing.JComboBox comboBox = new javax.swing.JComboBox();
+         javax.swing.JCheckBox selectBox = new javax.swing.JCheckBox();
+         javax.swing.JComboBox coordComboBox = null;
+         javax.swing.JTextField rangeMinField = null;
+         javax.swing.JTextField rangeMaxField = null;
+         if (via != null) {
+            anyViaPoints = true;
+            coordComboBox = new javax.swing.JComboBox();
+            rangeMinField = new javax.swing.JTextField();
+            rangeMaxField = new javax.swing.JTextField();
+         }
+         
+         int height = Y + i * 22;
+         int width = 60;
+         
+         comboBox.setModel(new javax.swing.DefaultComboBoxModel(bodyNames));
+         comboBox.setSelectedIndex(findElement(bodyNames, musclePoints.get(i).getBodyName()));
+         if (via != null) {
+            coordComboBox.setModel(new javax.swing.DefaultComboBoxModel(coordinateNames));
+            coordComboBox.setSelectedIndex(findElement(coordinateNames, via.getCoordinateName()));
+            rangeMinField.setText(nf.format(via.getRange().getitem(0)));
+            rangeMaxField.setText(nf.format(via.getRange().getitem(1)));
+            coordComboBox.setBounds(X + 3*width + 140, height, 130, 21);
+            rangeMinField.setBounds(X + 3*width + 280, height, 60, 21);
+            rangeMaxField.setBounds(X + 3*width + 345, height, 60, 21);
+         }
+         
+         indexLabel.setBounds(X - 20, height, 20, 21);
+         xField.setBounds(X, height, width, 21);
+         yField.setBounds(X + width + 1, height, width, 21);
+         zField.setBounds(X + 2*width + 2, height, width, 21);
+         comboBox.setBounds(X + 3*width + 10, height, 90, 21);
+         selectBox.setBounds(X + 3*width + 110, height, 21, 21);
+         xField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(0)));
+         yField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(1)));
+         zField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(2)));
+         AttachmentsPanel.add(indexLabel);
+         aCount++;
+         
+         final int num = i;
+         xField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 0);
+            }
+         });
+         xField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 0);
+            }
+         });
+         yField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 1);
+            }
+         });
+         yField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 1);
+            }
+         });
+         zField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 2);
+            }
+         });
+         zField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 2);
+            }
+         });
+         comboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               AttachmentBodyChosen(((javax.swing.JComboBox)evt.getSource()), num);
+            }
+         });
+         AttachmentsPanel.add(xField);
+         AttachmentsPanel.add(yField);
+         AttachmentsPanel.add(zField);
+         AttachmentsPanel.add(comboBox);
+         AttachmentsPanel.add(selectBox);
+         if (via != null) {
+            AttachmentsPanel.add(coordComboBox);
+            AttachmentsPanel.add(rangeMinField);
+            AttachmentsPanel.add(rangeMaxField);
+         }
+      }
+      
+      // The add menu
+      final javax.swing.JPopupMenu addMenu = new javax.swing.JPopupMenu();
+      javax.swing.JMenuItem firstMenuItem = new JMenuItem("before 1");
+      firstMenuItem.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            addAttachmentPerformed(0);
+         }
+      });
+      addMenu.add(firstMenuItem);
+      for (i = 0; i < musclePoints.getSize() - 1; i++) {
+         javax.swing.JMenuItem menuItem = new JMenuItem("between "+String.valueOf(i+1)+" and "+String.valueOf(i+2));
+         final int index = i + 1;
+         menuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               addAttachmentPerformed(index);
+            }
+         });
+         addMenu.add(menuItem);
+      }
+      javax.swing.JMenuItem lastMenuItem = new JMenuItem("after "+String.valueOf(musclePoints.getSize()));
+      final int index = musclePoints.getSize();
+      lastMenuItem.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            addAttachmentPerformed(index);
+         }
+      });
+      addMenu.add(lastMenuItem);
+      
+      // Add the "add" button
+      javax.swing.JButton addButton = new javax.swing.JButton();
+      addButton.setText("add");
+      addButton.setToolTipText("add an attachment point");
+      addButton.setBounds(X + 100, Y + 20 + musclePoints.getSize() * 22, 70, 21);
+      AttachmentsPanel.add(addButton);
+      
+      class PopupListener extends MouseAdapter {
+         public void mousePressed(MouseEvent e) {
+            //maybeShowPopup(e);
+            addMenu.show(e.getComponent(),
+                    e.getX(), e.getY());
+         }
+         
+         public void mouseReleased(MouseEvent e) {
+            maybeShowPopup(e);
+         }
+         
+         private void maybeShowPopup(MouseEvent e) {
+            if (e.isPopupTrigger()) {
+               addMenu.show(e.getComponent(),
+                       e.getX(), e.getY());
+            }
+         }
+      }
+      
+      MouseListener popupListener = new PopupListener();
+      addButton.addMouseListener(popupListener);
+      
+      // the "delete" menu
+      final javax.swing.JPopupMenu deleteMenu = new javax.swing.JPopupMenu();
+      for (i = 0; i < musclePoints.getSize(); i++) {
+         javax.swing.JMenuItem menuItem = new JMenuItem(String.valueOf(i+1));
+         final int deleteIndex = i;
+         menuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               deleteAttachmentPerformed(deleteIndex);
+            }
+         });
+         deleteMenu.add(menuItem);
+      }
+      
+      // Add the "delete" button
+      javax.swing.JButton deleteButton = new javax.swing.JButton();
+      deleteButton.setText("delete");
+      deleteButton.setToolTipText("delete an attachment point");
+      deleteButton.setBounds(X + 200, Y + 20 + musclePoints.getSize() * 22, 70, 21);
+      AttachmentsPanel.add(deleteButton);
+      
+      class PopupListenerDelete extends MouseAdapter {
+         public void mousePressed(MouseEvent e) {
+            //maybeShowPopup(e);
+            deleteMenu.show(e.getComponent(),
+                    e.getX(), e.getY());
+         }
+         
+         public void mouseReleased(MouseEvent e) {
+            maybeShowPopup(e);
+         }
+         
+         private void maybeShowPopup(MouseEvent e) {
+            if (e.isPopupTrigger()) {
+               deleteMenu.show(e.getComponent(),
+                       e.getX(), e.getY());
+            }
+         }
+      }
+      
+      MouseListener popupListenerDelete = new PopupListenerDelete();
+      deleteButton.addMouseListener(popupListenerDelete);
+      
+      Dimension d = new Dimension(350, Y + 45 + musclePoints.getSize() * 22);
+      if (anyViaPoints)
+         d.width = 630;
+      AttachmentsPanel.setPreferredSize(d);
+   }
+   
+   public void setupComponent(AbstractActuator act) {
+      // Remove all previous GUI components and their panels.
+      // If the type of actuator changed since the last time
+      // the panels were set up, there could be different
+      // numbers and types of components and panels.
+      // But before they are removed, store the name of the
+      // currently selected tab (if any) so that you can try
+      // to restore this selection (e.g., after the "reset"
+      // button is pressed.
+      Component comp = ParametersTabbedPanel.getSelectedComponent();
+      if (comp != null)
+         selectedTabName = comp.getName();
+      else
+         selectedTabName = null;
+      ParametersTabbedPanel.removeAll();
+      AttachmentsTab = null;
+      WrapTab = null;
+      CurrentPathTab = null;
+      
+      // Add the attachment panel first so it will always have index=0
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
-      if (asm != null) {
-         int dCount = 0, fCount = 0, iCount = 0, aCount = 0, wCount = 0;
-         for (i = 0; i < ps.getSize(); i++) {
-            Property p;
-            try {
-               p = ps.get(i);
-               // for testing, add doubles to Force panel and Dynamic panel
+      if (asm != null)
+         setupAttachmentPanel(asm);
+      
+      int i, j;
+      NumberFormat nf = NumberFormat.getInstance();
+      nf.setMaximumFractionDigits(5); // TODO
+      nf.setMinimumFractionDigits(5); // TODO
+      MuscleNameTextField.setText(act.getName());
+      PropertySet ps = act.getPropertySet();
+      
+      // Create the panels to hold the properties.
+      ArrayPtrsPropertyGroup groups = ps.getGroups();
+      int numGroups = groups.getSize();
+      javax.swing.JScrollPane propTab[] = new javax.swing.JScrollPane[numGroups + 1];
+      javax.swing.JPanel propPanel[] = new javax.swing.JPanel[numGroups + 1];
+      int tabPropertyCount[] = new int[numGroups + 1];
+      for (i = 0; i < numGroups; i++) {
+         PropertyGroup pg = groups.get(i);
+         propTab[i] = new javax.swing.JScrollPane();
+         propPanel[i] = new javax.swing.JPanel();
+         propPanel[i].setLayout(null);
+         propPanel[i].setBackground(new java.awt.Color(200, 200, 255));
+         propTab[i].setViewportView(propPanel[i]);
+         propTab[i].setName(pg.getName());
+         ParametersTabbedPanel.addTab(pg.getName(), null, propTab[i], pg.getName()+" parameters");
+         tabPropertyCount[i] = 0;
+      }
+      // Create the "other" panel to hold properties that are not in a group.
+      propTab[numGroups] = new javax.swing.JScrollPane();
+      propPanel[numGroups] = new javax.swing.JPanel();
+      propPanel[numGroups].setLayout(null);
+      propPanel[numGroups].setBackground(new java.awt.Color(200, 200, 255));
+      propTab[numGroups].setViewportView(propPanel[numGroups]);
+      propTab[numGroups].setName("other");
+      ParametersTabbedPanel.addTab("other", null, propTab[numGroups], "other parameters");
+      tabPropertyCount[numGroups] = 0;
+      
+      // Loop through the properties, adding each one to the appropriate panel.
+      for (i = 0; i < ps.getSize(); i++) {
+         Property p;
+         try {
+            p = ps.get(i);
+            int groupNum = ps.getGroupIndexContaining(p);
+            if (groupNum < 0)
+               groupNum = numGroups; // this is the index of the "other" panel
+            if (p.getType() == org.opensim.modeling.Property.PropertyType.Dbl ||
+                    p.getType() == org.opensim.modeling.Property.PropertyType.Int) {
+               javax.swing.JLabel propLabel = new javax.swing.JLabel();
+               propLabel.setText(p.getName());
+               propLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+               propLabel.setBounds(20, 22 + tabPropertyCount[groupNum] * 22, 180, 16);
+               propLabel.setToolTipText(p.getComment());
+               javax.swing.JTextField propField = new javax.swing.JTextField();
+               propField.setBounds(210, 20 + tabPropertyCount[groupNum] * 22, 120, 21);
+               propField.setText(p.toString());
+               propField.setToolTipText(p.getComment());
+               propPanel[groupNum].add(propLabel);
+               propPanel[groupNum].add(propField);
+               tabPropertyCount[groupNum]++;
+               final int num = i;
                if (p.getType() == org.opensim.modeling.Property.PropertyType.Dbl) {
-                  javax.swing.JLabel propLabel = new javax.swing.JLabel();
-                  propLabel.setText(p.getName());
-                  propLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-                  propLabel.setBounds(20, 22 + dCount * 22, 180, 16);
-                  propLabel.setToolTipText(p.getComment());
-                  javax.swing.JTextField propField = new javax.swing.JTextField();
-                  propField.setBounds(210, 20 + dCount * 22, 120, 21);
-                  propField.setText(p.toString());
-                  propField.setToolTipText(p.getComment());
-                  DynamicPanel.add(propLabel);
-                  DynamicPanel.add(propField);
-                  ////////////////////////////
-                  javax.swing.JLabel propLabel2 = new javax.swing.JLabel();
-                  propLabel2.setText(p.getName());
-                  propLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
-                  propLabel2.setBounds(20, 22 + dCount * 22, 180, 16);
-                  propLabel2.setToolTipText(p.getComment());
-                  javax.swing.JTextField propField2 = new javax.swing.JTextField();
-                  propField2.setBounds(210, 20 + dCount * 22, 120, 21);
-                  propField2.setText(p.toString());
-                  propField2.setToolTipText(p.getComment());
-                  ForcePanel.add(propLabel2);
-                  ForcePanel.add(propField2);
-                  ////////////////////////////
-                  dCount++;
+                  propField.addActionListener(new java.awt.event.ActionListener() {
+                     public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        DoublePropertyEntered(((javax.swing.JTextField)evt.getSource()), num);
+                     }
+                  });
+                  propField.addFocusListener(new java.awt.event.FocusAdapter() {
+                     public void focusLost(java.awt.event.FocusEvent evt) {
+                        DoublePropertyEntered(((javax.swing.JTextField)evt.getSource()), num);
+                     }
+                  });
                } else if (p.getType() == org.opensim.modeling.Property.PropertyType.Int) {
-                  // for testing...
+                  propField.addActionListener(new java.awt.event.ActionListener() {
+                     public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        IntPropertyEntered(((javax.swing.JTextField)evt.getSource()), num);
+                     }
+                  });
+                  propField.addFocusListener(new java.awt.event.FocusAdapter() {
+                     public void focusLost(java.awt.event.FocusEvent evt) {
+                        IntPropertyEntered(((javax.swing.JTextField)evt.getSource()), num);
+                     }
+                  });
+               }
+            } else if (p.getType() == org.opensim.modeling.Property.PropertyType.ObjPtr) {
+               OpenSimObject obj = p.getValueObjPtr();
+               Function func = Function.safeDownCast(obj);
+               if (func != null) {
                   javax.swing.JLabel propLabel = new javax.swing.JLabel();
                   propLabel.setText(p.getName());
                   propLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-                  propLabel.setBounds(20, 22 + iCount * 22, 180, 16);
+                  propLabel.setBounds(20, 22 + tabPropertyCount[groupNum] * 22, 200, 16);
                   propLabel.setToolTipText(p.getComment());
-                  javax.swing.JTextField propField = new javax.swing.JTextField();
-                  propField.setBounds(210, 20 + iCount * 22, 120, 21);
-                  propField.setText(p.toString());
-                  propField.setToolTipText(p.getComment());
-                  //ForcePanel.add(propLabel);
-                  //ForcePanel.add(propField);
-                  iCount++;
-               } else if (p.getType() == org.opensim.modeling.Property.PropertyType.ObjPtr) {
-                  OpenSimObject obj = p.getValueObjPtr();
-                  Function func = Function.safeDownCast(obj);
-                  if (func != null) {
-                     javax.swing.JLabel propLabel = new javax.swing.JLabel();
-                     propLabel.setText(p.getName());
-                     propLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-                     propLabel.setBounds(20, 22 + fCount * 22, 200, 16);
-                     propLabel.setToolTipText(p.getComment());
-                     javax.swing.JButton propButton = new javax.swing.JButton();
-                     propButton.setBounds(230, 20 + fCount * 22, 60, 21);
-                     propButton.setText("edit");
-                     FunctionsPanel.add(propLabel);
-                     FunctionsPanel.add(propButton);
-                     fCount++;
-                  }
+                  javax.swing.JButton propButton = new javax.swing.JButton();
+                  propButton.setBounds(230, 20 + tabPropertyCount[groupNum] * 22, 60, 21);
+                  propButton.setText("edit");
+                  propPanel[groupNum].add(propLabel);
+                  propPanel[groupNum].add(propButton);
+                  tabPropertyCount[groupNum]++;
                }
-            } catch (IOException ex) {
-               ex.printStackTrace();
             }
+         } catch (IOException ex) {
+            ex.printStackTrace();
          }
-         
-         // Put the attachment points in the attachments tab
-         MusclePointSet ssmp = asm.getAttachmentSet();
-         int X = 30;
-         int Y = 40;
-         BodySet bodies = asm.getModel().getDynamicsEngine().getBodySet();
-         String[] bodyNames = new String[bodies.getSize()];
-         for (i = 0; i < bodies.getSize(); i++)
-            bodyNames[i] = new String(bodies.get(i).getName());
-         CoordinateSet coordinates = asm.getModel().getDynamicsEngine().getCoordinateSet();
-         String[] coordinateNames = new String[coordinates.getSize()];
-         for (i = 0; i < coordinates.getSize(); i++)
-            coordinateNames[i] = new String(coordinates.get(i).getName());
-
-         // Set up the muscle-independent labels
-         boolean anyViaPoints = false;
-         javax.swing.JLabel attachmentXLabel = new javax.swing.JLabel();
-         attachmentXLabel.setText("X");
-         attachmentXLabel.setBounds(X + 20, Y - 30, 8, 16);
-         javax.swing.JLabel attachmentYLabel = new javax.swing.JLabel();
-         attachmentYLabel.setText("Y");
-         attachmentYLabel.setBounds(X + 80, Y - 30, 8, 16);
-         javax.swing.JLabel attachmentZLabel = new javax.swing.JLabel();
-         attachmentZLabel.setText("Z");
-         attachmentZLabel.setBounds(X + 140, Y - 30, 8, 16);
-         javax.swing.JLabel attachmentBodyLabel = new javax.swing.JLabel();
-         attachmentBodyLabel.setText("body");
-         attachmentBodyLabel.setBounds(X + 210, Y - 30, 30, 16);
-         javax.swing.JLabel attachmentSelLabel = new javax.swing.JLabel();
-         attachmentSelLabel.setText("sel");
-         attachmentSelLabel.setBounds(X + 290, Y - 30, 25, 16);
-         javax.swing.JLabel coordLabel = new javax.swing.JLabel();
-         coordLabel.setText("coordinate");
-         coordLabel.setBounds(X + 360, Y - 30, 60, 16);
-         javax.swing.JLabel rangeMinLabel = new javax.swing.JLabel();
-         rangeMinLabel.setText("min");
-         rangeMinLabel.setBounds(X + 475, Y - 30, 60, 16);
-         javax.swing.JLabel rangeMaxLabel = new javax.swing.JLabel();
-         rangeMaxLabel.setText("max");
-         rangeMaxLabel.setBounds(X + 545, Y - 30, 60, 16);
-         AttachmentsPanel.add(attachmentXLabel);
-         AttachmentsPanel.add(attachmentYLabel);
-         AttachmentsPanel.add(attachmentZLabel);
-         AttachmentsPanel.add(attachmentBodyLabel);
-         AttachmentsPanel.add(attachmentSelLabel);
-         AttachmentsPanel.add(coordLabel);
-         AttachmentsPanel.add(rangeMinLabel);
-         AttachmentsPanel.add(rangeMaxLabel);
-         
-         for (i = 0; i < ssmp.getSize(); i++) {
-            MuscleViaPoint via = MuscleViaPoint.safeDownCast(ssmp.get(i));
-            javax.swing.JLabel indexLabel = null;
-            indexLabel = new javax.swing.JLabel();
-            indexLabel.setText(String.valueOf(aCount+1) + ".");
-            
-            javax.swing.JTextField xField = new javax.swing.JTextField();
-            javax.swing.JTextField yField = new javax.swing.JTextField();
-            javax.swing.JTextField zField = new javax.swing.JTextField();
-            javax.swing.JComboBox comboBox = new javax.swing.JComboBox();
-            javax.swing.JCheckBox selectBox = new javax.swing.JCheckBox();
-            javax.swing.JComboBox coordComboBox = null;
-            javax.swing.JTextField rangeMinField = null;
-            javax.swing.JTextField rangeMaxField = null;
-            if (via != null) {
-               anyViaPoints = true;
-               coordComboBox = new javax.swing.JComboBox();
-               rangeMinField = new javax.swing.JTextField();
-               rangeMaxField = new javax.swing.JTextField();
-            }
-            
-            int height = Y + i * 22;
-            int width = 60;
-            
-            comboBox.setModel(new javax.swing.DefaultComboBoxModel(bodyNames));
-            comboBox.setSelectedIndex(findElement(bodyNames, ssmp.get(i).getBodyName()));
-            if (via != null) {
-               coordComboBox.setModel(new javax.swing.DefaultComboBoxModel(coordinateNames));
-               coordComboBox.setSelectedIndex(findElement(coordinateNames, via.getCoordinateName()));
-               rangeMinField.setText(nf.format(via.getRange().getitem(0)));
-               rangeMaxField.setText(nf.format(via.getRange().getitem(1)));
-               coordComboBox.setBounds(X + 3*width + 140, height, 130, 21);
-               rangeMinField.setBounds(X + 3*width + 280, height, 60, 21);
-               rangeMaxField.setBounds(X + 3*width + 345, height, 60, 21);
-            }
-
-            indexLabel.setBounds(X - 20, height, 20, 21);
-            xField.setBounds(X, height, width, 21);
-            yField.setBounds(X + width + 1, height, width, 21);
-            zField.setBounds(X + 2*width + 2, height, width, 21);
-            comboBox.setBounds(X + 3*width + 10, height, 90, 21);
-            selectBox.setBounds(X + 3*width + 110, height, 21, 21);
-            xField.setText(nf.format(ssmp.get(i).getAttachment().getitem(0)));
-            yField.setText(nf.format(ssmp.get(i).getAttachment().getitem(1)));
-            zField.setText(nf.format(ssmp.get(i).getAttachment().getitem(2)));
-            AttachmentsPanel.add(indexLabel);
-            aCount++;
-
-            final int num = i;
-            xField.addActionListener(new java.awt.event.ActionListener() {
-               public void actionPerformed(java.awt.event.ActionEvent evt) {
-                  AttachmentActionPerformed(evt, num, 0);
-               }
-            });
-            xField.addFocusListener(new java.awt.event.FocusAdapter() {
-               public void focusLost(java.awt.event.FocusEvent evt) {
-                  AttachmentFocusLost(evt, num, 0);
-               }
-            });
-            yField.addActionListener(new java.awt.event.ActionListener() {
-               public void actionPerformed(java.awt.event.ActionEvent evt) {
-                  AttachmentActionPerformed(evt, num, 1);
-               }
-            });
-            yField.addFocusListener(new java.awt.event.FocusAdapter() {
-               public void focusLost(java.awt.event.FocusEvent evt) {
-                  AttachmentFocusLost(evt, num, 1);
-               }
-            });
-            zField.addActionListener(new java.awt.event.ActionListener() {
-               public void actionPerformed(java.awt.event.ActionEvent evt) {
-                  AttachmentActionPerformed(evt, num, 2);
-               }
-            });
-            zField.addFocusListener(new java.awt.event.FocusAdapter() {
-               public void focusLost(java.awt.event.FocusEvent evt) {
-                  AttachmentFocusLost(evt, num, 2);
-               }
-            });
-            AttachmentsPanel.add(xField);
-            AttachmentsPanel.add(yField);
-            AttachmentsPanel.add(zField);
-            AttachmentsPanel.add(comboBox);
-            AttachmentsPanel.add(selectBox);
-            if (via != null) {
-               AttachmentsPanel.add(coordComboBox);
-               AttachmentsPanel.add(rangeMinField);
-               AttachmentsPanel.add(rangeMaxField);
-            }
+      }
+      
+      // Set the preferred sizes of the property tabs.
+      // If any of them have no properties, remove them
+      // from the window.
+      for (i = 0; i <= numGroups; i++) {
+         if (tabPropertyCount[i] == 0) {
+            ParametersTabbedPanel.remove(propTab[i]);
+         } else {
+            Dimension d = new Dimension(350, 30 + tabPropertyCount[i] * 22);
+            propPanel[i].setPreferredSize(d);
          }
-         
+      }
+      
+      // Add the wrap and current panels last
+      if (asm != null) {
          setupWrapPanel(asm);
          setupCurrentPathPanel(asm);
-         
-         if (anyViaPoints)
-            AttachmentsPref.width = 630;
-         else
-            AttachmentsPref.width = 350;
-         AttachmentsPref.height = Y + ssmp.getSize() * 22;
-         AttachmentsPanel.setPreferredSize(AttachmentsPref);
-         AttachmentsPanel.revalidate();
-         
-         ForcePref.width = 350;
-         ForcePref.height = 30 + dCount * 22;
-         ForcePanel.setPreferredSize(ForcePref);
-         ForcePanel.revalidate();
-         
-         DynamicPref.width = 350;
-         DynamicPref.height = 30 + dCount * 22;
-         DynamicPanel.setPreferredSize(DynamicPref);
-         DynamicPanel.revalidate();
-         
-         FunctionsPref.width = 350;
-         FunctionsPref.height = 30 + fCount * 22;
-         FunctionsPanel.setPreferredSize(FunctionsPref);
-         FunctionsPanel.revalidate();
       }
+      
+      // Set the selected tab in the ParametersTabbedPanel to the
+      // one whose name matches selectedTabName.
+      Component[] components = ParametersTabbedPanel.getComponents();
+      if (selectedTabName == null) {
+         ParametersTabbedPanel.setSelectedComponent(components[0]);
+      } else {
+         for (i = 0; i < components.length; i++) {
+            if (components[i].getName().equals(selectedTabName)) {
+               ParametersTabbedPanel.setSelectedComponent(components[i]);
+               break;
+            }
+         }
+      }
+      
+      //Dimension windowSize = MuscleEditorScrollPane.getParent().getSize();
+      Dimension d = new Dimension(495, 350);
+      MuscleEditorPanel.setPreferredSize(d);
       
       this.revalidate();
       this.repaint();
@@ -795,6 +1011,15 @@ final class MuscleEditorTopComponent extends TopComponent {
          if (nameList[i].equals(name))
             return i;
       return -1;
+   }
+   
+   public void open() {
+      //Mode mode=WindowManager.getDefault().findMode(s_mode);
+      //mode.dockInto(this);
+      super.open();
+   }
+   
+   public void update(Observable o, Object arg) {
    }
    
    final static class ResolvableHelper implements Serializable {

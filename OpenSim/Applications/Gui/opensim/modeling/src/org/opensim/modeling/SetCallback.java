@@ -169,4 +169,12 @@ public class SetCallback extends OpenSimObject {
     return opensimModelJNI.SetCallback_searchBinary__SWIG_3(swigCPtr, this, Callback.getCPtr(aObject), aObject);
   }
 
+  public void addGroup(SWIGTYPE_p_std__string aGroupName) {
+    opensimModelJNI.SetCallback_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
+  }
+
+  public void addObjectToGroup(SWIGTYPE_p_std__string aGroupName, SWIGTYPE_p_std__string aObjectName) {
+    opensimModelJNI.SetCallback_addObjectToGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName), SWIGTYPE_p_std__string.getCPtr(aObjectName));
+  }
+
 }

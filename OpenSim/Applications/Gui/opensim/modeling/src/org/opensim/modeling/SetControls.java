@@ -169,4 +169,12 @@ public class SetControls extends OpenSimObject {
     return opensimModelJNI.SetControls_searchBinary__SWIG_3(swigCPtr, this, Control.getCPtr(aObject), aObject);
   }
 
+  public void addGroup(SWIGTYPE_p_std__string aGroupName) {
+    opensimModelJNI.SetControls_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
+  }
+
+  public void addObjectToGroup(SWIGTYPE_p_std__string aGroupName, SWIGTYPE_p_std__string aObjectName) {
+    opensimModelJNI.SetControls_addObjectToGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName), SWIGTYPE_p_std__string.getCPtr(aObjectName));
+  }
+
 }

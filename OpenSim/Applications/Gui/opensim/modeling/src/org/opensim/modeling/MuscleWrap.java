@@ -50,8 +50,8 @@ public class MuscleWrap extends OpenSimObject {
     opensimModelJNI.MuscleWrap_copyData(swigCPtr, this, MuscleWrap.getCPtr(aMuscleWrap), aMuscleWrap);
   }
 
-  public void setup(AbstractDynamicsEngine aEngine) {
-    opensimModelJNI.MuscleWrap_setup(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine);
+  public void setup(AbstractDynamicsEngine aEngine, AbstractMuscle aMuscle) {
+    opensimModelJNI.MuscleWrap_setup(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine, AbstractMuscle.getCPtr(aMuscle), aMuscle);
   }
 
   public int getStartPoint() {

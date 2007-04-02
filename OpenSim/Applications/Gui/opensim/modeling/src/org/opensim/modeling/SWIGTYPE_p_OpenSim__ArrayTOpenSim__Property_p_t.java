@@ -8,16 +8,16 @@
 
 package org.opensim.modeling;
 
-public class SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Property_t {
+public class SWIGTYPE_p_OpenSim__ArrayTOpenSim__Property_p_t {
   private long swigCPtr;
   protected boolean swigCMemOwn;
 
-  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Property_t(long cPtr, boolean cMemoryOwn) {
+  public SWIGTYPE_p_OpenSim__ArrayTOpenSim__Property_p_t(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  public static long getCPtr(SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__Property_t obj) {
+  public static long getCPtr(SWIGTYPE_p_OpenSim__ArrayTOpenSim__Property_p_t obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }
