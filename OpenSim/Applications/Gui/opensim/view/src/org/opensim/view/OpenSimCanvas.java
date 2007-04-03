@@ -20,10 +20,13 @@ import org.opensim.view.pub.ViewDB;
 import vtk.vtkAVIWriter;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
+import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
+import vtk.vtkCellPicker;
 import vtk.vtkPointPicker;
 import vtk.vtkPropPicker;
 import vtk.vtkWindowToImageFilter;
+import vtk.vtkWorldPointPicker;
 
 /**
  *
@@ -63,19 +66,34 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         vtkAssemblyPath asmPath = picker.GetPath();
         if (asmPath==null)
             return null;
+         
         OpenSimObject obj= ViewDB.getInstance().pickObject(asmPath);
         if (obj !=null) return obj;
+         
         // Could be an object that's part of a glyph
-        vtkActor candidateActor = (vtkActor) asmPath.GetLastNode().GetViewProp();
-        // Try point Picker
-        vtkPointPicker pPicker=new vtkPointPicker();
+        
+        // Try point Picker void GetCellPoints(vtkIdType cellId, vtkIdList *ptIds);
+        vtkCellPicker pPicker=new vtkCellPicker();
+        vtkAssemblyNode asmNode=null;
         Lock();
         pPicker.Pick(x, rw.GetSize()[1] - y, 0, ren);
+        asmNode= pPicker.GetPath().GetLastNode();
         UnLock();
-        int pointId = pPicker.GetPointId();
-        obj = ViewDB.getInstance().getSelectedGlyphObject(pointId, candidateActor);
+        if (asmNode==null)
+           return null;
+        vtkActor candidateActor=(vtkActor) asmNode.GetViewProp();
+        int cellId = pPicker.GetCellId();
+        obj = ViewDB.getInstance().getSelectedGlyphObject(cellId, candidateActor);
         if (obj != null)
                StatusDisplayer.getDefault().setStatusText(obj.getType()+", "+obj.getName());
+        // Get x,y,z, world for debugging
+        /*
+        vtkWorldPointPicker wpPicker=new vtkWorldPointPicker();
+        Lock();
+        wpPicker.Pick(x, rw.GetSize()[1] - y, 0, ren);
+        UnLock();
+        double[] wpos = wpPicker.GetPickPosition();
+        //System.out.print("World Pos="+wpos[0]+", "+wpos[1]+", "+wpos[2]); */
         return obj;
     }
      /**

@@ -33,6 +33,7 @@ import vtk.vtkActor;
 import vtk.vtkDataArray;
 import vtk.vtkFloatArray;
 import vtk.vtkGlyph3D;
+import vtk.vtkIdList;
 import vtk.vtkPointData;
 import vtk.vtkPoints;
 import vtk.vtkPolyData;
@@ -159,16 +160,19 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
 
     int addLocation(double[] gPos, OpenSimObject obj) {
         int idx = addLocation(gPos);
+
         mapObjectIdsToPointIds.put(obj, idx);
         mapPointIdsToObjectIds.put(idx, obj);
-        System.out.println("Glyph point id="+idx+" obj.hashCode="+obj.hashCode());
+        //System.out.println("Glyph point id="+idx+" object="+obj.getName());
         return idx;
     }
-
+    
     public OpenSimObject getPickedObject(int pickedId) {
+       vtkIdList ids = new vtkIdList();
+       glyph.GetOutput().GetCellPoints(pickedId, ids);
         vtkDataArray inputIds = 
             glyph.GetOutput().GetPointData().GetArray("InputPointIds");
-        int inputId = (int)inputIds.GetTuple1(pickedId);
+        int inputId = (int)inputIds.GetTuple1(ids.GetId(0));
         return mapPointIdsToObjectIds.get(inputId);
     }
 }

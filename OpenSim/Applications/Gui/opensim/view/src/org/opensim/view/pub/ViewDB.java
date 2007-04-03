@@ -775,13 +775,13 @@ public final class ViewDB extends Observable implements Observer {
         }
     }
 
-    public OpenSimObject getSelectedGlyphObject(int pointId, vtkActor glyphActor) {
+    public OpenSimObject getSelectedGlyphObject(int cellId, vtkActor glyphActor) {
         Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
         while(iter.hasNext()){
              SingleModelVisuals nextModel = iter.next();
             OpenSimvtkGlyphCloud glyph = nextModel.getGlyphObjectForActor(glyphActor);
             if (glyph!=null)
-                return glyph.getPickedObject(pointId);
+                return glyph.getPickedObject(cellId);
         }
         return null;
     }

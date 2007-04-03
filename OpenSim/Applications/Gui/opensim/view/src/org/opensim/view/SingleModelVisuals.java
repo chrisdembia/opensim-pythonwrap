@@ -84,7 +84,7 @@ public class SingleModelVisuals {
     private int RESOLUTION_THETA=32;
     private int CYL_RESOLUTION=32;
     
-    private double DEFAULT_MUSCLE_RADIUS = .003;
+    private double DEFAULT_MUSCLE_RADIUS = .005;
     // Maps between objects and vtkProp3D for going from Actor to Object and vice versa
     // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
     // e.g. Muscles, Models
@@ -407,8 +407,8 @@ public class SingleModelVisuals {
                     segmentGlyphIds.add(new Integer(idx));
 
                     // Add muscle point at position1 of segment, and if this is the last segment also at position2
+                    path.get(i).setName(muscle.getName()+"-P"+(i));
                     int pointIdx = getMusclePointsRep().addLocation(position1, path.get(i));
-                    path.get(i).setName(muscle.getName()+"-Point"+(i));
                     getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
                     pointGlyphIds.add(new Integer(pointIdx));
                     if(i==geomSize-1) {
@@ -747,7 +747,7 @@ public class SingleModelVisuals {
        getMarkersRep().setShape(marker.GetOutput());
        // MusclePoints
        vtkSphereSource viaPoint=new vtkSphereSource();
-       viaPoint.SetRadius(DEFAULT_MUSCLE_RADIUS/2);
+       viaPoint.SetRadius(DEFAULT_MUSCLE_RADIUS);
        viaPoint.SetCenter(0., 0., 0.);
        getMusclePointsRep().setColor(defaultMusclePointColor);
        getMusclePointsRep().setShape(viaPoint.GetOutput());
