@@ -29,6 +29,7 @@ import org.opensim.modeling.Geometry;
 import org.opensim.modeling.LineGeometry;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.MuscleViaPoint;
+import org.opensim.modeling.MuscleWrapPoint;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Transform;
@@ -407,14 +408,23 @@ public class SingleModelVisuals {
                     segmentGlyphIds.add(new Integer(idx));
 
                     // Add muscle point at position1 of segment, and if this is the last segment also at position2
-                    path.get(i).setName(muscle.getName()+"-P"+(i));
+                    MusclePoint pt1 = path.get(i);
+                    if (MuscleWrapPoint.safeDownCast(pt1)!= null)
+                        pt1.setPickable(false);
+                    else
+                       pt1.setName(muscle.getName()+"-P"+(i));
+                    
                     int pointIdx = getMusclePointsRep().addLocation(position1, path.get(i));
                     getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
                     pointGlyphIds.add(new Integer(pointIdx));
                     if(i==geomSize-1) {
-                        path.get(i+1).setName(muscle.getName()+"-P"+(i+1));
+                        MusclePoint pt2 = path.get(i+1);
+                        if (MuscleWrapPoint.safeDownCast(pt2)!= null)
+                           pt2.setPickable(false);
+                        else
+                           pt2.setName(muscle.getName()+"-P"+(i+1));
                         pointIdx = getMusclePointsRep().addLocation(position2, path.get(i+1));
-                       getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
+                        getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
                         pointGlyphIds.add(new Integer(pointIdx));
                     }
                 } // Attachments

@@ -47,6 +47,18 @@ public class OpenSimObject {
      
     return( cacheId );
   }
+  // Flag to indicate if an object is pickable in the GUI
+  // Example of a non-pickable object would be a MuscleWrapPoint
+  private boolean pickable=true;
+  
+  public boolean isPickable() {
+	 return pickable;
+  }
+  
+  public void setPickable(boolean onOff) {
+	 pickable=onOff;
+  }
+  
 
   public OpenSimObject() {
     this(opensimModelJNI.new_OpenSimObject__SWIG_0(), true);
