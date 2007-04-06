@@ -284,6 +284,10 @@ public class MotionControlJPanel extends javax.swing.JPanel
        if (isMotionLoaded() && animationTimer==null){
           animationTimer = new Timer();
           final Timer fTimer = animationTimer;
+          if (masterMotion.finished(1)){
+              // reset motion if at end already
+              masterMotion.setFrameNumber(0);
+          }
           animationTimer.scheduleAtFixedRate(new TimerTask() {
              public void run() {
                 masterMotion.advance();
