@@ -140,7 +140,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     //}
 
    public void keyPressed(KeyEvent e) {
-      if (e.getKeyCode() == 17) {
+      if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
          //System.out.println("picking on");
          ViewDB.getInstance().setPicking(true);
         setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
@@ -150,7 +150,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
    }
 
    public void keyReleased(KeyEvent e) {
-      if (e.getKeyCode() == 17) {
+      if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
          //System.out.println("picking off");
          ViewDB.getInstance().setPicking(false);
          setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
