@@ -818,6 +818,7 @@ public class opensimModelJNI {
   public final static native long Model_getContactSet__SWIG_0(long jarg1, Model jarg1_);
   public final static native long Model_getIntegCallbackSet__SWIG_0(long jarg1, Model jarg1_);
   public final static native void Model_addIntegCallback(long jarg1, Model jarg1_, long jarg2, IntegCallback jarg2_);
+  public final static native void Model_removeIntegCallback(long jarg1, Model jarg1_, long jarg2, IntegCallback jarg2_);
   public final static native long Model_getDerivCallbackSet__SWIG_0(long jarg1, Model jarg1_);
   public final static native void Model_addDerivCallback(long jarg1, Model jarg1_, long jarg2);
   public final static native long Model_getAnalysisSet__SWIG_0(long jarg1, Model jarg1_);
@@ -1334,14 +1335,21 @@ public class opensimModelJNI {
   public final static native void PerturbationTool_printResults__SWIG_2(long jarg1, PerturbationTool jarg1_, String jarg2, String jarg3);
   public final static native void PerturbationTool_printResults__SWIG_3(long jarg1, PerturbationTool jarg1_, String jarg2);
   public final static native long SimtkAnimationCallback_CreateAnimationCallback(long jarg1, Model jarg1_);
+  public final static native long new_SimtkAnimationCallback(long jarg1, Model jarg1_);
   public final static native double SimtkAnimationCallback_getCurrentTime(long jarg1, SimtkAnimationCallback jarg1_);
   public final static native int SimtkAnimationCallback_step__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
   public final static native int SimtkAnimationCallback_step__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
+  public final static native int SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
   public final static native int SimtkAnimationCallback_begin__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
   public final static native int SimtkAnimationCallback_begin__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native long SimtkAnimationCallback_getBodyTransform(long jarg1, SimtkAnimationCallback jarg1_, int jarg2);
   public final static native void SimtkAnimationCallback_extractOffsets(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, Model jarg2_);
   public final static native void SimtkAnimationCallback_getTransformsFromKinematicsEngine(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, Model jarg2_);
+  public final static native void SimtkAnimationCallback_director_connect(SimtkAnimationCallback obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void SimtkAnimationCallback_change_ownership(SimtkAnimationCallback obj, long cptr, boolean take_or_release);
   public final static native long new_Kinematics__SWIG_0(long jarg1, Model jarg1_);
   public final static native long new_Kinematics__SWIG_1();
   public final static native long new_Kinematics__SWIG_2(String jarg1);
@@ -3106,4 +3114,64 @@ public class opensimModelJNI {
   public final static native long SWIGIKSolverImplUpcast(long jarg1);
   public final static native long SWIGCMCToolUpcast(long jarg1);
   public final static native long SWIGScaleToolUpcast(long jarg1);
+
+  public static long SwigDirector_SimtkAnimationCallback_copy(SimtkAnimationCallback self) {
+    return OpenSimObject.getCPtr(self.copy());
+  }
+  public static long SwigDirector_SimtkAnimationCallback_copy__SWIG_1(SimtkAnimationCallback self, long aNode) {
+    return OpenSimObject.getCPtr(self.copy(new SWIGTYPE_p_DOMElement(aNode, false)));
+  }
+  public static long SwigDirector_SimtkAnimationCallback_getDisplayer(SimtkAnimationCallback self) {
+    return VisibleObject.getCPtr(self.getDisplayer());
+  }
+  public static boolean SwigDirector_SimtkAnimationCallback_isValidDefaultType(SimtkAnimationCallback self, long aObject) {
+    return self.isValidDefaultType(new OpenSimObject(aObject, false));
+  }
+  public static void SwigDirector_SimtkAnimationCallback_updateFromXMLNode(SimtkAnimationCallback self) {
+    self.updateFromXMLNode();
+  }
+  public static void SwigDirector_SimtkAnimationCallback_updateDefaultObjectsFromXMLNode(SimtkAnimationCallback self) {
+    self.updateDefaultObjectsFromXMLNode();
+  }
+  public static void SwigDirector_SimtkAnimationCallback_updateXMLNode(SimtkAnimationCallback self, long aParent) {
+    self.updateXMLNode(new SWIGTYPE_p_DOMElement(aParent, false));
+  }
+  public static void SwigDirector_SimtkAnimationCallback_updateDefaultObjectsXMLNode(SimtkAnimationCallback self, long aParent) {
+    self.updateDefaultObjectsXMLNode(new SWIGTYPE_p_DOMElement(aParent, false));
+  }
+  public static void SwigDirector_SimtkAnimationCallback_generateXMLNode(SimtkAnimationCallback self, long aParent) {
+    self.generateXMLNode(new SWIGTYPE_p_DOMElement(aParent, false));
+  }
+  public static void SwigDirector_SimtkAnimationCallback_update(SimtkAnimationCallback self, long aObject, long aEvent) {
+    self.update(new OpenSimObject(aObject, false), new SWIGTYPE_p_Event(aEvent, false));
+  }
+  public static boolean SwigDirector_SimtkAnimationCallback_isA(SimtkAnimationCallback self, String type) {
+    return self.isA(type);
+  }
+  public static void SwigDirector_SimtkAnimationCallback_setModel(SimtkAnimationCallback self, long arg0) {
+    self.setModel(new Model(arg0, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_begin__SWIG_0(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aClientData) {
+    return self.begin(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_void(aClientData, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_begin__SWIG_1(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY) {
+    return self.begin(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_step__SWIG_0(SimtkAnimationCallback self, long aXPrev, long aYPrev, int aStep, double aDT, double aT, long aX, long aY, long aClientData) {
+    return self.step(new SWIGTYPE_p_double(aXPrev, false), new SWIGTYPE_p_double(aYPrev, false), aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_void(aClientData, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_step__SWIG_1(SimtkAnimationCallback self, long aXPrev, long aYPrev, int aStep, double aDT, double aT, long aX, long aY) {
+    return self.step(new SWIGTYPE_p_double(aXPrev, false), new SWIGTYPE_p_double(aYPrev, false), aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_end__SWIG_0(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aClientData) {
+    return self.end(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_void(aClientData, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_end__SWIG_1(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY) {
+    return self.end(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false));
+  }
+
+  private final static native void swig_module_init();
+  static {
+    swig_module_init();
+  }
 }

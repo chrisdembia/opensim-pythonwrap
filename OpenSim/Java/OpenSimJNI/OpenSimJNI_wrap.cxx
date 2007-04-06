@@ -8,6 +8,7 @@
  * interface file instead. 
  * ----------------------------------------------------------------------------- */
 
+#define SWIG_DIRECTORS
 
 #ifdef __cplusplus
 template<class T> class SwigValueWrapper {
@@ -188,6 +189,187 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 
 #define SWIG_contract_assert(nullreturn, expr, msg) if (!(expr)) {SWIG_JavaThrowException(jenv, SWIG_JavaIllegalArgumentException, msg); return nullreturn; } else
 
+/* -----------------------------------------------------------------------------
+ * See the LICENSE file for information on copyright, usage and redistribution
+ * of SWIG, and the README file for authors - http://www.swig.org/release.html.
+ *
+ * director.swg
+ *
+ * This file contains support for director classes that proxy
+ * method calls from C++ to Java extensions.
+ * ----------------------------------------------------------------------------- */
+
+#ifdef __cplusplus
+
+#if defined(DEBUG_DIRECTOR_OWNED)
+#include <iostream>
+#endif
+
+namespace Swig {
+  /* Java object wrapper */
+  class JObjectWrapper {
+  public:
+    JObjectWrapper() : jthis_(NULL), weak_global_(true) {
+    }
+
+    ~JObjectWrapper() {
+      jthis_ = NULL;
+      weak_global_ = true;
+    }
+
+    bool set(JNIEnv *jenv, jobject jobj, bool mem_own, bool weak_global) {
+      if (!jthis_) {
+        weak_global_ = weak_global;
+        if (jobj)
+          jthis_ = ((weak_global_ || !mem_own) ? jenv->NewWeakGlobalRef(jobj) : jenv->NewGlobalRef(jobj));
+#if defined(DEBUG_DIRECTOR_OWNED)
+        std::cout << "JObjectWrapper::set(" << jobj << ", " << (weak_global ? "weak_global" : "global_ref") << ") -> " << jthis_ << std::endl;
+#endif
+        return true;
+      } else {
+#if defined(DEBUG_DIRECTOR_OWNED)
+        std::cout << "JObjectWrapper::set(" << jobj << ", " << (weak_global ? "weak_global" : "global_ref") << ") -> already set" << std::endl;
+#endif
+        return false;
+      }
+    }
+
+    jobject get(JNIEnv *jenv) const {
+#if defined(DEBUG_DIRECTOR_OWNED)
+      std::cout << "JObjectWrapper::get(";
+      if (jthis_)
+        std::cout << jthis_;
+      else
+        std::cout << "null";
+      std::cout << ") -> return new local ref" << std::endl;
+#endif
+      return (jthis_ ? jenv->NewLocalRef(jthis_) : jthis_);
+    }
+
+    void release(JNIEnv *jenv) {
+#if defined(DEBUG_DIRECTOR_OWNED)
+      std::cout << "JObjectWrapper::release(" << jthis_ << "): " << (weak_global_ ? "weak global ref" : "global ref") << std::endl;
+#endif
+      if (jthis_) {
+        if (weak_global_) {
+          if (jenv->IsSameObject(jthis_, NULL) == JNI_FALSE)
+            jenv->DeleteWeakGlobalRef((jweak)jthis_);
+        } else
+          jenv->DeleteGlobalRef(jthis_);
+      }
+
+      jthis_ = NULL;
+      weak_global_ = true;
+    }
+
+    jobject peek() {
+      return jthis_;
+    }
+
+    /* Java proxy releases ownership of C++ object, C++ object is now
+       responsible for destruction (creates NewGlobalRef to pin Java
+       proxy) */
+    void java_change_ownership(JNIEnv *jenv, jobject jself, bool take_or_release) {
+      if (take_or_release) {  /* Java takes ownership of C++ object's lifetime. */
+        if (!weak_global_) {
+          jenv->DeleteGlobalRef(jthis_);
+          jthis_ = jenv->NewWeakGlobalRef(jself);
+          weak_global_ = true;
+        }
+      } else { /* Java releases ownership of C++ object's lifetime */
+        if (weak_global_) {
+          jenv->DeleteWeakGlobalRef((jweak)jthis_);
+          jthis_ = jenv->NewGlobalRef(jself);
+          weak_global_ = false;
+        }
+      }
+    }
+
+  private:
+    /* pointer to Java object */
+    jobject jthis_;
+    /* Local or global reference flag */
+    bool weak_global_;
+  };
+
+  /* director base class */
+  class Director {
+    /* pointer to Java virtual machine */
+    JavaVM *swig_jvm_;
+
+  protected:
+    /* Utility class for managing the JNI environment */
+    class JNIEnvWrapper {
+      const Director *director_;
+      JNIEnv *jenv_;
+    public:
+      JNIEnvWrapper(const Director *director) : director_(director), jenv_(0) {
+        director_->swig_jvm_->AttachCurrentThread((void **) &jenv_, NULL);
+      }
+      ~JNIEnvWrapper() {
+        //director_->swig_jvm_->DetachCurrentThread();
+      }
+      JNIEnv *getJNIEnv() const {
+        return jenv_;
+      }
+    };
+
+    /* Java object wrapper */
+    JObjectWrapper swig_self_;
+
+    /* Disconnect director from Java object */
+    void swig_disconnect_director_self(const char *disconn_method) {
+      JNIEnvWrapper jnienv(this) ;
+      JNIEnv *jenv = jnienv.getJNIEnv() ;
+      jobject jobj = swig_self_.peek();
+#if defined(DEBUG_DIRECTOR_OWNED)
+      std::cout << "Swig::Director::disconnect_director_self(" << jobj << ")" << std::endl;
+#endif
+      if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+        jmethodID disconn_meth = jenv->GetMethodID(jenv->GetObjectClass(jobj), disconn_method, "()V");
+        if (disconn_meth) {
+#if defined(DEBUG_DIRECTOR_OWNED)
+          std::cout << "Swig::Director::disconnect_director_self upcall to " << disconn_method << std::endl;
+#endif
+          jenv->CallVoidMethod(jobj, disconn_meth);
+        }
+      }
+    }
+
+  public:
+    Director(JNIEnv *jenv) : swig_jvm_((JavaVM *) NULL), swig_self_() {
+      /* Acquire the Java VM pointer */
+      jenv->GetJavaVM(&swig_jvm_);
+    }
+
+    virtual ~Director() {
+      JNIEnvWrapper jnienv(this) ;
+      JNIEnv *jenv = jnienv.getJNIEnv() ;
+      swig_self_.release(jenv);
+    }
+
+    bool swig_set_self(JNIEnv *jenv, jobject jself, bool mem_own, bool weak_global) {
+      return swig_self_.set(jenv, jself, mem_own, weak_global);
+    }
+
+    jobject swig_get_self(JNIEnv *jenv) const {
+      return swig_self_.get(jenv);
+    }
+
+    // Change C++ object's ownership, relative to Java
+    void swig_java_change_ownership(JNIEnv *jenv, jobject jself, bool take_or_release) {
+      swig_self_.java_change_ownership(jenv, jself, take_or_release);
+    }
+  };
+}
+
+#endif /* __cplusplus */
+
+
+namespace Swig {
+  static jclass jclass_opensimModelJNI = NULL;
+  static jmethodID director_methids[18];
+}
 
 #include <xercesc/util/XercesVersion.hpp>
 #include <xercesc/util/XercesDefs.hpp>
@@ -992,6 +1174,480 @@ SWIGINTERN OpenSim::MusclePoint *OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__ge
 SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Array<OpenSim::MusclePoint * > *self,int index,OpenSim::MusclePoint *val){
       self->set(index,val);
     }
+
+
+/* ---------------------------------------------------
+ * C++ director class methods
+ * --------------------------------------------------- */
+
+#include "S:/OpenSimMar22/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
+
+SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel) : OpenSim::SimtkAnimationCallback(aModel), Swig::Director(jenv) {
+}
+
+SwigDirector_SimtkAnimationCallback::~SwigDirector_SimtkAnimationCallback() {
+  swig_disconnect_director_self("swigDirectorDisconnect");
+}
+
+
+OpenSim::Object *SwigDirector_SimtkAnimationCallback::copy() const {
+  OpenSim::Object *c_result = 0 ;
+  jlong jresult  = 0 ;
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  
+  if (!swig_override[0]) {
+    return OpenSim::IntegCallback::copy();
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    jresult = (jlong) jenv->CallStaticLongMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[0], jobj);
+    if (jenv->ExceptionOccurred()) return c_result;
+    c_result = *(OpenSim::Object **)&jresult; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+  return c_result;
+}
+
+OpenSim::Object *SwigDirector_SimtkAnimationCallback::copy(DOMElement *aNode) const {
+  OpenSim::Object *c_result = 0 ;
+  jlong jresult  = 0 ;
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jlong jaNode = 0 ;
+  
+  if (!swig_override[1]) {
+    return OpenSim::Object::copy(aNode);
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    *((DOMElement **)&jaNode) = (DOMElement *) aNode; 
+    jresult = (jlong) jenv->CallStaticLongMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[1], jobj, jaNode);
+    if (jenv->ExceptionOccurred()) return c_result;
+    c_result = *(OpenSim::Object **)&jresult; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+  return c_result;
+}
+
+OpenSim::VisibleObject *SwigDirector_SimtkAnimationCallback::getDisplayer() {
+  OpenSim::VisibleObject *c_result = 0 ;
+  jlong jresult  = 0 ;
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  
+  if (!swig_override[2]) {
+    return OpenSim::Object::getDisplayer();
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    jresult = (jlong) jenv->CallStaticLongMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[2], jobj);
+    if (jenv->ExceptionOccurred()) return c_result;
+    c_result = *(OpenSim::VisibleObject **)&jresult; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+  return c_result;
+}
+
+bool SwigDirector_SimtkAnimationCallback::isValidDefaultType(OpenSim::Object const *aObject) const {
+  bool c_result ;
+  jboolean jresult  = 0 ;
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jlong jaObject = 0 ;
+  
+  if (!swig_override[3]) {
+    return OpenSim::Object::isValidDefaultType(aObject);
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    *((OpenSim::Object **)&jaObject) = (OpenSim::Object *) aObject; 
+    jresult = (jboolean) jenv->CallStaticBooleanMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[3], jobj, jaObject);
+    if (jenv->ExceptionOccurred()) return c_result;
+    c_result = jresult ? true : false; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+  return c_result;
+}
+
+void SwigDirector_SimtkAnimationCallback::updateFromXMLNode() {
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  
+  if (!swig_override[4]) {
+    OpenSim::Object::updateFromXMLNode();
+    return;
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    jenv->CallStaticVoidMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[4], jobj);
+    if (jenv->ExceptionOccurred()) return ;
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+}
+
+void SwigDirector_SimtkAnimationCallback::updateDefaultObjectsFromXMLNode() {
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  
+  if (!swig_override[5]) {
+    OpenSim::Object::updateDefaultObjectsFromXMLNode();
+    return;
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    jenv->CallStaticVoidMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[5], jobj);
+    if (jenv->ExceptionOccurred()) return ;
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+}
+
+void SwigDirector_SimtkAnimationCallback::updateXMLNode(DOMElement *aParent) {
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jlong jaParent = 0 ;
+  
+  if (!swig_override[6]) {
+    OpenSim::Object::updateXMLNode(aParent);
+    return;
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    *((DOMElement **)&jaParent) = (DOMElement *) aParent; 
+    jenv->CallStaticVoidMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[6], jobj, jaParent);
+    if (jenv->ExceptionOccurred()) return ;
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+}
+
+void SwigDirector_SimtkAnimationCallback::updateDefaultObjectsXMLNode(DOMElement *aParent) {
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jlong jaParent = 0 ;
+  
+  if (!swig_override[7]) {
+    OpenSim::Object::updateDefaultObjectsXMLNode(aParent);
+    return;
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    *((DOMElement **)&jaParent) = (DOMElement *) aParent; 
+    jenv->CallStaticVoidMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[7], jobj, jaParent);
+    if (jenv->ExceptionOccurred()) return ;
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+}
+
+void SwigDirector_SimtkAnimationCallback::generateXMLNode(DOMElement *aParent) {
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jlong jaParent = 0 ;
+  
+  if (!swig_override[8]) {
+    OpenSim::Object::generateXMLNode(aParent);
+    return;
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    *((DOMElement **)&jaParent) = (DOMElement *) aParent; 
+    jenv->CallStaticVoidMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[8], jobj, jaParent);
+    if (jenv->ExceptionOccurred()) return ;
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+}
+
+void SwigDirector_SimtkAnimationCallback::update(OpenSim::Object const &aObject, Event &aEvent) {
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jlong jaObject = 0 ;
+  jlong jaEvent = 0 ;
+  
+  if (!swig_override[9]) {
+    OpenSim::Object::update(aObject,aEvent);
+    return;
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    *(OpenSim::Object **)&jaObject = (OpenSim::Object *) &aObject; 
+    *(Event **)&jaEvent = (Event *) &aEvent; 
+    jenv->CallStaticVoidMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[9], jobj, jaObject, jaEvent);
+    if (jenv->ExceptionOccurred()) return ;
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+}
+
+bool SwigDirector_SimtkAnimationCallback::isA(char const *type) {
+  bool c_result ;
+  jboolean jresult  = 0 ;
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jstring jtype = 0 ;
+  
+  if (!swig_override[10]) {
+    return OpenSim::Object::isA(type);
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    jtype = 0;
+    if (type) {
+      jtype = jenv->NewStringUTF((const char *)type);
+      if (!jtype) return c_result;
+    }
+    jresult = (jboolean) jenv->CallStaticBooleanMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[10], jobj, jtype);
+    if (jenv->ExceptionOccurred()) return c_result;
+    c_result = jresult ? true : false; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+  return c_result;
+}
+
+void SwigDirector_SimtkAnimationCallback::setModel(OpenSim::Model *arg0) {
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jlong jarg0 = 0 ;
+  
+  if (!swig_override[11]) {
+    OpenSim::Callback::setModel(arg0);
+    return;
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    *((OpenSim::Model **)&jarg0) = (OpenSim::Model *) arg0; 
+    jenv->CallStaticVoidMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[11], jobj, jarg0);
+    if (jenv->ExceptionOccurred()) return ;
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+}
+
+int SwigDirector_SimtkAnimationCallback::begin(int aStep, double aDT, double aT, double *aX, double *aY, void *aClientData) {
+  int c_result ;
+  jint jresult  = 0 ;
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jint jaStep  ;
+  jdouble jaDT  ;
+  jdouble jaT  ;
+  jlong jaX = 0 ;
+  jlong jaY = 0 ;
+  jlong jaClientData = 0 ;
+  
+  if (!swig_override[12]) {
+    return OpenSim::SimtkAnimationCallback::begin(aStep,aDT,aT,aX,aY,aClientData);
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    jaStep = (jint) aStep;
+    jaDT = (jdouble) aDT;
+    jaT = (jdouble) aT;
+    *((double **)&jaX) = (double *) aX; 
+    *((double **)&jaY) = (double *) aY; 
+    *((void **)&jaClientData) = (void *) aClientData; 
+    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[12], jobj, jaStep, jaDT, jaT, jaX, jaY, jaClientData);
+    if (jenv->ExceptionOccurred()) return c_result;
+    c_result = (int)jresult; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+  return c_result;
+}
+
+int SwigDirector_SimtkAnimationCallback::step(double *aXPrev, double *aYPrev, int aStep, double aDT, double aT, double *aX, double *aY, void *aClientData) {
+  int c_result ;
+  jint jresult  = 0 ;
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jlong jaXPrev = 0 ;
+  jlong jaYPrev = 0 ;
+  jint jaStep  ;
+  jdouble jaDT  ;
+  jdouble jaT  ;
+  jlong jaX = 0 ;
+  jlong jaY = 0 ;
+  jlong jaClientData = 0 ;
+  
+  if (!swig_override[14]) {
+    return OpenSim::SimtkAnimationCallback::step(aXPrev,aYPrev,aStep,aDT,aT,aX,aY,aClientData);
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    *((double **)&jaXPrev) = (double *) aXPrev; 
+    *((double **)&jaYPrev) = (double *) aYPrev; 
+    jaStep = (jint) aStep;
+    jaDT = (jdouble) aDT;
+    jaT = (jdouble) aT;
+    *((double **)&jaX) = (double *) aX; 
+    *((double **)&jaY) = (double *) aY; 
+    *((void **)&jaClientData) = (void *) aClientData; 
+    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[14], jobj, jaXPrev, jaYPrev, jaStep, jaDT, jaT, jaX, jaY, jaClientData);
+    if (jenv->ExceptionOccurred()) return c_result;
+    c_result = (int)jresult; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+  return c_result;
+}
+
+int SwigDirector_SimtkAnimationCallback::end(int aStep, double aDT, double aT, double *aX, double *aY, void *aClientData) {
+  int c_result ;
+  jint jresult  = 0 ;
+  JNIEnvWrapper jnienv(this) ;
+  JNIEnv * jenv = jnienv.getJNIEnv() ;
+  jobject  jobj = (jobject) NULL ;
+  jint jaStep  ;
+  jdouble jaDT  ;
+  jdouble jaT  ;
+  jlong jaX = 0 ;
+  jlong jaY = 0 ;
+  jlong jaClientData = 0 ;
+  
+  if (!swig_override[16]) {
+    return OpenSim::IntegCallback::end(aStep,aDT,aT,aX,aY,aClientData);
+  }
+  jobj = swig_get_self(jenv);
+  if (jobj && jenv->IsSameObject(jobj, NULL) == JNI_FALSE) {
+    jaStep = (jint) aStep;
+    jaDT = (jdouble) aDT;
+    jaT = (jdouble) aT;
+    *((double **)&jaX) = (double *) aX; 
+    *((double **)&jaY) = (double *) aY; 
+    *((void **)&jaClientData) = (void *) aClientData; 
+    jresult = (jint) jenv->CallStaticIntMethod(Swig::jclass_opensimModelJNI, Swig::director_methids[16], jobj, jaStep, jaDT, jaT, jaX, jaY, jaClientData);
+    if (jenv->ExceptionOccurred()) return c_result;
+    c_result = (int)jresult; 
+  } else {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null upcall object");
+  }
+  if (jobj) jenv->DeleteLocalRef(jobj);
+  return c_result;
+}
+
+void SwigDirector_SimtkAnimationCallback::swig_connect_director(JNIEnv *jenv, jobject jself, jclass jcls, bool swig_mem_own, bool weak_global) {
+  static struct {
+    const char *mname;
+    const char *mdesc;
+    jmethodID base_methid;
+  } methods[] = {
+    {
+      "copy", "()Lorg/opensim/modeling/OpenSimObject;", NULL 
+    },
+    {
+      "copy", "(Lorg/opensim/modeling/SWIGTYPE_p_DOMElement;)Lorg/opensim/modeling/OpenSimObject;", NULL 
+    },
+    {
+      "getDisplayer", "()Lorg/opensim/modeling/VisibleObject;", NULL 
+    },
+    {
+      "isValidDefaultType", "(Lorg/opensim/modeling/OpenSimObject;)Z", NULL 
+    },
+    {
+      "updateFromXMLNode", "()V", NULL 
+    },
+    {
+      "updateDefaultObjectsFromXMLNode", "()V", NULL 
+    },
+    {
+      "updateXMLNode", "(Lorg/opensim/modeling/SWIGTYPE_p_DOMElement;)V", NULL 
+    },
+    {
+      "updateDefaultObjectsXMLNode", "(Lorg/opensim/modeling/SWIGTYPE_p_DOMElement;)V", NULL 
+    },
+    {
+      "generateXMLNode", "(Lorg/opensim/modeling/SWIGTYPE_p_DOMElement;)V", NULL 
+    },
+    {
+      "update", "(Lorg/opensim/modeling/OpenSimObject;Lorg/opensim/modeling/SWIGTYPE_p_Event;)V", NULL 
+    },
+    {
+      "isA", "(Ljava/lang/String;)Z", NULL 
+    },
+    {
+      "setModel", "(Lorg/opensim/modeling/Model;)V", NULL 
+    },
+    {
+      "begin", "(IDDLorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_void;)I", NULL 
+    },
+    {
+      "begin", "(IDDLorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_double;)I", NULL 
+    },
+    {
+      "step", "(Lorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_double;IDDLorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_void;)I", NULL 
+    },
+    {
+      "step", "(Lorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_double;IDDLorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_double;)I", NULL 
+    },
+    {
+      "end", "(IDDLorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_void;)I", NULL 
+    },
+    {
+      "end", "(IDDLorg/opensim/modeling/SWIGTYPE_p_double;Lorg/opensim/modeling/SWIGTYPE_p_double;)I", NULL 
+    }
+  };
+  
+  static jclass baseclass  = 0 ;
+  
+  if (swig_set_self(jenv, jself, swig_mem_own, weak_global)) {
+    if (!baseclass) {
+      baseclass = jenv->FindClass("org/opensim/modeling/SimtkAnimationCallback");
+      if (!baseclass) return;
+      baseclass = (jclass) jenv->NewGlobalRef(baseclass);
+    }
+    bool derived = (jenv->IsSameObject(baseclass, jcls) ? false : true);
+    for (int i = 0; i < 18; ++i) {
+      if (!methods[i].base_methid) {
+        methods[i].base_methid = jenv->GetMethodID(baseclass, methods[i].mname, methods[i].mdesc);
+        if (!methods[i].base_methid) return;
+      }
+      swig_override[i] = false;
+      if (derived) {
+        jmethodID methid = jenv->GetMethodID(jcls, methods[i].mname, methods[i].mdesc);
+        swig_override[i] = (methid != methods[i].base_methid);
+        jenv->ExceptionClear();
+      }
+    }
+  }
+}
+
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -14799,6 +15455,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1addInte
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1removeIntegCallback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
+  OpenSim::IntegCallback *arg2 = (OpenSim::IntegCallback *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::Model **)&jarg1; 
+  arg2 = *(OpenSim::IntegCallback **)&jarg2; 
+  (arg1)->removeIntegCallback(arg2);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1getDerivCallbackSet_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
@@ -24026,6 +24696,21 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimatio
 }
 
 
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimtkAnimationCallback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
+  OpenSim::SimtkAnimationCallback *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Model **)&jarg1; 
+  result = (OpenSim::SimtkAnimationCallback *)new SwigDirector_SimtkAnimationCallback(jenv,arg1);
+  *(OpenSim::SimtkAnimationCallback **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1getCurrentTime(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
   OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
@@ -24072,6 +24757,37 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimation
 }
 
 
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1stepSwigExplicitSimtkAnimationCallback_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jint jarg4, jdouble jarg5, jdouble jarg6, jlong jarg7, jlong jarg8, jlong jarg9) {
+  jint jresult = 0 ;
+  OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
+  double *arg2 = (double *) 0 ;
+  double *arg3 = (double *) 0 ;
+  int arg4 ;
+  double arg5 ;
+  double arg6 ;
+  double *arg7 = (double *) 0 ;
+  double *arg8 = (double *) 0 ;
+  void *arg9 = (void *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimtkAnimationCallback **)&jarg1; 
+  arg2 = *(double **)&jarg2; 
+  arg3 = *(double **)&jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (double)jarg6; 
+  arg7 = *(double **)&jarg7; 
+  arg8 = *(double **)&jarg8; 
+  arg9 = *(void **)&jarg9; 
+  result = (int)(arg1)->OpenSim::SimtkAnimationCallback::step(arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1step_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jint jarg4, jdouble jarg5, jdouble jarg6, jlong jarg7, jlong jarg8) {
   jint jresult = 0 ;
   OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
@@ -24096,6 +24812,35 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimation
   arg7 = *(double **)&jarg7; 
   arg8 = *(double **)&jarg8; 
   result = (int)(arg1)->step(arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1stepSwigExplicitSimtkAnimationCallback_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jint jarg4, jdouble jarg5, jdouble jarg6, jlong jarg7, jlong jarg8) {
+  jint jresult = 0 ;
+  OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
+  double *arg2 = (double *) 0 ;
+  double *arg3 = (double *) 0 ;
+  int arg4 ;
+  double arg5 ;
+  double arg6 ;
+  double *arg7 = (double *) 0 ;
+  double *arg8 = (double *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimtkAnimationCallback **)&jarg1; 
+  arg2 = *(double **)&jarg2; 
+  arg3 = *(double **)&jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (double)jarg6; 
+  arg7 = *(double **)&jarg7; 
+  arg8 = *(double **)&jarg8; 
+  result = (int)(arg1)->OpenSim::SimtkAnimationCallback::step(arg2,arg3,arg4,arg5,arg6,arg7,arg8);
   jresult = (jint)result; 
   return jresult;
 }
@@ -24128,6 +24873,33 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimation
 }
 
 
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1beginSwigExplicitSimtkAnimationCallback_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdouble jarg3, jdouble jarg4, jlong jarg5, jlong jarg6, jlong jarg7) {
+  jint jresult = 0 ;
+  OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
+  int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double *arg5 = (double *) 0 ;
+  double *arg6 = (double *) 0 ;
+  void *arg7 = (void *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimtkAnimationCallback **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = *(double **)&jarg5; 
+  arg6 = *(double **)&jarg6; 
+  arg7 = *(void **)&jarg7; 
+  result = (int)(arg1)->OpenSim::SimtkAnimationCallback::begin(arg2,arg3,arg4,arg5,arg6,arg7);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1begin_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdouble jarg3, jdouble jarg4, jlong jarg5, jlong jarg6) {
   jint jresult = 0 ;
   OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
@@ -24148,6 +24920,31 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimation
   arg5 = *(double **)&jarg5; 
   arg6 = *(double **)&jarg6; 
   result = (int)(arg1)->begin(arg2,arg3,arg4,arg5,arg6);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1beginSwigExplicitSimtkAnimationCallback_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdouble jarg3, jdouble jarg4, jlong jarg5, jlong jarg6) {
+  jint jresult = 0 ;
+  OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
+  int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double *arg5 = (double *) 0 ;
+  double *arg6 = (double *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimtkAnimationCallback **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = *(double **)&jarg5; 
+  arg6 = *(double **)&jarg6; 
+  result = (int)(arg1)->OpenSim::SimtkAnimationCallback::begin(arg2,arg3,arg4,arg5,arg6);
   jresult = (jint)result; 
   return jresult;
 }
@@ -24203,6 +25000,26 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimation
     return ;
   } 
   (arg1)->getTransformsFromKinematicsEngine(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1director_1connect(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jswig_mem_own, jboolean jweak_global) {
+  OpenSim::SimtkAnimationCallback *obj = *((OpenSim::SimtkAnimationCallback **)&objarg);
+  (void)jcls;
+  SwigDirector_SimtkAnimationCallback *director = dynamic_cast<SwigDirector_SimtkAnimationCallback *>(obj);
+  if (director) {
+    director->swig_connect_director(jenv, jself, jenv->GetObjectClass(jself), (jswig_mem_own == JNI_TRUE), (jweak_global == JNI_TRUE));
+  }
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1change_1ownership(JNIEnv *jenv, jclass jcls, jobject jself, jlong objarg, jboolean jtake_or_release) {
+  OpenSim::SimtkAnimationCallback *obj = *((OpenSim::SimtkAnimationCallback **)&objarg);
+  SwigDirector_SimtkAnimationCallback *director = dynamic_cast<SwigDirector_SimtkAnimationCallback *>(obj);
+  (void)jcls;
+  if (director) {
+    director->swig_java_change_ownership(jenv, jself, jtake_or_release ? true : false);
+  }
 }
 
 
@@ -54682,6 +55499,77 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGScaleTool
     *(OpenSim::Object **)&baseptr = *(OpenSim::ScaleTool **)&jarg1;
     return baseptr;
 }
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_swig_1module_1init(JNIEnv *jenv, jclass jcls) {
+  int i;
+  
+  static struct {
+    const char *method;
+    const char *signature;
+  } methods[18] = {
+    {
+      "SwigDirector_SimtkAnimationCallback_copy", "(Lorg/opensim/modeling/SimtkAnimationCallback;)J" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_copy__SWIG_1", "(Lorg/opensim/modeling/SimtkAnimationCallback;J)J" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_getDisplayer", "(Lorg/opensim/modeling/SimtkAnimationCallback;)J" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_isValidDefaultType", "(Lorg/opensim/modeling/SimtkAnimationCallback;J)Z" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_updateFromXMLNode", "(Lorg/opensim/modeling/SimtkAnimationCallback;)V" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_updateDefaultObjectsFromXMLNode", "(Lorg/opensim/modeling/SimtkAnimationCallback;)V" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_updateXMLNode", "(Lorg/opensim/modeling/SimtkAnimationCallback;J)V" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_updateDefaultObjectsXMLNode", "(Lorg/opensim/modeling/SimtkAnimationCallback;J)V" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_generateXMLNode", "(Lorg/opensim/modeling/SimtkAnimationCallback;J)V" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_update", "(Lorg/opensim/modeling/SimtkAnimationCallback;JJ)V" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_isA", "(Lorg/opensim/modeling/SimtkAnimationCallback;Ljava/lang/String;)Z" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_setModel", "(Lorg/opensim/modeling/SimtkAnimationCallback;J)V" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_begin__SWIG_0", "(Lorg/opensim/modeling/SimtkAnimationCallback;IDDJJJ)I" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_begin__SWIG_1", "(Lorg/opensim/modeling/SimtkAnimationCallback;IDDJJ)I" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_step__SWIG_0", "(Lorg/opensim/modeling/SimtkAnimationCallback;JJIDDJJJ)I" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_step__SWIG_1", "(Lorg/opensim/modeling/SimtkAnimationCallback;JJIDDJJ)I" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_end__SWIG_0", "(Lorg/opensim/modeling/SimtkAnimationCallback;IDDJJJ)I" 
+    },
+    {
+      "SwigDirector_SimtkAnimationCallback_end__SWIG_1", "(Lorg/opensim/modeling/SimtkAnimationCallback;IDDJJ)I" 
+    }
+  };
+  Swig::jclass_opensimModelJNI = (jclass) jenv->NewGlobalRef(jcls);
+  if (!Swig::jclass_opensimModelJNI) return;
+  for (i = 0; i < (int) (sizeof(methods)/sizeof(methods[0])); ++i) {
+    Swig::director_methids[i] = jenv->GetStaticMethodID(jcls, methods[i].method, methods[i].signature);
+    if (!Swig::director_methids[i]) return;
+  }
+}
+
 
 #ifdef __cplusplus
 }

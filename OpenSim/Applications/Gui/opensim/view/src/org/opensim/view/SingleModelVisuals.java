@@ -31,7 +31,6 @@ import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.MuscleViaPoint;
 import org.opensim.modeling.MuscleWrapPoint;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
 import org.opensim.utils.GeometryFileLocator;
@@ -105,7 +104,7 @@ public class SingleModelVisuals {
     private OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
     
     private vtkProp3DCollection    userObjects = new vtkProp3DCollection();
-    public static int numCalls=0;
+
     /**
      * Creates a new instance of SingleModelVisuals
      */
@@ -438,30 +437,35 @@ public class SingleModelVisuals {
      * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points
      */
     vtkMatrix4x4 retTransform = new vtkMatrix4x4();
+    double[]     retTransformVector = new double[16];
     double[] newX = new double[3];
     double[] oldXCrossNewY = new double[3]; // NewZ
-    
     private vtkMatrix4x4 getCylinderTransform(double[] axis, double[] origin) { 
        double length = normalizeAndGetLength(axis);
         // yaxis is the unit vector
-        for (int i=0; i < 3; i++)
-            retTransform.SetElement(i, 1, axis[i]);
+        for (int i=0; i < 3; i++){
+            retTransformVector[i*4+ 1]= axis[i];
+        }
         oldXCrossNewY[0] = 0.0;
         oldXCrossNewY[1] = -axis[2];
         oldXCrossNewY[2] = axis[1];
         
         normalizeAndGetLength(oldXCrossNewY);
-        for (int i=0; i < 3; i++)
-            retTransform.SetElement(i, 2, oldXCrossNewY[i]);
-
+        for (int i=0; i < 3; i++){
+            retTransformVector[i*4+ 2]= oldXCrossNewY[i];
+        }
         newX[0] = axis[1]*oldXCrossNewY[2]-axis[2]*oldXCrossNewY[1];
         newX[1] = axis[2]*oldXCrossNewY[0]-axis[0]*oldXCrossNewY[2];
         newX[2] = axis[0]*oldXCrossNewY[1]-axis[1]*oldXCrossNewY[0];
         normalizeAndGetLength(newX);
        for (int i=0; i < 3; i++){
-          retTransform.SetElement(i, 0, newX[i]);
-          retTransform.SetElement(i, 3, origin[i]);
+          retTransformVector[i*4]= newX[i];
+          retTransformVector[i*4+ 3]= origin[i];
          }
+        for(int i=12; i<15;i++)
+            retTransformVector[i]=0.0;
+        retTransformVector[15]=1.0;
+        retTransform.DeepCopy(retTransformVector);
         return retTransform;
     }
     /**
@@ -477,72 +481,6 @@ public class SingleModelVisuals {
             vector3[d]=vector3[d]/length;
         return length;
     }
-    /************************************************************************
-     * Support for animation callbacks and various Dynamic analyses/Tools
-     **************************************************************************/
-    /**
-     * updateModelDisplay with new transforms cached in animationCallback.
-     * This method must be optimized since it's invoked during live animation
-     * of simulations and/or analyses (ala IK)..
-     *
-     * Warning: this method and whatever methods it calls should not count on 
-     * any state maintained by the DynamicsEngine since it's executed on a separate
-     * thread and the cached in transforms will gnenerally be out of sync. with 
-     * the dynamics engine of the model
-     */
-   public void updateModelDisplay(SimtkAnimationCallback animationCallback) {
-      // Cycle thru bodies and update their transforms from the kinematics engine
-        //animationCallback.mutex_begin(1);
-        Model model = animationCallback.getModel();
-        BodySet bodies = model.getDynamicsEngine().getBodySet();
-        double[] pos = new double[3];
-        double[] gPos = new double[4];
-        for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
-
-            AbstractBody body = bodies.get(bodyNum);
-
-            // Fill the maps between objects and display to support picking, highlighting, etc..
-            // The reverse map takes an actor to an Object and is filled as actors are created.
-            vtkProp3D bodyRep= mapObject2VtkObjects.get(body);
-            Transform opensimTransform = animationCallback.getBodyTransform(bodyNum);
-            vtkMatrix4x4 bodyVtkTransform = convertTransformToVtkMatrix4x4(opensimTransform);
-            bodyRep.SetUserMatrix(bodyVtkTransform);
-            // For dependents (markers, muscle points, update xforms as well)
-            VisibleObject bodyDisplayer = body.getDisplayer();
-            int ct = bodyDisplayer.countDependents();
-            //System.out.println("Body "+body+" has "+ct+ " dependents");
-            double[] color = new double[3];
-            
-            for(int j=0; j < ct;j++){
-                VisibleObject dependent = bodyDisplayer.getDependent(j);
-                OpenSimObject owner = dependent.getOwner();
-
-                if (AbstractMarker.safeDownCast(owner)!=null){
-                    // Convert marker pos to global pos.
-                    dependent.getTransform().getPosition(pos);
-                    // xfrom to ground frame using xforms only, no engine
-                    //model.getDynamicsEngine().transformPosition(body, pos, gPos);
-                    for(int i=0; i<3; i++) gPos[i]=pos[i];
-                    gPos[3]=1.0;
-                    bodyVtkTransform.MultiplyPoint(gPos, gPos);
-                    int index = ((Integer)mapMarkers2Glyphs.get(owner)).intValue();
-                    getMarkersRep().setLocation(index, gPos);
-                    continue;
-                }
-                else if (MusclePoint.safeDownCast(owner)!=null||
-                        MuscleViaPoint.safeDownCast(owner)!=null){
-                    continue;
-                }
-                vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
-                deptAssembly.SetUserMatrix(bodyVtkTransform);
-            }
-             
-        }
-        getMarkersRep().setModified();
-        // Now the muscles
-        updateActuatorsGeometry(animationCallback);
-        //animationCallback.mutex_end(1);
-   }
     /**
      * updateModelDisplay with new transforms cached in animationCallback.
      * This method must be optimized since it's invoked during live animation
@@ -550,7 +488,6 @@ public class SingleModelVisuals {
      */
    public void updateModelDisplay(Model model) {
       // Cycle thru bodies and update their transforms from the kinematics engine
-       numCalls++;
         double[] pos = new double[3];
         double[] gPos = new double[3];
         BodySet bodies = model.getDynamicsEngine().getBodySet();
@@ -718,10 +655,6 @@ public class SingleModelVisuals {
 
    private void updateActuatorsGeometry(Model mdl) {
       updateActuatorsGeometry(mdl.getActuatorSet(), true);
-   }
-
-   private void updateActuatorsGeometry(SimtkAnimationCallback animationCallback) {
-      updateActuatorsGeometry(animationCallback.getModel().getActuatorSet(), false);
    }
 
    /**

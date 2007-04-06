@@ -58,7 +58,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
       SwingUtilities.invokeLater(new Runnable(){
          public void run(){
             Model dModel = disp.getModel();
-            ViewDB.getInstance().getModelVisuals(dModel).updateModelDisplay(dModel);
+            ViewDB.getInstance().updateModelDisplay(dModel);
             ViewDB.getInstance().repaintAll();
          }
          });

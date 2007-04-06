@@ -8,6 +8,7 @@ import javax.swing.Timer;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
+import org.opensim.view.JavaAnimationCallback;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.IKTool;
 import org.opensim.modeling.SimtkAnimationCallback;
@@ -89,38 +90,18 @@ public class IKPanel  extends workflowWizardPanelBase{
         // @FIXME should be current trial
         final double startTime = ik.getIKTrialSet().get(0).getStartTime();
         final double endTime = ik.getIKTrialSet().get(0).getEndTime();
-        final double investigationDuration = endTime - startTime;
         final Model ikModel = ik.getModel();
         
-         final SimtkAnimationCallback animationCallback = SimtkAnimationCallback.CreateAnimationCallback(ikModel);
-         animationCallback.setStepInterval(1);         
+         final JavaAnimationCallback animationCallback = new JavaAnimationCallback(ikModel);
+         ikModel.addIntegCallback(animationCallback);
+         animationCallback.setStepInterval(3);  
          progressHandle.start();
-         
-         int delay = 50; //milliseconds
-         final SingleModelVisuals visModel = ViewDB.getInstance().getModelVisuals(ikModel);
-         final ViewDB viewdb = ViewDB.getInstance();
-         
-         // Adaptively compute frame display time and use it as guess for timer period
-         long t0 = 0, t1=0;
-         int frameDisplayTime=0;
-         t0 = System.currentTimeMillis();
-         viewdb.updateModelDisplay(visModel, animationCallback);
-         t1 = System.currentTimeMillis();
-         frameDisplayTime = (int)(t1-t0);
-         //System.out.println("frameDisplayTime="+frameDisplayTime)       ;
-         ActionListener taskPerformer = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-               viewdb.updateModelDisplay(visModel, animationCallback);
-            }
-         };
-         Timer timer = new Timer(frameDisplayTime, taskPerformer);
-         timer.start();
+                  
          // Execute IK. We're already on a worker thread
          ik.run();
 
-         viewdb.updateModelDisplay(visModel, animationCallback);
-         timer.stop();
-
+         ViewDB.getInstance().updateModelDisplay(ikModel);
+         
          progressHandle.finish();
         // Associate motion to model
         component.putClientProperty("Step_executed", Boolean.TRUE);
@@ -131,6 +112,8 @@ public class IKPanel  extends workflowWizardPanelBase{
         String motionFilePath = ikFilePath+File.separator+ik.getIKTrialSet().get(0).getOutputMotionFilename();
         if (new File(motionFilePath).exists())
             MotionsDB.getInstance().loadMotionFile(motionFilePath);
+        // Remove callback as it's owned by Java and we don't want it destroyed along with the model.
+        ikModel.removeIntegCallback(animationCallback);
         return false;
     }
     

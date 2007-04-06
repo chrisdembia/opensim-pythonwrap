@@ -29,9 +29,29 @@ public class SimtkAnimationCallback extends IntegCallback {
     super.delete();
   }
 
+  protected void swigDirectorDisconnect() {
+    swigCMemOwn = false;
+    delete();
+  }
+
+  public void swigReleaseOwnership() {
+    swigCMemOwn = false;
+    opensimModelJNI.SimtkAnimationCallback_change_ownership(this, swigCPtr, false);
+  }
+
+  public void swigTakeOwnership() {
+    swigCMemOwn = true;
+    opensimModelJNI.SimtkAnimationCallback_change_ownership(this, swigCPtr, true);
+  }
+
   public static SimtkAnimationCallback CreateAnimationCallback(Model aModel) {
     long cPtr = opensimModelJNI.SimtkAnimationCallback_CreateAnimationCallback(Model.getCPtr(aModel), aModel);
     return (cPtr == 0) ? null : new SimtkAnimationCallback(cPtr, false);
+  }
+
+  protected SimtkAnimationCallback(Model aModel) {
+    this(opensimModelJNI.new_SimtkAnimationCallback(Model.getCPtr(aModel), aModel), true);
+    opensimModelJNI.SimtkAnimationCallback_director_connect(this, swigCPtr, swigCMemOwn, true);
   }
 
   public double getCurrentTime() {
@@ -39,19 +59,19 @@ public class SimtkAnimationCallback extends IntegCallback {
   }
 
   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_void aClientData) {
-    return opensimModelJNI.SimtkAnimationCallback_step__SWIG_0(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aXPrev), SWIGTYPE_p_double.getCPtr(aYPrev), aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_void.getCPtr(aClientData));
+    return (getClass() == SimtkAnimationCallback.class) ? opensimModelJNI.SimtkAnimationCallback_step__SWIG_0(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aXPrev), SWIGTYPE_p_double.getCPtr(aYPrev), aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_void.getCPtr(aClientData)) : opensimModelJNI.SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_0(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aXPrev), SWIGTYPE_p_double.getCPtr(aYPrev), aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_void.getCPtr(aClientData));
   }
 
   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
-    return opensimModelJNI.SimtkAnimationCallback_step__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aXPrev), SWIGTYPE_p_double.getCPtr(aYPrev), aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY));
+    return (getClass() == SimtkAnimationCallback.class) ? opensimModelJNI.SimtkAnimationCallback_step__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aXPrev), SWIGTYPE_p_double.getCPtr(aYPrev), aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY)) : opensimModelJNI.SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aXPrev), SWIGTYPE_p_double.getCPtr(aYPrev), aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY));
   }
 
   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_void aClientData) {
-    return opensimModelJNI.SimtkAnimationCallback_begin__SWIG_0(swigCPtr, this, aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_void.getCPtr(aClientData));
+    return (getClass() == SimtkAnimationCallback.class) ? opensimModelJNI.SimtkAnimationCallback_begin__SWIG_0(swigCPtr, this, aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_void.getCPtr(aClientData)) : opensimModelJNI.SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_0(swigCPtr, this, aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_void.getCPtr(aClientData));
   }
 
   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
-    return opensimModelJNI.SimtkAnimationCallback_begin__SWIG_1(swigCPtr, this, aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY));
+    return (getClass() == SimtkAnimationCallback.class) ? opensimModelJNI.SimtkAnimationCallback_begin__SWIG_1(swigCPtr, this, aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY)) : opensimModelJNI.SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_1(swigCPtr, this, aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY));
   }
 
   public Transform getBodyTransform(int bodyIndex) {

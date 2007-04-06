@@ -695,9 +695,9 @@ public final class ViewDB extends Observable implements Observer {
     * We could get visModel from animationCallback using getModelVisuals(animationCallback.getModel())
     * but that's another map search.
     */
-   public void updateModelDisplay(SingleModelVisuals visModel, SimtkAnimationCallback animationCallback) {
+   public void updateModelDisplay(Model aModel) {
       lockDrawingSurfaces(true);
-      visModel.updateModelDisplay(animationCallback);
+      mapModelsToVisuals.get(aModel).updateModelDisplay(aModel);
       lockDrawingSurfaces(false);
       repaintAll();
    }
@@ -874,6 +874,19 @@ public final class ViewDB extends Observable implements Observer {
                 return glyph.getPickedObject(cellId);
         }
         return null;
+    }
+    
+    /**
+     * User Objects manipulation. Delegate to proper model
+     */
+    public void addUserObject(Model model, vtkActor vtkActor) {
+        SingleModelVisuals visModel = mapModelsToVisuals.get(model);
+        visModel.addUserObject(vtkActor);
+    }
+
+    public void removeUserObject(Model model, vtkActor vtkActor) {
+       SingleModelVisuals visModel = mapModelsToVisuals.get(model);
+       visModel.removeUserObject(vtkActor);
     }
 
 }

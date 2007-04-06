@@ -93,8 +93,8 @@ public class MotionDisplayer {
         
         markersRep.setShape(MotionObjectsDB.getInstance().getShape("marker"));
         markersRep.setColor(new double[]{0.0, 0.0, 1.0});
-        ViewDB.getInstance().getModelVisuals(model).addUserObject(forcesRep.getVtkActor());
-        ViewDB.getInstance().getModelVisuals(model).addUserObject(markersRep.getVtkActor());
+        ViewDB.getInstance().addUserObject(model, forcesRep.getVtkActor());
+        ViewDB.getInstance().addUserObject(model, markersRep.getVtkActor());
     }
 
     //interface applyValue
@@ -252,8 +252,8 @@ public class MotionDisplayer {
      * cleanupDisplay is called when the motion is mode non-current either explicitly by the user or by selecting
      * another motion for the same model and making it current */
     void cleanupDisplay() {
-        ViewDB.getInstance().getModelVisuals(model).removeUserObject(forcesRep.getVtkActor());
-        ViewDB.getInstance().getModelVisuals(model).removeUserObject(markersRep.getVtkActor());
+        ViewDB.getInstance().removeUserObject(model, forcesRep.getVtkActor());
+        ViewDB.getInstance().removeUserObject(model, markersRep.getVtkActor());
     }
 
    public Storage getSimmMotionData() {
