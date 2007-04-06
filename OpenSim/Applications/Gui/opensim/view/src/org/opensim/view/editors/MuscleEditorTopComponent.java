@@ -11,11 +11,11 @@ import java.util.Observable;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Observer;
 import org.openide.ErrorManager;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractActuator;
@@ -38,8 +38,10 @@ import org.opensim.modeling.ArrayMusclePoint;
 import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.MusclePoint;
+import org.opensim.view.ClearSelectedObjectsEvent;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.NameChangedEvent;
+import org.opensim.view.ObjectSelectedEvent;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.nodes.OneMuscleNode;
 import org.opensim.view.pub.OpenSimDB;
@@ -51,13 +53,14 @@ import org.opensim.view.pub.ViewDB;
 final class MuscleEditorTopComponent extends TopComponent implements Observer {
    
    private static MuscleEditorTopComponent instance;
-   private AbstractActuator act; // the actuator that is currently shown in the Muscle Editor window
-   private AbstractActuator actSaved; // the state that gets restored when "reset" is pressed
-   private static final String[] wrapMethodNames = new String[] {"midpoint", "axial", "hybrid"};
+   private AbstractActuator act = null; // the actuator that is currently shown in the Muscle Editor window
+   private AbstractActuator actSaved = null; // the state that gets restored when "reset" is pressed
+   private static final String[] wrapMethodNames = {"midpoint", "axial", "hybrid"};
    private javax.swing.JScrollPane AttachmentsTab = null;
    private javax.swing.JScrollPane WrapTab = null;
    private javax.swing.JScrollPane CurrentPathTab = null;
    private String selectedTabName = null;
+   private javax.swing.JCheckBox attachmentSelectBox[] = null; // array of checkboxes for selecting attachment points
    
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
@@ -71,6 +74,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
       setName(NbBundle.getMessage(MuscleEditorTopComponent.class, "CTL_MuscleEditorTopComponent"));
       setToolTipText(NbBundle.getMessage(MuscleEditorTopComponent.class, "HINT_MuscleEditorTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
+      ViewDB.getInstance().addObserver(this);
    }
    
    /** This method is called from within the constructor to
@@ -290,7 +294,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
       Model model = asm.getModel();
       BodySet bodies = model.getDynamicsEngine().getBodySet();
       AbstractBody newBody = bodies.get(bodyComboBox.getSelectedIndex());
-      if (newBody.getName().equals(oldBody.getName()) == false) { // TODO why doesn't newBody.getCPtr() work?
+      if (AbstractBody.getCPtr(newBody) != AbstractBody.getCPtr(oldBody)) {
          musclePoints.get(attachmentNum).setBody(newBody);
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -625,6 +629,8 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
       AttachmentsPanel.add(rangeMinLabel);
       AttachmentsPanel.add(rangeMaxLabel);
       
+      attachmentSelectBox = new javax.swing.JCheckBox[musclePoints.getSize()];
+      
       for (i = 0; i < musclePoints.getSize(); i++) {
          MuscleViaPoint via = MuscleViaPoint.safeDownCast(musclePoints.get(i));
          javax.swing.JLabel indexLabel = null;
@@ -635,7 +641,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          javax.swing.JTextField yField = new javax.swing.JTextField();
          javax.swing.JTextField zField = new javax.swing.JTextField();
          javax.swing.JComboBox comboBox = new javax.swing.JComboBox();
-         javax.swing.JCheckBox selectBox = new javax.swing.JCheckBox();
+         attachmentSelectBox[i] = new javax.swing.JCheckBox();
          javax.swing.JComboBox coordComboBox = null;
          javax.swing.JTextField rangeMinField = null;
          javax.swing.JTextField rangeMaxField = null;
@@ -666,7 +672,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          yField.setBounds(X + width + 1, height, width, 21);
          zField.setBounds(X + 2*width + 2, height, width, 21);
          comboBox.setBounds(X + 3*width + 10, height, 90, 21);
-         selectBox.setBounds(X + 3*width + 110, height, 21, 21);
+         attachmentSelectBox[i].setBounds(X + 3*width + 110, height, 21, 21);
          xField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(0)));
          yField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(1)));
          zField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(2)));
@@ -713,7 +719,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          AttachmentsPanel.add(yField);
          AttachmentsPanel.add(zField);
          AttachmentsPanel.add(comboBox);
-         AttachmentsPanel.add(selectBox);
+         AttachmentsPanel.add(attachmentSelectBox[i]);
          if (via != null) {
             AttachmentsPanel.add(coordComboBox);
             AttachmentsPanel.add(rangeMinField);
@@ -824,6 +830,11 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
       if (anyViaPoints)
          d.width = 630;
       AttachmentsPanel.setPreferredSize(d);
+
+      // Update the checked/unchecked state of the selected checkboxes
+      ArrayList<OpenSimObject> selectedObjects = ViewDB.getInstance().getSelectedObjects();
+      for (i = 0; i < selectedObjects.size(); i++)
+         updateAttachmentSelections(selectedObjects.get(i), true);
    }
    
    public void setupComponent(AbstractActuator act) {
@@ -1019,7 +1030,42 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
       super.open();
    }
    
+   // Observable is ViewDB
    public void update(Observable o, Object arg) {
+      if (o instanceof ViewDB) {
+         if (arg instanceof ObjectSelectedEvent) {
+            ObjectSelectedEvent ev = (ObjectSelectedEvent)arg;
+            OpenSimObject obj = ev.getObject();
+            updateAttachmentSelections(obj, ev.getState());
+         } else if (arg instanceof ClearSelectedObjectsEvent) {
+            if (act != null) {
+               AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+               if (asm != null) {
+                  MusclePointSet musclePoints = asm.getAttachmentSet();
+                  for (int i = 0; i < musclePoints.getSize(); i++) {
+                     attachmentSelectBox[i].setSelected(false);
+                  }
+                  this.repaint();
+               }
+            }
+         }
+      }
+   }
+   
+   private void updateAttachmentSelections(OpenSimObject obj, boolean state) {
+      if (act != null) {
+         AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+         if (asm != null) {
+            MusclePointSet musclePoints = asm.getAttachmentSet();
+            for (int i = 0; i < musclePoints.getSize(); i++) {
+               if (OpenSimObject.getCPtr(obj) == MusclePoint.getCPtr(musclePoints.get(i))) {
+                  attachmentSelectBox[i].setSelected(state);
+                  this.repaint();
+                  break;
+               }
+            }
+         }
+      }
    }
    
    final static class ResolvableHelper implements Serializable {

@@ -411,8 +411,6 @@ public class SingleModelVisuals {
                     MusclePoint pt1 = path.get(i);
                     if (MuscleWrapPoint.safeDownCast(pt1)!= null)
                         pt1.setPickable(false);
-                    else
-                       pt1.setName(muscle.getName()+"-P"+(i));
                     
                     int pointIdx = getMusclePointsRep().addLocation(position1, path.get(i));
                     getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
@@ -421,8 +419,6 @@ public class SingleModelVisuals {
                         MusclePoint pt2 = path.get(i+1);
                         if (MuscleWrapPoint.safeDownCast(pt2)!= null)
                            pt2.setPickable(false);
-                        else
-                           pt2.setName(muscle.getName()+"-P"+(i+1));
                         pointIdx = getMusclePointsRep().addLocation(position2, path.get(i+1));
                         getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
                         pointGlyphIds.add(new Integer(pointIdx));

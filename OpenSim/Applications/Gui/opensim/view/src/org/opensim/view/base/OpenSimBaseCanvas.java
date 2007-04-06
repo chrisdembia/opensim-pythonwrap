@@ -75,16 +75,26 @@ public class OpenSimBaseCanvas extends vtkPanel
           GetRenderWindow().SetAAFrames(numAAFrames);
          
     }
-    public void mousePressed(MouseEvent e)
+
+   public void mousePressed(MouseEvent e)
    {
-      
-    if ((e.getModifiers()== (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK))){
-        settingsMenu.show(this, e.getX(), e.getY());
-    }
-    // Show popup if right mouse otherwise pass along to super implementation
-    super.mousePressed(e);
-  }
-  
+      // Show popup if right mouse and Shift key, otherwise pass along to super implementation
+      if ((e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK))) {
+         settingsMenu.show(this, e.getX(), e.getY());
+      } else {
+         super.mousePressed(e);
+      }
+   }
+
+   public void mouseDragged(MouseEvent e)
+   {
+      // do nothing (handled by settingsMenu) if right mouse and Shift, otherwise pass along to super implementation
+      if ((e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK))) {
+      } else {
+         super.mouseDragged(e);
+      }
+   }
+
   public void createSettingsMenu()
   {
       settingsMenu = new JPopupMenu();

@@ -44,6 +44,7 @@ import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimtkAnimationCallback;
+import org.opensim.modeling.VisibleProperties;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
 import vtk.AxesActor;
@@ -88,7 +89,7 @@ public final class ViewDB extends Observable implements Observer {
    static boolean openModelInNewWindow=true;
    
    //private static Model currentModel=null;
-   private OpenSimObject selectedObject=null;
+   private ArrayList<OpenSimObject> selectedObjects = new ArrayList<OpenSimObject>(0);
    
    private vtkAssembly     axesAssembly=null;
    private boolean axesDisplayed=false;
@@ -109,6 +110,11 @@ public final class ViewDB extends Observable implements Observer {
       return instance;
    }
    
+    // The setChanged() protected method must overridden to make it public
+    public synchronized void setChanged() {
+        super.setChanged();
+    }
+    
    public static ModelWindowVTKTopComponent getCurrenWindow() {
       return currentModelWindow;
    }
@@ -474,21 +480,105 @@ public final class ViewDB extends Observable implements Observer {
     * different color, or in different representation or both
     */
    public void markSelected(OpenSimObject selectedObject, boolean onOff) {
+      //VisibleProperties vp = new VisibleProperties();
+      double selectedColor[] = {0.5, 0.5, 0.5};
+      //vp.setColor(selectedColor);
+      //selectedObject.getDisplayer().setVisibleProperties(vp);
 
+      double dColorComponents[] = {0.5, 0.5, 0.5};
+      setObjectColor(selectedObject, dColorComponents);
+
+      repaintAll();
    }
    
-   public OpenSimObject getSelectedObject() {
-      return selectedObject;
+   public ArrayList<OpenSimObject> getSelectedObjects() {
+      return selectedObjects;
    }
-   
-   public void setSelectedObject(OpenSimObject selectedObject) {
-      this.selectedObject = selectedObject;
-      if (selectedObject != null){
-         markSelected(selectedObject, true);
-         StatusDisplayer.getDefault().setStatusText(selectedObject.getType()+", "+selectedObject.getName());
-      } else
+
+   public void statusDisplaySelectedObjects() {
+      if (selectedObjects.size() == 0) {
          StatusDisplayer.getDefault().setStatusText("");
+      } else {
+         StatusDisplayer.getDefault().setStatusText(selectedObjects.get(0).getType() + ":" + selectedObjects.get(0).getName());
+         for (int i = 1; i < selectedObjects.size(); i++)
+            StatusDisplayer.getDefault().setStatusText(StatusDisplayer.getDefault().getStatusText() + ", " +
+                    selectedObjects.get(i).getType() + ":" + selectedObjects.get(i).getName());
+      }
+      //System.out.println("status, numobjects = " + selectedObjects.size());
    }
+
+   public void setSelectedObject(OpenSimObject selectedObject) {
+      clearSelectedObjects();
+
+      if (selectedObject != null) {
+         selectedObjects.add(selectedObject);
+         markSelected(selectedObject, true);
+         statusDisplaySelectedObjects();
+         ObjectSelectedEvent evnt = new ObjectSelectedEvent(selectedObject, true);
+         setChanged();
+         notifyObservers(evnt);
+      } else { // this function should never be called with selectedObject = null
+         ClearSelectedObjectsEvent evnt = new ClearSelectedObjectsEvent(new OpenSimObject()); // TODO use model object instead???
+         setChanged();
+         notifyObservers(evnt);
+      }
+   }
+
+   private boolean removeObjectFromSelectedList(OpenSimObject selectedObject) {
+      for (int i = 0; i < selectedObjects.size(); i++) {
+         if (OpenSimObject.getCPtr(selectedObject) == OpenSimObject.getCPtr(selectedObjects.get(i))) {
+            // remove the object from the list of selected ones
+            selectedObjects.remove(i);
+            // mark it as unselected
+            markSelected(selectedObject, false);
+            statusDisplaySelectedObjects();
+            // generate an event for this deselection
+            ObjectSelectedEvent evnt = new ObjectSelectedEvent(selectedObject, false);
+            setChanged();
+            notifyObservers(evnt);
+            return true;
+         }
+      }
+      return false;
+   }
+
+   public void toggleAddSelectedObject(OpenSimObject selectedObject) {
+      // If the object is already in the list, remove it
+      if (removeObjectFromSelectedList(selectedObject) == false) {
+         // If the object is not already in the list, add it
+         selectedObjects.add(selectedObject);
+         // mark it as selected
+         markSelected(selectedObject, true);
+         // set the status bar text to describe this object
+         statusDisplaySelectedObjects();
+         ObjectSelectedEvent evnt = new ObjectSelectedEvent(selectedObject, true);
+         setChanged();
+         notifyObservers(evnt);
+      }
+   }
+
+   public void toggleSelectedObject(OpenSimObject selectedObject) {
+      // If the object is already in the list, remove it
+      if (removeObjectFromSelectedList(selectedObject) == false) {
+         // If the object is not already in the list of selected ones, make this
+         // object the only selected one
+         setSelectedObject(selectedObject);
+      }
+   }
+
+   public void clearSelectedObjects() {
+      for (int i = 0; i < selectedObjects.size(); i++) {
+         // mark it as unselected
+         markSelected(selectedObjects.get(i), false);
+         // generate an event for this deselection
+         ObjectSelectedEvent evnt = new ObjectSelectedEvent(selectedObjects.get(i), false);
+         setChanged();
+         notifyObservers(evnt);
+      }
+      selectedObjects.clear();
+      statusDisplaySelectedObjects();
+   }
+
    /**
     * Check if the name passed in is a valid name for a display window (no duplicates
     * for now, until a more restricted naming is needed

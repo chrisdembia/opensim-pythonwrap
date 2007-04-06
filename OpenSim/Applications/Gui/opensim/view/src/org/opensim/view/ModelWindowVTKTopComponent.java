@@ -204,11 +204,10 @@ public class ModelWindowVTKTopComponent extends TopComponent
     }//GEN-LAST:event_jRefitModelButtonActionPerformed
 
     private void processMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_processMousePressed
-// TODO add your handling code here:
-        if(evt.getClickCount()==1 && ViewDB.getInstance().isPicking()){
-            getCanvas().selectObject(evt);
+        if(ViewDB.getInstance().isPicking()){
+            //do nothing, OpenSimCanvas::mousePressed() will handle it
         }
-        if(evt.getClickCount()==2){
+        if(evt.getClickCount()==2 && ViewDB.getInstance().isPicking() == false){
             getCanvas().handleDoubleClick(evt);
         }
         super.processEvent(evt);

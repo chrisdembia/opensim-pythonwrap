@@ -10,6 +10,7 @@
 package org.opensim.view;
 
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import javax.swing.JPopupMenu;
 import org.openide.awt.StatusDisplayer;
@@ -23,10 +24,8 @@ import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
 import vtk.vtkCellPicker;
-import vtk.vtkPointPicker;
 import vtk.vtkPropPicker;
 import vtk.vtkWindowToImageFilter;
-import vtk.vtkWorldPointPicker;
 
 /**
  *
@@ -44,13 +43,39 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     /**
      * Event handler to handle mousePressed
      */
-    public void mousePressed(MouseEvent e)
+   public void mousePressed(MouseEvent e)
    {
-       if ( (e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.CTRL_MASK))) {
-          ViewDB.getInstance().setSelectedObject(findObjectAt(lastX, lastY));
-        }        // Show popup if right mouse otherwise pass along to super implementation
-        super.mousePressed(e);
+       int keyMods = e.getModifiers();
+       if (ViewDB.getInstance().isPicking() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
+          OpenSimObject obj = findObjectAt(lastX, lastY);
+          if ((keyMods & InputEvent.SHIFT_MASK) > 0) {
+             if (obj == null) {
+                // do nothing, a la Illustrator
+             } else {
+                ViewDB.getInstance().toggleAddSelectedObject(obj);
+             }
+          } else {
+             if (obj == null) {
+                ViewDB.getInstance().clearSelectedObjects();
+             } else {
+                ViewDB.getInstance().toggleSelectedObject(obj);
+             }
+          }
+       } else {
+          super.mousePressed(e);
+       }
     }
+ 
+    public void mouseReleased(MouseEvent e)
+    {
+       int keyMods = e.getModifiers();
+       if (ViewDB.getInstance().isPicking() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
+          // do nothing; you're still in picking mode
+       } else {
+          super.mouseReleased(e);
+       }
+    }
+
     /**
      *  Utility method to locate an OpenSimObject located atscreen coordinate  x, y.
      *  Delegates the call to modelVisuals
@@ -85,7 +110,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         int cellId = pPicker.GetCellId();
         obj = ViewDB.getInstance().getSelectedGlyphObject(cellId, candidateActor);
         if (obj != null)
-               StatusDisplayer.getDefault().setStatusText(obj.getType()+", "+obj.getName());
+               StatusDisplayer.getDefault().setStatusText(obj.getType()+":"+obj.getName());
         // Get x,y,z, world for debugging
         /*
         vtkWorldPointPicker wpPicker=new vtkWorldPointPicker();
@@ -100,18 +125,44 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
      * Callback invoked when the user doubleclicks an object in the graphics window
      */
     void handleDoubleClick(MouseEvent evt) {
-          ViewDB.getInstance().setSelectedObject(findObjectAt(lastX, lastY));
-          OpenSimObject selectedObject = ViewDB.getInstance().getSelectedObject();
-          if (selectedObject != null){
-              ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(selectedObject, ViewDB.getInstance().getCurrenWindow());
-               editorDialog.process();
-          }
-          ViewDB.getInstance().setSelectedObject(null);
+       OpenSimObject obj = findObjectAt(lastX, lastY);
+       if (obj != null){
+          ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(obj, ViewDB.getInstance().getCurrenWindow());
+          editorDialog.process();
+          ViewDB.getInstance().statusDisplaySelectedObjects();
+       }
     }
 
-     void selectObject(MouseEvent evt) {
-          ViewDB.getInstance().setSelectedObject(findObjectAt(lastX, lastY));
-    }
+     //void selectObject(MouseEvent evt) {
+        //OpenSimObject obj = findObjectAt(lastX, lastY);
+        //ViewDB.getInstance().setSelectedObject(obj);
+    //}
+
+   public void keyPressed(KeyEvent e) {
+      if (e.getKeyCode() == 17) {
+         //System.out.println("picking on");
+         ViewDB.getInstance().setPicking(true);
+      }
+      else
+         super.keyPressed(e);
+   }
+
+   public void keyReleased(KeyEvent e) {
+      if (e.getKeyCode() == 17) {
+         //System.out.println("picking off");
+         ViewDB.getInstance().setPicking(false);
+      } else
+         super.keyReleased(e);
+   }
+
+   public void mouseDragged(MouseEvent e) {
+      int keyMods = e.getModifiers();
+      if (ViewDB.getInstance().isPicking() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
+         // do nothing; you're still in picking mode
+      } else {
+         super.mouseDragged(e);
+      }
+   }
 
     /*
     void addNewModelVisuals(SingleModelVisuals newModelVisual) {
