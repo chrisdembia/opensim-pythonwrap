@@ -9,6 +9,7 @@
 
 package org.opensim.view;
 
+import java.awt.Cursor;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -142,6 +143,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
       if (e.getKeyCode() == 17) {
          //System.out.println("picking on");
          ViewDB.getInstance().setPicking(true);
+        setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
       }
       else
          super.keyPressed(e);
@@ -151,7 +153,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
       if (e.getKeyCode() == 17) {
          //System.out.println("picking off");
          ViewDB.getInstance().setPicking(false);
-      } else
+         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+       } else
          super.keyReleased(e);
    }
 
