@@ -20,6 +20,7 @@ import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.AbstractWrapObject;
 import org.opensim.modeling.ArrayPtrsPropertyGroup;
@@ -215,6 +216,11 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
       NameChangedEvent evnt = new NameChangedEvent(act); // TODO: what about other changes to the muscle?
       OpenSimDB.getInstance().notifyObservers(evnt);
       setupComponent(act);
+      // tell the ViewDB to redraw the model
+      Model model = asm.getModel();
+      SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+      vis.updateModelDisplay(model);
+      ViewDB.getInstance().repaintAll();
    }//GEN-LAST:event_ResetButtonActionPerformed
    
    private void ApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyButtonActionPerformed
@@ -275,6 +281,12 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
       MusclePointSet musclePoints = asm.getAttachmentSet();
       double oldValue = musclePoints.get(attachmentNum).getAttachment().getitem(coordNum);
       double newValue = Double.parseDouble(field.getText());
+      NumberFormat nf = NumberFormat.getInstance();
+      nf.setMaximumFractionDigits(5); // TODO
+      nf.setMinimumFractionDigits(5); // TODO
+      // format the number and write it back into the text field
+      field.setText(nf.format(newValue));
+      // update the model if the number has changed
       if (oldValue != newValue) {
          musclePoints.get(attachmentNum).setAttachment(coordNum, newValue);
          // tell the ViewDB to redraw the model
@@ -298,11 +310,130 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          musclePoints.get(attachmentNum).setBody(newBody);
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+         vis.updateModelDisplay(model);
          ViewDB.getInstance().repaintAll();
          // update the current path panel
          setupCurrentPathPanel(asm);
       }
    }
+
+   public void AttachmentSelected(javax.swing.JCheckBox attachmentSelBox, int attachmentNum) {
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+      MusclePointSet musclePoints = asm.getAttachmentSet();
+      MusclePoint point = musclePoints.get(attachmentNum);
+      ViewDB.getInstance().toggleAddSelectedObject(point);
+   }
+
+   public void ViaCoordinateChosen(javax.swing.JComboBox coordComboBox, int attachmentNum) {
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+      MusclePointSet musclePoints = asm.getAttachmentSet();
+      MuscleViaPoint via = MuscleViaPoint.safeDownCast(musclePoints.get(attachmentNum));
+      AbstractCoordinate oldCoord = via.getCoordinate();
+      Model model = asm.getModel();
+      CoordinateSet coords = model.getDynamicsEngine().getCoordinateSet();
+      AbstractCoordinate newCoord = coords.get(coordComboBox.getSelectedIndex());
+      if (AbstractCoordinate.getCPtr(newCoord) != AbstractCoordinate.getCPtr(oldCoord)) {
+         via.setCoordinate(newCoord);
+         // make sure the range min and range max are valid for this new coordinate
+         double rangeMin = via.getRange().getitem(0);
+         double rangeMax = via.getRange().getitem(1);
+         boolean needsUpdating = false;
+         if (rangeMin > newCoord.getRangeMax() || rangeMax < newCoord.getRangeMin()) {
+            // If there is no overlap between the old range and the new range, use new range
+            via.setRangeMin(newCoord.getRangeMin());
+            via.setRangeMax(newCoord.getRangeMax());
+            needsUpdating = true;
+         } else {
+            // Adjust the min and max to fit in the new range
+            if (rangeMin < newCoord.getRangeMin()) {
+               via.setRangeMin(newCoord.getRangeMin());
+               needsUpdating = true;
+            }
+            if (rangeMax > newCoord.getRangeMax()) {
+               via.setRangeMax(newCoord.getRangeMax());
+               needsUpdating = true;
+            }
+         }
+         if (needsUpdating)
+            setupAttachmentPanel(asm);
+         ParametersTabbedPanel.setSelectedComponent(AttachmentsTab);
+         // tell the ViewDB to redraw the model
+         SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+         vis.updateModelDisplay(model);
+         ViewDB.getInstance().repaintAll();
+         // update the current path panel
+         setupCurrentPathPanel(asm);
+      }
+   }
+
+   public void RangeMinEntered(javax.swing.JTextField field, int attachmentNum) {
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+      MusclePointSet musclePoints = asm.getAttachmentSet();
+      MuscleViaPoint via = MuscleViaPoint.safeDownCast(musclePoints.get(attachmentNum));
+      double oldValue = via.getRange().getitem(0);
+      double smallestAllowed = via.getCoordinate().getRangeMin();
+      double biggestAllowed = via.getRange().getitem(1);
+      double newValue = Double.parseDouble(field.getText());
+      NumberFormat nf = NumberFormat.getInstance();
+      nf.setMaximumFractionDigits(5); // TODO
+      nf.setMinimumFractionDigits(5); // TODO
+      if (newValue > biggestAllowed) {
+         // user entered min that is greater than max, ignore it
+         field.setText(nf.format(oldValue));
+      } else {
+         // if the new value is less than the coordinate's min, use coordinate's min
+         if (newValue < smallestAllowed)
+            newValue = smallestAllowed;
+         // format the number and write it back into the text field
+         field.setText(nf.format(newValue));
+         // update the model if the number has changed
+         if (newValue != oldValue) {
+            via.setRangeMin(newValue);
+            // tell the ViewDB to redraw the model
+            Model model = asm.getModel();
+            SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+            vis.updateModelDisplay(model);
+            ViewDB.getInstance().repaintAll();
+            // update the current path panel
+            setupCurrentPathPanel(asm);
+         }
+      }
+   }
+
+   public void RangeMaxEntered(javax.swing.JTextField field, int attachmentNum) {
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+      MusclePointSet musclePoints = asm.getAttachmentSet();
+      MuscleViaPoint via = MuscleViaPoint.safeDownCast(musclePoints.get(attachmentNum));
+      double oldValue = via.getRange().getitem(1);
+      double smallestAllowed = via.getRange().getitem(0);
+      double biggestAllowed = via.getCoordinate().getRangeMax();
+      double newValue = Double.parseDouble(field.getText());
+      NumberFormat nf = NumberFormat.getInstance();
+      nf.setMaximumFractionDigits(5); // TODO
+      nf.setMinimumFractionDigits(5); // TODO
+      if (newValue < smallestAllowed) {
+         // user entered max that is less than min, ignore it
+         field.setText(nf.format(oldValue));
+      } else {
+         // if the new value is greater than the coordinate's max, use coordinate's max
+         if (newValue > biggestAllowed)
+            newValue = biggestAllowed;
+         // format the number and write it back into the text field
+         field.setText(nf.format(newValue));
+         // update the model if the number has changed
+         if (newValue != oldValue) {
+            via.setRangeMax(newValue);
+            // tell the ViewDB to redraw the model
+            Model model = asm.getModel();
+            SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+            vis.updateModelDisplay(model);
+            ViewDB.getInstance().repaintAll();
+            // update the current path panel
+            setupCurrentPathPanel(asm);
+         }
+      }
+   }
+
    public void DoublePropertyEntered(javax.swing.JTextField field, int propertyNum) {
       Property prop = null;
       try {
@@ -654,6 +785,8 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          
          int height = Y + i * 22;
          int width = 60;
+
+         final int num = i;
          
          comboBox.setModel(new javax.swing.DefaultComboBoxModel(bodyNames));
          comboBox.setSelectedIndex(findElement(bodyNames, musclePoints.get(i).getBodyName()));
@@ -665,6 +798,31 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
             coordComboBox.setBounds(X + 3*width + 140, height, 130, 21);
             rangeMinField.setBounds(X + 3*width + 280, height, 60, 21);
             rangeMaxField.setBounds(X + 3*width + 345, height, 60, 21);
+            coordComboBox.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  ViaCoordinateChosen(((javax.swing.JComboBox)evt.getSource()), num);
+               }
+            });
+            rangeMinField.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  RangeMinEntered(((javax.swing.JTextField)evt.getSource()), num);
+               }
+            });
+            rangeMinField.addFocusListener(new java.awt.event.FocusAdapter() {
+               public void focusLost(java.awt.event.FocusEvent evt) {
+                  RangeMinEntered(((javax.swing.JTextField)evt.getSource()), num);
+               }
+            });
+            rangeMaxField.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  RangeMaxEntered(((javax.swing.JTextField)evt.getSource()), num);
+               }
+            });
+            rangeMaxField.addFocusListener(new java.awt.event.FocusAdapter() {
+               public void focusLost(java.awt.event.FocusEvent evt) {
+                  RangeMaxEntered(((javax.swing.JTextField)evt.getSource()), num);
+               }
+            });
          }
          
          indexLabel.setBounds(X - 20, height, 20, 21);
@@ -679,7 +837,6 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          AttachmentsPanel.add(indexLabel);
          aCount++;
          
-         final int num = i;
          xField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 0);
@@ -713,6 +870,11 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                AttachmentBodyChosen(((javax.swing.JComboBox)evt.getSource()), num);
+            }
+         });
+         attachmentSelectBox[i].addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               AttachmentSelected(((javax.swing.JCheckBox)evt.getSource()), num);
             }
          });
          AttachmentsPanel.add(xField);

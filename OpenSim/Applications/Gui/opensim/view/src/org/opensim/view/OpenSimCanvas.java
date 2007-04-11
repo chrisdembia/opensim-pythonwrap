@@ -46,32 +46,41 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
      */
    public void mousePressed(MouseEvent e)
    {
-       int keyMods = e.getModifiers();
-       if (ViewDB.getInstance().isPicking() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
-          OpenSimObject obj = findObjectAt(lastX, lastY);
-          if ((keyMods & InputEvent.SHIFT_MASK) > 0) {
-             if (obj == null) {
-                // do nothing, a la Illustrator
-             } else {
-                ViewDB.getInstance().toggleAddSelectedObject(obj);
-             }
-          } else {
-             if (obj == null) {
-                ViewDB.getInstance().clearSelectedObjects();
-             } else {
-                ViewDB.getInstance().toggleSelectedObject(obj);
-             }
-          }
-       } else {
-          super.mousePressed(e);
-       }
-    }
- 
+      lastX = e.getX();
+      lastY = e.getY();
+
+      int keyMods = e.getModifiers();
+      OpenSimObject obj = findObjectAt(e.getX(), e.getY());
+      if (ViewDB.getInstance().isPicking() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
+         if ((keyMods & InputEvent.SHIFT_MASK) > 0) {
+            if (obj == null) {
+               // do nothing, a la Illustrator
+            } else {
+               ViewDB.getInstance().toggleAddSelectedObject(obj);
+            }
+         } else {
+            if (obj == null) {
+               ViewDB.getInstance().clearSelectedObjects();
+            } else {
+               ViewDB.getInstance().replaceSelectedObject(obj);
+            }
+         }
+      } else if ((keyMods & InputEvent.BUTTON1_MASK) > 0 && ViewDB.getInstance().isSelected(obj) == true) {
+         //System.out.println("dragging on");
+         ViewDB.getInstance().setDragging(true, obj);
+      } else {
+         super.mousePressed(e);
+      }
+   }
+
     public void mouseReleased(MouseEvent e)
     {
        int keyMods = e.getModifiers();
        if (ViewDB.getInstance().isPicking() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
           // do nothing; you're still in picking mode
+       } else if (ViewDB.getInstance().isDragging() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
+          //System.out.println("dragging off");
+          ViewDB.getInstance().setDragging(false, null);
        } else {
           super.mouseReleased(e);
        }
@@ -110,8 +119,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         vtkActor candidateActor=(vtkActor) asmNode.GetViewProp();
         int cellId = pPicker.GetCellId();
         obj = ViewDB.getInstance().getSelectedGlyphObject(cellId, candidateActor);
-        if (obj != null)
-               StatusDisplayer.getDefault().setStatusText(obj.getType()+":"+obj.getName());
+        //if (obj != null)
+               //StatusDisplayer.getDefault().setStatusText(obj.getType()+":"+obj.getName());
         // Get x,y,z, world for debugging
         /*
         vtkWorldPointPicker wpPicker=new vtkWorldPointPicker();
@@ -126,7 +135,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
      * Callback invoked when the user doubleclicks an object in the graphics window
      */
     void handleDoubleClick(MouseEvent evt) {
-       OpenSimObject obj = findObjectAt(lastX, lastY);
+       OpenSimObject obj = findObjectAt(evt.getX(), evt.getY());
        if (obj != null){
           ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(obj, ViewDB.getInstance().getCurrenWindow());
           editorDialog.process();
@@ -162,6 +171,29 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
       int keyMods = e.getModifiers();
       if (ViewDB.getInstance().isPicking() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
          // do nothing; you're still in picking mode
+         lastX = e.getX();
+         lastY = e.getY();
+      } else if (ViewDB.getInstance().isDragging() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
+         // drag the selected objects
+         double viewAngle = cam.GetViewAngle();
+         double aspectRatio = this.getWidth() / this.getHeight();
+         if (false) {
+            float x = e.getX();
+            float y = e.getY();
+            //ren.LocalDisplayToDisplay( x, y );
+            ren.SetDisplayPoint( x, y, 0 );
+            ren.DisplayToView( );
+            double displayPt[] = ren.GetDisplayPoint();
+            ren.SetViewPoint( displayPt );
+            ren.ViewToWorld( );
+            double worldPt[] = ren.GetWorldPoint();
+            System.out.println("displayPt = " + displayPt[0] + ", " + displayPt[1] + ", " + displayPt[2]);
+            System.out.println("worldPt = " + worldPt[0] + ", " + worldPt[1] + ", " + worldPt[2]);
+         }
+         ren.DisplayToWorld();
+         ViewDB.getInstance().dragSelectedObjects(lastX, e.getX(), lastY, e.getY());
+         lastX = e.getX();
+         lastY = e.getY();
       } else {
          super.mouseDragged(e);
       }

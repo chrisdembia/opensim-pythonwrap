@@ -40,11 +40,11 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.openide.windows.TopComponent;
-import org.opensim.modeling.AbstractMarker;
+import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.SimtkAnimationCallback;
-import org.opensim.modeling.VisibleProperties;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
 import vtk.AxesActor;
@@ -95,6 +95,8 @@ public final class ViewDB extends Observable implements Observer {
    private boolean axesDisplayed=false;
    
    private boolean picking = false;
+   private boolean dragging = false;
+   private double draggingZ = 0.0;
 
    /** Creates a new instance of ViewDB */
    private ViewDB() {
@@ -557,13 +559,16 @@ public final class ViewDB extends Observable implements Observer {
       }
    }
 
-   public void toggleSelectedObject(OpenSimObject selectedObject) {
-      // If the object is already in the list, remove it
-      if (removeObjectFromSelectedList(selectedObject) == false) {
-         // If the object is not already in the list of selected ones, make this
-         // object the only selected one
-         setSelectedObject(selectedObject);
+   public void replaceSelectedObject(OpenSimObject selectedObject) {
+      // If the object is already in the list of selected ones, do nothing (a la Illustrator)
+      for (int i = 0; i < selectedObjects.size(); i++) {
+         if (OpenSimObject.getCPtr(selectedObject) == OpenSimObject.getCPtr(selectedObjects.get(i))) {
+            return;
+         }
       }
+
+      // If the object is not already in the list, make this object the only selected one
+      setSelectedObject(selectedObject);
    }
 
    public void clearSelectedObjects() {
@@ -579,6 +584,14 @@ public final class ViewDB extends Observable implements Observer {
       statusDisplaySelectedObjects();
    }
 
+   public boolean isSelected(OpenSimObject obj) {
+      for (int i = 0; i < selectedObjects.size(); i++) {
+         if (OpenSimObject.getCPtr(obj) == OpenSimObject.getCPtr(selectedObjects.get(i))) {
+            return true;
+         }
+      }
+      return false;
+   }
    /**
     * Check if the name passed in is a valid name for a display window (no duplicates
     * for now, until a more restricted naming is needed
@@ -805,6 +818,49 @@ public final class ViewDB extends Observable implements Observer {
 
    public void setPicking(boolean picking) {
       this.picking = picking;
+      if (picking)
+         dragging = false;
+   }
+
+   public boolean isDragging() {
+      return dragging;
+   }
+
+   public void setDragging(boolean dragging, OpenSimObject obj) {
+      this.dragging = dragging;
+      if (dragging) {
+         //draggingZ
+         picking = false;
+      }
+   }
+
+   public void dragSelectedObjects(int oldX, int newX, int oldY, int newY) {
+      AbstractMuscle m = null;
+      for (int i = 0; i < selectedObjects.size(); i++) {
+         OpenSimObject obj = selectedObjects.get(i);
+         MusclePoint mp = MusclePoint.safeDownCast(obj);
+         if (mp != null) {
+            double value = mp.getAttachment().getitem(0);
+            if (newX > oldX)
+               value += 0.003;
+            else
+               value -= 0.003;
+            mp.setAttachment(0, value);
+            // tell the ViewDB to redraw the model
+            Model model = mp.getMuscle().getModel();
+            m = mp.getMuscle();
+            SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+            //vis.updateModelDisplay(model);
+            vis.updateActuatorGeometry(m, true);
+            ViewDB.getInstance().repaintAll();
+            // update the current path panel
+            //setupCurrentPathPanel(m);
+         }
+      }
+      if (m != null) {
+         //System.out.println("mouse: " + oldX + " " + newX + " " + oldY + " " + newY);
+         //System.out.println("muscle length = " + m.getLength());
+      }
    }
 
    private void lockDrawingSurfaces(boolean toLock) {

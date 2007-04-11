@@ -1180,7 +1180,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "S:/OpenSimMar22/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
+#include "C:/SimTK/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel) : OpenSim::SimtkAnimationCallback(aModel), Swig::Director(jenv) {
 }
@@ -45360,6 +45360,21 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1s
 }
 
 
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1getMuscle(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
+  OpenSim::AbstractMuscle *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MusclePoint **)&jarg1; 
+  result = (OpenSim::AbstractMuscle *)((OpenSim::MusclePoint const *)arg1)->getMuscle();
+  *(OpenSim::AbstractMuscle **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1isActive(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jboolean jresult = 0 ;
   OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
@@ -45608,6 +45623,24 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleViaPoin
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleViaPoint_1setCoordinate(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::MuscleViaPoint *arg1 = (OpenSim::MuscleViaPoint *) 0 ;
+  OpenSim::AbstractCoordinate *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::MuscleViaPoint **)&jarg1; 
+  arg2 = *(OpenSim::AbstractCoordinate **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractCoordinate & reference is null");
+    return ;
+  } 
+  (arg1)->setCoordinate(*arg2);
+}
+
+
 SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleViaPoint_1getCoordinateName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   OpenSim::MuscleViaPoint *arg1 = (OpenSim::MuscleViaPoint *) 0 ;
@@ -45623,6 +45656,32 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleViaPo
   }
   jresult = jenv->NewStringUTF(result->c_str()); 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleViaPoint_1setRangeMin(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+  OpenSim::MuscleViaPoint *arg1 = (OpenSim::MuscleViaPoint *) 0 ;
+  double arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MuscleViaPoint **)&jarg1; 
+  arg2 = (double)jarg2; 
+  (arg1)->setRangeMin(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleViaPoint_1setRangeMax(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+  OpenSim::MuscleViaPoint *arg1 = (OpenSim::MuscleViaPoint *) 0 ;
+  double arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MuscleViaPoint **)&jarg1; 
+  arg2 = (double)jarg2; 
+  (arg1)->setRangeMax(arg2);
 }
 
 

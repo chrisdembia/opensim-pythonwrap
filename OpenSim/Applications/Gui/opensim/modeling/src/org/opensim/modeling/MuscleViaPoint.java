@@ -59,8 +59,20 @@ public class MuscleViaPoint extends MusclePoint {
     return (cPtr == 0) ? null : new AbstractCoordinate(cPtr, false);
   }
 
+  public void setCoordinate(AbstractCoordinate aCoordinate) {
+    opensimModelJNI.MuscleViaPoint_setCoordinate(swigCPtr, this, AbstractCoordinate.getCPtr(aCoordinate), aCoordinate);
+  }
+
   public String getCoordinateName() {
     return opensimModelJNI.MuscleViaPoint_getCoordinateName(swigCPtr, this);
+  }
+
+  public void setRangeMin(double aMin) {
+    opensimModelJNI.MuscleViaPoint_setRangeMin(swigCPtr, this, aMin);
+  }
+
+  public void setRangeMax(double aMax) {
+    opensimModelJNI.MuscleViaPoint_setRangeMax(swigCPtr, this, aMax);
   }
 
   public boolean isActive() {

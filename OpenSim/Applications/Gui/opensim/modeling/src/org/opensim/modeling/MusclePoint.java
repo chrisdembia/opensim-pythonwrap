@@ -79,6 +79,11 @@ public class MusclePoint extends OpenSimObject {
     opensimModelJNI.MusclePoint_scale(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
   }
 
+  public AbstractMuscle getMuscle() {
+    long cPtr = opensimModelJNI.MusclePoint_getMuscle(swigCPtr, this);
+    return (cPtr == 0) ? null : new AbstractMuscle(cPtr, false);
+  }
+
   public boolean isActive() {
     return opensimModelJNI.MusclePoint_isActive(swigCPtr, this);
   }

@@ -42,42 +42,41 @@ import vtk.vtkPanel;
  *
  * @author Ayman Habib
  *
- * Base class for the Canvas to collect all the properties to be shared by OpenSim based 
+ * Base class for the Canvas to collect all the properties to be shared by OpenSim based
  * applications and to enforce behvior (e.g colors, camera, mouse interaction) that's not specific
  * to OpenSim's Top Gui Application.
  */
-public class OpenSimBaseCanvas extends vtkPanel 
+public class OpenSimBaseCanvas extends vtkPanel
         implements KeyListener {
-    
-    String defaultBackgroundColor="0.15, 0.15, 0.15";
-    int    numAAFrames=0;
-    JPopupMenu settingsMenu = new JPopupMenu();
-    CamerasMenu camerasMenu;
-    
-    // Enable opoups to display on top of heavy weight component/canvas
-    static {
-     JPopupMenu.setDefaultLightWeightPopupEnabled(false);
-     javax.swing.ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);     
-    }
-    /** Creates a new instance of OpenSimBaseCanvas */
-    public OpenSimBaseCanvas() {
-         defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBackgroundColor);
-         double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);
-         GetRenderer().SetBackground(background);
-         createSettingsMenu();
-         camerasMenu = new CamerasMenu(this);
-         addKeyListener(this);
-         // AntiAliasing
-          int desiredAAFrames = Preferences.userNodeForPackage(TheApp.class).getInt("AntiAliasingFrames", numAAFrames);
-          if (desiredAAFrames >=0 && desiredAAFrames<=10){
-             numAAFrames=desiredAAFrames;
-          }
-          GetRenderWindow().SetAAFrames(numAAFrames);
-         
-    }
-
-   public void mousePressed(MouseEvent e)
-   {
+   
+   String defaultBackgroundColor="0.15, 0.15, 0.15";
+   int    numAAFrames=0;
+   JPopupMenu settingsMenu = new JPopupMenu();
+   CamerasMenu camerasMenu;
+   
+   // Enable opoups to display on top of heavy weight component/canvas
+   static {
+      JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+      javax.swing.ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
+   }
+   /** Creates a new instance of OpenSimBaseCanvas */
+   public OpenSimBaseCanvas() {
+      defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBackgroundColor);
+      double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);
+      GetRenderer().SetBackground(background);
+      createSettingsMenu();
+      camerasMenu = new CamerasMenu(this);
+      addKeyListener(this);
+      // AntiAliasing
+      int desiredAAFrames = Preferences.userNodeForPackage(TheApp.class).getInt("AntiAliasingFrames", numAAFrames);
+      if (desiredAAFrames >=0 && desiredAAFrames<=10){
+         numAAFrames=desiredAAFrames;
+      }
+      GetRenderWindow().SetAAFrames(numAAFrames);
+      
+   }
+   
+   public void mousePressed(MouseEvent e) {
       // Show popup if right mouse and Shift key, otherwise pass along to super implementation
       if ((e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK))) {
          settingsMenu.show(this, e.getX(), e.getY());
@@ -85,105 +84,91 @@ public class OpenSimBaseCanvas extends vtkPanel
          super.mousePressed(e);
       }
    }
-
-   public void mouseDragged(MouseEvent e)
-   {
+   
+   public void mouseDragged(MouseEvent e) {
       // do nothing (handled by settingsMenu) if right mouse and Shift, otherwise pass along to super implementation
       if ((e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK))) {
       } else {
          super.mouseDragged(e);
       }
    }
-
-  public void createSettingsMenu()
-  {
+   
+   public void createSettingsMenu() {
       settingsMenu = new JPopupMenu();
       /** This should work and is more netBeans like style, but somehow fails to find Actions
        * possibly because of layer file issues*/
-        try {
-            
-            settingsMenu.add((ModifyWindowSettingsAction) (ModifyWindowSettingsAction.findObject(
-                              Class.forName("org.opensim.view.base.ModifyWindowSettingsAction"), true)));
-            settingsMenu.add((ToggleAxesAction) ToggleAxesAction.findObject(
-                            Class.forName("org.opensim.view.base.ToggleAxesAction"), true));
-       } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
+      try {
+         
+         settingsMenu.add((ModifyWindowSettingsAction) (ModifyWindowSettingsAction.findObject(
+                 Class.forName("org.opensim.view.base.ModifyWindowSettingsAction"), true)));
+         settingsMenu.add((ToggleAxesAction) ToggleAxesAction.findObject(
+                 Class.forName("org.opensim.view.base.ToggleAxesAction"), true));
+      } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+      }
        /*
       settingsMenu.add(new ModifyWindowSettingsAction());
       settingsMenu.add(new ToggleAxesAction());
         **/
-  }
-
-  public JPopupMenu getMenu()
-    {
-        return settingsMenu;
-    }
-    /**
-     * Handle keys for default cameras, otherwise pass on to super
-     * to get default vtkPanel behavior.
-     */
-      public void keyPressed(KeyEvent e)
-      {
-        char keyChar = e.getKeyChar();
-
-        if ('x' == keyChar)
-          {
+   }
+   
+   public JPopupMenu getMenu() {
+      return settingsMenu;
+   }
+   /**
+    * Handle keys for default cameras, otherwise pass on to super
+    * to get default vtkPanel behavior.
+    */
+   public void keyPressed(KeyEvent e) {
+      char keyChar = e.getKeyChar();
+      
+      if ('x' == keyChar) {
          applyCameraX();
-          }
-        else if ('y' == keyChar)
-          {
-            applyCameraY();   
-          }
-        else if ('z' == keyChar)
-          {
-               applyCameraZ();
-          }
-        else if ('i' == keyChar)
-        {
-           GetRenderer().GetActiveCamera().Zoom(1.1);
-           repaint();
-        }
-        else if ('o' == keyChar)
-        {
-           GetRenderer().GetActiveCamera().Zoom(0.9);
-           repaint();
-        }
-        super.keyPressed(e);
+      } else if ('y' == keyChar) {
+         applyCameraY();
+      } else if ('z' == keyChar) {
+         applyCameraZ();
+      } else if ('i' == keyChar) {
+         GetRenderer().GetActiveCamera().Zoom(1.1);
+         repaint();
+      } else if ('o' == keyChar) {
+         GetRenderer().GetActiveCamera().Zoom(0.9);
+         repaint();
       }
-
-   public void applyCameraY() { 
+      super.keyPressed(e);
+   }
+   
+   public void applyCameraY() {
       applyCamera(camerasMenu.pickStandardCamera("Top"));
    }
-
+   
    public void applyCameraZ() {
       applyCamera(camerasMenu.pickStandardCamera("Side"));
    }
-
+   
    public void applyCameraX() {
       applyCamera(camerasMenu.pickStandardCamera("Front"));
    }
+   
+   /**
+    * A method to apply a prespecified Camera (selectedCamera) to the current Canvas
+    */
+   public void applyCamera(vtkCamera selectedCamera) {
+      vtkCamera currentCamera = GetRenderer().GetActiveCamera();
+      currentCamera.SetPosition(selectedCamera.GetPosition());
+      currentCamera.SetFocalPoint(selectedCamera.GetFocalPoint());
+      currentCamera.SetViewAngle(selectedCamera.GetViewAngle());
+      currentCamera.SetDistance(selectedCamera.GetDistance());
+      currentCamera.SetClippingRange(selectedCamera.GetClippingRange());
+      currentCamera.SetViewUp(selectedCamera.GetViewUp());
+      currentCamera.SetParallelScale(selectedCamera.GetParallelScale());
       
-      /**
-       * A method to apply a prespecified Camera (selectedCamera) to the current Canvas
-       */
-      public void applyCamera(vtkCamera selectedCamera)
-      {
-        vtkCamera currentCamera = GetRenderer().GetActiveCamera();
-        currentCamera.SetPosition(selectedCamera.GetPosition());
-        currentCamera.SetFocalPoint(selectedCamera.GetFocalPoint());
-        currentCamera.SetViewAngle(selectedCamera.GetViewAngle());
-        currentCamera.SetDistance(selectedCamera.GetDistance());
-        currentCamera.SetClippingRange(selectedCamera.GetClippingRange());
-        currentCamera.SetViewUp(selectedCamera.GetViewUp());
-        currentCamera.SetParallelScale(selectedCamera.GetParallelScale());
-
-        vtkLightCollection lights = GetRenderer().GetLights();
-        lights.RemoveAllItems();
-        GetRenderer().CreateLight();
-        GetRenderer().ResetCamera();
-        //GetRenderer().Render();
-        repaint();
-      }
-
+      vtkLightCollection lights = GetRenderer().GetLights();
+      lights.RemoveAllItems();
+      GetRenderer().CreateLight();
+      GetRenderer().ResetCamera();
+      //GetRenderer().Render();
+      repaint();
+   }
+   
 }

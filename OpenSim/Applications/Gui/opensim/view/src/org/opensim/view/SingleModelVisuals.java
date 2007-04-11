@@ -596,64 +596,70 @@ public class SingleModelVisuals {
     * Update display of muscles and forces if any during playing back animation/motion, ..
     */
    private void updateActuatorsGeometry(ActuatorSet acts, boolean callUpdateGeometry) {
+      for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
+         updateActuatorGeometry(acts.get(actNumber), callUpdateGeometry);
+      }
+      //getMuscleSegmentsRep().setModified();
+      //getMusclePointsRep().setModified();
+   }
+
+   public void updateActuatorGeometry(AbstractActuator act, boolean callUpdateGeometry) {
       double[] axis = new double[]{0.0, 0.0, 0.0};
       double[] center = new double[]{0.0, 0.0, 0.0};
-      for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
-         AbstractActuator nextMuscle = acts.get(actNumber);
-         if(callUpdateGeometry) nextMuscle.updateGeometry();
-         // Get attachments and connect them
-         VisibleObject actuatorDisplayer = nextMuscle.getDisplayer();
-         if (actuatorDisplayer == null){
-            continue;
-         }
-         
-         // A displayer is found, get geometry
-         int geomSize = actuatorDisplayer.countGeometry();
-         Vector<Integer> segmentGlyphIds = mapActuator2SegmentGlyphIds.get(nextMuscle);
-         Vector<Integer> pointGlyphIds = mapActuator2PointGlyphIds.get(nextMuscle);
-
-         updateActuatorGlyphIds(segmentGlyphIds, pointGlyphIds, geomSize);         
-
-         double[] position1 = new double[3];
-         double[] position2 = new double[3];
-         if (geomSize > 0){
-            // Points are already in inertial frame
-            for(int i=0; i<geomSize; i++) {
-               Geometry geomEntry = actuatorDisplayer.getGeometry(i);
-               LineGeometry geomLine = LineGeometry.dynamic_cast(geomEntry);
-               geomLine.getPoints(position1, position2);
-               
-               for(int d=0; d <3; d++){
-                  axis[d]=position1[d]-position2[d];
-                  center[d] = (position1[d]+position2[d])/2.0;
-               }
-               // Create a cylinder connecting position1, position2
-              double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
-              double length = normalizeAndGetLength(axis);
-              vtkMatrix4x4 xform = getCylinderTransform(axis, center) ;
-              int idx = segmentGlyphIds.get(i).intValue();
-              getMuscleSegmentsRep().setLocation(idx, center);
-              getMuscleSegmentsRep().setTensorDataAtLocation(idx, 
-                      xform.GetElement(0, 0), xform.GetElement(1, 0), xform.GetElement(2, 0),
-                      length*xform.GetElement(0, 1), length*xform.GetElement(1, 1), length*xform.GetElement(2, 1),
-                      xform.GetElement(0, 2), xform.GetElement(1, 2), xform.GetElement(2, 2)
-                      );
-
-              // Draw muscle point at position1 of segment, and if this is the last segment also at position2
-              int pointIdx = pointGlyphIds.get(i).intValue();
-              getMusclePointsRep().setLocation(pointIdx, position1);
-              if(i==geomSize-1) {
-                  pointIdx = pointGlyphIds.get(i+1).intValue();
-                  getMusclePointsRep().setLocation(pointIdx, position2);
-              }
-            } // Attachments
-         } // ArraySize        
+      if(callUpdateGeometry) act.updateGeometry();
+      // Get attachments and connect them
+      VisibleObject actuatorDisplayer = act.getDisplayer();
+      if (actuatorDisplayer == null){
+         return;
       }
+         
+      // A displayer is found, get geometry
+      int geomSize = actuatorDisplayer.countGeometry();
+      Vector<Integer> segmentGlyphIds = mapActuator2SegmentGlyphIds.get(act);
+      Vector<Integer> pointGlyphIds = mapActuator2PointGlyphIds.get(act);
+
+      updateActuatorGlyphIds(segmentGlyphIds, pointGlyphIds, geomSize);         
+
+      double[] position1 = new double[3];
+      double[] position2 = new double[3];
+      if (geomSize > 0){
+         // Points are already in inertial frame
+         for(int i=0; i<geomSize; i++) {
+            Geometry geomEntry = actuatorDisplayer.getGeometry(i);
+            LineGeometry geomLine = LineGeometry.dynamic_cast(geomEntry);
+            geomLine.getPoints(position1, position2);
+               
+            for(int d=0; d <3; d++){
+               axis[d]=position1[d]-position2[d];
+               center[d] = (position1[d]+position2[d])/2.0;
+            }
+            // Create a cylinder connecting position1, position2
+           double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
+           double length = normalizeAndGetLength(axis);
+           vtkMatrix4x4 xform = getCylinderTransform(axis, center) ;
+           int idx = segmentGlyphIds.get(i).intValue();
+           getMuscleSegmentsRep().setLocation(idx, center);
+           getMuscleSegmentsRep().setTensorDataAtLocation(idx, 
+                   xform.GetElement(0, 0), xform.GetElement(1, 0), xform.GetElement(2, 0),
+                   length*xform.GetElement(0, 1), length*xform.GetElement(1, 1), length*xform.GetElement(2, 1),
+                   xform.GetElement(0, 2), xform.GetElement(1, 2), xform.GetElement(2, 2)
+                   );
+
+           // Draw muscle point at position1 of segment, and if this is the last segment also at position2
+           int pointIdx = pointGlyphIds.get(i).intValue();
+           getMusclePointsRep().setLocation(pointIdx, position1);
+           if(i==geomSize-1) {
+               pointIdx = pointGlyphIds.get(i+1).intValue();
+               getMusclePointsRep().setLocation(pointIdx, position2);
+           }
+         }
+      }   
+
       getMuscleSegmentsRep().setModified();
       getMusclePointsRep().setModified();
    }
 
-   private void updateActuatorsGeometry(Model mdl) {
+   public void updateActuatorsGeometry(Model mdl) {
       updateActuatorsGeometry(mdl.getActuatorSet(), true);
    }
 

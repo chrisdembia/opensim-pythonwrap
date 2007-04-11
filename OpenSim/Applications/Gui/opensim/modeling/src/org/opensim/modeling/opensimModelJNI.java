@@ -12,8 +12,8 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("osimJavaJNI");		// All OpenSim classes required for GUI operation.
-        System.loadLibrary("osimSdfastEngine");	//to load sdfast based models
+        System.loadLibrary("osimJavaJNI_d");		// All OpenSim classes required for GUI operation.
+        System.loadLibrary("osimSdfastEngine_d");	//to load sdfast based models
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic library osimJavaJNI is in your PATH\n"+e);
@@ -2453,6 +2453,7 @@ public class opensimModelJNI {
   public final static native void MusclePoint_setBody(long jarg1, MusclePoint jarg1_, long jarg2, AbstractBody jarg2_);
   public final static native String MusclePoint_getBodyName(long jarg1, MusclePoint jarg1_);
   public final static native void MusclePoint_scale(long jarg1, MusclePoint jarg1_, long jarg2, ArrayDouble jarg2_);
+  public final static native long MusclePoint_getMuscle(long jarg1, MusclePoint jarg1_);
   public final static native boolean MusclePoint_isActive(long jarg1, MusclePoint jarg1_);
   public final static native long MusclePoint_getWrapObject(long jarg1, MusclePoint jarg1_);
   public final static native void MusclePoint_setup(long jarg1, MusclePoint jarg1_, long jarg2, Model jarg2_, long jarg3, AbstractMuscle jarg3_);
@@ -2469,7 +2470,10 @@ public class opensimModelJNI {
   public final static native void MuscleViaPoint_copyData(long jarg1, MuscleViaPoint jarg1_, long jarg2, MuscleViaPoint jarg2_);
   public final static native long MuscleViaPoint_getRange(long jarg1, MuscleViaPoint jarg1_);
   public final static native long MuscleViaPoint_getCoordinate(long jarg1, MuscleViaPoint jarg1_);
+  public final static native void MuscleViaPoint_setCoordinate(long jarg1, MuscleViaPoint jarg1_, long jarg2, AbstractCoordinate jarg2_);
   public final static native String MuscleViaPoint_getCoordinateName(long jarg1, MuscleViaPoint jarg1_);
+  public final static native void MuscleViaPoint_setRangeMin(long jarg1, MuscleViaPoint jarg1_, double jarg2);
+  public final static native void MuscleViaPoint_setRangeMax(long jarg1, MuscleViaPoint jarg1_, double jarg2);
   public final static native boolean MuscleViaPoint_isActive(long jarg1, MuscleViaPoint jarg1_);
   public final static native void MuscleViaPoint_setup(long jarg1, MuscleViaPoint jarg1_, long jarg2, Model jarg2_, long jarg3, AbstractMuscle jarg3_);
   public final static native void MuscleViaPoint_peteTest(long jarg1, MuscleViaPoint jarg1_);
