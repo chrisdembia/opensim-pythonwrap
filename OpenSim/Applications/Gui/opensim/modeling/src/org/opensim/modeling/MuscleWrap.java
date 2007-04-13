@@ -58,8 +58,16 @@ public class MuscleWrap extends OpenSimObject {
     return opensimModelJNI.MuscleWrap_getStartPoint(swigCPtr, this);
   }
 
+  public void setStartPoint(int aIndex) {
+    opensimModelJNI.MuscleWrap_setStartPoint(swigCPtr, this, aIndex);
+  }
+
   public int getEndPoint() {
     return opensimModelJNI.MuscleWrap_getEndPoint(swigCPtr, this);
+  }
+
+  public void setEndPoint(int aIndex) {
+    opensimModelJNI.MuscleWrap_setEndPoint(swigCPtr, this, aIndex);
   }
 
   public String getWrapObjectName() {
@@ -81,6 +89,11 @@ public class MuscleWrap extends OpenSimObject {
 
   public String getMethodName() {
     return opensimModelJNI.MuscleWrap_getMethodName(swigCPtr, this);
+  }
+
+  public AbstractMuscle getMuscle() {
+    long cPtr = opensimModelJNI.MuscleWrap_getMuscle(swigCPtr, this);
+    return (cPtr == 0) ? null : new AbstractMuscle(cPtr, false);
   }
 
   public SWIGTYPE_p_OpenSim__WrapResult getPreviousWrap() {

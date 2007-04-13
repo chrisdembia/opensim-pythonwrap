@@ -31,7 +31,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.util.prefs.Preferences;
 import javax.swing.JPopupMenu;
-import org.openide.util.NbBundle;
 import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
 import vtk.vtkCamera;

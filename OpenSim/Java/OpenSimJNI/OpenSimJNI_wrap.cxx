@@ -34437,6 +34437,19 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1ge
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1setStartPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  OpenSim::MuscleWrap *arg1 = (OpenSim::MuscleWrap *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MuscleWrap **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setStartPoint(arg2);
+}
+
+
 SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1getEndPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
   OpenSim::MuscleWrap *arg1 = (OpenSim::MuscleWrap *) 0 ;
@@ -34449,6 +34462,19 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1ge
   result = (int)((OpenSim::MuscleWrap const *)arg1)->getEndPoint();
   jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1setEndPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  OpenSim::MuscleWrap *arg1 = (OpenSim::MuscleWrap *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MuscleWrap **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setEndPoint(arg2);
 }
 
 
@@ -34534,6 +34560,21 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_
     result = (std::string *) &_result_ref;
   }
   jresult = jenv->NewStringUTF(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1getMuscle(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::MuscleWrap *arg1 = (OpenSim::MuscleWrap *) 0 ;
+  OpenSim::AbstractMuscle *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MuscleWrap **)&jarg1; 
+  result = (OpenSim::AbstractMuscle *)((OpenSim::MuscleWrap const *)arg1)->getMuscle();
+  *(OpenSim::AbstractMuscle **)&jresult = result; 
   return jresult;
 }
 

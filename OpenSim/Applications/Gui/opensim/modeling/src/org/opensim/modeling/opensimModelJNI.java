@@ -1861,12 +1861,15 @@ public class opensimModelJNI {
   public final static native void MuscleWrap_copyData(long jarg1, MuscleWrap jarg1_, long jarg2, MuscleWrap jarg2_);
   public final static native void MuscleWrap_setup(long jarg1, MuscleWrap jarg1_, long jarg2, AbstractDynamicsEngine jarg2_, long jarg3, AbstractMuscle jarg3_);
   public final static native int MuscleWrap_getStartPoint(long jarg1, MuscleWrap jarg1_);
+  public final static native void MuscleWrap_setStartPoint(long jarg1, MuscleWrap jarg1_, int jarg2);
   public final static native int MuscleWrap_getEndPoint(long jarg1, MuscleWrap jarg1_);
+  public final static native void MuscleWrap_setEndPoint(long jarg1, MuscleWrap jarg1_, int jarg2);
   public final static native String MuscleWrap_getWrapObjectName(long jarg1, MuscleWrap jarg1_);
   public final static native long MuscleWrap_getWrapObject(long jarg1, MuscleWrap jarg1_);
   public final static native long MuscleWrap_getWrapPoint(long jarg1, MuscleWrap jarg1_, int jarg2);
   public final static native int MuscleWrap_getMethod(long jarg1, MuscleWrap jarg1_);
   public final static native String MuscleWrap_getMethodName(long jarg1, MuscleWrap jarg1_);
+  public final static native long MuscleWrap_getMuscle(long jarg1, MuscleWrap jarg1_);
   public final static native long MuscleWrap_getPreviousWrap(long jarg1, MuscleWrap jarg1_);
   public final static native void MuscleWrap_setPreviousWrap(long jarg1, MuscleWrap jarg1_, long jarg2);
   public final static native void MuscleWrap_resetPreviousWrap(long jarg1, MuscleWrap jarg1_);

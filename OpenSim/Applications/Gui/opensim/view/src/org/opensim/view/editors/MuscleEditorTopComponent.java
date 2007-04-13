@@ -21,10 +21,12 @@ import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
+import org.opensim.modeling.AbstractDynamicsEngine;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.AbstractWrapObject;
 import org.opensim.modeling.ArrayPtrsPropertyGroup;
 import org.opensim.modeling.CoordinateSet;
+import org.opensim.modeling.MuscleWrap;
 import org.opensim.modeling.PropertyGroup;
 import org.opensim.modeling.MusclePointSet;
 import org.opensim.modeling.MuscleViaPoint;
@@ -39,7 +41,9 @@ import org.opensim.modeling.ArrayMusclePoint;
 import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.MusclePoint;
+import org.opensim.modeling.MuscleWrapSet;
 import org.opensim.view.ClearSelectedObjectsEvent;
+import org.opensim.view.DragObjectsEvent;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.NameChangedEvent;
 import org.opensim.view.ObjectSelectedEvent;
@@ -219,7 +223,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
       // tell the ViewDB to redraw the model
       Model model = asm.getModel();
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-      vis.updateModelDisplay(model);
+      vis.updateActuatorGeometry(asm, true);
       ViewDB.getInstance().repaintAll();
    }//GEN-LAST:event_ResetButtonActionPerformed
    
@@ -292,7 +296,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          // tell the ViewDB to redraw the model
          Model model = asm.getModel();
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-         vis.updateModelDisplay(model);
+         vis.updateActuatorGeometry(asm, true);
          ViewDB.getInstance().repaintAll();
          // update the current path panel
          setupCurrentPathPanel(asm);
@@ -310,7 +314,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          musclePoints.get(attachmentNum).setBody(newBody);
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-         vis.updateModelDisplay(model);
+         vis.updateActuatorGeometry(asm, true);
          ViewDB.getInstance().repaintAll();
          // update the current path panel
          setupCurrentPathPanel(asm);
@@ -359,7 +363,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          ParametersTabbedPanel.setSelectedComponent(AttachmentsTab);
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-         vis.updateModelDisplay(model);
+         vis.updateActuatorGeometry(asm, true);
          ViewDB.getInstance().repaintAll();
          // update the current path panel
          setupCurrentPathPanel(asm);
@@ -392,7 +396,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
             // tell the ViewDB to redraw the model
             Model model = asm.getModel();
             SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-            vis.updateModelDisplay(model);
+            vis.updateActuatorGeometry(asm, true);
             ViewDB.getInstance().repaintAll();
             // update the current path panel
             setupCurrentPathPanel(asm);
@@ -426,11 +430,29 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
             // tell the ViewDB to redraw the model
             Model model = asm.getModel();
             SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-            vis.updateModelDisplay(model);
+            vis.updateActuatorGeometry(asm, true);
             ViewDB.getInstance().repaintAll();
             // update the current path panel
             setupCurrentPathPanel(asm);
          }
+      }
+   }
+
+   public void WrapStartChosen(javax.swing.JComboBox wrapStartComboBox, int wrapNum) {
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
+      MusclePointSet musclePoints = asm.getAttachmentSet();
+      MuscleWrap mw = asm.getWrapSet().get(wrapNum);
+      int oldStartPt = mw.getStartPoint();
+      int newStartPt = 1;
+      if (newStartPt != oldStartPt) {
+         mw.setStartPoint(newStartPt);
+         Model model = asm.getModel();
+         // tell the ViewDB to redraw the model
+         SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+         vis.updateActuatorGeometry(asm, true);
+         ViewDB.getInstance().repaintAll();
+         // update the current path panel
+         setupCurrentPathPanel(asm);
       }
    }
 
@@ -467,7 +489,7 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          }
       }
    }
-   
+
    public void addAttachmentPerformed(int menuChoice) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
       MusclePointSet musclePoints = asm.getAttachmentSet();
@@ -477,14 +499,22 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
       MusclePoint closestPoint = musclePoints.get(index);
       asm.addAttachmentPoint(menuChoice, closestPoint.getBody());
       setupComponent(act);
+      Model model = asm.getModel();
+      SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+      vis.updateActuatorGeometry(asm, true);
+      ViewDB.getInstance().repaintAll();
    }
-   
+
    public void deleteAttachmentPerformed(int menuChoice) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
       asm.deleteAttachmentPoint(menuChoice);
       setupComponent(act);
+      Model model = asm.getModel();
+      SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+      vis.updateActuatorGeometry(asm, true);
+      ViewDB.getInstance().repaintAll();
    }
-   
+
    public void componentOpened() {
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
       OneMuscleNode muscleNode = (OneMuscleNode) selected[0];
@@ -1210,6 +1240,8 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
                   this.repaint();
                }
             }
+         } else if (arg instanceof DragObjectsEvent) {
+            dragMusclePoints((DragObjectsEvent)arg);
          }
       }
    }
@@ -1229,7 +1261,39 @@ final class MuscleEditorTopComponent extends TopComponent implements Observer {
          }
       }
    }
-   
+
+   private void dragMusclePoints(DragObjectsEvent ev) {
+      ArrayList<OpenSimObject> selectedObjects = ViewDB.getInstance().getSelectedObjects();
+      AbstractMuscle m = null;
+      for (int i = 0; i < selectedObjects.size(); i++) {
+         OpenSimObject obj = selectedObjects.get(i);
+         MusclePoint mp = MusclePoint.safeDownCast(obj);
+         if (mp != null) {
+            double value = mp.getAttachment().getitem(0);
+            AbstractDynamicsEngine engine = mp.getMuscle().getModel().getDynamicsEngine();
+            AbstractBody body = mp.getBody();
+            AbstractBody ground = engine.getGroundBody();
+            double dragVectorBody[] = new double[3];
+            engine.transform(ground, ev.getDragVector(), body, dragVectorBody);
+            System.out.println("drag: " + ev.getDragVector()[0] + " " + ev.getDragVector()[1] + " " + ev.getDragVector()[2]);
+            mp.setAttachment(0, mp.getAttachment().getitem(0) + dragVectorBody[0]);
+            mp.setAttachment(1, mp.getAttachment().getitem(1) + dragVectorBody[1]);
+            mp.setAttachment(2, mp.getAttachment().getitem(2) + dragVectorBody[2]);
+            // tell the ViewDB to redraw the model
+            m = mp.getMuscle();
+            SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(m.getModel());
+            vis.updateActuatorGeometry(m, true);
+            ViewDB.getInstance().repaintAll();
+            // update the panels
+            //setupComponent(m);
+         }
+      }
+      // If m is not null, then at least one selected object is a muscle point
+      // (that was just dragged). So redraw the model.
+      if (m != null)
+         ViewDB.getInstance().repaintAll();
+   }
+
    final static class ResolvableHelper implements Serializable {
       private static final long serialVersionUID = 1L;
       public Object readResolve() {

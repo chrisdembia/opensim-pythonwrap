@@ -40,11 +40,8 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.openide.windows.TopComponent;
-import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
 import vtk.AxesActor;
@@ -829,38 +826,16 @@ public final class ViewDB extends Observable implements Observer {
    public void setDragging(boolean dragging, OpenSimObject obj) {
       this.dragging = dragging;
       if (dragging) {
-         //draggingZ
+         // obj not currently used, but it points to the object that was
+         // clicked on to initiate dragging
          picking = false;
       }
    }
 
-   public void dragSelectedObjects(int oldX, int newX, int oldY, int newY) {
-      AbstractMuscle m = null;
-      for (int i = 0; i < selectedObjects.size(); i++) {
-         OpenSimObject obj = selectedObjects.get(i);
-         MusclePoint mp = MusclePoint.safeDownCast(obj);
-         if (mp != null) {
-            double value = mp.getAttachment().getitem(0);
-            if (newX > oldX)
-               value += 0.003;
-            else
-               value -= 0.003;
-            mp.setAttachment(0, value);
-            // tell the ViewDB to redraw the model
-            Model model = mp.getMuscle().getModel();
-            m = mp.getMuscle();
-            SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-            //vis.updateModelDisplay(model);
-            vis.updateActuatorGeometry(m, true);
-            ViewDB.getInstance().repaintAll();
-            // update the current path panel
-            //setupCurrentPathPanel(m);
-         }
-      }
-      if (m != null) {
-         //System.out.println("mouse: " + oldX + " " + newX + " " + oldY + " " + newY);
-         //System.out.println("muscle length = " + m.getLength());
-      }
+   public void dragSelectedObjects(OpenSimObject clickedObject, double dragVector[]) {
+      DragObjectsEvent evnt = new DragObjectsEvent(clickedObject, dragVector);
+      setChanged();
+      notifyObservers(evnt);
    }
 
    private void lockDrawingSurfaces(boolean toLock) {
