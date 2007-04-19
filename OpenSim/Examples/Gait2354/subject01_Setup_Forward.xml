@@ -67,6 +67,11 @@
 				    not.-->
 				<in_degrees> true </in_degrees>
 			</BodyKinematics>
+			<MuscleAnalysis name="MuscleAnalysis">
+				<on> true </on>
+				<step_interval> 1 </step_interval>
+				<in_degrees> true </in_degrees>
+			</MuscleAnalysis>
 		</objects>
 	</AnalysisSet>
 	<!--XML file containing the controls (e.g., muscle excitations) for the
