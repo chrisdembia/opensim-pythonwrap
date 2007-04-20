@@ -90,6 +90,92 @@
 	</defaults>
 	<angle_units> radians </angle_units>
 	<ActuatorSet>
+	<groups>
+		<ObjectGroup name="R_hip_abd">
+			<members>glut_max1_r glut_med1_r glut_med2_r glut_med3_r peri_r sar_r tfl_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_hip_flex">
+			<members>glut_med1_r grac_r iliacus_r pect_r psoas_r rect_fem_r sar_r tfl_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_hip_inrot">
+			<members>glut_med1_r iliacus_r psoas_r tfl_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_hip_exrot">
+			<members>gem_r glut_med3_r peri_r quad_fem_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_hip_ext">
+			<members>add_mag2_r bifemlh_r glut_max1_r glut_max2_r glut_max3_r glut_med3_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_hip_add">
+			<members>add_mag2_r bifemlh_r grac_r pect_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_knee_bend">
+			<members>bifemlh_r bifemsh_r grac_r med_gas_r sar_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_knee_ext">
+			<members>rect_fem_r vas_int_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_ankle_pf">
+			<members>med_gas_r soleus_r tib_post_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_inverter">
+			<members>tib_ant_r tib_post_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_ankle_df">
+			<members>tib_ant_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_abd">
+			<members>glut_max1_l glut_med1_l glut_med2_l glut_med3_l peri_l sar_l tfl_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_flex">
+			<members>glut_med1_l grac_l iliacus_l pect_l psoas_l rect_fem_l sar_l tfl_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_inrot">
+			<members>glut_med1_l iliacus_l psoas_l tfl_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_exrot">
+			<members>gem_l glut_med3_l peri_l quad_fem_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_ext">
+			<members>add_mag2_l bifemlh_l glut_max1_l glut_max2_l glut_max3_l glut_med3_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_add">
+			<members>add_mag2_l bifemlh_l grac_l pect_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_knee_bend">
+			<members>bifemlh_l bifemsh_l grac_l med_gas_l sar_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_knee_ext">
+			<members>rect_fem_l vas_int_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_ankle_pf">
+			<members>med_gas_l soleus_l tib_post_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_inverter">
+			<members>tib_ant_l tib_post_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_ankle_df">
+			<members>tib_ant_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_ext">
+			<members>ercspn_l ercspn_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_rlb">
+			<members>ercspn_r extobl_r intobl_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_introt">
+			<members>ercspn_r extobl_l intobl_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_llb">
+			<members>ercspn_l extobl_l intobl_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_extrot">
+			<members>ercspn_l extobl_r intobl_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_flex">
+			<members>extobl_l extobl_r intobl_l intobl_r </members>
+		</ObjectGroup>
+	</groups>
 	<objects>
 		<SimmDarrylMuscle name="glut_med1_r">
 			<MusclePointSet>
@@ -109,7 +195,6 @@
 			<tendon_slack_length>0.078000000000</tendon_slack_length>
 			<pennation_angle>0.139626340160</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_abd R_hip_flex R_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_med2_r">
 			<MusclePointSet>
@@ -129,7 +214,6 @@
 			<tendon_slack_length>0.053000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_med3_r">
 			<MusclePointSet>
@@ -149,7 +233,6 @@
 			<tendon_slack_length>0.053000000000</tendon_slack_length>
 			<pennation_angle>0.331612557879</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_abd R_hip_exrot R_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="bifemlh_r">
 			<MusclePointSet>
@@ -173,7 +256,6 @@
 			<tendon_slack_length>0.326000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_ext R_hip_add R_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="bifemsh_r">
 			<MusclePointSet>
@@ -197,7 +279,6 @@
 			<tendon_slack_length>0.089000000000</tendon_slack_length>
 			<pennation_angle>0.401425727959</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="sar_r">
 			<MusclePointSet>
@@ -229,7 +310,6 @@
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_flex R_hip_abd R_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_mag2_r">
 			<MusclePointSet>
@@ -249,7 +329,6 @@
 			<tendon_slack_length>0.120000000000</tendon_slack_length>
 			<pennation_angle>0.052359877560</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_ext R_hip_add </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tfl_r">
 			<MusclePointSet>
@@ -277,7 +356,6 @@
 			<tendon_slack_length>0.425000000000</tendon_slack_length>
 			<pennation_angle>0.052359877560</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_abd R_hip_flex R_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="pect_r">
 			<MusclePointSet>
@@ -297,7 +375,6 @@
 			<tendon_slack_length>0.033000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_add R_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="grac_r">
 			<MusclePointSet>
@@ -327,7 +404,6 @@
 			<tendon_slack_length>0.126000000000</tendon_slack_length>
 			<pennation_angle>0.052359877560</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_add R_knee_bend R_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max1_r">
 			<MusclePointSet>
@@ -355,7 +431,6 @@
 			<tendon_slack_length>0.125000000000</tendon_slack_length>
 			<pennation_angle>0.087266462600</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_ext R_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max2_r">
 			<MusclePointSet>
@@ -383,7 +458,6 @@
 			<tendon_slack_length>0.127000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max3_r">
 			<MusclePointSet>
@@ -411,7 +485,6 @@
 			<tendon_slack_length>0.145000000000</tendon_slack_length>
 			<pennation_angle>0.087266462600</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="iliacus_r">
 			<MusclePointSet>
@@ -445,7 +518,6 @@
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
 			<pennation_angle>0.122173047640</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_flex R_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="psoas_r">
 			<MusclePointSet>
@@ -479,7 +551,6 @@
 			<tendon_slack_length>0.160000000000</tendon_slack_length>
 			<pennation_angle>0.139626340160</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_flex R_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="quad_fem_r">
 			<MusclePointSet>
@@ -499,7 +570,6 @@
 			<tendon_slack_length>0.024000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_exrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="gem_r">
 			<MusclePointSet>
@@ -519,7 +589,6 @@
 			<tendon_slack_length>0.039000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_exrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="peri_r">
 			<MusclePointSet>
@@ -543,7 +612,6 @@
 			<tendon_slack_length>0.115000000000</tendon_slack_length>
 			<pennation_angle>0.174532925199</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_exrot R_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="rect_fem_r">
 			<MusclePointSet>
@@ -569,7 +637,6 @@
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
 			<pennation_angle>0.087266462600</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_hip_flex R_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="vas_int_r">
 			<MusclePointSet>
@@ -599,7 +666,6 @@
 			<tendon_slack_length>0.116000000000</tendon_slack_length>
 			<pennation_angle>0.052359877560</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="med_gas_r">
 			<MusclePointSet>
@@ -625,7 +691,6 @@
 			<tendon_slack_length>0.360000000000</tendon_slack_length>
 			<pennation_angle>0.296705972839</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_knee_bend R_ankle_pf </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="soleus_r">
 			<MusclePointSet>
@@ -645,7 +710,6 @@
 			<tendon_slack_length>0.220000000000</tendon_slack_length>
 			<pennation_angle>0.436332312999</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_ankle_pf </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tib_post_r">
 			<MusclePointSet>
@@ -673,7 +737,6 @@
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
 			<pennation_angle>0.209439510239</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_ankle_pf R_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tib_ant_r">
 			<MusclePointSet>
@@ -697,7 +760,6 @@
 			<tendon_slack_length>0.223000000000</tendon_slack_length>
 			<pennation_angle>0.087266462600</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>R_ankle_df R_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_med1_l">
 			<MusclePointSet>
@@ -717,7 +779,6 @@
 			<tendon_slack_length>0.078000000000</tendon_slack_length>
 			<pennation_angle>0.139626340160</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_abd L_hip_flex L_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_med2_l">
 			<MusclePointSet>
@@ -737,7 +798,6 @@
 			<tendon_slack_length>0.053000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_med3_l">
 			<MusclePointSet>
@@ -757,7 +817,6 @@
 			<tendon_slack_length>0.053000000000</tendon_slack_length>
 			<pennation_angle>0.331612557879</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_abd L_hip_exrot L_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="bifemlh_l">
 			<MusclePointSet>
@@ -781,7 +840,6 @@
 			<tendon_slack_length>0.326000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_ext L_hip_add L_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="bifemsh_l">
 			<MusclePointSet>
@@ -805,7 +863,6 @@
 			<tendon_slack_length>0.089000000000</tendon_slack_length>
 			<pennation_angle>0.401425727959</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="sar_l">
 			<MusclePointSet>
@@ -837,7 +894,6 @@
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_flex L_hip_abd L_knee_bend </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="add_mag2_l">
 			<MusclePointSet>
@@ -857,7 +913,6 @@
 			<tendon_slack_length>0.120000000000</tendon_slack_length>
 			<pennation_angle>0.052359877560</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_ext L_hip_add </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tfl_l">
 			<MusclePointSet>
@@ -885,7 +940,6 @@
 			<tendon_slack_length>0.425000000000</tendon_slack_length>
 			<pennation_angle>0.052359877560</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_abd L_hip_flex L_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="pect_l">
 			<MusclePointSet>
@@ -905,7 +959,6 @@
 			<tendon_slack_length>0.033000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_add L_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="grac_l">
 			<MusclePointSet>
@@ -935,7 +988,6 @@
 			<tendon_slack_length>0.126000000000</tendon_slack_length>
 			<pennation_angle>0.052359877560</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_add L_knee_bend L_hip_flex </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max1_l">
 			<MusclePointSet>
@@ -963,7 +1015,6 @@
 			<tendon_slack_length>0.125000000000</tendon_slack_length>
 			<pennation_angle>0.087266462600</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_ext L_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max2_l">
 			<MusclePointSet>
@@ -991,7 +1042,6 @@
 			<tendon_slack_length>0.127000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="glut_max3_l">
 			<MusclePointSet>
@@ -1019,7 +1069,6 @@
 			<tendon_slack_length>0.145000000000</tendon_slack_length>
 			<pennation_angle>0.087266462600</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="iliacus_l">
 			<MusclePointSet>
@@ -1053,7 +1102,6 @@
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
 			<pennation_angle>0.122173047640</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_flex L_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="psoas_l">
 			<MusclePointSet>
@@ -1087,7 +1135,6 @@
 			<tendon_slack_length>0.160000000000</tendon_slack_length>
 			<pennation_angle>0.139626340160</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_flex L_hip_inrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="quad_fem_l">
 			<MusclePointSet>
@@ -1107,7 +1154,6 @@
 			<tendon_slack_length>0.024000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_exrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="gem_l">
 			<MusclePointSet>
@@ -1127,7 +1173,6 @@
 			<tendon_slack_length>0.039000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_exrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="peri_l">
 			<MusclePointSet>
@@ -1151,7 +1196,6 @@
 			<tendon_slack_length>0.115000000000</tendon_slack_length>
 			<pennation_angle>0.174532925199</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_exrot L_hip_abd </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="rect_fem_l">
 			<MusclePointSet>
@@ -1177,7 +1221,6 @@
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
 			<pennation_angle>0.087266462600</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_hip_flex L_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="vas_int_l">
 			<MusclePointSet>
@@ -1207,7 +1250,6 @@
 			<tendon_slack_length>0.116000000000</tendon_slack_length>
 			<pennation_angle>0.052359877560</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_knee_ext </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="med_gas_l">
 			<MusclePointSet>
@@ -1233,7 +1275,6 @@
 			<tendon_slack_length>0.360000000000</tendon_slack_length>
 			<pennation_angle>0.296705972839</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_knee_bend L_ankle_pf </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="soleus_l">
 			<MusclePointSet>
@@ -1253,7 +1294,6 @@
 			<tendon_slack_length>0.220000000000</tendon_slack_length>
 			<pennation_angle>0.436332312999</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_ankle_pf </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tib_post_l">
 			<MusclePointSet>
@@ -1281,7 +1321,6 @@
 			<tendon_slack_length>0.310000000000</tendon_slack_length>
 			<pennation_angle>0.209439510239</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_ankle_pf L_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="tib_ant_l">
 			<MusclePointSet>
@@ -1305,7 +1344,6 @@
 			<tendon_slack_length>0.223000000000</tendon_slack_length>
 			<pennation_angle>0.087266462600</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>L_ankle_df L_inverter </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="ercspn_r">
 			<MusclePointSet>
@@ -1325,7 +1363,6 @@
 			<tendon_slack_length>0.030000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>back_ext back_rlb back_introt </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="ercspn_l">
 			<MusclePointSet>
@@ -1345,7 +1382,6 @@
 			<tendon_slack_length>0.030000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>back_ext back_llb back_extrot </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="intobl_r">
 			<MusclePointSet>
@@ -1365,7 +1401,6 @@
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>back_introt back_flex back_rlb </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="intobl_l">
 			<MusclePointSet>
@@ -1385,7 +1420,6 @@
 			<tendon_slack_length>0.100000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>back_extrot back_flex back_llb </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="extobl_r">
 			<MusclePointSet>
@@ -1405,7 +1439,6 @@
 			<tendon_slack_length>0.140000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>back_extrot back_flex back_rlb </groups>
 		</SimmDarrylMuscle>
 		<SimmDarrylMuscle name="extobl_l">
 			<MusclePointSet>
@@ -1425,7 +1458,6 @@
 			<tendon_slack_length>0.140000000000</tendon_slack_length>
 			<pennation_angle>0.000000000000</pennation_angle>
 			<muscle_model>9</muscle_model>
-			<groups>back_introt back_flex back_llb </groups>
 		</SimmDarrylMuscle>
 	</objects>
 	</ActuatorSet>
