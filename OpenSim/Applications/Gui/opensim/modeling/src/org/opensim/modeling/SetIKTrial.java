@@ -37,17 +37,25 @@ public class SetIKTrial extends OpenSimObject {
     this(opensimModelJNI.new_SetIKTrial__SWIG_0(), true);
   }
 
+  public SetIKTrial(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetIKTrial__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetIKTrial(String aFileName) {
-    this(opensimModelJNI.new_SetIKTrial__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetIKTrial__SWIG_2(aFileName), true);
   }
 
   public SetIKTrial(SetIKTrial aSet) {
-    this(opensimModelJNI.new_SetIKTrial__SWIG_2(SetIKTrial.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetIKTrial__SWIG_3(SetIKTrial.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetIKTrial_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetIKTrial_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

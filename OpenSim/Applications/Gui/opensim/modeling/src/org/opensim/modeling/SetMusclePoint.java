@@ -37,17 +37,25 @@ public class SetMusclePoint extends OpenSimObject {
     this(opensimModelJNI.new_SetMusclePoint__SWIG_0(), true);
   }
 
+  public SetMusclePoint(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetMusclePoint__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetMusclePoint(String aFileName) {
-    this(opensimModelJNI.new_SetMusclePoint__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetMusclePoint__SWIG_2(aFileName), true);
   }
 
   public SetMusclePoint(SetMusclePoint aSet) {
-    this(opensimModelJNI.new_SetMusclePoint__SWIG_2(SetMusclePoint.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetMusclePoint__SWIG_3(SetMusclePoint.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetMusclePoint_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetMusclePoint_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

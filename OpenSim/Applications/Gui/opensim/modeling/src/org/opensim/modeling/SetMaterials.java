@@ -37,17 +37,25 @@ public class SetMaterials extends OpenSimObject {
     this(opensimModelJNI.new_SetMaterials__SWIG_0(), true);
   }
 
+  public SetMaterials(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetMaterials__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetMaterials(String aFileName) {
-    this(opensimModelJNI.new_SetMaterials__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetMaterials__SWIG_2(aFileName), true);
   }
 
   public SetMaterials(SetMaterials aSet) {
-    this(opensimModelJNI.new_SetMaterials__SWIG_2(SetMaterials.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetMaterials__SWIG_3(SetMaterials.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetMaterials_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetMaterials_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

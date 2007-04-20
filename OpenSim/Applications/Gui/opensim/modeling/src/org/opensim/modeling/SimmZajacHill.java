@@ -50,30 +50,6 @@ public class SimmZajacHill extends AbstractMuscle {
     opensimModelJNI.SimmZajacHill_copyData(swigCPtr, this, SimmZajacHill.getCPtr(aMuscle), aMuscle);
   }
 
-  public void computeStateDerivatives(double[] rDYDT) {
-    opensimModelJNI.SimmZajacHill_computeStateDerivatives(swigCPtr, this, rDYDT);
-  }
-
-  public void computeActuation() {
-    opensimModelJNI.SimmZajacHill_computeActuation(swigCPtr, this);
-  }
-
-  public static void registerTypes() {
-    opensimModelJNI.SimmZajacHill_registerTypes();
-  }
-
-  public void postScale(ScaleSet aScaleSet) {
-    opensimModelJNI.SimmZajacHill_postScale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
-  }
-
-  public void scale(ScaleSet aScaleSet) {
-    opensimModelJNI.SimmZajacHill_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
-  }
-
-  public void setup(Model aModel) {
-    opensimModelJNI.SimmZajacHill_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
   public double getMaxIsometricForce() {
     return opensimModelJNI.SimmZajacHill_getMaxIsometricForce(swigCPtr, this);
   }
@@ -86,8 +62,8 @@ public class SimmZajacHill extends AbstractMuscle {
     return opensimModelJNI.SimmZajacHill_getTendonSlackLength(swigCPtr, this);
   }
 
-  public double getPennationAngle() {
-    return opensimModelJNI.SimmZajacHill_getPennationAngle(swigCPtr, this);
+  public double getPennationAngleAtOptimalFiberLength() {
+    return opensimModelJNI.SimmZajacHill_getPennationAngleAtOptimalFiberLength(swigCPtr, this);
   }
 
   public double getMaxContractionVelocity() {
@@ -100,6 +76,42 @@ public class SimmZajacHill extends AbstractMuscle {
 
   public double getDamping() {
     return opensimModelJNI.SimmZajacHill_getDamping(swigCPtr, this);
+  }
+
+  public double getPennationAngle() {
+    return opensimModelJNI.SimmZajacHill_getPennationAngle(swigCPtr, this);
+  }
+
+  public double getFiberLength() {
+    return opensimModelJNI.SimmZajacHill_getFiberLength(swigCPtr, this);
+  }
+
+  public double getNormalizedFiberLength() {
+    return opensimModelJNI.SimmZajacHill_getNormalizedFiberLength(swigCPtr, this);
+  }
+
+  public double getPassiveFiberForce() {
+    return opensimModelJNI.SimmZajacHill_getPassiveFiberForce(swigCPtr, this);
+  }
+
+  public void computeStateDerivatives(double[] rDYDT) {
+    opensimModelJNI.SimmZajacHill_computeStateDerivatives(swigCPtr, this, rDYDT);
+  }
+
+  public void computeActuation() {
+    opensimModelJNI.SimmZajacHill_computeActuation(swigCPtr, this);
+  }
+
+  public void postScale(ScaleSet aScaleSet) {
+    opensimModelJNI.SimmZajacHill_postScale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
+  public void scale(ScaleSet aScaleSet) {
+    opensimModelJNI.SimmZajacHill_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
+  public void setup(Model aModel) {
+    opensimModelJNI.SimmZajacHill_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public Function getActiveForceLengthCurve() {

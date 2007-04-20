@@ -69,7 +69,11 @@ public class PropertySet {
   }
 
   public void append(Property aProperty) {
-    opensimModelJNI.PropertySet_append(swigCPtr, this, Property.getCPtr(aProperty), aProperty);
+    opensimModelJNI.PropertySet_append__SWIG_0(swigCPtr, this, Property.getCPtr(aProperty), aProperty);
+  }
+
+  public void append(Property aProperty, String aName) {
+    opensimModelJNI.PropertySet_append__SWIG_1(swigCPtr, this, Property.getCPtr(aProperty), aProperty, aName);
   }
 
   public void remove(String aName) {

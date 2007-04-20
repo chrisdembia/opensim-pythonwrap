@@ -37,17 +37,25 @@ public class SetJoints extends OpenSimObject {
     this(opensimModelJNI.new_SetJoints__SWIG_0(), true);
   }
 
+  public SetJoints(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetJoints__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetJoints(String aFileName) {
-    this(opensimModelJNI.new_SetJoints__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetJoints__SWIG_2(aFileName), true);
   }
 
   public SetJoints(SetJoints aSet) {
-    this(opensimModelJNI.new_SetJoints__SWIG_2(SetJoints.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetJoints__SWIG_3(SetJoints.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetJoints_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetJoints_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

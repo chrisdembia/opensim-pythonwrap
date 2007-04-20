@@ -37,17 +37,25 @@ public class SetMuscleWrap extends OpenSimObject {
     this(opensimModelJNI.new_SetMuscleWrap__SWIG_0(), true);
   }
 
+  public SetMuscleWrap(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetMuscleWrap__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetMuscleWrap(String aFileName) {
-    this(opensimModelJNI.new_SetMuscleWrap__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetMuscleWrap__SWIG_2(aFileName), true);
   }
 
   public SetMuscleWrap(SetMuscleWrap aSet) {
-    this(opensimModelJNI.new_SetMuscleWrap__SWIG_2(SetMuscleWrap.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetMuscleWrap__SWIG_3(SetMuscleWrap.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetMuscleWrap_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetMuscleWrap_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

@@ -62,20 +62,20 @@ public class PropertyGroup {
     return opensimModelJNI.PropertyGroup_contains(swigCPtr, this, aName);
   }
 
-  public void addProperty(Property aProperty) {
-    opensimModelJNI.PropertyGroup_addProperty(swigCPtr, this, Property.getCPtr(aProperty), aProperty);
+  public void add(Property aProperty) {
+    opensimModelJNI.PropertyGroup_add(swigCPtr, this, Property.getCPtr(aProperty), aProperty);
   }
 
-  public void removeProperty(Property aProperty) {
-    opensimModelJNI.PropertyGroup_removeProperty(swigCPtr, this, Property.getCPtr(aProperty), aProperty);
+  public void remove(Property aProperty) {
+    opensimModelJNI.PropertyGroup_remove(swigCPtr, this, Property.getCPtr(aProperty), aProperty);
   }
 
   public SWIGTYPE_p_OpenSim__ArrayTOpenSim__Property_p_t getProperties() {
     return new SWIGTYPE_p_OpenSim__ArrayTOpenSim__Property_p_t(opensimModelJNI.PropertyGroup_getProperties(swigCPtr, this), false);
   }
 
-  public Property getProperty(int aIndex) {
-    long cPtr = opensimModelJNI.PropertyGroup_getProperty(swigCPtr, this, aIndex);
+  public Property get(int aIndex) {
+    long cPtr = opensimModelJNI.PropertyGroup_get(swigCPtr, this, aIndex);
     return (cPtr == 0) ? null : new Property(cPtr, false);
   }
 

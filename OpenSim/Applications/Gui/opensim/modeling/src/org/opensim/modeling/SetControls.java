@@ -37,17 +37,25 @@ public class SetControls extends OpenSimObject {
     this(opensimModelJNI.new_SetControls__SWIG_0(), true);
   }
 
+  public SetControls(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetControls__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetControls(String aFileName) {
-    this(opensimModelJNI.new_SetControls__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetControls__SWIG_2(aFileName), true);
   }
 
   public SetControls(SetControls aSet) {
-    this(opensimModelJNI.new_SetControls__SWIG_2(SetControls.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetControls__SWIG_3(SetControls.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetControls_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetControls_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

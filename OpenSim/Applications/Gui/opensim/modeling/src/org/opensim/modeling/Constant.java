@@ -94,8 +94,4 @@ public class Constant extends Function {
     opensimModelJNI.Constant_scaleY(swigCPtr, this, aScaleFactor);
   }
 
-  public void updateFromXMLNode() {
-    opensimModelJNI.Constant_updateFromXMLNode(swigCPtr, this);
-  }
-
 }

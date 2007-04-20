@@ -37,17 +37,25 @@ public class SetIKTasks extends OpenSimObject {
     this(opensimModelJNI.new_SetIKTasks__SWIG_0(), true);
   }
 
+  public SetIKTasks(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetIKTasks__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetIKTasks(String aFileName) {
-    this(opensimModelJNI.new_SetIKTasks__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetIKTasks__SWIG_2(aFileName), true);
   }
 
   public SetIKTasks(SetIKTasks aSet) {
-    this(opensimModelJNI.new_SetIKTasks__SWIG_2(SetIKTasks.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetIKTasks__SWIG_3(SetIKTasks.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetIKTasks_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetIKTasks_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

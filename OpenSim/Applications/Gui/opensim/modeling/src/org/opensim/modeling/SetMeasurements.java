@@ -37,17 +37,25 @@ public class SetMeasurements extends OpenSimObject {
     this(opensimModelJNI.new_SetMeasurements__SWIG_0(), true);
   }
 
+  public SetMeasurements(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetMeasurements__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetMeasurements(String aFileName) {
-    this(opensimModelJNI.new_SetMeasurements__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetMeasurements__SWIG_2(aFileName), true);
   }
 
   public SetMeasurements(SetMeasurements aSet) {
-    this(opensimModelJNI.new_SetMeasurements__SWIG_2(SetMeasurements.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetMeasurements__SWIG_3(SetMeasurements.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetMeasurements_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetMeasurements_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

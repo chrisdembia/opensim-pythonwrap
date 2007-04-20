@@ -78,8 +78,12 @@ public class AbstractTool extends OpenSimObject {
     opensimModelJNI.AbstractTool_setModelFilename(swigCPtr, this, aModelFile);
   }
 
-  public void loadModel() {
-    opensimModelJNI.AbstractTool_loadModel(swigCPtr, this);
+  public void loadModel(String aToolSetupFileName, ActuatorSet rOriginalActuatorSet) {
+    opensimModelJNI.AbstractTool_loadModel__SWIG_0(swigCPtr, this, aToolSetupFileName, ActuatorSet.getCPtr(rOriginalActuatorSet), rOriginalActuatorSet);
+  }
+
+  public void loadModel(String aToolSetupFileName) {
+    opensimModelJNI.AbstractTool_loadModel__SWIG_1(swigCPtr, this, aToolSetupFileName);
   }
 
   public void addAnalysisSetToModel() {

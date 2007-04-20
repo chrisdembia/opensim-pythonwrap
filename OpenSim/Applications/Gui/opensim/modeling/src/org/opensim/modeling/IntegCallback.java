@@ -41,12 +41,16 @@ public class IntegCallback extends Callback {
     this(opensimModelJNI.new_IntegCallback__SWIG_1(), true);
   }
 
+  public IntegCallback(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_IntegCallback__SWIG_2(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public IntegCallback(String aFileName) {
-    this(opensimModelJNI.new_IntegCallback__SWIG_2(aFileName), true);
+    this(opensimModelJNI.new_IntegCallback__SWIG_3(aFileName), true);
   }
 
   public IntegCallback(IntegCallback aIntegCallback) {
-    this(opensimModelJNI.new_IntegCallback__SWIG_3(IntegCallback.getCPtr(aIntegCallback), aIntegCallback), true);
+    this(opensimModelJNI.new_IntegCallback__SWIG_4(IntegCallback.getCPtr(aIntegCallback), aIntegCallback), true);
   }
 
   public OpenSimObject copy() {

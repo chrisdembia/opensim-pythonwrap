@@ -41,12 +41,16 @@ public class Analysis extends IntegCallback {
     this(opensimModelJNI.new_Analysis__SWIG_1(), true);
   }
 
+  public Analysis(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_Analysis__SWIG_2(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public Analysis(String aFileName) {
-    this(opensimModelJNI.new_Analysis__SWIG_2(aFileName), true);
+    this(opensimModelJNI.new_Analysis__SWIG_3(aFileName), true);
   }
 
   public Analysis(Analysis aObject) {
-    this(opensimModelJNI.new_Analysis__SWIG_3(Analysis.getCPtr(aObject), aObject), true);
+    this(opensimModelJNI.new_Analysis__SWIG_4(Analysis.getCPtr(aObject), aObject), true);
   }
 
   public OpenSimObject copy() {

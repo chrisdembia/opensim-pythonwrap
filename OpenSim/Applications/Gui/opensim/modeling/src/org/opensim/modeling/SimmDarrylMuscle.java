@@ -50,46 +50,6 @@ public class SimmDarrylMuscle extends AbstractMuscle {
     opensimModelJNI.SimmDarrylMuscle_copyData(swigCPtr, this, SimmDarrylMuscle.getCPtr(aMuscle), aMuscle);
   }
 
-  public void computeStateDerivatives(double[] rDYDT) {
-    opensimModelJNI.SimmDarrylMuscle_computeStateDerivatives(swigCPtr, this, rDYDT);
-  }
-
-  public void computeActuation() {
-    opensimModelJNI.SimmDarrylMuscle_computeActuation(swigCPtr, this);
-  }
-
-  public static void registerTypes() {
-    opensimModelJNI.SimmDarrylMuscle_registerTypes();
-  }
-
-  public void postScale(ScaleSet aScaleSet) {
-    opensimModelJNI.SimmDarrylMuscle_postScale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
-  }
-
-  public void scale(ScaleSet aScaleSet) {
-    opensimModelJNI.SimmDarrylMuscle_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
-  }
-
-  public void setup(Model aModel) {
-    opensimModelJNI.SimmDarrylMuscle_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
-  }
-
-  public double calcTendonForce(double aNormTendonLength) {
-    return opensimModelJNI.SimmDarrylMuscle_calcTendonForce(swigCPtr, this, aNormTendonLength);
-  }
-
-  public double calcPassiveForce(double aNormFiberLength) {
-    return opensimModelJNI.SimmDarrylMuscle_calcPassiveForce(swigCPtr, this, aNormFiberLength);
-  }
-
-  public double calcActiveForce(double aNormFiberLength) {
-    return opensimModelJNI.SimmDarrylMuscle_calcActiveForce(swigCPtr, this, aNormFiberLength);
-  }
-
-  public double calcFiberVelocity(double aActivation, double aActiveForce, double aVelocityDependentForce) {
-    return opensimModelJNI.SimmDarrylMuscle_calcFiberVelocity(swigCPtr, this, aActivation, aActiveForce, aVelocityDependentForce);
-  }
-
   public double getMaxIsometricForce() {
     return opensimModelJNI.SimmDarrylMuscle_getMaxIsometricForce(swigCPtr, this);
   }
@@ -102,8 +62,8 @@ public class SimmDarrylMuscle extends AbstractMuscle {
     return opensimModelJNI.SimmDarrylMuscle_getTendonSlackLength(swigCPtr, this);
   }
 
-  public double getPennationAngle() {
-    return opensimModelJNI.SimmDarrylMuscle_getPennationAngle(swigCPtr, this);
+  public double getPennationAngleAtOptimalFiberLength() {
+    return opensimModelJNI.SimmDarrylMuscle_getPennationAngleAtOptimalFiberLength(swigCPtr, this);
   }
 
   public double getActivationTimeConstant() {
@@ -150,12 +110,64 @@ public class SimmDarrylMuscle extends AbstractMuscle {
     return opensimModelJNI.SimmDarrylMuscle_getFlen(swigCPtr, this);
   }
 
+  public double getPennationAngle() {
+    return opensimModelJNI.SimmDarrylMuscle_getPennationAngle(swigCPtr, this);
+  }
+
+  public double getFiberLength() {
+    return opensimModelJNI.SimmDarrylMuscle_getFiberLength(swigCPtr, this);
+  }
+
+  public double getNormalizedFiberLength() {
+    return opensimModelJNI.SimmDarrylMuscle_getNormalizedFiberLength(swigCPtr, this);
+  }
+
+  public double getPassiveFiberForce() {
+    return opensimModelJNI.SimmDarrylMuscle_getPassiveFiberForce(swigCPtr, this);
+  }
+
   public double getStress() {
     return opensimModelJNI.SimmDarrylMuscle_getStress(swigCPtr, this);
   }
 
+  public void computeStateDerivatives(double[] rDYDT) {
+    opensimModelJNI.SimmDarrylMuscle_computeStateDerivatives(swigCPtr, this, rDYDT);
+  }
+
+  public void computeActuation() {
+    opensimModelJNI.SimmDarrylMuscle_computeActuation(swigCPtr, this);
+  }
+
+  public double calcTendonForce(double aNormTendonLength) {
+    return opensimModelJNI.SimmDarrylMuscle_calcTendonForce(swigCPtr, this, aNormTendonLength);
+  }
+
+  public double calcPassiveForce(double aNormFiberLength) {
+    return opensimModelJNI.SimmDarrylMuscle_calcPassiveForce(swigCPtr, this, aNormFiberLength);
+  }
+
+  public double calcActiveForce(double aNormFiberLength) {
+    return opensimModelJNI.SimmDarrylMuscle_calcActiveForce(swigCPtr, this, aNormFiberLength);
+  }
+
+  public double calcFiberVelocity(double aActivation, double aActiveForce, double aVelocityDependentForce) {
+    return opensimModelJNI.SimmDarrylMuscle_calcFiberVelocity(swigCPtr, this, aActivation, aActiveForce, aVelocityDependentForce);
+  }
+
   public double computeIsometricForce(double activation) {
     return opensimModelJNI.SimmDarrylMuscle_computeIsometricForce(swigCPtr, this, activation);
+  }
+
+  public void postScale(ScaleSet aScaleSet) {
+    opensimModelJNI.SimmDarrylMuscle_postScale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
+  public void scale(ScaleSet aScaleSet) {
+    opensimModelJNI.SimmDarrylMuscle_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
+  public void setup(Model aModel) {
+    opensimModelJNI.SimmDarrylMuscle_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
   public void peteTest() {

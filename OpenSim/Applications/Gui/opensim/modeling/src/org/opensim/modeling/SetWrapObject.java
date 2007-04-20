@@ -37,17 +37,25 @@ public class SetWrapObject extends OpenSimObject {
     this(opensimModelJNI.new_SetWrapObject__SWIG_0(), true);
   }
 
+  public SetWrapObject(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetWrapObject__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetWrapObject(String aFileName) {
-    this(opensimModelJNI.new_SetWrapObject__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetWrapObject__SWIG_2(aFileName), true);
   }
 
   public SetWrapObject(SetWrapObject aSet) {
-    this(opensimModelJNI.new_SetWrapObject__SWIG_2(SetWrapObject.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetWrapObject__SWIG_3(SetWrapObject.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetWrapObject_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetWrapObject_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

@@ -37,17 +37,25 @@ public class SetScales extends OpenSimObject {
     this(opensimModelJNI.new_SetScales__SWIG_0(), true);
   }
 
+  public SetScales(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetScales__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetScales(String aFileName) {
-    this(opensimModelJNI.new_SetScales__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetScales__SWIG_2(aFileName), true);
   }
 
   public SetScales(SetScales aSet) {
-    this(opensimModelJNI.new_SetScales__SWIG_2(SetScales.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetScales__SWIG_3(SetScales.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetScales_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetScales_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

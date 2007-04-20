@@ -66,9 +66,97 @@ public class AbstractMuscle extends AbstractActuator {
     return new MuscleWrapSet(opensimModelJNI.AbstractMuscle_getWrapSet(swigCPtr, this), false);
   }
 
-  public ArrayStr getGroupNames() {
-    long cPtr = opensimModelJNI.AbstractMuscle_getGroupNames(swigCPtr, this);
-    return (cPtr == 0) ? null : new ArrayStr(cPtr, false);
+  public MusclePoint addAttachmentPoint(int aIndex, AbstractBody aBody) {
+    long cPtr = opensimModelJNI.AbstractMuscle_addAttachmentPoint(swigCPtr, this, aIndex, AbstractBody.getCPtr(aBody), aBody);
+    return (cPtr == 0) ? null : new MusclePoint(cPtr, false);
+  }
+
+  public void deleteAttachmentPoint(int aIndex) {
+    opensimModelJNI.AbstractMuscle_deleteAttachmentPoint(swigCPtr, this, aIndex);
+  }
+
+  public double getPennationAngle() {
+    return opensimModelJNI.AbstractMuscle_getPennationAngle(swigCPtr, this);
+  }
+
+  public double getLength() {
+    return opensimModelJNI.AbstractMuscle_getLength(swigCPtr, this);
+  }
+
+  public double getTendonLength() {
+    return opensimModelJNI.AbstractMuscle_getTendonLength(swigCPtr, this);
+  }
+
+  public double getFiberLength() {
+    return opensimModelJNI.AbstractMuscle_getFiberLength(swigCPtr, this);
+  }
+
+  public double getNormalizedFiberLength() {
+    return opensimModelJNI.AbstractMuscle_getNormalizedFiberLength(swigCPtr, this);
+  }
+
+  public double getFiberLengthAlongTendon() {
+    return opensimModelJNI.AbstractMuscle_getFiberLengthAlongTendon(swigCPtr, this);
+  }
+
+  public double getShorteningSpeed() {
+    return opensimModelJNI.AbstractMuscle_getShorteningSpeed(swigCPtr, this);
+  }
+
+  public double getFiberForce() {
+    return opensimModelJNI.AbstractMuscle_getFiberForce(swigCPtr, this);
+  }
+
+  public double getActiveFiberForce() {
+    return opensimModelJNI.AbstractMuscle_getActiveFiberForce(swigCPtr, this);
+  }
+
+  public double getPassiveFiberForce() {
+    return opensimModelJNI.AbstractMuscle_getPassiveFiberForce(swigCPtr, this);
+  }
+
+  public double getActiveFiberForceAlongTendon() {
+    return opensimModelJNI.AbstractMuscle_getActiveFiberForceAlongTendon(swigCPtr, this);
+  }
+
+  public double getPassiveFiberForceAlongTendon() {
+    return opensimModelJNI.AbstractMuscle_getPassiveFiberForceAlongTendon(swigCPtr, this);
+  }
+
+  public void computeActuation() {
+    opensimModelJNI.AbstractMuscle_computeActuation(swigCPtr, this);
+  }
+
+  public double computeMomentArm(AbstractCoordinate aCoord) {
+    return opensimModelJNI.AbstractMuscle_computeMomentArm(swigCPtr, this, AbstractCoordinate.getCPtr(aCoord), aCoord);
+  }
+
+  public void computeMomentArms(ArrayDouble rMomentArms) {
+    opensimModelJNI.AbstractMuscle_computeMomentArms(swigCPtr, this, ArrayDouble.getCPtr(rMomentArms), rMomentArms);
+  }
+
+  public void computePath() {
+    opensimModelJNI.AbstractMuscle_computePath(swigCPtr, this);
+  }
+
+  public void applyWrapObjects() {
+    opensimModelJNI.AbstractMuscle_applyWrapObjects(swigCPtr, this);
+  }
+
+  public double _calc_muscle_length_change(AbstractWrapObject wo, SWIGTYPE_p_OpenSim__WrapResult wr) {
+    return opensimModelJNI.AbstractMuscle__calc_muscle_length_change(swigCPtr, this, AbstractWrapObject.getCPtr(wo), wo, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(wr));
+  }
+
+  public void calcLengthAfterPathComputation() {
+    opensimModelJNI.AbstractMuscle_calcLengthAfterPathComputation(swigCPtr, this);
+  }
+
+  public double calcPennation(double aFiberLength, double aOptimalFiberLength, double aInitialPennationAngle) {
+    return opensimModelJNI.AbstractMuscle_calcPennation(swigCPtr, this, aFiberLength, aOptimalFiberLength, aInitialPennationAngle);
+  }
+
+  public void invalidatePath() {
+    opensimModelJNI.AbstractMuscle_invalidatePath(swigCPtr, this);
   }
 
   public void preScale(ScaleSet aScaleSet) {
@@ -83,55 +171,6 @@ public class AbstractMuscle extends AbstractActuator {
     opensimModelJNI.AbstractMuscle_postScale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
-  public MusclePoint addAttachmentPoint(int aIndex, AbstractBody aBody) {
-    long cPtr = opensimModelJNI.AbstractMuscle_addAttachmentPoint(swigCPtr, this, aIndex, AbstractBody.getCPtr(aBody), aBody);
-    return (cPtr == 0) ? null : new MusclePoint(cPtr, false);
-  }
-
-  public void deleteAttachmentPoint(int aIndex) {
-    opensimModelJNI.AbstractMuscle_deleteAttachmentPoint(swigCPtr, this, aIndex);
-  }
-
-  public void calculatePath() {
-    opensimModelJNI.AbstractMuscle_calculatePath(swigCPtr, this);
-  }
-
-  public void applyWrapObjects() {
-    opensimModelJNI.AbstractMuscle_applyWrapObjects(swigCPtr, this);
-  }
-
-  public double _calc_muscle_length_change(AbstractWrapObject wo, SWIGTYPE_p_OpenSim__WrapResult wr) {
-    return opensimModelJNI.AbstractMuscle__calc_muscle_length_change(swigCPtr, this, AbstractWrapObject.getCPtr(wo), wo, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(wr));
-  }
-
-  public void calculateLength() {
-    opensimModelJNI.AbstractMuscle_calculateLength(swigCPtr, this);
-  }
-
-  public double getLength() {
-    return opensimModelJNI.AbstractMuscle_getLength(swigCPtr, this);
-  }
-
-  public double getMomentArm(AbstractCoordinate aCoord) {
-    return opensimModelJNI.AbstractMuscle_getMomentArm(swigCPtr, this, AbstractCoordinate.getCPtr(aCoord), aCoord);
-  }
-
-  public double getSpeed() {
-    return opensimModelJNI.AbstractMuscle_getSpeed(swigCPtr, this);
-  }
-
-  public double calcPennation(double aFiberLength, double aOptimalFiberLength, double aInitialPennationAngle) {
-    return opensimModelJNI.AbstractMuscle_calcPennation(swigCPtr, this, aFiberLength, aOptimalFiberLength, aInitialPennationAngle);
-  }
-
-  public void computeActuation() {
-    opensimModelJNI.AbstractMuscle_computeActuation(swigCPtr, this);
-  }
-
-  public void invalidatePath() {
-    opensimModelJNI.AbstractMuscle_invalidatePath(swigCPtr, this);
-  }
-
   public void apply() {
     opensimModelJNI.AbstractMuscle_apply(swigCPtr, this);
   }
@@ -140,17 +179,13 @@ public class AbstractMuscle extends AbstractActuator {
     opensimModelJNI.AbstractMuscle_peteTest(swigCPtr, this);
   }
 
-  public VisibleObject getDisplayer() {
-    long cPtr = opensimModelJNI.AbstractMuscle_getDisplayer(swigCPtr, this);
-    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
-  }
-
   public void updateGeometry() {
     opensimModelJNI.AbstractMuscle_updateGeometry(swigCPtr, this);
   }
 
-  public static void registerTypes() {
-    opensimModelJNI.AbstractMuscle_registerTypes();
+  public VisibleObject getDisplayer() {
+    long cPtr = opensimModelJNI.AbstractMuscle_getDisplayer(swigCPtr, this);
+    return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
   public static boolean isKindOf(String type) {

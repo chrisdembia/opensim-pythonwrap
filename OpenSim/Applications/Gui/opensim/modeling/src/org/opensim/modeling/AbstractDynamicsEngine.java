@@ -415,11 +415,11 @@ public class AbstractDynamicsEngine extends OpenSimObject {
   }
 
   public void convertDegreesToRadians(SWIGTYPE_p_double aQDeg, SWIGTYPE_p_double rQRad) {
-    opensimModelJNI.AbstractDynamicsEngine_convertDegreesToRadians__SWIG_2(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aQDeg), SWIGTYPE_p_double.getCPtr(rQRad));
+    opensimModelJNI.AbstractDynamicsEngine_convertDegreesToRadians__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aQDeg), SWIGTYPE_p_double.getCPtr(rQRad));
   }
 
   public void convertRadiansToDegrees(SWIGTYPE_p_double aQRad, SWIGTYPE_p_double rQDeg) {
-    opensimModelJNI.AbstractDynamicsEngine_convertRadiansToDegrees__SWIG_2(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aQRad), SWIGTYPE_p_double.getCPtr(rQDeg));
+    opensimModelJNI.AbstractDynamicsEngine_convertRadiansToDegrees__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(aQRad), SWIGTYPE_p_double.getCPtr(rQDeg));
   }
 
   public void convertAnglesToDirectionCosines(double aE1, double aE2, double aE3, SWIGTYPE_p_a_3__double rDirCos) {

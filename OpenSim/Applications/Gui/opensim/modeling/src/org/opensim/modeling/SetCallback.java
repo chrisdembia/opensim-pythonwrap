@@ -37,17 +37,25 @@ public class SetCallback extends OpenSimObject {
     this(opensimModelJNI.new_SetCallback__SWIG_0(), true);
   }
 
+  public SetCallback(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetCallback__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetCallback(String aFileName) {
-    this(opensimModelJNI.new_SetCallback__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetCallback__SWIG_2(aFileName), true);
   }
 
   public SetCallback(SetCallback aSet) {
-    this(opensimModelJNI.new_SetCallback__SWIG_2(SetCallback.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetCallback__SWIG_3(SetCallback.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetCallback_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetCallback_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

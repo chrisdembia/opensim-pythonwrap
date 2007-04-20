@@ -37,17 +37,25 @@ public class SetAnalysis extends OpenSimObject {
     this(opensimModelJNI.new_SetAnalysis__SWIG_0(), true);
   }
 
+  public SetAnalysis(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetAnalysis__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetAnalysis(String aFileName) {
-    this(opensimModelJNI.new_SetAnalysis__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetAnalysis__SWIG_2(aFileName), true);
   }
 
   public SetAnalysis(SetAnalysis aSet) {
-    this(opensimModelJNI.new_SetAnalysis__SWIG_2(SetAnalysis.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetAnalysis__SWIG_3(SetAnalysis.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetAnalysis_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetAnalysis_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

@@ -58,8 +58,20 @@ public class ObjectGroup extends OpenSimObject {
     return opensimModelJNI.ObjectGroup_contains(swigCPtr, this, aName);
   }
 
-  public void addObject(OpenSimObject aObject) {
-    opensimModelJNI.ObjectGroup_addObject(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  public void add(OpenSimObject aObject) {
+    opensimModelJNI.ObjectGroup_add(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  }
+
+  public void remove(OpenSimObject aObject) {
+    opensimModelJNI.ObjectGroup_remove(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  }
+
+  public void setup(ArrayPtrsObj aObjects) {
+    opensimModelJNI.ObjectGroup_setup(swigCPtr, this, ArrayPtrsObj.getCPtr(aObjects), aObjects);
+  }
+
+  public void peteTest() {
+    opensimModelJNI.ObjectGroup_peteTest(swigCPtr, this);
   }
 
 }

@@ -37,12 +37,16 @@ public class ActuatorSet extends SetActuators {
     this(opensimModelJNI.new_ActuatorSet__SWIG_0(), true);
   }
 
+  public ActuatorSet(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_ActuatorSet__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public ActuatorSet(String aFileName) {
-    this(opensimModelJNI.new_ActuatorSet__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_ActuatorSet__SWIG_2(aFileName), true);
   }
 
   public ActuatorSet(ActuatorSet aActuatorSet) {
-    this(opensimModelJNI.new_ActuatorSet__SWIG_2(ActuatorSet.getCPtr(aActuatorSet), aActuatorSet), true);
+    this(opensimModelJNI.new_ActuatorSet__SWIG_3(ActuatorSet.getCPtr(aActuatorSet), aActuatorSet), true);
   }
 
   public OpenSimObject copy() {
@@ -268,6 +272,10 @@ public class ActuatorSet extends SetActuators {
 
   public boolean check() {
     return opensimModelJNI.ActuatorSet_check(swigCPtr, this);
+  }
+
+  public void peteTest() {
+    opensimModelJNI.ActuatorSet_peteTest(swigCPtr, this);
   }
 
 }

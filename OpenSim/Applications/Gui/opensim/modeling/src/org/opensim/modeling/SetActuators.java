@@ -37,17 +37,25 @@ public class SetActuators extends OpenSimObject {
     this(opensimModelJNI.new_SetActuators__SWIG_0(), true);
   }
 
+  public SetActuators(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetActuators__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetActuators(String aFileName) {
-    this(opensimModelJNI.new_SetActuators__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetActuators__SWIG_2(aFileName), true);
   }
 
   public SetActuators(SetActuators aSet) {
-    this(opensimModelJNI.new_SetActuators__SWIG_2(SetActuators.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetActuators__SWIG_3(SetActuators.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetActuators_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetActuators_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

@@ -45,8 +45,12 @@ public class Callback extends OpenSimObject {
     this(opensimModelJNI.new_Callback__SWIG_2(Callback.getCPtr(aCallback), aCallback), true);
   }
 
+  public Callback(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_Callback__SWIG_3(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public Callback(String aFileName) {
-    this(opensimModelJNI.new_Callback__SWIG_3(aFileName), true);
+    this(opensimModelJNI.new_Callback__SWIG_4(aFileName), true);
   }
 
   public OpenSimObject copy() {

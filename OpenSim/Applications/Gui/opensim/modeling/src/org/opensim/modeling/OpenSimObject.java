@@ -64,20 +64,24 @@ public class OpenSimObject {
     this(opensimModelJNI.new_OpenSimObject__SWIG_0(), true);
   }
 
+  public OpenSimObject(String aFileName, boolean aUpdateFromXMLNode) throws java.io.IOException {
+    this(opensimModelJNI.new_OpenSimObject__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public OpenSimObject(String aFileName) throws java.io.IOException {
-    this(opensimModelJNI.new_OpenSimObject__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_OpenSimObject__SWIG_2(aFileName), true);
   }
 
   public OpenSimObject(SWIGTYPE_p_OpenSim__XMLDocument aDocument) {
-    this(opensimModelJNI.new_OpenSimObject__SWIG_2(SWIGTYPE_p_OpenSim__XMLDocument.getCPtr(aDocument)), true);
+    this(opensimModelJNI.new_OpenSimObject__SWIG_3(SWIGTYPE_p_OpenSim__XMLDocument.getCPtr(aDocument)), true);
   }
 
   public OpenSimObject(SWIGTYPE_p_DOMElement aNode) {
-    this(opensimModelJNI.new_OpenSimObject__SWIG_3(SWIGTYPE_p_DOMElement.getCPtr(aNode)), true);
+    this(opensimModelJNI.new_OpenSimObject__SWIG_4(SWIGTYPE_p_DOMElement.getCPtr(aNode)), true);
   }
 
   public OpenSimObject(OpenSimObject aObject) {
-    this(opensimModelJNI.new_OpenSimObject__SWIG_4(OpenSimObject.getCPtr(aObject), aObject), true);
+    this(opensimModelJNI.new_OpenSimObject__SWIG_5(OpenSimObject.getCPtr(aObject), aObject), true);
   }
 
   public OpenSimObject copy() {
@@ -170,20 +174,8 @@ public class OpenSimObject {
     opensimModelJNI.OpenSimObject_generateXMLNode(swigCPtr, this, SWIGTYPE_p_DOMElement.getCPtr(aParent));
   }
 
-  public void setInlined(boolean aInLined, String aFileName) {
-    opensimModelJNI.OpenSimObject_setInlined__SWIG_0(swigCPtr, this, aInLined, aFileName);
-  }
-
-  public void setInlined(boolean aInLined) {
-    opensimModelJNI.OpenSimObject_setInlined__SWIG_1(swigCPtr, this, aInLined);
-  }
-
   public boolean getInlined() {
     return opensimModelJNI.OpenSimObject_getInlined(swigCPtr, this);
-  }
-
-  public void clearXMLNodes() {
-    opensimModelJNI.OpenSimObject_clearXMLNodes(swigCPtr, this);
   }
 
   public SWIGTYPE_p_OpenSim__XMLDocument getDocument() {

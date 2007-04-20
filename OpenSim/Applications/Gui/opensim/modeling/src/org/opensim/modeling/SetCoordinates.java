@@ -37,17 +37,25 @@ public class SetCoordinates extends OpenSimObject {
     this(opensimModelJNI.new_SetCoordinates__SWIG_0(), true);
   }
 
+  public SetCoordinates(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetCoordinates__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetCoordinates(String aFileName) {
-    this(opensimModelJNI.new_SetCoordinates__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetCoordinates__SWIG_2(aFileName), true);
   }
 
   public SetCoordinates(SetCoordinates aSet) {
-    this(opensimModelJNI.new_SetCoordinates__SWIG_2(SetCoordinates.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetCoordinates__SWIG_3(SetCoordinates.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetCoordinates_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetCoordinates_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

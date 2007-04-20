@@ -37,17 +37,25 @@ public class SetMarkers extends OpenSimObject {
     this(opensimModelJNI.new_SetMarkers__SWIG_0(), true);
   }
 
+  public SetMarkers(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetMarkers__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetMarkers(String aFileName) {
-    this(opensimModelJNI.new_SetMarkers__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetMarkers__SWIG_2(aFileName), true);
   }
 
   public SetMarkers(SetMarkers aSet) {
-    this(opensimModelJNI.new_SetMarkers__SWIG_2(SetMarkers.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetMarkers__SWIG_3(SetMarkers.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetMarkers_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetMarkers_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {

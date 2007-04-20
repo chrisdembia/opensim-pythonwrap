@@ -63,11 +63,6 @@ public class Model extends OpenSimObject {
     return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
-  public SWIGTYPE_p_MuscleGroup enterGroup(String aName) {
-    long cPtr = opensimModelJNI.Model_enterGroup(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_MuscleGroup(cPtr, false);
-  }
-
   public void setup() throws java.io.IOException {
     opensimModelJNI.Model_setup(swigCPtr, this);
   }
@@ -126,10 +121,6 @@ public class Model extends OpenSimObject {
 
   public int getNumActuators() {
     return opensimModelJNI.Model_getNumActuators(swigCPtr, this);
-  }
-
-  public int getNumMuscleGroups() {
-    return opensimModelJNI.Model_getNumMuscleGroups(swigCPtr, this);
   }
 
   public int getNumContacts() {
@@ -247,11 +238,6 @@ public class Model extends OpenSimObject {
   public ActuatorSet getActuatorSet() {
     long cPtr = opensimModelJNI.Model_getActuatorSet__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new ActuatorSet(cPtr, false);
-  }
-
-  public SWIGTYPE_p_MuscleGroup enterMuscleGroup(String aName) {
-    long cPtr = opensimModelJNI.Model_enterMuscleGroup(swigCPtr, this, aName);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_MuscleGroup(cPtr, false);
   }
 
   public ContactForceSet getContactSet() {

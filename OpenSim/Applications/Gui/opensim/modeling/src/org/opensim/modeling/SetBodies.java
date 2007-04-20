@@ -37,17 +37,25 @@ public class SetBodies extends OpenSimObject {
     this(opensimModelJNI.new_SetBodies__SWIG_0(), true);
   }
 
+  public SetBodies(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_SetBodies__SWIG_1(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public SetBodies(String aFileName) {
-    this(opensimModelJNI.new_SetBodies__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_SetBodies__SWIG_2(aFileName), true);
   }
 
   public SetBodies(SetBodies aSet) {
-    this(opensimModelJNI.new_SetBodies__SWIG_2(SetBodies.getCPtr(aSet), aSet), true);
+    this(opensimModelJNI.new_SetBodies__SWIG_3(SetBodies.getCPtr(aSet), aSet), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.SetBodies_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void setup() {
+    opensimModelJNI.SetBodies_setup(swigCPtr, this);
   }
 
   public void setMemoryOwner(boolean aTrueFalse) {
