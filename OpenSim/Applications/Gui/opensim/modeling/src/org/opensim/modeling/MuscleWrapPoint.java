@@ -8,12 +8,11 @@
 
 package org.opensim.modeling;
 
-public class MuscleWrapPoint {
+public class MuscleWrapPoint extends MusclePoint {
   private long swigCPtr;
-  protected boolean swigCMemOwn;
 
   public MuscleWrapPoint(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+    super(opensimModelJNI.SWIGStorageUpcast(cPtr), cMemoryOwn);
     swigCPtr = cPtr;
   }
 
@@ -31,6 +30,7 @@ public class MuscleWrapPoint {
       opensimModelJNI.delete_MuscleWrapPoint(swigCPtr);
     }
     swigCPtr = 0;
+    super.delete();
   }
 
   public MuscleWrapPoint() {

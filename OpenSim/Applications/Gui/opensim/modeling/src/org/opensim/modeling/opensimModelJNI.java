@@ -12,8 +12,8 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("osimJavaJNI_d");		// All OpenSim classes required for GUI operation.
-        System.loadLibrary("osimSdfastEngine_d");	//to load sdfast based models
+        System.loadLibrary("osimJavaJNI");		// All OpenSim classes required for GUI operation.
+        System.loadLibrary("osimSdfastEngine");	//to load sdfast based models
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic library osimJavaJNI is in your PATH\n"+e);
@@ -1464,6 +1464,54 @@ public class opensimModelJNI {
   public final static native int GeneralizedForces_printResults__SWIG_1(long jarg1, GeneralizedForces jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native int GeneralizedForces_printResults__SWIG_2(long jarg1, GeneralizedForces jarg1_, String jarg2, String jarg3);
   public final static native int GeneralizedForces_printResults__SWIG_3(long jarg1, GeneralizedForces jarg1_, String jarg2);
+  public final static native long new_MuscleAnalysis__SWIG_0(long jarg1, Model jarg1_);
+  public final static native long new_MuscleAnalysis__SWIG_1();
+  public final static native long new_MuscleAnalysis__SWIG_2(String jarg1);
+  public final static native long new_MuscleAnalysis__SWIG_3(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_copy(long jarg1, MuscleAnalysis jarg1_);
+  public final static native void delete_MuscleAnalysis(long jarg1);
+  public final static native void MuscleAnalysis_setModel(long jarg1, MuscleAnalysis jarg1_, long jarg2, Model jarg2_);
+  public final static native void MuscleAnalysis_setStorageCapacityIncrements(long jarg1, MuscleAnalysis jarg1_, int jarg2);
+  public final static native long MuscleAnalysis_getPennationAngleStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_getMuscleTendonLengthStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_getFiberLengthStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_getNormalizedFiberLengthStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_getTendonLegthStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_getForceStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_getFiberForceStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_getActiveFiberForceStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_getPassiveFiberForceStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_getActiveFiberForceAlongTendonStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native long MuscleAnalysis_getPassiveFiberForceAlongTendonStorage(long jarg1, MuscleAnalysis jarg1_);
+  public final static native int MuscleAnalysis_begin__SWIG_0(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int MuscleAnalysis_begin__SWIG_1(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int MuscleAnalysis_step__SWIG_0(long jarg1, MuscleAnalysis jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int MuscleAnalysis_step__SWIG_1(long jarg1, MuscleAnalysis jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
+  public final static native int MuscleAnalysis_end__SWIG_0(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int MuscleAnalysis_end__SWIG_1(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int MuscleAnalysis_printResults__SWIG_0(long jarg1, MuscleAnalysis jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
+  public final static native int MuscleAnalysis_printResults__SWIG_1(long jarg1, MuscleAnalysis jarg1_, String jarg2, String jarg3, double jarg4);
+  public final static native int MuscleAnalysis_printResults__SWIG_2(long jarg1, MuscleAnalysis jarg1_, String jarg2, String jarg3);
+  public final static native int MuscleAnalysis_printResults__SWIG_3(long jarg1, MuscleAnalysis jarg1_, String jarg2);
+  public final static native long new_MomentArmAnalysis__SWIG_0(long jarg1, Model jarg1_);
+  public final static native long new_MomentArmAnalysis__SWIG_1();
+  public final static native long new_MomentArmAnalysis__SWIG_2(String jarg1);
+  public final static native long new_MomentArmAnalysis__SWIG_3(long jarg1, MomentArmAnalysis jarg1_);
+  public final static native long MomentArmAnalysis_copy(long jarg1, MomentArmAnalysis jarg1_);
+  public final static native void delete_MomentArmAnalysis(long jarg1);
+  public final static native void MomentArmAnalysis_setModel(long jarg1, MomentArmAnalysis jarg1_, long jarg2, Model jarg2_);
+  public final static native void MomentArmAnalysis_setStorageCapacityIncrements(long jarg1, MomentArmAnalysis jarg1_, int jarg2);
+  public final static native long MomentArmAnalysis_getMomentArmStorageArray(long jarg1, MomentArmAnalysis jarg1_);
+  public final static native int MomentArmAnalysis_begin__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int MomentArmAnalysis_begin__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int MomentArmAnalysis_step__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int MomentArmAnalysis_step__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
+  public final static native int MomentArmAnalysis_end__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int MomentArmAnalysis_end__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int MomentArmAnalysis_printResults__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
+  public final static native int MomentArmAnalysis_printResults__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, String jarg2, String jarg3, double jarg4);
+  public final static native int MomentArmAnalysis_printResults__SWIG_2(long jarg1, MomentArmAnalysis jarg1_, String jarg2, String jarg3);
+  public final static native int MomentArmAnalysis_printResults__SWIG_3(long jarg1, MomentArmAnalysis jarg1_, String jarg2);
   public final static native void delete_ArrayBool(long jarg1);
   public final static native long new_ArrayBool__SWIG_0(boolean jarg1, int jarg2, int jarg3);
   public final static native long new_ArrayBool__SWIG_1(boolean jarg1, int jarg2);
@@ -1771,21 +1819,6 @@ public class opensimModelJNI {
   public final static native long AbstractWrapObject_getDisplayer(long jarg1, AbstractWrapObject jarg1_);
   public final static native void AbstractWrapObject_updateGeometry(long jarg1, AbstractWrapObject jarg1_);
   public final static native void AbstractWrapObject_peteTest(long jarg1, AbstractWrapObject jarg1_);
-  public final static native long new_MuscleWrapPoint__SWIG_0();
-  public final static native long new_MuscleWrapPoint__SWIG_1(long jarg1, MuscleWrapPoint jarg1_);
-  public final static native void delete_MuscleWrapPoint(long jarg1);
-  public final static native long MuscleWrapPoint_copy(long jarg1, MuscleWrapPoint jarg1_);
-  public final static native void MuscleWrapPoint_copyData(long jarg1, MuscleWrapPoint jarg1_, long jarg2, MuscleWrapPoint jarg2_);
-  public final static native void MuscleWrapPoint_setup(long jarg1, MuscleWrapPoint jarg1_, long jarg2, Model jarg2_, long jarg3, AbstractMuscle jarg3_);
-  public final static native long MuscleWrapPoint_getWrapPath(long jarg1, MuscleWrapPoint jarg1_);
-  public final static native double MuscleWrapPoint_getWrapLength(long jarg1, MuscleWrapPoint jarg1_);
-  public final static native void MuscleWrapPoint_setWrapLength(long jarg1, MuscleWrapPoint jarg1_, double jarg2);
-  public final static native long MuscleWrapPoint_getWrapObject(long jarg1, MuscleWrapPoint jarg1_);
-  public final static native void MuscleWrapPoint_setWrapObject(long jarg1, MuscleWrapPoint jarg1_, long jarg2, AbstractWrapObject jarg2_);
-  public final static native void MuscleWrapPoint_peteTest(long jarg1, MuscleWrapPoint jarg1_);
-  public final static native boolean MuscleWrapPoint_isKindOf(String jarg1);
-  public final static native boolean MuscleWrapPoint_isA(long jarg1, MuscleWrapPoint jarg1_, String jarg2);
-  public final static native long MuscleWrapPoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native long new_WrapSphere__SWIG_0();
   public final static native long new_WrapSphere__SWIG_1(long jarg1, WrapSphere jarg1_);
   public final static native void delete_WrapSphere(long jarg1);
@@ -2489,6 +2522,21 @@ public class opensimModelJNI {
   public final static native boolean MusclePoint_isKindOf(String jarg1);
   public final static native boolean MusclePoint_isA(long jarg1, MusclePoint jarg1_, String jarg2);
   public final static native long MusclePoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native long new_MuscleWrapPoint__SWIG_0();
+  public final static native long new_MuscleWrapPoint__SWIG_1(long jarg1, MuscleWrapPoint jarg1_);
+  public final static native void delete_MuscleWrapPoint(long jarg1);
+  public final static native long MuscleWrapPoint_copy(long jarg1, MuscleWrapPoint jarg1_);
+  public final static native void MuscleWrapPoint_copyData(long jarg1, MuscleWrapPoint jarg1_, long jarg2, MuscleWrapPoint jarg2_);
+  public final static native void MuscleWrapPoint_setup(long jarg1, MuscleWrapPoint jarg1_, long jarg2, Model jarg2_, long jarg3, AbstractMuscle jarg3_);
+  public final static native long MuscleWrapPoint_getWrapPath(long jarg1, MuscleWrapPoint jarg1_);
+  public final static native double MuscleWrapPoint_getWrapLength(long jarg1, MuscleWrapPoint jarg1_);
+  public final static native void MuscleWrapPoint_setWrapLength(long jarg1, MuscleWrapPoint jarg1_, double jarg2);
+  public final static native long MuscleWrapPoint_getWrapObject(long jarg1, MuscleWrapPoint jarg1_);
+  public final static native void MuscleWrapPoint_setWrapObject(long jarg1, MuscleWrapPoint jarg1_, long jarg2, AbstractWrapObject jarg2_);
+  public final static native void MuscleWrapPoint_peteTest(long jarg1, MuscleWrapPoint jarg1_);
+  public final static native boolean MuscleWrapPoint_isKindOf(String jarg1);
+  public final static native boolean MuscleWrapPoint_isA(long jarg1, MuscleWrapPoint jarg1_, String jarg2);
+  public final static native long MuscleWrapPoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native long new_MuscleViaPoint__SWIG_0();
   public final static native long new_MuscleViaPoint__SWIG_1(long jarg1, MuscleViaPoint jarg1_);
   public final static native void delete_MuscleViaPoint(long jarg1);
@@ -3105,6 +3153,8 @@ public class opensimModelJNI {
   public final static native long SWIGActuationUpcast(long jarg1);
   public final static native long SWIGIndAccUpcast(long jarg1);
   public final static native long SWIGGeneralizedForcesUpcast(long jarg1);
+  public final static native long SWIGMuscleAnalysisUpcast(long jarg1);
+  public final static native long SWIGMomentArmAnalysisUpcast(long jarg1);
   public final static native long SWIGAbstractMarkerUpcast(long jarg1);
   public final static native long SWIGSetMarkersUpcast(long jarg1);
   public final static native long SWIGMarkerSetUpcast(long jarg1);
@@ -3140,6 +3190,7 @@ public class opensimModelJNI {
   public final static native long SWIGAbstractDynamicsEngineUpcast(long jarg1);
   public final static native long SWIGSimmKinematicsEngineUpcast(long jarg1);
   public final static native long SWIGMusclePointUpcast(long jarg1);
+  public final static native long SWIGMuscleWrapPointUpcast(long jarg1);
   public final static native long SWIGMuscleViaPointUpcast(long jarg1);
   public final static native long SWIGSetMusclePointUpcast(long jarg1);
   public final static native long SWIGMusclePointSetUpcast(long jarg1);
