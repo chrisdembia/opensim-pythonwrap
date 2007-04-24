@@ -47,6 +47,8 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
    // it's just a single motion.
    int         currentSuperFrame=0;       // index of current frame, motion in superMotion
    Vector<MotionFrame>   superMotion = new Vector<MotionFrame>(100); // One merged motion to work with
+
+   private double SAME_TIME_TOL=1e-6;
    
    MasterMotionModel() {
    }
@@ -67,11 +69,13 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
    }
    
     public void back() {
+      double frameTime=-1.0;  // used to mark end and to check if multiple frames need to be advanced
        if (currentSuperFrame>=1){
           currentSuperFrame = currentSuperFrame-1;
           MotionFrame c = superMotion.get(currentSuperFrame);
           currentFrame = c.getFrameNumber();
           currentMotion = c.getMotionNumber();
+          frameTime=c.getFrameTime();
        }
       else{
          currentSuperFrame= (wrapMotion) ? superMotion.size()-1 : currentSuperFrame;
@@ -81,23 +85,41 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
      }
       applyFrame(currentFrame);
       setValue(currentSuperFrame);
+      // If not at end, check if next frame has exact frame time, if so advance again
+      // This could be made more efficient by caching nextFrame but the assumption here
+      // is that the cost of Vector.get is negligible compared to applyFrame.
+      if (frameTime!=-1.0 && currentSuperFrame>1){
+         MotionFrame nextFrame = superMotion.get(currentSuperFrame-1);
+         if (Math.abs(nextFrame.getFrameTime()-frameTime)<SAME_TIME_TOL)
+            back();  
+      }
    }
    
    public void advance() {
+      double frameTime=-1.0;  // used to mark end and to check if multiple frames need to be advanced
       if (currentSuperFrame<=superMotion.size()-2){
          currentSuperFrame= currentSuperFrame+1;
           MotionFrame c = superMotion.get(currentSuperFrame);
           currentFrame = c.getFrameNumber();
           currentMotion = c.getMotionNumber();
+          frameTime=c.getFrameTime();
       }
       else{
-         currentSuperFrame= (wrapMotion) ? 0 : currentSuperFrame;
+          currentSuperFrame= (wrapMotion) ? 0 : currentSuperFrame;
           MotionFrame c = superMotion.get(currentSuperFrame);
           currentFrame = c.getFrameNumber();
           currentMotion = c.getMotionNumber();
       }
       applyFrame(currentFrame);
       setValue(currentSuperFrame);
+      // If not at end, check if next frame has exact frame time, if so advance again
+      // This could be made more efficient by caching nextFrame but the assumption here
+      // is that the cost of Vector.get is negligible compared to applyFrame.
+      if (frameTime!=-1.0 && currentSuperFrame<superMotion.size()-2){
+         MotionFrame nextFrame = superMotion.get(currentSuperFrame+1);
+         if (Math.abs(nextFrame.getFrameTime()-frameTime)<SAME_TIME_TOL)
+            advance();  
+      }
    }
    
    

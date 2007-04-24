@@ -73,8 +73,9 @@ public class MotionDisplayer {
         AddMotionObjectsRep(model);
         
         ArrayStr colNames = motionData.getColumnLabels();
+        int numColumnsIncludingTime = colNames.getSize();
         // We should build sorted lists of object names so that we can find them easily
-        for(int i=0; i < motionData.getNumColumns(); i++){
+        for(int i=0; i < numColumnsIncludingTime; i++){
            String columnName = colNames.getitem(i+1);   // Time is included in labels
            int numClassified = classifyColumn(model, i, columnName); // find out if column is gencord/muscle/segment/...etc.
            ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
@@ -217,7 +218,8 @@ public class MotionDisplayer {
    }
 
    void applyFrameToModel(int currentFrame) {
-       for (int i = 0; i<simmMotionData.getNumColumns(); i++){
+      int numColumnsIncludingTime = simmMotionData.getColumnLabels().getSize();
+       for (int i = 0; i< numColumnsIncludingTime; i++){
          // get Type and apply value
          ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
          StateVector states=simmMotionData.getStateVector(currentFrame);
