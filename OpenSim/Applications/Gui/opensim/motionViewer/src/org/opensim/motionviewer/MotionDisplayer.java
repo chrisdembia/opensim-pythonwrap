@@ -76,7 +76,7 @@ public class MotionDisplayer {
         int numColumnsIncludingTime = colNames.getSize();
         // We should build sorted lists of object names so that we can find them easily
         for(int i=0; i < numColumnsIncludingTime; i++){
-           String columnName = colNames.getitem(i+1);   // Time is included in labels
+           String columnName = colNames.getitem(i);   // Time is included in labels
            int numClassified = classifyColumn(model, i, columnName); // find out if column is gencord/muscle/segment/...etc.
            ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
            if (numClassified>1)  // If we did a group then skip the group
@@ -226,22 +226,22 @@ public class MotionDisplayer {
           switch(cType){
             case GenCoord:
                AbstractCoordinate coord=(AbstractCoordinate)(mapIndicesToObjects.get(i));
-               if(!coord.getLocked()) coord.setValue(states.getData().getitem(i));
+               if(!coord.getLocked()) coord.setValue(states.getData().getitem(i-1));
                break;
             case Segment_marker_p1:
                int markerIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
-               markersRep.setLocation(markerIndex, states.getData().getitem(i), 
-                       states.getData().getitem(i+1),
-                       states.getData().getitem(i+2));
+               markersRep.setLocation(markerIndex, states.getData().getitem(i-1), 
+                       states.getData().getitem(i),
+                       states.getData().getitem(i+1));
                break;
             case Segment_force_p1:
                int forceIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
-               forcesRep.setNormalAtLocation(forceIndex, states.getData().getitem(i), 
-                       states.getData().getitem(i+1),
-                       states.getData().getitem(i+2));
-               forcesRep.setLocation(forceIndex, states.getData().getitem(i+3), 
-                       states.getData().getitem(i+4),
-                       states.getData().getitem(i+5));
+               forcesRep.setNormalAtLocation(forceIndex, states.getData().getitem(i-1), 
+                       states.getData().getitem(i),
+                       states.getData().getitem(i+1));
+               forcesRep.setLocation(forceIndex, states.getData().getitem(i+2), 
+                       states.getData().getitem(i+3),
+                       states.getData().getitem(i+4));
                break;
             default:
                break;
