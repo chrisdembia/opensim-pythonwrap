@@ -26,11 +26,9 @@
 package org.opensim.plotter;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import javax.swing.tree.DefaultTreeModel;
+import javax.swing.JPanel;
 import javax.swing.tree.TreeModel;
-import org.jfree.chart.ChartPanel;
-import org.opensim.modeling.ArrayStr;
+import javax.swing.tree.TreeNode;
 import org.opensim.modeling.Storage;
 
 /**
@@ -41,13 +39,18 @@ import org.opensim.modeling.Storage;
  */
 public class PlotterModel {
    
-   ArrayList<ChartPanel> charts=new ArrayList<ChartPanel>(2);
    private ArrayList<Storage>    fileStorages = new ArrayList<Storage>(4); // Data loaded from files
    private ArrayList<Storage>    analysisStorages = new ArrayList<Storage>(4); // Data loaded from analyses
    ArrayList<String>     availableQuantities = new ArrayList<String>(50);
+   ArrayList<Plot>     availablePlots = new ArrayList<Plot>(2);
+   private int currentPlotIndex=0;
+   private PlotTreeModel              plotTreeModel = new PlotTreeModel();   // Tree on the right
    
    /** Creates a new instance of PlotterModel */
    public PlotterModel() {
+         Plot figure = new Plot("Title", "x-label", "y-label");
+         availablePlots.add(0, figure);
+         plotTreeModel.addPlot(figure);
    }
    
    public void addFileStorage(Storage aStorage)
@@ -60,12 +63,81 @@ public class PlotterModel {
     * have been selected.
     */
 
-   public ArrayList<Storage> getFileStorages() {
+   public ArrayList<Storage> getLoadedFileStorages() {
       return fileStorages;
    }
 
-   public ArrayList<Storage> getAnalysisStorages() {
+   public ArrayList<Storage> getLoadedAnalysisStorages() {
       return analysisStorages;
    }
+   /**
+    * Add a curve to the PlotterModel. If a new figure is created as a side effect of this it's returned
+    * otherwise null is returned to indicate that no new Panel was created. The actual addition should be
+    * done by the caller JPlotterFrame
+    */
+   PlotCurve addCurve(String title, PlotCurveSettings plotCurveSettings, 
+           Storage storage1, String string1, 
+           Storage storage2, String string2) throws PlotterException {
 
+      Plot currentPlot = availablePlots.get(currentPlotIndex);
+      PlotCurve newCurve = new PlotCurve(plotCurveSettings, storage1, string1, storage2, string2);
+      currentPlot.add(newCurve);
+      
+      //currentPlot.dChart.getXYPlot().addAnnotation(new XYTextAnnotation("text", ));
+      plotTreeModel.addPlotCurveToTree(newCurve);
+      currentPlot.setTitle(title);
+      return newCurve;
+   }
+
+   TreeModel getPlotTreeModel() {
+      return plotTreeModel;
+   }
+   /**
+    * Delete all curves from a figure 
+    * Delete the panel too?
+    */
+   void deletePlot(Plot figToDelete) {
+      PlotNode figNode = plotTreeModel.findPlotNode(figToDelete);
+      figNode.removeFromParent();
+      
+   }
+
+   void deleteCurve(PlotCurve cvToDelete) {
+      PlotNode figNode = plotTreeModel.findPlotNode(cvToDelete);
+      if (figNode ==null)  // Owner figure might have been deleted already
+         return;
+      // Actual object deletion
+      ((Plot)figNode.getUserObject()).deleteCurve(cvToDelete);
+      // Removal from tree
+      PlotCurveNode cNode = plotTreeModel.findCurveNode(cvToDelete);
+      figNode.remove(figNode.getIndex(cNode));
+      plotTreeModel.reload((TreeNode) figNode);
+      
+   }
+
+   Plot getCurrentPlot()
+   {
+      return availablePlots.get(currentPlotIndex);
+   }
+
+   void updateCurve(PlotCurve currentCurve, String title, 
+           PlotCurveSettings plotCurveSettings, 
+           Storage domainStorage, String domainColumnName, 
+           Storage rangeStorage, String rangeColumnName) throws PlotterException {
+      
+      Plot currentPlot = availablePlots.get(currentPlotIndex);
+      currentPlot.setTitle(title);
+      currentCurve.update(title, plotCurveSettings, domainStorage, domainColumnName, rangeStorage, rangeColumnName);
+      // Find path and mark it as changed to update the tree 
+       TreeNode[] path=plotTreeModel.getPathToRoot((TreeNode) plotTreeModel.getRoot());
+       PlotCurveNode cNode = plotTreeModel.findCurveNode(currentCurve);
+       PlotNode fNode = (PlotNode)((TreeNode)cNode).getParent();
+       plotTreeModel.reload(fNode);
+   }
+
+   Plot getPlotForCurve(PlotCurve cv) {
+      PlotCurveNode cNode = plotTreeModel.findCurveNode(cv);
+      PlotNode fNode = (PlotNode)((TreeNode)cNode).getParent();
+      return ((Plot)fNode.getUserObject());
+   }
 }

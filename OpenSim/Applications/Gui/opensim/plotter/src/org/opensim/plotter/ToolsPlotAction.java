@@ -1,6 +1,8 @@
 package org.opensim.plotter;
 
 import javax.swing.JFrame;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -8,8 +10,11 @@ import org.openide.util.actions.CallableSystemAction;
 public final class ToolsPlotAction extends CallableSystemAction {
    
    public void performAction() {
-      JFrame f = new PlotterFrame("OpenSim Plotter");
-      f.setVisible(true);
+      //JFrame f = new JPlotterFrame("Plotter Frame");
+      //f.setVisible(true);
+      
+      DialogDescriptor dlg = new DialogDescriptor(new JPlotterPanel(),"Plotter Dialog");
+      DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
    }
    
    public String getName() {

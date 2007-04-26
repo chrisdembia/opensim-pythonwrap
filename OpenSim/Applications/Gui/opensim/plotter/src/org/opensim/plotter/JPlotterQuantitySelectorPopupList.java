@@ -1,6 +1,6 @@
 /*
  *
- * JPlotterQuantitySelectorPopup
+ * JPlotterQuantitySelectorPopupGridLayout
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -28,11 +28,19 @@ package org.opensim.plotter;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Storage;
 
@@ -40,15 +48,22 @@ import org.opensim.modeling.Storage;
  *
  * @author Ayman
  */
-public class JPlotterQuantitySelectorPopup extends JPopupMenu {
+public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
    private Storage storageToUse;
    private String columnToUse;
    private JTextField   selection;
+   private double xMin, xMax;
+   private boolean isDomain=false;
+   private JPlotterPanel plotterFrame;
    /**
-    * Creates a new instance of JPlotterQuantitySelectorPopup
+    * Creates a new instance of JPlotterQuantitySelectorPopupList
     */
-   public JPlotterQuantitySelectorPopup(JTextField target) {
+   public JPlotterQuantitySelectorPopupList(JTextField target, JPlotterPanel plotterFrame, boolean isDomain) {
+      this.plotterFrame = plotterFrame;
+      this.isDomain=isDomain;
       selection=target;
+      setXMin(0.0);
+      setXMax(1.0);
    }
    /**
     * Update the list of menu items in the popup based on current contents of the plotterModel
@@ -62,9 +77,12 @@ public class JPlotterQuantitySelectorPopup extends JPopupMenu {
          final Storage nextStorage = usedStorages.get(i);
          JMenu fileSelectionMenu = new JMenu("File:"+nextStorage.getName());
          add(fileSelectionMenu);
+         
          // Now add columns of selected file
          ArrayStr columnLabels = nextStorage.getColumnLabels();
          int numEntries = columnLabels.getSize();
+         // make a JList embedded in a ScrollPane and add entries to it
+         final JPopupMenu p = new JPopupMenu();
          int nColumns = numEntries/50+1;
          int nRows = 50;
          GridLayout menuGrid = new GridLayout(nRows,nColumns);
@@ -74,14 +92,71 @@ public class JPlotterQuantitySelectorPopup extends JPopupMenu {
             JMenuItem colMenuItem = new JMenuItem(columnName);
             colMenuItem.addActionListener(new ActionListener(){
                public void actionPerformed(ActionEvent e) {
-                  storageToUse = nextStorage;
-                  columnToUse = columnName;
-                  selection.setText(storageToUse.getName()+":"+columnName);
-               }});
+                  setStorageToUse(nextStorage);
+                  setColumnToUse(columnName);
+                  selection.setText(getStorageToUse().getName()+":"+columnName);
+                  if (isDomain){
+                     setXMin(getStorageToUse().getColumnMin(columnName));
+                     setXMax(getStorageToUse().getColumnMax(columnName));
+                  }
+                  plotterFrame.updatePlotterFrameVisibilities();
+                }});
             fileSelectionMenu.add(colMenuItem);          
          }
+       
+      }
+   }
+/*
+         DefaultListModel listModel = new DefaultListModel();
+         for (int j=0; j < columnLabels.getSize(); j++){
+            final String columnName = columnLabels.getitem(j);
+            listModel.add(j, columnName);
+         }
+        final JList list = new JList(listModel);
+        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        list.setSelectedIndex(0);
+        list.setVisibleRowCount(10);
+        final JScrollPane ext = new JScrollPane(list);
+        p.add(ext);
+        p.setLocation(getLocation());
+        p.setVisible(true);
+        p.requestFocus();
+	list.requestFocus();
+        
       }
 
+*/
+
+   public Storage getStorageToUse() {
+      return storageToUse;
+   }
+
+   public void setStorageToUse(Storage storageToUse) {
+      this.storageToUse = storageToUse;
+   }
+
+   public String getColumnToUse() {
+      return columnToUse;
+   }
+
+   public void setColumnToUse(String columnToUse) {
+      this.columnToUse = columnToUse;
+   }
+
+   public double getXMin() {
+      return xMin;
+   }
+
+   public void setXMin(double xMin) {
+      this.xMin = xMin;
+   }
+
+   public double getXMax() {
+      return xMax;
+   }
+
+   public void setXMax(double xMax) {
+      this.xMax = xMax;
    }
 
 }

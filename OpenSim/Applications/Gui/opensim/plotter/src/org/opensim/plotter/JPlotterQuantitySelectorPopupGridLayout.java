@@ -1,6 +1,6 @@
 /*
  *
- * JPlotterQuantitySelectorPopup
+ * JPlotterQuantitySelectorPopupGridLayout
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -40,15 +40,22 @@ import org.opensim.modeling.Storage;
  *
  * @author Ayman
  */
-public class JPlotterQuantitySelectorPopup extends JPopupMenu {
+public class JPlotterQuantitySelectorPopupGridLayout extends JPopupMenu {
    private Storage storageToUse;
    private String columnToUse;
    private JTextField   selection;
+   private double xMin, xMax;
+   private boolean isDomain=false;
+   private JPlotterPanel plotterFrame;
    /**
-    * Creates a new instance of JPlotterQuantitySelectorPopup
+    * Creates a new instance of JPlotterQuantitySelectorPopupGridLayout
     */
-   public JPlotterQuantitySelectorPopup(JTextField target) {
+   public JPlotterQuantitySelectorPopupGridLayout(JTextField target, JPlotterPanel plotterFrame, boolean isDomain) {
+      this.plotterFrame = plotterFrame;
+      this.isDomain=isDomain;
       selection=target;
+      setXMin(0.0);
+      setXMax(1.0);
    }
    /**
     * Update the list of menu items in the popup based on current contents of the plotterModel
@@ -62,6 +69,7 @@ public class JPlotterQuantitySelectorPopup extends JPopupMenu {
          final Storage nextStorage = usedStorages.get(i);
          JMenu fileSelectionMenu = new JMenu("File:"+nextStorage.getName());
          add(fileSelectionMenu);
+         
          // Now add columns of selected file
          ArrayStr columnLabels = nextStorage.getColumnLabels();
          int numEntries = columnLabels.getSize();
@@ -74,14 +82,52 @@ public class JPlotterQuantitySelectorPopup extends JPopupMenu {
             JMenuItem colMenuItem = new JMenuItem(columnName);
             colMenuItem.addActionListener(new ActionListener(){
                public void actionPerformed(ActionEvent e) {
-                  storageToUse = nextStorage;
-                  columnToUse = columnName;
-                  selection.setText(storageToUse.getName()+":"+columnName);
-               }});
+                  setStorageToUse(nextStorage);
+                  setColumnToUse(columnName);
+                  selection.setText(getStorageToUse().getName()+":"+columnName);
+                  if (isDomain){
+                     setXMin(getStorageToUse().getColumnMin(columnName));
+                     setXMax(getStorageToUse().getColumnMax(columnName));
+                  }
+                  plotterFrame.updatePlotterFrameVisibilities();
+                }});
             fileSelectionMenu.add(colMenuItem);          
          }
+         
       }
 
+   }
+
+   public Storage getStorageToUse() {
+      return storageToUse;
+   }
+
+   public void setStorageToUse(Storage storageToUse) {
+      this.storageToUse = storageToUse;
+   }
+
+   public String getColumnToUse() {
+      return columnToUse;
+   }
+
+   public void setColumnToUse(String columnToUse) {
+      this.columnToUse = columnToUse;
+   }
+
+   public double getXMin() {
+      return xMin;
+   }
+
+   public void setXMin(double xMin) {
+      this.xMin = xMin;
+   }
+
+   public double getXMax() {
+      return xMax;
+   }
+
+   public void setXMax(double xMax) {
+      this.xMax = xMax;
    }
 
 }

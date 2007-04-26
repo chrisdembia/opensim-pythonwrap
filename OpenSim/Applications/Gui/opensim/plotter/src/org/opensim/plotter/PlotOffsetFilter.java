@@ -3,9 +3,9 @@ package org.opensim.plotter;
 import java.io.PrintWriter;
 
 public class PlotOffsetFilter implements PlotDataFilter{
-  double _offset;
+  double value=0.0;
   public PlotOffsetFilter(double offset) {
-    _offset = offset;
+    value = offset;
   }
 
   /**
@@ -16,7 +16,7 @@ public class PlotOffsetFilter implements PlotDataFilter{
    */
   public double[] convertData(double[] pre) {
     for (int i=0; i < pre.length; i++)
-      pre[i] = _offset + (pre[i]);
+      pre[i] = value + (pre[i]);
     return pre;
   }
 
@@ -26,6 +26,6 @@ public class PlotOffsetFilter implements PlotDataFilter{
    * @param fout PrintWriter
    */
   public void write(PrintWriter fout) {
-    fout.println("\t\t\t<filter name=\"offset\" value=\""+_offset+"\"/>");
+    fout.println("\t\t\t<filter name=\"offset\" value=\""+value+"\"/>");
   }
 }
