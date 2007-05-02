@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CMCTool name="subject01_walk1_RRA1">
 	<defaults/>
-	<!--Name of the model library to load. Do not include the library
-	    extension (e.g., .dll or .lib).-->
-	<model_library> gait23 </model_library>
 	<!--Name of the .osim file used to construct a model.-->
 	<model_file> subject01_sdfast.osim </model_file>
 	<!--Replace the model's actuator set with sets specified in
@@ -111,5 +108,22 @@
 	    in the center of mass of a body to reduced DC offsets in MX and MZ. If
 	    true, a new model is writen out that has altered anthropometry.-->
 	<adjust_com_to_reduce_residuals> true </adjust_com_to_reduce_residuals>
+
+	<AnalysisSet>
+		<objects>
+			<BodyKinematics name="BodyKinematics">
+				<!--Flag (true or false) specifying whether whether on. True by default.-->
+				<on> true </on>
+				<!--Specifies how often to store results during a simulation. More
+				    specifically, the interval (a positive integer) specifies how many
+				    successful integration steps should be taken before results are
+				    recorded again.-->
+				<step_interval> 10 </step_interval>
+				<!--Flag (true or false) indicating whether the results are in degrees or
+				    not.-->
+				<in_degrees> true </in_degrees>
+			</BodyKinematics>
+		</objects>
+	</AnalysisSet>
 </CMCTool>
 
