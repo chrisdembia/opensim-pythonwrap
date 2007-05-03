@@ -39,8 +39,8 @@ import org.opensim.modeling.Storage;
  */
 public class PlotterModel {
    
-   private ArrayList<Storage>    fileStorages = new ArrayList<Storage>(4); // Data loaded from files
-   private ArrayList<Storage>    analysisStorages = new ArrayList<Storage>(4); // Data loaded from analyses
+   private ArrayList<PlotterSourceInterface>    sources = new ArrayList<PlotterSourceInterface>(4); // Data loaded from files
+   //private ArrayList<Storage>    analysisStorages = new ArrayList<Storage>(4); // Data loaded from analyses
    ArrayList<String>     availableQuantities = new ArrayList<String>(50);
    ArrayList<Plot>     availablePlots = new ArrayList<Plot>(2);
    private int currentPlotIndex=0;
@@ -53,9 +53,9 @@ public class PlotterModel {
          plotTreeModel.addPlot(figure);
    }
    
-   public void addFileStorage(Storage aStorage)
+   public void addFileStorage(String filename)
    {
-      fileStorages.add(aStorage);
+      sources.add(new PlotterSourceFile(filename));
    }
    /**
     * Get available quantities to use as a Domain variable
@@ -63,24 +63,26 @@ public class PlotterModel {
     * have been selected.
     */
 
-   public ArrayList<Storage> getLoadedFileStorages() {
-      return fileStorages;
+   public ArrayList<PlotterSourceFile> getLoadedFileSources() {
+      ArrayList<PlotterSourceFile> fileSources = new ArrayList<PlotterSourceFile>();
+      for(int i=0; i<sources.size(); i++){
+         if (sources.get(i) instanceof PlotterSourceFile)
+            fileSources.add((PlotterSourceFile) sources.get(i));
+      }
+      return fileSources;
    }
 
-   public ArrayList<Storage> getLoadedAnalysisStorages() {
-      return analysisStorages;
-   }
    /**
     * Add a curve to the PlotterModel. If a new figure is created as a side effect of this it's returned
     * otherwise null is returned to indicate that no new Panel was created. The actual addition should be
     * done by the caller JPlotterFrame
     */
    PlotCurve addCurve(String title, PlotCurveSettings plotCurveSettings, 
-           Storage storage1, String string1, 
-           Storage storage2, String string2) throws PlotterException {
+           PlotterSourceInterface source1, String string1, 
+           PlotterSourceInterface source2, String string2) throws PlotterException {
 
       Plot currentPlot = availablePlots.get(currentPlotIndex);
-      PlotCurve newCurve = new PlotCurve(plotCurveSettings, storage1, string1, storage2, string2);
+      PlotCurve newCurve = new PlotCurve(plotCurveSettings, source1, string1, source2, string2);
       currentPlot.add(newCurve);
       
       //currentPlot.dChart.getXYPlot().addAnnotation(new XYTextAnnotation("text", ));
@@ -122,12 +124,12 @@ public class PlotterModel {
 
    void updateCurve(PlotCurve currentCurve, String title, 
            PlotCurveSettings plotCurveSettings, 
-           Storage domainStorage, String domainColumnName, 
-           Storage rangeStorage, String rangeColumnName) throws PlotterException {
+           PlotterSourceInterface domainSource, String domainColumnName, 
+           PlotterSourceInterface rangeSource, String rangeColumnName) throws PlotterException {
       
       Plot currentPlot = availablePlots.get(currentPlotIndex);
       currentPlot.setTitle(title);
-      currentCurve.update(title, plotCurveSettings, domainStorage, domainColumnName, rangeStorage, rangeColumnName);
+      currentCurve.update(title, plotCurveSettings, domainSource, domainColumnName, rangeSource, rangeColumnName);
       // Find path and mark it as changed to update the tree 
        TreeNode[] path=plotTreeModel.getPathToRoot((TreeNode) plotTreeModel.getRoot());
        PlotCurveNode cNode = plotTreeModel.findCurveNode(currentCurve);
@@ -139,5 +141,29 @@ public class PlotterModel {
       PlotCurveNode cNode = plotTreeModel.findCurveNode(cv);
       PlotNode fNode = (PlotNode)((TreeNode)cNode).getParent();
       return ((Plot)fNode.getUserObject());
+   }
+
+   void addSource(PlotterSourceFile src) {
+      sources.add(src);
+   }
+
+   PlotterSourceFile getSource(String fileName, String columnName) {
+      // Cycle thru availabe sources, check for their names and if found check name exists
+      for(int i=0; i<sources.size(); i++){
+         if (sources.get(i) instanceof PlotterSourceFile){
+            PlotterSourceFile src = (PlotterSourceFile) sources.get(i);
+            
+            if (src.getDisplayName().compareTo(fileName)==0){
+               // Make a storage and check that columnName is valid
+               if (columnName.compareTo("time")==0)
+                  return src;
+               if(src.getStorage().getStateIndex(columnName)!=-1)
+                  return src;
+               else
+                  return null;
+            }
+         }
+      }
+      return null;
    }
 }

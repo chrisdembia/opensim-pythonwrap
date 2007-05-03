@@ -9,10 +9,13 @@ package org.opensim.plotter;
 import java.awt.BorderLayout;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Storage;
 import org.opensim.utils.FileUtils;
@@ -22,11 +25,7 @@ import org.opensim.utils.FileUtils;
  * @author  Ayman
  */
 public class JPlotterPanel extends javax.swing.JPanel
-         implements java.awt.event.ActionListener, 
-        java.awt.event.MouseListener, 
-        java.awt.event.KeyListener, 
-        javax.swing.event.TreeSelectionListener, 
-        java.awt.event.InputMethodListener {
+         implements java.awt.event.ActionListener, java.awt.event.MouseListener, java.awt.event.KeyListener, javax.swing.event.TreeSelectionListener, java.awt.event.InputMethodListener, java.awt.event.FocusListener {
    
    private PlotterModel plotterModel = new PlotterModel();
    public enum PlotDataSource {FileSource, AnalysisSource};
@@ -41,6 +40,9 @@ public class JPlotterPanel extends javax.swing.JPanel
    boolean  validXY=false;
    Vector<TreePath> selectedPathsVector = new Vector<TreePath>(4);   // Cache used to accumulate user selection of the tree
    PlotCurve currentCurve=null;     //used for update
+   PlotterSourceInterface  sourceX, sourceY;
+   String      domainName;
+   String[]    rangeNames;
    /**
     * Creates new form JPlotterPanel
     */
@@ -53,7 +55,7 @@ public class JPlotterPanel extends javax.swing.JPanel
 
       jPlotterDeletePlotButton.setEnabled(false);
       jPlotterUpdatePlotButton.setEnabled(false);
-      updatePlotterFrameVisibilities();
+      updatePlotterWithSelection();
       // Add in blank figure by default
       jTopChartingPanel.add(plotterModel.getCurrentPlot().getChartPanel());
    }
@@ -100,7 +102,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       jScaleTextField = new javax.swing.JTextField();
       jButton2 = new javax.swing.JButton();
       jYQtyTextField = new javax.swing.JTextField();
-      jButton5 = new javax.swing.JButton();
+      jFilterButton = new javax.swing.JButton();
       jLabel7 = new javax.swing.JLabel();
       jBrowse4FileButton = new javax.swing.JButton();
       jPlotTitlePanel = new javax.swing.JPanel();
@@ -137,7 +139,6 @@ public class JPlotterPanel extends javax.swing.JPanel
       jPlotControlPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
       jPlotNavigationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Plots list"));
       jScrollPane1.setAutoscrolls(true);
-      jScrollPane1.setHorizontalScrollBar(null);
       jPlotsTree.setModel(plotterModel.getPlotTreeModel());
       jScrollPane1.setViewportView(jPlotsTree);
 
@@ -193,6 +194,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       );
 
       jPlotSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Curve add/update"));
+      jPlotSpecPanel.setToolTipText("Legend:");
       sourceButtonGroup.add(jAnalysisSourceRadioButton);
       jAnalysisSourceRadioButton.setText("Analysis");
       jAnalysisSourceRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -206,15 +208,18 @@ public class JPlotterPanel extends javax.swing.JPanel
       jFileSourceRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
       jFileSourceRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-      jLabel2.setText("Curve Name");
+      jLabel2.setText("Curve Legend");
 
-      jCurveNameTextField.setText("Curve label goes here");
+      jCurveNameTextField.setText("Curve legend goes here");
       jCurveNameTextField.addActionListener(this);
 
       jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Domain (X)"));
       xQuantityButton.setText("X-Quantity >");
       xQuantityButton.addKeyListener(this);
       xQuantityButton.addMouseListener(this);
+
+      jXQtyTextField.addActionListener(this);
+      jXQtyTextField.addFocusListener(this);
 
       jLabel9.setText("Start");
 
@@ -275,7 +280,11 @@ public class JPlotterPanel extends javax.swing.JPanel
       jButton2.setText("Y-Quantity >");
       jButton2.addMouseListener(this);
 
-      jButton5.setText("Filter...");
+      jYQtyTextField.addActionListener(this);
+      jYQtyTextField.addFocusListener(this);
+
+      jFilterButton.setText("Filter...");
+      jFilterButton.addActionListener(this);
 
       jLabel7.setText("Current value  (e.g. model:muscleGroup)");
 
@@ -298,7 +307,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                   .add(jRectifyCheckBox))
                .add(jPanel10Layout.createSequentialGroup()
                   .add(jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                     .add(jButton5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                     .add(jFilterButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                      .add(jButton2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                   .add(17, 17, 17)
                   .add(jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -312,7 +321,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             .addContainerGap()
             .add(jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jLabel7)
-               .add(jButton5))
+               .add(jFilterButton))
             .add(8, 8, 8)
             .add(jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jButton2)
@@ -377,8 +386,8 @@ public class JPlotterPanel extends javax.swing.JPanel
       jPlotTitlePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Headers"));
       jPlotLabelJLabel.setText("Plot Title");
 
-      jPlotNameTextField.setText("Plot label goes here");
-      jPlotNameTextField.setToolTipText("Figure Title");
+      jPlotNameTextField.setText("Plot title goes here");
+      jPlotNameTextField.setToolTipText("Plot Title");
       jPlotNameTextField.addActionListener(this);
 
       org.jdesktop.layout.GroupLayout jPlotTitlePanelLayout = new org.jdesktop.layout.GroupLayout(jPlotTitlePanel);
@@ -463,11 +472,32 @@ public class JPlotterPanel extends javax.swing.JPanel
       else if (evt.getSource() == jDomainEndTextField) {
          JPlotterPanel.this.jDomainEndTextFieldActionPerformed(evt);
       }
-      else if (evt.getSource() == jPlotNameTextField) {
-         JPlotterPanel.this.jPlotNameTextFieldActionPerformed(evt);
+      else if (evt.getSource() == jFilterButton) {
+         JPlotterPanel.this.jFilterButtonActionPerformed(evt);
       }
       else if (evt.getSource() == jBrowse4FileButton) {
          JPlotterPanel.this.jBrowse4FileButtonActionPerformed(evt);
+      }
+      else if (evt.getSource() == jPlotNameTextField) {
+         JPlotterPanel.this.jPlotNameTextFieldActionPerformed(evt);
+      }
+      else if (evt.getSource() == jYQtyTextField) {
+         JPlotterPanel.this.jYQtyTextFieldActionPerformed(evt);
+      }
+      else if (evt.getSource() == jXQtyTextField) {
+         JPlotterPanel.this.jXQtyTextFieldActionPerformed(evt);
+      }
+   }
+
+   public void focusGained(java.awt.event.FocusEvent evt) {
+   }
+
+   public void focusLost(java.awt.event.FocusEvent evt) {
+      if (evt.getSource() == jYQtyTextField) {
+         JPlotterPanel.this.jYQtyTextFieldFocusLost(evt);
+      }
+      else if (evt.getSource() == jXQtyTextField) {
+         JPlotterPanel.this.jXQtyTextFieldFocusLost(evt);
       }
    }
 
@@ -519,11 +549,40 @@ public class JPlotterPanel extends javax.swing.JPanel
       }
    }// </editor-fold>//GEN-END:initComponents
 
+   private void jXQtyTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jXQtyTextFieldFocusLost
+      updatePlotterWithSelection();
+// TODO add your handling code here:
+   }//GEN-LAST:event_jXQtyTextFieldFocusLost
+
+   private void jXQtyTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXQtyTextFieldActionPerformed
+      updatePlotterWithSelection();
+// TODO add your handling code here:
+   }//GEN-LAST:event_jXQtyTextFieldActionPerformed
+
+   private void jYQtyTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jYQtyTextFieldFocusLost
+      updatePlotterWithSelection();
+// TODO add your handling code here:
+   }//GEN-LAST:event_jYQtyTextFieldFocusLost
+
+   private void jYQtyTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jYQtyTextFieldActionPerformed
+      updatePlotterWithSelection();
+// TODO add your handling code here:
+   }//GEN-LAST:event_jYQtyTextFieldActionPerformed
+
+   private void jFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFilterButtonActionPerformed
+// TODO add your handling code here:
+      PlotterSourceInterface src = plotterModel.getLoadedFileSources().get(0);
+      PlotterQuantityNameFilterJPanel filterPanel = new PlotterQuantityNameFilterJPanel(src);
+      DialogDescriptor dlg = new DialogDescriptor(filterPanel, "Filter source quantities");
+      DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+
+   }//GEN-LAST:event_jFilterButtonActionPerformed
+
    private void jBrowse4FileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBrowse4FileButtonActionPerformed
       // Browse for Storage or Motion file (for now) and preprocess the file if needed for plotting
       String dataFilename = FileUtils.getInstance().browseForFilename(".sto, .mot", "Files containing data to plot", true);
       if (dataFilename != null){
-         getPlotterModel().addFileStorage(new Storage(dataFilename));
+         getPlotterModel().addFileStorage(dataFilename);
       }
 // TODO add your handling code here:
    }//GEN-LAST:event_jBrowse4FileButtonActionPerformed
@@ -568,7 +627,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             plotterModel.deleteCurve(cvToDelete);
             System.out.println("Delete Curve named "+cvToDelete.getLegend());
          } else
-            System.out.println("Cant delete non-curve non-figure objects");
+            JOptionPane.showMessageDialog(this, "Don't know what to delete!");
          
       }
    }//GEN-LAST:event_jPlotterDeletePlotButtonActionPerformed
@@ -579,7 +638,9 @@ public class JPlotterPanel extends javax.swing.JPanel
       // get Settings and update the curve. The trick is to do it without delete, insert so that colors are kept
          String title =jPlotNameTextField.getText();
       try {
-         plotterModel.updateCurve(currentCurve, title, getSettings(), xPopup.getStorageToUse(), xPopup.getColumnToUse(), yPopup.getStorageToUse(), yPopup.getColumnToUse());
+         plotterModel.updateCurve(currentCurve, title, getSettings(), 
+                 sourceX, domainName, 
+                 sourceY, rangeNames[0]);
          // Find node and make it selected        
          PlotCurveNode cvnode=((PlotTreeModel)plotterModel.getPlotTreeModel()).findCurveNode(currentCurve);
          TreeNode[] nodes = ((PlotTreeModel)plotterModel.getPlotTreeModel()).getPathToRoot(cvnode);
@@ -632,7 +693,19 @@ public class JPlotterPanel extends javax.swing.JPanel
       String title = jPlotNameTextField.getText();
       PlotCurve plotCurve=null;
       try {
-         plotCurve = plotterModel.addCurve(title, getSettings(), xPopup.getStorageToUse(), xPopup.getColumnToUse(), yPopup.getStorageToUse(), yPopup.getColumnToUse());
+         // get Storages from sources
+         for(int curveIndex=0; curveIndex<rangeNames.length; curveIndex++){
+            PlotCurveSettings settings  = getSettings();
+            if (rangeNames.length>1){
+               if (autoGeneratedCurveTitle)
+                  settings.setName(rangeNames[curveIndex]+ " vs. "+domainName);
+               else
+                  settings.setName(settings.getName()+" "+String.valueOf(curveIndex));
+            }
+            plotCurve = plotterModel.addCurve(title, settings, 
+                                    sourceX, domainName, 
+                                    sourceY, rangeNames[curveIndex]);
+         }
          // Find node and make it selected        
          PlotCurveNode cvnode=((PlotTreeModel)plotterModel.getPlotTreeModel()).findCurveNode(plotCurve);
          TreeNode[] nodes = ((PlotTreeModel)plotterModel.getPlotTreeModel()).getPathToRoot(cvnode);
@@ -652,7 +725,8 @@ public class JPlotterPanel extends javax.swing.JPanel
       // Browse for Storage or Motion file (for now) and preprocess the file if needed for plotting
       String dataFilename = FileUtils.getInstance().browseForFilename(".sto, .mot", "Files containing data to plot", true);
       if (dataFilename != null){
-         getPlotterModel().addFileStorage(new Storage(dataFilename));
+         PlotterSourceFile src = new PlotterSourceFile(dataFilename);
+         getPlotterModel().addSource(src);
       }
    }//GEN-LAST:event_jLoadFileToPlotterMenuItemActionPerformed
    
@@ -669,11 +743,11 @@ public class JPlotterPanel extends javax.swing.JPanel
    private javax.swing.JRadioButton jAnalysisSourceRadioButton;
    private javax.swing.JButton jBrowse4FileButton;
    private javax.swing.JButton jButton2;
-   private javax.swing.JButton jButton5;
    private javax.swing.JTextField jCurveNameTextField;
    private javax.swing.JTextField jDomainEndTextField;
    private javax.swing.JTextField jDomainStartTextField;
    private javax.swing.JRadioButton jFileSourceRadioButton;
+   private javax.swing.JButton jFilterButton;
    private javax.swing.JLabel jLabel10;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
@@ -728,7 +802,7 @@ public class JPlotterPanel extends javax.swing.JPanel
 
    private void updateCurveTitle() {
       if (isAutoGeneratedCurveTitle()){
-         currentCurveTitle=yPopup.getColumnToUse()+" vs. "+xPopup.getColumnToUse();
+         currentCurveTitle=getRangeNamesAsString()+" vs. "+domainName;
          jCurveNameTextField.setText(currentCurveTitle);
       }
    }
@@ -759,18 +833,21 @@ public class JPlotterPanel extends javax.swing.JPanel
     *    - default curve name if not modified by user
     *    - X-bounds
     */
-   public void updatePlotterFrameVisibilities()
+   public void updatePlotterWithSelection()
    {
       // For now anything in x,y text fields is taken as valid, instead we should do more 
       // validation that quantities indicated do exist.
-      boolean validX = !(jXQtyTextField.getText().equals(""));
+      boolean validX = parseDomainOrRangeText(jXQtyTextField, true);
       if (validX){
-         if (autoMinX)
-            jDomainStartTextField.setText(String.valueOf(xPopup.getXMin()));
-         if (autoMaxX)            
-            jDomainEndTextField.setText(String.valueOf(xPopup.getXMax()));       
+         Storage s = sourceX.getStorage();
+         if (autoMinX){
+            jDomainStartTextField.setText(String.valueOf(s.getColumnMin(domainName)));
+         }
+         if (autoMaxX){            
+            jDomainEndTextField.setText(String.valueOf(s.getColumnMax(domainName))); 
+         }
       }
-      boolean validY = !(jYQtyTextField.getText().equals(""));
+      boolean validY = parseDomainOrRangeText(jYQtyTextField, false);
       validXY = validX && validY;
       if (!validXY){
          // Disable Add
@@ -799,7 +876,7 @@ public class JPlotterPanel extends javax.swing.JPanel
          if (lastNode instanceof PlotCurveNode){
             // Populate dialog
             PlotCurve cv = (PlotCurve)((PlotCurveNode)lastNode).getUserObject();
-            updateFrameFromCurve(cv);
+            updatePanelFromCurve(cv);
             jPlotterUpdatePlotButton.setEnabled(true);
             jPlotterDeletePlotButton.setEnabled(true);
          }
@@ -863,7 +940,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       return jRectifyCheckBox.isSelected();
    }
 
-   private void updateFrameFromCurve(PlotCurve cv) {
+   private void updatePanelFromCurve(PlotCurve cv) {
       // Populate Curve name, filters
       currentCurve=cv;
       jPlotNameTextField.setText(plotterModel.getPlotForCurve(cv).getTitle());
@@ -872,10 +949,17 @@ public class JPlotterPanel extends javax.swing.JPanel
       jCurveNameTextField.setText(cv.getLegend());
       jDomainStartTextField.setText(String.valueOf(cv.getSettings().getXMin()));
       jDomainEndTextField.setText(String.valueOf(cv.getSettings().getXMax()));
+      // Form domain label
       ArrayStr arx = cv.getDomainStorage().getColumnLabels();
-      jXQtyTextField.setText(cv.getDomainStorage().getName()+":"+arx.getitem(cv.getDomainStorageIndex()+1));
+      String sourceString=cv.getDomainSource().getDisplayName();
+      String colName =arx.getitem(cv.getDomainStorageIndex()+1);
+      jXQtyTextField.setText(sourceString+":"+colName);
+      // Form range label
       ArrayStr ary = cv.getRangeStorage().getColumnLabels();
-      jYQtyTextField.setText(cv.getRangeStorage().getName()+":"+arx.getitem(cv.getRangeStorageIndex()+1));
+      sourceString=cv.getRangeSource().getDisplayName();
+      colName =ary.getitem(cv.getRangeStorageIndex()+1);
+      jYQtyTextField.setText(sourceString+":"+colName);
+      // Now the filters
       jRectifyCheckBox.setSelected(false);
       jOffsetTextField.setText("");
       jScaleTextField.setText("");
@@ -908,7 +992,9 @@ public class JPlotterPanel extends javax.swing.JPanel
 
    public void showTimeCurves(String title, String plot, Storage residualsStore, String[] names) {
       PlotCurve plotCurve=null;
-      try {
+/*      try {
+         // Create a source from the Storage
+         
          for(int i=0; i<names.length; i++) {
          plotCurve = plotterModel.addCurve(title, getSettings(), 
                  residualsStore, "time", 
@@ -923,7 +1009,72 @@ public class JPlotterPanel extends javax.swing.JPanel
       } catch (PlotterException ex) {
          // Popup a dialog explaining what went wrong
          JOptionPane.showMessageDialog(this, ex.getMessage());
-      }
+      }*/
      }
-   
+
+   /**
+    * Popups have a single purpose, to populate the Text fields with valid values, but users can 
+    * type those in manually. The following parse functions try to recover the source storage, columns
+    * from the Text fields for quantities. 
+    * The syntax for File sources is File:<xxxx>:<yyyyy>
+    **/
+   private boolean parseDomainOrRangeText(JTextField jQtyTextField, boolean isDomain) {
+      
+      String text = jQtyTextField.getText();
+      // Check for Empty
+      if (text.length()==0)
+         return false;
+      // Check for qualifiers
+      // We need to be forgiving in case the user types in the quantity manually
+      String trimmed = text.trim();
+      // Split around ":
+      String[] subStrings = trimmed.split(":", 2);
+      if (subStrings.length!=2)
+         return false;
+      String fileName = subStrings[0];
+      String columnNameList = subStrings[1];
+      // If file doesn't exist or doesn't have column complain, otherwise
+      // set Storage and Column
+      String[] columns=columnNameList.trim().split(",",-1);
+      if (isDomain){
+         if (columns.length!=1){
+            JOptionPane.showMessageDialog(this, "Can't have more than one column for domain");
+            return false;
+         } else{
+            PlotterSourceInterface source = plotterModel.getSource(fileName, columns[0]);
+            if (source!=null){
+               sourceX = source;
+               domainName = columns[0].trim();
+            }
+            return (source!=null);
+         }
+      } else {   // range
+         for(int i=0; i<columns.length; i++){
+            columns[i]=columns[i].trim();
+            PlotterSourceFile source = plotterModel.getSource(fileName, columns[i]);
+            if (source==null){
+               JOptionPane.showMessageDialog(this, "Column "+columns[i]+" does not exist in file "+source.getDisplayName());
+               return false;
+            }
+         }
+         rangeNames = new String[columns.length];
+         System.arraycopy(columns, 0, rangeNames, 0, columns.length);
+         // set sourceY here so that 
+         sourceY = plotterModel.getSource(fileName, columns[0]);
+         return true;
+      }
+   }
+   /**
+    * Get a string representing the list of column names 
+    */
+   private String getRangeNamesAsString()
+   {
+      String rep="";
+      for(int i=0; i<rangeNames.length; i++){
+         rep = rep + rangeNames[i];
+         if (i<rangeNames.length-1)
+            rep = rep + ",";
+      }
+      return rep;
+   }
 }

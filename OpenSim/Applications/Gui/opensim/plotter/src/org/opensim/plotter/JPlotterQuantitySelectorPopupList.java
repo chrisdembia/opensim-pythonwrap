@@ -25,15 +25,11 @@
  */
 package org.opensim.plotter;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -41,6 +37,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Storage;
 
@@ -54,12 +52,14 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
    private JTextField   selection;
    private double xMin, xMax;
    private boolean isDomain=false;
-   private JPlotterPanel plotterFrame;
+   private JPlotterPanel plotterPanel;
+   public final String COLUMN_SEPARATOR=", ";
+
    /**
     * Creates a new instance of JPlotterQuantitySelectorPopupList
     */
-   public JPlotterQuantitySelectorPopupList(JTextField target, JPlotterPanel plotterFrame, boolean isDomain) {
-      this.plotterFrame = plotterFrame;
+   public JPlotterQuantitySelectorPopupList(JTextField target, JPlotterPanel plotterPanel, boolean isDomain) {
+      this.plotterPanel = plotterPanel;
       this.isDomain=isDomain;
       selection=target;
       setXMin(0.0);
@@ -71,62 +71,73 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
     */
    public void updateList(PlotterModel plotterModel, boolean useFileSource) {
       removeAll();
-      ArrayList<Storage> usedStorages = plotterModel.getLoadedFileStorages();
+      ArrayList<PlotterSourceFile> usedFileSources = plotterModel.getLoadedFileSources();
       // Add a submenu for each loaded file
-      for(int i=0; i<usedStorages.size(); i++){
-         final Storage nextStorage = usedStorages.get(i);
-         JMenu fileSelectionMenu = new JMenu("File:"+nextStorage.getName());
-         add(fileSelectionMenu);
+      for(int i=0; i<usedFileSources.size(); i++){
+         final PlotterSourceFile source = usedFileSources.get(i);
+         final Storage nextStorage = source.getStorage();
+         JMenuItem selectedFileMenuItem = new JMenuItem("File:"+source.getDisplayName()+"...");
+         selectedFileMenuItem.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+               // Create panel then the dialog that contains it
+               QuantitySelectionPanel quantityPanel = new QuantitySelectionPanel(source);
+               DialogDescriptor dlg = new DialogDescriptor(quantityPanel,"Select Quantity");
+               dlg.setModal(true);
+               DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+               Object userInput = dlg.getValue();
+               if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
+                  String[] columnNames=quantityPanel.getSelected();
+                  String columnNamesDisplayString="";
+                  for(int sel=0; sel<columnNames.length; sel++){
+                     columnNamesDisplayString += columnNames[sel];
+                     if (sel < columnNames.length-1)
+                        columnNamesDisplayString+= COLUMN_SEPARATOR;
+                  }
+                  selection.setText(source.getDisplayName()+":"+columnNamesDisplayString);
+                  /*
+                  setStorageToUse(nextStorage);
+                  setColumnToUse(columnName);
+                  if (isDomain){
+                       setXMin(getStorageToUse().getColumnMin(columnName));
+                       setXMax(getStorageToUse().getColumnMax(columnName));
+                  }*/
+               }
+               plotterPanel.updatePlotterWithSelection();
+
+            }});
+          add(selectedFileMenuItem);
          
+         //selectedFileMenuItem.add(new JMenuItem("Select items..."));
+         /*
          // Now add columns of selected file
          ArrayStr columnLabels = nextStorage.getColumnLabels();
          int numEntries = columnLabels.getSize();
          // make a JList embedded in a ScrollPane and add entries to it
          final JPopupMenu p = new JPopupMenu();
-         int nColumns = numEntries/50+1;
-         int nRows = 50;
-         GridLayout menuGrid = new GridLayout(nRows,nColumns);
-         fileSelectionMenu.getPopupMenu().setLayout(menuGrid);
-         for (int j=0; j < columnLabels.getSize(); j++){
-            final String columnName = columnLabels.getitem(j);
-            JMenuItem colMenuItem = new JMenuItem(columnName);
-            colMenuItem.addActionListener(new ActionListener(){
-               public void actionPerformed(ActionEvent e) {
-                  setStorageToUse(nextStorage);
-                  setColumnToUse(columnName);
-                  selection.setText(getStorageToUse().getName()+":"+columnName);
-                  if (isDomain){
-                     setXMin(getStorageToUse().getColumnMin(columnName));
-                     setXMax(getStorageToUse().getColumnMax(columnName));
-                  }
-                  plotterFrame.updatePlotterFrameVisibilities();
-                }});
-            fileSelectionMenu.add(colMenuItem);          
-         }
-       
-      }
-   }
-/*
          DefaultListModel listModel = new DefaultListModel();
          for (int j=0; j < columnLabels.getSize(); j++){
             final String columnName = columnLabels.getitem(j);
             listModel.add(j, columnName);
          }
         final JList list = new JList(listModel);
-        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        if (isDomain)
+         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        else
+          list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+          
         list.setSelectedIndex(0);
         list.setVisibleRowCount(10);
         final JScrollPane ext = new JScrollPane(list);
         p.add(ext);
-        p.setLocation(getLocation());
+        Point xLocation = selectedFileMenuItem.getLocationOnScreen();
+        p.setLocation(xLocation); //Location
         p.setVisible(true);
         p.requestFocus();
 	list.requestFocus();
-        
+        */
       }
-
-*/
-
+   }
+   
    public Storage getStorageToUse() {
       return storageToUse;
    }
@@ -159,4 +170,86 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
       this.xMax = xMax;
    }
 
+   public void setLabel(String label) {
+      super.setLabel(label);
+   }
+
+
+   // Inner class for quantity selection panel
+   class QuantitySelectionPanel extends javax.swing.JPanel
+   {
+      String[] selected;
+      public QuantitySelectionPanel(PlotterSourceFile source)
+      {
+            Storage nextStorage = source.getStorage();
+            ArrayStr columnLabels = nextStorage.getColumnLabels();
+            int numEntries = columnLabels.getSize();
+            // make a JList embedded in a ScrollPane and add entries to it
+            //final JPopupMenu p = new JPopupMenu();
+            DefaultListModel listModel = new DefaultListModel();
+            for (int j=0; j < columnLabels.getSize(); j++){
+               final String columnName = columnLabels.getitem(j);
+               listModel.add(j, columnName);
+            }
+           final JList list = new JList(listModel);
+           if (JPlotterQuantitySelectorPopupList.this.isDomain)
+            list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+           else
+             list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+           
+           list.addListSelectionListener(new ListSelectionListener() {
+               public void valueChanged(ListSelectionEvent e) { 
+                  Object obj = e.getSource();
+                  JList lsm = (JList)e.getSource();   // Documentation says it's ListSlectionModel!'
+
+                  int firstIndex = e.getFirstIndex();
+                  int lastIndex = e.getLastIndex();
+                  boolean isAdjusting = e.getValueIsAdjusting(); 
+                  if (lsm.isSelectionEmpty()) {
+                        selected=null;
+                  } else {
+                     // Find out which indexes are selected.
+                     int[] allSelected = lsm.getSelectedIndices();
+                     selected = new String[allSelected.length];
+                     for (int i = 0; i < allSelected.length; i++) {
+                          selected[i]=(String)lsm.getModel().getElementAt(allSelected[i]);
+                    }
+                }
+            }
+        });   // SelectionListener
+        list.setVisibleRowCount(10);
+        final JScrollPane ext = new JScrollPane(list);
+        this.add(ext);
+
+      }
+
+      private String[] getSelected() {
+         if (selected != null && selected.length >0){
+            return selected;
+         }
+         return null;
+      }
+   }
 }
+         /* works
+         int nColumns = numEntries/50+1;
+         int nRows = 50;
+         GridLayout menuGrid = new GridLayout(nRows,nColumns);
+         fileSelectionMenu.getPopupMenu().setLayout(menuGrid);
+         for (int j=0; j < columnLabels.getSize(); j++){
+            final String columnName = columnLabels.getitem(j);
+            JMenuItem colMenuItem = new JMenuItem(columnName);
+            colMenuItem.addActionListener(new ActionListener(){
+               public void actionPerformed(ActionEvent e) {
+                  setStorageToUse(nextStorage);
+                  setColumnToUse(columnName);
+                  selection.setText(source.getDisplayName()+":"+columnName);
+                  if (isDomain){
+                     setXMin(getStorageToUse().getColumnMin(columnName));
+                     setXMax(getStorageToUse().getColumnMax(columnName));
+                  }
+                  plotterPanel.updatePlotterWithSelection();
+                }});
+            fileSelectionMenu.add(colMenuItem);          
+         }
+       */

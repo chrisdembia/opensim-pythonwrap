@@ -1,6 +1,6 @@
 /*
  *
- * PlotterCurve
+ * PlotterSourceInterface
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -25,17 +25,27 @@
  */
 package org.opensim.plotter;
 
-import org.jfree.chart.JFreeChart;
+import java.util.Vector;
+import org.opensim.modeling.Storage;
 
 /**
  *
- * @author Ayman
+ * @author Ayman. A class respresenting a Source of data for plotting. This is either a file
+ * in which case all columns in the file are available for selection or an Analysis/Model
  */
-public class PlotterCurve {
+public interface PlotterSourceInterface {
    
-   JFreeChart   dChart=null;
-   /** Creates a new instance of PlotterCurve */
-   public PlotterCurve() {
-   }
+   public String[] getAllQuantities();
    
+   public Vector<String> getSelectedQuantities();
+   
+   public boolean[] getSelectionStatus();
+   
+   public boolean[] filterByRegularExprssion(String regex);
+   
+   public boolean[] toggleItemSelection(String item);
+   
+   public String getDisplayName();
+
+   public Storage getStorage();
 }

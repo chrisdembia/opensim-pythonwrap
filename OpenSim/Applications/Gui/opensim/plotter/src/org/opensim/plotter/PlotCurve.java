@@ -41,19 +41,24 @@ public class PlotCurve {
    private XYSeries    curveSeries=null;
    private boolean      timeDependent=false;
    private PlotCurveSettings    settings;
-   private Storage domainStorage;
-   private Storage rangeStorage;
+   // Source for domain, range needed so that display name (including file can be reconstructed)
+   private PlotterSourceInterface domainSource;
+   private PlotterSourceInterface rangeSource;
    private int domainStorageIndex;
    private int rangeStorageIndex;
    /**
     * Creates a new instance of PlotCurve
     */
-   public PlotCurve(PlotCurveSettings plotCurveSettings, Storage storagex, String stringx, Storage storagey, String stringy) {
+   public PlotCurve(PlotCurveSettings plotCurveSettings, 
+           PlotterSourceInterface sourcex, String stringx, 
+           PlotterSourceInterface sourcey, String stringy) {
       settings = plotCurveSettings;
-      domainStorage=storagex;
-      rangeStorage=storagey;
-      ArrayDouble xArray = getDomainArrayFromStorage(storagex, stringx);
-      ArrayDouble yArray = getRangeArrayFromStorage(storagey, stringy);
+      domainSource=sourcex;
+      rangeSource=sourcey;
+      Storage domainStorage=sourcex.getStorage();
+      Storage rangeStorage=sourcey.getStorage();
+      ArrayDouble xArray = getDataArrayFromStorage(domainStorage, stringx, true);
+      ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, stringy, false);
       
        int size = xArray.getSize();
       // find range of values to display based on minx, maxx
@@ -73,31 +78,24 @@ public class PlotCurve {
        }
    }
 
-   private ArrayDouble getRangeArrayFromStorage(final Storage storagey, final String stringy ) {
-      ArrayDouble yArray = new ArrayDouble(storagey.getSize());
-      if (stringy.equalsIgnoreCase("time")){
-         storagey.getTimeColumn(yArray, 0.);
-         rangeStorageIndex=-1;
+   private ArrayDouble getDataArrayFromStorage(final Storage storage, final String colName, boolean isDomain ) {
+      ArrayDouble Array = new ArrayDouble(storage.getSize());
+      if (colName.equalsIgnoreCase("time")){
+         storage.getTimeColumn(Array, 0.);
+         if (isDomain)
+            domainStorageIndex=-1;
+         else
+            rangeStorageIndex=-1;
       }
       else{
-         rangeStorageIndex = storagey.getStateIndex(stringy);
-         storagey.getDataColumn(stringy, yArray);
+         storage.getDataColumn(colName, Array);
+         int storageIndex = storage.getStateIndex(colName);
+         if (isDomain)
+            domainStorageIndex=storageIndex;
+         else
+            rangeStorageIndex=storageIndex;
       }
-      return yArray;
-   }
-
-   private ArrayDouble getDomainArrayFromStorage(final Storage storagex, final String stringx) {
-      ArrayDouble xArray = new ArrayDouble(storagex.getSize());
-      if (stringx.equalsIgnoreCase("time")){
-         storagex.getTimeColumn(xArray, 0.);
-         setTimeDependent(true);
-         domainStorageIndex=-1;
-      }
-      else{
-         domainStorageIndex = storagex.getStateIndex(stringx);
-         storagex.getDataColumn(stringx, xArray);
-      }
-      return xArray;
+      return Array;
    }
 
    public XYSeries getCurveSeries() {
@@ -147,11 +145,11 @@ public class PlotCurve {
    }
 
    public Storage getDomainStorage() {
-      return domainStorage;
+      return domainSource.getStorage();
    }
 
    public Storage getRangeStorage() {
-      return rangeStorage;
+      return rangeSource.getStorage();
    }
 
    public int getDomainStorageIndex() {
@@ -164,13 +162,15 @@ public class PlotCurve {
 
    void update(String title, 
            PlotCurveSettings plotCurveSettings, 
-           Storage storagex, String namex, 
-           Storage storagey, String namey) throws PlotterException {
+           PlotterSourceInterface sourcex, String namex, 
+           PlotterSourceInterface sourcey, String namey) throws PlotterException {
       settings = plotCurveSettings;
-      domainStorage=storagex;
-      rangeStorage=storagey;
-      ArrayDouble xArray = getDomainArrayFromStorage(storagex, namex);
-      ArrayDouble yArray = getRangeArrayFromStorage(storagey, namey);
+      domainSource=sourcex;
+      rangeSource=sourcey;
+      Storage domainStorage=domainSource.getStorage();
+      Storage rangeStorage=rangeSource.getStorage();
+      ArrayDouble xArray = getDataArrayFromStorage(domainStorage, namex, true);
+      ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, namey, false);
       
       // Make an XYSeries to hold the data
       setLegend(plotCurveSettings.getName());
@@ -189,6 +189,14 @@ public class PlotCurve {
       for (int i = startIndex;i< endIndex;i++){
            getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
        }
+   }
+
+   PlotterSourceInterface getDomainSource() {
+      return domainSource;
+   }
+   
+   PlotterSourceInterface getRangeSource() {
+      return rangeSource;
    }
    
 }

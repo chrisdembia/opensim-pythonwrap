@@ -22,7 +22,7 @@ public class PlotDataSet {
   int _dataSetIndexInFigure = -1;
   boolean _timeDependent;
   double _lastTime;
-  OpenSimPlotPanel _figure;
+  old2OpenSimPlotPanel _figure;
   int _figureIndex;      // index of Figure to which the dataset will be plotted
   static public final String DEFAULT_LEGEND="Default: x vs. y";
   boolean _connect;
@@ -101,7 +101,7 @@ public class PlotDataSet {
    *
    * @param plot Plot
    */
-  public void setPlot(OpenSimPlotPanel plot) {
+  public void setPlot(old2OpenSimPlotPanel plot) {
     _figure = plot;
   }
 

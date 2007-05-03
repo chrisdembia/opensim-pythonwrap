@@ -161,9 +161,6 @@
                 <Container class="javax.swing.JScrollPane" name="jScrollPane1">
                   <Properties>
                     <Property name="autoscrolls" type="boolean" value="true"/>
-                    <Property name="horizontalScrollBar" type="javax.swing.JScrollBar" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="null"/>
-                    </Property>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
@@ -242,6 +239,7 @@
                     <TitledBorder title="Curve add/update"/>
                   </Border>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Legend:"/>
               </Properties>
 
               <Layout>
@@ -339,12 +337,12 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Curve Name"/>
+                    <Property name="text" type="java.lang.String" value="Curve Legend"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jCurveNameTextField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Curve label goes here"/>
+                    <Property name="text" type="java.lang.String" value="Curve legend goes here"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCurveNameTextFieldActionPerformed"/>
@@ -417,6 +415,10 @@
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jXQtyTextField">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jXQtyTextFieldActionPerformed"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jXQtyTextFieldFocusLost"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel9">
                       <Properties>
@@ -470,7 +472,7 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jButton5" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="jFilterButton" alignment="0" max="32767" attributes="1"/>
                                           <Component id="jButton2" alignment="0" max="32767" attributes="1"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -490,7 +492,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jFilterButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -548,11 +550,18 @@
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jYQtyTextField">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jYQtyTextFieldActionPerformed"/>
+                        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jYQtyTextFieldFocusLost"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton5">
+                    <Component class="javax.swing.JButton" name="jFilterButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Filter..."/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFilterButtonActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel7">
                       <Properties>
@@ -611,8 +620,8 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jPlotNameTextField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Plot label goes here"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Figure Title"/>
+                    <Property name="text" type="java.lang.String" value="Plot title goes here"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Plot Title"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPlotNameTextFieldActionPerformed"/>

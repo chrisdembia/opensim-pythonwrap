@@ -14,7 +14,9 @@ public final class ToolsPlotAction extends CallableSystemAction {
       //f.setVisible(true);
       
       DialogDescriptor dlg = new DialogDescriptor(new JPlotterPanel(),"Plotter Dialog");
+      dlg.setModal(false);
       DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+      
    }
    
    public String getName() {
