@@ -93,7 +93,7 @@ public class MotionDisplayer {
         forcesRep.scaleByVector();
         
         markersRep.setShape(MotionObjectsDB.getInstance().getShape("marker"));
-        markersRep.setColor(new double[]{0.0, 0.0, 1.0});
+        markersRep.setColor(new double[]{0.0, 0.0, 1.0}); //Scale , scaleBy
         ViewDB.getInstance().addUserObject(model, forcesRep.getVtkActor());
         ViewDB.getInstance().addUserObject(model, markersRep.getVtkActor());
     }
@@ -153,9 +153,14 @@ public class MotionDisplayer {
          // 
          String cName = marker.getName();
          if (columnName.startsWith(cName+"_")){
-            mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.Marker);
-            mapIndicesToObjects.put(columnIndex, marker);
-            return 1;
+            mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.Segment_marker_p1);
+            mapIndicesToObjectTypes.put(columnIndex+1, ObjectTypesInMotionFiles.Segment_marker_p2);
+            mapIndicesToObjectTypes.put(columnIndex+2, ObjectTypesInMotionFiles.Segment_marker_p3);
+            int index= markersRep.addLocation(0., 0., 0.);
+            mapIndicesToObjects.put(columnIndex, new Integer(index));
+            mapIndicesToObjects.put(columnIndex+1, new Integer(index));
+            mapIndicesToObjects.put(columnIndex+2, new Integer(index));
+            return 3;
          }
       }
      // Body segment since experimental markersRep are in ground frame as ground_marker_??
