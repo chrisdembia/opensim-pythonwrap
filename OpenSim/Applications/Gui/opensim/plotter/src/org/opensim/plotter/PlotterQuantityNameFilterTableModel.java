@@ -75,4 +75,20 @@ public class PlotterQuantityNameFilterTableModel extends AbstractTableModel {
    void applyFilter(String regex) {
       selected = source.filterByRegularExprssion(regex);
    }
+
+    public void setValueAt(Object aValue, int row, int col) {
+        selected[row] = (Boolean)aValue;
+        fireTableCellUpdated(row, col);
+    }
+
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return (columnIndex==1);
+    }
+
+    String getNumSelected() {
+        int numSelected=0;
+        for(int i=0;i<selected.length; i++)
+            numSelected += (selected[i]?1:0);
+        return numSelected+" items selected";
+    }
 }

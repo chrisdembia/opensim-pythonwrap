@@ -93,7 +93,7 @@ public class Plot {
       boolean isUnique = true;
       for(int i=0;i<seriesCollection.getSeriesCount() && isUnique;i++){
          XYSeries ser = seriesCollection.getSeries(i);
-         if (ser.getKey().compareTo(newCurveName)==0)
+         if (((String)ser.getKey()).compareTo(newCurveName)==0)
             isUnique=false;
       }
       return isUnique;

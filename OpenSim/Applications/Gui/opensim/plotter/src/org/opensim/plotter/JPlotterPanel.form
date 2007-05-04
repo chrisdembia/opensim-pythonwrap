@@ -51,6 +51,7 @@
       <Properties>
         <Property name="dividerLocation" type="int" value="150"/>
         <Property name="orientation" type="int" value="0"/>
+        <Property name="resizeWeight" type="double" value="1.0"/>
         <Property name="autoscrolls" type="boolean" value="true"/>
         <Property name="doubleBuffered" type="boolean" value="true"/>
         <Property name="oneTouchExpandable" type="boolean" value="true"/>
@@ -99,7 +100,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jPlotTitlePanel" max="32767" attributes="2"/>
-                          <Component id="jPlotSpecPanel" min="0" max="32767" attributes="2"/>
+                          <Component id="jPlotSpecPanel" min="-2" max="-2" attributes="2"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jPlotNavigationPanel" max="32767" attributes="0"/>
@@ -266,7 +267,7 @@
                                   <Component id="jBrowse4FileButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jCurveNameTextField" alignment="0" pref="298" max="32767" attributes="3"/>
+                              <Component id="jCurveNameTextField" alignment="0" pref="333" max="32767" attributes="3"/>
                           </Group>
                       </Group>
                       <Component id="jPanel9" alignment="1" max="32767" attributes="1"/>
@@ -361,7 +362,6 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
@@ -374,14 +374,14 @@
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jDomainStartTextField" min="-2" pref="80" max="-2" attributes="0"/>
+                                      <Component id="jDomainStartTextField" min="-2" pref="111" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jDomainEndTextField" min="-2" pref="89" max="-2" attributes="0"/>
+                                      <Component id="jDomainEndTextField" min="-2" pref="98" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jXQtyTextField" alignment="0" pref="242" max="32767" attributes="1"/>
+                                  <Component id="jXQtyTextField" alignment="0" pref="287" max="32767" attributes="1"/>
                               </Group>
                           </Group>
                       </Group>
@@ -396,8 +396,8 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jDomainStartTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jDomainEndTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -425,22 +425,14 @@
                         <Property name="text" type="java.lang.String" value="Start"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jDomainStartTextField">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jDomainStartTextFieldActionPerformed"/>
-                        <EventHandler event="caretPositionChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="jDomainStartTextFieldCaretPositionChanged"/>
-                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jDomainStartTextFieldKeyTyped"/>
-                      </Events>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="jLabel10">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="End"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jDomainEndTextField">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jDomainEndTextFieldActionPerformed"/>
-                      </Events>
+                    <Component class="javax.swing.JFormattedTextField" name="jDomainStartTextField">
+                    </Component>
+                    <Component class="javax.swing.JFormattedTextField" name="jDomainEndTextField">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -477,8 +469,8 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jYQtyTextField" alignment="0" pref="233" max="32767" attributes="1"/>
+                                          <Component id="jFilterValueLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jYQtyTextField" alignment="0" pref="268" max="32767" attributes="1"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -491,7 +483,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jFilterValueLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jFilterButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -563,9 +555,10 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFilterButtonActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel7">
+                    <Component class="javax.swing.JLabel" name="jFilterValueLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Current value  (e.g. model:muscleGroup)"/>
+                        <Property name="text" type="java.lang.String" value=".*"/>
+                        <Property name="toolTipText" type="java.lang.String" value="Current value  (e.g. model:muscleGroup)"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -596,7 +589,7 @@
                           <Component id="jPlotLabelJLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="jPlotNameTextField" min="-2" pref="308" max="-2" attributes="3"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="45" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

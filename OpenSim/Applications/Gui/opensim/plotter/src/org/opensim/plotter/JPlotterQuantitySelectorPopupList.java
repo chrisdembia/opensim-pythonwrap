@@ -28,6 +28,7 @@ package org.opensim.plotter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
@@ -44,7 +45,10 @@ import org.opensim.modeling.Storage;
 
 /**
  *
- * @author Ayman
+ * @author Ayman, this class is responsible for showing and arranging 
+ * the set of quantities to be displayed for user selection in the plotter
+ * A popup with list of Files is shown ad on user pick a dialog is shown for 
+ * picking quantities.
  */
 public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
    private Storage storageToUse;
@@ -54,6 +58,7 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
    private boolean isDomain=false;
    private JPlotterPanel plotterPanel;
    public final String COLUMN_SEPARATOR=", ";
+   public final String INTERVAL_SEPARATOR="-";
 
    /**
     * Creates a new instance of JPlotterQuantitySelectorPopupList
@@ -80,7 +85,7 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
          selectedFileMenuItem.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                // Create panel then the dialog that contains it
-               QuantitySelectionPanel quantityPanel = new QuantitySelectionPanel(source);
+               QuantitySelectionPanel quantityPanel = new QuantitySelectionPanel(source, plotterPanel.getQuantityFilterRegex());
                DialogDescriptor dlg = new DialogDescriptor(quantityPanel,"Select Quantity");
                dlg.setModal(true);
                DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
@@ -94,13 +99,6 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
                         columnNamesDisplayString+= COLUMN_SEPARATOR;
                   }
                   selection.setText(source.getDisplayName()+":"+columnNamesDisplayString);
-                  /*
-                  setStorageToUse(nextStorage);
-                  setColumnToUse(columnName);
-                  if (isDomain){
-                       setXMin(getStorageToUse().getColumnMin(columnName));
-                       setXMax(getStorageToUse().getColumnMax(columnName));
-                  }*/
                }
                plotterPanel.updatePlotterWithSelection();
 
@@ -179,7 +177,7 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
    class QuantitySelectionPanel extends javax.swing.JPanel
    {
       String[] selected;
-      public QuantitySelectionPanel(PlotterSourceFile source)
+      public QuantitySelectionPanel(PlotterSourceFile source, String filterRegex)
       {
             Storage nextStorage = source.getStorage();
             ArrayStr columnLabels = nextStorage.getColumnLabels();
@@ -187,9 +185,13 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
             // make a JList embedded in a ScrollPane and add entries to it
             //final JPopupMenu p = new JPopupMenu();
             DefaultListModel listModel = new DefaultListModel();
+            int k=0;
             for (int j=0; j < columnLabels.getSize(); j++){
                final String columnName = columnLabels.getitem(j);
-               listModel.add(j, columnName);
+               if (Pattern.matches(filterRegex, columnName)){
+                    listModel.add(k, columnName);
+                    k++;
+               }
             }
            final JList list = new JList(listModel);
            if (JPlotterQuantitySelectorPopupList.this.isDomain)

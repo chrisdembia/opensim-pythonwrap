@@ -57,25 +57,35 @@ public class PlotCurve {
       rangeSource=sourcey;
       Storage domainStorage=sourcex.getStorage();
       Storage rangeStorage=sourcey.getStorage();
-      ArrayDouble xArray = getDataArrayFromStorage(domainStorage, stringx, true);
-      ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, stringy, false);
       
-       int size = xArray.getSize();
-      // find range of values to display based on minx, maxx
-      int startIndex=xArray.findIndex(plotCurveSettings.getXMin());
-      if (startIndex ==-1) // Cut to bounds with data
-         startIndex=0;
-      int endIndex=xArray.rfindIndex(plotCurveSettings.getXMax());
-      if (endIndex ==-1) // Cut to bounds with data
-         endIndex=yArray.getSize()-1;
-      
-      //System.out.println("Pre-filtering data first,last="+yArray.getitem(startIndex)+", "+yArray.getitem(endIndex));
-      double[] yFiltered = applyFilters(plotCurveSettings.getFilters(), yArray, startIndex, endIndex);
-     // Make an XYSeries to hold the data and keep a ref to it with the curve
-      setCurveSeries(new XYSeries(plotCurveSettings.getName()));
-      for (int i = startIndex;i< endIndex;i++){
-           getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
-       }
+      // The following code assumes x, y are parrallel arrays of the same size
+      // which should be enforced by the GUI.
+      // In case this restriction is removed, rangeStorage will need to be sampled
+      // at domain sample values (e.g. plot quantities against time coming from another storage
+      if (domainStorage.equals(rangeStorage)){
+          ArrayDouble xArray = getDataArrayFromStorage(domainStorage, stringx, true);
+          ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, stringy, false);
+          
+          int size = xArray.getSize();
+          // find range of values to display based on minx, maxx
+          // this assumes some ordering on x values so that the set of xValues plotted
+          // are those at or higher than the first occurance of the value xMin
+          // and less than the last occurance of the value xMax.
+          int startIndex=xArray.findIndex(plotCurveSettings.getXMin());
+          if (startIndex ==-1) // Cut to bounds with data
+              startIndex=0;
+          int endIndex=xArray.rfindIndex(plotCurveSettings.getXMax());
+          if (endIndex ==-1) // Cut to bounds with data
+              endIndex=xArray.getSize()-1;
+          double[] yFiltered = applyFilters(plotCurveSettings.getFilters(), yArray, startIndex, endIndex);
+          // Make an XYSeries to hold the data and keep a ref to it with the curve
+          setCurveSeries(new XYSeries(plotCurveSettings.getName()));
+          for (int i = startIndex;i< endIndex;i++){
+              getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
+          }
+      }
+      else
+          throw new UnsupportedOperationException("Domain and range selections from different sources are not supported yet.");
    }
 
    private ArrayDouble getDataArrayFromStorage(final Storage storage, final String colName, boolean isDomain ) {
@@ -199,4 +209,18 @@ public class PlotCurve {
       return rangeSource;
    }
    
+   public void addDataPoint(double x, double y) {
+      double yFiltered = applyFilters(settings.getFilters(), y);
+      getCurveSeries().add(x, yFiltered) ;//add the computed values to the series
+   }
+   /**
+    * Apply filters to one value instead of an array
+    **/
+    private double applyFilters(Vector<PlotDataFilter> filters, double y) {
+      double[] yArray = new double[]{y};
+      double[] returnValues = new double[1];
+      for(int i=0; i<filters.size(); i++)
+         returnValues = filters.get(i).convertData(yArray);
+        return returnValues[0];
+    }
 }

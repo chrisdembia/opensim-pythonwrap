@@ -1,6 +1,6 @@
 /*
  *
- * PlotterSourceFile
+ * PlotterSourceAnalysis
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -29,24 +29,26 @@ import java.io.File;
 import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import org.opensim.modeling.Analysis;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 
 /**
  *
- * @author Ayman. A class representing the Source=File radio button
+ * @author Ayman. A class representing the Source=Model/Analysis radio button
  */
-public class PlotterSourceFile implements PlotterSourceInterface {
+public class PlotterSourceAnalysis implements PlotterSourceInterface {
    
    private String[] allAvailable;
    private boolean[] selectionStatus;
    private String displayName;
    private Storage   storage;
-   /** Creates a new instance of PlotterSourceFile */
-   public PlotterSourceFile(String filename) {
-      storage=new Storage(filename);
-      String fullFileName = filename;
-      displayName = new File(fullFileName).getName();
+   private Model model;
+   /** Creates a new instance of PlotterSourceAnalysis */
+   public PlotterSourceAnalysis(Storage storage, String modelAnalysisString, Model aModel) {
+      model = aModel;
+      displayName = modelAnalysisString;
       ArrayStr labels = storage.getColumnLabels();
       allAvailable = new String[labels.getSize()];
       selectionStatus = new boolean[labels.getSize()];
