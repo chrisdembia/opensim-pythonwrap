@@ -46,8 +46,9 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
    private Storage   storage;
    private Model model;
    /** Creates a new instance of PlotterSourceAnalysis */
-   public PlotterSourceAnalysis(Storage storage, String modelAnalysisString, Model aModel) {
+   public PlotterSourceAnalysis(Model aModel, Storage storage, String modelAnalysisString) {
       model = aModel;
+      this.storage = storage;
       displayName = modelAnalysisString;
       ArrayStr labels = storage.getColumnLabels();
       allAvailable = new String[labels.getSize()];

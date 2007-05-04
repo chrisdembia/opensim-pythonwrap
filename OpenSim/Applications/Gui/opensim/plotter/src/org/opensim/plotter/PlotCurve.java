@@ -29,6 +29,7 @@ import java.util.Vector;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.opensim.modeling.ArrayDouble;
+import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Storage;
 
 /**
@@ -219,8 +220,21 @@ public class PlotCurve {
     private double applyFilters(Vector<PlotDataFilter> filters, double y) {
       double[] yArray = new double[]{y};
       double[] returnValues = new double[1];
+      returnValues[0]=yArray[0];
       for(int i=0; i<filters.size(); i++)
          returnValues = filters.get(i).convertData(yArray);
         return returnValues[0];
+    }
+    
+    public String getDomainName()
+    {        
+        ArrayStr labels = domainSource.getStorage().getColumnLabels();
+        return labels.getitem(domainStorageIndex+1);
+    }
+    
+    public String getRangeName()
+    {
+        ArrayStr labels = rangeSource.getStorage().getColumnLabels();
+        return labels.getitem(rangeStorageIndex+1);
     }
 }

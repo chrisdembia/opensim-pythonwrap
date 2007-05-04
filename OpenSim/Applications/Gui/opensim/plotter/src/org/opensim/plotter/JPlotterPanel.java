@@ -17,6 +17,7 @@ import javax.swing.tree.TreePath;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 import org.opensim.utils.FileUtils;
 
@@ -593,7 +594,7 @@ public class JPlotterPanel extends javax.swing.JPanel
 // TODO add your handling code here:
       // Single Curve is selected, populate the dialog from the Curve and keep a pointer to it for update
       // get Settings and update the curve. The trick is to do it without delete, insert so that colors are kept
-         String title =jPlotNameTextField.getText();
+      String title =jPlotNameTextField.getText();
       try {
          plotterModel.updateCurve(currentCurve, title, getSettings(), 
                  sourceX, domainName, 
@@ -663,11 +664,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                                     sourceX, domainName, 
                                     sourceY, rangeNames[curveIndex]);
          }
-         // Find node and make it selected        
-         PlotCurveNode cvnode=((PlotTreeModel)plotterModel.getPlotTreeModel()).findCurveNode(plotCurve);
-         TreeNode[] nodes = ((PlotTreeModel)plotterModel.getPlotTreeModel()).getPathToRoot(cvnode);
-         TreePath path = new TreePath(nodes); 
-         jPlotsTree.setSelectionPath(path);
+            processNewCurve(plotCurve);
          
       } catch (PlotterException ex) {
          // Popup a dialog explaining what went wrong
@@ -676,6 +673,14 @@ public class JPlotterPanel extends javax.swing.JPanel
       this.doLayout();
       repaint();
    }//GEN-LAST:event_jPlotterAddCurveButtonActionPerformed
+
+    private void processNewCurve(final PlotCurve plotCurve) {
+        // Find node and make it selected        
+        PlotCurveNode cvnode=((PlotTreeModel)plotterModel.getPlotTreeModel()).findCurveNode(plotCurve);
+        TreeNode[] nodes = ((PlotTreeModel)plotterModel.getPlotTreeModel()).getPathToRoot(cvnode);
+        TreePath path = new TreePath(nodes); 
+        jPlotsTree.setSelectionPath(path);
+    }
    
    private void jLoadFileToPlotterMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoadFileToPlotterMenuItemActionPerformed
 // TODO add your handling code here:
@@ -901,12 +906,21 @@ public class JPlotterPanel extends javax.swing.JPanel
    boolean getRectify() {
       return jRectifyCheckBox.isSelected();
    }
-
+   /**
+    * updatePanelFromCurve is invoked when selection on the tree changes.
+    * need to make sure that the following are set
+    * PlotterSourceInterface  sourceX, sourceY;
+    * String      domainName;
+    * String[]    rangeNames;
+    */
    private void updatePanelFromCurve(PlotCurve cv) {
       // Populate Curve name, filters
       currentCurve=cv;
       jPlotNameTextField.setText(plotterModel.getPlotForCurve(cv).getTitle());
-      
+      sourceX=cv.getDomainSource();
+      sourceY=cv.getRangeSource();
+      domainName = cv.getDomainName();
+      rangeNames[0] = cv.getRangeName();
       // set title based on figure title
       jCurveNameTextField.setText(cv.getLegend());
       setMinX(cv.getSettings().getXMin());
@@ -1025,8 +1039,22 @@ public class JPlotterPanel extends javax.swing.JPanel
       return rep;
    }
 
-    public PlotCurve showOneCurveAgainstTime(Storage s, String string, String maxError) throws PlotterException{
-        return null;
+    public PlotCurve showOneCurveAgainstTime(Model aModel, Storage s, String curveLegend, String columnName) throws PlotterException{
+        sourceX = new PlotterSourceAnalysis(aModel, s, columnName);
+        sourceY = sourceX;
+        domainName = "time";
+        rangeNames = new String[]{columnName};
+        jPlotNameTextField.setText(curveLegend);
+        PlotCurveSettings settings  = getSettings();
+        PlotCurve plotCurve=null;
+        settings.setXMin(s.getFirstTime());
+        settings.setXMax(s.getLastTime());
+        plotCurve = plotterModel.addCurve("IK errors plot", settings, 
+                                    sourceX, domainName, 
+                                    sourceY, rangeNames[0]);
+        
+        processNewCurve(plotCurve);
+        return plotCurve;
     }
 
     String getQuantityFilterRegex() {
