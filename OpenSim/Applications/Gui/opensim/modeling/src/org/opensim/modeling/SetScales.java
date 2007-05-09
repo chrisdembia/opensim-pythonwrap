@@ -114,6 +114,10 @@ public class SetScales extends OpenSimObject {
     return opensimModelJNI.SetScales_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetScales_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(Scale aObject) {
     return opensimModelJNI.SetScales_append__SWIG_0(swigCPtr, this, Scale.getCPtr(aObject), aObject);
   }

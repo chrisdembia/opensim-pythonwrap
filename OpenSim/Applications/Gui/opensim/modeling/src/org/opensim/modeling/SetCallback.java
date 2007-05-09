@@ -114,6 +114,10 @@ public class SetCallback extends OpenSimObject {
     return opensimModelJNI.SetCallback_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetCallback_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(Callback aObject) {
     return opensimModelJNI.SetCallback_append__SWIG_0(swigCPtr, this, Callback.getCPtr(aObject), aObject);
   }

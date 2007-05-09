@@ -114,6 +114,10 @@ public class SetCoordinates extends OpenSimObject {
     return opensimModelJNI.SetCoordinates_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetCoordinates_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(AbstractCoordinate aObject) {
     return opensimModelJNI.SetCoordinates_append__SWIG_0(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject);
   }

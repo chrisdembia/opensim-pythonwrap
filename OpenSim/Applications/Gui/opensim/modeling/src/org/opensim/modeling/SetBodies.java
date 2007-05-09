@@ -114,6 +114,10 @@ public class SetBodies extends OpenSimObject {
     return opensimModelJNI.SetBodies_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetBodies_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(AbstractBody aObject) {
     return opensimModelJNI.SetBodies_append__SWIG_0(swigCPtr, this, AbstractBody.getCPtr(aObject), aObject);
   }

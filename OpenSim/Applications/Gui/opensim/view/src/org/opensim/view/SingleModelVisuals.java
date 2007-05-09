@@ -695,6 +695,7 @@ public class SingleModelVisuals {
        viaPoint.SetRadius(DEFAULT_MUSCLE_RADIUS);
        viaPoint.SetCenter(0., 0., 0.);
        getMusclePointsRep().setColor(defaultMusclePointColor);
+       getMusclePointsRep().colorByScalar();
        getMusclePointsRep().setShape(viaPoint.GetOutput());
        getMusclePointsRep().scaleByVector();
        

@@ -114,6 +114,10 @@ public class SetMarkers extends OpenSimObject {
     return opensimModelJNI.SetMarkers_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetMarkers_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(AbstractMarker aObject) {
     return opensimModelJNI.SetMarkers_append__SWIG_0(swigCPtr, this, AbstractMarker.getCPtr(aObject), aObject);
   }

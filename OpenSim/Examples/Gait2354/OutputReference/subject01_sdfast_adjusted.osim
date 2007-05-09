@@ -1575,6 +1575,92 @@
 		</SdfastEngine>
 	</DynamicsEngine>
 	<ActuatorSet name="">
+	<groups>
+		<ObjectGroup name="R_hip_abd">
+			<members>glut_max1_r glut_med1_r glut_med2_r glut_med3_r peri_r sar_r tfl_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_hip_flex">
+			<members>glut_med1_r grac_r iliacus_r pect_r psoas_r rect_fem_r sar_r tfl_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_hip_inrot">
+			<members>glut_med1_r iliacus_r psoas_r tfl_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_hip_exrot">
+			<members>gem_r glut_med3_r peri_r quad_fem_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_hip_ext">
+			<members>add_mag2_r bifemlh_r glut_max1_r glut_max2_r glut_max3_r glut_med3_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_hip_add">
+			<members>add_mag2_r bifemlh_r grac_r pect_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_knee_bend">
+			<members>bifemlh_r bifemsh_r grac_r med_gas_r sar_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_knee_ext">
+			<members>rect_fem_r vas_int_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_ankle_pf">
+			<members>med_gas_r soleus_r tib_post_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_inverter">
+			<members>tib_ant_r tib_post_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="R_ankle_df">
+			<members>tib_ant_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_abd">
+			<members>glut_max1_l glut_med1_l glut_med2_l glut_med3_l peri_l sar_l tfl_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_flex">
+			<members>glut_med1_l grac_l iliacus_l pect_l psoas_l rect_fem_l sar_l tfl_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_inrot">
+			<members>glut_med1_l iliacus_l psoas_l tfl_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_exrot">
+			<members>gem_l glut_med3_l peri_l quad_fem_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_ext">
+			<members>add_mag2_l bifemlh_l glut_max1_l glut_max2_l glut_max3_l glut_med3_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_hip_add">
+			<members>add_mag2_l bifemlh_l grac_l pect_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_knee_bend">
+			<members>bifemlh_l bifemsh_l grac_l med_gas_l sar_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_knee_ext">
+			<members>rect_fem_l vas_int_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_ankle_pf">
+			<members>med_gas_l soleus_l tib_post_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_inverter">
+			<members>tib_ant_l tib_post_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="L_ankle_df">
+			<members>tib_ant_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_ext">
+			<members>ercspn_l ercspn_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_rlb">
+			<members>ercspn_r extobl_r intobl_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_introt">
+			<members>ercspn_r extobl_l intobl_r </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_llb">
+			<members>ercspn_l extobl_l intobl_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_extrot">
+			<members>ercspn_l extobl_r intobl_l </members>
+		</ObjectGroup>
+		<ObjectGroup name="back_flex">
+			<members>extobl_l extobl_r intobl_l intobl_r </members>
+		</ObjectGroup>
+	</groups>
 		<objects>
 			<SimmDarrylMuscle name="glut_med1_r">
 				<MusclePointSet name="">
@@ -1619,7 +1705,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_abd R_hip_flex R_hip_inrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -1683,7 +1768,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_abd </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -1747,7 +1831,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_abd R_hip_exrot R_hip_ext </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -1825,7 +1908,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_ext R_hip_add R_knee_bend </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -1903,7 +1985,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_knee_bend </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2009,7 +2090,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_flex R_hip_abd R_knee_bend </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2073,7 +2153,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_ext R_hip_add </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2165,7 +2244,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_abd R_hip_flex R_hip_inrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2229,7 +2307,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_add R_hip_flex </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2323,7 +2400,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_add R_knee_bend R_hip_flex </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2415,7 +2491,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_ext R_hip_abd </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2507,7 +2582,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_ext </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2599,7 +2673,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_ext </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2707,7 +2780,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_flex R_hip_inrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2815,7 +2887,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_flex R_hip_inrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2879,7 +2950,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_exrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -2943,7 +3013,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_exrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3021,7 +3090,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_exrot R_hip_abd </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3101,7 +3169,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_hip_flex R_knee_ext </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3195,7 +3262,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_knee_ext </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3275,7 +3341,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_knee_bend R_ankle_pf </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3339,7 +3404,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_ankle_pf </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3431,7 +3495,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_ankle_pf R_inverter </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3509,7 +3572,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> R_ankle_df R_inverter </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3573,7 +3635,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_abd L_hip_flex L_hip_inrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3637,7 +3698,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_abd </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3701,7 +3761,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_abd L_hip_exrot L_hip_ext </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3779,7 +3838,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_ext L_hip_add L_knee_bend </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3857,7 +3915,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_knee_bend </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -3963,7 +4020,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_flex L_hip_abd L_knee_bend </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4027,7 +4083,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_ext L_hip_add </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4119,7 +4174,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_abd L_hip_flex L_hip_inrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4183,7 +4237,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_add L_hip_flex </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4277,7 +4330,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_add L_knee_bend L_hip_flex </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4369,7 +4421,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_ext L_hip_abd </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4461,7 +4512,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_ext </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4553,7 +4603,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_ext </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4661,7 +4710,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_flex L_hip_inrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4769,7 +4817,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_flex L_hip_inrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4833,7 +4880,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_exrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4897,7 +4943,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_exrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -4975,7 +5020,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_exrot L_hip_abd </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5055,7 +5099,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_hip_flex L_knee_ext </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5149,7 +5192,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_knee_ext </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5229,7 +5271,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_knee_bend L_ankle_pf </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5293,7 +5334,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_ankle_pf </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5385,7 +5425,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_ankle_pf L_inverter </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5463,7 +5502,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> L_ankle_df L_inverter </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5527,7 +5565,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> back_ext back_rlb back_introt </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5591,7 +5628,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> back_ext back_llb back_extrot </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5655,7 +5691,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> back_introt back_flex back_rlb </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5719,7 +5754,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> back_extrot back_flex back_llb </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5783,7 +5817,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> back_extrot back_flex back_rlb </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>
@@ -5847,7 +5880,6 @@
 					</VisibleProperties>
 					<scale_factors>       1.00000000       1.00000000       1.00000000 </scale_factors>
 				</VisibleObject>
-				<groups> back_introt back_flex back_llb </groups>
 				<MuscleWrapSet name="">
 					<objects/>
 				</MuscleWrapSet>

@@ -89,6 +89,11 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
+  public AbstractWrapObject getWrapObject(String aName) {
+    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getWrapObject(swigCPtr, this, aName);
+    return (cPtr == 0) ? null : new AbstractWrapObject(cPtr, false);
+  }
+
   public JointSet getJointSet() {
     long cPtr = opensimModelJNI.AbstractDynamicsEngine_getJointSet__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new JointSet(cPtr, false);

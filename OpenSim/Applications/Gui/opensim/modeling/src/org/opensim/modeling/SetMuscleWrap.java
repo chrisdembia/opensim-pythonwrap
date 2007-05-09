@@ -114,6 +114,10 @@ public class SetMuscleWrap extends OpenSimObject {
     return opensimModelJNI.SetMuscleWrap_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetMuscleWrap_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(MuscleWrap aObject) {
     return opensimModelJNI.SetMuscleWrap_append__SWIG_0(swigCPtr, this, MuscleWrap.getCPtr(aObject), aObject);
   }

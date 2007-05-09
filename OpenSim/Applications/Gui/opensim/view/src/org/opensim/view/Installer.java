@@ -9,6 +9,7 @@ import org.opensim.utils.TheApp;
 import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
+import org.opensim.view.editors.MuscleEditorTopComponent;
 
 /**
  * Manages a module's lifecycle. Remember that an installer is optional and
@@ -20,6 +21,7 @@ public class Installer extends ModuleInstall {
         try {
              // Put your startup code here.
             UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
+            MuscleEditorTopComponent.findInstance();
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         } catch (IllegalAccessException ex) {

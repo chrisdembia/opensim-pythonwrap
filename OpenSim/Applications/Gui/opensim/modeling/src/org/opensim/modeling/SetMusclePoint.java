@@ -114,6 +114,10 @@ public class SetMusclePoint extends OpenSimObject {
     return opensimModelJNI.SetMusclePoint_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetMusclePoint_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(MusclePoint aObject) {
     return opensimModelJNI.SetMusclePoint_append__SWIG_0(swigCPtr, this, MusclePoint.getCPtr(aObject), aObject);
   }

@@ -94,6 +94,10 @@ public class OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.OpenSimObject_copy__SWIG_2(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  }
+
   public static OpenSimObject SafeCopy(OpenSimObject aObject) {
     long cPtr = opensimModelJNI.OpenSimObject_SafeCopy(OpenSimObject.getCPtr(aObject), aObject);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);

@@ -42,8 +42,12 @@ public class SimmDarrylMuscle extends AbstractMuscle {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.SimmDarrylMuscle_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.SimmDarrylMuscle_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.SimmDarrylMuscle_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
   public void copyData(SimmDarrylMuscle aMuscle) {
@@ -172,6 +176,19 @@ public class SimmDarrylMuscle extends AbstractMuscle {
 
   public void peteTest() {
     opensimModelJNI.SimmDarrylMuscle_peteTest(swigCPtr, this);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.SimmDarrylMuscle_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.SimmDarrylMuscle_isA(swigCPtr, this, type);
+  }
+
+  public static SimmDarrylMuscle safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.SimmDarrylMuscle_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new SimmDarrylMuscle(cPtr, false);
   }
 
 }

@@ -30,6 +30,8 @@ import java.util.HashMap;
 import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.OpenSimObject;
 import vtk.vtkActor;
+import vtk.vtkAlgorithm;
+import vtk.vtkCubeSource;
 import vtk.vtkDataArray;
 import vtk.vtkFloatArray;
 import vtk.vtkGlyph3D;
@@ -37,6 +39,7 @@ import vtk.vtkIdList;
 import vtk.vtkPointData;
 import vtk.vtkPoints;
 import vtk.vtkPolyData;
+import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProperty;
 import vtk.vtkSphereSource;
@@ -51,11 +54,13 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     private vtkPoints           pointCloud = new vtkPoints(); // object centers
     private vtkPolyData         pointPolyData = new vtkPolyData();
     private vtkPolyData         shape=new vtkSphereSource().GetOutput();
+    private vtkPolyData         shape2=new vtkCubeSource().GetOutput();
     private vtkActor            actor = new vtkActor();
     private vtkPolyDataMapper   mapper = new vtkPolyDataMapper();
     private vtkGlyph3D          glyph= new vtkGlyph3D();
     private vtkFloatArray       lineNormals = new vtkFloatArray();
     private vtkFloatArray       vectorData = new vtkFloatArray();
+    private vtkFloatArray       scalarData = new vtkFloatArray();
     private HashMap<OpenSimObject,Integer> mapObjectIdsToPointIds = new HashMap<OpenSimObject,Integer>(100);
     private HashMap<Integer,OpenSimObject> mapPointIdsToObjectIds = new HashMap<Integer,OpenSimObject>(100);
     
@@ -69,7 +74,10 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         pointPolyData.GetPointData().SetNormals(lineNormals);
         vectorData.SetNumberOfTuples(1);
         vectorData.SetNumberOfComponents(3);
+        scalarData.SetNumberOfTuples(1);
+        scalarData.SetNumberOfComponents(1);
         pointPolyData.GetPointData().SetVectors(vectorData);
+        pointPolyData.GetPointData().SetScalars(scalarData);
         glyph.GeneratePointIdsOn();
        
     }
@@ -77,12 +85,14 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         int id = pointCloud.InsertNextPoint(newPoint);
         lineNormals.InsertTuple3(id, 0., 0., 0.);
         vectorData.InsertTuple3(id, 0., 0., 0.);
+        scalarData.InsertTuple1(id, 0.);
         return id;
     }
     public int addLocation(double px, double py, double pz) {
         int id= pointCloud.InsertNextPoint(px, py, pz);
         lineNormals.InsertTuple3(id, 0., 0., 0.);
         vectorData.InsertTuple3(id, 0., 0., 0.);
+        scalarData.InsertTuple1(id, 0.);
         return id;
     }
     
@@ -100,12 +110,19 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     }
     
     public vtkActor getVtkActor() {
+      
         glyph.SetSource(shape);
         glyph.SetInput(pointPolyData);
         mapper.SetInput(glyph.GetOutput());
         actor.SetMapper(mapper);
-        
-        return actor;
+       
+       //glyph.SetSource(1, shape);
+       //glyph.SetInput(1, pointPolyData);
+       //glyph.AddInput(2, pointPolyData);
+       //glyph.SetSource(2, shape2);
+       //mapper.SetInput(glyph.GetOutput());
+       //actor.SetMapper(mapper);
+       return actor;
     }
     
     public void setLocation(int index, double x, double y, double z) {
@@ -126,6 +143,12 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         vtkPointData t = pointPolyData.GetPointData();
         vtkDataArray u = t.GetVectors();
         u.SetTuple3(index, x, y, z);
+    }
+    
+    public void setScalarDataAtLocation(int index, double x) {
+        vtkPointData t = pointPolyData.GetPointData();
+        vtkDataArray u = t.GetScalars();
+        u.SetTuple1(index, x);
     }
     
     public void orientByNormal() {
@@ -174,5 +197,9 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
             glyph.GetOutput().GetPointData().GetArray("InputPointIds");
         int inputId = (int)inputIds.GetTuple1(ids.GetId(0));
         return mapPointIdsToObjectIds.get(inputId);
+    }
+ 
+    public int getPointId(OpenSimObject object) {
+       return mapObjectIdsToPointIds.get(object);
     }
 }

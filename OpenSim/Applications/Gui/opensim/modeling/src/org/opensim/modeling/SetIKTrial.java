@@ -114,6 +114,10 @@ public class SetIKTrial extends OpenSimObject {
     return opensimModelJNI.SetIKTrial_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetIKTrial_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(IKTrial aObject) {
     return opensimModelJNI.SetIKTrial_append__SWIG_0(swigCPtr, this, IKTrial.getCPtr(aObject), aObject);
   }

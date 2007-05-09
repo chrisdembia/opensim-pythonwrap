@@ -75,8 +75,28 @@ public class AbstractMuscle extends AbstractActuator {
     opensimModelJNI.AbstractMuscle_deleteAttachmentPoint(swigCPtr, this, aIndex);
   }
 
+  public void addMuscleWrap(AbstractWrapObject aWrapObject) {
+    opensimModelJNI.AbstractMuscle_addMuscleWrap(swigCPtr, this, AbstractWrapObject.getCPtr(aWrapObject), aWrapObject);
+  }
+
+  public void moveUpMuscleWrap(int aIndex) {
+    opensimModelJNI.AbstractMuscle_moveUpMuscleWrap(swigCPtr, this, aIndex);
+  }
+
+  public void moveDownMuscleWrap(int aIndex) {
+    opensimModelJNI.AbstractMuscle_moveDownMuscleWrap(swigCPtr, this, aIndex);
+  }
+
+  public void deleteMuscleWrap(int aIndex) {
+    opensimModelJNI.AbstractMuscle_deleteMuscleWrap(swigCPtr, this, aIndex);
+  }
+
   public double getPennationAngle() {
     return opensimModelJNI.AbstractMuscle_getPennationAngle(swigCPtr, this);
+  }
+
+  public double getPennationAngleAtOptimalFiberLength() {
+    return opensimModelJNI.AbstractMuscle_getPennationAngleAtOptimalFiberLength(swigCPtr, this);
   }
 
   public double getLength() {

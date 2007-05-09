@@ -79,12 +79,20 @@ public class MuscleWrap extends OpenSimObject {
     return (cPtr == 0) ? null : new AbstractWrapObject(cPtr, false);
   }
 
+  public void setWrapObject(AbstractWrapObject aWrapObject) {
+    opensimModelJNI.MuscleWrap_setWrapObject(swigCPtr, this, AbstractWrapObject.getCPtr(aWrapObject), aWrapObject);
+  }
+
   public SWIGTYPE_p_MuscleWrapPoint getWrapPoint(int aIndex) {
     return new SWIGTYPE_p_MuscleWrapPoint(opensimModelJNI.MuscleWrap_getWrapPoint(swigCPtr, this, aIndex), false);
   }
 
   public MuscleWrap.WrapMethod getMethod() {
     return MuscleWrap.WrapMethod.swigToEnum(opensimModelJNI.MuscleWrap_getMethod(swigCPtr, this));
+  }
+
+  public void setMethod(MuscleWrap.WrapMethod aMethod) {
+    opensimModelJNI.MuscleWrap_setMethod(swigCPtr, this, aMethod.swigValue());
   }
 
   public String getMethodName() {

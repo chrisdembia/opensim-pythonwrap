@@ -114,6 +114,10 @@ public class SetJoints extends OpenSimObject {
     return opensimModelJNI.SetJoints_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetJoints_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(AbstractJoint aObject) {
     return opensimModelJNI.SetJoints_append__SWIG_0(swigCPtr, this, AbstractJoint.getCPtr(aObject), aObject);
   }

@@ -114,6 +114,10 @@ public class SetActuators extends OpenSimObject {
     return opensimModelJNI.SetActuators_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetActuators_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(AbstractActuator aObject) {
     return opensimModelJNI.SetActuators_append__SWIG_0(swigCPtr, this, AbstractActuator.getCPtr(aObject), aObject);
   }

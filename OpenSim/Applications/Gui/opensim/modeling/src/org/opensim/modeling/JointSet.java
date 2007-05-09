@@ -41,4 +41,8 @@ public class JointSet extends SetJoints {
     this(opensimModelJNI.new_JointSet__SWIG_1(JointSet.getCPtr(aJointSet), aJointSet), true);
   }
 
+  public void scale(ScaleSet aScaleSet) {
+    opensimModelJNI.JointSet_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
 }

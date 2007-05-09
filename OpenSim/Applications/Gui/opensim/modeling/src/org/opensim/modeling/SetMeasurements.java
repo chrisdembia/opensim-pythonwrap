@@ -114,6 +114,10 @@ public class SetMeasurements extends OpenSimObject {
     return opensimModelJNI.SetMeasurements_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetMeasurements_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(Measurement aObject) {
     return opensimModelJNI.SetMeasurements_append__SWIG_0(swigCPtr, this, Measurement.getCPtr(aObject), aObject);
   }

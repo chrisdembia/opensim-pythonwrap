@@ -114,6 +114,10 @@ public class SetControls extends OpenSimObject {
     return opensimModelJNI.SetControls_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetControls_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(Control aObject) {
     return opensimModelJNI.SetControls_append__SWIG_0(swigCPtr, this, Control.getCPtr(aObject), aObject);
   }

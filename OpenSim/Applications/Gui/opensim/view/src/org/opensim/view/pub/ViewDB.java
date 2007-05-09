@@ -40,7 +40,9 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.openide.windows.TopComponent;
+import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
@@ -369,8 +371,27 @@ public final class ViewDB extends Observable implements Observer {
     * Set the color of the passed in object.
     */
    public void setObjectColor(OpenSimObject object, double[] colorComponents) {
-      vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
-      applyColor(colorComponents, asm);
+      MusclePoint mp = MusclePoint.safeDownCast(object);
+      if (mp != null) {
+         SingleModelVisuals visuals = getModelVisuals(mp.getMuscle().getModel());
+         OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
+         // TODO: since muscle points are colored by a scalar, you need to
+         // find the scalar value that most closely matches the passed-in
+         // colorComponents.
+         // 0.0 = red
+         // 0.1 = orange
+         // 0.3 = yellow
+         // 0.5 = green
+         // 0.7 = cyan
+         // 1.0 = blue
+         // Colors such as purple cannot be represented using this mechanism
+         cloud.setScalarDataAtLocation(cloud.getPointId(object), 0.28);
+         AbstractMuscle m = mp.getMuscle();
+         visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
+      } else { // should check for body here
+         vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
+         applyColor(colorComponents, asm);
+      }
    }
 
    private void applyColor(final double[] colorComponents, final vtkProp3D asm) {
@@ -475,17 +496,25 @@ public final class ViewDB extends Observable implements Observer {
    
    /**
     * Mark an object as selected (on/off).
-    * Does nothing ofr now but we may change it to indicate selection by showing in 
-    * different color, or in different representation or both
     */
-   public void markSelected(OpenSimObject selectedObject, boolean onOff) {
-      //VisibleProperties vp = new VisibleProperties();
-      double selectedColor[] = {0.5, 0.5, 0.5};
-      //vp.setColor(selectedColor);
-      //selectedObject.getDisplayer().setVisibleProperties(vp);
-
-      double dColorComponents[] = {0.5, 0.5, 0.5};
-      setObjectColor(selectedObject, dColorComponents);
+   public void markSelected(OpenSimObject selectedObject, boolean highlight) {
+      MusclePoint mp = MusclePoint.safeDownCast(selectedObject);
+      if (mp != null) {
+         SingleModelVisuals visuals = getModelVisuals(mp.getMuscle().getModel());
+         OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
+         if (highlight == true)
+            cloud.setScalarDataAtLocation(cloud.getPointId(selectedObject), 0.28); // yellow
+         else
+            cloud.setScalarDataAtLocation(cloud.getPointId(selectedObject), 0.0); // red
+         AbstractMuscle m = mp.getMuscle();
+         visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
+      } else { // should check for body here
+         double colorComponents[] = {0.8, 0.8, 0.0};
+         if (highlight == false)
+            colorComponents[0] = colorComponents[1] = colorComponents[2] = 1.0;
+         vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(selectedObject);
+         applyColor(colorComponents, asm);
+      }
 
       repaintAll();
    }

@@ -185,11 +185,6 @@ public class AbstractActuator extends OpenSimObject {
     return opensimModelJNI.AbstractActuator_getStress(swigCPtr, this);
   }
 
-  public ArrayStr getGroupNames() {
-    long cPtr = opensimModelJNI.AbstractActuator_getGroupNames(swigCPtr, this);
-    return (cPtr == 0) ? null : new ArrayStr(cPtr, false);
-  }
-
   public void promoteControlsToStates(double[] aX, double aDT) {
     opensimModelJNI.AbstractActuator_promoteControlsToStates(swigCPtr, this, aX, aDT);
   }

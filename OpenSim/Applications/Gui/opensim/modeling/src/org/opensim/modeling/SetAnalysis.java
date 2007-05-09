@@ -114,6 +114,10 @@ public class SetAnalysis extends OpenSimObject {
     return opensimModelJNI.SetAnalysis_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetAnalysis_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(Analysis aObject) {
     return opensimModelJNI.SetAnalysis_append__SWIG_0(swigCPtr, this, Analysis.getCPtr(aObject), aObject);
   }

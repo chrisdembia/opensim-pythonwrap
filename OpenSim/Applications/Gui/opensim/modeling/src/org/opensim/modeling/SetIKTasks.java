@@ -114,6 +114,10 @@ public class SetIKTasks extends OpenSimObject {
     return opensimModelJNI.SetIKTasks_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetIKTasks_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(IKTask aObject) {
     return opensimModelJNI.SetIKTasks_append__SWIG_0(swigCPtr, this, IKTask.getCPtr(aObject), aObject);
   }

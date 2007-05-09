@@ -114,6 +114,10 @@ public class SetMaterials extends OpenSimObject {
     return opensimModelJNI.SetMaterials_getIndex__SWIG_3(swigCPtr, this, aName);
   }
 
+  public void getGroupNamesContaining(String aObjectName, ArrayStr rGroupNames) {
+    opensimModelJNI.SetMaterials_getGroupNamesContaining(swigCPtr, this, aObjectName, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
   public boolean append(Material aObject) {
     return opensimModelJNI.SetMaterials_append__SWIG_0(swigCPtr, this, Material.getCPtr(aObject), aObject);
   }
