@@ -47,6 +47,7 @@ public class PlotCurve {
    private PlotterSourceInterface rangeSource;
    private int domainStorageIndex;
    private int rangeStorageIndex;
+   
    /**
     * Creates a new instance of PlotCurve
     */
@@ -143,14 +144,6 @@ public class PlotCurve {
       return returnValues;
    }
 
-   public boolean isTimeDependent() {
-      return timeDependent;
-   }
-
-   public void setTimeDependent(boolean timeDependent) {
-      this.timeDependent = timeDependent;
-   }
-
    public PlotCurveSettings getSettings() {
       return settings;
    }
@@ -236,5 +229,13 @@ public class PlotCurve {
     {
         ArrayStr labels = rangeSource.getStorage().getColumnLabels();
         return labels.getitem(rangeStorageIndex+1);
+    }
+
+    void setXLabel(String xLabel) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    void setYLabel(String yLabel) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

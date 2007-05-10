@@ -41,6 +41,8 @@ public interface PlotterSourceInterface {
    
    public boolean[] getSelectionStatus();
    
+   public void clearSelectionStatus();
+
    public boolean[] filterByRegularExprssion(String regex);
    
    public boolean[] toggleItemSelection(String item);
@@ -48,4 +50,9 @@ public interface PlotterSourceInterface {
    public String getDisplayName();
 
    public Storage getStorage();
+   
+   public boolean isStorageLive();
+   
+   public void setStorageLive(boolean b);
+
 }

@@ -88,6 +88,9 @@ public class PlotterModel {
       //currentPlot.dChart.getXYPlot().addAnnotation(new XYTextAnnotation("text", ));
       plotTreeModel.addPlotCurveToTree(newCurve);
       currentPlot.setTitle(title);
+      currentPlot.getChartPanel().setDisplayToolTips(true);
+      currentPlot.getChartPanel().getChart().getXYPlot().getDomainAxis().setLabel(string1);
+      currentPlot.getChartPanel().getChart().getXYPlot().getRangeAxis().setLabel("");
       return newCurve;
    }
 
@@ -165,5 +168,9 @@ public class PlotterModel {
          }
       }
       return null;
+   }
+   
+   int countSources() {
+       return sources.size();
    }
 }

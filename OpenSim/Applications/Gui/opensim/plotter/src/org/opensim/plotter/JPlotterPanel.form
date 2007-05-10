@@ -37,12 +37,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jSplitPane1" pref="659" max="32767" attributes="0"/>
+          <Component id="jSplitPane1" pref="668" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jSplitPane1" pref="535" max="32767" attributes="0"/>
+          <Component id="jSplitPane1" pref="557" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -69,7 +69,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="657" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="666" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -98,29 +98,29 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jPlotTitlePanel" max="32767" attributes="2"/>
-                          <Component id="jPlotSpecPanel" min="-2" max="-2" attributes="2"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPlotSpecPanel" min="0" max="32767" attributes="3"/>
+                          <Component id="jPlotTitlePanel" alignment="0" min="-2" pref="397" max="-2" attributes="3"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPlotNavigationPanel" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="jPlotNavigationPanel" alignment="0" max="32767" attributes="1"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPlotTitlePanel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPlotSpecPanel" min="-2" pref="284" max="-2" attributes="2"/>
+                              <Component id="jPlotSpecPanel" min="-2" max="-2" attributes="2"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="49" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -151,7 +151,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jScrollPane1" pref="277" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="261" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -267,7 +267,7 @@
                                   <Component id="jBrowse4FileButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jCurveNameTextField" alignment="0" pref="333" max="32767" attributes="3"/>
+                              <Component id="jCurveNameTextField" alignment="0" pref="298" max="32767" attributes="3"/>
                           </Group>
                       </Group>
                       <Component id="jPanel9" alignment="1" max="32767" attributes="1"/>
@@ -291,7 +291,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel10" min="-2" pref="124" max="-2" attributes="0"/>
+                          <Component id="jPanel10" pref="81" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -309,6 +309,7 @@
                         <EmptyBorder bottom="0" left="0" right="0" top="0"/>
                       </Border>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                       <Insets value="[0, 0, 0, 0]"/>
                     </Property>
@@ -381,7 +382,7 @@
                                       <Component id="jDomainEndTextField" min="-2" pref="98" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jXQtyTextField" alignment="0" pref="287" max="32767" attributes="1"/>
+                                  <Component id="jXQtyTextField" alignment="0" pref="252" max="32767" attributes="1"/>
                               </Group>
                           </Group>
                       </Group>
@@ -408,6 +409,7 @@
                     <Component class="javax.swing.JButton" name="xQuantityButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="X-Quantity &gt;"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="xQuantityButtonKeyReleased"/>
@@ -448,10 +450,10 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jScaleTextField" min="-2" pref="77" max="-2" attributes="0"/>
@@ -463,15 +465,10 @@
                                       <Component id="jRectifyCheckBox" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jFilterButton" alignment="0" max="32767" attributes="1"/>
-                                          <Component id="jButton2" alignment="0" max="32767" attributes="1"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jFilterValueLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jYQtyTextField" alignment="0" pref="268" max="32767" attributes="1"/>
-                                      </Group>
+                                      <Component id="yQuantityButton" min="-2" max="-2" attributes="1"/>
+                                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                      <Component id="jYQtyTextField" pref="243" max="32767" attributes="1"/>
+                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -481,14 +478,8 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jFilterValueLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jFilterButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="yQuantityButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jYQtyTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -532,9 +523,10 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="jScaleTextField">
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton2">
+                    <Component class="javax.swing.JButton" name="yQuantityButton">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Y-Quantity &gt;"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="yQuantityButtonMousePressed"/>
@@ -546,20 +538,6 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jYQtyTextFieldActionPerformed"/>
                         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jYQtyTextFieldFocusLost"/>
                       </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jFilterButton">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Filter..."/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFilterButtonActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jFilterValueLabel">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value=".*"/>
-                        <Property name="toolTipText" type="java.lang.String" value="Current value  (e.g. model:muscleGroup)"/>
-                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -589,7 +567,6 @@
                           <Component id="jPlotLabelJLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="jPlotNameTextField" min="-2" pref="308" max="-2" attributes="3"/>
-                          <EmptySpace pref="45" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

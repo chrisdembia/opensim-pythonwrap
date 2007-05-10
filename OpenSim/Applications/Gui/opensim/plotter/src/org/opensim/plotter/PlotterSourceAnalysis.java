@@ -45,10 +45,12 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
    private String displayName;
    private Storage   storage;
    private Model model;
+   private boolean live;    // Flag indicating whether the storage underneath is live 
    /** Creates a new instance of PlotterSourceAnalysis */
    public PlotterSourceAnalysis(Model aModel, Storage storage, String modelAnalysisString) {
       model = aModel;
       this.storage = storage;
+      live=true;
       displayName = modelAnalysisString;
       ArrayStr labels = storage.getColumnLabels();
       allAvailable = new String[labels.getSize()];
@@ -107,5 +109,18 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
    public Storage getStorage() {
       return storage;
    }
+
+    public void clearSelectionStatus() {
+    }
+
+    public boolean isStorageLive() {
+        return live;
+    }
+
+    public void setStorageLive(boolean b) {
+        live=b;
+        if (b==false)
+            storage=null;
+    }
    
 }

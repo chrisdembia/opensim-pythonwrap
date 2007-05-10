@@ -34,14 +34,18 @@ import org.opensim.modeling.Storage;
 
 /**
  *
- * @author Ayman. A class representing the Source=File radio button
+ * @author Ayman. A class representing the Source=File radio button. The file is parsed
+ * and its contents cached in this object for quick reference later.
  */
 public class PlotterSourceFile implements PlotterSourceInterface {
-   
-   private String[] allAvailable;
-   private boolean[] selectionStatus;
-   private String displayName;
-   private Storage   storage;
+    // Data members
+    public String[] allAvailable;
+
+    public String displayName;
+
+    public boolean[] selectionStatus;
+
+    public Storage storage;
    /** Creates a new instance of PlotterSourceFile */
    public PlotterSourceFile(String filename) {
       storage=new Storage(filename);
@@ -104,5 +108,17 @@ public class PlotterSourceFile implements PlotterSourceInterface {
    public Storage getStorage() {
       return storage;
    }
+
+    public void clearSelectionStatus() {
+       for(int i=0; i<selectionStatus.length ;i++)
+        selectionStatus[i]=false;
+    }
+
+    public boolean isStorageLive() {
+        return true;
+    }
+
+    public void setStorageLive(boolean b) {
+    }
    
 }

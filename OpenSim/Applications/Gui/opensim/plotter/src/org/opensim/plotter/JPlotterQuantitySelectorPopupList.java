@@ -85,7 +85,8 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
          selectedFileMenuItem.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                // Create panel then the dialog that contains it
-               QuantitySelectionPanel quantityPanel = new QuantitySelectionPanel(source, plotterPanel.getQuantityFilterRegex());
+               QuantitySelectionPanel quantityPanel = new QuantitySelectionPanel(source, 
+                       plotterPanel.getQuantityFilterRegex(), isDomain);
                DialogDescriptor dlg = new DialogDescriptor(quantityPanel,"Select Quantity");
                dlg.setModal(true);
                DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
@@ -177,8 +178,10 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
    class QuantitySelectionPanel extends javax.swing.JPanel
    {
       String[] selected;
-      public QuantitySelectionPanel(PlotterSourceFile source, String filterRegex)
+      boolean isDomain;
+      public QuantitySelectionPanel(PlotterSourceFile source, String filterRegex, boolean isDomain)
       {
+            this.isDomain=isDomain;
             Storage nextStorage = source.getStorage();
             ArrayStr columnLabels = nextStorage.getColumnLabels();
             int numEntries = columnLabels.getSize();

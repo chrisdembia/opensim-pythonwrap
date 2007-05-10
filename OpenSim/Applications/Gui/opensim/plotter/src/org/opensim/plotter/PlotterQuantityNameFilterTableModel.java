@@ -25,6 +25,8 @@
  */
 package org.opensim.plotter;
 
+import java.util.Vector;
+import java.util.regex.Pattern;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -36,20 +38,30 @@ public class PlotterQuantityNameFilterTableModel extends AbstractTableModel {
    PlotterSourceInterface source;
    String[] tableColumnNames= new String[]{"Quantity Name", "Selected"};
    String[] availableQuantities;
+   Vector<Integer> shownQuantities=new Vector<Integer>(50);
    boolean[] selected;
    
    public PlotterQuantityNameFilterTableModel(PlotterSourceInterface source) {
       this.source=source;
       availableQuantities = source.getAllQuantities();
+      showAll();
+      source.clearSelectionStatus();
       selected = source.getSelectionStatus();
+      select(".*", false);
    }
+
+    private void showAll() {
+        shownQuantities.clear();
+        for(int i=0;i<availableQuantities.length;i++)
+            shownQuantities.add(i);
+    }
       
    public int getColumnCount() {
       return tableColumnNames.length;
    }
    
    public int getRowCount() {
-      return selected.length;
+      return shownQuantities.size();
    }
    
    public String getColumnName(int col) {
@@ -58,9 +70,9 @@ public class PlotterQuantityNameFilterTableModel extends AbstractTableModel {
    
    public Object getValueAt(int row, int col) {
       if (col==0)
-         return availableQuantities[row];
+         return availableQuantities[shownQuantities.get(row)];
       else
-         return selected[row];
+         return selected[shownQuantities.get(row)];
    }
   /*
    * JTable uses this method to determine the default renderer/
@@ -77,7 +89,7 @@ public class PlotterQuantityNameFilterTableModel extends AbstractTableModel {
    }
 
     public void setValueAt(Object aValue, int row, int col) {
-        selected[row] = (Boolean)aValue;
+        selected[shownQuantities.get(row)] = (Boolean)aValue;
         fireTableCellUpdated(row, col);
     }
 
@@ -85,10 +97,72 @@ public class PlotterQuantityNameFilterTableModel extends AbstractTableModel {
         return (columnIndex==1);
     }
 
-    String getNumSelected() {
+    int getNumSelected() {
         int numSelected=0;
         for(int i=0;i<selected.length; i++)
             numSelected += (selected[i]?1:0);
-        return numSelected+" items selected";
+        return numSelected;
+    }
+    int getNumShownAndSelected() {
+        int numShownAndSelected=0;
+        for(int i=0;i<shownQuantities.size(); i++)
+            numShownAndSelected += (selected[shownQuantities.get(i)]?1:0);
+        return numShownAndSelected;
+    }
+
+    String getSelectedAsString() {
+        String selectedString="";
+        boolean first=true;
+        for(int i=0;i<selected.length; i++){
+            if (selected[i]){
+                if (first){
+                    selectedString += availableQuantities[i];
+                    first=false;
+                }
+                else
+                    selectedString += ", "+availableQuantities[i];;
+            }
+        }
+        return selectedString;
+    }
+
+    void markSelectedNames(Vector<String> names) {
+        for(int n=0; n<names.size();n++){
+            String name = names.get(n);
+            boolean found=false;
+            for(int i=0; i<availableQuantities.length && !found; i++){
+                if (availableQuantities[i].compareTo(name)==0)
+                    selected[i]=true;
+            }
+        }
+        fireTableCellUpdated(0, 0);
+
+    }
+    
+    void restrictNamesBy(String pattern){
+      Pattern p = Pattern.compile(pattern);
+      shownQuantities.clear();
+      for(int i=0; i<availableQuantities.length ;i++){
+        if (p.matcher(availableQuantities[i]).matches())
+            shownQuantities.add(i);
+      }
+      fireTableDataChanged();
+        
+    }
+
+    void select(String pattern, boolean b) {
+      Pattern p = Pattern.compile(pattern);
+      for(int i=0; i<shownQuantities.size() ;i++){
+        if (p.matcher(availableQuantities[i]).matches())
+            selected[i]=b;
+      }
+      fireTableDataChanged();
+    }
+
+    void selectShown(boolean b) {
+      for(int i=0; i<shownQuantities.size() ;i++){
+            selected[shownQuantities.get(i)]=b;
+      }
+      fireTableDataChanged();
     }
 }
