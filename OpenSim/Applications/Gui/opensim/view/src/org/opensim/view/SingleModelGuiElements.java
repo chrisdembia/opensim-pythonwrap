@@ -9,9 +9,15 @@
 
 package org.opensim.view;
 
+import java.util.Vector;
+import org.opensim.modeling.AbstractActuator;
+import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.CoordinateSet;
+import org.opensim.modeling.ObjectGroup;
 
 /**
  *
@@ -29,6 +35,9 @@ public class SingleModelGuiElements {
        this.model=model;
     }
     
+    /**
+     * Get a list of names for model bodies
+     */
     public String[] getBodyNames()
     {
        if (bodyNames==null){
@@ -41,6 +50,9 @@ public class SingleModelGuiElements {
        return bodyNames;
     }
     
+    /**
+     * Get a list of names for model coordinates
+     */
     public String[] getCoordinateNames()
     {
        if (coordinateNames==null){
@@ -51,14 +63,38 @@ public class SingleModelGuiElements {
        }
        return coordinateNames;
     }
-    
-    public String[] getActuatorGroupNames()
+    /**
+     * Get a list of names for actuator groups in model
+     */
+    public Vector<String> getActuatorGroupNames()
     {
-       return null;
+        Vector<String> ret=new Vector<String>(4);
+        ActuatorSet actuators = model.getActuatorSet();
+        if (actuators !=null){
+            ArrayStr muscleGroupNames = new ArrayStr();
+            actuators.getGroupNames(muscleGroupNames);
+            for(int i=0; i<muscleGroupNames.getSize();i++){
+                ret.add(muscleGroupNames.getitem(i));
+                AbstractActuator act = actuators.get(i);
+            }
+        }
+       return ret;
     }
-    
-    public String[] getActuatorNamesForGroup(String groupName)
+    /**
+     * Get Actuators that belong to the passed in muscle group
+     */
+    public Vector<String> getActuatorNamesForGroup(String groupName)
     {
-       return null;
-    }
+       Vector<String> ret = new Vector<String>(20);
+        ActuatorSet actuators = model.getActuatorSet();
+        if (actuators !=null){
+           ObjectGroup group=actuators.getObjectGroup(groupName);
+           assert(group!=null);
+           ArrayPtrsObj objects = group.getMembers();
+           for(int i=0; i<objects.getSize();i++){
+                ret.add(objects.get(i).getName());
+           }
+        }
+        return ret;
+   }
 }
