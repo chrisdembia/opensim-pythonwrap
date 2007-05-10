@@ -28,7 +28,6 @@ package org.opensim.plotter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.annotations.XYPointerAnnotation;
 import org.jfree.chart.annotations.XYTextAnnotation;
 
 /**
@@ -48,12 +47,15 @@ public class JOpenSimChartMouseListener implements MouseListener {
       int y=e.getY();
       // handleClick only serves to locate the Corosshair Values to convert from 
       // Java2D space to data space.
-      chartPanel.getChart().handleClick(x, y, chartPanel.getChartRenderingInfo());
-      double dataX = chartPanel.getChart().getXYPlot().getDomainCrosshairValue();
-      double dataY = chartPanel.getChart().getXYPlot().getRangeCrosshairValue();
-      //%[argument_index$][flags][width][.precision]conversion
-      String annotationText = String.format("(%1$f, %2$f)", dataX, dataY);
-      chartPanel.getChart().getXYPlot().addAnnotation(new XYTextAnnotation(annotationText, dataX, dataY));
+      int mask=e.getModifiers();
+      if ((mask & e.CTRL_MASK) !=0){    // Show query only if CTRL button is held down
+          chartPanel.getChart().handleClick(x, y, chartPanel.getChartRenderingInfo());
+          double dataX = chartPanel.getChart().getXYPlot().getDomainCrosshairValue();
+          double dataY = chartPanel.getChart().getXYPlot().getRangeCrosshairValue();
+          //%[argument_index$][flags][width][.precision]conversion
+          String annotationText = String.format("(%1$f, %2$f)", dataX, dataY);
+          chartPanel.getChart().getXYPlot().addAnnotation(new XYTextAnnotation(annotationText, dataX, dataY));
+      }
    }
 
    public void mousePressed(MouseEvent e) {
