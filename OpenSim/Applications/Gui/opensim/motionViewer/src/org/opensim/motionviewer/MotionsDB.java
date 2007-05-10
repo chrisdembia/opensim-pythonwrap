@@ -180,5 +180,11 @@ public class MotionsDB extends Observable // Observed by other entities in motio
 
         }
     }
+
+    void reportTimeChange(double newTime) {
+        MotionTimeChangeEvent evt = new MotionTimeChangeEvent(instance,newTime);
+        setChanged();
+        instance.notifyObservers(evt);
+    }
    
 }

@@ -369,6 +369,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
       // Recover motion info, update toolbar accordingly
       if (o instanceof MotionsDB){
          MotionsDB mdb = (MotionsDB)o;
+         if (!(arg instanceof MotionEvent)) // time should be ignored here
+             return;
          MotionEvent evt = (MotionEvent)arg;
          if (evt.getOperation() == Operation.Open || evt.getOperation() == Operation.SetCurrent){
             // new motion is loaded or is set current. Update panel display

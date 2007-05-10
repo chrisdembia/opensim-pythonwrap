@@ -53,7 +53,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
    MasterMotionModel() {
    }
    
-   private void applyFrame(int currentFrame) {
+   private void applyFrame(final int currentFrame) {
       // Apply frame from file then update model display!
       final MotionDisplayer disp = displayers.get(currentMotion);
       disp.applyFrameToModel(currentFrame);
@@ -62,6 +62,8 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
             Model dModel = disp.getModel();
             ViewDB.getInstance().updateModelDisplay(dModel);
             ViewDB.getInstance().repaintAll();
+            MotionsDB motionsDB = MotionsDB.getInstance();
+            motionsDB.reportTimeChange( getCurrentTime());
          }
          });
         
