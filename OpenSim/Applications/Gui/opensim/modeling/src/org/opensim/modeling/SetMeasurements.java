@@ -189,4 +189,13 @@ public class SetMeasurements extends OpenSimObject {
     opensimModelJNI.SetMeasurements_addObjectToGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName), SWIGTYPE_p_std__string.getCPtr(aObjectName));
   }
 
+  public void getGroupNames(ArrayStr rGroupNames) {
+    opensimModelJNI.SetMeasurements_getGroupNames(swigCPtr, this, ArrayStr.getCPtr(rGroupNames), rGroupNames);
+  }
+
+  public ObjectGroup getObjectGroup(String aGroupName) {
+    long cPtr = opensimModelJNI.SetMeasurements_getObjectGroup(swigCPtr, this, aGroupName);
+    return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
+  }
+
 }

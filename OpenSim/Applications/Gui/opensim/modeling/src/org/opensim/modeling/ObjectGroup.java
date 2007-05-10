@@ -70,6 +70,10 @@ public class ObjectGroup extends OpenSimObject {
     opensimModelJNI.ObjectGroup_setup(swigCPtr, this, ArrayPtrsObj.getCPtr(aObjects), aObjects);
   }
 
+  public ArrayPtrsObj getMembers() {
+    return new ArrayPtrsObj(opensimModelJNI.ObjectGroup_getMembers(swigCPtr, this), false);
+  }
+
   public void peteTest() {
     opensimModelJNI.ObjectGroup_peteTest(swigCPtr, this);
   }

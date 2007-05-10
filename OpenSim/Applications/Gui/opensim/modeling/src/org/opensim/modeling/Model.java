@@ -267,13 +267,13 @@ public class Model extends OpenSimObject {
     opensimModelJNI.Model_addDerivCallback(swigCPtr, this, SWIGTYPE_p_OpenSim__DerivCallback.getCPtr(aCallback));
   }
 
-  public SWIGTYPE_p_AnalysisSet getAnalysisSet() {
+  public AnalysisSet getAnalysisSet() {
     long cPtr = opensimModelJNI.Model_getAnalysisSet__SWIG_0(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_AnalysisSet(cPtr, false);
+    return (cPtr == 0) ? null : new AnalysisSet(cPtr, false);
   }
 
-  public void addAnalysis(SWIGTYPE_p_Analysis aAnalysis) {
-    opensimModelJNI.Model_addAnalysis(swigCPtr, this, SWIGTYPE_p_Analysis.getCPtr(aAnalysis));
+  public void addAnalysis(Analysis aAnalysis) {
+    opensimModelJNI.Model_addAnalysis(swigCPtr, this, Analysis.getCPtr(aAnalysis), aAnalysis);
   }
 
   public void computeDerivatives(double[] rDYDT) {
