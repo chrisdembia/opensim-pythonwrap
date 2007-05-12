@@ -13,7 +13,7 @@ public final class ModelDisplayEditAction extends CallableSystemAction {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         // Action shouldn't be available otherwise'
         ConcreteModelNode modelNode = (ConcreteModelNode) selected[0];
-         ViewDB.getInstance().adjustModelDisplayOffset(modelNode.getModel(), ExplorerTopComponent.findInstance());
+        ViewDB.getInstance().adjustModelDisplayOffset(modelNode.getModel());
     }
     
     public String getName() {
