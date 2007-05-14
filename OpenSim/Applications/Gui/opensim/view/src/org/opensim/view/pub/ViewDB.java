@@ -25,6 +25,7 @@
  */
 package org.opensim.view.pub;
 
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -34,12 +35,13 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 import java.util.prefs.Preferences;
-import javax.swing.JDialog;
+import javax.swing.JPanel;
 import javax.swing.Timer;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.openide.windows.TopComponent;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.MusclePoint;
@@ -348,12 +350,20 @@ public final class ViewDB extends Observable implements Observer {
    public static Model getCurrentModel() {
       return OpenSimDB.getInstance().getCurrentModel();
    }
-   
-   public void adjustModelDisplayOffset(Model abstractModel, TopComponent tc) {
+   /**
+    * Show dialog to adjust display offset and modify display according to user options
+    */
+   public void adjustModelDisplayOffset(Model abstractModel) {
       // Show dialog for model display ajdustment
-      SingleModelVisuals rep = mapModelsToVisuals.get(abstractModel);
-      JDialog dlg = new ModelDisplayEditJDialog(null, false, rep, abstractModel);
-      dlg.setLocationRelativeTo(tc);
+      final ModelDisplayOffsetJPanel p = new ModelDisplayOffsetJPanel(abstractModel);
+      DialogDescriptor desc = new DialogDescriptor(p, "Model offset control", false, new ActionListener() {
+
+         public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand().equalsIgnoreCase("Cancel"))
+               p.restore();
+         }
+      });
+      Dialog dlg = DialogDisplayer.getDefault().createDialog(desc);
       dlg.setVisible(true);
       
    }
