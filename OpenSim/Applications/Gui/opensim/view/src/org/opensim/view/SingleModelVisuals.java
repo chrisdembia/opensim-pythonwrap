@@ -99,8 +99,8 @@ public class SingleModelVisuals {
     private Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
     
     // Markers and muscle points are represented as Glyphs for performance
-    private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud();
-    private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud();
+    private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
+    private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(true);
     private OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
     
     private vtkProp3DCollection    userObjects = new vtkProp3DCollection();

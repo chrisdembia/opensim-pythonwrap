@@ -60,39 +60,43 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     private vtkGlyph3D          glyph= new vtkGlyph3D();
     private vtkFloatArray       lineNormals = new vtkFloatArray();
     private vtkFloatArray       vectorData = new vtkFloatArray();
-    private vtkFloatArray       scalarData = new vtkFloatArray();
+    private vtkFloatArray       scalarData = null;
     private HashMap<OpenSimObject,Integer> mapObjectIdsToPointIds = new HashMap<OpenSimObject,Integer>(100);
     private HashMap<Integer,OpenSimObject> mapPointIdsToObjectIds = new HashMap<Integer,OpenSimObject>(100);
     
     /**
     * Creates a new instance of OpenSimvtkGlyphCloud
     */
-    public OpenSimvtkGlyphCloud() {
+    public OpenSimvtkGlyphCloud(boolean createScalars) {
         lineNormals.SetNumberOfTuples(1);
         lineNormals.SetNumberOfComponents(3);
         pointPolyData.SetPoints(pointCloud);
         pointPolyData.GetPointData().SetNormals(lineNormals);
         vectorData.SetNumberOfTuples(1);
         vectorData.SetNumberOfComponents(3);
-        scalarData.SetNumberOfTuples(1);
-        scalarData.SetNumberOfComponents(1);
+        if (createScalars == true) {
+           scalarData = new vtkFloatArray();
+           scalarData.SetNumberOfTuples(1);
+           scalarData.SetNumberOfComponents(1);
+           pointPolyData.GetPointData().SetScalars(scalarData);
+        }
         pointPolyData.GetPointData().SetVectors(vectorData);
-        pointPolyData.GetPointData().SetScalars(scalarData);
         glyph.GeneratePointIdsOn();
-       
     }
     public int addLocation(double[] newPoint) {
         int id = pointCloud.InsertNextPoint(newPoint);
         lineNormals.InsertTuple3(id, 0., 0., 0.);
         vectorData.InsertTuple3(id, 0., 0., 0.);
-        scalarData.InsertTuple1(id, 0.);
+        if (scalarData != null)
+           scalarData.InsertTuple1(id, 0.0);
         return id;
     }
     public int addLocation(double px, double py, double pz) {
         int id= pointCloud.InsertNextPoint(px, py, pz);
         lineNormals.InsertTuple3(id, 0., 0., 0.);
         vectorData.InsertTuple3(id, 0., 0., 0.);
-        scalarData.InsertTuple1(id, 0.);
+        if (scalarData != null)
+           scalarData.InsertTuple1(id, 0.0);
         return id;
     }
     
@@ -146,9 +150,11 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     }
     
     public void setScalarDataAtLocation(int index, double x) {
-        vtkPointData t = pointPolyData.GetPointData();
-        vtkDataArray u = t.GetScalars();
-        u.SetTuple1(index, x);
+       if (scalarData != null) {
+          vtkPointData t = pointPolyData.GetPointData();
+          vtkDataArray u = t.GetScalars();
+          u.SetTuple1(index, x);
+       }
     }
     
     public void orientByNormal() {
@@ -157,6 +163,10 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     
     public void colorByScalar() {
         glyph.SetColorModeToColorByScalar(); 
+    }
+
+    public void colorByVector() {
+        glyph.SetColorModeToColorByVector(); 
     }
 
     public void setScaleFactor(double d) {
