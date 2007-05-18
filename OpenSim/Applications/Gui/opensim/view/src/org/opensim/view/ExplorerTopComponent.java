@@ -5,12 +5,16 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.ActionMap;
 import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultEditorKit;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
 import org.openide.ErrorManager;
+import org.openide.awt.UndoRedo;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
@@ -23,6 +27,8 @@ import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
+import org.openide.util.Mutex;
+import org.openide.util.MutexException;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.nodes.ConcreteModelNode;
@@ -34,7 +40,7 @@ import org.opensim.view.pub.OpenSimDB;
  * Top component which displays something.
  */
 final public class ExplorerTopComponent extends TopComponent
-        implements Observer, ExplorerManager.Provider, LookupListener, Lookup.Provider {
+        implements Observer, ExplorerManager.Provider, LookupListener, Lookup.Provider{
    
    private static final long serialVersionUID = 1L;
    
@@ -49,8 +55,8 @@ final public class ExplorerTopComponent extends TopComponent
    private static HashMap<Model, ConcreteModelNode> mapModels2Nodes = new HashMap<Model, ConcreteModelNode>(4);
    
    private Lookup.Result result = null;
-   //private OpenSimObject  selectedFromTree;
-   
+   private UndoRedo.Manager undoRedoManager = new UndoRedoManager();
+
    private ExplorerTopComponent() {
       initComponents();
       setName(NbBundle.getMessage(ExplorerTopComponent.class, "CTL_ExplorerTopComponent"));
@@ -74,7 +80,6 @@ final public class ExplorerTopComponent extends TopComponent
       
       // following line tells the top component which lookup should be associated with it
       associateLookup(ExplorerUtils.createLookup(getExplorerManager(), map));
-      
    }
    
    BeanTreeView getTree() {
@@ -299,5 +304,68 @@ final public class ExplorerTopComponent extends TopComponent
          */
         public boolean canClose() {
            return false;
+        }
+        
+        // Undo Support
+        public UndoRedo getUndoRedo(){
+            return getUndoRedoManager();
+}
+        public UndoRedo.Manager getUndoRedoManager() {
+            if (undoRedoManager == null) {
+                undoRedoManager = new UndoRedoManager();
+                undoRedoManager.setLimit(50);
+            }
+            return undoRedoManager;
+        }
+        // [Undo manager performing undo/redo in AWT event thread 
+        static class UndoRedoManager extends UndoRedo.Manager {
+            private Mutex.ExceptionAction runUndo = new Mutex.ExceptionAction() {
+                public Object run() throws Exception {
+                    superUndo();
+                    return null;
+                }
+            };
+            private Mutex.ExceptionAction runRedo = new Mutex.ExceptionAction() {
+                public Object run() throws Exception {
+                    superRedo();
+                    return null;
+                }
+            };
+            public void superUndo() throws CannotUndoException {
+                super.undo();
+            }
+            public void superRedo() throws CannotRedoException {
+                super.redo();
+            }
+            public void undo() throws CannotUndoException {
+                if (java.awt.EventQueue.isDispatchThread()) {
+                    superUndo();
+                } else {
+                    try {
+                        Mutex.EVENT.readAccess(runUndo);
+                    } catch (MutexException ex) {
+                        Exception e = ex.getException();
+                        if (e instanceof CannotUndoException)
+                            throw (CannotUndoException) e;
+                        else // should not happen, ignore
+                            e.printStackTrace();
+                    }
+                }
+            }
+            public void redo() throws CannotRedoException {
+                if (java.awt.EventQueue.isDispatchThread()) {
+                    superRedo();
+                } else {
+                    try {
+                        Mutex.EVENT.readAccess(runRedo);
+                    } catch (MutexException ex) {
+                        Exception e = ex.getException();
+                        if (e instanceof CannotRedoException)
+                            throw (CannotRedoException) e;
+                        else // should not happen, ignore
+                            e.printStackTrace();
+                    }
+                }
+            }
         }
 }

@@ -10,8 +10,11 @@
 package org.opensim.view.pub;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Observable;
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.view.*;
@@ -26,6 +29,7 @@ final public class OpenSimDB extends Observable {
     
     static ArrayList<Model>  models = new ArrayList<Model>();
     static Model currentModel=null;
+    ///static UndoManager undoMgr=new UndoManager();
     
     /** Creates a new instance of OpenSimDB */
     private OpenSimDB() {
@@ -48,10 +52,11 @@ final public class OpenSimDB extends Observable {
         models.add(aModel);
         // Mark model as current
         // Don't use setCurrent to avoid multiple events
-        currentModel=aModel;
+        //currentModel=aModel;
         setChanged();
         ModelEvent evnt = new ModelEvent(aModel, ModelEvent.Operation.Open);
         notifyObservers(evnt);
+        setCurrentModel(aModel);
     }
 
     public static Model getModel(String modelName)
@@ -92,12 +97,56 @@ final public class OpenSimDB extends Observable {
      * For now this just fires an event to make sure the GUI indicates what's the current Model but
      * the database itself does not keep track of which one in the models is Current.
      */
-    public void setCurrentModel(Model aCurrentModel) {
+    public void setCurrentModel(final Model aCurrentModel) {
+        setCurrentModel(aCurrentModel, true);
+    }
+    public void setCurrentModel(final Model aCurrentModel, boolean logEdit) {
+        final Model saveCurrentModel=currentModel;
         currentModel = aCurrentModel;
         setChanged();
         ModelEvent evnt = new ModelEvent(aCurrentModel, ModelEvent.Operation.SetCurrent);
         notifyObservers(evnt);
+        if (logEdit){
+            ExplorerTopComponent.getDefault().getUndoRedoManager().addEdit(new AbstractUndoableEdit() {
+                public void undo() throws CannotUndoException {
+                    super.undo();
+                    setCurrentModel(saveCurrentModel, false);
+                }
+
+                public void redo() throws CannotRedoException {
+                    super.redo();
+                    setCurrentModel(aCurrentModel, false);
+                }
+
+                public boolean canUndo() {
+                    boolean retValue= super.canUndo();
+                    return true;
+                }
+
+                public boolean canRedo() {
+                    boolean retValue = super.canRedo();
+                    return true;
+                }
+           });
         //StatusDisplayer.getDefault().setStatusText("Current model:"+aCurrentModel.getName());
+    }
+    }
+    
+    public synchronized void undo()
+    {
+        ExplorerTopComponent.getDefault().getUndoRedoManager().undo();
+    }
+    public synchronized boolean canUndo()
+    {
+        return ExplorerTopComponent.getDefault().getUndoRedoManager().canUndo();
+    }
+    public synchronized void redo()
+    {
+        ExplorerTopComponent.getDefault().getUndoRedoManager().redo();
+    }
+    public synchronized boolean canRedo()
+    {
+        return ExplorerTopComponent.getDefault().getUndoRedoManager().canRedo();
     }
     /**
      * Get current model (as indicated by bold name in the explorer view)
