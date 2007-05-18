@@ -206,13 +206,17 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       if (o instanceof OpenSimDB){
          // if current model is being switched due to open/close or change current then
          // update list of coordinates
-         ModelEvent evt = (ModelEvent)arg;
-         if (evt.getOperation()==ModelEvent.Operation.SetCurrent){
-            jPanel1.removeAll();
-            componentOpened();
-         }
-         // Do we need to handle close separately?
+         if (arg instanceof ModelEvent) {
+              final ModelEvent evt = (ModelEvent)arg;
+               if (evt.getOperation()==ModelEvent.Operation.SetCurrent ||
+                      (evt.getOperation()==ModelEvent.Operation.Close &&
+                      OpenSimDB.getInstance().getCurrentModel()==null)){
+                  jPanel1.removeAll();
+                  componentOpened();
+               }
+         // Do we need to handle close separately or should we be called with SetCurrent of null model?
          // save may trigger saving poses and open may trigger loading poses.
+         }
       }
    }
     

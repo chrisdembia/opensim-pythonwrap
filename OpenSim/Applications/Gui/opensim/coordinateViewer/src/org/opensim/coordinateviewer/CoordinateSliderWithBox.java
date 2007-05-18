@@ -6,6 +6,8 @@
 
 package org.opensim.coordinateviewer;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -13,10 +15,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Hashtable;
 import javax.swing.AbstractAction;
+import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.KeyStroke;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
@@ -39,6 +43,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
     NumberFormatter formatter;
     private boolean rotational;
     private AbstractCoordinate coord;
+    
    public CoordinateSliderWithBox(AbstractCoordinate coord) {
       this.coord = coord;
       setRotational(coord.getMotionType()==AbstractDof.DofType.Rotational);
@@ -68,9 +73,12 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        jFormattedTextField.addPropertyChangeListener("value", this);
        setTheValue(coord.getValue()*conversion);
        createBoundsLabels(jXSlider, min, max, 0, numTicks-1);
-      jCoordinateNameLabel.setText(coord.getName());
-      jClampedCheckBox.setSelected(coord.getClamped());
-      jLockedCheckBox.setSelected(coord.getLocked());
+       //jCoordinateNameLabel.setText(coord.getName());
+       ((TitledBorder)getBorder()).setTitle(coord.getName());
+       jClampedCheckBox.setSelected(coord.getClamped());
+       jLockedCheckBox.setSelected(coord.getLocked());
+       jXSlider.setEnabled(!coord.getLocked());
+
    }
    
   /** Creates new form SliderWithBoxJPanel */
@@ -97,6 +105,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        jFormattedTextField.addPropertyChangeListener("value", this);
        setTheValue(initial);
        createBoundsLabels(jXSlider, min, max, 0, numTicks-1);
+       
      }
    
    /** This method is called from within the constructor to
@@ -110,8 +119,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       jFormattedTextField = new JFormattedTextField(formatter);
       jClampedCheckBox = new javax.swing.JCheckBox();
       jLockedCheckBox = new javax.swing.JCheckBox();
-      jCoordinateNameLabel = new javax.swing.JLabel();
 
+      setBorder(javax.swing.BorderFactory.createTitledBorder("Coordinate name"));
       setAlignmentY(0.0F);
       jXSlider.setMajorTickSpacing(20);
       jXSlider.setMinorTickSpacing(10);
@@ -122,41 +131,62 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
          }
       });
 
+      jClampedCheckBox.setToolTipText("Clamp value to limits");
       jClampedCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      jClampedCheckBox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unclamped.GIF")));
       jClampedCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      jClampedCheckBox.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/clamped.GIF")));
+      jClampedCheckBox.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jClampedCheckBoxActionPerformed(evt);
+         }
+      });
 
       jLockedCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      jLockedCheckBox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unlocked.GIF")));
       jLockedCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-      jCoordinateNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-      jCoordinateNameLabel.setText("jLabel1");
+      jLockedCheckBox.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/locked.GIF")));
+      jLockedCheckBox.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jLockedCheckBoxActionPerformed(evt);
+         }
+      });
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
-            .add(jCoordinateNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(16, 16, 16)
             .add(jLockedCheckBox)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jClampedCheckBox)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 61, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-            .addContainerGap())
+            .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
             .add(jClampedCheckBox)
             .add(jLockedCheckBox)
-            .add(jCoordinateNameLabel)
             .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-         .add(jXSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+         .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void jClampedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClampedCheckBoxActionPerformed
+      boolean newValue = ((JCheckBox)(evt.getSource())).isSelected();
+      coord.setClamped(newValue);
+// TODO add your handling code here:
+   }//GEN-LAST:event_jClampedCheckBoxActionPerformed
+
+   private void jLockedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLockedCheckBoxActionPerformed
+// TODO add your handling code here:
+      boolean newValue = ((JCheckBox)(evt.getSource())).isSelected();
+      coord.setLocked(newValue);
+      jXSlider.setEnabled(!newValue);
+   }//GEN-LAST:event_jLockedCheckBoxActionPerformed
 
    private void jFormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldActionPerformed
 // TODO add your handling code here:
@@ -165,7 +195,6 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JCheckBox jClampedCheckBox;
-   private javax.swing.JLabel jCoordinateNameLabel;
    private javax.swing.JFormattedTextField jFormattedTextField;
    private javax.swing.JCheckBox jLockedCheckBox;
    private javax.swing.JSlider jXSlider;
@@ -203,7 +232,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
            }
            //jFormattedTextField.setText(str);
            // The following updates the display more responsively but may fire unnecessary
-           // events while the sldier is still moving
+           // events while the sldier is still moving and so could be problematic
            jFormattedTextField.setValue(new Double(tempValue*step+min));
         }
         else { // set the actual value
