@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.opensim.coordinateviewer
+OpenIDE-Module-Layer: org/opensim/coordinateviewer/layer.xml
+OpenIDE-Module-Localizing-Bundle: org/opensim/coordinateviewer/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
