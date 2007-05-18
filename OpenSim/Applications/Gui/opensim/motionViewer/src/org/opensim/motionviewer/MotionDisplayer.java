@@ -224,6 +224,8 @@ public class MotionDisplayer {
 
    void applyFrameToModel(int currentFrame) {
       int numColumnsIncludingTime = simmMotionData.getColumnLabels().getSize();
+      boolean markersChanged=false;
+      boolean forcesChanged=false;
        for (int i = 0; i< numColumnsIncludingTime; i++){
          // get Type and apply value
          ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
@@ -238,6 +240,7 @@ public class MotionDisplayer {
                markersRep.setLocation(markerIndex, states.getData().getitem(i-1), 
                        states.getData().getitem(i),
                        states.getData().getitem(i+1));
+               markersChanged=true;
                break;
             case Segment_force_p1:
                int forceIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
@@ -247,13 +250,16 @@ public class MotionDisplayer {
                forcesRep.setLocation(forceIndex, states.getData().getitem(i+2), 
                        states.getData().getitem(i+3),
                        states.getData().getitem(i+4));
+               forcesChanged=true;
                break;
             default:
                break;
          }
       }
-      markersRep.setModified();
-      forcesRep.setModified();
+      if (markersChanged)
+         markersRep.setModified();
+      if (forcesChanged)
+         forcesRep.setModified();
     }
     /*
      * cleanupDisplay is called when the motion is mode non-current either explicitly by the user or by selecting

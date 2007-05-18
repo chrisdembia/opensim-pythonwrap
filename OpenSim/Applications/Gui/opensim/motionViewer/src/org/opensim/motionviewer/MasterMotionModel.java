@@ -61,7 +61,6 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
          public void run(){
             Model dModel = disp.getModel();
             ViewDB.getInstance().updateModelDisplay(dModel);
-            ViewDB.getInstance().repaintAll();
             MotionsDB motionsDB = MotionsDB.getInstance();
             motionsDB.reportTimeChange( getCurrentTime());
          }
