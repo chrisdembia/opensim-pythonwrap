@@ -7,7 +7,6 @@
             <file name="org-opensim-view-ModelDisplayEditAction.instance"/>
             <file name="org-opensim-view-ModelDisplayHideAction.instance"/>
             <file name="org-opensim-view-ModelDisplayShowAction.instance"/>
-            <file name="org-opensim-view-SelectObjectAction.instance"/>
             <file name="org-opensim-view-ViewEditAction.instance"/>
             <file name="org-opensim-view-FileExportSIMMJntAction.instance"/>
             <file name="org-opensim-view-ViewReplicateAction.instance"/>
@@ -189,10 +188,8 @@
         <file name="Debug_hidden"/>
         <folder name="Edit">
             <attr name="org-openide-actions-FindAction.instance/org-opensim-view-CameraAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-view-SelectObjectAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-SelectObjectAction.instance"/>
-            </file>
             <attr name="org-opensim-view-SelectObjectAction.shadow/org-openide-actions-CutAction.instance" boolvalue="true"/>
+            <file name="org-opensim-motionviewer-MotionsSynchronizeAction.instance_hidden"/>
         </folder>
         <file name="File_hidden"/>
         <file name="Memory_hidden"/>
