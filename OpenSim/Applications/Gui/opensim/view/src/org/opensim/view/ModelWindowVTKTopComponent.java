@@ -39,10 +39,11 @@ public class ModelWindowVTKTopComponent extends TopComponent
         
         // Set preferred directory for the TopComponent (to be used for all saving, loading, ...
         prefs = Preferences.userNodeForPackage(TheApp.class);
+        
         vtkFileOutputWindow fow = new vtkFileOutputWindow();
         fow.SetFileName("vtklog.log");
         if (fow != null)
-           fow.SetInstance(fow);   
+           fow.SetInstance(fow);
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -258,18 +259,6 @@ public class ModelWindowVTKTopComponent extends TopComponent
         ViewDB.getInstance().setCurrentModelWindow(this);
     }
 
-    /**
-     * update the view to reflect changes in whole model visibility. 
-     */
-    void updateDisplayedModels() {
-        ArrayList<SingleModelVisuals> modelsToDisplay = ViewDB.getInstance().getModelVisuals();
-        Iterator<SingleModelVisuals> modelVisualIter = modelsToDisplay.iterator();
-        while(modelVisualIter.hasNext()){
-            SingleModelVisuals nextModelVis = modelVisualIter.next();
-            getCanvas().setModelVisibility(nextModelVis, nextModelVis.isVisible());
-        }
-        repaint();
-    }
     /**
      * Window closing, remove self from ViewDB
      **/
