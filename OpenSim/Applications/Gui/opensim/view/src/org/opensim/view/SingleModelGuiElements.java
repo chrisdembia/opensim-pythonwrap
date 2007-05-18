@@ -88,7 +88,7 @@ public class SingleModelGuiElements {
        Vector<String> ret = new Vector<String>(20);
         ActuatorSet actuators = model.getActuatorSet();
         if (actuators !=null){
-           ObjectGroup group=actuators.getObjectGroup(groupName);
+           ObjectGroup group=actuators.getGroup(groupName);
            assert(group!=null);
            ArrayPtrsObj objects = group.getMembers();
            for(int i=0; i<objects.getSize();i++){

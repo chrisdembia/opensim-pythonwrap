@@ -49,7 +49,7 @@ import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.NameChangedEvent;
 import org.opensim.view.ObjectSelectedEvent;
 import org.opensim.view.SingleModelVisuals;
-import org.opensim.view.nodes.OneMuscleNode;
+import org.opensim.view.nodes.OneActuatorNode;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
@@ -638,7 +638,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    public void componentOpened() {
       /*
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
-      OneMuscleNode muscleNode = (OneMuscleNode) selected[0];
+      OneActuatorNode muscleNode = (OneActuatorNode) selected[0];
       act = (AbstractActuator)muscleNode.getOpensimObject();
       actSaved = AbstractActuator.safeDownCast(act.copy());
       AttachmentsTab = null;
@@ -1458,7 +1458,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       Mode mode=WindowManager.getDefault().findMode(s_mode);
       //boolean docked = mode.dockInto(this);
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
-      OneMuscleNode muscleNode = (OneMuscleNode) selected[0];
+      OneActuatorNode muscleNode = (OneActuatorNode) selected[0];
       AbstractActuator newAct = (AbstractActuator)muscleNode.getOpensimObject();
       if (newAct != null && newAct != act) {
          boolean switchMuscles = false;

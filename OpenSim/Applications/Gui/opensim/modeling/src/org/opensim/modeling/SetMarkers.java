@@ -181,6 +181,10 @@ public class SetMarkers extends OpenSimObject {
     return opensimModelJNI.SetMarkers_searchBinary__SWIG_3(swigCPtr, this, AbstractMarker.getCPtr(aObject), aObject);
   }
 
+  public int getNumGroups() {
+    return opensimModelJNI.SetMarkers_getNumGroups(swigCPtr, this);
+  }
+
   public void addGroup(SWIGTYPE_p_std__string aGroupName) {
     opensimModelJNI.SetMarkers_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
   }
@@ -193,8 +197,13 @@ public class SetMarkers extends OpenSimObject {
     opensimModelJNI.SetMarkers_getGroupNames(swigCPtr, this, ArrayStr.getCPtr(rGroupNames), rGroupNames);
   }
 
-  public ObjectGroup getObjectGroup(String aGroupName) {
-    long cPtr = opensimModelJNI.SetMarkers_getObjectGroup(swigCPtr, this, aGroupName);
+  public ObjectGroup getGroup(String aGroupName) {
+    long cPtr = opensimModelJNI.SetMarkers_getGroup__SWIG_0(swigCPtr, this, aGroupName);
+    return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
+  }
+
+  public ObjectGroup getGroup(int aIndex) {
+    long cPtr = opensimModelJNI.SetMarkers_getGroup__SWIG_1(swigCPtr, this, aIndex);
     return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
   }
 

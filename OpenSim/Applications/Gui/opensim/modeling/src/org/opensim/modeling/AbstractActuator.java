@@ -38,7 +38,7 @@ public class AbstractActuator extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AbstractActuator_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractActuator_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -159,6 +159,10 @@ public class AbstractActuator extends OpenSimObject {
   public static AbstractActuator safeDownCast(OpenSimObject obj) {
     long cPtr = opensimModelJNI.AbstractActuator_safeDownCast(OpenSimObject.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.AbstractActuator_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
   public boolean getAppliesForce() {

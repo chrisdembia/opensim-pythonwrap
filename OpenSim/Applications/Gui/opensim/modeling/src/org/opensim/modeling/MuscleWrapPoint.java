@@ -42,7 +42,7 @@ public class MuscleWrapPoint extends MusclePoint {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.MuscleWrapPoint_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.MuscleWrapPoint_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -90,6 +90,10 @@ public class MuscleWrapPoint extends MusclePoint {
   public static MuscleWrapPoint safeDownCast(OpenSimObject obj) {
     long cPtr = opensimModelJNI.MuscleWrapPoint_safeDownCast(OpenSimObject.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new MuscleWrapPoint(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.MuscleWrapPoint_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

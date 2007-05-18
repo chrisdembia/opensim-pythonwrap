@@ -42,7 +42,7 @@ public class WrapEllipsoid extends AbstractWrapObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.WrapEllipsoid_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.WrapEllipsoid_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -85,6 +85,10 @@ public class WrapEllipsoid extends AbstractWrapObject {
   public static WrapEllipsoid safeDownCast(OpenSimObject obj) {
     long cPtr = opensimModelJNI.WrapEllipsoid_safeDownCast(OpenSimObject.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new WrapEllipsoid(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.WrapEllipsoid_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

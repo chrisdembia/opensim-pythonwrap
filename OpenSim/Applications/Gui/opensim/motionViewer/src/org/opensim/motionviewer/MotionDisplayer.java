@@ -10,8 +10,6 @@
 package org.opensim.motionviewer;
 
 import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.AbstractMarker;
@@ -58,8 +56,8 @@ public class MotionDisplayer {
 
     Hashtable<Integer, ObjectTypesInMotionFiles> mapIndicesToObjectTypes=new Hashtable<Integer, ObjectTypesInMotionFiles>(40);
     Hashtable<Integer, Object> mapIndicesToObjects=new Hashtable<Integer, Object>(40);
-    OpenSimvtkGlyphCloud  forcesRep=new OpenSimvtkGlyphCloud();
-    OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud();
+    OpenSimvtkGlyphCloud  forcesRep=new OpenSimvtkGlyphCloud(false);
+    OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
     private Storage simmMotionData;
     private Model model;
     

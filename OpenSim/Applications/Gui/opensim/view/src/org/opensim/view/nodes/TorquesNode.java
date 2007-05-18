@@ -1,6 +1,6 @@
 /*
  *
- * MusclesNode
+ * TorquesNode
  * Author(s): Peter Loan
  * Copyright (c) 2007, Stanford University, Peter Loan
  *
@@ -30,66 +30,51 @@ import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractActuator;
-import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.Torque;
 import org.opensim.modeling.ObjectGroup;
 
 /**
  *
  * @author Peter Loan
  *
- * Muscles node (under Actuators) in Navigator view
+ * Torques node (under Actuators) in Navigator view
  */
-public class MusclesNode extends OpenSimObjectNode {
+public class TorquesNode extends OpenSimObjectNode {
    
-   private static ResourceBundle bundle = NbBundle.getBundle(MusclesNode.class);
+   private static ResourceBundle bundle = NbBundle.getBundle(TorquesNode.class);
    /**
-    * Creates a new instance of MusclesNode
+    * Creates a new instance of TorquesNode
     */
-   public MusclesNode(ActuatorSet as) {
+   public TorquesNode(ActuatorSet as) {
       super(as);
-      setDisplayName(NbBundle.getMessage(MusclesNode.class, "CTL_Muscles"));
+      setDisplayName(NbBundle.getMessage(TorquesNode.class, "CTL_Torques"));
       Children children = getChildren();
-      int numMuscleGroups = countMuscleGroups(as);
-      int numMuscles = countMuscles(as);
-      if (numMuscleGroups == 0) {
-         // There are no AbstractMuscle groups, so just add all of the
-         // muscles directly under the Muscles node.
+      int numTorqueGroups = countTorqueGroups(as);
+      int numTorques = countTorques(as);
+      if (numTorqueGroups == 0) {
+         // There are no Torque groups, so just add all of the
+         // torques directly under the Torques node.
          for (int actuatorNum=0; actuatorNum < as.getSize(); actuatorNum++ ) {
-            AbstractMuscle muscle = AbstractMuscle.safeDownCast(as.get(actuatorNum));
-            if (muscle != null) {
-               OneActuatorNode node = new OneActuatorNode(muscle);
+            Torque torque = Torque.safeDownCast(as.get(actuatorNum));
+            if (torque != null) {
+               OneActuatorNode node = new OneActuatorNode(torque);
                Node[] arrNodes = new Node[1];
                arrNodes[0] = node;
                children.add(arrNodes);
             }
          }
       } else {
-         boolean userDefinedAllGroup = false;
          for (int i = 0; i < as.getNumGroups(); i++) {
             ObjectGroup grp = as.getGroup(i);
             ArrayPtrsObj apo = grp.getMembers();
-            AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
-            // If the first member of the group is an AbstractMuscle, then
-            // consider this group to be an AbstractMuscle group.
-            if (muscle != null) {
+            Torque torque = Torque.safeDownCast(apo.get(0));
+            // If the first member of the group is a Torque, then
+            // consider this group to be a Torque group.
+            if (torque != null) {
                children.add(new Node[] {new ActuatorGroupNode(grp)});
-               if (grp.getName() == "all")
-                  userDefinedAllGroup = true;
             }
-         }
-         // Now make the "all" group, if there is not already one by that name
-         if (userDefinedAllGroup == false) {
-            ObjectGroup allGroup = new ObjectGroup();
-            allGroup.setName("all");
-            for (int actuatorNum=0; actuatorNum < as.getSize(); actuatorNum++ ) {
-               AbstractMuscle muscle = AbstractMuscle.safeDownCast(as.get(actuatorNum));
-               if (muscle != null) {
-                  allGroup.add(muscle);
-               }
-            }
-            children.add(new Node[] {new ActuatorGroupNode(allGroup)});
          }
       }
    }
@@ -97,30 +82,31 @@ public class MusclesNode extends OpenSimObjectNode {
     * Display name 
     */
    public String getHtmlDisplayName() {
-       return NbBundle.getMessage(MusclesNode.class, "CTL_Muscles");
+       return NbBundle.getMessage(TorquesNode.class, "CTL_Torques");
    }
 
-   private int countMuscleGroups(ActuatorSet as) {
+   private int countTorqueGroups(ActuatorSet as) {
       int count = 0;
       for (int i = 0; i < as.getNumGroups(); i++) {
          ObjectGroup grp = as.getGroup(i);
          ArrayPtrsObj apo = grp.getMembers();
-         AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
-         // If the first member of the group is an AbstractMuscle, then
-         // consider this group to be an AbstractMuscle group.
-         if (muscle != null)
+         Torque torque = Torque.safeDownCast(apo.get(0));
+         // If the first member of the group is a Torque, then
+         // consider this group to be a Torque group.
+         if (torque != null)
             count++;
       }
       return count;
    }
 
-   private int countMuscles(ActuatorSet as) {
+   private int countTorques(ActuatorSet as) {
       int count = 0;
       for (int i = 0; i < as.getSize(); i++) {
-         AbstractMuscle muscle = AbstractMuscle.safeDownCast(as.get(i));
-         if (muscle != null)
+         Torque torque = Torque.safeDownCast(as.get(i));
+         if (torque != null)
             count++;
       }
       return count;
    }
 }
+

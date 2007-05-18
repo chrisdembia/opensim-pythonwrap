@@ -34,7 +34,7 @@ public class Function extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Function_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.Function_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -133,6 +133,10 @@ public class Function extends OpenSimObject {
   public static Function safeDownCast(OpenSimObject obj) {
     long cPtr = opensimModelJNI.Function_safeDownCast(OpenSimObject.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new Function(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.Function_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

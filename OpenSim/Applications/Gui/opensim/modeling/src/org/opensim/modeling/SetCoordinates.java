@@ -181,6 +181,10 @@ public class SetCoordinates extends OpenSimObject {
     return opensimModelJNI.SetCoordinates_searchBinary__SWIG_3(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject);
   }
 
+  public int getNumGroups() {
+    return opensimModelJNI.SetCoordinates_getNumGroups(swigCPtr, this);
+  }
+
   public void addGroup(SWIGTYPE_p_std__string aGroupName) {
     opensimModelJNI.SetCoordinates_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
   }
@@ -193,8 +197,13 @@ public class SetCoordinates extends OpenSimObject {
     opensimModelJNI.SetCoordinates_getGroupNames(swigCPtr, this, ArrayStr.getCPtr(rGroupNames), rGroupNames);
   }
 
-  public ObjectGroup getObjectGroup(String aGroupName) {
-    long cPtr = opensimModelJNI.SetCoordinates_getObjectGroup(swigCPtr, this, aGroupName);
+  public ObjectGroup getGroup(String aGroupName) {
+    long cPtr = opensimModelJNI.SetCoordinates_getGroup__SWIG_0(swigCPtr, this, aGroupName);
+    return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
+  }
+
+  public ObjectGroup getGroup(int aIndex) {
+    long cPtr = opensimModelJNI.SetCoordinates_getGroup__SWIG_1(swigCPtr, this, aIndex);
     return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
   }
 

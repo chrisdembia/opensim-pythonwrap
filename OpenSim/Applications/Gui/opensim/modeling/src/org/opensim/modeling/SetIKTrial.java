@@ -181,6 +181,10 @@ public class SetIKTrial extends OpenSimObject {
     return opensimModelJNI.SetIKTrial_searchBinary__SWIG_3(swigCPtr, this, IKTrial.getCPtr(aObject), aObject);
   }
 
+  public int getNumGroups() {
+    return opensimModelJNI.SetIKTrial_getNumGroups(swigCPtr, this);
+  }
+
   public void addGroup(SWIGTYPE_p_std__string aGroupName) {
     opensimModelJNI.SetIKTrial_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
   }
@@ -193,8 +197,13 @@ public class SetIKTrial extends OpenSimObject {
     opensimModelJNI.SetIKTrial_getGroupNames(swigCPtr, this, ArrayStr.getCPtr(rGroupNames), rGroupNames);
   }
 
-  public ObjectGroup getObjectGroup(String aGroupName) {
-    long cPtr = opensimModelJNI.SetIKTrial_getObjectGroup(swigCPtr, this, aGroupName);
+  public ObjectGroup getGroup(String aGroupName) {
+    long cPtr = opensimModelJNI.SetIKTrial_getGroup__SWIG_0(swigCPtr, this, aGroupName);
+    return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
+  }
+
+  public ObjectGroup getGroup(int aIndex) {
+    long cPtr = opensimModelJNI.SetIKTrial_getGroup__SWIG_1(swigCPtr, this, aIndex);
     return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
   }
 

@@ -1,8 +1,8 @@
 /*
  *
- * MuscleChildren
- * Author(s): Ayman Habib
- * Copyright (c) 2005-2006, Stanford University, Ayman Habib
+ * ActuatorGroupNode
+ * Author(s): Peter Loan
+ * Copyright (c) 2007, Stanford University, Peter Loan
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,46 +25,43 @@
  */
 package org.opensim.view.nodes;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.swing.event.ChangeListener;
+import java.util.ResourceBundle;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
+import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.ObjectGroup;
 
 /**
  *
- * @author Ayman Habib
+ * @author Peter Loan
+ *
+ * Top level Actuators node in Navigator view
  */
-public class MuscleChildren extends Children.Keys {
-    
-    private ChangeListener listener;
-    ActuatorSet actuatorSet;
-    
-    MuscleChildren(ActuatorSet actuatorSet) {
-        this.actuatorSet = actuatorSet;
-    }
-    protected void addNotify() {
-        refreshList();  // Called when parent node is expanded
-    }
-    protected void removeNotify() {
-        setKeys(Collections.EMPTY_SET);
-    }
-    protected Node[] createNodes(Object key) {
-        AbstractActuator act = actuatorSet.get((String) key);
-        return new Node[] { new OneActuatorNode(act) };
-    }
-    
-    private void refreshList() {
-        List<String> keys = new ArrayList<String>();
-        int numActuators = actuatorSet.getSize();
-        for(int i=0; i < numActuators; i++)
-            keys.add(actuatorSet.get(i).getName());
-        
-        Collections.sort(keys);
-        setKeys(keys);
-    }
-    
+public class ActuatorGroupNode extends OpenSimObjectNode {
+   
+   private static ResourceBundle bundle = NbBundle.getBundle(ActuatorGroupNode.class);
+   /**
+    * Creates a new instance of ActuatorGroupNode
+    */
+   public ActuatorGroupNode(ObjectGroup group) {
+      super(group);
+      setDisplayName(group.getName());
+      Children children = getChildren();
+      ArrayPtrsObj members = group.getMembers();
+      for (int i = 0; i < members.getSize(); i++ ) {
+         OneActuatorNode node = new OneActuatorNode(members.get(i));
+         Node[] arrNodes = new Node[1];
+         arrNodes[0] = node;
+         children.add(arrNodes);         
+      }
+   }
+   /**
+    * Display name 
+    */
+   public String getHtmlDisplayName() {
+      return getOpensimObject().getName() ;
+   }
 }

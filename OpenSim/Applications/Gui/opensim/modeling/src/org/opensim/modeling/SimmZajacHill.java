@@ -46,10 +46,6 @@ public class SimmZajacHill extends AbstractMuscle {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void copy(OpenSimObject aObject) {
-    opensimModelJNI.SimmZajacHill_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
-  }
-
   public void copyData(SimmZajacHill aMuscle) {
     opensimModelJNI.SimmZajacHill_copyData(swigCPtr, this, SimmZajacHill.getCPtr(aMuscle), aMuscle);
   }
@@ -173,6 +169,10 @@ public class SimmZajacHill extends AbstractMuscle {
   public static SimmZajacHill safeDownCast(OpenSimObject obj) {
     long cPtr = opensimModelJNI.SimmZajacHill_safeDownCast(OpenSimObject.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new SimmZajacHill(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.SimmZajacHill_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

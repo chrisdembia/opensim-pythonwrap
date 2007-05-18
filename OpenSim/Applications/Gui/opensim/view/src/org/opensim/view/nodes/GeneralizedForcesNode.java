@@ -1,6 +1,6 @@
 /*
  *
- * MusclesNode
+ * GeneralizedForcesNode
  * Author(s): Peter Loan
  * Copyright (c) 2007, Stanford University, Peter Loan
  *
@@ -30,66 +30,51 @@ import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractActuator;
-import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.GeneralizedForce;
 import org.opensim.modeling.ObjectGroup;
 
 /**
  *
  * @author Peter Loan
  *
- * Muscles node (under Actuators) in Navigator view
+ * GeneralizedForces node (under Actuators) in Navigator view
  */
-public class MusclesNode extends OpenSimObjectNode {
+public class GeneralizedForcesNode extends OpenSimObjectNode {
    
-   private static ResourceBundle bundle = NbBundle.getBundle(MusclesNode.class);
+   private static ResourceBundle bundle = NbBundle.getBundle(GeneralizedForcesNode.class);
    /**
-    * Creates a new instance of MusclesNode
+    * Creates a new instance of GeneralizedForcesNode
     */
-   public MusclesNode(ActuatorSet as) {
+   public GeneralizedForcesNode(ActuatorSet as) {
       super(as);
-      setDisplayName(NbBundle.getMessage(MusclesNode.class, "CTL_Muscles"));
+      setDisplayName(NbBundle.getMessage(GeneralizedForcesNode.class, "CTL_GeneralizedForces"));
       Children children = getChildren();
-      int numMuscleGroups = countMuscleGroups(as);
-      int numMuscles = countMuscles(as);
-      if (numMuscleGroups == 0) {
-         // There are no AbstractMuscle groups, so just add all of the
-         // muscles directly under the Muscles node.
+      int numGeneralizedForceGroups = countGeneralizedForceGroups(as);
+      int numGeneralizedForces = countGeneralizedForces(as);
+      if (numGeneralizedForceGroups == 0) {
+         // There are no GeneralizedForce groups, so just add all of the
+         // generalized forces directly under the GeneralizedForces node.
          for (int actuatorNum=0; actuatorNum < as.getSize(); actuatorNum++ ) {
-            AbstractMuscle muscle = AbstractMuscle.safeDownCast(as.get(actuatorNum));
-            if (muscle != null) {
-               OneActuatorNode node = new OneActuatorNode(muscle);
+            GeneralizedForce genforce = GeneralizedForce.safeDownCast(as.get(actuatorNum));
+            if (genforce != null) {
+               OneActuatorNode node = new OneActuatorNode(genforce);
                Node[] arrNodes = new Node[1];
                arrNodes[0] = node;
                children.add(arrNodes);
             }
          }
       } else {
-         boolean userDefinedAllGroup = false;
          for (int i = 0; i < as.getNumGroups(); i++) {
             ObjectGroup grp = as.getGroup(i);
             ArrayPtrsObj apo = grp.getMembers();
-            AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
-            // If the first member of the group is an AbstractMuscle, then
-            // consider this group to be an AbstractMuscle group.
-            if (muscle != null) {
+            GeneralizedForce genforce = GeneralizedForce.safeDownCast(apo.get(0));
+            // If the first member of the group is a GeneralizedForce, then
+            // consider this group to be a GeneralizedForce group.
+            if (genforce != null) {
                children.add(new Node[] {new ActuatorGroupNode(grp)});
-               if (grp.getName() == "all")
-                  userDefinedAllGroup = true;
             }
-         }
-         // Now make the "all" group, if there is not already one by that name
-         if (userDefinedAllGroup == false) {
-            ObjectGroup allGroup = new ObjectGroup();
-            allGroup.setName("all");
-            for (int actuatorNum=0; actuatorNum < as.getSize(); actuatorNum++ ) {
-               AbstractMuscle muscle = AbstractMuscle.safeDownCast(as.get(actuatorNum));
-               if (muscle != null) {
-                  allGroup.add(muscle);
-               }
-            }
-            children.add(new Node[] {new ActuatorGroupNode(allGroup)});
          }
       }
    }
@@ -97,30 +82,31 @@ public class MusclesNode extends OpenSimObjectNode {
     * Display name 
     */
    public String getHtmlDisplayName() {
-       return NbBundle.getMessage(MusclesNode.class, "CTL_Muscles");
+       return NbBundle.getMessage(GeneralizedForcesNode.class, "CTL_GeneralizedForces");
    }
 
-   private int countMuscleGroups(ActuatorSet as) {
+   private int countGeneralizedForceGroups(ActuatorSet as) {
       int count = 0;
       for (int i = 0; i < as.getNumGroups(); i++) {
          ObjectGroup grp = as.getGroup(i);
          ArrayPtrsObj apo = grp.getMembers();
-         AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
-         // If the first member of the group is an AbstractMuscle, then
-         // consider this group to be an AbstractMuscle group.
-         if (muscle != null)
+         GeneralizedForce genforce = GeneralizedForce.safeDownCast(apo.get(0));
+         // If the first member of the group is a GeneralizedForce, then
+         // consider this group to be a GeneralizedForce group.
+         if (genforce != null)
             count++;
       }
       return count;
    }
 
-   private int countMuscles(ActuatorSet as) {
+   private int countGeneralizedForces(ActuatorSet as) {
       int count = 0;
       for (int i = 0; i < as.getSize(); i++) {
-         AbstractMuscle muscle = AbstractMuscle.safeDownCast(as.get(i));
-         if (muscle != null)
+         GeneralizedForce genforce = GeneralizedForce.safeDownCast(as.get(i));
+         if (genforce != null)
             count++;
       }
       return count;
    }
 }
+

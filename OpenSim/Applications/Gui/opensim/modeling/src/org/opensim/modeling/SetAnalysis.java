@@ -181,6 +181,10 @@ public class SetAnalysis extends OpenSimObject {
     return opensimModelJNI.SetAnalysis_searchBinary__SWIG_3(swigCPtr, this, Analysis.getCPtr(aObject), aObject);
   }
 
+  public int getNumGroups() {
+    return opensimModelJNI.SetAnalysis_getNumGroups(swigCPtr, this);
+  }
+
   public void addGroup(SWIGTYPE_p_std__string aGroupName) {
     opensimModelJNI.SetAnalysis_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
   }
@@ -193,8 +197,13 @@ public class SetAnalysis extends OpenSimObject {
     opensimModelJNI.SetAnalysis_getGroupNames(swigCPtr, this, ArrayStr.getCPtr(rGroupNames), rGroupNames);
   }
 
-  public ObjectGroup getObjectGroup(String aGroupName) {
-    long cPtr = opensimModelJNI.SetAnalysis_getObjectGroup(swigCPtr, this, aGroupName);
+  public ObjectGroup getGroup(String aGroupName) {
+    long cPtr = opensimModelJNI.SetAnalysis_getGroup__SWIG_0(swigCPtr, this, aGroupName);
+    return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
+  }
+
+  public ObjectGroup getGroup(int aIndex) {
+    long cPtr = opensimModelJNI.SetAnalysis_getGroup__SWIG_1(swigCPtr, this, aIndex);
     return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
   }
 

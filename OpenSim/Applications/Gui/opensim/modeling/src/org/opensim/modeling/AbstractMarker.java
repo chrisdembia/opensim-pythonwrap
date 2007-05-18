@@ -34,7 +34,7 @@ public class AbstractMarker extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AbstractMarker_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractMarker_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -137,6 +137,10 @@ public class AbstractMarker extends OpenSimObject {
   public static AbstractMarker safeDownCast(OpenSimObject obj) {
     long cPtr = opensimModelJNI.AbstractMarker_safeDownCast(OpenSimObject.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new AbstractMarker(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.AbstractMarker_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

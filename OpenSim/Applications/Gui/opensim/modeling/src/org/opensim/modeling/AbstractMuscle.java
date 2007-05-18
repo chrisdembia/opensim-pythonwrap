@@ -34,7 +34,7 @@ public class AbstractMuscle extends AbstractActuator {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AbstractMuscle_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractMuscle_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -219,6 +219,10 @@ public class AbstractMuscle extends AbstractActuator {
   public static AbstractMuscle safeDownCast(OpenSimObject obj) {
     long cPtr = opensimModelJNI.AbstractMuscle_safeDownCast(OpenSimObject.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new AbstractMuscle(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.AbstractMuscle_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

@@ -1,6 +1,6 @@
 /*
  *
- * MuscleChildren
+ * ActuatorsNode
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -25,46 +25,39 @@
  */
 package org.opensim.view.nodes;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.swing.event.ChangeListener;
+import java.util.ResourceBundle;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
+import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.ActuatorSet;
 
 /**
  *
  * @author Ayman Habib
+ *
+ * Top level Actuators node in Navigator view
  */
-public class MuscleChildren extends Children.Keys {
-    
-    private ChangeListener listener;
-    ActuatorSet actuatorSet;
-    
-    MuscleChildren(ActuatorSet actuatorSet) {
-        this.actuatorSet = actuatorSet;
-    }
-    protected void addNotify() {
-        refreshList();  // Called when parent node is expanded
-    }
-    protected void removeNotify() {
-        setKeys(Collections.EMPTY_SET);
-    }
-    protected Node[] createNodes(Object key) {
-        AbstractActuator act = actuatorSet.get((String) key);
-        return new Node[] { new OneActuatorNode(act) };
-    }
-    
-    private void refreshList() {
-        List<String> keys = new ArrayList<String>();
-        int numActuators = actuatorSet.getSize();
-        for(int i=0; i < numActuators; i++)
-            keys.add(actuatorSet.get(i).getName());
+public class ActuatorsNode extends OpenSimObjectNode {
+   
+   private static ResourceBundle bundle = NbBundle.getBundle(ActuatorsNode.class);
+   /**
+    * Creates a new instance of ActuatorsNode
+    */
+   public ActuatorsNode(ActuatorSet as) {
+      super(as);
+      setDisplayName(NbBundle.getMessage(ActuatorsNode.class, "CTL_Actuators"));
+      getChildren().add(new Node[] {new MusclesNode(as)});
+      getChildren().add(new Node[] {new ForcesNode(as)});
+      getChildren().add(new Node[] {new TorquesNode(as)});
+      getChildren().add(new Node[] {new GeneralizedForcesNode(as)});
+   }
+    /**
+     * Display name 
+     */
+    public String getHtmlDisplayName() {
         
-        Collections.sort(keys);
-        setKeys(keys);
+        return NbBundle.getMessage(ActuatorsNode.class, "CTL_Actuators");
     }
-    
+   
 }

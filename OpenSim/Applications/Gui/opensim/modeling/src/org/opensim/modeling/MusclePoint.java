@@ -42,7 +42,7 @@ public class MusclePoint extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.MusclePoint_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.MusclePoint_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -121,6 +121,10 @@ public class MusclePoint extends OpenSimObject {
   public static MusclePoint safeDownCast(OpenSimObject obj) {
     long cPtr = opensimModelJNI.MusclePoint_safeDownCast(OpenSimObject.getCPtr(obj), obj);
     return (cPtr == 0) ? null : new MusclePoint(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.MusclePoint_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

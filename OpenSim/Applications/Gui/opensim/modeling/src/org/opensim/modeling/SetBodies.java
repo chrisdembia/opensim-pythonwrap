@@ -181,6 +181,10 @@ public class SetBodies extends OpenSimObject {
     return opensimModelJNI.SetBodies_searchBinary__SWIG_3(swigCPtr, this, AbstractBody.getCPtr(aObject), aObject);
   }
 
+  public int getNumGroups() {
+    return opensimModelJNI.SetBodies_getNumGroups(swigCPtr, this);
+  }
+
   public void addGroup(SWIGTYPE_p_std__string aGroupName) {
     opensimModelJNI.SetBodies_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
   }
@@ -193,8 +197,13 @@ public class SetBodies extends OpenSimObject {
     opensimModelJNI.SetBodies_getGroupNames(swigCPtr, this, ArrayStr.getCPtr(rGroupNames), rGroupNames);
   }
 
-  public ObjectGroup getObjectGroup(String aGroupName) {
-    long cPtr = opensimModelJNI.SetBodies_getObjectGroup(swigCPtr, this, aGroupName);
+  public ObjectGroup getGroup(String aGroupName) {
+    long cPtr = opensimModelJNI.SetBodies_getGroup__SWIG_0(swigCPtr, this, aGroupName);
+    return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
+  }
+
+  public ObjectGroup getGroup(int aIndex) {
+    long cPtr = opensimModelJNI.SetBodies_getGroup__SWIG_1(swigCPtr, this, aIndex);
     return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
   }
 
