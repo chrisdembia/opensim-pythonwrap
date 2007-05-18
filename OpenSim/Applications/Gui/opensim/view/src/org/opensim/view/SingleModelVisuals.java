@@ -50,6 +50,7 @@ import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkSphereSource;
+import vtk.vtkStripper;
 import vtk.vtkTransform;
 import vtk.vtkTransformPolyDataFilter;
 import vtk.vtkXMLPolyDataReader;
@@ -99,7 +100,7 @@ public class SingleModelVisuals {
     private Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
     
     // Markers and muscle points are represented as Glyphs for performance
-    private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
+    private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud();
     private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(true);
     private OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
     
@@ -176,6 +177,7 @@ public class SingleModelVisuals {
                 vtkPolyData poly = polyReader.GetOutput();
                 // Create polyData and append it to one common polyData object
                 bodyPolyData.AddInput(poly);
+                polyReader.GetOutput().ReleaseDataFlagOn();
             }
             // Add to assembly only if populated to avoid artificially big bounding box
             if (bodyDisplayer.getNumGeometryFiles()>0){
@@ -396,13 +398,13 @@ public class SingleModelVisuals {
                     }
                     double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
                     double length = normalizeAndGetLength(axis);
-                    vtkMatrix4x4 xform = getCylinderTransform(axis, center) ;
+                    double[] xform = getCylinderTransform(axis, center) ;
                     
                     int idx = getMuscleSegmentsRep().addLocation(center[0], center[1], center[2]);
                     getMuscleSegmentsRep().setTensorDataAtLocation(idx, 
-                            xform.GetElement(0, 0), xform.GetElement(1, 0), xform.GetElement(2, 0),
-                            length*xform.GetElement(0, 1), length*xform.GetElement(1, 1), length*xform.GetElement(2, 1),
-                            xform.GetElement(0, 2), xform.GetElement(1, 2), xform.GetElement(2, 2)
+                            xform[0], xform[4], xform[8],
+                            length*xform[1], length*xform[5], length*xform[9],
+                            xform[2], xform[6], xform[10]
                             );
                     segmentGlyphIds.add(new Integer(idx));
 
@@ -440,7 +442,7 @@ public class SingleModelVisuals {
     double[]     retTransformVector = new double[16];
     double[] newX = new double[3];
     double[] oldXCrossNewY = new double[3]; // NewZ
-    private vtkMatrix4x4 getCylinderTransform(double[] axis, double[] origin) { 
+    double[] getCylinderTransform(double[] axis, double[] origin) { 
        double length = normalizeAndGetLength(axis);
         // yaxis is the unit vector
         for (int i=0; i < 3; i++){
@@ -465,8 +467,8 @@ public class SingleModelVisuals {
         for(int i=12; i<15;i++)
             retTransformVector[i]=0.0;
         retTransformVector[15]=1.0;
-        retTransform.DeepCopy(retTransformVector);
-        return retTransform;
+        //retTransform.DeepCopy(retTransformVector);
+        return retTransformVector;
     }
     /**
      * Normalize a vector and return its length
@@ -542,18 +544,15 @@ public class SingleModelVisuals {
       double[] xformAsVector= new double[16];
       xform.getMatrix(xformAsVector);
       vtkMatrix4x4 m = new vtkMatrix4x4();    // This should be moved out for performance
-      // Set the rotation part
+      // Transpose the rotation part of the matrix per Pete!!
       for (int row = 0; row < 3; row++){
-          for (int col = 0; col < 3; col++){
-              m.SetElement(row, col, xformAsVector[row*4+col]);
+          for (int col = row; col < 4; col++){
+             double swap = xformAsVector[row*4+col];
+             xformAsVector[row*4+col]=xformAsVector[col*4+row];
+             xformAsVector[col*4+row]=swap;
           }
       }
-      // Set last row of the matrix to translation.
-      for (int col = 0; col < 3; col++)
-          m.SetElement(3, col, xformAsVector[12+col]);
-
-      // Transpose the matrix per Pete!!
-      m.Transpose();
+      m.DeepCopy(xformAsVector);
       return m;
    }
 
@@ -636,13 +635,13 @@ public class SingleModelVisuals {
             // Create a cylinder connecting position1, position2
            double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
            double length = normalizeAndGetLength(axis);
-           vtkMatrix4x4 xform = getCylinderTransform(axis, center) ;
+           double[] xform = getCylinderTransform(axis, center) ;
            int idx = segmentGlyphIds.get(i).intValue();
            getMuscleSegmentsRep().setLocation(idx, center);
            getMuscleSegmentsRep().setTensorDataAtLocation(idx, 
-                   xform.GetElement(0, 0), xform.GetElement(1, 0), xform.GetElement(2, 0),
-                   length*xform.GetElement(0, 1), length*xform.GetElement(1, 1), length*xform.GetElement(2, 1),
-                   xform.GetElement(0, 2), xform.GetElement(1, 2), xform.GetElement(2, 2)
+                            xform[0], xform[4], xform[8],
+                            length*xform[1], length*xform[5], length*xform[9],
+                            xform[2], xform[6], xform[10]
                    );
 
            // Draw muscle point at position1 of segment, and if this is the last segment also at position2
@@ -689,14 +688,19 @@ public class SingleModelVisuals {
        marker.SetRadius(.01);
        marker.SetCenter(0., 0., 0.);
        getMarkersRep().setColor(defaultMarkerColor);
-       getMarkersRep().setShape(marker.GetOutput());
+       vtkStripper strip1 = new vtkStripper();
+       strip1.SetInput(marker.GetOutput());
+       getMarkersRep().setShape(strip1.GetOutput());
+       
        // MusclePoints
        vtkSphereSource viaPoint=new vtkSphereSource();
        viaPoint.SetRadius(DEFAULT_MUSCLE_RADIUS);
        viaPoint.SetCenter(0., 0., 0.);
        getMusclePointsRep().setColor(defaultMusclePointColor);
        getMusclePointsRep().colorByScalar();
-       getMusclePointsRep().setShape(viaPoint.GetOutput());
+       vtkStripper strip2 = new vtkStripper();
+       strip2.SetInput(viaPoint.GetOutput());
+       getMusclePointsRep().setShape(strip2.GetOutput());
        getMusclePointsRep().scaleByVector();
        
        vtkCylinderSource muscleSegment=new vtkCylinderSource();
@@ -795,7 +799,7 @@ public class SingleModelVisuals {
      * Based on the array of quadrants, clip the wrap-object sphere/ellipsoid 
      */
    private void setQuadrants(final boolean quadrants[], final vtkSphereSource sphere) {
-      if (!quadrants[0]){ //TMIN ok
+      if (!quadrants[0]){ 
          sphere.SetStartTheta(270.0);
          sphere.SetEndTheta(90.0);
       }
@@ -806,10 +810,10 @@ public class SingleModelVisuals {
       else if (!quadrants[2]){
         sphere.SetEndTheta(180.0);
       }
-      else if (!quadrants[3]){  //Deltoid2 ok
+      else if (!quadrants[3]){  
          sphere.SetStartTheta(180.0);
       }
-      else if (!quadrants[4])   //DELThh ok
+      else if (!quadrants[4])   
         sphere.SetEndPhi(90.0);
       else if (!quadrants[5])
          sphere.SetStartPhi(90.0);

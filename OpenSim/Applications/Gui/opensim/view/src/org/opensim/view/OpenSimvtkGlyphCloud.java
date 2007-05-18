@@ -48,6 +48,7 @@ import vtk.vtkSphereSource;
  *
  * @author Ayman Habib. An object representing a cloud of visual objects used to display markers, muscle points 
  * efficiently.
+ * For markers and muscle points
  */
 public class OpenSimvtkGlyphCloud {    // Assume same shape
     
@@ -59,13 +60,25 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     private vtkPolyDataMapper   mapper = new vtkPolyDataMapper();
     private vtkGlyph3D          glyph= new vtkGlyph3D();
     private vtkFloatArray       lineNormals = new vtkFloatArray();
+    // vectorData is used primarily to "hide" objects, by setting the data to 0,0,0
+    // a muscle point is hidden otherwise 1,1,1 except for forces that are really scaled uniformely by mag
     private vtkFloatArray       vectorData = new vtkFloatArray();
     private vtkFloatArray       scalarData = null;
     private HashMap<OpenSimObject,Integer> mapObjectIdsToPointIds = new HashMap<OpenSimObject,Integer>(100);
     private HashMap<Integer,OpenSimObject> mapPointIdsToObjectIds = new HashMap<Integer,OpenSimObject>(100);
     
     /**
-    * Creates a new instance of OpenSimvtkGlyphCloud
+    * Creates a new instance of OpenSimvtkGlyphCloud.
+    * defaults to not create Scalars
+    */
+    public OpenSimvtkGlyphCloud() {
+       this(false);
+    }
+    
+    /**
+    * Creates a new instance of OpenSimvtkGlyphCloud.
+    * if createScalars is true then obbjects are colored based on scalarValues
+    * otherwise it uses Vector magnitude.
     */
     public OpenSimvtkGlyphCloud(boolean createScalars) {
         lineNormals.SetNumberOfTuples(1);
@@ -119,14 +132,14 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         glyph.SetInput(pointPolyData);
         mapper.SetInput(glyph.GetOutput());
         actor.SetMapper(mapper);
-       
+        
        //glyph.SetSource(1, shape);
        //glyph.SetInput(1, pointPolyData);
        //glyph.AddInput(2, pointPolyData);
        //glyph.SetSource(2, shape2);
        //mapper.SetInput(glyph.GetOutput());
        //actor.SetMapper(mapper);
-       return actor;
+        return actor;
     }
     
     public void setLocation(int index, double x, double y, double z) {
@@ -211,5 +224,5 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
  
     public int getPointId(OpenSimObject object) {
        return mapObjectIdsToPointIds.get(object);
-    }
+}
 }
