@@ -85,6 +85,7 @@ public class PlotCurve {
           for (int i = startIndex;i< endIndex;i++){
               getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
           }
+          getCurveSeries().setKey(stringy);
       }
       else
           throw new UnsupportedOperationException("Domain and range selections from different sources are not supported yet.");
@@ -222,6 +223,7 @@ public class PlotCurve {
     public String getDomainName()
     {        
         ArrayStr labels = domainSource.getStorage().getColumnLabels();
+        int sz=labels.getSize();
         return labels.getitem(domainStorageIndex+1);
     }
     

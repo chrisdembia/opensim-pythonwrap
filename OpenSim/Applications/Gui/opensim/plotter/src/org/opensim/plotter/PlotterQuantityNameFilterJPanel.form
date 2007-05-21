@@ -16,8 +16,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel2" alignment="1" max="32767" attributes="2"/>
-          <Component id="jScrollPane1" alignment="1" pref="402" max="32767" attributes="3"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -27,14 +25,21 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" max="32767" attributes="3"/>
           </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="jScrollPane1" alignment="0" min="0" pref="0" max="32767" attributes="3"/>
+                  <Component id="jPanel2" alignment="0" max="32767" attributes="3"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="196" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -77,8 +82,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="178" max="32767" attributes="0"/>
-                  <Component id="jNumSelectedLabel" min="-2" pref="137" max="-2" attributes="0"/>
+                  <EmptySpace pref="138" max="32767" attributes="0"/>
+                  <Component id="jNumSelectedLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -143,8 +149,7 @@
                           <Component id="jFilename" pref="221" max="32767" attributes="1"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  <Component id="jApplyFilterButton" pref="60" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -163,7 +168,6 @@
                       <Component id="jPatternRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="FilterTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jShowAllButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jApplyFilterButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -185,14 +189,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="filename"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jApplyFilterButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Apply"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jApplyFilterButtonActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="FilterTextField">
           <Properties>
@@ -296,7 +292,7 @@
     </Container>
     <Component class="javax.swing.JCheckBox" name="jSelectAllCheckBox">
       <Properties>
-        <Property name="text" type="java.lang.String" value="select all"/>
+        <Property name="text" type="java.lang.String" value="select all shown"/>
         <Property name="toolTipText" type="java.lang.String" value="select all shown quantities"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -313,7 +309,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jDeselectAllCheckBox">
       <Properties>
-        <Property name="text" type="java.lang.String" value="deselect all"/>
+        <Property name="text" type="java.lang.String" value="deselect all shown"/>
         <Property name="toolTipText" type="java.lang.String" value="deselect all shown quantities"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">

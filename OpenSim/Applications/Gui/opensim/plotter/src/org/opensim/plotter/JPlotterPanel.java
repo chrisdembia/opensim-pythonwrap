@@ -667,7 +667,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                                     sourceX, domainName, 
                                     sourceY, rangeNames[curveIndex]);
          }
-            processNewCurve(plotCurve);
+            makeCurveCurrent(plotCurve);
          
       } catch (PlotterException ex) {
          // Popup a dialog explaining what went wrong
@@ -677,7 +677,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       repaint();
    }//GEN-LAST:event_jPlotterAddCurveButtonActionPerformed
 
-    private void processNewCurve(final PlotCurve plotCurve) {
+    private void makeCurveCurrent(final PlotCurve plotCurve) {
         // Find node and make it selected        
         PlotCurveNode cvnode=((PlotTreeModel)plotterModel.getPlotTreeModel()).findCurveNode(plotCurve);
         TreeNode[] nodes = ((PlotTreeModel)plotterModel.getPlotTreeModel()).getPathToRoot(cvnode);
@@ -1041,7 +1041,8 @@ public class JPlotterPanel extends javax.swing.JPanel
       return rep;
    }
 
-    public PlotCurve showOneCurveAgainstTime(Model aModel, Storage s, 
+    public PlotCurve showAnalysisCurveAgainstTime(Model aModel, Storage s, 
+                                        String title,
                                         String curveLegend, String columnName, 
                                         String xLabel, String yLabel) throws PlotterException{
         sourceX = new PlotterSourceAnalysis(aModel, s, columnName);
@@ -1053,17 +1054,11 @@ public class JPlotterPanel extends javax.swing.JPanel
         PlotCurve plotCurve=null;
         //settings.setXMin(s.getFirstTime());
         //settings.setXMax(s.getLastTime());
-        plotCurve = plotterModel.addCurve("IK errors plot", settings, 
+        plotCurve = plotterModel.addCurve(title, settings, 
                                     sourceX, domainName, 
                                     sourceY, rangeNames[0]);
-        processNewCurve(plotCurve);
+        makeCurveCurrent(plotCurve);
         return plotCurve;
-    }
-
-    public PlotCurve showOneCurveAgainstTime(Model aModel, Storage s, String curveLegend, String columnName) throws PlotterException{
-        PlotCurve curve = showOneCurveAgainstTime(aModel, s, curveLegend, columnName, "time", columnName);
-        curve.getCurveSeries().setKey(curveLegend);
-        return curve;
     }
 
     String getQuantityFilterRegex() {
@@ -1084,8 +1079,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             double time=motionTimeEvent.getTime();
             // Should cast arg to proper event and set X-crosshairs
             if (domainName.compareTo("time")==0){
-                ChartPanel chartPanel=plotterModel.getCurrentPlot().getChartPanel();
-                chartPanel.getChart().getXYPlot().setDomainCrosshairValue(time);
+                plotterModel.getCurrentPlot().setDomainCrosshair(time);
             }
         }
     }

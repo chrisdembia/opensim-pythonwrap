@@ -44,40 +44,42 @@ public class Plot {
    private ChartPanel chartPanel=null;
    String         xLabel, yLabel;
    JFreeChart     dChart=null;
-   
+   private boolean        enableToolTips; // Normally on but for dynamic plots while updating
    /**
     * Creates a new instance of Plot
     */
-   public Plot(String title, String xLabel, String yLabel) {      
+   public Plot(String title, String xLabel, String yLabel) {
       // Make blank plot
       this.xLabel=xLabel;
       this.yLabel=yLabel;
       
       seriesCollection =new XYSeriesCollection();
       dChart = ChartFactory.createXYLineChart(
-               title,
-               xLabel,
-               yLabel,
-               seriesCollection,
-               org.jfree.chart.plot.PlotOrientation.VERTICAL,
-               true,
-               true,
-               false);
+              title,
+              xLabel,
+              yLabel,
+              seriesCollection,
+              org.jfree.chart.plot.PlotOrientation.VERTICAL,
+              true,
+              true,
+              false);
       
       chartPanel = new ChartPanel(dChart);
       
-       XYPlot plot = (XYPlot) dChart.getPlot();
-        plot.setDomainCrosshairVisible(true);
-        plot.setRangeCrosshairVisible(true);
-        
-        XYItemRenderer r = plot.getRenderer();
-        if (r instanceof XYLineAndShapeRenderer) {
-            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-            renderer.setBaseShapesVisible(true);
-            renderer.setBaseShapesFilled(true);
-        }
-
+      XYPlot plot = (XYPlot) dChart.getPlot();
+      plot.setDomainCrosshairVisible(true);
+      plot.setRangeCrosshairVisible(true);
+      
+      XYItemRenderer r = plot.getRenderer();
+      if (r instanceof XYLineAndShapeRenderer) {
+         XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
+         renderer.setBaseShapesVisible(false);
+         renderer.setBaseShapesFilled(false);
+      }
       new JOpenSimChartMouseListener(chartPanel);
+      chartPanel.setDisplayToolTips(true);
+      chartPanel.setInitialDelay(0);
+      
    }
 
    void add(PlotCurve newCurve) throws PlotterException {
@@ -116,6 +118,18 @@ public class Plot {
 
    void deleteCurve(PlotCurve cvToDelete) {
       seriesCollection.removeSeries(cvToDelete.getCurveSeries());
+   }
+
+   public boolean isEnableToolTips() {
+      return enableToolTips;
+   }
+
+   public void setEnableToolTips(boolean enableToolTips) {
+      this.enableToolTips = enableToolTips;
+   }
+
+   void setDomainCrosshair(double time) {
+      chartPanel.getChart().getXYPlot().setDomainCrosshairValue(time);
    }
    
 }
