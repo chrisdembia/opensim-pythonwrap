@@ -48,6 +48,7 @@ import org.opensim.view.DragObjectsEvent;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.NameChangedEvent;
 import org.opensim.view.ObjectSelectedEvent;
+import org.opensim.view.SingleModelGuiElements;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.nodes.OneActuatorNode;
 import org.opensim.view.pub.OpenSimDB;
@@ -981,14 +982,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       NumberFormat nf = NumberFormat.getInstance();
       nf.setMaximumFractionDigits(5); // TODO
       nf.setMinimumFractionDigits(5); // TODO
-      BodySet bodies = asm.getModel().getDynamicsEngine().getBodySet();
-      String[] bodyNames = new String[bodies.getSize()];
-      for (i = 0; i < bodies.getSize(); i++)
-         bodyNames[i] = new String(bodies.get(i).getName());
-      CoordinateSet coordinates = asm.getModel().getDynamicsEngine().getCoordinateSet();
-      String[] coordinateNames = new String[coordinates.getSize()];
-      for (i = 0; i < coordinates.getSize(); i++)
-         coordinateNames[i] = new String(coordinates.get(i).getName());
       
       // Set up the muscle-independent labels
       boolean anyViaPoints = false;
@@ -1053,9 +1046,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
          final int num = i;
          
+         SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(asm.getModel());
+         String[] bodyNames = guiElem.getBodyNames();
          comboBox.setModel(new javax.swing.DefaultComboBoxModel(bodyNames));
          comboBox.setSelectedIndex(findElement(bodyNames, musclePoints.get(i).getBodyName()));
          if (via != null) {
+            String[] coordinateNames = guiElem.getCoordinateNames();
             coordComboBox.setModel(new javax.swing.DefaultComboBoxModel(coordinateNames));
             coordComboBox.setSelectedIndex(findElement(coordinateNames, via.getCoordinateName()));
             rangeMinField.setText(nf.format(via.getRange().getitem(0)));
@@ -1459,7 +1455,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       //boolean docked = mode.dockInto(this);
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
       OneActuatorNode muscleNode = (OneActuatorNode) selected[0];
-      AbstractActuator newAct = (AbstractActuator)muscleNode.getOpensimObject();
+      AbstractActuator newAct = AbstractActuator.safeDownCast(muscleNode.getOpensimObject());
       if (newAct != null && newAct != act) {
          boolean switchMuscles = false;
          if (pendingChanges == false) {
