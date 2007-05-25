@@ -1,18 +1,35 @@
 package org.opensim.coordinateviewer;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 import javax.swing.BoxLayout;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
 import org.openide.ErrorManager;
+import org.openide.NotifyDescriptor;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
+import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.CoordinateSet;
+import org.opensim.view.ModelSettings;
+import org.opensim.view.ModelPose;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.ObjectGroup;
+import org.opensim.view.GroupEditorPanel;
 import org.opensim.view.ModelEvent;
+import org.opensim.view.pub.ViewDB;
 /**
  * Top component which displays something.
  */
@@ -22,6 +39,11 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    private Model aModel;
    private CoordinateSet coords;
    javax.swing.JPanel CoordinatesPanel;
+   ModelSettings prefs;//=new ModelGUIPrefs();
+   private static boolean hasModel=false;
+   
+   private ComboBoxModel groupsComboBoxModel;
+   ObjectGroup currentGroup;
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
    
@@ -29,11 +51,21 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    
    private CoordinateViewerTopComponent() {
       initComponents();
+      jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
       setName(NbBundle.getMessage(CoordinateViewerTopComponent.class, "CTL_CoordinateViewerTopComponent"));
       setToolTipText(NbBundle.getMessage(CoordinateViewerTopComponent.class, "HINT_CoordinateViewerTopComponent"));
       // Don't know if this should be here or moved to component opened, then we'll need to remove observer in componentClosed'
       OpenSimDB.getInstance().addObserver(this);
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
+      // Populate list of cooridnate groups from model
+      jCoordinateGroupsComboBox.addActionListener(new ActionListener(){
+         public void actionPerformed(ActionEvent e) {
+            JComboBox cb = (JComboBox)e.getSource();
+            currentGroup = coords.getGroup((String)cb.getSelectedItem());
+            updateDisplayGroup();
+         }});
+      //jRestorePoseButton.add(restorePosesPopup);
+      
    }
    
    /** This method is called from within the constructor to
@@ -43,15 +75,25 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
     */
    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
    private void initComponents() {
+      jPosesPopupMenu = new javax.swing.JPopupMenu();
+      jScrollPane2 = new javax.swing.JScrollPane();
+      jTextArea1 = new javax.swing.JTextArea();
       jLabel1 = new javax.swing.JLabel();
       jModelNameLabel = new javax.swing.JLabel();
       jLabel3 = new javax.swing.JLabel();
-      jLabel4 = new javax.swing.JLabel();
-      jButton1 = new javax.swing.JButton();
+      jSelectGroupButton = new javax.swing.JButton();
       jScrollPane1 = new javax.swing.JScrollPane();
       jPanel1 = new javax.swing.JPanel();
-      jButton2 = new javax.swing.JButton();
-      jButton3 = new javax.swing.JButton();
+      jSavePoseButton = new javax.swing.JButton();
+      jRestorePoseButton = new javax.swing.JButton();
+      jCoordinateGroupsComboBox = new javax.swing.JComboBox();
+      jLabel2 = new javax.swing.JLabel();
+      jDeletePoseButton = new javax.swing.JButton();
+
+      jPosesPopupMenu.setComponentPopupMenu(jPosesPopupMenu);
+      jTextArea1.setColumns(20);
+      jTextArea1.setRows(5);
+      jScrollPane2.setViewportView(jTextArea1);
 
       org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Model:");
 
@@ -59,15 +101,18 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
 
       org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Group:");
 
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel4, "All");
-
-      org.openide.awt.Mnemonics.setLocalizedText(jButton1, "Select...");
+      org.openide.awt.Mnemonics.setLocalizedText(jSelectGroupButton, "Edit...");
+      jSelectGroupButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jGroupsButtonActionPerformed(evt);
+         }
+      });
 
       org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
       jPanel1.setLayout(jPanel1Layout);
       jPanel1Layout.setHorizontalGroup(
          jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(0, 208, Short.MAX_VALUE)
+         .add(0, 293, Short.MAX_VALUE)
       );
       jPanel1Layout.setVerticalGroup(
          jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -75,9 +120,30 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       );
       jScrollPane1.setViewportView(jPanel1);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jButton2, "Save Pose...");
+      org.openide.awt.Mnemonics.setLocalizedText(jSavePoseButton, "Save...");
+      jSavePoseButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+      jSavePoseButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jSavePoseButtonActionPerformed(evt);
+         }
+      });
 
-      org.openide.awt.Mnemonics.setLocalizedText(jButton3, "Restore Pose...");
+      org.openide.awt.Mnemonics.setLocalizedText(jRestorePoseButton, "Restore...");
+      jRestorePoseButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+      jRestorePoseButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jRestorePoseButtonActionPerformed(evt);
+         }
+      });
+
+      org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Poses:");
+
+      org.openide.awt.Mnemonics.setLocalizedText(jDeletePoseButton, "Delete...");
+      jDeletePoseButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jDeletePoseButtonActionPerformed(evt);
+         }
+      });
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
@@ -85,7 +151,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                .add(layout.createSequentialGroup()
                   .add(jLabel1)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -93,15 +159,21 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
                .add(layout.createSequentialGroup()
                   .add(jLabel3)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jLabel4)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jButton1)))
-            .addContainerGap(73, Short.MAX_VALUE))
-         .add(layout.createSequentialGroup()
-            .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 95, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .add(jCoordinateGroupsComboBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+            .add(jSelectGroupButton)
+            .addContainerGap(121, Short.MAX_VALUE))
+         .add(layout.createSequentialGroup()
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jLabel2)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jSavePoseButton)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jRestorePoseButton)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jDeletePoseButton)
+            .addContainerGap())
+         .add(jScrollPane1)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -112,119 +184,243 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jLabel3)
-               .add(jLabel4)
-               .add(jButton1))
+               .add(jSelectGroupButton)
+               .add(jCoordinateGroupsComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(jButton2)
-               .add(jButton3))
+               .add(jSavePoseButton)
+               .add(jRestorePoseButton)
+               .add(jLabel2)
+               .add(jDeletePoseButton))
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
-    
-    
+
+   private void jDeletePoseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeletePoseButtonActionPerformed
+      PoseSelectionJPanel p = new PoseSelectionJPanel();
+      p.setPoses(prefs.getPoses());
+      p.allowMultipleSelection();
+      DialogDescriptor dlg = new DialogDescriptor(p, "Restore to pose");
+      DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+      Object userInput = dlg.getValue();
+      if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
+         Vector<ModelPose> poses = p.getSelectedPoses();
+         prefs.deletePoses(poses);
+      }
+      updateBasedOnModel();
+// TODO add your handling code here:
+   }//GEN-LAST:event_jDeletePoseButtonActionPerformed
+   
+   private void jRestorePoseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRestorePoseButtonActionPerformed
+// TODO add your handling code here:
+      PoseSelectionJPanel p = new PoseSelectionJPanel();
+      p.setPoses(prefs.getPoses());
+      DialogDescriptor dlg = new DialogDescriptor(p, "Restore to pose");
+      DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+      Object userInput = dlg.getValue();
+      if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
+         Vector<ModelPose> poses = p.getSelectedPoses();
+         applyPose(poses.get(0));
+         // update display only once at the end
+         ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());      
+      }
+      /*restorePosesPopup.removeAll();
+      Vector<ModelPose> poses =prefs.getPoses();
+      for(int i=0; i<poses.size(); i++){
+         final ModelPose p=poses.get(i);
+         JMenuItem item=new JMenuItem(p.getPoseName());
+         restorePosesPopup.add(item);
+         item.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+               applyPose(p);
+            }});
+      }*/
+   }//GEN-LAST:event_jRestorePoseButtonActionPerformed
+   
+   private void jSavePoseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSavePoseButtonActionPerformed
+// TODO add your handling code here:
+      prefs = ViewDB.getInstance().getModelSavedSettings(aModel).getPrefs();
+      // Query for name
+      int savedPosesCount=prefs.getNumPoses();
+      String defaultName= "Pose"+String.valueOf(savedPosesCount+1);
+      NotifyDescriptor.InputLine dlg = new NotifyDescriptor.InputLine("Enter pose name:", "Pose name");
+      dlg.setInputText(defaultName);
+      if(DialogDisplayer.getDefault().notify(dlg)==NotifyDescriptor.OK_OPTION){
+         String newName = dlg.getInputText();
+         if (!prefs.containsPose(newName))
+              prefs.addPose(new ModelPose(coords,newName));
+         else
+            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(
+                    NbBundle.getMessage(CoordinateViewerTopComponent.class, 
+                        "CTL_DuplicatePoseName")));
+      };
+      updateBasedOnModel();     
+   }//GEN-LAST:event_jSavePoseButtonActionPerformed
+   
+   private void jGroupsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGroupsButtonActionPerformed
+// TODO add your handling code here:
+      GroupEditorPanel panel = new GroupEditorPanel(aModel.getDynamicsEngine().getCoordinateSet());
+      DialogDescriptor dlg = new DialogDescriptor(panel, "Groups");
+      DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+      Object userInput = dlg.getValue();
+      if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0)
+         panel.cancel();
+      updateDisplayGroup();
+   }//GEN-LAST:event_jGroupsButtonActionPerformed
+   
+   
    // Variables declaration - do not modify//GEN-BEGIN:variables
-   private javax.swing.JButton jButton1;
-   private javax.swing.JButton jButton2;
-   private javax.swing.JButton jButton3;
+   private javax.swing.JComboBox jCoordinateGroupsComboBox;
+   private javax.swing.JButton jDeletePoseButton;
    private javax.swing.JLabel jLabel1;
+   private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
-   private javax.swing.JLabel jLabel4;
    private javax.swing.JLabel jModelNameLabel;
    private javax.swing.JPanel jPanel1;
+   private javax.swing.JPopupMenu jPosesPopupMenu;
+   private javax.swing.JButton jRestorePoseButton;
+   private javax.swing.JButton jSavePoseButton;
    private javax.swing.JScrollPane jScrollPane1;
+   private javax.swing.JScrollPane jScrollPane2;
+   private javax.swing.JButton jSelectGroupButton;
+   private javax.swing.JTextArea jTextArea1;
    // End of variables declaration//GEN-END:variables
-    
-    /**
-     * Gets default instance. Do not use directly: reserved for *.settings files only,
-     * i.e. deserialization routines; otherwise you could get a non-deserialized instance.
-     * To obtain the singleton instance, use {@link findInstance}.
-     */
-    public static synchronized CoordinateViewerTopComponent getDefault() {
-       if (instance == null) {
-          instance = new CoordinateViewerTopComponent();
-       }
-       return instance;
-    }
-    
-    /**
-     * Obtain the CoordinateViewerTopComponent instance. Never call {@link #getDefault} directly!
-     */
-    public static synchronized CoordinateViewerTopComponent findInstance() {
-       TopComponent win = WindowManager.getDefault().findTopComponent(PREFERRED_ID);
-       if (win == null) {
-          ErrorManager.getDefault().log(ErrorManager.WARNING, "Cannot find CoordinateViewer component. It will not be located properly in the window system.");
-          return getDefault();
-       }
-       if (win instanceof CoordinateViewerTopComponent) {
-          return (CoordinateViewerTopComponent)win;
-       }
-       ErrorManager.getDefault().log(ErrorManager.WARNING, "There seem to be multiple components with the '" + PREFERRED_ID + "' ID. That is a potential source of errors and unexpected behavior.");
-       return getDefault();
-    }
-    
-    public int getPersistenceType() {
-       return TopComponent.PERSISTENCE_ALWAYS;
-    }
-    
-    public void componentOpened() {
-       // TODO add custom code on component opening
-       aModel = OpenSimDB.getInstance().getCurrentModel();
-       if (aModel==null){
-          jModelNameLabel.setText("No current model");
-          return;
-       }
-      //CoordinateTableModel model= new CoordinateTableModel(aModel);
+   
+   /**
+    * Gets default instance. Do not use directly: reserved for *.settings files only,
+    * i.e. deserialization routines; otherwise you could get a non-deserialized instance.
+    * To obtain the singleton instance, use {@link findInstance}.
+    */
+   public static synchronized CoordinateViewerTopComponent getDefault() {
+      if (instance == null) {
+         instance = new CoordinateViewerTopComponent();
+      }
+      return instance;
+   }
+   
+   /**
+    * Obtain the CoordinateViewerTopComponent instance. Never call {@link #getDefault} directly!
+    */
+   public static synchronized CoordinateViewerTopComponent findInstance() {
+      TopComponent win = WindowManager.getDefault().findTopComponent(PREFERRED_ID);
+      if (win == null) {
+         ErrorManager.getDefault().log(ErrorManager.WARNING, "Cannot find CoordinateViewer component. It will not be located properly in the window system.");
+         return getDefault();
+      }
+      if (win instanceof CoordinateViewerTopComponent) {
+         return (CoordinateViewerTopComponent)win;
+      }
+      ErrorManager.getDefault().log(ErrorManager.WARNING, "There seem to be multiple components with the '" + PREFERRED_ID + "' ID. That is a potential source of errors and unexpected behavior.");
+      return getDefault();
+   }
+   
+   public int getPersistenceType() {
+      return TopComponent.PERSISTENCE_ALWAYS;
+   }
+   
+   public void componentOpened() {
+      // TODO add custom code on component opening
+      aModel = OpenSimDB.getInstance().getCurrentModel();
+      if (aModel==null){
+         jModelNameLabel.setText("No current model");
+         hasModel=false;
+         updateBasedOnModel();
+         return;
+      }
+      hasModel=true;
+      prefs=ViewDB.getInstance().getModelSavedSettings(aModel).getPrefs();
       jModelNameLabel.setText(aModel.getName());
       coords = aModel.getDynamicsEngine().getCoordinateSet();
+      updateBasedOnModel();
+      Vector<String> coordinateGroupNames = new Vector<String>();
+      for(int i=0; i<coords.getNumGroups(); i++)
+         coordinateGroupNames.add(coords.getGroup(i).getName());
+      groupsComboBoxModel = new DefaultComboBoxModel(coordinateGroupNames);
+      jCoordinateGroupsComboBox.setModel(groupsComboBoxModel);
+      String currentGroupName= (String)groupsComboBoxModel.getSelectedItem();
+      currentGroup = coords.getGroup(currentGroupName);
       // Create CoordinateSliderWithBox for each coordinate and add them to the ScrollPane
-      jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
-      for(int i=0; i<coords.getSize(); i++){
-         CoordinateSliderWithBox sliderPanel = new CoordinateSliderWithBox(coords.get(i));
-         sliderPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-         jPanel1.add(sliderPanel);
-      }
-    }
-    
-    public void componentClosed() {
-       // TODO add custom code on component closing
-    }
-    
-    /** replaces this in object stream */
-    public Object writeReplace() {
-       return new ResolvableHelper();
-    }
-    
-    protected String preferredID() {
-       return PREFERRED_ID;
-    }
-
+      updateDisplayGroup();
+   }
+   
+   public void componentClosed() {
+      // TODO add custom code on component closing
+   }
+   
+   /** replaces this in object stream */
+   public Object writeReplace() {
+      return new ResolvableHelper();
+   }
+   
+   protected String preferredID() {
+      return PREFERRED_ID;
+   }
+   
    public void update(Observable o, Object arg) {
       // Update based on current model.
       if (o instanceof OpenSimDB){
          // if current model is being switched due to open/close or change current then
          // update list of coordinates
          if (arg instanceof ModelEvent) {
-              final ModelEvent evt = (ModelEvent)arg;
-               if (evt.getOperation()==ModelEvent.Operation.SetCurrent ||
-                      (evt.getOperation()==ModelEvent.Operation.Close &&
-                      OpenSimDB.getInstance().getCurrentModel()==null)){
-                  jPanel1.removeAll();
-                  componentOpened();
-               }
-         // Do we need to handle close separately or should we be called with SetCurrent of null model?
-         // save may trigger saving poses and open may trigger loading poses.
+            final ModelEvent evt = (ModelEvent)arg;
+            if (evt.getOperation()==ModelEvent.Operation.SetCurrent ||
+                    (evt.getOperation()==ModelEvent.Operation.Close &&
+                    OpenSimDB.getInstance().getCurrentModel()==null)){
+               jPanel1.removeAll();
+               componentOpened();
+            }
+            // Do we need to handle close separately or should we be called with SetCurrent of null model?
+            // save may trigger saving poses and open may trigger loading poses.
          }
       }
    }
-    
-    final static class ResolvableHelper implements Serializable {
-       private static final long serialVersionUID = 1L;
-       public Object readResolve() {
-          return CoordinateViewerTopComponent.getDefault();
-       }
-    }
+   /**
+    * Make buttons that rely on an existing model on/off
+    */
+   private void updateBasedOnModel() {
+      jSelectGroupButton.setEnabled(hasModel);
+      jSavePoseButton.setEnabled(hasModel);
+      jRestorePoseButton.setEnabled(hasModel);
+      jDeletePoseButton.setEnabled(hasModel);
+      jCoordinateGroupsComboBox.setEnabled(hasModel);
+      // Further enable based on availability of poses
+      if (hasModel){
+         jRestorePoseButton.setEnabled(prefs.getNumPoses()>0);
+         jDeletePoseButton.setEnabled(prefs.getNumPoses()>0);
+      }
+   }
+   
+   private void updateDisplayGroup() {
+      jPanel1.removeAll();
+      for(int i=0; i<coords.getSize(); i++){
+         if (currentGroup.contains(coords.get(i).getName())){
+            CoordinateSliderWithBox sliderPanel = new CoordinateSliderWithBox(coords.get(i));
+            sliderPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+            jPanel1.add(sliderPanel);
+         }
+      }
+      jPanel1.validate();
+   }
+   final static class ResolvableHelper implements Serializable {
+      private static final long serialVersionUID = 1L;
+      public Object readResolve() {
+         return CoordinateViewerTopComponent.getDefault();
+      }
+   }
+   
+   private void applyPose(final ModelPose pose) {
+      Vector<String> coordinateNames=pose.getCoordinateNames();
+      Vector coordinateValues=pose.getCoordinateValues();
+      for(int i=0;i<coordinateNames.size();i++){
+         // Values in file
+         String name=coordinateNames.get(i);
+         double storedValue = (Double)coordinateValues.get(i);
+         
+         AbstractCoordinate coord=coords.get(name);
+         coord.setValue(storedValue);
+      }
+   }
 
 }
