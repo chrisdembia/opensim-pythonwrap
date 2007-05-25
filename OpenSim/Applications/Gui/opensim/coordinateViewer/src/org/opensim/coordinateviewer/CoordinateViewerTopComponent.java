@@ -13,6 +13,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.ErrorManager;
@@ -78,22 +79,47 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       jPosesPopupMenu = new javax.swing.JPopupMenu();
       jScrollPane2 = new javax.swing.JScrollPane();
       jTextArea1 = new javax.swing.JTextArea();
+      jRestorePoseButton = new javax.swing.JButton();
+      jSavePoseButton = new javax.swing.JButton();
+      jLabel2 = new javax.swing.JLabel();
+      jDeletePoseButton = new javax.swing.JButton();
       jLabel1 = new javax.swing.JLabel();
       jModelNameLabel = new javax.swing.JLabel();
       jLabel3 = new javax.swing.JLabel();
       jSelectGroupButton = new javax.swing.JButton();
       jScrollPane1 = new javax.swing.JScrollPane();
       jPanel1 = new javax.swing.JPanel();
-      jSavePoseButton = new javax.swing.JButton();
-      jRestorePoseButton = new javax.swing.JButton();
       jCoordinateGroupsComboBox = new javax.swing.JComboBox();
-      jLabel2 = new javax.swing.JLabel();
-      jDeletePoseButton = new javax.swing.JButton();
+      jPosesButton = new javax.swing.JButton();
 
       jPosesPopupMenu.setComponentPopupMenu(jPosesPopupMenu);
       jTextArea1.setColumns(20);
       jTextArea1.setRows(5);
       jScrollPane2.setViewportView(jTextArea1);
+
+      org.openide.awt.Mnemonics.setLocalizedText(jRestorePoseButton, "Restore...");
+      jRestorePoseButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+      jRestorePoseButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jRestorePoseButtonActionPerformed(evt);
+         }
+      });
+
+      org.openide.awt.Mnemonics.setLocalizedText(jSavePoseButton, "Save...");
+      jSavePoseButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+      jSavePoseButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jSavePoseButtonActionPerformed(evt);
+         }
+      });
+
+      org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Poses:");
+      org.openide.awt.Mnemonics.setLocalizedText(jDeletePoseButton, "Delete...");
+      jDeletePoseButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jDeletePoseButtonActionPerformed(evt);
+         }
+      });
 
       org.openide.awt.Mnemonics.setLocalizedText(jLabel1, "Model:");
 
@@ -116,32 +142,18 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       );
       jPanel1Layout.setVerticalGroup(
          jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(0, 132, Short.MAX_VALUE)
+         .add(0, 172, Short.MAX_VALUE)
       );
       jScrollPane1.setViewportView(jPanel1);
 
-      org.openide.awt.Mnemonics.setLocalizedText(jSavePoseButton, "Save...");
-      jSavePoseButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-      jSavePoseButton.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jSavePoseButtonActionPerformed(evt);
+      jPosesButton.setComponentPopupMenu(jPosesPopupMenu);
+      org.openide.awt.Mnemonics.setLocalizedText(jPosesButton, "Poses >");
+      jPosesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+         public void mousePressed(java.awt.event.MouseEvent evt) {
+            jPosesButtonMousePressed(evt);
          }
-      });
-
-      org.openide.awt.Mnemonics.setLocalizedText(jRestorePoseButton, "Restore...");
-      jRestorePoseButton.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-      jRestorePoseButton.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jRestorePoseButtonActionPerformed(evt);
-         }
-      });
-
-      org.openide.awt.Mnemonics.setLocalizedText(jLabel2, "Poses:");
-
-      org.openide.awt.Mnemonics.setLocalizedText(jDeletePoseButton, "Delete...");
-      jDeletePoseButton.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jDeletePoseButtonActionPerformed(evt);
+         public void mouseReleased(java.awt.event.MouseEvent evt) {
+            jPosesButtonMouseReleased(evt);
          }
       });
 
@@ -162,18 +174,10 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
                   .add(jCoordinateGroupsComboBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jSelectGroupButton)
-            .addContainerGap(121, Short.MAX_VALUE))
-         .add(layout.createSequentialGroup()
-            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jLabel2)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jSavePoseButton)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jRestorePoseButton)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jDeletePoseButton)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 40, Short.MAX_VALUE)
+            .add(jPosesButton)
             .addContainerGap())
-         .add(jScrollPane1)
+         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -185,24 +189,59 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jLabel3)
                .add(jSelectGroupButton)
-               .add(jCoordinateGroupsComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+               .add(jCoordinateGroupsComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jPosesButton))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(jSavePoseButton)
-               .add(jRestorePoseButton)
-               .add(jLabel2)
-               .add(jDeletePoseButton))
-            .addContainerGap())
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void jPosesButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPosesButtonMousePressed
+// TODO add your handling code here:
+      jPosesButtonMouseReleased(evt);
+   }//GEN-LAST:event_jPosesButtonMousePressed
+
+   private void jPosesButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPosesButtonMouseReleased
+// TODO add your handling code here:
+      //if(evt.isPopupTrigger()) {
+         jPosesPopupMenu.removeAll();
+         // Add items to select poses with callback to apply them
+         Vector<ModelPose> poses =prefs.getPoses();
+         for(int i=0; i<poses.size(); i++){
+            final ModelPose p=poses.get(i);
+            JMenuItem item=new JMenuItem(p.getPoseName());
+            jPosesPopupMenu.add(item);
+            item.addActionListener(new ActionListener(){
+               public void actionPerformed(ActionEvent e) {
+                  applyPose(p);
+                  ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());      
+               }});
+         }
+         jPosesPopupMenu.addSeparator();
+         JMenuItem newItem = new JMenuItem("New...");
+         newItem.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+               jSavePoseButtonActionPerformed(e);
+            }});
+         jPosesPopupMenu.add(newItem);
+         if (poses.size()>0){
+            JMenuItem deleteItem=new JMenuItem("Delete...");
+            deleteItem.addActionListener(new ActionListener(){
+                        public void actionPerformed(ActionEvent e) {
+                           jDeletePoseButtonActionPerformed(e);
+                        }});         
+            jPosesPopupMenu.add(deleteItem);
+            jPosesPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+         }
+        //}
+
+   }//GEN-LAST:event_jPosesButtonMouseReleased
 
    private void jDeletePoseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeletePoseButtonActionPerformed
       PoseSelectionJPanel p = new PoseSelectionJPanel();
       p.setPoses(prefs.getPoses());
       p.allowMultipleSelection();
-      DialogDescriptor dlg = new DialogDescriptor(p, "Restore to pose");
+      DialogDescriptor dlg = new DialogDescriptor(p, "Delete pose");
       DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
       Object userInput = dlg.getValue();
       if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
@@ -279,6 +318,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jModelNameLabel;
    private javax.swing.JPanel jPanel1;
+   private javax.swing.JButton jPosesButton;
    private javax.swing.JPopupMenu jPosesPopupMenu;
    private javax.swing.JButton jRestorePoseButton;
    private javax.swing.JButton jSavePoseButton;
