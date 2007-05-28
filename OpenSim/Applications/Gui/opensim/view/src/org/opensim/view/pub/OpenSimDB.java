@@ -14,9 +14,9 @@ import java.util.Observable;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
-import javax.swing.undo.UndoManager;
+import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.ArrayStr;
 import org.opensim.view.*;
 
 /**
@@ -49,6 +49,7 @@ final public class OpenSimDB extends Observable {
     }
     
     public void addModel(Model aModel) {
+        setupGroups(aModel);
         models.add(aModel);
         // Mark model as current
         // Don't use setCurrent to avoid multiple events
@@ -170,6 +171,26 @@ final public class OpenSimDB extends Observable {
 
    public static Model selectModel(Model currentModel) {
       return currentModel;
+   }
+
+   private void setupGroups(Model aModel) {
+      // Create default groups
+      ActuatorSet acts = aModel.getActuatorSet();
+      int numGroups = acts.getNumGroups();
+      if (numGroups==0){
+         acts.addGroup("All");
+         for(int i=0; i<acts.getSize(); i++){
+            acts.addObjectToGroup("All", acts.get(i).getName());
+         }
+      }
+      CoordinateSet coords = aModel.getDynamicsEngine().getCoordinateSet();
+      numGroups = coords.getNumGroups();
+      if (numGroups==0){
+         coords.addGroup("All");
+         for(int i=0; i<coords.getSize(); i++){
+            coords.addObjectToGroup("All", coords.get(i).getName());
+         }
+      }
    }
 
 

@@ -35,7 +35,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 import java.util.prefs.Preferences;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
@@ -81,6 +80,8 @@ public final class ViewDB extends Observable implements Observer {
    private Hashtable<Model, SingleModelGuiElements> mapModelsToGuiElements =
            new Hashtable<Model, SingleModelGuiElements>();
    
+   private Hashtable<Model, ModelSettingsSerializer> mapModelsToSettings =
+           new Hashtable<Model, ModelSettingsSerializer>();
    static ViewDB instance=null;
    // Window currently designated as current.
    private static ModelWindowVTKTopComponent currentModelWindow=null;
@@ -89,7 +90,6 @@ public final class ViewDB extends Observable implements Observer {
    // Flag indicating whether new models are open in a new window or in the same window
    static boolean openModelInNewWindow=true;
    
-   //private static Model currentModel=null;
    private ArrayList<OpenSimObject> selectedObjects = new ArrayList<OpenSimObject>(0);
    
    private vtkAssembly     axesAssembly=null;
@@ -161,8 +161,10 @@ public final class ViewDB extends Observable implements Observer {
             if (ev.getOperation()==ModelEvent.Operation.Open){
                createNewViewWindowIfNeeded();
                // Create visuals for the model
-               SingleModelVisuals newModelVisual = new SingleModelVisuals(ev.getModel());
-               SingleModelGuiElements newModelGuiElements = new SingleModelGuiElements(ev.getModel());
+               Model model = ev.getModel();
+               SingleModelVisuals newModelVisual = new SingleModelVisuals(model);
+               SingleModelGuiElements newModelGuiElements = new SingleModelGuiElements(model);
+               processSavedSettings(model);
                // add to map from models to modelVisuals so that it's accesisble
                // thru tree picks
                mapModelsToVisuals.put(ev.getModel(), newModelVisual);
@@ -206,6 +208,10 @@ public final class ViewDB extends Observable implements Observer {
                modelVisuals.remove(visModel);
                mapModelsToVisuals.remove(dModel);
                mapModelsToGuiElements.remove(dModel);
+               // Write settings to persistent storage
+               ModelSettingsSerializer ser = mapModelsToSettings.get(dModel);
+               ser.write();
+               mapModelsToSettings.remove(dModel);
                //StatusDisplayer.getDefault().setStatusText("mapModelsToVisuals size="+mapModelsToVisuals.size());
                updateCommandsVisibility();
             }
@@ -958,5 +964,27 @@ public final class ViewDB extends Observable implements Observer {
        SingleModelVisuals visModel = mapModelsToVisuals.get(model);
        visModel.removeUserObject(vtkActor);
     }
-
+/*
+ * Functions to deal with saved "Settings"
+ * processSavedSettings parses the [modelFileWithoutExtension]_settings.xml file
+ */
+   private void processSavedSettings(Model model) {
+      // Read settings file if exist, should have file name =
+      // [modelFileWithoutExtension]_settings.xml
+      String modelFileName = model.getDocumentFileName();
+      String settingsFileName = modelFileName.substring(0, modelFileName.indexOf(".")-1);
+      settingsFileName = settingsFileName+"_settings.xml";
+      ModelSettingsSerializer serializer = new ModelSettingsSerializer(settingsFileName, true);
+      mapModelsToSettings.put(model, serializer);
+   }
+   /**
+    * Write ettings to an xml file [model-file]_settings.xml
+    */
+    public void saveSettings(Model model) {
+      mapModelsToSettings.get(model).write();
+   }
+   public ModelSettingsSerializer getModelSavedSettings(Model model)
+   {
+      return mapModelsToSettings.get(model);
+   }
 }
