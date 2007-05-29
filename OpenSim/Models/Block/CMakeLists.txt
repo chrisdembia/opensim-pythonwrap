@@ -16,5 +16,5 @@ SET_TARGET_PROPERTIES(rd${KIT} PROPERTIES
 	LINK_FLAGS "/DEF:${OpenSim_SOURCE_DIR}/OpenSim/DynamicsEngines/SdfastEngine/SIMMPipeline/SdfastModelDLL.def"
 )
 
-INSTALL_TARGETS(/lib/ RUNTIME_DIRECTORY /lib rd${KIT})
+INSTALL_TARGETS(/lib/ RUNTIME_DIRECTORY /bin rd${KIT})
 INSTALL_FILES(/include/OpenSim/Models/${KIT} .h ${INCLUDE_FILES})

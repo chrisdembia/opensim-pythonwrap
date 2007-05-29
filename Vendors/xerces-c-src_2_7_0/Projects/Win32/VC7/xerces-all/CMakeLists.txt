@@ -33,25 +33,25 @@ IF(WIN32)
         COMMAND ${CMAKE_COMMAND}
         ARGS -E copy
         ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Release/xerces-c_2.lib
-        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2.lib)
+        ${CMAKE_INSTALL_PREFIX}/bin/xerces-c_2.lib)
 	ADD_CUSTOM_COMMAND(
         TARGET xerces-c_2_cmake
         COMMAND ${CMAKE_COMMAND}
         ARGS -E copy
         ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Release/xerces-c_2_7.dll
-        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2_7.dll)
+        ${CMAKE_INSTALL_PREFIX}/bin/xerces-c_2_7.dll)
 	ADD_CUSTOM_COMMAND(
         TARGET xerces-c_2D_cmake
         COMMAND ${CMAKE_COMMAND}
         ARGS -E copy
         ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Debug/xerces-c_2D.lib
-        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2D.lib)
+        ${CMAKE_INSTALL_PREFIX}/bin/xerces-c_2D.lib)
 	ADD_CUSTOM_COMMAND(
         TARGET xerces-c_2D_cmake
         COMMAND ${CMAKE_COMMAND}
         ARGS -E copy
         ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Debug/xerces-c_2_7D.dll
-        ${CMAKE_INSTALL_PREFIX}/lib/xerces-c_2_7D.dll)
+        ${CMAKE_INSTALL_PREFIX}/bin/xerces-c_2_7D.dll)
 ENDIF(WIN32)
 
 
@@ -89,4 +89,3 @@ ENDFOREACH(dir)
 
 FILE(GLOB UTIL_C_FILES ../../../../src/xercesc/util/*.c)
 INSTALL_FILES(/include/Vendors/xerces-c-src_2_7_0/src/xercesc/util .c ${UTIL_C_FILES})
-
