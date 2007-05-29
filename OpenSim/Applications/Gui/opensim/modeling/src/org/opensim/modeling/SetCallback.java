@@ -185,12 +185,20 @@ public class SetCallback extends OpenSimObject {
     return opensimModelJNI.SetCallback_getNumGroups(swigCPtr, this);
   }
 
-  public void addGroup(SWIGTYPE_p_std__string aGroupName) {
-    opensimModelJNI.SetCallback_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
+  public void addGroup(String aGroupName) {
+    opensimModelJNI.SetCallback_addGroup(swigCPtr, this, aGroupName);
   }
 
-  public void addObjectToGroup(SWIGTYPE_p_std__string aGroupName, SWIGTYPE_p_std__string aObjectName) {
-    opensimModelJNI.SetCallback_addObjectToGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName), SWIGTYPE_p_std__string.getCPtr(aObjectName));
+  public void removeGroup(String aGroupName) {
+    opensimModelJNI.SetCallback_removeGroup(swigCPtr, this, aGroupName);
+  }
+
+  public void renameGroup(String oldGroupName, String newGroupName) {
+    opensimModelJNI.SetCallback_renameGroup(swigCPtr, this, oldGroupName, newGroupName);
+  }
+
+  public void addObjectToGroup(String aGroupName, String aObjectName) {
+    opensimModelJNI.SetCallback_addObjectToGroup(swigCPtr, this, aGroupName, aObjectName);
   }
 
   public void getGroupNames(ArrayStr rGroupNames) {

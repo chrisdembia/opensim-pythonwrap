@@ -128,6 +128,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       org.openide.awt.Mnemonics.setLocalizedText(jLabel3, "Group:");
 
       org.openide.awt.Mnemonics.setLocalizedText(jSelectGroupButton, "Edit...");
+      jSelectGroupButton.setEnabled(false);
       jSelectGroupButton.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             jGroupsButtonActionPerformed(evt);

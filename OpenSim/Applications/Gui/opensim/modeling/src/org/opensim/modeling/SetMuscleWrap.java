@@ -185,12 +185,20 @@ public class SetMuscleWrap extends OpenSimObject {
     return opensimModelJNI.SetMuscleWrap_getNumGroups(swigCPtr, this);
   }
 
-  public void addGroup(SWIGTYPE_p_std__string aGroupName) {
-    opensimModelJNI.SetMuscleWrap_addGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName));
+  public void addGroup(String aGroupName) {
+    opensimModelJNI.SetMuscleWrap_addGroup(swigCPtr, this, aGroupName);
   }
 
-  public void addObjectToGroup(SWIGTYPE_p_std__string aGroupName, SWIGTYPE_p_std__string aObjectName) {
-    opensimModelJNI.SetMuscleWrap_addObjectToGroup(swigCPtr, this, SWIGTYPE_p_std__string.getCPtr(aGroupName), SWIGTYPE_p_std__string.getCPtr(aObjectName));
+  public void removeGroup(String aGroupName) {
+    opensimModelJNI.SetMuscleWrap_removeGroup(swigCPtr, this, aGroupName);
+  }
+
+  public void renameGroup(String oldGroupName, String newGroupName) {
+    opensimModelJNI.SetMuscleWrap_renameGroup(swigCPtr, this, oldGroupName, newGroupName);
+  }
+
+  public void addObjectToGroup(String aGroupName, String aObjectName) {
+    opensimModelJNI.SetMuscleWrap_addObjectToGroup(swigCPtr, this, aGroupName, aObjectName);
   }
 
   public void getGroupNames(ArrayStr rGroupNames) {

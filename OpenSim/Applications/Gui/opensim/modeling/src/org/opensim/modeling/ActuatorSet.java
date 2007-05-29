@@ -262,6 +262,10 @@ public class ActuatorSet extends SetActuators {
     opensimModelJNI.ActuatorSet_computeStateDerivatives(swigCPtr, this, rDY);
   }
 
+  public void computeEquilibrium() {
+    opensimModelJNI.ActuatorSet_computeEquilibrium(swigCPtr, this);
+  }
+
   public void updatePseudoStates() {
     opensimModelJNI.ActuatorSet_updatePseudoStates(swigCPtr, this);
   }

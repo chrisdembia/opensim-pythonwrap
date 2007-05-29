@@ -37,8 +37,8 @@ public class ObjectGroup extends OpenSimObject {
     this(opensimModelJNI.new_ObjectGroup__SWIG_0(), true);
   }
 
-  public ObjectGroup(SWIGTYPE_p_std__string aName) {
-    this(opensimModelJNI.new_ObjectGroup__SWIG_1(SWIGTYPE_p_std__string.getCPtr(aName)), true);
+  public ObjectGroup(String aName) {
+    this(opensimModelJNI.new_ObjectGroup__SWIG_1(aName), true);
   }
 
   public ObjectGroup(ObjectGroup aGroup) {

@@ -284,6 +284,10 @@ public class Model extends OpenSimObject {
     opensimModelJNI.Model_computeAuxiliaryDerivatives(swigCPtr, this, rDYDT);
   }
 
+  public void computeEquilibriumForAuxiliaryStates(double[] rY) {
+    opensimModelJNI.Model_computeEquilibriumForAuxiliaryStates(swigCPtr, this, rY);
+  }
+
   public boolean scale(SWIGTYPE_p_ScaleSet aScaleSet, double aFinalMass, boolean aPreserveMassDist) {
     return opensimModelJNI.Model_scale__SWIG_0(swigCPtr, this, SWIGTYPE_p_ScaleSet.getCPtr(aScaleSet), aFinalMass, aPreserveMassDist);
   }

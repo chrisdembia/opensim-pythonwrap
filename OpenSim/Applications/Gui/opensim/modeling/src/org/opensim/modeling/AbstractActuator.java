@@ -201,6 +201,10 @@ public class AbstractActuator extends OpenSimObject {
     opensimModelJNI.AbstractActuator_computeStateDerivatives(swigCPtr, this, rDYDT);
   }
 
+  public void computeEquilibrium() {
+    opensimModelJNI.AbstractActuator_computeEquilibrium(swigCPtr, this);
+  }
+
   public void updatePseudoStates() {
     opensimModelJNI.AbstractActuator_updatePseudoStates(swigCPtr, this);
   }

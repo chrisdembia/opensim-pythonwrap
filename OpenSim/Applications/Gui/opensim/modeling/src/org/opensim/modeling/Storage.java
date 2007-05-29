@@ -260,16 +260,24 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_reset__SWIG_2(swigCPtr, this, aTime);
   }
 
+  public int append(StateVector aVec, boolean aCheckForDuplicateTime) {
+    return opensimModelJNI.Storage_append__SWIG_0(swigCPtr, this, StateVector.getCPtr(aVec), aVec, aCheckForDuplicateTime);
+  }
+
   public int append(StateVector aVec) {
-    return opensimModelJNI.Storage_append__SWIG_0(swigCPtr, this, StateVector.getCPtr(aVec), aVec);
+    return opensimModelJNI.Storage_append__SWIG_1(swigCPtr, this, StateVector.getCPtr(aVec), aVec);
   }
 
   public int append(SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t aArray) {
-    return opensimModelJNI.Storage_append__SWIG_1(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t.getCPtr(aArray));
+    return opensimModelJNI.Storage_append__SWIG_2(swigCPtr, this, SWIGTYPE_p_OpenSim__ArrayTOpenSim__StateVector_t.getCPtr(aArray));
+  }
+
+  public int append(double aT, int aN, SWIGTYPE_p_double aY, boolean aCheckForDuplicateTime) {
+    return opensimModelJNI.Storage_append__SWIG_3(swigCPtr, this, aT, aN, SWIGTYPE_p_double.getCPtr(aY), aCheckForDuplicateTime);
   }
 
   public int append(double aT, int aN, SWIGTYPE_p_double aY) {
-    return opensimModelJNI.Storage_append__SWIG_2(swigCPtr, this, aT, aN, SWIGTYPE_p_double.getCPtr(aY));
+    return opensimModelJNI.Storage_append__SWIG_4(swigCPtr, this, aT, aN, SWIGTYPE_p_double.getCPtr(aY));
   }
 
   public int store(int aStep, double aT, int aN, SWIGTYPE_p_double aY) {

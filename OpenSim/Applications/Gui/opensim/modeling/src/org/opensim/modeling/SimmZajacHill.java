@@ -98,6 +98,10 @@ public class SimmZajacHill extends AbstractMuscle {
     opensimModelJNI.SimmZajacHill_computeStateDerivatives(swigCPtr, this, rDYDT);
   }
 
+  public void computeEquilibrium() {
+    opensimModelJNI.SimmZajacHill_computeEquilibrium(swigCPtr, this);
+  }
+
   public void computeActuation() {
     opensimModelJNI.SimmZajacHill_computeActuation(swigCPtr, this);
   }

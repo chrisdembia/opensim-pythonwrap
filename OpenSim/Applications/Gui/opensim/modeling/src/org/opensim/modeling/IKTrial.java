@@ -114,6 +114,14 @@ public class IKTrial extends OpenSimObject {
     opensimModelJNI.IKTrial_setCoordinateFileName(swigCPtr, this, aFilename);
   }
 
+  public void setOptimizerAlgorithm(String aOptimizerAlgorithm) {
+    opensimModelJNI.IKTrial_setOptimizerAlgorithm(swigCPtr, this, aOptimizerAlgorithm);
+  }
+
+  public String getOptimizerAlgorithm() {
+    return opensimModelJNI.IKTrial_getOptimizerAlgorithm(swigCPtr, this);
+  }
+
   public void peteTest() {
     opensimModelJNI.IKTrial_peteTest(swigCPtr, this);
   }

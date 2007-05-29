@@ -291,7 +291,7 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
         String groupName = (String) cb.getSelectedItem();
        // get members and use them to filter
         ActuatorSet acts=currentModel.getActuatorSet();
-        ObjectGroup gp=acts.getObjectGroup(groupName);
+        ObjectGroup gp=acts.getGroup(groupName);
         ArrayPtrsObj members=gp.getMembers();
         // Form a vector of muscle names
         String tempPattern="";
