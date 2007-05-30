@@ -1,0 +1,3 @@
+SET(GAIT2392_FILES gait2392.osim gait2392_zeros.mot subject01_static.trc subject01_walk1.mot subject01_walk1.trc subject01_walk1_grf.mot subject01_Setup_Scale.xml subject01_Setup_IK.xml subject01_Setup_RRA1.xml subject01_Setup_RRA2.xml subject01_Setup_CMC.xml subject01_Setup_Perturb.xml gait2392_RRA1_Actuators.xml gait2392_RRA2_Actuators.xml gait2392_CMC_Actuators.xml gait2392_Scale_Tasks.xml gait2392_IK_Tasks.xml gait2392_RRA1_Tasks.xml gait2392_RRA2_Tasks.xml gait2392_CMC_Tasks.xml gait2392_RRA1_ControlConstraints.xml gait2392_RRA2_ControlConstraints.xml gait2392_CMC_ControlConstraints.xml gait2392_Scale_MarkerSet.xml gait2392_Scale_MeasurementSet.xml subject01_Scale_ScaleSet.xml)
+
+INSTALL_FILES(/examples/Gait2392/ FILES ${GAIT2392_FILES})
