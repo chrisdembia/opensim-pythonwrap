@@ -605,6 +605,7 @@ public class SingleModelVisuals {
    }
 
    public void updateActuatorGeometry(AbstractActuator act, boolean callUpdateGeometry) {
+      //System.out.println("Update geometry for actuator"+act.getName());
       double[] axis = new double[]{0.0, 0.0, 0.0};
       double[] center = new double[]{0.0, 0.0, 0.0};
       if(callUpdateGeometry) act.updateGeometry();
