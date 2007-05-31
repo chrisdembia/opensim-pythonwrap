@@ -41,10 +41,16 @@ import org.openide.DialogDisplayer;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractMuscle;
+import org.opensim.modeling.ArrayPtrsObj;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.MusclePoint;
+import org.opensim.modeling.ObjectGroup;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.modeling.VisibleObject;
+import org.opensim.modeling.VisibleProperties;
+import org.opensim.modeling.VisibleProperties.DisplayPreference;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
 import vtk.AxesActor;
@@ -760,7 +766,43 @@ public final class ViewDB extends Observable implements Observer {
    /**
     * For a single OpenSimObject, toggle display hide/show
     */
-   public void toggleObjectDisplay(OpenSimObject openSimObject) {
+   public void toggleObjectsDisplay(OpenSimObject openSimObject, boolean visible) {
+      ObjectGroup group = ObjectGroup.safeDownCast(openSimObject);
+      if (group != null) {
+         ArrayPtrsObj members = group.getMembers();
+         for (int i = 0; i < members.getSize(); i++) {
+            toggleObjectDisplay(members.get(i), visible);
+         }
+      } else {
+         toggleObjectDisplay(openSimObject, visible);
+      }
+   }
+
+   public void toggleObjectDisplay(OpenSimObject openSimObject, boolean visible) {
+      // use VisibleObject to hold on/off status, and
+      // do not repaint the windows or update any geometry because
+      // this is now handled by the functions that call toggleObjectDisplay().
+      VisibleObject vo = openSimObject.getDisplayer();
+      if (vo != null) {
+         VisibleProperties vp = vo.getVisibleProperties();
+         DisplayPreference dp = vp.getDisplayPreference();
+         if (visible == true)
+            vp.setDisplayPreference(DisplayPreference.GouraudShaded); // TODO: assumes gouraud is the default
+         else
+            vp.setDisplayPreference(DisplayPreference.None);
+      }
+
+      AbstractActuator act = AbstractActuator.safeDownCast(openSimObject);
+      if (act != null) {
+         SingleModelVisuals vis = getModelVisuals(act.getModel());
+         vis.updateActuatorGeometry(act, visible); // call act.updateGeometry() is actuator is becoming visible
+         return;
+      }
+
+      // If the object is a vtkAssembly or vtkActor, sets its visibility that way too.
+      int vtkVisible = 0;
+      if (visible == true)
+         vtkVisible = 1;
       vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(openSimObject);
       if (asm==null)  // Object is not displayed for some reason
          return ;
@@ -769,10 +811,9 @@ public final class ViewDB extends Observable implements Observer {
          parts.InitTraversal();
          vtkProp3D prop = parts.GetNextProp3D();
          vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-         boolean visible=false;
          while (prop != null) {
             if (part != null){
-               part.SetVisibility(1-part.GetVisibility());
+               part.SetVisibility(vtkVisible);
             }
             prop = parts.GetNextProp3D();
             part = (prop instanceof vtkActor)?(vtkActor)prop:null;
@@ -780,37 +821,45 @@ public final class ViewDB extends Observable implements Observer {
       }
       else if (asm instanceof vtkActor){
          vtkActor part = (vtkActor)asm;
-         part.SetVisibility(1-part.GetVisibility());
+         part.SetVisibility(vtkVisible);
       }
-      repaintAll();
    }
    /**
     * Return a flag indicating if an object is displayed or not
     **/
-   public boolean getDisplayStatus(OpenSimObject openSimObject) {
-      vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(openSimObject);
-      boolean visible=false;
-      if (asm==null)  // Object is not displayed for some reason
-         return visible;
-      if (asm instanceof vtkAssembly){
-         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
-         parts.InitTraversal();
-         vtkProp3D prop = parts.GetNextProp3D();
-         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-         while (prop != null) {
-            if (part != null){
-               if (part.GetVisibility()==1){ // if any part is visible the object is visible
-                  visible=true;
-                  break;
-               };
+   public int getDisplayStatus(OpenSimObject openSimObject) {
+      int visible = 0;
+      ObjectGroup group = ObjectGroup.safeDownCast(openSimObject);
+      if (group != null) {
+         boolean foundHidden = false;
+         boolean foundShown = false;
+         ArrayPtrsObj members = group.getMembers();
+         for (int i = 0; i < members.getSize(); i++) {
+            VisibleObject vo = members.get(i).getDisplayer();
+            if (vo != null) {
+               DisplayPreference dp = vo.getVisibleProperties().getDisplayPreference();
+               if (dp == DisplayPreference.None)
+                  foundHidden = true;
+               else
+                  foundShown = true;
             }
-            prop = parts.GetNextProp3D();
-            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
          }
-      } else if (asm instanceof vtkActor){
-         if (((vtkActor)asm).GetVisibility()==1) // if any part is visible the object is visible
-            visible=true;
-         
+         // If the group contains hidden members and shown members, return 2 (mixed).
+         // If the group contains only hidden members, return 0 (hidden).
+         // If the group contains only shown members, return 1 (shown).
+         if (foundHidden == true && foundShown == true)
+            return 2;
+         else if (foundHidden == true)
+            return 0;
+         else
+            return 1;
+      } else {
+         VisibleObject vo = openSimObject.getDisplayer();
+         if (vo != null) {
+            DisplayPreference dp = vo.getVisibleProperties().getDisplayPreference();
+            if (dp != DisplayPreference.None)
+               visible = 1;
+         }
       }
       return visible;
    }

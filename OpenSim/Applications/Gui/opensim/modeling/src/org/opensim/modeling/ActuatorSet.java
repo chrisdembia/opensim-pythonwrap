@@ -95,6 +95,10 @@ public class ActuatorSet extends SetActuators {
     return opensimModelJNI.ActuatorSet_set(swigCPtr, this, aIndex, AbstractActuator.getCPtr(aActuator), aActuator);
   }
 
+  public void changeActuatorType(AbstractActuator aActuator, String aNewTypeName) {
+    opensimModelJNI.ActuatorSet_changeActuatorType(swigCPtr, this, AbstractActuator.getCPtr(aActuator), aActuator, aNewTypeName);
+  }
+
   public int getNumControls() {
     return opensimModelJNI.ActuatorSet_getNumControls(swigCPtr, this);
   }

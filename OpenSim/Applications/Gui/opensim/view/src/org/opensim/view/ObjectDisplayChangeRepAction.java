@@ -11,12 +11,14 @@ public class ObjectDisplayChangeRepAction extends CallableSystemAction {
     
     public boolean isEnabled() {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
-        boolean anyHidden = false;
-        for(int i=0; i < selected.length && !anyHidden; i++){
+        // If any selected object is hidden (or any selected group is mixed), return false.
+        for(int i=0; i < selected.length; i++){
             OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
-            anyHidden = anyHidden || !ViewDB.getInstance().getDisplayStatus(objectNode.getOpensimObject());
+            int displayStatus = ViewDB.getInstance().getDisplayStatus(objectNode.getOpensimObject());
+            if (displayStatus == 0 || displayStatus == 2)
+               return false;
         }
-        return !anyHidden;
+        return true;
     }
 
     public void performAction() {

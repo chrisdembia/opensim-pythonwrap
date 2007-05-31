@@ -33,6 +33,8 @@ import org.opensim.modeling.MuscleWrapPoint;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
+import org.opensim.modeling.VisibleProperties;
+import org.opensim.modeling.VisibleProperties.DisplayPreference;
 import org.opensim.utils.GeometryFileLocator;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
@@ -611,17 +613,25 @@ public class SingleModelVisuals {
       if (actuatorDisplayer == null){
          return;
       }
-         
+
+      boolean visible = false;
+      DisplayPreference dp = actuatorDisplayer.getVisibleProperties().getDisplayPreference();
+      if (dp != DisplayPreference.None)
+         visible = true;
+
       // A displayer is found, get geometry
       int geomSize = actuatorDisplayer.countGeometry();
+      if (visible == false)
+         geomSize = 0;
+
       Vector<Integer> segmentGlyphIds = mapActuator2SegmentGlyphIds.get(act);
       Vector<Integer> pointGlyphIds = mapActuator2PointGlyphIds.get(act);
 
       updateActuatorGlyphIds(segmentGlyphIds, pointGlyphIds, geomSize);         
 
-      double[] position1 = new double[3];
-      double[] position2 = new double[3];
-      if (geomSize > 0){
+      if (geomSize > 0) {
+         double[] position1 = new double[3];
+         double[] position2 = new double[3];
          // Points are already in inertial frame
          for(int i=0; i<geomSize; i++) {
             Geometry geomEntry = actuatorDisplayer.getGeometry(i);
@@ -633,26 +643,26 @@ public class SingleModelVisuals {
                center[d] = (position1[d]+position2[d])/2.0;
             }
             // Create a cylinder connecting position1, position2
-           double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
-           double length = normalizeAndGetLength(axis);
-           double[] xform = getCylinderTransform(axis, center) ;
-           int idx = segmentGlyphIds.get(i).intValue();
-           getMuscleSegmentsRep().setLocation(idx, center);
-           getMuscleSegmentsRep().setTensorDataAtLocation(idx, 
-                            xform[0], xform[4], xform[8],
-                            length*xform[1], length*xform[5], length*xform[9],
-                            xform[2], xform[6], xform[10]
-                   );
+            double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
+            double length = normalizeAndGetLength(axis);
+            double[] xform = getCylinderTransform(axis, center) ;
+            int idx = segmentGlyphIds.get(i).intValue();
+            getMuscleSegmentsRep().setLocation(idx, center);
+            getMuscleSegmentsRep().setTensorDataAtLocation(idx, 
+                             xform[0], xform[4], xform[8],
+                             length*xform[1], length*xform[5], length*xform[9],
+                             xform[2], xform[6], xform[10]
+                    );
 
-           // Draw muscle point at position1 of segment, and if this is the last segment also at position2
-           int pointIdx = pointGlyphIds.get(i).intValue();
-           getMusclePointsRep().setLocation(pointIdx, position1);
-           if(i==geomSize-1) {
-               pointIdx = pointGlyphIds.get(i+1).intValue();
-               getMusclePointsRep().setLocation(pointIdx, position2);
-           }
+            // Draw muscle point at position1 of segment, and if this is the last segment also at position2
+            int pointIdx = pointGlyphIds.get(i).intValue();
+            getMusclePointsRep().setLocation(pointIdx, position1);
+            if(i==geomSize-1) {
+                pointIdx = pointGlyphIds.get(i+1).intValue();
+                getMusclePointsRep().setLocation(pointIdx, position2);
+            }
          }
-      }   
+      }
 
       getMuscleSegmentsRep().setModified();
       getMusclePointsRep().setModified();

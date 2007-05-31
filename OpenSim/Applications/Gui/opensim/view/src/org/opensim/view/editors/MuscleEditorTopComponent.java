@@ -46,6 +46,7 @@ import org.opensim.modeling.MusclePoint;
 import org.opensim.view.ClearSelectedObjectsEvent;
 import org.opensim.view.DragObjectsEvent;
 import org.opensim.view.ExplorerTopComponent;
+import org.opensim.view.ModelEvent;
 import org.opensim.view.NameChangedEvent;
 import org.opensim.view.ObjectSelectedEvent;
 import org.opensim.view.SingleModelGuiElements;
@@ -84,6 +85,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       setToolTipText(NbBundle.getMessage(MuscleEditorTopComponent.class, "HINT_MuscleEditorTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
       ViewDB.getInstance().addObserver(this);
+      OpenSimDB.getInstance().addObserver(this);
    }
 
    private void setPendingChanges(boolean state, boolean repaint) {
@@ -111,11 +113,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       ParametersTabbedPanel = new javax.swing.JTabbedPane();
       MuscleNameLabel = new javax.swing.JLabel();
       MuscleTypeLabel = new javax.swing.JLabel();
+      ModelNameLabel = new javax.swing.JLabel();
 
       MuscleEditorScrollPane.setBorder(null);
       MuscleEditorPanel.setMinimumSize(new java.awt.Dimension(5, 5));
       MuscleEditorPanel.setPreferredSize(new java.awt.Dimension(5, 5));
-      MuscleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SimmZajacHill", "SimmDarrylMuscle" }));
 
       org.openide.awt.Mnemonics.setLocalizedText(ApplyButton, "save");
       ApplyButton.setToolTipText("save changes to this muscle");
@@ -153,47 +155,52 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       MuscleTypeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
       org.openide.awt.Mnemonics.setLocalizedText(MuscleTypeLabel, "type:");
 
+      org.openide.awt.Mnemonics.setLocalizedText(ModelNameLabel, "model: <name>\n");
+
       org.jdesktop.layout.GroupLayout MuscleEditorPanelLayout = new org.jdesktop.layout.GroupLayout(MuscleEditorPanel);
       MuscleEditorPanel.setLayout(MuscleEditorPanelLayout);
       MuscleEditorPanelLayout.setHorizontalGroup(
          MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(MuscleEditorPanelLayout.createSequentialGroup()
-            .addContainerGap()
-            .add(MuscleNameLabel)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(65, 65, 65)
-            .add(MuscleTypeLabel)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(MuscleTypeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(184, Short.MAX_VALUE))
-         .add(MuscleEditorPanelLayout.createSequentialGroup()
-            .addContainerGap()
-            .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-            .addContainerGap())
-         .add(MuscleEditorPanelLayout.createSequentialGroup()
-            .add(119, 119, 119)
+            .add(118, 118, 118)
             .add(ResetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 195, Short.MAX_VALUE)
             .add(ApplyButton)
-            .add(158, 158, 158))
+            .add(159, 159, 159))
+         .add(MuscleEditorPanelLayout.createSequentialGroup()
+            .addContainerGap()
+            .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+               .add(ModelNameLabel)
+               .add(MuscleEditorPanelLayout.createSequentialGroup()
+                  .add(MuscleNameLabel)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .add(65, 65, 65)
+                  .add(MuscleTypeLabel)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(MuscleTypeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+            .addContainerGap())
       );
       MuscleEditorPanelLayout.setVerticalGroup(
          MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(MuscleEditorPanelLayout.createSequentialGroup()
             .addContainerGap()
+            .add(ModelNameLabel)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(MuscleNameLabel)
                .add(MuscleTypeLabel)
                .add(MuscleTypeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+            .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(ResetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(ApplyButton))
-            .add(10, 10, 10))
+            .addContainerGap())
       );
       MuscleEditorScrollPane.setViewportView(MuscleEditorPanel);
 
@@ -205,7 +212,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(MuscleEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+         .add(MuscleEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
       );
    }// </editor-fold>//GEN-END:initComponents
    
@@ -261,6 +268,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton ApplyButton;
+   private javax.swing.JLabel ModelNameLabel;
    private javax.swing.JPanel MuscleEditorPanel;
    private javax.swing.JScrollPane MuscleEditorScrollPane;
    private javax.swing.JLabel MuscleNameLabel;
@@ -572,6 +580,23 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       vis.updateActuatorGeometry(asm, true);
       ViewDB.getInstance().repaintAll();
    }
+
+   private void MuscleTypeComboBoxActionPerformed(javax.swing.JComboBox muscleTypeComboBox) {
+      //Property.PropertyType newType = (Property.PropertyType)muscleTypeComboBox.getSelectedIndex();
+      int newType = muscleTypeComboBox.getSelectedIndex();
+      Model model = act.getModel();
+      SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
+      String newTypeName = guiElem.getActuatorClassNames()[newType];
+      String oldTypeName = act.getType();
+      if (newTypeName.equals(oldTypeName) == false) {
+         //TODO model.getActuatorSet().changeActuatorType(act, newTypeName);
+         setupComponent(act);
+         // tell the ViewDB to redraw the model
+         SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+         vis.updateActuatorGeometry(act, true);
+         ViewDB.getInstance().repaintAll();
+      }
+   }                                                  
 
    public void DoublePropertyEntered(javax.swing.JTextField field, int propertyNum) {
       Property prop = null;
@@ -1269,16 +1294,47 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // currently selected tab (if any) so that you can try
       // to restore this selection (e.g., after the "reset"
       // button is pressed.
-      Component comp = ParametersTabbedPanel.getSelectedComponent();
-      if (comp != null)
-         selectedTabName = comp.getName();
-      else
-         selectedTabName = null;
+      if (act != null) {
+         Component comp = ParametersTabbedPanel.getSelectedComponent();
+         if (comp != null)
+            selectedTabName = comp.getName();
+         else
+            selectedTabName = null;
+      }
       ParametersTabbedPanel.removeAll();
       AttachmentsTab = null;
       WrapTab = null;
       CurrentPathTab = null;
-      
+
+      Model currentModel = OpenSimDB.getInstance().getCurrentModel();
+      if (currentModel != null) {
+         ModelNameLabel.setText("Model: " + currentModel.getName());
+      } else {
+         ModelNameLabel.setText("Model: No current model");
+         MuscleNameTextField.setText("");
+         MuscleNameTextField.setEnabled(false);
+         MuscleTypeComboBox.setEnabled(false);
+         ApplyButton.setEnabled(false);
+         ResetButton.setEnabled(false);
+         return;
+      }
+
+      if (act == null) {
+         return;
+      } else {
+         MuscleNameTextField.setEnabled(true);
+         MuscleTypeComboBox.setEnabled(true);
+         ApplyButton.setEnabled(true);
+      }
+
+      SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(act.getModel());
+      MuscleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(guiElem.getActuatorClassNames()));
+      MuscleTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            MuscleTypeComboBoxActionPerformed(MuscleTypeComboBox);
+         }
+      });
+
       // Add the attachment panel first so it will always have index=0
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
       if (asm != null)
@@ -1422,7 +1478,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       }
       
       //Dimension windowSize = MuscleEditorScrollPane.getParent().getSize();
-      Dimension d = new Dimension(495, 350);
+      Dimension d = new Dimension(495, 358);
       MuscleEditorPanel.setPreferredSize(d);
       
       this.revalidate();
@@ -1451,6 +1507,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    }
    
    public void open() {
+      System.out.println("open");
       Mode mode=WindowManager.getDefault().findMode(s_mode);
       //boolean docked = mode.dockInto(this);
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
@@ -1514,6 +1571,18 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             }
          } else if (arg instanceof DragObjectsEvent) {
             dragMusclePoints((DragObjectsEvent)arg);
+         }
+      } else if (o instanceof OpenSimDB) {
+         // if current model is being switched due to open/close or change current then
+         // update tool window
+         if (arg instanceof ModelEvent) {
+            final ModelEvent evt = (ModelEvent)arg;
+            if (evt.getOperation() == ModelEvent.Operation.SetCurrent ||
+               (evt.getOperation() == ModelEvent.Operation.Close &&
+               OpenSimDB.getInstance().getCurrentModel() == null)) {
+               setupComponent(null);
+            }
+            // Do we need to handle close separately or should we be called with SetCurrent of null model?
          }
       }
    }

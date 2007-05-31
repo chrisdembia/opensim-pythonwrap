@@ -29,6 +29,7 @@ public class SingleModelGuiElements {
     
     private static String[] bodyNames=null;
     private static String[] coordinateNames=null;
+    private static String[] actuatorClassNames=null;
     
     public SingleModelGuiElements(Model model)
     {
@@ -96,5 +97,21 @@ public class SingleModelGuiElements {
            }
         }
         return ret;
+   }
+
+   /**
+    * Get names of actuator classes
+    */
+   public String[] getActuatorClassNames()
+   {
+      if (actuatorClassNames==null) {
+         actuatorClassNames = new String[5];
+         actuatorClassNames[0] = new String("SimmZajacHill");
+         actuatorClassNames[1] = new String("SimmDarrylMuscle");
+         actuatorClassNames[2] = new String("Force");
+         actuatorClassNames[3] = new String("Torque");
+         actuatorClassNames[4] = new String("GeneralizedForce");
+      }
+      return actuatorClassNames;
    }
 }

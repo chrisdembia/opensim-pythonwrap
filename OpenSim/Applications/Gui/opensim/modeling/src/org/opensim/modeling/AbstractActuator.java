@@ -42,6 +42,10 @@ public class AbstractActuator extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public void copy(AbstractActuator aActuator) {
+    opensimModelJNI.AbstractActuator_copy__SWIG_1(swigCPtr, this, AbstractActuator.getCPtr(aActuator), aActuator);
+  }
+
   public void setup(Model aModel) {
     opensimModelJNI.AbstractActuator_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
@@ -162,7 +166,7 @@ public class AbstractActuator extends OpenSimObject {
   }
 
   public void copy(OpenSimObject aObject) {
-    opensimModelJNI.AbstractActuator_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+    opensimModelJNI.AbstractActuator_copy__SWIG_2(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
   public boolean getAppliesForce() {

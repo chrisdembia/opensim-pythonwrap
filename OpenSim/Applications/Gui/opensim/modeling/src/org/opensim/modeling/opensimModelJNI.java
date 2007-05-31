@@ -12,8 +12,8 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("osimJavaJNI");		// All OpenSim classes required for GUI operation.
-        System.loadLibrary("osimSdfastEngine");	//to load sdfast based models
+        System.loadLibrary("osimJavaJNI_d");		// All OpenSim classes required for GUI operation.
+        System.loadLibrary("osimSdfastEngine_d");	//to load sdfast based models
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic library osimJavaJNI is in your PATH\n"+e);
@@ -222,7 +222,7 @@ public class opensimModelJNI {
   public final static native long new_ObjectGroup__SWIG_1(String jarg1);
   public final static native long new_ObjectGroup__SWIG_2(long jarg1, ObjectGroup jarg1_);
   public final static native void delete_ObjectGroup(long jarg1);
-  public final static native long ObjectGroup_copy(long jarg1, ObjectGroup jarg1_);
+  public final static native long ObjectGroup_copy__SWIG_0(long jarg1, ObjectGroup jarg1_);
   public final static native void ObjectGroup_copyData(long jarg1, ObjectGroup jarg1_, long jarg2, ObjectGroup jarg2_);
   public final static native boolean ObjectGroup_contains(long jarg1, ObjectGroup jarg1_, String jarg2);
   public final static native void ObjectGroup_add(long jarg1, ObjectGroup jarg1_, long jarg2, OpenSimObject jarg2_);
@@ -230,6 +230,10 @@ public class opensimModelJNI {
   public final static native void ObjectGroup_setup(long jarg1, ObjectGroup jarg1_, long jarg2, ArrayPtrsObj jarg2_);
   public final static native long ObjectGroup_getMembers(long jarg1, ObjectGroup jarg1_);
   public final static native void ObjectGroup_peteTest(long jarg1, ObjectGroup jarg1_);
+  public final static native boolean ObjectGroup_isKindOf(String jarg1);
+  public final static native boolean ObjectGroup_isA(long jarg1, ObjectGroup jarg1_, String jarg2);
+  public final static native long ObjectGroup_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void ObjectGroup_copy__SWIG_1(long jarg1, ObjectGroup jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native void Material__propTranslucency_set(long jarg1, Material jarg1_, long jarg2);
   public final static native long Material__propTranslucency_get(long jarg1, Material jarg1_);
   public final static native void Material__propAmbientColor_set(long jarg1, Material jarg1_, long jarg2);
@@ -455,10 +459,8 @@ public class opensimModelJNI {
   public final static native int SetMaterials_searchBinary__SWIG_2(long jarg1, SetMaterials jarg1_, long jarg2, Material jarg2_, boolean jarg3);
   public final static native int SetMaterials_searchBinary__SWIG_3(long jarg1, SetMaterials jarg1_, long jarg2, Material jarg2_);
   public final static native int SetMaterials_getNumGroups(long jarg1, SetMaterials jarg1_);
-  public final static native void SetMaterials_addGroup(long jarg1, SetMaterials jarg1_, String jarg2);
-  public final static native void SetMaterials_removeGroup(long jarg1, SetMaterials jarg1_, String jarg2);
-  public final static native void SetMaterials_renameGroup(long jarg1, SetMaterials jarg1_, String jarg2, String jarg3);
-  public final static native void SetMaterials_addObjectToGroup(long jarg1, SetMaterials jarg1_, String jarg2, String jarg3);
+  public final static native void SetMaterials_addGroup(long jarg1, SetMaterials jarg1_, long jarg2);
+  public final static native void SetMaterials_addObjectToGroup(long jarg1, SetMaterials jarg1_, long jarg2, long jarg3);
   public final static native void SetMaterials_getGroupNames(long jarg1, SetMaterials jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetMaterials_getGroup__SWIG_0(long jarg1, SetMaterials jarg1_, String jarg2);
   public final static native long SetMaterials_getGroup__SWIG_1(long jarg1, SetMaterials jarg1_, int jarg2);
@@ -611,6 +613,7 @@ public class opensimModelJNI {
   public final static native double AbstractActuator_LARGE_get();
   public final static native void delete_AbstractActuator(long jarg1);
   public final static native long AbstractActuator_copy__SWIG_0(long jarg1, AbstractActuator jarg1_);
+  public final static native void AbstractActuator_copy__SWIG_1(long jarg1, AbstractActuator jarg1_, long jarg2, AbstractActuator jarg2_);
   public final static native void AbstractActuator_setup(long jarg1, AbstractActuator jarg1_, long jarg2, Model jarg2_);
   public final static native void AbstractActuator_setModel(long jarg1, AbstractActuator jarg1_, long jarg2, Model jarg2_);
   public final static native long AbstractActuator_getModel(long jarg1, AbstractActuator jarg1_);
@@ -640,7 +643,7 @@ public class opensimModelJNI {
   public final static native boolean AbstractActuator_isKindOf(String jarg1);
   public final static native boolean AbstractActuator_isA(long jarg1, AbstractActuator jarg1_, String jarg2);
   public final static native long AbstractActuator_safeDownCast(long jarg1, OpenSimObject jarg1_);
-  public final static native void AbstractActuator_copy__SWIG_1(long jarg1, AbstractActuator jarg1_, long jarg2, OpenSimObject jarg2_);
+  public final static native void AbstractActuator_copy__SWIG_2(long jarg1, AbstractActuator jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native boolean AbstractActuator_getAppliesForce(long jarg1, AbstractActuator jarg1_);
   public final static native void AbstractActuator_setForce(long jarg1, AbstractActuator jarg1_, double jarg2);
   public final static native double AbstractActuator_getForce(long jarg1, AbstractActuator jarg1_);
@@ -695,10 +698,8 @@ public class opensimModelJNI {
   public final static native int SetActuators_searchBinary__SWIG_2(long jarg1, SetActuators jarg1_, long jarg2, AbstractActuator jarg2_, boolean jarg3);
   public final static native int SetActuators_searchBinary__SWIG_3(long jarg1, SetActuators jarg1_, long jarg2, AbstractActuator jarg2_);
   public final static native int SetActuators_getNumGroups(long jarg1, SetActuators jarg1_);
-  public final static native void SetActuators_addGroup(long jarg1, SetActuators jarg1_, String jarg2);
-  public final static native void SetActuators_removeGroup(long jarg1, SetActuators jarg1_, String jarg2);
-  public final static native void SetActuators_renameGroup(long jarg1, SetActuators jarg1_, String jarg2, String jarg3);
-  public final static native void SetActuators_addObjectToGroup(long jarg1, SetActuators jarg1_, String jarg2, String jarg3);
+  public final static native void SetActuators_addGroup(long jarg1, SetActuators jarg1_, long jarg2);
+  public final static native void SetActuators_addObjectToGroup(long jarg1, SetActuators jarg1_, long jarg2, long jarg3);
   public final static native void SetActuators_getGroupNames(long jarg1, SetActuators jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetActuators_getGroup__SWIG_0(long jarg1, SetActuators jarg1_, String jarg2);
   public final static native long SetActuators_getGroup__SWIG_1(long jarg1, SetActuators jarg1_, int jarg2);
@@ -718,6 +719,7 @@ public class opensimModelJNI {
   public final static native boolean ActuatorSet_append__SWIG_1(long jarg1, ActuatorSet jarg1_, long jarg2, ActuatorSet jarg2_, boolean jarg3);
   public final static native boolean ActuatorSet_append__SWIG_2(long jarg1, ActuatorSet jarg1_, long jarg2, ActuatorSet jarg2_);
   public final static native boolean ActuatorSet_set(long jarg1, ActuatorSet jarg1_, int jarg2, long jarg3, AbstractActuator jarg3_);
+  public final static native void ActuatorSet_changeActuatorType(long jarg1, ActuatorSet jarg1_, long jarg2, AbstractActuator jarg2_, String jarg3);
   public final static native int ActuatorSet_getNumControls(long jarg1, ActuatorSet jarg1_);
   public final static native int ActuatorSet_mapActuatorToControl(long jarg1, ActuatorSet jarg1_, int jarg2);
   public final static native int ActuatorSet_mapControlToActuator__SWIG_0(long jarg1, ActuatorSet jarg1_, int jarg2);
@@ -844,10 +846,8 @@ public class opensimModelJNI {
   public final static native int SetCallback_searchBinary__SWIG_2(long jarg1, SetCallback jarg1_, long jarg2, Callback jarg2_, boolean jarg3);
   public final static native int SetCallback_searchBinary__SWIG_3(long jarg1, SetCallback jarg1_, long jarg2, Callback jarg2_);
   public final static native int SetCallback_getNumGroups(long jarg1, SetCallback jarg1_);
-  public final static native void SetCallback_addGroup(long jarg1, SetCallback jarg1_, String jarg2);
-  public final static native void SetCallback_removeGroup(long jarg1, SetCallback jarg1_, String jarg2);
-  public final static native void SetCallback_renameGroup(long jarg1, SetCallback jarg1_, String jarg2, String jarg3);
-  public final static native void SetCallback_addObjectToGroup(long jarg1, SetCallback jarg1_, String jarg2, String jarg3);
+  public final static native void SetCallback_addGroup(long jarg1, SetCallback jarg1_, long jarg2);
+  public final static native void SetCallback_addObjectToGroup(long jarg1, SetCallback jarg1_, long jarg2, long jarg3);
   public final static native void SetCallback_getGroupNames(long jarg1, SetCallback jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetCallback_getGroup__SWIG_0(long jarg1, SetCallback jarg1_, String jarg2);
   public final static native long SetCallback_getGroup__SWIG_1(long jarg1, SetCallback jarg1_, int jarg2);
@@ -960,10 +960,8 @@ public class opensimModelJNI {
   public final static native int SetAnalysis_searchBinary__SWIG_2(long jarg1, SetAnalysis jarg1_, long jarg2, Analysis jarg2_, boolean jarg3);
   public final static native int SetAnalysis_searchBinary__SWIG_3(long jarg1, SetAnalysis jarg1_, long jarg2, Analysis jarg2_);
   public final static native int SetAnalysis_getNumGroups(long jarg1, SetAnalysis jarg1_);
-  public final static native void SetAnalysis_addGroup(long jarg1, SetAnalysis jarg1_, String jarg2);
-  public final static native void SetAnalysis_removeGroup(long jarg1, SetAnalysis jarg1_, String jarg2);
-  public final static native void SetAnalysis_renameGroup(long jarg1, SetAnalysis jarg1_, String jarg2, String jarg3);
-  public final static native void SetAnalysis_addObjectToGroup(long jarg1, SetAnalysis jarg1_, String jarg2, String jarg3);
+  public final static native void SetAnalysis_addGroup(long jarg1, SetAnalysis jarg1_, long jarg2);
+  public final static native void SetAnalysis_addObjectToGroup(long jarg1, SetAnalysis jarg1_, long jarg2, long jarg3);
   public final static native void SetAnalysis_getGroupNames(long jarg1, SetAnalysis jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetAnalysis_getGroup__SWIG_0(long jarg1, SetAnalysis jarg1_, String jarg2);
   public final static native long SetAnalysis_getGroup__SWIG_1(long jarg1, SetAnalysis jarg1_, int jarg2);
@@ -1129,10 +1127,8 @@ public class opensimModelJNI {
   public final static native int SetControls_searchBinary__SWIG_2(long jarg1, SetControls jarg1_, long jarg2, Control jarg2_, boolean jarg3);
   public final static native int SetControls_searchBinary__SWIG_3(long jarg1, SetControls jarg1_, long jarg2, Control jarg2_);
   public final static native int SetControls_getNumGroups(long jarg1, SetControls jarg1_);
-  public final static native void SetControls_addGroup(long jarg1, SetControls jarg1_, String jarg2);
-  public final static native void SetControls_removeGroup(long jarg1, SetControls jarg1_, String jarg2);
-  public final static native void SetControls_renameGroup(long jarg1, SetControls jarg1_, String jarg2, String jarg3);
-  public final static native void SetControls_addObjectToGroup(long jarg1, SetControls jarg1_, String jarg2, String jarg3);
+  public final static native void SetControls_addGroup(long jarg1, SetControls jarg1_, long jarg2);
+  public final static native void SetControls_addObjectToGroup(long jarg1, SetControls jarg1_, long jarg2, long jarg3);
   public final static native void SetControls_getGroupNames(long jarg1, SetControls jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetControls_getGroup__SWIG_0(long jarg1, SetControls jarg1_, String jarg2);
   public final static native long SetControls_getGroup__SWIG_1(long jarg1, SetControls jarg1_, int jarg2);
@@ -1775,10 +1771,8 @@ public class opensimModelJNI {
   public final static native int SetMarkers_searchBinary__SWIG_2(long jarg1, SetMarkers jarg1_, long jarg2, AbstractMarker jarg2_, boolean jarg3);
   public final static native int SetMarkers_searchBinary__SWIG_3(long jarg1, SetMarkers jarg1_, long jarg2, AbstractMarker jarg2_);
   public final static native int SetMarkers_getNumGroups(long jarg1, SetMarkers jarg1_);
-  public final static native void SetMarkers_addGroup(long jarg1, SetMarkers jarg1_, String jarg2);
-  public final static native void SetMarkers_removeGroup(long jarg1, SetMarkers jarg1_, String jarg2);
-  public final static native void SetMarkers_renameGroup(long jarg1, SetMarkers jarg1_, String jarg2, String jarg3);
-  public final static native void SetMarkers_addObjectToGroup(long jarg1, SetMarkers jarg1_, String jarg2, String jarg3);
+  public final static native void SetMarkers_addGroup(long jarg1, SetMarkers jarg1_, long jarg2);
+  public final static native void SetMarkers_addObjectToGroup(long jarg1, SetMarkers jarg1_, long jarg2, long jarg3);
   public final static native void SetMarkers_getGroupNames(long jarg1, SetMarkers jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetMarkers_getGroup__SWIG_0(long jarg1, SetMarkers jarg1_, String jarg2);
   public final static native long SetMarkers_getGroup__SWIG_1(long jarg1, SetMarkers jarg1_, int jarg2);
@@ -1846,10 +1840,8 @@ public class opensimModelJNI {
   public final static native int SetScales_searchBinary__SWIG_2(long jarg1, SetScales jarg1_, long jarg2, Scale jarg2_, boolean jarg3);
   public final static native int SetScales_searchBinary__SWIG_3(long jarg1, SetScales jarg1_, long jarg2, Scale jarg2_);
   public final static native int SetScales_getNumGroups(long jarg1, SetScales jarg1_);
-  public final static native void SetScales_addGroup(long jarg1, SetScales jarg1_, String jarg2);
-  public final static native void SetScales_removeGroup(long jarg1, SetScales jarg1_, String jarg2);
-  public final static native void SetScales_renameGroup(long jarg1, SetScales jarg1_, String jarg2, String jarg3);
-  public final static native void SetScales_addObjectToGroup(long jarg1, SetScales jarg1_, String jarg2, String jarg3);
+  public final static native void SetScales_addGroup(long jarg1, SetScales jarg1_, long jarg2);
+  public final static native void SetScales_addObjectToGroup(long jarg1, SetScales jarg1_, long jarg2, long jarg3);
   public final static native void SetScales_getGroupNames(long jarg1, SetScales jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetScales_getGroup__SWIG_0(long jarg1, SetScales jarg1_, String jarg2);
   public final static native long SetScales_getGroup__SWIG_1(long jarg1, SetScales jarg1_, int jarg2);
@@ -1966,10 +1958,8 @@ public class opensimModelJNI {
   public final static native int SetWrapObject_searchBinary__SWIG_2(long jarg1, SetWrapObject jarg1_, long jarg2, AbstractWrapObject jarg2_, boolean jarg3);
   public final static native int SetWrapObject_searchBinary__SWIG_3(long jarg1, SetWrapObject jarg1_, long jarg2, AbstractWrapObject jarg2_);
   public final static native int SetWrapObject_getNumGroups(long jarg1, SetWrapObject jarg1_);
-  public final static native void SetWrapObject_addGroup(long jarg1, SetWrapObject jarg1_, String jarg2);
-  public final static native void SetWrapObject_removeGroup(long jarg1, SetWrapObject jarg1_, String jarg2);
-  public final static native void SetWrapObject_renameGroup(long jarg1, SetWrapObject jarg1_, String jarg2, String jarg3);
-  public final static native void SetWrapObject_addObjectToGroup(long jarg1, SetWrapObject jarg1_, String jarg2, String jarg3);
+  public final static native void SetWrapObject_addGroup(long jarg1, SetWrapObject jarg1_, long jarg2);
+  public final static native void SetWrapObject_addObjectToGroup(long jarg1, SetWrapObject jarg1_, long jarg2, long jarg3);
   public final static native void SetWrapObject_getGroupNames(long jarg1, SetWrapObject jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetWrapObject_getGroup__SWIG_0(long jarg1, SetWrapObject jarg1_, String jarg2);
   public final static native long SetWrapObject_getGroup__SWIG_1(long jarg1, SetWrapObject jarg1_, int jarg2);
@@ -2036,10 +2026,8 @@ public class opensimModelJNI {
   public final static native int SetMuscleWrap_searchBinary__SWIG_2(long jarg1, SetMuscleWrap jarg1_, long jarg2, MuscleWrap jarg2_, boolean jarg3);
   public final static native int SetMuscleWrap_searchBinary__SWIG_3(long jarg1, SetMuscleWrap jarg1_, long jarg2, MuscleWrap jarg2_);
   public final static native int SetMuscleWrap_getNumGroups(long jarg1, SetMuscleWrap jarg1_);
-  public final static native void SetMuscleWrap_addGroup(long jarg1, SetMuscleWrap jarg1_, String jarg2);
-  public final static native void SetMuscleWrap_removeGroup(long jarg1, SetMuscleWrap jarg1_, String jarg2);
-  public final static native void SetMuscleWrap_renameGroup(long jarg1, SetMuscleWrap jarg1_, String jarg2, String jarg3);
-  public final static native void SetMuscleWrap_addObjectToGroup(long jarg1, SetMuscleWrap jarg1_, String jarg2, String jarg3);
+  public final static native void SetMuscleWrap_addGroup(long jarg1, SetMuscleWrap jarg1_, long jarg2);
+  public final static native void SetMuscleWrap_addObjectToGroup(long jarg1, SetMuscleWrap jarg1_, long jarg2, long jarg3);
   public final static native void SetMuscleWrap_getGroupNames(long jarg1, SetMuscleWrap jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetMuscleWrap_getGroup__SWIG_0(long jarg1, SetMuscleWrap jarg1_, String jarg2);
   public final static native long SetMuscleWrap_getGroup__SWIG_1(long jarg1, SetMuscleWrap jarg1_, int jarg2);
@@ -2047,7 +2035,7 @@ public class opensimModelJNI {
   public final static native long new_MuscleWrapSet__SWIG_1(long jarg1, MuscleWrapSet jarg1_);
   public final static native void delete_MuscleWrapSet(long jarg1);
   public final static native void delete_AbstractBody(long jarg1);
-  public final static native long AbstractBody_copy(long jarg1, AbstractBody jarg1_);
+  public final static native long AbstractBody_copy__SWIG_0(long jarg1, AbstractBody jarg1_);
   public final static native void AbstractBody_copyData(long jarg1, AbstractBody jarg1_, long jarg2, AbstractBody jarg2_);
   public final static native long AbstractBody_getDynamicsEngine(long jarg1, AbstractBody jarg1_);
   public final static native void AbstractBody_setup(long jarg1, AbstractBody jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
@@ -2066,6 +2054,10 @@ public class opensimModelJNI {
   public final static native long AbstractBody_getWrapObject(long jarg1, AbstractBody jarg1_, String jarg2);
   public final static native long AbstractBody_getWrapObjectSet(long jarg1, AbstractBody jarg1_);
   public final static native void AbstractBody_peteTest(long jarg1, AbstractBody jarg1_);
+  public final static native boolean AbstractBody_isKindOf(String jarg1);
+  public final static native boolean AbstractBody_isA(long jarg1, AbstractBody jarg1_, String jarg2);
+  public final static native long AbstractBody_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void AbstractBody_copy__SWIG_1(long jarg1, AbstractBody jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native long new_SimmBody__SWIG_0();
   public final static native long new_SimmBody__SWIG_1(long jarg1, SimmBody jarg1_);
   public final static native void delete_SimmBody(long jarg1);
@@ -2124,10 +2116,8 @@ public class opensimModelJNI {
   public final static native int SetBodies_searchBinary__SWIG_2(long jarg1, SetBodies jarg1_, long jarg2, AbstractBody jarg2_, boolean jarg3);
   public final static native int SetBodies_searchBinary__SWIG_3(long jarg1, SetBodies jarg1_, long jarg2, AbstractBody jarg2_);
   public final static native int SetBodies_getNumGroups(long jarg1, SetBodies jarg1_);
-  public final static native void SetBodies_addGroup(long jarg1, SetBodies jarg1_, String jarg2);
-  public final static native void SetBodies_removeGroup(long jarg1, SetBodies jarg1_, String jarg2);
-  public final static native void SetBodies_renameGroup(long jarg1, SetBodies jarg1_, String jarg2, String jarg3);
-  public final static native void SetBodies_addObjectToGroup(long jarg1, SetBodies jarg1_, String jarg2, String jarg3);
+  public final static native void SetBodies_addGroup(long jarg1, SetBodies jarg1_, long jarg2);
+  public final static native void SetBodies_addObjectToGroup(long jarg1, SetBodies jarg1_, long jarg2, long jarg3);
   public final static native void SetBodies_getGroupNames(long jarg1, SetBodies jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetBodies_getGroup__SWIG_0(long jarg1, SetBodies jarg1_, String jarg2);
   public final static native long SetBodies_getGroup__SWIG_1(long jarg1, SetBodies jarg1_, int jarg2);
@@ -2315,10 +2305,8 @@ public class opensimModelJNI {
   public final static native int SetCoordinates_searchBinary__SWIG_2(long jarg1, SetCoordinates jarg1_, long jarg2, AbstractCoordinate jarg2_, boolean jarg3);
   public final static native int SetCoordinates_searchBinary__SWIG_3(long jarg1, SetCoordinates jarg1_, long jarg2, AbstractCoordinate jarg2_);
   public final static native int SetCoordinates_getNumGroups(long jarg1, SetCoordinates jarg1_);
-  public final static native void SetCoordinates_addGroup(long jarg1, SetCoordinates jarg1_, String jarg2);
-  public final static native void SetCoordinates_removeGroup(long jarg1, SetCoordinates jarg1_, String jarg2);
-  public final static native void SetCoordinates_renameGroup(long jarg1, SetCoordinates jarg1_, String jarg2, String jarg3);
-  public final static native void SetCoordinates_addObjectToGroup(long jarg1, SetCoordinates jarg1_, String jarg2, String jarg3);
+  public final static native void SetCoordinates_addGroup(long jarg1, SetCoordinates jarg1_, long jarg2);
+  public final static native void SetCoordinates_addObjectToGroup(long jarg1, SetCoordinates jarg1_, long jarg2, long jarg3);
   public final static native void SetCoordinates_getGroupNames(long jarg1, SetCoordinates jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetCoordinates_getGroup__SWIG_0(long jarg1, SetCoordinates jarg1_, String jarg2);
   public final static native long SetCoordinates_getGroup__SWIG_1(long jarg1, SetCoordinates jarg1_, int jarg2);
@@ -2394,10 +2382,8 @@ public class opensimModelJNI {
   public final static native int SetJoints_searchBinary__SWIG_2(long jarg1, SetJoints jarg1_, long jarg2, AbstractJoint jarg2_, boolean jarg3);
   public final static native int SetJoints_searchBinary__SWIG_3(long jarg1, SetJoints jarg1_, long jarg2, AbstractJoint jarg2_);
   public final static native int SetJoints_getNumGroups(long jarg1, SetJoints jarg1_);
-  public final static native void SetJoints_addGroup(long jarg1, SetJoints jarg1_, String jarg2);
-  public final static native void SetJoints_removeGroup(long jarg1, SetJoints jarg1_, String jarg2);
-  public final static native void SetJoints_renameGroup(long jarg1, SetJoints jarg1_, String jarg2, String jarg3);
-  public final static native void SetJoints_addObjectToGroup(long jarg1, SetJoints jarg1_, String jarg2, String jarg3);
+  public final static native void SetJoints_addGroup(long jarg1, SetJoints jarg1_, long jarg2);
+  public final static native void SetJoints_addObjectToGroup(long jarg1, SetJoints jarg1_, long jarg2, long jarg3);
   public final static native void SetJoints_getGroupNames(long jarg1, SetJoints jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetJoints_getGroup__SWIG_0(long jarg1, SetJoints jarg1_, String jarg2);
   public final static native long SetJoints_getGroup__SWIG_1(long jarg1, SetJoints jarg1_, int jarg2);
@@ -2696,10 +2682,8 @@ public class opensimModelJNI {
   public final static native int SetMusclePoint_searchBinary__SWIG_2(long jarg1, SetMusclePoint jarg1_, long jarg2, MusclePoint jarg2_, boolean jarg3);
   public final static native int SetMusclePoint_searchBinary__SWIG_3(long jarg1, SetMusclePoint jarg1_, long jarg2, MusclePoint jarg2_);
   public final static native int SetMusclePoint_getNumGroups(long jarg1, SetMusclePoint jarg1_);
-  public final static native void SetMusclePoint_addGroup(long jarg1, SetMusclePoint jarg1_, String jarg2);
-  public final static native void SetMusclePoint_removeGroup(long jarg1, SetMusclePoint jarg1_, String jarg2);
-  public final static native void SetMusclePoint_renameGroup(long jarg1, SetMusclePoint jarg1_, String jarg2, String jarg3);
-  public final static native void SetMusclePoint_addObjectToGroup(long jarg1, SetMusclePoint jarg1_, String jarg2, String jarg3);
+  public final static native void SetMusclePoint_addGroup(long jarg1, SetMusclePoint jarg1_, long jarg2);
+  public final static native void SetMusclePoint_addObjectToGroup(long jarg1, SetMusclePoint jarg1_, long jarg2, long jarg3);
   public final static native void SetMusclePoint_getGroupNames(long jarg1, SetMusclePoint jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetMusclePoint_getGroup__SWIG_0(long jarg1, SetMusclePoint jarg1_, String jarg2);
   public final static native long SetMusclePoint_getGroup__SWIG_1(long jarg1, SetMusclePoint jarg1_, int jarg2);
@@ -3091,8 +3075,6 @@ public class opensimModelJNI {
   public final static native void IKTrial_setOutputMotionFilename(long jarg1, IKTrial jarg1_, String jarg2);
   public final static native String IKTrial_getCoordinateFileName(long jarg1, IKTrial jarg1_);
   public final static native void IKTrial_setCoordinateFileName(long jarg1, IKTrial jarg1_, String jarg2);
-  public final static native void IKTrial_setOptimizerAlgorithm(long jarg1, IKTrial jarg1_, String jarg2);
-  public final static native String IKTrial_getOptimizerAlgorithm(long jarg1, IKTrial jarg1_);
   public final static native void IKTrial_peteTest(long jarg1, IKTrial jarg1_);
   public final static native void delete_SetIKTrial(long jarg1);
   public final static native long new_SetIKTrial__SWIG_0();
@@ -3132,10 +3114,8 @@ public class opensimModelJNI {
   public final static native int SetIKTrial_searchBinary__SWIG_2(long jarg1, SetIKTrial jarg1_, long jarg2, IKTrial jarg2_, boolean jarg3);
   public final static native int SetIKTrial_searchBinary__SWIG_3(long jarg1, SetIKTrial jarg1_, long jarg2, IKTrial jarg2_);
   public final static native int SetIKTrial_getNumGroups(long jarg1, SetIKTrial jarg1_);
-  public final static native void SetIKTrial_addGroup(long jarg1, SetIKTrial jarg1_, String jarg2);
-  public final static native void SetIKTrial_removeGroup(long jarg1, SetIKTrial jarg1_, String jarg2);
-  public final static native void SetIKTrial_renameGroup(long jarg1, SetIKTrial jarg1_, String jarg2, String jarg3);
-  public final static native void SetIKTrial_addObjectToGroup(long jarg1, SetIKTrial jarg1_, String jarg2, String jarg3);
+  public final static native void SetIKTrial_addGroup(long jarg1, SetIKTrial jarg1_, long jarg2);
+  public final static native void SetIKTrial_addObjectToGroup(long jarg1, SetIKTrial jarg1_, long jarg2, long jarg3);
   public final static native void SetIKTrial_getGroupNames(long jarg1, SetIKTrial jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetIKTrial_getGroup__SWIG_0(long jarg1, SetIKTrial jarg1_, String jarg2);
   public final static native long SetIKTrial_getGroup__SWIG_1(long jarg1, SetIKTrial jarg1_, int jarg2);
@@ -3188,10 +3168,8 @@ public class opensimModelJNI {
   public final static native int SetIKTasks_searchBinary__SWIG_2(long jarg1, SetIKTasks jarg1_, long jarg2, IKTask jarg2_, boolean jarg3);
   public final static native int SetIKTasks_searchBinary__SWIG_3(long jarg1, SetIKTasks jarg1_, long jarg2, IKTask jarg2_);
   public final static native int SetIKTasks_getNumGroups(long jarg1, SetIKTasks jarg1_);
-  public final static native void SetIKTasks_addGroup(long jarg1, SetIKTasks jarg1_, String jarg2);
-  public final static native void SetIKTasks_removeGroup(long jarg1, SetIKTasks jarg1_, String jarg2);
-  public final static native void SetIKTasks_renameGroup(long jarg1, SetIKTasks jarg1_, String jarg2, String jarg3);
-  public final static native void SetIKTasks_addObjectToGroup(long jarg1, SetIKTasks jarg1_, String jarg2, String jarg3);
+  public final static native void SetIKTasks_addGroup(long jarg1, SetIKTasks jarg1_, long jarg2);
+  public final static native void SetIKTasks_addObjectToGroup(long jarg1, SetIKTasks jarg1_, long jarg2, long jarg3);
   public final static native void SetIKTasks_getGroupNames(long jarg1, SetIKTasks jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetIKTasks_getGroup__SWIG_0(long jarg1, SetIKTasks jarg1_, String jarg2);
   public final static native long SetIKTasks_getGroup__SWIG_1(long jarg1, SetIKTasks jarg1_, int jarg2);
@@ -3279,10 +3257,8 @@ public class opensimModelJNI {
   public final static native int SetMeasurements_searchBinary__SWIG_2(long jarg1, SetMeasurements jarg1_, long jarg2, Measurement jarg2_, boolean jarg3);
   public final static native int SetMeasurements_searchBinary__SWIG_3(long jarg1, SetMeasurements jarg1_, long jarg2, Measurement jarg2_);
   public final static native int SetMeasurements_getNumGroups(long jarg1, SetMeasurements jarg1_);
-  public final static native void SetMeasurements_addGroup(long jarg1, SetMeasurements jarg1_, String jarg2);
-  public final static native void SetMeasurements_removeGroup(long jarg1, SetMeasurements jarg1_, String jarg2);
-  public final static native void SetMeasurements_renameGroup(long jarg1, SetMeasurements jarg1_, String jarg2, String jarg3);
-  public final static native void SetMeasurements_addObjectToGroup(long jarg1, SetMeasurements jarg1_, String jarg2, String jarg3);
+  public final static native void SetMeasurements_addGroup(long jarg1, SetMeasurements jarg1_, long jarg2);
+  public final static native void SetMeasurements_addObjectToGroup(long jarg1, SetMeasurements jarg1_, long jarg2, long jarg3);
   public final static native void SetMeasurements_getGroupNames(long jarg1, SetMeasurements jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long SetMeasurements_getGroup__SWIG_0(long jarg1, SetMeasurements jarg1_, String jarg2);
   public final static native long SetMeasurements_getGroup__SWIG_1(long jarg1, SetMeasurements jarg1_, int jarg2);
@@ -3292,6 +3268,33 @@ public class opensimModelJNI {
   public final static native long new_IKSolverImpl(long jarg1);
   public final static native void delete_IKSolverImpl(long jarg1);
   public final static native void IKSolverImpl_solveFrames(long jarg1, IKSolverImpl jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
+  public final static native double rdOptimizationTarget_SMALLDX_get();
+  public final static native void delete_rdOptimizationTarget(long jarg1);
+  public final static native int rdOptimizationTarget_compute(long jarg1, rdOptimizationTarget jarg1_, long jarg2, long jarg3, long jarg4);
+  public final static native int rdOptimizationTarget_computeGradients(long jarg1, rdOptimizationTarget jarg1_, long jarg2, long jarg3, long jarg4, long jarg5);
+  public final static native int rdOptimizationTarget_computePerformance(long jarg1, rdOptimizationTarget jarg1_, long jarg2, long jarg3);
+  public final static native int rdOptimizationTarget_computePerformanceGradient(long jarg1, rdOptimizationTarget jarg1_, long jarg2, long jarg3);
+  public final static native int rdOptimizationTarget_computeConstraint(long jarg1, rdOptimizationTarget jarg1_, long jarg2, int jarg3, long jarg4);
+  public final static native int rdOptimizationTarget_computeConstraintGradient(long jarg1, rdOptimizationTarget jarg1_, long jarg2, int jarg3, long jarg4);
+  public final static native void rdOptimizationTarget_setNumControls(long jarg1, rdOptimizationTarget jarg1_, int jarg2);
+  public final static native int rdOptimizationTarget_getNumControls(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native void rdOptimizationTarget_setDX__SWIG_0(long jarg1, rdOptimizationTarget jarg1_, double jarg2);
+  public final static native void rdOptimizationTarget_setDX__SWIG_1(long jarg1, rdOptimizationTarget jarg1_, int jarg2, double jarg3);
+  public final static native double rdOptimizationTarget_getDX(long jarg1, rdOptimizationTarget jarg1_, int jarg2);
+  public final static native long rdOptimizationTarget_getDXArray(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native void rdOptimizationTarget_setNEvaluations__SWIG_0(long jarg1, rdOptimizationTarget jarg1_, int jarg2);
+  public final static native void rdOptimizationTarget_setNEvaluations__SWIG_1(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native int rdOptimizationTarget_getNEvaluations(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native int rdOptimizationTarget_getNumContacts(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native int rdOptimizationTarget_getNC(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native int rdOptimizationTarget_getNCInequality(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native int rdOptimizationTarget_getNCInequalityNonlinear(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native int rdOptimizationTarget_getNCInequalityLinear(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native int rdOptimizationTarget_getNCEquality(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native int rdOptimizationTarget_getNCEqualityNonlinear(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native int rdOptimizationTarget_getNCEqualityLinear(long jarg1, rdOptimizationTarget jarg1_);
+  public final static native boolean rdOptimizationTarget_isControlIndexValid(long jarg1, rdOptimizationTarget jarg1_, int jarg2);
+  public final static native void rdOptimizationTarget_validatePerturbationSize(long jarg1, rdOptimizationTarget jarg1_, long jarg2);
   public final static native void delete_CMCTool(long jarg1);
   public final static native long new_CMCTool__SWIG_0();
   public final static native long new_CMCTool__SWIG_1(String jarg1);

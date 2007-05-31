@@ -34,7 +34,7 @@ public class AbstractBody extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AbstractBody_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractBody_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -111,6 +111,23 @@ public class AbstractBody extends OpenSimObject {
 
   public void peteTest() {
     opensimModelJNI.AbstractBody_peteTest(swigCPtr, this);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.AbstractBody_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.AbstractBody_isA(swigCPtr, this, type);
+  }
+
+  public static AbstractBody safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.AbstractBody_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.AbstractBody_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

@@ -46,7 +46,7 @@ public class ObjectGroup extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.ObjectGroup_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.ObjectGroup_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -76,6 +76,23 @@ public class ObjectGroup extends OpenSimObject {
 
   public void peteTest() {
     opensimModelJNI.ObjectGroup_peteTest(swigCPtr, this);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.ObjectGroup_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.ObjectGroup_isA(swigCPtr, this, type);
+  }
+
+  public static ObjectGroup safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.ObjectGroup_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new ObjectGroup(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.ObjectGroup_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }
