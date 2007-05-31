@@ -122,5 +122,7 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
         if (b==false)
             storage=null;
     }
-   
+    public String toString() {
+        return storage.getName();
+    }
 }

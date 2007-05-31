@@ -7,16 +7,17 @@
 package org.opensim.plotter;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import org.jfree.chart.ChartPanel;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.opensim.modeling.ArrayStr;
@@ -25,17 +26,13 @@ import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.MotionTimeChangeEvent;
 import org.opensim.utils.FileUtils;
 import org.opensim.motionviewer.MotionsDB;
+import org.opensim.view.pub.OpenSimDB;
 /**
  *
  * @author  Ayman
  */
 public class JPlotterPanel extends javax.swing.JPanel
-         implements java.awt.event.ActionListener, 
-        java.awt.event.MouseListener, 
-        java.awt.event.KeyListener, 
-        javax.swing.event.TreeSelectionListener, 
-        java.awt.event.FocusListener,
-        Observer {
+         implements java.awt.event.ActionListener, java.awt.event.MouseListener, javax.swing.event.TreeSelectionListener, java.awt.event.FocusListener, java.util.Observer, java.beans.PropertyChangeListener {
    
    private PlotterModel plotterModel = new PlotterModel();
    public enum PlotDataSource {FileSource, AnalysisSource};
@@ -98,7 +95,6 @@ public class JPlotterPanel extends javax.swing.JPanel
         jPlotterDeletePlotButton = new javax.swing.JButton();
         jPlotSpecPanel = new javax.swing.JPanel();
         jAnalysisSourceRadioButton = new javax.swing.JRadioButton();
-        jLabel6 = new javax.swing.JLabel();
         jFileSourceRadioButton = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jCurveNameTextField = new javax.swing.JTextField();
@@ -118,6 +114,7 @@ public class JPlotterPanel extends javax.swing.JPanel
         yQuantityButton = new javax.swing.JButton();
         jYQtyTextField = new javax.swing.JTextField();
         jBrowse4FileButton = new javax.swing.JButton();
+        jAvailableAnalysesComboBox = new javax.swing.JComboBox();
         jPlotTitlePanel = new javax.swing.JPanel();
         jPlotLabelJLabel = new javax.swing.JLabel();
         jPlotNameTextField = new javax.swing.JTextField();
@@ -133,6 +130,7 @@ public class JPlotterPanel extends javax.swing.JPanel
         jPlotterMenuBar.add(jPlotterFileMenu);
 
         jSplitPane1.setDividerLocation(280);
+        jSplitPane1.setDividerSize(7);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setResizeWeight(1.0);
         jSplitPane1.setAutoscrolls(true);
@@ -142,11 +140,11 @@ public class JPlotterPanel extends javax.swing.JPanel
         jTopChartingPanel.setLayout(jTopChartingPanelLayout);
         jTopChartingPanelLayout.setHorizontalGroup(
             jTopChartingPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 608, Short.MAX_VALUE)
+            .add(0, 594, Short.MAX_VALUE)
         );
         jTopChartingPanelLayout.setVerticalGroup(
             jTopChartingPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 275, Short.MAX_VALUE)
+            .add(0, 279, Short.MAX_VALUE)
         );
         jSplitPane1.setLeftComponent(jTopChartingPanel);
 
@@ -192,17 +190,17 @@ public class JPlotterPanel extends javax.swing.JPanel
         jPlotNavigationPanel.setLayout(jPlotNavigationPanelLayout);
         jPlotNavigationPanelLayout.setHorizontalGroup(
             jPlotNavigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPlotNavigationPanelLayout.createSequentialGroup()
+            .add(jPlotNavigationPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPlotNavigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jPlotNavigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 193, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPlotNavigationPanelLayout.setVerticalGroup(
             jPlotNavigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPlotNavigationPanelLayout.createSequentialGroup()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
@@ -212,16 +210,15 @@ public class JPlotterPanel extends javax.swing.JPanel
         sourceButtonGroup.add(jAnalysisSourceRadioButton);
         jAnalysisSourceRadioButton.setText("Analysis");
         jAnalysisSourceRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jAnalysisSourceRadioButton.setEnabled(false);
         jAnalysisSourceRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-        jLabel6.setText("Source");
+        jAnalysisSourceRadioButton.addActionListener(this);
 
         sourceButtonGroup.add(jFileSourceRadioButton);
         jFileSourceRadioButton.setSelected(true);
         jFileSourceRadioButton.setText("File");
         jFileSourceRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jFileSourceRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jFileSourceRadioButton.addActionListener(this);
 
         jLabel2.setText("Curve Legend");
 
@@ -230,7 +227,6 @@ public class JPlotterPanel extends javax.swing.JPanel
 
         xQuantityButton.setText("X-Quantity >");
         xQuantityButton.setEnabled(false);
-        xQuantityButton.addKeyListener(this);
         xQuantityButton.addMouseListener(this);
 
         jXQtyTextField.addActionListener(this);
@@ -239,6 +235,10 @@ public class JPlotterPanel extends javax.swing.JPanel
         jLabel9.setText("Start");
 
         jLabel10.setText("End");
+
+        jDomainStartTextField.addPropertyChangeListener(this);
+
+        jDomainEndTextField.addPropertyChangeListener(this);
 
         org.jdesktop.layout.GroupLayout jPanel9Layout = new org.jdesktop.layout.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -334,34 +334,33 @@ public class JPlotterPanel extends javax.swing.JPanel
         jBrowse4FileButton.setText("Browse...");
         jBrowse4FileButton.addActionListener(this);
 
+        jAvailableAnalysesComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jAvailableAnalysesComboBox.addActionListener(this);
+
         org.jdesktop.layout.GroupLayout jPlotSpecPanelLayout = new org.jdesktop.layout.GroupLayout(jPlotSpecPanel);
         jPlotSpecPanel.setLayout(jPlotSpecPanelLayout);
         jPlotSpecPanelLayout.setHorizontalGroup(
             jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPlotSpecPanelLayout.createSequentialGroup()
-                .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPlotSpecPanelLayout.createSequentialGroup()
+                .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPlotSpecPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jPlotSpecPanelLayout.createSequentialGroup()
-                                .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(15, 15, 15))
-                            .add(jPlotSpecPanelLayout.createSequentialGroup()
-                                .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
                         .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jAnalysisSourceRadioButton)
+                            .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jPlotSpecPanelLayout.createSequentialGroup()
-                                .add(jAnalysisSourceRadioButton)
+                                .add(jAvailableAnalysesComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFileSourceRadioButton)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jFileSourceRadioButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .add(jBrowse4FileButton))
-                            .add(jCurveNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 227, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(10, 10, 10))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                            .add(jCurveNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 228, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel9, 0, 320, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .add(3, 3, 3))
+                .addContainerGap())
         );
         jPlotSpecPanelLayout.setVerticalGroup(
             jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -369,10 +368,10 @@ public class JPlotterPanel extends javax.swing.JPanel
                 .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
                     .add(jCurveNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(7, 7, 7)
                 .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel6)
                     .add(jAnalysisSourceRadioButton)
+                    .add(jAvailableAnalysesComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jFileSourceRadioButton)
                     .add(jBrowse4FileButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -396,8 +395,8 @@ public class JPlotterPanel extends javax.swing.JPanel
             .add(jPlotTitlePanelLayout.createSequentialGroup()
                 .add(jPlotLabelJLabel)
                 .add(22, 22, 22)
-                .add(jPlotNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 262, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(46, 46, 46))
+                .add(jPlotNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 247, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPlotTitlePanelLayout.setVerticalGroup(
             jPlotTitlePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -415,11 +414,11 @@ public class JPlotterPanel extends javax.swing.JPanel
             .add(jPlotControlPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPlotControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jPlotSpecPanel, 0, 339, Short.MAX_VALUE)
-                    .add(jPlotTitlePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPlotNavigationPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(68, 68, 68))
+                    .add(jPlotTitlePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPlotSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPlotNavigationPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 225, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(87, 87, 87))
         );
         jPlotControlPanelLayout.setVerticalGroup(
             jPlotControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -439,7 +438,7 @@ public class JPlotterPanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+            .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -462,6 +461,12 @@ public class JPlotterPanel extends javax.swing.JPanel
         else if (evt.getSource() == jPlotterDeletePlotButton) {
             JPlotterPanel.this.jPlotterDeletePlotButtonActionPerformed(evt);
         }
+        else if (evt.getSource() == jAnalysisSourceRadioButton) {
+            JPlotterPanel.this.jAnalysisSourceRadioButtonActionPerformed(evt);
+        }
+        else if (evt.getSource() == jFileSourceRadioButton) {
+            JPlotterPanel.this.jFileSourceRadioButtonActionPerformed(evt);
+        }
         else if (evt.getSource() == jCurveNameTextField) {
             JPlotterPanel.this.jCurveNameTextFieldActionPerformed(evt);
         }
@@ -477,6 +482,9 @@ public class JPlotterPanel extends javax.swing.JPanel
         else if (evt.getSource() == jPlotNameTextField) {
             JPlotterPanel.this.jPlotNameTextFieldActionPerformed(evt);
         }
+        else if (evt.getSource() == jAvailableAnalysesComboBox) {
+            JPlotterPanel.this.jAvailableAnalysesComboBoxActionPerformed(evt);
+        }
     }
 
     public void focusGained(java.awt.event.FocusEvent evt) {
@@ -489,18 +497,6 @@ public class JPlotterPanel extends javax.swing.JPanel
         else if (evt.getSource() == jYQtyTextField) {
             JPlotterPanel.this.jYQtyTextFieldFocusLost(evt);
         }
-    }
-
-    public void keyPressed(java.awt.event.KeyEvent evt) {
-    }
-
-    public void keyReleased(java.awt.event.KeyEvent evt) {
-        if (evt.getSource() == xQuantityButton) {
-            JPlotterPanel.this.xQuantityButtonKeyReleased(evt);
-        }
-    }
-
-    public void keyTyped(java.awt.event.KeyEvent evt) {
     }
 
     public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -525,7 +521,52 @@ public class JPlotterPanel extends javax.swing.JPanel
         else if (evt.getSource() == yQuantityButton) {
             JPlotterPanel.this.yQuantityButtonMouseReleased(evt);
         }
+    }
+
+    public void propertyChange(java.beans.PropertyChangeEvent evt) {
+        if (evt.getSource() == jDomainStartTextField) {
+            JPlotterPanel.this.jDomainStartTextFieldPropertyChange(evt);
+        }
+        else if (evt.getSource() == jDomainEndTextField) {
+            JPlotterPanel.this.jDomainEndTextFieldPropertyChange(evt);
+        }
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jAvailableAnalysesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAvailableAnalysesComboBoxActionPerformed
+// TODO add your handling code here:
+        sourceX = (PlotterSourceInterface) ((JComboBox)evt.getSource()).getSelectedItem();
+        sourceY=sourceX;
+        
+    }//GEN-LAST:event_jAvailableAnalysesComboBoxActionPerformed
+
+    private void jDomainEndTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDomainEndTextFieldPropertyChange
+// TODO add your handling code here:
+    }//GEN-LAST:event_jDomainEndTextFieldPropertyChange
+
+    private void jDomainStartTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDomainStartTextFieldPropertyChange
+// TODO add your handling code here:
+    }//GEN-LAST:event_jDomainStartTextFieldPropertyChange
+    // AnalysisPick
+    private void jAnalysisSourceRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAnalysisSourceRadioButtonActionPerformed
+// TODO add your handling code here:
+         source=PlotDataSource.AnalysisSource;
+         plotterModel.addModel(OpenSimDB.getInstance().getCurrentModel());
+         xQuantityButton.setEnabled(true);
+         ArrayList<PlotterSourceAnalysis> srcs=plotterModel.getAnalysisSources();
+         // Add available quantities to jAvailableAnalysesComboBox
+         PlotterSourceAnalysis[] availableAnalyses= new PlotterSourceAnalysis[srcs.size()];
+         for(int i=0; i<srcs.size();i++)
+             availableAnalyses[i] = srcs.get(i);
+         jAvailableAnalysesComboBox.setModel(new DefaultComboBoxModel(availableAnalyses));
+         // Assume first one is selected
+         sourceX = availableAnalyses[0];
+         sourceY = sourceX;
+    }//GEN-LAST:event_jAnalysisSourceRadioButtonActionPerformed
+
+    private void jFileSourceRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileSourceRadioButtonActionPerformed
+// TODO add your handling code here:
+         source=PlotDataSource.FileSource;
+    }//GEN-LAST:event_jFileSourceRadioButtonActionPerformed
 
    private void jXQtyTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jXQtyTextFieldFocusLost
       updatePlotterWithSelection();
@@ -551,7 +592,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       // Browse for Storage or Motion file (for now) and preprocess the file if needed for plotting
       String dataFilename = FileUtils.getInstance().browseForFilename(".sto, .mot", "Files containing data to plot", true);
       if (dataFilename != null){
-         getPlotterModel().addFileStorage(dataFilename);
+         getPlotterModel().addFile(dataFilename);
          xQuantityButton.setEnabled(getPlotterModel().countSources()>0);
       }
    }//GEN-LAST:event_jBrowse4FileButtonActionPerformed
@@ -615,19 +656,15 @@ public class JPlotterPanel extends javax.swing.JPanel
 
       autoGeneratedCurveTitle=false;   // user modified the text field don't intervene!'
    }//GEN-LAST:event_jCurveNameTextFieldActionPerformed
-
+   // XCallback
    private void xQuantityButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xQuantityButtonMouseReleased
        if(evt.isPopupTrigger()) {
-         xPopup.updateList(plotterModel, sourceButtonGroup.getSelection()==jFileSourceRadioButton.getModel());
+         xPopup.updateList(plotterModel, source==PlotDataSource.FileSource);
          xPopup.show(evt.getComponent(), evt.getX(), evt.getY());
          updatePlotterWithSelection();
        }
 
    }//GEN-LAST:event_xQuantityButtonMouseReleased
-
-   private void xQuantityButtonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_xQuantityButtonKeyReleased
-
-   }//GEN-LAST:event_xQuantityButtonKeyReleased
 
    private void yQuantityButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_yQuantityButtonMouseReleased
        if(evt.isPopupTrigger()) {
@@ -709,6 +746,7 @@ public class JPlotterPanel extends javax.swing.JPanel
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton jAnalysisSourceRadioButton;
+    private javax.swing.JComboBox jAvailableAnalysesComboBox;
     private javax.swing.JButton jBrowse4FileButton;
     private javax.swing.JTextField jCurveNameTextField;
     private javax.swing.JFormattedTextField jDomainEndTextField;
@@ -718,7 +756,6 @@ public class JPlotterPanel extends javax.swing.JPanel
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jLoadFileToPlotterMenuItem;
     private javax.swing.JTextField jOffsetTextField;
@@ -985,50 +1022,60 @@ public class JPlotterPanel extends javax.swing.JPanel
     * The syntax for File sources is File:<xxxx>:<yyyyy>
     **/
    private boolean parseDomainOrRangeText(JTextField jQtyTextField, boolean isDomain) {
-      
-      String text = jQtyTextField.getText();
-      // Check for Empty
-      if (text.length()==0)
-         return false;
-      // Check for qualifiers
-      // We need to be forgiving in case the user types in the quantity manually
-      String trimmed = text.trim();
-      // Split around ":
-      String[] subStrings = trimmed.split(":", 2);
-      if (subStrings.length!=2)
-         return false;
-      String fileName = subStrings[0];
-      String columnNameList = subStrings[1];
-      // If file doesn't exist or doesn't have column complain, otherwise
-      // set Storage and Column
-      String[] columns=columnNameList.trim().split(",",-1);
-      if (isDomain){
-         if (columns.length!=1){
-            JOptionPane.showMessageDialog(this, "Can't have more than one column for domain");
-            return false;
-         } else{
-            PlotterSourceInterface source = plotterModel.getSource(fileName, columns[0]);
-            if (source!=null){
-               sourceX = source;
-               domainName = columns[0].trim();
-            }
-            return (source!=null);
-         }
-      } else {   // range
-         for(int i=0; i<columns.length; i++){
-            columns[i]=columns[i].trim();
-            PlotterSourceFile source = plotterModel.getSource(fileName, columns[i]);
-            if (source==null){
-               JOptionPane.showMessageDialog(this, "Column "+columns[i]+" does not exist in file "+fileName);
+       
+       String text = jQtyTextField.getText();
+       // Check for Empty
+       if (text.length()==0)
+           return false;
+       // Check for qualifiers
+       // We need to be forgiving in case the user types in the quantity manually
+       String trimmed = text.trim();
+       // Split around ":
+       String[] subStrings = trimmed.split(":", 2);
+       if (subStrings.length!=2)
+           return false;
+       String qualifier = subStrings[0];
+       String columnNameList = subStrings[1];
+       // If file doesn't exist or doesn't have column complain, otherwise
+       // set Storage and Column
+       String[] columns=columnNameList.trim().split(",",-1);
+       if (isDomain){
+           if (columns.length!=1){
+               JOptionPane.showMessageDialog(this, "Can't have more than one column for domain");
                return false;
-            }
-         }
-         rangeNames = new String[columns.length];
-         System.arraycopy(columns, 0, rangeNames, 0, columns.length);
-         // set sourceY here after all error detection is done.
-         sourceY = plotterModel.getSource(fileName, columns[0]);
-         return true;
-      }
+           } else{
+               if (source==PlotDataSource.FileSource){
+                   PlotterSourceInterface source = plotterModel.getSource(qualifier, columns[0]);
+                   if (source!=null){
+                       sourceX = source;
+                       domainName = columns[0].trim();
+                   }
+                   return (source!=null);
+               }
+               else {   // Analysis
+                   domainName = columns[0].trim();
+                   return true; // Should check coordinate exists
+               }
+           }
+       } else {   // range
+           for(int i=0; i<columns.length; i++){
+               columns[i]=columns[i].trim();
+               if (source==PlotDataSource.FileSource){
+                   PlotterSourceFile source = plotterModel.getSource(qualifier, columns[i]);
+                   if (source==null){
+                       JOptionPane.showMessageDialog(this, "Column "+columns[i]+" does not exist in file "+qualifier);
+                       return false;
+                   }
+               }
+           }
+           rangeNames = new String[columns.length];
+           System.arraycopy(columns, 0, rangeNames, 0, columns.length);
+           // set sourceY here after all error detection is done.
+           if (source==PlotDataSource.FileSource)
+                sourceY = plotterModel.getSource(qualifier, columns[0]);
+           return true;
+       }
+       
    }
    /**
     * Get a string representing the list of column names 

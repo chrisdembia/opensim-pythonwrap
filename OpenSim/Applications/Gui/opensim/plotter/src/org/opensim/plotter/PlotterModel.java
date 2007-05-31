@@ -26,10 +26,17 @@
 package org.opensim.plotter;
 
 import java.util.ArrayList;
-import javax.swing.JPanel;
+import java.util.Hashtable;
+import java.util.Vector;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
-import org.opensim.modeling.Storage;
+import org.opensim.modeling.Analysis;
+import org.opensim.modeling.AnalysisSet;
+import org.opensim.modeling.AnalyzeTool;
+import org.opensim.modeling.ArrayStorage;
+import org.opensim.modeling.Model;
+import org.opensim.modeling.MomentArmAnalysis;
+import org.opensim.modeling.MuscleAnalysis;
 
 /**
  *
@@ -38,14 +45,14 @@ import org.opensim.modeling.Storage;
  * of those.
  */
 public class PlotterModel {
-   
+   // All sources (Storages) are kept here as a linear list
    private ArrayList<PlotterSourceInterface>    sources = new ArrayList<PlotterSourceInterface>(4); // Data loaded from files
-   //private ArrayList<Storage>    analysisStorages = new ArrayList<Storage>(4); // Data loaded from analyses
    ArrayList<String>     availableQuantities = new ArrayList<String>(50);
    ArrayList<Plot>     availablePlots = new ArrayList<Plot>(2);
    private int currentPlotIndex=0;
    private PlotTreeModel              plotTreeModel = new PlotTreeModel();   // Tree on the right
-   
+   private Vector<Model> loadedModels = new Vector<Model>(4);
+   Hashtable<Model, AnalyzeTool> models2AnalyzeToolInstances = new Hashtable<Model, AnalyzeTool>(4);
    /** Creates a new instance of PlotterModel */
    public PlotterModel() {
          Plot figure = new Plot("Title", "x-label", "y-label");
@@ -53,11 +60,35 @@ public class PlotterModel {
          plotTreeModel.addPlot(figure);
    }
    
-   public void addFileStorage(String filename)
+   public void addFile(String filename)
    {
       sources.add(new PlotterSourceFile(filename));
    }
-   /**
+   
+    public void addModel(Model aModel)
+    {
+        if (loadedModels.contains(aModel))
+            return;
+        AnalysisSet analyses=aModel.getAnalysisSet();
+        
+        // If model does not have std analyses we'll add them here
+        if (analyses.get("MuscleAnalysis")==null){
+            analyses.append(new MuscleAnalysis(aModel));
+        }
+         if (analyses.get("MomentArmAnalysis")==null){
+            analyses.append(new MomentArmAnalysis(aModel));
+        }
+           
+        for(int i=0; i<analyses.getSize(); i++){
+            Analysis a = analyses.get(i);
+            ArrayStorage storages = a.getStorageList();
+            for(int j=0; j<storages.getSize(); j++){
+                sources.add(new PlotterSourceAnalysis(aModel, storages.get(j), storages.get(j).getName()));
+            }
+        }
+        models2AnalyzeToolInstances.put(aModel, new AnalyzeTool(aModel));
+    }
+  /**
     * Get available quantities to use as a Domain variable
     * source is a boolean used to specify if Analysis or File radio button 
     * have been selected.
@@ -172,4 +203,13 @@ public class PlotterModel {
    int countSources() {
        return sources.size();
    }
+
+    ArrayList<PlotterSourceAnalysis> getAnalysisSources() {
+      ArrayList<PlotterSourceAnalysis> analysisSources = new ArrayList<PlotterSourceAnalysis>();
+      for(int i=0; i<sources.size(); i++){
+         if (sources.get(i) instanceof PlotterSourceAnalysis)
+            analysisSources.add((PlotterSourceAnalysis) sources.get(i));
+      }
+      return analysisSources;
+    }
 }
