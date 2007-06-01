@@ -67,7 +67,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
       jLabel4 = new javax.swing.JLabel();
       jWrapToggleButton = new javax.swing.JToggleButton();
 
-      setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+      setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
       jReverseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/reverse.gif")));
       jReverseButton.setPreferredSize(new java.awt.Dimension(50, 25));
       jReverseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +123,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
       jSpeedSpinner.setToolTipText("animation speed ");
 
       jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
-      jLabel1.setText("rate (ms):");
+      jLabel1.setText("rate:");
 
       jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/step.gif")));
       jButton1.setMaximumSize(new java.awt.Dimension(50, 25));
@@ -164,7 +164,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jLabel4)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 72, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jMotionSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 202, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -179,27 +179,26 @@ public class MotionControlJPanel extends javax.swing.JPanel
             .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jWrapToggleButton)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jLabel1)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(226, 226, 226))
+            .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap())
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+         .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, jMotionSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+               .add(jMotionSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                   .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                      .add(jPlayButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                      .add(jStopButton)
                      .add(jReverseButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                      .add(jButton2)
                      .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                     .add(jWrapToggleButton))
-                  .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(jWrapToggleButton)
                      .add(jLabel1)
                      .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                   .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
