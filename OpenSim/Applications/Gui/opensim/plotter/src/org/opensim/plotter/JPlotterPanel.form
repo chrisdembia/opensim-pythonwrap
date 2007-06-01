@@ -42,7 +42,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jSplitPane1" pref="570" max="32767" attributes="0"/>
+          <Component id="jSplitPane1" pref="574" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -75,7 +75,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="279" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="269" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -99,13 +99,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jPlotTitlePanel" max="32767" attributes="3"/>
-                          <Component id="jPlotSpecPanel" alignment="0" max="32767" attributes="3"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPlotTitlePanel" max="32767" attributes="2"/>
+                          <Component id="jPlotSpecPanel" alignment="0" max="32767" attributes="2"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jPlotNavigationPanel" min="-2" pref="225" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="1"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -121,7 +121,7 @@
                               <Component id="jPlotSpecPanel" min="-2" max="-2" attributes="2"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

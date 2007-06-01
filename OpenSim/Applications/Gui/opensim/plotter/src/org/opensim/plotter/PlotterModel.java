@@ -30,13 +30,16 @@ import java.util.Hashtable;
 import java.util.Vector;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
+import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.ArrayStorage;
+import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.MomentArmAnalysis;
 import org.opensim.modeling.MuscleAnalysis;
+import org.opensim.modeling.StateVector;
+import org.opensim.modeling.Storage;
 
 /**
  *
@@ -53,6 +56,7 @@ public class PlotterModel {
    private PlotTreeModel              plotTreeModel = new PlotTreeModel();   // Tree on the right
    private Vector<Model> loadedModels = new Vector<Model>(4);
    Hashtable<Model, AnalyzeTool> models2AnalyzeToolInstances = new Hashtable<Model, AnalyzeTool>(4);
+   Vector refs = new Vector(10);
    /** Creates a new instance of PlotterModel */
    public PlotterModel() {
          Plot figure = new Plot("Title", "x-label", "y-label");
@@ -73,20 +77,26 @@ public class PlotterModel {
         
         // If model does not have std analyses we'll add them here
         if (analyses.get("MuscleAnalysis")==null){
-            analyses.append(new MuscleAnalysis(aModel));
+           Analysis muscleAnalysis = new MuscleAnalysis(aModel);
+           analyses.append(muscleAnalysis);
+           refs.add(muscleAnalysis);
         }
+        /*
          if (analyses.get("MomentArmAnalysis")==null){
             analyses.append(new MomentArmAnalysis(aModel));
         }
-           
+        */   
         for(int i=0; i<analyses.getSize(); i++){
             Analysis a = analyses.get(i);
             ArrayStorage storages = a.getStorageList();
             for(int j=0; j<storages.getSize(); j++){
-                sources.add(new PlotterSourceAnalysis(aModel, storages.get(j), storages.get(j).getName()));
+               Storage str = storages.get(j);
+               sources.add(new PlotterSourceAnalysis(aModel, storages.get(j), str.getName()));
             }
         }
-        models2AnalyzeToolInstances.put(aModel, new AnalyzeTool(aModel));
+        AnalyzeTool tool = new AnalyzeTool(aModel);
+        models2AnalyzeToolInstances.put(aModel, tool);
+        refs.add(tool);
     }
   /**
     * Get available quantities to use as a Domain variable
@@ -212,4 +222,10 @@ public class PlotterModel {
       }
       return analysisSources;
     }
+    
+    public AnalyzeTool getAnalyzeTool(Model model)
+    {
+       return models2AnalyzeToolInstances.get(model);
+    }
+
 }

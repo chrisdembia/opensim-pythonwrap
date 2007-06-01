@@ -125,4 +125,8 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
     public String toString() {
         return storage.getName();
     }
+
+   Model getModel() {
+      return model;
+   }
 }
