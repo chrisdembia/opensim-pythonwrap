@@ -34,37 +34,48 @@ import org.opensim.view.pub.ViewDB;
  * @author Ayman Habib
  */
 public class JavaAnimationCallback extends SimtkAnimationCallback{
-    
-    /** Creates a new instance of JavaAnimationCallback */
-    public JavaAnimationCallback(Model aModel) {
-       super(aModel);
-    }
-
-    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
-        int retValue;
-        
-        retValue = super.step(aXPrev, aYPrev, aStep, aDT, aT, aX, aY);
-        ViewDB.getInstance().updateModelDisplay(getModel());
-        return retValue;
-    }
-
-    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_void aClientData) {
-        int retValue;
-        
-        retValue = super.step(aXPrev, aYPrev, aStep, aDT, aT, aX, aY, aClientData);
-        ViewDB.getInstance().updateModelDisplay(getModel());
-        return retValue;
-    }
-
-    public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
-        int retValue;
-        
-        retValue = super.begin(aStep, aDT, aT, aX, aY);
-        return retValue;
-    }
-
-    protected void finalize() {
-        super.finalize();
-    }
-    
+   
+   /** Creates a new instance of JavaAnimationCallback */
+   public JavaAnimationCallback(Model aModel) {
+      super(aModel);
+   }
+   
+   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
+      int retValue;
+      retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT, aClientData);
+      ViewDB.getInstance().updateModelDisplay(getModel());
+      return retValue;
+   }
+   
+   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT) {
+      int retValue;
+      retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT);
+      ViewDB.getInstance().updateModelDisplay(getModel());
+      return retValue;
+   }
+   
+   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP) {
+      int retValue;
+      retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP);
+      ViewDB.getInstance().updateModelDisplay(getModel());
+      return retValue;
+   }
+   
+   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
+      int retValue;
+      retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY);
+      ViewDB.getInstance().updateModelDisplay(getModel());
+      return retValue;
+   }
+   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
+      int retValue;
+      
+      retValue = super.begin(aStep, aDT, aT, aX, aY);
+      return retValue;
+   }
+   
+   protected void finalize() {
+      super.finalize();
+   }
+   
 }

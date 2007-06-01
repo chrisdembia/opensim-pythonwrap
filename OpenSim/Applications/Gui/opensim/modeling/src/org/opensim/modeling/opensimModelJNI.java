@@ -871,12 +871,18 @@ public class opensimModelJNI {
   public final static native long IntegCallback_copy(long jarg1, IntegCallback jarg1_);
   public final static native void IntegCallback_setStepInterval(long jarg1, IntegCallback jarg1_, int jarg2);
   public final static native int IntegCallback_getStepInterval(long jarg1, IntegCallback jarg1_);
-  public final static native int IntegCallback_begin__SWIG_0(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int IntegCallback_begin__SWIG_1(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
-  public final static native int IntegCallback_step__SWIG_0(long jarg1, IntegCallback jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native int IntegCallback_step__SWIG_1(long jarg1, IntegCallback jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
-  public final static native int IntegCallback_end__SWIG_0(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int IntegCallback_end__SWIG_1(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int IntegCallback_begin__SWIG_0(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int IntegCallback_begin__SWIG_1(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int IntegCallback_begin__SWIG_2(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int IntegCallback_begin__SWIG_3(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int IntegCallback_step__SWIG_0(long jarg1, IntegCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
+  public final static native int IntegCallback_step__SWIG_1(long jarg1, IntegCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11);
+  public final static native int IntegCallback_step__SWIG_2(long jarg1, IntegCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10);
+  public final static native int IntegCallback_step__SWIG_3(long jarg1, IntegCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9);
+  public final static native int IntegCallback_end__SWIG_0(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int IntegCallback_end__SWIG_1(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int IntegCallback_end__SWIG_2(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int IntegCallback_end__SWIG_3(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native void delete_ArrayStorage(long jarg1);
   public final static native long new_ArrayStorage__SWIG_0(int jarg1);
   public final static native long new_ArrayStorage__SWIG_1();
@@ -982,12 +988,18 @@ public class opensimModelJNI {
   public final static native void AnalysisSet_setModel(long jarg1, AnalysisSet jarg1_, long jarg2, Model jarg2_);
   public final static native long AnalysisSet_getModel(long jarg1, AnalysisSet jarg1_);
   public final static native void AnalysisSet_setOn(long jarg1, AnalysisSet jarg1_, boolean jarg2);
-  public final static native void AnalysisSet_begin__SWIG_0(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native void AnalysisSet_begin__SWIG_1(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
-  public final static native void AnalysisSet_step__SWIG_0(long jarg1, AnalysisSet jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native void AnalysisSet_step__SWIG_1(long jarg1, AnalysisSet jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
-  public final static native void AnalysisSet_end__SWIG_0(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native void AnalysisSet_end__SWIG_1(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native void AnalysisSet_begin__SWIG_0(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native void AnalysisSet_begin__SWIG_1(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native void AnalysisSet_begin__SWIG_2(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native void AnalysisSet_begin__SWIG_3(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native void AnalysisSet_step__SWIG_0(long jarg1, AnalysisSet jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
+  public final static native void AnalysisSet_step__SWIG_1(long jarg1, AnalysisSet jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11);
+  public final static native void AnalysisSet_step__SWIG_2(long jarg1, AnalysisSet jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10);
+  public final static native void AnalysisSet_step__SWIG_3(long jarg1, AnalysisSet jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9);
+  public final static native void AnalysisSet_end__SWIG_0(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native void AnalysisSet_end__SWIG_1(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native void AnalysisSet_end__SWIG_2(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native void AnalysisSet_end__SWIG_3(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native void AnalysisSet_printResults__SWIG_0(long jarg1, AnalysisSet jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native void AnalysisSet_printResults__SWIG_1(long jarg1, AnalysisSet jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native void AnalysisSet_printResults__SWIG_2(long jarg1, AnalysisSet jarg1_, String jarg2, String jarg3);
@@ -1369,6 +1381,8 @@ public class opensimModelJNI {
   public final static native void AbstractTool_setResultsDir(long jarg1, AbstractTool jarg1_, String jarg2);
   public final static native double AbstractTool_getStartTime(long jarg1, AbstractTool jarg1_);
   public final static native double AbstractTool_getFinalTime(long jarg1, AbstractTool jarg1_);
+  public final static native void AbstractTool_setStartTime(long jarg1, AbstractTool jarg1_, double jarg2);
+  public final static native void AbstractTool_setFinalTime(long jarg1, AbstractTool jarg1_, double jarg2);
   public final static native String AbstractTool_getModelFilename(long jarg1, AbstractTool jarg1_);
   public final static native void AbstractTool_setModelFilename(long jarg1, AbstractTool jarg1_, String jarg2);
   public final static native void AbstractTool_loadModel__SWIG_0(long jarg1, AbstractTool jarg1_, String jarg2, long jarg3, ActuatorSet jarg3_);
@@ -1403,14 +1417,22 @@ public class opensimModelJNI {
   public final static native long SimtkAnimationCallback_CreateAnimationCallback(long jarg1, Model jarg1_);
   public final static native long new_SimtkAnimationCallback(long jarg1, Model jarg1_);
   public final static native double SimtkAnimationCallback_getCurrentTime(long jarg1, SimtkAnimationCallback jarg1_);
-  public final static native int SimtkAnimationCallback_step__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native int SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native int SimtkAnimationCallback_step__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
-  public final static native int SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
-  public final static native int SimtkAnimationCallback_begin__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int SimtkAnimationCallback_begin__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
-  public final static native int SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int SimtkAnimationCallback_step__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
+  public final static native int SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
+  public final static native int SimtkAnimationCallback_step__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11);
+  public final static native int SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11);
+  public final static native int SimtkAnimationCallback_step__SWIG_2(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10);
+  public final static native int SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_2(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10);
+  public final static native int SimtkAnimationCallback_step__SWIG_3(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9);
+  public final static native int SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_3(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9);
+  public final static native int SimtkAnimationCallback_begin__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int SimtkAnimationCallback_begin__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_1(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int SimtkAnimationCallback_begin__SWIG_2(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_2(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int SimtkAnimationCallback_begin__SWIG_3(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_3(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native long SimtkAnimationCallback_getBodyTransform(long jarg1, SimtkAnimationCallback jarg1_, int jarg2);
   public final static native void SimtkAnimationCallback_extractOffsets(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, Model jarg2_);
   public final static native void SimtkAnimationCallback_getTransformsFromKinematicsEngine(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, Model jarg2_);
@@ -1427,12 +1449,18 @@ public class opensimModelJNI {
   public final static native long Kinematics_getVelocityStorage(long jarg1, Kinematics jarg1_);
   public final static native long Kinematics_getPositionStorage(long jarg1, Kinematics jarg1_);
   public final static native void Kinematics_setModel(long jarg1, Kinematics jarg1_, long jarg2, Model jarg2_);
-  public final static native int Kinematics_begin__SWIG_0(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int Kinematics_begin__SWIG_1(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
-  public final static native int Kinematics_step__SWIG_0(long jarg1, Kinematics jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native int Kinematics_step__SWIG_1(long jarg1, Kinematics jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
-  public final static native int Kinematics_end__SWIG_0(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int Kinematics_end__SWIG_1(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int Kinematics_begin__SWIG_0(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int Kinematics_begin__SWIG_1(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int Kinematics_begin__SWIG_2(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int Kinematics_begin__SWIG_3(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int Kinematics_step__SWIG_0(long jarg1, Kinematics jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
+  public final static native int Kinematics_step__SWIG_1(long jarg1, Kinematics jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11);
+  public final static native int Kinematics_step__SWIG_2(long jarg1, Kinematics jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10);
+  public final static native int Kinematics_step__SWIG_3(long jarg1, Kinematics jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9);
+  public final static native int Kinematics_end__SWIG_0(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int Kinematics_end__SWIG_1(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int Kinematics_end__SWIG_2(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int Kinematics_end__SWIG_3(long jarg1, Kinematics jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native int Kinematics_printResults__SWIG_0(long jarg1, Kinematics jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native int Kinematics_printResults__SWIG_1(long jarg1, Kinematics jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native int Kinematics_printResults__SWIG_2(long jarg1, Kinematics jarg1_, String jarg2, String jarg3);
@@ -1449,12 +1477,18 @@ public class opensimModelJNI {
   public final static native long Actuation_getSpeedStorage(long jarg1, Actuation jarg1_);
   public final static native long Actuation_getPowerStorage(long jarg1, Actuation jarg1_);
   public final static native void Actuation_setModel(long jarg1, Actuation jarg1_, long jarg2, Model jarg2_);
-  public final static native int Actuation_begin__SWIG_0(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int Actuation_begin__SWIG_1(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
-  public final static native int Actuation_step__SWIG_0(long jarg1, Actuation jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native int Actuation_step__SWIG_1(long jarg1, Actuation jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
-  public final static native int Actuation_end__SWIG_0(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int Actuation_end__SWIG_1(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int Actuation_begin__SWIG_0(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int Actuation_begin__SWIG_1(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int Actuation_begin__SWIG_2(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int Actuation_begin__SWIG_3(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int Actuation_step__SWIG_0(long jarg1, Actuation jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
+  public final static native int Actuation_step__SWIG_1(long jarg1, Actuation jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11);
+  public final static native int Actuation_step__SWIG_2(long jarg1, Actuation jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10);
+  public final static native int Actuation_step__SWIG_3(long jarg1, Actuation jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9);
+  public final static native int Actuation_end__SWIG_0(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int Actuation_end__SWIG_1(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int Actuation_end__SWIG_2(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int Actuation_end__SWIG_3(long jarg1, Actuation jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native int Actuation_printResults__SWIG_0(long jarg1, Actuation jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native int Actuation_printResults__SWIG_1(long jarg1, Actuation jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native int Actuation_printResults__SWIG_2(long jarg1, Actuation jarg1_, String jarg2, String jarg3);
@@ -1502,12 +1536,18 @@ public class opensimModelJNI {
   public final static native long GeneralizedForces_getActuatorGenForcesStorage(long jarg1, GeneralizedForces jarg1_);
   public final static native long GeneralizedForces_getContactGenForcesStorage(long jarg1, GeneralizedForces jarg1_);
   public final static native void GeneralizedForces_setModel(long jarg1, GeneralizedForces jarg1_, long jarg2, Model jarg2_);
-  public final static native int GeneralizedForces_begin__SWIG_0(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int GeneralizedForces_begin__SWIG_1(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
-  public final static native int GeneralizedForces_step__SWIG_0(long jarg1, GeneralizedForces jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native int GeneralizedForces_step__SWIG_1(long jarg1, GeneralizedForces jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
-  public final static native int GeneralizedForces_end__SWIG_0(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int GeneralizedForces_end__SWIG_1(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int GeneralizedForces_begin__SWIG_0(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int GeneralizedForces_begin__SWIG_1(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int GeneralizedForces_begin__SWIG_2(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int GeneralizedForces_begin__SWIG_3(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int GeneralizedForces_step__SWIG_0(long jarg1, GeneralizedForces jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
+  public final static native int GeneralizedForces_step__SWIG_1(long jarg1, GeneralizedForces jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11);
+  public final static native int GeneralizedForces_step__SWIG_2(long jarg1, GeneralizedForces jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10);
+  public final static native int GeneralizedForces_step__SWIG_3(long jarg1, GeneralizedForces jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9);
+  public final static native int GeneralizedForces_end__SWIG_0(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int GeneralizedForces_end__SWIG_1(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int GeneralizedForces_end__SWIG_2(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int GeneralizedForces_end__SWIG_3(long jarg1, GeneralizedForces jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native int GeneralizedForces_printResults__SWIG_0(long jarg1, GeneralizedForces jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native int GeneralizedForces_printResults__SWIG_1(long jarg1, GeneralizedForces jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native int GeneralizedForces_printResults__SWIG_2(long jarg1, GeneralizedForces jarg1_, String jarg2, String jarg3);
@@ -1531,12 +1571,18 @@ public class opensimModelJNI {
   public final static native long MuscleAnalysis_getPassiveFiberForceStorage(long jarg1, MuscleAnalysis jarg1_);
   public final static native long MuscleAnalysis_getActiveFiberForceAlongTendonStorage(long jarg1, MuscleAnalysis jarg1_);
   public final static native long MuscleAnalysis_getPassiveFiberForceAlongTendonStorage(long jarg1, MuscleAnalysis jarg1_);
-  public final static native int MuscleAnalysis_begin__SWIG_0(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int MuscleAnalysis_begin__SWIG_1(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
-  public final static native int MuscleAnalysis_step__SWIG_0(long jarg1, MuscleAnalysis jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native int MuscleAnalysis_step__SWIG_1(long jarg1, MuscleAnalysis jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
-  public final static native int MuscleAnalysis_end__SWIG_0(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int MuscleAnalysis_end__SWIG_1(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int MuscleAnalysis_begin__SWIG_0(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int MuscleAnalysis_begin__SWIG_1(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int MuscleAnalysis_begin__SWIG_2(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int MuscleAnalysis_begin__SWIG_3(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int MuscleAnalysis_step__SWIG_0(long jarg1, MuscleAnalysis jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
+  public final static native int MuscleAnalysis_step__SWIG_1(long jarg1, MuscleAnalysis jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11);
+  public final static native int MuscleAnalysis_step__SWIG_2(long jarg1, MuscleAnalysis jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10);
+  public final static native int MuscleAnalysis_step__SWIG_3(long jarg1, MuscleAnalysis jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9);
+  public final static native int MuscleAnalysis_end__SWIG_0(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int MuscleAnalysis_end__SWIG_1(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int MuscleAnalysis_end__SWIG_2(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int MuscleAnalysis_end__SWIG_3(long jarg1, MuscleAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native int MuscleAnalysis_printResults__SWIG_0(long jarg1, MuscleAnalysis jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native int MuscleAnalysis_printResults__SWIG_1(long jarg1, MuscleAnalysis jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native int MuscleAnalysis_printResults__SWIG_2(long jarg1, MuscleAnalysis jarg1_, String jarg2, String jarg3);
@@ -1550,12 +1596,18 @@ public class opensimModelJNI {
   public final static native void MomentArmAnalysis_setModel(long jarg1, MomentArmAnalysis jarg1_, long jarg2, Model jarg2_);
   public final static native void MomentArmAnalysis_setStorageCapacityIncrements(long jarg1, MomentArmAnalysis jarg1_, int jarg2);
   public final static native long MomentArmAnalysis_getMomentArmStorageArray(long jarg1, MomentArmAnalysis jarg1_);
-  public final static native int MomentArmAnalysis_begin__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int MomentArmAnalysis_begin__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
-  public final static native int MomentArmAnalysis_step__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
-  public final static native int MomentArmAnalysis_step__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, long jarg2, long jarg3, int jarg4, double jarg5, double jarg6, long jarg7, long jarg8);
-  public final static native int MomentArmAnalysis_end__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
-  public final static native int MomentArmAnalysis_end__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int MomentArmAnalysis_begin__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int MomentArmAnalysis_begin__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int MomentArmAnalysis_begin__SWIG_2(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int MomentArmAnalysis_begin__SWIG_3(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int MomentArmAnalysis_step__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
+  public final static native int MomentArmAnalysis_step__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11);
+  public final static native int MomentArmAnalysis_step__SWIG_2(long jarg1, MomentArmAnalysis jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10);
+  public final static native int MomentArmAnalysis_step__SWIG_3(long jarg1, MomentArmAnalysis jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9);
+  public final static native int MomentArmAnalysis_end__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int MomentArmAnalysis_end__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int MomentArmAnalysis_end__SWIG_2(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int MomentArmAnalysis_end__SWIG_3(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native int MomentArmAnalysis_printResults__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native int MomentArmAnalysis_printResults__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native int MomentArmAnalysis_printResults__SWIG_2(long jarg1, MomentArmAnalysis jarg1_, String jarg2, String jarg3);
@@ -3340,6 +3392,7 @@ public class opensimModelJNI {
   public final static native void AnalyzeTool_setControlSet(long jarg1, AnalyzeTool jarg1_, long jarg2, ControlSet jarg2_);
   public final static native long AnalyzeTool_getControlSet(long jarg1, AnalyzeTool jarg1_);
   public final static native void AnalyzeTool_setStatesStorage(long jarg1, AnalyzeTool jarg1_, long jarg2, Storage jarg2_);
+  public final static native void AnalyzeTool_setStatesStorageFromCoordinatesAndSpeeds(long jarg1, AnalyzeTool jarg1_, long jarg2, Storage jarg2_, long jarg3, Storage jarg3_);
   public final static native long AnalyzeTool_getStatesStorage(long jarg1, AnalyzeTool jarg1_);
   public final static native void AnalyzeTool_setPseudoStatesStorage(long jarg1, AnalyzeTool jarg1_, long jarg2, Storage jarg2_);
   public final static native long AnalyzeTool_getPseudoStatesStorage(long jarg1, AnalyzeTool jarg1_);
@@ -3498,22 +3551,40 @@ public class opensimModelJNI {
   public static void SwigDirector_SimtkAnimationCallback_setModel(SimtkAnimationCallback self, long arg0) {
     self.setModel(new Model(arg0, false));
   }
-  public static int SwigDirector_SimtkAnimationCallback_begin__SWIG_0(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aClientData) {
-    return self.begin(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_void(aClientData, false));
+  public static int SwigDirector_SimtkAnimationCallback_begin__SWIG_0(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aYP, long aDYDT, long aClientData) {
+    return self.begin(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_double(aYP, false), new SWIGTYPE_p_double(aDYDT, false), new SWIGTYPE_p_void(aClientData, false));
   }
-  public static int SwigDirector_SimtkAnimationCallback_begin__SWIG_1(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY) {
+  public static int SwigDirector_SimtkAnimationCallback_begin__SWIG_1(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aYP, long aDYDT) {
+    return self.begin(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_double(aYP, false), new SWIGTYPE_p_double(aDYDT, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_begin__SWIG_2(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aYP) {
+    return self.begin(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_double(aYP, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_begin__SWIG_3(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY) {
     return self.begin(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false));
   }
-  public static int SwigDirector_SimtkAnimationCallback_step__SWIG_0(SimtkAnimationCallback self, long aXPrev, long aYPrev, int aStep, double aDT, double aT, long aX, long aY, long aClientData) {
-    return self.step(new SWIGTYPE_p_double(aXPrev, false), new SWIGTYPE_p_double(aYPrev, false), aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_void(aClientData, false));
+  public static int SwigDirector_SimtkAnimationCallback_step__SWIG_0(SimtkAnimationCallback self, long aXPrev, long aYPrev, long aYPPrev, int aStep, double aDT, double aT, long aX, long aY, long aYP, long aDYDT, long aClientData) {
+    return self.step(new SWIGTYPE_p_double(aXPrev, false), new SWIGTYPE_p_double(aYPrev, false), new SWIGTYPE_p_double(aYPPrev, false), aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_double(aYP, false), new SWIGTYPE_p_double(aDYDT, false), new SWIGTYPE_p_void(aClientData, false));
   }
-  public static int SwigDirector_SimtkAnimationCallback_step__SWIG_1(SimtkAnimationCallback self, long aXPrev, long aYPrev, int aStep, double aDT, double aT, long aX, long aY) {
-    return self.step(new SWIGTYPE_p_double(aXPrev, false), new SWIGTYPE_p_double(aYPrev, false), aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false));
+  public static int SwigDirector_SimtkAnimationCallback_step__SWIG_1(SimtkAnimationCallback self, long aXPrev, long aYPrev, long aYPPrev, int aStep, double aDT, double aT, long aX, long aY, long aYP, long aDYDT) {
+    return self.step(new SWIGTYPE_p_double(aXPrev, false), new SWIGTYPE_p_double(aYPrev, false), new SWIGTYPE_p_double(aYPPrev, false), aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_double(aYP, false), new SWIGTYPE_p_double(aDYDT, false));
   }
-  public static int SwigDirector_SimtkAnimationCallback_end__SWIG_0(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aClientData) {
-    return self.end(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_void(aClientData, false));
+  public static int SwigDirector_SimtkAnimationCallback_step__SWIG_2(SimtkAnimationCallback self, long aXPrev, long aYPrev, long aYPPrev, int aStep, double aDT, double aT, long aX, long aY, long aYP) {
+    return self.step(new SWIGTYPE_p_double(aXPrev, false), new SWIGTYPE_p_double(aYPrev, false), new SWIGTYPE_p_double(aYPPrev, false), aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_double(aYP, false));
   }
-  public static int SwigDirector_SimtkAnimationCallback_end__SWIG_1(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY) {
+  public static int SwigDirector_SimtkAnimationCallback_step__SWIG_3(SimtkAnimationCallback self, long aXPrev, long aYPrev, long aYPPrev, int aStep, double aDT, double aT, long aX, long aY) {
+    return self.step(new SWIGTYPE_p_double(aXPrev, false), new SWIGTYPE_p_double(aYPrev, false), new SWIGTYPE_p_double(aYPPrev, false), aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_end__SWIG_0(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aYP, long aDYDT, long aClientData) {
+    return self.end(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_double(aYP, false), new SWIGTYPE_p_double(aDYDT, false), new SWIGTYPE_p_void(aClientData, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_end__SWIG_1(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aYP, long aDYDT) {
+    return self.end(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_double(aYP, false), new SWIGTYPE_p_double(aDYDT, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_end__SWIG_2(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aYP) {
+    return self.end(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_double(aYP, false));
+  }
+  public static int SwigDirector_SimtkAnimationCallback_end__SWIG_3(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY) {
     return self.end(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false));
   }
 

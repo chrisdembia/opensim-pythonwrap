@@ -80,7 +80,7 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
     */
    public void updateList(PlotterModel plotterModel, boolean useFileSource) {
        removeAll();
-       if (useFileSource){
+       if (useFileSource){ 
            ArrayList<PlotterSourceFile> usedFileSources = plotterModel.getLoadedFileSources();
            // Add a submenu for each loaded file
            for(int i=0; i<usedFileSources.size(); i++){
@@ -123,6 +123,7 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
                selectedGCItem.addActionListener(new ActionListener(){
                    public void actionPerformed(ActionEvent e) {
                        selection.setText("Model:"+coordinateName);
+                       plotterPanel.updatePlotterWithSelection();
                    }});
                add(selectedGCItem);
             }

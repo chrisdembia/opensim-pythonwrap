@@ -25,11 +25,11 @@
  */
 package org.opensim.plotter;
 
-import java.io.File;
 import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import org.opensim.modeling.Analysis;
+import org.opensim.modeling.AbstractCoordinate;
+import org.opensim.modeling.AbstractDof;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
@@ -128,5 +128,27 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
 
    Model getModel() {
       return model;
+   }
+
+   public double getDefaultMin(String domainName) {
+      AbstractCoordinate coord = model.getDynamicsEngine().getCoordinateSet().get(domainName);
+      if (coord==null)
+         return 0.0;
+      double min = coord.getRangeMin();
+      if (coord.getMotionType() == AbstractDof.DofType.Rotational){
+         min = Math.toDegrees(min);
+      }
+      return min;
+   }
+
+   public double getDefaultMax(String domainName) {
+      AbstractCoordinate coord = model.getDynamicsEngine().getCoordinateSet().get(domainName);
+      if (coord==null)
+         return 1.0;
+      double max = coord.getRangeMax();
+      if (coord.getMotionType() == AbstractDof.DofType.Rotational){
+         max = Math.toDegrees(max);
+      }
+      return max;
    }
 }

@@ -55,4 +55,8 @@ public interface PlotterSourceInterface {
    
    public void setStorageLive(boolean b);
 
+   public double getDefaultMin(String domainName);
+   
+   public double getDefaultMax(String domainName);
+
 }

@@ -21,6 +21,7 @@ import javax.swing.tree.TreePath;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.opensim.modeling.AbstractCoordinate;
+import org.opensim.modeling.AbstractDof;
 import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
@@ -35,7 +36,12 @@ import org.opensim.view.pub.OpenSimDB;
  * @author  Ayman
  */
 public class JPlotterPanel extends javax.swing.JPanel
-         implements java.awt.event.ActionListener, java.awt.event.MouseListener, javax.swing.event.TreeSelectionListener, java.awt.event.FocusListener, java.util.Observer, java.beans.PropertyChangeListener {
+         implements java.awt.event.ActionListener, 
+        java.awt.event.MouseListener, 
+        javax.swing.event.TreeSelectionListener, 
+        java.awt.event.FocusListener, 
+        java.util.Observer, 
+        java.beans.PropertyChangeListener {
    
    private PlotterModel plotterModel = new PlotterModel();
    public enum PlotDataSource {FileSource, AnalysisSource};
@@ -857,13 +863,9 @@ public class JPlotterPanel extends javax.swing.JPanel
       if (validX){
           Storage s = sourceX.getStorage();
           if (autoMinX && autoMaxX){
-              if (domainName.compareTo("time")==0){
-                  setMinX(sourceX.getStorage().getFirstTime());
-                  setMaxX(sourceX.getStorage().getLastTime());
-              } else {
-                  setMinX(0.0);
-                  setMaxX(1.0);
-              }
+              // Get bounds for domain in proper units
+              setMinX(sourceX.getDefaultMin(domainName));
+              setMaxX(sourceX.getDefaultMax(domainName));
           }
       }
       yQuantityButton.setEnabled(validX);
@@ -1163,24 +1165,27 @@ public class JPlotterPanel extends javax.swing.JPanel
       statesStorage.setColumnLabels(stateNames);
       int xIndex = statesStorage.getStateIndex(domainName);
       AbstractCoordinate coord = mdl.getDynamicsEngine().getCoordinateSet().get(domainName);
-      double startOverride=coord.getRangeMin();
-      double endOverride=coord.getRangeMax();
+      if (coord.getMotionType() == AbstractDof.DofType.Rotational){
+         domStart=Math.toRadians(domStart);
+         domEnd=Math.toRadians(domEnd);
+      }
       // Make 100 steps along the way, varying the quantity on sourceX by 1/100 of the distance between domStart & domEnd
-      for(int i=0; i<100; i++){
+      for(int i=0; i<NUM_STEPS; i++){
          double time = (double)i;
-         double increment = 1./NUM_STEPS*(endOverride-startOverride);
-         states[xIndex]=startOverride+increment*i;
+         double increment = 1./NUM_STEPS*(domEnd-domStart);
+         states[xIndex]=domStart+increment*i;
          StateVector newVector = new StateVector();
          newVector.setStates(time, numStates, states);
          statesStorage.append(newVector);
       }
       tool.setStatesStorage(statesStorage);
       tool.setStartTime(0.0);
-      tool.setFinalTime(100.0);
+      tool.setFinalTime(NUM_STEPS);
       tool.run();
-      statesStorage.print("toolInput.sto");
+      //statesStorage.print("toolInput.sto");
       // Now need to append statesStorage
-      statesStorage.addToRdStorage(analysisSource.getStorage(), 0.0, 100.);
+      statesStorage.addToRdStorage(analysisSource.getStorage(), 0.0, NUM_STEPS);
+      mdl.getDynamicsEngine().convertRadiansToDegrees(analysisSource.getStorage());
       statesStorage.print("myStateStorage.sto");
    }
 }

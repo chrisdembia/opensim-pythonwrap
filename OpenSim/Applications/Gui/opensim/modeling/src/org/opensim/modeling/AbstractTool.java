@@ -70,6 +70,14 @@ public class AbstractTool extends OpenSimObject {
     return opensimModelJNI.AbstractTool_getFinalTime(swigCPtr, this);
   }
 
+  public void setStartTime(double aStartTime) {
+    opensimModelJNI.AbstractTool_setStartTime(swigCPtr, this, aStartTime);
+  }
+
+  public void setFinalTime(double aFinalTime) {
+    opensimModelJNI.AbstractTool_setFinalTime(swigCPtr, this, aFinalTime);
+  }
+
   public String getModelFilename() {
     return opensimModelJNI.AbstractTool_getModelFilename(swigCPtr, this);
   }

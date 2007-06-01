@@ -120,5 +120,24 @@ public class PlotterSourceFile implements PlotterSourceInterface {
 
     public void setStorageLive(boolean b) {
     }
+    
+    public double getDefaultMin(String domainName)
+    {
+       if (domainName.equalsIgnoreCase("time")){
+          return storage.getFirstTime();
+       }
+       else
+          return 0.0;
+    }
+    
    
+    public double getDefaultMax(String domainName)
+    {
+       if (domainName.equalsIgnoreCase("time")){
+          return storage.getLastTime();
+       }
+       else
+          return 1.0;
+    }
+
 }
