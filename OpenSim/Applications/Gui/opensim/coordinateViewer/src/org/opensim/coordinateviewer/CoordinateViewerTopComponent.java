@@ -425,7 +425,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       jSavePoseButton.setEnabled(hasModel);
       jRestorePoseButton.setEnabled(hasModel);
       jDeletePoseButton.setEnabled(hasModel);
-      jCoordinateGroupsComboBox.setEnabled(hasModel);
+      //jCoordinateGroupsComboBox.setEnabled(hasModel);
       // Further enable based on availability of poses
       if (hasModel){
          jRestorePoseButton.setEnabled(prefs.getNumPoses()>0);
