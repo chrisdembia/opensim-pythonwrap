@@ -1021,6 +1021,8 @@ public final class ViewDB extends Observable implements Observer {
       // Read settings file if exist, should have file name =
       // [modelFileWithoutExtension]_settings.xml
       String modelFileName = model.getDocumentFileName();
+      if (modelFileName==null)
+         return;
       String settingsFileName = modelFileName.substring(0, modelFileName.indexOf(".")-1);
       settingsFileName = settingsFileName+"_settings.xml";
       ModelSettingsSerializer serializer = new ModelSettingsSerializer(settingsFileName, true);
