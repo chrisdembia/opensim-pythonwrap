@@ -384,6 +384,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       currentGroup = coords.getGroup(currentGroupName);
       // Create CoordinateSliderWithBox for each coordinate and add them to the ScrollPane
       updateDisplayGroup();
+      ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
    }
    
    public void componentClosed() {

@@ -24,6 +24,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
 import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.Model;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
@@ -34,7 +35,6 @@ import org.opensim.view.pub.ViewDB;
 public class CoordinateSliderWithBox extends javax.swing.JPanel implements ChangeListener,
          PropertyChangeListener{
    
-    private double accurateValue;   // Value set by user directly
     private double min, max, step;
     private double conversion=1.0;
     int numTicks=0;
@@ -69,9 +69,9 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        jFormattedTextField.getActionMap().put("check", new handleReturnAction());
        jXSlider.setMinimum(0);
        jXSlider.setMaximum(numTicks-1);
-       jXSlider.addChangeListener(this);
-       jFormattedTextField.addPropertyChangeListener("value", this);
-       setTheValue(coord.getValue()*conversion);
+       double initialValue=coord.getValue()*conversion;
+       jXSlider.setValue((int)((initialValue-min)/step));
+       setTheValue(initialValue, false);
        createBoundsLabels(jXSlider, min, max, 0, numTicks-1);
        jCoordinateNameLabel.setText(coord.getName());
        jClampedCheckBox.setSelected(coord.getClamped());
@@ -79,35 +79,11 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        jLockedCheckBox.setSelected(locked);
        jXSlider.setEnabled(!locked);
        jFormattedTextField.setEnabled(!locked);
-   }
-   
-  /** Creates new form SliderWithBoxJPanel */
-   public CoordinateSliderWithBox(double min, double max, double step, double initial) {
-      this.min=min;
-      this.max=max;
-      this.step = step;
-      numTicks = (int)((max - min)/step)+1;
-      java.text.NumberFormat numberFormat =
-              java.text.NumberFormat.getNumberInstance();
-      formatter = new NumberFormatter(numberFormat);
-      formatter.setMinimum(new Double(min));
-      formatter.setMaximum(new Double(max));
-
-       initComponents();
-       
-       jFormattedTextField.getInputMap().put(KeyStroke.getKeyStroke(
-                                KeyEvent.VK_ENTER, 0),
-                                "check");
-       jFormattedTextField.getActionMap().put("check", new handleReturnAction());
-       jXSlider.setMinimum(0);
-       jXSlider.setMaximum(numTicks-1);
+       // Add listeners at the end so we don't call ourselves recursively'
        jXSlider.addChangeListener(this);
        jFormattedTextField.addPropertyChangeListener("value", this);
-       setTheValue(initial);
-       createBoundsLabels(jXSlider, min, max, 0, numTicks-1);
-       
-     }
-   
+   }
+      
    /** This method is called from within the constructor to
     * initialize the form.
     * WARNING: Do NOT modify this code. The content of this method is
@@ -216,12 +192,15 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    // End of variables declaration//GEN-END:variables
       /**
      * Set current value. May not correspond to a tickmark.
+     * During initialization, we don't want to update display of the whole model for every single slider.
+     * but do it once after all the sliders were initialized.
      */
-    void setTheValue(double d)
+    void setTheValue(double d, boolean updateDisplay)
     {
        jFormattedTextField.setValue(new Double(d));
        coord.setValue(d/conversion);
-       ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
+       if (updateDisplay)
+         ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
     }
 
      public double getTheValue()
@@ -248,11 +227,15 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
            //jFormattedTextField.setText(str);
            // The following updates the display more responsively but may fire unnecessary
            // events while the sldier is still moving and so could be problematic
-           jFormattedTextField.setValue(new Double(tempValue*step+min));
+           // We work around that by removing the ChangeListener temporarily.
+           jFormattedTextField.removePropertyChangeListener("value", this);
+           setTheValue(tempValue*step+min, true);
+           jFormattedTextField.addPropertyChangeListener("value", this);
         }
-        else { // set the actual value
+        else { // set the actual value, unnecessary since another event was fired already
            int tempValue = jXSlider.getValue();
-           setTheValue(tempValue*step+min);
+           //System.out.println("Value changed to"+tempValue);
+           setTheValue(tempValue*step+min, false); // display must have been updated while adjusting
         }
      }
      /**
@@ -263,7 +246,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
            Number value = (Number)evt.getNewValue();
            if (value != null) {
                jXSlider.setValue((int)((value.doubleValue()-min)/step));
-               setTheValue(value.doubleValue());
+               setTheValue(value.doubleValue(), true);
            }
        }
      }
