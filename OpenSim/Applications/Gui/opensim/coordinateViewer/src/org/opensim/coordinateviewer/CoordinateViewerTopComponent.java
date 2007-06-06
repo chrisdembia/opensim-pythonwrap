@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -11,9 +13,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.ErrorManager;
@@ -28,6 +28,8 @@ import org.opensim.view.ModelPose;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ObjectGroup;
+import org.opensim.motionviewer.MotionTimeChangeEvent;
+import org.opensim.motionviewer.MotionsDB;
 import org.opensim.view.GroupEditorPanel;
 import org.opensim.view.ModelEvent;
 import org.opensim.view.pub.ViewDB;
@@ -41,10 +43,14 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    private CoordinateSet coords;
    javax.swing.JPanel CoordinatesPanel;
    ModelSettings prefs;//=new ModelGUIPrefs();
-   private static boolean hasModel=false;
+   private boolean hasModel=false;
+   private boolean modelHasFile=false;
    
    private ComboBoxModel groupsComboBoxModel;
    ObjectGroup currentGroup;
+   Hashtable<AbstractCoordinate, CoordinateSliderWithBox> mapCoordinates2Sliders =
+           new Hashtable<AbstractCoordinate, CoordinateSliderWithBox>(4);
+
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
    
@@ -57,7 +63,9 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       setToolTipText(NbBundle.getMessage(CoordinateViewerTopComponent.class, "HINT_CoordinateViewerTopComponent"));
       // Don't know if this should be here or moved to component opened, then we'll need to remove observer in componentClosed'
       OpenSimDB.getInstance().addObserver(this);
-//        setIcon(Utilities.loadImage(ICON_PATH, true));
+      // The following line enables coordinate sliders to update while playing back motion
+      // Currently too slow
+      //MotionsDB.getInstance().addObserver(this);
       // Populate list of cooridnate groups from model
       jCoordinateGroupsComboBox.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e) {
@@ -218,7 +226,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
                   ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());      
                }});
          }
-         jPosesPopupMenu.addSeparator();
+         if (poses.size()>0)
+            jPosesPopupMenu.addSeparator();
          JMenuItem newItem = new JMenuItem("New...");
          newItem.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
@@ -232,8 +241,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
                            jDeletePoseButtonActionPerformed(e);
                         }});         
             jPosesPopupMenu.add(deleteItem);
-            jPosesPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
          }
+         jPosesPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         //}
 
    }//GEN-LAST:event_jPosesButtonMouseReleased
@@ -249,7 +258,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          Vector<ModelPose> poses = p.getSelectedPoses();
          prefs.deletePoses(poses);
       }
-      updateBasedOnModel();
+      updateAvailability();
 // TODO add your handling code here:
    }//GEN-LAST:event_jDeletePoseButtonActionPerformed
    
@@ -296,7 +305,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
                     NbBundle.getMessage(CoordinateViewerTopComponent.class, 
                         "CTL_DuplicatePoseName")));
       };
-      updateBasedOnModel();     
+      updateAvailability();     
    }//GEN-LAST:event_jSavePoseButtonActionPerformed
    
    private void jGroupsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGroupsButtonActionPerformed
@@ -367,14 +376,19 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       if (aModel==null){
          jModelNameLabel.setText("No current model");
          hasModel=false;
-         updateBasedOnModel();
+         updateAvailability();
          return;
       }
       hasModel=true;
-      prefs=ViewDB.getInstance().getModelSavedSettings(aModel).getPrefs();
+      if (ViewDB.getInstance().getModelSavedSettings(aModel)==null)
+         modelHasFile = false;
+      else{
+         modelHasFile=true;
+         prefs=ViewDB.getInstance().getModelSavedSettings(aModel).getPrefs();
+      }
       jModelNameLabel.setText(aModel.getName());
       coords = aModel.getDynamicsEngine().getCoordinateSet();
-      updateBasedOnModel();
+      updateAvailability();
       Vector<String> coordinateGroupNames = new Vector<String>();
       for(int i=0; i<coords.getNumGroups(); i++)
          coordinateGroupNames.add(coords.getGroup(i).getName());
@@ -417,28 +431,39 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
             // save may trigger saving poses and open may trigger loading poses.
          }
       }
+      else if (o instanceof MotionsDB){
+         if (arg instanceof MotionTimeChangeEvent) {
+            // Get current model, displayed group and update their sliders, text boxes
+            Enumeration<CoordinateSliderWithBox> displayedSliders=mapCoordinates2Sliders.elements();
+            while(displayedSliders.hasMoreElements()){
+               displayedSliders.nextElement().updateValue();
+            }
+         }        
+      }
    }
    /**
     * Make buttons that rely on an existing model on/off
     */
-   private void updateBasedOnModel() {
+   private void updateAvailability() {
       jSelectGroupButton.setEnabled(hasModel);
       jSavePoseButton.setEnabled(hasModel);
       jRestorePoseButton.setEnabled(hasModel);
       jDeletePoseButton.setEnabled(hasModel);
-      //jCoordinateGroupsComboBox.setEnabled(hasModel);
+      jCoordinateGroupsComboBox.setEnabled(hasModel);
       // Further enable based on availability of poses
       if (hasModel){
-         jRestorePoseButton.setEnabled(prefs.getNumPoses()>0);
-         jDeletePoseButton.setEnabled(prefs.getNumPoses()>0);
+         jRestorePoseButton.setEnabled(modelHasFile && prefs.getNumPoses()>0);
+         jDeletePoseButton.setEnabled(modelHasFile && prefs.getNumPoses()>0);
       }
    }
    
    private void updateDisplayGroup() {
       jPanel1.removeAll();
+      mapCoordinates2Sliders.clear();
       for(int i=0; i<coords.getSize(); i++){
          if (currentGroup.contains(coords.get(i).getName())){
             CoordinateSliderWithBox sliderPanel = new CoordinateSliderWithBox(coords.get(i));
+            mapCoordinates2Sliders.put(coords.get(i), sliderPanel);
             sliderPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
             jPanel1.add(sliderPanel);
          }
