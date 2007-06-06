@@ -279,7 +279,7 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
       Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>(5);
       int numFrames =  superMotion.size();
       if (numFrames <5){
-         for(int i=0; i<5; i++){
+         for(int i=0; i<numFrames; i++){
             MotionFrame c = superMotion.get(i);
             String label = Double.toString(c.getFrameTime());
             if (label.length()>5) label=label.substring(0, 5);
