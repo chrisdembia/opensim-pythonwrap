@@ -90,6 +90,7 @@ public class GeneralizedForcesNode extends OpenSimObjectNode {
       for (int i = 0; i < as.getNumGroups(); i++) {
          ObjectGroup grp = as.getGroup(i);
          ArrayPtrsObj apo = grp.getMembers();
+         if (apo.getSize()==0) continue;  // Gaurd against empty groups
          GeneralizedForce genforce = GeneralizedForce.safeDownCast(apo.get(0));
          // If the first member of the group is a GeneralizedForce, then
          // consider this group to be a GeneralizedForce group.

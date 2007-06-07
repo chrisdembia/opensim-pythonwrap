@@ -29,11 +29,11 @@ import java.util.ResourceBundle;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayPtrsObj;
 import org.opensim.modeling.Force;
 import org.opensim.modeling.ObjectGroup;
+import org.opensim.modeling.OpenSimObject;
 
 /**
  *
@@ -90,7 +90,9 @@ public class ForcesNode extends OpenSimObjectNode {
       for (int i = 0; i < as.getNumGroups(); i++) {
          ObjectGroup grp = as.getGroup(i);
          ArrayPtrsObj apo = grp.getMembers();
-         Force force = Force.safeDownCast(apo.get(0));
+         if (apo.getSize()==0) continue;  // Gaurd against empty groups
+         OpenSimObject obj = apo.get(0);
+         Force force = Force.safeDownCast(obj);
          // If the first member of the group is a Force, then
          // consider this group to be a Force group.
          if (force != null)

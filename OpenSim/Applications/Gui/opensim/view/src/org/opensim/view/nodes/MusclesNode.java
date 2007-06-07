@@ -105,7 +105,8 @@ public class MusclesNode extends OpenSimObjectNode {
       for (int i = 0; i < as.getNumGroups(); i++) {
          ObjectGroup grp = as.getGroup(i);
          ArrayPtrsObj apo = grp.getMembers();
-         AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
+         if (apo.getSize()==0) continue;  // Gaurd against empty groups
+         AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0)); ////// CRASHHHHHHHHHHHHHHH because cmctool messes around with Actuators!
          // If the first member of the group is an AbstractMuscle, then
          // consider this group to be an AbstractMuscle group.
          if (muscle != null)
