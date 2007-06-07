@@ -4,7 +4,10 @@ FILE(GLOB ETC_FILES opensim/build/launcher/etc/*.*)
 INSTALL_FILES(/bin/ FILES  ${BIN_FILES})
 INSTALL_FILES(/etc/ FILES  ${ETC_FILES})
 # This to be replaced with a CMake Variable
+# Check if directory exists first to more gracefully handle case where it doesn't exist (otherwise cmake prints an error message)
+IF(EXISTS ${NETBEANS_INSTALL_DIR}/platform6/)
 INSTALL(DIRECTORY ${NETBEANS_INSTALL_DIR}/platform6/ DESTINATION platform6)
+ENDIF(EXISTS ${NETBEANS_INSTALL_DIR}/platform6/)
 INSTALL(DIRECTORY opensim/build/cluster/ DESTINATION opensim)
 
 # This to be replaced with a CMake Variable
