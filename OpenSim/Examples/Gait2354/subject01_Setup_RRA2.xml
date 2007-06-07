@@ -11,7 +11,7 @@
 	<!--Directory used for writing results.-->
 	<results_directory> Results/ </results_directory>
 	<!--Output precision.  It is 8 by default.-->
-	<output_precision> 8 </output_precision>
+	<output_precision> 20 </output_precision>
 	<!--Initial time for the simulation.-->
 	<initial_time> 0.75 </initial_time>
 	<!--Final time for the simulation.-->
