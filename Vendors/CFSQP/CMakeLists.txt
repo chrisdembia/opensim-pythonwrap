@@ -34,6 +34,8 @@ ENDIF(WIN32)
 
 ADD_LIBRARY(osim${KIT} SHARED ${SOURCE_FILES} ${INCLUDE_FILES}) 
 
+SET_TARGET_PROPERTIES(osim${KIT} PROPERTIES PROJECT_LABEL "Vendor Libraries - osim${KIT}")
+
 # Don't automatically include it in public release
 #INSTALL_TARGETS(/lib/ RUNTIME_DIRECTORY /lib osim${KIT})
 #INSTALL_FILES(/include/Vendors/${KIT} .h ${INCLUDE_FILES})

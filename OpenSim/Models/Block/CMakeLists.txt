@@ -6,14 +6,14 @@ FILE(GLOB INCLUDE_FILES *.h)
 
 INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} ${XERCES_INCLUDE_DIR} ${OpenSim_SOURCE_DIR}/OpenSim/DynamicsEngines/SdfastEngine/SIMMPipeline)
 
-LINK_LIBRARIES(
-	debug osimSimulation_d optimized osimSimulation
-	debug osimSdfastEngine_d optimized osimSdfastEngine)
+LINK_LIBRARIES(osimSimulation osimSdfastEngine)
 
 ADD_LIBRARY(rd${KIT} SHARED ${SOURCE_FILES} ${INCLUDE_FILES}) 
 
 SET_TARGET_PROPERTIES(rd${KIT} PROPERTIES
 	LINK_FLAGS "/DEF:${OpenSim_SOURCE_DIR}/OpenSim/DynamicsEngines/SdfastEngine/SIMMPipeline/SdfastModelDLL.def"
+	${EXCLUDE_IF_MINIMAL_BUILD}
+	PROJECT_LABEL "Models - Block"
 )
 
 INSTALL_TARGETS(/lib/ RUNTIME_DIRECTORY /bin rd${KIT})
