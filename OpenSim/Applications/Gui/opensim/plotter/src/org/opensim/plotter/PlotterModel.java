@@ -96,7 +96,6 @@ public class PlotterModel {
         }
         AnalyzeTool tool = new AnalyzeTool(aModel);
         models2AnalyzeToolInstances.put(aModel, tool);
-        refs.add(tool);
     }
   /**
     * Get available quantities to use as a Domain variable

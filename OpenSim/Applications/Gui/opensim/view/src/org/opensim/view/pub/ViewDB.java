@@ -28,6 +28,8 @@ package org.opensim.view.pub;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -1021,8 +1023,12 @@ public final class ViewDB extends Observable implements Observer {
       // Read settings file if exist, should have file name =
       // [modelFileWithoutExtension]_settings.xml
       String modelFileName = model.getDocumentFileName();
-      if (modelFileName==null)
+      // Should make up a name, use it in emory and change it later per user request if needed.
+      if (modelFileName==null || modelFileName.length()==0){
+         ModelSettingsSerializer serializer = new ModelSettingsSerializer(null, true);
+         mapModelsToSettings.put(model, serializer);
          return;
+      }
       String settingsFileName = modelFileName.substring(0, modelFileName.indexOf(".")-1);
       settingsFileName = settingsFileName+"_settings.xml";
       ModelSettingsSerializer serializer = new ModelSettingsSerializer(settingsFileName, true);
@@ -1036,6 +1042,10 @@ public final class ViewDB extends Observable implements Observer {
    }
    public ModelSettingsSerializer getModelSavedSettings(Model model)
    {
-      return mapModelsToSettings.get(model);
+      ModelSettingsSerializer exist = mapModelsToSettings.get(model);
+      if (exist!=null)
+         return exist;
+
+      return null;
    }
 }

@@ -120,11 +120,15 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_getLastTime(swigCPtr, this);
   }
 
-  public int getTime(int aTimeIndex, SWIGTYPE_p_double rTime, int aStateIndex) {
+  public double getMinTimeStep() {
+    return opensimModelJNI.Storage_getMinTimeStep(swigCPtr, this);
+  }
+
+  public boolean getTime(int aTimeIndex, SWIGTYPE_p_double rTime, int aStateIndex) {
     return opensimModelJNI.Storage_getTime__SWIG_0(swigCPtr, this, aTimeIndex, SWIGTYPE_p_double.getCPtr(rTime), aStateIndex);
   }
 
-  public int getTime(int aTimeIndex, SWIGTYPE_p_double rTime) {
+  public boolean getTime(int aTimeIndex, SWIGTYPE_p_double rTime) {
     return opensimModelJNI.Storage_getTime__SWIG_1(swigCPtr, this, aTimeIndex, SWIGTYPE_p_double.getCPtr(rTime));
   }
 
@@ -136,12 +140,20 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_getTimeColumn__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rTimes));
   }
 
-  public void getTimeColumn(ArrayDouble times, double startTime) {
-    opensimModelJNI.Storage_getTimeColumn__SWIG_2(swigCPtr, this, ArrayDouble.getCPtr(times), times, startTime);
+  public int getTimeColumn(ArrayDouble rTimes, int aStateIndex) {
+    return opensimModelJNI.Storage_getTimeColumn__SWIG_2(swigCPtr, this, ArrayDouble.getCPtr(rTimes), rTimes, aStateIndex);
   }
 
-  public void getTimeColumn(ArrayDouble times) {
-    opensimModelJNI.Storage_getTimeColumn__SWIG_3(swigCPtr, this, ArrayDouble.getCPtr(times), times);
+  public int getTimeColumn(ArrayDouble rTimes) {
+    return opensimModelJNI.Storage_getTimeColumn__SWIG_3(swigCPtr, this, ArrayDouble.getCPtr(rTimes), rTimes);
+  }
+
+  public void getTimeColumnWithStartTime(ArrayDouble rTimes, double startTime) {
+    opensimModelJNI.Storage_getTimeColumnWithStartTime__SWIG_0(swigCPtr, this, ArrayDouble.getCPtr(rTimes), rTimes, startTime);
+  }
+
+  public void getTimeColumnWithStartTime(ArrayDouble rTimes) {
+    opensimModelJNI.Storage_getTimeColumnWithStartTime__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(rTimes), rTimes);
   }
 
   public void addKeyValuePair(String aKey, String aValue) {
@@ -184,20 +196,24 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_getDataColumn__SWIG_0(swigCPtr, this, aStateIndex, SWIGTYPE_p_double.getCPtr(rData));
   }
 
+  public int getDataColumn(int aStateIndex, ArrayDouble rData) {
+    return opensimModelJNI.Storage_getDataColumn__SWIG_1(swigCPtr, this, aStateIndex, ArrayDouble.getCPtr(rData), rData);
+  }
+
   public void setDataColumn(int aStateIndex, ArrayDouble aData) {
     opensimModelJNI.Storage_setDataColumn(swigCPtr, this, aStateIndex, ArrayDouble.getCPtr(aData), aData);
   }
 
   public int getDataColumn(String columnName, SWIGTYPE_p_double rData) {
-    return opensimModelJNI.Storage_getDataColumn__SWIG_1(swigCPtr, this, columnName, SWIGTYPE_p_double.getCPtr(rData));
+    return opensimModelJNI.Storage_getDataColumn__SWIG_2(swigCPtr, this, columnName, SWIGTYPE_p_double.getCPtr(rData));
   }
 
   public void getDataColumn(String columnName, ArrayDouble data, double startTime) {
-    opensimModelJNI.Storage_getDataColumn__SWIG_2(swigCPtr, this, columnName, ArrayDouble.getCPtr(data), data, startTime);
+    opensimModelJNI.Storage_getDataColumn__SWIG_3(swigCPtr, this, columnName, ArrayDouble.getCPtr(data), data, startTime);
   }
 
   public void getDataColumn(String columnName, ArrayDouble data) {
-    opensimModelJNI.Storage_getDataColumn__SWIG_3(swigCPtr, this, columnName, ArrayDouble.getCPtr(data), data);
+    opensimModelJNI.Storage_getDataColumn__SWIG_4(swigCPtr, this, columnName, ArrayDouble.getCPtr(data), data);
   }
 
   public void setStepInterval(int aStepInterval) {

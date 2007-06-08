@@ -39,28 +39,35 @@ import org.openide.NotifyDescriptor;
  */
 public class ModelSettingsSerializer {
    
-   String filename;
+   private String filename;
    private ModelSettings settings;
    /**
     * Creates a new instance of ModelSettingsSerializer 
     * filename to serialize from/to for the model
     */
    public ModelSettingsSerializer(String filename, boolean read) {
-      this.filename = filename;
+      this.setFilename(filename);
       if (read)
          read();
    }
    
    public void read()
    {
+      if (getFilename()==null){ // Model has not been serialized ever before
+         settings = new ModelSettings(); 
+         return;
+      }
       try{
          XMLDecoder decoder = new XMLDecoder(
-                 new FileInputStream(filename));
+                 new FileInputStream(getFilename()));
          settings=((ModelSettings)decoder.readObject());
          //System.out.println("Found ModelGUIPrefs with");
       }catch (FileNotFoundException e){
          //System.out.println("not found");
          settings = new ModelSettings();
+      }
+      finally {
+         settings = new ModelSettings();         
       }
    }
    
@@ -71,7 +78,7 @@ public class ModelSettingsSerializer {
      if(DialogDisplayer.getDefault().notify(dlg)==NotifyDescriptor.OK_OPTION){
          XMLEncoder encoder;
          try {
-            encoder = new XMLEncoder(new FileOutputStream(filename));
+            encoder = new XMLEncoder(new FileOutputStream(getFilename()));
             encoder.writeObject(settings);
             encoder.close();
          } catch (FileNotFoundException ex) {
@@ -82,6 +89,14 @@ public class ModelSettingsSerializer {
 
    public ModelSettings getPrefs() {
       return settings;
+   }
+
+   public String getFilename() {
+      return filename;
+   }
+
+   public void setFilename(String filename) {
+      this.filename = filename;
    }
    
 }

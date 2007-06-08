@@ -25,8 +25,6 @@
  */
 package org.opensim.tracking;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import javax.swing.SwingUtilities;
 import org.openide.WizardDescriptor;
@@ -34,14 +32,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import javax.swing.JComponent;
-import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.AbstractTool;
-import org.opensim.view.JavaAnimationCallback;
+import org.opensim.modeling.CMCTool;
 import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
@@ -128,7 +125,8 @@ public abstract class workflowWizardPanelBase implements WizardDescriptor.Panel 
             
         progressHandle.start();
 
-        final JavaAnimationCallback animationCallback = new JavaAnimationCallback(model);
+        final JavaCMCAnimationCallback animationCallback = new JavaCMCAnimationCallback(model);
+        animationCallback.setTool((CMCTool)dTool);
         model.addIntegCallback(animationCallback);
         animationCallback.setStepInterval(3);
 

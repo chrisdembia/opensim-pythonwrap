@@ -54,4 +54,9 @@ public class CMCTool extends AbstractTool {
     opensimModelJNI.CMCTool_run(swigCPtr, this);
   }
 
+  public Storage getForceStorage() {
+    long cPtr = opensimModelJNI.CMCTool_getForceStorage(swigCPtr, this);
+    return (cPtr == 0) ? null : new Storage(cPtr, false);
+  }
+
 }

@@ -41,7 +41,11 @@ import org.opensim.view.JavaAnimationCallback;
 
 /**
  *
- * @author Ayman Habib
+ * @author Ayman Habib. Callback specialized for handling IK primarily to
+ * display IK Errors in a plot.
+ *
+ * @Todo All methods should be moved down to JavaAnimationCallback except for 
+ * processStep, setupPlotter.
  */
 public class JavaIKAnimationCallback extends JavaAnimationCallback{
     
@@ -60,32 +64,49 @@ public class JavaIKAnimationCallback extends JavaAnimationCallback{
         super(model);
     }
     
-    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
-        int retValue;
-        
-        retValue = super.step(aXPrev, aYPrev, aStep, aDT, aT, aX, aY);
-        // update Plotter if it's up'
-        return retValue;
+  public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
+      int retValue;
+      retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT, aClientData);
+      processStep(aT);
+      return retValue;
+   }
+   
+   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT) {
+      int retValue;
+      retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT);
+       processStep(aT);
+      return retValue;
+   }
+   
+   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP) {
+      int retValue;
+      retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP);
+       processStep(aT);
+      return retValue;
+   }
+   
+   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
+       int retValue;
+       
+       retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY);
+       processStep(aT);
+       return retValue;
     }
 
-    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_void aClientData) {
-        int retValue;
-        // begin should have been called first but actully it is not!
-        if (cv==null && firstTime){
-            firstTime=false;
-            setupPlotter();
-        }
-        // anyway the following is defensive
-        retValue = super.step(aXPrev, aYPrev, aStep, aDT, aT, aX, aY, aClientData);
-        // update Plotter if it's up'
-        timeIndex = s.findIndex(aT);
-        if (timeIndex>=0){
-            double errSquared = s.getStateVector(timeIndex).getData().getitem(errorsIndexInStorage);
-            if (cv != null)
-                cv.addDataPoint((double)aT, errSquared);
-        }
-        return retValue;
-    }
+   private void processStep(final double aT) {
+      // begin should have been called first but actully it is not!
+      if (cv==null && firstTime){
+          firstTime=false;
+          setupPlotter();
+      }
+      // update Plotter if it's up'
+      timeIndex = s.findIndex(aT);
+      if (timeIndex>=0){
+          double errSquared = s.getStateVector(timeIndex).getData().getitem(errorsIndexInStorage);
+          if (cv != null)
+              cv.addDataPoint((double)aT, errSquared);
+      }
+   }
 
     public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
         int retValue;
@@ -98,6 +119,7 @@ public class JavaIKAnimationCallback extends JavaAnimationCallback{
 
     private void setupPlotter() {
         // Launch plotter 
+       /*
         s = ik.getIKTrialSet().get(0).getOutputStorage();
         errorsIndexInStorage = s.getStateIndex(MAX_ERROR);
         // Create plotter dialog and display s, column for markerError
@@ -110,6 +132,7 @@ public class JavaIKAnimationCallback extends JavaAnimationCallback{
         } catch (PlotterException ex) { // This should never happen
             ex.printStackTrace();
         }
+        **/
     }
 
     protected void finalize() {

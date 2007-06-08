@@ -67,7 +67,7 @@ public class PlotCurve {
       if (domainStorage.equals(rangeStorage)){
           ArrayDouble xArray = getDataArrayFromStorage(domainStorage, stringx, true);
           ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, stringy, false);
-          double test = xArray.getitem(0);
+          //double test = xArray.getitem(0);
           int size = xArray.getSize();
           // find range of values to display based on minx, maxx
           // this assumes some ordering on x values so that the set of xValues plotted
@@ -94,7 +94,7 @@ public class PlotCurve {
    private ArrayDouble getDataArrayFromStorage(final Storage storage, final String colName, boolean isDomain ) {
       ArrayDouble Array = new ArrayDouble(storage.getSize());
       if (colName.equalsIgnoreCase("time")){
-         storage.getTimeColumn(Array, 0.);
+         storage.getTimeColumnWithStartTime(Array, 0.);
          if (isDomain)
             domainStorageIndex=-1;
          else

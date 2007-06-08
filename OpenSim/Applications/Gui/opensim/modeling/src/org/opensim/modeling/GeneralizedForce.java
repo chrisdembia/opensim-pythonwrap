@@ -83,6 +83,21 @@ public class GeneralizedForce extends AbstractActuator {
     opensimModelJNI.GeneralizedForce_computeActuation(swigCPtr, this);
   }
 
+  public static ActuatorSet CreateActuatorSetOfGeneralizedForcesForModel(Model aModel, double aOptimalForce, boolean aIncludeLockedAndConstrainedCoordinates) {
+    long cPtr = opensimModelJNI.GeneralizedForce_CreateActuatorSetOfGeneralizedForcesForModel__SWIG_0(Model.getCPtr(aModel), aModel, aOptimalForce, aIncludeLockedAndConstrainedCoordinates);
+    return (cPtr == 0) ? null : new ActuatorSet(cPtr, false);
+  }
+
+  public static ActuatorSet CreateActuatorSetOfGeneralizedForcesForModel(Model aModel, double aOptimalForce) {
+    long cPtr = opensimModelJNI.GeneralizedForce_CreateActuatorSetOfGeneralizedForcesForModel__SWIG_1(Model.getCPtr(aModel), aModel, aOptimalForce);
+    return (cPtr == 0) ? null : new ActuatorSet(cPtr, false);
+  }
+
+  public static ActuatorSet CreateActuatorSetOfGeneralizedForcesForModel(Model aModel) {
+    long cPtr = opensimModelJNI.GeneralizedForce_CreateActuatorSetOfGeneralizedForcesForModel__SWIG_2(Model.getCPtr(aModel), aModel);
+    return (cPtr == 0) ? null : new ActuatorSet(cPtr, false);
+  }
+
   public boolean check() {
     return opensimModelJNI.GeneralizedForce_check(swigCPtr, this);
   }

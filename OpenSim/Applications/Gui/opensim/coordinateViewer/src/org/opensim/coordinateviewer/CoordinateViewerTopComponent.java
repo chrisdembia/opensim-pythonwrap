@@ -461,9 +461,14 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       jPanel1.removeAll();
       mapCoordinates2Sliders.clear();
       for(int i=0; i<coords.getSize(); i++){
-         if (currentGroup.contains(coords.get(i).getName())){
-            CoordinateSliderWithBox sliderPanel = new CoordinateSliderWithBox(coords.get(i));
-            mapCoordinates2Sliders.put(coords.get(i), sliderPanel);
+         AbstractCoordinate coord = coords.get(i);
+         boolean restraint = coord.isRestraintActive();
+         boolean constrained = coord.getConstrained();
+         if (constrained)
+            System.out.println("Coordinate "+coord.getName()+" will have no slider");
+         if (currentGroup.contains(coord.getName()) && (!constrained)){
+            CoordinateSliderWithBox sliderPanel = new CoordinateSliderWithBox(coord);
+            mapCoordinates2Sliders.put(coord, sliderPanel);
             sliderPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
             jPanel1.add(sliderPanel);
          }
