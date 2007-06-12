@@ -1,5 +1,6 @@
 package org.opensim.motionviewer;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -57,14 +58,28 @@ public class MasterMotionModel extends DefaultBoundedRangeModel{
       // Apply frame from file then update model display!
       final MotionDisplayer disp = displayers.get(currentMotion);
       disp.applyFrameToModel(currentFrame);
-      SwingUtilities.invokeLater(new Runnable(){
-         public void run(){
+      // If in event dispatch thrread then execute synchronously
+      if (SwingUtilities.isEventDispatchThread()){
             Model dModel = disp.getModel();
             ViewDB.getInstance().updateModelDisplay(dModel);
             MotionsDB motionsDB = MotionsDB.getInstance();
             motionsDB.reportTimeChange( getCurrentTime());
-         }
-         });
+            return;
+      }
+      try {
+         SwingUtilities.invokeAndWait(new Runnable(){
+            public void run(){
+               Model dModel = disp.getModel();
+               ViewDB.getInstance().updateModelDisplay(dModel);
+               MotionsDB motionsDB = MotionsDB.getInstance();
+               motionsDB.reportTimeChange( getCurrentTime());
+            }
+            });
+      } catch (InvocationTargetException ex) {
+         ex.printStackTrace();
+      } catch (InterruptedException ex) {
+         ex.printStackTrace();
+      }
         
        //System.out.println("motion, frame"+currentMotion+", "+currentFrame);
    }
