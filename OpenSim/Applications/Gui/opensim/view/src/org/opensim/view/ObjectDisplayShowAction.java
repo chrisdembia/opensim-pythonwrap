@@ -1,5 +1,6 @@
 package org.opensim.view;
 
+import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
@@ -27,6 +28,8 @@ public final class ObjectDisplayShowAction extends CallableSystemAction {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         for(int i=0; i < selected.length; i++){
             OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
+            if (objectNode.getChildren().getNodesCount()>0)
+                return true;
             int displayStatus = ViewDB.getInstance().getDisplayStatus(objectNode.getOpensimObject());
             if (displayStatus == 0 || displayStatus == 2)
                return true;
@@ -38,10 +41,23 @@ public final class ObjectDisplayShowAction extends CallableSystemAction {
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
       for(int i=0; i < selected.length; i++){
          OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
-         OpenSimObject obj = objectNode.getOpensimObject();
-         ViewDB.getInstance().toggleObjectsDisplay(obj, true);
+            applyOperationToNode(objectNode);
       }
       ViewDB.getInstance().repaintAll();
+    }
+
+    private void applyOperationToNode(final OpenSimObjectNode objectNode) {
+        OpenSimObject obj = objectNode.getOpensimObject();
+        Children ch = objectNode.getChildren();
+        if (ch.getNodesCount()>0){
+            // apply action recursively
+            Node[] childNodes=ch.getNodes();
+            for(int child=0; child < childNodes.length ; child++){
+               OpenSimObjectNode childNode = (OpenSimObjectNode) childNodes[child];
+               applyOperationToNode(childNode);
+            }
+        }
+        ViewDB.getInstance().toggleObjectsDisplay(obj, true);
     }
     
     public String getName() {

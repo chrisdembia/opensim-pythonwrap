@@ -69,15 +69,4 @@ public class BodiesNode extends OpenSimObjectNode {
     public Node cloneNode() {
         return new BodiesNode((BodySet)getOpensimObject());
     }
-    /*
-    public Action[] getActions(boolean context) {
-        Action[] result = new Action[] {
-                    //SystemAction.get(NewAction.class),
-                    null,
-                    //SystemAction.get(ToolsAction.class),
-                    //SystemAction.get(PropertiesAction.class),
-        };
-        return result;
-    }
-    */
 } // class BodiesNode
