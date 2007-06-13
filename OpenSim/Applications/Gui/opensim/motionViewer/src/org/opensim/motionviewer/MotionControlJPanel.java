@@ -6,16 +6,16 @@
 
 package org.opensim.motionviewer;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.MotionEvent.Operation;
 
 /**
@@ -235,30 +235,29 @@ public class MotionControlJPanel extends javax.swing.JPanel
    
    private void jPlayReverseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlayReverseButtonActionPerformed
       if (animationTimer!=null){
-         animationTimer.cancel();
+         animationTimer.stop();
          animationTimer=null;
       }
       if (isMotionLoaded() && animationTimer==null){
-         animationTimer = new Timer();
-         final Timer fTimer = animationTimer;
-         animationTimer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-               masterMotion.back();
-               jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
-              // Kill self if done and wrapMotion is off
-                if (masterMotion.finished(-1)){
-                   fTimer.cancel();
-                   animationTimer=null;
+         animationTimer = new Timer(((Integer)smodel.getValue()).intValue(), 
+            new ActionListener() {
+               public void actionPerformed(ActionEvent evt) {
+                   masterMotion.back();
+                   jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
+                   // Kill self if done and wrapMotion is off
+                   if (masterMotion.finished(-1)){
+                      animationTimer.stop();
+                      animationTimer=null;
+                   }
                 }
-            }
-         }, ((Integer)smodel.getValue()).longValue(), ((Integer)smodel.getValue()).longValue());
+            });
+          animationTimer.start();
       }
-      
    }//GEN-LAST:event_jPlayReverseButtonActionPerformed
    
     private void jStopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStopButtonActionPerformed
        if (isMotionLoaded() && animationTimer != null){
-          animationTimer.cancel();
+          animationTimer.stop();
           animationTimer = null;
        }
     }//GEN-LAST:event_jStopButtonActionPerformed
@@ -277,28 +276,30 @@ public class MotionControlJPanel extends javax.swing.JPanel
     
     private void jPlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlayButtonActionPerformed
       if (animationTimer!=null){
-         animationTimer.cancel();
+         animationTimer.stop();
          animationTimer=null;
       }
-       if (isMotionLoaded() && animationTimer==null){
-          animationTimer = new Timer();
-          final Timer fTimer = animationTimer;
+      if (isMotionLoaded() && animationTimer==null){
+          //animationTimer = new Timer();
+          //final Timer fTimer = animationTimer;
           if (masterMotion.finished(1)){
               // reset motion if at end already
               masterMotion.setFrameNumber(0);
           }
-          animationTimer.scheduleAtFixedRate(new TimerTask() {
-             public void run() {
-                masterMotion.advance();
-                jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
-                // Kill self if done and wrapMotion is off
-                if (masterMotion.finished(1)){
-                   fTimer.cancel();
-                   animationTimer=null;
+          animationTimer = new Timer(((Integer)smodel.getValue()).intValue(), 
+            new ActionListener() {
+               public void actionPerformed(ActionEvent evt) {
+                   masterMotion.advance();
+                   jTimeTextField.setText(String.valueOf(masterMotion.getCurrentTime()));
+                   // Kill self if done and wrapMotion is off
+                   if (masterMotion.finished(1)){
+                      animationTimer.stop();
+                      animationTimer=null;
+                   }
                 }
-             }
-          }, ((Integer)smodel.getValue()).longValue(), ((Integer)smodel.getValue()).longValue());
-       }
+            });
+          animationTimer.start();
+      }
     }//GEN-LAST:event_jPlayButtonActionPerformed
     
     
