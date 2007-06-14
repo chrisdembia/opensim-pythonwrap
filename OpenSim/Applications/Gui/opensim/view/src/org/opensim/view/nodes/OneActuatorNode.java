@@ -32,6 +32,7 @@ import java.util.ResourceBundle;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import org.openide.util.NbBundle;
+import org.openide.nodes.Children;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.editors.MuscleEditorAction;
 
@@ -48,6 +49,7 @@ public class OneActuatorNode extends OpenSimObjectNode{
     public OneActuatorNode(OpenSimObject actuator) {
         super(actuator);
         setShortDescription(bundle.getString("HINT_ActuatorNode"));
+        setChildren(Children.LEAF);
     }
     public Image getIcon(int i) {
         URL imageURL = this.getClass().getResource("icons/muscle.png");

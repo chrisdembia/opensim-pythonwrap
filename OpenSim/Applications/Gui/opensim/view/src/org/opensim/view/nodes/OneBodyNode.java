@@ -32,7 +32,8 @@ public class OneBodyNode extends OpenSimObjectNode{
          children.add(arrNodes);
          
       }
-      
+
+      if(children.getNodesCount()==0) setChildren(Children.LEAF);      
    }
 
     public Node cloneNode() {

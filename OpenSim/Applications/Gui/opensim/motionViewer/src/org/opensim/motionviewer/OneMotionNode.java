@@ -27,6 +27,7 @@ package org.opensim.motionviewer;
 
 import java.awt.Image;
 import javax.swing.Action;
+import org.openide.nodes.Children;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 import org.opensim.view.nodes.OpenSimObjectNode;
@@ -40,6 +41,7 @@ public class OneMotionNode extends OpenSimObjectNode{
    /** Creates a new instance of OneMotionNode */
    public OneMotionNode(Storage motion) {
       super(motion);
+      setChildren(Children.LEAF);
    }
 
    public Image getIcon(int i) {

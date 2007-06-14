@@ -26,8 +26,11 @@
 package org.opensim.view.nodes;
 
 import java.util.ResourceBundle;
+import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.Model;
+import org.openide.nodes.Children;
+import org.opensim.modeling.AbstractJoint;
+import org.opensim.modeling.JointSet;
 
 /**
  *
@@ -35,14 +38,25 @@ import org.opensim.modeling.Model;
  *
  * Top level Joints node in Navigator view
  */
-public class JointsNode extends OpenSimNode {
+public class JointsNode extends OpenSimObjectNode {
     
-    Model   m;
     private static ResourceBundle bundle = NbBundle.getBundle(JointsNode.class);
     
-    /** Creates a new instance of JointsNode */
-    public JointsNode(Model m) {
-        super(new JointsChildren(m));
-        setDisplayName("Joints");
-    }    
+   /**
+    * Creates a new instance of JointsNode
+    */
+   public JointsNode(JointSet js) {
+      super(js);
+      setDisplayName(NbBundle.getMessage(JointsNode.class, "CTL_Joints"));
+      Children children = getChildren();
+      for (int i=0; i < js.getSize(); i++ ) {
+         children.add(new Node[] { new OneJointNode(js.get(i)) });
+      }
+   }
+
+   /**
+    * Display name 
+    */
+   public String getHtmlDisplayName() {
+       return NbBundle.getMessage(JointsNode.class, "CTL_Joints"); }
 }
