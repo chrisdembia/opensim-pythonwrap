@@ -444,23 +444,25 @@ public class SingleModelVisuals {
     double[]     retTransformVector = new double[16];
     double[] newX = new double[3];
     double[] oldXCrossNewY = new double[3]; // NewZ
-    double[] getCylinderTransform(double[] axis, double[] origin) { 
-       double length = normalizeAndGetLength(axis);
+    double[] getCylinderTransform(double[] normalizedAxis, double[] origin) {
+        //Assume normalizedAxis is already normalized
+        //double length = normalizeAndGetLength(axis);
+        
         // yaxis is the unit vector
         for (int i=0; i < 3; i++){
-            retTransformVector[i*4+ 1]= axis[i];
+            retTransformVector[i*4+ 1]= normalizedAxis[i];
         }
         oldXCrossNewY[0] = 0.0;
-        oldXCrossNewY[1] = -axis[2];
-        oldXCrossNewY[2] = axis[1];
+        oldXCrossNewY[1] = -normalizedAxis[2];
+        oldXCrossNewY[2] = normalizedAxis[1];
         
         normalizeAndGetLength(oldXCrossNewY);
         for (int i=0; i < 3; i++){
             retTransformVector[i*4+ 2]= oldXCrossNewY[i];
         }
-        newX[0] = axis[1]*oldXCrossNewY[2]-axis[2]*oldXCrossNewY[1];
-        newX[1] = axis[2]*oldXCrossNewY[0]-axis[0]*oldXCrossNewY[2];
-        newX[2] = axis[0]*oldXCrossNewY[1]-axis[1]*oldXCrossNewY[0];
+        newX[0] = normalizedAxis[1]*oldXCrossNewY[2]-normalizedAxis[2]*oldXCrossNewY[1];
+        newX[1] = normalizedAxis[2]*oldXCrossNewY[0]-normalizedAxis[0]*oldXCrossNewY[2];
+        newX[2] = normalizedAxis[0]*oldXCrossNewY[1]-normalizedAxis[1]*oldXCrossNewY[0];
         normalizeAndGetLength(newX);
        for (int i=0; i < 3; i++){
           retTransformVector[i*4]= newX[i];
