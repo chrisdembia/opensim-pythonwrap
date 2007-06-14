@@ -40,18 +40,19 @@ IF(WIN32)
         ARGS -E copy
         ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Release/xerces-c_2_7.dll
         ${CMAKE_INSTALL_PREFIX}/bin/xerces-c_2_7.dll)
-	ADD_CUSTOM_COMMAND(
-        TARGET xerces-c_2D_cmake
-        COMMAND ${CMAKE_COMMAND}
-        ARGS -E copy
-        ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Debug/xerces-c_2D.lib
-        ${CMAKE_INSTALL_PREFIX}/bin/xerces-c_2D.lib)
-	ADD_CUSTOM_COMMAND(
-        TARGET xerces-c_2D_cmake
-        COMMAND ${CMAKE_COMMAND}
-        ARGS -E copy
-        ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Debug/xerces-c_2_7D.dll
-        ${CMAKE_INSTALL_PREFIX}/bin/xerces-c_2_7D.dll)
+	  # Don't install debug libraries
+	  #ADD_CUSTOM_COMMAND(
+     #     TARGET xerces-c_2D_cmake
+     #     COMMAND ${CMAKE_COMMAND}
+     #     ARGS -E copy
+     #     ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Debug/xerces-c_2D.lib
+     #     ${CMAKE_INSTALL_PREFIX}/bin/xerces-c_2D.lib)
+	  #ADD_CUSTOM_COMMAND(
+     #     TARGET xerces-c_2D_cmake
+     #     COMMAND ${CMAKE_COMMAND}
+     #     ARGS -E copy
+     #     ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Debug/xerces-c_2_7D.dll
+     #     ${CMAKE_INSTALL_PREFIX}/bin/xerces-c_2_7D.dll)
 
 	SET_TARGET_PROPERTIES(xerces-c_2D_cmake PROPERTIES ${EXCLUDE_IF_MINIMAL_BUILD} PROJECT_LABEL "Vendor Libraries - xerces-c (debug)")
 	SET_TARGET_PROPERTIES(xerces-c_2_cmake PROPERTIES ${EXCLUDE_IF_MINIMAL_BUILD} PROJECT_LABEL "Vendor Libraries - xerces-c (release)")
