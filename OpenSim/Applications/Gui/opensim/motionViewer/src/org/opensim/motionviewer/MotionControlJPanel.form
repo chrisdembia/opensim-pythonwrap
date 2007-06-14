@@ -125,12 +125,13 @@
     </Component>
     <Component class="javax.swing.JSlider" name="jMotionSlider">
       <Properties>
-        <Property name="majorTickSpacing" type="int" value="50"/>
-        <Property name="minorTickSpacing" type="int" value="5"/>
+        <Property name="majorTickSpacing" type="int" value="1000"/>
+        <Property name="maximum" type="int" value="10000"/>
+        <Property name="minorTickSpacing" type="int" value="200"/>
         <Property name="paintLabels" type="boolean" value="true"/>
         <Property name="paintTicks" type="boolean" value="true"/>
         <Property name="paintTrack" type="boolean" value="false"/>
-        <Property name="extent" type="int" value="100"/>
+        <Property name="value" type="int" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

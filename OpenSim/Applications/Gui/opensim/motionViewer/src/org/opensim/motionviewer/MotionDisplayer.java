@@ -10,9 +10,11 @@
 package org.opensim.motionviewer;
 
 import java.util.Hashtable;
+import java.util.ArrayList;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.AbstractMarker;
+import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
@@ -60,6 +62,18 @@ public class MotionDisplayer {
     OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
     private Storage simmMotionData;
     private Model model;
+
+    public class ObjectIndexPair {
+       public Object object;
+       public int stateVectorIndex; // Actual (0-based) index into state vector
+       public ObjectIndexPair(Object obj, int idx) { this.object = obj; this.stateVectorIndex = idx; }
+    }
+    // For faster access to gencoords/markers/forces to update in applyFrameToModel
+    ArrayList<ObjectIndexPair> genCoordColumns=null;
+    ArrayList<ObjectIndexPair> segmentMarkerColumns=null; // state vector index of the first of three (x y z) coordinates for a marker
+    ArrayList<ObjectIndexPair> segmentForceColumns=null; // state vector index of the first of six (px py pz vx vy vz) coordinates for a force vector
+
+    ArrayDouble interpolatedStates = null;
     
     // A local copy of motionObjects so that different motions have different motion objects
     //Hashtable<String, vtkActor> motionObjectInstances =new Hashtable<String, vtkActor>(10);
@@ -80,6 +94,26 @@ public class MotionDisplayer {
            if (numClassified>1)  // If we did a group then skip the group
               i += (numClassified-1);
         }
+
+        interpolatedStates = new ArrayDouble(0.0, numColumnsIncludingTime-1);
+
+        genCoordColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
+        segmentMarkerColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
+        segmentForceColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
+        for (int i = 0; i< numColumnsIncludingTime; i++){
+            ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
+            switch(cType){
+               case GenCoord: 
+                  genCoordColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
+                  break;
+               case Segment_marker_p1:
+                  segmentMarkerColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
+                  break;
+               case Segment_force_p1:
+                  segmentForceColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
+                  break;
+            }
+         }
     }
 
     private void AddMotionObjectsRep(final Model model) {
@@ -220,45 +254,54 @@ public class MotionDisplayer {
       return 0;
    }
 
-   void applyFrameToModel(int currentFrame) {
-      int numColumnsIncludingTime = simmMotionData.getColumnLabels().getSize();
-      boolean markersChanged=false;
-      boolean forcesChanged=false;
-       for (int i = 0; i< numColumnsIncludingTime; i++){
-         // get Type and apply value
-         ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
-         StateVector states=simmMotionData.getStateVector(currentFrame);
-          switch(cType){
-            case GenCoord:
-               AbstractCoordinate coord=(AbstractCoordinate)(mapIndicesToObjects.get(i));
-               if(!coord.getLocked()) coord.setValue(states.getData().getitem(i-1));
-               break;
-            case Segment_marker_p1:
-               int markerIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
-               markersRep.setLocation(markerIndex, states.getData().getitem(i-1), 
-                       states.getData().getitem(i),
-                       states.getData().getitem(i+1));
-               markersChanged=true;
-               break;
-            case Segment_force_p1:
-               int forceIndex = ((Integer)(mapIndicesToObjects.get(i))).intValue();
-               forcesRep.setNormalAtLocation(forceIndex, states.getData().getitem(i-1), 
-                       states.getData().getitem(i),
-                       states.getData().getitem(i+1));
-               forcesRep.setLocation(forceIndex, states.getData().getitem(i+2), 
-                       states.getData().getitem(i+3),
-                       states.getData().getitem(i+4));
-               forcesChanged=true;
-               break;
-            default:
-               break;
+   void applyFrameToModel(int currentFrame) 
+   {
+      StateVector states=simmMotionData.getStateVector(currentFrame);
+      applyStatesToModel(states.getData());
+   }
+
+   void applyTimeToModel(double currentTime)
+   {
+      //TODO: Option to snap to nearest valid storage time rather than interpolate...
+      //
+      // Better clamp the time otherwise we'll get linear extrapolation outside the valid time range (we might get out-of-range times
+      // if we're playing this motion synced with another motion)
+      double clampedTime = (currentTime < simmMotionData.getFirstTime()) ? simmMotionData.getFirstTime() : 
+                           (currentTime > simmMotionData.getLastTime()) ? simmMotionData.getLastTime() : currentTime;
+      simmMotionData.getDataAtTime(clampedTime, interpolatedStates.getSize(), interpolatedStates);
+      applyStatesToModel(interpolatedStates);
+   }
+
+   private void applyStatesToModel(ArrayDouble states) 
+   {
+      for(int i=0; i<genCoordColumns.size(); i++) {
+         AbstractCoordinate coord=(AbstractCoordinate)(genCoordColumns.get(i).object);
+         if(!coord.getLocked()) {
+            int index = genCoordColumns.get(i).stateVectorIndex;
+            coord.setValue(states.getitem(index));
          }
       }
-      if (markersChanged)
-         markersRep.setModified();
-      if (forcesChanged)
-         forcesRep.setModified();
+
+      for(int i=0; i<segmentMarkerColumns.size(); i++) {
+         int markerIndex = ((Integer)(segmentMarkerColumns.get(i).object)).intValue();
+         int index = segmentMarkerColumns.get(i).stateVectorIndex;
+         markersRep.setLocation(markerIndex, states.getitem(index), states.getitem(index+1), states.getitem(index+2));
+      }
+      if(segmentMarkerColumns.size()>0) markersRep.setModified();
+
+      for(int i=0; i<segmentForceColumns.size(); i++) {
+         int forceIndex = ((Integer)(segmentForceColumns.get(i).object)).intValue();
+         int index = segmentForceColumns.get(i).stateVectorIndex;
+         forcesRep.setNormalAtLocation(forceIndex, states.getitem(index), 
+                 states.getitem(index+1),
+                 states.getitem(index+2));
+         forcesRep.setLocation(forceIndex, states.getitem(index+3), 
+                 states.getitem(index+4),
+                 states.getitem(index+5));
+      }
+      if(segmentForceColumns.size()>0) forcesRep.setModified();
     }
+
     /*
      * cleanupDisplay is called when the motion is mode non-current either explicitly by the user or by selecting
      * another motion for the same model and making it current */

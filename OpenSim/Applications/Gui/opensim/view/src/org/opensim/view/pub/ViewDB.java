@@ -764,6 +764,11 @@ public final class ViewDB extends Observable implements Observer {
       lockDrawingSurfaces(false);
       repaintAll();
    }
+   public void updateModelDisplayNoRepaint(Model aModel) {
+      lockDrawingSurfaces(true);
+      mapModelsToVisuals.get(aModel).updateModelDisplay(aModel);
+      lockDrawingSurfaces(false);
+   }
 
    /**
     * For a single OpenSimObject, toggle display hide/show
