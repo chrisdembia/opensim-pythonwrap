@@ -192,6 +192,10 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_getDataAtTime__SWIG_1(swigCPtr, this, aTime, aN, SWIGTYPE_p_double.getCPtr(rData));
   }
 
+  public int getDataAtTime(double aTime, int aN, ArrayDouble rData) {
+    return opensimModelJNI.Storage_getDataAtTime__SWIG_2(swigCPtr, this, aTime, aN, ArrayDouble.getCPtr(rData), rData);
+  }
+
   public int getDataColumn(int aStateIndex, SWIGTYPE_p_double rData) {
     return opensimModelJNI.Storage_getDataColumn__SWIG_0(swigCPtr, this, aStateIndex, SWIGTYPE_p_double.getCPtr(rData));
   }

@@ -1185,7 +1185,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "OpenSimJNI_wrap.h"
+#include "c:/eran/dev/simbios/opensim/Trunk/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel) : OpenSim::SimtkAnimationCallback(aModel), Swig::Director(jenv) {
 }
@@ -10792,6 +10792,32 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getDa
   arg3 = (int)jarg3; 
   arg4 = *(double **)&jarg4; 
   result = (int)((OpenSim::Storage const *)arg1)->getDataAtTime(arg2,arg3,arg4);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1getDataAtTime_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jint jarg3, jlong jarg4, jobject jarg4_) {
+  jint jresult = 0 ;
+  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
+  double arg2 ;
+  int arg3 ;
+  OpenSim::Array<double > *arg4 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg4_;
+  arg1 = *(OpenSim::Storage **)&jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = *(OpenSim::Array<double > **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    return 0;
+  } 
+  result = (int)((OpenSim::Storage const *)arg1)->getDataAtTime(arg2,arg3,*arg4);
   jresult = (jint)result; 
   return jresult;
 }

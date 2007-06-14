@@ -548,6 +548,7 @@ public class opensimModelJNI {
   public final static native int Storage_getData__SWIG_3(long jarg1, Storage jarg1_, int jarg2, int jarg3, long jarg4);
   public final static native int Storage_getDataAtTime__SWIG_0(long jarg1, Storage jarg1_, double jarg2, int jarg3, long jarg4);
   public final static native int Storage_getDataAtTime__SWIG_1(long jarg1, Storage jarg1_, double jarg2, int jarg3, long jarg4);
+  public final static native int Storage_getDataAtTime__SWIG_2(long jarg1, Storage jarg1_, double jarg2, int jarg3, long jarg4, ArrayDouble jarg4_);
   public final static native int Storage_getDataColumn__SWIG_0(long jarg1, Storage jarg1_, int jarg2, long jarg3);
   public final static native int Storage_getDataColumn__SWIG_1(long jarg1, Storage jarg1_, int jarg2, long jarg3, ArrayDouble jarg3_);
   public final static native void Storage_setDataColumn(long jarg1, Storage jarg1_, int jarg2, long jarg3, ArrayDouble jarg3_);
