@@ -1,6 +1,7 @@
 package org.opensim.view;
 
 import java.util.prefs.Preferences;
+import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.openide.modules.ModuleInstall;
@@ -10,6 +11,7 @@ import org.opensim.view.base.OpenSimBaseCanvas;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
+import javax.swing.JPopupMenu;
 
 /**
  * Manages a module's lifecycle. Remember that an installer is optional and
@@ -17,6 +19,11 @@ import org.opensim.view.editors.MuscleEditorTopComponent;
  */
 public class Installer extends ModuleInstall {
     
+   // Enable opoups to display on top of heavy weight component/canvas
+   static {
+      JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+      javax.swing.ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
+   }
     public void restored() {
         try {
              // Put your startup code here.
