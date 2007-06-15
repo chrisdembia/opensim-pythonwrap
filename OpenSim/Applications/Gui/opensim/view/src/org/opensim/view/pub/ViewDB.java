@@ -422,21 +422,8 @@ public final class ViewDB extends Observable implements Observer {
    }
 
    private void applyColor(final double[] colorComponents, final vtkProp3D asm) {
-      if (asm instanceof vtkAssembly){
-         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
-         parts.InitTraversal();
-         vtkProp3D prop = parts.GetNextProp3D();
-         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-         while (prop != null) {
-            if (part != null)
-               part.GetProperty().SetColor(colorComponents);
-            prop = parts.GetNextProp3D();
-            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-         }
-      }
-      else if (asm instanceof vtkActor){
-         ((vtkActor) asm).GetProperty().SetColor(colorComponents);
-      }
+      ApplyFunctionToActors(asm, new ActorFunctionApplier() {
+         public void apply(vtkActor actor) { actor.GetProperty().SetColor(colorComponents); }});
       repaintAll();
    }
    /**
@@ -448,69 +435,19 @@ public final class ViewDB extends Observable implements Observer {
    }
    
    private void applyOpacity(final double newOpacity, final vtkProp3D asm) {
-      if (asm instanceof vtkAssembly){
-         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
-         parts.InitTraversal();
-         int n =parts.GetNumberOfItems();
-         for(int i=0; i<n; i++){
-            vtkProp3D prop = parts.GetNextProp3D();
-            if (prop instanceof vtkAssembly){   //recur
-               applyOpacity(newOpacity, (vtkAssembly) prop);
-               // Should continue traversal here
-            } else if (prop instanceof vtkActor){ // Could be Actor or ?
-               ((vtkActor)prop).GetProperty().SetOpacity(newOpacity);
-            }
-         }
-      }
-      else if (asm instanceof vtkActor){
-         ((vtkActor) asm).GetProperty().SetOpacity(newOpacity);
-      }
+      ApplyFunctionToActors(asm, new ActorFunctionApplier() {
+         public void apply(vtkActor actor) { actor.GetProperty().SetOpacity(newOpacity); }});
       repaintAll();
    }
-   /*
-   public void applyOpacityToAssembly(vtkAssembly assembly, double opacity) {
-      vtkProp3DCollection parts = assembly.GetParts();
-      parts.InitTraversal();
-      vtkProp3D prop = parts.GetNextProp3D();
-      if (prop instanceof vtkActor){  // We're at the lowest level of the assembly
-         vtkActor part = (vtkActor)prop;
-         while (prop != null) {
-            if (part != null)
-               part.GetProperty().SetOpacity(opacity);
-            prop = parts.GetNextProp3D();
-            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-         }
-      } else if (prop instanceof vtkAssembly){
-         applyOpacityToAssembly((vtkAssembly)prop, opacity);
-      }
-   }
-    **/
    /**
     * Retrieve the display properties for the passed in object.
     */
-   public void getObjectProperties(OpenSimObject object, vtkProperty saveProperty) {
+   public void getObjectProperties(OpenSimObject object, final vtkProperty saveProperty) {
       vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
-      if (asm==null)  // Object is not displayed for some reason
-         return;
-      if (asm instanceof vtkAssembly){
-         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
-         parts.InitTraversal();
-         vtkProp3D prop = parts.GetNextProp3D();
-         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-         while (prop != null) {
-            if (part != null){
-               saveProperty.SetColor(part.GetProperty().GetColor());
-               saveProperty.SetOpacity(part.GetProperty().GetOpacity());
-            }
-            prop = parts.GetNextProp3D();
-            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-         }
-      }
-      else if (asm instanceof vtkActor){
-         vtkActor part = (vtkActor)asm;
-         saveProperty.SetColor(part.GetProperty().GetColor());
-         saveProperty.SetOpacity(part.GetProperty().GetOpacity());
-      }
+      ApplyFunctionToActors(asm, new ActorFunctionApplier() {
+         public void apply(vtkActor actor) { 
+            saveProperty.SetColor(actor.GetProperty().GetColor());
+            saveProperty.SetOpacity(actor.GetProperty().GetOpacity()); }});
    }
    public void setObjectProperties(OpenSimObject object, vtkProperty saveProperty) {
       setObjectColor(object, saveProperty.GetColor());
@@ -829,30 +766,13 @@ else
       }
 
       // If the object is a vtkAssembly or vtkActor, sets its visibility that way too.
-      int vtkVisible = 0;
-      if (visible == true)
-         vtkVisible = 1;
+      final int vtkVisible = visible ? 1 : 0;
       vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(openSimObject);
-      if (asm==null)  // Object is not displayed for some reason
-         return ;
-      if (asm instanceof vtkAssembly){
-         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
-         parts.InitTraversal();
-         for (;;) {
-            vtkProp3D prop = parts.GetNextProp3D();
-            if (prop==null) break;
-            vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-            if (part != null) {
-               part.SetVisibility(vtkVisible);
-               part.SetPickable(vtkVisible);
-            }
-         }
-      }
-      else if (asm instanceof vtkActor){
-         vtkActor part = (vtkActor)asm;
-         part.SetVisibility(vtkVisible);
-         part.SetPickable(vtkVisible);
-      }
+      ApplyFunctionToActors(asm, new ActorFunctionApplier() {
+         public void apply(vtkActor actor) {
+            actor.SetVisibility(vtkVisible);
+            actor.SetPickable(vtkVisible);
+         }});
    }
    /**
     * Return a flag indicating if an object is displayed or not
@@ -906,30 +826,15 @@ else
     * 2. Phong
     * defined in vtkProperty.h
     */
-   public void setObjectRepresentation(OpenSimObject object, int rep, int newShading) {
+   public void setObjectRepresentation(OpenSimObject object, final int rep, final int newShading) {
       vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
-      if (asm instanceof vtkAssembly){
-         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
-         parts.InitTraversal();
-         vtkProp3D prop = parts.GetNextProp3D();
-         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-         while (prop != null) {
-            if (part != null){
-               part.GetProperty().SetRepresentation(rep);
-               if (rep==2){   // Surface shading
-                  part.GetProperty().SetInterpolation(newShading);
-               }
+      ApplyFunctionToActors(asm, new ActorFunctionApplier() {
+         public void apply(vtkActor actor) {
+            actor.GetProperty().SetRepresentation(rep);
+            if (rep==2){   // Surface shading
+               actor.GetProperty().SetInterpolation(newShading);
             }
-            prop = parts.GetNextProp3D();
-            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-         }
-      } else if (asm instanceof vtkActor){
-         vtkActor part = (vtkActor)asm;
-         part.GetProperty().SetRepresentation(rep);
-         if (rep==2){   // Surface shading
-            part.GetProperty().SetInterpolation(newShading);
-         }
-      }
+         }});
       repaintAll();
    }
 
@@ -1075,5 +980,27 @@ else
          return exist;
 
       return null;
+   }
+
+   /**
+    * Utility: apply a function to given actor, or to all actors in assembly.
+    */
+   interface ActorFunctionApplier {
+      public void apply(vtkActor actor);
+   }
+   public static void ApplyFunctionToActors(vtkProp3D asm, ActorFunctionApplier functionApplier)
+   {
+      if (asm==null) return;
+      if (asm instanceof vtkAssembly){
+         vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
+         parts.InitTraversal();
+         for (;;) {
+            vtkProp3D prop = parts.GetNextProp3D();
+            if (prop==null) break;
+            else ApplyFunctionToActors(prop, functionApplier); // recur on prop (may be nested assembly?)
+         }
+      } else if (asm instanceof vtkActor){
+         functionApplier.apply((vtkActor)asm);
+      }
    }
 }
