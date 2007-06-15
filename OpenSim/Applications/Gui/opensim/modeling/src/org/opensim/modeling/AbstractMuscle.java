@@ -71,8 +71,8 @@ public class AbstractMuscle extends AbstractActuator {
     return (cPtr == 0) ? null : new MusclePoint(cPtr, false);
   }
 
-  public void deleteAttachmentPoint(int aIndex) {
-    opensimModelJNI.AbstractMuscle_deleteAttachmentPoint(swigCPtr, this, aIndex);
+  public boolean deleteAttachmentPoint(int aIndex) {
+    return opensimModelJNI.AbstractMuscle_deleteAttachmentPoint(swigCPtr, this, aIndex);
   }
 
   public void addMuscleWrap(AbstractWrapObject aWrapObject) {
@@ -199,13 +199,13 @@ public class AbstractMuscle extends AbstractActuator {
     opensimModelJNI.AbstractMuscle_peteTest(swigCPtr, this);
   }
 
-  public void updateGeometry() {
-    opensimModelJNI.AbstractMuscle_updateGeometry(swigCPtr, this);
-  }
-
   public VisibleObject getDisplayer() {
     long cPtr = opensimModelJNI.AbstractMuscle_getDisplayer(swigCPtr, this);
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
+  }
+
+  public void updateDisplayer() {
+    opensimModelJNI.AbstractMuscle_updateDisplayer(swigCPtr, this);
   }
 
   public static boolean isKindOf(String type) {

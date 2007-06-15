@@ -68,6 +68,11 @@ public class PropertySet {
     return (cPtr == 0) ? null : new Property(cPtr, false);
   }
 
+  public Property contains(String aName) {
+    long cPtr = opensimModelJNI.PropertySet_contains__SWIG_0(swigCPtr, this, aName);
+    return (cPtr == 0) ? null : new Property(cPtr, false);
+  }
+
   public void append(Property aProperty) {
     opensimModelJNI.PropertySet_append__SWIG_0(swigCPtr, this, Property.getCPtr(aProperty), aProperty);
   }

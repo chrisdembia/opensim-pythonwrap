@@ -802,7 +802,7 @@ public final class ViewDB extends Observable implements Observer {
       AbstractActuator act = AbstractActuator.safeDownCast(openSimObject);
       if (act != null) {
          SingleModelVisuals vis = getModelVisuals(act.getModel());
-         vis.updateActuatorGeometry(act, visible); // call act.updateGeometry() is actuator is becoming visible
+         vis.updateActuatorGeometry(act, visible); // call act.updateGeometry() if actuator is becoming visible
          return;
       }
 

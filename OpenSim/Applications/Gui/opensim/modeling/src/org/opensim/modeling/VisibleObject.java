@@ -202,10 +202,6 @@ public class VisibleObject extends OpenSimObject {
     return (cPtr == 0) ? null : new Geometry(cPtr, false);
   }
 
-  public void updateGeometry() {
-    opensimModelJNI.VisibleObject_updateGeometry(swigCPtr, this);
-  }
-
   public void setupProperties() {
     opensimModelJNI.VisibleObject_setupProperties(swigCPtr, this);
   }

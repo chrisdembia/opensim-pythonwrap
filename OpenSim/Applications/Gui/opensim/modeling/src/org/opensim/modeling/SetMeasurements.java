@@ -138,6 +138,10 @@ public class SetMeasurements extends OpenSimObject {
     return opensimModelJNI.SetMeasurements_remove__SWIG_1(swigCPtr, this, Measurement.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, Measurement aObject) {
+    return opensimModelJNI.SetMeasurements_replace(swigCPtr, this, aIndex, Measurement.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetMeasurements_clearAndDestroy(swigCPtr, this);
   }

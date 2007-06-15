@@ -138,6 +138,10 @@ public class SetMuscleWrap extends OpenSimObject {
     return opensimModelJNI.SetMuscleWrap_remove__SWIG_1(swigCPtr, this, MuscleWrap.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, MuscleWrap aObject) {
+    return opensimModelJNI.SetMuscleWrap_replace(swigCPtr, this, aIndex, MuscleWrap.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetMuscleWrap_clearAndDestroy(swigCPtr, this);
   }

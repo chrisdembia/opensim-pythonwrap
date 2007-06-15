@@ -138,6 +138,10 @@ public class SetControls extends OpenSimObject {
     return opensimModelJNI.SetControls_remove__SWIG_1(swigCPtr, this, Control.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, Control aObject) {
+    return opensimModelJNI.SetControls_replace(swigCPtr, this, aIndex, Control.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetControls_clearAndDestroy(swigCPtr, this);
   }

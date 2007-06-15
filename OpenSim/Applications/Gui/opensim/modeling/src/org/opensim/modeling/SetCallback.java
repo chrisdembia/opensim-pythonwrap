@@ -138,6 +138,10 @@ public class SetCallback extends OpenSimObject {
     return opensimModelJNI.SetCallback_remove__SWIG_1(swigCPtr, this, Callback.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, Callback aObject) {
+    return opensimModelJNI.SetCallback_replace(swigCPtr, this, aIndex, Callback.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetCallback_clearAndDestroy(swigCPtr, this);
   }

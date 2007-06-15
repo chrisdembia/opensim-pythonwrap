@@ -138,6 +138,10 @@ public class SetWrapObject extends OpenSimObject {
     return opensimModelJNI.SetWrapObject_remove__SWIG_1(swigCPtr, this, AbstractWrapObject.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, AbstractWrapObject aObject) {
+    return opensimModelJNI.SetWrapObject_replace(swigCPtr, this, aIndex, AbstractWrapObject.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetWrapObject_clearAndDestroy(swigCPtr, this);
   }

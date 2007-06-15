@@ -138,6 +138,10 @@ public class SetMusclePoint extends OpenSimObject {
     return opensimModelJNI.SetMusclePoint_remove__SWIG_1(swigCPtr, this, MusclePoint.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, MusclePoint aObject) {
+    return opensimModelJNI.SetMusclePoint_replace(swigCPtr, this, aIndex, MusclePoint.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetMusclePoint_clearAndDestroy(swigCPtr, this);
   }

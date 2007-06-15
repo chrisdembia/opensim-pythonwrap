@@ -43,6 +43,7 @@ import org.opensim.modeling.ArrayMusclePoint;
 import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.MusclePoint;
+import org.opensim.modeling.VisibleProperties.DisplayPreference;
 import org.opensim.view.ClearSelectedObjectsEvent;
 import org.opensim.view.DragObjectsEvent;
 import org.opensim.view.ExplorerTopComponent;
@@ -250,19 +251,29 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       actSaved.setName(act.getName()); // TODO: what about other properties of parent classes?
    }
 
+   /** resetActuator
+    *  Because the type of the actuator may have changed, you have to remove the current
+    *  one (act) and replace it with the saved one (actSaved).
+    */
    private void resetActuator() {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
-      act.copy(actSaved);
-      act.setup(actSaved.getModel());
+      Model model = asm.getModel();
+      SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+
+      // Save the display preference of the old muscle.
+      DisplayPreference dp = act.getDisplayer().getVisibleProperties().getDisplayPreference();
+      vis.removeActuatorGeometry(act);
+      model.getActuatorSet().replaceActuator(act, actSaved);
+      act = actSaved;
+      // Set the display preference of the new muscle to the same as the old.
+      act.getDisplayer().getVisibleProperties().setDisplayPreference(dp);
+      vis.addActuatorGeometry(act, true);
+
       setPendingChanges(false, false);
       OpenSimDB.getInstance().setChanged();
       NameChangedEvent evnt = new NameChangedEvent(act); // TODO: what about other changes to the muscle?
       OpenSimDB.getInstance().notifyObservers(evnt);
       setupComponent(act);
-      // tell the ViewDB to redraw the model
-      Model model = asm.getModel();
-      SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-      vis.updateActuatorGeometry(asm, true);
       ViewDB.getInstance().repaintAll();
    }
 
@@ -589,11 +600,17 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       String newTypeName = guiElem.getActuatorClassNames()[newType];
       String oldTypeName = act.getType();
       if (newTypeName.equals(oldTypeName) == false) {
-         //TODO model.getActuatorSet().changeActuatorType(act, newTypeName);
+         SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+         // Store the display preference of the muscle before it is deleted.
+         DisplayPreference dp = act.getDisplayer().getVisibleProperties().getDisplayPreference();
+         vis.removeActuatorGeometry(act);
+         act = model.getActuatorSet().changeActuatorType(act, newTypeName);
+         // Set the display preference of the new muscle to the same as the old.
+         act.getDisplayer().getVisibleProperties().setDisplayPreference(dp);
+         setPendingChanges(true, false);
          setupComponent(act);
          // tell the ViewDB to redraw the model
-         SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-         vis.updateActuatorGeometry(act, true);
+         vis.addActuatorGeometry(act, true);
          ViewDB.getInstance().repaintAll();
       }
    }                                                  
@@ -652,13 +669,25 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
    public void deleteAttachmentPerformed(int menuChoice) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
-      asm.deleteAttachmentPoint(menuChoice);
-      setPendingChanges(true, false);
-      setupComponent(act);
-      Model model = asm.getModel();
-      SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-      vis.updateActuatorGeometry(asm, true);
-      ViewDB.getInstance().repaintAll();
+      boolean result = asm.deleteAttachmentPoint(menuChoice);
+      if (result == false) {
+         Object[] options = {"OK"};
+         int answer = JOptionPane.showOptionDialog(this,
+               "A muscle must contain at least 2 fixed attachment points.",
+               "Muscle Editor",
+               JOptionPane.OK_OPTION,
+               JOptionPane.WARNING_MESSAGE,
+               null,
+               options,
+               options[0]);
+      } else {
+         setPendingChanges(true, false);
+         setupComponent(act);
+         Model model = asm.getModel();
+         SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+         vis.updateActuatorGeometry(asm, true);
+         ViewDB.getInstance().repaintAll();
+      }
    }
 
    public void componentOpened() {
@@ -715,19 +744,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       CurrentPathPanel.add(currentPathZLabel);
       CurrentPathPanel.add(currentPathBodyLabel);
       CurrentPathPanel.add(currentPathSelLabel);
-      
-      int n = asmp.getSize();
-      double x1 = asmp.get(0).getAttachment().getitem(0);
-      double y1 = asmp.get(0).getAttachment().getitem(1);
-      double z1 = asmp.get(0).getAttachment().getitem(2);
-      //double x2 = asmp.get(1).getAttachment().getitem(0);
-      //double y2 = asmp.get(1).getAttachment().getitem(1);
-      //double z2 = asmp.get(1).getAttachment().getitem(2);
-      //String w1 = asmp.get(1).getWrapObject().getName();
-      //String w2 = asmp.get(3).getWrapObject().getName();
-      
-      int i;
-      for (i = 0; i < asmp.getSize(); i++) {
+
+      for (int i = 0; i < asmp.getSize(); i++) {
          boolean isWrapPoint = false;
          if (asmp.get(i).getWrapObject() != null)
             isWrapPoint = true;
@@ -1329,6 +1347,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
       SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(act.getModel());
       MuscleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(guiElem.getActuatorClassNames()));
+      MuscleTypeComboBox.setSelectedIndex(findElement(guiElem.getActuatorClassNames(), act.getType()));
       MuscleTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             MuscleTypeComboBoxActionPerformed(MuscleTypeComboBox);
@@ -1507,7 +1526,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    }
    
    public void open() {
-      System.out.println("open");
       Mode mode=WindowManager.getDefault().findMode(s_mode);
       //boolean docked = mode.dockInto(this);
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();

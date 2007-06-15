@@ -138,6 +138,10 @@ public class SetMaterials extends OpenSimObject {
     return opensimModelJNI.SetMaterials_remove__SWIG_1(swigCPtr, this, Material.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, Material aObject) {
+    return opensimModelJNI.SetMaterials_replace(swigCPtr, this, aIndex, Material.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetMaterials_clearAndDestroy(swigCPtr, this);
   }

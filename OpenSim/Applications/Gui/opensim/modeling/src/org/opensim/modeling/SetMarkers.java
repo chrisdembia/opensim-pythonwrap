@@ -138,6 +138,10 @@ public class SetMarkers extends OpenSimObject {
     return opensimModelJNI.SetMarkers_remove__SWIG_1(swigCPtr, this, AbstractMarker.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, AbstractMarker aObject) {
+    return opensimModelJNI.SetMarkers_replace(swigCPtr, this, aIndex, AbstractMarker.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetMarkers_clearAndDestroy(swigCPtr, this);
   }

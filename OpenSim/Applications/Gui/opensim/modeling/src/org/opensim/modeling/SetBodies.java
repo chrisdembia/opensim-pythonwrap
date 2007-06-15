@@ -138,6 +138,10 @@ public class SetBodies extends OpenSimObject {
     return opensimModelJNI.SetBodies_remove__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, AbstractBody aObject) {
+    return opensimModelJNI.SetBodies_replace(swigCPtr, this, aIndex, AbstractBody.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetBodies_clearAndDestroy(swigCPtr, this);
   }

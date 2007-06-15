@@ -138,6 +138,10 @@ public class SetIKTasks extends OpenSimObject {
     return opensimModelJNI.SetIKTasks_remove__SWIG_1(swigCPtr, this, IKTask.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, IKTask aObject) {
+    return opensimModelJNI.SetIKTasks_replace(swigCPtr, this, aIndex, IKTask.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetIKTasks_clearAndDestroy(swigCPtr, this);
   }

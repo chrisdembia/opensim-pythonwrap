@@ -50,6 +50,10 @@ public class SimmZajacHill extends AbstractMuscle {
     opensimModelJNI.SimmZajacHill_copyData(swigCPtr, this, SimmZajacHill.getCPtr(aMuscle), aMuscle);
   }
 
+  public void copyPropertyValues(AbstractActuator aActuator) {
+    opensimModelJNI.SimmZajacHill_copyPropertyValues(swigCPtr, this, AbstractActuator.getCPtr(aActuator), aActuator);
+  }
+
   public double getMaxIsometricForce() {
     return opensimModelJNI.SimmZajacHill_getMaxIsometricForce(swigCPtr, this);
   }

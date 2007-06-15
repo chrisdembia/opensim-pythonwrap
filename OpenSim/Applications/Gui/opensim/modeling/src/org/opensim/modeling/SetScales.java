@@ -138,6 +138,10 @@ public class SetScales extends OpenSimObject {
     return opensimModelJNI.SetScales_remove__SWIG_1(swigCPtr, this, Scale.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, Scale aObject) {
+    return opensimModelJNI.SetScales_replace(swigCPtr, this, aIndex, Scale.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetScales_clearAndDestroy(swigCPtr, this);
   }

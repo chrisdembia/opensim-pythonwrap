@@ -50,6 +50,10 @@ public class SimmDarrylMuscle extends AbstractMuscle {
     opensimModelJNI.SimmDarrylMuscle_copyData(swigCPtr, this, SimmDarrylMuscle.getCPtr(aMuscle), aMuscle);
   }
 
+  public void copyPropertyValues(AbstractActuator aActuator) {
+    opensimModelJNI.SimmDarrylMuscle_copyPropertyValues(swigCPtr, this, AbstractActuator.getCPtr(aActuator), aActuator);
+  }
+
   public double getMaxIsometricForce() {
     return opensimModelJNI.SimmDarrylMuscle_getMaxIsometricForce(swigCPtr, this);
   }
@@ -132,6 +136,10 @@ public class SimmDarrylMuscle extends AbstractMuscle {
 
   public void computeStateDerivatives(double[] rDYDT) {
     opensimModelJNI.SimmDarrylMuscle_computeStateDerivatives(swigCPtr, this, rDYDT);
+  }
+
+  public void computeEquilibrium() {
+    opensimModelJNI.SimmDarrylMuscle_computeEquilibrium(swigCPtr, this);
   }
 
   public void computeActuation() {

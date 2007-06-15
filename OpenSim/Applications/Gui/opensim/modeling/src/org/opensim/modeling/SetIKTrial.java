@@ -138,6 +138,10 @@ public class SetIKTrial extends OpenSimObject {
     return opensimModelJNI.SetIKTrial_remove__SWIG_1(swigCPtr, this, IKTrial.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, IKTrial aObject) {
+    return opensimModelJNI.SetIKTrial_replace(swigCPtr, this, aIndex, IKTrial.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetIKTrial_clearAndDestroy(swigCPtr, this);
   }

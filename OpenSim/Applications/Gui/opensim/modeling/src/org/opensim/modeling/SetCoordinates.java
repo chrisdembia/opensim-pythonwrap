@@ -138,6 +138,10 @@ public class SetCoordinates extends OpenSimObject {
     return opensimModelJNI.SetCoordinates_remove__SWIG_1(swigCPtr, this, AbstractCoordinate.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, AbstractCoordinate aObject) {
+    return opensimModelJNI.SetCoordinates_replace(swigCPtr, this, aIndex, AbstractCoordinate.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetCoordinates_clearAndDestroy(swigCPtr, this);
   }

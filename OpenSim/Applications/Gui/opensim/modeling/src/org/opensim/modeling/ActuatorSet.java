@@ -62,8 +62,8 @@ public class ActuatorSet extends SetActuators {
     opensimModelJNI.ActuatorSet_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public void updateGeometry() {
-    opensimModelJNI.ActuatorSet_updateGeometry(swigCPtr, this);
+  public void updateDisplayers() {
+    opensimModelJNI.ActuatorSet_updateDisplayers(swigCPtr, this);
   }
 
   public void setModel(Model aModel) {
@@ -95,8 +95,13 @@ public class ActuatorSet extends SetActuators {
     return opensimModelJNI.ActuatorSet_set(swigCPtr, this, aIndex, AbstractActuator.getCPtr(aActuator), aActuator);
   }
 
-  public void changeActuatorType(AbstractActuator aActuator, String aNewTypeName) {
-    opensimModelJNI.ActuatorSet_changeActuatorType(swigCPtr, this, AbstractActuator.getCPtr(aActuator), aActuator, aNewTypeName);
+  public AbstractActuator changeActuatorType(AbstractActuator aActuator, String aNewTypeName) {
+    long cPtr = opensimModelJNI.ActuatorSet_changeActuatorType(swigCPtr, this, AbstractActuator.getCPtr(aActuator), aActuator, aNewTypeName);
+    return (cPtr == 0) ? null : new AbstractActuator(cPtr, false);
+  }
+
+  public void replaceActuator(AbstractActuator aOldActuator, AbstractActuator aNewActuator) {
+    opensimModelJNI.ActuatorSet_replaceActuator(swigCPtr, this, AbstractActuator.getCPtr(aOldActuator), aOldActuator, AbstractActuator.getCPtr(aNewActuator), aNewActuator);
   }
 
   public int getNumControls() {

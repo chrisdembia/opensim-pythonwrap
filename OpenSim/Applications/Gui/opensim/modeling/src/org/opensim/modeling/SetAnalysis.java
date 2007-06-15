@@ -138,6 +138,10 @@ public class SetAnalysis extends OpenSimObject {
     return opensimModelJNI.SetAnalysis_remove__SWIG_1(swigCPtr, this, Analysis.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, Analysis aObject) {
+    return opensimModelJNI.SetAnalysis_replace(swigCPtr, this, aIndex, Analysis.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetAnalysis_clearAndDestroy(swigCPtr, this);
   }

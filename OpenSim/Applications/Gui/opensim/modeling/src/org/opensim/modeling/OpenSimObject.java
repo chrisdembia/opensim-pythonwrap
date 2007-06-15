@@ -108,6 +108,10 @@ public class OpenSimObject {
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
+  public void setType(String aType) {
+    opensimModelJNI.OpenSimObject_setType(swigCPtr, this, aType);
+  }
+
   public String getType() {
     return opensimModelJNI.OpenSimObject_getType(swigCPtr, this);
   }

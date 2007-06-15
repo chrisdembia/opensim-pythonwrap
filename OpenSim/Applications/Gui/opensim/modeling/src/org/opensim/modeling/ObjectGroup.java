@@ -66,6 +66,10 @@ public class ObjectGroup extends OpenSimObject {
     opensimModelJNI.ObjectGroup_remove(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
+  public void replace(OpenSimObject aOldObject, OpenSimObject aNewObject) {
+    opensimModelJNI.ObjectGroup_replace(swigCPtr, this, OpenSimObject.getCPtr(aOldObject), aOldObject, OpenSimObject.getCPtr(aNewObject), aNewObject);
+  }
+
   public void setup(ArrayPtrsObj aObjects) {
     opensimModelJNI.ObjectGroup_setup(swigCPtr, this, ArrayPtrsObj.getCPtr(aObjects), aObjects);
   }

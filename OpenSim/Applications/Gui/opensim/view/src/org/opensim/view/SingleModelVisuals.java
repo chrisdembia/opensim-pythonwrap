@@ -360,6 +360,70 @@ public class SingleModelVisuals {
         }
         return 0;
     }
+    public void addActuatorGeometry(AbstractActuator act, boolean callSetModified) {
+       Vector<Integer>   segmentGlyphIds = new Vector<Integer>(3);
+       Vector<Integer>   pointGlyphIds = new Vector<Integer>(3);
+       // Get attachments and connect them
+       VisibleObject actuatorDisplayer = act.getDisplayer();
+       if (actuatorDisplayer == null){
+          return;
+       }
+       // A displayer is found, get geometry
+       int geomSize = actuatorDisplayer.countGeometry();
+       if (geomSize > 0){
+          AbstractMuscle muscle = AbstractMuscle.safeDownCast(act);
+          String muscleName = muscle.getName();
+          ArrayMusclePoint path=muscle.getCurrentPath();
+          // Points are already in inertial frame
+          for(int i=0; i<geomSize; i++) {
+             Geometry geomEntry = actuatorDisplayer.getGeometry(i);
+             double[] position1 = new double[3];
+             double[] position2 = new double[3];
+             LineGeometry geomLine = LineGeometry.dynamic_cast(geomEntry);
+             geomLine.getPoints(position1, position2);
+             double[] axis = new double[3];
+             double[] center = new double[3];
+             for(int d=0; d <3; d++){
+                axis[d]=position1[d]-position2[d];
+                center[d] = (position1[d]+position2[d])/2.0;
+             }
+             double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
+             double length = normalizeAndGetLength(axis);
+             double[] xform = getCylinderTransform(axis, center) ;
+             
+             int idx = getMuscleSegmentsRep().addLocation(center[0], center[1], center[2]);
+             getMuscleSegmentsRep().setTensorDataAtLocation(idx,
+                     xform[0], xform[4], xform[8],
+                     length*xform[1], length*xform[5], length*xform[9],
+                     xform[2], xform[6], xform[10]
+                     );
+             segmentGlyphIds.add(new Integer(idx));
+             
+             // Add muscle point at position1 of segment, and if this is the last segment also at position2
+             MusclePoint pt1 = path.get(i);
+             if (MuscleWrapPoint.safeDownCast(pt1)!= null)
+                pt1.setPickable(false);
+             
+             int pointIdx = getMusclePointsRep().addLocation(position1, path.get(i));
+             getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
+             pointGlyphIds.add(new Integer(pointIdx));
+             if(i==geomSize-1) {
+                MusclePoint pt2 = path.get(i+1);
+                if (MuscleWrapPoint.safeDownCast(pt2)!= null)
+                   pt2.setPickable(false);
+                pointIdx = getMusclePointsRep().addLocation(position2, path.get(i+1));
+                getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
+                pointGlyphIds.add(new Integer(pointIdx));
+             }
+          } // Attachments
+          mapActuator2SegmentGlyphIds.put(act, segmentGlyphIds);
+          mapActuator2PointGlyphIds.put(act, pointGlyphIds);
+          if (callSetModified) {
+             getMuscleSegmentsRep().setModified();
+             getMusclePointsRep().setModified();
+          }
+       }
+    }
     /**
      * Visualize all actuators and add created vtk creatures to the model Assembly
      * Potentially can be used to add muscles separately from a file to an existing model.
@@ -369,67 +433,8 @@ public class SingleModelVisuals {
         // We'll display them by asking the "actuators for their geometry which may contain 
         // muscle points as well as segments connecting them
         ActuatorSet acts = mdl.getActuatorSet();
-        for(int actNumber=0; actNumber < acts.getSize(); actNumber++){   
-            AbstractActuator nextMuscle = acts.get(actNumber);
-            Vector<Integer>   segmentGlyphIds = new Vector<Integer>(3);
-            Vector<Integer>   pointGlyphIds = new Vector<Integer>(3);
-            // Get attachments and connect them
-            VisibleObject actuatorDisplayer = nextMuscle.getDisplayer();
-            if (actuatorDisplayer == null){
-                continue;
-            }
-            // A displayer is found, get geometry
-            int geomSize = actuatorDisplayer.countGeometry();
-            //System.out.println("Number of points for Actutor"+nextMuscle.getName()+"="+geomSize);
-            if (geomSize > 0){
-                AbstractMuscle muscle = AbstractMuscle.safeDownCast(nextMuscle);
-                String muscleName = muscle.getName();
-                ArrayMusclePoint path=muscle.getCurrentPath();
-                // Points are already in inertial frame
-                for(int i=0; i<geomSize; i++) {
-                    Geometry geomEntry = actuatorDisplayer.getGeometry(i);
-                    double[] position1 = new double[3];
-                    double[] position2 = new double[3];
-                    LineGeometry geomLine = LineGeometry.dynamic_cast(geomEntry);
-                    geomLine.getPoints(position1, position2);
-                    double[] axis = new double[3];
-                    double[] center = new double[3];
-                    for(int d=0; d <3; d++){
-                        axis[d]=position1[d]-position2[d];
-                        center[d] = (position1[d]+position2[d])/2.0;
-                    }
-                    double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
-                    double length = normalizeAndGetLength(axis);
-                    double[] xform = getCylinderTransform(axis, center) ;
-                    
-                    int idx = getMuscleSegmentsRep().addLocation(center[0], center[1], center[2]);
-                    getMuscleSegmentsRep().setTensorDataAtLocation(idx, 
-                            xform[0], xform[4], xform[8],
-                            length*xform[1], length*xform[5], length*xform[9],
-                            xform[2], xform[6], xform[10]
-                            );
-                    segmentGlyphIds.add(new Integer(idx));
-
-                    // Add muscle point at position1 of segment, and if this is the last segment also at position2
-                    MusclePoint pt1 = path.get(i);
-                    if (MuscleWrapPoint.safeDownCast(pt1)!= null)
-                        pt1.setPickable(false);
-                    
-                    int pointIdx = getMusclePointsRep().addLocation(position1, path.get(i));
-                    getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
-                    pointGlyphIds.add(new Integer(pointIdx));
-                    if(i==geomSize-1) {
-                        MusclePoint pt2 = path.get(i+1);
-                        if (MuscleWrapPoint.safeDownCast(pt2)!= null)
-                           pt2.setPickable(false);
-                        pointIdx = getMusclePointsRep().addLocation(position2, path.get(i+1));
-                        getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
-                        pointGlyphIds.add(new Integer(pointIdx));
-                    }
-                } // Attachments
-                mapActuator2SegmentGlyphIds.put(nextMuscle, segmentGlyphIds);
-                mapActuator2PointGlyphIds.put(nextMuscle, pointGlyphIds);
-            } // ArraySize
+        for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
+           addActuatorGeometry(acts.get(actNumber), false);
         }
         modelAssembly.AddPart(getMuscleSegmentsRep().getVtkActor());
         getMuscleSegmentsRep().setModified();
@@ -567,6 +572,7 @@ public class SingleModelVisuals {
          // We always want to maintain one more point than number of segments
          if(origNumSegments==0) {
             int pointIdx = getMusclePointsRep().addLocation(0.0, 0.0, 0.0); // always one more muscle point than number of segments
+            getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
             pointGlyphIds.add(new Integer(pointIdx));
          }
          // Add required number of segments, and one point for each segment
@@ -598,20 +604,29 @@ public class SingleModelVisuals {
    /**
     * Update display of muscles and forces if any during playing back animation/motion, ..
     */
-   private void updateActuatorsGeometry(ActuatorSet acts, boolean callUpdateGeometry) {
+   private void updateActuatorsGeometry(ActuatorSet acts) {
       for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
-         updateActuatorGeometry(acts.get(actNumber), callUpdateGeometry);
+         updateActuatorGeometry(acts.get(actNumber), true);
       }
       //getMuscleSegmentsRep().setModified();
       //getMusclePointsRep().setModified();
    }
 
-   public void updateActuatorGeometry(AbstractActuator act, boolean callUpdateGeometry) {
+   public void removeActuatorGeometry(AbstractActuator act) {
+      VisibleObject actuatorDisplayer = act.getDisplayer();
+      if (actuatorDisplayer != null) {
+         // Turn the display of the actuator off so its geometry will be removed from the VTK objects
+         actuatorDisplayer.getVisibleProperties().setDisplayPreference(DisplayPreference.None);
+         updateActuatorGeometry(act, false);
+      }
+   }
+
+   public void updateActuatorGeometry(AbstractActuator act, boolean callUpdateDisplayer) {
       //System.out.println("Update geometry for actuator"+act.getName());
       double[] axis = new double[]{0.0, 0.0, 0.0};
       double[] center = new double[]{0.0, 0.0, 0.0};
-      if(callUpdateGeometry) act.updateGeometry();
       // Get attachments and connect them
+      if(callUpdateDisplayer) act.updateDisplayer();
       VisibleObject actuatorDisplayer = act.getDisplayer();
       if (actuatorDisplayer == null){
          return;
@@ -672,7 +687,7 @@ public class SingleModelVisuals {
    }
 
    public void updateActuatorsGeometry(Model mdl) {
-      updateActuatorsGeometry(mdl.getActuatorSet(), true);
+      updateActuatorsGeometry(mdl.getActuatorSet());
    }
 
    /**

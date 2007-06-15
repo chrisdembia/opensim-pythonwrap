@@ -138,6 +138,10 @@ public class SetActuators extends OpenSimObject {
     return opensimModelJNI.SetActuators_remove__SWIG_1(swigCPtr, this, AbstractActuator.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, AbstractActuator aObject) {
+    return opensimModelJNI.SetActuators_replace(swigCPtr, this, aIndex, AbstractActuator.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetActuators_clearAndDestroy(swigCPtr, this);
   }

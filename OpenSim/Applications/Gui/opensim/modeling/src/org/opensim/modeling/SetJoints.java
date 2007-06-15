@@ -138,6 +138,10 @@ public class SetJoints extends OpenSimObject {
     return opensimModelJNI.SetJoints_remove__SWIG_1(swigCPtr, this, AbstractJoint.getCPtr(aObject), aObject);
   }
 
+  public boolean replace(int aIndex, AbstractJoint aObject) {
+    return opensimModelJNI.SetJoints_replace(swigCPtr, this, aIndex, AbstractJoint.getCPtr(aObject), aObject);
+  }
+
   public void clearAndDestroy() {
     opensimModelJNI.SetJoints_clearAndDestroy(swigCPtr, this);
   }
