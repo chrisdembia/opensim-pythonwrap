@@ -11,6 +11,7 @@ package org.opensim.view;
 
 import java.util.EventObject;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.SelectedObject;
 
 /**
  *
@@ -18,24 +19,27 @@ import org.opensim.modeling.OpenSimObject;
  */
 public class ObjectSelectedEvent extends EventObject {
 
+   private SelectedObject selectedObject;
    private boolean selected = false;
+
     /** Creates a new instance of ObjectSelectedEvent
      *  state indicates whether the object was selected (true)
      *  or unselected (false).
      */
-    public ObjectSelectedEvent(OpenSimObject source, boolean state) {
+    public ObjectSelectedEvent(Object source, SelectedObject object, boolean state) {
        super(source);
+       selectedObject = object;
        selected = state;
     }
 
-    public OpenSimObject getObject()
+    public SelectedObject getSelectedObject()
     {
-        return (OpenSimObject) source;
+        return (SelectedObject) selectedObject;
     }
 
     public String getName()
     {
-        return ((OpenSimObject) source).getName();
+        return getSelectedObject().getOpenSimObject().getName();
     }
 
     public boolean getState()

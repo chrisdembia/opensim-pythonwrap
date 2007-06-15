@@ -99,7 +99,7 @@ public final class ViewDB extends Observable implements Observer {
    // Flag indicating whether new models are open in a new window or in the same window
    static boolean openModelInNewWindow=true;
    
-   private ArrayList<OpenSimObject> selectedObjects = new ArrayList<OpenSimObject>(0);
+   private ArrayList<SelectedObject> selectedObjects = new ArrayList<SelectedObject>(0);
    
    private vtkAssembly     axesAssembly=null;
    private boolean axesDisplayed=false;
@@ -421,7 +421,7 @@ public final class ViewDB extends Observable implements Observer {
       }
    }
 
-   private void applyColor(final double[] colorComponents, final vtkProp3D asm) {
+   public void applyColor(final double[] colorComponents, final vtkProp3D asm) {
       ApplyFunctionToActors(asm, new ActorFunctionApplier() {
          public void apply(vtkActor actor) { actor.GetProperty().SetColor(colorComponents); }});
       repaintAll();
@@ -463,51 +463,27 @@ public final class ViewDB extends Observable implements Observer {
     */
    public void removeObjectsBelongingToModelFromSelection(Model model)
    {
+      boolean modified = false;
       for(int i=selectedObjects.size()-1; i>=0; i--) {
-         OpenSimObject object = selectedObjects.get(i);
-         MusclePoint mp = MusclePoint.safeDownCast(object);
-         boolean belongsToModel = false;
-         if(mp != null) {
-            if(Model.getCPtr(model) == Model.getCPtr(mp.getMuscle().getModel()))
-               belongsToModel = true;
-         } else { // should check for body here
-            AbstractBody body = AbstractBody.safeDownCast(object);
-            if(body != null) {
-               if(Model.getCPtr(model) == Model.getCPtr(body.getDynamicsEngine().getModel()))
-                  belongsToModel = true;
-            }
-         }
-         if(belongsToModel) {
+         Model ownerModel = selectedObjects.get(i).getOwnerModel();
+         if(Model.getCPtr(model) == Model.getCPtr(ownerModel)) {
             selectedObjects.remove(i);
-            markSelected(object, false, false, true);
+            markSelected(selectedObjects.get(i), false, false, true);
+            modified = true;
          }
       }
-      statusDisplaySelectedObjects();
-      repaintAll();
+      if(modified) {
+         statusDisplaySelectedObjects();
+         repaintAll();
+      }
    }
    
    /**
     * Mark an object as selected (on/off).
     *
     */
-   public void markSelected(OpenSimObject selectedObject, boolean highlight, boolean sendEvent, boolean updateStatusDisplayAndRepaint) {
-      MusclePoint mp = MusclePoint.safeDownCast(selectedObject);
-      if (mp != null) {
-         SingleModelVisuals visuals = getModelVisuals(mp.getMuscle().getModel());
-         OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
-         if (highlight == true)
-            cloud.setScalarDataAtLocation(cloud.getPointId(selectedObject), 0.28); // yellow
-else
-            cloud.setScalarDataAtLocation(cloud.getPointId(selectedObject), 0.0); // red
-         AbstractMuscle m = mp.getMuscle();
-         visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
-      } else { // should check for body here
-         double colorComponents[] = {0.8, 0.8, 0.0};
-         if (highlight == false)
-            colorComponents[0] = colorComponents[1] = colorComponents[2] = 1.0;
-         vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(selectedObject);
-         applyColor(colorComponents, asm);
-      }
+   public void markSelected(SelectedObject selectedObject, boolean highlight, boolean sendEvent, boolean updateStatusDisplayAndRepaint) {
+      selectedObject.markSelected(highlight);
 
       if(updateStatusDisplayAndRepaint) {
          statusDisplaySelectedObjects();
@@ -515,13 +491,13 @@ else
       }
 
       if(sendEvent) {
-         ObjectSelectedEvent evnt = new ObjectSelectedEvent(selectedObject, highlight);
+         ObjectSelectedEvent evnt = new ObjectSelectedEvent(this, selectedObject, highlight);
          setChanged();
          notifyObservers(evnt);
       }
    }
    
-   public ArrayList<OpenSimObject> getSelectedObjects() {
+   public ArrayList<SelectedObject> getSelectedObjects() {
       return selectedObjects;
    }
 
@@ -529,58 +505,59 @@ else
       String status="";
       for(int i=0; i<selectedObjects.size(); i++) {
          if(i>0) status += ", ";
-         status += selectedObjects.get(i).getType() + ":" + selectedObjects.get(i).getName();
+         status += selectedObjects.get(i).getStatusText();
       }
       StatusDisplayer.getDefault().setStatusText(status);
-      //System.out.println("status, numobjects = " + selectedObjects.size());
    }
 
-   public void setSelectedObject(OpenSimObject selectedObject) {
+   public void setSelectedObject(OpenSimObject obj) {
       clearSelectedObjects();
 
-      if (selectedObject != null) {
+      if (obj != null) {
+         SelectedObject selectedObject = new SelectedObject(obj);
          selectedObjects.add(selectedObject);
          markSelected(selectedObject, true, true, true);
-      } else { // this function should never be called with selectedObject = null
-         ClearSelectedObjectsEvent evnt = new ClearSelectedObjectsEvent(new OpenSimObject()); // TODO use model object instead???
+      } else { // this function should never be called with obj = null
+         ClearSelectedObjectsEvent evnt = new ClearSelectedObjectsEvent(this);
          setChanged();
          notifyObservers(evnt);
       }
    }
 
-   private boolean removeObjectFromSelectedList(OpenSimObject selectedObject) {
+   private boolean removeObjectFromSelectedList(OpenSimObject obj) {
       for (int i = 0; i < selectedObjects.size(); i++) {
-         if (OpenSimObject.getCPtr(selectedObject) == OpenSimObject.getCPtr(selectedObjects.get(i))) {
+         if (OpenSimObject.getCPtr(obj) == OpenSimObject.getCPtr(selectedObjects.get(i).getOpenSimObject())) {
             // remove the object from the list of selected ones
             selectedObjects.remove(i);
             // mark it as unselected
-            markSelected(selectedObject, false, true, true);
+            markSelected(selectedObjects.get(i), false, true, true);
             return true;
          }
       }
       return false;
    }
 
-   public void toggleAddSelectedObject(OpenSimObject selectedObject) {
+   public void toggleAddSelectedObject(OpenSimObject obj) {
       // If the object is already in the list, remove it
-      if (removeObjectFromSelectedList(selectedObject) == false) {
+      if (removeObjectFromSelectedList(obj) == false) {
          // If the object is not already in the list, add it
+         SelectedObject selectedObject = new SelectedObject(obj);
          selectedObjects.add(selectedObject);
          // mark it as selected
          markSelected(selectedObject, true, true, true);
       }
    }
 
-   public void replaceSelectedObject(OpenSimObject selectedObject) {
+   public void replaceSelectedObject(OpenSimObject obj) {
       // If the object is already in the list of selected ones, do nothing (a la Illustrator)
       for (int i = 0; i < selectedObjects.size(); i++) {
-         if (OpenSimObject.getCPtr(selectedObject) == OpenSimObject.getCPtr(selectedObjects.get(i))) {
+         if (OpenSimObject.getCPtr(obj) == OpenSimObject.getCPtr(selectedObjects.get(i).getOpenSimObject())) {
             return;
          }
       }
 
       // If the object is not already in the list, make this object the only selected one
-      setSelectedObject(selectedObject);
+      setSelectedObject(obj);
    }
 
    public void clearSelectedObjects() {
@@ -595,7 +572,7 @@ else
 
    public boolean isSelected(OpenSimObject obj) {
       for (int i = 0; i < selectedObjects.size(); i++) {
-         if (OpenSimObject.getCPtr(obj) == OpenSimObject.getCPtr(selectedObjects.get(i))) {
+         if (OpenSimObject.getCPtr(obj) == OpenSimObject.getCPtr(selectedObjects.get(i).getOpenSimObject())) {
             return true;
          }
       }

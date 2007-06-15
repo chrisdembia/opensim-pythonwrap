@@ -55,6 +55,7 @@ import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.nodes.OneActuatorNode;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
+import org.opensim.view.SelectedObject;
 
 /**
  * Top component which displays the Muscle Editor window.
@@ -1298,7 +1299,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       AttachmentsPanel.setPreferredSize(d);
 
       // Update the checked/unchecked state of the selected checkboxes
-      ArrayList<OpenSimObject> selectedObjects = ViewDB.getInstance().getSelectedObjects();
+      ArrayList<SelectedObject> selectedObjects = ViewDB.getInstance().getSelectedObjects();
       for (i = 0; i < selectedObjects.size(); i++)
          updateAttachmentSelections(selectedObjects.get(i), true);
    }
@@ -1574,8 +1575,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       if (o instanceof ViewDB) {
          if (arg instanceof ObjectSelectedEvent) {
             ObjectSelectedEvent ev = (ObjectSelectedEvent)arg;
-            OpenSimObject obj = ev.getObject();
-            updateAttachmentSelections(obj, ev.getState());
+            updateAttachmentSelections(ev.getSelectedObject(), ev.getState());
          } else if (arg instanceof ClearSelectedObjectsEvent) {
             if (act != null) {
                AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
@@ -1605,7 +1605,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       }
    }
    
-   private void updateAttachmentSelections(OpenSimObject obj, boolean state) {
+   private void updateAttachmentSelections(SelectedObject selectedObject, boolean state) {
+      OpenSimObject obj = selectedObject.getOpenSimObject();
       if (act != null) {
          AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
          if (asm != null) {
@@ -1622,10 +1623,10 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    }
 
    private void dragMusclePoints(DragObjectsEvent ev) {
-      ArrayList<OpenSimObject> selectedObjects = ViewDB.getInstance().getSelectedObjects();
+      ArrayList<SelectedObject> selectedObjects = ViewDB.getInstance().getSelectedObjects();
       AbstractMuscle m = null;
       for (int i = 0; i < selectedObjects.size(); i++) {
-         OpenSimObject obj = selectedObjects.get(i);
+         OpenSimObject obj = selectedObjects.get(i).getOpenSimObject();
          MusclePoint mp = MusclePoint.safeDownCast(obj);
          if (mp != null) {
             double value = mp.getAttachment().getitem(0);

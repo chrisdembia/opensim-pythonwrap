@@ -22,18 +22,8 @@ public class ClearSelectedObjectsEvent extends EventObject {
      *  state indicates whether the object was selected (true)
      *  or unselected (false).
      */
-    public ClearSelectedObjectsEvent(OpenSimObject source) {
+    public ClearSelectedObjectsEvent(Object source) {
        super(source);
-    }
-
-    public OpenSimObject getObject()
-    {
-        return (OpenSimObject) source;
-    }
-
-    public String getName()
-    {
-        return ((OpenSimObject) source).getName();
     }
 
 }
