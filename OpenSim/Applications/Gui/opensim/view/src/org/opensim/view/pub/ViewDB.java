@@ -45,6 +45,7 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractMuscle;
+import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.ArrayPtrsObj;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.MusclePoint;
@@ -209,6 +210,8 @@ public final class ViewDB extends Observable implements Observer {
             }
             if (ev.getOperation()==ModelEvent.Operation.Close){
                Model dModel = ev.getModel();
+               // Remove model-associated objects from selection list!
+               removeObjectsBelongingToModelFromSelection(dModel);
                SingleModelVisuals visModel = mapModelsToVisuals.get(dModel);
                // Remove from display
                removeObjectFromScene(visModel.getModelDisplayAssembly());
@@ -517,18 +520,47 @@ public final class ViewDB extends Observable implements Observer {
    /**
     * Selection related functions
     */
+
+   /**
+    * Remove items from selection list which belong to the given model
+    */
+   public void removeObjectsBelongingToModelFromSelection(Model model)
+   {
+      for(int i=selectedObjects.size()-1; i>=0; i--) {
+         OpenSimObject object = selectedObjects.get(i);
+         MusclePoint mp = MusclePoint.safeDownCast(object);
+         boolean belongsToModel = false;
+         if(mp != null) {
+            if(Model.getCPtr(model) == Model.getCPtr(mp.getMuscle().getModel()))
+               belongsToModel = true;
+         } else { // should check for body here
+            AbstractBody body = AbstractBody.safeDownCast(object);
+            if(body != null) {
+               if(Model.getCPtr(model) == Model.getCPtr(body.getDynamicsEngine().getModel()))
+                  belongsToModel = true;
+            }
+         }
+         if(belongsToModel) {
+            selectedObjects.remove(i);
+            markSelected(object, false, false, true);
+         }
+      }
+      statusDisplaySelectedObjects();
+      repaintAll();
+   }
    
    /**
     * Mark an object as selected (on/off).
+    *
     */
-   public void markSelected(OpenSimObject selectedObject, boolean highlight) {
+   public void markSelected(OpenSimObject selectedObject, boolean highlight, boolean sendEvent, boolean updateStatusDisplayAndRepaint) {
       MusclePoint mp = MusclePoint.safeDownCast(selectedObject);
       if (mp != null) {
          SingleModelVisuals visuals = getModelVisuals(mp.getMuscle().getModel());
          OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
          if (highlight == true)
             cloud.setScalarDataAtLocation(cloud.getPointId(selectedObject), 0.28); // yellow
-         else
+else
             cloud.setScalarDataAtLocation(cloud.getPointId(selectedObject), 0.0); // red
          AbstractMuscle m = mp.getMuscle();
          visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
@@ -540,7 +572,16 @@ public final class ViewDB extends Observable implements Observer {
          applyColor(colorComponents, asm);
       }
 
-      repaintAll();
+      if(updateStatusDisplayAndRepaint) {
+         statusDisplaySelectedObjects();
+         repaintAll();
+      }
+
+      if(sendEvent) {
+         ObjectSelectedEvent evnt = new ObjectSelectedEvent(selectedObject, highlight);
+         setChanged();
+         notifyObservers(evnt);
+      }
    }
    
    public ArrayList<OpenSimObject> getSelectedObjects() {
@@ -548,14 +589,12 @@ public final class ViewDB extends Observable implements Observer {
    }
 
    public void statusDisplaySelectedObjects() {
-      if (selectedObjects.size() == 0) {
-         StatusDisplayer.getDefault().setStatusText("");
-      } else {
-         StatusDisplayer.getDefault().setStatusText(selectedObjects.get(0).getType() + ":" + selectedObjects.get(0).getName());
-         for (int i = 1; i < selectedObjects.size(); i++)
-            StatusDisplayer.getDefault().setStatusText(StatusDisplayer.getDefault().getStatusText() + ", " +
-                    selectedObjects.get(i).getType() + ":" + selectedObjects.get(i).getName());
+      String status="";
+      for(int i=0; i<selectedObjects.size(); i++) {
+         if(i>0) status += ", ";
+         status += selectedObjects.get(i).getType() + ":" + selectedObjects.get(i).getName();
       }
+      StatusDisplayer.getDefault().setStatusText(status);
       //System.out.println("status, numobjects = " + selectedObjects.size());
    }
 
@@ -564,11 +603,7 @@ public final class ViewDB extends Observable implements Observer {
 
       if (selectedObject != null) {
          selectedObjects.add(selectedObject);
-         markSelected(selectedObject, true);
-         statusDisplaySelectedObjects();
-         ObjectSelectedEvent evnt = new ObjectSelectedEvent(selectedObject, true);
-         setChanged();
-         notifyObservers(evnt);
+         markSelected(selectedObject, true, true, true);
       } else { // this function should never be called with selectedObject = null
          ClearSelectedObjectsEvent evnt = new ClearSelectedObjectsEvent(new OpenSimObject()); // TODO use model object instead???
          setChanged();
@@ -582,12 +617,7 @@ public final class ViewDB extends Observable implements Observer {
             // remove the object from the list of selected ones
             selectedObjects.remove(i);
             // mark it as unselected
-            markSelected(selectedObject, false);
-            statusDisplaySelectedObjects();
-            // generate an event for this deselection
-            ObjectSelectedEvent evnt = new ObjectSelectedEvent(selectedObject, false);
-            setChanged();
-            notifyObservers(evnt);
+            markSelected(selectedObject, false, true, true);
             return true;
          }
       }
@@ -600,12 +630,7 @@ public final class ViewDB extends Observable implements Observer {
          // If the object is not already in the list, add it
          selectedObjects.add(selectedObject);
          // mark it as selected
-         markSelected(selectedObject, true);
-         // set the status bar text to describe this object
-         statusDisplaySelectedObjects();
-         ObjectSelectedEvent evnt = new ObjectSelectedEvent(selectedObject, true);
-         setChanged();
-         notifyObservers(evnt);
+         markSelected(selectedObject, true, true, true);
       }
    }
 
@@ -624,14 +649,11 @@ public final class ViewDB extends Observable implements Observer {
    public void clearSelectedObjects() {
       for (int i = 0; i < selectedObjects.size(); i++) {
          // mark it as unselected
-         markSelected(selectedObjects.get(i), false);
-         // generate an event for this deselection
-         ObjectSelectedEvent evnt = new ObjectSelectedEvent(selectedObjects.get(i), false);
-         setChanged();
-         notifyObservers(evnt);
+         markSelected(selectedObjects.get(i), false, true, false);
       }
       selectedObjects.clear();
       statusDisplaySelectedObjects();
+      repaintAll();
    }
 
    public boolean isSelected(OpenSimObject obj) {
@@ -816,19 +838,20 @@ public final class ViewDB extends Observable implements Observer {
       if (asm instanceof vtkAssembly){
          vtkProp3DCollection parts = ((vtkAssembly)asm).GetParts();
          parts.InitTraversal();
-         vtkProp3D prop = parts.GetNextProp3D();
-         vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
-         while (prop != null) {
-            if (part != null){
+         for (;;) {
+            vtkProp3D prop = parts.GetNextProp3D();
+            if (prop==null) break;
+            vtkActor part = (prop instanceof vtkActor)?(vtkActor)prop:null;
+            if (part != null) {
                part.SetVisibility(vtkVisible);
+               part.SetPickable(vtkVisible);
             }
-            prop = parts.GetNextProp3D();
-            part = (prop instanceof vtkActor)?(vtkActor)prop:null;
          }
       }
       else if (asm instanceof vtkActor){
          vtkActor part = (vtkActor)asm;
          part.SetVisibility(vtkVisible);
+         part.SetPickable(vtkVisible);
       }
    }
    /**
@@ -1000,7 +1023,7 @@ public final class ViewDB extends Observable implements Observer {
     public OpenSimObject getSelectedGlyphObject(int cellId, vtkActor glyphActor) {
         Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
         while(iter.hasNext()){
-             SingleModelVisuals nextModel = iter.next();
+            SingleModelVisuals nextModel = iter.next();
             OpenSimvtkGlyphCloud glyph = nextModel.getGlyphObjectForActor(glyphActor);
             if (glyph!=null)
                 return glyph.getPickedObject(cellId);
