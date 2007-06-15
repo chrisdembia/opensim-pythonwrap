@@ -19,12 +19,12 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
 import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.AbstractDof;
-import org.opensim.modeling.Model;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
@@ -85,6 +85,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        jLockedCheckBox.setSelected(locked);
        jXSlider.setEnabled(!locked);
        jFormattedTextField.setEnabled(!locked);
+       jXSlider.setToolTipText("["+Math.round(min)+", "+Math.round(max)+"]");
    }
       
    /** This method is called from within the constructor to
@@ -104,6 +105,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       jXSlider.setMajorTickSpacing(20);
       jXSlider.setMinorTickSpacing(10);
       jXSlider.setPaintLabels(true);
+      jXSlider.setToolTipText("testtooltip");
 
       jFormattedTextField.setText("123456.");
       jFormattedTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -139,14 +141,14 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 
       jCoordinateNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
       jCoordinateNameLabel.setText("jLabel1");
+      jCoordinateNameLabel.setAlignmentX(1.0F);
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
-            .addContainerGap()
-            .add(jCoordinateNameLabel)
+            .add(jCoordinateNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jLockedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -154,17 +156,19 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jXSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap())
+            .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-            .add(jCoordinateNameLabel)
-            .add(jLockedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(jClampedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-         .add(jXSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+         .add(layout.createSequentialGroup()
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                  .add(jLockedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .add(jClampedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .add(jCoordinateNameLabel))
+               .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
 
@@ -204,8 +208,9 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        theValue=d;
        jFormattedTextField.setValue(new Double(d)); 
        coord.setValue(d/conversion);
-       if (updateDisplay)
+       if (updateDisplay){
          ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
+       }
     }
 
      public double getTheValue()

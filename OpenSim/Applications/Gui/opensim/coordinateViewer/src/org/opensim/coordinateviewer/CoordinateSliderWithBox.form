@@ -16,29 +16,32 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jCoordinateNameLabel" min="-2" max="-2" attributes="0"/>
+              <Component id="jCoordinateNameLabel" min="-2" pref="101" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLockedCheckBox" min="-2" pref="13" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jClampedCheckBox" min="-2" pref="17" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jFormattedTextField" min="-2" pref="55" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jXSlider" min="-2" pref="101" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jXSlider" pref="138" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-              <Component id="jCoordinateNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="jLockedCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="jClampedCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="jFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLockedCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jClampedCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCoordinateNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jXSlider" alignment="0" max="32767" attributes="1"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="jXSlider" alignment="0" min="-2" max="-2" attributes="1"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -48,6 +51,7 @@
         <Property name="majorTickSpacing" type="int" value="20"/>
         <Property name="minorTickSpacing" type="int" value="10"/>
         <Property name="paintLabels" type="boolean" value="true"/>
+        <Property name="toolTipText" type="java.lang.String" value="testtooltip"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField">
@@ -120,6 +124,7 @@
       <Properties>
         <Property name="horizontalAlignment" type="int" value="11"/>
         <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="alignmentX" type="float" value="1.0"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -100,7 +100,6 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       jCoordinateGroupsComboBox = new javax.swing.JComboBox();
       jPosesButton = new javax.swing.JButton();
 
-      jPosesPopupMenu.setComponentPopupMenu(jPosesPopupMenu);
       jTextArea1.setColumns(20);
       jTextArea1.setRows(5);
       jScrollPane2.setViewportView(jTextArea1);
@@ -213,35 +212,6 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    private void jPosesButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPosesButtonMouseReleased
 // TODO add your handling code here:
       //if(evt.isPopupTrigger()) {
-         jPosesPopupMenu.removeAll();
-         // Add items to select poses with callback to apply them
-         Vector<ModelPose> poses =prefs.getPoses();
-         for(int i=0; i<poses.size(); i++){
-            final ModelPose p=poses.get(i);
-            JMenuItem item=new JMenuItem(p.getPoseName());
-            jPosesPopupMenu.add(item);
-            item.addActionListener(new ActionListener(){
-               public void actionPerformed(ActionEvent e) {
-                  applyPose(p);
-                  ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());      
-               }});
-         }
-         if (poses.size()>0)
-            jPosesPopupMenu.addSeparator();
-         JMenuItem newItem = new JMenuItem("New...");
-         newItem.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-               jSavePoseButtonActionPerformed(e);
-            }});
-         jPosesPopupMenu.add(newItem);
-         if (poses.size()>0){
-            JMenuItem deleteItem=new JMenuItem("Delete...");
-            deleteItem.addActionListener(new ActionListener(){
-                        public void actionPerformed(ActionEvent e) {
-                           jDeletePoseButtonActionPerformed(e);
-                        }});         
-            jPosesPopupMenu.add(deleteItem);
-         }
          jPosesPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         //}
 
@@ -399,6 +369,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       // Create CoordinateSliderWithBox for each coordinate and add them to the ScrollPane
       updateDisplayGroup();
       ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
+      updatePosesPopup();
    }
    
    public void componentClosed() {
@@ -493,6 +464,40 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          AbstractCoordinate coord=coords.get(name);
          coord.setValue(storedValue);
       }
+   }
+
+   private void updatePosesPopup() {
+         jPosesPopupMenu.removeAll();
+         // Add items to select poses with callback to apply them
+         Vector<ModelPose> poses =prefs.getPoses();
+         for(int i=0; i<poses.size(); i++){
+            final ModelPose p=poses.get(i);
+            JMenuItem item=new JMenuItem(p.getPoseName());
+            jPosesPopupMenu.add(item);
+            item.addActionListener(new ActionListener(){
+               public void actionPerformed(ActionEvent e) {
+                  applyPose(p);
+                  ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());      
+               }});
+         }
+         if (poses.size()>0)
+            jPosesPopupMenu.addSeparator();
+         JMenuItem newItem = new JMenuItem("New...");
+         newItem.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+               jSavePoseButtonActionPerformed(e);
+               updatePosesPopup();
+            }});
+         jPosesPopupMenu.add(newItem);
+         if (poses.size()>0){
+            JMenuItem deleteItem=new JMenuItem("Delete...");
+            deleteItem.addActionListener(new ActionListener(){
+                        public void actionPerformed(ActionEvent e) {
+                           jDeletePoseButtonActionPerformed(e);
+                           updatePosesPopup();
+                        }});         
+            jPosesPopupMenu.add(deleteItem);
+         }
    }
 
 }
