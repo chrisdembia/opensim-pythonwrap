@@ -183,6 +183,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       boolean newValue = ((JCheckBox)(evt.getSource())).isSelected();
       coord.setLocked(newValue);
       jXSlider.setEnabled(!newValue);
+      jFormattedTextField.setEnabled(!newValue);
    }//GEN-LAST:event_jLockedCheckBoxActionPerformed
 
    private void jFormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldActionPerformed
