@@ -270,6 +270,7 @@ final public class ExplorerTopComponent extends TopComponent
            Node rootNode = getExplorerManager().getRootContext();
            
            Object[] models = db.getAllModels();
+           rootNode.getChildren().remove(rootNode.getChildren().getNodes());
            for(int i=0; i < models.length; i++)
               rootNode.getChildren().add(new Node[] { new ConcreteModelNode((Model)models[i]) });
            
@@ -301,10 +302,10 @@ final public class ExplorerTopComponent extends TopComponent
         
         /**
          * Disallow closing the explorer view as we depend on it everywhere
-         */
+         *
         public boolean canClose() {
            return false;
-        }
+        }*/
         
         // Undo Support
         public UndoRedo getUndoRedo(){

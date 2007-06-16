@@ -196,6 +196,7 @@
         <file name="Source_hidden"/>
          <folder name="View">
             <attr name="Separator1.instance/org-opensim-view-actions-ViewAddNewAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-ExplorerAction.instance" url="org-opensim-view-ExplorerAction.instance"/>
             <file name="org-opensim-view-actions-ViewAddNewAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-ViewAddNewAction.instance"/>
             </file>
@@ -225,6 +226,12 @@
             <attr name="org-openide-actions-FindAction.instance/org-opensim-view-CameraAction.shadow" boolvalue="true"/>
             <attr name="org-opensim-view-SelectObjectAction.shadow/org-openide-actions-CutAction.instance" boolvalue="true"/>
             <attr name="org-openide-actions-FindAction.instance/org-opensim-view-ShowModelsDropdownAction.instance" boolvalue="true"/>
+            <file name="org-openide-actions-CopyAction.instance_hidden"/>
+            <file name="org-openide-actions-CutAction.instance_hidden"/>
+            <file name="org-openide-actions-FindAction.instance_hidden"/>
+            <file name="org-openide-actions-PasteAction.instance_hidden"/>
+            <file name="org-openide-actions-RedoAction.instance_hidden"/>
+            <file name="org-openide-actions-UndoAction.instance_hidden"/>
             <file name="org-opensim-view-ShowModelsDropdownAction.instance" url="org-opensim-view-ShowModelsDropdownAction.instance"/>
             <attr name="org-opensim-view-ShowModelsDropdownAction.instance/org-opensim-motionviewer-ShowMotionSliderAction.instance" boolvalue="true"/>
             <file name="org-opensim-motionviewer-MotionsSynchronizeAction.instance_hidden"/>
