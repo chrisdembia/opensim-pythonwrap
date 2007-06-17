@@ -71,11 +71,12 @@ public class ModelSettingsSerializer {
       }
    }
    
-   public void write()
+   public Object confirmAndWrite()
    {
       // Show message to prompt user
      NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save model settings to file?");
-     if(DialogDisplayer.getDefault().notify(dlg)==NotifyDescriptor.OK_OPTION){
+     Object userSelection=DialogDisplayer.getDefault().notify(dlg);
+     if(userSelection==NotifyDescriptor.OK_OPTION){
          XMLEncoder encoder;
          try {
             encoder = new XMLEncoder(new FileOutputStream(getFilename()));
@@ -85,6 +86,7 @@ public class ModelSettingsSerializer {
             ex.printStackTrace();
          }
      }
+     return userSelection;
    }
 
    public ModelSettings getPrefs() {

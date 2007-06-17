@@ -40,6 +40,7 @@ import java.util.prefs.Preferences;
 import javax.swing.Timer;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -219,9 +220,6 @@ public final class ViewDB extends Observable implements Observer {
                modelVisuals.remove(visModel);
                mapModelsToVisuals.remove(dModel);
                mapModelsToGuiElements.remove(dModel);
-               // Write settings to persistent storage
-               ModelSettingsSerializer ser = mapModelsToSettings.get(dModel);
-               ser.write();
                mapModelsToSettings.remove(dModel);
                //StatusDisplayer.getDefault().setStatusText("mapModelsToVisuals size="+mapModelsToVisuals.size());
                updateCommandsVisibility();
@@ -948,7 +946,7 @@ public final class ViewDB extends Observable implements Observer {
     * Write ettings to an xml file [model-file]_settings.xml
     */
     public void saveSettings(Model model) {
-      mapModelsToSettings.get(model).write();
+      mapModelsToSettings.get(model).confirmAndWrite();
    }
    public ModelSettingsSerializer getModelSavedSettings(Model model)
    {

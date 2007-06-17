@@ -1,8 +1,11 @@
 package org.opensim.view.actions;
 
+import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.modeling.Model;
+import org.opensim.view.ModelSettingsSerializer;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
@@ -10,7 +13,14 @@ public final class FileCloseAction extends CallableSystemAction {
    
    public void performAction() {
       // TODO implement action body
-      OpenSimDB.getInstance().removeModel(OpenSimDB.getInstance().getCurrentModel());
+       Model mdl=OpenSimDB.getInstance().getCurrentModel();
+        // Confirm closing
+        // Write settings to persistent storage
+        ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(mdl);
+        if (ser.confirmAndWrite()==NotifyDescriptor.CANCEL_OPTION)
+            return;
+
+      OpenSimDB.getInstance().removeModel(mdl);
    }
    
    public String getName() {
