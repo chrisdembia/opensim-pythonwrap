@@ -465,8 +465,8 @@ public final class ViewDB extends Observable implements Observer {
       for(int i=selectedObjects.size()-1; i>=0; i--) {
          Model ownerModel = selectedObjects.get(i).getOwnerModel();
          if(Model.getCPtr(model) == Model.getCPtr(ownerModel)) {
-            selectedObjects.remove(i);
             markSelected(selectedObjects.get(i), false, false, true);
+            selectedObjects.remove(i);
             modified = true;
          }
       }
