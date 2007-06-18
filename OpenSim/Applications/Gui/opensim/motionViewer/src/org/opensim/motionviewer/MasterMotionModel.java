@@ -252,8 +252,10 @@ public class MasterMotionModel {
       double time = getCurrentTime()+dt;
       if(wrapMotion) {
          double range=getEndTime()-getStartTime();
-         while(time > getEndTime()) time-=range;
-         while(time < getStartTime()) time+=range;
+         if(range > 0) { // it may be that range==0 in case this is a single-frame motion
+            while(time > getEndTime()) time-=range;
+            while(time < getStartTime()) time+=range;
+         }
       }
       setTime(time);
    }
