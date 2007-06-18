@@ -217,6 +217,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
            // Could be an object that's part of a glyph
            // Try point Picker void GetCellPoints(vtkIdType cellId, vtkIdList *ptIds);
            vtkCellPicker pPicker=new vtkCellPicker();
+           // Important to set tolerance to something small, else it may pick glyphs not directly under cursor
+           pPicker.SetTolerance(0.0001);
            vtkAssemblyNode asmNode=null;
            Lock();
            pPicker.Pick(x, rw.GetSize()[1] - y, 0, ren);
