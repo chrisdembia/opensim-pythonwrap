@@ -170,7 +170,7 @@
         <attr name="Edit/Help" boolvalue="true"/>
     <attr name="Help/View" boolvalue="false"/>
         <attr name="Edit/View" boolvalue="true"/>
-        <attr name="Help/Tools" boolvalue="true"/>
+        <attr name="Help/Tools" boolvalue="false"/>
         <folder name="Help">
             <file name="Separator1.instance_hidden"/>
             <file name="master-help.xml" url="master-help.xml"/>
@@ -204,6 +204,9 @@
         </folder>
 
         <file name="Window_hidden"/>
+        <attr name="View/Help" boolvalue="true"/>
+        <attr name="View/Tools" boolvalue="true"/>
+        <attr name="Tools/Help" boolvalue="true"/>
     </folder>
     <folder name="Services">
         <folder name="JavaHelp">
