@@ -1,6 +1,7 @@
 package org.opensim.coordinateviewer;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -421,6 +423,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       jRestorePoseButton.setEnabled(hasModel);
       jDeletePoseButton.setEnabled(hasModel);
       jCoordinateGroupsComboBox.setEnabled(hasModel);
+      jPosesButton.setEnabled(hasModel);
       // Further enable based on availability of poses
       if (hasModel){
          jRestorePoseButton.setEnabled(modelHasFile && prefs.getNumPoses()>0);
@@ -431,6 +434,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    private void updateDisplayGroup() {
       jPanel1.removeAll();
       mapCoordinates2Sliders.clear();
+      jPanel1.add(Box.createRigidArea(new Dimension(50,50)));
+
       for(int i=0; i<coords.getSize(); i++){
          AbstractCoordinate coord = coords.get(i);
          boolean restraint = coord.isRestraintActive();
@@ -444,6 +449,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
             jPanel1.add(sliderPanel);
          }
       }
+      jPanel1.add(Box.createVerticalGlue());
+      jPanel1.add(Box.createRigidArea(new Dimension(50,50)));
       jPanel1.validate();
    }
    final static class ResolvableHelper implements Serializable {
