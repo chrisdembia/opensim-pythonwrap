@@ -1,21 +1,17 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
-import javax.swing.Timer;
+import java.lang.reflect.InvocationTargetException;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
 import org.opensim.view.JavaAnimationCallback;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.IKTool;
-import org.opensim.modeling.SimtkAnimationCallback;
 import org.opensim.motionviewer.MotionsDB;
-import org.opensim.view.SingleModelVisuals;
-import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
+import javax.swing.SwingUtilities;
 
 public class IKPanel  extends workflowWizardPanelBase{
     
@@ -100,7 +96,16 @@ public class IKPanel  extends workflowWizardPanelBase{
          // Execute IK. We're already on a worker thread
          ik.run();
 
-         ViewDB.getInstance().updateModelDisplay(ikModel);
+         try {
+            SwingUtilities.invokeAndWait(new Runnable(){
+               public void run() {
+                  ViewDB.getInstance().updateModelDisplay(ikModel);
+               }});
+         } catch (InterruptedException ex) {
+            ex.printStackTrace();
+         } catch (InvocationTargetException ex) {
+            ex.printStackTrace();
+         }
          
          progressHandle.finish();
         // Associate motion to model
@@ -109,9 +114,20 @@ public class IKPanel  extends workflowWizardPanelBase{
         // Load resulting motion and associate it with ik model
         //unnecessary OpenSimDB.getInstance().setCurrentModel(ikModel);        
         String ikFilePath = new File(ik.getDocumentFileName()).getParent();
-        String motionFilePath = ikFilePath+File.separator+ik.getIKTrialSet().get(0).getOutputMotionFilename();
-        if (new File(motionFilePath).exists())
-            MotionsDB.getInstance().loadMotionFile(motionFilePath);
+        final String motionFilePath = ikFilePath+File.separator+ik.getIKTrialSet().get(0).getOutputMotionFilename();
+        if (new File(motionFilePath).exists()) {
+            // Run in Swing thread since it calls MotionDisplayer.classifyColumn down the line which makes calls to vtk glyph stuff
+            try {
+               SwingUtilities.invokeAndWait(new Runnable(){
+                  public void run() {
+                     MotionsDB.getInstance().loadMotionFile(motionFilePath);
+                  }});
+            } catch (InterruptedException ex) {
+               ex.printStackTrace();
+            } catch (InvocationTargetException ex) {
+               ex.printStackTrace();
+            }
+        }
         // Remove callback as it's owned by Java and we don't want it destroyed along with the model.
         ikModel.removeIntegCallback(animationCallback);
         return false;
