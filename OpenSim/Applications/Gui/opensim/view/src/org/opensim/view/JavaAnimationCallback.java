@@ -26,6 +26,8 @@
 
 package org.opensim.view;
 
+import java.lang.reflect.InvocationTargetException;
+import javax.swing.SwingUtilities;
 import org.opensim.modeling.*;
 import org.opensim.view.pub.ViewDB;
 
@@ -43,28 +45,41 @@ public class JavaAnimationCallback extends SimtkAnimationCallback{
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
       int retValue;
       retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT, aClientData);
-      ViewDB.getInstance().updateModelDisplay(getModel());
-      return retValue;
+      updateDisplaySynchronously();
+        return retValue;
+   }
+
+   private void updateDisplaySynchronously() {
+      try {
+         SwingUtilities.invokeAndWait(new Runnable(){
+            public void run() {
+               ViewDB.getInstance().updateModelDisplay(getModel());
+            }});
+      } catch (InterruptedException ex) {
+         ex.printStackTrace();
+      } catch (InvocationTargetException ex) {
+         ex.printStackTrace();
+      }
    }
    
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT) {
       int retValue;
       retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT);
-      ViewDB.getInstance().updateModelDisplay(getModel());
+      updateDisplaySynchronously();
       return retValue;
    }
    
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP) {
       int retValue;
       retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP);
-      ViewDB.getInstance().updateModelDisplay(getModel());
+      updateDisplaySynchronously();
       return retValue;
    }
    
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
       int retValue;
       retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY);
-      ViewDB.getInstance().updateModelDisplay(getModel());
+      updateDisplaySynchronously();
       return retValue;
    }
    public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
