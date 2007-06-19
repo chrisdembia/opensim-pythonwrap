@@ -73,7 +73,7 @@ public class MarkerPlacementPanel  extends workflowWizardPanelBase{
           descriptor.setIKModel(markerPlacementModel);
           // restore states
           markerPlacementModel.getDynamicsEngine().setConfiguration(saveStates);
-          markerPlacementModel.getActuatorSet().updateGeometry();
+          markerPlacementModel.getActuatorSet().updateDisplayers();
           
           boolean success=false;
           try {
