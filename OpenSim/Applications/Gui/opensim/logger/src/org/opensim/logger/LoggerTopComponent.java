@@ -1,14 +1,9 @@
 package org.opensim.logger;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.Serializable;
+import javax.swing.JScrollBar;
 import org.openide.ErrorManager;
 import org.openide.util.NbBundle;
-import org.openide.util.RequestProcessor;
-import org.openide.util.Utilities;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 
@@ -37,23 +32,29 @@ final class LoggerTopComponent extends TopComponent {
     */
    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
    private void initComponents() {
-      jTabbedPane1 = new javax.swing.JTabbedPane();
+      jScrollPane1 = new javax.swing.JScrollPane();
+      jTextArea1 = new javax.swing.JTextArea();
+
+      jTextArea1.setColumns(20);
+      jTextArea1.setRows(5);
+      jScrollPane1.setViewportView(jTextArea1);
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
       );
    }// </editor-fold>//GEN-END:initComponents
     
     
    // Variables declaration - do not modify//GEN-BEGIN:variables
-   private javax.swing.JTabbedPane jTabbedPane1;
+   private javax.swing.JScrollPane jScrollPane1;
+   private javax.swing.JTextArea jTextArea1;
    // End of variables declaration//GEN-END:variables
     
     /**
@@ -112,4 +113,14 @@ final class LoggerTopComponent extends TopComponent {
        }
     }
     
+    public void log(String str)
+    {
+      // While the user has the vertical scrollbar at the bottom, automatically scroll down as additional text is added
+      // NOTE: not quite working yet...
+      JScrollBar vbar = jScrollPane1.getVerticalScrollBar();
+      boolean autoScroll = ((vbar.getValue() + vbar.getVisibleAmount()) == vbar.getMaximum());
+      //System.out.println("val="+vbar.getValue()+" vis="+vbar.getVisibleAmount()+" max="+vbar.getMaximum()+" res="+autoScroll);
+      jTextArea1.append(str);
+      if(autoScroll) jTextArea1.setCaretPosition(jTextArea1.getDocument().getLength());
+    }
 }

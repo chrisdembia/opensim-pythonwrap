@@ -12,8 +12,8 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("osimJavaJNI");		// All OpenSim classes required for GUI operation.
-        System.loadLibrary("osimSdfastEngine");	//to load sdfast based models
+        System.loadLibrary("osimJavaJNI_d");		// All OpenSim classes required for GUI operation.
+        System.loadLibrary("osimSdfastEngine_d");	//to load sdfast based models
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic library osimJavaJNI is in your PATH\n"+e);
@@ -1452,6 +1452,14 @@ public class opensimModelJNI {
   public final static native void SimtkAnimationCallback_getTransformsFromKinematicsEngine(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, Model jarg2_);
   public final static native void SimtkAnimationCallback_director_connect(SimtkAnimationCallback obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void SimtkAnimationCallback_change_ownership(SimtkAnimationCallback obj, long cptr, boolean take_or_release);
+  public final static native void SimtkLogCallback_log(long jarg1, SimtkLogCallback jarg1_, String jarg2);
+  public final static native void SimtkLogCallback_logSwigExplicitSimtkLogCallback(long jarg1, SimtkLogCallback jarg1_, String jarg2);
+  public final static native void SimtkLogCallback_addToLogManager(long jarg1, SimtkLogCallback jarg1_);
+  public final static native void SimtkLogCallback_removeFromLogManager(long jarg1, SimtkLogCallback jarg1_);
+  public final static native long new_SimtkLogCallback();
+  public final static native void delete_SimtkLogCallback(long jarg1);
+  public final static native void SimtkLogCallback_director_connect(SimtkLogCallback obj, long cptr, boolean mem_own, boolean weak_global);
+  public final static native void SimtkLogCallback_change_ownership(SimtkLogCallback obj, long cptr, boolean take_or_release);
   public final static native long new_Kinematics__SWIG_0(long jarg1, Model jarg1_);
   public final static native long new_Kinematics__SWIG_1();
   public final static native long new_Kinematics__SWIG_2(String jarg1);
@@ -3618,6 +3626,9 @@ public class opensimModelJNI {
   }
   public static int SwigDirector_SimtkAnimationCallback_end__SWIG_3(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY) {
     return self.end(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false));
+  }
+  public static void SwigDirector_SimtkLogCallback_log(SimtkLogCallback self, String str) {
+    self.log(str);
   }
 
   private final static native void swig_module_init();
