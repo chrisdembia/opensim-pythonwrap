@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.Hashtable;
 import javax.swing.AbstractAction;
 import javax.swing.JCheckBox;
@@ -19,7 +20,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
@@ -52,6 +52,9 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       setRotational(coord.getMotionType()==AbstractDof.DofType.Rotational);
       this.min=coord.getRangeMin()*conversion;
       this.max=coord.getRangeMax()*conversion;
+      min=roundBoundIfNeeded(min);
+      max=roundBoundIfNeeded(max);
+      
       if (isRotational()){ // Make the step one degree
          step=1.0;
       }
@@ -293,6 +296,30 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
         public void actionPerformed(ActionEvent e) {
            if (!jFormattedTextField.isEditValid()) { //The text is invalid.
               Toolkit.getDefaultToolkit().beep();
+              String text = jFormattedTextField.getText();
+              // Try to parse the text into a double as it could be out of range, in this case truncate
+              try {
+                  double valueFromTextField = Double.parseDouble(text);
+                  if (coord.getClamped()){
+                     if (valueFromTextField >max){
+                        jFormattedTextField.setText(String.valueOf(max)) ;
+                        jFormattedTextField.commitEdit();
+                     }
+                     else {
+                        jFormattedTextField.setText(String.valueOf(min)) ;
+                        jFormattedTextField.commitEdit();
+                     }
+                  }
+                  else
+                     throw new UnsupportedOperationException();
+              }
+              catch (NumberFormatException ex){
+                 // Really invalid text for a double
+              }
+              catch (ParseException ex){
+                 // Really invalid text for a double
+              }
+              
               jFormattedTextField.selectAll();
            } else try {                    //The text is valid,
               jFormattedTextField.commitEdit();     //so use it.
@@ -318,6 +345,22 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    void updateValue() {
       theValue=coord.getValue()*conversion;
       setTheValue(theValue, false);  
+   }
+
+   /**
+    * Due to round off in converting back and forth between ints and floats we need to make sure sliders
+    * and text boxes end up with proper int bounds if warranted
+    * 
+    * This doesn't work now because of tight tolerances setting coordinate values
+    */
+   private double roundBoundIfNeeded(double bound) {
+      double absBound = Math.abs(bound);
+      double roundAbsBound= Math.round(absBound);
+      if (Math.abs(absBound-roundAbsBound)<ROUNDOFF){
+         return (bound>0)?roundAbsBound:-roundAbsBound;
+      }
+      else
+         return bound;
    }
    
 }
