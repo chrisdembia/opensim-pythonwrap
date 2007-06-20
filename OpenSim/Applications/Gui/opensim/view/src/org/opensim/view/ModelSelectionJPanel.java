@@ -36,7 +36,8 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
       jLabel1 = new javax.swing.JLabel();
       jCurrentModelComboBox = new javax.swing.JComboBox();
 
-      setBorder(javax.swing.BorderFactory.createTitledBorder("Current Model"));
+      setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Current Model"));
+      jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
       jLabel1.setText("Model:");
 
       jCurrentModelComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No Models" }));
@@ -52,16 +53,18 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jCurrentModelComboBox, 0, 89, Short.MAX_VALUE)
+            .add(jCurrentModelComboBox, 0, 124, Short.MAX_VALUE)
             .addContainerGap())
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE, false)
-            .add(jLabel1)
-            .add(jCurrentModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+         .add(layout.createSequentialGroup()
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(jLabel1)
+               .add(jCurrentModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
    }// </editor-fold>//GEN-END:initComponents
 
