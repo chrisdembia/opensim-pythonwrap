@@ -36,7 +36,9 @@ final class LoggerTopComponent extends TopComponent {
       jTextArea1 = new javax.swing.JTextArea();
 
       jTextArea1.setColumns(20);
+      jTextArea1.setEditable(false);
       jTextArea1.setRows(5);
+      jTextArea1.setTabSize(4);
       jScrollPane1.setViewportView(jTextArea1);
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -117,10 +119,10 @@ final class LoggerTopComponent extends TopComponent {
     {
       // While the user has the vertical scrollbar at the bottom, automatically scroll down as additional text is added
       // NOTE: not quite working yet...
-      JScrollBar vbar = jScrollPane1.getVerticalScrollBar();
-      boolean autoScroll = ((vbar.getValue() + vbar.getVisibleAmount()) == vbar.getMaximum());
+      //JScrollBar vbar = jScrollPane1.getVerticalScrollBar();
+      //boolean autoScroll = ((vbar.getValue() + vbar.getVisibleAmount()) == vbar.getMaximum());
       //System.out.println("val="+vbar.getValue()+" vis="+vbar.getVisibleAmount()+" max="+vbar.getMaximum()+" res="+autoScroll);
       jTextArea1.append(str);
-      if(autoScroll) jTextArea1.setCaretPosition(jTextArea1.getDocument().getLength());
+      //if(autoScroll) jTextArea1.setCaretPosition(jTextArea1.getDocument().getLength());
     }
 }
