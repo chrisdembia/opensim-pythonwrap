@@ -8,7 +8,9 @@
     </folder>
     <folder name="Menu">
         <folder name="View">
+            <attr name="org-opensim-view-actions-ViewAddNewAction.shadow/org-opensim-coordinateviewer-CoordinateViewerAction.instance" boolvalue="true"/>
             <file name="org-opensim-coordinateviewer-CoordinateViewerAction.instance" url="org-opensim-coordinateviewer-CoordinateViewerAction.instance"/>
+            <attr name="org-opensim-coordinateviewer-CoordinateViewerAction.instance/org-opensim-logger-LoggerAction.instance" boolvalue="true"/>
             <file name="org-opensim-motionviewer-ViewMotionsAction.shadow_hidden"/>
         </folder>
         <folder name="Window">

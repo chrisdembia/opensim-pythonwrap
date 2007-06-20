@@ -196,11 +196,24 @@
         <file name="Source_hidden"/>
          <folder name="View">
             <attr name="Separator1.instance/org-opensim-view-actions-ViewAddNewAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-motionviewer-ViewMotionsAction.shadow/org-opensim-view-ExplorerAction.instance" boolvalue="false"/>
+            <attr name="org-netbeans-core-windows-actions-ToolbarsListAction.instance/org-opensim-view-actions-ViewAddNewAction.shadow" boolvalue="false"/>
+            <attr name="Separator2.instance/org-opensim-view-ExplorerAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-logger-LoggerAction.instance/org-opensim-view-ExplorerAction.instance" boolvalue="false"/>
             <file name="org-opensim-view-ExplorerAction.instance" url="org-opensim-view-ExplorerAction.instance"/>
+            <attr name="org-opensim-view-ExplorerAction.instance/org-opensim-coordinateviewer-CoordinateViewerAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-ExplorerAction.instance/org-opensim-motionviewer-separatorAfter.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-ExplorerAction.instance/org-opensim-motionviewer-ViewMotionsAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-ExplorerAction.instance/org-opensim-logger-LoggerAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-ExplorerAction.instance/org-opensim-view-actions-ViewAddNewAction.shadow" boolvalue="true"/>
             <file name="org-opensim-view-actions-ViewAddNewAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-ViewAddNewAction.instance"/>
             </file>
             <attr name="org-opensim-view-actions-ViewAddNewAction.shadow/org-netbeans-core-actions-HTMLViewAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-actions-ViewAddNewAction.shadow/org-opensim-logger-LoggerAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-actions-ViewAddNewAction.shadow/org-opensim-motionviewer-ViewMotionsAction.shadow" boolvalue="true"/>
+            <file name="org-netbeans-core-actions-HTMLViewAction.instance_hidden"/>
+            <file name="org-opensim-motionviewer-separatorBefore.instance_hidden"/>
         </folder>
 
         <file name="Window_hidden"/>
