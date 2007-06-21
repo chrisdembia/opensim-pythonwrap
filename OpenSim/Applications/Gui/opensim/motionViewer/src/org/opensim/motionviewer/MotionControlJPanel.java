@@ -457,21 +457,25 @@ public class MotionControlJPanel extends javax.swing.JPanel
          MotionEvent evt = (MotionEvent)arg;
          if (evt.getOperation() == Operation.Open || evt.getOperation() == Operation.SetCurrent){
             // new motion is loaded or is set current. Update panel display
-            motionLoaded = true;   // enable buttons as needed
+            masterMotion.clear();
             masterMotion.add(evt.getModel(), evt.getMotion());
-            updatePanelDisplay();
+            masterMotion.setTime(masterMotion.getStartTime());
+         }
+         else if (evt.getOperation() == Operation.Close){
+            // Currently, even if this motion that's being closed is part of a synched motion, the whole synched motion gets cleared...
+            // eventually may want to re-generate a synched motion that excludes the closed motion
+            if(masterMotion.hasMotion(evt.getModel(), evt.getMotion()))
+               masterMotion.clear();
          }
          else if (evt.getOperation() == Operation.Clear){
-            motionLoaded = false;
             masterMotion.clear();
-            updatePanelDisplay();
          }
-         else if (evt.getOperation() == Operation.AddSyncMotion)
-         {
-            motionLoaded = true;
-            masterMotion.addMerge(evt.getModel(), evt.getMotion());
-            updatePanelDisplay();
+         else if (evt.getOperation() == Operation.AddSyncMotion){
+            masterMotion.add(evt.getModel(), evt.getMotion());
+            if(evt.getLastInASeries()) masterMotion.setTime(masterMotion.getStartTime());
          }
+         motionLoaded = (masterMotion.getNumMotions() > 0);
+         updatePanelDisplay();
       }
    }
    

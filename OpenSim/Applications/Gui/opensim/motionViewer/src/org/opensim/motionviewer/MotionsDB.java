@@ -141,7 +141,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
          ArrayList<Storage> motions= mapModels2Motions.get(modelForMotion);
          modelForMotion.getDynamicsEngine().convertDegreesToRadians(newMotion);
          motions.add(newMotion);
-         MotionEvent evt = new MotionEvent(modelForMotion, newMotion, MotionEvent.Operation.Open);
+         MotionEvent evt = new MotionEvent(this, modelForMotion, newMotion, MotionEvent.Operation.Open);
          setChanged();
          //int c = this.countObservers();
          notifyObservers(evt);
@@ -151,33 +151,43 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    }
 
     void setCurrent(Model model, Storage motion) {
-         MotionEvent evt = new MotionEvent(model, motion, MotionEvent.Operation.SetCurrent);
+         MotionEvent evt = new MotionEvent(this, model, motion, MotionEvent.Operation.SetCurrent);
          setChanged();
          notifyObservers(evt);
     }
 
-    /**
-     * model is actually unused here, just need a model to construct the event but this could be done better
-     **/
-   void flushMotions(Model model) {
-         MotionEvent evt = new MotionEvent(model, null, MotionEvent.Operation.Clear);
+   void flushMotions() {
+         MotionEvent evt = new MotionEvent(this, null, null, MotionEvent.Operation.Clear);
          setChanged();
          notifyObservers(evt);
    }
 
-   void addSyncMotion(Model model, Storage simmMotionData) {
-         MotionEvent evt = new MotionEvent(model, simmMotionData, MotionEvent.Operation.AddSyncMotion);
+   void addSyncMotion(Model model, Storage simmMotionData, boolean lastInASeries) {
+         MotionEvent evt = new MotionEvent(this, model, simmMotionData, MotionEvent.Operation.AddSyncMotion);
+         evt.setLastInASeries(lastInASeries);
          setChanged();
          notifyObservers(evt);
    }
+
+   void closeMotion(Model model, Storage simmMotionData) {
+         MotionEvent evt = new MotionEvent(this, model, simmMotionData, MotionEvent.Operation.Close);
+         setChanged();
+         notifyObservers(evt);
+   }
+
 
     public void update(Observable o, Object arg) {
         if (o instanceof OpenSimDB && arg instanceof ModelEvent){
              ModelEvent evnt = (ModelEvent) arg;
              if (evnt.getOperation()==ModelEvent.Operation.Close){
-                 flushMotions(evnt.getModel());
-             }
-
+               Model model = evnt.getModel();
+               // Send motion close events for all motions associated with this model
+               ArrayList<Storage> motionsForModel = mapModels2Motions.get(evnt.getModel());
+               if(motionsForModel != null) {
+                  for(int i=0; i<motionsForModel.size(); i++)
+                     closeMotion(model, motionsForModel.get(i));
+               }
+            }
         }
     }
 

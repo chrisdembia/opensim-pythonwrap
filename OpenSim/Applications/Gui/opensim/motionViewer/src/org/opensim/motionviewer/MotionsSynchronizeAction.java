@@ -26,15 +26,12 @@ public final class MotionsSynchronizeAction extends CallableSystemAction {
      * Action works by flushing all motions and then adding selected motions one at a time
      */
     public void performAction() {
-        // TODO implement action body
        Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+       MotionsDB.getInstance().flushMotions();
        for(int i=0; i<selected.length; i++){
             OneMotionNode node =((OneMotionNode)selected[i]);
             Model model = node.getModel();
-            if (i==0){
-                MotionsDB.getInstance().flushMotions(model);
-            }
-            MotionsDB.getInstance().addSyncMotion(model, (Storage) node.getOpensimObject());
+            MotionsDB.getInstance().addSyncMotion(model, (Storage) node.getOpensimObject(), (i==selected.length-1));
        }
     }
     

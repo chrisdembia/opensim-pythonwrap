@@ -140,13 +140,6 @@ public class MasterMotionModel {
    // Utilities for building the super motion
    // -----------------------------------------------------------------------
    void add(Model abstractModel, Storage simmMotionData) {
-       clear();
-       displayers.add(new MotionDisplayer(simmMotionData, abstractModel));
-       buildSuperMotion(abstractModel, simmMotionData);
-   }
-   
-   void addMerge(Model abstractModel, Storage simmMotionData) {
-      int nextMotionNumber = displayers.size();
       displayers.add(new MotionDisplayer(simmMotionData, abstractModel));
       buildSuperMotion(abstractModel, simmMotionData);
    }
@@ -186,6 +179,13 @@ public class MasterMotionModel {
     */
    int getNumMotions() {
       return displayers.size();
+   }
+
+   boolean hasMotion(Model model, Storage mot) {
+      for(int i=0; i<displayers.size(); i++)
+         if(displayers.get(i).getModel() == model && displayers.get(i).getSimmMotionData()==mot)
+            return true;
+      return false;
    }
 
    String getDisplayName() {
