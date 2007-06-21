@@ -1,5 +1,6 @@
 package org.opensim.motionviewer;
 
+import java.util.Hashtable;
 import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
@@ -12,6 +13,13 @@ public final class MotionsSynchronizeAction extends CallableSystemAction {
     
     public boolean isEnabled() {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+        Hashtable <MotionsNode,Boolean> usedMotionNodes = new Hashtable<MotionsNode,Boolean>(selected.length);
+        for(int i=0; i<selected.length; i++) {
+           if(!(selected[i] instanceof OneMotionNode)) return false; // one of the nodes is not a OneMotionNode
+           MotionsNode parent = (MotionsNode)selected[i].getParentNode();
+           if(usedMotionNodes.containsKey(parent)) return false; // trying to pick multiple motions for the same model
+           usedMotionNodes.put(parent, true);
+        }
         return (selected.length>1);
     }
     /**
