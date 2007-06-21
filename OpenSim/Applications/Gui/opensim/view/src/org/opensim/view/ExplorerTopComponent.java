@@ -52,7 +52,6 @@ final public class ExplorerTopComponent extends TopComponent
    
    private final ExplorerManager manager = new ExplorerManager();
    private final BeanTreeView modelTree = new BeanTreeView();
-   private static HashMap<Model, ConcreteModelNode> mapModels2Nodes = new HashMap<Model, ConcreteModelNode>(4);
    
    private Lookup.Result result = null;
    private UndoRedo.Manager undoRedoManager = new UndoRedoManager();
@@ -206,17 +205,15 @@ final public class ExplorerTopComponent extends TopComponent
                           Model newModel = evnt.getModel();
                           ConcreteModelNode newModelNode = new ConcreteModelNode(newModel);
                           rootNode.getChildren().add(new Node[] { newModelNode});
-                          mapModels2Nodes.put(newModel, newModelNode);
                           updateCurrentModelNode(newModel);
                           break;
                        }
                        case Close:
                        {
                           Model closingModel = evnt.getModel();
-                          ConcreteModelNode modelNode = mapModels2Nodes.get(closingModel);
+                          ConcreteModelNode modelNode = getModelNode(closingModel);
                           try {
-                             modelNode.destroy();
-                             mapModels2Nodes.remove(closingModel);
+                             if(modelNode != null) modelNode.destroy();
                              updateCurrentModelNode(null);
                           } catch (IOException ex) {
                              ex.printStackTrace();
@@ -297,7 +294,12 @@ final public class ExplorerTopComponent extends TopComponent
          * Get a reference to the navigator/explorer node represtning the passed in model
          */
         public ConcreteModelNode getModelNode(final Model abstractModel) {
-           return mapModels2Nodes.get(abstractModel);
+           Node rootNode = getExplorerManager().getRootContext();
+           Node[] children = rootNode.getChildren().getNodes();
+           for(int i=0; i<rootNode.getChildren().getNodesCount(); i++)
+              if((children[i] instanceof ConcreteModelNode) && ((ConcreteModelNode)children[i]).getModel()==abstractModel)
+                 return (ConcreteModelNode)children[i];
+           return null;
         }
         
         /**
