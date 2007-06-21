@@ -308,6 +308,8 @@ public final class ViewDB extends Observable implements Observer {
       openWindows.add(win);
       win.getCanvas().GetRenderer().AddViewProp(sceneAssembly);
       repaintAll();
+      // If the user manually added a new view, we won't need to automatically create a new one when model is loaded.
+      openModelInNewWindow=false;
    }
    /**
     * Helper function to implement model hide/show.
