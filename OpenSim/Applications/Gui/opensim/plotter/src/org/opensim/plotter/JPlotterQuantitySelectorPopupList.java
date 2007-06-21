@@ -98,6 +98,8 @@ public class JPlotterQuantitySelectorPopupList extends JPopupMenu {
                        Object userInput = dlg.getValue();
                        if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
                            String[] columnNames=quantityPanel.getSelected();
+                           if (columnNames==null)
+                              return;  // Nothing was selected.
                            String columnNamesDisplayString="";
                            for(int sel=0; sel<columnNames.length; sel++){
                                columnNamesDisplayString += columnNames[sel];
