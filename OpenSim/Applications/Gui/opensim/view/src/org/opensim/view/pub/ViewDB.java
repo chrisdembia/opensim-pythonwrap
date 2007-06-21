@@ -28,8 +28,6 @@ package org.opensim.view.pub;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -37,16 +35,15 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 import java.util.prefs.Preferences;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractMuscle;
-import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.ArrayPtrsObj;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.MusclePoint;
@@ -331,12 +328,17 @@ public final class ViewDB extends Observable implements Observer {
     */
    private void createNewViewWindowIfNeeded() {
       if (openModelInNewWindow){
-         ModelWindowVTKTopComponent win = new ModelWindowVTKTopComponent();
-         win.open();
+         final ModelWindowVTKTopComponent win = new ModelWindowVTKTopComponent();
          win.requestActive();
          openWindows.add(win);
          openModelInNewWindow=false;
          setCurrentModelWindow(win);
+         // open window later rather than now to avoid having a rectangular blank patch appearing over the GUI while
+         // the model is loading and the scene is set up
+         SwingUtilities.invokeLater(new Runnable(){
+            public void run(){
+               win.open();
+            }});
       }
    }
    /**
