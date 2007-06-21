@@ -25,6 +25,7 @@ import org.opensim.modeling.AbstractDof;
 import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.MomentArmAnalysis;
 import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.MotionTimeChangeEvent;
@@ -36,12 +37,7 @@ import org.opensim.view.pub.OpenSimDB;
  * @author  Ayman
  */
 public class JPlotterPanel extends javax.swing.JPanel
-         implements java.awt.event.ActionListener, 
-        java.awt.event.MouseListener, 
-        javax.swing.event.TreeSelectionListener, 
-        java.awt.event.FocusListener, 
-        java.util.Observer, 
-        java.beans.PropertyChangeListener {
+         implements java.awt.event.ActionListener, java.awt.event.MouseListener, javax.swing.event.TreeSelectionListener, java.awt.event.FocusListener, java.util.Observer, java.beans.PropertyChangeListener, java.awt.event.InputMethodListener {
    
    private PlotterModel plotterModel = new PlotterModel();
    public enum PlotDataSource {FileSource, AnalysisSource};
@@ -61,6 +57,8 @@ public class JPlotterPanel extends javax.swing.JPanel
    String[]    rangeNames;
    
    private String quantityFilterRegex=".*";
+   Model currentModel = OpenSimDB.getInstance().getCurrentModel();
+   
    /**
     * Creates new form JPlotterPanel
     */
@@ -79,6 +77,8 @@ public class JPlotterPanel extends javax.swing.JPanel
       // Add in blank figure by default
       jTopChartingPanel.add(plotterModel.getCurrentPlot().getChartPanel());
       MotionsDB.getInstance().addObserver(this);
+      OpenSimDB.getInstance().addObserver(this);   // Make sure current model does not change under us
+      processCurrentModel();
    }
    
    /** This method is called from within the constructor to
@@ -153,7 +153,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       );
       jTopChartingPanelLayout.setVerticalGroup(
          jTopChartingPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(0, 269, Short.MAX_VALUE)
+         .add(0, 279, Short.MAX_VALUE)
       );
       jSplitPane1.setLeftComponent(jTopChartingPanel);
 
@@ -239,7 +239,9 @@ public class JPlotterPanel extends javax.swing.JPanel
       xQuantityButton.addMouseListener(this);
 
       jXQtyTextField.addActionListener(this);
+      jXQtyTextField.addPropertyChangeListener(this);
       jXQtyTextField.addFocusListener(this);
+      jXQtyTextField.addInputMethodListener(this);
 
       jLabel9.setText("Start");
 
@@ -267,9 +269,9 @@ public class JPlotterPanel extends javax.swing.JPanel
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(jLabel10)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jDomainEndTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-               .add(jXQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
-            .addContainerGap())
+                  .add(jDomainEndTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 98, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .addContainerGap())
+               .add(jXQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)))
       );
       jPanel9Layout.setVerticalGroup(
          jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -320,8 +322,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                .add(jPanel10Layout.createSequentialGroup()
                   .add(yQuantityButton)
                   .add(19, 19, 19)
-                  .add(jYQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                  .add(8, 8, 8)))
+                  .add(jYQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)))
             .addContainerGap())
       );
       jPanel10Layout.setVerticalGroup(
@@ -358,17 +359,16 @@ public class JPlotterPanel extends javax.swing.JPanel
                      .add(jAnalysisSourceRadioButton)
                      .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                     .add(jPlotSpecPanelLayout.createSequentialGroup()
-                        .add(jAvailableAnalysesComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPlotSpecPanelLayout.createSequentialGroup()
+                        .add(jAvailableAnalysesComboBox, 0, 115, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jFileSourceRadioButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jBrowse4FileButton))
-                     .add(jCurveNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 228, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-               .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                  .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel9, 0, 320, Short.MAX_VALUE)
-                  .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                     .add(jCurveNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))
+               .add(jPanel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(jPanel10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
       );
       jPlotSpecPanelLayout.setVerticalGroup(
@@ -380,9 +380,9 @@ public class JPlotterPanel extends javax.swing.JPanel
             .add(7, 7, 7)
             .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jAnalysisSourceRadioButton)
-               .add(jAvailableAnalysesComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jBrowse4FileButton)
                .add(jFileSourceRadioButton)
-               .add(jBrowse4FileButton))
+               .add(jAvailableAnalysesComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -404,8 +404,8 @@ public class JPlotterPanel extends javax.swing.JPanel
          .add(jPlotTitlePanelLayout.createSequentialGroup()
             .add(jPlotLabelJLabel)
             .add(22, 22, 22)
-            .add(jPlotNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 247, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(20, Short.MAX_VALUE))
+            .add(jPlotNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+            .addContainerGap())
       );
       jPlotTitlePanelLayout.setVerticalGroup(
          jPlotTitlePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -508,6 +508,15 @@ public class JPlotterPanel extends javax.swing.JPanel
       }
    }
 
+   public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+      if (evt.getSource() == jXQtyTextField) {
+         JPlotterPanel.this.jXQtyTextFieldCaretPositionChanged(evt);
+      }
+   }
+
+   public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+   }
+
    public void mouseClicked(java.awt.event.MouseEvent evt) {
    }
 
@@ -539,11 +548,23 @@ public class JPlotterPanel extends javax.swing.JPanel
       else if (evt.getSource() == jDomainEndTextField) {
          JPlotterPanel.this.jDomainEndTextFieldPropertyChange(evt);
       }
+      else if (evt.getSource() == jXQtyTextField) {
+         JPlotterPanel.this.jXQtyTextFieldPropertyChange(evt);
+      }
    }// </editor-fold>//GEN-END:initComponents
+
+   private void jXQtyTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jXQtyTextFieldPropertyChange
+// TODO add your handling code here:
+   }//GEN-LAST:event_jXQtyTextFieldPropertyChange
+
+   private void jXQtyTextFieldCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jXQtyTextFieldCaretPositionChanged
+// TODO add your handling code here:
+   }//GEN-LAST:event_jXQtyTextFieldCaretPositionChanged
 
     private void jAvailableAnalysesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAvailableAnalysesComboBoxActionPerformed
 // TODO add your handling code here:
         sourceX = (PlotterSourceInterface) ((JComboBox)evt.getSource()).getSelectedItem();
+        // If moment arm, setMuscles in the tool so that only selected muscle is used.
         sourceY=sourceX;
         
     }//GEN-LAST:event_jAvailableAnalysesComboBoxActionPerformed
@@ -558,23 +579,35 @@ public class JPlotterPanel extends javax.swing.JPanel
     // AnalysisPick
     private void jAnalysisSourceRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAnalysisSourceRadioButtonActionPerformed
 // TODO add your handling code here:
+       // Disable file browse
+         jBrowse4FileButton.setEnabled(false);
+         // Clearup the X,Y,start,end
+         resetXY();
          source=PlotDataSource.AnalysisSource;
-         plotterModel.addModel(OpenSimDB.getInstance().getCurrentModel());
-         xQuantityButton.setEnabled(true);
-         ArrayList<PlotterSourceAnalysis> srcs=plotterModel.getAnalysisSources();
-         // Add available quantities to jAvailableAnalysesComboBox
-         PlotterSourceAnalysis[] availableAnalyses= new PlotterSourceAnalysis[srcs.size()];
-         for(int i=0; i<srcs.size();i++)
-             availableAnalyses[i] = srcs.get(i);
-         jAvailableAnalysesComboBox.setModel(new DefaultComboBoxModel(availableAnalyses));
+         PlotterSourceAnalysis[] availableAnalyses = initAnalyses();
+         if (availableAnalyses==null)
+            return;
          // Assume first one is selected
          sourceX = availableAnalyses[0];
          sourceY = sourceX;
-         System.gc();
+         //System.gc();
     }//GEN-LAST:event_jAnalysisSourceRadioButtonActionPerformed
+
+   private PlotterSourceAnalysis[] initAnalyses() {
+      plotterModel.addModel(currentModel);
+      xQuantityButton.setEnabled(true);
+      ArrayList<PlotterSourceAnalysis> srcs=plotterModel.getAnalysisSources();
+      // Add available quantities to jAvailableAnalysesComboBox
+      PlotterSourceAnalysis[] availableAnalyses= new PlotterSourceAnalysis[srcs.size()];
+      for(int i=0; i<srcs.size();i++)
+          availableAnalyses[i] = srcs.get(i);
+      jAvailableAnalysesComboBox.setModel(new DefaultComboBoxModel(availableAnalyses));
+      return availableAnalyses;
+   }
 
     private void jFileSourceRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileSourceRadioButtonActionPerformed
 // TODO add your handling code here:
+         jBrowse4FileButton.setEnabled(true);
          source=PlotDataSource.FileSource;
     }//GEN-LAST:event_jFileSourceRadioButtonActionPerformed
 
@@ -698,15 +731,16 @@ public class JPlotterPanel extends javax.swing.JPanel
 
      yQuantityButtonMouseReleased(evt);
    }//GEN-LAST:event_yQuantityButtonMousePressed
-   
+   /**
+    * Function to be invoked when the Add button is pressed
+    */
    private void jPlotterAddCurveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlotterAddCurveButtonActionPerformed
 
       // Analysis curves need to have an analysis run before they can be displayed. 
-      // Ask PlotterModel to run.
+      // Ask PlotterModel to run first.
       if (source==PlotDataSource.AnalysisSource){
          // Create a storage with Proper values for states to be passed in to the AnalysisTool         
-         runAnalysisTool(sourceX, domainName, sourceY, 
-                 (Double)jDomainStartTextField.getValue(), (Double)jDomainEndTextField.getValue());
+         runAnalysisTool();
       }
       String title = jPlotNameTextField.getText();
       PlotCurve plotCurve=null;
@@ -740,6 +774,7 @@ public class JPlotterPanel extends javax.swing.JPanel
         TreeNode[] nodes = ((PlotTreeModel)plotterModel.getPlotTreeModel()).getPathToRoot(cvnode);
         TreePath path = new TreePath(nodes); 
         jPlotsTree.setSelectionPath(path);
+        rangeNames = new String[]{plotCurve.getRangeName()};
     }
    
    private void jLoadFileToPlotterMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoadFileToPlotterMenuItemActionPerformed
@@ -1146,10 +1181,12 @@ public class JPlotterPanel extends javax.swing.JPanel
             }
         }
     }
-   void runAnalysisTool(PlotterSourceInterface sourceX, String domainName, PlotterSourceInterface sourceY, double domStart, double domEnd) {
+    
+   void runAnalysisTool() {
       PlotterSourceAnalysis analysisSource = (PlotterSourceAnalysis)sourceX;
       Model mdl = analysisSource.getModel();
       AnalyzeTool tool = plotterModel.getAnalyzeTool(mdl);
+      enableDesiredAnalyses(tool, analysisSource);
       double NUM_STEPS=100.0;
       // set tool attributes
       Storage statesStorage = new Storage();
@@ -1165,6 +1202,9 @@ public class JPlotterPanel extends javax.swing.JPanel
       statesStorage.setColumnLabels(stateNames);
       int xIndex = statesStorage.getStateIndex(domainName);
       AbstractCoordinate coord = mdl.getDynamicsEngine().getCoordinateSet().get(domainName);
+      
+      double domStart=(Double)jDomainStartTextField.getValue();
+      double domEnd=(Double)jDomainEndTextField.getValue();
       if (coord.getMotionType() == AbstractDof.DofType.Rotational){
          domStart=Math.toRadians(domStart);
          domEnd=Math.toRadians(domEnd);
@@ -1178,14 +1218,42 @@ public class JPlotterPanel extends javax.swing.JPanel
          newVector.setStates(time, numStates, states);
          statesStorage.append(newVector);
       }
+      sourceX = new PlotterSourceAnalysis(mdl, statesStorage, "");
       tool.setStatesStorage(statesStorage);
       tool.setStartTime(0.0);
       tool.setFinalTime(NUM_STEPS);
       tool.run();
-      //statesStorage.print("toolInput.sto");
+      //analysisSource.getStorage().print("toolOutput.sto");
       // Now need to append statesStorage
-      statesStorage.addToRdStorage(analysisSource.getStorage(), 0.0, NUM_STEPS);
+      sourceY=analysisSource;
       mdl.getDynamicsEngine().convertRadiansToDegrees(analysisSource.getStorage());
-      statesStorage.print("myStateStorage.sto");
+      mdl.getDynamicsEngine().convertRadiansToDegrees(statesStorage);
+      //statesStorage.print("myStateStorage.sto");
+   }
+
+   private void enableDesiredAnalyses(AnalyzeTool tool, PlotterSourceAnalysis analysisSource) {
+      String analysisToUse = analysisSource.getDisplayName();
+      if (analysisToUse.startsWith("MuscleAnalysis")){
+         tool.getModel().getAnalysisSet().get("MuscleAnalysis").setOn(true);
+      }
+      else if (analysisToUse.startsWith("MomentArm")){
+         tool.getModel().getAnalysisSet().get("MomentArmAnalysis").setOn(true);
+         
+         //MomentArmAnalysis maa = (MomentArmAnalysis) tool.getModel().getAnalysisSet().get("MomentArmAnalysis");
+         // Parse muscle name
+      }
+   }
+
+   private void resetXY() {
+      jXQtyTextField.setText("");
+      jYQtyTextField.setText("");
+      jDomainStartTextField.setText("");
+      jDomainEndTextField.setText("");
+   }
+
+   private void processCurrentModel() {
+      if (currentModel==null)
+         return;
+      initAnalyses();
    }
 }

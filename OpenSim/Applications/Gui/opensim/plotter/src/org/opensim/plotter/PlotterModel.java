@@ -30,16 +30,17 @@ import java.util.Hashtable;
 import java.util.Vector;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
-import org.opensim.modeling.AbstractCoordinate;
+import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.ArrayStorage;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.MomentArmAnalysis;
 import org.opensim.modeling.MuscleAnalysis;
-import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
+import org.opensim.motionviewer.MotionsDB;
 
 /**
  *
@@ -56,7 +57,7 @@ public class PlotterModel {
    private PlotTreeModel              plotTreeModel = new PlotTreeModel();   // Tree on the right
    private Vector<Model> loadedModels = new Vector<Model>(4);
    Hashtable<Model, AnalyzeTool> models2AnalyzeToolInstances = new Hashtable<Model, AnalyzeTool>(4);
-   Vector refs = new Vector(10);
+
    /** Creates a new instance of PlotterModel */
    public PlotterModel() {
          Plot figure = new Plot("Title", "x-label", "y-label");
@@ -73,29 +74,31 @@ public class PlotterModel {
     {
         if (loadedModels.contains(aModel))
             return;
+        // Create AnalyzeTool with built in muscle and moment analyses
+        AnalyzeTool tool = new AnalyzeTool(aModel);
         AnalysisSet analyses=aModel.getAnalysisSet();
-        
-        // If model does not have std analyses we'll add them here
-        if (analyses.get("MuscleAnalysis")==null){
-           Analysis muscleAnalysis = new MuscleAnalysis(aModel);
-           analyses.append(muscleAnalysis);
-           refs.add(muscleAnalysis);
-        }
-        /*
-         if (analyses.get("MomentArmAnalysis")==null){
-            analyses.append(new MomentArmAnalysis(aModel));
-        }
-        */   
+                
         for(int i=0; i<analyses.getSize(); i++){
             Analysis a = analyses.get(i);
             ArrayStorage storages = a.getStorageList();
             for(int j=0; j<storages.getSize(); j++){
                Storage str = storages.get(j);
-               sources.add(new PlotterSourceAnalysis(aModel, storages.get(j), str.getName()));
+               sources.add(new PlotterSourceAnalysis(aModel, storages.get(j), a.getName()+"."+str.getName()));
             }
         }
-        AnalyzeTool tool = new AnalyzeTool(aModel);
+        //tool.setSolveForEquilibriumForAuxiliaryStates(true);
         models2AnalyzeToolInstances.put(aModel, tool);
+        
+        // Now motions
+        /*
+        ArrayList<Storage> modelMotions=MotionsDB.getInstance().getModelMotions(aModel);
+        if (modelMotions ==null)
+          return;
+        for(int i=0; i< modelMotions.size(); i++){
+          Storage motionStorage = modelMotions.get(i);
+          sources.add(new PlotterSourceAnalysis(aModel, motionStorage, "Motion."+motionStorage.getName()));
+        }
+        */
     }
   /**
     * Get available quantities to use as a Domain variable

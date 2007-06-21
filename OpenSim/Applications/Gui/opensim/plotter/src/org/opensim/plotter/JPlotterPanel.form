@@ -75,7 +75,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="269" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="279" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -256,21 +256,19 @@
                                       <Component id="jLabel2" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="1">
-                                          <Component id="jAvailableAnalysesComboBox" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jAvailableAnalysesComboBox" pref="115" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jFileSourceRadioButton" min="-2" pref="33" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jBrowse4FileButton" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jCurveNameTextField" alignment="0" min="-2" pref="228" max="-2" attributes="3"/>
+                                      <Component id="jCurveNameTextField" pref="239" max="32767" attributes="3"/>
                                   </Group>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jPanel9" alignment="0" min="0" pref="320" max="32767" attributes="1"/>
-                                  <Component id="jPanel10" alignment="0" max="32767" attributes="3"/>
-                              </Group>
+                              <Component id="jPanel9" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jPanel10" alignment="0" max="32767" attributes="3"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -286,9 +284,9 @@
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jAnalysisSourceRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jAvailableAnalysesComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jFileSourceRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jBrowse4FileButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jFileSourceRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jAvailableAnalysesComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
@@ -375,10 +373,10 @@
                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jDomainEndTextField" min="-2" pref="98" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jXQtyTextField" pref="199" max="32767" attributes="1"/>
+                                  <Component id="jXQtyTextField" pref="209" max="32767" attributes="1"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -413,7 +411,9 @@
                     <Component class="javax.swing.JTextField" name="jXQtyTextField">
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jXQtyTextFieldActionPerformed"/>
+                        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jXQtyTextFieldPropertyChange"/>
                         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jXQtyTextFieldFocusLost"/>
+                        <EventHandler event="caretPositionChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="jXQtyTextFieldCaretPositionChanged"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel9">
@@ -461,7 +461,6 @@
                                       <Component id="yQuantityButton" min="-2" max="-2" attributes="1"/>
                                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                                       <Component id="jYQtyTextField" pref="198" max="32767" attributes="1"/>
-                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -574,8 +573,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jPlotLabelJLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="jPlotNameTextField" min="-2" pref="247" max="-2" attributes="3"/>
-                          <EmptySpace pref="20" max="32767" attributes="0"/>
+                          <Component id="jPlotNameTextField" pref="259" max="32767" attributes="3"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
