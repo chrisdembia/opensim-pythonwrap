@@ -249,9 +249,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="jFormattedGroupNameTextField">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

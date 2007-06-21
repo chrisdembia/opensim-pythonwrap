@@ -131,8 +131,6 @@ public class GroupEditorPanel extends javax.swing.JPanel
 
       jLabel1.setText("Group Name:");
 
-      jFormattedGroupNameTextField.setEnabled(false);
-
       org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
       jPanel2.setLayout(jPanel2Layout);
       jPanel2Layout.setHorizontalGroup(
@@ -353,6 +351,7 @@ public class GroupEditorPanel extends javax.swing.JPanel
 
    private void updateGroupsList() {
        jAllGroupsList.removeAll();
+       availaleGroups.removeAllElements();
        ArrayStr groups = new ArrayStr();
        dSet.getGroupNames(groups);
        for(int i=0; i<groups.getSize(); i++){

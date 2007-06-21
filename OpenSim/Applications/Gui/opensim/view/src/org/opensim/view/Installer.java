@@ -2,6 +2,7 @@ package org.opensim.view;
 
 import java.util.prefs.Preferences;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.openide.modules.ModuleInstall;
@@ -25,10 +26,14 @@ public class Installer extends ModuleInstall {
       javax.swing.ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
    }
     public void restored() {
+        super.restored();
         try {
              // Put your startup code here.
             UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
-            MuscleEditorTopComponent.findInstance();
+            SwingUtilities.invokeLater(new Runnable(){
+            public void run() {
+               MuscleEditorTopComponent.findInstance();
+            }});
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         } catch (IllegalAccessException ex) {
@@ -50,7 +55,6 @@ public class Installer extends ModuleInstall {
          * @todo open explorer window, Restore default directory and Bones directories, ..
          */
         restorePrefs();
-        super.restored();
 
     }
     

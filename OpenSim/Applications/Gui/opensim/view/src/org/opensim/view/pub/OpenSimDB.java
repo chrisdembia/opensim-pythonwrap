@@ -177,18 +177,18 @@ final public class OpenSimDB extends Observable {
       // Create default groups
       ActuatorSet acts = aModel.getActuatorSet();
       int numGroups = acts.getNumGroups();
-      if (numGroups==0){
-         acts.addGroup("All");
+      if (acts.getGroup("all")==null){
+         acts.addGroup("all");
          for(int i=0; i<acts.getSize(); i++){
-            acts.addObjectToGroup("All", acts.get(i).getName());
+            acts.addObjectToGroup("all", acts.get(i).getName());
          }
       }
       CoordinateSet coords = aModel.getDynamicsEngine().getCoordinateSet();
-      numGroups = coords.getNumGroups();
-      if (numGroups==0){
-         coords.addGroup("All");
+      //numGroups = coords.getNumGroups();
+      if (coords.getGroup("all")==null){
+         coords.addGroup("all");
          for(int i=0; i<coords.getSize(); i++){
-            coords.addObjectToGroup("All", coords.get(i).getName());
+            coords.addObjectToGroup("all", coords.get(i).getName());
          }
       }
    }
