@@ -143,6 +143,7 @@ public class PlotterQuantityNameFilterTableModel extends AbstractTableModel {
       Pattern p = Pattern.compile(pattern);
       shownQuantities.clear();
       for(int i=0; i<availableQuantities.length ;i++){
+        System.out.println("Match ["+availableQuantities[i]+"] against pattern "+pattern+" returns "+p.matcher(availableQuantities[i]).matches());
         if (p.matcher(availableQuantities[i]).matches())
             shownQuantities.add(i);
       }

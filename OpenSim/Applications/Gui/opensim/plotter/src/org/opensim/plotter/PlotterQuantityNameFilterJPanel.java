@@ -6,6 +6,7 @@
 
 package org.opensim.plotter;
 
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.DefaultComboBoxModel;
@@ -41,11 +42,16 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
    private FilterBy currentFilter = FilterBy.RegularExpression;
    private String   pattern="";
    private Model currentModel=null;
+   ArrayList<String> metaCharacters=new ArrayList<String>();
+   
    /**
     * Creates new form PlotterQuantityNameFilterJPanel
     */
    public PlotterQuantityNameFilterJPanel(PlotterSourceInterface src) {
       initComponents();
+      metaCharacters.add("*");
+      metaCharacters.add("+");
+      metaCharacters.add("?");
       FilterTextField.getDocument().addDocumentListener(this);
       FilterTextField.setText(getPattern());
       jFilename.setText(src.getDisplayName());
@@ -496,7 +502,34 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
      */
     private void handlePatternChange()
     {
-        pattern = ".*"+FilterTextField.getText()+".*";
-        tableModel.restrictNamesBy(getPattern());
+       String rawPattern = FilterTextField.getText();
+       // Remove leading and trailing special characters that may interfere
+       if (rawPattern.length()>0){
+          // remove leading and trailing special characters
+          int index=0;
+          String newPattern=rawPattern;
+          while(index < rawPattern.length()){
+            String letter=rawPattern.substring(index, index+1);
+            if (metaCharacters.contains(letter))
+               newPattern=rawPattern.substring(index);
+            else
+               break;
+            index++;
+          }
+          rawPattern=newPattern;
+          // start from the end and repeat
+          index = rawPattern.length()-1;
+           while(index >= 0){
+            String letter=rawPattern.substring(index, index+1);
+            if (metaCharacters.contains(letter))
+               newPattern=rawPattern.substring(0, index);
+            else
+               break;
+            index--;
+          }
+          rawPattern=newPattern;
+      }
+       
+       tableModel.restrictNamesBy(".*"+rawPattern+".*");
     }    
 }
