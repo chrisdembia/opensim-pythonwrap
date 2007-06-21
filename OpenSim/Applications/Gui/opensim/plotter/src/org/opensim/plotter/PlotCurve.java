@@ -64,31 +64,31 @@ public class PlotCurve {
       // which should be enforced by the GUI.
       // In case this restriction is removed, rangeStorage will need to be sampled
       // at domain sample values (e.g. plot quantities against time coming from another storage
-      if (domainStorage.equals(rangeStorage)){
-          ArrayDouble xArray = getDataArrayFromStorage(domainStorage, stringx, true);
-          ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, stringy, false);
-          //double test = xArray.getitem(0);
-          int size = xArray.getSize();
-          // find range of values to display based on minx, maxx
-          // this assumes some ordering on x values so that the set of xValues plotted
-          // are those at or higher than the first occurance of the value xMin
-          // and less than the last occurance of the value xMax.
-          int startIndex=xArray.findIndex(plotCurveSettings.getXMin());
-          if (startIndex ==-1) // Cut to bounds with data
-              startIndex=0;
-          int endIndex=xArray.rfindIndex(plotCurveSettings.getXMax());
-          if (endIndex ==-1) // Cut to bounds with data
-              endIndex=xArray.getSize()-1;
-          double[] yFiltered = applyFilters(plotCurveSettings.getFilters(), yArray, startIndex, endIndex);
-          // Make an XYSeries to hold the data and keep a ref to it with the curve
-          setCurveSeries(new XYSeries(plotCurveSettings.getName()));
-          for (int i = startIndex;i< endIndex;i++){
-              getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
-          }
-          getCurveSeries().setKey(stringy);
-      }
-      else
+       ArrayDouble xArray = getDataArrayFromStorage(domainStorage, stringx, true);
+       ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, stringy, false);
+       int xSize = xArray.getSize();
+       int ySize = yArray.getSize();
+       if (xSize != ySize)
           throw new UnsupportedOperationException("Domain and range selections from different sources are not supported yet.");
+       
+       int size = xArray.getSize();
+       // find range of values to display based on minx, maxx
+       // this assumes some ordering on x values so that the set of xValues plotted
+       // are those at or higher than the first occurance of the value xMin
+       // and less than the last occurance of the value xMax.
+       int startIndex=xArray.findIndex(plotCurveSettings.getXMin());
+       if (startIndex ==-1) // Cut to bounds with data
+           startIndex=0;
+       int endIndex=xArray.rfindIndex(plotCurveSettings.getXMax());
+       if (endIndex ==-1) // Cut to bounds with data
+           endIndex=xArray.getSize()-1;
+       double[] yFiltered = applyFilters(plotCurveSettings.getFilters(), yArray, startIndex, endIndex);
+       // Make an XYSeries to hold the data and keep a ref to it with the curve
+       setCurveSeries(new XYSeries(plotCurveSettings.getName()));
+       for (int i = startIndex;i< endIndex;i++){
+           getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
+       }
+       getCurveSeries().setKey(plotCurveSettings.getName());
    }
 
    private ArrayDouble getDataArrayFromStorage(final Storage storage, final String colName, boolean isDomain ) {
