@@ -83,10 +83,6 @@ public class MuscleViaPoint extends MusclePoint {
     opensimModelJNI.MuscleViaPoint_setup(swigCPtr, this, Model.getCPtr(aModel), aModel, AbstractMuscle.getCPtr(aMuscle), aMuscle);
   }
 
-  public void peteTest() {
-    opensimModelJNI.MuscleViaPoint_peteTest(swigCPtr, this);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.MuscleViaPoint_isKindOf(type);
   }

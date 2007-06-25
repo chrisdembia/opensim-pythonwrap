@@ -162,10 +162,6 @@ public class SimmZajacHill extends AbstractMuscle {
     return opensimModelJNI.SimmZajacHill_computeIsometricForce(swigCPtr, this, activation);
   }
 
-  public void peteTest() {
-    opensimModelJNI.SimmZajacHill_peteTest(swigCPtr, this);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.SimmZajacHill_isKindOf(type);
   }

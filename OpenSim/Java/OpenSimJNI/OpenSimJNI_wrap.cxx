@@ -1186,7 +1186,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "c:/eran/dev/simbios/opensim/Trunk/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
+#include "C:/SimTK/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel) : OpenSim::SimtkAnimationCallback(aModel), Swig::Director(jenv) {
 }
@@ -5544,17 +5544,6 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ObjectGroup_1
   }
   *(OpenSim::ArrayPtrs<OpenSim::Object > **)&jresult = result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ObjectGroup_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::ObjectGroup *arg1 = (OpenSim::ObjectGroup *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::ObjectGroup **)&jarg1; 
-  ((OpenSim::ObjectGroup const *)arg1)->peteTest();
 }
 
 
@@ -15074,17 +15063,6 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ActuatorSe
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ActuatorSet_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::ActuatorSet *arg1 = (OpenSim::ActuatorSet *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::ActuatorSet **)&jarg1; 
-  (arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ContactForceSet_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::ContactForceSet *result = 0 ;
@@ -20886,17 +20864,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1printDe
     return ;
   } 
   ((OpenSim::Model const *)arg1)->printDetailedInfo(*arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::Model **)&jarg1; 
-  ((OpenSim::Model const *)arg1)->peteTest();
 }
 
 
@@ -31259,6 +31226,24 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MomentArmAnal
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MomentArmAnalysis_1setMuscles(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::MomentArmAnalysis *arg1 = (OpenSim::MomentArmAnalysis *) 0 ;
+  OpenSim::Array<std::string > *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::MomentArmAnalysis **)&jarg1; 
+  arg2 = *(OpenSim::Array<std::string > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<std::string > & reference is null");
+    return ;
+  } 
+  (arg1)->setMuscles(*arg2);
+}
+
+
 SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_MomentArmAnalysis_1begin_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdouble jarg3, jdouble jarg4, jlong jarg5, jlong jarg6, jlong jarg7, jlong jarg8, jlong jarg9) {
   jint jresult = 0 ;
   OpenSim::MomentArmAnalysis *arg1 = (OpenSim::MomentArmAnalysis *) 0 ;
@@ -34967,17 +34952,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::AbstractMarker **)&jarg1; 
-  ((OpenSim::AbstractMarker const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
@@ -35998,6 +35972,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1Marker
   arg1 = *(OpenSim::MarkerSet **)&jarg1; 
   delete arg1;
   
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerSet_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::MarkerSet *arg1 = (OpenSim::MarkerSet *) 0 ;
+  OpenSim::AbstractDynamicsEngine *arg2 = (OpenSim::AbstractDynamicsEngine *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::MarkerSet **)&jarg1; 
+  arg2 = *(OpenSim::AbstractDynamicsEngine **)&jarg2; 
+  (arg1)->setup(arg2);
 }
 
 
@@ -37634,17 +37622,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractWrapOb
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractWrapObject_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::AbstractWrapObject *arg1 = (OpenSim::AbstractWrapObject *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::AbstractWrapObject **)&jarg1; 
-  ((OpenSim::AbstractWrapObject const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1WrapSphere_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::WrapSphere *result = 0 ;
@@ -37830,17 +37807,6 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapSphere_1wr
   result = (int)((OpenSim::WrapSphere const *)arg1)->wrapLine(*arg2,*arg3,(OpenSim::MuscleWrap const &)*arg4,*arg5,*arg6);
   jresult = (jint)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapSphere_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::WrapSphere *arg1 = (OpenSim::WrapSphere *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::WrapSphere **)&jarg1; 
-  ((OpenSim::WrapSphere const *)arg1)->peteTest();
 }
 
 
@@ -38088,17 +38054,6 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapCylinder_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapCylinder_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::WrapCylinder *arg1 = (OpenSim::WrapCylinder *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::WrapCylinder **)&jarg1; 
-  ((OpenSim::WrapCylinder const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1WrapTorus_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::WrapTorus *result = 0 ;
@@ -38287,17 +38242,6 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapTorus_1wra
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapTorus_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::WrapTorus *arg1 = (OpenSim::WrapTorus *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::WrapTorus **)&jarg1; 
-  ((OpenSim::WrapTorus const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1WrapEllipsoid_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::WrapEllipsoid *result = 0 ;
@@ -38483,17 +38427,6 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapEllipsoid_
   result = (int)((OpenSim::WrapEllipsoid const *)arg1)->wrapLine(*arg2,*arg3,(OpenSim::MuscleWrap const &)*arg4,*arg5,*arg6);
   jresult = (jint)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapEllipsoid_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::WrapEllipsoid *arg1 = (OpenSim::WrapEllipsoid *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::WrapEllipsoid **)&jarg1; 
-  ((OpenSim::WrapEllipsoid const *)arg1)->peteTest();
 }
 
 
@@ -39824,17 +39757,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1re
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrap_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::MuscleWrap *arg1 = (OpenSim::MuscleWrap *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::MuscleWrap **)&jarg1; 
-  ((OpenSim::MuscleWrap const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1SetMuscleWrap(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   OpenSim::Set<OpenSim::MuscleWrap > *arg1 = (OpenSim::Set<OpenSim::MuscleWrap > *) 0 ;
   
@@ -41094,17 +41016,6 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::AbstractBody **)&jarg1; 
-  ((OpenSim::AbstractBody const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
@@ -41499,17 +41410,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1getS
     return ;
   } 
   ((OpenSim::SimmBody const *)arg1)->getScaleFactors(*arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::SimmBody **)&jarg1; 
-  ((OpenSim::SimmBody const *)arg1)->peteTest();
 }
 
 
@@ -42440,6 +42340,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1BodySe
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_BodySet_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::BodySet *arg1 = (OpenSim::BodySet *) 0 ;
+  OpenSim::AbstractDynamicsEngine *arg2 = (OpenSim::AbstractDynamicsEngine *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::BodySet **)&jarg1; 
+  arg2 = *(OpenSim::AbstractDynamicsEngine **)&jarg2; 
+  (arg1)->setup(arg2);
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_BodySet_1scale_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3) {
   OpenSim::BodySet *arg1 = (OpenSim::BodySet *) 0 ;
   OpenSim::ScaleSet *arg2 = 0 ;
@@ -43036,17 +42950,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Constant_1setV
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Constant_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::Constant *arg1 = (OpenSim::Constant *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::Constant **)&jarg1; 
-  ((OpenSim::Constant const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Constant_1updateBoundingBox(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   OpenSim::Constant *arg1 = (OpenSim::Constant *) 0 ;
   
@@ -43227,6 +43130,62 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1s
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1setCoordinateName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  OpenSim::AbstractDof *arg1 = (OpenSim::AbstractDof *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractDof **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->setCoordinateName((std::string const &)*arg2);
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1getMotionType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  OpenSim::AbstractDof *arg1 = (OpenSim::AbstractDof *) 0 ;
+  OpenSim::AbstractDof::DofType result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractDof **)&jarg1; 
+  result = (OpenSim::AbstractDof::DofType)((OpenSim::AbstractDof const *)arg1)->getMotionType();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1setAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+  OpenSim::AbstractDof *arg1 = (OpenSim::AbstractDof *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractDof **)&jarg1; 
+  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+    return ;
+  }
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  (arg1)->setAxis((double const (*))arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1getAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
   OpenSim::AbstractDof *arg1 = (OpenSim::AbstractDof *) 0 ;
   double *arg2 ;
@@ -43277,21 +43236,6 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1getMotionType(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  OpenSim::AbstractDof *arg1 = (OpenSim::AbstractDof *) 0 ;
-  OpenSim::AbstractDof::DofType result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::AbstractDof **)&jarg1; 
-  result = (OpenSim::AbstractDof::DofType)((OpenSim::AbstractDof const *)arg1)->getMotionType();
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1getCoordinate(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::AbstractDof *arg1 = (OpenSim::AbstractDof *) 0 ;
@@ -43319,17 +43263,6 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1
   result = (OpenSim::Function *)((OpenSim::AbstractDof const *)arg1)->getFunction();
   *(OpenSim::Function **)&jresult = result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::AbstractDof *arg1 = (OpenSim::AbstractDof *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::AbstractDof **)&jarg1; 
-  (arg1)->peteTest();
 }
 
 
@@ -43969,17 +43902,6 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractCo
   result = (bool)((OpenSim::AbstractCoordinate const *)arg1)->getConstrained();
   jresult = (jboolean)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractCoordinate_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::AbstractCoordinate *arg1 = (OpenSim::AbstractCoordinate *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::AbstractCoordinate **)&jarg1; 
-  ((OpenSim::AbstractCoordinate const *)arg1)->peteTest();
 }
 
 
@@ -44688,17 +44610,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmCoordinate
   (void)jarg1_;
   arg1 = *(OpenSim::SimmCoordinate **)&jarg1; 
   (arg1)->determineType();
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmCoordinate_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmCoordinate *arg1 = (OpenSim::SimmCoordinate *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::SimmCoordinate **)&jarg1; 
-  ((OpenSim::SimmCoordinate const *)arg1)->peteTest();
 }
 
 
@@ -45629,6 +45540,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1Coordi
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_CoordinateSet_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::CoordinateSet *arg1 = (OpenSim::CoordinateSet *) 0 ;
+  OpenSim::AbstractDynamicsEngine *arg2 = (OpenSim::AbstractDynamicsEngine *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::CoordinateSet **)&jarg1; 
+  arg2 = *(OpenSim::AbstractDynamicsEngine **)&jarg2; 
+  (arg1)->setup(arg2);
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1AbstractJoint(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   OpenSim::AbstractJoint *arg1 = (OpenSim::AbstractJoint *) 0 ;
   
@@ -45842,17 +45767,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractJoint_
     return ;
   } 
   (arg1)->scale((OpenSim::ScaleSet const &)*arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractJoint_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::AbstractJoint *arg1 = (OpenSim::AbstractJoint *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::AbstractJoint **)&jarg1; 
-  (arg1)->peteTest();
 }
 
 
@@ -46092,17 +46006,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1sca
     return ;
   } 
   (arg1)->scale((OpenSim::Array<double > const &)*arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmJoint *arg1 = (OpenSim::SimmJoint *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::SimmJoint **)&jarg1; 
-  (arg1)->peteTest();
 }
 
 
@@ -47030,6 +46933,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1JointS
   arg1 = *(OpenSim::JointSet **)&jarg1; 
   delete arg1;
   
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_JointSet_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::JointSet *arg1 = (OpenSim::JointSet *) 0 ;
+  OpenSim::AbstractDynamicsEngine *arg2 = (OpenSim::AbstractDynamicsEngine *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::JointSet **)&jarg1; 
+  arg2 = *(OpenSim::AbstractDynamicsEngine **)&jarg2; 
+  (arg1)->setup(arg2);
 }
 
 
@@ -49347,17 +49264,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::AbstractDynamicsEngine **)&jarg1; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmKinematicsEngine_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::SimmKinematicsEngine *result = 0 ;
@@ -51358,17 +51264,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::SimmKinematicsEngine **)&jarg1; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1MusclePoint_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::MusclePoint *result = 0 ;
@@ -51654,17 +51549,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1u
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::MusclePoint **)&jarg1; 
-  ((OpenSim::MusclePoint const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
@@ -51903,17 +51787,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrapPoin
   arg1 = *(OpenSim::MuscleWrapPoint **)&jarg1; 
   arg2 = *(OpenSim::AbstractWrapObject **)&jarg2; 
   (arg1)->setWrapObject(arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleWrapPoint_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::MuscleWrapPoint *arg1 = (OpenSim::MuscleWrapPoint *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::MuscleWrapPoint **)&jarg1; 
-  ((OpenSim::MuscleWrapPoint const *)arg1)->peteTest();
 }
 
 
@@ -52190,17 +52063,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleViaPoint
   arg2 = *(OpenSim::Model **)&jarg2; 
   arg3 = *(OpenSim::AbstractMuscle **)&jarg3; 
   (arg1)->setup(arg2,arg3);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleViaPoint_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::MuscleViaPoint *arg1 = (OpenSim::MuscleViaPoint *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::MuscleViaPoint **)&jarg1; 
-  ((OpenSim::MuscleViaPoint const *)arg1)->peteTest();
 }
 
 
@@ -54395,17 +54257,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMuscle
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMuscle_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::AbstractMuscle *arg1 = (OpenSim::AbstractMuscle *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::AbstractMuscle **)&jarg1; 
-  (arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMuscle_1getDisplayer(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::AbstractMuscle *arg1 = (OpenSim::AbstractMuscle *) 0 ;
@@ -56519,17 +56370,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMusc
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
-  (arg1)->peteTest();
-}
-
-
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
@@ -57099,17 +56939,6 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHi
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
-  (arg1)->peteTest();
-}
-
-
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
@@ -57322,17 +57151,6 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmPoint_
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmPoint_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmPoint *arg1 = (OpenSim::SimmPoint *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::SimmPoint **)&jarg1; 
-  ((OpenSim::SimmPoint const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmRotationDof_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::SimmRotationDof *result = 0 ;
@@ -57405,6 +57223,26 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmRotationDo
     return ;
   } 
   (arg1)->copyData((OpenSim::SimmRotationDof const &)*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmRotationDof_1setAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+  OpenSim::SimmRotationDof *arg1 = (OpenSim::SimmRotationDof *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimmRotationDof **)&jarg1; 
+  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+    return ;
+  }
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  (arg1)->setAxis((double const (*))arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
 }
 
 
@@ -57488,17 +57326,6 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmRotationDo
   result = (OpenSim::AbstractDof::DofType)((OpenSim::SimmRotationDof const *)arg1)->getMotionType();
   jresult = (jint)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmRotationDof_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmRotationDof *arg1 = (OpenSim::SimmRotationDof *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::SimmRotationDof **)&jarg1; 
-  (arg1)->peteTest();
 }
 
 
@@ -57639,6 +57466,26 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmTranslatio
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmTranslationDof_1setAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+  OpenSim::SimmTranslationDof *arg1 = (OpenSim::SimmTranslationDof *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimmTranslationDof **)&jarg1; 
+  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+    return ;
+  }
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  (arg1)->setAxis((double const (*))arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmTranslationDof_1getAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
   OpenSim::SimmTranslationDof *arg1 = (OpenSim::SimmTranslationDof *) 0 ;
   double *arg2 ;
@@ -57736,17 +57583,6 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmTranslatio
   result = (OpenSim::SimmTranslationDof::AxisIndex)((OpenSim::SimmTranslationDof const *)arg1)->getAxisIndex();
   jresult = (jint)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmTranslationDof_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmTranslationDof *arg1 = (OpenSim::SimmTranslationDof *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::SimmTranslationDof **)&jarg1; 
-  (arg1)->peteTest();
 }
 
 
@@ -57924,17 +57760,6 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_Units_1getL
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Units_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::Units *arg1 = (OpenSim::Units *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::Units **)&jarg1; 
-  ((OpenSim::Units const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1GenericModelMaker_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::GenericModelMaker *result = 0 ;
@@ -58054,17 +57879,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_GenericModelMa
   (void)jenv;
   (void)jcls;
   OpenSim::GenericModelMaker::registerTypes();
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_GenericModelMaker_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::GenericModelMaker *arg1 = (OpenSim::GenericModelMaker *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::GenericModelMaker **)&jarg1; 
-  ((OpenSim::GenericModelMaker const *)arg1)->peteTest();
 }
 
 
@@ -58295,17 +58109,6 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelScale
   result = (bool)((OpenSim::ModelScaler const *)arg1)->getPreserveMassDist();
   jresult = (jboolean)result; 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelScaler_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::ModelScaler *arg1 = (OpenSim::ModelScaler *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::ModelScaler **)&jarg1; 
-  ((OpenSim::ModelScaler const *)arg1)->peteTest();
 }
 
 
@@ -59150,17 +58953,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::MarkerPlacer *arg1 = (OpenSim::MarkerPlacer *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::MarkerPlacer **)&jarg1; 
-  ((OpenSim::MarkerPlacer const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1IKTrial_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   OpenSim::IKTrial *result = 0 ;
@@ -59575,17 +59367,6 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1ge
   result = ((OpenSim::IKTrial const *)arg1)->getOptimizerAlgorithm();
   jresult = jenv->NewStringUTF((&result)->c_str()); 
   return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::IKTrial *arg1 = (OpenSim::IKTrial *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::IKTrial **)&jarg1; 
-  ((OpenSim::IKTrial const *)arg1)->peteTest();
 }
 
 
@@ -61899,17 +61680,6 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerData_
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerData_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::MarkerData *arg1 = (OpenSim::MarkerData *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::MarkerData **)&jarg1; 
-  ((OpenSim::MarkerData const *)arg1)->peteTest();
-}
-
-
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1IKSolverInterface(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   OpenSim::IKTarget *arg1 = 0 ;
@@ -62260,17 +62030,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Measurement_1r
   (void)jenv;
   (void)jcls;
   OpenSim::Measurement::registerTypes();
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Measurement_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::Measurement *arg1 = (OpenSim::Measurement *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::Measurement **)&jarg1; 
-  ((OpenSim::Measurement const *)arg1)->peteTest();
 }
 
 
@@ -63705,17 +63464,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ScaleTool_1set
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
   (arg1)->setPathToSubject((std::string const &)*arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ScaleTool_1peteTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::ScaleTool *arg1 = (OpenSim::ScaleTool *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::ScaleTool **)&jarg1; 
-  ((OpenSim::ScaleTool const *)arg1)->peteTest();
 }
 
 

@@ -126,8 +126,4 @@ public class MarkerPlacer extends OpenSimObject {
     opensimModelJNI.MarkerPlacer_setOutputMotionFileName(swigCPtr, this, outputMotionFileName);
   }
 
-  public void peteTest() {
-    opensimModelJNI.MarkerPlacer_peteTest(swigCPtr, this);
-  }
-
 }

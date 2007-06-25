@@ -90,8 +90,4 @@ public class AbstractJoint extends OpenSimObject {
     opensimModelJNI.AbstractJoint_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
-  public void peteTest() {
-    opensimModelJNI.AbstractJoint_peteTest(swigCPtr, this);
-  }
-
 }

@@ -41,4 +41,8 @@ public class CoordinateSet extends SetCoordinates {
     this(opensimModelJNI.new_CoordinateSet__SWIG_1(CoordinateSet.getCPtr(aCoordinateSet), aCoordinateSet), true);
   }
 
+  public void setup(AbstractDynamicsEngine aAbstractDynamicsEngine) {
+    opensimModelJNI.CoordinateSet_setup(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aAbstractDynamicsEngine), aAbstractDynamicsEngine);
+  }
+
 }

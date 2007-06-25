@@ -388,8 +388,4 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     opensimModelJNI.SimmKinematicsEngine_computeConstrainedCoordinates(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rQ));
   }
 
-  public void peteTest() {
-    opensimModelJNI.SimmKinematicsEngine_peteTest(swigCPtr, this);
-  }
-
 }

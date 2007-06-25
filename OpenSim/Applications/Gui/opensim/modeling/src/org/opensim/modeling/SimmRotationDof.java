@@ -50,6 +50,10 @@ public class SimmRotationDof extends AbstractDof {
     opensimModelJNI.SimmRotationDof_copyData(swigCPtr, this, SimmRotationDof.getCPtr(aDof), aDof);
   }
 
+  public void setAxis(double[] aAxis) {
+    opensimModelJNI.SimmRotationDof_setAxis(swigCPtr, this, aAxis);
+  }
+
   public void getAxis(double[] rAxis) {
     opensimModelJNI.SimmRotationDof_getAxis__SWIG_0(swigCPtr, this, rAxis);
   }
@@ -69,10 +73,6 @@ public class SimmRotationDof extends AbstractDof {
 
   public AbstractDof.DofType getMotionType() {
     return AbstractDof.DofType.swigToEnum(opensimModelJNI.SimmRotationDof_getMotionType(swigCPtr, this));
-  }
-
-  public void peteTest() {
-    opensimModelJNI.SimmRotationDof_peteTest(swigCPtr, this);
   }
 
 }

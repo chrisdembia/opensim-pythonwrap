@@ -287,8 +287,4 @@ public class ActuatorSet extends SetActuators {
     return opensimModelJNI.ActuatorSet_check(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.ActuatorSet_peteTest(swigCPtr, this);
-  }
-
 }

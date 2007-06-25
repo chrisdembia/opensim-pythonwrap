@@ -62,10 +62,6 @@ public class Constant extends Function {
     opensimModelJNI.Constant_setValue(swigCPtr, this, aValue);
   }
 
-  public void peteTest() {
-    opensimModelJNI.Constant_peteTest(swigCPtr, this);
-  }
-
   public void updateBoundingBox() {
     opensimModelJNI.Constant_updateBoundingBox(swigCPtr, this);
   }

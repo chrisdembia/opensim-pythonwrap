@@ -107,8 +107,4 @@ public class SimmBody extends AbstractBody {
     opensimModelJNI.SimmBody_getScaleFactors(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
   }
 
-  public void peteTest() {
-    opensimModelJNI.SimmBody_peteTest(swigCPtr, this);
-  }
-
 }

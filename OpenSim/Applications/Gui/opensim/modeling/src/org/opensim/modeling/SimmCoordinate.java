@@ -213,8 +213,4 @@ public class SimmCoordinate extends AbstractCoordinate {
     opensimModelJNI.SimmCoordinate_determineType(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.SimmCoordinate_peteTest(swigCPtr, this);
-  }
-
 }

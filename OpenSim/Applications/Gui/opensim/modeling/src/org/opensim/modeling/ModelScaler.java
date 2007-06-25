@@ -70,10 +70,6 @@ public class ModelScaler extends OpenSimObject {
     return opensimModelJNI.ModelScaler_getPreserveMassDist(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.ModelScaler_peteTest(swigCPtr, this);
-  }
-
   public void addMeasurement(SWIGTYPE_p_Measurement aMeasurement) {
     opensimModelJNI.ModelScaler_addMeasurement(swigCPtr, this, SWIGTYPE_p_Measurement.getCPtr(aMeasurement));
   }

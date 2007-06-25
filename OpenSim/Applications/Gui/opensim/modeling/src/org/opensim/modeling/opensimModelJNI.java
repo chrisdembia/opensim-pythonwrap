@@ -12,8 +12,8 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("osimJavaJNI");		// All OpenSim classes required for GUI operation.
-        System.loadLibrary("osimSdfastEngine");	//to load sdfast based models
+        System.loadLibrary("osimJavaJNI_d");		// All OpenSim classes required for GUI operation.
+        System.loadLibrary("osimSdfastEngine_d");	//to load sdfast based models
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic library osimJavaJNI is in your PATH\n"+e);
@@ -232,7 +232,6 @@ public class opensimModelJNI {
   public final static native void ObjectGroup_replace(long jarg1, ObjectGroup jarg1_, long jarg2, OpenSimObject jarg2_, long jarg3, OpenSimObject jarg3_);
   public final static native void ObjectGroup_setup(long jarg1, ObjectGroup jarg1_, long jarg2, ArrayPtrsObj jarg2_);
   public final static native long ObjectGroup_getMembers(long jarg1, ObjectGroup jarg1_);
-  public final static native void ObjectGroup_peteTest(long jarg1, ObjectGroup jarg1_);
   public final static native boolean ObjectGroup_isKindOf(String jarg1);
   public final static native boolean ObjectGroup_isA(long jarg1, ObjectGroup jarg1_, String jarg2);
   public final static native long ObjectGroup_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -779,7 +778,6 @@ public class opensimModelJNI {
   public final static native void ActuatorSet_updatePseudoStates(long jarg1, ActuatorSet jarg1_);
   public final static native void ActuatorSet_apply(long jarg1, ActuatorSet jarg1_);
   public final static native boolean ActuatorSet_check(long jarg1, ActuatorSet jarg1_);
-  public final static native void ActuatorSet_peteTest(long jarg1, ActuatorSet jarg1_);
   public final static native long new_ContactForceSet__SWIG_0();
   public final static native long new_ContactForceSet__SWIG_1(String jarg1);
   public final static native long new_ContactForceSet__SWIG_2(long jarg1, ContactForceSet jarg1_);
@@ -1084,7 +1082,6 @@ public class opensimModelJNI {
   public final static native boolean Model_scale__SWIG_2(long jarg1, Model jarg1_, long jarg2);
   public final static native void Model_printBasicInfo(long jarg1, Model jarg1_, long jarg2);
   public final static native void Model_printDetailedInfo(long jarg1, Model jarg1_, long jarg2);
-  public final static native void Model_peteTest(long jarg1, Model jarg1_);
   public final static native void Model_kinTest(long jarg1, Model jarg1_);
   public final static native void delete_Control(long jarg1);
   public final static native void Control_setIsModelControl(long jarg1, Control jarg1_, boolean jarg2);
@@ -1618,6 +1615,7 @@ public class opensimModelJNI {
   public final static native void MomentArmAnalysis_setModel(long jarg1, MomentArmAnalysis jarg1_, long jarg2, Model jarg2_);
   public final static native void MomentArmAnalysis_setStorageCapacityIncrements(long jarg1, MomentArmAnalysis jarg1_, int jarg2);
   public final static native long MomentArmAnalysis_getMomentArmStorageArray(long jarg1, MomentArmAnalysis jarg1_);
+  public final static native void MomentArmAnalysis_setMuscles(long jarg1, MomentArmAnalysis jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native int MomentArmAnalysis_begin__SWIG_0(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
   public final static native int MomentArmAnalysis_begin__SWIG_1(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
   public final static native int MomentArmAnalysis_begin__SWIG_2(long jarg1, MomentArmAnalysis jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
@@ -1812,7 +1810,6 @@ public class opensimModelJNI {
   public final static native void AbstractMarker_removeSelfFromDisplay(long jarg1, AbstractMarker jarg1_);
   public final static native long AbstractMarker_getDisplayer(long jarg1, AbstractMarker jarg1_);
   public final static native void AbstractMarker_updateGeometry(long jarg1, AbstractMarker jarg1_);
-  public final static native void AbstractMarker_peteTest(long jarg1, AbstractMarker jarg1_);
   public final static native boolean AbstractMarker_isKindOf(String jarg1);
   public final static native boolean AbstractMarker_isA(long jarg1, AbstractMarker jarg1_, String jarg2);
   public final static native long AbstractMarker_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -1867,6 +1864,7 @@ public class opensimModelJNI {
   public final static native long new_MarkerSet__SWIG_1(String jarg1);
   public final static native long new_MarkerSet__SWIG_2(long jarg1, MarkerSet jarg1_);
   public final static native void delete_MarkerSet(long jarg1);
+  public final static native void MarkerSet_setup(long jarg1, MarkerSet jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
   public final static native void MarkerSet_getMarkerNames(long jarg1, MarkerSet jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native void MarkerSet_scale(long jarg1, MarkerSet jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void MarkerSet_addNamePrefix(long jarg1, MarkerSet jarg1_, String jarg2);
@@ -1957,7 +1955,6 @@ public class opensimModelJNI {
   public final static native int AbstractWrapObject_wrapLine(long jarg1, AbstractWrapObject jarg1_, long jarg2, ArrayDouble jarg2_, long jarg3, ArrayDouble jarg3_, long jarg4, MuscleWrap jarg4_, long jarg5, long jarg6);
   public final static native long AbstractWrapObject_getDisplayer(long jarg1, AbstractWrapObject jarg1_);
   public final static native void AbstractWrapObject_updateGeometry(long jarg1, AbstractWrapObject jarg1_);
-  public final static native void AbstractWrapObject_peteTest(long jarg1, AbstractWrapObject jarg1_);
   public final static native long new_WrapSphere__SWIG_0();
   public final static native long new_WrapSphere__SWIG_1(long jarg1, WrapSphere jarg1_);
   public final static native void delete_WrapSphere(long jarg1);
@@ -1968,7 +1965,6 @@ public class opensimModelJNI {
   public final static native void WrapSphere_scale(long jarg1, WrapSphere jarg1_, long jarg2, ArrayDouble jarg2_);
   public final static native void WrapSphere_setup(long jarg1, WrapSphere jarg1_, long jarg2, AbstractDynamicsEngine jarg2_, long jarg3, AbstractBody jarg3_);
   public final static native int WrapSphere_wrapLine(long jarg1, WrapSphere jarg1_, long jarg2, ArrayDouble jarg2_, long jarg3, ArrayDouble jarg3_, long jarg4, MuscleWrap jarg4_, long jarg5, long jarg6);
-  public final static native void WrapSphere_peteTest(long jarg1, WrapSphere jarg1_);
   public final static native long new_WrapCylinder__SWIG_0();
   public final static native long new_WrapCylinder__SWIG_1(long jarg1, WrapCylinder jarg1_);
   public final static native void delete_WrapCylinder(long jarg1);
@@ -1983,7 +1979,6 @@ public class opensimModelJNI {
   public final static native void WrapCylinder_scale(long jarg1, WrapCylinder jarg1_, long jarg2, ArrayDouble jarg2_);
   public final static native void WrapCylinder_setup(long jarg1, WrapCylinder jarg1_, long jarg2, AbstractDynamicsEngine jarg2_, long jarg3, AbstractBody jarg3_);
   public final static native int WrapCylinder_wrapLine(long jarg1, WrapCylinder jarg1_, long jarg2, ArrayDouble jarg2_, long jarg3, ArrayDouble jarg3_, long jarg4, MuscleWrap jarg4_, long jarg5, long jarg6);
-  public final static native void WrapCylinder_peteTest(long jarg1, WrapCylinder jarg1_);
   public final static native long new_WrapTorus__SWIG_0();
   public final static native long new_WrapTorus__SWIG_1(long jarg1, WrapTorus jarg1_);
   public final static native void delete_WrapTorus(long jarg1);
@@ -1994,7 +1989,6 @@ public class opensimModelJNI {
   public final static native void WrapTorus_scale(long jarg1, WrapTorus jarg1_, long jarg2, ArrayDouble jarg2_);
   public final static native void WrapTorus_setup(long jarg1, WrapTorus jarg1_, long jarg2, AbstractDynamicsEngine jarg2_, long jarg3, AbstractBody jarg3_);
   public final static native int WrapTorus_wrapLine(long jarg1, WrapTorus jarg1_, long jarg2, ArrayDouble jarg2_, long jarg3, ArrayDouble jarg3_, long jarg4, MuscleWrap jarg4_, long jarg5, long jarg6);
-  public final static native void WrapTorus_peteTest(long jarg1, WrapTorus jarg1_);
   public final static native long new_WrapEllipsoid__SWIG_0();
   public final static native long new_WrapEllipsoid__SWIG_1(long jarg1, WrapEllipsoid jarg1_);
   public final static native void delete_WrapEllipsoid(long jarg1);
@@ -2005,7 +1999,6 @@ public class opensimModelJNI {
   public final static native void WrapEllipsoid_scale(long jarg1, WrapEllipsoid jarg1_, long jarg2, ArrayDouble jarg2_);
   public final static native void WrapEllipsoid_setup(long jarg1, WrapEllipsoid jarg1_, long jarg2, AbstractDynamicsEngine jarg2_, long jarg3, AbstractBody jarg3_);
   public final static native int WrapEllipsoid_wrapLine(long jarg1, WrapEllipsoid jarg1_, long jarg2, ArrayDouble jarg2_, long jarg3, ArrayDouble jarg3_, long jarg4, MuscleWrap jarg4_, long jarg5, long jarg6);
-  public final static native void WrapEllipsoid_peteTest(long jarg1, WrapEllipsoid jarg1_);
   public final static native boolean WrapEllipsoid_isKindOf(String jarg1);
   public final static native boolean WrapEllipsoid_isA(long jarg1, WrapEllipsoid jarg1_, String jarg2);
   public final static native long WrapEllipsoid_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -2080,7 +2073,6 @@ public class opensimModelJNI {
   public final static native long MuscleWrap_getPreviousWrap(long jarg1, MuscleWrap jarg1_);
   public final static native void MuscleWrap_setPreviousWrap(long jarg1, MuscleWrap jarg1_, long jarg2);
   public final static native void MuscleWrap_resetPreviousWrap(long jarg1, MuscleWrap jarg1_);
-  public final static native void MuscleWrap_peteTest(long jarg1, MuscleWrap jarg1_);
   public final static native void delete_SetMuscleWrap(long jarg1);
   public final static native long new_SetMuscleWrap__SWIG_0();
   public final static native long new_SetMuscleWrap__SWIG_1(String jarg1, boolean jarg2);
@@ -2149,7 +2141,6 @@ public class opensimModelJNI {
   public final static native long AbstractBody_getDisplayer(long jarg1, AbstractBody jarg1_);
   public final static native long AbstractBody_getWrapObject(long jarg1, AbstractBody jarg1_, String jarg2);
   public final static native long AbstractBody_getWrapObjectSet(long jarg1, AbstractBody jarg1_);
-  public final static native void AbstractBody_peteTest(long jarg1, AbstractBody jarg1_);
   public final static native boolean AbstractBody_isKindOf(String jarg1);
   public final static native boolean AbstractBody_isA(long jarg1, AbstractBody jarg1_, String jarg2);
   public final static native long AbstractBody_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -2173,7 +2164,6 @@ public class opensimModelJNI {
   public final static native void SimmBody_scaleMass(long jarg1, SimmBody jarg1_, double jarg2);
   public final static native long SimmBody_getDisplayer(long jarg1, SimmBody jarg1_);
   public final static native void SimmBody_getScaleFactors(long jarg1, SimmBody jarg1_, long jarg2, ArrayDouble jarg2_);
-  public final static native void SimmBody_peteTest(long jarg1, SimmBody jarg1_);
   public final static native void delete_SetBodies(long jarg1);
   public final static native long new_SetBodies__SWIG_0();
   public final static native long new_SetBodies__SWIG_1(String jarg1, boolean jarg2);
@@ -2223,6 +2213,7 @@ public class opensimModelJNI {
   public final static native long new_BodySet__SWIG_0();
   public final static native long new_BodySet__SWIG_1(long jarg1, BodySet jarg1_);
   public final static native void delete_BodySet(long jarg1);
+  public final static native void BodySet_setup(long jarg1, BodySet jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
   public final static native void BodySet_scale__SWIG_0(long jarg1, BodySet jarg1_, long jarg2, ScaleSet jarg2_, boolean jarg3);
   public final static native void BodySet_scale__SWIG_1(long jarg1, BodySet jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void delete_Function(long jarg1);
@@ -2260,7 +2251,6 @@ public class opensimModelJNI {
   public final static native long Constant_copy(long jarg1, Constant jarg1_);
   public final static native int Constant_getNumberOfPoints(long jarg1, Constant jarg1_);
   public final static native void Constant_setValue(long jarg1, Constant jarg1_, double jarg2);
-  public final static native void Constant_peteTest(long jarg1, Constant jarg1_);
   public final static native void Constant_updateBoundingBox(long jarg1, Constant jarg1_);
   public final static native double Constant_evaluate__SWIG_0(long jarg1, Constant jarg1_, int jarg2, double jarg3, double jarg4, double jarg5);
   public final static native double Constant_evaluate__SWIG_1(long jarg1, Constant jarg1_, int jarg2, double jarg3, double jarg4);
@@ -2272,13 +2262,14 @@ public class opensimModelJNI {
   public final static native long AbstractDof_copy(long jarg1, AbstractDof jarg1_);
   public final static native void AbstractDof_copyData(long jarg1, AbstractDof jarg1_, long jarg2, AbstractDof jarg2_);
   public final static native void AbstractDof_setup(long jarg1, AbstractDof jarg1_, long jarg2, AbstractDynamicsEngine jarg2_, long jarg3, AbstractJoint jarg3_);
+  public final static native void AbstractDof_setCoordinateName(long jarg1, AbstractDof jarg1_, String jarg2);
+  public final static native int AbstractDof_getMotionType(long jarg1, AbstractDof jarg1_);
+  public final static native void AbstractDof_setAxis(long jarg1, AbstractDof jarg1_, double[] jarg2);
   public final static native void AbstractDof_getAxis(long jarg1, AbstractDof jarg1_, double[] jarg2);
   public final static native long AbstractDof_getAxisPtr(long jarg1, AbstractDof jarg1_);
   public final static native double AbstractDof_getValue(long jarg1, AbstractDof jarg1_);
-  public final static native int AbstractDof_getMotionType(long jarg1, AbstractDof jarg1_);
   public final static native long AbstractDof_getCoordinate(long jarg1, AbstractDof jarg1_);
   public final static native long AbstractDof_getFunction(long jarg1, AbstractDof jarg1_);
-  public final static native void AbstractDof_peteTest(long jarg1, AbstractDof jarg1_);
   public final static native void delete_AbstractCoordinate(long jarg1);
   public final static native long AbstractCoordinate_copy(long jarg1, AbstractCoordinate jarg1_);
   public final static native void AbstractCoordinate_copyData(long jarg1, AbstractCoordinate jarg1_, long jarg2, AbstractCoordinate jarg2_);
@@ -2320,7 +2311,6 @@ public class opensimModelJNI {
   public final static native int AbstractCoordinate_getMotionType(long jarg1, AbstractCoordinate jarg1_);
   public final static native void AbstractCoordinate_determineType(long jarg1, AbstractCoordinate jarg1_);
   public final static native boolean AbstractCoordinate_getConstrained(long jarg1, AbstractCoordinate jarg1_);
-  public final static native void AbstractCoordinate_peteTest(long jarg1, AbstractCoordinate jarg1_);
   public final static native long new_SimmCoordinate__SWIG_0();
   public final static native long new_SimmCoordinate__SWIG_1(long jarg1, SimmCoordinate jarg1_);
   public final static native void delete_SimmCoordinate(long jarg1);
@@ -2366,7 +2356,6 @@ public class opensimModelJNI {
   public final static native long SimmCoordinate_getJointList(long jarg1, SimmCoordinate jarg1_);
   public final static native long SimmCoordinate_getPathList(long jarg1, SimmCoordinate jarg1_);
   public final static native void SimmCoordinate_determineType(long jarg1, SimmCoordinate jarg1_);
-  public final static native void SimmCoordinate_peteTest(long jarg1, SimmCoordinate jarg1_);
   public final static native void delete_SetCoordinates(long jarg1);
   public final static native long new_SetCoordinates__SWIG_0();
   public final static native long new_SetCoordinates__SWIG_1(String jarg1, boolean jarg2);
@@ -2416,6 +2405,7 @@ public class opensimModelJNI {
   public final static native long new_CoordinateSet__SWIG_0();
   public final static native long new_CoordinateSet__SWIG_1(long jarg1, CoordinateSet jarg1_);
   public final static native void delete_CoordinateSet(long jarg1);
+  public final static native void CoordinateSet_setup(long jarg1, CoordinateSet jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
   public final static native void delete_AbstractJoint(long jarg1);
   public final static native long AbstractJoint_copy(long jarg1, AbstractJoint jarg1_);
   public final static native void AbstractJoint_copyData(long jarg1, AbstractJoint jarg1_, long jarg2, AbstractJoint jarg2_);
@@ -2430,7 +2420,6 @@ public class opensimModelJNI {
   public final static native boolean AbstractJoint_isCoordinateUsed(long jarg1, AbstractJoint jarg1_, long jarg2, AbstractCoordinate jarg2_);
   public final static native boolean AbstractJoint_hasXYZAxes(long jarg1, AbstractJoint jarg1_);
   public final static native void AbstractJoint_scale(long jarg1, AbstractJoint jarg1_, long jarg2, ScaleSet jarg2_);
-  public final static native void AbstractJoint_peteTest(long jarg1, AbstractJoint jarg1_);
   public final static native long new_SimmJoint__SWIG_0();
   public final static native long new_SimmJoint__SWIG_1(long jarg1, SimmJoint jarg1_);
   public final static native void delete_SimmJoint(long jarg1);
@@ -2446,7 +2435,6 @@ public class opensimModelJNI {
   public final static native boolean SimmJoint_hasXYZAxes(long jarg1, SimmJoint jarg1_);
   public final static native void SimmJoint_scale__SWIG_0(long jarg1, SimmJoint jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void SimmJoint_scale__SWIG_1(long jarg1, SimmJoint jarg1_, long jarg2, ArrayDouble jarg2_);
-  public final static native void SimmJoint_peteTest(long jarg1, SimmJoint jarg1_);
   public final static native void delete_SetJoints(long jarg1);
   public final static native long new_SetJoints__SWIG_0();
   public final static native long new_SetJoints__SWIG_1(String jarg1, boolean jarg2);
@@ -2496,6 +2484,7 @@ public class opensimModelJNI {
   public final static native long new_JointSet__SWIG_0();
   public final static native long new_JointSet__SWIG_1(long jarg1, JointSet jarg1_);
   public final static native void delete_JointSet(long jarg1);
+  public final static native void JointSet_setup(long jarg1, JointSet jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
   public final static native void JointSet_scale(long jarg1, JointSet jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void delete_AbstractDynamicsEngine(long jarg1);
   public final static native long AbstractDynamicsEngine_copy(long jarg1, AbstractDynamicsEngine jarg1_);
@@ -2602,7 +2591,6 @@ public class opensimModelJNI {
   public final static native void AbstractDynamicsEngine_convertDirectionCosinesToQuaternions__SWIG_1(long jarg1, AbstractDynamicsEngine jarg1_, long jarg2, long jarg3, long jarg4, long jarg5, long jarg6);
   public final static native void AbstractDynamicsEngine_convertQuaternionsToDirectionCosines__SWIG_0(long jarg1, AbstractDynamicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
   public final static native void AbstractDynamicsEngine_convertQuaternionsToDirectionCosines__SWIG_1(long jarg1, AbstractDynamicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
-  public final static native void AbstractDynamicsEngine_peteTest(long jarg1, AbstractDynamicsEngine jarg1_);
   public final static native long new_SimmKinematicsEngine__SWIG_0();
   public final static native long new_SimmKinematicsEngine__SWIG_1(String jarg1);
   public final static native void delete_SimmKinematicsEngine(long jarg1);
@@ -2692,7 +2680,6 @@ public class opensimModelJNI {
   public final static native void SimmKinematicsEngine_convertQuaternionsToDirectionCosines__SWIG_0(long jarg1, SimmKinematicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
   public final static native void SimmKinematicsEngine_convertQuaternionsToDirectionCosines__SWIG_1(long jarg1, SimmKinematicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
   public final static native void SimmKinematicsEngine_computeConstrainedCoordinates(long jarg1, SimmKinematicsEngine jarg1_, long jarg2);
-  public final static native void SimmKinematicsEngine_peteTest(long jarg1, SimmKinematicsEngine jarg1_);
   public final static native long new_MusclePoint__SWIG_0();
   public final static native long new_MusclePoint__SWIG_1(long jarg1, MusclePoint jarg1_);
   public final static native void delete_MusclePoint(long jarg1);
@@ -2711,7 +2698,6 @@ public class opensimModelJNI {
   public final static native void MusclePoint_setup(long jarg1, MusclePoint jarg1_, long jarg2, Model jarg2_, long jarg3, AbstractMuscle jarg3_);
   public final static native long MusclePoint_getDisplayer(long jarg1, MusclePoint jarg1_);
   public final static native void MusclePoint_updateGeometry(long jarg1, MusclePoint jarg1_);
-  public final static native void MusclePoint_peteTest(long jarg1, MusclePoint jarg1_);
   public final static native boolean MusclePoint_isKindOf(String jarg1);
   public final static native boolean MusclePoint_isA(long jarg1, MusclePoint jarg1_, String jarg2);
   public final static native long MusclePoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -2727,7 +2713,6 @@ public class opensimModelJNI {
   public final static native void MuscleWrapPoint_setWrapLength(long jarg1, MuscleWrapPoint jarg1_, double jarg2);
   public final static native long MuscleWrapPoint_getWrapObject(long jarg1, MuscleWrapPoint jarg1_);
   public final static native void MuscleWrapPoint_setWrapObject(long jarg1, MuscleWrapPoint jarg1_, long jarg2, AbstractWrapObject jarg2_);
-  public final static native void MuscleWrapPoint_peteTest(long jarg1, MuscleWrapPoint jarg1_);
   public final static native boolean MuscleWrapPoint_isKindOf(String jarg1);
   public final static native boolean MuscleWrapPoint_isA(long jarg1, MuscleWrapPoint jarg1_, String jarg2);
   public final static native long MuscleWrapPoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -2745,7 +2730,6 @@ public class opensimModelJNI {
   public final static native void MuscleViaPoint_setRangeMax(long jarg1, MuscleViaPoint jarg1_, double jarg2);
   public final static native boolean MuscleViaPoint_isActive(long jarg1, MuscleViaPoint jarg1_);
   public final static native void MuscleViaPoint_setup(long jarg1, MuscleViaPoint jarg1_, long jarg2, Model jarg2_, long jarg3, AbstractMuscle jarg3_);
-  public final static native void MuscleViaPoint_peteTest(long jarg1, MuscleViaPoint jarg1_);
   public final static native boolean MuscleViaPoint_isKindOf(String jarg1);
   public final static native boolean MuscleViaPoint_isA(long jarg1, MuscleViaPoint jarg1_, String jarg2);
   public final static native long MuscleViaPoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -2871,7 +2855,6 @@ public class opensimModelJNI {
   public final static native void AbstractMuscle_scale(long jarg1, AbstractMuscle jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void AbstractMuscle_postScale(long jarg1, AbstractMuscle jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void AbstractMuscle_apply(long jarg1, AbstractMuscle jarg1_);
-  public final static native void AbstractMuscle_peteTest(long jarg1, AbstractMuscle jarg1_);
   public final static native long AbstractMuscle_getDisplayer(long jarg1, AbstractMuscle jarg1_);
   public final static native void AbstractMuscle_updateDisplayer(long jarg1, AbstractMuscle jarg1_);
   public final static native boolean AbstractMuscle_isKindOf(String jarg1);
@@ -3006,7 +2989,6 @@ public class opensimModelJNI {
   public final static native void SimmDarrylMuscle_postScale(long jarg1, SimmDarrylMuscle jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void SimmDarrylMuscle_scale(long jarg1, SimmDarrylMuscle jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void SimmDarrylMuscle_setup(long jarg1, SimmDarrylMuscle jarg1_, long jarg2, Model jarg2_);
-  public final static native void SimmDarrylMuscle_peteTest(long jarg1, SimmDarrylMuscle jarg1_);
   public final static native boolean SimmDarrylMuscle_isKindOf(String jarg1);
   public final static native boolean SimmDarrylMuscle_isA(long jarg1, SimmDarrylMuscle jarg1_, String jarg2);
   public final static native long SimmDarrylMuscle_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3043,7 +3025,6 @@ public class opensimModelJNI {
   public final static native double SimmZajacHill_calcTendonForce(long jarg1, SimmZajacHill jarg1_, double jarg2);
   public final static native double SimmZajacHill_getStress(long jarg1, SimmZajacHill jarg1_);
   public final static native double SimmZajacHill_computeIsometricForce(long jarg1, SimmZajacHill jarg1_, double jarg2);
-  public final static native void SimmZajacHill_peteTest(long jarg1, SimmZajacHill jarg1_);
   public final static native boolean SimmZajacHill_isKindOf(String jarg1);
   public final static native boolean SimmZajacHill_isA(long jarg1, SimmZajacHill jarg1_, String jarg2);
   public final static native long SimmZajacHill_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3057,18 +3038,17 @@ public class opensimModelJNI {
   public final static native long SimmPoint_get(long jarg1, SimmPoint jarg1_);
   public final static native void SimmPoint_scale(long jarg1, SimmPoint jarg1_, double jarg2);
   public final static native boolean SimmPoint_isVisible(long jarg1, SimmPoint jarg1_);
-  public final static native void SimmPoint_peteTest(long jarg1, SimmPoint jarg1_);
   public final static native long new_SimmRotationDof__SWIG_0();
   public final static native long new_SimmRotationDof__SWIG_1(long jarg1, SimmRotationDof jarg1_);
   public final static native void delete_SimmRotationDof(long jarg1);
   public final static native long SimmRotationDof_copy(long jarg1, SimmRotationDof jarg1_);
   public final static native void SimmRotationDof_copyData(long jarg1, SimmRotationDof jarg1_, long jarg2, SimmRotationDof jarg2_);
+  public final static native void SimmRotationDof_setAxis(long jarg1, SimmRotationDof jarg1_, double[] jarg2);
   public final static native void SimmRotationDof_getAxis__SWIG_0(long jarg1, SimmRotationDof jarg1_, double[] jarg2);
   public final static native long SimmRotationDof_getAxis__SWIG_1(long jarg1, SimmRotationDof jarg1_);
   public final static native long SimmRotationDof_getAxisPtr(long jarg1, SimmRotationDof jarg1_);
   public final static native double SimmRotationDof_getValue(long jarg1, SimmRotationDof jarg1_);
   public final static native int SimmRotationDof_getMotionType(long jarg1, SimmRotationDof jarg1_);
-  public final static native void SimmRotationDof_peteTest(long jarg1, SimmRotationDof jarg1_);
   public final static native String TX_NAME_get();
   public final static native String TY_NAME_get();
   public final static native String TZ_NAME_get();
@@ -3079,13 +3059,13 @@ public class opensimModelJNI {
   public final static native long SimmTranslationDof_copy(long jarg1, SimmTranslationDof jarg1_);
   public final static native void SimmTranslationDof_updateFromXMLNode(long jarg1, SimmTranslationDof jarg1_);
   public final static native void SimmTranslationDof_copyData(long jarg1, SimmTranslationDof jarg1_, long jarg2, SimmTranslationDof jarg2_);
+  public final static native void SimmTranslationDof_setAxis(long jarg1, SimmTranslationDof jarg1_, double[] jarg2);
   public final static native void SimmTranslationDof_getAxis(long jarg1, SimmTranslationDof jarg1_, double[] jarg2);
   public final static native long SimmTranslationDof_getAxisPtr(long jarg1, SimmTranslationDof jarg1_);
   public final static native double SimmTranslationDof_getValue(long jarg1, SimmTranslationDof jarg1_);
   public final static native int SimmTranslationDof_getMotionType(long jarg1, SimmTranslationDof jarg1_);
   public final static native void SimmTranslationDof_getTranslation(long jarg1, SimmTranslationDof jarg1_, double[] jarg2);
   public final static native int SimmTranslationDof_getAxisIndex(long jarg1, SimmTranslationDof jarg1_);
-  public final static native void SimmTranslationDof_peteTest(long jarg1, SimmTranslationDof jarg1_);
   public final static native int Units_simmUnknownUnits_get();
   public final static native long new_Units__SWIG_0();
   public final static native long new_Units__SWIG_1(long jarg1, Units jarg1_);
@@ -3097,7 +3077,6 @@ public class opensimModelJNI {
   public final static native double Units_convertTo__SWIG_2(long jarg1, Units jarg1_, long jarg2, Units jarg2_);
   public final static native int Units_getType(long jarg1, Units jarg1_);
   public final static native String Units_getLabel(long jarg1, Units jarg1_);
-  public final static native void Units_peteTest(long jarg1, Units jarg1_);
   public final static native long new_GenericModelMaker__SWIG_0();
   public final static native long new_GenericModelMaker__SWIG_1(long jarg1, GenericModelMaker jarg1_);
   public final static native void delete_GenericModelMaker(long jarg1);
@@ -3106,7 +3085,6 @@ public class opensimModelJNI {
   public final static native long GenericModelMaker_processModel__SWIG_0(long jarg1, GenericModelMaker jarg1_, String jarg2);
   public final static native long GenericModelMaker_processModel__SWIG_1(long jarg1, GenericModelMaker jarg1_);
   public final static native void GenericModelMaker_registerTypes();
-  public final static native void GenericModelMaker_peteTest(long jarg1, GenericModelMaker jarg1_);
   public final static native String GenericModelMaker_getModelFileName(long jarg1, GenericModelMaker jarg1_);
   public final static native void GenericModelMaker_setModelFileName(long jarg1, GenericModelMaker jarg1_, String jarg2);
   public final static native long GenericModelMaker_getMarkerSet(long jarg1, GenericModelMaker jarg1_);
@@ -3120,7 +3098,6 @@ public class opensimModelJNI {
   public final static native boolean ModelScaler_processModel__SWIG_2(long jarg1, ModelScaler jarg1_, long jarg2, Model jarg2_);
   public final static native void ModelScaler_registerTypes();
   public final static native boolean ModelScaler_getPreserveMassDist(long jarg1, ModelScaler jarg1_);
-  public final static native void ModelScaler_peteTest(long jarg1, ModelScaler jarg1_);
   public final static native void ModelScaler_addMeasurement(long jarg1, ModelScaler jarg1_, long jarg2);
   public final static native void ModelScaler_addScale(long jarg1, ModelScaler jarg1_, long jarg2, Scale jarg2_);
   public final static native long ModelScaler_getMeasurementSet(long jarg1, ModelScaler jarg1_);
@@ -3168,7 +3145,6 @@ public class opensimModelJNI {
   public final static native void MarkerPlacer_setOutputMarkerFileName(long jarg1, MarkerPlacer jarg1_, String jarg2);
   public final static native String MarkerPlacer_getOutputMotionFileName(long jarg1, MarkerPlacer jarg1_);
   public final static native void MarkerPlacer_setOutputMotionFileName(long jarg1, MarkerPlacer jarg1_, String jarg2);
-  public final static native void MarkerPlacer_peteTest(long jarg1, MarkerPlacer jarg1_);
   public final static native long new_IKTrial__SWIG_0();
   public final static native long new_IKTrial__SWIG_1(long jarg1, IKTrial jarg1_);
   public final static native void delete_IKTrial(long jarg1);
@@ -3192,7 +3168,6 @@ public class opensimModelJNI {
   public final static native void IKTrial_setCoordinateFileName(long jarg1, IKTrial jarg1_, String jarg2);
   public final static native void IKTrial_setOptimizerAlgorithm(long jarg1, IKTrial jarg1_, String jarg2);
   public final static native String IKTrial_getOptimizerAlgorithm(long jarg1, IKTrial jarg1_);
-  public final static native void IKTrial_peteTest(long jarg1, IKTrial jarg1_);
   public final static native void delete_SetIKTrial(long jarg1);
   public final static native long new_SetIKTrial__SWIG_0();
   public final static native long new_SetIKTrial__SWIG_1(String jarg1, boolean jarg2);
@@ -3318,7 +3293,6 @@ public class opensimModelJNI {
   public final static native int MarkerData_getNumFrames(long jarg1, MarkerData jarg1_);
   public final static native double MarkerData_getStartFrameTime(long jarg1, MarkerData jarg1_);
   public final static native double MarkerData_getLastFrameTime(long jarg1, MarkerData jarg1_);
-  public final static native void MarkerData_peteTest(long jarg1, MarkerData jarg1_);
   public final static native long new_IKSolverInterface(long jarg1);
   public final static native void delete_IKSolverInterface(long jarg1);
   public final static native void IKSolverInterface_solveFrames(long jarg1, IKSolverInterface jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
@@ -3341,7 +3315,6 @@ public class opensimModelJNI {
   public final static native boolean Measurement_getApply(long jarg1, Measurement jarg1_);
   public final static native void Measurement_applyScaleFactor(long jarg1, Measurement jarg1_, double jarg2, long jarg3, ScaleSet jarg3_);
   public final static native void Measurement_registerTypes();
-  public final static native void Measurement_peteTest(long jarg1, Measurement jarg1_);
   public final static native void delete_SetMeasurements(long jarg1);
   public final static native long new_SetMeasurements__SWIG_0();
   public final static native long new_SetMeasurements__SWIG_1(String jarg1, boolean jarg2);
@@ -3422,7 +3395,6 @@ public class opensimModelJNI {
   public final static native double ScaleTool_getSubjectHeight(long jarg1, ScaleTool jarg1_);
   public final static native String ScaleTool_getPathToSubject(long jarg1, ScaleTool jarg1_);
   public final static native void ScaleTool_setPathToSubject(long jarg1, ScaleTool jarg1_, String jarg2);
-  public final static native void ScaleTool_peteTest(long jarg1, ScaleTool jarg1_);
   public final static native void delete_AnalyzeTool(long jarg1);
   public final static native long new_AnalyzeTool__SWIG_0();
   public final static native long new_AnalyzeTool__SWIG_1(String jarg1);

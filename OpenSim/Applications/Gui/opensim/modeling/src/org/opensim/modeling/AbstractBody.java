@@ -109,10 +109,6 @@ public class AbstractBody extends OpenSimObject {
     return new WrapObjectSet(opensimModelJNI.AbstractBody_getWrapObjectSet(swigCPtr, this), false);
   }
 
-  public void peteTest() {
-    opensimModelJNI.AbstractBody_peteTest(swigCPtr, this);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.AbstractBody_isKindOf(type);
   }

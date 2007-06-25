@@ -308,10 +308,6 @@ public class Model extends OpenSimObject {
     opensimModelJNI.Model_printDetailedInfo(swigCPtr, this, SWIGTYPE_p_std__ostream.getCPtr(aOStream));
   }
 
-  public void peteTest() {
-    opensimModelJNI.Model_peteTest(swigCPtr, this);
-  }
-
   public void kinTest() {
     opensimModelJNI.Model_kinTest(swigCPtr, this);
   }

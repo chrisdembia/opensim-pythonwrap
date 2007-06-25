@@ -198,8 +198,4 @@ public class AbstractCoordinate extends OpenSimObject {
     return opensimModelJNI.AbstractCoordinate_getConstrained(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.AbstractCoordinate_peteTest(swigCPtr, this);
-  }
-
 }

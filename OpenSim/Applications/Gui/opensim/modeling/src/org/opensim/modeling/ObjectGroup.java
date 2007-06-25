@@ -78,10 +78,6 @@ public class ObjectGroup extends OpenSimObject {
     return new ArrayPtrsObj(opensimModelJNI.ObjectGroup_getMembers(swigCPtr, this), false);
   }
 
-  public void peteTest() {
-    opensimModelJNI.ObjectGroup_peteTest(swigCPtr, this);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.ObjectGroup_isKindOf(type);
   }

@@ -115,8 +115,4 @@ public class ScaleTool extends OpenSimObject {
     opensimModelJNI.ScaleTool_setPathToSubject(swigCPtr, this, aPath);
   }
 
-  public void peteTest() {
-    opensimModelJNI.ScaleTool_peteTest(swigCPtr, this);
-  }
-
 }

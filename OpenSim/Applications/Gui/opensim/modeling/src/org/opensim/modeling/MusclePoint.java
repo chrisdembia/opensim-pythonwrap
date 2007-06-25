@@ -106,10 +106,6 @@ public class MusclePoint extends OpenSimObject {
     opensimModelJNI.MusclePoint_updateGeometry(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.MusclePoint_peteTest(swigCPtr, this);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.MusclePoint_isKindOf(type);
   }

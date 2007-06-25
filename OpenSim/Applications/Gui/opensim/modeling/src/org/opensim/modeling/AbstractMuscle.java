@@ -195,10 +195,6 @@ public class AbstractMuscle extends AbstractActuator {
     opensimModelJNI.AbstractMuscle_apply(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.AbstractMuscle_peteTest(swigCPtr, this);
-  }
-
   public VisibleObject getDisplayer() {
     long cPtr = opensimModelJNI.AbstractMuscle_getDisplayer(swigCPtr, this);
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);

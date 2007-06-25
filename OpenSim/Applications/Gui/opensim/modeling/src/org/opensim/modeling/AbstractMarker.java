@@ -122,10 +122,6 @@ public class AbstractMarker extends OpenSimObject {
     opensimModelJNI.AbstractMarker_updateGeometry(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.AbstractMarker_peteTest(swigCPtr, this);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.AbstractMarker_isKindOf(type);
   }

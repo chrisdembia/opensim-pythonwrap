@@ -110,10 +110,6 @@ public class AbstractWrapObject extends OpenSimObject {
     opensimModelJNI.AbstractWrapObject_updateGeometry(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.AbstractWrapObject_peteTest(swigCPtr, this);
-  }
-
   public final static class WrapQuadrant {
     public final static WrapQuadrant allQuadrants = new WrapQuadrant("allQuadrants");
     public final static WrapQuadrant negativeX = new WrapQuadrant("negativeX");

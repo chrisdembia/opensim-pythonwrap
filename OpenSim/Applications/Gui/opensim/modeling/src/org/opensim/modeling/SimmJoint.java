@@ -93,8 +93,4 @@ public class SimmJoint extends AbstractJoint {
     opensimModelJNI.SimmJoint_scale__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
   }
 
-  public void peteTest() {
-    opensimModelJNI.SimmJoint_peteTest(swigCPtr, this);
-  }
-
 }

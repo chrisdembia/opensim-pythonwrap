@@ -178,10 +178,6 @@ public class SimmDarrylMuscle extends AbstractMuscle {
     opensimModelJNI.SimmDarrylMuscle_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public void peteTest() {
-    opensimModelJNI.SimmDarrylMuscle_peteTest(swigCPtr, this);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.SimmDarrylMuscle_isKindOf(type);
   }

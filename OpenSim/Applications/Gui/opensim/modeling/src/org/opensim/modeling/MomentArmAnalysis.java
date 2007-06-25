@@ -66,6 +66,10 @@ public class MomentArmAnalysis extends Analysis {
     return new ArrayStorage(opensimModelJNI.MomentArmAnalysis_getMomentArmStorageArray(swigCPtr, this), false);
   }
 
+  public void setMuscles(ArrayStr aMuscles) {
+    opensimModelJNI.MomentArmAnalysis_setMuscles(swigCPtr, this, ArrayStr.getCPtr(aMuscles), aMuscles);
+  }
+
   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
     return opensimModelJNI.MomentArmAnalysis_begin__SWIG_0(swigCPtr, this, aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_double.getCPtr(aYP), SWIGTYPE_p_double.getCPtr(aDYDT), SWIGTYPE_p_void.getCPtr(aClientData));
   }

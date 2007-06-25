@@ -75,10 +75,6 @@ public class MuscleWrapPoint extends MusclePoint {
     opensimModelJNI.MuscleWrapPoint_setWrapObject(swigCPtr, this, AbstractWrapObject.getCPtr(aWrapObject), aWrapObject);
   }
 
-  public void peteTest() {
-    opensimModelJNI.MuscleWrapPoint_peteTest(swigCPtr, this);
-  }
-
   public static boolean isKindOf(String type) {
     return opensimModelJNI.MuscleWrapPoint_isKindOf(type);
   }

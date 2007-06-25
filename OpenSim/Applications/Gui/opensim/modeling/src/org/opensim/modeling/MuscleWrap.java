@@ -116,10 +116,6 @@ public class MuscleWrap extends OpenSimObject {
     opensimModelJNI.MuscleWrap_resetPreviousWrap(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.MuscleWrap_peteTest(swigCPtr, this);
-  }
-
   public final static class WrapMethod {
     public final static WrapMethod hybrid = new WrapMethod("hybrid");
     public final static WrapMethod midpoint = new WrapMethod("midpoint");

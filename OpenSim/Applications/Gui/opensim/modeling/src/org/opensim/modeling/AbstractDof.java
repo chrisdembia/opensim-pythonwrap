@@ -46,6 +46,18 @@ public class AbstractDof extends OpenSimObject {
     opensimModelJNI.AbstractDof_setup(swigCPtr, this, AbstractDynamicsEngine.getCPtr(aEngine), aEngine, AbstractJoint.getCPtr(aJoint), aJoint);
   }
 
+  public void setCoordinateName(String aName) {
+    opensimModelJNI.AbstractDof_setCoordinateName(swigCPtr, this, aName);
+  }
+
+  public AbstractDof.DofType getMotionType() {
+    return AbstractDof.DofType.swigToEnum(opensimModelJNI.AbstractDof_getMotionType(swigCPtr, this));
+  }
+
+  public void setAxis(double[] axis) {
+    opensimModelJNI.AbstractDof_setAxis(swigCPtr, this, axis);
+  }
+
   public void getAxis(double[] axis) {
     opensimModelJNI.AbstractDof_getAxis(swigCPtr, this, axis);
   }
@@ -59,10 +71,6 @@ public class AbstractDof extends OpenSimObject {
     return opensimModelJNI.AbstractDof_getValue(swigCPtr, this);
   }
 
-  public AbstractDof.DofType getMotionType() {
-    return AbstractDof.DofType.swigToEnum(opensimModelJNI.AbstractDof_getMotionType(swigCPtr, this));
-  }
-
   public AbstractCoordinate getCoordinate() {
     long cPtr = opensimModelJNI.AbstractDof_getCoordinate(swigCPtr, this);
     return (cPtr == 0) ? null : new AbstractCoordinate(cPtr, false);
@@ -71,10 +79,6 @@ public class AbstractDof extends OpenSimObject {
   public Function getFunction() {
     long cPtr = opensimModelJNI.AbstractDof_getFunction(swigCPtr, this);
     return (cPtr == 0) ? null : new Function(cPtr, false);
-  }
-
-  public void peteTest() {
-    opensimModelJNI.AbstractDof_peteTest(swigCPtr, this);
   }
 
   public final static class DofType {

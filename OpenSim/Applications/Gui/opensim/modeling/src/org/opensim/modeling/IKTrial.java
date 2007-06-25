@@ -122,8 +122,4 @@ public class IKTrial extends OpenSimObject {
     return opensimModelJNI.IKTrial_getOptimizerAlgorithm(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.IKTrial_peteTest(swigCPtr, this);
-  }
-
 }

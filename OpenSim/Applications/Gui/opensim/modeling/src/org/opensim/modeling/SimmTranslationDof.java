@@ -54,6 +54,10 @@ public class SimmTranslationDof extends AbstractDof {
     opensimModelJNI.SimmTranslationDof_copyData(swigCPtr, this, SimmTranslationDof.getCPtr(aDof), aDof);
   }
 
+  public void setAxis(double[] rAxis) {
+    opensimModelJNI.SimmTranslationDof_setAxis(swigCPtr, this, rAxis);
+  }
+
   public void getAxis(double[] rAxis) {
     opensimModelJNI.SimmTranslationDof_getAxis(swigCPtr, this, rAxis);
   }
@@ -77,10 +81,6 @@ public class SimmTranslationDof extends AbstractDof {
 
   public SimmTranslationDof.AxisIndex getAxisIndex() {
     return SimmTranslationDof.AxisIndex.swigToEnum(opensimModelJNI.SimmTranslationDof_getAxisIndex(swigCPtr, this));
-  }
-
-  public void peteTest() {
-    opensimModelJNI.SimmTranslationDof_peteTest(swigCPtr, this);
   }
 
   public final static class AxisIndex {

@@ -67,8 +67,4 @@ public class SimmPoint extends OpenSimObject {
     return opensimModelJNI.SimmPoint_isVisible(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.SimmPoint_peteTest(swigCPtr, this);
-  }
-
 }

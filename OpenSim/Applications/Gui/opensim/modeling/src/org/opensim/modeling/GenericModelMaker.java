@@ -64,10 +64,6 @@ public class GenericModelMaker extends OpenSimObject {
     opensimModelJNI.GenericModelMaker_registerTypes();
   }
 
-  public void peteTest() {
-    opensimModelJNI.GenericModelMaker_peteTest(swigCPtr, this);
-  }
-
   public String getModelFileName() {
     return opensimModelJNI.GenericModelMaker_getModelFileName(swigCPtr, this);
   }

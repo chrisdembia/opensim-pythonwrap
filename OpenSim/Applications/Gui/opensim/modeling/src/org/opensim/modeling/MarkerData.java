@@ -102,8 +102,4 @@ public class MarkerData extends OpenSimObject {
     return opensimModelJNI.MarkerData_getLastFrameTime(swigCPtr, this);
   }
 
-  public void peteTest() {
-    opensimModelJNI.MarkerData_peteTest(swigCPtr, this);
-  }
-
 }

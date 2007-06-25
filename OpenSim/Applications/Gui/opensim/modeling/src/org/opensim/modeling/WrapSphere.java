@@ -70,8 +70,4 @@ public class WrapSphere extends AbstractWrapObject {
     return opensimModelJNI.WrapSphere_wrapLine(swigCPtr, this, ArrayDouble.getCPtr(aPoint1), aPoint1, ArrayDouble.getCPtr(aPoint2), aPoint2, MuscleWrap.getCPtr(aMuscleWrap), aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(aWrapResult), SWIGTYPE_p_bool.getCPtr(aFlag));
   }
 
-  public void peteTest() {
-    opensimModelJNI.WrapSphere_peteTest(swigCPtr, this);
-  }
-
 }

@@ -70,8 +70,4 @@ public class Measurement extends OpenSimObject {
     opensimModelJNI.Measurement_registerTypes();
   }
 
-  public void peteTest() {
-    opensimModelJNI.Measurement_peteTest(swigCPtr, this);
-  }
-
 }
