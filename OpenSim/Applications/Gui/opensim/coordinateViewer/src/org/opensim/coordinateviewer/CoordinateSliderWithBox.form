@@ -17,31 +17,32 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jCoordinateNameLabel" min="-2" pref="101" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jLockedCheckBox" min="-2" pref="13" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jClampedCheckBox" min="-2" pref="17" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jFormattedTextField" min="-2" pref="55" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jXSlider" pref="138" max="32767" attributes="0"/>
+              <Component id="jFormattedTextField" min="-2" pref="45" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabelMin" min="-2" pref="46" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jXSlider" pref="90" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabelMax" min="-2" pref="46" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLockedCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jClampedCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jCoordinateNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jXSlider" alignment="0" max="32767" attributes="1"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="103" groupAlignment="3" attributes="0">
+              <Component id="jLockedCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="jClampedCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="jCoordinateNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="jFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelMax" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelMin" alignment="3" min="-2" max="-2" attributes="0"/>
           </Group>
+          <Component id="jXSlider" alignment="0" min="-2" pref="25" max="-2" attributes="1"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -50,13 +51,16 @@
       <Properties>
         <Property name="majorTickSpacing" type="int" value="20"/>
         <Property name="minorTickSpacing" type="int" value="10"/>
-        <Property name="paintLabels" type="boolean" value="true"/>
         <Property name="toolTipText" type="java.lang.String" value="testtooltip"/>
+        <Property name="alignmentX" type="float" value="0.0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField">
       <Properties>
         <Property name="text" type="java.lang.String" value="123456."/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[1, 0, 2, 0]"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFormattedTextFieldActionPerformed"/>
@@ -125,6 +129,33 @@
         <Property name="horizontalAlignment" type="int" value="11"/>
         <Property name="text" type="java.lang.String" value="jLabel1"/>
         <Property name="alignmentX" type="float" value="1.0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelMin">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="focusable" type="boolean" value="false"/>
+        <Property name="iconTextGap" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelMax">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="123.45 "/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="focusable" type="boolean" value="false"/>
+        <Property name="horizontalTextPosition" type="int" value="10"/>
+        <Property name="iconTextGap" type="int" value="0"/>
       </Properties>
     </Component>
   </SubComponents>

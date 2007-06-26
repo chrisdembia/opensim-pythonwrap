@@ -470,6 +470,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          
          AbstractCoordinate coord=coords.get(name);
          coord.setValue(storedValue);
+         mapCoordinates2Sliders.get(coord).updateValueNoEvents();
       }
    }
 

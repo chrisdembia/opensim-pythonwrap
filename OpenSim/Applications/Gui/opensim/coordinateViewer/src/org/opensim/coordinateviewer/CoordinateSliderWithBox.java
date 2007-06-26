@@ -76,8 +76,6 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        jXSlider.setMinimum(0);
        jXSlider.setMaximum(numTicks-1);
        
-       jXSlider.addChangeListener(this);
-       jFormattedTextField.addPropertyChangeListener("value", this);
        
        double initialValue=coord.getValue()*conversion;
        setTheValue(initialValue, false);  
@@ -89,6 +87,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        jXSlider.setEnabled(!locked);
        jFormattedTextField.setEnabled(!locked);
        jXSlider.setToolTipText("["+Math.round(min)+", "+Math.round(max)+"]");
+       jXSlider.addChangeListener(this);
+       jFormattedTextField.addPropertyChangeListener("value", this);
    }
       
    /** This method is called from within the constructor to
@@ -103,14 +103,17 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       jClampedCheckBox = new javax.swing.JCheckBox();
       jLockedCheckBox = new javax.swing.JCheckBox();
       jCoordinateNameLabel = new javax.swing.JLabel();
+      jLabelMin = new javax.swing.JLabel();
+      jLabelMax = new javax.swing.JLabel();
 
       setAlignmentY(0.0F);
       jXSlider.setMajorTickSpacing(20);
       jXSlider.setMinorTickSpacing(10);
-      jXSlider.setPaintLabels(true);
       jXSlider.setToolTipText("testtooltip");
+      jXSlider.setAlignmentX(0.0F);
 
       jFormattedTextField.setText("123456.");
+      jFormattedTextField.setMargin(new java.awt.Insets(1, 0, 2, 0));
       jFormattedTextField.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             jFormattedTextFieldActionPerformed(evt);
@@ -146,6 +149,19 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       jCoordinateNameLabel.setText("jLabel1");
       jCoordinateNameLabel.setAlignmentX(1.0F);
 
+      jLabelMin.setText("jLabel1");
+      jLabelMin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+      jLabelMin.setEnabled(false);
+      jLabelMin.setFocusable(false);
+      jLabelMin.setIconTextGap(0);
+
+      jLabelMax.setText("123.45 ");
+      jLabelMax.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+      jLabelMax.setEnabled(false);
+      jLabelMax.setFocusable(false);
+      jLabelMax.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+      jLabelMax.setIconTextGap(0);
+
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
       layout.setHorizontalGroup(
@@ -157,21 +173,24 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jClampedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+            .add(jLabelMin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jLabelMax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(layout.createSequentialGroup()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                  .add(jLockedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .add(jClampedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .add(jCoordinateNameLabel))
-               .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addContainerGap())
+         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            .add(jLockedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jClampedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jCoordinateNameLabel)
+            .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jLabelMax)
+            .add(jLabelMin))
+         .add(jXSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
       );
    }// </editor-fold>//GEN-END:initComponents
 
@@ -198,6 +217,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    private javax.swing.JCheckBox jClampedCheckBox;
    private javax.swing.JLabel jCoordinateNameLabel;
    private javax.swing.JFormattedTextField jFormattedTextField;
+   private javax.swing.JLabel jLabelMax;
+   private javax.swing.JLabel jLabelMin;
    private javax.swing.JCheckBox jLockedCheckBox;
    private javax.swing.JSlider jXSlider;
    // End of variables declaration//GEN-END:variables
@@ -215,6 +236,22 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        if (updateDisplay){
          ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
        }
+    }
+    
+    void updateValueNoEvents()
+    {
+       theValue=coord.getValue();
+       // Remove listeners
+       jFormattedTextField.removePropertyChangeListener("value", this);
+       jXSlider.removeChangeListener(this);
+       //Need Conversion?
+       theValue *= conversion;
+       jXSlider.setValue((int)((theValue-min)/step));
+       jFormattedTextField.setValue(new Double(theValue)); 
+       jXSlider.addChangeListener(this);
+       jFormattedTextField.addPropertyChangeListener("value", this);
+       
+       // addListenersBack
     }
 
      public double getTheValue()
@@ -281,15 +318,17 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       // Limit display to 2 significant digit
       DecimalFormat formatter = new DecimalFormat(LABELS_FORMAT);
       String myString = formatter.format(min);
-      JLabel startLabel = new JLabel(myString);
+      jLabelMin.setText(myString);
+      //JLabel startLabel = new JLabel(myString);
       rounded = Math.round(max);
       if (Math.abs(max-rounded)<ROUNDOFF) max=rounded;
       myString = formatter.format(max);
-      JLabel endLabel = new JLabel(myString);
-      Hashtable<Integer,JLabel> labels = new Hashtable<Integer,JLabel>(2);
-      labels.put(minint, startLabel);
-      labels.put(maxint, endLabel);
-      jXSlider.setLabelTable(labels);
+      //JLabel endLabel = new JLabel(myString);
+      jLabelMax.setText(myString);
+      //Hashtable<Integer,JLabel> labels = new Hashtable<Integer,JLabel>(2);
+      //labels.put(minint, startLabel);
+      //labels.put(maxint, endLabel);
+      //jXSlider.setLabelTable(labels);
    }
       
      class handleReturnAction extends AbstractAction {
