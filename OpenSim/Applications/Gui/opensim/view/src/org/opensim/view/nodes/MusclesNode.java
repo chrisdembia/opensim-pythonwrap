@@ -92,6 +92,8 @@ public class MusclesNode extends OpenSimObjectNode {
             children.add(new Node[] {new ActuatorGroupNode(allGroup)});
          }
       }
+      if (getChildren().getNodesCount() == 0)
+         setChildren(children.LEAF);
    }
    /**
     * Display name 

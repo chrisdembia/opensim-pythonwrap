@@ -77,6 +77,8 @@ public class TorquesNode extends OpenSimObjectNode {
             }
          }
       }
+      if (getChildren().getNodesCount() == 0)
+         setChildren(children.LEAF);
    }
    /**
     * Display name 

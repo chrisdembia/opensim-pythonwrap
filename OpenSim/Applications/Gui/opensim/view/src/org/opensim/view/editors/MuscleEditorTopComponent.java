@@ -1629,7 +1629,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          OpenSimObject obj = selectedObjects.get(i).getOpenSimObject();
          MusclePoint mp = MusclePoint.safeDownCast(obj);
          if (mp != null) {
-            double value = mp.getAttachment().getitem(0);
             AbstractDynamicsEngine engine = mp.getMuscle().getModel().getDynamicsEngine();
             AbstractBody body = mp.getBody();
             AbstractBody ground = engine.getGroundBody();
