@@ -11,12 +11,11 @@ package org.opensim.view;
 
 import java.io.File;
 import java.util.Hashtable;
-import java.util.Vector;
+import java.util.Iterator;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractMuscle;
-import org.opensim.modeling.ArrayMusclePoint;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.AnalyticCylinder;
@@ -26,15 +25,11 @@ import org.opensim.modeling.AnalyticSphere;
 import org.opensim.modeling.AnalyticTorus;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Geometry;
-import org.opensim.modeling.LineGeometry;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.MuscleViaPoint;
-import org.opensim.modeling.MuscleWrapPoint;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
-import org.opensim.modeling.VisibleProperties;
-import org.opensim.modeling.VisibleProperties.DisplayPreference;
 import org.opensim.utils.GeometryFileLocator;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
@@ -93,11 +88,8 @@ public class SingleModelVisuals {
     // e.g. Muscles, Models
     private Hashtable<OpenSimObject, vtkProp3D> mapObject2VtkObjects = new Hashtable<OpenSimObject, vtkProp3D>();
     private Hashtable<vtkProp3D, OpenSimObject> mapVtkObjects2Objects = new Hashtable<vtkProp3D, OpenSimObject>(50);
-    
-    private Hashtable<OpenSimObject, Vector<Integer>> mapActuator2SegmentGlyphIds = new
-            Hashtable<OpenSimObject, Vector<Integer>>();
-    private Hashtable<OpenSimObject, Vector<Integer>> mapActuator2PointGlyphIds = new
-            Hashtable<OpenSimObject, Vector<Integer>>();
+   
+    private Hashtable<OpenSimObject, LineSegmentMuscleDisplayer> mapActuator2Displayer = new Hashtable<OpenSimObject, LineSegmentMuscleDisplayer>();
 
     private Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
     
@@ -105,7 +97,7 @@ public class SingleModelVisuals {
     private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud();
     private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(true);
     private OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
-    
+
     private vtkProp3DCollection    userObjects = new vtkProp3DCollection();
 
     /**
@@ -160,13 +152,11 @@ public class SingleModelVisuals {
             // Fill the maps between objects and display to support picking, highlighting, etc..
             // The reverse map takes an actor to an Object and is filled as actors are created.
             mapObject2VtkObjects.put(body, bodyRep);
+            mapVtkObjects2Objects.put(bodyRep, body);
 
             // Add a vtkActor object to the vtk scene graph to represent
             VisibleObject bodyDisplayer = body.getDisplayer();
-            bodyDisplayer.getScaleFactors(scales);
 
-            int ns = bodyDisplayer.getNumGeometryFiles();
-            long timepre = System.currentTimeMillis();
             vtkAppendPolyData bodyPolyData = new vtkAppendPolyData();
             // For each bone in the current body.
             for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
@@ -188,27 +178,23 @@ public class SingleModelVisuals {
             vtkMatrix4x4 m= getBodyTransform(model, body);
             bodyRep.SetUserMatrix(m);
             
-             vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
-             bodyMapper.SetInput(bodyPolyData.GetOutput());
+            vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
+            bodyMapper.SetInput(bodyPolyData.GetOutput());
 
-             bodyRep.SetMapper(bodyMapper);
-             bodyRep.SetScale(scales);
-             mapVtkObjects2Objects.put(bodyRep, body);
+            bodyRep.SetMapper(bodyMapper);
+
+            bodyDisplayer.getScaleFactors(scales);
+            bodyRep.SetScale(scales);
 
             // Bodies have things attached to them as handled by the
             // dependents mechanism. For each one of these a new vtkActor is created and attached 
             // to the same xform as the owner body.
              
-            int ct = bodyDisplayer.countDependents();
-            
             double[] color = new double[3];
-            for(int j=0; j < ct;j++){
+            for(int j=0; j < bodyDisplayer.countDependents();j++){
                 VisibleObject Dependent = bodyDisplayer.getDependent(j);
                 
                 OpenSimObject owner = Dependent.getOwner();
-                // There should be a better way to do this type checking
-                // than String comparison but dynamic casting across JNI doesn't work!
-                String test = owner.getType();
                 if (AbstractMarker.safeDownCast(owner)!=null){
                     // Convert marker pos to global pos.
                     double[] pos = new double[3];
@@ -255,7 +241,6 @@ public class SingleModelVisuals {
                         throw new UnsupportedOperationException(
                                 "Single Model Visuals: Geometry visualization Not yet implemented");                    }
                 }
-                //modelAssembly.AddPart(markersActor);
                 modelAssembly.AddPart(attachmentRep);
                 mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
                  
@@ -263,10 +248,10 @@ public class SingleModelVisuals {
         } //body
         modelAssembly.AddPart(getMarkersRep().getVtkActor());
         getMarkersRep().setModified();
-        /**
-         * Now the muscles and other actuators
-         */
+
+        // Now the muscles and other actuators
         addActuatorsGeometry(model, modelAssembly);
+
         mapObject2VtkObjects.put(model, modelAssembly);
         mapVtkObjects2Objects.put(modelAssembly, model);
         return modelAssembly;
@@ -361,67 +346,14 @@ public class SingleModelVisuals {
         return 0;
     }
     public void addActuatorGeometry(AbstractActuator act, boolean callSetModified) {
-       Vector<Integer>   segmentGlyphIds = new Vector<Integer>(3);
-       Vector<Integer>   pointGlyphIds = new Vector<Integer>(3);
-       // Get attachments and connect them
-       VisibleObject actuatorDisplayer = act.getDisplayer();
-       if (actuatorDisplayer == null){
-          return;
-       }
-       // A displayer is found, get geometry
-       int geomSize = actuatorDisplayer.countGeometry();
-       if (geomSize > 0){
-          AbstractMuscle muscle = AbstractMuscle.safeDownCast(act);
-          String muscleName = muscle.getName();
-          ArrayMusclePoint path=muscle.getCurrentPath();
-          // Points are already in inertial frame
-          for(int i=0; i<geomSize; i++) {
-             Geometry geomEntry = actuatorDisplayer.getGeometry(i);
-             double[] position1 = new double[3];
-             double[] position2 = new double[3];
-             LineGeometry geomLine = LineGeometry.dynamic_cast(geomEntry);
-             geomLine.getPoints(position1, position2);
-             double[] axis = new double[3];
-             double[] center = new double[3];
-             for(int d=0; d <3; d++){
-                axis[d]=position1[d]-position2[d];
-                center[d] = (position1[d]+position2[d])/2.0;
-             }
-             double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
-             double length = normalizeAndGetLength(axis);
-             double[] xform = getCylinderTransform(axis, center) ;
-             
-             int idx = getMuscleSegmentsRep().addLocation(center[0], center[1], center[2]);
-             getMuscleSegmentsRep().setTensorDataAtLocation(idx,
-                     xform[0], xform[4], xform[8],
-                     length*xform[1], length*xform[5], length*xform[9],
-                     xform[2], xform[6], xform[10]
-                     );
-             segmentGlyphIds.add(new Integer(idx));
-             
-             // Add muscle point at position1 of segment, and if this is the last segment also at position2
-             MusclePoint pt1 = path.get(i);
-             if (MuscleWrapPoint.safeDownCast(pt1)!= null)
-                pt1.setPickable(false);
-             
-             int pointIdx = getMusclePointsRep().addLocation(position1, path.get(i));
-             getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
-             pointGlyphIds.add(new Integer(pointIdx));
-             if(i==geomSize-1) {
-                MusclePoint pt2 = path.get(i+1);
-                if (MuscleWrapPoint.safeDownCast(pt2)!= null)
-                   pt2.setPickable(false);
-                pointIdx = getMusclePointsRep().addLocation(position2, path.get(i+1));
-                getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
-                pointGlyphIds.add(new Integer(pointIdx));
-             }
-          } // Attachments
-          mapActuator2SegmentGlyphIds.put(act, segmentGlyphIds);
-          mapActuator2PointGlyphIds.put(act, pointGlyphIds);
-          if (callSetModified) {
-             getMuscleSegmentsRep().setModified();
-             getMusclePointsRep().setModified();
-          }
+       AbstractMuscle muscle = AbstractMuscle.safeDownCast(act);
+       if(muscle == null) return;
+       LineSegmentMuscleDisplayer disp = new LineSegmentMuscleDisplayer(muscle, getMusclePointsRep(), getMuscleSegmentsRep());
+       mapActuator2Displayer.put(act, disp);
+       disp.addGeometry();
+       if (callSetModified) {
+          getMuscleSegmentsRep().setModified();
+          getMusclePointsRep().setModified();
        }
     }
     /**
@@ -441,56 +373,6 @@ public class SingleModelVisuals {
         // EG
         modelAssembly.AddPart(getMusclePointsRep().getVtkActor());
         getMusclePointsRep().setModified();
-    }
-    /**
-     * Get the transform that takes a unit cylinder aligned with Y axis to a cylnder connecting 2 points
-     */
-    vtkMatrix4x4 retTransform = new vtkMatrix4x4();
-    double[]     retTransformVector = new double[16];
-    double[] newX = new double[3];
-    double[] oldXCrossNewY = new double[3]; // NewZ
-    double[] getCylinderTransform(double[] normalizedAxis, double[] origin) {
-        //Assume normalizedAxis is already normalized
-        //double length = normalizeAndGetLength(axis);
-        
-        // yaxis is the unit vector
-        for (int i=0; i < 3; i++){
-            retTransformVector[i*4+ 1]= normalizedAxis[i];
-        }
-        oldXCrossNewY[0] = 0.0;
-        oldXCrossNewY[1] = -normalizedAxis[2];
-        oldXCrossNewY[2] = normalizedAxis[1];
-        
-        normalizeAndGetLength(oldXCrossNewY);
-        for (int i=0; i < 3; i++){
-            retTransformVector[i*4+ 2]= oldXCrossNewY[i];
-        }
-        newX[0] = normalizedAxis[1]*oldXCrossNewY[2]-normalizedAxis[2]*oldXCrossNewY[1];
-        newX[1] = normalizedAxis[2]*oldXCrossNewY[0]-normalizedAxis[0]*oldXCrossNewY[2];
-        newX[2] = normalizedAxis[0]*oldXCrossNewY[1]-normalizedAxis[1]*oldXCrossNewY[0];
-        normalizeAndGetLength(newX);
-       for (int i=0; i < 3; i++){
-          retTransformVector[i*4]= newX[i];
-          retTransformVector[i*4+ 3]= origin[i];
-         }
-        for(int i=12; i<15;i++)
-            retTransformVector[i]=0.0;
-        retTransformVector[15]=1.0;
-        //retTransform.DeepCopy(retTransformVector);
-        return retTransformVector;
-    }
-    /**
-     * Normalize a vector and return its length
-     */
-    private double normalizeAndGetLength(double[] vector3)
-    {
-        double length = Math.sqrt(vector3[0]*vector3[0]+
-                                  vector3[1]*vector3[1]+
-                                  vector3[2]*vector3[2]);
-        // normalize
-        for(int d=0; d <3; d++)
-            vector3[d]=vector3[d]/length;
-        return length;
     }
     /**
      * updateModelDisplay with new transforms cached in animationCallback.
@@ -513,6 +395,7 @@ public class SingleModelVisuals {
             //Transform opensimTransform = animationCallback.getBodyTransform(bodyNum);
             //vtkMatrix4x4 bodyVtkTransform = convertTransformToVtkMatrix4x4(opensimTransform);
             bodyRep.SetUserMatrix(bodyVtkTransform);
+
             // For dependents (markers, muscle points, update xforms as well)
             VisibleObject bodyDisplayer = body.getDisplayer();
             int ct = bodyDisplayer.countDependents();
@@ -538,7 +421,7 @@ public class SingleModelVisuals {
                 vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
                 deptAssembly.SetUserMatrix(bodyVtkTransform);
             }
-            
+
         }
         // Now the muscles
         updateActuatorsGeometry(model);
@@ -565,125 +448,31 @@ public class SingleModelVisuals {
       return m;
    }
 
-   private void updateActuatorGlyphIds(Vector<Integer> segmentGlyphIds, Vector<Integer> pointGlyphIds, int newNumSegments) {
-      int origNumSegments = segmentGlyphIds.size();
-      //System.out.println("ORIG="+origNumSegments+" NEW="+newNumSegments+"");
-      if (newNumSegments>origNumSegments){   // Make extra segments (and points) and attach them 
-         // We always want to maintain one more point than number of segments
-         if(origNumSegments==0) {
-            int pointIdx = getMusclePointsRep().addLocation(0.0, 0.0, 0.0); // always one more muscle point than number of segments
-            getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
-            pointGlyphIds.add(new Integer(pointIdx));
-         }
-         // Add required number of segments, and one point for each segment
-         for(int i=origNumSegments; i<newNumSegments; i++) {
-            int idx = getMuscleSegmentsRep().addLocation(0.0, 0.0, 0.0);
-            segmentGlyphIds.add(new Integer(idx));
-            int pointIdx = getMusclePointsRep().addLocation(0.0, 0.0, 0.0);
-            getMusclePointsRep().setVectorDataAtLocation(pointIdx,1,1,1);
-            pointGlyphIds.add(new Integer(pointIdx));
-         }
-         // Sanity check: number of points should be number of segments + 1
-         assert(pointGlyphIds.size()==segmentGlyphIds.size()+1);
-      }
-      else if (origNumSegments>newNumSegments){ // remove unused segments
-         for(int i=newNumSegments; i<origNumSegments; i++) {
-            getMuscleSegmentsRep().remove(segmentGlyphIds.get(i).intValue());
-            getMusclePointsRep().remove(pointGlyphIds.get(i+1).intValue()); // always one more muscle point than number of segments
-         }
-         segmentGlyphIds.setSize(newNumSegments);
-         if(newNumSegments == 0) {
-            getMusclePointsRep().remove(pointGlyphIds.get(0).intValue());
-            pointGlyphIds.setSize(0);
-         } else {
-            pointGlyphIds.setSize(newNumSegments+1);
-         }
-      }
-   }
-
    /**
     * Update display of muscles and forces if any during playing back animation/motion, ..
     */
    private void updateActuatorsGeometry(ActuatorSet acts) {
-      for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
-         updateActuatorGeometry(acts.get(actNumber), true);
-      }
+      Iterator<LineSegmentMuscleDisplayer> dispIter = mapActuator2Displayer.values().iterator();
+      while(dispIter.hasNext()) dispIter.next().updateGeometry(true);
       //getMuscleSegmentsRep().setModified();
       //getMusclePointsRep().setModified();
    }
 
    public void removeActuatorGeometry(AbstractActuator act) {
-      VisibleObject actuatorDisplayer = act.getDisplayer();
-      if (actuatorDisplayer != null) {
-         // Turn the display of the actuator off so its geometry will be removed from the VTK objects
-         actuatorDisplayer.getVisibleProperties().setDisplayPreference(DisplayPreference.None);
-         updateActuatorGeometry(act, false);
+      LineSegmentMuscleDisplayer disp = mapActuator2Displayer.get(act);
+      if(disp != null) {
+         disp.removeGeometry();
+         mapActuator2Displayer.remove(act);
       }
    }
 
    public void updateActuatorGeometry(AbstractActuator act, boolean callUpdateDisplayer) {
-      //System.out.println("Update geometry for actuator"+act.getName());
-      double[] axis = new double[]{0.0, 0.0, 0.0};
-      double[] center = new double[]{0.0, 0.0, 0.0};
-      // Get attachments and connect them
-      if(callUpdateDisplayer) act.updateDisplayer();
-      VisibleObject actuatorDisplayer = act.getDisplayer();
-      if (actuatorDisplayer == null){
-         return;
+      LineSegmentMuscleDisplayer disp = mapActuator2Displayer.get(act);
+      if(disp != null) {
+         disp.updateGeometry(callUpdateDisplayer);
+         getMuscleSegmentsRep().setModified();
+         getMusclePointsRep().setModified();
       }
-
-      boolean visible = false;
-      DisplayPreference dp = actuatorDisplayer.getVisibleProperties().getDisplayPreference();
-      if (dp != DisplayPreference.None)
-         visible = true;
-
-      // A displayer is found, get geometry
-      int geomSize = actuatorDisplayer.countGeometry();
-      if (visible == false)
-         geomSize = 0;
-
-      Vector<Integer> segmentGlyphIds = mapActuator2SegmentGlyphIds.get(act);
-      Vector<Integer> pointGlyphIds = mapActuator2PointGlyphIds.get(act);
-
-      updateActuatorGlyphIds(segmentGlyphIds, pointGlyphIds, geomSize);         
-
-      if (geomSize > 0) {
-         double[] position1 = new double[3];
-         double[] position2 = new double[3];
-         // Points are already in inertial frame
-         for(int i=0; i<geomSize; i++) {
-            Geometry geomEntry = actuatorDisplayer.getGeometry(i);
-            LineGeometry geomLine = LineGeometry.dynamic_cast(geomEntry);
-            geomLine.getPoints(position1, position2);
-               
-            for(int d=0; d <3; d++){
-               axis[d]=position1[d]-position2[d];
-               center[d] = (position1[d]+position2[d])/2.0;
-            }
-            // Create a cylinder connecting position1, position2
-            double[] unitAxis = new double[]{axis[0], axis[1], axis[2]};
-            double length = normalizeAndGetLength(axis);
-            double[] xform = getCylinderTransform(axis, center) ;
-            int idx = segmentGlyphIds.get(i).intValue();
-            getMuscleSegmentsRep().setLocation(idx, center);
-            getMuscleSegmentsRep().setTensorDataAtLocation(idx, 
-                             xform[0], xform[4], xform[8],
-                             length*xform[1], length*xform[5], length*xform[9],
-                             xform[2], xform[6], xform[10]
-                    );
-
-            // Draw muscle point at position1 of segment, and if this is the last segment also at position2
-            int pointIdx = pointGlyphIds.get(i).intValue();
-            getMusclePointsRep().setLocation(pointIdx, position1);
-            if(i==geomSize-1) {
-                pointIdx = pointGlyphIds.get(i+1).intValue();
-                getMusclePointsRep().setLocation(pointIdx, position2);
-            }
-         }
-      }
-
-      getMuscleSegmentsRep().setModified();
-      getMusclePointsRep().setModified();
    }
 
    public void updateActuatorsGeometry(Model mdl) {
