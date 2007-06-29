@@ -32,12 +32,12 @@ import org.opensim.view.pub.ViewDB;
  * @author  Ayman
  */
 
-public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel 
+public class QuantityNameFilterJPanel extends javax.swing.JPanel 
                                             implements TableModelListener,
                                                        DocumentListener
 {
    
-   private PlotterQuantityNameFilterTableModel tableModel;
+   private QuantityNameFilterTableModel tableModel;
    public enum FilterBy {RegularExpression, ModelGroup};
    private FilterBy currentFilter = FilterBy.RegularExpression;
    private String   pattern="";
@@ -47,15 +47,14 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
    /**
     * Creates new form PlotterQuantityNameFilterJPanel
     */
-   public PlotterQuantityNameFilterJPanel(PlotterSourceInterface src) {
+   public QuantityNameFilterJPanel(String[] availableNames) {
       initComponents();
       metaCharacters.add("*");
       metaCharacters.add("+");
       metaCharacters.add("?");
       FilterTextField.getDocument().addDocumentListener(this);
       FilterTextField.setText(getPattern());
-      jFilename.setText(src.getDisplayName());
-      tableModel = new PlotterQuantityNameFilterTableModel(src);
+      tableModel = new QuantityNameFilterTableModel(availableNames);
       jTable1.setModel(tableModel);
       jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       tableModel.addTableModelListener(this);
@@ -78,14 +77,12 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
       jPanel1 = new javax.swing.JPanel();
       jNumSelectedLabel = new javax.swing.JLabel();
       jPanel2 = new javax.swing.JPanel();
-      jFilename = new javax.swing.JLabel();
       FilterTextField = new javax.swing.JFormattedTextField();
       jMuscleGroupComboBox = new javax.swing.JComboBox();
       jModelComboBox = new javax.swing.JComboBox();
       jPatternRadioButton = new javax.swing.JRadioButton();
       jModelGroupRadioButton = new javax.swing.JRadioButton();
       jLabel1 = new javax.swing.JLabel();
-      jLabel2 = new javax.swing.JLabel();
       jShowAllButton = new javax.swing.JButton();
       jLabel3 = new javax.swing.JLabel();
       jSelectAllCheckBox = new javax.swing.JCheckBox();
@@ -123,8 +120,6 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
       );
 
       jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-      jFilename.setText("filename");
-
       FilterTextField.setToolTipText("use '.*' for wildcard, add patterns with '|' and press Apply");
 
       jMuscleGroupComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select Muscle Group" }));
@@ -166,8 +161,6 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
 
       jLabel1.setText("Filter By:");
 
-      jLabel2.setText("Source:");
-
       jShowAllButton.setText("Show All");
       jShowAllButton.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,37 +176,27 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
          jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jPanel2Layout.createSequentialGroup()
             .addContainerGap()
+            .add(jLabel1)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                  .add(jLabel1)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(jPatternRadioButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 72, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                     .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(jLabel3)
-                        .add(jModelGroupRadioButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jMuscleGroupComboBox, 0, 187, Short.MAX_VALUE)
-                     .add(jModelComboBox, 0, 187, Short.MAX_VALUE)
-                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(FilterTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jShowAllButton))))
+               .add(jPatternRadioButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 72, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                  .add(jLabel3)
+                  .add(jModelGroupRadioButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jMuscleGroupComboBox, 0, 187, Short.MAX_VALUE)
+               .add(jModelComboBox, 0, 187, Short.MAX_VALUE)
                .add(jPanel2Layout.createSequentialGroup()
-                  .add(jLabel2)
-                  .add(54, 54, 54)
-                  .add(jFilename, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)))
+                  .add(FilterTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(jShowAllButton)))
             .addContainerGap())
       );
       jPanel2Layout.setVerticalGroup(
          jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jPanel2Layout.createSequentialGroup()
-            .add(20, 20, 20)
-            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(jLabel2)
-               .add(jFilename))
-            .add(15, 15, 15)
+            .add(49, 49, 49)
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jLabel1)
                .add(jPatternRadioButton)
@@ -416,9 +399,7 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
    private javax.swing.JFormattedTextField FilterTextField;
    private javax.swing.ButtonGroup buttonGroup1;
    private javax.swing.JCheckBox jDeselectAllCheckBox;
-   private javax.swing.JLabel jFilename;
    private javax.swing.JLabel jLabel1;
-   private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
    private javax.swing.JComboBox jModelComboBox;
    private javax.swing.JRadioButton jModelGroupRadioButton;
@@ -525,4 +506,12 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
        
        tableModel.restrictNamesBy(".*"+rawPattern+".*");
     }    
+    
+    private void setFilter(QuantityNameFilterJPanel.FilterBy currentFilter) {
+        // Disable model, group selection when doing regular expression and vice versa
+        boolean usePattern= (currentFilter == QuantityNameFilterJPanel.FilterBy.RegularExpression);
+        jModelComboBox.setEnabled(!usePattern);
+        jMuscleGroupComboBox.setEnabled(!usePattern);
+        FilterTextField.setEnabled(usePattern);
+    }
 }

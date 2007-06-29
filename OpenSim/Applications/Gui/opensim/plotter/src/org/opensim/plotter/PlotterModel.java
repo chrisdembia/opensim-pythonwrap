@@ -65,9 +65,11 @@ public class PlotterModel {
          plotTreeModel.addPlot(figure);
    }
    
-   public void addFile(String filename)
+   public PlotterSourceFile addFile(String filename)
    {
-      sources.add(new PlotterSourceFile(filename));
+      PlotterSourceFile newSource = new PlotterSourceFile(filename);
+      sources.add(newSource);
+      return newSource;
    }
    
     public void addModel(Model aModel)
@@ -88,23 +90,25 @@ public class PlotterModel {
         }
         //tool.setSolveForEquilibriumForAuxiliaryStates(true);
         models2AnalyzeToolInstances.put(aModel, tool);
-        
-        // Now motions
-        /*
-        ArrayList<Storage> modelMotions=MotionsDB.getInstance().getModelMotions(aModel);
-        if (modelMotions ==null)
-          return;
-        for(int i=0; i< modelMotions.size(); i++){
-          Storage motionStorage = modelMotions.get(i);
-          sources.add(new PlotterSourceAnalysis(aModel, motionStorage, "Motion."+motionStorage.getName()));
+        // dump sources for debugging
+        for(int j=0; j<sources.size(); j++){
+           System.out.println("Source:"+sources.get(j).getDisplayName());
         }
-        */
     }
   /**
     * Get available quantities to use as a Domain variable
     * source is a boolean used to specify if Analysis or File radio button 
     * have been selected.
     */
+
+   public ArrayList<PlotterSourceMotion> getLoadedMotionSources() {
+      ArrayList<PlotterSourceMotion> motionSources = new ArrayList<PlotterSourceMotion>();
+      for(int i=0; i<sources.size(); i++){
+         if (sources.get(i) instanceof PlotterSourceMotion)
+            motionSources.add((PlotterSourceMotion) sources.get(i));
+      }
+      return motionSources;
+   }
 
    public ArrayList<PlotterSourceFile> getLoadedFileSources() {
       ArrayList<PlotterSourceFile> fileSources = new ArrayList<PlotterSourceFile>();
@@ -188,7 +192,7 @@ public class PlotterModel {
       return ((Plot)fNode.getUserObject());
    }
 
-   void addSource(PlotterSourceFile src) {
+   void addSource(PlotterSourceInterface src) {
       sources.add(src);
    }
 
@@ -224,10 +228,25 @@ public class PlotterModel {
       }
       return analysisSources;
     }
-    
+    /**
+     * find a source by its name. Used from analysis customizers.
+     */ 
+    PlotterSourceInterface findSource(String displayName)
+    {
+      for(int i=0; i<sources.size(); i++){
+         if (sources.get(i).getDisplayName().equals(displayName))
+            return sources.get(i);
+      }
+      return null;
+    }
     public AnalyzeTool getAnalyzeTool(Model model)
     {
        return models2AnalyzeToolInstances.get(model);
     }
 
+   void addMotion(Storage nextMotion) {
+      sources.add(new PlotterSourceMotion(nextMotion));
+   }
+
+   
 }

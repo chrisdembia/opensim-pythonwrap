@@ -1,21 +1,56 @@
 package org.opensim.plotter;
 
-import javax.swing.JFrame;
+import java.awt.Dialog;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.motionviewer.MotionsDB;
+import org.opensim.view.pub.OpenSimDB;
 
 public final class ToolsPlotAction extends CallableSystemAction {
    
    public void performAction() {
       //JFrame f = new JPlotterFrame("Plotter Frame");
       //f.setVisible(true);
-      
-      DialogDescriptor dlg = new DialogDescriptor(new JPlotterPanel(),"Plotter Dialog");
+      final JPlotterPanel plotterPanel = new JPlotterPanel();
+      DialogDescriptor dlg = new DialogDescriptor(plotterPanel,"Plotter Dialog");
       dlg.setModal(false);
-      DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+      dlg.setClosingOptions(null);
+      dlg.setOptions(new Object[]{DialogDescriptor.CLOSED_OPTION});
+      
+      Dialog awtDialog =DialogDisplayer.getDefault().createDialog(dlg);
+      awtDialog.addWindowListener(new WindowListener(){
+         public void windowOpened(WindowEvent e) {
+            MotionsDB.getInstance().addObserver(plotterPanel);
+            OpenSimDB.getInstance().addObserver(plotterPanel);   // Make sure current model does not change under us
+         }
+
+         public void windowClosing(WindowEvent e) {
+         }
+
+         public void windowClosed(WindowEvent e) {
+            MotionsDB.getInstance().deleteObserver(plotterPanel);
+            OpenSimDB.getInstance().deleteObserver(plotterPanel); 
+         }
+
+         public void windowIconified(WindowEvent e) {
+         }
+
+         public void windowDeiconified(WindowEvent e) {
+         }
+
+         public void windowActivated(WindowEvent e) {
+         }
+
+         public void windowDeactivated(WindowEvent e) {
+         }});
+      awtDialog.setVisible(true);
       
    }
    

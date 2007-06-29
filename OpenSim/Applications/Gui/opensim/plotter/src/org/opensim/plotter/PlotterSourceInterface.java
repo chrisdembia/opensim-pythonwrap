@@ -31,7 +31,7 @@ import org.opensim.modeling.Storage;
 /**
  *
  * @author Ayman. A class respresenting a Source of data for plotting. This is either a file
- * in which case all columns in the file are available for selection or an Analysis/Model
+ * in which case all columns in the file are available for selection or a model's Analysis
  */
 public interface PlotterSourceInterface {
    
