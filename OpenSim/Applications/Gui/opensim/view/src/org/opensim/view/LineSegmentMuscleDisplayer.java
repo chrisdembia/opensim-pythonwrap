@@ -62,6 +62,8 @@ public class LineSegmentMuscleDisplayer {
              }
           } // Attachments
        }
+
+       updateGeometry(false);
    }
 
    public void removeGeometry()
