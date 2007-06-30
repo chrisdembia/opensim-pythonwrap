@@ -27,11 +27,9 @@
 package org.opensim.view;
 
 import java.util.HashMap;
-import org.opensim.modeling.AbstractMarker;
+import java.util.Stack;
 import org.opensim.modeling.OpenSimObject;
 import vtk.vtkActor;
-import vtk.vtkAlgorithm;
-import vtk.vtkCubeSource;
 import vtk.vtkDataArray;
 import vtk.vtkFloatArray;
 import vtk.vtkGlyph3D;
@@ -39,11 +37,9 @@ import vtk.vtkIdList;
 import vtk.vtkPointData;
 import vtk.vtkPoints;
 import vtk.vtkPolyData;
-import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProperty;
 import vtk.vtkSphereSource;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -66,6 +62,8 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     private vtkFloatArray       scalarData = null;
     private HashMap<OpenSimObject,Integer> mapObjectIdsToPointIds = new HashMap<OpenSimObject,Integer>(100);
     private HashMap<Integer,OpenSimObject> mapPointIdsToObjectIds = new HashMap<Integer,OpenSimObject>(100);
+
+    private Stack<Integer> freeList = new Stack<Integer>();
     
     /**
     * Creates a new instance of OpenSimvtkGlyphCloud.
@@ -186,8 +184,9 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
    // Add/Remove locations
    /////////////////////////////////////////////////////////////////////////////
 
+   // A point associated with an object
    public int addLocation(OpenSimObject obj) {
-      int idx = addLocation(0.,0.,0.);
+      int idx = addLocation();
       mapObjectIdsToPointIds.put(obj, idx);
       mapPointIdsToObjectIds.put(idx, obj);
       return idx;
@@ -198,24 +197,27 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
    }
 
    public int addLocation(double[] newPoint) {
-      int id = pointCloud.InsertNextPoint(newPoint);
-      vectorData.InsertTuple3(id, 0., 0., 0.);
-      if (lineNormals != null) lineNormals.InsertTuple3(id, 0., 0., 0.);
-      if (scalarData != null) scalarData.InsertTuple1(id, 0.0);
-      return id;
+      return addLocation(newPoint[0],newPoint[1],newPoint[2]);
    }
 
    public int addLocation(double px, double py, double pz) {
-      int id= pointCloud.InsertNextPoint(px, py, pz);
-      vectorData.InsertTuple3(id, 0., 0., 0.);
-      if (lineNormals != null) lineNormals.InsertTuple3(id, 0., 0., 0.);
-      if (scalarData != null) scalarData.InsertTuple1(id, 0.0);
-      return id;
+      int idx;
+      if(!freeList.empty()) { // reuse existing index that was removed earlier
+         idx = freeList.pop().intValue();
+         show(idx);
+      } else {
+         idx = pointCloud.InsertNextPoint(px, py, pz);
+         vectorData.InsertTuple3(idx, 0., 0., 0.);
+         if (lineNormals != null) lineNormals.InsertTuple3(idx, 0., 0., 0.);
+         if (scalarData != null) scalarData.InsertTuple1(idx, 0.0);
+      }
+      return idx;
    }
 
    // This works as long as you've associated scaling with the vector channel
    void remove(int index) {
-      setVectorDataAtLocation(index, 0., 0., 0.);
+      freeList.push(index);
+      hide(index);
    }
 
    /////////////////////////////////////////////////////////////////////////////

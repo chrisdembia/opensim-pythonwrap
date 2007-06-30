@@ -33,7 +33,7 @@ public class LineSegmentMuscleDisplayer {
 
    private void freeGlyphIds()
    {
-      System.out.println("LineSegmentMuscleDisplay ("+act.getName()+"): freeGlyphIds");
+      //System.out.println("LineSegmentMuscleDisplay ("+act.getName()+"): freeGlyphIds");
       for(int i=0; i<musclePointGlyphIds.size(); i++) musclePointsRep.remove(musclePointGlyphIds.get(i));
       musclePointGlyphIds.clear();
       for(int i=0; i<muscleSegmentGlyphIds.size(); i++) muscleSegmentsRep.remove(muscleSegmentGlyphIds.get(i));
@@ -61,7 +61,7 @@ public class LineSegmentMuscleDisplayer {
 
       // allocate glyph id's
       if(newPointsSize > oldPointsSize) {
-         System.out.println("LineSegmentMuscleDisplay ("+act.getName()+"): updateGlyphIds - points "+oldPointsSize+"->"+newPointsSize);
+         //System.out.println("LineSegmentMuscleDisplay ("+act.getName()+"): updateGlyphIds - points "+oldPointsSize+"->"+newPointsSize);
 
          MusclePointSet as = act.getAttachmentSet();
          // for muscle points, we assume the visible points are fixed attachments or moving via points, and we assume
@@ -80,7 +80,7 @@ public class LineSegmentMuscleDisplayer {
       }
 
       if(newSegmentsSize > oldSegmentsSize) {
-         System.out.println("LineSegmentMuscleDisplay ("+act.getName()+"): updateGlyphIds - segments "+oldSegmentsSize+"->"+newSegmentsSize);
+         //System.out.println("LineSegmentMuscleDisplay ("+act.getName()+"): updateGlyphIds - segments "+oldSegmentsSize+"->"+newSegmentsSize);
 
          // for segments, due to wrapping, the number may change frequently, so we overallocate the glyph id's to
          // avoid having to frequently reset the glyphs

@@ -26,18 +26,16 @@
 
 package org.opensim.view;
 
+import java.util.Stack;
 import vtk.vtkActor;
 import vtk.vtkCylinderSource;
-import vtk.vtkDataArray;
 import vtk.vtkFloatArray;
-import vtk.vtkLODActor;
 import vtk.vtkPointData;
 import vtk.vtkPoints;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProperty;
 import vtk.vtkTensorGlyph;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -53,6 +51,8 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
     private vtkPolyDataMapper   mapper = new vtkPolyDataMapper();
     private vtkTensorGlyph      glyph= new vtkTensorGlyph();
     private vtkFloatArray       tensorData = new vtkFloatArray();
+
+    private Stack<Integer> freeList = new Stack<Integer>();
     
     /**
     * Creates a new instance of OpenSimvtkGlyphCloud
@@ -125,15 +125,19 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
    }
 
    public int addLocation(double[] newPoint) {
-      int id = pointCloud.InsertNextPoint(newPoint);
-      tensorData.InsertTuple9(id, 1., 0., 0., 0., 1., 0., 0., 0., 1.);
-      return id;
+      return addLocation(newPoint[0],newPoint[1],newPoint[2]);
    }
 
    public int addLocation(double px, double py, double pz) {
-      int id= pointCloud.InsertNextPoint(px, py, pz);
-      tensorData.InsertTuple9(id, 1., 0., 0., 0., 1., 0., 0., 0., 1.);
-      return id;
+      int idx;
+      if(!freeList.empty()) { // reuse existing index that was removed earlier
+         idx = freeList.pop().intValue();
+         show(idx);
+      } else {
+         idx = pointCloud.InsertNextPoint(px, py, pz);
+         tensorData.InsertTuple9(idx, 1., 0., 0., 0., 1., 0., 0., 0., 1.);
+      }
+      return idx;
    }
 
    /*
@@ -142,8 +146,8 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
     * to remove points AFAIK !!
     */
    void remove(int index) {
-        vtkPointData t = pointPolyData.GetPointData();
-        t.GetTensors().SetTuple9(index, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+      freeList.push(index);
+      hide(index);
    }
 
    /////////////////////////////////////////////////////////////////////////////
