@@ -73,16 +73,13 @@ public class SingleModelVisuals {
     private double opacity;
     private double[] bounds = new double[6];
     private boolean visible;
+
     private double[] defaultMuscleColor = new double[]{0.8, 0.1, 0.1};
     private double[] defaultMusclePointColor = new double[]{1.0, 0.0, 0.0};
     private double[] defaultMarkerColor = new double[]{1.0, 0.6, 0.8};
     private double[] defaultWrapObjectColor = new double[]{0.0, 1.0, 1.0};
-    
-    private int RESOLUTION_PHI=32;
-    private int RESOLUTION_THETA=32;
-    private int CYL_RESOLUTION=32;
-    
     private double DEFAULT_MUSCLE_RADIUS = .005;
+
     // Maps between objects and vtkProp3D for going from Actor to Object and vice versa
     // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
     // e.g. Muscles, Models
@@ -122,6 +119,7 @@ public class SingleModelVisuals {
     {
         return mapVtkObjects2Objects.get(prop);
     }
+
     /**************************************************************
      * First Creation of Model Visuals
      **************************************************************/
@@ -135,128 +133,254 @@ public class SingleModelVisuals {
         if (modelFile.getParent()!= null)
             modelFilePath= modelFile.getParent()+ modelFile.separator; // Could this be null?
                 
-        double[] scales = new double[3];
         vtkAssembly modelAssembly = new vtkAssembly();
+
         // Keep track of ground body to avoid recomputation
         AbstractBody gnd = model.getDynamicsEngine().getGroundBody();
         BodySet bodies = model.getDynamicsEngine().getBodySet();
  
-        for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
-
+        for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++)
+        {
             AbstractBody body = bodies.get(bodyNum);
 
-            // Add a vtkActor to the vtk scene graph to represent
-            // the current body.
-            vtkActor bodyRep = new vtkActor();
+            // Body actor
+            vtkActor bodyRep = createAndAddBodyActor(modelAssembly, body, modelFilePath);
 
-            // Fill the maps between objects and display to support picking, highlighting, etc..
-            // The reverse map takes an actor to an Object and is filled as actors are created.
-            mapObject2VtkObjects.put(body, bodyRep);
-            mapVtkObjects2Objects.put(bodyRep, body);
-
-            // Add a vtkActor object to the vtk scene graph to represent
-            VisibleObject bodyDisplayer = body.getDisplayer();
-
-            vtkAppendPolyData bodyPolyData = new vtkAppendPolyData();
-            // For each bone in the current body.
-            for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
-                vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
-                String boneFile = GeometryFileLocator.getInstance().getFullname(modelFilePath,bodyDisplayer.getGeometryFileName(k));
-                if (boneFile==null)
-                   continue;
-                polyReader.SetFileName(boneFile);
-
-                vtkPolyData poly = polyReader.GetOutput();
-                // Create polyData and append it to one common polyData object
-                bodyPolyData.AddInput(poly);
-                polyReader.GetOutput().ReleaseDataFlagOn();
+            if(bodyRep!=null) {
+               // Fill the maps between objects and display to support picking, highlighting, etc..
+               // The reverse map takes an actor to an Object and is filled as actors are created.
+               mapObject2VtkObjects.put(body, bodyRep);
+               mapVtkObjects2Objects.put(bodyRep, body);
             }
-            // Add to assembly only if populated to avoid artificially big bounding box
-            if (bodyDisplayer.getNumGeometryFiles()>0){
-               modelAssembly.AddPart(bodyRep);
-            }
-            vtkMatrix4x4 m= getBodyTransform(model, body);
-            bodyRep.SetUserMatrix(m);
-            
-            vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
-            bodyMapper.SetInput(bodyPolyData.GetOutput());
-
-            bodyRep.SetMapper(bodyMapper);
-
-            bodyDisplayer.getScaleFactors(scales);
-            bodyRep.SetScale(scales);
 
             // Bodies have things attached to them as handled by the
             // dependents mechanism. For each one of these a new vtkActor is created and attached 
             // to the same xform as the owner body.
-             
-            double[] color = new double[3];
+            VisibleObject bodyDisplayer = body.getDisplayer();
             for(int j=0; j < bodyDisplayer.countDependents();j++){
                 VisibleObject Dependent = bodyDisplayer.getDependent(j);
                 
                 OpenSimObject owner = Dependent.getOwner();
                 if (AbstractMarker.safeDownCast(owner)!=null){
-                    // Convert marker pos to global pos.
-                    double[] pos = new double[3];
-                    double[] gPos = new double[3];
-                    Dependent.getTransform().getPosition(pos);
-                    // xfrom to ground frame
-                    model.getDynamicsEngine().transformPosition(body, pos, gPos);
-                    int index= getMarkersRep().addLocation(gPos, owner);
+                    int index= getMarkersRep().addLocation(owner);
                     mapMarkers2Glyphs.put(owner, new Integer(index));
                     continue;
+                } else if (MusclePoint.safeDownCast(owner)!=null||
+                           MuscleViaPoint.safeDownCast(owner)!=null){
+                   // Muscle points are handled in addActuatorsGeometry
+                } else {
+                   vtkActor attachmentRep = createAndAddWrapObjectActor(modelAssembly, Dependent);
+                   if(attachmentRep!=null) {
+                      mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
+                      mapVtkObjects2Objects.put(attachmentRep, Dependent.getOwner());
+                   }
                 }
-                vtkActor attachmentRep = new vtkActor();
-                attachmentRep.SetUserMatrix(m);
-                int geomcount = Dependent.countGeometry();
-                // Create actor for the dpendent
-                for(int gc=0; gc<geomcount; gc++){
-                    Geometry g = Dependent.getGeometry(gc);
-                    //vtkActor dActor = new vtkActor();
-                    AnalyticGeometry ag=null;
-                    ag = AnalyticGeometry.dynamic_cast(g);
-                    if (ag != null){  
-                        //System.out.println("Processing "+Dependent.getOwner().getName());
-                         vtkPolyData analyticPolyData = getPolyDataForAnalyticGeometry(ag);
-                         
-                         // Move rep to proper location 
-                         vtkTransformPolyDataFilter mover = new vtkTransformPolyDataFilter();
-                         vtkTransform moverTransform = new vtkTransform();
-                         moverTransform.SetMatrix(convertTransformToVtkMatrix4x4(Dependent.getTransform()));
-                         mover.SetInput(analyticPolyData);
-                         mover.SetTransform(moverTransform);
-                         vtkPolyDataMapper mapper = new vtkPolyDataMapper();
-                         mapper.SetInput(mover.GetOutput());
-                         
-                         //Dependent.getVisibleProperties().getColor(color);
-                         attachmentRep.GetProperty().SetColor(defaultWrapObjectColor);
-
-                         attachmentRep.SetMapper(mapper);
-                         attachmentRep.GetProperty().SetRepresentationToWireframe();
-                         //attachmentRep.AddPart(dActor);
-                         mapVtkObjects2Objects.put(attachmentRep, Dependent.getOwner());
-                    }
-                    else {  // General geometry
-                        // throw an exception for not implemented though should be identical
-                        throw new UnsupportedOperationException(
-                                "Single Model Visuals: Geometry visualization Not yet implemented");                    }
-                }
-                modelAssembly.AddPart(attachmentRep);
-                mapObject2VtkObjects.put(Dependent.getOwner(), attachmentRep);
-                 
             }
         } //body
+
+        // Add markers
         modelAssembly.AddPart(getMarkersRep().getVtkActor());
-        getMarkersRep().setModified();
 
         // Now the muscles and other actuators
         addActuatorsGeometry(model, modelAssembly);
 
+        // Add whole model assembly to object map
         mapObject2VtkObjects.put(model, modelAssembly);
         mapVtkObjects2Objects.put(modelAssembly, model);
+
+        // Now call update to actually set all the positions/transforms of the actors and glyphs
+        updateModelDisplay(model);
+
         return modelAssembly;
     }
-    
+
+   /**
+    * Create actor for a single AbstractBody
+    */
+   private vtkActor createAndAddBodyActor(vtkAssembly modelAssembly, AbstractBody body, String modelFilePath)
+   {
+      vtkActor bodyRep = new vtkActor();
+
+      VisibleObject bodyDisplayer = body.getDisplayer();
+
+      vtkAppendPolyData bodyPolyData = new vtkAppendPolyData();
+      // For each bone in the current body.
+      for (int k = 0; k < bodyDisplayer.getNumGeometryFiles(); ++k) {
+          vtkXMLPolyDataReader polyReader = new vtkXMLPolyDataReader();
+          String boneFile = GeometryFileLocator.getInstance().getFullname(modelFilePath,bodyDisplayer.getGeometryFileName(k));
+          if (boneFile==null)
+             continue;
+          polyReader.SetFileName(boneFile);
+
+          vtkPolyData poly = polyReader.GetOutput();
+          // Create polyData and append it to one common polyData object
+          bodyPolyData.AddInput(poly);
+          polyReader.GetOutput().ReleaseDataFlagOn();
+      }
+
+      // Mapper
+      vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
+      bodyMapper.SetInput(bodyPolyData.GetOutput());
+      bodyRep.SetMapper(bodyMapper);
+
+      // Scale
+      double[] scales = new double[3];
+      bodyDisplayer.getScaleFactors(scales);
+      bodyRep.SetScale(scales);
+
+      // Add to assembly only if populated to avoid artificially big bounding box
+      if (bodyDisplayer.getNumGeometryFiles()>0)
+         modelAssembly.AddPart(bodyRep);
+
+      return bodyRep;
+   }
+
+   /**
+    * Create actor for wrap object(s)
+    * TODO: Does this really handle multiple geometries under the visibleObject?
+    */
+   private vtkActor createAndAddWrapObjectActor(vtkAssembly modelAssembly, VisibleObject visibleObject)
+   {
+      vtkActor attachmentRep = new vtkActor();
+      for(int gc=0; gc<visibleObject.countGeometry(); gc++){
+         Geometry g = visibleObject.getGeometry(gc);
+         AnalyticGeometry ag=null;
+         ag = AnalyticGeometry.dynamic_cast(g);
+         if (ag != null){  
+            vtkPolyData analyticPolyData = AnalyticGeometryDisplayer.getPolyData(ag);
+
+            // Move rep to proper location 
+            vtkTransformPolyDataFilter mover = new vtkTransformPolyDataFilter();
+            vtkTransform moverTransform = new vtkTransform();
+            moverTransform.SetMatrix(convertTransformToVtkMatrix4x4(visibleObject.getTransform()));
+            mover.SetInput(analyticPolyData);
+            mover.SetTransform(moverTransform);
+            
+            // Mapper
+            vtkPolyDataMapper mapper = new vtkPolyDataMapper();
+            mapper.SetInput(mover.GetOutput());
+            attachmentRep.SetMapper(mapper);
+
+            // Color/shading
+            attachmentRep.GetProperty().SetColor(defaultWrapObjectColor);
+            attachmentRep.GetProperty().SetRepresentationToWireframe();
+         } else {  // General geometry
+            // throw an exception for not implemented though should be identical
+            throw new UnsupportedOperationException(
+                    "Single Model Visuals: Geometry visualization Not yet implemented");
+         }
+      }
+
+      if(attachmentRep!=null) modelAssembly.AddPart(attachmentRep);
+
+      return attachmentRep;
+   }
+
+    /**
+     * updateModelDisplay with new transforms cached in animationCallback.
+     * This method must be optimized since it's invoked during live animation
+     * of simulations and/or analyses (ala IK).
+     */
+   public void updateModelDisplay(Model model) {
+      // Cycle thru bodies and update their transforms from the kinematics engine
+        double[] pos = new double[3];
+        double[] gPos = new double[3];
+        BodySet bodies = model.getDynamicsEngine().getBodySet();
+        for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
+
+            AbstractBody body = bodies.get(bodyNum);
+
+            // Fill the maps between objects and display to support picking, highlighting, etc..
+            // The reverse map takes an actor to an Object and is filled as actors are created.
+            vtkProp3D bodyRep= mapObject2VtkObjects.get(body);
+            vtkMatrix4x4 bodyVtkTransform= getBodyTransform(model, body);
+            bodyRep.SetUserMatrix(bodyVtkTransform);
+
+            // For dependents (markers, muscle points, update xforms as well)
+            VisibleObject bodyDisplayer = body.getDisplayer();
+            for(int j=0; j < bodyDisplayer.countDependents();j++){
+                VisibleObject dependent = bodyDisplayer.getDependent(j);
+                OpenSimObject owner = dependent.getOwner();
+
+                if (AbstractMarker.safeDownCast(owner)!=null){
+                    // Convert marker pos to global pos, and update the marker's glyph location
+                    dependent.getTransform().getPosition(pos);
+                    model.getDynamicsEngine().transformPosition(body, pos, gPos);
+                    int index = (mapMarkers2Glyphs.get(owner)).intValue();
+                    getMarkersRep().setLocation(index, gPos);
+                } else if (MusclePoint.safeDownCast(owner)!=null||
+                        MuscleViaPoint.safeDownCast(owner)!=null){
+                   // Muscle points are handled in updateActuatorsGeometry
+                } else {
+                   // Must be a wrap object, so we set the wrap object's transform to the body transform (the wrap object
+                   // has an additional xform that was set in createModelAssembly specifying the wrap object's xform in its parent body's space)
+                   vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
+                   deptAssembly.SetUserMatrix(bodyVtkTransform);
+                }
+            }
+        }
+       
+        getMarkersRep().setModified();
+        updateActuatorsGeometry(model);
+        updateUserObjects();
+   }
+
+   /**
+    * Functions for dealing with actuator geometry
+    */
+    private void addActuatorsGeometry(Model mdl, vtkAssembly modelAssembly) {
+        ActuatorSet acts = mdl.getActuatorSet();
+        for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
+           addActuatorGeometry(acts.get(actNumber), false);
+        }
+        modelAssembly.AddPart(getMuscleSegmentsRep().getVtkActor());
+        getMuscleSegmentsRep().setModified();
+        modelAssembly.AddPart(getMusclePointsRep().getVtkActor());
+        getMusclePointsRep().setModified();
+    }
+
+    public void addActuatorGeometry(AbstractActuator act, boolean callSetModified) {
+       AbstractMuscle muscle = AbstractMuscle.safeDownCast(act);
+       if(muscle == null) return;
+       LineSegmentMuscleDisplayer disp = new LineSegmentMuscleDisplayer(muscle, getMusclePointsRep(), getMuscleSegmentsRep());
+       mapActuator2Displayer.put(act, disp);
+       disp.addGeometry();
+       if (callSetModified) {
+          getMuscleSegmentsRep().setModified();
+          getMusclePointsRep().setModified();
+       }
+    }
+
+   private void updateActuatorsGeometry(ActuatorSet acts) {
+      Iterator<LineSegmentMuscleDisplayer> dispIter = mapActuator2Displayer.values().iterator();
+      while(dispIter.hasNext()) dispIter.next().updateGeometry(true);
+      getMuscleSegmentsRep().setModified();
+      getMusclePointsRep().setModified();
+   }
+
+   public void updateActuatorGeometry(AbstractActuator act, boolean callUpdateDisplayer) {
+      LineSegmentMuscleDisplayer disp = mapActuator2Displayer.get(act);
+      if(disp != null) {
+         disp.updateGeometry(callUpdateDisplayer);
+         getMuscleSegmentsRep().setModified();
+         getMusclePointsRep().setModified();
+      }
+   }
+
+   public void updateActuatorsGeometry(Model mdl) {
+      updateActuatorsGeometry(mdl.getActuatorSet());
+   }
+
+   public void removeActuatorGeometry(AbstractActuator act) {
+      LineSegmentMuscleDisplayer disp = mapActuator2Displayer.get(act);
+      if(disp != null) {
+         disp.removeGeometry();
+         mapActuator2Displayer.remove(act);
+         getMuscleSegmentsRep().setModified();
+         getMusclePointsRep().setModified();
+      }
+   }
+
      /**
       * Get the vtkTransform matrix between ground and a body frame,
       */
@@ -345,90 +469,6 @@ public class SingleModelVisuals {
         }
         return 0;
     }
-    public void addActuatorGeometry(AbstractActuator act, boolean callSetModified) {
-       AbstractMuscle muscle = AbstractMuscle.safeDownCast(act);
-       if(muscle == null) return;
-       LineSegmentMuscleDisplayer disp = new LineSegmentMuscleDisplayer(muscle, getMusclePointsRep(), getMuscleSegmentsRep());
-       mapActuator2Displayer.put(act, disp);
-       disp.addGeometry();
-       if (callSetModified) {
-          getMuscleSegmentsRep().setModified();
-          getMusclePointsRep().setModified();
-       }
-    }
-    /**
-     * Visualize all actuators and add created vtk creatures to the model Assembly
-     * Potentially can be used to add muscles separately from a file to an existing model.
-     */
-    private void addActuatorsGeometry(Model  mdl, vtkAssembly modelAssembly) {
-        // Now the muscles which are different creatures since they don't have a frame of their own
-        // We'll display them by asking the "actuators for their geometry which may contain 
-        // muscle points as well as segments connecting them
-        ActuatorSet acts = mdl.getActuatorSet();
-        for(int actNumber=0; actNumber < acts.getSize(); actNumber++){
-           addActuatorGeometry(acts.get(actNumber), false);
-        }
-        modelAssembly.AddPart(getMuscleSegmentsRep().getVtkActor());
-        getMuscleSegmentsRep().setModified();
-        // EG
-        modelAssembly.AddPart(getMusclePointsRep().getVtkActor());
-        getMusclePointsRep().setModified();
-    }
-    /**
-     * updateModelDisplay with new transforms cached in animationCallback.
-     * This method must be optimized since it's invoked during live animation
-     * of simulations and/or analyses (ala IK).
-     */
-   public void updateModelDisplay(Model model) {
-      // Cycle thru bodies and update their transforms from the kinematics engine
-        double[] pos = new double[3];
-        double[] gPos = new double[3];
-        BodySet bodies = model.getDynamicsEngine().getBodySet();
-        for(int bodyNum=0; bodyNum<bodies.getSize();  bodyNum++){
-
-            AbstractBody body = bodies.get(bodyNum);
-
-            // Fill the maps between objects and display to support picking, highlighting, etc..
-            // The reverse map takes an actor to an Object and is filled as actors are created.
-            vtkProp3D bodyRep= mapObject2VtkObjects.get(body);
-            vtkMatrix4x4 bodyVtkTransform= getBodyTransform(model, body);
-            //Transform opensimTransform = animationCallback.getBodyTransform(bodyNum);
-            //vtkMatrix4x4 bodyVtkTransform = convertTransformToVtkMatrix4x4(opensimTransform);
-            bodyRep.SetUserMatrix(bodyVtkTransform);
-
-            // For dependents (markers, muscle points, update xforms as well)
-            VisibleObject bodyDisplayer = body.getDisplayer();
-            int ct = bodyDisplayer.countDependents();
-            
-            //System.out.println("Body "+body+" has "+ct+ " dependents");
-            for(int j=0; j < ct;j++){
-                VisibleObject dependent = bodyDisplayer.getDependent(j);
-                OpenSimObject owner = dependent.getOwner();
-
-                if (AbstractMarker.safeDownCast(owner)!=null){
-                    // Convert marker pos to global pos.
-                    dependent.getTransform().getPosition(pos);
-                    // xfrom to ground frame
-                    model.getDynamicsEngine().transformPosition(body, pos, gPos);
-                    int index = ((Integer)mapMarkers2Glyphs.get(owner)).intValue();
-                    getMarkersRep().setLocation(index, gPos);
-                    continue;
-                }
-                else if (MusclePoint.safeDownCast(owner)!=null||
-                        MuscleViaPoint.safeDownCast(owner)!=null){
-                    continue;
-                }
-                vtkProp3D deptAssembly = mapObject2VtkObjects.get(dependent.getOwner());
-                deptAssembly.SetUserMatrix(bodyVtkTransform);
-            }
-
-        }
-        // Now the muscles
-        updateActuatorsGeometry(model);
-        //animationCallback.mutex_end(1);
-        getMarkersRep().setModified();
-        updateUserObjects();
-   }
    /**
     * Utility to convert Transform as defined by OpenSim to the form used by vtk
     */
@@ -446,37 +486,6 @@ public class SingleModelVisuals {
       }
       m.DeepCopy(xformAsVector);
       return m;
-   }
-
-   /**
-    * Update display of muscles and forces if any during playing back animation/motion, ..
-    */
-   private void updateActuatorsGeometry(ActuatorSet acts) {
-      Iterator<LineSegmentMuscleDisplayer> dispIter = mapActuator2Displayer.values().iterator();
-      while(dispIter.hasNext()) dispIter.next().updateGeometry(true);
-      //getMuscleSegmentsRep().setModified();
-      //getMusclePointsRep().setModified();
-   }
-
-   public void removeActuatorGeometry(AbstractActuator act) {
-      LineSegmentMuscleDisplayer disp = mapActuator2Displayer.get(act);
-      if(disp != null) {
-         disp.removeGeometry();
-         mapActuator2Displayer.remove(act);
-      }
-   }
-
-   public void updateActuatorGeometry(AbstractActuator act, boolean callUpdateDisplayer) {
-      LineSegmentMuscleDisplayer disp = mapActuator2Displayer.get(act);
-      if(disp != null) {
-         disp.updateGeometry(callUpdateDisplayer);
-         getMuscleSegmentsRep().setModified();
-         getMusclePointsRep().setModified();
-      }
-   }
-
-   public void updateActuatorsGeometry(Model mdl) {
-      updateActuatorsGeometry(mdl.getActuatorSet());
    }
 
    /**
@@ -498,9 +507,12 @@ public class SingleModelVisuals {
       modelDisplayAssembly.RemovePart(userObj);
    }
 
+   /**
+    * Functions to deal with glyphs for markers and muscle points/segments
+    */
     private void initDefaultShapesAndColors() {
-        // Markers
-       
+
+       // Markers
        vtkSphereSource marker=new vtkSphereSource();
        marker.SetRadius(.01);
        marker.SetCenter(0., 0., 0.);
@@ -509,7 +521,7 @@ public class SingleModelVisuals {
        strip1.SetInput(marker.GetOutput());
        getMarkersRep().setShape(strip1.GetOutput());
        
-       // MusclePoints
+       // Muscle points
        vtkSphereSource viaPoint=new vtkSphereSource();
        viaPoint.SetRadius(DEFAULT_MUSCLE_RADIUS);
        viaPoint.SetCenter(0., 0., 0.);
@@ -519,152 +531,24 @@ public class SingleModelVisuals {
        strip2.SetInput(viaPoint.GetOutput());
        getMusclePointsRep().setShape(strip2.GetOutput());
        getMusclePointsRep().scaleByVector();
-       
+      
+       // Muscle segments 
        vtkCylinderSource muscleSegment=new vtkCylinderSource();
        muscleSegment.SetRadius(DEFAULT_MUSCLE_RADIUS);
        muscleSegment.SetHeight(1.0);
        muscleSegment.SetCenter(0.0, 0.0, 0.0);
        muscleSegment.CappingOff();
-       
        getMuscleSegmentsRep().setColor(defaultMuscleColor);
        getMuscleSegmentsRep().setShape(muscleSegment.GetOutput());
-     }
-
-    /**
-     * Convert AnalyticGeometry object passed in to the corresponding vtk polyhedral representation.
-     * Transform is passed in as well since the way it applies to PolyData depends on source
-     */
-    private vtkPolyData getPolyDataForAnalyticGeometry(AnalyticGeometry ag) {
-       Geometry.GeometryType analyticType = ag.getShape();
-       boolean quadrants[] = new boolean[6];
-       ag.getQuadrants(quadrants);
-       double[] pos = new double[3];
-       if (analyticType == Geometry.GeometryType.Sphere){
-          vtkSphereSource sphere = new vtkSphereSource();
-          AnalyticSphere typed = AnalyticSphere.dynamic_cast(ag);
-          sphere.LatLongTessellationOn(); 
-          sphere.SetPhiResolution(RESOLUTION_PHI);
-          sphere.SetThetaResolution(RESOLUTION_THETA);
-          sphere.SetRadius(typed.getRadius());
-          if (ag.isPiece())
-            setQuadrants(quadrants, sphere);
-          return sphere.GetOutput();
-       }
-       else if (analyticType == Geometry.GeometryType.Ellipsoid){
-          vtkSphereSource sphere = new vtkSphereSource();
-          sphere.LatLongTessellationOn(); 
-          sphere.SetPhiResolution(RESOLUTION_PHI);
-          sphere.SetThetaResolution(RESOLUTION_THETA);
-          sphere.SetRadius(1.0);
-          if (ag.isPiece())
-            setQuadrants(quadrants, sphere);
-          
-          AnalyticEllipsoid typed = AnalyticEllipsoid.dynamic_cast(ag);
-          // Make a stretching transform to take the sphere into an ellipsoid
-          vtkTransformPolyDataFilter stretch = new vtkTransformPolyDataFilter();
-          vtkTransform stretchSphereToEllipsoid = new vtkTransform();
-          double[] params = new double[]{1.0, 1.0, 1.0};
-          typed.getEllipsoidParams(params);
-          stretchSphereToEllipsoid.Scale(params[0], params[1], params[2]);
-          stretch.SetTransform(stretchSphereToEllipsoid);
-          stretch.SetInputConnection(sphere.GetOutputPort());
-          return stretch.GetOutput();
-       }
-       else if (analyticType == Geometry.GeometryType.Cylinder){
-          vtkCylinderSource cylinder = new vtkCylinderSource();
-          cylinder.SetResolution(CYL_RESOLUTION);
-          AnalyticCylinder typed = AnalyticCylinder.dynamic_cast(ag);
-          double[] params = new double[]{1.0, 1.0};
-          typed.getCylinderParams(params);
-          //System.out.println("Processing cyl (r, l)"+params[0]+","+params[1]);
-          cylinder.SetRadius(params[0]);
-          cylinder.SetHeight(params[1]);
-          // Transform vtk cylinder (Y-axis aligned at origin) to match SIMM's along Z-axis at center
-          vtkTransformPolyDataFilter xformOriginDirsFilter = new vtkTransformPolyDataFilter();
-          vtkTransform xformOriginDirs = new vtkTransform();
-          xformOriginDirs.RotateX(90);
-          xformOriginDirsFilter.SetTransform(xformOriginDirs);
-          xformOriginDirsFilter.SetInputConnection(cylinder.GetOutputPort());
-          vtkPolyData full = xformOriginDirsFilter.GetOutput();
-          if (ag.isPiece())
-            return clipPolyData(quadrants, full);
-          else
-             return full;
-       }
-       else if (analyticType == Geometry.GeometryType.Torus){
-          vtkParametricTorus torus=new vtkParametricTorus();
-          vtkParametricFunctionSource torusSource = new vtkParametricFunctionSource();
-          torusSource.SetParametricFunction(torus);
-          vtkPolyDataMapper torusMapper=new vtkPolyDataMapper();
-          torusMapper.SetInputConnection(torusSource.GetOutputPort());
-
-          AnalyticTorus typed = AnalyticTorus.dynamic_cast(ag);
-          double[] params = new double[]{1.0, 1.0};
-          typed.getTorusParams(params);
-          //System.out.println("Processing torus (r1, r2)"+params[0]+","+params[1]);
-          torus.SetRingRadius(params[0]);
-          torus.SetCrossSectionRadius(params[1]);
-          vtkPolyData full = torusSource.GetOutput();
-          if (ag.isPiece())
-            return clipPolyData(quadrants, full);
-          else
-             return full;
-       }
-       return null;
     }
-    /**
-     * Based on the array of quadrants, clip the wrap-object sphere/ellipsoid 
-     */
-   private void setQuadrants(final boolean quadrants[], final vtkSphereSource sphere) {
-      if (!quadrants[0]){ 
-         sphere.SetStartTheta(270.0);
-         sphere.SetEndTheta(90.0);
-      }
-      else if (!quadrants[1]){
-         sphere.SetStartTheta(90.0);
-         sphere.SetEndTheta(270.0);
-      }
-      else if (!quadrants[2]){
-        sphere.SetEndTheta(180.0);
-      }
-      else if (!quadrants[3]){  
-         sphere.SetStartTheta(180.0);
-      }
-      else if (!quadrants[4])   
-        sphere.SetEndPhi(90.0);
-      else if (!quadrants[5])
-         sphere.SetStartPhi(90.0);
-   }
-
-   /** 
-    * Clip poly data of Cylinder, torus to proper half per passed in quadrants array
-    * only x, y are considered here as they are supported by the kinematics engine
-    */
-   private vtkPolyData clipPolyData(boolean[] quadrants, vtkPolyData full) {
-      vtkPlane cutPlane = new vtkPlane();
-      if (!quadrants[0])
-         cutPlane.SetNormal(1.0, 0.0, 0.0);
-      else if (!quadrants[1])
-         cutPlane.SetNormal(-1.0, 0.0, 0.0);
-      else if (!quadrants[2]) 
-         cutPlane.SetNormal(0.0, 1.0, 0.0);
-      else if (!quadrants[3])
-         cutPlane.SetNormal(0.0, -1.0, 0.0);
-      else  // do nothing
-         return full;
-      vtkClipPolyData clipper = new vtkClipPolyData();
-      clipper.SetClipFunction(cutPlane);
-      clipper.SetInput(full);
-      
-      return clipper.GetOutput();
-   }
 
     public OpenSimvtkGlyphCloud getGlyphObjectForActor(vtkActor act) {
         if (getMarkersRep().getVtkActor()==act)
             return getMarkersRep();
-        if (getMusclePointsRep().getVtkActor()==act)
+        else if (getMusclePointsRep().getVtkActor()==act)
             return getMusclePointsRep();
-        return null;
+        else
+           return null;
     }
 
     public OpenSimvtkGlyphCloud getMarkersRep() {

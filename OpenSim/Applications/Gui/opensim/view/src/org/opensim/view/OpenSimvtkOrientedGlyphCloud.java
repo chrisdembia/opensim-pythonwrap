@@ -37,6 +37,7 @@ import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProperty;
 import vtk.vtkTensorGlyph;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -64,16 +65,6 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
         glyph.ExtractEigenvaluesOff();
         glyph.ThreeGlyphsOff();
         glyph.SymmetricOff();
-    }
-    public int addLocation(double[] newPoint) {
-        int id = pointCloud.InsertNextPoint(newPoint);
-        tensorData.InsertTuple9(id, 1., 0., 0., 0., 1., 0., 0., 0., 1.);
-        return id;
-    }
-    public int addLocation(double px, double py, double pz) {
-        int id= pointCloud.InsertNextPoint(px, py, pz);
-        tensorData.InsertTuple9(id, 1., 0., 0., 0., 1., 0., 0., 0., 1.);
-        return id;
     }
     
     public void setShape(vtkPolyData rep) {
@@ -124,6 +115,27 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
    public void setModified() {
       pointPolyData.Modified();	//Enough to mark the polyData object as modified to trigger re-execution of the pipeline.
    }
+
+   /////////////////////////////////////////////////////////////////////////////
+   // Add/Remove locations
+   /////////////////////////////////////////////////////////////////////////////
+
+   public int addLocation() {
+      return addLocation(0.,0.,0.);
+   }
+
+   public int addLocation(double[] newPoint) {
+      int id = pointCloud.InsertNextPoint(newPoint);
+      tensorData.InsertTuple9(id, 1., 0., 0., 0., 1., 0., 0., 0., 1.);
+      return id;
+   }
+
+   public int addLocation(double px, double py, double pz) {
+      int id= pointCloud.InsertNextPoint(px, py, pz);
+      tensorData.InsertTuple9(id, 1., 0., 0., 0., 1., 0., 0., 0., 1.);
+      return id;
+   }
+
    /*
     * Remove the specified index from view. 
     * There should be a better way to do this but vtkPoints doesn't have an interface
@@ -133,5 +145,18 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
         vtkPointData t = pointPolyData.GetPointData();
         t.GetTensors().SetTuple9(index, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
    }
-        
+
+   /////////////////////////////////////////////////////////////////////////////
+   // Show/Hide points
+   /////////////////////////////////////////////////////////////////////////////
+   
+   public void show(int index) {
+      vtkPointData t = pointPolyData.GetPointData();
+      t.GetTensors().SetTuple9(index, 1., 0., 0., 0., 1., 0., 0., 0., 0.);
+   }
+
+   public void hide(int index) {
+      vtkPointData t = pointPolyData.GetPointData();
+      t.GetTensors().SetTuple9(index, 0., 0., 0., 0., 0., 0., 0., 0., 0.);
+   }
 }

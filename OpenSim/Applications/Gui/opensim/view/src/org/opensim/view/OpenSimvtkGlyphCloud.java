@@ -43,6 +43,7 @@ import vtk.vtkPolyDataAlgorithm;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProperty;
 import vtk.vtkSphereSource;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -87,30 +88,14 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         pointPolyData.GetPointData().SetNormals(lineNormals);
         vectorData.SetNumberOfTuples(1);
         vectorData.SetNumberOfComponents(3);
+        pointPolyData.GetPointData().SetVectors(vectorData);
         if (createScalars == true) {
            scalarData = new vtkFloatArray();
            scalarData.SetNumberOfTuples(1);
            scalarData.SetNumberOfComponents(1);
            pointPolyData.GetPointData().SetScalars(scalarData);
         }
-        pointPolyData.GetPointData().SetVectors(vectorData);
         glyph.GeneratePointIdsOn();
-    }
-    public int addLocation(double[] newPoint) {
-        int id = pointCloud.InsertNextPoint(newPoint);
-        lineNormals.InsertTuple3(id, 0., 0., 0.);
-        vectorData.InsertTuple3(id, 0., 0., 0.);
-        if (scalarData != null)
-           scalarData.InsertTuple1(id, 0.0);
-        return id;
-    }
-    public int addLocation(double px, double py, double pz) {
-        int id= pointCloud.InsertNextPoint(px, py, pz);
-        lineNormals.InsertTuple3(id, 0., 0., 0.);
-        vectorData.InsertTuple3(id, 0., 0., 0.);
-        if (scalarData != null)
-           scalarData.InsertTuple1(id, 0.0);
-        return id;
     }
     
     public void setShape(vtkPolyData rep) {
@@ -141,7 +126,7 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
        //actor.SetMapper(mapper);
         return actor;
     }
-    
+
     public void setLocation(int index, double x, double y, double z) {
         pointCloud.SetPoint(index, x, y, z);
     }
@@ -150,6 +135,8 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         pointCloud.SetPoint(index, point[0], point[1], point[2]);
     }
     
+
+
     public void setNormalAtLocation(int index, double x, double y, double z) {
         vtkPointData t = pointPolyData.GetPointData();
         vtkDataArray u = t.GetNormals();
@@ -198,31 +185,85 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
    void scaleByVectorComponents() {
       glyph.SetScaleModeToScaleByVectorComponents();
    }
-   
+
+   /////////////////////////////////////////////////////////////////////////////
+   // Add/Remove locations
+   /////////////////////////////////////////////////////////////////////////////
+
+   public int addLocation(OpenSimObject obj) {
+      int idx = addLocation(0.,0.,0.);
+      mapObjectIdsToPointIds.put(obj, idx);
+      mapPointIdsToObjectIds.put(idx, obj);
+      return idx;
+   }
+
+   public int addLocation() {
+      return addLocation(0.,0.,0.);
+   }
+
+   public int addLocation(double[] newPoint) {
+      int id = pointCloud.InsertNextPoint(newPoint);
+      lineNormals.InsertTuple3(id, 0., 0., 0.);
+      vectorData.InsertTuple3(id, 0., 0., 0.);
+      if (scalarData != null) scalarData.InsertTuple1(id, 0.0);
+      return id;
+   }
+
+   public int addLocation(double px, double py, double pz) {
+      int id= pointCloud.InsertNextPoint(px, py, pz);
+      lineNormals.InsertTuple3(id, 0., 0., 0.);
+      vectorData.InsertTuple3(id, 0., 0., 0.);
+      if (scalarData != null) scalarData.InsertTuple1(id, 0.0);
+      return id;
+   }
+
    // This works as long as you've associated scaling with the vector channel
    void remove(int index) {
       setVectorDataAtLocation(index, 0., 0., 0.);
    }
 
-    int addLocation(double[] gPos, OpenSimObject obj) {
-        int idx = addLocation(gPos);
+   /////////////////////////////////////////////////////////////////////////////
+   // Show/Hide points
+   /////////////////////////////////////////////////////////////////////////////
+   
+   public void show(int index) {
+      setVectorDataAtLocation(index, 1., 1., 1.);
+   }
 
-        mapObjectIdsToPointIds.put(obj, idx);
-        mapPointIdsToObjectIds.put(idx, obj);
-        //System.out.println("Glyph point id="+idx+" object="+obj.getName());
-        return idx;
-    }
-    
+   public void hide(int index) {
+      setVectorDataAtLocation(index, 0., 0., 0.);
+   }
+
+   /////////////////////////////////////////////////////////////////////////////
+   // Mapping between picked id's, point id's, and objects
+   /////////////////////////////////////////////////////////////////////////////
+
     public OpenSimObject getPickedObject(int pickedId) {
+       glyph.GetOutput().BuildCells();
        vtkIdList ids = new vtkIdList();
        glyph.GetOutput().GetCellPoints(pickedId, ids);
         vtkDataArray inputIds = 
             glyph.GetOutput().GetPointData().GetArray("InputPointIds");
         int inputId = (int)inputIds.GetTuple1(ids.GetId(0));
+        System.out.println("GlyphCloud: pickedId="+pickedId+"  inputId="+inputId+"  ids="+ids);
+        for(int i=0;i<(int)ids.GetNumberOfIds();i++) {
+           System.out.println("["+i+"] = "+(int)ids.GetId(i)+" --> "+(int)inputIds.GetTuple1(ids.GetId(i)));
+        }
         return mapPointIdsToObjectIds.get(inputId);
     }
  
     public int getPointId(OpenSimObject object) {
        return mapObjectIdsToPointIds.get(object);
-}
+   }
+
+   public void setObjectAtPointId(int id, OpenSimObject obj) {
+      // To be safe, get rid of any stale mappings
+      Integer oldId = mapObjectIdsToPointIds.get(obj);
+      if(oldId!=null && oldId!=id) mapPointIdsToObjectIds.put(oldId,null);
+      mapObjectIdsToPointIds.put(obj,id);
+
+      OpenSimObject oldObj = mapPointIdsToObjectIds.get(id);
+      if(oldObj!=null && oldObj!=obj) mapObjectIdsToPointIds.put(oldObj,null);
+      mapPointIdsToObjectIds.put(id,obj);
+   }
 }
