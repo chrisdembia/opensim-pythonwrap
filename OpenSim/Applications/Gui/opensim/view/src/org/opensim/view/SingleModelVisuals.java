@@ -92,7 +92,7 @@ public class SingleModelVisuals {
     
     // Markers and muscle points are represented as Glyphs for performance
     private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud();
-    private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(true);
+    private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(true,false);
     private OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
 
     private vtkProp3DCollection    userObjects = new vtkProp3DCollection();

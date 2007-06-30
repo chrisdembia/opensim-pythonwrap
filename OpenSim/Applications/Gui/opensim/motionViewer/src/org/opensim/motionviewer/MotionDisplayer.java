@@ -58,8 +58,8 @@ public class MotionDisplayer {
 
     Hashtable<Integer, ObjectTypesInMotionFiles> mapIndicesToObjectTypes=new Hashtable<Integer, ObjectTypesInMotionFiles>(40);
     Hashtable<Integer, Object> mapIndicesToObjects=new Hashtable<Integer, Object>(40);
-    OpenSimvtkGlyphCloud  forcesRep=new OpenSimvtkGlyphCloud(false);
-    OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
+    OpenSimvtkGlyphCloud  forcesRep=new OpenSimvtkGlyphCloud(false, true);
+    OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false, false);
     private Storage simmMotionData;
     private Model model;
 

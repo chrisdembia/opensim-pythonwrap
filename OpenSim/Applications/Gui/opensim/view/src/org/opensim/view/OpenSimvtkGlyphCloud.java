@@ -56,11 +56,10 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     private vtkPoints           pointCloud = new vtkPoints(); // object centers
     private vtkPolyData         pointPolyData = new vtkPolyData();
     private vtkPolyData         shape=new vtkSphereSource().GetOutput();
-    private vtkPolyData         shape2=new vtkCubeSource().GetOutput();
     private vtkActor            actor = new vtkActor();
     private vtkPolyDataMapper   mapper = new vtkPolyDataMapper();
     private vtkGlyph3D          glyph= new vtkGlyph3D();
-    private vtkFloatArray       lineNormals = new vtkFloatArray();
+    private vtkFloatArray       lineNormals = null;
     // vectorData is used primarily to "hide" objects, by setting the data to 0,0,0
     // a muscle point is hidden otherwise 1,1,1 except for forces that are really scaled uniformely by mag
     private vtkFloatArray       vectorData = new vtkFloatArray();
@@ -73,7 +72,7 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     * defaults to not create Scalars
     */
     public OpenSimvtkGlyphCloud() {
-       this(false);
+       this(false,false);
     }
     
     /**
@@ -81,15 +80,19 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     * if createScalars is true then obbjects are colored based on scalarValues
     * otherwise it uses Vector magnitude.
     */
-    public OpenSimvtkGlyphCloud(boolean createScalars) {
-        lineNormals.SetNumberOfTuples(1);
-        lineNormals.SetNumberOfComponents(3);
+    public OpenSimvtkGlyphCloud(boolean createScalars, boolean createNormals) {
         pointPolyData.SetPoints(pointCloud);
-        pointPolyData.GetPointData().SetNormals(lineNormals);
+        // Always use vector data because that's how we scale things to make them disappear
         vectorData.SetNumberOfTuples(1);
         vectorData.SetNumberOfComponents(3);
         pointPolyData.GetPointData().SetVectors(vectorData);
-        if (createScalars == true) {
+        if (createNormals) {
+           lineNormals = new vtkFloatArray();
+           lineNormals.SetNumberOfTuples(1);
+           lineNormals.SetNumberOfComponents(3);
+           pointPolyData.GetPointData().SetNormals(lineNormals);
+        }
+        if (createScalars) {
            scalarData = new vtkFloatArray();
            scalarData.SetNumberOfTuples(1);
            scalarData.SetNumberOfComponents(1);
@@ -117,13 +120,6 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         glyph.SetInput(pointPolyData);
         mapper.SetInput(glyph.GetOutput());
         actor.SetMapper(mapper);
-        
-       //glyph.SetSource(1, shape);
-       //glyph.SetInput(1, pointPolyData);
-       //glyph.AddInput(2, pointPolyData);
-       //glyph.SetSource(2, shape2);
-       //mapper.SetInput(glyph.GetOutput());
-       //actor.SetMapper(mapper);
         return actor;
     }
 
@@ -134,13 +130,13 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     public void setLocation(int index, double[] point) {
         pointCloud.SetPoint(index, point[0], point[1], point[2]);
     }
-    
-
 
     public void setNormalAtLocation(int index, double x, double y, double z) {
-        vtkPointData t = pointPolyData.GetPointData();
-        vtkDataArray u = t.GetNormals();
-        u.SetTuple3(index, x, y, z);
+        if (lineNormals != null) {
+           vtkPointData t = pointPolyData.GetPointData();
+           vtkDataArray u = t.GetNormals();
+           u.SetTuple3(index, x, y, z);
+        }
     }
     
     public void setVectorDataAtLocation(int index, double x, double y, double z) {
@@ -203,16 +199,16 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
 
    public int addLocation(double[] newPoint) {
       int id = pointCloud.InsertNextPoint(newPoint);
-      lineNormals.InsertTuple3(id, 0., 0., 0.);
       vectorData.InsertTuple3(id, 0., 0., 0.);
+      if (lineNormals != null) lineNormals.InsertTuple3(id, 0., 0., 0.);
       if (scalarData != null) scalarData.InsertTuple1(id, 0.0);
       return id;
    }
 
    public int addLocation(double px, double py, double pz) {
       int id= pointCloud.InsertNextPoint(px, py, pz);
-      lineNormals.InsertTuple3(id, 0., 0., 0.);
       vectorData.InsertTuple3(id, 0., 0., 0.);
+      if (lineNormals != null) lineNormals.InsertTuple3(id, 0., 0., 0.);
       if (scalarData != null) scalarData.InsertTuple1(id, 0.0);
       return id;
    }
