@@ -235,11 +235,10 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
            vtkCellPicker pPicker=new vtkCellPicker();
            // Important to set tolerance to something small, else it may pick glyphs not directly under cursor
            pPicker.SetTolerance(0.0001);
-           vtkAssemblyNode asmNode=null;
            Lock();
            pPicker.Pick(x, rw.GetSize()[1] - y, 0, ren);
-           asmNode= pPicker.GetPath().GetLastNode();
            UnLock();
+           vtkAssemblyNode asmNode = (pPicker.GetPath()!=null) ? pPicker.GetPath().GetLastNode() : null;
            if (asmNode==null)
               return null;
            vtkActor candidateActor=(vtkActor) asmNode.GetViewProp();
