@@ -67,7 +67,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       OpenSimDB.getInstance().addObserver(this);
       // The following line enables coordinate sliders to update while playing back motion
       // Currently too slow
-      //MotionsDB.getInstance().addObserver(this);
+      MotionsDB.getInstance().addObserver(this);
       // Populate list of cooridnate groups from model
       jCoordinateGroupsComboBox.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e) {
@@ -290,7 +290,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          panel.cancel();
       updateDisplayGroup();
    }//GEN-LAST:event_jGroupsButtonActionPerformed
-   
+  
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JComboBox jCoordinateGroupsComboBox;
@@ -470,7 +470,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          
          AbstractCoordinate coord=coords.get(name);
          coord.setValue(storedValue);
-         mapCoordinates2Sliders.get(coord).updateValueNoEvents();
+         mapCoordinates2Sliders.get(coord).updateValue();
       }
    }
 

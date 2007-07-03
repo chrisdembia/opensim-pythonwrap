@@ -45,7 +45,6 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
     private AbstractCoordinate coord;
     private static double ROUNDOFF=1E-5;  // work around for roundoff converting Strings to/from doubles
     private static String LABELS_FORMAT="###.##";          // Number of digits to show after floating point in bounds
-    private double theValue;  // Just for debugging purposes, real value is in jFormattedTextField.Value
     
    public CoordinateSliderWithBox(AbstractCoordinate coord) {
       this.coord = coord;
@@ -77,8 +76,6 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        jXSlider.setMaximum(numTicks-1);
        
        
-       double initialValue=coord.getValue()*conversion;
-       setTheValue(initialValue, false);  
        createBoundsLabels(jXSlider, min, max, 0, numTicks-1);
        jCoordinateNameLabel.setText(coord.getName());
        jClampedCheckBox.setSelected(coord.getClamped());
@@ -89,6 +86,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        jXSlider.setToolTipText("["+Math.round(min)+", "+Math.round(max)+"]");
        jXSlider.addChangeListener(this);
        jFormattedTextField.addPropertyChangeListener("value", this);
+
+       updateValue();
    }
       
    /** This method is called from within the constructor to
@@ -228,71 +227,48 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
      * During initialization, we don't want to update display of the whole model for every single slider.
      * but do it once after all the sliders were initialized.
      */
-    void setTheValue(double d, boolean updateDisplay)
+    void setTheValue(double theValue, boolean setText, boolean setSlider, boolean setCoordinate, boolean updateDisplay)
     {
-       theValue=d;
-       jFormattedTextField.setValue(new Double(d)); 
-       coord.setValue(d/conversion);
-       if (updateDisplay){
-         ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
+       // Remove change listeners before calling setValue to avoid extraneous events
+       if(setText) {
+          jFormattedTextField.removePropertyChangeListener("value", this);
+          jFormattedTextField.setValue(new Double(theValue)); 
+          jFormattedTextField.addPropertyChangeListener("value", this);
        }
-    }
-    
-    void updateValueNoEvents()
-    {
-       theValue=coord.getValue();
-       // Remove listeners
-       jFormattedTextField.removePropertyChangeListener("value", this);
-       jXSlider.removeChangeListener(this);
-       //Need Conversion?
-       theValue *= conversion;
-       jXSlider.setValue((int)((theValue-min)/step));
-       jFormattedTextField.setValue(new Double(theValue)); 
-       jXSlider.addChangeListener(this);
-       jFormattedTextField.addPropertyChangeListener("value", this);
-       
-       // addListenersBack
+       if(setSlider) {
+          jXSlider.removeChangeListener(this);
+          jXSlider.setValue((int)((theValue-min)/step));
+          jXSlider.addChangeListener(this);
+       }
+       if(setCoordinate) {
+          coord.setValue(theValue/conversion);
+          if (updateDisplay) ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
+       }
     }
 
      public double getTheValue()
     {
         return ((Double)jFormattedTextField.getValue()).doubleValue();
     }
+
+   /**
+    * Update the value of the slider and textbox from the coordinate's current value without triggering any extraneous events or affecting display
+    * Called from CoordinateSliderWithBox in response to model coordinates changing.
+    */
+   public void updateValue()
+   {
+      double theValue=coord.getValue() * conversion;
+      setTheValue(theValue, true, true, false, false);
+   }
+
     /**
      * Slider change
      */
      public void stateChanged(ChangeEvent e) {
         JSlider source = (JSlider) e.getSource();
-        if (source != jXSlider)
-           return;
-        if (source.getValueIsAdjusting()){
-           int tempValue = jXSlider.getValue();
-           //System.out.println("Adjusting"+tempValue);
-           // The following introduces some numerical noise that has no real effect
-           // since only the text is being changed but is annoying
-           String str=String.valueOf(tempValue*step+min);
-           if (str.length()>7){  // Likely this is due to noise, will truncate the string and reparse
-              str = str.substring(0, 7);
-              double truncated = Double.parseDouble(str);
-              str = String.valueOf(truncated);
-           }
-           //jFormattedTextField.setText(str);
-           // The following updates the display more responsively but may fire unnecessary
-           // events while the sldier is still moving and so could be problematic
-           // We work around that by removing the ChangeListener temporarily.
-           jFormattedTextField.removePropertyChangeListener("value", this);
-           theValue=tempValue*step+min;
-           setTheValue(theValue, true);
-           jFormattedTextField.addPropertyChangeListener("value", this);
-        }
-        else { // set the actual value, unnecessary since another event was fired already
-           int tempValue = jXSlider.getValue();
-           //System.out.println("Value changed to"+tempValue);
-           jFormattedTextField.removePropertyChangeListener("value", this);
-           theValue=tempValue*step+min;
-           setTheValue(theValue, false); // display must have been updated while adjusting
-           jFormattedTextField.addPropertyChangeListener("value", this);
-        }
+        if (source != jXSlider) return;
+        double theValue = jXSlider.getValue()*step+min;
+        setTheValue(theValue, true, false, true, (source.getValueIsAdjusting()));
      }
      /**
       * Text field change
@@ -302,12 +278,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
            Number value = (Number)evt.getNewValue();
            Number valueOld = (Number)evt.getOldValue();
           if (value != null && valueOld!=value) {
-              // Remove slider listener temporarily so that we don't keep firing events unnecessarily'
-               jXSlider.removeChangeListener(this);
-               jXSlider.setValue((int)((value.doubleValue()-min)/step));
-               jXSlider.addChangeListener(this);
-               coord.setValue(value.doubleValue()/conversion);
-               ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
+               setTheValue(value.doubleValue(), false, true, true, true);
            }
        }
      }
@@ -378,13 +349,6 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       this.rotational = rotational;
       if (rotational)
          conversion=180.0/Math.PI;
-   }
-   /**
-    * update the value of the slider and textbox without affecting display
-    */
-   void updateValue() {
-      theValue=coord.getValue()*conversion;
-      setTheValue(theValue, false);  
    }
 
    /**
