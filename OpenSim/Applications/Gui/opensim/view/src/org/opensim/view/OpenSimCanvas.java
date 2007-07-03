@@ -43,6 +43,8 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
     OpenSimObject dragObject = null;
     double[] dragPtOld = null; // XYZ coords in world frame of point under cursor during last drag event
     double dragStartZ = 0.0; // Z value in camera frame of point under cursor when dragging began
+    int lastLeftButtonClickCount = 0;
+    OpenSimObject lastLeftButtonClickObject = null;
     
     /** Creates a new instance of OpenSimCanvas */
     public OpenSimCanvas() {
@@ -58,8 +60,26 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
       int keyMods = e.getModifiers();
       double[] worldPos = new double[3];
       OpenSimObject leftClickobj = null;
-      if ((keyMods & InputEvent.BUTTON1_MASK) > 0)
+      if ((keyMods & InputEvent.BUTTON1_MASK) > 0) {
          leftClickobj = findObjectAt(e.getX(), e.getY(), worldPos);
+
+         // Some code to handle double clicking on an object, but which does so in a way that the sequence
+         // CTRL-Click and Click does not count as a double click.  This avoids
+         // treating as double click the case where the user selects an object
+         // (CTRL-Click) and quickly starts dragging (Click & Drag) 
+         if (leftClickobj != null && !ViewDB.getInstance().isPicking()) {
+            if (e.getClickCount() == lastLeftButtonClickCount+1 && leftClickobj == lastLeftButtonClickObject) {
+               handleDoubleClick(leftClickobj);
+               return; 
+            } else {
+               lastLeftButtonClickCount = e.getClickCount();
+               lastLeftButtonClickObject = leftClickobj;
+            } 
+         } else {
+            lastLeftButtonClickCount = -1;
+            lastLeftButtonClickObject = null;
+         }
+      }
 
       if (ViewDB.getInstance().isPicking() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
          if ((keyMods & InputEvent.SHIFT_MASK) > 0) {
@@ -113,14 +133,10 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
      /**
      * Callback invoked when the user doubleclicks an object in the graphics window
      */
-    void handleDoubleClick(MouseEvent evt) {
-       double[] worldPos = new double[3];
-       OpenSimObject obj = findObjectAt(evt.getX(), evt.getY(), worldPos);
-       if (obj != null){
-          ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(obj, ViewDB.getInstance().getCurrenWindow());
-          editorDialog.process();
-          ViewDB.getInstance().statusDisplaySelectedObjects();
-       }
+    void handleDoubleClick(OpenSimObject obj) {
+       ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(obj, ViewDB.getInstance().getCurrenWindow());
+       editorDialog.process();
+       ViewDB.getInstance().statusDisplaySelectedObjects();
     }
 
    public void keyPressed(KeyEvent e) {
@@ -295,7 +311,10 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
    }
 
     public void Render() {
+        //long before=System.nanoTime();
         super.Render();
+        //long after=System.nanoTime();
+        //System.out.println("Render only: "+1e-6*(after-before)+" ms");
         if (movieWriter!=null && movieWriterReady){
             imageFilter.Modified();
             imageFilter.Update();
