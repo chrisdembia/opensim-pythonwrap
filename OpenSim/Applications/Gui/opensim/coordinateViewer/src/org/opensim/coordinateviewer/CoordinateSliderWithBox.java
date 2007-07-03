@@ -242,7 +242,12 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        }
        if(setCoordinate) {
           coord.setValue(theValue/conversion);
-          if (updateDisplay) ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
+          if (updateDisplay) {
+             // Use renderAll rather than repaintAll for greater responsiveness in 3d viewer
+             //ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
+             ViewDB.getInstance().updateModelDisplayNoRepaint(OpenSimDB.getInstance().getCurrentModel());
+             ViewDB.getInstance().renderAll();
+          }
        }
     }
 
