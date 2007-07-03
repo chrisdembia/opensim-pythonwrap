@@ -66,9 +66,6 @@ public class ModelSettingsSerializer {
          //System.out.println("not found");
          settings = new ModelSettings();
       }
-      finally {
-         settings = new ModelSettings();         
-      }
    }
    
    public Object confirmAndWrite()
@@ -76,7 +73,7 @@ public class ModelSettingsSerializer {
       // Show message to prompt user
      NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save model settings to file?");
      Object userSelection=DialogDisplayer.getDefault().notify(dlg);
-     if(userSelection==NotifyDescriptor.OK_OPTION){
+     if(((Integer)userSelection).intValue()==((Integer)NotifyDescriptor.OK_OPTION).intValue()){
          XMLEncoder encoder;
          try {
             encoder = new XMLEncoder(new FileOutputStream(getFilename()));

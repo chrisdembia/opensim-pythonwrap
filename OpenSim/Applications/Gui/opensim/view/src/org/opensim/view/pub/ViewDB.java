@@ -893,7 +893,7 @@ public final class ViewDB extends Observable implements Observer {
             if (b){
                 saveStatus.add(new Boolean(isVisible));
                 if (isVisible && mdl != nextModel)
-                    toggleModelDisplay(nextModel);                
+                    toggleModelDisplay(nextModel);
             }
             else{ // restore from saveStatus array
                 boolean savedVis = saveStatus.get(i).booleanValue();
@@ -941,7 +941,7 @@ public final class ViewDB extends Observable implements Observer {
          mapModelsToSettings.put(model, serializer);
          return;
       }
-      String settingsFileName = modelFileName.substring(0, modelFileName.indexOf(".")-1);
+      String settingsFileName = modelFileName.substring(0, modelFileName.indexOf("."));
       settingsFileName = settingsFileName+"_settings.xml";
       ModelSettingsSerializer serializer = new ModelSettingsSerializer(settingsFileName, true);
       mapModelsToSettings.put(model, serializer);
