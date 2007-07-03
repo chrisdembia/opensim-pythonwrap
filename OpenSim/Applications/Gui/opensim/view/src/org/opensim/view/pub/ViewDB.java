@@ -395,6 +395,13 @@ public final class ViewDB extends Observable implements Observer {
          windowIter.next().getCanvas().repaint();
       }
    }
+
+   public void renderAll() {
+      Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
+      while(windowIter.hasNext()){
+         windowIter.next().getCanvas().Render();
+      }
+   }
    
    /**
     * Set the color of the passed in object.
@@ -526,15 +533,21 @@ public final class ViewDB extends Observable implements Observer {
       }
    }
 
+   private int findObjectInSelectedList(OpenSimObject obj) {
+      for (int i = 0; i < selectedObjects.size(); i++) 
+         if (OpenSimObject.getCPtr(obj) == OpenSimObject.getCPtr(selectedObjects.get(i).getOpenSimObject()))
+            return i;
+      return -1;
+   }
+
    private boolean removeObjectFromSelectedList(OpenSimObject obj) {
-      for (int i = 0; i < selectedObjects.size(); i++) {
-         if (OpenSimObject.getCPtr(obj) == OpenSimObject.getCPtr(selectedObjects.get(i).getOpenSimObject())) {
-            // remove the object from the list of selected ones
-            selectedObjects.remove(i);
-            // mark it as unselected
-            markSelected(selectedObjects.get(i), false, true, true);
-            return true;
-         }
+      int i = findObjectInSelectedList(obj);
+      if(i >= 0) {
+         // mark it as unselected
+         markSelected(selectedObjects.get(i), false, true, true);
+         // remove the object from the list of selected ones
+         selectedObjects.remove(i);
+         return true;
       }
       return false;
    }
@@ -552,14 +565,8 @@ public final class ViewDB extends Observable implements Observer {
 
    public void replaceSelectedObject(OpenSimObject obj) {
       // If the object is already in the list of selected ones, do nothing (a la Illustrator)
-      for (int i = 0; i < selectedObjects.size(); i++) {
-         if (OpenSimObject.getCPtr(obj) == OpenSimObject.getCPtr(selectedObjects.get(i).getOpenSimObject())) {
-            return;
-         }
-      }
-
       // If the object is not already in the list, make this object the only selected one
-      setSelectedObject(obj);
+      if(!isSelected(obj)) setSelectedObject(obj);
    }
 
    public void clearSelectedObjects() {
@@ -573,13 +580,9 @@ public final class ViewDB extends Observable implements Observer {
    }
 
    public boolean isSelected(OpenSimObject obj) {
-      for (int i = 0; i < selectedObjects.size(); i++) {
-         if (OpenSimObject.getCPtr(obj) == OpenSimObject.getCPtr(selectedObjects.get(i).getOpenSimObject())) {
-            return true;
-         }
-      }
-      return false;
+      return (findObjectInSelectedList(obj) >= 0);
    }
+
    /**
     * Check if the name passed in is a valid name for a display window (no duplicates
     * for now, until a more restricted naming is needed
