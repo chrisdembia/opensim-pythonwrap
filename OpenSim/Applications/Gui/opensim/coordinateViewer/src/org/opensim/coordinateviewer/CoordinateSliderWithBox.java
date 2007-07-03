@@ -376,7 +376,8 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 
    public void setRotational(boolean rotational) {
       this.rotational = rotational;
-      conversion=180.0/Math.PI;
+      if (rotational)
+         conversion=180.0/Math.PI;
    }
    /**
     * update the value of the slider and textbox without affecting display
