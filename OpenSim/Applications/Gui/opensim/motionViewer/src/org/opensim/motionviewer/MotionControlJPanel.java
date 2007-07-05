@@ -35,7 +35,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
    boolean             motionLoaded=false;
    MasterMotionModel   masterMotion;
    private int         rangeResolution;
-   private int         timerRate = 50;
+   private int         timerRate = 30;
 
    private boolean internalTrigger=false;
 
@@ -66,27 +66,41 @@ public class MotionControlJPanel extends javax.swing.JPanel
    // advances the model's time based on the real elapsed time (times the factor specified by the smodel spinner)
    private class RealTimePlayActionListener implements ActionListener {
       private boolean firstAction=true;
-      private long lastActionTime;
+      private long lastActionTimeNano;
       private int direction;
+
+      private double avgCost = 0;
+      private int avgCostCount = 0;
 
       public RealTimePlayActionListener(int direction) { this.direction = direction; }
 
       public void actionPerformed(ActionEvent evt) {
+         long currentTimeNano = System.nanoTime();
          if(firstAction) {
             firstAction = false;
-            lastActionTime = System.currentTimeMillis();
+            lastActionTimeNano = currentTimeNano;
             masterMotion.advanceTime(0);
          } else {
-            long currentTime = System.currentTimeMillis();
-            double factor = (double)direction*0.001*(double)(((Double)smodel.getValue()).doubleValue());
-            masterMotion.advanceTime(factor*(currentTime-lastActionTime));
-            lastActionTime = currentTime;
+            double factor = (double)direction*1e-9*(double)(((Double)smodel.getValue()).doubleValue());
+            //System.out.println("Time since last call "+(currentTimeNano-lastActionTimeNano)+" ns");
+            masterMotion.advanceTime(factor*(currentTimeNano-lastActionTimeNano));
+            lastActionTimeNano = currentTimeNano;
          }
 
          // Kill self if done and wrapMotion is off
          if (masterMotion.finished(direction)){
             animationTimer.stop();
             animationTimer=null;
+         } else {
+            /*
+            double ms=1e-6*(System.nanoTime()-currentTimeNano);
+            avgCost += ms; avgCostCount++;
+            int elapsedTimeMS = (int)ms;
+            //int nextDelay = (timerRate>elapsedTimeMS) ? timerRate - elapsedTimeMS : 0;
+            //int nextDelay = 0;
+            System.out.println("Current: "+ms+" Avg: "+avgCost/avgCostCount);
+            //animationTimer.setDelay(nextDelay);
+            */
          }
       }
    }
