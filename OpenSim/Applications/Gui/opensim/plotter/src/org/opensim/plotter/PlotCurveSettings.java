@@ -49,14 +49,6 @@ public class PlotCurveSettings {
       setSource(plotterFrame.getSource());
       setXMin(plotterFrame.getMinX());
       setXMax(plotterFrame.getMaxX());
-      double scale = plotterFrame.getScaleFactor();
-      if (scale!=1.0){
-         filters.add(new PlotScaleFilter(scale));
-      }
-      double offset = plotterFrame.getOffset();
-      if (offset!=0.0){
-         filters.add(new PlotOffsetFilter(offset));
-      }
       boolean rectify = plotterFrame.getRectify();
       if (rectify)
          filters.add(new PlotRectifyFilter());

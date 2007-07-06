@@ -34,10 +34,10 @@ import org.opensim.modeling.Storage;
 
 /**
  *
- * @author Ayman. A class representing the Source=File selection. The file is parsed
+ * @author Ayman. A class representing the File selection. The file is parsed
  * and its contents cached in this object for quick reference later.
  */
-public class PlotterSourceFile extends PlotterSourceMotion {
+public class PlotterSourceFile extends PlotterSourceStorage {
 
    /** Creates a new instance of PlotterSourceFile */
    public PlotterSourceFile(String filename) {

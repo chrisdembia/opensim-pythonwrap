@@ -462,6 +462,9 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
         return tableModel.getSelectedAsString();
     }
 
+    String[] getSelected() {
+        return tableModel.getSelected();
+    }
     private void setFilter(PlotterQuantityNameFilterJPanel.FilterBy currentFilter) {
         // Disable model, group selection when doing regular expression and vice versa
         boolean usePattern= (currentFilter == PlotterQuantityNameFilterJPanel.FilterBy.RegularExpression);
@@ -525,4 +528,8 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
        
        tableModel.restrictNamesBy(".*"+rawPattern+".*");
     }    
+
+    int getNumSelected() {
+        return tableModel.getNumSelected();
+    }
 }

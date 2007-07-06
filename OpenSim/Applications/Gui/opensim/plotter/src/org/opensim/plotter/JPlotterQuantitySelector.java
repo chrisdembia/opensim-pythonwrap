@@ -228,7 +228,7 @@ public class JPlotterQuantitySelector  {
 
    void showSingleSelectionPanel(PlotterModel plotterModel, PlotterSourceInterface sourceX) {
       QuantitySelectionPanel singleSelectPanel = new QuantitySelectionPanel(this, sourceX, ".*", true);
-      DialogDescriptor dlg = new DialogDescriptor(singleSelectPanel,"Select Quantity");
+      DialogDescriptor dlg = new DialogDescriptor(singleSelectPanel,"Select X Quantity");
       dlg.setModal(true);
       DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
       if (((Integer)dlg.getValue()).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){

@@ -110,6 +110,18 @@ public class PlotterQuantityNameFilterTableModel extends AbstractTableModel {
         return numShownAndSelected;
     }
 
+    String[] getSelected()
+    {
+        String[] sel = new String[getNumSelected()];
+        int j=0;
+        for(int i=0;i<selected.length; i++){
+            if (selected[i]){
+                sel[j]=availableQuantities[i];
+                j++;
+            }
+        }
+        return sel;
+    }
     String getSelectedAsString() {
         String selectedString="";
         boolean first=true;

@@ -1,10 +1,8 @@
 package org.opensim.plotter;
 
 import java.awt.Dialog;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.util.HelpCtx;
@@ -25,13 +23,15 @@ public final class ToolsPlotAction extends CallableSystemAction {
       dlg.setOptions(new Object[]{DialogDescriptor.CLOSED_OPTION});
       
       Dialog awtDialog =DialogDisplayer.getDefault().createDialog(dlg);
-      awtDialog.addWindowListener(new WindowListener(){
+      awtDialog.addWindowListener(new WindowAdapter(){
          public void windowOpened(WindowEvent e) {
             MotionsDB.getInstance().addObserver(plotterPanel);
             OpenSimDB.getInstance().addObserver(plotterPanel);   // Make sure current model does not change under us
          }
 
          public void windowClosing(WindowEvent e) {
+            MotionsDB.getInstance().deleteObserver(plotterPanel);
+            OpenSimDB.getInstance().deleteObserver(plotterPanel); 
          }
 
          public void windowClosed(WindowEvent e) {
@@ -39,17 +39,7 @@ public final class ToolsPlotAction extends CallableSystemAction {
             OpenSimDB.getInstance().deleteObserver(plotterPanel); 
          }
 
-         public void windowIconified(WindowEvent e) {
-         }
-
-         public void windowDeiconified(WindowEvent e) {
-         }
-
-         public void windowActivated(WindowEvent e) {
-         }
-
-         public void windowDeactivated(WindowEvent e) {
-         }});
+    });
       awtDialog.setVisible(true);
       
    }
