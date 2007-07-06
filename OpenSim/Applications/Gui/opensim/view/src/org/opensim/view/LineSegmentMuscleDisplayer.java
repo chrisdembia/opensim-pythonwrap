@@ -110,7 +110,6 @@ public class LineSegmentMuscleDisplayer {
       if (actuatorDisplayer == null) return;
 
       DisplayPreference dp = actuatorDisplayer.getVisibleProperties().getDisplayPreference();
-      if (dp == DisplayPreference.None) return; // TODO: is this the right thing to do?
 
       // Account for possible increase in number of muscle segments
       updateGlyphIds();
@@ -118,6 +117,8 @@ public class LineSegmentMuscleDisplayer {
       // Set all glyphs to hidden to begin with
       for(int i=0; i<musclePointGlyphIds.size(); i++) musclePointsRep.hide(musclePointGlyphIds.get(i));
       for(int i=0; i<muscleSegmentGlyphIds.size(); i++) muscleSegmentsRep.hide(muscleSegmentGlyphIds.get(i));
+
+      if (dp == DisplayPreference.None) return;
 
       // A displayer is found, get geometry
       int geomSize = actuatorDisplayer.countGeometry();
