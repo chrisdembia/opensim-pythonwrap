@@ -33,16 +33,18 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
     */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        jLabel1 = new javax.swing.JLabel();
+        jLabelForCurrentModelComboBox = new javax.swing.JLabel();
         jCurrentModelComboBox = new javax.swing.JComboBox();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        setMinimumSize(new java.awt.Dimension(0, 32));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel1.setText("Model:");
-        jLabel1.setMaximumSize(new java.awt.Dimension(42, 20));
-        jLabel1.setMinimumSize(new java.awt.Dimension(42, 20));
-        jLabel1.setPreferredSize(new java.awt.Dimension(42, 20));
+        setMaximumSize(new java.awt.Dimension(165, 37));
+        setMinimumSize(new java.awt.Dimension(165, 37));
+        jLabelForCurrentModelComboBox.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabelForCurrentModelComboBox.setLabelFor(jCurrentModelComboBox);
+        jLabelForCurrentModelComboBox.setText("Model");
+        jLabelForCurrentModelComboBox.setMaximumSize(new java.awt.Dimension(37, 32));
+        jLabelForCurrentModelComboBox.setMinimumSize(new java.awt.Dimension(37, 32));
+        jLabelForCurrentModelComboBox.setPreferredSize(new java.awt.Dimension(37, 32));
 
         jCurrentModelComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No Models" }));
         jCurrentModelComboBox.setMaximumSize(new java.awt.Dimension(100, 20));
@@ -60,18 +62,16 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jLabelForCurrentModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jCurrentModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 132, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .add(jCurrentModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jCurrentModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jLabelForCurrentModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jCurrentModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -115,6 +115,9 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
       if (models.length==0){
          jCurrentModelComboBox.removeAllItems();
          jCurrentModelComboBox.addItem(noModelString);
+         // disable components
+         jLabelForCurrentModelComboBox.setEnabled(false);
+         jCurrentModelComboBox.setEnabled(false);
       }
       else {
          // Populate
@@ -122,13 +125,16 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
          for(int i=0; i<models.length; i++){
             jCurrentModelComboBox.addItem((Model)models[i]);
          }
+         // enable components
+         jLabelForCurrentModelComboBox.setEnabled(true);
+         jCurrentModelComboBox.setEnabled(true);
       }
    }
    
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jCurrentModelComboBox;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelForCurrentModelComboBox;
     // End of variables declaration//GEN-END:variables
 
 }

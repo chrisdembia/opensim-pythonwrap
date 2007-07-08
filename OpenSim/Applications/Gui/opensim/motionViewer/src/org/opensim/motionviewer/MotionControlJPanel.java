@@ -20,6 +20,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.opensim.motionviewer.MotionEvent.Operation;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 
@@ -34,7 +36,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
                    Observer {       // For MotionsDB
    
    Timer               animationTimer=null;
-   SpinnerModel        smodel = new SpinnerNumberModel(1.0, 0.1, 10.0, 0.1);
+   SpinnerModel        smodel = new SpinnerNumberModel(1.0, 0.05, 10.0, 0.05);
    boolean             motionLoaded=false;
    MasterMotionModel   masterMotion;
    private int         rangeResolution;
@@ -141,16 +143,17 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jAdvanceButton = new javax.swing.JButton();
         jFinishButton = new javax.swing.JButton();
         jMotionSlider = new javax.swing.JSlider();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelForMotionNameLabel = new javax.swing.JLabel();
         jMotionNameLabel = new javax.swing.JLabel();
         jTimeTextField = new javax.swing.JTextField();
         jSpeedSpinner = new javax.swing.JSpinner();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelForSpeedSpinner = new javax.swing.JLabel();
+        jLabelForTimeTextField = new javax.swing.JLabel();
         jWrapToggleButton = new javax.swing.JToggleButton();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        setMinimumSize(new java.awt.Dimension(0, 32));
+        setMaximumSize(new java.awt.Dimension(32767, 37));
+        setMinimumSize(new java.awt.Dimension(0, 37));
         jPlaybackButtonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
         jPlaybackButtonsPanel.setMaximumSize(new java.awt.Dimension(32767, 16));
@@ -158,6 +161,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jPlaybackButtonsPanel.setPreferredSize(new java.awt.Dimension(168, 16));
         jRestartButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/rewindToStart_beveled.png")));
         jRestartButton.setToolTipText("Go to Start");
+        jRestartButton.setBorder(null);
         jRestartButton.setBorderPainted(false);
         jRestartButton.setContentAreaFilled(false);
         jRestartButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -178,6 +182,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
 
         jBackButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/reverseStep_beveled.png")));
         jBackButton.setToolTipText("Previous Frame");
+        jBackButton.setBorder(null);
         jBackButton.setBorderPainted(false);
         jBackButton.setContentAreaFilled(false);
         jBackButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -198,6 +203,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
 
         jReverseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/reverse_beveled.png")));
         jReverseButton.setToolTipText("Play Backward");
+        jReverseButton.setBorder(null);
         jReverseButton.setBorderPainted(false);
         jReverseButton.setContentAreaFilled(false);
         jReverseButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -218,6 +224,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
 
         jStopButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/pause_beveled.png")));
         jStopButton.setToolTipText("Pause");
+        jStopButton.setBorder(null);
         jStopButton.setBorderPainted(false);
         jStopButton.setContentAreaFilled(false);
         jStopButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -238,6 +245,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
 
         jPlayButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/play_beveled.png")));
         jPlayButton.setToolTipText("Play Forward");
+        jPlayButton.setBorder(null);
         jPlayButton.setBorderPainted(false);
         jPlayButton.setContentAreaFilled(false);
         jPlayButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -258,6 +266,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
 
         jAdvanceButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/step_beveled.png")));
         jAdvanceButton.setToolTipText("Next Frame");
+        jAdvanceButton.setBorder(null);
         jAdvanceButton.setBorderPainted(false);
         jAdvanceButton.setContentAreaFilled(false);
         jAdvanceButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -278,6 +287,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
 
         jFinishButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/fastforwardToEnd_beveled.png")));
         jFinishButton.setToolTipText("Go to End");
+        jFinishButton.setBorder(null);
         jFinishButton.setBorderPainted(false);
         jFinishButton.setContentAreaFilled(false);
         jFinishButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -305,22 +315,24 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jMotionSlider.setMinimumSize(new java.awt.Dimension(168, 16));
         jMotionSlider.setPreferredSize(new java.awt.Dimension(168, 16));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel2.setText("Motion:");
-        jLabel2.setMaximumSize(new java.awt.Dimension(42, 32));
-        jLabel2.setMinimumSize(new java.awt.Dimension(42, 32));
-        jLabel2.setPreferredSize(new java.awt.Dimension(42, 20));
+        jLabelForMotionNameLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabelForMotionNameLabel.setLabelFor(jMotionNameLabel);
+        jLabelForMotionNameLabel.setText("Motion");
+        jLabelForMotionNameLabel.setMaximumSize(new java.awt.Dimension(42, 32));
+        jLabelForMotionNameLabel.setMinimumSize(new java.awt.Dimension(42, 32));
+        jLabelForMotionNameLabel.setPreferredSize(new java.awt.Dimension(42, 32));
 
+        jMotionNameLabel.setToolTipText("Current Motion");
         jMotionNameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jMotionNameLabel.setMaximumSize(new java.awt.Dimension(100, 20));
         jMotionNameLabel.setMinimumSize(new java.awt.Dimension(100, 20));
         jMotionNameLabel.setOpaque(true);
         jMotionNameLabel.setPreferredSize(new java.awt.Dimension(100, 20));
 
-        jTimeTextField.setMaximumSize(new java.awt.Dimension(50, 20));
-        jTimeTextField.setMinimumSize(new java.awt.Dimension(50, 20));
-        jTimeTextField.setPreferredSize(new java.awt.Dimension(50, 20));
+        jTimeTextField.setToolTipText("Current Time");
+        jTimeTextField.setMaximumSize(new java.awt.Dimension(50, 16));
+        jTimeTextField.setMinimumSize(new java.awt.Dimension(50, 16));
+        jTimeTextField.setPreferredSize(new java.awt.Dimension(50, 16));
         jTimeTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTimeTextFieldActionPerformed(evt);
@@ -337,35 +349,39 @@ public class MotionControlJPanel extends javax.swing.JPanel
             }
         });
 
+        jSpeedSpinner.setFont(new java.awt.Font("Tahoma", 0, 11));
         jSpeedSpinner.setModel(smodel);
-        jSpeedSpinner.setToolTipText("animation speed ");
-        jSpeedSpinner.setMaximumSize(new java.awt.Dimension(50, 20));
-        jSpeedSpinner.setMinimumSize(new java.awt.Dimension(50, 20));
-        jSpeedSpinner.setPreferredSize(new java.awt.Dimension(50, 20));
+        jSpeedSpinner.setToolTipText("Play Speed");
+        jSpeedSpinner.setMaximumSize(new java.awt.Dimension(50, 16));
+        jSpeedSpinner.setMinimumSize(new java.awt.Dimension(50, 16));
+        jSpeedSpinner.setPreferredSize(new java.awt.Dimension(50, 16));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel1.setText("Rate:");
-        jLabel1.setMaximumSize(new java.awt.Dimension(30, 20));
-        jLabel1.setMinimumSize(new java.awt.Dimension(30, 20));
-        jLabel1.setPreferredSize(new java.awt.Dimension(30, 20));
+        jLabelForSpeedSpinner.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabelForSpeedSpinner.setLabelFor(jSpeedSpinner);
+        jLabelForSpeedSpinner.setText("Speed");
+        jLabelForSpeedSpinner.setMaximumSize(new java.awt.Dimension(37, 16));
+        jLabelForSpeedSpinner.setMinimumSize(new java.awt.Dimension(37, 16));
+        jLabelForSpeedSpinner.setPreferredSize(new java.awt.Dimension(37, 16));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel4.setText("Time:");
-        jLabel4.setMaximumSize(new java.awt.Dimension(31, 20));
-        jLabel4.setMinimumSize(new java.awt.Dimension(31, 20));
-        jLabel4.setPreferredSize(new java.awt.Dimension(31, 20));
+        jLabelForTimeTextField.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabelForTimeTextField.setLabelFor(jTimeTextField);
+        jLabelForTimeTextField.setText("Time");
+        jLabelForTimeTextField.setMaximumSize(new java.awt.Dimension(31, 16));
+        jLabelForTimeTextField.setMinimumSize(new java.awt.Dimension(31, 16));
+        jLabelForTimeTextField.setPreferredSize(new java.awt.Dimension(31, 16));
 
         jWrapToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled.png")));
         jWrapToggleButton.setToolTipText("Loop");
+        jWrapToggleButton.setBorder(null);
         jWrapToggleButton.setBorderPainted(false);
         jWrapToggleButton.setContentAreaFilled(false);
         jWrapToggleButton.setFocusable(false);
         jWrapToggleButton.setIconTextGap(0);
         jWrapToggleButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jWrapToggleButton.setMaximumSize(new java.awt.Dimension(24, 16));
-        jWrapToggleButton.setMinimumSize(new java.awt.Dimension(24, 16));
+        jWrapToggleButton.setMaximumSize(new java.awt.Dimension(24, 32));
+        jWrapToggleButton.setMinimumSize(new java.awt.Dimension(24, 32));
         jWrapToggleButton.setOpaque(true);
-        jWrapToggleButton.setPreferredSize(new java.awt.Dimension(24, 16));
+        jWrapToggleButton.setPreferredSize(new java.awt.Dimension(24, 32));
         jWrapToggleButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled_selected.png")));
         jWrapToggleButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled_rollover.png")));
         jWrapToggleButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled_rollover_selected.png")));
@@ -383,23 +399,23 @@ public class MotionControlJPanel extends javax.swing.JPanel
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jLabelForMotionNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jMotionNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabelForSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabelForTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPlaybackButtonsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-                    .add(jMotionSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE))
+                    .add(jTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPlaybackButtonsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                    .add(jMotionSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jWrapToggleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -407,19 +423,22 @@ public class MotionControlJPanel extends javax.swing.JPanel
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jMotionNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLabelForMotionNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jMotionNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jWrapToggleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabelForTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(0, 0, 0)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabelForSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(layout.createSequentialGroup()
                         .add(jMotionSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(0, 0, 0)
-                        .add(jPlaybackButtonsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jWrapToggleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(0, 0, 0))
+                        .add(jPlaybackButtonsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -616,10 +635,27 @@ public class MotionControlJPanel extends javax.swing.JPanel
     */
    private void updatePanelDisplay() {
       if (masterMotion==null || masterMotion.getNumMotions()==0){
-         jMotionNameLabel.setText("");
+         jMotionNameLabel.setText("No Motions");
          setTimeTextField(0);
          Hashtable labels = makeLabels(5, 0, 1);
-         jMotionSlider.setLabelTable(labels);        
+         jMotionSlider.setLabelTable(labels);
+         // disable components
+         jAdvanceButton.setEnabled(false);
+         jBackButton.setEnabled(false);
+         jFinishButton.setEnabled(false);
+         jLabelForMotionNameLabel.setEnabled(false);
+         jLabelForSpeedSpinner.setEnabled(false);
+         jLabelForTimeTextField.setEnabled(false);
+         jMotionNameLabel.setEnabled(false);
+         jMotionSlider.setEnabled(false);
+         jPlayButton.setEnabled(false);
+         jPlaybackButtonsPanel.setEnabled(false);
+         jRestartButton.setEnabled(false);
+         jReverseButton.setEnabled(false);
+         jSpeedSpinner.setEnabled(false);
+         jStopButton.setEnabled(false);
+         jTimeTextField.setEnabled(false);
+         jWrapToggleButton.setEnabled(false);
       }
       else {
          if (masterMotion.getNumMotions()>=1){
@@ -627,6 +663,25 @@ public class MotionControlJPanel extends javax.swing.JPanel
             setTimeTextField(masterMotion.getStartTime());
             Hashtable labels = makeLabels(5, masterMotion.getStartTime(), masterMotion.getEndTime());
             jMotionSlider.setLabelTable(labels);
+            // correct selected mode
+            jStopButton.setSelected(true);
+            // enable components
+            jAdvanceButton.setEnabled(true);
+            jBackButton.setEnabled(true);
+            jFinishButton.setEnabled(true);
+            jLabelForMotionNameLabel.setEnabled(true);
+            jLabelForSpeedSpinner.setEnabled(true);
+            jLabelForTimeTextField.setEnabled(true);
+            jMotionNameLabel.setEnabled(true);
+            jMotionSlider.setEnabled(true);
+            jPlayButton.setEnabled(true);
+            jPlaybackButtonsPanel.setEnabled(true);
+            jRestartButton.setEnabled(true);
+            jReverseButton.setEnabled(true);
+            jSpeedSpinner.setEnabled(true);
+            jStopButton.setEnabled(true);
+            jTimeTextField.setEnabled(true);
+            jWrapToggleButton.setEnabled(true);
          }
       }
    }
@@ -690,9 +745,9 @@ public class MotionControlJPanel extends javax.swing.JPanel
     private javax.swing.JButton jAdvanceButton;
     private javax.swing.JButton jBackButton;
     private javax.swing.JButton jFinishButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelForMotionNameLabel;
+    private javax.swing.JLabel jLabelForSpeedSpinner;
+    private javax.swing.JLabel jLabelForTimeTextField;
     private javax.swing.JLabel jMotionNameLabel;
     private javax.swing.JSlider jMotionSlider;
     private javax.swing.JButton jPlayButton;
