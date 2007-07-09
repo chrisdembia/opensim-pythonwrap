@@ -160,7 +160,8 @@ public final class FileUtils {
         String defaultDir="";
         defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
         final JFileChooser dlog = new JFileChooser(defaultDir);
-        dlog.setFileFilter(FileUtils.getFileFilter(extensions, description));
+        if(extensions!=null && description!=null)
+           dlog.setFileFilter(FileUtils.getFileFilter(extensions, description));
         
         String outFilename=null;
         JFrame topFrame = TheApp.getAppFrame();
