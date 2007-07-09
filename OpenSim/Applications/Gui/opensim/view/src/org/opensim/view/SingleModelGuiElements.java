@@ -11,6 +11,7 @@ package org.opensim.view;
 
 import java.util.Vector;
 import org.opensim.modeling.AbstractActuator;
+import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayPtrsObj;
 import org.opensim.modeling.ArrayStr;
@@ -98,6 +99,21 @@ public class SingleModelGuiElements {
         }
         return ret;
    }
+    /**
+     * Get a list of names for model actuators that are muscles
+     */
+    public Vector<String> getMuscleNames()
+    {
+       Vector<String> ret=new Vector<String>(20);
+       ActuatorSet actuators = model.getActuatorSet();
+       if (actuators !=null){
+           for(int i=0; i<actuators.getSize();i++){
+              if (AbstractMuscle.safeDownCast(actuators.get(i)) != null)
+                 ret.add(actuators.get(i).getName());
+           }
+       }
+       return ret;
+    }
 
    /**
     * Get names of actuator classes

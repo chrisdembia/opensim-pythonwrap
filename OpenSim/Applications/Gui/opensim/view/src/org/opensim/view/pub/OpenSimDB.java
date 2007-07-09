@@ -176,13 +176,15 @@ final public class OpenSimDB extends Observable {
    private void setupGroups(Model aModel) {
       // Create default groups
       ActuatorSet acts = aModel.getActuatorSet();
-      int numGroups = acts.getNumGroups();
-      if (acts.getGroup("all")==null){
-         acts.addGroup("all");
-         for(int i=0; i<acts.getSize(); i++){
-            acts.addObjectToGroup("all", acts.get(i).getName());
-         }
-      }
+      // Until we decide how best to handle the "all" group,
+      // don't add one here.
+      //int numGroups = acts.getNumGroups();
+      //if (acts.getGroup("all")==null){
+         //acts.addGroup("all");
+         //for(int i=0; i<acts.getSize(); i++){
+            //acts.addObjectToGroup("all", acts.get(i).getName());
+         //}
+      //}
       CoordinateSet coords = aModel.getDynamicsEngine().getCoordinateSet();
       //numGroups = coords.getNumGroups();
       if (coords.getGroup("all")==null){

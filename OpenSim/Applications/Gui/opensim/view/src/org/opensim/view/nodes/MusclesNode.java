@@ -75,7 +75,7 @@ public class MusclesNode extends OpenSimObjectNode {
             // consider this group to be an AbstractMuscle group.
             if (muscle != null) {
                children.add(new Node[] {new ActuatorGroupNode(grp)});
-               if (grp.getName() == "all")
+               if (grp.getName().equals("all"))
                   userDefinedAllGroup = true;
             }
          }

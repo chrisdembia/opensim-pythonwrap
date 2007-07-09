@@ -34,7 +34,7 @@ public class CustomizeMomentArmAnalysisJPanel extends javax.swing.JPanel {
       initComponents();
       Model currentModel = ViewDB.getInstance().getCurrentModel();
       SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
-      Vector<String> muscleNames = guiElem.getActuatorNamesForGroup("all");
+      Vector<String> muscleNames = guiElem.getMuscleNames();
       jComboBox1.setModel(new DefaultComboBoxModel(muscleNames.toArray()));
 
    }
