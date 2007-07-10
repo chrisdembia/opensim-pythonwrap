@@ -160,6 +160,7 @@ public final class FileUtils {
         JFrame topFrame = TheApp.getAppFrame();
         for (;;) {
            int result = dlog.showSaveDialog(topFrame);
+           outFilename = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
                 outFilename = dlog.getSelectedFile().getAbsolutePath();
            if(outFilename!=null && promptIfReplacing && (new File(outFilename)).exists() && (currentFilename==null || !currentFilename.equals(outFilename))) {
@@ -199,8 +200,9 @@ public final class FileUtils {
         JFrame topFrame = TheApp.getAppFrame();
         for (;;) {
            int result = dlog.showOpenDialog(topFrame);
+           outFilename = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
-                outFilename= dlog.getSelectedFile().getAbsolutePath();
+                outFilename = dlog.getSelectedFile().getAbsolutePath();
            /** 
             * If isRequired2Exist flag is passed in as true we need to make sure the file really exists
             */
