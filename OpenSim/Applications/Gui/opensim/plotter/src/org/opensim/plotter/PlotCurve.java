@@ -47,7 +47,10 @@ public class PlotCurve {
    private PlotterSourceInterface rangeSource;
    private int domainStorageIndex;
    private int rangeStorageIndex;
-   
+   private String domainName;
+   private String rangeName;
+   private String quantityName; // For muscles based curves
+   private boolean muscleCurve=false;
    /**
     * Creates a new instance of PlotCurve
     */
@@ -86,9 +89,14 @@ public class PlotCurve {
        // Make an XYSeries to hold the data and keep a ref to it with the curve
        setCurveSeries(new XYSeries(plotCurveSettings.getName()));
        for (int i = startIndex;i< endIndex;i++){
+           if (i==startIndex)
+                System.out.println("Curve"+plotCurveSettings.getName()+xArray.getitem(i)+","+yFiltered[i-startIndex]);
            getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
        }
        getCurveSeries().setKey(plotCurveSettings.getName());
+       domainName = new String(stringx);
+       rangeName = new String(stringy);
+       quantityName=(sourcey.toString());
    }
 
    private ArrayDouble getDataArrayFromStorage(final Storage storage, final String colName, boolean isDomain ) {
@@ -101,7 +109,20 @@ public class PlotCurve {
             rangeStorageIndex=-1;
       }
       else{
-         storage.getDataColumn(colName, Array);
+         String[] colNames=colName.trim().split("\\+",-1);
+         ArrayDouble tempArray=null;
+         if (colNames.length>1)
+              tempArray = new ArrayDouble(storage.getSize());
+         for(int i=0; i<colNames.length; i++){
+             colNames[i]=colNames[i].trim();
+             if (i==0)
+                storage.getDataColumn(colNames[i], Array);
+             else { // get data into temporary array and then add it in place
+                 storage.getDataColumn(colNames[i], tempArray);
+                 for(int row=0;row<storage.getSize();row++)
+                     Array.set(row, Array.getitem(row)+tempArray.getitem(row));
+             }
+        }
          int storageIndex = storage.getStateIndex(colName);
          if (isDomain)
             domainStorageIndex=storageIndex;
@@ -222,15 +243,18 @@ public class PlotCurve {
     
     public String getDomainName()
     {        
-        ArrayStr labels = domainSource.getStorage().getColumnLabels();
+        return domainName;
+        /*ArrayStr labels = domainSource.getStorage().getColumnLabels();
         int sz=labels.getSize();
-        return labels.getitem(domainStorageIndex+1);
+        return labels.getitem(domainStorageIndex+1);*/
     }
     
     public String getRangeName()
     {
+        return rangeName;
+        /*
         ArrayStr labels = rangeSource.getStorage().getColumnLabels();
-        return labels.getitem(rangeStorageIndex+1);
+        return labels.getitem(rangeStorageIndex+1);*/
     }
 
     void setXLabel(String xLabel) {
@@ -239,5 +263,9 @@ public class PlotCurve {
 
     void setYLabel(String yLabel) {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public String getQuantityName() {
+        return quantityName;
     }
 }

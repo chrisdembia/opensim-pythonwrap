@@ -34,7 +34,6 @@ import org.opensim.plotter.JPlotterPanel;
  */
 public class PlotCurveSettings {
    private String name;
-   private JPlotterPanel.PlotDataSource source=JPlotterPanel.PlotDataSource.FileSource;
    private double xMin=0.0;
    private double xMax=1.0;
    private double scale=1.0;
@@ -42,16 +41,17 @@ public class PlotCurveSettings {
    private boolean rectify=false;
    private String xLabel, yLabel;
    private Vector<PlotDataFilter> filters = new Vector<PlotDataFilter>(4);
+   private boolean musclePlot=false;
    
    /** Creates a new instance of PlotCurveSettings */
    public PlotCurveSettings(JPlotterPanel plotterFrame) {
       setName(plotterFrame.getCurveName());
-      setSource(plotterFrame.getSource());
       setXMin(plotterFrame.getMinX());
       setXMax(plotterFrame.getMaxX());
       boolean rectify = plotterFrame.getRectify();
       if (rectify)
          filters.add(new PlotRectifyFilter());
+      setMusclePlot(plotterFrame.isMuscleSpecificAnalysis());
    }
 
    public String getName() {
@@ -103,14 +103,6 @@ public class PlotCurveSettings {
       this.rectify = rectify;
    }
 
-   public JPlotterPanel.PlotDataSource getSource() {
-      return source;
-   }
-
-   public void setSource(JPlotterPanel.PlotDataSource source) {
-      this.source = source;
-   }
-
    String getXLabel() {
       return xLabel;
    }
@@ -130,5 +122,13 @@ public class PlotCurveSettings {
    Vector<PlotDataFilter> getFilters() {
       return filters;
    }
+
+    public boolean isMusclePlot() {
+        return musclePlot;
+    }
+
+    public void setMusclePlot(boolean musclePlot) {
+        this.musclePlot = musclePlot;
+    }
    
 }

@@ -54,6 +54,44 @@ public class PlotterModel {
    private Vector<Model> loadedModels = new Vector<Model>(4);
    Hashtable<Model, AnalyzeTool> models2AnalyzeToolInstances = new Hashtable<Model, AnalyzeTool>(4);
 
+    private static String[] builtinQuantities= new String[] {
+        "moment",
+        "moment arm",
+        "muscle-tendon length",
+        "fiber-length",
+        "tendon-length",
+        "normalized fiber-length",
+        "force",
+        "active fiber-force",
+        "passive fiber-force",
+        "total fiber-force"
+    };
+
+    private static String[] builtinQuantitiesAnalysis= new String[] {
+        "MomentArmAnalysis",
+        "MomentArmAnalysis",
+        "MuscleAnalysis",
+        "MuscleAnalysis",
+        "MuscleAnalysis",
+        "MuscleAnalysis",
+        "MuscleAnalysis",
+        "MuscleAnalysis",
+        "MuscleAnalysis",
+        "MuscleAnalysis"
+    };
+    private static String[] builtinQuantitiesStorageName= new String[] {
+        "Moment",
+        "MomentArm",
+        "Length",
+        "FiberLength",
+        "TendonLength",
+        "NormalizedFiberLength",
+        "Force",
+        "ActiveFiberForce",
+        "PassiveFiberForce",
+        "FiberForce"
+    };
+   
    /** Creates a new instance of PlotterModel */
    public PlotterModel() {
          Plot figure = new Plot("Title", "x-label", "y-label");
@@ -248,6 +286,45 @@ public class PlotterModel {
    void addMotion(Storage nextMotion) {
       sources.add(new PlotterSourceMotion(nextMotion));
    }
+
+    Storage getStorage(String qName, Model model) {
+        AnalyzeTool tool=getAnalyzeTool(model);
+        AnalysisSet analyses=model.getAnalysisSet();
+        String[] qs=getBuiltinQuantities();
+        for(int i=0; i<qs.length; i++){
+            if (qName.equalsIgnoreCase(qs[i])){
+                return analyses.get(builtinQuantitiesAnalysis[i]).getStorageList().get(builtinQuantitiesStorageName[i]);
+            }            
+        }
+        return null;
+    }
+
+    void enableDesiredAnalyses(AnalyzeTool tool, PlotterSourceAnalysis analysisSource) {
+        AnalysisSet analyses=tool.getModel().getAnalysisSet();
+        String shortName = analysisSource.toString();
+        String[] qs=getBuiltinQuantities();
+        for(int i=0; i<qs.length; i++){
+            if (shortName.equalsIgnoreCase(builtinQuantitiesStorageName[i])){
+                analyses.get(builtinQuantitiesAnalysis[i]).setOn(true);
+                break;
+            }            
+        }
+    }
+    
+    static public String[] getBuiltinQuantities() {
+        return builtinQuantities;
+    }
+    /**
+     * string is an internal name for a Stroage that maps into a built in quantity
+     */
+    String getQuantityDisplayName(String string) {
+        for (int i=0; i<builtinQuantitiesStorageName.length; i++){
+            if (builtinQuantitiesStorageName[i].compareTo(string)==0)
+                return builtinQuantities[i];
+        }
+        return null;
+    }
+
 
    
 }
