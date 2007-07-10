@@ -479,10 +479,13 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
        }
        // get end times from the motion file to populate the GUI
        //
+       try {
        MarkerData trcData = new MarkerData(trialFilename);
        jFromTimeTextField.setText(String.valueOf(trcData.getStartFrameTime()));
        jToTimeTextField.setText(String.valueOf(trcData.getLastFrameTime()));
        checkConsistentPanel();
+       } catch (IOException ex) {
+       }
 // TODO add your handling code here:
     }//GEN-LAST:event_jBrowse4TrcButtonActionPerformed
 
@@ -612,7 +615,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
         }
         saveScalesTextField.setText(scalingParams.getOutputScaleFileName());
         jSaveScalesCheckBox.setSelected(scalingParams.getOutputScaleFileName()!="Unassigned");
-        jMaxMarkerMoveTextField.setText(String.valueOf(scalingParams.getMaxMarkerMovement()));
+        //jMaxMarkerMoveTextField.setText(String.valueOf(scalingParams.getMaxMarkerMovement()));
         // We need to make a name for output files (at least the xml file) for
         // our own sake so that we can open it later.
         subjectPath = aDescriptor.dSubject.getPathToSubject();
@@ -743,7 +746,7 @@ public final class ScalingVisualPanel extends workflowVisualPanelBase {
             timeRange.setitem(0, fromTime);
             timeRange.setitem(1, toTime);
             scalingParams.setTimeRange(timeRange);
-            scalingParams.setMaxMarkerMovement(Double.valueOf(jMaxMarkerMoveTextField.getText()).doubleValue());
+            //scalingParams.setMaxMarkerMovement(Double.valueOf(jMaxMarkerMoveTextField.getText()).doubleValue());
             scalingParams.setMarkerFileName(markerTrialTextField.getText());
           
             /*if (!(jMeasurementsFileTextField.getText().equals("")))

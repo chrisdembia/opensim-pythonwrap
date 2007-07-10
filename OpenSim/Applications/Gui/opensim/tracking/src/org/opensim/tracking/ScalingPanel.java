@@ -93,7 +93,7 @@ public class ScalingPanel  extends workflowWizardPanelBase {
             ex.printStackTrace();
         } 
          
-         if (params.processModel(scaledModel, subject.getPathToSubject(), subject.getMass())){
+         if (params.processModel(scaledModel, subject.getPathToSubject(), subject.getSubjectMass())){
            // @todo If output file is specified, associate it with scaledModel
            descriptor.setScaledModel(scaledModel);
            boolean success=false;
