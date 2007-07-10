@@ -23,17 +23,7 @@ public final class FileSaveAsModelAction extends CallableSystemAction {
    public void performAction() {
       Model mdl = ViewDB.getInstance().getCurrentModel();
       if (mdl != null) {
-         String fileName = null;
-         for (;;) {
-            fileName = FileUtils.getInstance().browseForFilename(".osim", "OpenSim model", false, true);
-            if(fileName==null) break;
-            if((new File(fileName)).exists() && !mdl.getInputFileName().equals(fileName)) {
-               // File exists and is a different model... Prompt for overwrite.  If no overwrite, repeat loop (open file dialog again)
-               Object answer=DialogDisplayer.getDefault().notify(
-                  new NotifyDescriptor.Confirmation("Replace existing model "+fileName+"?","Replace Model",NotifyDescriptor.YES_NO_OPTION));
-               if(answer==NotifyDescriptor.YES_OPTION) break;
-            } else break;
-         }
+         String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.OpenSimModelFileFilter, true, mdl.getInputFileName());
          if(fileName!=null) saveModel(mdl, fileName);
       }
    }

@@ -53,6 +53,9 @@ public final class FileUtils {
      *
      */
     static FileUtils instance=null;
+
+    // Some predefined filters
+    public static FileFilter OpenSimModelFileFilter = getFileFilter(".osim", "OpenSim model");
     
     public static String getNextAvailableName(String folder, String baseName) {
         File baseFile = new File(baseName);
@@ -111,6 +114,7 @@ public final class FileUtils {
      * Utility to create file filters to browse for files of specified "extension" with "description"
      */
     public static FileFilter getFileFilter(final String extensions, final String desc) {
+        if(extensions==null || desc==null) return null;
         // Parse the list of extensions passed in as (*.xyz, *.abc .de) into an array[]
         Vector<String> extensionList = new Vector<String>(2);
         if (extensions.contains(",")){
@@ -142,6 +146,36 @@ public final class FileUtils {
             }
         };
     }
+
+    // If promptIfReplacing==true then it prompts user if they are trying to replacing an existing file.  
+    // If currentFilename!=null, and the user chooses that file, then the prompt is skipped, since it is assumed they're simply saving over their currently loaded copy.
+    public String browseForFilenameToSave(FileFilter filter, boolean promptIfReplacing, String currentFilename)
+    {
+        // Init dialog to use "WorkDirectory" as thought of by user
+        String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
+        final JFileChooser dlog = new JFileChooser(defaultDir);
+        if(filter!=null) dlog.setFileFilter(filter);
+        
+        String outFilename=null;
+        JFrame topFrame = TheApp.getAppFrame();
+        for (;;) {
+           int result = dlog.showSaveDialog(topFrame);
+           if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
+                outFilename = dlog.getSelectedFile().getAbsolutePath();
+           if(outFilename!=null && promptIfReplacing && (new File(outFilename)).exists() && (currentFilename==null || !currentFilename.equals(outFilename))) {
+              // Attempting to overwrite a file other than currentFilename
+              Object answer = DialogDisplayer.getDefault().notify(new NotifyDescriptor.Confirmation("Replace file "+outFilename+"?","Replace file?",NotifyDescriptor.YES_NO_OPTION));
+              if(answer==NotifyDescriptor.YES_OPTION) break;
+           } else break;
+       }
+       if(outFilename != null) Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
+       return outFilename;
+    }
+    public String browseForFilenameToSave(String extensions, String description, boolean promptIfReplacing, String currentFilename)
+    {
+       return browseForFilenameToSave(FileUtils.getFileFilter(extensions, description), promptIfReplacing, currentFilename);
+    }
+
     /**
      * One common place to do the following common functions:
      * 1. Browse for a file using user's "workingDirectory" as initial dir.
@@ -154,39 +188,33 @@ public final class FileUtils {
      *
      * @todo this could be improved by making our own JFileChooser container JPanel
      */
-    public String browseForFilename(String extensions, String description, boolean isRequired2Exist, boolean saving)
+    public String browseForFilename(FileFilter filter, boolean isRequired2Exist)
     {
         // Init dialog to use "WorkDirectory" as thought of by user
-        String defaultDir="";
-        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
+        String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
         final JFileChooser dlog = new JFileChooser(defaultDir);
-        if(extensions!=null && description!=null)
-           dlog.setFileFilter(FileUtils.getFileFilter(extensions, description));
+        if(filter!=null) dlog.setFileFilter(filter);
         
         String outFilename=null;
         JFrame topFrame = TheApp.getAppFrame();
-        int result = saving ? dlog.showSaveDialog(topFrame) : dlog.showOpenDialog(topFrame);
-        if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-             outFilename= dlog.getSelectedFile().getAbsolutePath();
-             Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
+        for (;;) {
+           int result = dlog.showOpenDialog(topFrame);
+           if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
+                outFilename= dlog.getSelectedFile().getAbsolutePath();
+           /** 
+            * If isRequired2Exist flag is passed in as true we need to make sure the file really exists
+            */
+           if (isRequired2Exist && outFilename!= null && !(new File(outFilename)).exists())
+              DialogDisplayer.getDefault().notify(
+                      new NotifyDescriptor.Message("Selected file "+outFilename+" does not exist."));
+           else break;
        }
-        /** 
-         * If isRequired2Exist flag is passed in as true we need to make sure the file really exists
-         */
-       if (isRequired2Exist && outFilename!= null){
-            File outfile = new File(outFilename);
-            if (!outfile.exists()){
-                DialogDisplayer.getDefault().notify(
-                        new NotifyDescriptor.Message("Selected file "+outFilename+" does not exist."));
-                // This could be done better
-                return browseForFilename(extensions, description, isRequired2Exist, saving);
-            }
-       }
+       if(outFilename != null) Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
        return outFilename;
     }
     public String browseForFilename(String extensions, String description, boolean isRequired2Exist)
     {
-        return browseForFilename(extensions, description, isRequired2Exist, false);
+       return browseForFilename(FileUtils.getFileFilter(extensions, description), isRequired2Exist);
     }
     /**
      * browseForFilename is a hlper function used to browse for files with specified 
@@ -195,7 +223,7 @@ public final class FileUtils {
      */
     public String browseForFilename(String extensions, String description)
     {
-        return browseForFilename(extensions, description, true, false);
+        return browseForFilename(extensions, description, true);
     }
     
     /**
