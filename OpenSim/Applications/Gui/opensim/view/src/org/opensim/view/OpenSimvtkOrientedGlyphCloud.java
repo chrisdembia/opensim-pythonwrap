@@ -100,8 +100,7 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
     synchronized public void setTensorDataAtLocation(int index, double xx, double xy, double xz,
             double yx, double yy, double yz,
             double zx, double zy, double zz) {
-        vtkPointData t = pointPolyData.GetPointData();
-        t.GetTensors().SetTuple9(index, xx, xy, xz, yx, yy, yz, zx, zy, zz);
+        tensorData.SetTuple9(index, xx, xy, xz, yx, yy, yz, zx, zy, zz);
     }
 
    public vtkFloatArray getTensorData() {
@@ -155,12 +154,10 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
    /////////////////////////////////////////////////////////////////////////////
    
    public void show(int index) {
-      vtkPointData t = pointPolyData.GetPointData();
-      t.GetTensors().SetTuple9(index, 1., 0., 0., 0., 1., 0., 0., 0., 0.);
+      tensorData.SetTuple9(index, 1., 0., 0., 0., 1., 0., 0., 0., 0.);
    }
 
    public void hide(int index) {
-      vtkPointData t = pointPolyData.GetPointData();
-      t.GetTensors().SetTuple9(index, 0., 0., 0., 0., 0., 0., 0., 0., 0.);
+      tensorData.SetTuple9(index, 0., 0., 0., 0., 0., 0., 0., 0., 0.);
    }
 }

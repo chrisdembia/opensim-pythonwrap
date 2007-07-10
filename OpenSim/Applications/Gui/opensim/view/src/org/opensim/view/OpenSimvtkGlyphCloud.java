@@ -130,25 +130,15 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     }
 
     public void setNormalAtLocation(int index, double x, double y, double z) {
-        if (lineNormals != null) {
-           vtkPointData t = pointPolyData.GetPointData();
-           vtkDataArray u = t.GetNormals();
-           u.SetTuple3(index, x, y, z);
-        }
+        if (lineNormals != null) lineNormals.SetTuple3(index, x, y, z);
     }
     
     public void setVectorDataAtLocation(int index, double x, double y, double z) {
-        vtkPointData t = pointPolyData.GetPointData();
-        vtkDataArray u = t.GetVectors();
-        u.SetTuple3(index, x, y, z);
+        vectorData.SetTuple3(index, x, y, z);
     }
     
     public void setScalarDataAtLocation(int index, double x) {
-       if (scalarData != null) {
-          vtkPointData t = pointPolyData.GetPointData();
-          vtkDataArray u = t.GetScalars();
-          u.SetTuple1(index, x);
-       }
+       if (scalarData != null) scalarData.SetTuple1(index, x);
     }
     
     public void orientByNormal() {
