@@ -10,14 +10,11 @@ import org.opensim.view.pub.ViewDB;
 public final class FileSaveModelAction extends CallableSystemAction {
     
     public void performAction() {
-        // TODO implement action body
-        // Get current active top component
-        Model mdl = ViewDB.getInstance().getCurrentModel();
-        if (mdl != null){
-            StatusDisplayer.getDefault().setStatusText("Saving model "+mdl.getName()+"to file.");
-            mdl.print(mdl.getInputFileName());
-            StatusDisplayer.getDefault().setStatusText("");
-        }
+      Model model = ViewDB.getInstance().getCurrentModel();
+      if (model != null){
+         if(!model.getInputFileName().equals("")) FileSaveAsModelAction.saveModel(model, model.getInputFileName());
+         else (new FileSaveAsModelAction()).performAction();
+      }
     }
     
     public String getName() {

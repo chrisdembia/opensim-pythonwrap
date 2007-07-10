@@ -73,6 +73,12 @@ final public class OpenSimDB extends Observable {
     {
         return (Object[]) models.toArray();
     }
+    /**
+     * Number of models currently loaded.
+     */
+    public int getNumModels() {
+        return models.size();
+    }
     
     public void removeModel(Model model)
     {
@@ -88,12 +94,15 @@ final public class OpenSimDB extends Observable {
         ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Close);
         notifyObservers(evnt);
     }
-    /**
-     * Number of models currently loaded.
-     */
-    public int getNumModels() {
-        return models.size();
-    }
+
+    public void saveModel(Model model, String fileName) {
+      model.print(fileName);
+      model.setInputFileName(fileName); // update the source filename of the model
+      setChanged();
+      ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Save);
+      notifyObservers(evnt);
+   } 
+
     /**
      * For now this just fires an event to make sure the GUI indicates what's the current Model but
      * the database itself does not keep track of which one in the models is Current.

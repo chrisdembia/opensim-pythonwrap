@@ -1,15 +1,12 @@
 package org.opensim.view.nodes;
 
-import org.openide.NotifyDescriptor;
 import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
 import org.opensim.view.ExplorerTopComponent;
-import org.opensim.view.ModelSettingsSerializer;
-import org.opensim.view.pub.OpenSimDB;
-import org.opensim.view.pub.ViewDB;
+import org.opensim.view.actions.FileCloseAction;
 
 public final class ModelCloseSelectedAction extends CallableSystemAction {
    
@@ -18,13 +15,8 @@ public final class ModelCloseSelectedAction extends CallableSystemAction {
         // Action shouldn't be available otherwise'
         ConcreteModelNode modelNode = (ConcreteModelNode) selected[0];
         Model mdl = modelNode.getModel();
-        // Confirm closing
-        // Write settings to persistent storage
-        ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(mdl);
-        if (ser.confirmAndWrite()==NotifyDescriptor.CANCEL_OPTION)
-            return;
-
-        OpenSimDB.getInstance().removeModel(mdl);
+        // Piggyback on common code in FileCloseAction
+        FileCloseAction.closeModel(mdl);
     }
    
    public String getName() {

@@ -70,8 +70,11 @@ public class ModelSettingsSerializer {
    
    public Object confirmAndWrite()
    {
+      if(getFilename()==null) { // Settings don't have a filename associated with them, can't save
+         return NotifyDescriptor.NO_OPTION;
+      }
       // Show message to prompt user
-     NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save model settings to file?");
+     NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save model settings to file?", "Save settings?");
      Object userSelection=DialogDisplayer.getDefault().notify(dlg);
      if(((Integer)userSelection).intValue()==((Integer)NotifyDescriptor.OK_OPTION).intValue()){
          XMLEncoder encoder;

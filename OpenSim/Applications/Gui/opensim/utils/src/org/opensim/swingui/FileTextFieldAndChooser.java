@@ -17,6 +17,8 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel {
 
    private String lastFileName; // keep track of previous value to avoid firing change events when name stays the same
    private boolean fileIsValid = true;
+   private boolean treatUnassignedAsEmptyString = true;
+   private boolean treatEmptyStringAsValid = true;
 
    public FileTextFieldAndChooser() {
       initComponents();
@@ -39,6 +41,7 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel {
    }
 
    public void setFileName(String name) {
+      if(name.equals("Unassigned") && treatUnassignedAsEmptyString) name = "";
       if(!name.equals(lastFileName)) {
          lastFileName = name;
          fileNameTextField.setText(name);
@@ -53,14 +56,13 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel {
 
    public void setFileIsValid(boolean valid) {
       fileIsValid = valid;
-      updateTextFieldColor(fileIsValid);
+      updateTextFieldColor();
    }
 
    public void setEnabled(boolean enabled) {
       super.setEnabled(enabled);
       for(Component comp : getComponents()) comp.setEnabled(enabled);
-      if(enabled) updateTextFieldColor(fileIsValid);
-      else updateTextFieldColor(true);
+      updateTextFieldColor();
    }
 
    //------------------------------------------------------------------------
@@ -96,9 +98,10 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel {
    // Utilities
    //------------------------------------------------------------------------
 
-   private void updateTextFieldColor(boolean valid) {
-      if(valid) fileNameTextField.setBackground(validBackground); 
-      else fileNameTextField.setBackground(invalidBackground);
+   private void updateTextFieldColor() {
+      if(isEnabled() && !fileIsValid && (!fileNameTextField.getText().equals("") || !treatEmptyStringAsValid)) 
+         fileNameTextField.setBackground(invalidBackground);
+      else fileNameTextField.setBackground(validBackground); 
    }
 
    //------------------------------------------------------------------------

@@ -10,17 +10,21 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
 public final class FileCloseAction extends CallableSystemAction {
-   
-   public void performAction() {
-      // TODO implement action body
-       Model mdl=OpenSimDB.getInstance().getCurrentModel();
-        // Confirm closing
-        // Write settings to persistent storage
-        ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(mdl);
-        if (ser.confirmAndWrite()==NotifyDescriptor.CANCEL_OPTION)
-            return;
+ 
+   public static void closeModel(Model model) {
+      if(model==null) return;
+      // Confirm closing
+      // TODO: check for unsaved changes to model before closing...
+      // Write settings to persistent storage
+      ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(model);
+      if (ser.confirmAndWrite()==NotifyDescriptor.CANCEL_OPTION)
+         return;
 
-      OpenSimDB.getInstance().removeModel(mdl);
+      OpenSimDB.getInstance().removeModel(model);
+   }
+
+   public void performAction() {
+      closeModel(OpenSimDB.getInstance().getCurrentModel());      
    }
    
    public String getName() {

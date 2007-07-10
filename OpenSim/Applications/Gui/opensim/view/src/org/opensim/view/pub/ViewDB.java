@@ -206,7 +206,7 @@ public final class ViewDB extends Observable implements Observer {
                getModelVisuals().add(newModelVisual);
                repaintAll();
             }
-            if (ev.getOperation()==ModelEvent.Operation.Close){
+            else if (ev.getOperation()==ModelEvent.Operation.Close){
                Model dModel = ev.getModel();
                // Remove model-associated objects from selection list!
                removeObjectsBelongingToModelFromSelection(dModel);
@@ -223,8 +223,12 @@ public final class ViewDB extends Observable implements Observer {
             }
             // Current model has changed. For view purposes this affects available commands
             // Changes in the Tree view are handled by the Explorer View
-            if (ev.getOperation()==ModelEvent.Operation.SetCurrent) {
+            else if (ev.getOperation()==ModelEvent.Operation.SetCurrent) {
                updateCommandsVisibility();
+            }
+            else if (ev.getOperation()==ModelEvent.Operation.Save) {
+               // If a model is saved then its document filename has changed and we should update the settings file accordingly
+               updateSettingsSerializer(ev.getModel());
             }
            
          } else if (arg instanceof NameChangedEvent){
@@ -934,20 +938,21 @@ public final class ViewDB extends Observable implements Observer {
  * Functions to deal with saved "Settings"
  * processSavedSettings parses the [modelFileWithoutExtension]_settings.xml file
  */
+   private String getDefaultSettingsFileName(Model model) {
+      String modelFileName = model.getInputFileName(); // TODO: should we use DocumentFileName or InputFileName?
+      if(modelFileName==null || modelFileName.length()==0) return null;
+      else return modelFileName.substring(0, modelFileName.indexOf("."))+"_settings.xml";
+   }
    private void processSavedSettings(Model model) {
       // Read settings file if exist, should have file name =
       // [modelFileWithoutExtension]_settings.xml
-      String modelFileName = model.getDocumentFileName();
       // Should make up a name, use it in emory and change it later per user request if needed.
-      if (modelFileName==null || modelFileName.length()==0){
-         ModelSettingsSerializer serializer = new ModelSettingsSerializer(null, true);
-         mapModelsToSettings.put(model, serializer);
-         return;
-      }
-      String settingsFileName = modelFileName.substring(0, modelFileName.indexOf("."));
-      settingsFileName = settingsFileName+"_settings.xml";
-      ModelSettingsSerializer serializer = new ModelSettingsSerializer(settingsFileName, true);
+      ModelSettingsSerializer serializer = new ModelSettingsSerializer(getDefaultSettingsFileName(model), true);
       mapModelsToSettings.put(model, serializer);
+   }
+   private void updateSettingsSerializer(Model model) {
+      ModelSettingsSerializer serializer = mapModelsToSettings.get(model);
+      if(serializer != null) serializer.setFilename(getDefaultSettingsFileName(model));
    }
    /**
     * Write ettings to an xml file [model-file]_settings.xml
