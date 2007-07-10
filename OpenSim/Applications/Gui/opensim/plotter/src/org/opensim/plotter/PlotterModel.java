@@ -25,22 +25,18 @@
  */
 package org.opensim.plotter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
-import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.ArrayStorage;
-import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.MomentArmAnalysis;
-import org.opensim.modeling.MuscleAnalysis;
 import org.opensim.modeling.Storage;
-import org.opensim.motionviewer.MotionsDB;
 
 /**
  *
@@ -67,9 +63,14 @@ public class PlotterModel {
    
    public PlotterSourceFile addFile(String filename)
    {
-      PlotterSourceFile newSource = new PlotterSourceFile(filename);
-      sources.add(newSource);
-      return newSource;
+      try {
+         PlotterSourceFile newSource = new PlotterSourceFile(filename);
+         sources.add(newSource);
+         return newSource;
+      } catch (IOException ex) {
+         ex.printStackTrace();
+         return null;
+      }
    }
    
     public void addModel(Model aModel)

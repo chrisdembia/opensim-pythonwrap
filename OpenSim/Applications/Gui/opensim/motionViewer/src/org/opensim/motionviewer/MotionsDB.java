@@ -25,6 +25,7 @@
  */
 package org.opensim.motionviewer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Observable;
@@ -75,8 +76,15 @@ public class MotionsDB extends Observable // Observed by other entities in motio
     * current.
     */
    public void loadMotionFile(String fileName) {
-      Storage storage;
-      final Storage newMotion = new Storage(fileName);
+      Storage storage = null;
+      try {
+         storage = new Storage(fileName);
+      } catch (IOException ex) {
+         ex.printStackTrace();
+         DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Could not read motion file "+fileName));
+         return;
+      }
+      final Storage newMotion = storage;
       String name = newMotion.getName();
       boolean associated = false;
       while(!associated){

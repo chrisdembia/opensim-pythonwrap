@@ -9,10 +9,10 @@ package org.opensim.plotter;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -32,7 +32,6 @@ import org.opensim.modeling.ArrayStorage;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.MomentArmAnalysis;
-import org.opensim.modeling.MuscleAnalysis;
 import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.MotionTimeChangeEvent;
@@ -741,8 +740,12 @@ public class JPlotterPanel extends javax.swing.JPanel
        // Browse for Storage or Motion file (for now) and preprocess the file if needed for plotting
        String dataFilename = FileUtils.getInstance().browseForFilename(".sto, .mot", "Files containing data to plot", true);
        if (dataFilename != null){
+         try {
            PlotterSourceFile src = new PlotterSourceFile(dataFilename);
            getPlotterModel().addSource(src);
+         } catch (IOException ex) {
+            ex.printStackTrace();
+         }          
        }
    }//GEN-LAST:event_jLoadFileToPlotterMenuItemActionPerformed
    
