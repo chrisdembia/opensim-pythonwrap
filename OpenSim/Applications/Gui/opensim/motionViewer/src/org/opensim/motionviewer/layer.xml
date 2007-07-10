@@ -15,11 +15,9 @@
     </folder>
     <folder name="Menu">
         <folder name="File">
-            <attr name="org-opensim-view-OpenOsimModel.shadow/org-opensim-motionviewer-FileLoadMotionAction.shadow" boolvalue="true"/>
             <file name="org-opensim-motionviewer-FileLoadMotionAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-motionviewer-FileLoadMotionAction.instance"/>
             </file>
-            <attr name="org-opensim-motionviewer-FileLoadMotionAction.shadow/org-opensim-view-actions-FileCloseAction.shadow" boolvalue="true"/>
         </folder>
         <folder name="View">
             <attr name="Separator1.instance/org-opensim-motionviewer-separatorBefore.instance" boolvalue="true"/>
