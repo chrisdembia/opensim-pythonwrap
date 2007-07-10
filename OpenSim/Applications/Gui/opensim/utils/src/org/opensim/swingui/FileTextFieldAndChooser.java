@@ -40,14 +40,18 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel {
       return fileNameTextField.getText();
    }
 
-   public void setFileName(String name) {
+   public void setFileName(String name, boolean triggerEvent) {
       if(name.equals("Unassigned") && treatUnassignedAsEmptyString) name = "";
       if(!name.equals(lastFileName)) {
          lastFileName = name;
          fileNameTextField.setText(name);
          setFileIsValid((new File(name)).exists());
-         fireStateChanged();
+         if(triggerEvent) fireStateChanged();
       }
+   }
+
+   public void setFileName(String name) {
+      setFileName(name, true);
    }
 
    public boolean getFileIsValid() {

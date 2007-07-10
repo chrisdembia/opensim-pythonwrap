@@ -216,14 +216,13 @@ public final class FileUtils {
     {
        return browseForFilename(FileUtils.getFileFilter(extensions, description), isRequired2Exist);
     }
-    /**
-     * browseForFilename is a hlper function used to browse for files with specified 
-     * extensions and desciption. see browseForFilename(String , String , boolean )
-     * for details.
-     */
     public String browseForFilename(String extensions, String description)
     {
         return browseForFilename(extensions, description, true);
+    }
+    public String browseForFilename(FileFilter filter)
+    {
+        return browseForFilename(filter, true);
     }
     
     /**
