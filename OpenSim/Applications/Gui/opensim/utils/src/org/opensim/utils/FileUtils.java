@@ -154,7 +154,7 @@ public final class FileUtils {
      *
      * @todo this could be improved by making our own JFileChooser container JPanel
      */
-    public String browseForFilename(String extensions, String description, boolean isRequired2Exist)
+    public String browseForFilename(String extensions, String description, boolean isRequired2Exist, boolean saving)
     {
         // Init dialog to use "WorkDirectory" as thought of by user
         String defaultDir="";
@@ -165,7 +165,8 @@ public final class FileUtils {
         
         String outFilename=null;
         JFrame topFrame = TheApp.getAppFrame();
-        if (dlog.showOpenDialog(topFrame) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
+        int result = saving ? dlog.showSaveDialog(topFrame) : dlog.showOpenDialog(topFrame);
+        if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
              outFilename= dlog.getSelectedFile().getAbsolutePath();
              Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
        }
@@ -178,10 +179,14 @@ public final class FileUtils {
                 DialogDisplayer.getDefault().notify(
                         new NotifyDescriptor.Message("Selected file "+outFilename+" does not exist."));
                 // This could be done better
-                return browseForFilename(extensions, description, isRequired2Exist);
+                return browseForFilename(extensions, description, isRequired2Exist, saving);
             }
        }
        return outFilename;
+    }
+    public String browseForFilename(String extensions, String description, boolean isRequired2Exist)
+    {
+        return browseForFilename(extensions, description, isRequired2Exist, false);
     }
     /**
      * browseForFilename is a hlper function used to browse for files with specified 
@@ -190,7 +195,7 @@ public final class FileUtils {
      */
     public String browseForFilename(String extensions, String description)
     {
-        return browseForFilename(extensions, description, true);
+        return browseForFilename(extensions, description, true, false);
     }
     
     /**
