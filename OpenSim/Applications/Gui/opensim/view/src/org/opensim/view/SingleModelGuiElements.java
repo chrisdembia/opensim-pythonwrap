@@ -9,6 +9,7 @@
 
 package org.opensim.view;
 
+import java.util.ArrayList;
 import java.util.Vector;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractMuscle;
@@ -31,6 +32,7 @@ public class SingleModelGuiElements {
     private static String[] bodyNames=null;
     private static String[] coordinateNames=null;
     private static String[] actuatorClassNames=null;
+    private static String[] actuatorNames=null;
     
     public SingleModelGuiElements(Model model)
     {
@@ -121,13 +123,33 @@ public class SingleModelGuiElements {
    public String[] getActuatorClassNames()
    {
       if (actuatorClassNames==null) {
-         actuatorClassNames = new String[5];
-         actuatorClassNames[0] = new String("SimmZajacHill");
-         actuatorClassNames[1] = new String("SimmDarrylMuscle");
-         actuatorClassNames[2] = new String("Force");
-         actuatorClassNames[3] = new String("Torque");
-         actuatorClassNames[4] = new String("GeneralizedForce");
+         actuatorClassNames = new String[4];
+         actuatorClassNames[0] = new String("AbstractMuscle");
+         actuatorClassNames[1] = new String("Force");
+         actuatorClassNames[2] = new String("Torque");
+         actuatorClassNames[3] = new String("GeneralizedForce");
       }
       return actuatorClassNames;
+   }
+
+   /**
+    * Get names of actuators
+    */
+   public String[] getActuatorNames()
+   {
+        ArrayList<String> namesList=new ArrayList<String>(4);
+        ActuatorSet actuators = model.getActuatorSet();
+        if (actuators !=null){
+            for(int i=0; i<actuators.getSize();i++){
+                AbstractActuator act =actuators.get(i);
+                AbstractMuscle muscle = AbstractMuscle.safeDownCast(act);
+                if (muscle != null) {
+                        namesList.add(muscle.getName());
+                }
+            }
+        }
+        String[] ret = new String[namesList.size()];
+        System.arraycopy(namesList.toArray(), 0, ret, 0, namesList.size());
+        return ret;
    }
 }
