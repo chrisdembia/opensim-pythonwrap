@@ -517,10 +517,9 @@ public class OpenSimObjectModel
             }
           }
           else if (propType == Property.PropertyType.ObjArray) {
-            ArrayPtrsObj objArray = rdprop.getValueObjArray();
-            retArray = new PropertyNode[objArray.getSize()];
-            for (int i = 0; i < objArray.getSize(); i++) {
-              OpenSimObject subobj = objArray.get(i);
+            retArray = new PropertyNode[rdprop.getValueObjArraySize()];
+            for (int i = 0; i < rdprop.getValueObjArraySize(); i++) {
+              OpenSimObject subobj = rdprop.getValueObjPtr(i);
               retArray[i] = new PropertyNode(this, subobj, i, isEditable);
             }
           }
