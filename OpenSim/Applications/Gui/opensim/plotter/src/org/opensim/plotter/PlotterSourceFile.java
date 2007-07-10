@@ -26,10 +26,7 @@
 package org.opensim.plotter;
 
 import java.io.File;
-import java.util.Vector;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-import org.opensim.modeling.ArrayStr;
+import java.io.IOException;
 import org.opensim.modeling.Storage;
 
 /**
@@ -40,7 +37,7 @@ import org.opensim.modeling.Storage;
 public class PlotterSourceFile extends PlotterSourceStorage {
 
    /** Creates a new instance of PlotterSourceFile */
-   public PlotterSourceFile(String filename) {
+   public PlotterSourceFile(String filename) throws IOException {
       super(new Storage(filename));
       String fullFileName = filename;
       displayName = new File(fullFileName).getName();
