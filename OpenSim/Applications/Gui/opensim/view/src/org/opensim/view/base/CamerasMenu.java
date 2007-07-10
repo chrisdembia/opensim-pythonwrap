@@ -1,8 +1,8 @@
 /*
  *
  * CamerasMenu
- * Author(s): Ayman Habib
- * Copyright (c) 2005-2006, Stanford University, Ayman Habib
+ * Author(s): Ayman Habib & Jeff Reinbolt
+ * Copyright (c) 2005-2006, Stanford University, Ayman Habib & Jeff Reinbolt
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -42,7 +42,8 @@ import vtk.vtkLightCollection;
 public class CamerasMenu extends JMenu {
     
     OpenSimBaseCanvas dCanvas;
-    static vtkCamera upXCamera, upZCamera, upYCamera;
+    static vtkCamera minusXCamera, minusZCamera, minusYCamera;
+    static vtkCamera plusXCamera, plusZCamera, plusYCamera;
     
     static ArrayList<vtkCamera> availableCameras = new ArrayList<vtkCamera>();
     static ArrayList<String> availableCameraNames = new ArrayList<String>();
@@ -64,35 +65,65 @@ public class CamerasMenu extends JMenu {
     
     private void createDefaultCameras()
     {
-        upXCamera = new vtkCamera(); //x
-        upXCamera.Azimuth(90);
-        upXCamera.Elevation(0);
-        upXCamera.Roll(0);
-        upXCamera.SetViewAngle(30);
-        upXCamera.SetFocalPoint(0, 0, 0);
-        upXCamera.SetViewUp(0, 1, 0);
-
-        upZCamera = new vtkCamera();    //z
-        upZCamera.Azimuth(0);
-        upZCamera.Elevation(0);
-        upZCamera.Roll(0);
-        upZCamera.SetViewAngle(30);
-        upZCamera.SetFocalPoint(0, 0, 0);
-        upZCamera.SetViewUp(0, 1, 0);
+        plusXCamera = new vtkCamera(); // +x
+        plusXCamera.Azimuth(-90);
+        plusXCamera.Elevation(0);
+        plusXCamera.Roll(0);
+        plusXCamera.SetViewAngle(30);
+        plusXCamera.SetFocalPoint(0, 0, 0);
+        plusXCamera.SetViewUp(0, 1, 0);
         
-        upYCamera = new vtkCamera();   //y
-        upYCamera.Azimuth(0);
-        upYCamera.Elevation(90);
-        upYCamera.Roll(180);
-        upYCamera.SetViewAngle(30);
-        upYCamera.SetFocalPoint(0, 0, 0);
-        upYCamera.SetViewUp(0, 0, -1);
+        minusXCamera = new vtkCamera(); // -x
+        minusXCamera.Azimuth(90);
+        minusXCamera.Elevation(0);
+        minusXCamera.Roll(0);
+        minusXCamera.SetViewAngle(30);
+        minusXCamera.SetFocalPoint(0, 0, 0);
+        minusXCamera.SetViewUp(0, 1, 0);
 
-        availableCameras.add(upXCamera);
+        plusZCamera = new vtkCamera(); // +z
+        plusZCamera.Azimuth(180);
+        plusZCamera.Elevation(0);
+        plusZCamera.Roll(0);
+        plusZCamera.SetViewAngle(30);
+        plusZCamera.SetFocalPoint(0, 0, 0);
+        plusZCamera.SetViewUp(0, 1, 0);
+        
+        minusZCamera = new vtkCamera(); // -z
+        minusZCamera.Azimuth(0);
+        minusZCamera.Elevation(0);
+        minusZCamera.Roll(0);
+        minusZCamera.SetViewAngle(30);
+        minusZCamera.SetFocalPoint(0, 0, 0);
+        minusZCamera.SetViewUp(0, 1, 0);
+        
+        plusYCamera = new vtkCamera(); // +y
+        plusYCamera.Azimuth(0);
+        plusYCamera.Elevation(-90);
+        plusYCamera.Roll(180);
+        plusYCamera.SetViewAngle(30);
+        plusYCamera.SetFocalPoint(0, 0, 0);
+        plusYCamera.SetViewUp(0, 0, -1);
+        
+        minusYCamera = new vtkCamera(); // -y
+        minusYCamera.Azimuth(0);
+        minusYCamera.Elevation(90);
+        minusYCamera.Roll(180);
+        minusYCamera.SetViewAngle(30);
+        minusYCamera.SetFocalPoint(0, 0, 0);
+        minusYCamera.SetViewUp(0, 0, -1);
+
+        availableCameras.add(plusXCamera);
+        availableCameraNames.add("Back");
+        availableCameras.add(minusXCamera);
         availableCameraNames.add("Front");
-        availableCameras.add(upZCamera);
-        availableCameraNames.add("Side");
-        availableCameras.add(upYCamera);
+        availableCameras.add(plusZCamera);
+        availableCameraNames.add("Left");
+        availableCameras.add(minusZCamera);
+        availableCameraNames.add("Right");
+        availableCameras.add(plusYCamera);
+        availableCameraNames.add("Bottom");
+        availableCameras.add(minusYCamera);
         availableCameraNames.add("Top");
     }
 

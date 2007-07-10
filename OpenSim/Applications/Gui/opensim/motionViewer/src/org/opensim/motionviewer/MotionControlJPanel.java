@@ -20,10 +20,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.opensim.motionviewer.MotionEvent.Operation;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
+
 
 /**
  *
@@ -36,7 +33,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
                    Observer {       // For MotionsDB
    
    Timer               animationTimer=null;
-   SpinnerModel        smodel = new SpinnerNumberModel(1.0, 0.05, 10.0, 0.05);
+   SpinnerModel        smodel = new SpinnerNumberModel(1.0, 0.0, 10.0, 0.05);
    boolean             motionLoaded=false;
    MasterMotionModel   masterMotion;
    private int         rangeResolution;
@@ -151,9 +148,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jLabelForTimeTextField = new javax.swing.JLabel();
         jWrapToggleButton = new javax.swing.JToggleButton();
 
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        setMaximumSize(new java.awt.Dimension(32767, 37));
-        setMinimumSize(new java.awt.Dimension(0, 37));
+        setMaximumSize(new java.awt.Dimension(32767, 32));
+        setMinimumSize(new java.awt.Dimension(0, 32));
         jPlaybackButtonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
         jPlaybackButtonsPanel.setMaximumSize(new java.awt.Dimension(32767, 16));
@@ -349,7 +345,9 @@ public class MotionControlJPanel extends javax.swing.JPanel
             }
         });
 
+        jSpeedSpinner.setBackground(new java.awt.Color(255, 255, 255));
         jSpeedSpinner.setFont(new java.awt.Font("Tahoma", 0, 11));
+        jSpeedSpinner.setForeground(new java.awt.Color(0, 0, 0));
         jSpeedSpinner.setModel(smodel);
         jSpeedSpinner.setToolTipText("Play Speed");
         jSpeedSpinner.setMaximumSize(new java.awt.Dimension(50, 16));
@@ -412,8 +410,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
                     .add(jSpeedSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPlaybackButtonsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
-                    .add(jMotionSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
+                    .add(jPlaybackButtonsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                    .add(jMotionSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jWrapToggleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -438,7 +436,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
                         .add(jMotionSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(0, 0, 0)
                         .add(jPlaybackButtonsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

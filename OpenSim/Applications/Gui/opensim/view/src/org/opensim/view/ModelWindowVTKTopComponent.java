@@ -13,7 +13,6 @@ import org.opensim.utils.TheApp;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkFileOutputWindow;
 import org.opensim.utils.Prefs;
-import javax.swing.JToolBar;
 
 /**
  * Top component which displays something.
@@ -56,13 +55,12 @@ public class ModelWindowVTKTopComponent extends TopComponent
     private void initComponents() {
         jRefitModelButton = new javax.swing.JButton();
         jModelWindowToolBar = new javax.swing.JToolBar();
-        //String defaultBackgroundColor="0.15, 0.15, 0.15";
-        //defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBackgroundColor);
-        //double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);
-        //jModelWindowToolBar.setBackground(background);
-        jFrontViewButton = new javax.swing.JButton();
-        jTopViewButton = new javax.swing.JButton();
-        jSideViewButton = new javax.swing.JButton();
+        jPlusXViewButton = new javax.swing.JButton();
+        jMinusXViewButton = new javax.swing.JButton();
+        jPlusYViewButton = new javax.swing.JButton();
+        jMinusYViewButton = new javax.swing.JButton();
+        jPlusZViewButton = new javax.swing.JButton();
+        jMinusZViewButton = new javax.swing.JButton();
         jTakeSnapshotButton = new javax.swing.JButton();
         jStartStopMovieToggleButton = new javax.swing.JToggleButton();
         openSimCanvas1 = new org.opensim.view.OpenSimCanvas();
@@ -76,47 +74,156 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         setLayout(new java.awt.BorderLayout());
 
+        String defaultBackgroundColor="0.15, 0.15, 0.15";
+        defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBackgroundColor);
+        double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);
+        jModelWindowToolBar.setBackground(new java.awt.Color((int) (background[0]*255), (int) (background[1]*255), (int) (background[2]*255)));
+        jModelWindowToolBar.setBorder(null);
+        jModelWindowToolBar.setOrientation(1);
         jModelWindowToolBar.setAlignmentY(0.5F);
+        jModelWindowToolBar.setBorderPainted(false);
         jModelWindowToolBar.setMaximumSize(new java.awt.Dimension(160, 160));
         jModelWindowToolBar.setMinimumSize(new java.awt.Dimension(20, 20));
-        jModelWindowToolBar.setPreferredSize(new java.awt.Dimension(160, 20));
-        jFrontViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/front.gif")));
-        jFrontViewButton.setToolTipText("View model from front (look along -X)");
-        jFrontViewButton.setMaximumSize(new java.awt.Dimension(32, 21));
-        jFrontViewButton.addActionListener(new java.awt.event.ActionListener() {
+        jModelWindowToolBar.setPreferredSize(new java.awt.Dimension(20, 20));
+        jPlusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusXView.png")));
+        jPlusXViewButton.setToolTipText("+X View");
+        jPlusXViewButton.setBorderPainted(false);
+        jPlusXViewButton.setContentAreaFilled(false);
+        jPlusXViewButton.setFocusPainted(false);
+        jPlusXViewButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jPlusXViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        jPlusXViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        jPlusXViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        jPlusXViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusXView_selected.png")));
+        jPlusXViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusXView_rollover.png")));
+        jPlusXViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusXView_rollover_selected.png")));
+        jPlusXViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusXView_selected.png")));
+        jPlusXViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFrontViewButtonActionPerformed(evt);
+                jPlusXViewButtonActionPerformed(evt);
             }
         });
 
-        jModelWindowToolBar.add(jFrontViewButton);
+        jModelWindowToolBar.add(jPlusXViewButton);
 
-        jTopViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/top.gif")));
-        jTopViewButton.setToolTipText("View model from above (look along -Y)");
-        jTopViewButton.setMaximumSize(new java.awt.Dimension(32, 21));
-        jTopViewButton.addActionListener(new java.awt.event.ActionListener() {
+        jMinusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusXView.png")));
+        jMinusXViewButton.setToolTipText("-X View");
+        jMinusXViewButton.setBorderPainted(false);
+        jMinusXViewButton.setContentAreaFilled(false);
+        jMinusXViewButton.setFocusPainted(false);
+        jMinusXViewButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jMinusXViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        jMinusXViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        jMinusXViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        jMinusXViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusXView_selected.png")));
+        jMinusXViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusXView_rollover.png")));
+        jMinusXViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusXView_rollover_selected.png")));
+        jMinusXViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusXView_selected.png")));
+        jMinusXViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTopViewButtonActionPerformed(evt);
+                jMinusXViewButtonActionPerformed(evt);
             }
         });
 
-        jModelWindowToolBar.add(jTopViewButton);
+        jModelWindowToolBar.add(jMinusXViewButton);
 
-        jSideViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/side.gif")));
-        jSideViewButton.setToolTipText("View model from the side (look along -Z)");
-        jSideViewButton.setMaximumSize(new java.awt.Dimension(32, 21));
-        jSideViewButton.addActionListener(new java.awt.event.ActionListener() {
+        jPlusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusYView.png")));
+        jPlusYViewButton.setToolTipText("+Y View");
+        jPlusYViewButton.setBorderPainted(false);
+        jPlusYViewButton.setContentAreaFilled(false);
+        jPlusYViewButton.setFocusPainted(false);
+        jPlusYViewButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jPlusYViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        jPlusYViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        jPlusYViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        jPlusYViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusYView_selected.png")));
+        jPlusYViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusYView_rollover.png")));
+        jPlusYViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusYView_rollover_selected.png")));
+        jPlusYViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusYView_selected.png")));
+        jPlusYViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jSideViewButtonActionPerformed(evt);
+                jPlusYViewButtonActionPerformed(evt);
             }
         });
 
-        jModelWindowToolBar.add(jSideViewButton);
+        jModelWindowToolBar.add(jPlusYViewButton);
 
-        jTakeSnapshotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/camera.gif")));
-        jTakeSnapshotButton.setToolTipText("Take a snapshot image");
-        jTakeSnapshotButton.setMaximumSize(new java.awt.Dimension(32, 21));
-        jTakeSnapshotButton.setPreferredSize(new java.awt.Dimension(32, 21));
+        jMinusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusYView.png")));
+        jMinusYViewButton.setToolTipText("-Y View");
+        jMinusYViewButton.setBorderPainted(false);
+        jMinusYViewButton.setContentAreaFilled(false);
+        jMinusYViewButton.setFocusPainted(false);
+        jMinusYViewButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jMinusYViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        jMinusYViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        jMinusYViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        jMinusYViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusYView_selected.png")));
+        jMinusYViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusYView_rollover.png")));
+        jMinusYViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusYView_rollover_selected.png")));
+        jMinusYViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusYView_selected.png")));
+        jMinusYViewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMinusYViewButtonActionPerformed(evt);
+            }
+        });
+
+        jModelWindowToolBar.add(jMinusYViewButton);
+
+        jPlusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusZView.png")));
+        jPlusZViewButton.setToolTipText("+Z View");
+        jPlusZViewButton.setBorderPainted(false);
+        jPlusZViewButton.setContentAreaFilled(false);
+        jPlusZViewButton.setFocusPainted(false);
+        jPlusZViewButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jPlusZViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        jPlusZViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        jPlusZViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        jPlusZViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusZView_selected.png")));
+        jPlusZViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusZView_rollover.png")));
+        jPlusZViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusZView_rollover_selected.png")));
+        jPlusZViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusZView_selected.png")));
+        jPlusZViewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPlusZViewButtonActionPerformed(evt);
+            }
+        });
+
+        jModelWindowToolBar.add(jPlusZViewButton);
+
+        jMinusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusZView.png")));
+        jMinusZViewButton.setToolTipText("-Z View");
+        jMinusZViewButton.setBorderPainted(false);
+        jMinusZViewButton.setContentAreaFilled(false);
+        jMinusZViewButton.setFocusPainted(false);
+        jMinusZViewButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jMinusZViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        jMinusZViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        jMinusZViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        jMinusZViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusZView_selected.png")));
+        jMinusZViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusZView_rollover.png")));
+        jMinusZViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusZView_rollover_selected.png")));
+        jMinusZViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusZView_selected.png")));
+        jMinusZViewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMinusZViewButtonActionPerformed(evt);
+            }
+        });
+
+        jModelWindowToolBar.add(jMinusZViewButton);
+
+        jTakeSnapshotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/stillCamera.png")));
+        jTakeSnapshotButton.setToolTipText("Save As Image");
+        jTakeSnapshotButton.setBorderPainted(false);
+        jTakeSnapshotButton.setContentAreaFilled(false);
+        jTakeSnapshotButton.setFocusPainted(false);
+        jTakeSnapshotButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jTakeSnapshotButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        jTakeSnapshotButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        jTakeSnapshotButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        jTakeSnapshotButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/stillCamera_selected.png")));
+        jTakeSnapshotButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/stillCamera_rollover.png")));
+        jTakeSnapshotButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/stillCamera_rollover_selected.png")));
+        jTakeSnapshotButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/stillCamera_selected.png")));
         jTakeSnapshotButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTakeSnapshotButtonActionPerformed(evt);
@@ -125,8 +232,19 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWindowToolBar.add(jTakeSnapshotButton);
 
-        jStartStopMovieToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/movie_camera.gif")));
-        jStartStopMovieToggleButton.setToolTipText("Press to start recording, press again to finish.");
+        jStartStopMovieToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/movieCamera.png")));
+        jStartStopMovieToggleButton.setToolTipText("Start/Stop Save As Move");
+        jStartStopMovieToggleButton.setBorderPainted(false);
+        jStartStopMovieToggleButton.setContentAreaFilled(false);
+        jStartStopMovieToggleButton.setFocusPainted(false);
+        jStartStopMovieToggleButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jStartStopMovieToggleButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        jStartStopMovieToggleButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        jStartStopMovieToggleButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        jStartStopMovieToggleButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/movieCamera_selected.png")));
+        jStartStopMovieToggleButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/movieCamera_rollover.png")));
+        jStartStopMovieToggleButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/movieCamera_rollover_selected.png")));
+        jStartStopMovieToggleButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/movieCamera_selected.png")));
         jStartStopMovieToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jStartStopMovieToggleButtonActionPerformed(evt);
@@ -136,11 +254,26 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWindowToolBar.add(jStartStopMovieToggleButton);
 
-        add(jModelWindowToolBar, java.awt.BorderLayout.NORTH);
+        add(jModelWindowToolBar, java.awt.BorderLayout.EAST);
 
         add(openSimCanvas1, java.awt.BorderLayout.CENTER);
 
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jPlusZViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlusZViewButtonActionPerformed
+// TODO add your handling code here:
+        openSimCanvas1.applyCameraPlusZ();
+    }//GEN-LAST:event_jPlusZViewButtonActionPerformed
+
+    private void jPlusYViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlusYViewButtonActionPerformed
+// TODO add your handling code here:
+        openSimCanvas1.applyCameraPlusY();
+    }//GEN-LAST:event_jPlusYViewButtonActionPerformed
+
+    private void jPlusXViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlusXViewButtonActionPerformed
+// TODO add your handling code here:
+        openSimCanvas1.applyCameraPlusX();
+    }//GEN-LAST:event_jPlusXViewButtonActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
 // TODO add your handling code here:
@@ -167,20 +300,20 @@ public class ModelWindowVTKTopComponent extends TopComponent
         }
     }//GEN-LAST:event_jStartStopMovieToggleButtonActionPerformed
 
-   private void jFrontViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFrontViewButtonActionPerformed
+    private void jMinusXViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMinusXViewButtonActionPerformed
 // TODO add your handling code here:
-      openSimCanvas1.applyCameraX();
-   }//GEN-LAST:event_jFrontViewButtonActionPerformed
+      openSimCanvas1.applyCameraMinusX();
+    }//GEN-LAST:event_jMinusXViewButtonActionPerformed
 
-   private void jSideViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSideViewButtonActionPerformed
+   private void jMinusZViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMinusZViewButtonActionPerformed
 // TODO add your handling code here:
-      openSimCanvas1.applyCameraZ();
-   }//GEN-LAST:event_jSideViewButtonActionPerformed
+      openSimCanvas1.applyCameraMinusZ();
+   }//GEN-LAST:event_jMinusZViewButtonActionPerformed
 
-   private void jTopViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTopViewButtonActionPerformed
+   private void jMinusYViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMinusYViewButtonActionPerformed
 // TODO add your handling code here:
-      openSimCanvas1.applyCameraY();
-   }//GEN-LAST:event_jTopViewButtonActionPerformed
+      openSimCanvas1.applyCameraMinusY();
+   }//GEN-LAST:event_jMinusYViewButtonActionPerformed
 
     private void jTakeSnapshotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTakeSnapshotButtonActionPerformed
 // TODO add your handling code here:
@@ -204,13 +337,16 @@ public class ModelWindowVTKTopComponent extends TopComponent
     }//GEN-LAST:event_jRefitModelButtonActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jFrontViewButton;
+    private javax.swing.JButton jMinusXViewButton;
+    private javax.swing.JButton jMinusYViewButton;
+    private javax.swing.JButton jMinusZViewButton;
     private javax.swing.JToolBar jModelWindowToolBar;
+    private javax.swing.JButton jPlusXViewButton;
+    private javax.swing.JButton jPlusYViewButton;
+    private javax.swing.JButton jPlusZViewButton;
     private javax.swing.JButton jRefitModelButton;
-    private javax.swing.JButton jSideViewButton;
     private javax.swing.JToggleButton jStartStopMovieToggleButton;
     private javax.swing.JButton jTakeSnapshotButton;
-    private javax.swing.JButton jTopViewButton;
     private org.opensim.view.OpenSimCanvas openSimCanvas1;
     // End of variables declaration//GEN-END:variables
     

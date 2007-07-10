@@ -1,8 +1,8 @@
 /*
  *
  * OpenSimBaseCanvas
- * Author(s): Ayman Habib
- * Copyright (c) 2005-2006, Stanford University, Ayman Habib
+ * Author(s): Ayman Habib & Jeff Reinbolt
+ * Copyright (c) 2005-2006, Stanford University, Ayman Habib & Jeff Reinbolt
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -122,11 +122,11 @@ public class OpenSimBaseCanvas extends vtkPanel
       char keyChar = e.getKeyChar();
       
       if ('x' == keyChar) {
-         applyCameraX();
+         applyCameraMinusX();
       } else if ('y' == keyChar) {
-         applyCameraY();
+         applyCameraMinusY();
       } else if ('z' == keyChar) {
-         applyCameraZ();
+         applyCameraMinusZ();
       } else if ('i' == keyChar) {
          GetRenderer().GetActiveCamera().Zoom(1.1);
          repaint();
@@ -137,15 +137,27 @@ public class OpenSimBaseCanvas extends vtkPanel
       super.keyPressed(e);
    }
    
-   public void applyCameraY() {
+   public void applyCameraPlusY() {
+      applyCamera(camerasMenu.pickStandardCamera("Bottom"));
+   }
+   
+   public void applyCameraMinusY() {
       applyCamera(camerasMenu.pickStandardCamera("Top"));
    }
    
-   public void applyCameraZ() {
-      applyCamera(camerasMenu.pickStandardCamera("Side"));
+   public void applyCameraPlusZ() {
+      applyCamera(camerasMenu.pickStandardCamera("Left"));
    }
    
-   public void applyCameraX() {
+   public void applyCameraMinusZ() {
+      applyCamera(camerasMenu.pickStandardCamera("Right"));
+   }
+   
+   public void applyCameraPlusX() {
+      applyCamera(camerasMenu.pickStandardCamera("Back"));
+   }
+   
+   public void applyCameraMinusX() {
       applyCamera(camerasMenu.pickStandardCamera("Front"));
    }
    

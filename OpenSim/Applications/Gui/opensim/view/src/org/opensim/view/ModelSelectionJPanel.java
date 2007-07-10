@@ -36,9 +36,8 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
         jLabelForCurrentModelComboBox = new javax.swing.JLabel();
         jCurrentModelComboBox = new javax.swing.JComboBox();
 
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        setMaximumSize(new java.awt.Dimension(165, 37));
-        setMinimumSize(new java.awt.Dimension(165, 37));
+        setMaximumSize(new java.awt.Dimension(165, 32));
+        setMinimumSize(new java.awt.Dimension(165, 32));
         jLabelForCurrentModelComboBox.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabelForCurrentModelComboBox.setLabelFor(jCurrentModelComboBox);
         jLabelForCurrentModelComboBox.setText("Model");
@@ -65,7 +64,7 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
                 .add(jLabelForCurrentModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jCurrentModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
