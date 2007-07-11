@@ -1,5 +1,6 @@
 package org.opensim.view;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.prefs.Preferences;
@@ -74,19 +75,19 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         setLayout(new java.awt.BorderLayout());
 
-        String defaultBackgroundColor="0.15, 0.15, 0.15";
-        defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBackgroundColor);
-        double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);
-        jModelWindowToolBar.setBackground(new java.awt.Color((int) (background[0]*255), (int) (background[1]*255), (int) (background[2]*255)));
+        //String defaultBackgroundColor="0.0, 0.0, 0.0";
+        //defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBackgroundColor);
+        //double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);
+        //jModelWindowToolBar.setBackground(new java.awt.Color((int) (background[0]*255), (int) (background[1]*255), (int) (background[2]*255)));
+
         jModelWindowToolBar.setBorder(null);
         jModelWindowToolBar.setOrientation(1);
-        jModelWindowToolBar.setAlignmentY(0.5F);
-        jModelWindowToolBar.setBorderPainted(false);
-        jModelWindowToolBar.setMaximumSize(new java.awt.Dimension(160, 160));
-        jModelWindowToolBar.setMinimumSize(new java.awt.Dimension(20, 20));
+        jModelWindowToolBar.setMaximumSize(new java.awt.Dimension(180, 180));
+        jModelWindowToolBar.setMinimumSize(new java.awt.Dimension(30, 30));
         jModelWindowToolBar.setPreferredSize(new java.awt.Dimension(20, 20));
         jPlusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusXView.png")));
         jPlusXViewButton.setToolTipText("+X View");
+        jPlusXViewButton.setAlignmentX(0.5F);
         jPlusXViewButton.setBorderPainted(false);
         jPlusXViewButton.setContentAreaFilled(false);
         jPlusXViewButton.setFocusPainted(false);
@@ -108,6 +109,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jMinusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusXView.png")));
         jMinusXViewButton.setToolTipText("-X View");
+        jMinusXViewButton.setAlignmentX(0.5F);
         jMinusXViewButton.setBorderPainted(false);
         jMinusXViewButton.setContentAreaFilled(false);
         jMinusXViewButton.setFocusPainted(false);
@@ -129,6 +131,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jPlusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusYView.png")));
         jPlusYViewButton.setToolTipText("+Y View");
+        jPlusYViewButton.setAlignmentX(0.5F);
         jPlusYViewButton.setBorderPainted(false);
         jPlusYViewButton.setContentAreaFilled(false);
         jPlusYViewButton.setFocusPainted(false);
@@ -150,6 +153,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jMinusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusYView.png")));
         jMinusYViewButton.setToolTipText("-Y View");
+        jMinusYViewButton.setAlignmentX(0.5F);
         jMinusYViewButton.setBorderPainted(false);
         jMinusYViewButton.setContentAreaFilled(false);
         jMinusYViewButton.setFocusPainted(false);
@@ -171,6 +175,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jPlusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/plusZView.png")));
         jPlusZViewButton.setToolTipText("+Z View");
+        jPlusZViewButton.setAlignmentX(0.5F);
         jPlusZViewButton.setBorderPainted(false);
         jPlusZViewButton.setContentAreaFilled(false);
         jPlusZViewButton.setFocusPainted(false);
@@ -192,6 +197,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jMinusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/minusZView.png")));
         jMinusZViewButton.setToolTipText("-Z View");
+        jMinusZViewButton.setAlignmentX(0.5F);
         jMinusZViewButton.setBorderPainted(false);
         jMinusZViewButton.setContentAreaFilled(false);
         jMinusZViewButton.setFocusPainted(false);
@@ -213,6 +219,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jTakeSnapshotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/stillCamera.png")));
         jTakeSnapshotButton.setToolTipText("Save As Image");
+        jTakeSnapshotButton.setAlignmentX(0.5F);
         jTakeSnapshotButton.setBorderPainted(false);
         jTakeSnapshotButton.setContentAreaFilled(false);
         jTakeSnapshotButton.setFocusPainted(false);
@@ -234,6 +241,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jStartStopMovieToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/movieCamera.png")));
         jStartStopMovieToggleButton.setToolTipText("Start/Stop Save As Move");
+        jStartStopMovieToggleButton.setAlignmentX(0.5F);
         jStartStopMovieToggleButton.setBorderPainted(false);
         jStartStopMovieToggleButton.setContentAreaFilled(false);
         jStartStopMovieToggleButton.setFocusPainted(false);
@@ -256,9 +264,29 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         add(jModelWindowToolBar, java.awt.BorderLayout.EAST);
 
+        openSimCanvas1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                openSimCanvas1FocusGained(evt);
+            }
+        });
+
         add(openSimCanvas1, java.awt.BorderLayout.CENTER);
 
     }// </editor-fold>//GEN-END:initComponents
+
+    private void openSimCanvas1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_openSimCanvas1FocusGained
+// TODO add your handling code here:
+        ViewDB.getInstance().setCurrentModelWindow(this);
+        double[] canvasBackgroundDouble = ViewDB.getInstance().getCurrenWindow().getCanvas().GetRenderer().GetBackground();
+        Color canvasBackgroundColor = new java.awt.Color((int) (canvasBackgroundDouble[0]*255), (int) (canvasBackgroundDouble[1]*255), (int) (canvasBackgroundDouble[2]*255));
+        Color toolBarBackgroundColor = jModelWindowToolBar.getBackground();
+        if (toolBarBackgroundColor == canvasBackgroundColor) {
+            // do nothing
+        }
+        else {
+            jModelWindowToolBar.setBackground(canvasBackgroundColor);
+        }
+    }//GEN-LAST:event_openSimCanvas1FocusGained
 
     private void jPlusZViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlusZViewButtonActionPerformed
 // TODO add your handling code here:
@@ -291,12 +319,17 @@ public class ModelWindowVTKTopComponent extends TopComponent
                     fileName = fileName+".avi";
                 getCanvas().createMovie(fileName);
             }
-            else
+            else {
                 btn.getModel().setSelected(false);
-         }
-        else{
+            }
+            // correct selected mode
+            jStartStopMovieToggleButton.setSelected(true);
+        }
+        else {
             getCanvas().finishMovie();
             //System.out.println("Finish movie");
+            // correct selected mode
+            jStartStopMovieToggleButton.setSelected(false);
         }
     }//GEN-LAST:event_jStartStopMovieToggleButtonActionPerformed
 

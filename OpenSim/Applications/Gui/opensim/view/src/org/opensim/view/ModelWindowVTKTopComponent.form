@@ -28,20 +28,18 @@
           <Border info="null"/>
         </Property>
         <Property name="orientation" type="int" value="1"/>
-        <Property name="alignmentY" type="float" value="0.5"/>
-        <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[160, 160]"/>
+          <Dimension value="[180, 180]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[20, 20]"/>
+          <Dimension value="[30, 30]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[20, 20]"/>
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="String defaultBackgroundColor=&quot;0.15, 0.15, 0.15&quot;;&#xa;defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get(&quot;BackgroundColor&quot;, defaultBackgroundColor);&#xa;double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);&#xa;jModelWindowToolBar.setBackground(new java.awt.Color((int) (background[0]*255), (int) (background[1]*255), (int) (background[2]*255)));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//String defaultBackgroundColor=&quot;0.0, 0.0, 0.0&quot;;&#xa;//defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get(&quot;BackgroundColor&quot;, defaultBackgroundColor);&#xa;//double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);&#xa;//jModelWindowToolBar.setBackground(new java.awt.Color((int) (background[0]*255), (int) (background[1]*255), (int) (background[2]*255)));&#xa;"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -57,6 +55,7 @@
               <Image iconType="3" name="/org/opensim/view/plusXView.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="+X View"/>
+            <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -95,6 +94,7 @@
               <Image iconType="3" name="/org/opensim/view/minusXView.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="-X View"/>
+            <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -133,6 +133,7 @@
               <Image iconType="3" name="/org/opensim/view/plusYView.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="+Y View"/>
+            <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -171,6 +172,7 @@
               <Image iconType="3" name="/org/opensim/view/minusYView.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="-Y View"/>
+            <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -209,6 +211,7 @@
               <Image iconType="3" name="/org/opensim/view/plusZView.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="+Z View"/>
+            <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -247,6 +250,7 @@
               <Image iconType="3" name="/org/opensim/view/minusZView.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="-Z View"/>
+            <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -285,6 +289,7 @@
               <Image iconType="3" name="/org/opensim/view/stillCamera.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Save As Image"/>
+            <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -323,6 +328,7 @@
               <Image iconType="3" name="/org/opensim/view/movieCamera.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Start/Stop Save As Move"/>
+            <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -358,6 +364,9 @@
       </SubComponents>
     </Container>
     <Component class="org.opensim.view.OpenSimCanvas" name="openSimCanvas1">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="openSimCanvas1FocusGained"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="Center"/>

@@ -72,7 +72,7 @@
                       <Component id="jPlaybackButtonsPanel" min="-2" pref="16" max="-2" attributes="1"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
