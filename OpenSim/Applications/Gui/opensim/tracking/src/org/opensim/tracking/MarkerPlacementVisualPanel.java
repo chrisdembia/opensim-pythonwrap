@@ -365,10 +365,12 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
             jStaticTrialTextField.setText(staticTrialFilename);
        }
        // Get times from file and populate GUI
+       try {
        MarkerData trcData = new MarkerData(staticTrialFilename);
        jStaticFromTextField.setText(String.valueOf(trcData.getStartFrameTime()));
        jStaticToTextField.setText(String.valueOf(trcData.getLastFrameTime()));
-        
+       } catch (IOException ex) {
+       }
     }//GEN-LAST:event_jBrowse4TrcButtonActionPerformed
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
