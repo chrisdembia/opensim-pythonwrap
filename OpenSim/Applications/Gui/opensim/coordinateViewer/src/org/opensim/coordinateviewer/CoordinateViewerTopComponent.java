@@ -52,6 +52,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    ObjectGroup currentGroup;
    Hashtable<AbstractCoordinate, CoordinateSliderWithBox> mapCoordinates2Sliders =
            new Hashtable<AbstractCoordinate, CoordinateSliderWithBox>(4);
+   String DEFAULT_POSE_NAME="Default";
 
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
@@ -75,7 +76,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
             currentGroup = coords.getGroup((String)cb.getSelectedItem());
             updateDisplayGroup();
          }});
-      //jRestorePoseButton.add(restorePosesPopup);
+      
       
    }
    
@@ -155,6 +156,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          .add(0, 172, Short.MAX_VALUE)
       );
       jScrollPane1.setViewportView(jPanel1);
+
+      jCoordinateGroupsComboBox.setEnabled(false);
 
       jPosesButton.setComponentPopupMenu(jPosesPopupMenu);
       org.openide.awt.Mnemonics.setLocalizedText(jPosesButton, "Poses >");
@@ -247,17 +250,6 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          // update display only once at the end
          ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());      
       }
-      /*restorePosesPopup.removeAll();
-      Vector<ModelPose> poses =prefs.getPoses();
-      for(int i=0; i<poses.size(); i++){
-         final ModelPose p=poses.get(i);
-         JMenuItem item=new JMenuItem(p.getPoseName());
-         restorePosesPopup.add(item);
-         item.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-               applyPose(p);
-            }});
-      }*/
    }//GEN-LAST:event_jRestorePoseButtonActionPerformed
    
    private void jSavePoseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSavePoseButtonActionPerformed
@@ -400,6 +392,14 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
                jPanel1.removeAll();
                componentOpened();
             }
+            /*else if (evt.getOperation()==ModelEvent.Operation.Open){
+               // Create a Default pose here since coordinates will change on us later
+               aModel = evt.getModel();
+               coords = aModel.getDynamicsEngine().getCoordinateSet();
+               ViewDB.getInstance().processSavedSettings(aModel);
+               prefs=ViewDB.getInstance().getModelSavedSettings(aModel).getPrefs();
+               createDefaultPoseIfNeeded(prefs.getPoses());
+            }*/
             // Do we need to handle close separately or should we be called with SetCurrent of null model?
             // save may trigger saving poses and open may trigger loading poses.
          }
@@ -418,7 +418,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
     * Make buttons that rely on an existing model on/off
     */
    private void updateAvailability() {
-      jSelectGroupButton.setEnabled(hasModel);
+      //jSelectGroupButton.setEnabled(hasModel);
       jSavePoseButton.setEnabled(hasModel);
       jRestorePoseButton.setEnabled(hasModel);
       jDeletePoseButton.setEnabled(hasModel);
@@ -477,6 +477,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    private void updatePosesPopup() {
          jPosesPopupMenu.removeAll();
          // Add items to select poses with callback to apply them
+         createDefaultPoseIfNeeded(prefs.getPoses());
          Vector<ModelPose> poses =prefs.getPoses();
          for(int i=0; i<poses.size(); i++){
             final ModelPose p=poses.get(i);
@@ -490,6 +491,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          }
          if (poses.size()>0)
             jPosesPopupMenu.addSeparator();
+
          JMenuItem newItem = new JMenuItem("New...");
          newItem.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
@@ -506,6 +508,26 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
                         }});         
             jPosesPopupMenu.add(deleteItem);
          }
+   }
+   /**
+    * This works we just need to invoke it when the model is loaded first time
+    **/
+   private void createDefaultPoseIfNeeded(Vector<ModelPose> savedPoses) {
+      boolean found=false;
+      ModelPose newDefaultPose = new ModelPose(coords,DEFAULT_POSE_NAME);
+      for(int i=0;i<coords.getSize();i++)
+         coords.get(i).setValue(coords.get(i).getDefaultValue());
+      for(int i=0; i<savedPoses.size() && !found; i++){
+         ModelPose p=savedPoses.get(i);
+         if (p.getPoseName().compareTo(DEFAULT_POSE_NAME)==0){
+            savedPoses.set(i, newDefaultPose);
+            found=true;
+            break;
+         }
+      } 
+      if (!found){
+         savedPoses.add(0, newDefaultPose);
+      }
    }
 
 }

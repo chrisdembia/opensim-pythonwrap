@@ -63,8 +63,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       java.text.NumberFormat numberFormat =
               java.text.NumberFormat.getNumberInstance();
       formatter = new NumberFormatter(numberFormat);
-      formatter.setMinimum(new Double(min));
-      formatter.setMaximum(new Double(max));
+      setTextfieldBounds(true);
 
        initComponents();
        
@@ -88,6 +87,18 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        jFormattedTextField.addPropertyChangeListener("value", this);
 
        updateValue();
+   }
+
+   private void setTextfieldBounds(boolean trueFalse) {
+      if (trueFalse){
+         formatter.setMinimum(new Double(min));
+         formatter.setMaximum(new Double(max));
+      }
+      else {
+         formatter.setMinimum(new Double(-1e30));
+         formatter.setMaximum(new Double(1e30));
+         
+      }
    }
       
    /** This method is called from within the constructor to
@@ -196,6 +207,15 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    private void jClampedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClampedCheckBoxActionPerformed
       boolean newValue = ((JCheckBox)(evt.getSource())).isSelected();
       coord.setClamped(newValue);
+      setTextfieldBounds(newValue);
+      if (coord.getClamped()){
+         if (coord.getValue()>coord.getRangeMax()){
+            setTheValue(coord.getRangeMax()*conversion, true, true, true, true);
+         }
+         else if (coord.getValue()<coord.getRangeMin()){
+            setTheValue(coord.getRangeMin()*conversion, true, true, true, true);
+         }
+      }
 // TODO add your handling code here:
    }//GEN-LAST:event_jClampedCheckBoxActionPerformed
 
