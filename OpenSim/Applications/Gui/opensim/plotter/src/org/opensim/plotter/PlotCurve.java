@@ -62,17 +62,27 @@ public class PlotCurve {
       rangeSource=sourcey;
       Storage domainStorage=sourcex.getStorage();
       Storage rangeStorage=sourcey.getStorage();
+      String localX = stringx;
+      String localY = stringy;
       
+      if (stringx.contains(":")){   // Strip qualifiers if any
+         String[] names=stringx.split(":",-1);
+         localX=names[names.length-1];
+      }
+      if (stringy.contains(":")){   // Strip qualifiers if any
+         String[] names=stringy.split(":",-1);
+         localY=names[names.length-1];
+      }
       // The following code assumes x, y are parrallel arrays of the same size
       // which should be enforced by the GUI.
       // In case this restriction is removed, rangeStorage will need to be sampled
       // at domain sample values (e.g. plot quantities against time coming from another storage
-       ArrayDouble xArray = getDataArrayFromStorage(domainStorage, stringx, true);
-       ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, stringy, false);
+       ArrayDouble xArray = getDataArrayFromStorage(domainStorage, localX, true);
+       ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, localY, false);
        int xSize = xArray.getSize();
        int ySize = yArray.getSize();
        if (xSize != ySize)
-          throw new UnsupportedOperationException("Domain and range selections from different sources are not supported yet.");
+          throw new UnsupportedOperationException("Domain and range sizes are different. An internal bug.");
        
        int size = xArray.getSize();
        // find range of values to display based on minx, maxx

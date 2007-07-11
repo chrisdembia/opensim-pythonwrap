@@ -234,7 +234,7 @@ public class JPlotterQuantitySelector  {
       if (((Integer)dlg.getValue()).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
          String[] selected = singleSelectPanel.getSelected();
          if (selected!=null)
-            selection.setText(selected[0]);
+            selection.setText(sourceX.getDisplayName()+":"+selected[0]);
       }
    }
 

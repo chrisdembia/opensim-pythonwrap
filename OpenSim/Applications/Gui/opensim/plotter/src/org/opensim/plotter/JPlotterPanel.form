@@ -464,7 +464,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel2" min="-2" pref="69" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="jCurveNameTextField" pref="299" max="32767" attributes="3"/>
+                                  <Component id="jCurveLegendTextField" pref="299" max="32767" attributes="3"/>
                               </Group>
                               <Component id="jAdvancedOptionsButton" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -478,7 +478,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCurveNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCurveLegendTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
@@ -605,12 +605,12 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JTextField" name="jCurveNameTextField">
+                <Component class="javax.swing.JTextField" name="jCurveLegendTextField">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Curve legend goes here"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCurveNameTextFieldActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCurveLegendTextFieldActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jAdvancedOptionsButton">

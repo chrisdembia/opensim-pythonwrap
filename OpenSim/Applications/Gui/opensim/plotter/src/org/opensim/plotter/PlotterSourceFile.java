@@ -41,6 +41,7 @@ public class PlotterSourceFile extends PlotterSourceStorage {
       super(new Storage(filename));
       String fullFileName = filename;
       displayName = new File(fullFileName).getName();
+      System.out.println("Created PlotterSourceFile DisplayName="+displayName);
    }
 
 }

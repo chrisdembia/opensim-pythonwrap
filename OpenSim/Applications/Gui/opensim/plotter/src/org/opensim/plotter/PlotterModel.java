@@ -36,6 +36,7 @@ import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.ArrayStorage;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.MuscleAnalysis;
 import org.opensim.modeling.Storage;
 
 /**
@@ -284,6 +285,11 @@ public class PlotterModel {
     }
 
    void addMotion(Storage nextMotion) {
+      ArrayList<PlotterSourceMotion> loadedMotions=getLoadedMotionSources();
+      for(int i=0; i<loadedMotions.size(); i++){
+         if (loadedMotions.get(i).getStorage().equals(nextMotion))
+            return;
+      }
       sources.add(new PlotterSourceMotion(nextMotion));
    }
 
@@ -299,13 +305,17 @@ public class PlotterModel {
         return null;
     }
 
-    void enableDesiredAnalyses(AnalyzeTool tool, PlotterSourceAnalysis analysisSource) {
+    void enableDesiredAnalyses(AnalyzeTool tool, PlotterSourceAnalysis analysisSource, String domainName) {
         AnalysisSet analyses=tool.getModel().getAnalysisSet();
         String shortName = analysisSource.toString();
         String[] qs=getBuiltinQuantities();
         for(int i=0; i<qs.length; i++){
             if (shortName.equalsIgnoreCase(builtinQuantitiesStorageName[i])){
-                analyses.get(builtinQuantitiesAnalysis[i]).setOn(true);
+                Analysis an = analyses.get(builtinQuantitiesAnalysis[i]);
+                an.setOn(true);
+                //if (MomentArmAnalysis.safeDownCast(an)!=null)
+                //   ((MomentArmAnalysis)MomentArmAnalysis.safeDownCast(an)).setCoorindate(domainName);
+                
                 break;
             }            
         }

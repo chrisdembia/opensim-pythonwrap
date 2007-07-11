@@ -43,6 +43,7 @@ public class PlotterSourceMotion extends PlotterSourceStorage {
    public PlotterSourceMotion(Storage aStorage) {
       super(aStorage);
       displayName = "Motion:"+aStorage.getName();
+      System.out.println("Created PlotterSourceMotion DisplayName="+displayName);
    }
 
 
