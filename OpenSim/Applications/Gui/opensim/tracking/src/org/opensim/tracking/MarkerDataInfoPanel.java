@@ -134,63 +134,63 @@ public class MarkerDataInfoPanel extends javax.swing.JPanel {
       jLabel3.setForeground(new java.awt.Color(102, 102, 102));
       jLabel3.setText("s");
 
-      javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+      org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
       layout.setHorizontalGroup(
-         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(layout.createSequentialGroup()
+         layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(layout.createSequentialGroup()
             .addContainerGap()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-               .addComponent(jLabel22)
-               .addComponent(jLabel21)
-               .addComponent(jLabel23))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(startTimeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(framesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(markersTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jLabel1)
-               .addComponent(jLabel24))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-               .addComponent(endTimeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-               .addComponent(frameRateTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jLabel3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addComponent(jLabel2))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(jLabel22)
+               .add(jLabel21)
+               .add(jLabel23))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(startTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(framesTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(markersTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(jLabel1)
+               .add(jLabel24))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+               .add(endTimeTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+               .add(frameRateTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(jLabel3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(jLabel2))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
-      layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel24});
+      layout.linkSize(new java.awt.Component[] {jLabel1, jLabel24}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
 
-      layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {frameRateTextField, framesTextField, markersTextField, startTimeTextField});
+      layout.linkSize(new java.awt.Component[] {frameRateTextField, framesTextField, markersTextField, startTimeTextField}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
 
       layout.setVerticalGroup(
-         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
-               .addComponent(markersTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
-               .addComponent(framesTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-               .addComponent(frameRateTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-               .addComponent(jLabel23)
-               .addComponent(startTimeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(jLabel24)
-               .addComponent(jLabel3)
-               .addComponent(endTimeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+         layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(layout.createSequentialGroup()
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel21)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, markersTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel22)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, framesTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel1)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, frameRateTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel2))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(jLabel23)
+               .add(startTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jLabel24)
+               .add(jLabel3)
+               .add(endTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
       );
 
-      layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {endTimeTextField, frameRateTextField, framesTextField, jLabel1, jLabel2, jLabel21, jLabel22, jLabel23, jLabel24, jLabel3, markersTextField, startTimeTextField});
+      layout.linkSize(new java.awt.Component[] {endTimeTextField, frameRateTextField, framesTextField, jLabel1, jLabel2, jLabel21, jLabel22, jLabel23, jLabel24, jLabel3, markersTextField, startTimeTextField}, org.jdesktop.layout.GroupLayout.VERTICAL);
 
    }// </editor-fold>//GEN-END:initComponents
    
