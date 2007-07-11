@@ -205,4 +205,8 @@ public class MotionsDB extends Observable // Observed by other entities in motio
         instance.notifyObservers(evt);
     }
    
+    public ArrayList<Storage> getModelMotions(Model aModel)
+    {
+       return mapModels2Motions.get(aModel);
+    }
 }
