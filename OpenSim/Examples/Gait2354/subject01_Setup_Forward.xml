@@ -74,10 +74,10 @@
 			<!-- MomentArmAnalysis currently produces "failed to assemble" messages, but still should run and give results -->
 			<MomentArmAnalysis name="MomentArmAnalysis">
 				<on> true </on>
-				<step_interval> 100 </step_interval>
+				<step_interval> 8 </step_interval>
 				<in_degrees> true </in_degrees>
-				<muscle_list> soleus_r </muscle_list>
 				<coordinate_list> knee_angle_r ankle_angle_r </coordinate_list>
+				<muscle_list> med_gas_r lat_gas_r soleus_r </muscle_list>
 			</MomentArmAnalysis>
 		</objects>
 	</AnalysisSet>
