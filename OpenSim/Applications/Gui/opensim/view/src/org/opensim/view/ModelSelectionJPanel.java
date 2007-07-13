@@ -46,6 +46,7 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
         jLabelForCurrentModelComboBox.setPreferredSize(new java.awt.Dimension(37, 32));
 
         jCurrentModelComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No Models" }));
+        jCurrentModelComboBox.setToolTipText("Current Model");
         jCurrentModelComboBox.setMaximumSize(new java.awt.Dimension(100, 20));
         jCurrentModelComboBox.setMinimumSize(new java.awt.Dimension(100, 20));
         jCurrentModelComboBox.setPreferredSize(new java.awt.Dimension(100, 20));

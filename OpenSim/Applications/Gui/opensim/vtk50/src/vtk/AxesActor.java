@@ -75,8 +75,10 @@ public class AxesActor extends vtkAssembly {
     tubeActor.PickableOff();
  */   
   
-    int cylRes = 24;
+    int cylRes = 36;
     double cylRadius = 0.01;
+    double cylAmbient = 0.5;
+    double cylOpacity = 0.5;
     
     //--- x-Cylinder
     vtkCylinderSource xcyl = new vtkCylinderSource();
@@ -91,8 +93,8 @@ public class AxesActor extends vtkAssembly {
     xcylActor.GetProperty().SetColor(1,0,0);
     xcylActor.RotateZ(-90);
     xcylActor.SetPosition(axisLength/2, 0.0, 0.0);
-    xcylActor.GetProperty().SetAmbient(0.5);
-    xcylActor.GetProperty().SetOpacity(0.7);
+    xcylActor.GetProperty().SetAmbient(cylAmbient);
+    xcylActor.GetProperty().SetOpacity(cylOpacity);
 
     //--- y-Cylinder
     vtkCylinderSource ycyl = new vtkCylinderSource();
@@ -106,8 +108,8 @@ public class AxesActor extends vtkAssembly {
     ycylActor.SetMapper(ycylMapper);
     ycylActor.GetProperty().SetColor(0,1,0);
     ycylActor.SetPosition(0.0, axisLength/2, 0.0);
-    ycylActor.GetProperty().SetAmbient(0.5);
-    ycylActor.GetProperty().SetOpacity(0.7);
+    ycylActor.GetProperty().SetAmbient(cylAmbient);
+    ycylActor.GetProperty().SetOpacity(cylOpacity);
 
     //--- z-Cylinder
     vtkCylinderSource zcyl = new vtkCylinderSource();
@@ -122,12 +124,14 @@ public class AxesActor extends vtkAssembly {
     zcylActor.GetProperty().SetColor(0,0,1);
     zcylActor.RotateX(90);
     zcylActor.SetPosition(0.0, 0.0, axisLength/2);
-    zcylActor.GetProperty().SetAmbient(0.5);
-    zcylActor.GetProperty().SetOpacity(0.7);
+    zcylActor.GetProperty().SetAmbient(cylAmbient);
+    zcylActor.GetProperty().SetOpacity(cylOpacity);
 
-    int coneRes = 24;
-    double coneScale = 0.1;
-
+    int coneRes = 36;
+    double coneScale = 0.075;
+    double coneAmbient = 0.5;
+    double coneOpacity = .5;
+    
     //--- x-Cone
     vtkConeSource xcone = new vtkConeSource();
     xcone.SetResolution(coneRes);
@@ -137,7 +141,9 @@ public class AxesActor extends vtkAssembly {
     xconeActor.SetMapper(xconeMapper);
     xconeActor.GetProperty().SetColor(1,0,0);
     xconeActor.SetScale(coneScale, coneScale, coneScale);
-    xconeActor.SetPosition(axisLength, 0.0, 0.0);
+    xconeActor.SetPosition(axisLength+(coneScale/2), 0.0, 0.0);
+    xconeActor.GetProperty().SetAmbient(coneAmbient);
+    xconeActor.GetProperty().SetOpacity(coneOpacity);
 
     //--- y-Cone
     vtkConeSource ycone = new vtkConeSource();
@@ -149,7 +155,9 @@ public class AxesActor extends vtkAssembly {
     yconeActor.GetProperty().SetColor(0,1,0);
     yconeActor.RotateZ(90);
     yconeActor.SetScale(coneScale, coneScale, coneScale);
-    yconeActor.SetPosition(0.0, axisLength, 0.0);
+    yconeActor.SetPosition(0.0, axisLength+(coneScale/2), 0.0);
+    yconeActor.GetProperty().SetAmbient(coneAmbient);
+    yconeActor.GetProperty().SetOpacity(coneOpacity);
 
     //--- z-Cone
     vtkConeSource zcone = new vtkConeSource();
@@ -161,7 +169,9 @@ public class AxesActor extends vtkAssembly {
     zconeActor.GetProperty().SetColor(0,0,1);
     zconeActor.RotateY(-90);
     zconeActor.SetScale(coneScale, coneScale, coneScale);
-    zconeActor.SetPosition(0.0, 0.0, axisLength);
+    zconeActor.SetPosition(0.0, 0.0, axisLength+(coneScale/2));
+    yconeActor.GetProperty().SetAmbient(coneAmbient);
+    yconeActor.GetProperty().SetOpacity(coneOpacity);
     
     //--- x-Label
     vtkVectorText xtext = new vtkVectorText();
@@ -205,9 +215,9 @@ public class AxesActor extends vtkAssembly {
     this.AddPart(yconeActor);
     this.AddPart(zconeActor);
     
-    this.AddPart(xtextActor);
-    this.AddPart(ytextActor);
-    this.AddPart(ztextActor);
+//    this.AddPart(xtextActor);
+//    this.AddPart(ytextActor);
+//    this.AddPart(ztextActor);
 
   }
 

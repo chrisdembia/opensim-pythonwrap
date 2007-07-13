@@ -82,8 +82,9 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWindowToolBar.setBorder(null);
         jModelWindowToolBar.setOrientation(1);
-        jModelWindowToolBar.setMaximumSize(new java.awt.Dimension(180, 180));
-        jModelWindowToolBar.setMinimumSize(new java.awt.Dimension(30, 30));
+        jModelWindowToolBar.setToolTipText("Drag to Preferred Edge or Float");
+        jModelWindowToolBar.setMaximumSize(new java.awt.Dimension(200, 200));
+        jModelWindowToolBar.setMinimumSize(new java.awt.Dimension(20, 20));
         jModelWindowToolBar.setPreferredSize(new java.awt.Dimension(20, 20));
         jBackgroundColorButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backgroundColor.png")));
         jBackgroundColorButton.setToolTipText("Set View Background Color");
@@ -262,7 +263,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jMinusZViewButton);
 
         jTakeSnapshotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/stillCamera.png")));
-        jTakeSnapshotButton.setToolTipText("Save View As Image");
+        jTakeSnapshotButton.setToolTipText("Save View as Image");
         jTakeSnapshotButton.setAlignmentX(0.5F);
         jTakeSnapshotButton.setBorderPainted(false);
         jTakeSnapshotButton.setContentAreaFilled(false);
@@ -284,7 +285,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jTakeSnapshotButton);
 
         jStartStopMovieToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/movieCamera.png")));
-        jStartStopMovieToggleButton.setToolTipText("Start/Stop Save Motion As Movie");
+        jStartStopMovieToggleButton.setToolTipText("Start/Stop Save Animation as Movie");
         jStartStopMovieToggleButton.setAlignmentX(0.5F);
         jStartStopMovieToggleButton.setBorderPainted(false);
         jStartStopMovieToggleButton.setContentAreaFilled(false);
