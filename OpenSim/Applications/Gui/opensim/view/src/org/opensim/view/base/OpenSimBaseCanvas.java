@@ -128,10 +128,10 @@ public class OpenSimBaseCanvas extends vtkPanel
       } else if ('z' == keyChar) {
          applyCameraMinusZ();
       } else if ('i' == keyChar) {
-         GetRenderer().GetActiveCamera().Zoom(1.1);
+         GetRenderer().GetActiveCamera().Zoom(1.01);
          repaint();
       } else if ('o' == keyChar) {
-         GetRenderer().GetActiveCamera().Zoom(0.9);
+         GetRenderer().GetActiveCamera().Zoom(0.99);
          repaint();
       }
       super.keyPressed(e);

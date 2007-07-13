@@ -35,9 +35,9 @@ import vtk.vtkLightCollection;
 
 /**
  *
- * @author Ayman
+ * @author Ayman & Jeff Reinbolt
  *
- * A class to create a list of cameras with standard views (front, top, side).
+ * A class to create a list of cameras with standard views.
  */
 public class CamerasMenu extends JMenu {
     
@@ -98,20 +98,20 @@ public class CamerasMenu extends JMenu {
         minusZCamera.SetViewUp(0, 1, 0);
         
         plusYCamera = new vtkCamera(); // +y
-        plusYCamera.Azimuth(0);
-        plusYCamera.Elevation(-90);
-        plusYCamera.Roll(180);
+        plusYCamera.SetViewUp(1, 0, 0);
+        plusYCamera.Azimuth(90);
+        plusYCamera.Elevation(0);
+        plusYCamera.Roll(0);
         plusYCamera.SetViewAngle(30);
         plusYCamera.SetFocalPoint(0, 0, 0);
-        plusYCamera.SetViewUp(0, 0, -1);
-        
+         
         minusYCamera = new vtkCamera(); // -y
-        minusYCamera.Azimuth(0);
-        minusYCamera.Elevation(90);
-        minusYCamera.Roll(180);
+        minusYCamera.SetViewUp(-1, 0, 0);
+        minusYCamera.Azimuth(90);
+        minusYCamera.Elevation(0);
+        minusYCamera.Roll(0);
         minusYCamera.SetViewAngle(30);
         minusYCamera.SetFocalPoint(0, 0, 0);
-        minusYCamera.SetViewUp(0, 0, -1);
 
         availableCameras.add(plusXCamera);
         availableCameraNames.add("Back");
