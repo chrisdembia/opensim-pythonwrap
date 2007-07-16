@@ -26,11 +26,7 @@
 package org.opensim.view.base;
 
 import java.io.*;
-import javax.swing.SwingUtilities;
-import org.opensim.view.BottomPanelTopComponent;
-import java.util.*;
-import java.io.*;
-
+import org.opensim.logger.OpenSimLogger;
 /**
  * Stream Gobbler class ref. http://www.javaworld.com/javaworld/jw-12-2000/jw-1229-traps.html
  * to deal with stdout, stderr.
@@ -52,7 +48,10 @@ class StreamGobbler extends Thread
           BufferedReader br = new BufferedReader(isr);
           String line=null;
           while ( (line = br.readLine()) != null){
-             System.out.println(type + ">" + line);
+             if (type.compareToIgnoreCase("ERROR")==0)
+               OpenSimLogger.logMessage(line+"\n", OpenSimLogger.ERROR);
+             else
+               OpenSimLogger.logMessage(line+"\n", OpenSimLogger.INFO);
           }
        } catch (IOException ioe) {
           ioe.printStackTrace();
@@ -80,6 +79,7 @@ public class ExecOpenSimProcess
             outputGobbler.start();                
             
             int exitVal = proc.waitFor();
+            System.out.println("Exit value from process="+exitVal);
             return (exitVal==0);	// More detailed error message will be needed
         } 
         catch (Throwable t) {
