@@ -20,7 +20,7 @@
 		<!--Set of model markers used to scale the model. Scaling is done based on
 		    distances between model markers compared to the same distances between
 		    the corresponding experimental markers.-->
-		<MarkerSet file="gait2354_Scale_MarkerSet.xml"/>
+		<marker_set_file> gait2354_Scale_MarkerSet.xml </marker_set_file>
 	</GenericModelMaker>
 	
 	<!--Specifies parameters for scaling the model.-->
