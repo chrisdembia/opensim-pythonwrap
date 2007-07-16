@@ -50,7 +50,7 @@ public class MomentArmAnalysis extends Analysis {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.MomentArmAnalysis_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.MomentArmAnalysis_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -62,12 +62,16 @@ public class MomentArmAnalysis extends Analysis {
     opensimModelJNI.MomentArmAnalysis_setStorageCapacityIncrements(swigCPtr, this, aIncrement);
   }
 
-  public ArrayStorage getMomentArmStorageArray() {
-    return new ArrayStorage(opensimModelJNI.MomentArmAnalysis_getMomentArmStorageArray(swigCPtr, this), false);
+  public SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__StorageCoordinatePair_t getMomentArmStorageArray() {
+    return new SWIGTYPE_p_OpenSim__ArrayPtrsTOpenSim__StorageCoordinatePair_t(opensimModelJNI.MomentArmAnalysis_getMomentArmStorageArray(swigCPtr, this), false);
   }
 
   public void setMuscles(ArrayStr aMuscles) {
     opensimModelJNI.MomentArmAnalysis_setMuscles(swigCPtr, this, ArrayStr.getCPtr(aMuscles), aMuscles);
+  }
+
+  public void setCoordinates(ArrayStr aCoordinates) {
+    opensimModelJNI.MomentArmAnalysis_setCoordinates(swigCPtr, this, ArrayStr.getCPtr(aCoordinates), aCoordinates);
   }
 
   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
@@ -132,6 +136,23 @@ public class MomentArmAnalysis extends Analysis {
 
   public int printResults(String aBaseName) {
     return opensimModelJNI.MomentArmAnalysis_printResults__SWIG_3(swigCPtr, this, aBaseName);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.MomentArmAnalysis_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.MomentArmAnalysis_isA(swigCPtr, this, type);
+  }
+
+  public static MomentArmAnalysis safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.MomentArmAnalysis_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new MomentArmAnalysis(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.MomentArmAnalysis_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

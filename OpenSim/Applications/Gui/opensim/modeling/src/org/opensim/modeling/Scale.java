@@ -33,6 +33,23 @@ public class Scale extends OpenSimObject {
     super.delete();
   }
 
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.Scale_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.Scale_isA(swigCPtr, this, type);
+  }
+
+  public static Scale safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.Scale_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Scale(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.Scale_copy__SWIG_0(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  }
+
   public Scale() {
     this(opensimModelJNI.new_Scale__SWIG_0(), true);
   }
@@ -46,12 +63,8 @@ public class Scale extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Scale_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.Scale_copy__SWIG_1(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
-  public void getScaleFactors(ArrayDouble aScaleFactors) {
-    opensimModelJNI.Scale_getScaleFactors(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
   }
 
   public String getSegmentName() {
@@ -60,6 +73,14 @@ public class Scale extends OpenSimObject {
 
   public void setSegmentName(String aSegmentName) {
     opensimModelJNI.Scale_setSegmentName(swigCPtr, this, aSegmentName);
+  }
+
+  public void getScaleFactors(ArrayDouble aScaleFactors) {
+    opensimModelJNI.Scale_getScaleFactors__SWIG_0(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  }
+
+  public ArrayDouble getScaleFactors() {
+    return new ArrayDouble(opensimModelJNI.Scale_getScaleFactors__SWIG_1(swigCPtr, this), false);
   }
 
   public void setScaleFactors(ArrayDouble aScaleFactors) {

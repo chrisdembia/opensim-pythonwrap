@@ -86,6 +86,10 @@ public class Function extends OpenSimObject {
     return opensimModelJNI.Function_getMaxZ(swigCPtr, this);
   }
 
+  public void isLinear(double aTol, double aMinX, double aMaxX, SWIGTYPE_p_double rMX, double aMinY, double aMaxY, SWIGTYPE_p_double rMY, double aMinZ, double aMaxZ, SWIGTYPE_p_double rMZ) {
+    opensimModelJNI.Function_isLinear(swigCPtr, this, aTol, aMinX, aMaxX, SWIGTYPE_p_double.getCPtr(rMX), aMinY, aMaxY, SWIGTYPE_p_double.getCPtr(rMY), aMinZ, aMaxZ, SWIGTYPE_p_double.getCPtr(rMZ));
+  }
+
   public void updateBoundingBox() {
     opensimModelJNI.Function_updateBoundingBox(swigCPtr, this);
   }

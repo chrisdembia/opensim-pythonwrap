@@ -33,6 +33,23 @@ public class Measurement extends OpenSimObject {
     super.delete();
   }
 
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.Measurement_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.Measurement_isA(swigCPtr, this, type);
+  }
+
+  public static Measurement safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.Measurement_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Measurement(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.Measurement_copy__SWIG_0(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  }
+
   public Measurement() {
     this(opensimModelJNI.new_Measurement__SWIG_0(), true);
   }
@@ -42,7 +59,7 @@ public class Measurement extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Measurement_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.Measurement_copy__SWIG_1(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -50,16 +67,28 @@ public class Measurement extends OpenSimObject {
     opensimModelJNI.Measurement_copyData(swigCPtr, this, Measurement.getCPtr(aMeasurement), aMeasurement);
   }
 
+  public BodyScaleSet getBodyScaleSet() {
+    return new BodyScaleSet(opensimModelJNI.Measurement_getBodyScaleSet(swigCPtr, this), false);
+  }
+
+  public MarkerPairSet getMarkerPairSet() {
+    return new MarkerPairSet(opensimModelJNI.Measurement_getMarkerPairSet(swigCPtr, this), false);
+  }
+
   public int getNumMarkerPairs() {
     return opensimModelJNI.Measurement_getNumMarkerPairs(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_MarkerPair getMarkerPair(int aIndex) {
-    return new SWIGTYPE_p_MarkerPair(opensimModelJNI.Measurement_getMarkerPair(swigCPtr, this, aIndex), false);
+  public MarkerPair getMarkerPair(int aIndex) {
+    return new MarkerPair(opensimModelJNI.Measurement_getMarkerPair(swigCPtr, this, aIndex), false);
   }
 
   public boolean getApply() {
     return opensimModelJNI.Measurement_getApply(swigCPtr, this);
+  }
+
+  public void setApply(boolean aApply) {
+    opensimModelJNI.Measurement_setApply(swigCPtr, this, aApply);
   }
 
   public void applyScaleFactor(double aFactor, ScaleSet aScaleSet) {

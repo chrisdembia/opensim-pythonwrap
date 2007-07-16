@@ -41,8 +41,12 @@ public class Transform {
     this(opensimModelJNI.new_Transform__SWIG_1(Transform.getCPtr(aTransform), aTransform), true);
   }
 
+  public Transform(SWIGTYPE_p_a_4__double aMat44) {
+    this(opensimModelJNI.new_Transform__SWIG_2(SWIGTYPE_p_a_4__double.getCPtr(aMat44)), true);
+  }
+
   public Transform(double r, Transform.AnglePreference preference, double[] axis) {
-    this(opensimModelJNI.new_Transform__SWIG_2(r, preference.swigValue(), axis), true);
+    this(opensimModelJNI.new_Transform__SWIG_3(r, preference.swigValue(), axis), true);
   }
 
   public Transform copy() {

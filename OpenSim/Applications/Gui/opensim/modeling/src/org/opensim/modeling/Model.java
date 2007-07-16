@@ -75,12 +75,16 @@ public class Model extends OpenSimObject {
     return opensimModelJNI.Model_getInputFileName(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_Units getLengthUnits() {
-    return new SWIGTYPE_p_Units(opensimModelJNI.Model_getLengthUnits(swigCPtr, this), false);
+  public void setInputFileName(String fileName) {
+    opensimModelJNI.Model_setInputFileName(swigCPtr, this, fileName);
   }
 
-  public SWIGTYPE_p_Units getForceUnits() {
-    return new SWIGTYPE_p_Units(opensimModelJNI.Model_getForceUnits(swigCPtr, this), false);
+  public Units getLengthUnits() {
+    return new Units(opensimModelJNI.Model_getLengthUnits(swigCPtr, this), false);
+  }
+
+  public Units getForceUnits() {
+    return new Units(opensimModelJNI.Model_getForceUnits(swigCPtr, this), false);
   }
 
   public void getGravity(double[] rGrav) {

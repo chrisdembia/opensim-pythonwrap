@@ -50,7 +50,7 @@ public class MuscleAnalysis extends Analysis {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.MuscleAnalysis_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.MuscleAnalysis_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -179,6 +179,23 @@ public class MuscleAnalysis extends Analysis {
 
   public int printResults(String aBaseName) {
     return opensimModelJNI.MuscleAnalysis_printResults__SWIG_3(swigCPtr, this, aBaseName);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.MuscleAnalysis_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.MuscleAnalysis_isA(swigCPtr, this, type);
+  }
+
+  public static MuscleAnalysis safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.MuscleAnalysis_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new MuscleAnalysis(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.MuscleAnalysis_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

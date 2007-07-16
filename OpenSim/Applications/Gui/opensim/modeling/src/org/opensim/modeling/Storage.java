@@ -69,7 +69,7 @@ public class Storage extends OpenSimObject {
     this(opensimModelJNI.new_Storage__SWIG_2(), true);
   }
 
-  public Storage(String aFileName) {
+  public Storage(String aFileName) throws java.io.IOException {
     this(opensimModelJNI.new_Storage__SWIG_3(aFileName), true);
   }
 

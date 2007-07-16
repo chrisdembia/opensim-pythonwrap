@@ -37,12 +37,17 @@ public class MarkerSet extends SetMarkers {
     this(opensimModelJNI.new_MarkerSet__SWIG_0(), true);
   }
 
-  public MarkerSet(String aMarkersFileName) {
+  public MarkerSet(String aMarkersFileName) throws java.io.IOException {
     this(opensimModelJNI.new_MarkerSet__SWIG_1(aMarkersFileName), true);
   }
 
   public MarkerSet(MarkerSet aMarkerSet) {
     this(opensimModelJNI.new_MarkerSet__SWIG_2(MarkerSet.getCPtr(aMarkerSet), aMarkerSet), true);
+  }
+
+  public OpenSimObject copy() {
+    long cPtr = opensimModelJNI.MarkerSet_copy(swigCPtr, this);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
   public void setup(AbstractDynamicsEngine aAbstractDynamicsEngine) {

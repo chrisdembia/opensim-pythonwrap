@@ -38,8 +38,20 @@ public class IKTask extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public boolean getApply() {
+    return opensimModelJNI.IKTask_getApply(swigCPtr, this);
+  }
+
+  public void setApply(boolean aApply) {
+    opensimModelJNI.IKTask_setApply(swigCPtr, this, aApply);
+  }
+
   public double getWeight() {
     return opensimModelJNI.IKTask_getWeight(swigCPtr, this);
+  }
+
+  public void setWeight(double weight) {
+    opensimModelJNI.IKTask_setWeight(swigCPtr, this, weight);
   }
 
 }

@@ -97,6 +97,14 @@ public class MusclePoint extends OpenSimObject {
     opensimModelJNI.MusclePoint_setup(swigCPtr, this, Model.getCPtr(aModel), aModel, AbstractMuscle.getCPtr(aMuscle), aMuscle);
   }
 
+  public void update() {
+    opensimModelJNI.MusclePoint_update(swigCPtr, this);
+  }
+
+  public void getVelocity(double[] aVelocity) {
+    opensimModelJNI.MusclePoint_getVelocity(swigCPtr, this, aVelocity);
+  }
+
   public VisibleObject getDisplayer() {
     long cPtr = opensimModelJNI.MusclePoint_getDisplayer(swigCPtr, this);
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);

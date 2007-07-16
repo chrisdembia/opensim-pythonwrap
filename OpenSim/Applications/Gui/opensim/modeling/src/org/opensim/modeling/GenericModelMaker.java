@@ -72,8 +72,12 @@ public class GenericModelMaker extends OpenSimObject {
     opensimModelJNI.GenericModelMaker_setModelFileName(swigCPtr, this, aFileName);
   }
 
-  public MarkerSet getMarkerSet() {
-    return new MarkerSet(opensimModelJNI.GenericModelMaker_getMarkerSet(swigCPtr, this), false);
+  public String getMarkerSetFileName() {
+    return opensimModelJNI.GenericModelMaker_getMarkerSetFileName(swigCPtr, this);
+  }
+
+  public void setMarkerSetFileName(String aFileName) {
+    opensimModelJNI.GenericModelMaker_setMarkerSetFileName(swigCPtr, this, aFileName);
   }
 
 }

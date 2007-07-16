@@ -37,7 +37,7 @@ public class ScaleTool extends OpenSimObject {
     this(opensimModelJNI.new_ScaleTool__SWIG_0(), true);
   }
 
-  public ScaleTool(String aFileName) {
+  public ScaleTool(String aFileName) throws java.io.IOException {
     this(opensimModelJNI.new_ScaleTool__SWIG_1(aFileName), true);
   }
 
@@ -52,10 +52,6 @@ public class ScaleTool extends OpenSimObject {
 
   public void copyData(ScaleTool aSubject) {
     opensimModelJNI.ScaleTool_copyData(swigCPtr, this, ScaleTool.getCPtr(aSubject), aSubject);
-  }
-
-  public boolean processModel() {
-    return opensimModelJNI.ScaleTool_processModel(swigCPtr, this);
   }
 
   public Model createModel() {
@@ -73,10 +69,6 @@ public class ScaleTool extends OpenSimObject {
 
   public MarkerPlacer getMarkerPlacer() {
     return new MarkerPlacer(opensimModelJNI.ScaleTool_getMarkerPlacer(swigCPtr, this), false);
-  }
-
-  public double getMass() {
-    return opensimModelJNI.ScaleTool_getMass(swigCPtr, this);
   }
 
   public boolean isDefaultGenericModelMaker() {
@@ -105,6 +97,18 @@ public class ScaleTool extends OpenSimObject {
 
   public double getSubjectHeight() {
     return opensimModelJNI.ScaleTool_getSubjectHeight(swigCPtr, this);
+  }
+
+  public void setSubjectMass(double mass) {
+    opensimModelJNI.ScaleTool_setSubjectMass(swigCPtr, this, mass);
+  }
+
+  public void setSubjectAge(double age) {
+    opensimModelJNI.ScaleTool_setSubjectAge(swigCPtr, this, age);
+  }
+
+  public void setSubjectHeight(double height) {
+    opensimModelJNI.ScaleTool_setSubjectHeight(swigCPtr, this, height);
   }
 
   public String getPathToSubject() {

@@ -50,6 +50,10 @@ public class AbstractDof extends OpenSimObject {
     opensimModelJNI.AbstractDof_setCoordinateName(swigCPtr, this, aName);
   }
 
+  public String getCoordinateName() {
+    return opensimModelJNI.AbstractDof_getCoordinateName(swigCPtr, this);
+  }
+
   public AbstractDof.DofType getMotionType() {
     return AbstractDof.DofType.swigToEnum(opensimModelJNI.AbstractDof_getMotionType(swigCPtr, this));
   }

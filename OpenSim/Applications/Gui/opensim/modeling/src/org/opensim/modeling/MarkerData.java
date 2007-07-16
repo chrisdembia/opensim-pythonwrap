@@ -37,7 +37,7 @@ public class MarkerData extends OpenSimObject {
     this(opensimModelJNI.new_MarkerData__SWIG_0(), true);
   }
 
-  public MarkerData(String aFileName) {
+  public MarkerData(String aFileName) throws java.io.IOException {
     this(opensimModelJNI.new_MarkerData__SWIG_1(aFileName), true);
   }
 
@@ -100,6 +100,14 @@ public class MarkerData extends OpenSimObject {
 
   public double getLastFrameTime() {
     return opensimModelJNI.MarkerData_getLastFrameTime(swigCPtr, this);
+  }
+
+  public double getDataRate() {
+    return opensimModelJNI.MarkerData_getDataRate(swigCPtr, this);
+  }
+
+  public double getCameraRate() {
+    return opensimModelJNI.MarkerData_getCameraRate(swigCPtr, this);
   }
 
 }

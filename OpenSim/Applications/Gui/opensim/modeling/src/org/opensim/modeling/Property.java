@@ -106,29 +106,12 @@ public class Property {
     return opensimModelJNI.Property_getValueStr(swigCPtr, this);
   }
 
-  public OpenSimObject getValueObj() {
-    return new OpenSimObject(opensimModelJNI.Property_getValueObj(swigCPtr, this), false);
-  }
-
-  public boolean isValidObject(OpenSimObject aValue) {
-    return opensimModelJNI.Property_isValidObject(swigCPtr, this, OpenSimObject.getCPtr(aValue), aValue);
-  }
-
-  public void setValue(OpenSimObject aValue) {
-    opensimModelJNI.Property_setValue__SWIG_4(swigCPtr, this, OpenSimObject.getCPtr(aValue), aValue);
-  }
-
-  public OpenSimObject getValueObjPtr() {
-    long cPtr = opensimModelJNI.Property_getValueObjPtr(swigCPtr, this);
-    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
-  }
-
   public void setValue(int aSize, boolean[] aArray) {
-    opensimModelJNI.Property_setValue__SWIG_5(swigCPtr, this, aSize, aArray);
+    opensimModelJNI.Property_setValue__SWIG_4(swigCPtr, this, aSize, aArray);
   }
 
   public void setValue(ArrayBool aArray) {
-    opensimModelJNI.Property_setValue__SWIG_6(swigCPtr, this, ArrayBool.getCPtr(aArray), aArray);
+    opensimModelJNI.Property_setValue__SWIG_5(swigCPtr, this, ArrayBool.getCPtr(aArray), aArray);
   }
 
   public ArrayBool getValueBoolArray() {
@@ -136,11 +119,11 @@ public class Property {
   }
 
   public void setValue(int aSize, int[] aArray) {
-    opensimModelJNI.Property_setValue__SWIG_7(swigCPtr, this, aSize, aArray);
+    opensimModelJNI.Property_setValue__SWIG_6(swigCPtr, this, aSize, aArray);
   }
 
   public void setValue(ArrayInt aArray) {
-    opensimModelJNI.Property_setValue__SWIG_8(swigCPtr, this, ArrayInt.getCPtr(aArray), aArray);
+    opensimModelJNI.Property_setValue__SWIG_7(swigCPtr, this, ArrayInt.getCPtr(aArray), aArray);
   }
 
   public ArrayInt getValueIntArray() {
@@ -148,11 +131,11 @@ public class Property {
   }
 
   public void setValue(int aSize, double[] aArray) {
-    opensimModelJNI.Property_setValue__SWIG_9(swigCPtr, this, aSize, aArray);
+    opensimModelJNI.Property_setValue__SWIG_8(swigCPtr, this, aSize, aArray);
   }
 
   public void setValue(ArrayDouble aArray) {
-    opensimModelJNI.Property_setValue__SWIG_10(swigCPtr, this, ArrayDouble.getCPtr(aArray), aArray);
+    opensimModelJNI.Property_setValue__SWIG_9(swigCPtr, this, ArrayDouble.getCPtr(aArray), aArray);
   }
 
   public ArrayDouble getValueDblArray() {
@@ -160,27 +143,49 @@ public class Property {
   }
 
   public void setValue(int aSize, SWIGTYPE_p_std__string aArray) {
-    opensimModelJNI.Property_setValue__SWIG_11(swigCPtr, this, aSize, SWIGTYPE_p_std__string.getCPtr(aArray));
+    opensimModelJNI.Property_setValue__SWIG_10(swigCPtr, this, aSize, SWIGTYPE_p_std__string.getCPtr(aArray));
   }
 
   public void setValue(ArrayStr aArray) {
-    opensimModelJNI.Property_setValue__SWIG_12(swigCPtr, this, ArrayStr.getCPtr(aArray), aArray);
+    opensimModelJNI.Property_setValue__SWIG_11(swigCPtr, this, ArrayStr.getCPtr(aArray), aArray);
   }
 
   public ArrayStr getValueStrArray() {
     return new ArrayStr(opensimModelJNI.Property_getValueStrArray(swigCPtr, this), false);
   }
 
-  public void setValue(int aSize, SWIGTYPE_p_p_OpenSim__Object aArray) {
-    opensimModelJNI.Property_setValue__SWIG_13(swigCPtr, this, aSize, SWIGTYPE_p_p_OpenSim__Object.getCPtr(aArray));
+  public boolean isValidObject(OpenSimObject aValue) {
+    return opensimModelJNI.Property_isValidObject(swigCPtr, this, OpenSimObject.getCPtr(aValue), aValue);
   }
 
-  public void setValue(ArrayPtrsObj aArray) {
-    opensimModelJNI.Property_setValue__SWIG_14(swigCPtr, this, ArrayPtrsObj.getCPtr(aArray), aArray);
+  public OpenSimObject getValueObj() {
+    return new OpenSimObject(opensimModelJNI.Property_getValueObj(swigCPtr, this), false);
   }
 
-  public ArrayPtrsObj getValueObjArray() {
-    return new ArrayPtrsObj(opensimModelJNI.Property_getValueObjArray(swigCPtr, this), false);
+  public void setValue(OpenSimObject aValue) {
+    opensimModelJNI.Property_setValue__SWIG_12(swigCPtr, this, OpenSimObject.getCPtr(aValue), aValue);
+  }
+
+  public OpenSimObject getValueObjPtr() {
+    long cPtr = opensimModelJNI.Property_getValueObjPtr__SWIG_0(swigCPtr, this);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public int getValueObjArraySize() {
+    return opensimModelJNI.Property_getValueObjArraySize(swigCPtr, this);
+  }
+
+  public OpenSimObject getValueObjPtr(int index) {
+    long cPtr = opensimModelJNI.Property_getValueObjPtr__SWIG_1(swigCPtr, this, index);
+    return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public void appendValue(OpenSimObject obj) {
+    opensimModelJNI.Property_appendValue(swigCPtr, this, OpenSimObject.getCPtr(obj), obj);
+  }
+
+  public void clearObjArray() {
+    opensimModelJNI.Property_clearObjArray(swigCPtr, this);
   }
 
   public void setUseDefault(boolean aTrueFalse) {

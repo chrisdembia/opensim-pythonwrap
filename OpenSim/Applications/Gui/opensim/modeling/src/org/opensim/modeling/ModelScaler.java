@@ -66,24 +66,28 @@ public class ModelScaler extends OpenSimObject {
     opensimModelJNI.ModelScaler_registerTypes();
   }
 
-  public boolean getPreserveMassDist() {
-    return opensimModelJNI.ModelScaler_getPreserveMassDist(swigCPtr, this);
-  }
-
-  public void addMeasurement(SWIGTYPE_p_Measurement aMeasurement) {
-    opensimModelJNI.ModelScaler_addMeasurement(swigCPtr, this, SWIGTYPE_p_Measurement.getCPtr(aMeasurement));
+  public void addMeasurement(Measurement aMeasurement) {
+    opensimModelJNI.ModelScaler_addMeasurement(swigCPtr, this, Measurement.getCPtr(aMeasurement), aMeasurement);
   }
 
   public void addScale(Scale aScale) {
     opensimModelJNI.ModelScaler_addScale(swigCPtr, this, Scale.getCPtr(aScale), aScale);
   }
 
-  public SWIGTYPE_p_MeasurementSet getMeasurementSet() {
-    return new SWIGTYPE_p_MeasurementSet(opensimModelJNI.ModelScaler_getMeasurementSet(swigCPtr, this), false);
+  public boolean getApply() {
+    return opensimModelJNI.ModelScaler_getApply(swigCPtr, this);
   }
 
-  public void setMeasurementSet(SWIGTYPE_p_MeasurementSet measurementSet) {
-    opensimModelJNI.ModelScaler_setMeasurementSet(swigCPtr, this, SWIGTYPE_p_MeasurementSet.getCPtr(measurementSet));
+  public void setApply(boolean aApply) {
+    opensimModelJNI.ModelScaler_setApply(swigCPtr, this, aApply);
+  }
+
+  public MeasurementSet getMeasurementSet() {
+    return new MeasurementSet(opensimModelJNI.ModelScaler_getMeasurementSet(swigCPtr, this), false);
+  }
+
+  public void setMeasurementSet(MeasurementSet measurementSet) {
+    opensimModelJNI.ModelScaler_setMeasurementSet(swigCPtr, this, MeasurementSet.getCPtr(measurementSet), measurementSet);
   }
 
   public ScaleSet getScaleSet() {
@@ -95,11 +99,15 @@ public class ModelScaler extends OpenSimObject {
   }
 
   public ArrayDouble getTimeRange() {
-    return new ArrayDouble(opensimModelJNI.ModelScaler_getTimeRange(swigCPtr, this), true);
+    return new ArrayDouble(opensimModelJNI.ModelScaler_getTimeRange(swigCPtr, this), false);
   }
 
   public void setTimeRange(ArrayDouble timeRange) {
     opensimModelJNI.ModelScaler_setTimeRange(swigCPtr, this, ArrayDouble.getCPtr(timeRange), timeRange);
+  }
+
+  public boolean getPreserveMassDist() {
+    return opensimModelJNI.ModelScaler_getPreserveMassDist(swigCPtr, this);
   }
 
   public void setPreserveMassDist(boolean preserveMassDist) {
@@ -107,7 +115,7 @@ public class ModelScaler extends OpenSimObject {
   }
 
   public ArrayStr getScalingOrder() {
-    return new ArrayStr(opensimModelJNI.ModelScaler_getScalingOrder(swigCPtr, this), true);
+    return new ArrayStr(opensimModelJNI.ModelScaler_getScalingOrder(swigCPtr, this), false);
   }
 
   public void setScalingOrder(ArrayStr scalingOrder) {
@@ -120,14 +128,6 @@ public class ModelScaler extends OpenSimObject {
 
   public void setMarkerFileName(String aMarkerFileName) {
     opensimModelJNI.ModelScaler_setMarkerFileName(swigCPtr, this, aMarkerFileName);
-  }
-
-  public void setMaxMarkerMovement(double aMaxMarkerMovement) {
-    opensimModelJNI.ModelScaler_setMaxMarkerMovement(swigCPtr, this, aMaxMarkerMovement);
-  }
-
-  public double getMaxMarkerMovement() {
-    return opensimModelJNI.ModelScaler_getMaxMarkerMovement(swigCPtr, this);
   }
 
   public String getOutputJointFileName() {
@@ -160,6 +160,14 @@ public class ModelScaler extends OpenSimObject {
 
   public void setOutputScaleFileName(String aOutputScaleFileName) {
     opensimModelJNI.ModelScaler_setOutputScaleFileName(swigCPtr, this, aOutputScaleFileName);
+  }
+
+  public void clearOutputFileNames() {
+    opensimModelJNI.ModelScaler_clearOutputFileNames(swigCPtr, this);
+  }
+
+  public double computeMeasurementScaleFactor(Model aModel, MarkerData aMarkerData, Measurement aMeasurement) {
+    return opensimModelJNI.ModelScaler_computeMeasurementScaleFactor(swigCPtr, this, Model.getCPtr(aModel), aModel, MarkerData.getCPtr(aMarkerData), aMarkerData, Measurement.getCPtr(aMeasurement), aMeasurement);
   }
 
 }

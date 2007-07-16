@@ -33,8 +33,8 @@ public class GeneralizedForce extends AbstractActuator {
     super.delete();
   }
 
-  public GeneralizedForce(String aQName) {
-    this(opensimModelJNI.new_GeneralizedForce__SWIG_0(aQName), true);
+  public GeneralizedForce(String aCoordinateName) {
+    this(opensimModelJNI.new_GeneralizedForce__SWIG_0(aCoordinateName), true);
   }
 
   public GeneralizedForce() {

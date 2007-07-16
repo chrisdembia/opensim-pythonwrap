@@ -58,6 +58,14 @@ public class MarkerPlacer extends OpenSimObject {
     return opensimModelJNI.MarkerPlacer_processModel__SWIG_1(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
+  public boolean getApply() {
+    return opensimModelJNI.MarkerPlacer_getApply(swigCPtr, this);
+  }
+
+  public void setApply(boolean aApply) {
+    opensimModelJNI.MarkerPlacer_setApply(swigCPtr, this, aApply);
+  }
+
   public String getStaticPoseFilename() {
     return opensimModelJNI.MarkerPlacer_getStaticPoseFilename(swigCPtr, this);
   }
@@ -67,15 +75,23 @@ public class MarkerPlacer extends OpenSimObject {
   }
 
   public ArrayDouble getTimeRange() {
-    return new ArrayDouble(opensimModelJNI.MarkerPlacer_getTimeRange(swigCPtr, this), true);
+    return new ArrayDouble(opensimModelJNI.MarkerPlacer_getTimeRange(swigCPtr, this), false);
   }
 
   public void setTimeRange(ArrayDouble timeRange) {
     opensimModelJNI.MarkerPlacer_setTimeRange(swigCPtr, this, ArrayDouble.getCPtr(timeRange), timeRange);
   }
 
+  public IKTaskSet getIKTaskSet() {
+    return new IKTaskSet(opensimModelJNI.MarkerPlacer_getIKTaskSet(swigCPtr, this), false);
+  }
+
   public String getCoordinateFileName() {
     return opensimModelJNI.MarkerPlacer_getCoordinateFileName(swigCPtr, this);
+  }
+
+  public void setCoordinateFileName(String aCoordinateFileName) {
+    opensimModelJNI.MarkerPlacer_setCoordinateFileName(swigCPtr, this, aCoordinateFileName);
   }
 
   public double getMaxMarkerMovement() {
@@ -124,6 +140,10 @@ public class MarkerPlacer extends OpenSimObject {
 
   public void setOutputMotionFileName(String outputMotionFileName) {
     opensimModelJNI.MarkerPlacer_setOutputMotionFileName(swigCPtr, this, outputMotionFileName);
+  }
+
+  public void clearOutputFileNames() {
+    opensimModelJNI.MarkerPlacer_clearOutputFileNames(swigCPtr, this);
   }
 
 }
