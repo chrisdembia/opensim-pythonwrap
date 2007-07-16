@@ -25,6 +25,7 @@
  */
 package org.opensim.tracking;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
@@ -118,13 +119,16 @@ public class WorkflowDescriptor {
     }
 
     void setSubjectFile(String fullPathToSubjectFile) {
+        try {
         ScaleTool newSubject = new ScaleTool(fullPathToSubjectFile);
+
         if (newSubject!=null){
             dSubject = newSubject;
             updateCachedValues();
         }
         /* else
            throw new UnsupportedOperationException("Not yet implemented");*/
+        } catch (IOException ex) {}
     }
 
     public String getSetupRRA_pass1Filename() {

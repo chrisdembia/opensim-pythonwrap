@@ -193,14 +193,16 @@ public final class ViewDB extends Observable implements Observer {
                
                sceneAssembly.AddPart(newModelVisual.getModelDisplayAssembly());
                // Check if this refits scene into window
-               
-               Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
-               while(windowIter.hasNext()){
-                  ModelWindowVTKTopComponent nextWindow = windowIter.next();
-                  // This line may need to be enclosed in a Lock /UnLock pair per vtkPanel
-                  lockDrawingSurfaces(true);
-                  nextWindow.getCanvas().GetRenderer().ResetCamera(sceneAssembly.GetBounds());
-                  lockDrawingSurfaces(false);
+              
+               if(OpenSimDB.getInstance().getNumModels()==1) { 
+                  Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
+                  while(windowIter.hasNext()){
+                     ModelWindowVTKTopComponent nextWindow = windowIter.next();
+                     // This line may need to be enclosed in a Lock /UnLock pair per vtkPanel
+                     lockDrawingSurfaces(true);
+                     nextWindow.getCanvas().GetRenderer().ResetCamera(sceneAssembly.GetBounds());
+                     lockDrawingSurfaces(false);
+                  }
                }
                // add to list of models
                getModelVisuals().add(newModelVisual);
@@ -641,13 +643,13 @@ public final class ViewDB extends Observable implements Observer {
    /**
     * get method for the visualization transform (to place a model in a scene).
     */
-   public vtkMatrix4x4 getModelVisualsTranform(SingleModelVisuals aModelVisual) {
+   public vtkMatrix4x4 getModelVisualsTransform(SingleModelVisuals aModelVisual) {
       return aModelVisual.getModelDisplayAssembly().GetUserMatrix();
    }
    /**
     * set method for the visualization transform (to place a model in a scene).
     */
-   public void setModelVisualsTranform(SingleModelVisuals aModelVisual, vtkMatrix4x4 newTransform) {
+   public void setModelVisualsTransform(SingleModelVisuals aModelVisual, vtkMatrix4x4 newTransform) {
       aModelVisual.getModelDisplayAssembly().SetUserMatrix(newTransform);
    }
    /**

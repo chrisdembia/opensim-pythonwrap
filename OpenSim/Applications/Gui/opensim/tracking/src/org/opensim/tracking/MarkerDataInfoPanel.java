@@ -76,6 +76,7 @@ public class MarkerDataInfoPanel extends javax.swing.JPanel {
       markersTextField.setBorder(null);
       markersTextField.setMaximumSize(new java.awt.Dimension(38, 13));
       markersTextField.setMinimumSize(new java.awt.Dimension(38, 13));
+      markersTextField.setOpaque(false);
 
       jLabel22.setFont(new java.awt.Font("Tahoma", 0, 10));
       jLabel22.setForeground(new java.awt.Color(102, 102, 102));
@@ -89,6 +90,7 @@ public class MarkerDataInfoPanel extends javax.swing.JPanel {
       framesTextField.setBorder(null);
       framesTextField.setMaximumSize(new java.awt.Dimension(38, 13));
       framesTextField.setMinimumSize(new java.awt.Dimension(38, 13));
+      framesTextField.setOpaque(false);
 
       startTimeTextField.setEditable(false);
       startTimeTextField.setFont(new java.awt.Font("Tahoma", 1, 10));
@@ -96,6 +98,7 @@ public class MarkerDataInfoPanel extends javax.swing.JPanel {
       startTimeTextField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
       startTimeTextField.setText("0");
       startTimeTextField.setBorder(null);
+      startTimeTextField.setOpaque(false);
 
       jLabel23.setFont(new java.awt.Font("Tahoma", 0, 10));
       jLabel23.setForeground(new java.awt.Color(102, 102, 102));
@@ -107,6 +110,7 @@ public class MarkerDataInfoPanel extends javax.swing.JPanel {
       endTimeTextField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
       endTimeTextField.setText("0");
       endTimeTextField.setBorder(null);
+      endTimeTextField.setOpaque(false);
 
       jLabel24.setForeground(new java.awt.Color(102, 102, 102));
       jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -125,6 +129,7 @@ public class MarkerDataInfoPanel extends javax.swing.JPanel {
       frameRateTextField.setBorder(null);
       frameRateTextField.setMaximumSize(new java.awt.Dimension(38, 13));
       frameRateTextField.setMinimumSize(new java.awt.Dimension(38, 13));
+      frameRateTextField.setOpaque(false);
 
       jLabel2.setFont(new java.awt.Font("Tahoma", 0, 10));
       jLabel2.setForeground(new java.awt.Color(102, 102, 102));

@@ -18,6 +18,7 @@ import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.Model;
 import org.opensim.view.*;
+import vtk.vtkMatrix4x4;
 
 /**
  *
@@ -94,6 +95,27 @@ final public class OpenSimDB extends Observable {
         ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Close);
         notifyObservers(evnt);
     }
+
+   // removes old model and adds new model, but also transfers over some display properties
+   // currently used by scale tool, which can't re-scale in place so it creates a new model to replace the old one
+   public void replaceModel(Model oldModel, Model newModel) {
+      vtkMatrix4x4 offset=null;
+      double opacity=1;
+      if(oldModel!=null) {
+         SingleModelVisuals rep = ViewDB.getInstance().getModelVisuals(oldModel);
+         if(rep!=null) {
+            offset = ViewDB.getInstance().getModelVisualsTransform(rep); // TODO: do we need to make a copy??
+            opacity = rep.getOpacity();
+         }
+         removeModel(oldModel);
+      }
+      addModel(newModel);
+      SingleModelVisuals rep = ViewDB.getInstance().getModelVisuals(newModel);
+      if(offset!=null) {
+         ViewDB.getInstance().setModelVisualsTransform(rep, offset);
+         ViewDB.getInstance().setObjectOpacity(newModel, opacity);
+      }
+   }
 
     public void saveModel(Model model, String fileName) {
       model.print(fileName);
