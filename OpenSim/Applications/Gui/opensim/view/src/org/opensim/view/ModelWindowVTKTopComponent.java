@@ -60,8 +60,8 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jPlusXViewButton = new javax.swing.JButton();
         jMinusYViewButton = new javax.swing.JButton();
         jPlusYViewButton = new javax.swing.JButton();
-        jPlusZViewButton = new javax.swing.JButton();
         jMinusZViewButton = new javax.swing.JButton();
+        jPlusZViewButton = new javax.swing.JButton();
         jTakeSnapshotButton = new javax.swing.JButton();
         jStartStopMovieToggleButton = new javax.swing.JToggleButton();
         openSimCanvas1 = new org.opensim.view.OpenSimCanvas();
@@ -130,7 +130,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWindowToolBar.add(jAxesToggleButton);
 
-        jMinusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView.png")));
+        jMinusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes.png")));
         jMinusXViewButton.setToolTipText("-X View");
         jMinusXViewButton.setAlignmentX(0.5F);
         jMinusXViewButton.setBorderPainted(false);
@@ -140,10 +140,10 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jMinusXViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
         jMinusXViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
         jMinusXViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
-        jMinusXViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_selected.png")));
-        jMinusXViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_rollover.png")));
-        jMinusXViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_rollover_selected.png")));
-        jMinusXViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_selected.png")));
+        jMinusXViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes_selected.png")));
+        jMinusXViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes_rollover.png")));
+        jMinusXViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes_rollover_selected.png")));
+        jMinusXViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes_selected.png")));
         jMinusXViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMinusXViewButtonActionPerformed(evt);
@@ -152,7 +152,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWindowToolBar.add(jMinusXViewButton);
 
-        jPlusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView.png")));
+        jPlusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes.png")));
         jPlusXViewButton.setToolTipText("+X View");
         jPlusXViewButton.setAlignmentX(0.5F);
         jPlusXViewButton.setBorderPainted(false);
@@ -162,10 +162,10 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jPlusXViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
         jPlusXViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
         jPlusXViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
-        jPlusXViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_selected.png")));
-        jPlusXViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_rollover.png")));
-        jPlusXViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_rollover_selected.png")));
-        jPlusXViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_selected.png")));
+        jPlusXViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes_selected.png")));
+        jPlusXViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes_rollover.png")));
+        jPlusXViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes_rollover_selected.png")));
+        jPlusXViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes_selected.png")));
         jPlusXViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPlusXViewButtonActionPerformed(evt);
@@ -174,7 +174,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWindowToolBar.add(jPlusXViewButton);
 
-        jMinusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView.png")));
+        jMinusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes.png")));
         jMinusYViewButton.setToolTipText("-Y View");
         jMinusYViewButton.setAlignmentX(0.5F);
         jMinusYViewButton.setBorderPainted(false);
@@ -184,10 +184,10 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jMinusYViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
         jMinusYViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
         jMinusYViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
-        jMinusYViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_selected.png")));
-        jMinusYViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_rollover.png")));
-        jMinusYViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_rollover_selected.png")));
-        jMinusYViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_selected.png")));
+        jMinusYViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes_selected.png")));
+        jMinusYViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes_rollover.png")));
+        jMinusYViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes_rollover_selected.png")));
+        jMinusYViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes_selected.png")));
         jMinusYViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMinusYViewButtonActionPerformed(evt);
@@ -196,7 +196,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWindowToolBar.add(jMinusYViewButton);
 
-        jPlusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView.png")));
+        jPlusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes.png")));
         jPlusYViewButton.setToolTipText("+Y View");
         jPlusYViewButton.setAlignmentX(0.5F);
         jPlusYViewButton.setBorderPainted(false);
@@ -206,10 +206,10 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jPlusYViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
         jPlusYViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
         jPlusYViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
-        jPlusYViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_selected.png")));
-        jPlusYViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_rollover.png")));
-        jPlusYViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_rollover_selected.png")));
-        jPlusYViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_selected.png")));
+        jPlusYViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes_selected.png")));
+        jPlusYViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes_rollover.png")));
+        jPlusYViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes_rollover_selected.png")));
+        jPlusYViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes_selected.png")));
         jPlusYViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPlusYViewButtonActionPerformed(evt);
@@ -218,29 +218,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWindowToolBar.add(jPlusYViewButton);
 
-        jPlusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView.png")));
-        jPlusZViewButton.setToolTipText("+Z View");
-        jPlusZViewButton.setAlignmentX(0.5F);
-        jPlusZViewButton.setBorderPainted(false);
-        jPlusZViewButton.setContentAreaFilled(false);
-        jPlusZViewButton.setFocusPainted(false);
-        jPlusZViewButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jPlusZViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
-        jPlusZViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
-        jPlusZViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
-        jPlusZViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_selected.png")));
-        jPlusZViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_rollover.png")));
-        jPlusZViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_rollover_selected.png")));
-        jPlusZViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_selected.png")));
-        jPlusZViewButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPlusZViewButtonActionPerformed(evt);
-            }
-        });
-
-        jModelWindowToolBar.add(jPlusZViewButton);
-
-        jMinusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView.png")));
+        jMinusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes.png")));
         jMinusZViewButton.setToolTipText("-Z View");
         jMinusZViewButton.setAlignmentX(0.5F);
         jMinusZViewButton.setBorderPainted(false);
@@ -250,10 +228,10 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jMinusZViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
         jMinusZViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
         jMinusZViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
-        jMinusZViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_selected.png")));
-        jMinusZViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_rollover.png")));
-        jMinusZViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_rollover_selected.png")));
-        jMinusZViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_selected.png")));
+        jMinusZViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes_selected.png")));
+        jMinusZViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes_rollover.png")));
+        jMinusZViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes_rollover_selected.png")));
+        jMinusZViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes_selected.png")));
         jMinusZViewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMinusZViewButtonActionPerformed(evt);
@@ -261,6 +239,28 @@ public class ModelWindowVTKTopComponent extends TopComponent
         });
 
         jModelWindowToolBar.add(jMinusZViewButton);
+
+        jPlusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes.png")));
+        jPlusZViewButton.setToolTipText("+Z View");
+        jPlusZViewButton.setAlignmentX(0.5F);
+        jPlusZViewButton.setBorderPainted(false);
+        jPlusZViewButton.setContentAreaFilled(false);
+        jPlusZViewButton.setFocusPainted(false);
+        jPlusZViewButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jPlusZViewButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        jPlusZViewButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        jPlusZViewButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        jPlusZViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_selected.png")));
+        jPlusZViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_rollover.png")));
+        jPlusZViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_rollover_selected.png")));
+        jPlusZViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_selected.png")));
+        jPlusZViewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPlusZViewButtonActionPerformed(evt);
+            }
+        });
+
+        jModelWindowToolBar.add(jPlusZViewButton);
 
         jTakeSnapshotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/stillCamera.png")));
         jTakeSnapshotButton.setToolTipText("Save View as Image");
@@ -359,73 +359,11 @@ public class ModelWindowVTKTopComponent extends TopComponent
             ViewDB.getInstance().showAxes(false);
             // correct selected mode
             jAxesToggleButton.setSelected(false);
-            // update view icons
-            jMinusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView.png")));
-            jMinusXViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_selected.png")));
-            jMinusXViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_rollover.png")));
-            jMinusXViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_rollover_selected.png")));
-            jMinusXViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_selected.png")));
-            jPlusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView.png")));
-            jPlusXViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_selected.png")));
-            jPlusXViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_rollover.png")));
-            jPlusXViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_rollover_selected.png")));
-            jPlusXViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_selected.png")));
-            jMinusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView.png")));
-            jMinusYViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_selected.png")));
-            jMinusYViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_rollover.png")));
-            jMinusYViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_rollover_selected.png")));
-            jMinusYViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_selected.png")));
-            jPlusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView.png")));
-            jPlusYViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_selected.png")));
-            jPlusYViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_rollover.png")));
-            jPlusYViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_rollover_selected.png")));
-            jPlusYViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_selected.png")));
-            jMinusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView.png")));
-            jMinusZViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_selected.png")));
-            jMinusZViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_rollover.png")));
-            jMinusZViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_rollover_selected.png")));
-            jMinusZViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_selected.png")));
-            jPlusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView.png")));
-            jPlusZViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_selected.png")));
-            jPlusZViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_rollover.png")));
-            jPlusZViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_rollover_selected.png")));
-            jPlusZViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_selected.png")));
         }
         else {
             ViewDB.getInstance().showAxes(true);
             // correct selected mode
             jAxesToggleButton.setSelected(true);
-            // update view icons
-            jMinusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes.png")));
-            jMinusXViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes_selected.png")));
-            jMinusXViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes_rollover.png")));
-            jMinusXViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes_rollover_selected.png")));
-            jMinusXViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes_selected.png")));
-            jPlusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes.png")));
-            jPlusXViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes_selected.png")));
-            jPlusXViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes_rollover.png")));
-            jPlusXViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes_rollover_selected.png")));
-            jPlusXViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes_selected.png")));
-            jMinusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes.png")));
-            jMinusYViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes_selected.png")));
-            jMinusYViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes_rollover.png")));
-            jMinusYViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes_rollover_selected.png")));
-            jMinusYViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes_selected.png")));
-            jPlusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes.png")));
-            jPlusYViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes_selected.png")));
-            jPlusYViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes_rollover.png")));
-            jPlusYViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes_rollover_selected.png")));
-            jPlusYViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes_selected.png")));
-            jMinusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes.png")));
-            jMinusZViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes_selected.png")));
-            jMinusZViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes_rollover.png")));
-            jMinusZViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes_rollover_selected.png")));
-            jMinusZViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes_selected.png")));
-            jPlusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes.png")));
-            jPlusZViewButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_selected.png")));
-            jPlusZViewButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_rollover.png")));
-            jPlusZViewButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_rollover_selected.png")));
-            jPlusZViewButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_selected.png")));
         }
     }//GEN-LAST:event_jAxesToggleButtonActionPerformed
 

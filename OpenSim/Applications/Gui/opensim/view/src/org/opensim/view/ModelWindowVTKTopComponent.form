@@ -131,7 +131,7 @@
         <Component class="javax.swing.JButton" name="jMinusXViewButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/frontView.png"/>
+              <Image iconType="3" name="/org/opensim/view/frontView_axes.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="-X View"/>
             <Property name="alignmentX" type="float" value="0.5"/>
@@ -151,16 +151,16 @@
               <Dimension value="[20, 20]"/>
             </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/frontView_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/frontView_axes_selected.png"/>
             </Property>
             <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/frontView_rollover.png"/>
+              <Image iconType="3" name="/org/opensim/view/frontView_axes_rollover.png"/>
             </Property>
             <Property name="rolloverSelectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/frontView_rollover_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/frontView_axes_rollover_selected.png"/>
             </Property>
             <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/frontView_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/frontView_axes_selected.png"/>
             </Property>
           </Properties>
           <Events>
@@ -170,7 +170,7 @@
         <Component class="javax.swing.JButton" name="jPlusXViewButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/backView.png"/>
+              <Image iconType="3" name="/org/opensim/view/backView_axes.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="+X View"/>
             <Property name="alignmentX" type="float" value="0.5"/>
@@ -190,16 +190,16 @@
               <Dimension value="[20, 20]"/>
             </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/backView_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/backView_axes_selected.png"/>
             </Property>
             <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/backView_rollover.png"/>
+              <Image iconType="3" name="/org/opensim/view/backView_axes_rollover.png"/>
             </Property>
             <Property name="rolloverSelectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/backView_rollover_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/backView_axes_rollover_selected.png"/>
             </Property>
             <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/backView_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/backView_axes_selected.png"/>
             </Property>
           </Properties>
           <Events>
@@ -209,7 +209,7 @@
         <Component class="javax.swing.JButton" name="jMinusYViewButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/topView.png"/>
+              <Image iconType="3" name="/org/opensim/view/topView_axes.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="-Y View"/>
             <Property name="alignmentX" type="float" value="0.5"/>
@@ -229,16 +229,16 @@
               <Dimension value="[20, 20]"/>
             </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/topView_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/topView_axes_selected.png"/>
             </Property>
             <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/topView_rollover.png"/>
+              <Image iconType="3" name="/org/opensim/view/topView_axes_rollover.png"/>
             </Property>
             <Property name="rolloverSelectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/topView_rollover_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/topView_axes_rollover_selected.png"/>
             </Property>
             <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/topView_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/topView_axes_selected.png"/>
             </Property>
           </Properties>
           <Events>
@@ -248,7 +248,7 @@
         <Component class="javax.swing.JButton" name="jPlusYViewButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/bottomView.png"/>
+              <Image iconType="3" name="/org/opensim/view/bottomView_axes.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="+Y View"/>
             <Property name="alignmentX" type="float" value="0.5"/>
@@ -268,65 +268,26 @@
               <Dimension value="[20, 20]"/>
             </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/bottomView_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/bottomView_axes_selected.png"/>
             </Property>
             <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/bottomView_rollover.png"/>
+              <Image iconType="3" name="/org/opensim/view/bottomView_axes_rollover.png"/>
             </Property>
             <Property name="rolloverSelectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/bottomView_rollover_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/bottomView_axes_rollover_selected.png"/>
             </Property>
             <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/bottomView_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/bottomView_axes_selected.png"/>
             </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPlusYViewButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jPlusZViewButton">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/leftView.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="+Z View"/>
-            <Property name="alignmentX" type="float" value="0.5"/>
-            <Property name="borderPainted" type="boolean" value="false"/>
-            <Property name="contentAreaFilled" type="boolean" value="false"/>
-            <Property name="focusPainted" type="boolean" value="false"/>
-            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-              <Insets value="[0, 0, 0, 0]"/>
-            </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[20, 20]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[20, 20]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[20, 20]"/>
-            </Property>
-            <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/leftView_selected.png"/>
-            </Property>
-            <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/leftView_rollover.png"/>
-            </Property>
-            <Property name="rolloverSelectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/leftView_rollover_selected.png"/>
-            </Property>
-            <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/leftView_selected.png"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPlusZViewButtonActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="jMinusZViewButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/rightView.png"/>
+              <Image iconType="3" name="/org/opensim/view/rightView_axes.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="-Z View"/>
             <Property name="alignmentX" type="float" value="0.5"/>
@@ -346,20 +307,59 @@
               <Dimension value="[20, 20]"/>
             </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/rightView_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/rightView_axes_selected.png"/>
             </Property>
             <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/rightView_rollover.png"/>
+              <Image iconType="3" name="/org/opensim/view/rightView_axes_rollover.png"/>
             </Property>
             <Property name="rolloverSelectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/rightView_rollover_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/rightView_axes_rollover_selected.png"/>
             </Property>
             <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/rightView_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/rightView_axes_selected.png"/>
             </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMinusZViewButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jPlusZViewButton">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/view/leftView_axes.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="+Z View"/>
+            <Property name="alignmentX" type="float" value="0.5"/>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
+            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+              <Insets value="[0, 0, 0, 0]"/>
+            </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[20, 20]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[20, 20]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[20, 20]"/>
+            </Property>
+            <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/view/leftView_axes_selected.png"/>
+            </Property>
+            <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/view/leftView_axes_rollover.png"/>
+            </Property>
+            <Property name="rolloverSelectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/view/leftView_axes_rollover_selected.png"/>
+            </Property>
+            <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/view/leftView_axes_selected.png"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPlusZViewButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jTakeSnapshotButton">
