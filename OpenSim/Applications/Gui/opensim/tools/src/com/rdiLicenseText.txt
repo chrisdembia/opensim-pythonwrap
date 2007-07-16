@@ -1,9 +1,0 @@
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Copyright 2001-2005 Realistic Dynamics, Inc.
-// All rights reserved.
-//
-// Please do not read, copy, distribute, or use without permission.
-// Contact: Frank C. Anderson, fc.anderson@RealisticDynamics.com
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-You need to have a license file rdi_license.txt from Realistic Dynamics,
-Have environment variable RDI_INSTALL set to point to the directory containing the above file.
