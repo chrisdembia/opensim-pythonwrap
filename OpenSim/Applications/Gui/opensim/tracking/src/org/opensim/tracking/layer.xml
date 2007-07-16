@@ -16,6 +16,7 @@
             <file name="org-opensim-tracking-TrackingWorkflowAction.shadow" url="org-opensim-tracking-TrackingWorkflowAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
             </file>
+            <file name="org-opensim-tracking-tools-ScaleToolAction.instance"/>
         </folder>
     </folder>
     <folder name="Menu">
@@ -42,6 +43,9 @@
             <attr name="org-opensim-tracking-TrackingWorkflowAction.shadow/org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance" boolvalue="false"/>
             <attr name="org-opensim-tracking-TrackingWorkflowAction.shadow/Separator2.instance" boolvalue="true"/>
             <attr name="Separator3.instance/org-opensim-tracking-tools-separatorBefore.instance" boolvalue="true"/>
+            <file name="org-opensim-tracking-tools-ScaleToolAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Tools/org-opensim-tracking-tools-ScaleToolAction.instance"/>
+            </file>
             <file name="org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance" url="org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance"/>
             <file name="org-opensim-tracking-tools-separatorBefore.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
@@ -78,6 +82,9 @@
             <attr name="org-opensim-tracking-tools-ToolsIKWizardAction.instance/org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance" boolvalue="true"/>
             <attr name="org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance/org-opensim-tracking-InvestigationAction.shadow" boolvalue="true"/>
             <attr name="org-opensim-tracking-tools-separatorBefore.instance/org-opensim-annotationtool-AnnotationAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-ScaleAction.shadow/org-opensim-tracking-tools-ScaleToolAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-ScaleToolAction.shadow/org-opensim-tracking-tools-ToolsIKWizardAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-ScaleToolAction.shadow/org-opensim-tracking-tools-ToolsIKWizardAction.instance" boolvalue="true"/>
         </folder>
         </folder>
     <folder name="Services">
