@@ -97,6 +97,10 @@ public class AnalyzeTool extends AbstractTool {
     return opensimModelJNI.AnalyzeTool_getControlsStatesPseudoStates(swigCPtr, this, aIndex, ArrayDouble.getCPtr(rX), rX, ArrayDouble.getCPtr(rY), rY, ArrayDouble.getCPtr(rP), rP);
   }
 
+  public void setPrintResultFiles(boolean aToWrite) {
+    opensimModelJNI.AnalyzeTool_setPrintResultFiles(swigCPtr, this, aToWrite);
+  }
+
   public void run() {
     opensimModelJNI.AnalyzeTool_run(swigCPtr, this);
   }

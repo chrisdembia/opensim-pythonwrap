@@ -102,6 +102,10 @@ public class AbstractTool extends OpenSimObject {
     opensimModelJNI.AbstractTool_addAnalysisSetToModel(swigCPtr, this);
   }
 
+  public void solveForEquilibrium(boolean aSolve) {
+    opensimModelJNI.AbstractTool_solveForEquilibrium(swigCPtr, this, aSolve);
+  }
+
   public void run() {
     opensimModelJNI.AbstractTool_run(swigCPtr, this);
   }

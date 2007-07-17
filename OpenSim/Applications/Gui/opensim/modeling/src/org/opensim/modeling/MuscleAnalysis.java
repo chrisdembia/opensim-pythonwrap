@@ -117,6 +117,14 @@ public class MuscleAnalysis extends Analysis {
     return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
+  public void setMuscles(ArrayStr aMuscles) {
+    opensimModelJNI.MuscleAnalysis_setMuscles(swigCPtr, this, ArrayStr.getCPtr(aMuscles), aMuscles);
+  }
+
+  public void setCoordinates(ArrayStr aCoordinates) {
+    opensimModelJNI.MuscleAnalysis_setCoordinates(swigCPtr, this, ArrayStr.getCPtr(aCoordinates), aCoordinates);
+  }
+
   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
     return opensimModelJNI.MuscleAnalysis_begin__SWIG_0(swigCPtr, this, aStep, aDT, aT, SWIGTYPE_p_double.getCPtr(aX), SWIGTYPE_p_double.getCPtr(aY), SWIGTYPE_p_double.getCPtr(aYP), SWIGTYPE_p_double.getCPtr(aDYDT), SWIGTYPE_p_void.getCPtr(aClientData));
   }

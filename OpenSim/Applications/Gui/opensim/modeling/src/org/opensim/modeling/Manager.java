@@ -33,8 +33,8 @@ public class Manager {
     swigCPtr = 0;
   }
 
-  public Manager(ModelIntegrand aIntegrand) {
-    this(opensimModelJNI.new_Manager__SWIG_0(ModelIntegrand.getCPtr(aIntegrand), aIntegrand), true);
+  public Manager(SWIGTYPE_p_ModelIntegrand aIntegrand) {
+    this(opensimModelJNI.new_Manager__SWIG_0(SWIGTYPE_p_ModelIntegrand.getCPtr(aIntegrand)), true);
   }
 
   public Manager() {
@@ -53,18 +53,18 @@ public class Manager {
     return opensimModelJNI.Manager_toString(swigCPtr, this);
   }
 
-  public void setIntegrand(ModelIntegrand aIntegrand) {
-    opensimModelJNI.Manager_setIntegrand(swigCPtr, this, ModelIntegrand.getCPtr(aIntegrand), aIntegrand);
+  public void setIntegrand(SWIGTYPE_p_ModelIntegrand aIntegrand) {
+    opensimModelJNI.Manager_setIntegrand(swigCPtr, this, SWIGTYPE_p_ModelIntegrand.getCPtr(aIntegrand));
   }
 
-  public ModelIntegrand getIntegrand() {
+  public SWIGTYPE_p_ModelIntegrand getIntegrand() {
     long cPtr = opensimModelJNI.Manager_getIntegrand(swigCPtr, this);
-    return (cPtr == 0) ? null : new ModelIntegrand(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_ModelIntegrand(cPtr, false);
   }
 
-  public IntegRKF getIntegrator() {
+  public SWIGTYPE_p_IntegRKF getIntegrator() {
     long cPtr = opensimModelJNI.Manager_getIntegrator(swigCPtr, this);
-    return (cPtr == 0) ? null : new IntegRKF(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_IntegRKF(cPtr, false);
   }
 
   public void setInitialTime(double aTI) {

@@ -76,7 +76,7 @@ public class AbstractDynamicsEngine extends OpenSimObject {
   }
 
   public BodySet getBodySet() {
-    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getBodySet__SWIG_0(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getBodySet(swigCPtr, this);
     return (cPtr == 0) ? null : new BodySet(cPtr, false);
   }
 
@@ -95,12 +95,12 @@ public class AbstractDynamicsEngine extends OpenSimObject {
   }
 
   public JointSet getJointSet() {
-    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getJointSet__SWIG_0(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getJointSet(swigCPtr, this);
     return (cPtr == 0) ? null : new JointSet(cPtr, false);
   }
 
   public CoordinateSet getCoordinateSet() {
-    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getCoordinateSet__SWIG_0(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getCoordinateSet(swigCPtr, this);
     return (cPtr == 0) ? null : new CoordinateSet(cPtr, false);
   }
 
@@ -118,12 +118,12 @@ public class AbstractDynamicsEngine extends OpenSimObject {
   }
 
   public SWIGTYPE_p_OpenSim__SpeedSet getSpeedSet() {
-    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getSpeedSet__SWIG_0(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getSpeedSet(swigCPtr, this);
     return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__SpeedSet(cPtr, false);
   }
 
   public MarkerSet getMarkerSet() {
-    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getMarkerSet__SWIG_0(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractDynamicsEngine_getMarkerSet(swigCPtr, this);
     return (cPtr == 0) ? null : new MarkerSet(cPtr, false);
   }
 

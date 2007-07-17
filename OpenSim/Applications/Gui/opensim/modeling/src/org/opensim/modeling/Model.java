@@ -240,17 +240,17 @@ public class Model extends OpenSimObject {
   }
 
   public ActuatorSet getActuatorSet() {
-    long cPtr = opensimModelJNI.Model_getActuatorSet__SWIG_0(swigCPtr, this);
+    long cPtr = opensimModelJNI.Model_getActuatorSet(swigCPtr, this);
     return (cPtr == 0) ? null : new ActuatorSet(cPtr, false);
   }
 
   public ContactForceSet getContactSet() {
-    long cPtr = opensimModelJNI.Model_getContactSet__SWIG_0(swigCPtr, this);
+    long cPtr = opensimModelJNI.Model_getContactSet(swigCPtr, this);
     return (cPtr == 0) ? null : new ContactForceSet(cPtr, false);
   }
 
   public SWIGTYPE_p_OpenSim__IntegCallbackSet getIntegCallbackSet() {
-    long cPtr = opensimModelJNI.Model_getIntegCallbackSet__SWIG_0(swigCPtr, this);
+    long cPtr = opensimModelJNI.Model_getIntegCallbackSet(swigCPtr, this);
     return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__IntegCallbackSet(cPtr, false);
   }
 
@@ -263,7 +263,7 @@ public class Model extends OpenSimObject {
   }
 
   public SWIGTYPE_p_OpenSim__DerivCallbackSet getDerivCallbackSet() {
-    long cPtr = opensimModelJNI.Model_getDerivCallbackSet__SWIG_0(swigCPtr, this);
+    long cPtr = opensimModelJNI.Model_getDerivCallbackSet(swigCPtr, this);
     return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__DerivCallbackSet(cPtr, false);
   }
 
@@ -272,7 +272,7 @@ public class Model extends OpenSimObject {
   }
 
   public AnalysisSet getAnalysisSet() {
-    long cPtr = opensimModelJNI.Model_getAnalysisSet__SWIG_0(swigCPtr, this);
+    long cPtr = opensimModelJNI.Model_getAnalysisSet(swigCPtr, this);
     return (cPtr == 0) ? null : new AnalysisSet(cPtr, false);
   }
 

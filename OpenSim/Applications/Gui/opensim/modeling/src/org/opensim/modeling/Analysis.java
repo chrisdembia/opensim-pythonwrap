@@ -82,6 +82,10 @@ public class Analysis extends IntegCallback {
     return new ArrayStorage(opensimModelJNI.Analysis_getStorageList(swigCPtr, this), false);
   }
 
+  public void setWriteResultsToFiles(boolean writeToFiles) {
+    opensimModelJNI.Analysis_setWriteResultsToFiles(swigCPtr, this, writeToFiles);
+  }
+
   public boolean proceed(int aStep) {
     return opensimModelJNI.Analysis_proceed__SWIG_0(swigCPtr, this, aStep);
   }
