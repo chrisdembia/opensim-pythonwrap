@@ -37,11 +37,11 @@ public class IKTool extends AbstractTool {
     this(opensimModelJNI.new_IKTool__SWIG_0(), true);
   }
 
-  public IKTool(String aFileName, Model guiModel) {
+  public IKTool(String aFileName, Model guiModel) throws java.io.IOException {
     this(opensimModelJNI.new_IKTool__SWIG_1(aFileName, Model.getCPtr(guiModel), guiModel), true);
   }
 
-  public IKTool(String aFileName) {
+  public IKTool(String aFileName) throws java.io.IOException {
     this(opensimModelJNI.new_IKTool__SWIG_2(aFileName), true);
   }
 
@@ -60,6 +60,10 @@ public class IKTool extends AbstractTool {
 
   public IKTrialSet getIKTrialSet() {
     return new IKTrialSet(opensimModelJNI.IKTool_getIKTrialSet(swigCPtr, this), false);
+  }
+
+  public IKTaskSet getIKTaskSet() {
+    return new IKTaskSet(opensimModelJNI.IKTool_getIKTaskSet(swigCPtr, this), false);
   }
 
   public void run() {

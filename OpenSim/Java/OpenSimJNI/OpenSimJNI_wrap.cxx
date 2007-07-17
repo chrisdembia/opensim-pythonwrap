@@ -60630,37 +60630,25 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1p
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1getMarkerDataFilename(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1getMarkerDataFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   OpenSim::IKTrial *arg1 = (OpenSim::IKTrial *) 0 ;
-  std::string result;
+  std::string *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::IKTrial **)&jarg1; 
-  result = ((OpenSim::IKTrial const *)arg1)->getMarkerDataFilename();
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  {
+    std::string const &_result_ref = ((OpenSim::IKTrial const *)arg1)->getMarkerDataFileName();
+    result = (std::string *) &_result_ref;
+  }
+  jresult = jenv->NewStringUTF(result->c_str()); 
   return jresult;
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1getOutputMotionFilename(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  OpenSim::IKTrial *arg1 = (OpenSim::IKTrial *) 0 ;
-  std::string result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::IKTrial **)&jarg1; 
-  result = ((OpenSim::IKTrial const *)arg1)->getOutputMotionFilename();
-  jresult = jenv->NewStringUTF((&result)->c_str()); 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1setOutputMotionFilename(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1setMarkerDataFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   OpenSim::IKTrial *arg1 = (OpenSim::IKTrial *) 0 ;
   std::string *arg2 = 0 ;
   
@@ -60677,7 +60665,46 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1setOu
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  (arg1)->setOutputMotionFilename((std::string const &)*arg2);
+  (arg1)->setMarkerDataFileName((std::string const &)*arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1getOutputMotionFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  OpenSim::IKTrial *arg1 = (OpenSim::IKTrial *) 0 ;
+  std::string *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::IKTrial **)&jarg1; 
+  {
+    std::string const &_result_ref = ((OpenSim::IKTrial const *)arg1)->getOutputMotionFileName();
+    result = (std::string *) &_result_ref;
+  }
+  jresult = jenv->NewStringUTF(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTrial_1setOutputMotionFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  OpenSim::IKTrial *arg1 = (OpenSim::IKTrial *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::IKTrial **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->setOutputMotionFileName((std::string const &)*arg2);
 }
 
 
@@ -63597,7 +63624,18 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1IKTool_1
   arg1 = &arg1_str;
   jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
   arg2 = *(OpenSim::Model **)&jarg2; 
-  result = (OpenSim::IKTool *)new OpenSim::IKTool((std::string const &)*arg1,arg2);
+  try {
+    result = (OpenSim::IKTool *)new OpenSim::IKTool((std::string const &)*arg1,arg2);
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return 0;
+    }
+  }
+  
   *(OpenSim::IKTool **)&jresult = result; 
   return jresult;
 }
@@ -63619,7 +63657,18 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1IKTool_1
   std::string arg1_str(arg1_pstr);
   arg1 = &arg1_str;
   jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
-  result = (OpenSim::IKTool *)new OpenSim::IKTool((std::string const &)*arg1);
+  try {
+    result = (OpenSim::IKTool *)new OpenSim::IKTool((std::string const &)*arg1);
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return 0;
+    }
+  }
+  
   *(OpenSim::IKTool **)&jresult = result; 
   return jresult;
 }
@@ -63680,6 +63729,24 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTool_1getIK
     result = (OpenSim::IKTrialSet *) &_result_ref;
   }
   *(OpenSim::IKTrialSet **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTool_1getIKTaskSet(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::IKTool *arg1 = (OpenSim::IKTool *) 0 ;
+  OpenSim::IKTaskSet *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::IKTool **)&jarg1; 
+  {
+    OpenSim::IKTaskSet &_result_ref = (arg1)->getIKTaskSet();
+    result = (OpenSim::IKTaskSet *) &_result_ref;
+  }
+  *(OpenSim::IKTaskSet **)&jresult = result; 
   return jresult;
 }
 
@@ -67053,7 +67120,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1getStaticPoseFilename(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1getStaticPoseFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   OpenSim::MarkerPlacer *arg1 = (OpenSim::MarkerPlacer *) 0 ;
   std::string *result = 0 ;
@@ -67063,7 +67130,7 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlace
   (void)jarg1_;
   arg1 = *(OpenSim::MarkerPlacer **)&jarg1; 
   {
-    std::string const &_result_ref = ((OpenSim::MarkerPlacer const *)arg1)->getStaticPoseFilename();
+    std::string const &_result_ref = ((OpenSim::MarkerPlacer const *)arg1)->getStaticPoseFileName();
     result = (std::string *) &_result_ref;
   }
   jresult = jenv->NewStringUTF(result->c_str()); 
@@ -67071,7 +67138,7 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlace
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1setStaticPoseFilename(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1setStaticPoseFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   OpenSim::MarkerPlacer *arg1 = (OpenSim::MarkerPlacer *) 0 ;
   std::string *arg2 = 0 ;
   
@@ -67088,7 +67155,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  (arg1)->setStaticPoseFilename((std::string const &)*arg2);
+  (arg1)->setStaticPoseFileName((std::string const &)*arg2);
 }
 
 

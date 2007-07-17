@@ -33,6 +33,8 @@ public class MarkerData extends OpenSimObject {
     super.delete();
   }
 
+  public double[] getTimeRange() { return new double[]{getStartFrameTime(), getLastFrameTime()}; }
+
   public MarkerData() {
     this(opensimModelJNI.new_MarkerData__SWIG_0(), true);
   }

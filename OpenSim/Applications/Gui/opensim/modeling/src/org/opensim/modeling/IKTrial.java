@@ -94,24 +94,28 @@ public class IKTrial extends OpenSimObject {
     return opensimModelJNI.IKTrial_processTrialCommon(swigCPtr, this, Model.getCPtr(aModel), aModel, IKTaskSet.getCPtr(aIKTaskSet), aIKTaskSet, MarkerData.getCPtr(aMarkerData), aMarkerData, Storage.getCPtr(aOutputStorage), aOutputStorage);
   }
 
-  public String getMarkerDataFilename() {
-    return opensimModelJNI.IKTrial_getMarkerDataFilename(swigCPtr, this);
+  public String getMarkerDataFileName() {
+    return opensimModelJNI.IKTrial_getMarkerDataFileName(swigCPtr, this);
   }
 
-  public String getOutputMotionFilename() {
-    return opensimModelJNI.IKTrial_getOutputMotionFilename(swigCPtr, this);
+  public void setMarkerDataFileName(String aMarkerFileName) {
+    opensimModelJNI.IKTrial_setMarkerDataFileName(swigCPtr, this, aMarkerFileName);
   }
 
-  public void setOutputMotionFilename(String aOutputMotionFilename) {
-    opensimModelJNI.IKTrial_setOutputMotionFilename(swigCPtr, this, aOutputMotionFilename);
+  public String getOutputMotionFileName() {
+    return opensimModelJNI.IKTrial_getOutputMotionFileName(swigCPtr, this);
+  }
+
+  public void setOutputMotionFileName(String aOutputMotionFileName) {
+    opensimModelJNI.IKTrial_setOutputMotionFileName(swigCPtr, this, aOutputMotionFileName);
   }
 
   public String getCoordinateFileName() {
     return opensimModelJNI.IKTrial_getCoordinateFileName(swigCPtr, this);
   }
 
-  public void setCoordinateFileName(String aFilename) {
-    opensimModelJNI.IKTrial_setCoordinateFileName(swigCPtr, this, aFilename);
+  public void setCoordinateFileName(String aFileName) {
+    opensimModelJNI.IKTrial_setCoordinateFileName(swigCPtr, this, aFileName);
   }
 
   public void setOptimizerAlgorithm(String aOptimizerAlgorithm) {

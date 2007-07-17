@@ -12,6 +12,7 @@
                 <file name="org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance"/>                
         </folder>
         <folder name="Tools">
+            <file name="org-opensim-tracking-tools-IKToolAction.instance"/>
             <file name="org-opensim-tracking-InvestigationAction.instance"/>
             <file name="org-opensim-tracking-TrackingWorkflowAction.shadow" url="org-opensim-tracking-TrackingWorkflowAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
@@ -37,6 +38,9 @@
             <attr name="org-opensim-toolbox-separatorBefore.instance/org-opensim-toolbox-RRAction.shadow" boolvalue="true"/>
             <attr name="Separator3.instance/org-opensim-tracking-InvestigationAction.shadow" boolvalue="true"/>
             <attr name="org-opensim-tracking-TrackingWorkflowAction.instance/org-opensim-tracking-ScalingToolAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-tracking-tools-IKToolAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Tools/org-opensim-tracking-tools-IKToolAction.instance"/>
+            </file>
             <file name="org-opensim-tracking-TrackingWorkflowAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
             </file>
@@ -85,6 +89,8 @@
             <attr name="org-opensim-tracking-tools-ScaleAction.shadow/org-opensim-tracking-tools-ScaleToolAction.shadow" boolvalue="true"/>
             <attr name="org-opensim-tracking-tools-ScaleToolAction.shadow/org-opensim-tracking-tools-ToolsIKWizardAction.instance" boolvalue="true"/>
             <attr name="org-opensim-tracking-tools-ScaleToolAction.shadow/org-opensim-tracking-tools-ToolsIKWizardAction.instance" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-ScaleToolAction.shadow/org-opensim-tracking-tools-IKToolAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-tracking-tools-IKToolAction.shadow/org-opensim-tracking-tools-ToolsIKWizardAction.instance" boolvalue="true"/>
         </folder>
         </folder>
     <folder name="Services">

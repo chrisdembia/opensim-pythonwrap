@@ -66,12 +66,12 @@ public class MarkerPlacer extends OpenSimObject {
     opensimModelJNI.MarkerPlacer_setApply(swigCPtr, this, aApply);
   }
 
-  public String getStaticPoseFilename() {
-    return opensimModelJNI.MarkerPlacer_getStaticPoseFilename(swigCPtr, this);
+  public String getStaticPoseFileName() {
+    return opensimModelJNI.MarkerPlacer_getStaticPoseFileName(swigCPtr, this);
   }
 
-  public void setStaticPoseFilename(String aFileName) {
-    opensimModelJNI.MarkerPlacer_setStaticPoseFilename(swigCPtr, this, aFileName);
+  public void setStaticPoseFileName(String aFileName) {
+    opensimModelJNI.MarkerPlacer_setStaticPoseFileName(swigCPtr, this, aFileName);
   }
 
   public ArrayDouble getTimeRange() {

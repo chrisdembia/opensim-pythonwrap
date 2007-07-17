@@ -12,10 +12,6 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodyScale;
 import org.opensim.modeling.BodyScaleSet;
 import org.opensim.modeling.BodySet;
-import org.opensim.modeling.CoordinateSet;
-import org.opensim.modeling.IKMarkerTask;
-import org.opensim.modeling.IKCoordinateTask;
-import org.opensim.modeling.IKTaskSet;
 import org.opensim.modeling.MarkerData;
 import org.opensim.modeling.MarkerPair;
 import org.opensim.modeling.MarkerSet;
@@ -29,6 +25,7 @@ import org.opensim.modeling.ScaleSet;
 import org.opensim.modeling.ScaleTool;
 import org.opensim.modeling.rdMath;
 import org.opensim.utils.ErrorDialog;
+import org.opensim.utils.FileUtils;
 import org.opensim.view.pub.OpenSimDB;
 
 //==================================================================
@@ -247,12 +244,9 @@ public class ScaleToolModel extends Observable implements Observer {
    private MarkerData measurementTrial = null;
    private Vector<Double> measurementValues = null;
 
-   private MarkerData staticTrial = null;
-
    private BodySetScaleFactors bodySetScaleFactors;
    
-   private IKMarkerTasksModel ikMarkerTasksModel;
-   private IKCoordinateTasksModel ikCoordinateTasksModel;
+   private IKCommonModel ikCommonModel; // Stores marker placer stuff that's also common to IKTool
 
    public ScaleToolModel(Model originalModel) throws IOException {
       // Store original model; create copy of the original model as our unscaled model (i.e. the model we'll scale)
@@ -270,24 +264,22 @@ public class ScaleToolModel extends Observable implements Observer {
 
       bodySetScaleFactors = new BodySetScaleFactors(this, unscaledModel.getDynamicsEngine().getBodySet());
 
-      ikMarkerTasksModel = new IKMarkerTasksModel(unscaledModel);
-      ikCoordinateTasksModel = new IKCoordinateTasksModel(unscaledModel);
-      ikMarkerTasksModel.addObserver(this);
-      ikCoordinateTasksModel.addObserver(this);
+      ikCommonModel = new IKCommonModel(unscaledModel);
+      ikCommonModel.addObserver(this);
    }
 
-   public Model getUnscaledModel() {
-      return unscaledModel;
-   }
+   // Simple accessors
+   public Model getUnscaledModel() { return unscaledModel; }
+   public ScaleTool getScaleTool() { return scaleTool; }
+   public IKCommonModel getIKCommonModel() { return ikCommonModel; }
 
-   public ScaleTool getScaleTool() {
-      return scaleTool;
-   }
+   //------------------------------------------------------------------------
+   // Utilities for running/canceling tool
+   //------------------------------------------------------------------------
    
    private void updateScaleTool() {
       bodySetScaleFactors.toModelScaler();
-      ikMarkerTasksModel.toTaskSet(scaleTool.getMarkerPlacer().getIKTaskSet());
-      ikCoordinateTasksModel.toTaskSet(scaleTool.getMarkerPlacer().getIKTaskSet());
+      ikCommonModel.toMarkerPlacer(scaleTool.getMarkerPlacer());
    }
 
    public void execute() {
@@ -343,9 +335,7 @@ public class ScaleToolModel extends Observable implements Observer {
    // Handle updates in the IK Task Set
    //------------------------------------------------------------------------
    public void update(Observable observable, Object obj) {
-      if(observable==ikMarkerTasksModel || observable==ikCoordinateTasksModel) {
-         setModified(Operation.MarkerPlacerDataChanged);
-      }
+      if(observable==ikCommonModel) setModified(Operation.MarkerPlacerDataChanged);
    }
 
    //------------------------------------------------------------------------
@@ -355,7 +345,7 @@ public class ScaleToolModel extends Observable implements Observer {
    private void setModified(Operation change) {
       modifiedSinceLastExecute = true;
       if(change==Operation.AllDataChanged || change==Operation.MarkerSetChanged) 
-         ikMarkerTasksModel.markerSetChanged(); // TODO: should we make ikMarkerTasksModel be an observer instead of using this mechanism?
+         ikCommonModel.getIKMarkerTasksModel().markerSetChanged(); // TODO: should we make ikMarkerTasksModel be an observer instead of using this mechanism?
       setChanged(); // need to call this before calling notifyObservers
       notifyObservers(change);
    }
@@ -371,7 +361,10 @@ public class ScaleToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
 
    public boolean isValid() {
-      return true;
+      boolean markerSetValid = !getUseExtraMarkerSet() || getExtraMarkerSetValid();
+      boolean modelScalerValid = !getModelScalerEnabled() || getMeasurementTrialValid();
+      boolean markerPlacerValid = !getMarkerPlacerEnabled() || ikCommonModel.isValid();
+      return markerSetValid && modelScalerValid && markerPlacerValid;
    }
 
    //------------------------------------------------------------------------
@@ -405,7 +398,7 @@ public class ScaleToolModel extends Observable implements Observer {
       return fileName==null || fileName.equals("") || fileName.equals(PropertyStr.getDefaultStr());
    }
    private String getFileName(String fileName) {
-      return fileNameEffectivelyNull(fileName) ? "" : fileName;
+      return FileUtils.effectivelyNull(fileName) ? "" : fileName;
    }
 
    //------------------------------------------------------------------------
@@ -416,7 +409,7 @@ public class ScaleToolModel extends Observable implements Observer {
       MarkerSet oldExtraMarkerSet = extraMarkerSet;
       String fileName = scaleTool.getGenericModelMaker().getMarkerSetFileName();
       boolean success = true;
-      if(useExtraMarkerSet && !fileNameEffectivelyNull(fileName)) {
+      if(useExtraMarkerSet && !FileUtils.effectivelyNull(fileName)) {
          try {
             extraMarkerSet = new MarkerSet(fileName);
          } catch (IOException ex) {
@@ -439,10 +432,7 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    public boolean setExtraMarkerSetFileName(String fileName) {
-      if(!fileNameEffectivelyNull(fileName))
-         scaleTool.getGenericModelMaker().setMarkerSetFileName(fileName);
-      else
-         scaleTool.getGenericModelMaker().setMarkerSetFileName("");
+      scaleTool.getGenericModelMaker().setMarkerSetFileName(getFileName(fileName));
       boolean success = loadExtraMarkerSet(false,true);
       setModified(Operation.MarkerSetChanged);
       return success;
@@ -501,7 +491,7 @@ public class ScaleToolModel extends Observable implements Observer {
    private boolean loadMeasurementTrial(boolean resetTimeRange, boolean recompute) {
       String fileName = scaleTool.getModelScaler().getMarkerFileName();
       boolean success = true;
-      if(!fileNameEffectivelyNull(fileName)) {
+      if(!FileUtils.effectivelyNull(fileName)) {
          try {
             measurementTrial = new MarkerData(fileName);
             measurementTrial.convertToUnits(getUnscaledModel().getLengthUnits());
@@ -510,7 +500,7 @@ public class ScaleToolModel extends Observable implements Observer {
             success = false;
          }
       }
-      if(resetTimeRange && measurementTrial!=null) setMeasurementTrialTimeRange(getMarkerDataTimeRange(measurementTrial));
+      if(resetTimeRange && measurementTrial!=null) setMeasurementTrialTimeRange(measurementTrial.getTimeRange());
       if(recompute) recomputeMeasurements();
       return success;
    }
@@ -695,7 +685,7 @@ public class ScaleToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
    // Marker Placer
    //------------------------------------------------------------------------
-   // Model scaler enabled
+   // Marker placer enabled
    public void setMarkerPlacerEnabled(boolean enabled) {
       if(getMarkerPlacerEnabled() != enabled) {
          scaleTool.getMarkerPlacer().setApply(enabled);
@@ -706,90 +696,16 @@ public class ScaleToolModel extends Observable implements Observer {
       return scaleTool.getMarkerPlacer().getApply();
    }
 
-   public boolean loadStaticTrial() {
-      String fileName= scaleTool.getMarkerPlacer().getStaticPoseFilename();
-      boolean success = true;
-      if(!fileNameEffectivelyNull(fileName)) {
-         try {
-            staticTrial = new MarkerData(fileName);
-            staticTrial.convertToUnits(getUnscaledModel().getLengthUnits()); // TODO: the C++ code averages before this rather than after!
-         } catch (IOException ex) {
-            staticTrial = null; 
-            success = false;
-         }
-      }
-      return success;
-   }
-
-   // Static trial file name
-   public boolean setStaticTrialFileName(String fileName) {
-      if(fileName!=null)
-         scaleTool.getMarkerPlacer().setStaticPoseFilename(fileName);
-      else
-         scaleTool.getMarkerPlacer().setStaticPoseFilename("");
-      boolean success = loadStaticTrial();
-      if(staticTrial!=null) setStaticTrialTimeRange(getMarkerDataTimeRange(staticTrial));
-      setModified(Operation.MarkerPlacerDataChanged);
-      return success;
-   }
-   public String getStaticTrialFileName() {
-      return scaleTool.getMarkerPlacer().getStaticPoseFilename();
-   }
-   public MarkerData getStaticTrial() {
-      return staticTrial;
-   }
-   public boolean getStaticTrialValid() {
-      return staticTrial!=null;
-   }
-
-   // Static trial time range
-   public void setStaticTrialTimeRange(double[] timeRange) {
-      clampStaticTrialTimeRange(timeRange);
-      double[] oldRange = getStaticTrialTimeRange();
-      if(oldRange[0] != timeRange[0] || oldRange[1] != timeRange[1]) {
-         ArrayDouble array = new ArrayDouble();
-         array.append(timeRange[0]);
-         array.append(timeRange[1]);
-         scaleTool.getMarkerPlacer().setTimeRange(array);
-         setModified(Operation.MarkerPlacerDataChanged);
-      }
-   }
-   public double[] getStaticTrialTimeRange() {
-      ArrayDouble array = scaleTool.getMarkerPlacer().getTimeRange();
-      return new double[]{array.getitem(0), array.getitem(1)};
-   }
-
-   private boolean clampStaticTrialTimeRange(double[] timeRange) {
-      boolean clamped = false;
-      if(staticTrial!=null) {
-         if(timeRange[0] < staticTrial.getStartFrameTime()) { timeRange[0] = staticTrial.getStartFrameTime(); clamped = true; }
-         if(timeRange[1] > staticTrial.getLastFrameTime()) { timeRange[1] = staticTrial.getLastFrameTime(); clamped = true; }
-      }
-      return clamped;
-   }
-
-   //------------------------------------------------------------------------
-   // IK Tasks
-   //------------------------------------------------------------------------
-
-   public IKMarkerTasksModel getIKMarkerTasksModel() { return ikMarkerTasksModel; }
-   public IKCoordinateTasksModel getIKCoordinateTasksModel() { return ikCoordinateTasksModel; }
-
    //------------------------------------------------------------------------
    // Load/Save Settings
    //------------------------------------------------------------------------
-   
-   private String absolutePath(String fileName, String parentDir) {
-      if (fileNameEffectivelyNull(fileName)) return fileName;
-      else if ((new File(fileName)).isAbsolute()) return fileName;
-      else return (new File(parentDir, fileName)).getAbsolutePath();
-   }
 
    private void relativeToAbsolutePaths(String parentFileName) {
       String parentDir = (new File(parentFileName)).getParent();
-      scaleTool.getGenericModelMaker().setMarkerSetFileName(absolutePath(scaleTool.getGenericModelMaker().getMarkerSetFileName(),parentDir));
-      scaleTool.getModelScaler().setMarkerFileName(absolutePath(scaleTool.getModelScaler().getMarkerFileName(),parentDir));
-      scaleTool.getMarkerPlacer().setStaticPoseFilename(absolutePath(scaleTool.getMarkerPlacer().getStaticPoseFilename(),parentDir));
+      scaleTool.getGenericModelMaker().setMarkerSetFileName(FileUtils.makePathAbsolute(scaleTool.getGenericModelMaker().getMarkerSetFileName(),parentDir));
+      scaleTool.getModelScaler().setMarkerFileName(FileUtils.makePathAbsolute(scaleTool.getModelScaler().getMarkerFileName(),parentDir));
+      scaleTool.getMarkerPlacer().setStaticPoseFileName(FileUtils.makePathAbsolute(scaleTool.getMarkerPlacer().getStaticPoseFileName(),parentDir));
+      scaleTool.getMarkerPlacer().setCoordinateFileName(FileUtils.makePathAbsolute(scaleTool.getMarkerPlacer().getCoordinateFileName(),parentDir));
    }
 
    public boolean loadSettings(String fileName) {
@@ -826,13 +742,7 @@ public class ScaleToolModel extends Observable implements Observer {
       loadMeasurementTrial(false,false); // will recompute measurements below
       recomputeMeasurements();
 
-      // static trial
-      staticTrial = null;
-      loadStaticTrial();
-
-      // IK task set
-      ikMarkerTasksModel.fromTaskSet(scaleTool.getMarkerPlacer().getIKTaskSet());
-      ikCoordinateTasksModel.fromTaskSet(scaleTool.getMarkerPlacer().getIKTaskSet());
+      ikCommonModel.fromMarkerPlacer(scaleTool.getMarkerPlacer());
 
       setModified(Operation.AllDataChanged);
       return true;
@@ -854,9 +764,5 @@ public class ScaleToolModel extends Observable implements Observer {
       for(int i=0; i<bodySet.getSize(); i++)
          mass += bodySet.get(i).getMass();
       return mass;
-   }
-
-   private double[] getMarkerDataTimeRange(MarkerData data) {
-      return new double[]{data.getStartFrameTime(), data.getLastFrameTime()};
    }
 }

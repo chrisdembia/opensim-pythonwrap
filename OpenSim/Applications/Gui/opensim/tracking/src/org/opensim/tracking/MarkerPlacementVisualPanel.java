@@ -375,7 +375,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
 
     void updatePanel(WorkflowDescriptor aDescriptor) {
         MarkerPlacer params = aDescriptor.getSubject().getMarkerPlacer();
-        jStaticTrialTextField.setText(params.getStaticPoseFilename());
+        jStaticTrialTextField.setText(params.getStaticPoseFileName());
          try {
             jStaticTrialTextField.setToolTipText(params.getPropertySet().get("marker_file").getComment());
            jIKTasksFileTextField.setToolTipText(params.getPropertySet().get("IKTaskSet").getComment());
@@ -441,7 +441,7 @@ public final class MarkerPlacementVisualPanel extends workflowVisualPanelBase {
 
     void updateWorkflow(WorkflowDescriptor descriptor) {
         MarkerPlacer params = descriptor.getSubject().getMarkerPlacer();
-        params.setStaticPoseFilename(jStaticTrialTextField.getText());
+        params.setStaticPoseFileName(jStaticTrialTextField.getText());
         ArrayDouble timeRange = new ArrayDouble(2);
         timeRange.setitem(0, Double.parseDouble(jStaticFromTextField.getText()));
         timeRange.setitem(1, Double.parseDouble(jStaticToTextField.getText()));

@@ -102,7 +102,6 @@ class IKMarkerTasksModel extends IKTasksModel {
    }
 
    public void markerSetChanged() {
-      //Vector<IKTask> oldTasks = (Vector<IKTask>)tasks.clone();
       Vector<IKTask> oldTasks = new Vector<IKTask>(tasks);
       reset();
       // Copy over old task values that have same marker name

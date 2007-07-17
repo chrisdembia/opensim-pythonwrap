@@ -335,7 +335,9 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
             jSetupFilenameTextField.setText(setupFile);
             Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
             // create an investigation and fill in the fields
+            try {
             ik = new IKTool(jSetupFilenameTextField.getText(), logicPanel.descriptor.getIKModel()); 
+            } catch (IOException ex) {}
             Model mdl = ik.getModel();
             SingleModelVisuals visModel = ViewDB.getInstance().getModelVisuals(mdl);
             
@@ -424,7 +426,9 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
         initialize(aDescriptor);    // Tooltip
         String filename = aDescriptor.getSetupIKFilename();
         if (filename != null){
+           try {
              ik = new IKTool(filename, aDescriptor.getIKModel());
+           } catch(IOException ex) {}
         }
         String modelFile = ik.getModelFilename();
        numTrials = ik.getIKTrialSet().getSize();
