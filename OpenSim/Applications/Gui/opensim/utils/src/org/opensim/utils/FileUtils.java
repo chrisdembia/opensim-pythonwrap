@@ -52,6 +52,7 @@ public final class FileUtils {
 
     // Some predefined filters
     public static FileFilter OpenSimModelFileFilter = getFileFilter(".osim", "OpenSim model");
+    public static FileFilter MotionFileFilter = getFileFilter(".mot,.sto", "Motion or storage file");
     
     public static String getNextAvailableName(String folder, String baseName) {
         File baseFile = new File(baseName);
@@ -81,7 +82,12 @@ public final class FileUtils {
         // unreached
         return null;
     }
-    
+   
+   public static String getExtension(String fileName) {
+      int index = fileName.lastIndexOf('.');
+      return (index==-1) ? null : fileName.substring(index+1);
+   }
+
     /**
      * utility method to add suffix to a file name
      */
@@ -100,7 +106,7 @@ public final class FileUtils {
      * Extension should contain the leading . e.g. ".xml"
      */
     public static String addExtensionIfNeeded(String path, String extension) {
-        if (path.endsWith("extension") || path.contains("."))
+        if (path.endsWith(extension) || path.contains("."))
             return path;
         // just append extension
         return path+extension;
