@@ -417,7 +417,7 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
        if (trialSet.getSize()>0){
            trialSet.get(0).setEndTime(Double.parseDouble(jToTextField.getText()));
            trialSet.get(0).setStartTime(Double.parseDouble(jFromTextField.getText()));
-           trialSet.get(0).setOutputMotionFilename(jOutputMotionTextField.getText());
+           trialSet.get(0).setOutputMotionFileName(jOutputMotionTextField.getText());
        }
         descriptor.setIKoutfilename(jOutputMotionTextField.getText());
     }
@@ -456,10 +456,10 @@ public final class IKVisualPanel extends workflowVisualPanelBase {
      */
     private void makeTrialCurrent(IKTrial IKTrialParams) {
         String trialName = IKTrialParams.getName();
-        jTrialFileTextField.setText(IKTrialParams.getMarkerDataFilename());  //.trc
+        jTrialFileTextField.setText(IKTrialParams.getMarkerDataFileName());  //.trc
         jFromTextField.setText(String.valueOf(IKTrialParams.getStartTime()));
         jToTextField.setText(String.valueOf(IKTrialParams.getEndTime()));
-        jOutputMotionTextField.setText(IKTrialParams.getOutputMotionFilename());
+        jOutputMotionTextField.setText(IKTrialParams.getOutputMotionFileName());
        try {
         jOutputMotionTextField.setToolTipText(IKTrialParams.getPropertySet().get("output_motion_file").getComment());
        } catch (IOException ex) {

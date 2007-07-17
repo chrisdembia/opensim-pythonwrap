@@ -114,7 +114,7 @@ public class IKPanel  extends workflowWizardPanelBase{
         // Load resulting motion and associate it with ik model
         //unnecessary OpenSimDB.getInstance().setCurrentModel(ikModel);        
         String ikFilePath = new File(ik.getDocumentFileName()).getParent();
-        final String motionFilePath = ikFilePath+File.separator+ik.getIKTrialSet().get(0).getOutputMotionFilename();
+        final String motionFilePath = ikFilePath+File.separator+ik.getIKTrialSet().get(0).getOutputMotionFileName();
         if (new File(motionFilePath).exists()) {
             // Run in Swing thread since it calls MotionDisplayer.classifyColumn down the line which makes calls to vtk glyph stuff
             try {
