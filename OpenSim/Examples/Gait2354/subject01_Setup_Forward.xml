@@ -64,14 +64,29 @@
 				    not.-->
 				<in_degrees> true </in_degrees>
 			</BodyKinematics>
-			<!--
+			<ActuatorGeneralizedForces name="ActuatorGeneralizedForces">
+				<!--Flag (true or false) specifying whether whether on. True by default.-->
+				<on> true </on>
+				<!--Specifies how often to store results during a simulation. More
+				    specifically, the interval (a positive integer) specifies how many
+				    successful integration steps should be taken before results are
+				    recorded again.-->
+				<step_interval> 10 </step_interval>
+				<!--Flag (true or false) indicating whether the results are in degrees or
+				    not.-->
+				<in_degrees> true </in_degrees>
+				<actuators_list> soleus_r </actuators_list>
+			</ActuatorGeneralizedForces>
+			
 			<MuscleAnalysis name="MuscleAnalysis">
 				<on> true </on>
 				<step_interval> 1 </step_interval>
 				<in_degrees> true </in_degrees>
+				<muscle_list> med_gas_r lat_gas_r soleus_r </muscle_list>
+				<moment_arm_coordinate_list> knee_angle_r ankle_angle_r </moment_arm_coordinate_list>
 			</MuscleAnalysis>
-			-->
-			<!-- MomentArmAnalysis currently produces "failed to assemble" messages, but still should run and give results -->
+
+			<!--
 			<MomentArmAnalysis name="MomentArmAnalysis">
 				<on> true </on>
 				<step_interval> 8 </step_interval>
@@ -79,6 +94,7 @@
 				<coordinate_list> knee_angle_r ankle_angle_r </coordinate_list>
 				<muscle_list> med_gas_r lat_gas_r soleus_r </muscle_list>
 			</MomentArmAnalysis>
+			-->
 		</objects>
 	</AnalysisSet>
 	<!--XML file containing the controls (e.g., muscle excitations) for the
