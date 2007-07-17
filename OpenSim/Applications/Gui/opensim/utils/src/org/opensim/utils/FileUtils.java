@@ -31,13 +31,9 @@ import java.util.Vector;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
-import org.openide.filesystems.FileObject;
-import org.openide.filesystems.FileUtil;
-import org.openide.windows.WindowManager;
 
 /**
  *
@@ -278,4 +274,14 @@ public final class FileUtils {
         else
             return path + File.separatorChar;
     }
+
+   // Treat null, empty string, and "Unassigned" all essentially as empty strings
+   public static boolean effectivelyNull(String fileName) {
+      return fileName==null || fileName.equals("") || fileName.equals("Unassigned");
+   }
+
+   public static String makePathAbsolute(String fileName, String parentDir) {
+      if (effectivelyNull(fileName) || (new File(fileName)).isAbsolute()) return fileName;
+      else return (new File(parentDir, fileName)).getAbsolutePath();
+   }
 }
