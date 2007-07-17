@@ -30,7 +30,7 @@ import javax.swing.Action;
 import org.openide.nodes.Children;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
-import org.opensim.view.nodes.OpenSimObjectNode;
+import org.opensim.view.nodes.*;
 
 /**
  *
@@ -63,15 +63,24 @@ public class OneMotionNode extends OpenSimObjectNode{
        return getModelForNode();
    }
 
+   public Storage getMotion()
+   {
+      return (Storage)getOpenSimObject();
+   }
+
     public Action[] getActions(boolean b) {
         Action[] retValue=null;
         try {
             
             retValue = new Action[]{
-                (MotionsSetCurrentAction) MotionsSetCurrentAction.findObject(
-                     Class.forName("org.opensim.motionviewer.MotionsSetCurrentAction"), true),
+                (MotionsCloseAction) MotionsCloseAction.findObject(
+                     Class.forName("org.opensim.motionviewer.MotionsCloseAction"), true),
+                (MotionsSaveAsAction) MotionsSaveAsAction.findObject(
+                     Class.forName("org.opensim.motionviewer.MotionsSaveAsAction"), true),
                 (MotionsSynchronizeAction) MotionsSynchronizeAction.findObject(
                      Class.forName("org.opensim.motionviewer.MotionsSynchronizeAction"), true),
+                (MotionsSetCurrentAction) MotionsSetCurrentAction.findObject(
+                     Class.forName("org.opensim.motionviewer.MotionsSetCurrentAction"), true),
             };
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();

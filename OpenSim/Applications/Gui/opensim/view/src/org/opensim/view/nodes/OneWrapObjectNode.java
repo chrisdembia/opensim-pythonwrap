@@ -22,7 +22,7 @@ public class OneWrapObjectNode extends OpenSimObjectNode{
    }
 
     public Node cloneNode() {
-        return new OneWrapObjectNode(getOpensimObject());
+        return new OneWrapObjectNode(getOpenSimObject());
     }
     /**
      * Icon for the body node 

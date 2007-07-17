@@ -13,14 +13,12 @@ import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JLabel;
-import javax.swing.JSlider;
 import javax.swing.Timer;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.opensim.motionviewer.MotionEvent.Operation;
-
 
 /**
  *

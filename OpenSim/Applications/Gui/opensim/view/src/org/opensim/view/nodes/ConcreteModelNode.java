@@ -24,7 +24,7 @@ public class ConcreteModelNode extends OpenSimObjectNode {
    }
     public Model getModel()
     {
-        return (Model) getOpensimObject();
+        return (Model) getOpenSimObject();
     }
     /**
      * Actions available in model node popup.

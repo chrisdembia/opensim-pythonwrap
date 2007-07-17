@@ -30,7 +30,7 @@ public final class ObjectDisplayShowAction extends CallableSystemAction {
             OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
             if (objectNode.getChildren().getNodesCount()>0)
                 return true;
-            int displayStatus = ViewDB.getInstance().getDisplayStatus(objectNode.getOpensimObject());
+            int displayStatus = ViewDB.getInstance().getDisplayStatus(objectNode.getOpenSimObject());
             if (displayStatus == 0 || displayStatus == 2)
                return true;
         }
@@ -47,7 +47,7 @@ public final class ObjectDisplayShowAction extends CallableSystemAction {
     }
 
     private void applyOperationToNode(final OpenSimObjectNode objectNode) {
-        OpenSimObject obj = objectNode.getOpensimObject();
+        OpenSimObject obj = objectNode.getOpenSimObject();
         Children ch = objectNode.getChildren();
         if (ch.getNodesCount()>0){
             // apply action recursively

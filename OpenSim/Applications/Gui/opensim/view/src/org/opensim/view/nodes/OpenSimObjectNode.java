@@ -37,10 +37,10 @@ import org.opensim.view.ObjectGenericReviewAction;
  */
 public class OpenSimObjectNode extends OpenSimNode {
     
-    private OpenSimObject opensimObject;
+    private OpenSimObject openSimObject;
     /** Creates a new instance of OpenSimObjectNode */
     public OpenSimObjectNode(OpenSimObject obj) {
-       this.opensimObject = obj;
+       this.openSimObject = obj;
         setDisplayName(obj.getName());
      }
     /**
@@ -48,7 +48,7 @@ public class OpenSimObjectNode extends OpenSimNode {
      */
     public String getHtmlDisplayName() {
         
-        return getOpensimObject().getName() ;
+        return getOpenSimObject().getName() ;
     }
 
     /**
@@ -78,8 +78,8 @@ public class OpenSimObjectNode extends OpenSimNode {
     /**
      * return the Object presented by this node
      */
-    public OpenSimObject getOpensimObject() {
-        return opensimObject;
+    public OpenSimObject getOpenSimObject() {
+        return openSimObject;
     }
 
    private Action getReviewAction() {

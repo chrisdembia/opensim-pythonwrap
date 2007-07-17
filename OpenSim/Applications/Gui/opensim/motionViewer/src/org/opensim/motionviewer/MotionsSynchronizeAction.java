@@ -8,6 +8,7 @@ import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 import org.opensim.view.ExplorerTopComponent;
+import org.opensim.motionviewer.OneMotionNode;
 
 public final class MotionsSynchronizeAction extends CallableSystemAction {
     
@@ -31,7 +32,7 @@ public final class MotionsSynchronizeAction extends CallableSystemAction {
        for(int i=0; i<selected.length; i++){
             OneMotionNode node =((OneMotionNode)selected[i]);
             Model model = node.getModel();
-            MotionsDB.getInstance().addSyncMotion(model, (Storage) node.getOpensimObject(), (i==selected.length-1));
+            MotionsDB.getInstance().addSyncMotion(model, (Storage) node.getOpenSimObject(), (i==selected.length-1));
        }
     }
     

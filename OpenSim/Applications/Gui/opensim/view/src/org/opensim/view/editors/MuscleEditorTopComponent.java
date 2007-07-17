@@ -1531,7 +1531,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       //boolean docked = mode.dockInto(this);
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
       OneActuatorNode muscleNode = (OneActuatorNode) selected[0];
-      AbstractActuator newAct = AbstractActuator.safeDownCast(muscleNode.getOpensimObject());
+      AbstractActuator newAct = AbstractActuator.safeDownCast(muscleNode.getOpenSimObject());
       if (newAct != null && newAct != act) {
          boolean switchMuscles = false;
          if (pendingChanges == false) {

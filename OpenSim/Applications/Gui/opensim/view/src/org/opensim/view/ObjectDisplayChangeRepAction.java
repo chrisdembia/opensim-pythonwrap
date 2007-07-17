@@ -14,7 +14,7 @@ public class ObjectDisplayChangeRepAction extends CallableSystemAction {
         // If any selected object is hidden (or any selected group is mixed), return false.
         for(int i=0; i < selected.length; i++){
             OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
-            int displayStatus = ViewDB.getInstance().getDisplayStatus(objectNode.getOpensimObject());
+            int displayStatus = ViewDB.getInstance().getDisplayStatus(objectNode.getOpenSimObject());
             if (displayStatus == 0 || displayStatus == 2)
                return false;
         }
@@ -32,7 +32,7 @@ public class ObjectDisplayChangeRepAction extends CallableSystemAction {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         for(int i=0; i < selected.length; i++){
             OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
-            ViewDB.getInstance().setObjectRepresentation(objectNode.getOpensimObject(), newRep, newShading);
+            ViewDB.getInstance().setObjectRepresentation(objectNode.getOpenSimObject(), newRep, newShading);
          }        
     }
   

@@ -21,7 +21,7 @@ public final class ObjectGenericReviewAction  extends CallableSystemAction {
       if (selected.length == 1){
          OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[0];
          
-         ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(objectNode.getOpensimObject(),
+         ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(objectNode.getOpenSimObject(),
                  ViewDB.getInstance().getCurrenWindow());
          editorDialog.process();
       } else { // Should never happen

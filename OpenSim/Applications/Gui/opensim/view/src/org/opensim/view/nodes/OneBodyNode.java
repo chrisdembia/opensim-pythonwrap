@@ -37,7 +37,7 @@ public class OneBodyNode extends OpenSimObjectNode{
    }
 
     public Node cloneNode() {
-        return new OneBodyNode(getOpensimObject());
+        return new OneBodyNode(getOpenSimObject());
     }
     /**
      * Icon for the body node 

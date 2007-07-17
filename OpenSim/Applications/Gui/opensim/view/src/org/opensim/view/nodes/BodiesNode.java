@@ -67,6 +67,6 @@ public class BodiesNode extends OpenSimObjectNode {
     }
     
     public Node cloneNode() {
-        return new BodiesNode((BodySet)getOpensimObject());
+        return new BodiesNode((BodySet)getOpenSimObject());
     }
 } // class BodiesNode

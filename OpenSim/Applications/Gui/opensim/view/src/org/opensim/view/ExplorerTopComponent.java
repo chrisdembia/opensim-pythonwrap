@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.ActionMap;
@@ -295,13 +293,12 @@ final public class ExplorerTopComponent extends TopComponent
          */
         public ConcreteModelNode getModelNode(final Model abstractModel) {
            Node rootNode = getExplorerManager().getRootContext();
-           Node[] children = rootNode.getChildren().getNodes();
-           for(int i=0; i<rootNode.getChildren().getNodesCount(); i++)
-              if((children[i] instanceof ConcreteModelNode) && ((ConcreteModelNode)children[i]).getModel()==abstractModel)
-                 return (ConcreteModelNode)children[i];
+           for(Node child : rootNode.getChildren().getNodes())
+              if((child instanceof ConcreteModelNode) && ((ConcreteModelNode)child).getModel()==abstractModel)
+                 return (ConcreteModelNode)child;
            return null;
         }
-        
+
         /**
          * Disallow closing the explorer view as we depend on it everywhere
          *

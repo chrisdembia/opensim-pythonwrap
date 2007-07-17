@@ -40,6 +40,7 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Storage;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.ModelEvent;
+import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.pub.*;
 
 /**
@@ -57,6 +58,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    /** Creates a new instance of MotionsDB */
    private MotionsDB() {
        OpenSimDB.getInstance().addObserver(this);
+       addObserver(this); // Listen to our own events (used to update the explorer)
    }
    
    public static synchronized MotionsDB getInstance() {
@@ -66,7 +68,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       }
       return instance;
    }
-   
+
    /**
     * Load a motion file, and associate it with a model.
     * We try to associate the motion with current model first if something doesn't look
@@ -95,22 +97,6 @@ public class MotionsDB extends Observable // Observed by other entities in motio
          // user selected a model, try to associate it
          if(MotionsDB.getInstance().AssociateMotionToModel(newMotion, modelForMotion)){
             associated = true;
-            final Model dModel = modelForMotion;
-            SwingUtilities.invokeLater(new Runnable(){
-               public void run() {  // Update tree display on event thread
-                  ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
-                  Node modelNode = tree.getModelNode(dModel);
-                  Node[] nds = modelNode.getChildren().getNodes();
-                  Node motionsNode = modelNode.getChildren().findChild("Motions");
-                  if (motionsNode==null){ // Create Motions node if not created yet.
-                     // "Motions"
-                     motionsNode = new MotionsNode();
-                     modelNode.getChildren().add(new Node[]{motionsNode});
-                  }
-                  Node newMotionNode = new OneMotionNode(newMotion);
-                  motionsNode.getChildren().add(new Node[]{newMotionNode});
-               }
-            });
          } else { // Show error that motion couldn't be associated and repeat'
             DialogDisplayer.getDefault().notify( 
                     new NotifyDescriptor.Message("Could not associate motion to current model."));
@@ -184,20 +170,57 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    }
 
 
-    public void update(Observable o, Object arg) {
-        if (o instanceof OpenSimDB && arg instanceof ModelEvent){
-             ModelEvent evnt = (ModelEvent) arg;
-             if (evnt.getOperation()==ModelEvent.Operation.Close){
-               Model model = evnt.getModel();
-               // Send motion close events for all motions associated with this model
-               ArrayList<Storage> motionsForModel = mapModels2Motions.get(evnt.getModel());
-               if(motionsForModel != null) {
-                  for(int i=0; i<motionsForModel.size(); i++)
-                     closeMotion(model, motionsForModel.get(i));
+   public void update(Observable o, Object arg) {
+      if (o instanceof OpenSimDB && arg instanceof ModelEvent){
+         ModelEvent evnt = (ModelEvent) arg;
+         if (evnt.getOperation()==ModelEvent.Operation.Close){
+            Model model = evnt.getModel();
+            // Send motion close events for all motions associated with this model
+            ArrayList<Storage> motionsForModel = mapModels2Motions.get(evnt.getModel());
+            if(motionsForModel != null) {
+               for(int i=0; i<motionsForModel.size(); i++)
+                  closeMotion(model, motionsForModel.get(i));
+            }
+         }
+      } else if (o instanceof MotionsDB && arg instanceof MotionEvent) {
+         final MotionEvent evnt = (MotionEvent) arg;
+         SwingUtilities.invokeLater(new Runnable(){
+            public void run() {  // Update tree display on event thread
+               switch(evnt.getOperation()) {
+                  case Open:
+                  {
+                     Node modelNode = ExplorerTopComponent.findInstance().getModelNode(evnt.getModel());
+                     Node motionsNode = modelNode.getChildren().findChild("Motions");
+                     if(motionsNode==null) {
+                        motionsNode = new MotionsNode();
+                        modelNode.getChildren().add(new Node[]{motionsNode});
+                     }
+                     Node newMotionNode = new OneMotionNode(evnt.getMotion());
+                     motionsNode.getChildren().add(new Node[]{newMotionNode});
+                     break;
+                  }
+                  case Close:
+                  {
+                     try { // destroy() may throw IOException
+                        Node motionNode = getMotionNode(evnt.getModel(), evnt.getMotion());
+                        Node motionsNode = null;
+                        if(motionNode!=null) {
+                           motionsNode = motionNode.getParentNode();
+                           motionNode.destroy();
+                        }
+                        // Delete the "Motions" container node if no more motions left
+                        if(motionsNode!=null && motionsNode.getChildren().getNodesCount()==0 && motionsNode.getName().equals("Motions"))
+                           motionsNode.destroy();
+                     } catch (IOException ex) {
+                        ex.printStackTrace();
+                     }
+                     break;
+                  }
                }
             }
-        }
-    }
+         });
+      }
+   }
 
     void reportTimeChange(double newTime) {
         MotionTimeChangeEvent evt = new MotionTimeChangeEvent(instance,newTime);
@@ -209,4 +232,20 @@ public class MotionsDB extends Observable // Observed by other entities in motio
     {
        return mapModels2Motions.get(aModel);
     }
+
+   // Get the motion node from the explorer
+   public OneMotionNode getMotionNode(final Model model, final Storage motion) {
+      ConcreteModelNode modelNode = ExplorerTopComponent.findInstance().getModelNode(model);
+      if(modelNode!=null) {
+         Node motionsNode = modelNode.getChildren().findChild("Motions");
+         if(motionsNode!=null) {
+            Node[] children = motionsNode.getChildren().getNodes();
+            for(Node child : motionsNode.getChildren().getNodes())
+               if((child instanceof OneMotionNode) && ((OneMotionNode)child).getMotion() == motion)
+                  return (OneMotionNode)child;
+         }
+      }
+      return null;
+   }
 }
+

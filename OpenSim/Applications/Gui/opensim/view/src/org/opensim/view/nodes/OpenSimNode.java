@@ -102,7 +102,7 @@ public class OpenSimNode extends AbstractNode {
     }
     public OpenSimObjectNode findChild(Object objectToMatch){
        if (this instanceof OpenSimObjectNode){
-          if(((OpenSimObjectNode)this).getOpensimObject().equals(objectToMatch))
+          if(((OpenSimObjectNode)this).getOpenSimObject().equals(objectToMatch))
              return (OpenSimObjectNode)this;
        }
        

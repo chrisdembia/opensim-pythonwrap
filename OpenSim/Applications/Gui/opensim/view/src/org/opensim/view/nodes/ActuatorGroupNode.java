@@ -62,6 +62,6 @@ public class ActuatorGroupNode extends OpenSimObjectNode {
     * Display name 
     */
    public String getHtmlDisplayName() {
-      return getOpensimObject().getName() ;
+      return getOpenSimObject().getName() ;
    }
 }

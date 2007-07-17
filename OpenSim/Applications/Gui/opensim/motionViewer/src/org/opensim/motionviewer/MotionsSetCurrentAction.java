@@ -6,6 +6,7 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Storage;
 import org.opensim.view.ExplorerTopComponent;
+import org.opensim.motionviewer.OneMotionNode;
 
 public final class MotionsSetCurrentAction extends CallableSystemAction {
     
@@ -17,7 +18,7 @@ public final class MotionsSetCurrentAction extends CallableSystemAction {
     public void performAction() {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         OneMotionNode node = (OneMotionNode)selected[0];
-        MotionsDB.getInstance().setCurrent(node.getModel(), (Storage)node.getOpensimObject());
+        MotionsDB.getInstance().setCurrent(node.getModel(), (Storage)node.getOpenSimObject());
     }
     
     public String getName() {
