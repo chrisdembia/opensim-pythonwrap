@@ -53,7 +53,7 @@ public class IKCommonModel extends Observable implements Observer {
    //------------------------------------------------------------------------
 
    public boolean isValid() {
-      return getMarkerDataValid() && getCoordinateDataValid();
+      return getMarkerDataValid() && getCoordinateDataValid() && ikMarkerTasksModel.isValid() && ikCoordinateTasksModel.isValid();
    }
 
    //------------------------------------------------------------------------
@@ -83,6 +83,7 @@ public class IKCommonModel extends Observable implements Observer {
             success = false;
          }
       }
+      ikMarkerTasksModel.markerDataChanged(markerData);
       return success;
    }
 
@@ -117,6 +118,7 @@ public class IKCommonModel extends Observable implements Observer {
             success = false;
          }
       }
+      ikCoordinateTasksModel.coordinateDataChanged(coordinateData);
       return success;
    }
 

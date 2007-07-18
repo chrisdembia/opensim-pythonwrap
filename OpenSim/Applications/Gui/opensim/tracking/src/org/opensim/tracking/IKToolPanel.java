@@ -74,7 +74,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
             popup.show(evt.getComponent(),evt.getX(),evt.getY());
       }});
 
-      jTabbedPane.addTab("IK Tasks", new IKTaskSetPanel(ikToolModel.getIKCommonModel().getIKMarkerTasksModel(), ikToolModel.getIKCommonModel().getIKCoordinateTasksModel()));      
+      jTabbedPane.addTab("IK Tasks", new IKTaskSetPanel(ikToolModel.getIKCommonModel()));
 
       markerFileName.setExtensionsAndDescription(".trc", "IK trial marker data");
       coordinateFileName.setExtensionsAndDescription(".mot", "Coordinates of IK trial");

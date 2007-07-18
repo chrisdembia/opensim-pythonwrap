@@ -1,5 +1,6 @@
 package org.opensim.tracking;
 
+import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Vector;
 import org.opensim.modeling.AbstractDof;
@@ -8,8 +9,10 @@ import org.opensim.modeling.IKCoordinateTask;
 import org.opensim.modeling.IKMarkerTask;
 import org.opensim.modeling.IKTask;
 import org.opensim.modeling.IKTaskSet;
+import org.opensim.modeling.MarkerData;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.Storage;
 import org.opensim.tracking.IKTasksModel.ValueType;
 
 //==================================================================
@@ -67,6 +70,17 @@ public abstract class IKTasksModel extends Observable {
    public void setWeight(int i,double weight) { if(!isLocked(i) && getWeight(i)!=weight) { tasks.get(i).setWeight(weight); setModified(i); } }
 
    //------------------------------------------------------------------------
+   // Validation
+   //------------------------------------------------------------------------
+
+   public abstract boolean isValid(int i);
+
+   public boolean isValid() {
+      for(int i=0; i<size(); i++) if(!isValid(i)) return false;
+      return true;
+   }
+
+   //------------------------------------------------------------------------
    // Observer functions
    //------------------------------------------------------------------------
    protected void setModified() {
@@ -83,6 +97,8 @@ public abstract class IKTasksModel extends Observable {
 // IKMarkerTasksModel
 //==================================================================
 class IKMarkerTasksModel extends IKTasksModel {
+   private Hashtable<String,Boolean> markerExistsInData = new Hashtable<String,Boolean>();
+
    public IKMarkerTasksModel(Model model) {
       super(model);
       reset();
@@ -97,7 +113,7 @@ class IKMarkerTasksModel extends IKTasksModel {
          markerTask.setName(markerSet.get(i).getName());
          markerTask.setApply(true);
          markerTask.setWeight(1);
-         tasks.set(i, new IKMarkerTask(IKMarkerTask.safeDownCast(markerTask.copy())));
+         tasks.set(i, new IKMarkerTask(markerTask)); // Make a copy in C++ side
       }
    }
 
@@ -114,12 +130,21 @@ class IKMarkerTasksModel extends IKTasksModel {
       setModified();
    }
 
+   public void markerDataChanged(MarkerData markerData) {
+      markerExistsInData.clear();
+      if(markerData!=null) {
+         for(int i=0; i<markerData.getMarkerNames().getSize(); i++) {
+            markerExistsInData.put(markerData.getMarkerNames().getitem(i),(Boolean)true);
+         }
+      }
+   }
+
    public void fromTaskSet(IKTaskSet fullTaskSet) {
       reset();
       for(int i=0; i<fullTaskSet.getSize(); i++) {
          if(IKMarkerTask.safeDownCast(fullTaskSet.get(i))!=null) {
             int index = model.getDynamicsEngine().getMarkerSet().getIndex(fullTaskSet.get(i).getName());
-            if(index >= 0) tasks.set(index, IKMarkerTask.safeDownCast(fullTaskSet.get(i).copy()));
+            if(index >= 0) tasks.set(index, new IKMarkerTask(IKMarkerTask.safeDownCast(fullTaskSet.get(i))));
          }
       }
       setModified();
@@ -132,7 +157,7 @@ class IKMarkerTasksModel extends IKTasksModel {
             fullTaskSet.remove(i);
       // Append copies of our tasks
       for(int i=0; i<tasks.size(); i++) {
-         fullTaskSet.append(IKMarkerTask.safeDownCast(tasks.get(i).copy())); 
+         fullTaskSet.append(new IKMarkerTask(IKMarkerTask.safeDownCast(tasks.get(i))));
       } 
    }
 
@@ -146,12 +171,17 @@ class IKMarkerTasksModel extends IKTasksModel {
    public void setManualValue(int i,double value) { assert(false); }
 
    public boolean isLocked(int i) { return false; }
+
+   public boolean isValid(int i) {
+      return !getEnabled(i) || markerExistsInData.get(getName(i))!=null;
+   }
 }
 
 //==================================================================
 // IKCoordinateTasksModel
 //==================================================================
 class IKCoordinateTasksModel extends IKTasksModel {
+   private Hashtable<String,Boolean> coordinateExistsInData = new Hashtable<String,Boolean>();
    protected Vector<Double> conversion = new Vector<Double>();
 
    public IKCoordinateTasksModel(Model model) {
@@ -169,9 +199,18 @@ class IKCoordinateTasksModel extends IKTasksModel {
          coordinateTask.setName(coordinateSet.get(i).getName());
          coordinateTask.setApply(false);
          coordinateTask.setWeight(0);
-         tasks.set(i, new IKCoordinateTask(IKCoordinateTask.safeDownCast(coordinateTask.copy())));
+         tasks.set(i, new IKCoordinateTask(coordinateTask));
          setValueType(i, ValueType.DefaultValue);
          conversion.set(i, (getMotionType(i)==AbstractDof.DofType.Rotational) ? 180.0/Math.PI : 1);
+      }
+   }
+
+   public void coordinateDataChanged(Storage coordinateData) {
+      coordinateExistsInData.clear();
+      if(coordinateData!=null) {
+         for(int i=0; i<coordinateData.getColumnLabels().getSize(); i++) {
+            coordinateExistsInData.put(coordinateData.getColumnLabels().getitem(i),(Boolean)true);
+         }
       }
    }
 
@@ -180,7 +219,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
       for(int i=0; i<fullTaskSet.getSize(); i++) {
          if(IKCoordinateTask.safeDownCast(fullTaskSet.get(i))!=null) {
             int index = model.getDynamicsEngine().getCoordinateSet().getIndex(fullTaskSet.get(i).getName());
-            if(index >= 0) tasks.set(index, IKCoordinateTask.safeDownCast(fullTaskSet.get(i).copy()));
+            if(index >= 0) tasks.set(index, new IKCoordinateTask(IKCoordinateTask.safeDownCast(fullTaskSet.get(i))));
          }
       }
       setModified();
@@ -193,7 +232,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
             fullTaskSet.remove(i);
       // Append copies of our tasks
       for(int i=0; i<tasks.size(); i++) {
-         fullTaskSet.append(IKCoordinateTask.safeDownCast(tasks.get(i).copy())); 
+         fullTaskSet.append(new IKCoordinateTask(IKCoordinateTask.safeDownCast(tasks.get(i))));
       } 
    }
 
@@ -250,4 +289,8 @@ class IKCoordinateTasksModel extends IKTasksModel {
    }
 
    public boolean isLocked(int i) { return model.getDynamicsEngine().getCoordinateSet().get(i).getLocked(); }
+
+   public boolean isValid(int i) {
+      return !getEnabled(i) || getValueType(i)!=ValueType.FromFile || coordinateExistsInData.get(getName(i))!=null;
+   }
 }

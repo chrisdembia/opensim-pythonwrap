@@ -1,44 +1,84 @@
 package org.opensim.tracking;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
-class IKTasksValueCell {
-   double value;
-   IKTasksModel.ValueType type;
-   public IKTasksValueCell(double value, IKTasksModel.ValueType type) { this.value = value; this.type = type; }
+abstract class IKTasksCell {
+   IKTasksModel tasks;
+   int index;
+   public IKTasksCell(IKTasksModel tasks, int index) { this.tasks = tasks; this.index = index; }
+   public abstract boolean renderValidity();
 }
 
-class IKTasksWeightCell {
-   double weight;
-   boolean locked;
-   public IKTasksWeightCell(double weight, boolean locked) { this.weight = weight; this.locked = locked; }
+class IKTasksNameCell extends IKTasksCell {
+   public IKTasksNameCell(IKTasksModel tasks, int index) { super(tasks, index); }
+   public boolean renderValidity() { return false; }
 }
 
-class IKTasksValueCellRenderer extends DefaultTableCellRenderer {
+class IKTasksValueCell extends IKTasksCell {
+   public IKTasksValueCell(IKTasksModel tasks, int index) { super(tasks, index); }
+   public boolean renderValidity() { return true; }
+}
 
-   public void setValue(Object value) {
-      IKTasksValueCell obj = (IKTasksValueCell)value;
-      switch(obj.type) {
-         case FromFile: super.setValue(IKTasksTableModel.FromFileStr); break;
-         case DefaultValue: super.setValue(IKTasksTableModel.DefaultStr); break;
-         case ManualValue: super.setValue((Double)((IKTasksValueCell)value).value);
+class IKTasksWeightCell extends IKTasksCell {
+   public IKTasksWeightCell(IKTasksModel tasks, int index) { super(tasks, index); }
+   public boolean renderValidity() { return false; }
+}
+
+class IKTasksCellRenderer extends DefaultTableCellRenderer {
+   protected static Color invalidColor = new Color(255,102,102);
+   protected Font regularFont = new Font("Tahoma", Font.PLAIN, 11);
+   protected Font boldFont = new Font("Tahoma", Font.BOLD, 11);
+
+   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+      IKTasksCell obj = (IKTasksCell)value;
+      // Reset bg/fg colors before calling super.getTableCellRendererComponent()
+      setBackground(null);
+      setForeground(null);
+      Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+      comp.setEnabled(obj.tasks.getEnabled(obj.index));
+      // Override bg/fg colors for invalid entry
+      if(obj.renderValidity() && !obj.tasks.isValid(obj.index)) {
+         if(isSelected) comp.setForeground(invalidColor);
+         else comp.setBackground(invalidColor);
       }
+      return comp;
    }
 }
 
-class IKTasksWeightCellRenderer extends DefaultTableCellRenderer {
+class IKTasksNameCellRenderer extends IKTasksCellRenderer {
+   public void setValue(Object value) {
+      IKTasksNameCell obj = (IKTasksNameCell)value;
+      super.setValue(obj.tasks.getName(obj.index));
+   }
+}
 
+class IKTasksValueCellRenderer extends IKTasksCellRenderer {
+   public void setValue(Object value) {
+      IKTasksValueCell obj = (IKTasksValueCell)value;
+      super.setFont(regularFont); // reset
+      switch(obj.tasks.getValueType(obj.index)) {
+         case FromFile: super.setValue(obj.tasks.isValid(obj.index) ?  IKTasksTableModel.FromFileStr : IKTasksTableModel.InvalidFromFileStr); break;
+         case DefaultValue: super.setValue(((Double)obj.tasks.getDefaultValue(obj.index))); break;
+         case ManualValue: super.setValue((Double)obj.tasks.getValue(obj.index)); super.setFont(boldFont); break;
+      }
+      super.setHorizontalAlignment(SwingConstants.TRAILING);
+   }
+}
+
+class IKTasksWeightCellRenderer extends IKTasksCellRenderer {
    public void setValue(Object value) {
       IKTasksWeightCell obj = (IKTasksWeightCell)value;
-      if(obj.locked) {
-         super.setValue(IKTasksTableModel.LockedStr);
-      }
-      else {
-         super.setValue((Double)((IKTasksWeightCell)value).weight);
-      }
+      if(obj.tasks.isLocked(obj.index)) super.setValue(IKTasksTableModel.LockedStr);
+      else super.setValue((Double)obj.tasks.getWeight(obj.index));
+      super.setHorizontalAlignment(SwingConstants.TRAILING);
    }
 }
 
@@ -48,7 +88,7 @@ public class IKTasksTableModel extends AbstractTableModel implements Observer {
 
    public final static String LockedStr = "LOCKED";
    public final static String FromFileStr = "FROM FILE";
-   public final static String DefaultStr = "DEFAULT";
+   public final static String InvalidFromFileStr = "FROM FILE -- NOT FOUND!";
 
    IKTasksTableModel(IKTasksModel tasks, String type) {
       this.tasks = tasks;
@@ -128,15 +168,15 @@ public class IKTasksTableModel extends AbstractTableModel implements Observer {
 
    public Object getValueAt(int row, int col) {
       if(col==0) return tasks.getEnabled(row);
-      else if(col==1) return tasks.getName(row);
-      else if(col==2) return new IKTasksValueCell(tasks.getValue(row), tasks.getValueType(row));
-      else if(col==3) return new IKTasksWeightCell(tasks.getWeight(row), tasks.isLocked(row));
+      else if(col==1) return new IKTasksNameCell(tasks, row);
+      else if(col==2) return new IKTasksValueCell(tasks, row);
+      else if(col==3) return new IKTasksWeightCell(tasks, row);
       else return null;
    }
 
    public Class getColumnClass(int col) {
       if(col==0) return Boolean.class;
-      else if(col==1) return String.class;
+      else if(col==1) return IKTasksNameCell.class;
       else if(col==2) return IKTasksValueCell.class;
       else if(col==3) return IKTasksWeightCell.class;
       else return null;

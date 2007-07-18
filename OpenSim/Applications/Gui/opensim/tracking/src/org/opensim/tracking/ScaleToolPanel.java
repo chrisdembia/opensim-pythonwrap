@@ -107,7 +107,7 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       measurementSetDialog = DialogDisplayer.getDefault().createDialog(dlg);
 
       jTabbedPane.addTab("Scale Factors", new ScaleFactorsPanel(scaleToolModel, measurementSetDialog));
-      jTabbedPane.addTab("IK Tasks", new IKTaskSetPanel(scaleToolModel.getIKCommonModel().getIKMarkerTasksModel(), scaleToolModel.getIKCommonModel().getIKCoordinateTasksModel()));      
+      jTabbedPane.addTab("IK Tasks", new IKTaskSetPanel(scaleToolModel.getIKCommonModel()));      
       
       markerSetFileName.setExtensionsAndDescription(".xml", "MarkerSet XML file");
       measurementTrialFileName.setExtensionsAndDescription(".trc", "Measurement trial marker data");

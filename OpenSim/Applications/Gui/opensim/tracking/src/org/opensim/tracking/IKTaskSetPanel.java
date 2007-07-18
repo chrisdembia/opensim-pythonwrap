@@ -7,6 +7,7 @@
 package org.opensim.tracking;
 
 import java.awt.Component;
+import java.io.File;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,15 +21,19 @@ import javax.swing.event.TableModelListener;
 public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionListener, TableModelListener {
    private final static int enabledColumnWidth = 60;
 
+   IKCommonModel ikCommonModel;
+
    IKTasksTableModel ikMarkerTasksTableModel;
    IKTasksTableModel ikCoordinateTasksTableModel;
 
    JTable activeTable = null; // the one which was the source of the last selection event (the one whose data is displayed in the panel's fields)
    
    /** Creates new form IKCoordinateTaskPanel */
-   public IKTaskSetPanel(IKMarkerTasksModel ikMarkerTasksModel, IKCoordinateTasksModel ikCoordinateTasksModel) {
-      ikMarkerTasksTableModel = new IKTasksTableModel(ikMarkerTasksModel, "Marker");
-      ikCoordinateTasksTableModel = new IKTasksTableModel(ikCoordinateTasksModel, "Coordinate");
+   public IKTaskSetPanel(IKCommonModel ikCommonModel) {
+      this.ikCommonModel = ikCommonModel;
+
+      ikMarkerTasksTableModel = new IKTasksTableModel(ikCommonModel.getIKMarkerTasksModel(), "Marker");
+      ikCoordinateTasksTableModel = new IKTasksTableModel(ikCommonModel.getIKCoordinateTasksModel(), "Coordinate");
 
       initComponents();
 
@@ -39,6 +44,7 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
          table.getSelectionModel().addListSelectionListener(this);
          table.getModel().addTableModelListener(this);
 
+         table.setDefaultRenderer(IKTasksNameCell.class, new IKTasksNameCellRenderer());
          table.setDefaultRenderer(IKTasksValueCell.class, new IKTasksValueCellRenderer());
          table.setDefaultRenderer(IKTasksWeightCell.class, new IKTasksWeightCellRenderer());
 
@@ -165,8 +171,8 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
             comp.setEnabled(comp==enabledTextField);
 
          // TODO: update as file changes and depending on which table
-         if(activeTable==ikMarkerTasksTable) fromFileTextField.setText("trc file");
-         else fromFileTextField.setText("mot file");
+         String fileName = (activeTable==ikMarkerTasksTable) ? ikCommonModel.getMarkerDataFileName() : ikCommonModel.getCoordinateDataFileName();
+         fromFileTextField.setText((new File(fileName)).getName());
 
          if(activeTable==ikCoordinateTasksTable) {
             fromFileRadioButton.setEnabled(true);
