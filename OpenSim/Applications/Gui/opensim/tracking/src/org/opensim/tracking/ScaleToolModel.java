@@ -344,8 +344,6 @@ public class ScaleToolModel extends Observable implements Observer {
 
    private void setModified(Operation change) {
       modifiedSinceLastExecute = true;
-      if(change==Operation.AllDataChanged || change==Operation.MarkerSetChanged) 
-         ikCommonModel.getIKMarkerTasksModel().markerSetChanged(); // TODO: should we make ikMarkerTasksModel be an observer instead of using this mechanism?
       setChanged(); // need to call this before calling notifyObservers
       notifyObservers(change);
    }
@@ -422,6 +420,7 @@ public class ScaleToolModel extends Observable implements Observer {
       }
       if(forceReset || extraMarkerSet != oldExtraMarkerSet) resetMarkers(); // reset markers in our unscaled model
       if(recompute) recomputeMeasurements();
+      ikCommonModel.getIKMarkerTasksModel().markerSetChanged();
       return success;
    }
 

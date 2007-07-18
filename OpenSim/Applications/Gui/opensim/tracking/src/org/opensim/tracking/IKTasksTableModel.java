@@ -65,7 +65,7 @@ class IKTasksValueCellRenderer extends IKTasksCellRenderer {
       IKTasksValueCell obj = (IKTasksValueCell)value;
       super.setFont(regularFont); // reset
       switch(obj.tasks.getValueType(obj.index)) {
-         case FromFile: super.setValue(obj.tasks.isValid(obj.index) ?  IKTasksTableModel.FromFileStr : IKTasksTableModel.InvalidFromFileStr); break;
+         case FromFile: super.setValue(obj.tasks.isValidValue(obj.index) ?  IKTasksTableModel.FromFileStr : IKTasksTableModel.InvalidFromFileStr); break;
          case DefaultValue: super.setValue(((Double)obj.tasks.getDefaultValue(obj.index))); break;
          case ManualValue: super.setValue((Double)obj.tasks.getValue(obj.index)); super.setFont(boldFont); break;
       }

@@ -42,7 +42,6 @@ public abstract class IKTasksModel extends Observable {
    //------------------------------------------------------------------------
    // Populating values
    //------------------------------------------------------------------------
-   public abstract void reset(); // Reset to default values
    public abstract void fromTaskSet(IKTaskSet fullTaskSet);
    public abstract void toTaskSet(IKTaskSet fullTaskSet);
 
@@ -73,7 +72,9 @@ public abstract class IKTasksModel extends Observable {
    // Validation
    //------------------------------------------------------------------------
 
-   public abstract boolean isValid(int i);
+   public abstract boolean isValidValue(int i);
+
+   public boolean isValid(int i) { return !getEnabled(i) || isValidValue(i); }
 
    public boolean isValid() {
       for(int i=0; i<size(); i++) if(!isValid(i)) return false;
@@ -101,25 +102,25 @@ class IKMarkerTasksModel extends IKTasksModel {
 
    public IKMarkerTasksModel(Model model) {
       super(model);
-      reset();
+      reset(true,1);
       setModified();
    }   
 
-   public void reset() {
+   public void reset(boolean defaultApply, double defaultWeight) {
       MarkerSet markerSet = model.getDynamicsEngine().getMarkerSet();
       tasks.setSize(markerSet.getSize());
       for(int i=0; i<tasks.size(); i++) {
          IKMarkerTask markerTask = new IKMarkerTask();
          markerTask.setName(markerSet.get(i).getName());
-         markerTask.setApply(true);
-         markerTask.setWeight(1);
+         markerTask.setApply(defaultApply);
+         markerTask.setWeight(defaultWeight);
          tasks.set(i, new IKMarkerTask(markerTask)); // Make a copy in C++ side
       }
    }
 
    public void markerSetChanged() {
       Vector<IKTask> oldTasks = new Vector<IKTask>(tasks);
-      reset();
+      reset(true,1);
       // Copy over old task values that have same marker name
       for(int i=0; i<tasks.size(); i++)
          for(int j=0; j<oldTasks.size(); j++)
@@ -140,7 +141,7 @@ class IKMarkerTasksModel extends IKTasksModel {
    }
 
    public void fromTaskSet(IKTaskSet fullTaskSet) {
-      reset();
+      reset(false,0);
       for(int i=0; i<fullTaskSet.getSize(); i++) {
          if(IKMarkerTask.safeDownCast(fullTaskSet.get(i))!=null) {
             int index = model.getDynamicsEngine().getMarkerSet().getIndex(fullTaskSet.get(i).getName());
@@ -172,8 +173,8 @@ class IKMarkerTasksModel extends IKTasksModel {
 
    public boolean isLocked(int i) { return false; }
 
-   public boolean isValid(int i) {
-      return !getEnabled(i) || markerExistsInData.get(getName(i))!=null;
+   public boolean isValidValue(int i) {
+      return markerExistsInData.get(getName(i))!=null;
    }
 }
 
@@ -186,19 +187,19 @@ class IKCoordinateTasksModel extends IKTasksModel {
 
    public IKCoordinateTasksModel(Model model) {
       super(model);
-      reset();
+      reset(false,0);
       setModified();
    }
 
-   public void reset() {
+   public void reset(boolean defaultApply, double defaultWeight) {
       CoordinateSet coordinateSet = model.getDynamicsEngine().getCoordinateSet();
       tasks.setSize(coordinateSet.getSize());
       conversion.setSize(coordinateSet.getSize());;
       for(int i=0; i<tasks.size(); i++) {
          IKCoordinateTask coordinateTask = new IKCoordinateTask();
          coordinateTask.setName(coordinateSet.get(i).getName());
-         coordinateTask.setApply(false);
-         coordinateTask.setWeight(0);
+         coordinateTask.setApply(defaultApply);
+         coordinateTask.setWeight(defaultWeight);
          tasks.set(i, new IKCoordinateTask(coordinateTask));
          setValueType(i, ValueType.DefaultValue);
          conversion.set(i, (getMotionType(i)==AbstractDof.DofType.Rotational) ? 180.0/Math.PI : 1);
@@ -215,7 +216,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
    }
 
    public void fromTaskSet(IKTaskSet fullTaskSet) {
-      reset();
+      reset(false,0);
       for(int i=0; i<fullTaskSet.getSize(); i++) {
          if(IKCoordinateTask.safeDownCast(fullTaskSet.get(i))!=null) {
             int index = model.getDynamicsEngine().getCoordinateSet().getIndex(fullTaskSet.get(i).getName());
@@ -290,7 +291,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
 
    public boolean isLocked(int i) { return model.getDynamicsEngine().getCoordinateSet().get(i).getLocked(); }
 
-   public boolean isValid(int i) {
-      return !getEnabled(i) || getValueType(i)!=ValueType.FromFile || coordinateExistsInData.get(getName(i))!=null;
+   public boolean isValidValue(int i) {
+      return getValueType(i)!=ValueType.FromFile || coordinateExistsInData.get(getName(i))!=null;
    }
 }
