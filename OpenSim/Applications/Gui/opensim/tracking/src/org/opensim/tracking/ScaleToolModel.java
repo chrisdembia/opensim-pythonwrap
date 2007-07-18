@@ -259,6 +259,7 @@ public class ScaleToolModel extends Observable implements Observer {
 
       // Create scale tool
       scaleTool = new ScaleTool();
+      scaleTool.setPrintResultFiles(false);
       setName(originalModel.getName()+"-scaled"); // initialize name of output (scaled) model
       setMass(getModelMass(originalModel)); // initialize mass to the subject's current mass
 
@@ -717,12 +718,11 @@ public class ScaleToolModel extends Observable implements Observer {
          return false;
       }
       scaleTool = newScaleTool;
+      scaleTool.setPrintResultFiles(false);
       relativeToAbsolutePaths(fileName);
 
       // reset some things in the scale tool which we will not use
       scaleTool.getGenericModelMaker().setModelFileName(""); // TODO: what should we really set this to?
-      scaleTool.getModelScaler().clearOutputFileNames();
-      scaleTool.getMarkerPlacer().clearOutputFileNames();
 
       // keep internal data in sync
       modifiedSinceLastExecute = true;
