@@ -162,8 +162,8 @@ public class ModelScaler extends OpenSimObject {
     opensimModelJNI.ModelScaler_setOutputScaleFileName(swigCPtr, this, aOutputScaleFileName);
   }
 
-  public void clearOutputFileNames() {
-    opensimModelJNI.ModelScaler_clearOutputFileNames(swigCPtr, this);
+  public void setPrintResultFiles(boolean aToWrite) {
+    opensimModelJNI.ModelScaler_setPrintResultFiles(swigCPtr, this, aToWrite);
   }
 
   public double computeMeasurementScaleFactor(Model aModel, MarkerData aMarkerData, Measurement aMeasurement) {

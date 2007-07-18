@@ -215,6 +215,8 @@ public class opensimModelJNI {
   public final static native void OpenSimObject_updateDefaultObjectsXMLNode(long jarg1, OpenSimObject jarg1_, long jarg2);
   public final static native void OpenSimObject_generateXMLNode(long jarg1, OpenSimObject jarg1_, long jarg2);
   public final static native boolean OpenSimObject_getInlined(long jarg1, OpenSimObject jarg1_);
+  public final static native void OpenSimObject_setInlined__SWIG_0(long jarg1, OpenSimObject jarg1_, boolean jarg2, String jarg3);
+  public final static native void OpenSimObject_setInlined__SWIG_1(long jarg1, OpenSimObject jarg1_, boolean jarg2);
   public final static native long OpenSimObject_getDocument(long jarg1, OpenSimObject jarg1_);
   public final static native String OpenSimObject_getDocumentFileName(long jarg1, OpenSimObject jarg1_);
   public final static native long OpenSimObject_getXMLNode(long jarg1, OpenSimObject jarg1_);
@@ -3366,7 +3368,7 @@ public class opensimModelJNI {
   public final static native void ModelScaler_setOutputModelFileName(long jarg1, ModelScaler jarg1_, String jarg2);
   public final static native String ModelScaler_getOutputScaleFileName(long jarg1, ModelScaler jarg1_);
   public final static native void ModelScaler_setOutputScaleFileName(long jarg1, ModelScaler jarg1_, String jarg2);
-  public final static native void ModelScaler_clearOutputFileNames(long jarg1, ModelScaler jarg1_);
+  public final static native void ModelScaler_setPrintResultFiles(long jarg1, ModelScaler jarg1_, boolean jarg2);
   public final static native double ModelScaler_computeMeasurementScaleFactor(long jarg1, ModelScaler jarg1_, long jarg2, Model jarg2_, long jarg3, MarkerData jarg3_, long jarg4, Measurement jarg4_);
   public final static native long new_MarkerPlacer__SWIG_0();
   public final static native long new_MarkerPlacer__SWIG_1(long jarg1, MarkerPlacer jarg1_);
@@ -3396,7 +3398,7 @@ public class opensimModelJNI {
   public final static native void MarkerPlacer_setOutputMarkerFileName(long jarg1, MarkerPlacer jarg1_, String jarg2);
   public final static native String MarkerPlacer_getOutputMotionFileName(long jarg1, MarkerPlacer jarg1_);
   public final static native void MarkerPlacer_setOutputMotionFileName(long jarg1, MarkerPlacer jarg1_, String jarg2);
-  public final static native void MarkerPlacer_clearOutputFileNames(long jarg1, MarkerPlacer jarg1_);
+  public final static native void MarkerPlacer_setPrintResultFiles(long jarg1, MarkerPlacer jarg1_, boolean jarg2);
   public final static native long new_IKSolverImpl(long jarg1);
   public final static native void delete_IKSolverImpl(long jarg1);
   public final static native void IKSolverImpl_solveFrames(long jarg1, IKSolverImpl jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
@@ -3429,6 +3431,7 @@ public class opensimModelJNI {
   public final static native void ScaleTool_setSubjectHeight(long jarg1, ScaleTool jarg1_, double jarg2);
   public final static native String ScaleTool_getPathToSubject(long jarg1, ScaleTool jarg1_);
   public final static native void ScaleTool_setPathToSubject(long jarg1, ScaleTool jarg1_, String jarg2);
+  public final static native void ScaleTool_setPrintResultFiles(long jarg1, ScaleTool jarg1_, boolean jarg2);
   public final static native void delete_AnalyzeTool(long jarg1);
   public final static native long new_AnalyzeTool__SWIG_0();
   public final static native long new_AnalyzeTool__SWIG_1(String jarg1);

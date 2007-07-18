@@ -186,6 +186,14 @@ public class OpenSimObject {
     return opensimModelJNI.OpenSimObject_getInlined(swigCPtr, this);
   }
 
+  public void setInlined(boolean aInlined, String aFileName) {
+    opensimModelJNI.OpenSimObject_setInlined__SWIG_0(swigCPtr, this, aInlined, aFileName);
+  }
+
+  public void setInlined(boolean aInlined) {
+    opensimModelJNI.OpenSimObject_setInlined__SWIG_1(swigCPtr, this, aInlined);
+  }
+
   public SWIGTYPE_p_OpenSim__XMLDocument getDocument() {
     long cPtr = opensimModelJNI.OpenSimObject_getDocument(swigCPtr, this);
     return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__XMLDocument(cPtr, false);

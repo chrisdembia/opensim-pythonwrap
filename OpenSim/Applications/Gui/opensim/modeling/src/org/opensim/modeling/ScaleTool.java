@@ -119,4 +119,8 @@ public class ScaleTool extends OpenSimObject {
     opensimModelJNI.ScaleTool_setPathToSubject(swigCPtr, this, aPath);
   }
 
+  public void setPrintResultFiles(boolean aToWrite) {
+    opensimModelJNI.ScaleTool_setPrintResultFiles(swigCPtr, this, aToWrite);
+  }
+
 }

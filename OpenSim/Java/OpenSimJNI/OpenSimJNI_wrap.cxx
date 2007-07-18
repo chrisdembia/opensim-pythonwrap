@@ -5228,6 +5228,42 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObj
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObject_1setInlined_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2, jstring jarg3) {
+  OpenSim::Object *arg1 = (OpenSim::Object *) 0 ;
+  bool arg2 ;
+  std::string *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Object **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return ;
+  }
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return ;
+  std::string arg3_str(arg3_pstr);
+  arg3 = &arg3_str;
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  (arg1)->setInlined(arg2,(std::string const &)*arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObject_1setInlined_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  OpenSim::Object *arg1 = (OpenSim::Object *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Object **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setInlined(arg2);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_OpenSimObject_1getDocument(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::Object *arg1 = (OpenSim::Object *) 0 ;
@@ -63103,14 +63139,16 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelScaler_1s
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelScaler_1clearOutputFileNames(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ModelScaler_1setPrintResultFiles(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
   OpenSim::ModelScaler *arg1 = (OpenSim::ModelScaler *) 0 ;
+  bool arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ModelScaler **)&jarg1; 
-  (arg1)->clearOutputFileNames();
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setPrintResultFiles(arg2);
 }
 
 
@@ -63654,14 +63692,16 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1clearOutputFileNames(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MarkerPlacer_1setPrintResultFiles(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
   OpenSim::MarkerPlacer *arg1 = (OpenSim::MarkerPlacer *) 0 ;
+  bool arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::MarkerPlacer **)&jarg1; 
-  (arg1)->clearOutputFileNames();
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setPrintResultFiles(arg2);
 }
 
 
@@ -64180,6 +64220,19 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ScaleTool_1set
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
   (arg1)->setPathToSubject((std::string const &)*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ScaleTool_1setPrintResultFiles(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  OpenSim::ScaleTool *arg1 = (OpenSim::ScaleTool *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ScaleTool **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setPrintResultFiles(arg2);
 }
 
 

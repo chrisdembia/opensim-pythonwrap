@@ -142,8 +142,8 @@ public class MarkerPlacer extends OpenSimObject {
     opensimModelJNI.MarkerPlacer_setOutputMotionFileName(swigCPtr, this, outputMotionFileName);
   }
 
-  public void clearOutputFileNames() {
-    opensimModelJNI.MarkerPlacer_clearOutputFileNames(swigCPtr, this);
+  public void setPrintResultFiles(boolean aToWrite) {
+    opensimModelJNI.MarkerPlacer_setPrintResultFiles(swigCPtr, this, aToWrite);
   }
 
 }
