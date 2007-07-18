@@ -90,7 +90,7 @@ public class JPlotterQuantitySelector  {
                    public void actionPerformed(ActionEvent e) {
                        // Create panel then the dialog that contains it
                        QuantitySelectionPanel quantityPanel = new QuantitySelectionPanel(JPlotterQuantitySelector.this, source,
-                               plotterPanel.getQuantityFilterRegex(), isDomain);
+                               ".*", isDomain);
                        DialogDescriptor dlg = new DialogDescriptor(quantityPanel,"Select Quantity");
                        dlg.setModal(true);
                        DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
@@ -123,7 +123,7 @@ public class JPlotterQuantitySelector  {
                    public void actionPerformed(ActionEvent e) {
                        // Create panel then the dialog that contains it
                        QuantitySelectionPanel quantityPanel = new QuantitySelectionPanel(JPlotterQuantitySelector.this, source,
-                               plotterPanel.getQuantityFilterRegex(), isDomain);
+                               ".*", isDomain);
                        DialogDescriptor dlg = new DialogDescriptor(quantityPanel,"Select Quantity");
                        dlg.setModal(true);
                        DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
@@ -233,8 +233,10 @@ public class JPlotterQuantitySelector  {
       DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
       if (((Integer)dlg.getValue()).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
          String[] selected = singleSelectPanel.getSelected();
-         if (selected!=null)
+         if (selected!=null){
             selection.setText(sourceX.getDisplayName()+":"+selected[0]);
+            setColumnToUse(selected[0]);
+         }
       }
    }
 

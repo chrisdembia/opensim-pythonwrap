@@ -35,6 +35,7 @@ import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.ArrayStorage;
+import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.MuscleAnalysis;
 import org.opensim.modeling.Storage;
@@ -56,8 +57,8 @@ public class PlotterModel {
    Hashtable<Model, AnalyzeTool> models2AnalyzeToolInstances = new Hashtable<Model, AnalyzeTool>(4);
 
     private static String[] builtinQuantities= new String[] {
-        "moment",
         "moment arm",
+        "moment",
         "muscle-tendon length",
         "fiber-length",
         "tendon-length",
@@ -69,8 +70,8 @@ public class PlotterModel {
     };
 
     private static String[] builtinQuantitiesAnalysis= new String[] {
-        "MomentArmAnalysis",
-        "MomentArmAnalysis",
+        "MuscleAnalysis",
+        "MuscleAnalysis",
         "MuscleAnalysis",
         "MuscleAnalysis",
         "MuscleAnalysis",
@@ -81,8 +82,8 @@ public class PlotterModel {
         "MuscleAnalysis"
     };
     private static String[] builtinQuantitiesStorageName= new String[] {
-        "Moment",
         "MomentArm",
+        "Moment",
         "Length",
         "FiberLength",
         "TendonLength",
@@ -284,13 +285,15 @@ public class PlotterModel {
        return models2AnalyzeToolInstances.get(model);
     }
 
-   void addMotion(Storage nextMotion) {
+   PlotterSourceInterface addMotion(Storage nextMotion) {
       ArrayList<PlotterSourceMotion> loadedMotions=getLoadedMotionSources();
       for(int i=0; i<loadedMotions.size(); i++){
          if (loadedMotions.get(i).getStorage().equals(nextMotion))
-            return;
+            return loadedMotions.get(i);
       }
-      sources.add(new PlotterSourceMotion(nextMotion));
+      PlotterSourceMotion newMotion = new PlotterSourceMotion(nextMotion);
+      sources.add(newMotion);
+      return newMotion;
    }
 
     Storage getStorage(String qName, Model model) {
@@ -302,22 +305,36 @@ public class PlotterModel {
                 return analyses.get(builtinQuantitiesAnalysis[i]).getStorageList().get(builtinQuantitiesStorageName[i]);
             }            
         }
-        return null;
+        // Should get here only if moment arm
+        int numStorages = analyses.get("MuscleAnalysis").getStorageList().getSize();
+        return analyses.get("MuscleAnalysis").getStorageList().get(qName);
     }
 
-    void enableDesiredAnalyses(AnalyzeTool tool, PlotterSourceAnalysis analysisSource, String domainName) {
+    void configureAnalyses(AnalyzeTool tool, PlotterSourceAnalysis analysisSource, String domainName, String[] rangeNames) {
         AnalysisSet analyses=tool.getModel().getAnalysisSet();
         String shortName = analysisSource.toString();
         String[] qs=getBuiltinQuantities();
+        ArrayStr muscleNames= new ArrayStr();
+        for(int l=0;l<rangeNames.length;l++){
+           muscleNames.append(rangeNames[l]);
+        }
         for(int i=0; i<qs.length; i++){
-            if (shortName.equalsIgnoreCase(builtinQuantitiesStorageName[i])){
-                Analysis an = analyses.get(builtinQuantitiesAnalysis[i]);
+             Analysis an = analyses.get(builtinQuantitiesAnalysis[i]);
+             MuscleAnalysis man = MuscleAnalysis.safeDownCast(an);
+             if (man!=null){
+                man.setMuscles(muscleNames);
+             }
+             an.setOn(true);
+             break;
+        }
+        if (shortName.startsWith("MomentArm") || shortName.startsWith("Moment")){
+                Analysis an = analyses.get("MuscleAnalysis");
                 an.setOn(true);
-                //if (MomentArmAnalysis.safeDownCast(an)!=null)
-                //   ((MomentArmAnalysis)MomentArmAnalysis.safeDownCast(an)).setCoorindate(domainName);
-                
-                break;
-            }            
+                String coordinateY=shortName.substring(shortName.indexOf('_')+1);
+                ArrayStr coordsArray = new ArrayStr();
+                coordsArray.append(coordinateY);
+                if (MuscleAnalysis.safeDownCast(an)!=null)
+                   ((MuscleAnalysis)MuscleAnalysis.safeDownCast(an)).setCoordinates(coordsArray);   
         }
     }
     

@@ -39,6 +39,9 @@ public class PlotCurveSettings {
    private double scale=1.0;
    private double offset=0.0;
    private boolean rectify=false;
+   private boolean clamp=false;
+   private double ymin=0.0;
+   private double ymax=1.0;
    private String xLabel, yLabel;
    private Vector<PlotDataFilter> filters = new Vector<PlotDataFilter>(4);
    private boolean musclePlot=false;
@@ -49,9 +52,15 @@ public class PlotCurveSettings {
       setXMin(plotterFrame.getMinX());
       setXMax(plotterFrame.getMaxX());
       boolean rectify = plotterFrame.getRectify();
+       
       if (rectify)
          filters.add(new PlotRectifyFilter());
-      setMusclePlot(plotterFrame.isMuscleSpecificAnalysis());
+      if (plotterFrame.isClamp()){
+         ymin=plotterFrame.getMinY();
+         ymax=plotterFrame.getMaxY();
+         clamp=true;
+      }
+      setMusclePlot(plotterFrame.isBuiltinMuscleCurve());
    }
 
    public String getName() {
@@ -130,5 +139,17 @@ public class PlotCurveSettings {
     public void setMusclePlot(boolean musclePlot) {
         this.musclePlot = musclePlot;
     }
+
+   public boolean isClamp() {
+      return clamp;
+   }
+
+   public double getYmin() {
+      return ymin;
+   }
+
+   public double getYmax() {
+      return ymax;
+   }
    
 }

@@ -42,25 +42,30 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jClampCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jDomainStartTextField" pref="69" max="32767" attributes="1"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="1">
+                                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jDomainStartTextField" max="32767" attributes="1"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jFormattedTextFieldYmin" min="-2" pref="82" max="-2" attributes="1"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jClampFromTextField" pref="69" max="32767" attributes="1"/>
-                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel10" min="-2" max="-2" attributes="1"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel3" pref="40" max="32767" attributes="1"/>
-                              <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="1"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jDomainEndTextField" alignment="0" max="32767" attributes="1"/>
-                              <Component id="jClampToTextField" alignment="0" pref="65" max="32767" attributes="1"/>
+                              <Component id="jDomainEndTextField" pref="70" max="32767" attributes="1"/>
+                              <Component id="jFormattedTextFieldYmax" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -72,13 +77,6 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jClampToTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jRectifyCheckBox" min="-2" max="-2" attributes="0"/>
@@ -86,17 +84,22 @@
                           <Component id="jClampCheckBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jFormattedTextFieldYmin" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jClampFromTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="jFormattedTextFieldYmax" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jDomainEndTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jDomainStartTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDomainEndTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -126,25 +129,10 @@
             <Property name="text" type="java.lang.String" value="ymin"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jClampFromTextField">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="minimum y value to plot"/>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="text" type="java.lang.String" value="ymax"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jClampToTextField">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="minimum y value to plot"/>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jClampToTextFieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jRectifyCheckBox">
           <Properties>
@@ -159,6 +147,9 @@
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRectifyCheckBoxActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
@@ -170,6 +161,7 @@
             <Property name="toolTipText" type="java.lang.String" value="domain start"/>
           </Properties>
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jDomainStartTextFieldActionPerformed"/>
             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jDomainStartTextFieldPropertyChange"/>
           </Events>
         </Component>
@@ -186,6 +178,22 @@
             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jDomainEndTextFieldPropertyChange"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldYmin">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="toolTipText" type="java.lang.String" value="clamp from value"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFormattedTextFieldYminActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldYmax">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="toolTipText" type="java.lang.String" value="clamp to value"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </NonVisualComponents>
@@ -200,7 +208,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jSplitPane1" pref="702" max="32767" attributes="0"/>
+          <Component id="jSplitPane1" pref="717" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -233,7 +241,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="700" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="715" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -263,8 +271,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPlotTitlePanel" max="32767" attributes="1"/>
-                          <Component id="jPlotSpecPanel" alignment="0" max="32767" attributes="1"/>
+                          <Component id="jPlotSpecPanel" max="32767" attributes="1"/>
+                          <Component id="jPlotTitlePanel" alignment="0" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Component id="jPlotNavigationPanel" min="-2" max="-2" attributes="0"/>
@@ -411,7 +419,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jPlotLabelJLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="jPlotNameTextField" pref="337" max="32767" attributes="3"/>
+                          <Component id="jPlotNameTextField" pref="352" max="32767" attributes="3"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -439,9 +447,6 @@
                     <Property name="text" type="java.lang.String" value="Plot title goes here"/>
                     <Property name="toolTipText" type="java.lang.String" value="Plot Title"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPlotNameTextFieldActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -459,15 +464,10 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="0" attributes="1">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" pref="69" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="jCurveLegendTextField" pref="299" max="32767" attributes="3"/>
-                              </Group>
-                              <Component id="jAdvancedOptionsButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" pref="69" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="jCurveLegendTextField" pref="314" max="32767" attributes="3"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Component id="jPanel10" alignment="0" max="32767" attributes="3"/>
@@ -482,9 +482,6 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jAdvancedOptionsButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -500,27 +497,22 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jAdvancedOptionsButton" alignment="1" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="yQuantityButton" pref="107" max="32767" attributes="1"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jMuscleSelectButton" alignment="0" pref="107" max="32767" attributes="1"/>
+                                  <Component id="xQuantityButton" alignment="1" pref="107" max="32767" attributes="1"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jMuscleSelectButton" alignment="0" max="32767" attributes="1"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                              <Component id="xQuantityButton" min="-2" max="-2" attributes="1"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jXQtyTextField" pref="295" max="32767" attributes="1"/>
-                                          <Component id="jSelectedMusclesTextField" alignment="0" pref="295" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="yQuantityButton" min="-2" max="-2" attributes="1"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jYQtyTextField" pref="297" max="32767" attributes="1"/>
-                                  </Group>
+                                  <Component id="jSummaryAdvancedTextField" pref="302" max="32767" attributes="0"/>
+                                  <Component id="jSelectedMusclesTextField" alignment="0" pref="302" max="32767" attributes="0"/>
+                                  <Component id="jYQtyTextField" alignment="1" pref="302" max="32767" attributes="2"/>
+                                  <Component id="jXQtyTextField" alignment="1" pref="302" max="32767" attributes="2"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -535,14 +527,20 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jMuscleSelectButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jSelectedMusclesTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jMuscleSelectButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jXQtyTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="xQuantityButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jAdvancedOptionsButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSummaryAdvancedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="xQuantityButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jXQtyTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -603,6 +601,20 @@
                         <Property name="editable" type="boolean" value="false"/>
                       </Properties>
                     </Component>
+                    <Component class="javax.swing.JTextField" name="jSummaryAdvancedTextField">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="toolTipText" type="java.lang.String" value="summary of advanced options"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jAdvancedOptionsButton">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Advanced..."/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAdvancedOptionsButtonActionPerformed"/>
+                      </Events>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JTextField" name="jCurveLegendTextField">
@@ -611,14 +623,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCurveLegendTextFieldActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="jAdvancedOptionsButton">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Advanced..."/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAdvancedOptionsButtonActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

@@ -280,6 +280,10 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_reset__SWIG_2(swigCPtr, this, aTime);
   }
 
+  public void purge() {
+    opensimModelJNI.Storage_purge(swigCPtr, this);
+  }
+
   public int append(StateVector aVec, boolean aCheckForDuplicateTime) {
     return opensimModelJNI.Storage_append__SWIG_0(swigCPtr, this, StateVector.getCPtr(aVec), aVec, aCheckForDuplicateTime);
   }

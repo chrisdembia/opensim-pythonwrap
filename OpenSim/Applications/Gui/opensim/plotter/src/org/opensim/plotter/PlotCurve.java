@@ -82,7 +82,7 @@ public class PlotCurve {
        int xSize = xArray.getSize();
        int ySize = yArray.getSize();
        if (xSize != ySize)
-          throw new UnsupportedOperationException("Domain and range sizes are different. An internal bug.");
+          throw new UnsupportedOperationException("Domain and range sizes are different"+xSize+" vs."+ySize+". An internal bug.");
        
        int size = xArray.getSize();
        // find range of values to display based on minx, maxx
@@ -125,10 +125,15 @@ public class PlotCurve {
               tempArray = new ArrayDouble(storage.getSize());
          for(int i=0; i<colNames.length; i++){
              colNames[i]=colNames[i].trim();
-             if (i==0)
+             if (i==0){
                 storage.getDataColumn(colNames[i], Array);
+                if (settings.isClamp())
+                  clampDataArray(Array);
+             }
              else { // get data into temporary array and then add it in place
                  storage.getDataColumn(colNames[i], tempArray);
+                 if (settings.isClamp())
+                   clampDataArray(tempArray);
                  for(int row=0;row<storage.getSize();row++)
                      Array.set(row, Array.getitem(row)+tempArray.getitem(row));
              }
@@ -278,4 +283,16 @@ public class PlotCurve {
     public String getQuantityName() {
         return quantityName;
     }
+
+   private void clampDataArray(ArrayDouble Array) {
+      double dmax=settings.getYmax();
+      double dmin=settings.getYmin();
+      for (int i = 0;i< Array.getSize();i++){
+         if (Array.getitem(i)> dmax)
+            Array.setitem(i, dmax);
+         else if (Array.getitem(i)< dmin)
+            Array.setitem(i, dmin);
+       }
+      
+   }
 }
