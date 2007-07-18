@@ -24,7 +24,7 @@ public final class FileImportSIMMAction extends CallableSystemAction {
             File jntFileDir = f.getParentFile();
             String tempFilename=null;
             try {
-                File tmpFile = File.createTempFile("Simm2OpenSim", ".osim", jntFileDir);
+                File tmpFile = File.createTempFile("SimmToOpenSim", ".osim", jntFileDir);
                 tempFilename= tmpFile.getAbsolutePath();
             } catch (IOException ex) {
                 DialogDisplayer.getDefault().notify(
@@ -32,7 +32,9 @@ public final class FileImportSIMMAction extends CallableSystemAction {
                 return;
             }
             // simmToOpenSim is assumed in the Path, similar to other dlls we depend on.
-            String command="simmToOpenSim -j "+jntFileName+" -x "+tempFilename;
+            //jntFileName.replace(" ", "\\ ");
+            //tempFilename.replace(" ", "\\ ");
+            String command="simmToOpenSim -j \""+jntFileName+"\" -x \""+tempFilename+"\"";
             boolean success = ExecOpenSimProcess.execute(command, new String[]{""}, jntFileDir );
             if (success){
                 try {
