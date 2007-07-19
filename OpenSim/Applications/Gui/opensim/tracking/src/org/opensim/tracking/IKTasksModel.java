@@ -158,7 +158,7 @@ class IKMarkerTasksModel extends IKTasksModel {
             fullTaskSet.remove(i);
       // Append copies of our tasks
       for(int i=0; i<tasks.size(); i++) {
-         fullTaskSet.append(new IKMarkerTask(IKMarkerTask.safeDownCast(tasks.get(i))));
+         fullTaskSet.append(IKMarkerTask.safeDownCast(tasks.get(i).copy()));
       } 
    }
 
@@ -233,7 +233,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
             fullTaskSet.remove(i);
       // Append copies of our tasks
       for(int i=0; i<tasks.size(); i++) {
-         fullTaskSet.append(new IKCoordinateTask(IKCoordinateTask.safeDownCast(tasks.get(i))));
+         fullTaskSet.append(IKCoordinateTask.safeDownCast(tasks.get(i).copy()));
       } 
    }
 
