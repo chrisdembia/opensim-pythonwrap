@@ -139,4 +139,13 @@ public class PlotterSourceStorage implements PlotterSourceInterface {
           return 1.0;
     }
 
+   public boolean isValidName(String columnName) {
+      String stripName=columnName.substring(columnName.lastIndexOf(":")+1);
+      for(int i=0;i<allAvailable.length;i++){
+         if (allAvailable[i].compareTo(stripName)==0)
+            return true;
+      }
+      return false;
+   }
+
 }

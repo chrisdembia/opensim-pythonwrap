@@ -291,6 +291,8 @@ public class JPlotterPanel extends javax.swing.JPanel
       jPlotNavigationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Plots list"));
       jScrollPane1.setAutoscrolls(true);
       jPlotsTree.setModel(plotterModel.getPlotTreeModel());
+      jPlotsTree.addMouseListener(this);
+
       jScrollPane1.setViewportView(jPlotsTree);
 
       jPlotterAddPlotButton.setText("Add");
@@ -586,6 +588,9 @@ public class JPlotterPanel extends javax.swing.JPanel
       else if (evt.getSource() == jMuscleSelectButton) {
          JPlotterPanel.this.jMuscleSelectButtonMousePressed(evt);
       }
+      else if (evt.getSource() == jPlotsTree) {
+         JPlotterPanel.this.jPlotsTreeMousePressed(evt);
+      }
    }
 
    public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -597,6 +602,9 @@ public class JPlotterPanel extends javax.swing.JPanel
       }
       else if (evt.getSource() == jMuscleSelectButton) {
          JPlotterPanel.this.jMuscleSelectButtonMouseReleased(evt);
+      }
+      else if (evt.getSource() == jPlotsTree) {
+         JPlotterPanel.this.jPlotsTreeMouseReleased(evt);
       }
    }
 
@@ -611,6 +619,16 @@ public class JPlotterPanel extends javax.swing.JPanel
          JPlotterPanel.this.jXQtyTextFieldPropertyChange(evt);
       }
    }// </editor-fold>//GEN-END:initComponents
+
+   private void jPlotsTreeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPlotsTreeMouseReleased
+// TODO add your handling code here:
+      invokeTreePopupIfNeeded(evt.getX(), evt.getY());
+   }//GEN-LAST:event_jPlotsTreeMouseReleased
+
+   private void jPlotsTreeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPlotsTreeMousePressed
+      invokeTreePopupIfNeeded(evt.getX(), evt.getY());
+// TODO add your handling code here:
+   }//GEN-LAST:event_jPlotsTreeMousePressed
 
    private void jFormattedTextFieldYminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldYminActionPerformed
 // TODO add your handling code here:
@@ -708,6 +726,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                    l=Math.round(conversionToGuiUnits*coord.getRangeMax());
                    jDomainEndTextField.setValue((double)l);
                    updateContextGuiElements();
+                   updatePlotterWithSelection();
                 }
              });
              jXPopupMenu.add(coordinateMenuItem);
@@ -725,6 +744,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                    jDomainStartTextField.setValue((double)nextMotion.getDefaultMin("time"));
                    jDomainEndTextField.setValue((double)nextMotion.getDefaultMax("time"));
                    sourceX=nextMotion;
+                   updatePlotterWithSelection();
                    updateContextGuiElements();
                 }
              });
@@ -738,6 +758,7 @@ public class JPlotterPanel extends javax.swing.JPanel
           String dn = xSelector.getColumnToUse();
           setDomainName(dn);
           updateContextGuiElements();
+          updatePlotterWithSelection();
        }
        parseDomainOrRangeText(jXQtyTextField, true);
        
@@ -1015,30 +1036,7 @@ public class JPlotterPanel extends javax.swing.JPanel
     * Very important piece here is parseDomainOrRangeText see comments there.
     */
    public void updatePlotterWithSelection() {
-      // For now anything in x,y text fields is taken as valid, instead we should do more
-      // validation that quantities indicated do exist.
-      /*
-      boolean validX = parseDomainOrRangeText(jXQtyTextField, true);
-      if (validX){
-          Storage s = sourceX.getStorage();
-          if (autoMinX && autoMaxX){
-              // Get bounds for domain in proper units
-              setMinX(sourceX.getDefaultMin(domainName));
-              setMaxX(sourceX.getDefaultMax(domainName));
-          }
-      }
-      yQuantityButton.setEnabled(validX);
-      boolean validY = parseDomainOrRangeText(jYQtyTextField, false);
-      validXY = validX && validY;
-      if (!validXY){
-         // Disable Add
-         jPlotterAddPlotButton.setEnabled(false);
-         return;
-      }
-       **/
-      jPlotterAddPlotButton.setEnabled(true);
-      //updateContextGuiElements();
-      //updateCurveTitle();
+      jPlotterAddPlotButton.setEnabled(validateXY());
       
    }
    /**
@@ -1285,8 +1283,17 @@ public class JPlotterPanel extends javax.swing.JPanel
       plotterModel.configureAnalyses(tool, analysisSource, domainName, ranges);
       // Save the state before running the analysis so that we can restore the model afterwards
       int numStates = currentModel.getNumStates();
+      ArrayStr stateNames = new ArrayStr();
+      currentModel.getStateNames(stateNames);
       double[] saveStates = new double[numStates];
       currentModel.getStates(saveStates);
+      for(int i=0; i<saveStates.length; i++){
+         System.out.println("State"+stateNames.getitem(i)+" value="+saveStates[i]);
+         if (stateNames.getitem(i).endsWith(".fiber_length"))
+            saveStates[i]=0.01;
+         else if (stateNames.getitem(i).endsWith(".activation"))
+            saveStates[i]=1.0;        
+      }
          // Default start from current values of saveStates
        if (motion != null && motion instanceof PlotterSourceMotion){
          tool.setStartTime( motion.getStorage().getFirstTime());
@@ -1322,11 +1329,11 @@ public class JPlotterPanel extends javax.swing.JPanel
          sourceX=new PlotterSourceAnalysis(currentModel, statesStorage, "");
       }
       currentModel.setStates(saveStates);
-      //statesStorage.print("toolInput.sto");
+      statesStorage.print("toolInput.sto");
       tool.setPrintResultFiles(false);
       analysisSource.getStorage().purge();
       tool.run();
-      //analysisSource.getStorage().print("toolOutput.sto");
+      analysisSource.getStorage().print("toolOutput.sto");
       currentModel.getDynamicsEngine().convertRadiansToDegrees(analysisSource.getStorage());
       currentModel.getDynamicsEngine().convertRadiansToDegrees(statesStorage);
    }
@@ -1414,7 +1421,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                }
             });
          }
-         
+         // Other Analyses
          for(int i=0;i<analyses.getSize();i++){
             final Analysis nextAnalysis = analyses.get(i);
             JMenu nextAnalysisSubmenu = new JMenu(nextAnalysis.getName());
@@ -1453,27 +1460,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                Storage nextMotionStorage = motions.get(i);
                final PlotterSourceInterface nextMotion=getPlotterModel().addMotion(nextMotionStorage);
                JMenuItem motionMenuItem = new JMenuItem(nextMotion.getDisplayName()+"...");
-               motionMenuItem.addActionListener(new ActionListener(){
-                  public void actionPerformed(ActionEvent e) {
-                     sourceY.clear();
-                     sourceY.add(nextMotion);
-                     sourceX = sourceY.get(0);
-                     PlotterQuantityNameFilterJPanel filterpanel = new PlotterQuantityNameFilterJPanel(sourceY.get(0));
-                     DialogDescriptor dlg = new DialogDescriptor(filterpanel,"Select Motion Column");
-                     dlg.setModal(true);
-                     DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
-                     if (((Integer)dlg.getValue()).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
-                        jYQtyTextField.setText(sourceY.get(0).getDisplayName()+":"+filterpanel.getSelectedAsString());
-                        jXQtyTextField.setText(""); // Clear X on switching Y for motions and files
-                        rangeNames = new String[filterpanel.getNumSelected()];
-                        System.arraycopy(filterpanel.getSelected(), 0, rangeNames, 0, filterpanel.getNumSelected());
-                        useMuscles(false);
-                        updateContextGuiElements();
-                        
-                        //parseDomainOrRangeText(jYQtyTextField, false);
-                        updatePlotterWithSelection();
-                     }
-                  }});
+               motionMenuItem.addActionListener(new MotionSelectionListener(nextMotion));
                   jSourcePopupMenu.add(motionMenuItem);
                   addedSomething=true;
             }
@@ -1490,26 +1477,7 @@ public class JPlotterPanel extends javax.swing.JPanel
          for(int i=0; i<fileSources.size(); i++){
             final PlotterSourceFile nextSource = fileSources.get(i);
             JMenuItem fileMenuItem = new JMenuItem(nextSource.getDisplayName()+"...");
-            fileMenuItem.addActionListener(new ActionListener(){
-               public void actionPerformed(ActionEvent e) {
-                  sourceY.setSize(1);
-                  sourceY.set(0, nextSource);
-                  sourceX = nextSource;
-                  PlotterQuantityNameFilterJPanel filterpanel = new PlotterQuantityNameFilterJPanel(sourceX);
-                  DialogDescriptor dlg = new DialogDescriptor(filterpanel,"Select file column");
-                  dlg.setModal(true);
-                  DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
-                  if (((Integer)dlg.getValue()).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
-                     jYQtyTextField.setText(sourceX.getDisplayName()+":"+filterpanel.getSelectedAsString());
-                     jXQtyTextField.setText(""); // Clear X on switching Y for motions and files
-                     rangeNames = new String[filterpanel.getNumSelected()];
-                     System.arraycopy(filterpanel.getSelected(), 0, rangeNames, 0, filterpanel.getNumSelected());
-                     useMuscles(false);
-                     updateContextGuiElements();
-                     //parseDomainOrRangeText(jYQtyTextField, false);
-                     updatePlotterWithSelection();
-                  }
-               }});
+            fileMenuItem.addActionListener(new FileSelectionListener(nextSource));
                jSourcePopupMenu.add(fileMenuItem);
          }
       }
@@ -1523,6 +1491,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                xQuantityButton.setEnabled(getPlotterModel().countSources()>0);
                populateYPopup();
                // Proceed as if it's selected'
+               new FileSelectionListener(src).actionPerformed(null);
             }
          }});
          jSourcePopupMenu.add(newfileMenuItem);
@@ -1561,16 +1530,19 @@ public class JPlotterPanel extends javax.swing.JPanel
             if ((sourceX!=null) && 
                 (sourceX instanceof PlotterSourceFile) && 
                  sourceX.getStorage()==sourceY.get(0).getStorage())
-               validXY=true;
+               validXY=sourceX.isValidName(jXQtyTextField.getText());  // Check X is selected
             return validXY;
          }
       }
+      else
+         return false;
+      
       if (sourceY!=null && sourceY.size()>0){   // Same motion source in both X, Y
          if (sourceY.get(0) instanceof PlotterSourceMotion){
             if ((sourceX!=null) && 
                 (sourceX instanceof PlotterSourceMotion) && 
                  sourceX.getStorage()==sourceY.get(0).getStorage())
-               validXY=true;
+               validXY=sourceX.isValidName(jXQtyTextField.getText());
             return validXY;
          }
       }
@@ -1635,4 +1607,82 @@ public class JPlotterPanel extends javax.swing.JPanel
    public void setModelChanged(boolean modelChanged) {
       this.modelChanged = modelChanged;
    }
+
+   private void invokeTreePopupIfNeeded(int evtX, int evtY) {
+      TreePath clickedElement = jPlotsTree.getPathForLocation(evtX, evtY);
+            
+      //  Display the name of the selected tree element in the selection field
+      String clickedElementName;
+      if (clickedElement != null){
+         clickedElementName = clickedElement.getLastPathComponent().toString();
+         System.out.println("Selected a node.");
+      }
+      
+   }
+
+   /** 
+    * Handle file selection pick in Quantity Y popup
+    */
+   private class FileSelectionListener implements ActionListener {
+
+      private PlotterSourceFile nextSource;
+
+      public FileSelectionListener(PlotterSourceFile nextSource) {
+         super();
+         this.nextSource = nextSource;
+      }
+
+      public void actionPerformed(ActionEvent e) {
+         sourceY.setSize(1);
+         sourceY.set(0, nextSource);
+         sourceX = nextSource;
+         PlotterQuantityNameFilterJPanel filterpanel = new PlotterQuantityNameFilterJPanel(sourceX);
+         DialogDescriptor dlg = new DialogDescriptor(filterpanel, "Select file column");
+         dlg.setModal(true);
+         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+         if (((Integer) dlg.getValue()).compareTo((Integer) DialogDescriptor.OK_OPTION) == 0) {
+            jYQtyTextField.setText(sourceX.getDisplayName() + ":" + filterpanel.getSelectedAsString());
+            jXQtyTextField.setText("");
+            rangeNames = new String[filterpanel.getNumSelected()];
+            System.arraycopy(filterpanel.getSelected(), 0, rangeNames, 0, filterpanel.getNumSelected());
+            useMuscles(false);
+            updateContextGuiElements();
+            updatePlotterWithSelection();
+         }
+      }
+   }
+
+   /** 
+    * Handle motion pick in Quantity Y popup
+    */
+   private class MotionSelectionListener implements ActionListener {
+
+      private PlotterSourceInterface nextMotion;
+
+      public MotionSelectionListener(PlotterSourceInterface nextMotion) {
+         super();
+         this.nextMotion = nextMotion;
+      }
+
+      public void actionPerformed(ActionEvent e) {
+         sourceY.clear();
+         sourceY.add(nextMotion);
+         sourceX = sourceY.get(0);
+         PlotterQuantityNameFilterJPanel filterpanel = new PlotterQuantityNameFilterJPanel(sourceY.get(0));
+         DialogDescriptor dlg = new DialogDescriptor(filterpanel, "Select Motion Column");
+         dlg.setModal(true);
+         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+         if (((Integer) dlg.getValue()).compareTo((Integer) DialogDescriptor.OK_OPTION) == 0) {
+            jYQtyTextField.setText(sourceY.get(0).getDisplayName() + ":" + filterpanel.getSelectedAsString());
+            jXQtyTextField.setText("");
+            rangeNames = new String[filterpanel.getNumSelected()];
+            System.arraycopy(filterpanel.getSelected(), 0, rangeNames, 0, filterpanel.getNumSelected());
+            useMuscles(false);
+            updateContextGuiElements();
+            updatePlotterWithSelection();
+         }
+      }
+   }
+
+
 }

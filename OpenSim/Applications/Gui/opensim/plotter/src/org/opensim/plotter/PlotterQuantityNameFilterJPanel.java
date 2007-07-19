@@ -479,10 +479,18 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
     }
 
      String getSelectedAsString() {
-        return tableModel.getSelectedAsString();
+        if (isSumOnly()){
+           String temp = tableModel.getSelectedAsString();
+           return temp.replace(", ","+");
+        }
+        else
+            return tableModel.getSelectedAsString();
     }
 
     String[] getSelected() {
+        if (isSumOnly())
+           return new String[]{getSelectedAsString()};
+        
         return tableModel.getSelected();
     }
     private void setFilter(PlotterQuantityNameFilterJPanel.FilterBy currentFilter) {
@@ -550,7 +558,10 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
     }    
 
     int getNumSelected() {
-        return tableModel.getNumSelected();
+       if (isSumOnly())
+          return 1;
+       else
+         return tableModel.getNumSelected();
     }
 
     public boolean isSumOnly() {

@@ -152,4 +152,12 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
       }
       return max;
    }
+
+   public boolean isValidName(String columnName) {
+      for(int i=0;i<allAvailable.length;i++){
+         if (allAvailable[i].compareTo(columnName)==0)
+            return true;
+      }
+      return false;
+   }
 }

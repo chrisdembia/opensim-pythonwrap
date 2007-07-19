@@ -343,6 +343,10 @@
                           <Connection code="plotterModel.getPlotTreeModel()" type="code"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPlotsTreeMousePressed"/>
+                        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPlotsTreeMouseReleased"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

@@ -127,4 +127,12 @@ public class PlotterSourceStringArray implements PlotterSourceInterface {
        // Unreachable
      }
 
+   public boolean isValidName(String columnName) {
+      for(int i=0;i<allAvailable.length;i++){
+         if (allAvailable[i].compareTo(columnName)==0)
+            return true;
+      }
+      return false;
+   }
+
 }
