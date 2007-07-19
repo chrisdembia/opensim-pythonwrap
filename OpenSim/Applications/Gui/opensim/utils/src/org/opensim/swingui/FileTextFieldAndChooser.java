@@ -2,12 +2,15 @@ package org.opensim.swingui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import javax.swing.JCheckBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.opensim.utils.FileUtils;
 
-public class FileTextFieldAndChooser extends javax.swing.JPanel {
+public class FileTextFieldAndChooser extends javax.swing.JPanel implements ActionListener {
 
    private static Color validBackground = Color.white;
    private static Color invalidBackground = new Color(255,102,102);
@@ -19,6 +22,8 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel {
    private boolean fileIsValid = true;
    private boolean treatUnassignedAsEmptyString = true;
    private boolean treatEmptyStringAsValid = true;
+
+   private JCheckBox checkBox = null; // Optional associated check box which enables/disables the text field
 
    public FileTextFieldAndChooser() {
       initComponents();
@@ -67,6 +72,28 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel {
       super.setEnabled(enabled);
       for(Component comp : getComponents()) comp.setEnabled(enabled);
       updateTextFieldColor();
+   }
+
+   public void setTreatEmptyStringAsValid(boolean asValid) {
+      treatEmptyStringAsValid = asValid;
+   }
+
+   //------------------------------------------------------------------------
+   // Associated check box
+   //------------------------------------------------------------------------
+
+   public void setAssociatedCheckBox(JCheckBox checkBox) {
+      if(this.checkBox!=null) this.checkBox.removeActionListener(this);
+      this.checkBox = checkBox;
+      if(this.checkBox!=null) this.checkBox.addActionListener(this);
+      setEnabled(this.checkBox.isSelected());
+   }
+
+   public void actionPerformed(ActionEvent evt) {
+      if(evt.getSource()==checkBox && isEnabled() != checkBox.isSelected()) {
+         setEnabled(checkBox.isSelected());
+         fireStateChanged();
+      }
    }
 
    //------------------------------------------------------------------------
