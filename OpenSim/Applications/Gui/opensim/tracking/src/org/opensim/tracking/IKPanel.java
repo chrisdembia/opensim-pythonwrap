@@ -6,12 +6,13 @@ import java.lang.reflect.InvocationTargetException;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
-import org.opensim.view.JavaAnimationCallback;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.IKTool;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.view.pub.ViewDB;
 import javax.swing.SwingUtilities;
+import org.opensim.modeling.IKTrial;
+import org.opensim.motionviewer.JavaMotionDisplayerCallback;
 
 public class IKPanel  extends workflowWizardPanelBase{
     
@@ -84,28 +85,32 @@ public class IKPanel  extends workflowWizardPanelBase{
         final ProgressHandle progressHandle = ProgressHandleFactory.createHandle("Running Inverse Kinematics ");
         final IKTool ik = component.getSimulationTool();
         // @FIXME should be current trial
-        final double startTime = ik.getIKTrialSet().get(0).getStartTime();
-        final double endTime = ik.getIKTrialSet().get(0).getEndTime();
+        int trialNum = 0;
+        final IKTrial trial = ik.getIKTrialSet().get(0);
+        final double startTime = trial.getStartTime();
+        final double endTime = trial.getEndTime();
         final Model ikModel = ik.getModel();
+
+        // Initialize trial.  After this we can access the output storage from the trial itself.
+        ik.initializeTrial(trialNum);
+
+         // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
+         // another motion show up on it)
+         MotionsDB.getInstance().flushMotions();
         
-         final JavaAnimationCallback animationCallback = new JavaAnimationCallback(ikModel);
+         //final JavaAnimationCallback animationCallback = new JavaAnimationCallback(ikModel);
+         final JavaMotionDisplayerCallback animationCallback = new JavaMotionDisplayerCallback(ikModel, trial.getOutputStorage());
          ikModel.addIntegCallback(animationCallback);
          animationCallback.setStepInterval(3);  
          progressHandle.start();
                   
          // Execute IK. We're already on a worker thread
-         ik.run();
+         //ik.run();
+         ik.solveTrial(trialNum);
 
-         try {
-            SwingUtilities.invokeAndWait(new Runnable(){
-               public void run() {
-                  ViewDB.getInstance().updateModelDisplay(ikModel);
-               }});
-         } catch (InterruptedException ex) {
-            ex.printStackTrace();
-         } catch (InvocationTargetException ex) {
-            ex.printStackTrace();
-         }
+         // Update one last time
+         animationCallback.updateDisplaySynchronously();
+         animationCallback.cleanupMotionDisplayer();
          
          progressHandle.finish();
         // Associate motion to model
