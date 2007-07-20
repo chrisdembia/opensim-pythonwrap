@@ -150,7 +150,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
          notifyObservers(evt);
     }
 
-   void flushMotions() {
+   public void flushMotions() {
          MotionEvent evt = new MotionEvent(this, null, null, MotionEvent.Operation.Clear);
          setChanged();
          notifyObservers(evt);
