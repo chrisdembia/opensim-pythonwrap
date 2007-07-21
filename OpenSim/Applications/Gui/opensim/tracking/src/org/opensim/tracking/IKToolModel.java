@@ -13,6 +13,7 @@ import org.opensim.modeling.IKTool;
 import org.opensim.modeling.IKTrial;
 import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.JavaMotionDisplayerCallback;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
@@ -24,41 +25,9 @@ import org.opensim.utils.FileUtils;
 //==================================================================
 // Only deals with a single (the first) IKTrial in the IKTrialSet of IKTool
 public class IKToolModel extends Observable implements Observer {
-
-   enum Operation { AllDataChanged, IKTaskSetChanged, ExecutionFinished };
-
-   private IKTool ikTool = null;
-   private Model model = null;
-
-   private boolean modifiedSinceLastExecute = true;
-
-   private IKCommonModel ikCommonModel;
-
-   public IKToolModel(Model originalModel) throws IOException {
-      // Store original model
-      this.model = originalModel;
-
-      // Create IK tool
-      ikTool = new IKTool();
-      ikTool.setModel(model);
-
-      ikCommonModel = new IKCommonModel(model);
-      ikCommonModel.addObserver(this);
-   }
-
-   public Model getModel() { return model; }
-   public IKTool getIKTool() { return ikTool; }
-   public IKCommonModel getIKCommonModel() { return ikCommonModel; }
-   
-   //------------------------------------------------------------------------
-   // Utilities for running/canceling tool
-   //------------------------------------------------------------------------
-
-   private void updateIKTool() {
-      ikCommonModel.toIKTool(ikTool);
-      ikTool.setPrintResultFiles(false);
-   }
-
+   //========================================================================
+   // IKToolWorker
+   //========================================================================
    class IKToolWorker extends SwingWorker {
       private ProgressHandle progressHandle = null;
       private JavaMotionDisplayerCallback animationCallback = null;
@@ -95,6 +64,8 @@ public class IKToolModel extends Observable implements Observer {
                                  }
                               });
          progressHandle.start();
+
+         setExecuting(true);
       }
 
       public void interrupt(boolean promptToKeepPartialResult) {
@@ -123,9 +94,12 @@ public class IKToolModel extends Observable implements Observer {
 
          if(result) resetModified();
 
+         IKTrial trial = ikTool.getIKTrialSet().get(0);
+
          boolean addMotion = true;
          if(!result) {
-            if(promptToKeepPartialResult) {
+            boolean havePartialResult = trial.getOutputStorage()!=null && trial.getOutputStorage().getSize()>0;
+            if(havePartialResult && promptToKeepPartialResult) {
                Object answer = DialogDisplayer.getDefault().notify(new NotifyDescriptor.Confirmation("Inverse kinematics did not complete.  Keep partial result?",NotifyDescriptor.YES_NO_OPTION));
                if(answer==NotifyDescriptor.NO_OPTION) addMotion = false;
             } else {
@@ -133,17 +107,67 @@ public class IKToolModel extends Observable implements Observer {
             }
          }
 
-         // TODO: add output storage as motion to the model
-         System.out.println("addMotion = "+addMotion);
+         if(addMotion) {
+            Storage motion = new Storage(trial.getOutputStorage()); // Java-side copy
+            updateMotion(motion);
+         }
 
-         setChanged();
-         notifyObservers(Operation.ExecutionFinished);
+         setExecuting(false);
 
          worker = null;
       }
    }
-
    private IKToolWorker worker = null;
+   //========================================================================
+   // END IKToolWorker
+   //========================================================================
+
+   enum Operation { AllDataChanged, IKTaskSetChanged, ExecutionStateChanged };
+
+   private IKTool ikTool = null;
+   private Model model = null;
+   private boolean modifiedSinceLastExecute = true;
+   private IKCommonModel ikCommonModel;
+   private Storage motion = null;
+   private boolean executing = false;
+
+   public IKToolModel(Model originalModel) throws IOException {
+      // Store original model
+      this.model = originalModel;
+
+      // Create IK tool
+      ikTool = new IKTool();
+      ikTool.setModel(model);
+
+      ikCommonModel = new IKCommonModel(model);
+      ikCommonModel.addObserver(this);
+   }
+
+   public Model getModel() { return model; }
+   public IKTool getIKTool() { return ikTool; }
+   public IKCommonModel getIKCommonModel() { return ikCommonModel; }
+   
+   //------------------------------------------------------------------------
+   // Setting the motion in the model
+   //------------------------------------------------------------------------
+   private void updateMotion(Storage newMotion) {
+      if(motion!=null) {
+         MotionsDB.getInstance().closeMotion(getModel(), motion);
+      }
+      motion = newMotion;
+      if(motion!=null) {
+         MotionsDB.getInstance().addMotion(getModel(), motion);
+      }
+   }
+
+   //------------------------------------------------------------------------
+   // Utilities for running/canceling tool
+   //------------------------------------------------------------------------
+
+   private void updateIKTool() {
+      ikCommonModel.toIKTool(ikTool);
+      ikTool.setPrintResultFiles(false);
+   }
 
    public void execute() {
       if(isModified() && worker==null) {
@@ -161,14 +185,28 @@ public class IKToolModel extends Observable implements Observer {
    public void cancel() {
       System.out.println("IKToolModel.cancel");
       interrupt(false);
-      // TODO: remove motion from model
+      updateMotion(null);
    }
 
    //------------------------------------------------------------------------
    // Handle updates in the IK Task Set
    //------------------------------------------------------------------------
+
    public void update(Observable observable, Object obj) {
       if(observable==ikCommonModel) setModified(Operation.IKTaskSetChanged);
+   }
+
+   //------------------------------------------------------------------------
+   // Execution status
+   //------------------------------------------------------------------------
+
+   private void setExecuting(boolean executing) {
+      this.executing = executing;
+      setChanged();
+      notifyObservers(Operation.ExecutionStateChanged);
+   }
+   public boolean isExecuting() {
+      return executing;
    }
 
    //------------------------------------------------------------------------

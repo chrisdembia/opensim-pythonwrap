@@ -87,7 +87,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
 
    public void update(Observable observable, Object obj) {
       System.out.println("UPDATE");
-      if(observable == ikToolModel && obj == IKToolModel.Operation.ExecutionFinished) {
+      if(observable == ikToolModel && obj == IKToolModel.Operation.ExecutionStateChanged) {
          // Just need to update the buttons
          updateDialogButtons();
       } else {
@@ -142,8 +142,8 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
    public void setOwner(Dialog dialog) { ownerDialog = dialog; }
 
    public void updateDialogButtons() {
-      previewButton.setEnabled(ikToolModel.isModified() && ikToolModel.isValid());
-      okButton.setEnabled(ikToolModel.isValid());
+      previewButton.setEnabled(!ikToolModel.isExecuting() && ikToolModel.isModified() && ikToolModel.isValid());
+      okButton.setEnabled(!ikToolModel.isExecuting() && ikToolModel.isValid());
    }
 
    public void actionPerformed(ActionEvent evt) {

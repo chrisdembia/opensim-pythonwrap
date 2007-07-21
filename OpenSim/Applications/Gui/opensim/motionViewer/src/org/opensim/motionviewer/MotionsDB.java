@@ -87,7 +87,6 @@ public class MotionsDB extends Observable // Observed by other entities in motio
          return;
       }
       final Storage newMotion = storage;
-      String name = newMotion.getName();
       boolean associated = false;
       while(!associated){
          Model modelForMotion = OpenSimDB.getInstance().selectModel(OpenSimDB.getInstance().getCurrentModel());
@@ -95,7 +94,9 @@ public class MotionsDB extends Observable // Observed by other entities in motio
             break;
          }
          // user selected a model, try to associate it
-         if(MotionsDB.getInstance().AssociateMotionToModel(newMotion, modelForMotion)){
+         if(MotionsDB.getInstance().motionAssociationPossible(modelForMotion, newMotion)){
+            addMotion(modelForMotion, newMotion, true);
+            StatusDisplayer.getDefault().setStatusText("Associated motion: "+newMotion.getName()+" to model: "+modelForMotion.getName());
             associated = true;
          } else { // Show error that motion couldn't be associated and repeat'
             DialogDisplayer.getDefault().notify( 
@@ -109,7 +110,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
      * Criteria for associating motionto a model:
      * At least one genccord or marker (_tx?) in motion file/Storage
      */
-   boolean AssociateMotionToModel(Storage newMotion, Model modelForMotion) {
+   boolean motionAssociationPossible(Model modelForMotion, Storage newMotion) {
       ArrayStr coordinateNames = new ArrayStr();
       modelForMotion.getDynamicsEngine().getCoordinateSet().getNames(coordinateNames);
       int numCoordinates = coordinateNames.getSize();
@@ -126,47 +127,53 @@ public class MotionsDB extends Observable // Observed by other entities in motio
                  (newMotion.getStateIndex(markerNames.getitem(i)+"_TX")!=-1))
             numUsedColumns++;
       }
-      
-      boolean associationPossible=(numUsedColumns>=1); // At least one column makes sense
-      if (associationPossible){
-         if(mapModels2Motions.get(modelForMotion)==null){  // First motion for model
-            mapModels2Motions.put(modelForMotion, new  ArrayList<Storage>(4));
-         }
-         ArrayList<Storage> motions= mapModels2Motions.get(modelForMotion);
-         modelForMotion.getDynamicsEngine().convertDegreesToRadians(newMotion);
-         motions.add(newMotion);
-         MotionEvent evt = new MotionEvent(this, modelForMotion, newMotion, MotionEvent.Operation.Open);
-         setChanged();
-         //int c = this.countObservers();
-         notifyObservers(evt);
-         StatusDisplayer.getDefault().setStatusText("Associated motion: "+newMotion.getName()+" to model:"+modelForMotion.getName());
-      }
-      return associationPossible;
+     
+      return (numUsedColumns>=1);  // At least one column makes sense
    }
 
-    void setCurrent(Model model, Storage motion) {
-         MotionEvent evt = new MotionEvent(this, model, motion, MotionEvent.Operation.SetCurrent);
-         setChanged();
-         notifyObservers(evt);
-    }
+   public void addMotion(Model model, Storage motion, boolean convertAngles) {
+      if(convertAngles) model.getDynamicsEngine().convertDegreesToRadians(motion);
+
+      // Add to mapModels2Motion
+      ArrayList<Storage> motions = mapModels2Motions.get(model);
+      if(motions==null) { // First motion for model
+         motions = new ArrayList<Storage>(4);
+         mapModels2Motions.put(model, motions);
+      }
+      motions.add(motion);
+
+      MotionEvent evt = new MotionEvent(this, model, motion, MotionEvent.Operation.Open);
+      setChanged();
+      notifyObservers(evt);
+   }
+
+   public void addMotion(Model model, Storage motion) {
+      addMotion(model, motion, false);
+   }
+
+   void setCurrent(Model model, Storage motion) {
+      MotionEvent evt = new MotionEvent(this, model, motion, MotionEvent.Operation.SetCurrent);
+      setChanged();
+      notifyObservers(evt);
+   }
 
    public void flushMotions() {
-         MotionEvent evt = new MotionEvent(this, null, null, MotionEvent.Operation.Clear);
-         setChanged();
-         notifyObservers(evt);
+      MotionEvent evt = new MotionEvent(this, null, null, MotionEvent.Operation.Clear);
+      setChanged();
+      notifyObservers(evt);
    }
 
    void addSyncMotion(Model model, Storage simmMotionData, boolean lastInASeries) {
-         MotionEvent evt = new MotionEvent(this, model, simmMotionData, MotionEvent.Operation.AddSyncMotion);
-         evt.setLastInASeries(lastInASeries);
-         setChanged();
-         notifyObservers(evt);
+      MotionEvent evt = new MotionEvent(this, model, simmMotionData, MotionEvent.Operation.AddSyncMotion);
+      evt.setLastInASeries(lastInASeries);
+      setChanged();
+      notifyObservers(evt);
    }
 
-   void closeMotion(Model model, Storage simmMotionData) {
-         MotionEvent evt = new MotionEvent(this, model, simmMotionData, MotionEvent.Operation.Close);
-         setChanged();
-         notifyObservers(evt);
+   public void closeMotion(Model model, Storage simmMotionData) {
+      MotionEvent evt = new MotionEvent(this, model, simmMotionData, MotionEvent.Operation.Close);
+      setChanged();
+      notifyObservers(evt);
    }
 
 
