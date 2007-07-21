@@ -1,7 +1,6 @@
 package org.opensim.view;
 
 import java.util.prefs.Preferences;
-import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -68,6 +67,10 @@ public class Installer extends ModuleInstall {
          saved=Preferences.userNodeForPackage(TheApp.class).get("DisplayOffsetDir", defaultOffsetDirection);
          Preferences.userNodeForPackage(TheApp.class).put("DisplayOffsetDir", saved);
          
+         String nonCurrentModelOpacityStr = NbBundle.getMessage(ViewDB.class,"CTL_NonCurrentModelOpacity");
+         saved = Preferences.userNodeForPackage(TheApp.class).get("NonCurrentModelOpacity", nonCurrentModelOpacityStr);
+         Preferences.userNodeForPackage(TheApp.class).put("NonCurrentModelOpacity", saved);
+
          String defaultGeometryPath = NbBundle.getMessage(OpenSimBaseCanvas.class,"CTL_GeometryPath");
          saved=Preferences.userNodeForPackage(TheApp.class).get("GeometryPath", defaultGeometryPath);
          Preferences.userNodeForPackage(TheApp.class).put("GeometryPath", saved);
@@ -95,5 +98,6 @@ public class Installer extends ModuleInstall {
          String showWrapObjects = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_ShowWrapObjects");
          saved = Preferences.userNodeForPackage(TheApp.class).get("ShowWrapObjects", showWrapObjects);
          Preferences.userNodeForPackage(TheApp.class).put("ShowWrapObjects", saved);
+         
     }
 }

@@ -34,7 +34,7 @@ public class ModelDisplayOffsetJPanel extends javax.swing.JPanel
         
         // Save offsets and opacity incase we need to restore them
         saveOffset.DeepCopy(offset);
-        saveOpacity = rep.getOpacity();
+        saveOpacity = ViewDB.getInstance().getNominalModelOpacity(abstractModel);
         
         this.dModel = abstractModel;
         modelName = abstractModel.getName();
@@ -197,11 +197,11 @@ public class ModelDisplayOffsetJPanel extends javax.swing.JPanel
          // Handle change in opacity slider
         if (e.getSource().equals(jOpacitySlider)){ // Opacity
             javax.swing.JSlider slider= (javax.swing.JSlider)e.getSource();
-            if (slider.getValueIsAdjusting())
-                return;
+            //if (slider.getValueIsAdjusting())
+                //return;
             int newOpacity = slider.getValue();
             jOpacityTextField.setText(String.valueOf(newOpacity/100.0));
-            ViewDB.getInstance().setObjectOpacity(dModel, (double)newOpacity/100);
+            ViewDB.getInstance().setNominalModelOpacity(dModel, (double)newOpacity/100);
         }
         else {  // x, y or z sliders
             if (e.getSource().equals(textSliderJPanel1.getJXSlider())){
@@ -245,7 +245,7 @@ public class ModelDisplayOffsetJPanel extends javax.swing.JPanel
      }
 
     public void restore() {
-        ViewDB.getInstance().setObjectOpacity(dModel, saveOpacity);
+        ViewDB.getInstance().setNominalModelOpacity(dModel, saveOpacity);
         ViewDB.getInstance().setModelVisualsTransform(rep, saveOffset);
         ViewDB.getInstance().repaintAll();
     }

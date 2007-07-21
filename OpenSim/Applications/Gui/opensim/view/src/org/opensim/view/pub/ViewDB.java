@@ -29,6 +29,7 @@ import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Observable;
@@ -89,6 +90,8 @@ public final class ViewDB extends Observable implements Observer {
    
    private Hashtable<Model, ModelSettingsSerializer> mapModelsToSettings =
            new Hashtable<Model, ModelSettingsSerializer>();
+   private Hashtable<Model, Double> modelOpacities = new Hashtable<Model, Double>();
+   
    static ViewDB instance=null;
    // Window currently designated as current.
    private static ModelWindowVTKTopComponent currentModelWindow=null;
@@ -105,7 +108,8 @@ public final class ViewDB extends Observable implements Observer {
    private boolean picking = false;
    private boolean dragging = false;
    private double draggingZ = 0.0;
-
+   private double nonCurrentModelOpacity = 0.4;
+   
    /** Creates a new instance of ViewDB */
    private ViewDB() {
    }
@@ -176,6 +180,7 @@ public final class ViewDB extends Observable implements Observer {
                // thru tree picks
                mapModelsToVisuals.put(ev.getModel(), newModelVisual);
                mapModelsToGuiElements.put(ev.getModel(), newModelGuiElements);
+               modelOpacities.put(ev.getModel(), 1.0);
                //From here on we're adding things to display so we better lock'
                
                if (sceneAssembly==null){
@@ -220,6 +225,7 @@ public final class ViewDB extends Observable implements Observer {
                mapModelsToVisuals.remove(dModel);
                mapModelsToGuiElements.remove(dModel);
                mapModelsToSettings.remove(dModel);
+               modelOpacities.remove(dModel);
                //StatusDisplayer.getDefault().setStatusText("mapModelsToVisuals size="+mapModelsToVisuals.size());
                updateCommandsVisibility();
             }
@@ -227,6 +233,19 @@ public final class ViewDB extends Observable implements Observer {
             // Changes in the Tree view are handled by the Explorer View
             else if (ev.getOperation()==ModelEvent.Operation.SetCurrent) {
                updateCommandsVisibility();
+               // Apply opacity to other models
+               Enumeration<Model> models=mapModelsToVisuals.keys();
+               while(models.hasMoreElements()){
+                  Model next = models.nextElement();
+                  double nominalOpacity=modelOpacities.get(next);
+                  SingleModelVisuals vis = mapModelsToVisuals.get(next);
+                  if (next==ev.getModel()){
+                       setObjectOpacity(next, nominalOpacity);
+                  }
+                  else{
+                       setObjectOpacity(next, getNonCurrentModelOpacity()*nominalOpacity);
+                  }
+               }
             }
             else if (ev.getOperation()==ModelEvent.Operation.Save) {
                // If a model is saved then its document filename has changed and we should update the settings file accordingly
@@ -441,6 +460,26 @@ public final class ViewDB extends Observable implements Observer {
          public void apply(vtkActor actor) { actor.GetProperty().SetColor(colorComponents); }});
       repaintAll();
    }
+   
+   public void setNominalModelOpacity(OpenSimObject object, double newOpacity)
+   {
+      if (object instanceof Model){
+         modelOpacities.put((Model)object, newOpacity);
+         double vtkOpacity= newOpacity;
+         if (object.equals(getCurrentModel())){
+         }
+         else {
+            vtkOpacity *= getNonCurrentModelOpacity();
+         }
+         setObjectOpacity(object, vtkOpacity);            
+      }
+   }
+   
+   public double getNominalModelOpacity(Model modelObject)
+   {
+      return modelOpacities.get(modelObject);
+   }
+
    /**
     * Set the Opacity of the passed in object to newOpacity
     */
@@ -991,5 +1030,23 @@ public final class ViewDB extends Observable implements Observer {
       } else if (asm instanceof vtkActor){
          functionApplier.apply((vtkActor)asm);
       }
+   }
+
+   public void setModelColorShade(Model aModel, double[] colors) {
+      vtkAssembly modelAsm = (vtkAssembly) mapModelsToVisuals.get(aModel).getModelDisplayAssembly();
+      applyShade(colors, modelAsm);
+   }
+
+   public double getNonCurrentModelOpacity() {
+         String nonCurrentModelOpacityStr = NbBundle.getMessage(ViewDB.class,"CTL_NonCurrentModelOpacity");
+         nonCurrentModelOpacityStr=Preferences.userNodeForPackage(TheApp.class).get("NonCurrentModelOpacity", nonCurrentModelOpacityStr);
+         if (nonCurrentModelOpacityStr != null)
+            setNonCurrentModelOpacity(Double.valueOf(nonCurrentModelOpacityStr));
+         return nonCurrentModelOpacity;
+   }
+
+   public void setNonCurrentModelOpacity(double nonCurrentModelOpacity) {
+      this.nonCurrentModelOpacity = nonCurrentModelOpacity;
+      Preferences.userNodeForPackage(TheApp.class).get("NonCurrentModelOpacity", String.valueOf(nonCurrentModelOpacity));
    }
 }
