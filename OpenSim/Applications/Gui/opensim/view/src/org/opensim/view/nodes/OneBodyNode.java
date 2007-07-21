@@ -43,7 +43,7 @@ public class OneBodyNode extends OpenSimObjectNode{
      * Icon for the body node 
      **/
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/body.png");
+        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/bodyNode.png");
         if (imageURL != null) {
             return new ImageIcon(imageURL, "Body").getImage();
         } else {

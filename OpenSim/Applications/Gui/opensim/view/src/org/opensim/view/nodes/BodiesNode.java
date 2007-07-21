@@ -1,5 +1,8 @@
 package org.opensim.view.nodes;
 
+import java.awt.Image;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.Stack;
@@ -57,7 +60,35 @@ public class BodiesNode extends OpenSimObjectNode {
         }
         //getChildren().add(new MyChildren(m).getNodes());
     }
-    
+
+      public Image getIcon(int i) {
+      URL imageURL=null;
+      try {
+         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/bodyNode.png");
+      } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+      }
+      if (imageURL != null) {
+         return new ImageIcon(imageURL, "").getImage();
+      } else {
+         return null;
+      }
+   }
+   
+   public Image getOpenedIcon(int i) {
+      URL imageURL=null;
+      try {
+         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/bodyNode.png");
+      } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+      }
+      if (imageURL != null) {
+         return new ImageIcon(imageURL, "").getImage();
+      } else {
+         return null;
+      }
+   }
+   
     /**
      * Display name 
      */

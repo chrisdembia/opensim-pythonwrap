@@ -1,8 +1,8 @@
 /*
  *
  * OneMotionNode
- * Author(s): Ayman Habib
- * Copyright (c) 2005-2006, Stanford University, Ayman Habib
+ * Author(s): Ayman Habib & Jeff Reinbolt
+ * Copyright (c) 2005-2006, Stanford University, Ayman Habib & Jeff Reinbolt
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -26,6 +26,8 @@
 package org.opensim.motionviewer;
 
 import java.awt.Image;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.Action;
 import org.openide.nodes.Children;
 import org.opensim.modeling.Model;
@@ -34,28 +36,40 @@ import org.opensim.view.nodes.*;
 
 /**
  *
- * @author Ayman
+ * @author Ayman & Jeff
  */
 public class OneMotionNode extends OpenSimObjectNode{
-   
-   /** Creates a new instance of OneMotionNode */
+
+    /** Creates a new instance of OneMotionNode */
    public OneMotionNode(Storage motion) {
       super(motion);
       setChildren(Children.LEAF);
    }
-
+   
    public Image getIcon(int i) {
-      Image retValue;
-      
-      retValue = super.getIcon(i);
-      return retValue;
+      URL imageURL=null;
+      try {
+         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/motionNode.png");
+      } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+      }
+      if (imageURL != null) {
+         return new ImageIcon(imageURL, "").getImage();
+      } else {
+         return null;
+      }
+//      Image retValue;
+//      
+//      retValue = super.getIcon(i);
+//      return retValue;
    }
 
    public Image getOpenedIcon(int i) {
-      Image retValue;
-      
-      retValue = super.getOpenedIcon(i);
-      return retValue;
+       return getIcon(i);
+//      Image retValue;
+//      
+//      retValue = super.getOpenedIcon(i);
+//      return retValue;
    }
    
    public Model getModel()
