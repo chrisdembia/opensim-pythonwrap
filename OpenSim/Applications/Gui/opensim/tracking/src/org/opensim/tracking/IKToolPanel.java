@@ -87,7 +87,12 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
 
    public void update(Observable observable, Object obj) {
       System.out.println("UPDATE");
-      updateFromModel();
+      if(observable == ikToolModel && obj == IKToolModel.Operation.ExecutionFinished) {
+         // Just need to update the buttons
+         updateDialogButtons();
+      } else {
+         updateFromModel();
+      }
    }
 
    public void updateModelDataFromModel() {

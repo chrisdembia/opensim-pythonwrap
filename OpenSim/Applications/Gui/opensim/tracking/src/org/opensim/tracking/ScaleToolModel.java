@@ -259,7 +259,6 @@ public class ScaleToolModel extends Observable implements Observer {
 
       // Create scale tool
       scaleTool = new ScaleTool();
-      scaleTool.setPrintResultFiles(false);
       setName(originalModel.getName()+"-scaled"); // initialize name of output (scaled) model
       setMass(getModelMass(originalModel)); // initialize mass to the subject's current mass
 
@@ -281,6 +280,7 @@ public class ScaleToolModel extends Observable implements Observer {
    private void updateScaleTool() {
       bodySetScaleFactors.toModelScaler();
       ikCommonModel.toMarkerPlacer(scaleTool.getMarkerPlacer());
+      scaleTool.setPrintResultFiles(false);
    }
 
    public void execute() {
@@ -718,7 +718,6 @@ public class ScaleToolModel extends Observable implements Observer {
          return false;
       }
       scaleTool = newScaleTool;
-      scaleTool.setPrintResultFiles(false);
       relativeToAbsolutePaths(fileName);
 
       // reset some things in the scale tool which we will not use

@@ -4,9 +4,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import org.netbeans.api.progress.ProgressHandle;
+import org.netbeans.api.progress.ProgressHandleFactory;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
+import org.openide.util.Cancellable;
 import org.opensim.modeling.IKTool;
 import org.opensim.modeling.IKTrial;
+import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Model;
+import org.opensim.motionviewer.JavaMotionDisplayerCallback;
+import org.opensim.motionviewer.MotionsDB;
+import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
 
@@ -16,7 +25,7 @@ import org.opensim.utils.FileUtils;
 // Only deals with a single (the first) IKTrial in the IKTrialSet of IKTool
 public class IKToolModel extends Observable implements Observer {
 
-   enum Operation { AllDataChanged, IKTaskSetChanged };
+   enum Operation { AllDataChanged, IKTaskSetChanged, ExecutionFinished };
 
    private IKTool ikTool = null;
    private Model model = null;
@@ -47,25 +56,111 @@ public class IKToolModel extends Observable implements Observer {
 
    private void updateIKTool() {
       ikCommonModel.toIKTool(ikTool);
+      ikTool.setPrintResultFiles(false);
    }
 
-   public void execute() {
-      System.out.println("IKToolModel.execute");
-      if(isModified()) {
-         try {
-            System.out.println("IKToolModel.execute -- actually doing it");
-            updateIKTool();
-            ikTool.run();
-            // TODO: add/update motion in model
-            resetModified();
-         } catch (Exception ex) {
-            ex.printStackTrace();
-         }
+   class IKToolWorker extends SwingWorker {
+      private ProgressHandle progressHandle = null;
+      private JavaMotionDisplayerCallback animationCallback = null;
+      private InterruptingIntegCallback interruptingCallback = null;
+      boolean result = false;
+      boolean promptToKeepPartialResult = true;
+     
+      IKToolWorker() {
+         updateIKTool();
+
+         // We assume we're working with trial 0.  No support for dealing with other trials in the trial set right now.
+         ikTool.initializeTrial(0);
+
+         // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
+         // another motion show up on it)
+         MotionsDB.getInstance().flushMotions();
+
+         // Animation callback will update the display during IK solve
+         animationCallback = new JavaMotionDisplayerCallback(getModel(), ikTool.getIKTrialSet().get(0).getOutputStorage());
+         getModel().addIntegCallback(animationCallback);
+         animationCallback.setStepInterval(1);
+
+         // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
+         // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object
+         // it would then later try to delete it yet again)
+         interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
+         getModel().addIntegCallback(interruptingCallback);
+
+         progressHandle = ProgressHandleFactory.createHandle("Executing inverse kinematics...",
+                              new Cancellable() {
+                                 public boolean cancel() {
+                                    interrupt(true);
+                                    return true;
+                                 }
+                              });
+         progressHandle.start();
       }
+
+      public void interrupt(boolean promptToKeepPartialResult) {
+         this.promptToKeepPartialResult = promptToKeepPartialResult;
+         if(interruptingCallback!=null) interruptingCallback.interrupt();
+      }
+
+      public Object construct() {
+         result = ikTool.solveTrial(0);
+
+         // Update one last time (TODO: is this necessary?)
+         animationCallback.updateDisplaySynchronously();
+
+         return this;
+      }
+
+      public void finished() {
+         progressHandle.finish();
+
+         // Clean up motion displayer (this is necessary!)
+         animationCallback.cleanupMotionDisplayer();
+
+         getModel().removeIntegCallback(animationCallback);
+         getModel().removeIntegCallback(interruptingCallback);
+         interruptingCallback = null;
+
+         if(result) resetModified();
+
+         boolean addMotion = true;
+         if(!result) {
+            if(promptToKeepPartialResult) {
+               Object answer = DialogDisplayer.getDefault().notify(new NotifyDescriptor.Confirmation("Inverse kinematics did not complete.  Keep partial result?",NotifyDescriptor.YES_NO_OPTION));
+               if(answer==NotifyDescriptor.NO_OPTION) addMotion = false;
+            } else {
+               addMotion = false;
+            }
+         }
+
+         // TODO: add output storage as motion to the model
+         System.out.println("addMotion = "+addMotion);
+
+         setChanged();
+         notifyObservers(Operation.ExecutionFinished);
+
+         worker = null;
+      }
+   }
+
+   private IKToolWorker worker = null;
+
+   public void execute() {
+      if(isModified() && worker==null) {
+         worker = new IKToolWorker();
+         worker.start();
+      }
+   }
+
+   // TODO: may need to use locks and such to ensure that worker doesn't get set to null (by IKToolWorker.finished()) in between worker!=null check and worker.interrupt()
+   // But I think both will typically run on the swing thread so probably safe
+   public void interrupt(boolean promptToKeepPartialResult) {
+      if(worker!=null) worker.interrupt(promptToKeepPartialResult);
    }
 
    public void cancel() {
       System.out.println("IKToolModel.cancel");
+      interrupt(false);
       // TODO: remove motion from model
    }
 
