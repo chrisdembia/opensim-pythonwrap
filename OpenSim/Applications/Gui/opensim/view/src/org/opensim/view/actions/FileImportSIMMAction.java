@@ -15,12 +15,14 @@ public final class FileImportSIMMAction extends CallableSystemAction {
     
     public void performAction() {
         // TODO implement action body
-       String jntFileName = FileUtils.getInstance().browseForFilename(".jnt", "SIMM .jnt file", true);
-        if (jntFileName!=null){
+       String[] simmFileNames = FileUtils.getInstance().browseForSIMMModelFiles();
+        if (simmFileNames!=null){
+            String jntFilename = simmFileNames[0];
+            String mslFilename = "";
+            if (simmFileNames.length==2)
+                mslFilename=simmFileNames[1];
             // Make sure we have the right extension.
-            if (!jntFileName.endsWith(".jnt"))
-                jntFileName = jntFileName+".jnt";
-            File f = new File(jntFileName);
+            File f = new File(jntFilename);
             File jntFileDir = f.getParentFile();
             String tempFilename=null;
             try {
@@ -31,10 +33,13 @@ public final class FileImportSIMMAction extends CallableSystemAction {
                         new NotifyDescriptor.Message("Could not create a temporary file to perform model conversion. Check permissions."));
                 return;
             }
+            // Form command to do conversion, quote file names to work around spaces
+            String command="simmToOpenSim -j \""+jntFilename+"\"";
+            
+            if (mslFilename.compareTo("")!=0)
+                command += " -m \""+mslFilename+"\"";
             // simmToOpenSim is assumed in the Path, similar to other dlls we depend on.
-            //jntFileName.replace(" ", "\\ ");
-            //tempFilename.replace(" ", "\\ ");
-            String command="simmToOpenSim -j \""+jntFileName+"\" -x \""+tempFilename+"\"";
+            command=command+" -x "+tempFilename;
             boolean success = ExecOpenSimProcess.execute(command, new String[]{""}, jntFileDir );
             if (success){
                 try {

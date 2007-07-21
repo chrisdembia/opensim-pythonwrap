@@ -25,6 +25,7 @@
  */
 package org.opensim.utils;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -290,4 +291,69 @@ public final class FileUtils {
       if (effectivelyNull(fileName) || (new File(fileName)).isAbsolute()) return fileName;
       else return (new File(parentDir, fileName)).getAbsolutePath();
    }
+
+    public String[] browseForSIMMModelFiles() {
+        String extensions="*.jnt,*.msl";
+        String desc="SIMM model files, one .jnt file and optional one .msl file";
+        // Init dialog to use "WorkDirectory" as thought of by user
+        String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
+        final JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setMultiSelectionEnabled(true);
+        dlog.setFileFilter(getFileFilter(extensions, desc));
+        
+        String[] outFilenames=null;
+        File[] outFiles=null;
+        JFrame topFrame = TheApp.getAppFrame();
+        for (;;) {
+           int result = dlog.showOpenDialog(topFrame);
+           outFilenames = null;
+           if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFiles() != null)
+                outFiles = dlog.getSelectedFiles();
+           boolean allExist=true;
+           String badFiles="";
+           int numJntFiles=0;
+           int numMslFiles=0;
+           for( int i=0;i<outFiles.length;i++){
+               File nextSelectedFile = outFiles[i];
+               if (!nextSelectedFile.exists()){
+                    try {
+                        badFiles += outFiles[i].getCanonicalFile().getName()+" ";
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                   allExist = false;
+               }
+               else
+                   if (nextSelectedFile.getName().endsWith(".jnt"))
+                       numJntFiles++;
+               else if (nextSelectedFile.getName().endsWith(".msl"))
+                       numMslFiles++;                      
+           }
+           /** 
+            * If isRequired2Exist flag is passed in as true we need to make sure the file really exists
+            */
+           if (allExist==false)
+              DialogDisplayer.getDefault().notify(
+                      new NotifyDescriptor.Message("Selected file(s) "+badFiles+" do not exist."));
+           else if (numJntFiles!=1)
+              DialogDisplayer.getDefault().notify(
+                      new NotifyDescriptor.Message("One jnt file must be selected."));
+           else if (numMslFiles>1)
+              DialogDisplayer.getDefault().notify(
+                      new NotifyDescriptor.Message("At most one msl file can be selected."));
+           else
+               break;
+       }
+       outFilenames = new String[outFiles.length];
+       for (int i=0; i<outFiles.length;i++){ // either one or two
+           if (outFiles[i].getName().endsWith(".jnt"))
+               outFilenames[0]=outFiles[i].getAbsolutePath();
+           else
+                outFilenames[1]=outFiles[i].getAbsolutePath();             
+       }
+       if(outFilenames != null) Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFiles()[0].getParent());
+       // get jnt file followed by muscle file of any into output array
+        
+       return outFilenames;
+    }
 }
