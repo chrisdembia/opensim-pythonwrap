@@ -60,13 +60,16 @@ src/xercesc/validators/schema
 src/xercesc/validators/DTD
 )
 
+IF(INSTALL_HEADERS)
 FOREACH(dir ${XERCES_INCLUDE_DIRS})
-    FILE(GLOB HEADERS ../../../../${dir}/*.hpp)	# returns full pathnames
+   FILE(GLOB HEADERS ../../../../${dir}/*.hpp)	# returns full pathnames
 	INSTALL_FILES(/include/Vendors/xerces-c-src_2_7_0/${dir} .hpp ${HEADERS})
 ENDFOREACH(dir)
 
 FILE(GLOB UTIL_C_FILES ../../../../src/xercesc/util/*.c)
 INSTALL_FILES(/include/Vendors/xerces-c-src_2_7_0/src/xercesc/util .c ${UTIL_C_FILES})
+ENDIF(INSTALL_HEADERS)
+
 IF(WIN32)
 INSTALL_FILES(/bin/ FILES ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Release/xerces-c_2_7.dll)
 INSTALL_FILES(/lib/ FILES ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/Build/Win32/VC7/Release/xerces-c_2.lib)
