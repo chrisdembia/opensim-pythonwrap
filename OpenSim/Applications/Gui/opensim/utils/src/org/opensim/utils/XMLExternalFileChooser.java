@@ -19,7 +19,7 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
       public Item(String name, String defaultExternalFileName) {
          setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
        
-         Dimension checkBoxDim = new Dimension(100,20); 
+         Dimension checkBoxDim = new Dimension(200,20); 
          Dimension fileNameDim = new Dimension(300,20);
 
          writeExternalCheckBox.setMinimumSize(checkBoxDim);
@@ -116,10 +116,9 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
          .add(layout.createSequentialGroup()
             .addContainerGap()
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                  .add(parentDirectoryTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                  .add(jTextArea1))
-               .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+               .add(jTextArea1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 500, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(parentDirectoryTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+               .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
             .addContainerGap())
       );
       layout.setVerticalGroup(
@@ -130,7 +129,7 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(parentDirectoryTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
