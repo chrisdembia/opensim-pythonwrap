@@ -1032,11 +1032,6 @@ public final class ViewDB extends Observable implements Observer {
       }
    }
 
-   public void setModelColorShade(Model aModel, double[] colors) {
-      vtkAssembly modelAsm = (vtkAssembly) mapModelsToVisuals.get(aModel).getModelDisplayAssembly();
-      applyShade(colors, modelAsm);
-   }
-
    public double getNonCurrentModelOpacity() {
          String nonCurrentModelOpacityStr = NbBundle.getMessage(ViewDB.class,"CTL_NonCurrentModelOpacity");
          nonCurrentModelOpacityStr=Preferences.userNodeForPackage(TheApp.class).get("NonCurrentModelOpacity", nonCurrentModelOpacityStr);
