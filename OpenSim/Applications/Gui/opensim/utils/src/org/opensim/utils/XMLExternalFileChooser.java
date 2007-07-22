@@ -1,7 +1,7 @@
 package org.opensim.utils;
 
-import java.awt.Component;
 import java.awt.Dimension;
+import java.io.File;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -19,7 +19,7 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
       public Item(String name, String defaultExternalFileName) {
          setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
        
-         Dimension checkBoxDim = new Dimension(200,20); 
+         Dimension checkBoxDim = new Dimension(100,20); 
          Dimension fileNameDim = new Dimension(300,20);
 
          writeExternalCheckBox.setMinimumSize(checkBoxDim);
@@ -35,6 +35,7 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
 
          externalFileName.setAssociatedCheckBox(writeExternalCheckBox);
          externalFileName.setTreatEmptyStringAsValid(false);
+         externalFileName.setCheckIfFileExists(false);
          externalFileName.setFileName(defaultExternalFileName!=null ? defaultExternalFileName : "", false);
 
          add(externalFileName);
@@ -46,17 +47,17 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
 
    // If returns true then was successful (user pressed OK), and sets new values in externalFileNames
    // If returns then user pressed Cancel
-   static public boolean promptUser(Item[] items) {
-      XMLExternalFileChooser panel = new XMLExternalFileChooser();
+   static public boolean promptUser(String mainSettingsFileName, Item[] items) {
+      XMLExternalFileChooser panel = new XMLExternalFileChooser(mainSettingsFileName);
       for(int i=0; i<items.length; i++) panel.jPanel1.add(items[i]);
       DialogDescriptor dlg = new DialogDescriptor(panel, "Choose external references in XML file");
       Object answer = DialogDisplayer.getDefault().notify(dlg);
       return answer==NotifyDescriptor.OK_OPTION;
    }
 
-   static public boolean promptUser(String[] names, String[] externalFileNames) {
+   static public boolean promptUser(String mainSettingsFileName, String[] names, String[] externalFileNames) {
       assert(names.length == externalFileNames.length);
-      XMLExternalFileChooser panel = new XMLExternalFileChooser();
+      XMLExternalFileChooser panel = new XMLExternalFileChooser(mainSettingsFileName);
       for(int i=0; i<names.length; i++) panel.addItem(names[i], externalFileNames[i]);
       DialogDescriptor dlg = new DialogDescriptor(panel, "Choose external references in XML file");
       Object answer = DialogDisplayer.getDefault().notify(dlg);
@@ -64,8 +65,13 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
       return answer==NotifyDescriptor.OK_OPTION;
    }
 
-   public XMLExternalFileChooser() {
+   public XMLExternalFileChooser(String mainSettingsFileName) {
       initComponents();
+     
+      if(mainSettingsFileName!=null)
+         parentDirectoryTextField.setText((new File(mainSettingsFileName)).getParent());
+      else
+         parentDirectoryTextField.setText("Unknown");
    }
 
    public void addItem(String name, String defaultExternalFileName) {
@@ -84,29 +90,24 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
    private void initComponents() {
       jTextArea1 = new javax.swing.JTextArea();
+      parentDirectoryTextField = new javax.swing.JTextField();
       jPanel1 = new javax.swing.JPanel();
-      jCheckBox1 = new javax.swing.JCheckBox();
 
       jTextArea1.setColumns(20);
-      jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 11));
+      jTextArea1.setEditable(false);
+      jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 11));
       jTextArea1.setLineWrap(true);
       jTextArea1.setRows(5);
-      jTextArea1.setText("The settings below can be optionally written to external files, allowing multiple trials to share the same settings.\nSelect which of the following you would like written to external files, and specify their file names.");
+      jTextArea1.setText("The settings below can be optionally written to external files, allowing multiple trials to share the same settings.  Select which of the following you would like written to external files, and specify their file names.\n\nRelative paths are allowed, and are relative to the directory of the main settings file:");
       jTextArea1.setWrapStyleWord(true);
       jTextArea1.setOpaque(false);
+
+      parentDirectoryTextField.setEditable(false);
+      parentDirectoryTextField.setText("jTextField1");
 
       jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
       jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-      jCheckBox1.setText("Use relative paths");
-      jCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      jCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-      jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jCheckBox1ActionPerformed(evt);
-         }
-      });
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
@@ -115,9 +116,10 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
          .add(layout.createSequentialGroup()
             .addContainerGap()
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-               .add(jTextArea1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-               .add(jCheckBox1))
+               .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                  .add(parentDirectoryTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                  .add(jTextArea1))
+               .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
             .addContainerGap())
       );
       layout.setVerticalGroup(
@@ -125,23 +127,19 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
          .add(layout.createSequentialGroup()
             .addContainerGap()
             .add(jTextArea1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 257, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jCheckBox1)
+            .add(parentDirectoryTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
-
-   private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-      System.out.println("Action event "+evt);
-   }//GEN-LAST:event_jCheckBox1ActionPerformed
    
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
-   private javax.swing.JCheckBox jCheckBox1;
    private javax.swing.JPanel jPanel1;
    private javax.swing.JTextArea jTextArea1;
+   private javax.swing.JTextField parentDirectoryTextField;
    // End of variables declaration//GEN-END:variables
    
 }

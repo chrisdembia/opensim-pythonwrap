@@ -22,6 +22,7 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
    private boolean fileIsValid = true;
    private boolean treatUnassignedAsEmptyString = true;
    private boolean treatEmptyStringAsValid = true;
+   private boolean checkIfFileExists = true;
 
    private JCheckBox checkBox = null; // Optional associated check box which enables/disables the text field
 
@@ -34,6 +35,10 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       initComponents();
       lastFileName = fileNameTextField.getText();
       setExtensionsAndDescription(extensions,description);
+   }
+
+   public void setCheckIfFileExists(boolean check) {
+      checkIfFileExists = check;
    }
 
    public void setExtensionsAndDescription(String extensions, String description) {
@@ -50,7 +55,8 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       if(!name.equals(lastFileName)) {
          lastFileName = name;
          fileNameTextField.setText(name);
-         setFileIsValid((new File(name)).exists());
+         if(checkIfFileExists) setFileIsValid((new File(name)).exists());
+         else setFileIsValid(true);
          if(triggerEvent) fireStateChanged();
       }
    }

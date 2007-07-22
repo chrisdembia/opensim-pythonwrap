@@ -15,9 +15,11 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel1" alignment="0" pref="449" max="32767" attributes="1"/>
-                  <Component id="jTextArea1" alignment="0" pref="449" max="32767" attributes="1"/>
-                  <Component id="jCheckBox1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="parentDirectoryTextField" alignment="0" pref="400" max="32767" attributes="1"/>
+                      <Component id="jTextArea1" alignment="0" max="32767" attributes="1"/>
+                  </Group>
+                  <Component id="jPanel1" alignment="0" pref="400" max="32767" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -28,11 +30,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jTextArea1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jPanel1" min="-2" pref="257" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="parentDirectoryTextField" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" pref="137" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,14 +43,21 @@
     <Component class="javax.swing.JTextArea" name="jTextArea1">
       <Properties>
         <Property name="columns" type="int" value="20"/>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="11" style="0"/>
+          <Font name="Tahoma" size="11" style="0"/>
         </Property>
         <Property name="lineWrap" type="boolean" value="true"/>
         <Property name="rows" type="int" value="5"/>
-        <Property name="text" type="java.lang.String" value="The settings below can be optionally written to external files, allowing multiple trials to share the same settings.&#xa;Select which of the following you would like written to external files, and specify their file names."/>
+        <Property name="text" type="java.lang.String" value="The settings below can be optionally written to external files, allowing multiple trials to share the same settings.  Select which of the following you would like written to external files, and specify their file names.&#xa;&#xa;Relative paths are allowed, and are relative to the directory of the main settings file:"/>
         <Property name="wrapStyleWord" type="boolean" value="true"/>
         <Property name="opaque" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="parentDirectoryTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" value="jTextField1"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -64,21 +73,5 @@
         <Property name="axis" type="int" value="1"/>
       </Layout>
     </Container>
-    <Component class="javax.swing.JCheckBox" name="jCheckBox1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Use relative paths"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-          </Border>
-        </Property>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[0, 0, 0, 0]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
-      </Events>
-    </Component>
   </SubComponents>
 </Form>

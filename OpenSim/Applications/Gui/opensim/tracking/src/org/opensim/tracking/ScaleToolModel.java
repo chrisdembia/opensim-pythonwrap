@@ -747,7 +747,7 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    public boolean saveSettings(String fileName) {
-      XMLExternalFileChooserHelper helper = new XMLExternalFileChooserHelper();
+      XMLExternalFileChooserHelper helper = new XMLExternalFileChooserHelper(fileName);
       helper.addObject(scaleTool.getModelScaler().getMeasurementSet(), "Measurement Set");
       helper.addObject(scaleTool.getModelScaler().getScaleSet(), "Scale Set (manual scale factors)");
       helper.addObject(scaleTool.getMarkerPlacer().getIKTaskSet(), "IK Task Set (for static pose)");

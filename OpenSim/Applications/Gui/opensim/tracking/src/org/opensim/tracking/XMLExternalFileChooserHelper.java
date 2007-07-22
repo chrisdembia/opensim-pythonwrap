@@ -11,7 +11,12 @@ public class XMLExternalFileChooserHelper {
       public Item(OpenSimObject obj, String description) { this.obj = obj; this.description = description; }
    }
 
+   private String mainSettingsFileName;
    private Vector<Item> items = new Vector<Item>();
+
+   public XMLExternalFileChooserHelper(String mainSettingsFileName) {
+      this.mainSettingsFileName = mainSettingsFileName;
+   }
 
    public void addObject(OpenSimObject obj, String description) {
       items.add(new Item(obj,description));
@@ -24,7 +29,7 @@ public class XMLExternalFileChooserHelper {
          names[i] = items.get(i).description;
          externalFileNames[i] = getXMLExternalFileName(items.get(i).obj);
       }
-      boolean result = XMLExternalFileChooser.promptUser(names, externalFileNames);
+      boolean result = XMLExternalFileChooser.promptUser(mainSettingsFileName, names, externalFileNames);
       if(result) {
          for(int i=0; i<items.size(); i++)
             applyXMLExternalFileName(items.get(i).obj, externalFileNames[i]);
@@ -37,7 +42,6 @@ public class XMLExternalFileChooserHelper {
    }
 
    private static void applyXMLExternalFileName(OpenSimObject obj, String externalFileName) {
-      System.out.println("APPLY " + externalFileName + " to " + obj.getType());
       if(externalFileName==null) obj.setInlined(true);
       else obj.setInlined(false, externalFileName);
    }

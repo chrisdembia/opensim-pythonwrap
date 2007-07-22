@@ -282,7 +282,7 @@ public class IKToolModel extends Observable implements Observer {
    }
 
    public boolean saveSettings(String fileName) {
-      XMLExternalFileChooserHelper helper = new XMLExternalFileChooserHelper();
+      XMLExternalFileChooserHelper helper = new XMLExternalFileChooserHelper(fileName);
       helper.addObject(ikTool.getIKTaskSet(), "IK Task Set");
       if(!helper.promptUser()) return false;
       updateIKTool();
