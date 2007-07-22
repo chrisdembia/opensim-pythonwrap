@@ -16,7 +16,7 @@ public final class FileImportSIMMAction extends CallableSystemAction {
     public void performAction() {
         // TODO implement action body
        String[] simmFileNames = FileUtils.getInstance().browseForSIMMModelFiles();
-        if (simmFileNames!=null){
+        if (simmFileNames!=null && simmFileNames.length>0){
             String jntFilename = simmFileNames[0];
             String mslFilename = "";
             if (simmFileNames.length==2)

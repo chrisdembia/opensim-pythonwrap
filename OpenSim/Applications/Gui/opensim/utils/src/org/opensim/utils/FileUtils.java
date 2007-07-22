@@ -301,14 +301,15 @@ public final class FileUtils {
         dlog.setMultiSelectionEnabled(true);
         dlog.setFileFilter(getFileFilter(extensions, desc));
         
-        String[] outFilenames=null;
         File[] outFiles=null;
         JFrame topFrame = TheApp.getAppFrame();
         for (;;) {
            int result = dlog.showOpenDialog(topFrame);
-           outFilenames = null;
+           outFiles = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFiles() != null)
                 outFiles = dlog.getSelectedFiles();
+           else
+              break;
            boolean allExist=true;
            String badFiles="";
            int numJntFiles=0;
@@ -323,8 +324,7 @@ public final class FileUtils {
                     }
                    allExist = false;
                }
-               else
-                   if (nextSelectedFile.getName().endsWith(".jnt"))
+               else if (nextSelectedFile.getName().endsWith(".jnt"))
                        numJntFiles++;
                else if (nextSelectedFile.getName().endsWith(".msl"))
                        numMslFiles++;                      
@@ -344,14 +344,17 @@ public final class FileUtils {
            else
                break;
        }
-       outFilenames = new String[outFiles.length];
-       for (int i=0; i<outFiles.length;i++){ // either one or two
-           if (outFiles[i].getName().endsWith(".jnt"))
-               outFilenames[0]=outFiles[i].getAbsolutePath();
-           else
-                outFilenames[1]=outFiles[i].getAbsolutePath();             
+       String[] outFilenames=null;
+       if(outFiles!=null) {
+          outFilenames = new String[outFiles.length];
+          for (int i=0; i<outFiles.length;i++){ // either one or two
+              if (outFiles[i].getName().endsWith(".jnt"))
+                  outFilenames[0]=outFiles[i].getAbsolutePath();
+              else
+                   outFilenames[1]=outFiles[i].getAbsolutePath();             
+          }
+          if(outFilenames.length>0) Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFiles()[0].getParent());
        }
-       if(outFilenames != null) Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFiles()[0].getParent());
        // get jnt file followed by muscle file of any into output array
         
        return outFilenames;
