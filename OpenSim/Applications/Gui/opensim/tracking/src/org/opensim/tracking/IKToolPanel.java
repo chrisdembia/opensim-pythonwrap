@@ -56,7 +56,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
       if(model==null) throw new IOException("IKToolPanel got null model");
 
       ikToolModel = new IKToolModel(model);
-      ikToolModel.loadSettings("C:\\eran\\dev\\simbios\\opensim\\Trunk\\OpenSim\\Examples\\Gait2354\\subject01_Setup_IK.xml");
+      //ikToolModel.loadSettings("C:\\eran\\dev\\simbios\\opensim\\Trunk\\OpenSim\\Examples\\Gait2354\\subject01_Setup_IK.xml");
 
       initComponents();
 

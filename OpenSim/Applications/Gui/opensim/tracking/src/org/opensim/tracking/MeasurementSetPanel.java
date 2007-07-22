@@ -46,6 +46,7 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
    private static final int MARKER_NAME_WIDTH = 90;
    private static final String DEFAULT_MEASUREMENT_NAME = "Unnamed";
    private static final Dimension buttonDim = new Dimension(BUTTON_WIDTH, HEIGHT);
+   private static final Color invalidColor = new Color(255,102,102);
 
    private static final Border measurementControlsBorder = BorderFactory.createLineBorder(Color.black); //BorderFactory.createBevelBorder(BevelBorder.LOWERED);
    private static final Border measurementControlsInnerBorder = BorderFactory.createMatteBorder(0,0,0,1,Color.lightGray);
@@ -297,12 +298,17 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
    // Content (marker pairs)
    //------------------------------------------------------------------------
    public JComponent getMarkerComponent(final String name, final int measurementIndex, final int markerPairIndex, final int index) {
-      JButton markerButton = new JButton(name);
       Dimension dim = new Dimension(MARKER_NAME_WIDTH,HEIGHT);
+      JTextField markerButton = new JTextField(name);
+      markerButton.setEditable(false);
+      markerButton.setHorizontalAlignment(SwingConstants.CENTER);
+      // Indicate marker does not exist in model's marker set with red color (though the measurement may still be invalid
+      // if this marker is not found in the marker data passed to the model scaler)
+      if(!markerNames.contains(name)) markerButton.setBackground(invalidColor);
+      else markerButton.setBackground(Color.white);
       markerButton.setMinimumSize(dim);
       markerButton.setMaximumSize(dim);
       markerButton.setPreferredSize(dim);
-      markerButton.setContentAreaFilled(false);
       markerButton.setBorder(markerInnerBorder);
       markerButton.addMouseListener(new MouseAdapter() {
          public void mousePressed(MouseEvent evt) {

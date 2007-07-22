@@ -29,6 +29,7 @@ class BodyScaleFactorsSubCellRenderer extends DefaultTableCellRenderer {
    private Border intendedBorder; // store the border the DefaultTableCellRenderer wanted to use, and use this for the surrounding panel instead.
    private DecimalFormat numberFormat = new DecimalFormat("0.000000");
 
+   private static Color invalidColor = new Color(255,102,102);
    private Font regularFont = new Font("Tahoma", Font.PLAIN, 11);
    private Font boldFont = new Font("Tahoma", Font.BOLD, 11);
 
@@ -37,12 +38,31 @@ class BodyScaleFactorsSubCellRenderer extends DefaultTableCellRenderer {
    }
 
    public Component getMeasurementSubCellRenderer(JTable table, BodyScaleFactors scaleFactors, boolean isSelected, boolean hasFocus, int row, int col, int i, int n) {
-      String name = (scaleFactors.measurements[i]==-1) ? ScaleFactorsTableModel.unassignedMeasurement : scaleToolModel.getMeasurementName(scaleFactors.measurements[i]);
+      String name;
+      Font font = null;
+      boolean valid = true;
+      if(scaleFactors.useManualScale()) {
+         name = "MANUAL SCALES";
+         font = boldFont;
+      } else {
+         name = (scaleFactors.measurements[i]==-1) ? ScaleFactorsTableModel.unassignedMeasurement : scaleToolModel.getMeasurementName(scaleFactors.measurements[i]);
+         font = regularFont;
+         if(scaleFactors.measurements[i]!=-1 && scaleToolModel.getMeasurementValue(scaleFactors.measurements[i])==null) valid = false;
+      }
+      // Reset bg/fg colors before calling super.getTableCellRendererComponent()
+      setBackground(null);
+      setForeground(null);
       JLabel label = (JLabel)super.getTableCellRendererComponent(table,name,isSelected,hasFocus,row,col);
       intendedBorder = label.getBorder();
       if(n==3) label.setBorder(interiorBorders[i]);
       else label.setBorder(null);
       label.setHorizontalAlignment(SwingConstants.LEADING);
+      label.setFont(font);
+      // Override bg/fg colors for invalid measurment (most likely it refers to markers which are not available in the model)
+      if(!valid) {
+         if(isSelected) label.setForeground(invalidColor);
+         else label.setBackground(invalidColor);
+      }
       return label;
    }
 
@@ -60,6 +80,8 @@ class BodyScaleFactorsSubCellRenderer extends DefaultTableCellRenderer {
          }
          font = regularFont;
       }
+      setBackground(null);
+      setForeground(null);
       JLabel label = (JLabel)super.getTableCellRendererComponent(table,str,isSelected,hasFocus,row,col);
       intendedBorder = label.getBorder();
       if(n==3) label.setBorder(interiorBorders[i]);
@@ -89,7 +111,7 @@ class BodyScaleFactorsCellRenderer implements TableCellRenderer {
       JPanel panel = new JPanel();
       panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
       if(col==1) { // Measurement column
-         int n = scaleFactors.uniformMeasurements() ? 1 : 3;
+         int n = (scaleFactors.uniformMeasurements() || scaleFactors.useManualScale()) ? 1 : 3;
          for(int i=0; i<n; i++) 
             panel.add(renderers[i].getMeasurementSubCellRenderer(table, scaleFactors, isSelected, hasFocus, row, col, i, n));
       } else { // Scale factors column
@@ -104,7 +126,7 @@ class BodyScaleFactorsCellRenderer implements TableCellRenderer {
 }
 
 public class ScaleFactorsTableModel extends AbstractTableModel implements Observer {
-   private String[] columnNames = new String[]{"Body Name", "Measurement(s)", "Applied Scale Factor(s) (using either measurements or manual values)"};
+   private String[] columnNames = new String[]{"Body Name", "Measurement(s) Used", "Applied Scale Factor(s)"};
 
    private ScaleToolModel scaleToolModel;
    private BodySet bodySet;

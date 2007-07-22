@@ -262,6 +262,8 @@ public class ScaleToolModel extends Observable implements Observer {
       setName(originalModel.getName()+"-scaled"); // initialize name of output (scaled) model
       setMass(getModelMass(originalModel)); // initialize mass to the subject's current mass
 
+      measurementValues = new Vector<Double>();
+
       bodySetScaleFactors = new BodySetScaleFactors(this, unscaledModel.getDynamicsEngine().getBodySet());
 
       ikCommonModel = new IKCommonModel(unscaledModel);
@@ -359,11 +361,27 @@ public class ScaleToolModel extends Observable implements Observer {
    // Validation
    //------------------------------------------------------------------------
 
+   private boolean getBodyScaleFactorsValid(BodyScaleFactors scaleFactors) {
+      if(!scaleFactors.useManualScale()) {
+         for(int i=0; i<3; i++)
+            if(scaleFactors.measurements[i]!=-1 && getMeasurementValue(scaleFactors.measurements[i])==null)
+               return false;
+      }
+      return true;
+   }
+
+   private boolean getBodySetScaleFactorsValid() {
+      for(int i=0; i<getBodySetScaleFactors().size(); i++)
+         if(!getBodyScaleFactorsValid(getBodySetScaleFactors().get(i)))
+            return false;
+      return true;
+   }
+
    public boolean isValid() {
       boolean markerSetValid = !getUseExtraMarkerSet() || getExtraMarkerSetValid();
       boolean modelScalerValid = !getModelScalerEnabled() || getMeasurementTrialValid();
       boolean markerPlacerValid = !getMarkerPlacerEnabled() || ikCommonModel.isValid();
-      return markerSetValid && modelScalerValid && markerPlacerValid;
+      return markerSetValid && modelScalerValid && markerPlacerValid && getBodySetScaleFactorsValid();
    }
 
    //------------------------------------------------------------------------
