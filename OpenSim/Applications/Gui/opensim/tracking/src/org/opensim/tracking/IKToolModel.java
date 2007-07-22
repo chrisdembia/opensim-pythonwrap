@@ -122,7 +122,7 @@ public class IKToolModel extends Observable implements Observer {
    // END IKToolWorker
    //========================================================================
 
-   enum Operation { AllDataChanged, IKTaskSetChanged, ExecutionStateChanged };
+   enum Operation { AllDataChanged, IKTrialNameChanged, IKTaskSetChanged, ExecutionStateChanged };
 
    private IKTool ikTool = null;
    private Model model = null;
@@ -130,6 +130,7 @@ public class IKToolModel extends Observable implements Observer {
    private IKCommonModel ikCommonModel;
    private Storage motion = null;
    private boolean executing = false;
+   private String trialName = "ik trial";
 
    public IKToolModel(Model originalModel) throws IOException {
       // Store original model
@@ -147,6 +148,19 @@ public class IKToolModel extends Observable implements Observer {
    public IKTool getIKTool() { return ikTool; }
    public IKCommonModel getIKCommonModel() { return ikCommonModel; }
    
+   //------------------------------------------------------------------------
+   // IK trial name
+   //------------------------------------------------------------------------
+   public String getTrialName() {
+      return trialName;
+   }
+   public void setTrialName(String trialName) {
+      if(!this.trialName.equals(trialName)) {
+         this.trialName = trialName;
+         setModified(Operation.IKTrialNameChanged);
+      }
+   }
+
    //------------------------------------------------------------------------
    // Setting the motion in the model
    //------------------------------------------------------------------------
@@ -167,6 +181,7 @@ public class IKToolModel extends Observable implements Observer {
    private void updateIKTool() {
       ikCommonModel.toIKTool(ikTool);
       ikTool.setPrintResultFiles(false);
+      if(ikTool.getIKTrialSet().getSize()>0) ikTool.getIKTrialSet().get(0).setName(trialName);
    }
 
    public void execute() {
@@ -258,16 +273,18 @@ public class IKToolModel extends Observable implements Observer {
       ikTool = newIKTool;
       relativeToAbsolutePaths(fileName);
 
-      // keep internal data in sync
-      modifiedSinceLastExecute = true;
-
       ikCommonModel.fromIKTool(ikTool);
+
+      if(ikTool.getIKTrialSet().getSize()>0) trialName = ikTool.getIKTrialSet().get(0).getName();
 
       setModified(Operation.AllDataChanged);
       return true;
    }
 
    public boolean saveSettings(String fileName) {
+      XMLExternalFileChooserHelper helper = new XMLExternalFileChooserHelper();
+      helper.addObject(ikTool.getIKTaskSet(), "IK Task Set");
+      if(!helper.promptUser()) return false;
       updateIKTool();
       ikTool.print(fileName);
       return true;

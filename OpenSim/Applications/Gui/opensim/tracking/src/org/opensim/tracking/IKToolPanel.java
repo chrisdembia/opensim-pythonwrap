@@ -109,6 +109,8 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
    public void updateFromModel() {
       System.out.println("updateFromModel");
 
+      trialNameTextField.setText(ikToolModel.getTrialName());
+
       // Static trial marker data
       markerFileName.setFileName(ikToolModel.getIKCommonModel().getMarkerDataFileName(),false);
       markerFileName.setFileIsValid(ikToolModel.getIKCommonModel().getMarkerDataValid());
@@ -179,6 +181,8 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
       markerDataInfoPanel = new org.opensim.tracking.MarkerDataInfoPanel();
       coordinateFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       jLabel17 = new javax.swing.JLabel();
+      trialNameTextField = new javax.swing.JTextField();
+      jLabel1 = new javax.swing.JLabel();
       genericModelDataPanel = new javax.swing.JPanel();
       jLabel13 = new javax.swing.JLabel();
       modelNameTextField = new javax.swing.JTextField();
@@ -233,18 +237,33 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
 
       jLabel17.setText("Coordinates file");
 
+      trialNameTextField.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            trialNameTextFieldActionPerformed(evt);
+         }
+      });
+      trialNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusLost(java.awt.event.FocusEvent evt) {
+            trialNameTextFieldFocusLost(evt);
+         }
+      });
+
+      jLabel1.setText("Trial name");
+
       org.jdesktop.layout.GroupLayout markerPlacerPanelLayout = new org.jdesktop.layout.GroupLayout(markerPlacerPanel);
       markerPlacerPanel.setLayout(markerPlacerPanelLayout);
       markerPlacerPanelLayout.setHorizontalGroup(
          markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanelLayout.createSequentialGroup()
-            .addContainerGap(60, Short.MAX_VALUE)
+            .add(60, 60, 60)
             .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                .add(jLabel17)
                .add(jLabel12)
-               .add(jLabel8))
+               .add(jLabel8)
+               .add(jLabel1))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(trialNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                .add(markerFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanelLayout.createSequentialGroup()
                   .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -266,6 +285,10 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
             .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                .add(markerDataInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(markerPlacerPanelLayout.createSequentialGroup()
+                  .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(trialNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(jLabel1))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                      .add(markerFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                      .add(jLabel12))
@@ -342,7 +365,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
             .add(genericModelDataPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(markerPlacerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(153, Short.MAX_VALUE))
+            .addContainerGap(134, Short.MAX_VALUE))
       );
       jTabbedPane.addTab("IK Tool Settings", jPanel1);
 
@@ -363,6 +386,14 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void trialNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_trialNameTextFieldFocusLost
+      if(!evt.isTemporary()) ikToolModel.setTrialName(trialNameTextField.getText());
+   }//GEN-LAST:event_trialNameTextFieldFocusLost
+
+   private void trialNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trialNameTextFieldActionPerformed
+      ikToolModel.setTrialName(trialNameTextField.getText());
+   }//GEN-LAST:event_trialNameTextFieldActionPerformed
 
    private void markerFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_markerFileNameStateChanged
       boolean result = ikToolModel.getIKCommonModel().setMarkerDataFileName(markerFileName.getFileName());
@@ -394,6 +425,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
    private org.opensim.swingui.FileTextFieldAndChooser coordinateFileName;
    private javax.swing.JTextField endTime;
    private javax.swing.JPanel genericModelDataPanel;
+   private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel12;
    private javax.swing.JLabel jLabel13;
    private javax.swing.JLabel jLabel16;
@@ -408,6 +440,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
    private javax.swing.JTextField markerSetInfoTextField;
    private javax.swing.JTextField modelNameTextField;
    private javax.swing.JTextField startTime;
+   private javax.swing.JTextField trialNameTextField;
    // End of variables declaration//GEN-END:variables
    
 }

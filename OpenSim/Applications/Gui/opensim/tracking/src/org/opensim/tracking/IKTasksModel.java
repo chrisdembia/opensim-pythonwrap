@@ -158,7 +158,10 @@ class IKMarkerTasksModel extends IKTasksModel {
             fullTaskSet.remove(i);
       // Append copies of our tasks
       for(int i=0; i<tasks.size(); i++) {
-         fullTaskSet.append(IKMarkerTask.safeDownCast(tasks.get(i).copy()));
+         // Write it out if it's applied or if it has nonzero weight (even if not applied)
+         // the latter case is so that user can recover their settings next time they load it in.
+         if(tasks.get(i).getApply() || tasks.get(i).getWeight()!=0)
+            fullTaskSet.append(IKMarkerTask.safeDownCast(tasks.get(i).copy()));
       } 
    }
 
@@ -233,8 +236,13 @@ class IKCoordinateTasksModel extends IKTasksModel {
             fullTaskSet.remove(i);
       // Append copies of our tasks
       for(int i=0; i<tasks.size(); i++) {
-         fullTaskSet.append(IKCoordinateTask.safeDownCast(tasks.get(i).copy()));
-      } 
+         if(tasks.get(i).getApply() || tasks.get(i).getWeight()!=0) {
+            IKCoordinateTask task = (IKCoordinateTask)tasks.get(i);
+            IKCoordinateTask taskCopy = IKCoordinateTask.safeDownCast(task.copy());
+            taskCopy.setValueUseDefault(task.getValueUseDefault()); // Important so that <value> property is omitted if we want to use default value
+            fullTaskSet.append(taskCopy);
+         }
+      }
    }
 
    private IKCoordinateTask get(int i) { return (IKCoordinateTask)tasks.get(i); }
@@ -276,7 +284,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
       return 0;
    }
    public double getDefaultValue(int i) {
-      return conversion.get(i) * model.getDynamicsEngine().getCoordinateSet().get(i).getValue();
+      return conversion.get(i) * model.getDynamicsEngine().getCoordinateSet().get(i).getDefaultValue();
    }
    public double getManualValue(int i) {
       return conversion.get(i) * get(i).getValue();
