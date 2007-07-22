@@ -22,6 +22,8 @@ public final class FileImportSIMMAction extends CallableSystemAction {
         Object userInput = dlg.getValue();
         if (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
             String jntfileName = importPanel.getJointFilename();
+            if (jntfileName==null)
+                return;
             String mslfileName = importPanel.getMslFilename();
             String engineString = importPanel.getDynamicsEngine();
             String anglesString = importPanel.getAngleConvention();
