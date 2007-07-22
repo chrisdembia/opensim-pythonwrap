@@ -7,6 +7,7 @@ import org.openide.DialogDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.modeling.Model;
 import org.opensim.tracking.IKToolPanel;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.view.pub.OpenSimDB;
@@ -14,8 +15,11 @@ import org.opensim.view.pub.OpenSimDB;
 public final class IKToolAction extends CallableSystemAction {
    
    public void performAction() {
+      Model model = OpenSimDB.getInstance().getCurrentModel();
+      if(model==null) return;
+
       try {
-         final IKToolPanel panel = new IKToolPanel(OpenSimDB.getInstance().getCurrentModel());
+         final IKToolPanel panel = new IKToolPanel(model);
          DialogDescriptor dlg = new DialogDescriptor(panel, "Inverse Kinematics Tool", false, panel);
          dlg.setOptions(panel.getDialogOptions());
          Dialog awtDialog = DialogDisplayer.getDefault().createDialog(dlg);
@@ -45,4 +49,7 @@ public final class IKToolAction extends CallableSystemAction {
       return false;
    }
    
+   public boolean isEnabled() {
+      return OpenSimDB.getInstance().getCurrentModel()!=null;
+   }
 }

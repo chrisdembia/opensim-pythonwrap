@@ -76,10 +76,7 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
 
    /** Creates new form ScaleToolPanel */
    public ScaleToolPanel(Model model) throws IOException {
-      if(model==null) {
-         model = new Model("C:\\gait2354.osim");
-         model.setup();
-      }
+      if(model==null) throw new IOException("ScaleToolPanel got null model");
 
       scaleToolModel = new ScaleToolModel(model);
       scaleToolModel.loadSettings("C:\\eran\\dev\\simbios\\opensim\\Trunk\\OpenSim\\Examples\\Gait2354\\subject01_Setup_Scale.xml");

@@ -7,6 +7,7 @@ import org.openide.DialogDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.modeling.Model;
 import org.opensim.tracking.ScaleToolPanel;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.view.pub.OpenSimDB;
@@ -14,9 +15,11 @@ import org.opensim.view.pub.OpenSimDB;
 public final class ScaleToolAction extends CallableSystemAction {
         
    public void performAction() {
+      Model model = OpenSimDB.getInstance().getCurrentModel();
+      if(model==null) return;
 
       try {
-         final ScaleToolPanel panel = new ScaleToolPanel(OpenSimDB.getInstance().getCurrentModel());
+         final ScaleToolPanel panel = new ScaleToolPanel(model);
          DialogDescriptor dlg = new DialogDescriptor(panel, "Scale Tool", false, panel);
          dlg.setOptions(panel.getDialogOptions());
          Dialog awtDialog = DialogDisplayer.getDefault().createDialog(dlg);
@@ -44,5 +47,9 @@ public final class ScaleToolAction extends CallableSystemAction {
    
    protected boolean asynchronous() {
       return false;
+   }
+
+   public boolean isEnabled() {
+      return OpenSimDB.getInstance().getCurrentModel()!=null;
    }
 }

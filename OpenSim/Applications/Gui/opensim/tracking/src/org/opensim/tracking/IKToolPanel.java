@@ -53,10 +53,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
    
    /** Creates new form IKToolPanel */
    public IKToolPanel(Model model) throws IOException {
-      if(model==null) {
-         model = new Model("C:\\eran\\dev\\simbios\\opensim\\Trunk\\OpenSim\\Examples\\Gait2354\\subject01.osim");
-         model.setup();
-      }
+      if(model==null) throw new IOException("IKToolPanel got null model");
 
       ikToolModel = new IKToolModel(model);
       ikToolModel.loadSettings("C:\\eran\\dev\\simbios\\opensim\\Trunk\\OpenSim\\Examples\\Gait2354\\subject01_Setup_IK.xml");
@@ -108,7 +105,8 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
 
    public void updateFromModel() {
       System.out.println("updateFromModel");
-
+   
+      // IK trial name
       trialNameTextField.setText(ikToolModel.getTrialName());
 
       // Static trial marker data

@@ -92,7 +92,7 @@ public final class ToolsIKWizardAction extends CallableSystemAction {
    }
    
    public String getName() {
-      return "Inverse Kinematics...";
+      return "OLD Inverse Kinematics...";
    }
    
    public String iconResource() {
