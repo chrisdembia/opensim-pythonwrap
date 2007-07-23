@@ -54,7 +54,8 @@ public class IKCommonModel extends Observable implements Observer {
    //------------------------------------------------------------------------
 
    public boolean isValid() {
-      return getMarkerDataValid() && getCoordinateDataValid() && ikMarkerTasksModel.isValid() && ikCoordinateTasksModel.isValid();
+      return getMarkerDataValid() && (!getCoordinateDataEnabled() || getCoordinateDataValid())
+             && ikMarkerTasksModel.isValid() && ikCoordinateTasksModel.isValid();
    }
 
    //------------------------------------------------------------------------

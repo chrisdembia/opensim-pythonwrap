@@ -37,8 +37,8 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
    private FileFilter settingsFilter = FileUtils.getFileFilter(".xml", "Scale tool settings file");
 
    private JButton settingsButton = new JButton("Settings >");
-   private JButton previewButton = new JButton("Preview");
-   private JButton okButton = new JButton("OK");
+   private JButton applyButton = new JButton("Apply");
+   private JButton okButton = new JButton("Close");
    private JCheckBox modelScalerPanelCheckBox = new JCheckBox(new EnableModelScalerAction());
    private JCheckBox markerPlacerPanelCheckBox = new JCheckBox(new EnableMarkerPlacerAction());
 
@@ -218,7 +218,7 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       timeRange = scaleToolModel.getIKCommonModel().getTimeRange();
       staticTrialStartTime.setText(((Double)timeRange[0]).toString());
       staticTrialEndTime.setText(((Double)timeRange[1]).toString());
-      if(scaleToolModel.getIKCommonModel().getMarkerDataValid()) {
+      if(!scaleToolModel.getIKCommonModel().getMarkerDataValid()) {
          staticTrialStartTime.setEnabled(false);
          staticTrialEndTime.setEnabled(false);
       }
@@ -235,14 +235,14 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
    // Dialog Operations
    //------------------------------------------------------------------------
    public Object[] getDialogOptions() {
-      return new Object[]{settingsButton, previewButton, okButton, DialogDescriptor.CANCEL_OPTION};
+      return new Object[]{settingsButton, applyButton, okButton, DialogDescriptor.CANCEL_OPTION};
    }
 
    public void setOwner(Dialog dialog) { ownerDialog = dialog; }
 
    public void updateDialogButtons() {
-      previewButton.setEnabled(scaleToolModel.isModified() && scaleToolModel.isValid());
-      okButton.setEnabled(scaleToolModel.isValid());
+      applyButton.setEnabled(scaleToolModel.isModified() && scaleToolModel.isValid());
+      //okButton.setEnabled(scaleToolModel.isValid());
    }
 
    public void actionPerformed(ActionEvent evt) {
@@ -251,11 +251,11 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
          scaleToolModel.cancel();
          measurementSetDialog.dispose(); 
          // the owner dialog will automatically handle disposing of the dialog in response to Cancel, since this is a standard option (CANCEL_OPTION)
-      } else if(evt.getActionCommand().equals("OK")) {
-         scaleToolModel.execute();
+      } else if(evt.getSource() == okButton) {
+         //scaleToolModel.execute();
          ownerDialog.dispose();
          measurementSetDialog.dispose(); 
-      } else if(evt.getActionCommand().equals("Preview")) {
+      } else if(evt.getSource() == applyButton) {
          scaleToolModel.execute();
       }
       updateDialogButtons();

@@ -396,11 +396,11 @@ public class ScaleToolModel extends Observable implements Observer {
       return true;
    }
 
+   private boolean getModelScalerValid() { return !getModelScalerEnabled() || getBodySetScaleFactorsValid(); }
+   private boolean getMarkerPlacerValid() { return !getMarkerPlacerEnabled() || ikCommonModel.isValid(); }
+
    public boolean isValid() {
-      boolean markerSetValid = !getUseExtraMarkerSet() || getExtraMarkerSetValid();
-      boolean modelScalerValid = !getModelScalerEnabled() || getMeasurementTrialValid();
-      boolean markerPlacerValid = !getMarkerPlacerEnabled() || ikCommonModel.isValid();
-      return markerSetValid && modelScalerValid && markerPlacerValid && getBodySetScaleFactorsValid();
+      return (!getUseExtraMarkerSet() || getExtraMarkerSetValid()) && getModelScalerValid() && getMarkerPlacerValid();
    }
 
    //------------------------------------------------------------------------

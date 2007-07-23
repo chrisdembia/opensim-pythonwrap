@@ -30,8 +30,8 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
    private FileFilter settingsFilter = FileUtils.getFileFilter(".xml", "IK tool settings file");
 
    private JButton settingsButton = new JButton("Settings >");
-   private JButton previewButton = new JButton("Preview");
-   private JButton okButton = new JButton("OK");
+   private JButton applyButton = new JButton("Apply");
+   private JButton okButton = new JButton("Close");
 
    private Dialog ownerDialog = null;
 
@@ -138,14 +138,14 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
    // Dialog Operations
    //------------------------------------------------------------------------
    public Object[] getDialogOptions() {
-      return new Object[]{settingsButton, previewButton, okButton, DialogDescriptor.CANCEL_OPTION};
+      return new Object[]{settingsButton, applyButton, okButton, DialogDescriptor.CANCEL_OPTION};
    }
 
    public void setOwner(Dialog dialog) { ownerDialog = dialog; }
 
    public void updateDialogButtons() {
-      previewButton.setEnabled(!ikToolModel.isExecuting() && ikToolModel.isModified() && ikToolModel.isValid());
-      okButton.setEnabled(!ikToolModel.isExecuting() && ikToolModel.isValid());
+      applyButton.setEnabled(!ikToolModel.isExecuting() && ikToolModel.isModified() && ikToolModel.isValid());
+      //okButton.setEnabled(!ikToolModel.isExecuting() && ikToolModel.isValid());
    }
 
    public void actionPerformed(ActionEvent evt) {
@@ -153,10 +153,10 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
       if(evt.getActionCommand().equals("Cancel")) {
          ikToolModel.cancel();
          // the owner dialog will automatically handle disposing of the dialog in response to Cancel, since this is a standard option (CANCEL_OPTION)
-      } else if(evt.getActionCommand().equals("OK")) {
-         ikToolModel.execute();
+      } else if(evt.getSource() == okButton) {
+         //ikToolModel.execute();
          ownerDialog.dispose();
-      } else if(evt.getActionCommand().equals("Preview")) {
+      } else if(evt.getSource() == applyButton) {
          ikToolModel.execute();
       }
       updateDialogButtons();

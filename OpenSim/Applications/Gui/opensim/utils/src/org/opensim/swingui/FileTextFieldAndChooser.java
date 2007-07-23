@@ -21,7 +21,7 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
    private String lastFileName; // keep track of previous value to avoid firing change events when name stays the same
    private boolean fileIsValid = true;
    private boolean treatUnassignedAsEmptyString = true;
-   private boolean treatEmptyStringAsValid = true;
+   private boolean treatEmptyStringAsValid = false;
    private boolean checkIfFileExists = true;
 
    private JCheckBox checkBox = null; // Optional associated check box which enables/disables the text field
