@@ -257,6 +257,9 @@ public class ScaleToolModel extends Observable implements Observer {
    private OptionalFile extraMarkerSetFile = new OptionalFile();
    private MarkerSet extraMarkerSet = null;
 
+   private Hashtable<String,Boolean> markerExistsInModel = new Hashtable<String,Boolean>();
+   private Hashtable<String,Boolean> markerExistsInMeasurementTrial = new Hashtable<String,Boolean>();
+
    private OptionalFile measurementTrialFile = new OptionalFile();
    private MarkerData measurementTrial = null;
    private Vector<Double> measurementValues = null;
@@ -441,21 +444,18 @@ public class ScaleToolModel extends Observable implements Observer {
    // Marker Set Utilities
    //------------------------------------------------------------------------
 
-   private boolean loadExtraMarkerSet(boolean forceReset, boolean recompute) {
-      MarkerSet oldExtraMarkerSet = extraMarkerSet;
+   private boolean loadExtraMarkerSet(boolean recompute) {
       boolean success = true;
+      extraMarkerSet = null;
       if(extraMarkerSetFile.isValid()) {
          try {
             extraMarkerSet = new MarkerSet(extraMarkerSetFile.fileName);
          } catch (IOException ex) {
-            System.out.println("Error loading marker set file '"+extraMarkerSetFile.fileName+"'");
             extraMarkerSet = null;
             success = false;
          }
-      } else {
-         extraMarkerSet = null;
       }
-      if(forceReset || extraMarkerSet != oldExtraMarkerSet) resetMarkers(); // reset markers in our unscaled model
+      resetMarkers(); // reset markers in our unscaled model
       if(recompute) recomputeMeasurements();
       ikCommonModel.getIKMarkerTasksModel().markerSetChanged();
       return success;
@@ -465,11 +465,15 @@ public class ScaleToolModel extends Observable implements Observer {
       unscaledModel.getDynamicsEngine().replaceMarkerSet(originalMarkerSet);
       if(extraMarkerSet!=null)
          unscaledModel.getDynamicsEngine().updateMarkerSet(extraMarkerSet);
+
+      // Update hash table
+      markerExistsInModel.clear();
+      for(int i=0; i<getMarkerSet().getSize(); i++) markerExistsInModel.put(getMarkerSet().get(i).getName(),(Boolean)true);
    }
 
    public boolean setExtraMarkerSetFileName(String fileName) {
       extraMarkerSetFile.fileName = fileName;
-      boolean success = loadExtraMarkerSet(false,true);
+      boolean success = loadExtraMarkerSet(true);
       setModified(Operation.MarkerSetChanged);
       return success;
    }
@@ -489,13 +493,17 @@ public class ScaleToolModel extends Observable implements Observer {
    public void setUseExtraMarkerSet(boolean useIt) {
       if(extraMarkerSetFile.enabled != useIt) {
          extraMarkerSetFile.enabled = useIt;
-         loadExtraMarkerSet(false,true);
+         loadExtraMarkerSet(true);
          setModified(Operation.MarkerSetChanged);
       }
    }
 
    public MarkerSet getMarkerSet() {
       return getUnscaledModel().getDynamicsEngine().getMarkerSet();
+   }
+
+   public boolean getMarkerExistsInModel(String markerName) {
+      return markerExistsInModel.get(markerName)!=null;
    }
 
    //------------------------------------------------------------------------
@@ -526,19 +534,26 @@ public class ScaleToolModel extends Observable implements Observer {
 
    private boolean loadMeasurementTrial(boolean resetTimeRange, boolean recompute) {
       boolean success = true;
+      measurementTrial = null; 
       if(measurementTrialFile.isValid()) {
          try {
             measurementTrial = new MarkerData(measurementTrialFile.fileName);
             measurementTrial.convertToUnits(getUnscaledModel().getLengthUnits());
          } catch (IOException ex) {
-            measurementTrial = null; 
+            measurementTrial = null;
             success = false;
          }
-      } else {
-         measurementTrial = null;
       }
       if(resetTimeRange && measurementTrial!=null) setMeasurementTrialTimeRange(measurementTrial.getTimeRange());
       if(recompute) recomputeMeasurements();
+
+      // Update hash table
+      markerExistsInMeasurementTrial.clear();
+      if(measurementTrial!=null) {
+         for(int i=0; i<measurementTrial.getMarkerNames().getSize(); i++)
+            markerExistsInMeasurementTrial.put(measurementTrial.getMarkerNames().getitem(i), (Boolean)true);
+      }
+
       return success;
    }
 
@@ -568,6 +583,10 @@ public class ScaleToolModel extends Observable implements Observer {
    }
    public boolean getMeasurementTrialEnabled() {
       return measurementTrialFile.enabled;
+   }
+
+   public boolean getMarkerExistsInMeasurementTrial(String markerName) {
+      return markerExistsInMeasurementTrial.get(markerName)!=null;
    }
 
    // Measurement trial time range
@@ -623,7 +642,6 @@ public class ScaleToolModel extends Observable implements Observer {
    private void recomputeMeasurements() {
       if(measurementTrial==null) resetMeasurementValues();
       else {
-         System.out.println("recomputeMeasurements");
          MeasurementSet measurementSet = scaleTool.getModelScaler().getMeasurementSet();
          for(int i=0; i<measurementSet.getSize(); i++) recomputeMeasurement(i);
       }
@@ -631,12 +649,10 @@ public class ScaleToolModel extends Observable implements Observer {
 
    private void recomputeMeasurement(int i) {
       if(measurementTrial==null) return;
-      System.out.println("recomputeMeasurement("+i+")");
       MeasurementSet measurementSet = scaleTool.getModelScaler().getMeasurementSet();
       double scaleFactor = scaleTool.getModelScaler().computeMeasurementScaleFactor(getUnscaledModel(), measurementTrial, measurementSet.get(i));
       if(rdMath.isNAN(scaleFactor)) measurementValues.set(i,null);
       else measurementValues.set(i,new Double(scaleFactor));
-      System.out.println(i+" "+measurementSet.get(i).getName()+"="+scaleFactor);
    }
 
    public MeasurementSet getMeasurementSet() {
@@ -774,7 +790,7 @@ public class ScaleToolModel extends Observable implements Observer {
       // marker set
       extraMarkerSet = null;
       extraMarkerSetFile.fromProperty(scaleTool.getGenericModelMaker().getMarkerSetFileName());
-      loadExtraMarkerSet(true,false); // will recompute measurements below
+      loadExtraMarkerSet(false); // will recompute measurements below
 
       // measurement set and scale factors
       resetMeasurementValues();

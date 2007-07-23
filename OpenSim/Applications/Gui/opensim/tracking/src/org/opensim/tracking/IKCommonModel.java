@@ -82,6 +82,7 @@ public class IKCommonModel extends Observable implements Observer {
             // values from this file in the GUI it shouldn't matter that we're doing convertToUnits first here.
             markerData.convertToUnits(model.getLengthUnits());
          } catch (IOException ex) {
+            markerData = null;
             success = false;
          }
       }
@@ -116,6 +117,7 @@ public class IKCommonModel extends Observable implements Observer {
             // Possibly not really needed, since we don't really use the contents of this file
             model.getDynamicsEngine().convertDegreesToRadians(coordinateData);
          } catch (IOException ex) {
+            coordinateData = null;
             success = false;
          }
       }

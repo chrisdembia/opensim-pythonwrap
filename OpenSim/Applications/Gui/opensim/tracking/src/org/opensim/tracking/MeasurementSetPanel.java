@@ -304,8 +304,17 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
       markerButton.setHorizontalAlignment(SwingConstants.CENTER);
       // Indicate marker does not exist in model's marker set with red color (though the measurement may still be invalid
       // if this marker is not found in the marker data passed to the model scaler)
-      if(!markerNames.contains(name)) markerButton.setBackground(invalidColor);
-      else markerButton.setBackground(Color.white);
+      boolean markerInModel = measurementSetModel.getMarkerExistsInModel(name);
+      boolean markerInMeasurementTrial = measurementSetModel.getMarkerExistsInMeasurementTrial(name);
+      if(!markerInModel || !markerInMeasurementTrial) {
+         markerButton.setBackground(invalidColor);
+         if(!markerInModel && !markerInMeasurementTrial) markerButton.setToolTipText("Marker not in model or measurement marker data!");
+         else if(!markerInModel) markerButton.setToolTipText("Marker not in model!");
+         else markerButton.setToolTipText("Marker not in measurement marker data!");
+      } else {
+         markerButton.setBackground(Color.white);
+         markerButton.setToolTipText(null);
+      }
       markerButton.setMinimumSize(dim);
       markerButton.setMaximumSize(dim);
       markerButton.setPreferredSize(dim);
@@ -398,16 +407,10 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
    }
 
    public void update(Observable observable, Object obj) {
-      //MeasurementSetEvent.Operation op = ((MeasurementSetEvent)obj).getOperation();
-      //if(op == MeasurementSetEvent.Operation.MeasurementRenamed) {
-      // TODO: should do this...
-      if(false) {
-         // Special handling for pure renaming... don't re-create components because we don't want to lose the focus we may have in the text fields (measurement names)
-         updateContent();
-      } else {
-         updateMarkerNames();
-         reset();
-      }
+      // TODO: Special handling for pure renaming... don't re-create components (just call updateContent) because we don't 
+      // want to lose the focus we may have in the text fields (measurement names)
+      updateMarkerNames();
+      reset();
    }
 }
 
