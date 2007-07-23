@@ -136,7 +136,7 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
    //------------------------------------------------------------------------
 
    private void updateTextFieldColor() {
-      if(isEnabled() && !fileIsValid && (!fileNameTextField.getText().equals("") || !treatEmptyStringAsValid)) 
+      if(isEnabled() && (!fileIsValid || (!treatEmptyStringAsValid && fileNameTextField.getText().equals(""))))
          fileNameTextField.setBackground(invalidBackground);
       else fileNameTextField.setBackground(validBackground); 
    }

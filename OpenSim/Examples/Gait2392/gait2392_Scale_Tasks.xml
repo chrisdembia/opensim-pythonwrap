@@ -57,6 +57,7 @@
 
 		<!-- Helps keep static pose solution from having back bent too much -->
 		<IKCoordinateTask name="lumbar_extension">
+			<value_type> manual_value </value_type>
 			<value>0</value>
 			<weight>1000.0</weight> 
 		</IKCoordinateTask>

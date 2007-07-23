@@ -30,7 +30,7 @@ class IKTasksModelEvent {
 // IKTasksModel
 //==================================================================
 public abstract class IKTasksModel extends Observable {
-   public enum ValueType { FromFile, DefaultValue, ManualValue };
+   public enum ValueType { DefaultValue, ManualValue, FromFile };
 
    protected Model model;
    protected Vector<IKTask> tasks = new Vector<IKTask>();
@@ -114,7 +114,7 @@ class IKMarkerTasksModel extends IKTasksModel {
          markerTask.setName(markerSet.get(i).getName());
          markerTask.setApply(defaultApply);
          markerTask.setWeight(defaultWeight);
-         tasks.set(i, new IKMarkerTask(markerTask)); // Make a copy in C++ side
+         tasks.set(i, markerTask);
       }
    }
 
@@ -145,7 +145,7 @@ class IKMarkerTasksModel extends IKTasksModel {
       for(int i=0; i<fullTaskSet.getSize(); i++) {
          if(IKMarkerTask.safeDownCast(fullTaskSet.get(i))!=null) {
             int index = model.getDynamicsEngine().getMarkerSet().getIndex(fullTaskSet.get(i).getName());
-            if(index >= 0) tasks.set(index, new IKMarkerTask(IKMarkerTask.safeDownCast(fullTaskSet.get(i))));
+            if(index >= 0) tasks.set(index, new IKMarkerTask(IKMarkerTask.safeDownCast(fullTaskSet.get(i)))); // Java-side copy
          }
       }
       setModified();
@@ -161,7 +161,7 @@ class IKMarkerTasksModel extends IKTasksModel {
          // Write it out if it's applied or if it has nonzero weight (even if not applied)
          // the latter case is so that user can recover their settings next time they load it in.
          if(tasks.get(i).getApply() || tasks.get(i).getWeight()!=0)
-            fullTaskSet.append(IKMarkerTask.safeDownCast(tasks.get(i).copy()));
+            fullTaskSet.append(IKMarkerTask.safeDownCast(tasks.get(i).copy())); // C++-side copy
       } 
    }
 
@@ -203,8 +203,8 @@ class IKCoordinateTasksModel extends IKTasksModel {
          coordinateTask.setName(coordinateSet.get(i).getName());
          coordinateTask.setApply(defaultApply);
          coordinateTask.setWeight(defaultWeight);
-         tasks.set(i, new IKCoordinateTask(coordinateTask));
-         setValueType(i, ValueType.DefaultValue);
+         coordinateTask.setValueType(IKCoordinateTask.ValueType.DefaultValue);
+         tasks.set(i, coordinateTask);
          conversion.set(i, (getMotionType(i)==AbstractDof.DofType.Rotational) ? 180.0/Math.PI : 1);
       }
    }
@@ -223,7 +223,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
       for(int i=0; i<fullTaskSet.getSize(); i++) {
          if(IKCoordinateTask.safeDownCast(fullTaskSet.get(i))!=null) {
             int index = model.getDynamicsEngine().getCoordinateSet().getIndex(fullTaskSet.get(i).getName());
-            if(index >= 0) tasks.set(index, new IKCoordinateTask(IKCoordinateTask.safeDownCast(fullTaskSet.get(i))));
+            if(index >= 0) tasks.set(index, new IKCoordinateTask(IKCoordinateTask.safeDownCast(fullTaskSet.get(i)))); // Java-side copy
          }
       }
       setModified();
@@ -238,8 +238,7 @@ class IKCoordinateTasksModel extends IKTasksModel {
       for(int i=0; i<tasks.size(); i++) {
          if(tasks.get(i).getApply() || tasks.get(i).getWeight()!=0) {
             IKCoordinateTask task = (IKCoordinateTask)tasks.get(i);
-            IKCoordinateTask taskCopy = IKCoordinateTask.safeDownCast(task.copy());
-            taskCopy.setValueUseDefault(task.getValueUseDefault()); // Important so that <value> property is omitted if we want to use default value
+            IKCoordinateTask taskCopy = IKCoordinateTask.safeDownCast(task.copy()); // C++-side copy
             fullTaskSet.append(taskCopy);
          }
       }
@@ -249,37 +248,26 @@ class IKCoordinateTasksModel extends IKTasksModel {
    private AbstractDof.DofType getMotionType(int i) { return model.getDynamicsEngine().getCoordinateSet().get(i).getMotionType(); }
   
    public ValueType getValueType(int i) {
-      if(get(i).getFromFile()) return ValueType.FromFile;
-      else if(get(i).getValueUseDefault()) return ValueType.DefaultValue;
-      else return ValueType.ManualValue;
+      IKCoordinateTask.ValueType taskValueType = get(i).getValueType();
+      if(taskValueType == IKCoordinateTask.ValueType.DefaultValue) return ValueType.DefaultValue;
+      else if(taskValueType == IKCoordinateTask.ValueType.ManualValue) return ValueType.ManualValue;
+      else return ValueType.FromFile;
    }
    public void setValueType(int i,ValueType type) {
       if(getValueType(i)!=type) {
          switch(type) {
-            case FromFile:
-               get(i).setValueUseDefault(true);
-               get(i).setFromFile(true);
-               break;
-            case DefaultValue:
-               get(i).setValueUseDefault(true);
-               get(i).setFromFile(false);
-               break;
-            case ManualValue:
-               get(i).setValueUseDefault(false);
-               get(i).setFromFile(false);
-               break;
+            case DefaultValue: get(i).setValueType(IKCoordinateTask.ValueType.DefaultValue); break;
+            case ManualValue: get(i).setValueType(IKCoordinateTask.ValueType.ManualValue); break;
+            case FromFile: get(i).setValueType(IKCoordinateTask.ValueType.FromFile); break;
          }
          setModified(i);
       }
    }
    public double getValue(int i) {
       switch(getValueType(i)) {
-         case FromFile:
-            return 0;
-         case DefaultValue:
-            return getDefaultValue(i);
-         case ManualValue:
-            return getManualValue(i);
+         case FromFile:       return 0;
+         case DefaultValue:   return getDefaultValue(i);
+         case ManualValue:    return getManualValue(i);
       }
       return 0;
    }

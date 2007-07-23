@@ -56,13 +56,9 @@
 		<IKMarkerTask name="L.Toe.Tip"> <weight>1000</weight> </IKMarkerTask>
 
 		<!-- Coordinates -->
-		<IKCoordinateTask name="subtalar_angle_r"> <value>0</value> </IKCoordinateTask>
-		<IKCoordinateTask name="mtp_angle_r"> <value>0</value> </IKCoordinateTask>
-		<IKCoordinateTask name="subtalar_angle_l"> <value>0</value> </IKCoordinateTask>
-		<IKCoordinateTask name="mtp_angle_l"> <value>0</value> </IKCoordinateTask>
-
 		<!-- Helps keep static pose solution from having back bent too much -->
 		<IKCoordinateTask name="lumbar_extension">
+			<value_type> manual_value </value_type>
 			<value>0</value>
 			<weight>1000.0</weight> 
 		</IKCoordinateTask>
