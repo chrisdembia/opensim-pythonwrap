@@ -1424,6 +1424,8 @@ public class JPlotterPanel extends javax.swing.JPanel
          // Other Analyses
          for(int i=0;i<analyses.getSize();i++){
             final Analysis nextAnalysis = analyses.get(i);
+            if (nextAnalysis.getName().equalsIgnoreCase("MuscleAnalysis"))
+               continue;
             JMenu nextAnalysisSubmenu = new JMenu(nextAnalysis.getName());
             // Get storages and create a menu item for each
             ArrayStorage storages = nextAnalysis.getStorageList();
