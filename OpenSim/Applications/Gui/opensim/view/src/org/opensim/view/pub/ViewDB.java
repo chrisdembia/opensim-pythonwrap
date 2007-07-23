@@ -436,17 +436,7 @@ public final class ViewDB extends Observable implements Observer {
       if (mp != null) {
          SingleModelVisuals visuals = getModelVisuals(mp.getMuscle().getModel());
          OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
-         // TODO: since muscle points are colored by a scalar, you need to
-         // find the scalar value that most closely matches the passed-in
-         // colorComponents.
-         // 0.0 = red
-         // 0.1 = orange
-         // 0.3 = yellow
-         // 0.5 = green
-         // 0.7 = cyan
-         // 1.0 = blue
-         // Colors such as purple cannot be represented using this mechanism
-         cloud.setScalarDataAtLocation(cloud.getPointId(object), 0.28);
+         cloud.updateUnselectedColor(colorComponents);
          AbstractMuscle m = mp.getMuscle();
          visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
       } else { // should check for body here

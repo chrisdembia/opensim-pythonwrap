@@ -99,7 +99,7 @@ public class IKPanel  extends workflowWizardPanelBase{
          MotionsDB.getInstance().flushMotions();
         
          //final JavaAnimationCallback animationCallback = new JavaAnimationCallback(ikModel);
-         final JavaMotionDisplayerCallback animationCallback = new JavaMotionDisplayerCallback(ikModel, trial.getOutputStorage());
+         final JavaMotionDisplayerCallback animationCallback = new JavaMotionDisplayerCallback(ikModel, trial.getOutputStorage(), null);
          ikModel.addIntegCallback(animationCallback);
          animationCallback.setStepInterval(3);  
          progressHandle.start();

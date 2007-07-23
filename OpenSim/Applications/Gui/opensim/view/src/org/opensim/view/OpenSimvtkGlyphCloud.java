@@ -117,6 +117,15 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
       mapper.SetLookupTable(lookupTable);
    }
 
+   private void updateLookupTableColor(int i, double[] color) {
+      if(scalarData!=null && lookupTable!=null) {
+         if(color.length==3) lookupTable.SetTableValue(i, color[0], color[1], color[2], 1.0);
+         else lookupTable.SetTableValue(i, color);
+      }
+   }
+
+   public void updateUnselectedColor(double[] color) { updateLookupTableColor(0, color); }
+
    public void setSelected(int index, boolean selected) {
       if(scalarData!=null && lookupTable!=null) scalarData.SetTuple1(index, selected ? 1 : 0);
    }
