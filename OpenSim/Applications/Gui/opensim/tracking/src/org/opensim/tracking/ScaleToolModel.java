@@ -40,7 +40,7 @@ class OptionalFile {
       else { enabled = true; this.fileName = fileName; }
    }
    public String toProperty() { 
-      return (enabled && !FileUtils.effectivelyNull(fileName)) ? fileName : "Unassigned"; 
+      return (enabled && !FileUtils.effectivelyNull(fileName)) ? fileName : PropertyStr.getDefaultStr();
    }
 }
 
@@ -186,8 +186,10 @@ class BodySetScaleFactors extends Vector<BodyScaleFactors> {
       // The measurements are up to date, but what they're applied to isn't
       MeasurementSet measurementSet = modelScaler.getMeasurementSet();
       if(measurementSet.getSize()>0) array.append("measurements");
-      for(int i=0; i<measurementSet.getSize(); i++)
+      for(int i=0; i<measurementSet.getSize(); i++) {
          measurementSet.get(i).getBodyScaleSet().setSize(0);
+         measurementSet.get(i).setApply(false);
+      }
       for(int i=0; i<size(); i++) {
          for(int j=0; j<3; j++) {
             if(get(i).measurements[j]>=0)
@@ -225,7 +227,9 @@ class BodySetScaleFactors extends Vector<BodyScaleFactors> {
    // TODO: make more efficient
    private void addToMeasurement(int index, String bodyName, int axis) {
       ModelScaler modelScaler = scaleToolModel.getScaleTool().getModelScaler();
-      BodyScaleSet bodyScaleSet = modelScaler.getMeasurementSet().get(index).getBodyScaleSet();
+      Measurement meas = modelScaler.getMeasurementSet().get(index);
+      meas.setApply(true);
+      BodyScaleSet bodyScaleSet = meas.getBodyScaleSet();
       int bodyScaleIndex = bodyScaleSet.getIndex(bodyName);
       BodyScale bodyScale = null;
       if(bodyScaleIndex < 0) {
@@ -782,7 +786,7 @@ public class ScaleToolModel extends Observable implements Observer {
       relativeToAbsolutePaths(fileName);
 
       // reset some things in the scale tool which we will not use
-      scaleTool.getGenericModelMaker().setModelFileName(""); // TODO: what should we really set this to?
+      scaleTool.getGenericModelMaker().setModelFileName(PropertyStr.getDefaultStr()); // TODO: what should we really set this to?
 
       // keep internal data in sync
       modifiedSinceLastExecute = true;
