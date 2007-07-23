@@ -37,6 +37,10 @@ public class IKSolverInterface {
     this(opensimModelJNI.new_IKSolverInterface(SWIGTYPE_p_OpenSim__IKTarget.getCPtr(aOptimizationTarget)), true);
   }
 
+  public void initializeSolver(IKTrial aIKOptions, Storage inputData, Storage outputData) {
+    opensimModelJNI.IKSolverInterface_initializeSolver(swigCPtr, this, IKTrial.getCPtr(aIKOptions), aIKOptions, Storage.getCPtr(inputData), inputData, Storage.getCPtr(outputData), outputData);
+  }
+
   public void solveFrames(IKTrial aIKOptions, Storage inputData, Storage outputData) {
     opensimModelJNI.IKSolverInterface_solveFrames(swigCPtr, this, IKTrial.getCPtr(aIKOptions), aIKOptions, Storage.getCPtr(inputData), inputData, Storage.getCPtr(outputData), outputData);
   }

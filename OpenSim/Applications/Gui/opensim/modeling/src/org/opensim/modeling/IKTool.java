@@ -66,8 +66,20 @@ public class IKTool extends AbstractTool {
     return new IKTaskSet(opensimModelJNI.IKTool_getIKTaskSet(swigCPtr, this), false);
   }
 
+  public void initializeTrial(int i) {
+    opensimModelJNI.IKTool_initializeTrial(swigCPtr, this, i);
+  }
+
+  public boolean solveTrial(int i) {
+    return opensimModelJNI.IKTool_solveTrial(swigCPtr, this, i);
+  }
+
   public void run() {
     opensimModelJNI.IKTool_run(swigCPtr, this);
+  }
+
+  public void setPrintResultFiles(boolean aToWrite) {
+    opensimModelJNI.IKTool_setPrintResultFiles(swigCPtr, this, aToWrite);
   }
 
 }

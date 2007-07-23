@@ -208,6 +208,10 @@ public class OpenSimObject {
     return (cPtr == 0) ? null : new SWIGTYPE_p_DOMElement(cPtr, false);
   }
 
+  public void clearXMLStructures() {
+    opensimModelJNI.OpenSimObject_clearXMLStructures(swigCPtr, this);
+  }
+
   public boolean print(String aFileName) {
     return opensimModelJNI.OpenSimObject_print(swigCPtr, this, aFileName);
   }

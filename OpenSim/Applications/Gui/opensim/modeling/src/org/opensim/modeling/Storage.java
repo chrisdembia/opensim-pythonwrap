@@ -444,6 +444,10 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_findIndex__SWIG_1(swigCPtr, this, aI, aT);
   }
 
+  public void findFrameRange(double aStartTime, double aEndTime, SWIGTYPE_p_int oStartFrame, SWIGTYPE_p_int oEndFrame) {
+    opensimModelJNI.Storage_findFrameRange(swigCPtr, this, aStartTime, aEndTime, SWIGTYPE_p_int.getCPtr(oStartFrame), SWIGTYPE_p_int.getCPtr(oEndFrame));
+  }
+
   public void resample(double aDT, int aDegree) {
     opensimModelJNI.Storage_resample(swigCPtr, this, aDT, aDegree);
   }

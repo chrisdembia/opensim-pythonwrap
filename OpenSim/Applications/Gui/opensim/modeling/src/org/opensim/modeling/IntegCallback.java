@@ -58,6 +58,14 @@ public class IntegCallback extends Callback {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public boolean proceed(int aStep) {
+    return opensimModelJNI.IntegCallback_proceed__SWIG_0(swigCPtr, this, aStep);
+  }
+
+  public boolean proceed() {
+    return opensimModelJNI.IntegCallback_proceed__SWIG_1(swigCPtr, this);
+  }
+
   public void setStepInterval(int aStepInterval) {
     opensimModelJNI.IntegCallback_setStepInterval(swigCPtr, this, aStepInterval);
   }

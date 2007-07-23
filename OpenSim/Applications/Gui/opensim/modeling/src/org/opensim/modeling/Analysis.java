@@ -86,14 +86,6 @@ public class Analysis extends IntegCallback {
     opensimModelJNI.Analysis_setWriteResultsToFiles(swigCPtr, this, writeToFiles);
   }
 
-  public boolean proceed(int aStep) {
-    return opensimModelJNI.Analysis_proceed__SWIG_0(swigCPtr, this, aStep);
-  }
-
-  public boolean proceed() {
-    return opensimModelJNI.Analysis_proceed__SWIG_1(swigCPtr, this);
-  }
-
   public int printResults(String aBaseName, String aDir, double aDT, String aExtension) {
     return opensimModelJNI.Analysis_printResults__SWIG_0(swigCPtr, this, aBaseName, aDir, aDT, aExtension);
   }

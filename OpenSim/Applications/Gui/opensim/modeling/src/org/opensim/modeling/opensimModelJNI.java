@@ -220,6 +220,7 @@ public class opensimModelJNI {
   public final static native long OpenSimObject_getDocument(long jarg1, OpenSimObject jarg1_);
   public final static native String OpenSimObject_getDocumentFileName(long jarg1, OpenSimObject jarg1_);
   public final static native long OpenSimObject_getXMLNode(long jarg1, OpenSimObject jarg1_);
+  public final static native void OpenSimObject_clearXMLStructures(long jarg1, OpenSimObject jarg1_);
   public final static native boolean OpenSimObject_print(long jarg1, OpenSimObject jarg1_, String jarg2);
   public final static native void OpenSimObject_PrintPropertyInfo__SWIG_0(long jarg1, String jarg2);
   public final static native void OpenSimObject_PrintPropertyInfo__SWIG_1(long jarg1, String jarg2, String jarg3);
@@ -497,6 +498,7 @@ public class opensimModelJNI {
   public final static native int Storage_reset__SWIG_0(long jarg1, Storage jarg1_, int jarg2);
   public final static native int Storage_reset__SWIG_1(long jarg1, Storage jarg1_);
   public final static native int Storage_reset__SWIG_2(long jarg1, Storage jarg1_, double jarg2);
+  public final static native void Storage_purge(long jarg1, Storage jarg1_);
   public final static native int Storage_append__SWIG_0(long jarg1, Storage jarg1_, long jarg2, StateVector jarg2_, boolean jarg3);
   public final static native int Storage_append__SWIG_1(long jarg1, Storage jarg1_, long jarg2, StateVector jarg2_);
   public final static native int Storage_append__SWIG_2(long jarg1, Storage jarg1_, long jarg2);
@@ -536,6 +538,7 @@ public class opensimModelJNI {
   public final static native void Storage_addToRdStorage(long jarg1, Storage jarg1_, long jarg2, Storage jarg2_, double jarg3, double jarg4);
   public final static native int Storage_findIndex__SWIG_0(long jarg1, Storage jarg1_, double jarg2);
   public final static native int Storage_findIndex__SWIG_1(long jarg1, Storage jarg1_, int jarg2, double jarg3);
+  public final static native void Storage_findFrameRange(long jarg1, Storage jarg1_, double jarg2, double jarg3, long jarg4, long jarg5);
   public final static native void Storage_resample(long jarg1, Storage jarg1_, double jarg2, int jarg3);
   public final static native void Storage_print__SWIG_0(long jarg1, Storage jarg1_);
   public final static native boolean Storage_print__SWIG_1(long jarg1, Storage jarg1_, String jarg2, String jarg3, String jarg4);
@@ -851,6 +854,8 @@ public class opensimModelJNI {
   public final static native long new_IntegCallback__SWIG_4(long jarg1, IntegCallback jarg1_);
   public final static native void delete_IntegCallback(long jarg1);
   public final static native long IntegCallback_copy(long jarg1, IntegCallback jarg1_);
+  public final static native boolean IntegCallback_proceed__SWIG_0(long jarg1, IntegCallback jarg1_, int jarg2);
+  public final static native boolean IntegCallback_proceed__SWIG_1(long jarg1, IntegCallback jarg1_);
   public final static native void IntegCallback_setStepInterval(long jarg1, IntegCallback jarg1_, int jarg2);
   public final static native int IntegCallback_getStepInterval(long jarg1, IntegCallback jarg1_);
   public final static native int IntegCallback_begin__SWIG_0(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
@@ -865,6 +870,28 @@ public class opensimModelJNI {
   public final static native int IntegCallback_end__SWIG_1(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
   public final static native int IntegCallback_end__SWIG_2(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
   public final static native int IntegCallback_end__SWIG_3(long jarg1, IntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native boolean InterruptingIntegCallback_isKindOf(String jarg1);
+  public final static native boolean InterruptingIntegCallback_isA(long jarg1, InterruptingIntegCallback jarg1_, String jarg2);
+  public final static native long InterruptingIntegCallback_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void InterruptingIntegCallback_copy__SWIG_0(long jarg1, InterruptingIntegCallback jarg1_, long jarg2, OpenSimObject jarg2_);
+  public final static native long new_InterruptingIntegCallback__SWIG_0();
+  public final static native long new_InterruptingIntegCallback__SWIG_1(long jarg1, InterruptingIntegCallback jarg1_);
+  public final static native long InterruptingIntegCallback_copy__SWIG_1(long jarg1, InterruptingIntegCallback jarg1_);
+  public final static native void InterruptingIntegCallback_interrupt__SWIG_0(long jarg1, InterruptingIntegCallback jarg1_, String jarg2);
+  public final static native void InterruptingIntegCallback_interrupt__SWIG_1(long jarg1, InterruptingIntegCallback jarg1_);
+  public final static native int InterruptingIntegCallback_begin__SWIG_0(long jarg1, InterruptingIntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int InterruptingIntegCallback_begin__SWIG_1(long jarg1, InterruptingIntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int InterruptingIntegCallback_begin__SWIG_2(long jarg1, InterruptingIntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int InterruptingIntegCallback_begin__SWIG_3(long jarg1, InterruptingIntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native int InterruptingIntegCallback_step__SWIG_0(long jarg1, InterruptingIntegCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
+  public final static native int InterruptingIntegCallback_step__SWIG_1(long jarg1, InterruptingIntegCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11);
+  public final static native int InterruptingIntegCallback_step__SWIG_2(long jarg1, InterruptingIntegCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10);
+  public final static native int InterruptingIntegCallback_step__SWIG_3(long jarg1, InterruptingIntegCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9);
+  public final static native int InterruptingIntegCallback_end__SWIG_0(long jarg1, InterruptingIntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
+  public final static native int InterruptingIntegCallback_end__SWIG_1(long jarg1, InterruptingIntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
+  public final static native int InterruptingIntegCallback_end__SWIG_2(long jarg1, InterruptingIntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
+  public final static native int InterruptingIntegCallback_end__SWIG_3(long jarg1, InterruptingIntegCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
+  public final static native void delete_InterruptingIntegCallback(long jarg1);
   public final static native void delete_ArrayStorage(long jarg1);
   public final static native long new_ArrayStorage__SWIG_0(int jarg1);
   public final static native long new_ArrayStorage__SWIG_1();
@@ -911,8 +938,6 @@ public class opensimModelJNI {
   public final static native long Analysis_getColumnLabels(long jarg1, Analysis jarg1_);
   public final static native long Analysis_getStorageList(long jarg1, Analysis jarg1_);
   public final static native void Analysis_setWriteResultsToFiles(long jarg1, Analysis jarg1_, boolean jarg2);
-  public final static native boolean Analysis_proceed__SWIG_0(long jarg1, Analysis jarg1_, int jarg2);
-  public final static native boolean Analysis_proceed__SWIG_1(long jarg1, Analysis jarg1_);
   public final static native int Analysis_printResults__SWIG_0(long jarg1, Analysis jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native int Analysis_printResults__SWIG_1(long jarg1, Analysis jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native int Analysis_printResults__SWIG_2(long jarg1, Analysis jarg1_, String jarg2, String jarg3);
@@ -3011,17 +3036,19 @@ public class opensimModelJNI {
   public final static native void delete_IKTrial(long jarg1);
   public final static native long IKTrial_copy(long jarg1, IKTrial jarg1_);
   public final static native void IKTrial_copyData(long jarg1, IKTrial jarg1_, long jarg2, IKTrial jarg2_);
-  public final static native double IKTrial_getStartTime(long jarg1, IKTrial jarg1_);
-  public final static native double IKTrial_getEndTime(long jarg1, IKTrial jarg1_);
   public final static native double IKTrial_getKinematicsSmoothing(long jarg1, IKTrial jarg1_);
   public final static native double IKTrial_getGroundReactionSmoothing(long jarg1, IKTrial jarg1_);
-  public final static native boolean IKTrial_getIncludeMarkers(long jarg1, IKTrial jarg1_);
+  public final static native boolean IKTrial_initializeTrialCommon(long jarg1, IKTrial jarg1_, long jarg2, Model jarg2_, long jarg3, IKTaskSet jarg3_, long jarg4, MarkerData jarg4_);
+  public final static native boolean IKTrial_initializeTrial(long jarg1, IKTrial jarg1_, long jarg2, Model jarg2_, long jarg3, IKTaskSet jarg3_);
+  public final static native boolean IKTrial_solveTrial(long jarg1, IKTrial jarg1_, long jarg2, Model jarg2_, long jarg3, IKTaskSet jarg3_);
+  public final static native double IKTrial_getStartTime(long jarg1, IKTrial jarg1_);
+  public final static native double IKTrial_getEndTime(long jarg1, IKTrial jarg1_);
   public final static native void IKTrial_setStartTime(long jarg1, IKTrial jarg1_, double jarg2);
   public final static native void IKTrial_setEndTime(long jarg1, IKTrial jarg1_, double jarg2);
+  public final static native int IKTrial_getStartFrame(long jarg1, IKTrial jarg1_);
+  public final static native int IKTrial_getEndFrame(long jarg1, IKTrial jarg1_);
+  public final static native boolean IKTrial_getIncludeMarkers(long jarg1, IKTrial jarg1_);
   public final static native void IKTrial_setIncludeMarkers(long jarg1, IKTrial jarg1_, boolean jarg2);
-  public final static native void IKTrial_findFrameRange(long jarg1, IKTrial jarg1_, long jarg2, Storage jarg2_, long jarg3, long jarg4);
-  public final static native boolean IKTrial_processTrial(long jarg1, IKTrial jarg1_, long jarg2, Model jarg2_, long jarg3, IKTaskSet jarg3_);
-  public final static native boolean IKTrial_processTrialCommon(long jarg1, IKTrial jarg1_, long jarg2, Model jarg2_, long jarg3, IKTaskSet jarg3_, long jarg4, MarkerData jarg4_, long jarg5, Storage jarg5_);
   public final static native String IKTrial_getMarkerDataFileName(long jarg1, IKTrial jarg1_);
   public final static native void IKTrial_setMarkerDataFileName(long jarg1, IKTrial jarg1_, String jarg2);
   public final static native String IKTrial_getOutputMotionFileName(long jarg1, IKTrial jarg1_);
@@ -3030,6 +3057,8 @@ public class opensimModelJNI {
   public final static native void IKTrial_setCoordinateFileName(long jarg1, IKTrial jarg1_, String jarg2);
   public final static native void IKTrial_setOptimizerAlgorithm(long jarg1, IKTrial jarg1_, String jarg2);
   public final static native String IKTrial_getOptimizerAlgorithm(long jarg1, IKTrial jarg1_);
+  public final static native long IKTrial_getOutputStorage(long jarg1, IKTrial jarg1_);
+  public final static native void IKTrial_setPrintResultFiles(long jarg1, IKTrial jarg1_, boolean jarg2);
   public final static native void delete_SetIKTrial(long jarg1);
   public final static native long new_SetIKTrial__SWIG_0();
   public final static native long new_SetIKTrial__SWIG_1(String jarg1, boolean jarg2);
@@ -3184,6 +3213,7 @@ public class opensimModelJNI {
   public final static native double MarkerData_getCameraRate(long jarg1, MarkerData jarg1_);
   public final static native long new_IKSolverInterface(long jarg1);
   public final static native void delete_IKSolverInterface(long jarg1);
+  public final static native void IKSolverInterface_initializeSolver(long jarg1, IKSolverInterface jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
   public final static native void IKSolverInterface_solveFrames(long jarg1, IKSolverInterface jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
   public final static native void delete_IKTool(long jarg1);
   public final static native long new_IKTool__SWIG_0();
@@ -3194,7 +3224,10 @@ public class opensimModelJNI {
   public final static native void IKTool_registerTypes();
   public final static native long IKTool_getIKTrialSet(long jarg1, IKTool jarg1_);
   public final static native long IKTool_getIKTaskSet(long jarg1, IKTool jarg1_);
+  public final static native void IKTool_initializeTrial(long jarg1, IKTool jarg1_, int jarg2);
+  public final static native boolean IKTool_solveTrial(long jarg1, IKTool jarg1_, int jarg2);
   public final static native void IKTool_run(long jarg1, IKTool jarg1_);
+  public final static native void IKTool_setPrintResultFiles(long jarg1, IKTool jarg1_, boolean jarg2);
   public final static native boolean MarkerPair_isKindOf(String jarg1);
   public final static native boolean MarkerPair_isA(long jarg1, MarkerPair jarg1_, String jarg2);
   public final static native long MarkerPair_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3401,6 +3434,7 @@ public class opensimModelJNI {
   public final static native void MarkerPlacer_setPrintResultFiles(long jarg1, MarkerPlacer jarg1_, boolean jarg2);
   public final static native long new_IKSolverImpl(long jarg1);
   public final static native void delete_IKSolverImpl(long jarg1);
+  public final static native void IKSolverImpl_initializeSolver(long jarg1, IKSolverImpl jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
   public final static native void IKSolverImpl_solveFrames(long jarg1, IKSolverImpl jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
   public final static native void delete_CMCTool(long jarg1);
   public final static native long new_CMCTool__SWIG_0();
@@ -3471,6 +3505,7 @@ public class opensimModelJNI {
   public final static native long SWIGSetCallbackUpcast(long jarg1);
   public final static native long SWIGCallbackSetUpcast(long jarg1);
   public final static native long SWIGIntegCallbackUpcast(long jarg1);
+  public final static native long SWIGInterruptingIntegCallbackUpcast(long jarg1);
   public final static native long SWIGAnalysisUpcast(long jarg1);
   public final static native long SWIGSetAnalysisUpcast(long jarg1);
   public final static native long SWIGAnalysisSetUpcast(long jarg1);
@@ -3602,6 +3637,12 @@ public class opensimModelJNI {
   }
   public static void SwigDirector_SimtkAnimationCallback_setModel(SimtkAnimationCallback self, long arg0) {
     self.setModel(new Model(arg0, false));
+  }
+  public static boolean SwigDirector_SimtkAnimationCallback_proceed__SWIG_0(SimtkAnimationCallback self, int aStep) {
+    return self.proceed(aStep);
+  }
+  public static boolean SwigDirector_SimtkAnimationCallback_proceed__SWIG_1(SimtkAnimationCallback self) {
+    return self.proceed();
   }
   public static int SwigDirector_SimtkAnimationCallback_begin__SWIG_0(SimtkAnimationCallback self, int aStep, double aDT, double aT, long aX, long aY, long aYP, long aDYDT, long aClientData) {
     return self.begin(aStep, aDT, aT, new SWIGTYPE_p_double(aX, false), new SWIGTYPE_p_double(aY, false), new SWIGTYPE_p_double(aYP, false), new SWIGTYPE_p_double(aDYDT, false), new SWIGTYPE_p_void(aClientData, false));

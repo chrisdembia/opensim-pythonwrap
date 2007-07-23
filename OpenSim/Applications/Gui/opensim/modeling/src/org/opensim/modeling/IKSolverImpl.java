@@ -37,6 +37,10 @@ public class IKSolverImpl extends IKSolverInterface {
     this(opensimModelJNI.new_IKSolverImpl(SWIGTYPE_p_OpenSim__IKTarget.getCPtr(aOptimizationTarget)), true);
   }
 
+  public void initializeSolver(IKTrial aIKOptions, Storage inputData, Storage outputData) {
+    opensimModelJNI.IKSolverImpl_initializeSolver(swigCPtr, this, IKTrial.getCPtr(aIKOptions), aIKOptions, Storage.getCPtr(inputData), inputData, Storage.getCPtr(outputData), outputData);
+  }
+
   public void solveFrames(IKTrial aIKOptions, Storage inputData, Storage outputData) {
     opensimModelJNI.IKSolverImpl_solveFrames(swigCPtr, this, IKTrial.getCPtr(aIKOptions), aIKOptions, Storage.getCPtr(inputData), inputData, Storage.getCPtr(outputData), outputData);
   }
