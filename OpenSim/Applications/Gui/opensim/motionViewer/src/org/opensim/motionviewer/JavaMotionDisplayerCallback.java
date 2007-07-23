@@ -28,6 +28,7 @@ package org.opensim.motionviewer;
 
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.SwingUtilities;
+import org.netbeans.api.progress.ProgressHandle;
 import org.opensim.modeling.*;
 import org.opensim.view.pub.ViewDB;
 
@@ -38,20 +39,17 @@ import org.opensim.view.pub.ViewDB;
 public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    Storage storage = null;
    MotionDisplayer motionDisplayer = null;
+   ProgressHandle progressHandle = null;
+   int stepsProcessed = 0;
 
    /** Creates a new instance of JavaMotionDisplayerCallback */
-   public JavaMotionDisplayerCallback(Model aModel, Storage storage) {
+   public JavaMotionDisplayerCallback(Model aModel, Storage storage, ProgressHandle progressHandle) {
       super(aModel);
       if(storage!=null) {
          this.storage = storage;
          motionDisplayer = new MotionDisplayer(storage, aModel);
       }
-   }
-   
-   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
-      int retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT, aClientData);
-      if(proceed(aStep)) updateDisplaySynchronously();
-      return retValue;
+      this.progressHandle = progressHandle;
    }
 
    public void updateDisplaySynchronously() {
@@ -60,7 +58,6 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
             public void run() {
                ViewDB.getInstance().updateModelDisplay(getModel());
                if(motionDisplayer!=null) {
-                  System.out.println("Time = " + getCurrentTime() + "  last time " + storage.getLastTime());
                   if(storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);
                }
             }});
@@ -70,22 +67,33 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
          ex.printStackTrace();
       }
    }
+
+   public void processStep(int step) {
+      if(progressHandle!=null) progressHandle.progress(++stepsProcessed);
+      if(proceed(step)) updateDisplaySynchronously();
+   }
+   
+   public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
+      int retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT, aClientData);
+      processStep(aStep);
+      return retValue;
+   }
    
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT) {
       int retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP, aDYDT);
-      if(proceed(aStep)) updateDisplaySynchronously();
+      processStep(aStep);
       return retValue;
    }
    
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP) {
       int retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY, aYP);
-      if(proceed(aStep)) updateDisplaySynchronously();
+      processStep(aStep);
       return retValue;
    }
    
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
       int retValue = super.step(aXPrev, aYPrev, aYPPrev, aStep, aDT, aT, aX, aY);
-      if(proceed(aStep)) updateDisplaySynchronously();
+      processStep(aStep);
       return retValue;
    }
    public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY) {
@@ -100,5 +108,4 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    protected void finalize() {
       super.finalize();
    }
-   
 }

@@ -45,8 +45,21 @@ public class IKToolModel extends Observable implements Observer {
          // another motion show up on it)
          MotionsDB.getInstance().flushMotions();
 
+         // Initialize progress bar, given we know the number of frames to process
+         IKTrial trial = ikTool.getIKTrialSet().get(0);
+         int startFrame = trial.getStartFrame();
+         int endFrame = trial.getEndFrame();
+         progressHandle = ProgressHandleFactory.createHandle("Executing inverse kinematics...",
+                              new Cancellable() {
+                                 public boolean cancel() {
+                                    interrupt(true);
+                                    return true;
+                                 }
+                              });
+         progressHandle.start(endFrame-startFrame+1);
+
          // Animation callback will update the display during IK solve
-         animationCallback = new JavaMotionDisplayerCallback(getModel(), ikTool.getIKTrialSet().get(0).getOutputStorage());
+         animationCallback = new JavaMotionDisplayerCallback(getModel(), ikTool.getIKTrialSet().get(0).getOutputStorage(), progressHandle);
          getModel().addIntegCallback(animationCallback);
          animationCallback.setStepInterval(1);
 
@@ -55,15 +68,6 @@ public class IKToolModel extends Observable implements Observer {
          // it would then later try to delete it yet again)
          interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
          getModel().addIntegCallback(interruptingCallback);
-
-         progressHandle = ProgressHandleFactory.createHandle("Executing inverse kinematics...",
-                              new Cancellable() {
-                                 public boolean cancel() {
-                                    interrupt(true);
-                                    return true;
-                                 }
-                              });
-         progressHandle.start();
 
          setExecuting(true);
       }
