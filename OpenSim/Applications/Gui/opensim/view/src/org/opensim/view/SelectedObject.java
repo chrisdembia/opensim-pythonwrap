@@ -29,6 +29,7 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.AbstractBody;
+import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkProp3D;
@@ -40,6 +41,8 @@ import vtk.vtkProp3D;
  *
  */
 public class SelectedObject {
+   public static final double defaultSelectedColor[] = {0.8, 0.8, 0.0};
+
    OpenSimObject object;
 
    public SelectedObject(OpenSimObject object) { 
@@ -54,33 +57,43 @@ public class SelectedObject {
       return object.getType() + ":" + object.getName();
    }
 
+   private Model getModel(MusclePoint mp) { return mp.getMuscle().getModel(); }
+   private Model getModel(AbstractBody body) { return body.getDynamicsEngine().getModel(); }
+   private Model getModel(AbstractMarker marker) { return marker.getBody().getDynamicsEngine().getModel(); }
+
    public Model getOwnerModel()
    {
       MusclePoint mp = MusclePoint.safeDownCast(object);
-      if(mp != null) return mp.getMuscle().getModel();
+      if(mp != null) return getModel(mp);
       AbstractBody body = AbstractBody.safeDownCast(object);
-      if(body != null) return body.getDynamicsEngine().getModel();
+      if(body != null) return getModel(body);
+      AbstractMarker marker = AbstractMarker.safeDownCast(object);
+      if(marker != null) return getModel(marker);
       return null;
    }
 
    public void markSelected(boolean highlight)
    {
-      MusclePoint mp = MusclePoint.safeDownCast(object);
-      if (mp != null) {
-         SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(mp.getMuscle().getModel());
+      if (MusclePoint.safeDownCast(object) != null) {
+         MusclePoint mp = MusclePoint.safeDownCast(object);
+         SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(mp));
          OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
-         if (highlight)
-            cloud.setScalarDataAtLocation(cloud.getPointId(object), 0.28); // yellow
-else
-            cloud.setScalarDataAtLocation(cloud.getPointId(object), 0.0); // red
+         cloud.setSelected(cloud.getPointId(object), highlight);
          AbstractMuscle m = mp.getMuscle();
          visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
-      } else { // should check for body here
-         double colorComponents[] = {0.8, 0.8, 0.0};
-         if (!highlight)
-            colorComponents[0] = colorComponents[1] = colorComponents[2] = 1.0;
+      } else if (AbstractMarker.safeDownCast(object) != null) {
+         AbstractMarker marker = AbstractMarker.safeDownCast(object);
+         SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(marker));
+         OpenSimvtkGlyphCloud cloud = visuals.getMarkersRep();
+         cloud.setSelected(cloud.getPointId(object), highlight);
+         cloud.setModified();
+      } else if (AbstractBody.safeDownCast(object) != null) {
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
-         ViewDB.getInstance().applyColor(colorComponents, asm);
+         double unselectedColor[] = {1.0, 1.0, 1.0};
+         if(highlight)
+            ViewDB.getInstance().applyColor(defaultSelectedColor, asm);
+         else
+            ViewDB.getInstance().applyColor(unselectedColor, asm);
       }
    }
 }

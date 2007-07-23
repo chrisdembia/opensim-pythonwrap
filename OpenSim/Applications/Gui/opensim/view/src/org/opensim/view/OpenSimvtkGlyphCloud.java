@@ -34,7 +34,8 @@ import vtk.vtkDataArray;
 import vtk.vtkFloatArray;
 import vtk.vtkGlyph3D;
 import vtk.vtkIdList;
-import vtk.vtkPointData;
+import vtk.vtkIntArray;
+import vtk.vtkLookupTable;
 import vtk.vtkPoints;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
@@ -59,7 +60,8 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     // vectorData is used primarily to "hide" objects, by setting the data to 0,0,0
     // a muscle point is hidden otherwise 1,1,1 except for forces that are really scaled uniformely by mag
     private vtkFloatArray       vectorData = new vtkFloatArray();
-    private vtkFloatArray       scalarData = null;
+    private vtkIntArray         scalarData = null;
+    private vtkLookupTable      lookupTable = null;
     private HashMap<OpenSimObject,Integer> mapObjectIdsToPointIds = new HashMap<OpenSimObject,Integer>(100);
     private HashMap<Integer,OpenSimObject> mapPointIdsToObjectIds = new HashMap<Integer,OpenSimObject>(100);
 
@@ -67,18 +69,10 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     
     /**
     * Creates a new instance of OpenSimvtkGlyphCloud.
-    * defaults to not create Scalars
-    */
-    public OpenSimvtkGlyphCloud() {
-       this(false,false);
-    }
-    
-    /**
-    * Creates a new instance of OpenSimvtkGlyphCloud.
     * if createScalars is true then obbjects are colored based on scalarValues
     * otherwise it uses Vector magnitude.
     */
-    public OpenSimvtkGlyphCloud(boolean createScalars, boolean createNormals) {
+    public OpenSimvtkGlyphCloud(boolean createNormals) {
         pointPolyData.SetPoints(pointCloud);
         // Always use vector data because that's how we scale things to make them disappear
         vectorData.SetNumberOfTuples(1);
@@ -90,13 +84,8 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
            lineNormals.SetNumberOfComponents(3);
            pointPolyData.GetPointData().SetNormals(lineNormals);
         }
-        if (createScalars) {
-           scalarData = new vtkFloatArray();
-           scalarData.SetNumberOfTuples(1);
-           scalarData.SetNumberOfComponents(1);
-           pointPolyData.GetPointData().SetScalars(scalarData);
-        }
         glyph.GeneratePointIdsOn();
+        glyph.SetScaleModeToDataScalingOff(); // So hide/show behavior is disabled by default
     }
     
     public void setShape(vtkPolyData rep) {
@@ -105,9 +94,33 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     public void setDisplayProperties(vtkProperty prop) {
         actor.SetProperty(prop);
     }
-    public void setColor(double[] color) {
-        actor.GetProperty().SetColor(color);
-    }
+
+   // Single color (doesn't support showing selected/unselected)
+   public void setColor(double[] color) {
+      actor.GetProperty().SetColor(color);
+   }
+
+   // Set both unselected and selected colors
+   // Scalar 0 indicates unselected, scalar 1 indicates selected
+   public void setColors(double[] unselectedColor, double[] selectedColor) {
+      scalarData = new vtkIntArray();
+      scalarData.SetNumberOfTuples(1);
+      scalarData.SetNumberOfComponents(1);
+      pointPolyData.GetPointData().SetScalars(scalarData);
+      glyph.SetColorModeToColorByScalar();
+      lookupTable = new vtkLookupTable();
+      lookupTable.SetNumberOfTableValues(2);
+      if(unselectedColor.length==3) lookupTable.SetTableValue(0, unselectedColor[0], unselectedColor[1], unselectedColor[2], 1.0);
+      else lookupTable.SetTableValue(0, unselectedColor);
+      if(selectedColor.length==3) lookupTable.SetTableValue(1, selectedColor[0], selectedColor[1], selectedColor[2], 1.0);
+      else lookupTable.SetTableValue(1, selectedColor);
+      mapper.SetLookupTable(lookupTable);
+   }
+
+   public void setSelected(int index, boolean selected) {
+      if(scalarData!=null && lookupTable!=null) scalarData.SetTuple1(index, selected ? 1 : 0);
+   }
+
     public void setOpacity(double newOpacity) {
         actor.GetProperty().SetOpacity(newOpacity);
     }
@@ -136,37 +149,23 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     public void setVectorDataAtLocation(int index, double x, double y, double z) {
         vectorData.SetTuple3(index, x, y, z);
     }
-    
-    public void setScalarDataAtLocation(int index, double x) {
-       if (scalarData != null) scalarData.SetTuple1(index, x);
-    }
-    
-    public void orientByNormal() {
-        glyph.SetVectorModeToUseNormal(); 
-    }
-    
-    public void colorByScalar() {
-        glyph.SetColorModeToColorByScalar(); 
-    }
-
-    public void colorByVector() {
-        glyph.SetColorModeToColorByVector(); 
+   
+    // Used e.g. for the ground reaction forces, it uses the normals to orient the GRF "arrow", and the normal magnitude is used to scale the GRF "arrow"
+    public void orientByNormalAndScaleByVector() {
+      glyph.SetVectorModeToUseNormal(); 
+      glyph.SetScaleModeToScaleByVector(); // scales by vector *magnitude*
     }
 
     public void setScaleFactor(double d) {
         glyph.SetScaleFactor(d);
     }
-    
-    public void scaleByVector()
-    {
-        glyph.SetScaleModeToScaleByVector();
-    }
-    
+   
    public void setModified() {
       pointPolyData.Modified();
    }
 
-   void scaleByVectorComponents() {
+   // Used to enable hide/show behavior
+   public void scaleByVectorComponents() {
       glyph.SetScaleModeToScaleByVectorComponents();
    }
 
@@ -197,9 +196,9 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
          show(idx);
       } else {
          idx = pointCloud.InsertNextPoint(px, py, pz);
-         vectorData.InsertTuple3(idx, 0., 0., 0.);
+         vectorData.InsertTuple3(idx, 1., 1., 1.);
          if (lineNormals != null) lineNormals.InsertTuple3(idx, 0., 0., 0.);
-         if (scalarData != null) scalarData.InsertTuple1(idx, 0.0);
+         if (scalarData != null) scalarData.InsertTuple1(idx, 0);
       }
       return idx;
    }

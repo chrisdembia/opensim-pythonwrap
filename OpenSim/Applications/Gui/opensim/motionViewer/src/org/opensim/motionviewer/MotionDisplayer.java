@@ -58,8 +58,8 @@ public class MotionDisplayer {
 
     Hashtable<Integer, ObjectTypesInMotionFiles> mapIndicesToObjectTypes=new Hashtable<Integer, ObjectTypesInMotionFiles>(40);
     Hashtable<Integer, Object> mapIndicesToObjects=new Hashtable<Integer, Object>(40);
-    OpenSimvtkGlyphCloud  forcesRep=new OpenSimvtkGlyphCloud(false, true);
-    OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false, false);
+    OpenSimvtkGlyphCloud  forcesRep=new OpenSimvtkGlyphCloud(true);
+    OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
     private Storage simmMotionData;
     private Model model;
 
@@ -120,9 +120,8 @@ public class MotionDisplayer {
         forcesRep.setShape(MotionObjectsDB.getInstance().getShape("force"));
         forcesRep.setColor(new double[]{0., 1.0, 0.});
         forcesRep.setOpacity(0.7);
-        forcesRep.orientByNormal();
         forcesRep.setScaleFactor(0.001);
-        forcesRep.scaleByVector();
+        forcesRep.orientByNormalAndScaleByVector();
         
         markersRep.setShape(MotionObjectsDB.getInstance().getShape("marker"));
         markersRep.setColor(new double[]{0.0, 0.0, 1.0}); //Scale , scaleBy

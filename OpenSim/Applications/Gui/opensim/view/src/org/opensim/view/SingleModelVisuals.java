@@ -79,6 +79,8 @@ public class SingleModelVisuals {
     private double[] defaultMarkerColor = new double[]{1.0, 0.6, 0.8};
     private double[] defaultWrapObjectColor = new double[]{0.0, 1.0, 1.0};
     private double DEFAULT_MUSCLE_RADIUS = .005;
+    private double DEFAULT_MUSCLE_POINT_RADIUS = .008;
+    private double DEFAULT_MARKER_RADIUS = .01;
 
     // Maps between objects and vtkProp3D for going from Actor to Object and vice versa
     // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
@@ -91,8 +93,8 @@ public class SingleModelVisuals {
     private Hashtable<OpenSimObject, Integer> mapMarkers2Glyphs = new Hashtable<OpenSimObject, Integer>(50);
     
     // Markers and muscle points are represented as Glyphs for performance
-    private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud();
-    private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(true,false);
+    private OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
+    private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(false);
     private OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
 
     private vtkProp3DCollection    userObjects = new vtkProp3DCollection();
@@ -514,23 +516,22 @@ public class SingleModelVisuals {
 
        // Markers
        vtkSphereSource marker=new vtkSphereSource();
-       marker.SetRadius(.01);
+       marker.SetRadius(DEFAULT_MARKER_RADIUS);
        marker.SetCenter(0., 0., 0.);
-       getMarkersRep().setColor(defaultMarkerColor);
+       getMarkersRep().setColors(defaultMarkerColor, SelectedObject.defaultSelectedColor);
        vtkStripper strip1 = new vtkStripper();
        strip1.SetInput(marker.GetOutput());
        getMarkersRep().setShape(strip1.GetOutput());
        
        // Muscle points
        vtkSphereSource viaPoint=new vtkSphereSource();
-       viaPoint.SetRadius(DEFAULT_MUSCLE_RADIUS);
+       viaPoint.SetRadius(DEFAULT_MUSCLE_POINT_RADIUS);
        viaPoint.SetCenter(0., 0., 0.);
-       getMusclePointsRep().setColor(defaultMusclePointColor);
-       getMusclePointsRep().colorByScalar();
+       getMusclePointsRep().setColors(defaultMusclePointColor, SelectedObject.defaultSelectedColor);
        vtkStripper strip2 = new vtkStripper();
        strip2.SetInput(viaPoint.GetOutput());
        getMusclePointsRep().setShape(strip2.GetOutput());
-       getMusclePointsRep().scaleByVector();
+       getMusclePointsRep().scaleByVectorComponents();
       
        // Muscle segments 
        vtkCylinderSource muscleSegment=new vtkCylinderSource();
