@@ -14,7 +14,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane" pref="709" max="32767" attributes="0"/>
+              <Component id="jTabbedPane" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -23,7 +23,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane" pref="464" max="32767" attributes="0"/>
+              <Component id="jTabbedPane" pref="454" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -46,15 +46,21 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="markerPlacerPanel" alignment="0" pref="684" max="32767" attributes="1"/>
-                          <Component id="modelScalerPanel" alignment="0" max="32767" attributes="1"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Component id="modelScalerPanel" max="32767" attributes="1"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="subjectDataPanel" max="32767" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="genericModelDataPanel" max="32767" attributes="1"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="markerPlacerPanel" max="32767" attributes="1"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -65,15 +71,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="subjectDataPanel" max="32767" attributes="1"/>
-                          <Component id="genericModelDataPanel" alignment="0" max="32767" attributes="1"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="genericModelDataPanel" max="32767" attributes="1"/>
+                          <Component id="subjectDataPanel" alignment="0" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="modelScalerPanel" min="-2" pref="118" max="-2" attributes="0"/>
+                      <Component id="modelScalerPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="markerPlacerPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -83,7 +89,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Marker Placement Settings">
+                    <TitledBorder title="Adjust Model Markers">
                       <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                         <EtchetBorder/>
                       </Border>
@@ -95,57 +101,45 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" max="-2" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel17" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="copyMeasurementTrialToStaticTrial" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="staticTrialFileName" alignment="0" pref="317" max="32767" attributes="1"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="coordinateFileName" alignment="0" pref="307" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="coordinateCheckBox" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel8" linkSize="4" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
+                                      <Component id="jLabel12" linkSize="4" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="staticTrialFileName" alignment="0" pref="381" max="32767" attributes="1"/>
                                       <Group type="102" alignment="1" attributes="1">
-                                          <Component id="staticTrialStartTime" pref="148" max="32767" attributes="0"/>
+                                          <Component id="staticTrialStartTime" pref="177" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="staticTrialEndTime" pref="148" max="32767" attributes="0"/>
+                                          <Component id="staticTrialEndTime" pref="178" max="32767" attributes="0"/>
                                       </Group>
+                                      <Component id="coordinateFileName" alignment="0" pref="381" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="staticTrialInfoPanel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="547" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                          <Component id="staticTrialInfoPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="staticTrialInfoPanel" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="copyMeasurementTrialToStaticTrial" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="staticTrialFileName" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
@@ -159,16 +153,12 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="coordinateCheckBox" min="-2" max="-2" attributes="0"/>
                                       <Component id="coordinateFileName" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="staticTrialInfoPanel" min="-2" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
-                          <EmptySpace pref="30" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -176,6 +166,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel8">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="11"/>
                     <Property name="text" type="java.lang.String" value="Average markers between times"/>
                   </Properties>
                 </Component>
@@ -213,28 +204,13 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Static pose trial:"/>
+                    <Property name="text" type="java.lang.String" value="Static pose for marker placement:"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="copyMeasurementTrialToStaticTrial">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Same as measurement-based scaling trial above"/>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                        <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-                      </Border>
-                    </Property>
-                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                      <Insets value="[0, 0, 0, 0]"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copyMeasurementTrialToStaticTrialActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Trial file (.trc)"/>
+                    <Property name="horizontalAlignment" type="int" value="11"/>
+                    <Property name="text" type="java.lang.String" value="Marker data for static pose"/>
                   </Properties>
                 </Component>
                 <Component class="org.opensim.swingui.FileTextFieldAndChooser" name="staticTrialFileName">
@@ -254,10 +230,21 @@
                     <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="coordinateFileNameStateChanged"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel17">
+                <Component class="javax.swing.JCheckBox" name="coordinateCheckBox">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Coordinates file"/>
+                    <Property name="text" type="java.lang.String" value="Coordinate data for static pose"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                        <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+                      </Border>
+                    </Property>
+                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                      <Insets value="[0, 0, 0, 0]"/>
+                    </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="coordinateCheckBoxActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -265,7 +252,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Scale Settings">
+                    <TitledBorder title="Scale Model">
                       <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                         <EtchetBorder/>
                       </Border>
@@ -277,72 +264,64 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="preserveMassDistributionCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" attributes="1">
-                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="preserveMassDistributionCheckBox" linkSize="5" min="-2" max="-2" attributes="0"/>
+                              <Component id="measurementTrialCheckBox" linkSize="5" min="-2" pref="208" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel5" linkSize="5" min="-2" pref="204" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="measurementTrialFileName" pref="285" max="32767" attributes="1"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="measurementTrialStartTime" pref="125" max="32767" attributes="1"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="measurementTrialEndTime" pref="134" max="32767" attributes="1"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="measurementTrialStartTime" pref="160" max="32767" attributes="2"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="measurementTrialEndTime" pref="160" max="32767" attributes="2"/>
+                              </Group>
+                              <Component id="measurementTrialFileName" alignment="0" pref="346" max="32767" attributes="1"/>
+                          </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="measurementTrialInfoPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="preserveMassDistributionCheckBox" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="preserveMassDistributionCheckBox" min="-2" pref="15" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="measurementTrialCheckBox" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="measurementTrialFileName" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="measurementTrialEndTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="measurementTrialStartTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <Component id="measurementTrialFileName" min="-2" max="-2" attributes="0"/>
+                              <Component id="measurementTrialInfoPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="measurementTrialStartTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="measurementTrialEndTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="measurementTrialInfoPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel3">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Trial file (.trc)"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel5">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="11"/>
                     <Property name="text" type="java.lang.String" value="Average measurements between times"/>
                   </Properties>
                 </Component>
@@ -377,7 +356,7 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="preserveMassDistributionCheckBox">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Preserve mass distribution"/>
+                    <Property name="text" type="java.lang.String" value="Preserve mass distribution during scale"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                         <EmptyBorder bottom="0" left="0" right="0" top="0"/>
@@ -391,14 +370,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="preserveMassDistributionCheckBoxActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel11">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="11" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Measurement-based scaling:"/>
-                  </Properties>
-                </Component>
                 <Component class="org.opensim.swingui.FileTextFieldAndChooser" name="measurementTrialFileName">
                   <Properties>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -410,6 +381,22 @@
                   </Events>
                 </Component>
                 <Component class="org.opensim.tracking.MarkerDataInfoPanel" name="measurementTrialInfoPanel">
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="measurementTrialCheckBox">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Marker data for measurements"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                        <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+                      </Border>
+                    </Property>
+                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                      <Insets value="[0, 0, 0, 0]"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="measurementTrialCheckBoxActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -451,10 +438,10 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="markerSetFileName" alignment="0" pref="227" max="32767" attributes="1"/>
-                              <Component id="modelNameTextField" alignment="0" pref="227" max="32767" attributes="1"/>
-                              <Component id="modelMassTextField" alignment="0" pref="227" max="32767" attributes="0"/>
-                              <Component id="markerSetInfoTextField" alignment="0" pref="227" max="32767" attributes="1"/>
+                              <Component id="markerSetFileName" alignment="0" pref="305" max="32767" attributes="1"/>
+                              <Component id="modelNameTextField" alignment="0" pref="305" max="32767" attributes="1"/>
+                              <Component id="modelMassTextField" alignment="0" pref="305" max="32767" attributes="0"/>
+                              <Component id="markerSetInfoTextField" alignment="0" pref="305" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>

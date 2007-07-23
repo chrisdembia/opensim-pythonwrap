@@ -115,6 +115,8 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
       markerDataInfoPanel.update(ikToolModel.getIKCommonModel().getMarkerData());
 
       // Coordinate data
+      coordinateFileName.setEnabled(ikToolModel.getIKCommonModel().getCoordinateDataEnabled());
+      coordinateCheckBox.setSelected(ikToolModel.getIKCommonModel().getCoordinateDataEnabled());
       coordinateFileName.setFileName(ikToolModel.getIKCommonModel().getCoordinateDataFileName(),false);
       coordinateFileName.setFileIsValid(ikToolModel.getIKCommonModel().getCoordinateDataValid());
 
@@ -178,9 +180,9 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
       markerFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       markerDataInfoPanel = new org.opensim.tracking.MarkerDataInfoPanel();
       coordinateFileName = new org.opensim.swingui.FileTextFieldAndChooser();
-      jLabel17 = new javax.swing.JLabel();
       trialNameTextField = new javax.swing.JTextField();
       jLabel1 = new javax.swing.JLabel();
+      coordinateCheckBox = new javax.swing.JCheckBox();
       genericModelDataPanel = new javax.swing.JPanel();
       jLabel13 = new javax.swing.JLabel();
       modelNameTextField = new javax.swing.JTextField();
@@ -188,6 +190,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
       markerSetInfoTextField = new javax.swing.JTextField();
 
       markerPlacerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "IK Trial"));
+      jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
       jLabel8.setText("Time range");
 
       endTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
@@ -218,7 +221,8 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
          }
       });
 
-      jLabel12.setText("Trial file (.trc)");
+      jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+      jLabel12.setText("Marker data for trial");
 
       markerFileName.setMinimumSize(new java.awt.Dimension(3, 20));
       markerFileName.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -233,8 +237,6 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
          }
       });
 
-      jLabel17.setText("Coordinates file");
-
       trialNameTextField.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             trialNameTextFieldActionPerformed(evt);
@@ -246,7 +248,17 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
          }
       });
 
+      jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
       jLabel1.setText("Trial name");
+
+      coordinateCheckBox.setText("Coordinate data for trial");
+      coordinateCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      coordinateCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      coordinateCheckBox.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            coordinateCheckBoxActionPerformed(evt);
+         }
+      });
 
       org.jdesktop.layout.GroupLayout markerPlacerPanelLayout = new org.jdesktop.layout.GroupLayout(markerPlacerPanel);
       markerPlacerPanel.setLayout(markerPlacerPanelLayout);
@@ -254,11 +266,11 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
          markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanelLayout.createSequentialGroup()
             .add(60, 60, 60)
-            .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-               .add(jLabel17)
-               .add(jLabel12)
-               .add(jLabel8)
-               .add(jLabel1))
+            .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+               .add(coordinateCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(jLabel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(jLabel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(trialNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
@@ -277,6 +289,9 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
             .add(markerDataInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addContainerGap())
       );
+
+      markerPlacerPanelLayout.linkSize(new java.awt.Component[] {coordinateCheckBox, jLabel1, jLabel12, jLabel8}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
       markerPlacerPanelLayout.setVerticalGroup(
          markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(markerPlacerPanelLayout.createSequentialGroup()
@@ -299,7 +314,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                      .add(coordinateFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                     .add(jLabel17))))
+                     .add(coordinateCheckBox))))
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
@@ -363,7 +378,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
             .add(genericModelDataPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(markerPlacerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(134, Short.MAX_VALUE))
+            .addContainerGap(154, Short.MAX_VALUE))
       );
       jTabbedPane.addTab("IK Tool Settings", jPanel1);
 
@@ -373,14 +388,14 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(jTabbedPane)
+            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
             .addContainerGap())
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
@@ -394,13 +409,15 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
    }//GEN-LAST:event_trialNameTextFieldActionPerformed
 
    private void markerFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_markerFileNameStateChanged
-      boolean result = ikToolModel.getIKCommonModel().setMarkerDataFileName(markerFileName.getFileName());
-      markerFileName.setFileIsValid(result);
+      ikToolModel.getIKCommonModel().setMarkerDataFileName(markerFileName.getFileName());
    }//GEN-LAST:event_markerFileNameStateChanged
 
+   private void coordinateCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coordinateCheckBoxActionPerformed
+      ikToolModel.getIKCommonModel().setCoordinateDataEnabled(coordinateCheckBox.isSelected());
+   }//GEN-LAST:event_coordinateCheckBoxActionPerformed
+
    private void coordinateFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_coordinateFileNameStateChanged
-      boolean result = ikToolModel.getIKCommonModel().setCoordinateDataFileName(coordinateFileName.getFileName());
-      coordinateFileName.setFileIsValid(result);
+      ikToolModel.getIKCommonModel().setCoordinateDataFileName(coordinateFileName.getFileName());
    }//GEN-LAST:event_coordinateFileNameStateChanged
 
    private void timeRangeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_timeRangeFocusLost
@@ -411,15 +428,15 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
       try {
          double[] range = new double[]{Double.valueOf(startTime.getText()), Double.valueOf(endTime.getText())};
          ikToolModel.getIKCommonModel().setTimeRange(range);
-      } catch (Exception ex) {
+      } catch (Exception ex) { // To catch parsing problems (string -> double)
+         double[] timeRange = ikToolModel.getIKCommonModel().getTimeRange();
+         startTime.setText(((Double)timeRange[0]).toString());
+         endTime.setText(((Double)timeRange[1]).toString());
       }
-      // May have clamped, get actual values
-      double[] range = ikToolModel.getIKCommonModel().getTimeRange();
-      startTime.setText(((Double)range[0]).toString());
-      endTime.setText(((Double)range[1]).toString());
    }//GEN-LAST:event_timeRangeActionPerformed
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JCheckBox coordinateCheckBox;
    private org.opensim.swingui.FileTextFieldAndChooser coordinateFileName;
    private javax.swing.JTextField endTime;
    private javax.swing.JPanel genericModelDataPanel;
@@ -427,7 +444,6 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
    private javax.swing.JLabel jLabel12;
    private javax.swing.JLabel jLabel13;
    private javax.swing.JLabel jLabel16;
-   private javax.swing.JLabel jLabel17;
    private javax.swing.JLabel jLabel8;
    private javax.swing.JLabel jLabel9;
    private javax.swing.JPanel jPanel1;

@@ -14,7 +14,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane" max="32767" attributes="0"/>
+              <Component id="jTabbedPane" pref="714" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -23,7 +23,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane" pref="397" max="32767" attributes="0"/>
+              <Component id="jTabbedPane" pref="417" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -63,7 +63,7 @@
                       <Component id="genericModelDataPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="markerPlacerPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="134" max="32767" attributes="0"/>
+                      <EmptySpace pref="154" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -87,11 +87,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel17" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="coordinateCheckBox" linkSize="1" alignment="1" max="32767" attributes="1"/>
+                              <Component id="jLabel8" linkSize="1" alignment="1" max="32767" attributes="1"/>
+                              <Component id="jLabel12" linkSize="1" alignment="1" max="32767" attributes="1"/>
+                              <Component id="jLabel1" linkSize="1" alignment="1" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -129,8 +129,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="markerFileName" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="markerFileName" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -141,8 +141,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="coordinateFileName" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel17" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="coordinateFileName" min="-2" max="-2" attributes="0"/>
+                                      <Component id="coordinateCheckBox" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -154,6 +154,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel8">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="11"/>
                     <Property name="text" type="java.lang.String" value="Time range"/>
                   </Properties>
                 </Component>
@@ -188,7 +189,8 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Trial file (.trc)"/>
+                    <Property name="horizontalAlignment" type="int" value="11"/>
+                    <Property name="text" type="java.lang.String" value="Marker data for trial"/>
                   </Properties>
                 </Component>
                 <Component class="org.opensim.swingui.FileTextFieldAndChooser" name="markerFileName">
@@ -208,11 +210,6 @@
                     <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="coordinateFileNameStateChanged"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel17">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Coordinates file"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JTextField" name="trialNameTextField">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trialNameTextFieldActionPerformed"/>
@@ -221,8 +218,25 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="11"/>
                     <Property name="text" type="java.lang.String" value="Trial name"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="coordinateCheckBox">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Coordinate data for trial"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                        <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+                      </Border>
+                    </Property>
+                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                      <Insets value="[0, 0, 0, 0]"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="coordinateCheckBoxActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -19,12 +19,13 @@ public class IKCommonModel extends Observable implements Observer {
    private Model model;
 
    private String markerDataFileName = "";
-   private String coordinateDataFileName = "";
+   private MarkerData markerData = null;
+
+   private OptionalFile coordinateDataFile = new OptionalFile();
+   private Storage coordinateData = null;
+
    private double[] timeRange = new double[]{-1,-1};
 
-   private MarkerData markerData = null;
-   private Storage coordinateData = null;
-   
    private IKMarkerTasksModel ikMarkerTasksModel;
    private IKCoordinateTasksModel ikCoordinateTasksModel;
 
@@ -72,6 +73,7 @@ public class IKCommonModel extends Observable implements Observer {
    public boolean loadMarkerData() {
       String fileName = getMarkerDataFileName();
       boolean success = true;
+      markerData = null; 
       if(!fileNameEffectivelyNull(fileName)) {
          try {
             markerData = new MarkerData(fileName);
@@ -79,7 +81,6 @@ public class IKCommonModel extends Observable implements Observer {
             // values from this file in the GUI it shouldn't matter that we're doing convertToUnits first here.
             markerData.convertToUnits(model.getLengthUnits());
          } catch (IOException ex) {
-            markerData = null; 
             success = false;
          }
       }
@@ -106,15 +107,14 @@ public class IKCommonModel extends Observable implements Observer {
    // Coordinate data
    //------------------------------------------------------------------------
    public boolean loadCoordinateData() {
-      String fileName = getCoordinateDataFileName();
       boolean success = true;
-      if(!fileNameEffectivelyNull(fileName)) {
+      coordinateData = null;
+      if(coordinateDataFile.isValid()) {
          try {
-            coordinateData = new Storage(fileName);
+            coordinateData = new Storage(coordinateDataFile.fileName);
             // Possibly not really needed, since we don't really use the contents of this file
             model.getDynamicsEngine().convertDegreesToRadians(coordinateData);
          } catch (IOException ex) {
-            coordinateData = null; 
             success = false;
          }
       }
@@ -123,13 +123,22 @@ public class IKCommonModel extends Observable implements Observer {
    }
 
    public boolean setCoordinateDataFileName(String fileName) {
-      coordinateDataFileName = getFileName(fileName);
+      coordinateDataFile.fileName = fileName;
       boolean success = loadCoordinateData();
       setModified();
       return success;
    }
+   public String getCoordinateDataFileName() { return coordinateDataFile.fileName; }
 
-   public String getCoordinateDataFileName() { return coordinateDataFileName; }
+   public void setCoordinateDataEnabled(boolean enabled) {
+      if(coordinateDataFile.enabled != enabled) {
+         coordinateDataFile.enabled = enabled;
+         loadCoordinateData();
+         setModified();
+      }
+   }
+   public boolean getCoordinateDataEnabled() { return coordinateDataFile.enabled; }
+
    public Storage getCoordinateData() { return coordinateData; }
    public boolean getCoordinateDataValid() { return coordinateData!=null; }
 
@@ -165,7 +174,7 @@ public class IKCommonModel extends Observable implements Observer {
 
       // Coordinate data file
       coordinateData = null;
-      coordinateDataFileName = markerPlacer.getCoordinateFileName();
+      coordinateDataFile.fromProperty(markerPlacer.getCoordinateFileName());
       loadCoordinateData();
 
       // Time range
@@ -182,7 +191,7 @@ public class IKCommonModel extends Observable implements Observer {
       markerPlacer.setStaticPoseFileName(markerDataFileName);
 
       // Coordinate data file
-      markerPlacer.setCoordinateFileName(coordinateDataFileName);
+      markerPlacer.setCoordinateFileName(coordinateDataFile.toProperty());
 
       // Time range
       ArrayDouble array = new ArrayDouble();
@@ -200,7 +209,7 @@ public class IKCommonModel extends Observable implements Observer {
       coordinateData = null;
       if(ikTool.getIKTrialSet().getSize()==0) {
          markerDataFileName = "";
-         coordinateDataFileName = "";
+         coordinateDataFile.fromProperty("");
          timeRange = new double[]{-1, -1};
       } else {
          IKTrial trial = ikTool.getIKTrialSet().get(0);
@@ -210,7 +219,7 @@ public class IKCommonModel extends Observable implements Observer {
          loadMarkerData();
 
          // Coordinate data file
-         coordinateDataFileName = trial.getCoordinateFileName();
+         coordinateDataFile.fromProperty(trial.getCoordinateFileName());
          loadCoordinateData();
 
          // Time range
@@ -228,7 +237,7 @@ public class IKCommonModel extends Observable implements Observer {
       } else {
          IKTrial trial = ikTool.getIKTrialSet().get(0);
          trial.setMarkerDataFileName(markerDataFileName);
-         trial.setCoordinateFileName(coordinateDataFileName);
+         trial.setCoordinateFileName(coordinateDataFile.toProperty());
          trial.setStartTime(timeRange[0]);
          trial.setEndTime(timeRange[1]);
       }

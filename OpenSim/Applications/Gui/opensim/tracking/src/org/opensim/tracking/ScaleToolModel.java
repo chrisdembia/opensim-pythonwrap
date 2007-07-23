@@ -29,6 +29,22 @@ import org.opensim.utils.FileUtils;
 import org.opensim.view.pub.OpenSimDB;
 
 //==================================================================
+// OptionalFile (helper class)
+//==================================================================
+class OptionalFile {
+   public String fileName = "";
+   public boolean enabled = false;
+   public boolean isValid() { return enabled && !FileUtils.effectivelyNull(fileName); }
+   public void fromProperty(String fileName) { 
+      if(FileUtils.effectivelyNull(fileName)) { enabled = false; this.fileName = ""; }
+      else { enabled = true; this.fileName = fileName; }
+   }
+   public String toProperty() { 
+      return (enabled && !FileUtils.effectivelyNull(fileName)) ? fileName : "Unassigned"; 
+   }
+}
+
+//==================================================================
 // BodyScaleFactors
 //==================================================================
 class BodyScaleFactors {
@@ -213,9 +229,9 @@ class BodySetScaleFactors extends Vector<BodyScaleFactors> {
       int bodyScaleIndex = bodyScaleSet.getIndex(bodyName);
       BodyScale bodyScale = null;
       if(bodyScaleIndex < 0) {
-         bodyScale = new BodyScale();
+         bodyScale = BodyScale.safeDownCast((new BodyScale()).copy()); // Create it on C++ side
          bodyScale.setName(bodyName);
-         modelScaler.getMeasurementSet().get(index).getBodyScaleSet().append(BodyScale.safeDownCast(bodyScale.copy()));
+         modelScaler.getMeasurementSet().get(index).getBodyScaleSet().append(bodyScale);
       } else bodyScale = bodyScaleSet.get(bodyScaleIndex);
       if(axis==0 || axis==-1) bodyScale.getAxisNames().append("X");
       if(axis==1 || axis==-1) bodyScale.getAxisNames().append("Y");
@@ -238,9 +254,10 @@ public class ScaleToolModel extends Observable implements Observer {
 
    private boolean modifiedSinceLastExecute = true;
 
-   private boolean useExtraMarkerSet = false;
+   private OptionalFile extraMarkerSetFile = new OptionalFile();
    private MarkerSet extraMarkerSet = null;
 
+   private OptionalFile measurementTrialFile = new OptionalFile();
    private MarkerData measurementTrial = null;
    private Vector<Double> measurementValues = null;
 
@@ -280,9 +297,11 @@ public class ScaleToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
    
    private void updateScaleTool() {
+      scaleTool.setPrintResultFiles(false);
+      scaleTool.getGenericModelMaker().setMarkerSetFileName(extraMarkerSetFile.toProperty());
+      scaleTool.getModelScaler().setMarkerFileName(measurementTrialFile.toProperty());
       bodySetScaleFactors.toModelScaler();
       ikCommonModel.toMarkerPlacer(scaleTool.getMarkerPlacer());
-      scaleTool.setPrintResultFiles(false);
    }
 
    public void execute() {
@@ -424,13 +443,12 @@ public class ScaleToolModel extends Observable implements Observer {
 
    private boolean loadExtraMarkerSet(boolean forceReset, boolean recompute) {
       MarkerSet oldExtraMarkerSet = extraMarkerSet;
-      String fileName = scaleTool.getGenericModelMaker().getMarkerSetFileName();
       boolean success = true;
-      if(useExtraMarkerSet && !FileUtils.effectivelyNull(fileName)) {
+      if(extraMarkerSetFile.isValid()) {
          try {
-            extraMarkerSet = new MarkerSet(fileName);
+            extraMarkerSet = new MarkerSet(extraMarkerSetFile.fileName);
          } catch (IOException ex) {
-            System.out.println("Error loading marker set file '"+fileName+"'");
+            System.out.println("Error loading marker set file '"+extraMarkerSetFile.fileName+"'");
             extraMarkerSet = null;
             success = false;
          }
@@ -450,13 +468,13 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    public boolean setExtraMarkerSetFileName(String fileName) {
-      scaleTool.getGenericModelMaker().setMarkerSetFileName(getFileName(fileName));
+      extraMarkerSetFile.fileName = fileName;
       boolean success = loadExtraMarkerSet(false,true);
       setModified(Operation.MarkerSetChanged);
       return success;
    }
    public String getExtraMarkerSetFileName() {
-      return getFileName(scaleTool.getGenericModelMaker().getMarkerSetFileName());
+      return extraMarkerSetFile.fileName;
    }
    public MarkerSet getExtraMarkerSet() {
       return extraMarkerSet;
@@ -466,11 +484,11 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    public boolean getUseExtraMarkerSet() {
-      return useExtraMarkerSet;
+      return extraMarkerSetFile.enabled;
    }
    public void setUseExtraMarkerSet(boolean useIt) {
-      if(useExtraMarkerSet != useIt) {
-         useExtraMarkerSet = useIt;
+      if(extraMarkerSetFile.enabled != useIt) {
+         extraMarkerSetFile.enabled = useIt;
          loadExtraMarkerSet(false,true);
          setModified(Operation.MarkerSetChanged);
       }
@@ -507,16 +525,17 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    private boolean loadMeasurementTrial(boolean resetTimeRange, boolean recompute) {
-      String fileName = scaleTool.getModelScaler().getMarkerFileName();
       boolean success = true;
-      if(!FileUtils.effectivelyNull(fileName)) {
+      if(measurementTrialFile.isValid()) {
          try {
-            measurementTrial = new MarkerData(fileName);
+            measurementTrial = new MarkerData(measurementTrialFile.fileName);
             measurementTrial.convertToUnits(getUnscaledModel().getLengthUnits());
          } catch (IOException ex) {
             measurementTrial = null; 
             success = false;
          }
+      } else {
+         measurementTrial = null;
       }
       if(resetTimeRange && measurementTrial!=null) setMeasurementTrialTimeRange(measurementTrial.getTimeRange());
       if(recompute) recomputeMeasurements();
@@ -525,22 +544,30 @@ public class ScaleToolModel extends Observable implements Observer {
 
    // Measurement trial file name
    public boolean setMeasurementTrialFileName(String fileName) {
-      if(fileName!=null)
-         scaleTool.getModelScaler().setMarkerFileName(fileName);
-      else
-         scaleTool.getModelScaler().setMarkerFileName("");
+      measurementTrialFile.fileName = fileName;      
       boolean success = loadMeasurementTrial(true, true);
       setModified(Operation.ModelScalerDataChanged);
       return success;
    }
    public String getMeasurementTrialFileName() {
-      return scaleTool.getModelScaler().getMarkerFileName();
+      return measurementTrialFile.fileName;
    }
    public MarkerData getMeasurementTrial() {
       return measurementTrial;
    }
    public boolean getMeasurementTrialValid() {
       return measurementTrial!=null;
+   }
+
+   public void setMeasurementTrialEnabled(boolean enabled) {
+      if(measurementTrialFile.enabled != enabled) {
+         measurementTrialFile.enabled = enabled;
+         loadMeasurementTrial(false,true);
+         setModified(Operation.ModelScalerDataChanged);
+      }
+   }
+   public boolean getMeasurementTrialEnabled() {
+      return measurementTrialFile.enabled;
    }
 
    // Measurement trial time range
@@ -746,7 +773,7 @@ public class ScaleToolModel extends Observable implements Observer {
 
       // marker set
       extraMarkerSet = null;
-      useExtraMarkerSet = !getExtraMarkerSetFileName().equals("");
+      extraMarkerSetFile.fromProperty(scaleTool.getGenericModelMaker().getMarkerSetFileName());
       loadExtraMarkerSet(true,false); // will recompute measurements below
 
       // measurement set and scale factors
@@ -755,6 +782,7 @@ public class ScaleToolModel extends Observable implements Observer {
 
       // measurement trial
       measurementTrial = null;
+      measurementTrialFile.fromProperty(scaleTool.getModelScaler().getMarkerFileName());
       loadMeasurementTrial(false,false); // will recompute measurements below
       recomputeMeasurements();
 

@@ -104,7 +104,7 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       measurementSetDialog = DialogDisplayer.getDefault().createDialog(dlg);
 
       jTabbedPane.addTab("Scale Factors", new ScaleFactorsPanel(scaleToolModel, measurementSetDialog));
-      jTabbedPane.addTab("IK Tasks", new IKTaskSetPanel(scaleToolModel.getIKCommonModel()));      
+      jTabbedPane.addTab("Static Pose IK Tasks", new IKTaskSetPanel(scaleToolModel.getIKCommonModel()));      
       
       markerSetFileName.setExtensionsAndDescription(".xml", "MarkerSet XML file");
       measurementTrialFileName.setExtensionsAndDescription(".trc", "Measurement trial marker data");
@@ -177,21 +177,23 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       modelScalerPanelCheckBox.setSelected(enabled);
       for(Component comp : modelScalerPanel.getComponents()) comp.setEnabled(enabled);
 
-      // Measurement trial file and time range
-      if(scaleToolModel.getMeasurementTrialFileName() != null) {
-         //measurementTrialFileName.setEnabled(true);
-         measurementTrialFileName.setFileName(scaleToolModel.getMeasurementTrialFileName(),false);
-         measurementTrialFileName.setFileIsValid(scaleToolModel.getMeasurementTrialValid());
-      } else {
-         measurementTrialFileName.setFileName("",false);
-      }
+      // Preserve mass distribution
+      preserveMassDistributionCheckBox.setSelected(scaleToolModel.getPreserveMassDistribution());
+
+      // Measurement trial file and marker data
+      measurementTrialCheckBox.setSelected(scaleToolModel.getMeasurementTrialEnabled());
+      if(!scaleToolModel.getMeasurementTrialEnabled()) measurementTrialFileName.setEnabled(false);
+      measurementTrialFileName.setFileName(scaleToolModel.getMeasurementTrialFileName(),false);
+      measurementTrialFileName.setFileIsValid(scaleToolModel.getMeasurementTrialValid());
       measurementTrialInfoPanel.update(scaleToolModel.getMeasurementTrial());
+
+      // Time range
       double[] timeRange = scaleToolModel.getMeasurementTrialTimeRange();
       measurementTrialStartTime.setText(((Double)timeRange[0]).toString());
       measurementTrialEndTime.setText(((Double)timeRange[1]).toString());
-      if(enabled) {
-         measurementTrialStartTime.setEnabled(scaleToolModel.getMeasurementTrialValid());
-         measurementTrialEndTime.setEnabled(scaleToolModel.getMeasurementTrialValid());
+      if(!scaleToolModel.getMeasurementTrialEnabled() || !scaleToolModel.getMeasurementTrialValid()) {
+         measurementTrialStartTime.setEnabled(false);
+         measurementTrialEndTime.setEnabled(false);
       }
 
       //---------------------------------------------------------------------
@@ -207,6 +209,8 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       staticTrialInfoPanel.update(scaleToolModel.getIKCommonModel().getMarkerData());
 
       // Coordinate data
+      if(!scaleToolModel.getIKCommonModel().getCoordinateDataEnabled()) coordinateFileName.setEnabled(false);
+      coordinateCheckBox.setSelected(scaleToolModel.getIKCommonModel().getCoordinateDataEnabled());
       coordinateFileName.setFileName(scaleToolModel.getIKCommonModel().getCoordinateDataFileName(),false);
       coordinateFileName.setFileIsValid(scaleToolModel.getIKCommonModel().getCoordinateDataValid());
 
@@ -214,7 +218,10 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       timeRange = scaleToolModel.getIKCommonModel().getTimeRange();
       staticTrialStartTime.setText(((Double)timeRange[0]).toString());
       staticTrialEndTime.setText(((Double)timeRange[1]).toString());
-      if(enabled) updateStaticTrialFieldsEnabled();
+      if(scaleToolModel.getIKCommonModel().getMarkerDataValid()) {
+         staticTrialStartTime.setEnabled(false);
+         staticTrialEndTime.setEnabled(false);
+      }
 
       //---------------------------------------------------------------------
       // Dialog buttons
@@ -269,22 +276,20 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       jLabel9 = new javax.swing.JLabel();
       staticTrialStartTime = new javax.swing.JTextField();
       jLabel10 = new javax.swing.JLabel();
-      copyMeasurementTrialToStaticTrial = new javax.swing.JCheckBox();
       jLabel12 = new javax.swing.JLabel();
       staticTrialFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       staticTrialInfoPanel = new org.opensim.tracking.MarkerDataInfoPanel();
       coordinateFileName = new org.opensim.swingui.FileTextFieldAndChooser();
-      jLabel17 = new javax.swing.JLabel();
+      coordinateCheckBox = new javax.swing.JCheckBox();
       modelScalerPanel = new javax.swing.JPanel();
-      jLabel3 = new javax.swing.JLabel();
       jLabel5 = new javax.swing.JLabel();
       measurementTrialStartTime = new javax.swing.JTextField();
       jLabel6 = new javax.swing.JLabel();
       measurementTrialEndTime = new javax.swing.JTextField();
       preserveMassDistributionCheckBox = new javax.swing.JCheckBox();
-      jLabel11 = new javax.swing.JLabel();
       measurementTrialFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       measurementTrialInfoPanel = new org.opensim.tracking.MarkerDataInfoPanel();
+      measurementTrialCheckBox = new javax.swing.JCheckBox();
       subjectDataPanel = new javax.swing.JPanel();
       jLabel4 = new javax.swing.JLabel();
       jLabel2 = new javax.swing.JLabel();
@@ -304,7 +309,8 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       jLabel16 = new javax.swing.JLabel();
       unscaledMarkerSetInfoTextField = new javax.swing.JTextField();
 
-      markerPlacerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Marker Placement Settings"));
+      markerPlacerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Adjust Model Markers"));
+      jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
       jLabel8.setText("Average markers between times");
 
       staticTrialEndTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
@@ -336,18 +342,10 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       });
 
       jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
-      jLabel10.setText("Static pose trial:");
+      jLabel10.setText("Static pose for marker placement:");
 
-      copyMeasurementTrialToStaticTrial.setText("Same as measurement-based scaling trial above");
-      copyMeasurementTrialToStaticTrial.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      copyMeasurementTrialToStaticTrial.setMargin(new java.awt.Insets(0, 0, 0, 0));
-      copyMeasurementTrialToStaticTrial.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            copyMeasurementTrialToStaticTrialActionPerformed(evt);
-         }
-      });
-
-      jLabel12.setText("Trial file (.trc)");
+      jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+      jLabel12.setText("Marker data for static pose");
 
       staticTrialFileName.setMinimumSize(new java.awt.Dimension(3, 20));
       staticTrialFileName.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -362,51 +360,53 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
          }
       });
 
-      jLabel17.setText("Coordinates file");
+      coordinateCheckBox.setText("Coordinate data for static pose");
+      coordinateCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      coordinateCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      coordinateCheckBox.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            coordinateCheckBoxActionPerformed(evt);
+         }
+      });
 
       org.jdesktop.layout.GroupLayout markerPlacerPanelLayout = new org.jdesktop.layout.GroupLayout(markerPlacerPanel);
       markerPlacerPanel.setLayout(markerPlacerPanelLayout);
       markerPlacerPanelLayout.setHorizontalGroup(
          markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(markerPlacerPanelLayout.createSequentialGroup()
+            .addContainerGap()
             .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(markerPlacerPanelLayout.createSequentialGroup()
-                  .add(69, 69, 69)
-                  .add(jLabel10))
-               .add(markerPlacerPanelLayout.createSequentialGroup()
-                  .add(90, 90, 90)
-                  .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                     .add(jLabel17)
-                     .add(jLabel12)))
-               .add(markerPlacerPanelLayout.createSequentialGroup()
-                  .addContainerGap()
-                  .add(jLabel8)))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(copyMeasurementTrialToStaticTrial)
-               .add(staticTrialFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanelLayout.createSequentialGroup()
-                  .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                     .add(org.jdesktop.layout.GroupLayout.LEADING, coordinateFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-                     .add(markerPlacerPanelLayout.createSequentialGroup()
-                        .add(staticTrialStartTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                  .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinateCheckBox)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                     .add(staticTrialFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanelLayout.createSequentialGroup()
+                        .add(staticTrialStartTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel9)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(staticTrialEndTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)))
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
-            .add(16, 16, 16)
-            .add(staticTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(staticTrialEndTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                     .add(coordinateFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(staticTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+               .add(markerPlacerPanelLayout.createSequentialGroup()
+                  .add(jLabel10)
+                  .addContainerGap(547, Short.MAX_VALUE))))
       );
+
+      markerPlacerPanelLayout.linkSize(new java.awt.Component[] {coordinateCheckBox, jLabel12, jLabel8}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
       markerPlacerPanelLayout.setVerticalGroup(
          markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(markerPlacerPanelLayout.createSequentialGroup()
-            .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jLabel10)
+            .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(staticTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(markerPlacerPanelLayout.createSequentialGroup()
-                  .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                     .add(jLabel10)
-                     .add(copyMeasurementTrialToStaticTrial))
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                      .add(staticTrialFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                      .add(jLabel12))
@@ -418,17 +418,13 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
                      .add(jLabel8))
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                     .add(coordinateFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                     .add(jLabel17)))
-               .add(markerPlacerPanelLayout.createSequentialGroup()
-                  .addContainerGap()
-                  .add(staticTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(30, Short.MAX_VALUE))
+                     .add(coordinateCheckBox)
+                     .add(coordinateFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
-      modelScalerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Scale Settings"));
-      jLabel3.setText("Trial file (.trc)");
-
+      modelScalerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Scale Model"));
+      jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
       jLabel5.setText("Average measurements between times");
 
       measurementTrialStartTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
@@ -459,7 +455,7 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
          }
       });
 
-      preserveMassDistributionCheckBox.setText("Preserve mass distribution");
+      preserveMassDistributionCheckBox.setText("Preserve mass distribution during scale");
       preserveMassDistributionCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
       preserveMassDistributionCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
       preserveMassDistributionCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -468,9 +464,6 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
          }
       });
 
-      jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
-      jLabel11.setText("Measurement-based scaling:");
-
       measurementTrialFileName.setMinimumSize(new java.awt.Dimension(3, 20));
       measurementTrialFileName.addChangeListener(new javax.swing.event.ChangeListener() {
          public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -478,54 +471,61 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
          }
       });
 
+      measurementTrialCheckBox.setText("Marker data for measurements");
+      measurementTrialCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      measurementTrialCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      measurementTrialCheckBox.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            measurementTrialCheckBoxActionPerformed(evt);
+         }
+      });
+
       org.jdesktop.layout.GroupLayout modelScalerPanelLayout = new org.jdesktop.layout.GroupLayout(modelScalerPanel);
       modelScalerPanel.setLayout(modelScalerPanelLayout);
       modelScalerPanelLayout.setHorizontalGroup(
          modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(modelScalerPanelLayout.createSequentialGroup()
+         .add(org.jdesktop.layout.GroupLayout.TRAILING, modelScalerPanelLayout.createSequentialGroup()
             .addContainerGap()
-            .add(modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                .add(preserveMassDistributionCheckBox)
-               .add(modelScalerPanelLayout.createSequentialGroup()
-                  .add(24, 24, 24)
-                  .add(modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel3)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel11))
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(measurementTrialFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
-               .add(modelScalerPanelLayout.createSequentialGroup()
-                  .add(jLabel5)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(measurementTrialStartTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+               .add(measurementTrialCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 208, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, modelScalerPanelLayout.createSequentialGroup()
+                  .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 204, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+            .add(modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, modelScalerPanelLayout.createSequentialGroup()
+                  .add(measurementTrialStartTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(jLabel6)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(measurementTrialEndTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
+                  .add(measurementTrialEndTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+               .add(measurementTrialFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(measurementTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
       );
+
+      modelScalerPanelLayout.linkSize(new java.awt.Component[] {jLabel5, measurementTrialCheckBox, preserveMassDistributionCheckBox}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
       modelScalerPanelLayout.setVerticalGroup(
          modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(modelScalerPanelLayout.createSequentialGroup()
-            .add(modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+            .addContainerGap()
+            .add(modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(modelScalerPanelLayout.createSequentialGroup()
-                  .add(preserveMassDistributionCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .add(modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                     .add(modelScalerPanelLayout.createSequentialGroup()
+                        .add(preserveMassDistributionCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(measurementTrialCheckBox))
+                     .add(measurementTrialFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jLabel11)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jLabel3))
-               .add(measurementTrialFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(jLabel5)
-               .add(measurementTrialStartTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jLabel6)
-               .add(measurementTrialEndTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap())
-         .add(org.jdesktop.layout.GroupLayout.TRAILING, modelScalerPanelLayout.createSequentialGroup()
-            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(measurementTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap())
+                  .add(modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(jLabel5)
+                     .add(measurementTrialEndTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(jLabel6)
+                     .add(measurementTrialStartTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+               .add(measurementTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
       subjectDataPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Subject Data"));
@@ -601,10 +601,10 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
                      .add(loadMarkerSetCheckBox))))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(subjectDataPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(markerSetFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-               .add(modelNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-               .add(modelMassTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-               .add(markerSetInfoTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
+               .add(markerSetFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+               .add(modelNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+               .add(modelMassTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+               .add(markerSetInfoTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jLabel1))
       );
@@ -689,29 +689,33 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       jPanel1.setLayout(jPanel1Layout);
       jPanel1Layout.setHorizontalGroup(
          jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-            .addContainerGap()
-            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, markerPlacerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, modelScalerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+         .add(jPanel1Layout.createSequentialGroup()
+            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                  .add(6, 6, 6)
+                  .add(modelScalerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                .add(jPanel1Layout.createSequentialGroup()
+                  .addContainerGap()
                   .add(subjectDataPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(genericModelDataPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                  .add(genericModelDataPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+               .add(jPanel1Layout.createSequentialGroup()
+                  .addContainerGap()
+                  .add(markerPlacerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addContainerGap())
       );
       jPanel1Layout.setVerticalGroup(
          jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jPanel1Layout.createSequentialGroup()
             .addContainerGap()
-            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(subjectDataPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(genericModelDataPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+               .add(genericModelDataPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(subjectDataPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(modelScalerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(modelScalerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(markerPlacerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap())
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
       jTabbedPane.addTab("Scale Tool Settings", jPanel1);
 
@@ -721,14 +725,14 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
+            .add(jTabbedPane)
             .addContainerGap())
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
@@ -758,19 +762,11 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
    }//GEN-LAST:event_modelMassTextFieldActionPerformed
 
    private void loadMarkerSetCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMarkerSetCheckBoxActionPerformed
-      boolean enabled = ((JCheckBox)evt.getSource()).isSelected();
-      markerSetFileName.setEnabled(enabled);
-      scaleToolModel.setUseExtraMarkerSet(enabled);
-      markerSetFileName.setFileIsValid(scaleToolModel.getExtraMarkerSetValid());
-      //boolean result;
-      //if(enabled) result = scaleToolModel.setExtraMarkerSetFileName(markerSetFileName.getFileName());
-      //else result = scaleToolModel.setExtraMarkerSetFileName(null);
-      //markerSetFileName.setFileIsValid(result);
+      scaleToolModel.setUseExtraMarkerSet(loadMarkerSetCheckBox.isSelected());
    }//GEN-LAST:event_loadMarkerSetCheckBoxActionPerformed
 
    private void markerSetFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_markerSetFileNameStateChanged
-      boolean result = scaleToolModel.setExtraMarkerSetFileName(markerSetFileName.getFileName());
-      markerSetFileName.setFileIsValid(result);
+      scaleToolModel.setExtraMarkerSetFileName(markerSetFileName.getFileName());
    }//GEN-LAST:event_markerSetFileNameStateChanged
 
    //------------------------------------------------------------------------
@@ -781,11 +777,12 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       scaleToolModel.setPreserveMassDistribution(((JCheckBox)evt.getSource()).isSelected());
    }//GEN-LAST:event_preserveMassDistributionCheckBoxActionPerformed
 
+   private void measurementTrialCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_measurementTrialCheckBoxActionPerformed
+      scaleToolModel.setMeasurementTrialEnabled(measurementTrialCheckBox.isSelected());
+   }//GEN-LAST:event_measurementTrialCheckBoxActionPerformed
+
    private void measurementTrialFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_measurementTrialFileNameStateChanged
-      System.out.println("Setting file name");
-      boolean result = scaleToolModel.setMeasurementTrialFileName(measurementTrialFileName.getFileName());
-      measurementTrialFileName.setFileIsValid(result);
-      copyMeasurementTrialToStaticTrial();
+      scaleToolModel.setMeasurementTrialFileName(measurementTrialFileName.getFileName());
    }//GEN-LAST:event_measurementTrialFileNameStateChanged
 
    private void measurementSetTimeRangeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_measurementSetTimeRangeFocusLost
@@ -797,50 +794,27 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
          double[] range = new double[]{Double.valueOf(measurementTrialStartTime.getText()),
                                        Double.valueOf(measurementTrialEndTime.getText())};
          scaleToolModel.setMeasurementTrialTimeRange(range);
-      } catch (Exception ex) {
+      } catch (Exception ex) { // To catch parsing problems (string -> double)
+         double[] timeRange = scaleToolModel.getMeasurementTrialTimeRange();
+         measurementTrialStartTime.setText(((Double)timeRange[0]).toString());
+         measurementTrialEndTime.setText(((Double)timeRange[1]).toString());
       }
-      // May have clamped, get actual values
-      double[] range = scaleToolModel.getMeasurementTrialTimeRange();
-      measurementTrialStartTime.setText(((Double)range[0]).toString());
-      measurementTrialEndTime.setText(((Double)range[1]).toString());
-      copyMeasurementTrialToStaticTrial();
    }//GEN-LAST:event_measurementSetTimeRangeActionPerformed
    
    //------------------------------------------------------------------------
    // MarkerPlacer data
    //------------------------------------------------------------------------
 
-   private void copyMeasurementTrialToStaticTrial() {
-      if(copyMeasurementTrialToStaticTrial.isSelected()) {
-         staticTrialFileName.setFileName(measurementTrialFileName.getFileName());
-         staticTrialStartTime.setText(measurementTrialStartTime.getText());
-         staticTrialEndTime.setText(measurementTrialEndTime.getText());
-         //staticTrialFileNameStateChanged(null);
-         staticTrialTimeRangeActionPerformed(null);
-      }
-   }
-   
-   private void updateStaticTrialFieldsEnabled() {
-      boolean copying = copyMeasurementTrialToStaticTrial.isSelected();
-      boolean validTrial = scaleToolModel.getIKCommonModel().getMarkerDataValid();
-      staticTrialFileName.setEnabled(!copying);
-      staticTrialStartTime.setEnabled(!copying && validTrial);
-      staticTrialEndTime.setEnabled(!copying && validTrial);
-   }
-
-   private void copyMeasurementTrialToStaticTrialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyMeasurementTrialToStaticTrialActionPerformed
-      copyMeasurementTrialToStaticTrial();
-      updateStaticTrialFieldsEnabled();
-   }//GEN-LAST:event_copyMeasurementTrialToStaticTrialActionPerformed
-
    private void staticTrialFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_staticTrialFileNameStateChanged
-      boolean result = scaleToolModel.getIKCommonModel().setMarkerDataFileName(staticTrialFileName.getFileName());
-      staticTrialFileName.setFileIsValid(result);
+      scaleToolModel.getIKCommonModel().setMarkerDataFileName(staticTrialFileName.getFileName());
    }//GEN-LAST:event_staticTrialFileNameStateChanged
 
+   private void coordinateCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coordinateCheckBoxActionPerformed
+      scaleToolModel.getIKCommonModel().setCoordinateDataEnabled(coordinateCheckBox.isSelected());
+   }//GEN-LAST:event_coordinateCheckBoxActionPerformed
+
    private void coordinateFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_coordinateFileNameStateChanged
-      boolean result = scaleToolModel.getIKCommonModel().setCoordinateDataFileName(coordinateFileName.getFileName());
-      coordinateFileName.setFileIsValid(result);
+      scaleToolModel.getIKCommonModel().setCoordinateDataFileName(coordinateFileName.getFileName());
    }//GEN-LAST:event_coordinateFileNameStateChanged
    
    private void staticTrialTimeRangeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_staticTrialTimeRangeFocusLost
@@ -849,14 +823,14 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
 
    private void staticTrialTimeRangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staticTrialTimeRangeActionPerformed
       try {
-         double[] range = new double[]{Double.valueOf(staticTrialStartTime.getText()), Double.valueOf(staticTrialEndTime.getText())};
+         double[] range = new double[]{Double.valueOf(staticTrialStartTime.getText()), 
+                                       Double.valueOf(staticTrialEndTime.getText())};
          scaleToolModel.getIKCommonModel().setTimeRange(range);
-      } catch (Exception ex) {
+      } catch (Exception ex) { // To catch parsing problems (string -> double)
+         double[] timeRange = scaleToolModel.getIKCommonModel().getTimeRange();
+         staticTrialStartTime.setText(((Double)timeRange[0]).toString());
+         staticTrialEndTime.setText(((Double)timeRange[1]).toString());
       }
-      // May have clamped, get actual values
-      double[] range = scaleToolModel.getIKCommonModel().getTimeRange();
-      staticTrialStartTime.setText(((Double)range[0]).toString());
-      staticTrialEndTime.setText(((Double)range[1]).toString());
    }//GEN-LAST:event_staticTrialTimeRangeActionPerformed
 
    //------------------------------------------------------------------------
@@ -864,20 +838,17 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
    //------------------------------------------------------------------------
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JCheckBox coordinateCheckBox;
    private org.opensim.swingui.FileTextFieldAndChooser coordinateFileName;
-   private javax.swing.JCheckBox copyMeasurementTrialToStaticTrial;
    private javax.swing.JPanel genericModelDataPanel;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel10;
-   private javax.swing.JLabel jLabel11;
    private javax.swing.JLabel jLabel12;
    private javax.swing.JLabel jLabel13;
    private javax.swing.JLabel jLabel14;
    private javax.swing.JLabel jLabel15;
    private javax.swing.JLabel jLabel16;
-   private javax.swing.JLabel jLabel17;
    private javax.swing.JLabel jLabel2;
-   private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;
    private javax.swing.JLabel jLabel5;
    private javax.swing.JLabel jLabel6;
@@ -890,6 +861,7 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
    private javax.swing.JPanel markerPlacerPanel;
    private org.opensim.swingui.FileTextFieldAndChooser markerSetFileName;
    private javax.swing.JTextField markerSetInfoTextField;
+   private javax.swing.JCheckBox measurementTrialCheckBox;
    private javax.swing.JTextField measurementTrialEndTime;
    private org.opensim.swingui.FileTextFieldAndChooser measurementTrialFileName;
    private org.opensim.tracking.MarkerDataInfoPanel measurementTrialInfoPanel;
