@@ -24,33 +24,9 @@ import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.Model;
 import org.opensim.utils.FileUtils;
 
-public class IKToolPanel extends javax.swing.JPanel implements ActionListener, Observer {
+public class IKToolPanel extends BaseToolPanel implements Observer {
    private IKToolModel ikToolModel = null;
 
-   private FileFilter settingsFilter = FileUtils.getFileFilter(".xml", "IK tool settings file");
-
-   private JButton settingsButton = new JButton("Settings >");
-   private JButton applyButton = new JButton("Apply");
-   private JButton okButton = new JButton("Close");
-
-   private Dialog ownerDialog = null;
-
-   class LoadSettingsAction extends AbstractAction {
-      public LoadSettingsAction() { super("Load Settings..."); }
-      public void actionPerformed(ActionEvent evt) {
-         String fileName = FileUtils.getInstance().browseForFilename(settingsFilter);
-         if(fileName!=null) ikToolModel.loadSettings(fileName);
-      }
-   }
-
-   class SaveSettingsAction extends AbstractAction {
-      public SaveSettingsAction() { super("Save Settings..."); }
-      public void actionPerformed(ActionEvent evt) {
-         String fileName = FileUtils.getInstance().browseForFilenameToSave(settingsFilter, true, null);
-         if(fileName!=null) ikToolModel.saveSettings(fileName);
-      }
-   }
-   
    /** Creates new form IKToolPanel */
    public IKToolPanel(Model model) throws IOException {
       if(model==null) throw new IOException("IKToolPanel got null model");
@@ -60,16 +36,7 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
 
       initComponents();
 
-      //---------------------------------------------------------------------
-      // Settings menu
-      //---------------------------------------------------------------------
-      settingsButton.addMouseListener(new MouseAdapter() {
-         public void mousePressed(MouseEvent evt) {
-            JPopupMenu popup = new JPopupMenu();
-            popup.add(new JMenuItem(new LoadSettingsAction()));
-            popup.add(new JMenuItem(new SaveSettingsAction()));
-            popup.show(evt.getComponent(),evt.getX(),evt.getY());
-      }});
+      setSettingsFileDescription("IK tool settings file");
 
       jTabbedPane.addTab("IK Tasks", new IKTaskSetPanel(ikToolModel.getIKCommonModel()));
 
@@ -134,34 +101,29 @@ public class IKToolPanel extends javax.swing.JPanel implements ActionListener, O
    }
 
 
-   //------------------------------------------------------------------------
-   // Dialog Operations
-   //------------------------------------------------------------------------
-   public Object[] getDialogOptions() {
-      return new Object[]{settingsButton, applyButton, okButton, DialogDescriptor.CANCEL_OPTION};
-   }
-
-   public void setOwner(Dialog dialog) { ownerDialog = dialog; }
-
    public void updateDialogButtons() {
-      applyButton.setEnabled(!ikToolModel.isExecuting() && ikToolModel.isModified() && ikToolModel.isValid());
-      //okButton.setEnabled(!ikToolModel.isExecuting() && ikToolModel.isValid());
+      updateApplyButton(!ikToolModel.isExecuting() && ikToolModel.isModified() && ikToolModel.isValid());
    }
 
-   public void actionPerformed(ActionEvent evt) {
-      System.out.println("DIALOG ACTION "+evt);
-      if(evt.getActionCommand().equals("Cancel")) {
-         ikToolModel.cancel();
-         // the owner dialog will automatically handle disposing of the dialog in response to Cancel, since this is a standard option (CANCEL_OPTION)
-      } else if(evt.getSource() == okButton) {
-         //ikToolModel.execute();
-         ownerDialog.dispose();
-      } else if(evt.getSource() == applyButton) {
-         ikToolModel.execute();
-      }
+   //------------------------------------------------------------------------
+   // Overrides from BaseToolPanel
+   //------------------------------------------------------------------------
+
+   public void loadSettings(String fileName) { ikToolModel.loadSettings(fileName); }
+   public void saveSettings(String fileName) { ikToolModel.saveSettings(fileName); }
+
+   public void pressedCancel() {
+      ikToolModel.cancel();
+   }
+
+   public void pressedClose() {
+   }
+
+   public void pressedApply() {
+      ikToolModel.execute();
       updateDialogButtons();
    }
-   
+
    /** This method is called from within the constructor to
     * initialize the form.
     * WARNING: Do NOT modify this code. The content of this method is

@@ -20,14 +20,8 @@ public final class IKToolAction extends CallableSystemAction {
 
       try {
          final IKToolPanel panel = new IKToolPanel(model);
-         DialogDescriptor dlg = new DialogDescriptor(panel, "Inverse Kinematics Tool", false, panel);
-         dlg.setOptions(panel.getDialogOptions());
-         Dialog awtDialog = DialogDisplayer.getDefault().createDialog(dlg);
-         panel.setOwner(awtDialog);
-         awtDialog.setVisible(true);      
-         awtDialog.requestFocus();
+         BaseToolPanel.openToolDialog(panel, "Inverse Kinematics Tool");
       } catch (IOException ex) {
-         // IKToolPanel may have failed to initialize... 
          ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing inverse kinematics tool",ex);
       }
    }

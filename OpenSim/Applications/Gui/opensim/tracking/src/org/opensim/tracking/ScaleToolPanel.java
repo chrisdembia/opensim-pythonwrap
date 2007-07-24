@@ -30,19 +30,12 @@ import org.opensim.modeling.Model;
 import org.opensim.swingui.ComponentTitledBorder;
 import org.opensim.utils.FileUtils;
 
-public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener, Observer {
+public class ScaleToolPanel extends BaseToolPanel implements Observer {
   
    private ScaleToolModel scaleToolModel = null;
 
-   private FileFilter settingsFilter = FileUtils.getFileFilter(".xml", "Scale tool settings file");
-
-   private JButton settingsButton = new JButton("Settings >");
-   private JButton applyButton = new JButton("Apply");
-   private JButton okButton = new JButton("Close");
    private JCheckBox modelScalerPanelCheckBox = new JCheckBox(new EnableModelScalerAction());
    private JCheckBox markerPlacerPanelCheckBox = new JCheckBox(new EnableMarkerPlacerAction());
-
-   private Dialog ownerDialog = null;
    private MeasurementSetPanel measurementSetPanel;
    private Dialog measurementSetDialog;
 
@@ -58,22 +51,6 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       }
    }
 
-   class LoadSettingsAction extends AbstractAction {
-      public LoadSettingsAction() { super("Load Settings..."); }
-      public void actionPerformed(ActionEvent evt) {
-         String fileName = FileUtils.getInstance().browseForFilename(settingsFilter);
-         if(fileName!=null) scaleToolModel.loadSettings(fileName);
-      }
-   }
-
-   class SaveSettingsAction extends AbstractAction {
-      public SaveSettingsAction() { super("Save Settings..."); }
-      public void actionPerformed(ActionEvent evt) {
-         String fileName = FileUtils.getInstance().browseForFilenameToSave(settingsFilter, true, null);
-         if(fileName!=null) scaleToolModel.saveSettings(fileName);
-      }
-   }
-
    /** Creates new form ScaleToolPanel */
    public ScaleToolPanel(Model model) throws IOException {
       if(model==null) throw new IOException("ScaleToolPanel got null model");
@@ -83,16 +60,7 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
 
       initComponents();
 
-      //---------------------------------------------------------------------
-      // Settings menu
-      //---------------------------------------------------------------------
-      settingsButton.addMouseListener(new MouseAdapter() {
-         public void mousePressed(MouseEvent evt) {
-            JPopupMenu popup = new JPopupMenu();
-            popup.add(new JMenuItem(new LoadSettingsAction()));
-            popup.add(new JMenuItem(new SaveSettingsAction()));
-            popup.show(evt.getComponent(),evt.getX(),evt.getY());
-      }});
+      setSettingsFileDescription("Scale tool settings file");
 
       //---------------------------------------------------------------------
       // Measurement set editor dialog
@@ -231,33 +199,27 @@ public class ScaleToolPanel extends javax.swing.JPanel implements ActionListener
       System.out.println("updateFromModel FINISHED");
    }
 
-   //------------------------------------------------------------------------
-   // Dialog Operations
-   //------------------------------------------------------------------------
-   public Object[] getDialogOptions() {
-      return new Object[]{settingsButton, applyButton, okButton, DialogDescriptor.CANCEL_OPTION};
-   }
-
-   public void setOwner(Dialog dialog) { ownerDialog = dialog; }
-
    public void updateDialogButtons() {
-      applyButton.setEnabled(scaleToolModel.isModified() && scaleToolModel.isValid());
-      //okButton.setEnabled(scaleToolModel.isValid());
+      updateApplyButton(scaleToolModel.isModified() && scaleToolModel.isValid());
    }
 
-   public void actionPerformed(ActionEvent evt) {
-      System.out.println("DIALOG ACTION "+evt);
-      if(evt.getActionCommand().equals("Cancel")) {
-         scaleToolModel.cancel();
-         measurementSetDialog.dispose(); 
-         // the owner dialog will automatically handle disposing of the dialog in response to Cancel, since this is a standard option (CANCEL_OPTION)
-      } else if(evt.getSource() == okButton) {
-         //scaleToolModel.execute();
-         ownerDialog.dispose();
-         measurementSetDialog.dispose(); 
-      } else if(evt.getSource() == applyButton) {
-         scaleToolModel.execute();
-      }
+   //------------------------------------------------------------------------
+   // Overrides from BaseToolPanel
+   //------------------------------------------------------------------------
+   public void loadSettings(String fileName) { scaleToolModel.loadSettings(fileName); }
+   public void saveSettings(String fileName) { scaleToolModel.saveSettings(fileName); }
+
+   public void pressedCancel() {
+      scaleToolModel.cancel();
+      measurementSetDialog.dispose();
+   }
+
+   public void pressedClose() {
+      measurementSetDialog.dispose();
+   }
+
+   public void pressedApply() {
+      scaleToolModel.execute();
       updateDialogButtons();
    }
    
