@@ -48,7 +48,7 @@ public class OneMuscleNode extends OpenSimObjectNode{
         setShortDescription(bundle.getString("HINT_ActuatorNode"));
     }
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("icons/muscle.png");
+        URL imageURL = this.getClass().getResource("icons/muscleNode.png");
         if (imageURL != null) {
             return new ImageIcon(imageURL, "Actuator").getImage();
         } else {

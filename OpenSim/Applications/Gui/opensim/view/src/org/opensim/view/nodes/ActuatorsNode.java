@@ -1,8 +1,8 @@
 /*
  *
  * ActuatorsNode
- * Author(s): Ayman Habib
- * Copyright (c) 2005-2006, Stanford University, Ayman Habib
+ * Author(s): Ayman Habib & Jeff Reinbolt
+ * Copyright (c) 2005-2006, Stanford University, Ayman Habib & Jeff Reinbolt
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,6 +25,9 @@
  */
 package org.opensim.view.nodes;
 
+import java.awt.Image;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import java.util.ResourceBundle;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
@@ -34,7 +37,7 @@ import org.opensim.modeling.ActuatorSet;
 
 /**
  *
- * @author Ayman Habib
+ * @author Ayman Habib & Jeff Reinbolt
  *
  * Top level Actuators node in Navigator view
  */
@@ -52,6 +55,35 @@ public class ActuatorsNode extends OpenSimObjectNode {
       getChildren().add(new Node[] {new TorquesNode(as)});
       getChildren().add(new Node[] {new GeneralizedForcesNode(as)});
    }
+   
+      public Image getIcon(int i) {
+      URL imageURL=null;
+      try {
+         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/actuatorsNode.png");
+      } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+      }
+      if (imageURL != null) {
+         return new ImageIcon(imageURL, "").getImage();
+      } else {
+         return null;
+      }
+   }
+   
+   public Image getOpenedIcon(int i) {
+      URL imageURL=null;
+      try {
+         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/actuatorsNode.png");
+      } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+      }
+      if (imageURL != null) {
+         return new ImageIcon(imageURL, "").getImage();
+      } else {
+         return null;
+      }
+   }
+   
     /**
      * Display name 
      */

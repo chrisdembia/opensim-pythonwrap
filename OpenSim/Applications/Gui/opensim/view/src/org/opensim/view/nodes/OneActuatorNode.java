@@ -52,7 +52,7 @@ public class OneActuatorNode extends OpenSimObjectNode{
         setChildren(Children.LEAF);
     }
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("icons/muscle.png");
+        URL imageURL = this.getClass().getResource("icons/muscleNode.png");
         if (imageURL != null) {
             return new ImageIcon(imageURL, "Actuator").getImage();
         } else {

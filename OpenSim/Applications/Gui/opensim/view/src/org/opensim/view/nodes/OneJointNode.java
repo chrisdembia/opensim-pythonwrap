@@ -47,7 +47,7 @@ public class OneJointNode extends OpenSimObjectNode{
         setChildren(Children.LEAF);
     }
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("icons/joint.png");
+        URL imageURL = this.getClass().getResource("icons/jointNode.png");
         if (imageURL != null) {
             return new ImageIcon(imageURL, "Joint").getImage();
         } else {

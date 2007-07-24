@@ -60,7 +60,7 @@ public class JointsNode extends OpenSimObjectNode {
       public Image getIcon(int i) {
       URL imageURL=null;
       try {
-         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/node.png");
+         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/jointsNode.png");
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
       }
@@ -74,7 +74,7 @@ public class JointsNode extends OpenSimObjectNode {
    public Image getOpenedIcon(int i) {
       URL imageURL=null;
       try {
-         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/openedNode.png");
+         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/jointsNode.png");
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
       }
