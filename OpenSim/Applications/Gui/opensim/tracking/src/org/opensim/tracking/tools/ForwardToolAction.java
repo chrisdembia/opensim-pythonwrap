@@ -6,26 +6,23 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
 import org.opensim.tracking.BaseToolPanel;
-import org.opensim.tracking.IKToolPanel;
+import org.opensim.tracking.ForwardToolPanel;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.view.pub.OpenSimDB;
 
-public final class IKToolAction extends CallableSystemAction {
+public final class ForwardToolAction extends CallableSystemAction {
    
    public void performAction() {
-      Model model = OpenSimDB.getInstance().getCurrentModel();
-      if(model==null) return;
-
       try {
-         final IKToolPanel panel = new IKToolPanel(model);
-         BaseToolPanel.openToolDialog(panel, "Inverse Kinematics Tool");
+         final ForwardToolPanel panel = new ForwardToolPanel();
+         BaseToolPanel.openToolDialog(panel, "Forward Tool");
       } catch (IOException ex) {
-         ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing inverse kinematics tool",ex);
+         ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing forward tool",ex);
       }
    }
    
    public String getName() {
-      return NbBundle.getMessage(IKToolAction.class, "CTL_IKToolAction");
+      return NbBundle.getMessage(ForwardToolAction.class, "CTL_ForwardToolAction");
    }
    
    protected void initialize() {
@@ -43,6 +40,7 @@ public final class IKToolAction extends CallableSystemAction {
    }
    
    public boolean isEnabled() {
-      return OpenSimDB.getInstance().getCurrentModel()!=null;
+      return true;
+      //return OpenSimDB.getInstance().getCurrentModel()!=null;
    }
 }

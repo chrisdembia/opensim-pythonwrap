@@ -56,12 +56,12 @@ public class IKToolModel extends Observable implements Observer {
                                     return true;
                                  }
                               });
-         progressHandle.start(endFrame-startFrame+1);
 
          // Animation callback will update the display during IK solve
          animationCallback = new JavaMotionDisplayerCallback(getModel(), ikTool.getIKTrialSet().get(0).getOutputStorage(), progressHandle);
          getModel().addIntegCallback(animationCallback);
          animationCallback.setStepInterval(1);
+         animationCallback.startProgressUsingSteps(1, endFrame-startFrame+1);
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
          // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object

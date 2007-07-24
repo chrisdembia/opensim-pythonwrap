@@ -40,7 +40,13 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    Storage storage = null;
    MotionDisplayer motionDisplayer = null;
    ProgressHandle progressHandle = null;
-   int stepsProcessed = 0;
+
+   boolean progressUsingTime = true;
+   double startTime = 0.;
+   double endTime = 1.;
+   static final double progressTimeResolution = 1e2;
+   int startStep = 0;
+   int endStep = 1;
 
    /** Creates a new instance of JavaMotionDisplayerCallback */
    public JavaMotionDisplayerCallback(Model aModel, Storage storage, ProgressHandle progressHandle) {
@@ -50,6 +56,20 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
          motionDisplayer = new MotionDisplayer(storage, aModel);
       }
       this.progressHandle = progressHandle;
+   }
+
+   public void startProgressUsingTime(double startTime, double endTime) {
+      progressUsingTime = true;
+      this.startTime = startTime;
+      this.endTime = endTime;
+      if(progressHandle!=null) progressHandle.start((int)((endTime-startTime)*progressTimeResolution));
+   }
+
+   public void startProgressUsingSteps(int startStep, int endStep) {
+      progressUsingTime = false;
+      this.startStep = startStep;
+      this.endStep = endStep;
+      if(progressHandle!=null) progressHandle.start(endStep-startStep+1);
    }
 
    public void updateDisplaySynchronously() {
@@ -69,7 +89,10 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    }
 
    public void processStep(int step) {
-      if(progressHandle!=null) progressHandle.progress(++stepsProcessed);
+      if(progressHandle!=null) {
+         if(progressUsingTime) progressHandle.progress((int)((getCurrentTime()-startTime)*progressTimeResolution));
+         else progressHandle.progress(step-startStep+1);
+      }
       if(proceed(step)) updateDisplaySynchronously();
    }
    
