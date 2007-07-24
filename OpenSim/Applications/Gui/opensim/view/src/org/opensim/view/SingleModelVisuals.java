@@ -79,7 +79,7 @@ public class SingleModelVisuals {
     private double[] defaultMarkerColor = new double[]{1.0, 0.6, 0.8};
     private double[] defaultWrapObjectColor = new double[]{0.0, 1.0, 1.0};
     private double DEFAULT_MUSCLE_RADIUS = .005;
-    private double DEFAULT_MUSCLE_POINT_RADIUS = .008;
+    private double DEFAULT_MUSCLE_POINT_RADIUS = .005;
     private double DEFAULT_MARKER_RADIUS = .01;
 
     // Maps between objects and vtkProp3D for going from Actor to Object and vice versa

@@ -210,16 +210,11 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    }// </editor-fold>//GEN-END:initComponents
 
    private void jPosesButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPosesButtonMousePressed
-// TODO add your handling code here:
-      jPosesButtonMouseReleased(evt);
+      jPosesPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
    }//GEN-LAST:event_jPosesButtonMousePressed
 
    private void jPosesButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPosesButtonMouseReleased
-// TODO add your handling code here:
-      //if(evt.isPopupTrigger()) {
-         jPosesPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
-        //}
-
+      // Used to also show the popup menu, but seems nicer to only do it on mouse press
    }//GEN-LAST:event_jPosesButtonMouseReleased
 
    private void jDeletePoseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeletePoseButtonActionPerformed
