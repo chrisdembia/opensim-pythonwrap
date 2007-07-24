@@ -177,7 +177,7 @@ public class PlotterModel {
       plotTreeModel.addPlotCurveToTree(newCurve);
       currentPlot.setTitle(title);
       currentPlot.getChartPanel().getChart().getXYPlot().getDomainAxis().setLabel(string1);
-      currentPlot.getChartPanel().getChart().getXYPlot().getRangeAxis().setLabel("");
+      currentPlot.getChartPanel().getChart().getXYPlot().getRangeAxis().setLabel("ylabel-here");
       return newCurve;
    }
 

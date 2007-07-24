@@ -34,6 +34,7 @@ import org.opensim.modeling.AbstractDof;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.AnalyzeTool;
+import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStorage;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CoordinateSet;
@@ -648,17 +649,21 @@ public class JPlotterPanel extends javax.swing.JPanel
        dd.setModal(true);
        DialogDisplayer.getDefault().createDialog(dd).setVisible(true);
        setClamp(jClampCheckBox.isSelected());
-       String summary = "Rectify ="+jRectifyCheckBox.isSelected()+
-                        ", x:["+
-                        jDomainStartTextField.getValue()+","+
-                        jDomainEndTextField.getValue()+"]";
-       if (isClamp())
-               summary=summary+" y:["+
-                       jFormattedTextFieldYmin.getValue()+", "+
-                       jFormattedTextFieldYmax.getValue()+"]";
-       
-       jSummaryAdvancedTextField.setText(summary);
+      updateSummary();
     }//GEN-LAST:event_jAdvancedOptionsButtonActionPerformed
+
+   private void updateSummary() {
+      String summary = "Rectify ="+jRectifyCheckBox.isSelected()+
+                       ", x:["+
+                       jDomainStartTextField.getValue()+","+
+                       jDomainEndTextField.getValue()+"]";
+      if (isClamp())
+              summary=summary+" y:["+
+                      jFormattedTextFieldYmin.getValue()+", "+
+                      jFormattedTextFieldYmax.getValue()+"]";
+      
+      jSummaryAdvancedTextField.setText(summary);
+   }
     
     private void jClampCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClampCheckBoxActionPerformed
 // TODO add your handling code here:
@@ -1287,18 +1292,12 @@ public class JPlotterPanel extends javax.swing.JPanel
       currentModel.getStateNames(stateNames);
       double[] saveStates = new double[numStates];
       currentModel.getStates(saveStates);
-      for(int i=0; i<saveStates.length; i++){
-         System.out.println("State"+stateNames.getitem(i)+" value="+saveStates[i]);
-         if (stateNames.getitem(i).endsWith(".fiber_length"))
-            saveStates[i]=0.01;
-         else if (stateNames.getitem(i).endsWith(".activation"))
-            saveStates[i]=1.0;        
-      }
          // Default start from current values of saveStates
        if (motion != null && motion instanceof PlotterSourceMotion){
          tool.setStartTime( motion.getStorage().getFirstTime());
          tool.setFinalTime( motion.getStorage().getLastTime());
-         tool.setStatesStorage(motion.getStorage());
+         statesStorage = buildStatesStorageFromMotion(motion.getStorage(), false, 1.0);
+         tool.setStatesStorage(statesStorage);
       } else {
          double NUM_STEPS=100.0;
          int xIndex = statesStorage.getStateIndex(getDomainName());
@@ -1328,7 +1327,6 @@ public class JPlotterPanel extends javax.swing.JPanel
          tool.setFinalTime(NUM_STEPS);
          sourceX=new PlotterSourceAnalysis(currentModel, statesStorage, "");
       }
-      currentModel.setStates(saveStates);
       statesStorage.print("toolInput.sto");
       tool.setPrintResultFiles(false);
       analysisSource.getStorage().purge();
@@ -1336,6 +1334,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       analysisSource.getStorage().print("toolOutput.sto");
       currentModel.getDynamicsEngine().convertRadiansToDegrees(analysisSource.getStorage());
       currentModel.getDynamicsEngine().convertRadiansToDegrees(statesStorage);
+      currentModel.setStates(saveStates);
    }
    
    private Storage createStateStorageWithHeader(final Model mdl) {
@@ -1685,6 +1684,53 @@ public class JPlotterPanel extends javax.swing.JPanel
          }
       }
    }
-
-
+   private Storage buildStatesStorageFromMotion(Storage motionsStorage, boolean overrideActivation, double newActivation) {
+      // Make a new Storage with correct size/labels
+      Storage outputStorage = new Storage();
+      int numStates = currentModel.getNumStates();
+      ArrayStr stateNames = new ArrayStr();
+      currentModel.getStateNames(stateNames);
+      ArrayStr stateNamesWithTime = new ArrayStr(stateNames);
+      stateNamesWithTime.insert(0, "time");
+      outputStorage.setColumnLabels(stateNames);
+      // Cycle thru stateNames if name exists in motionsStorage then use it,
+      // if activation orride with passed in value if desired
+      ArrayStr motionStateNames = motionsStorage.getColumnLabels();
+      for(int i=0; i<motionStateNames.getSize(); i++){
+         System.out.println("motionStateNames "+i+" is "+motionStateNames.getitem(i));
+      }
+      ArrayList<Integer> mapColumns= new ArrayList<Integer>(stateNames.getSize());
+      ArrayList<Boolean> activationColumns= new ArrayList<Boolean>(stateNames.getSize());
+      int numRows = motionsStorage.getSize();
+      for(int i=0; i<numStates;i++){
+         String currentStateName=stateNames.getitem(i);
+         int indexInMotionFile = motionStateNames.findIndex(currentStateName)-1; // account 4 time
+         mapColumns.add(i, indexInMotionFile);
+         activationColumns.add(i, currentStateName.endsWith(".activation"));
+      }
+      double[] buffer = new double[numStates];
+      for(int i=0; i<numRows; i++){
+         StateVector statesFromMotion = motionsStorage.getStateVector(i);
+         int numColumnsInMotionFile = statesFromMotion.getSize();
+         ArrayDouble dataFromMotion=statesFromMotion.getData();
+         StateVector outputStateVector = new StateVector(numStates);
+         for(int j=0; j<numStates;j++){
+            if (mapColumns.get(j)!=-2){
+               System.out.print("dataFromMotion item "+mapColumns.get(j));
+               buffer[j]=dataFromMotion.getitem(mapColumns.get(j));
+               System.out.println(" ok");
+            }
+            else
+               buffer[j]=0.0;
+            if (activationColumns.get(j) && overrideActivation)
+               buffer[j]=newActivation;
+         }
+         outputStateVector.setStates(statesFromMotion.getTime(), numStates, buffer);
+         outputStorage.append(outputStateVector);
+      }
+      outputStorage.print("motionextended.sto");
+      return outputStorage;
+   }
+   
+   
 }
