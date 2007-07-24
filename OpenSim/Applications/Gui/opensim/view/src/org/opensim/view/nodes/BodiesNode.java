@@ -58,7 +58,6 @@ public class BodiesNode extends OpenSimObjectNode {
                 children.add(arrNodes);
             }
         }
-        //getChildren().add(new MyChildren(m).getNodes());
     }
 
       public Image getIcon(int i) {

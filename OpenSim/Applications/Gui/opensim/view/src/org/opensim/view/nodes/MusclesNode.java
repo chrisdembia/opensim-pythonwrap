@@ -29,14 +29,16 @@ import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import java.util.ResourceBundle;
+import javax.swing.Action;
+import javax.swing.JMenu;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.ArrayPtrsObj;
 import org.opensim.modeling.ObjectGroup;
+import org.opensim.view.ObjectDisplayMenuAction;
 
 /**
  *
@@ -140,7 +142,7 @@ public class MusclesNode extends OpenSimObjectNode {
          ObjectGroup grp = as.getGroup(i);
          ArrayPtrsObj apo = grp.getMembers();
          if (apo.getSize()==0) continue;  // Gaurd against empty groups
-         AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0)); ////// CRASHHHHHHHHHHHHHHH because cmctool messes around with Actuators!
+         AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0)); 
          // If the first member of the group is an AbstractMuscle, then
          // consider this group to be an AbstractMuscle group.
          if (muscle != null)

@@ -27,6 +27,7 @@ package org.opensim.view.nodes;
 
 import java.awt.Image;
 import java.net.URL;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import java.util.ResourceBundle;
 import org.openide.nodes.Node;
@@ -90,4 +91,11 @@ public class JointsNode extends OpenSimObjectNode {
     */
    public String getHtmlDisplayName() {
        return NbBundle.getMessage(JointsNode.class, "CTL_Joints"); }
+
+   public Action[] getActions(boolean b) {
+        Action[] classSpecificActions=null;
+            classSpecificActions = new Action[]{
+                getReviewAction()};
+        return classSpecificActions;
+   }
 }

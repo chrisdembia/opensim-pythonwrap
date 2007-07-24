@@ -43,6 +43,9 @@ public final class ObjectDisplayMenuAction extends CallableSystemAction implemen
                  (ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
                  Class.forName("org.opensim.view.ObjectDisplayShowAction"), true)));
          displayMenu.add(new JMenuItem(
+                 (ObjectDisplayShowOnlyAction) ObjectDisplayShowOnlyAction.findObject(
+                 Class.forName("org.opensim.view.ObjectDisplayShowOnlyAction"), true)));
+         displayMenu.add(new JMenuItem(
                  (ObjectDisplayWireframeAction) ObjectDisplayWireframeAction.findObject(
                  Class.forName("org.opensim.view.ObjectDisplayWireframeAction"), true)));
          displayMenu.add(new JMenuItem(

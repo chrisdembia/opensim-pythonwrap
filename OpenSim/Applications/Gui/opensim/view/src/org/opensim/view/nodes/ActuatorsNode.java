@@ -29,10 +29,9 @@ import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import java.util.ResourceBundle;
-import org.openide.nodes.Children;
+import javax.swing.Action;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.ActuatorSet;
 
 /**
@@ -55,6 +54,24 @@ public class ActuatorsNode extends OpenSimObjectNode {
       getChildren().add(new Node[] {new TorquesNode(as)});
       getChildren().add(new Node[] {new GeneralizedForcesNode(as)});
    }
+<<<<<<< .mine
+   /**
+    * Display name
+    */
+   public String getHtmlDisplayName() {
+      
+      return NbBundle.getMessage(ActuatorsNode.class, "CTL_Actuators");
+   }
+   /**
+    * Actions, override behavior in OpenSimObjectNode since display options are not available
+    */
+   public Action[] getActions(boolean b) {
+      Action[] classSpecificActions=null;
+      classSpecificActions = new Action[]{
+         getReviewAction()};
+      return classSpecificActions;
+   }
+=======
    
       public Image getIcon(int i) {
       URL imageURL=null;
@@ -91,5 +108,6 @@ public class ActuatorsNode extends OpenSimObjectNode {
         
         return NbBundle.getMessage(ActuatorsNode.class, "CTL_Actuators");
     }
+>>>>>>> .r3384
    
 }

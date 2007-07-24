@@ -38,6 +38,7 @@ import org.opensim.view.ObjectGenericReviewAction;
 public class OpenSimObjectNode extends OpenSimNode {
     
     private OpenSimObject openSimObject;
+    
     /** Creates a new instance of OpenSimObjectNode */
     public OpenSimObjectNode(OpenSimObject obj) {
        this.openSimObject = obj;
@@ -82,7 +83,7 @@ public class OpenSimObjectNode extends OpenSimNode {
         return openSimObject;
     }
 
-   private Action getReviewAction() {
+   protected Action getReviewAction() {
       Action act =null;
       try {
          act = (ObjectGenericReviewAction) ObjectGenericReviewAction.findObject(
@@ -91,6 +92,5 @@ public class OpenSimObjectNode extends OpenSimNode {
          ex.printStackTrace();
       }
       return act;
-   }
-    
+   }    
 }

@@ -28,6 +28,7 @@ package org.opensim.view.pub;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -178,9 +179,9 @@ public final class ViewDB extends Observable implements Observer {
                processSavedSettings(model);
                // add to map from models to modelVisuals so that it's accesisble
                // thru tree picks
-               mapModelsToVisuals.put(ev.getModel(), newModelVisual);
-               mapModelsToGuiElements.put(ev.getModel(), newModelGuiElements);
-               modelOpacities.put(ev.getModel(), 1.0);
+               mapModelsToVisuals.put(model, newModelVisual);
+               mapModelsToGuiElements.put(model, newModelGuiElements);
+               modelOpacities.put(model, 1.0);
                //From here on we're adding things to display so we better lock'
                
                if (sceneAssembly==null){
@@ -757,6 +758,30 @@ public final class ViewDB extends Observable implements Observer {
             toggleObjectDisplay(members.get(i), visible);
          }
       } else {
+          // If a set
+          if (openSimObject.getType().endsWith("Set")){
+              // use getSize, getItem by reflection
+               Class c = openSimObject.getClass();
+                Object result = null;
+                try {
+                    Method m = c.getMethod("getSize", (Class[]) null);
+                    result = m.invoke(openSimObject, (Object[]) null);
+                    int size = (Integer)result;
+                    Class[] params = new Class[]{int.class};
+                    Object[] paramValues = new Object[1];
+                    Method[] ms = c.getMethods();
+                    for(int i=0; i< size;i++){
+                        m = c.getMethod("get", params);
+                        paramValues[0]=new Integer(i);
+                        result = m.invoke(openSimObject, (Object[]) paramValues);
+                        toggleObjectDisplay((OpenSimObject)result, visible);
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();  
+                }
+          }
+          else
          toggleObjectDisplay(openSimObject, visible);
       }
    }
@@ -782,6 +807,13 @@ public final class ViewDB extends Observable implements Observer {
          return;
       }
 
+      if (openSimObject instanceof ObjectGroup){
+          ObjectGroup grp = (ObjectGroup) openSimObject;
+          ArrayPtrsObj members = grp.getMembers();
+          for(int i=0;i<members.getSize();i++)
+              toggleObjectDisplay(members.get(i), visible); // Recur
+          return;
+      }
       // If the object is a vtkAssembly or vtkActor, sets its visibility that way too.
       final int vtkVisible = visible ? 1 : 0;
       vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(openSimObject);
@@ -892,56 +924,6 @@ public final class ViewDB extends Observable implements Observer {
       }
    }
 
-    public void IsolateCurrentModel() {
-        final SingleModelVisuals vis = mapModelsToVisuals.get(getCurrentModel());
-        vtkVectorText atext = new vtkVectorText();
-        atext.SetText("Current Model");
-        vtkPolyDataMapper textMapper = new vtkPolyDataMapper();
-        textMapper.SetInput(atext.GetOutput());
-        final vtkFollower textActor = new vtkFollower();
-        textActor.SetMapper(textMapper);
-        textActor.SetScale(0.1, 0.1, 0.1);
-        textActor.AddPosition(0., 0., 0.);
-        vis.addUserObject(textActor);
-        repaintAll();
-        
-        // start timer to hide annotation in 5 secs
-        ActionListener hideAnnotationAction = new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-                vis.removeUserObject(textActor);
-                repaintAll();
-            }};
-        Timer hideAnnotationTimer = new Timer(5000, hideAnnotationAction);
-        hideAnnotationTimer.setRepeats(false);
-        hideAnnotationTimer.start();
-        
-    }
-
-    public void hideOthers(Model mdl, boolean b) {
-        int sz = mapModelsToVisuals.size();
-        Set<Model> modelSet=mapModelsToVisuals.keySet();
-        Iterator<Model> modelit = modelSet.iterator();
-        if (b)
-            saveStatus.clear();
-        int i=0;
-        while(modelit.hasNext()){
-            Model nextModel = modelit.next();
-            boolean isVisible = getDisplayStatus(nextModel);
-            // remember old state then turn off (if b = true)
-            if (b){
-                saveStatus.add(new Boolean(isVisible));
-                if (isVisible && mdl != nextModel)
-                    toggleModelDisplay(nextModel);
-            }
-            else{ // restore from saveStatus array
-                boolean savedVis = saveStatus.get(i).booleanValue();
-                if (savedVis && nextModel!=mdl)
-                    toggleModelDisplay(nextModel);
-            }
-            i++;
-        }
-    }
-
     public OpenSimObject getSelectedGlyphObject(int cellId, vtkActor glyphActor) {
         Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
         while(iter.hasNext()){
@@ -1033,5 +1015,21 @@ public final class ViewDB extends Observable implements Observer {
    public void setNonCurrentModelOpacity(double nonCurrentModelOpacity) {
       this.nonCurrentModelOpacity = nonCurrentModelOpacity;
       Preferences.userNodeForPackage(TheApp.class).get("NonCurrentModelOpacity", String.valueOf(nonCurrentModelOpacity));
+   }
+   /**
+    * Show only the passed in model and hide all otehrs.
+    */
+   public void isolateModel(Model openSimModel) {
+      Enumeration<Model> models=mapModelsToVisuals.keys();
+      while(models.hasMoreElements()){
+         Model next = models.nextElement();
+         SingleModelVisuals vis = mapModelsToVisuals.get(next);
+         sceneAssembly.RemovePart(vis.getModelDisplayAssembly());
+         if (openSimModel==next){
+            vis.setVisible(true);
+            sceneAssembly.AddPart(vis.getModelDisplayAssembly());
+}
+      }
+      repaintAll();
    }
 }

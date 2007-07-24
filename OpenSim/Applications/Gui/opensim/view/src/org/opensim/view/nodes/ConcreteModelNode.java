@@ -2,12 +2,9 @@ package org.opensim.view.nodes;
 
 import javax.swing.Action;
 import org.openide.nodes.Node;
-import org.openide.util.HelpCtx;
-import org.openide.util.actions.CallableSystemAction;
+import org.openide.util.NbBundle;
 import org.opensim.modeling.Model;
 import org.opensim.view.*;
-import org.opensim.view.actions.FileCloseAction;
-import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
 /**
@@ -42,6 +39,8 @@ public class ConcreteModelNode extends OpenSimObjectNode {
                         Class.forName("org.opensim.view.ModelDisplayHideAction"), true),
                 (ModelDisplayShowAction) ModelDisplayShowAction.findObject(
                         Class.forName("org.opensim.view.ModelDisplayShowAction"), true),
+                (IsolateCurrentModelAction) IsolateCurrentModelAction.findObject(
+                        Class.forName("org.opensim.view.nodes.IsolateCurrentModelAction"), true),
                 (ModelInfoAction) ModelInfoAction.findObject(
                         Class.forName("org.opensim.view.nodes.ModelInfoAction"), true),
                 (ModelMakeCurrentAction) ModelMakeCurrentAction.findObject(
