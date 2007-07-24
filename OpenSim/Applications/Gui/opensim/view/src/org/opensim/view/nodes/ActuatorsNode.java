@@ -54,7 +54,6 @@ public class ActuatorsNode extends OpenSimObjectNode {
       getChildren().add(new Node[] {new TorquesNode(as)});
       getChildren().add(new Node[] {new GeneralizedForcesNode(as)});
    }
-<<<<<<< .mine
    /**
     * Display name
     */
@@ -71,7 +70,6 @@ public class ActuatorsNode extends OpenSimObjectNode {
          getReviewAction()};
       return classSpecificActions;
    }
-=======
    
       public Image getIcon(int i) {
       URL imageURL=null;
@@ -100,14 +98,5 @@ public class ActuatorsNode extends OpenSimObjectNode {
          return null;
       }
    }
-   
-    /**
-     * Display name 
-     */
-    public String getHtmlDisplayName() {
-        
-        return NbBundle.getMessage(ActuatorsNode.class, "CTL_Actuators");
-    }
->>>>>>> .r3384
-   
+      
 }

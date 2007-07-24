@@ -26,7 +26,6 @@ public final class FileImportSIMMAction extends CallableSystemAction {
                 return;
             String mslfileName = importPanel.getMslFilename();
             String engineString = importPanel.getDynamicsEngine();
-            String anglesString = importPanel.getAngleConvention();
             String command="simmToOpenSim -j \""+jntfileName+"\"";
             
             if (mslfileName!=null)
