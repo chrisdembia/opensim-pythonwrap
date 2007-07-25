@@ -6,9 +6,11 @@
 
 package org.opensim.tracking;
 
+import java.awt.Component;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JPanel;
 import org.opensim.modeling.Model;
 
 /**
@@ -21,8 +23,8 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
    ActuatorsAndExternalLoadsPanel actuatorsAndExternalLoadsPanel = null;
 
    /** Creates new form ForwardToolPanel */
-   public ForwardToolPanel() throws IOException {
-      forwardToolModel = new ForwardToolModel();
+   public ForwardToolPanel(Model model) throws IOException {
+      forwardToolModel = new ForwardToolModel(model);
 
       initComponents();
 
@@ -41,8 +43,20 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
          updateFromModel(); 
    }
 
+   private void disablePanel(JPanel panel) {
+      for(Component comp : panel.getComponents()) {
+         comp.setEnabled(false);
+         if(comp instanceof JPanel) disablePanel((JPanel)comp);
+      }
+   }
+
    public void updateFromModel() {
-      modelFileName.setFileName(forwardToolModel.getModelFileName(),false);
+      // Disable everything for now...
+      disablePanel(mainSettingsPanel);
+      disablePanel(advancedSettingsPanel);
+      disablePanel(actuatorsAndExternalLoadsPanel);
+
+      modelName.setText(forwardToolModel.getOriginalModel().getName());
       
       // Input
       controlsFileName.setFileName(forwardToolModel.getControlsFileName(),false);
@@ -116,7 +130,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       resultsDirectory = new org.opensim.swingui.FileTextFieldAndChooser();
       jPanel1 = new javax.swing.JPanel();
       jLabel2 = new javax.swing.JLabel();
-      modelFileName = new org.opensim.swingui.FileTextFieldAndChooser();
+      modelName = new javax.swing.JTextField();
       advancedSettingsPanel = new javax.swing.JPanel();
       jPanel5 = new javax.swing.JPanel();
       jLabel7 = new javax.swing.JLabel();
@@ -243,8 +257,10 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
-      jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Model"));
-      jLabel2.setText("Model file");
+      jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Current Model"));
+      jLabel2.setText("Name");
+
+      modelName.setText("jTextField1");
 
       org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
       jPanel1.setLayout(jPanel1Layout);
@@ -254,15 +270,16 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
             .addContainerGap()
             .add(jLabel2)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(modelFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+            .add(modelName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
             .addContainerGap())
       );
       jPanel1Layout.setVerticalGroup(
          jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jPanel1Layout.createSequentialGroup()
-            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel2)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, modelFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(6, 6, 6)
+            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(jLabel2)
+               .add(modelName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
@@ -394,7 +411,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
          .add(advancedSettingsPanelLayout.createSequentialGroup()
             .addContainerGap()
             .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(180, Short.MAX_VALUE))
+            .addContainerGap(186, Short.MAX_VALUE))
       );
       jTabbedPane.addTab("Advanced Settings", advancedSettingsPanel);
 
@@ -409,7 +426,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
-            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+            .add(jTabbedPane)
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
@@ -445,7 +462,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
    private javax.swing.JPanel mainSettingsPanel;
    private javax.swing.JTextField maxDT;
    private javax.swing.JTextField maximumNumberOfSteps;
-   private org.opensim.swingui.FileTextFieldAndChooser modelFileName;
+   private javax.swing.JTextField modelName;
    private javax.swing.JTextField outputPrecision;
    private org.opensim.swingui.FileTextFieldAndChooser resultsDirectory;
    private javax.swing.JCheckBox useSpecifiedDt;

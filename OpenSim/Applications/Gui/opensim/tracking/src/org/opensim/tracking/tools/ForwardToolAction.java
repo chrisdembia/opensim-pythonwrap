@@ -13,8 +13,11 @@ import org.opensim.view.pub.OpenSimDB;
 public final class ForwardToolAction extends CallableSystemAction {
    
    public void performAction() {
+      Model model = OpenSimDB.getInstance().getCurrentModel();
+      if(model==null) return;
+
       try {
-         final ForwardToolPanel panel = new ForwardToolPanel();
+         final ForwardToolPanel panel = new ForwardToolPanel(model);
          BaseToolPanel.openToolDialog(panel, "Forward Tool");
       } catch (IOException ex) {
          ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing forward tool",ex);
@@ -40,7 +43,6 @@ public final class ForwardToolAction extends CallableSystemAction {
    }
    
    public boolean isEnabled() {
-      return true;
-      //return OpenSimDB.getInstance().getCurrentModel()!=null;
+      return OpenSimDB.getInstance().getCurrentModel()!=null;
    }
 }

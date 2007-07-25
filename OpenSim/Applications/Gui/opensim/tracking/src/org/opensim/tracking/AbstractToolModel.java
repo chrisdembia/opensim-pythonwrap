@@ -14,9 +14,11 @@ public class AbstractToolModel extends Observable {
    private boolean modifiedSinceLastExecute = true;
    private boolean executing = false;
 
+   protected Model model = null;
    protected AbstractTool tool = null;
 
-   public AbstractToolModel() {
+   public AbstractToolModel(Model model) {
+      this.model = model;
    }
 
    public void setTool(AbstractTool tool) {
@@ -27,7 +29,8 @@ public class AbstractToolModel extends Observable {
    // Get/Set Values
    //------------------------------------------------------------------------
 
-   public Model getModel() { return tool.getModel(); }
+   public Model getModel() { return model; }
+   protected void setModel(Model model) { this.model = model; }
 
    // Actuators
    public boolean getReplaceActuatorSet() { return tool.getReplaceActuatorSet(); }
@@ -50,9 +53,11 @@ public class AbstractToolModel extends Observable {
    //------------------------------------------------------------------------
 
    protected void setExecuting(boolean executing) {
-      this.executing = executing;
-      setChanged();
-      notifyObservers(Operation.ExecutionStateChanged);
+      if(this.executing != executing) {
+         this.executing = executing;
+         setChanged();
+         notifyObservers(Operation.ExecutionStateChanged);
+      }
    }
    public boolean isExecuting() {
       return executing;

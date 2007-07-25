@@ -2,16 +2,18 @@ package org.opensim.tracking;
 
 import java.io.File;
 import java.io.IOException;
+import javax.swing.SwingUtilities;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.Cancellable;
 import org.opensim.modeling.ForwardTool;
 import org.opensim.modeling.InterruptingIntegCallback;
+import org.opensim.modeling.Model;
 import org.opensim.motionviewer.JavaMotionDisplayerCallback;
 import org.opensim.swingui.SwingWorker;
-import org.opensim.tracking.IKToolModel.IKToolWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
+import org.opensim.view.pub.OpenSimDB;
 
 public class ForwardToolModel extends AbstractToolModel {
    //========================================================================
@@ -24,8 +26,25 @@ public class ForwardToolModel extends AbstractToolModel {
       boolean result = false;
       boolean promptToKeepPartialResult = true;
      
-      ForwardToolWorker() {
+      ForwardToolWorker() throws IOException {
          updateTool();
+
+         // Re-initialize our copy of the model
+         Model model = getOriginalModel().clone();
+         model.setInputFileName("");
+
+         // Update actuator set and contact force set based on settings in the tool, then call setup() and setModel()
+         // setModel() will call addAnalysisSetToModel
+         tool.updateModelActuatorsAndContactForces(model, "");
+         model.setup();
+         tool.setModel(model);
+
+         OpenSimDB.getInstance().replaceModel(getModel(), model);
+         setModel(model);
+
+         // set model in our tool
+         // add analysis set to model
+         // TODO: eventually we'll want to have the kinematics analysis store the motion for us...
 
          // Initialize progress bar, given we know the number of frames to process
          double ti = getInitialTime();
@@ -41,7 +60,7 @@ public class ForwardToolModel extends AbstractToolModel {
          // Animation callback will update the display during forward
          animationCallback = new JavaMotionDisplayerCallback(getModel(), null, progressHandle);
          getModel().addIntegCallback(animationCallback);
-         animationCallback.setStepInterval(100);
+         animationCallback.setStepInterval(10);
          animationCallback.startProgressUsingTime(ti,tf);
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
@@ -59,7 +78,7 @@ public class ForwardToolModel extends AbstractToolModel {
       }
 
       public Object construct() {
-         /*result = */tool.run();
+         result = tool.run();
 
          // Update one last time (TODO: is this necessary?)
          animationCallback.updateDisplaySynchronously();
@@ -89,11 +108,22 @@ public class ForwardToolModel extends AbstractToolModel {
    // END ForwardToolWorker
    //========================================================================
    
-   public ForwardToolModel() {
+   private Model originalModel = null;
+
+   public ForwardToolModel(Model model) throws IOException {
+      super(null);
+
+      this.originalModel = model;
+
+      // Check that the model has a real dynamics engine
+      if(model.getDynamicsEngine().getType().equals("SimmKinematicsEngine"))
+         throw new IOException("Forward tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
+
       setTool(new ForwardTool());
    }
 
    ForwardTool forwardTool() { return (ForwardTool)tool; }
+   Model getOriginalModel() { return originalModel; }
 
    //------------------------------------------------------------------------
    // Get/Set Values
@@ -118,7 +148,12 @@ public class ForwardToolModel extends AbstractToolModel {
 
    public void execute() {
       if(isModified() && worker==null) {
-         worker = new ForwardToolWorker();
+         try {
+            worker = new ForwardToolWorker();
+         } catch (IOException ex) {
+            setExecuting(false);
+            return;
+         }
          worker.start();
       }
    }
@@ -131,6 +166,9 @@ public class ForwardToolModel extends AbstractToolModel {
 
    public void cancel() {
       interrupt(false);
+      if(getModel()!=null) {
+         OpenSimDB.getInstance().removeModel(getModel());
+      }
    }
 
    //------------------------------------------------------------------------
@@ -138,7 +176,7 @@ public class ForwardToolModel extends AbstractToolModel {
    //------------------------------------------------------------------------
 
    public boolean isValid() {
-      return forwardTool().getModel()!=null;
+      return true;
    }
 
    //------------------------------------------------------------------------
@@ -170,7 +208,7 @@ public class ForwardToolModel extends AbstractToolModel {
       ForwardTool newForwardTool = null;
       try {
          // TODO: pass it our model instead
-         newForwardTool = new ForwardTool(fileName);
+         newForwardTool = new ForwardTool(fileName, false);
       } catch (IOException ex) {
          ErrorDialog.displayIOExceptionDialog("Error loading file","Could not load "+fileName,ex);
          return false;

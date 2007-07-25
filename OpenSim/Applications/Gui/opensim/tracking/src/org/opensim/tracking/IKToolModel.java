@@ -220,9 +220,11 @@ public class IKToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
 
    private void setExecuting(boolean executing) {
-      this.executing = executing;
-      setChanged();
-      notifyObservers(Operation.ExecutionStateChanged);
+      if(this.executing != executing) {
+         this.executing = executing;
+         setChanged();
+         notifyObservers(Operation.ExecutionStateChanged);
+      }
    }
    public boolean isExecuting() {
       return executing;
