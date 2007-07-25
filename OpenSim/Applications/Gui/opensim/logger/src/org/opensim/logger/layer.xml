@@ -7,11 +7,8 @@
         </folder>
     </folder>
     <folder name="Menu">
-        <folder name="View">
-            <file name="org-opensim-logger-LoggerAction.instance" url="org-opensim-logger-LoggerAction.instance"/>
-        </folder>
         <folder name="Window">
-            <file name="LoggerAction.shadow">
+            <file name="org-opensim-logger-LoggerAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-opensim-logger-LoggerAction.instance"/>
             </file>
         </folder>

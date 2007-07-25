@@ -21,26 +21,6 @@
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-motionviewer-FileLoadMotionAction.instance"/>
             </file>
         </folder>
-        <folder name="View">
-            <attr name="Separator1.instance/org-opensim-motionviewer-separatorBefore.instance" boolvalue="true"/>
-            <file name="org-opensim-motionviewer-separatorBefore.instance">
-                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
-            </file>
-            <attr name="org-opensim-motionviewer-separatorBefore.instance/org-opensim-motionviewer-ViewMotionsAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-motionviewer-ViewMotionsAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-motionviewer-ViewMotionsAction.instance"/>
-            </file>
-            <attr name="org-opensim-motionviewer-ViewMotionsAction.shadow/org-opensim-motionviewer-separatorAfter.instance" boolvalue="true"/>
-            <file name="org-opensim-motionviewer-separatorAfter.instance">
-                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
-            </file>
-            <attr name="org-opensim-motionviewer-separatorAfter.instance/org-netbeans-core-multiview-EditorsAction.instance" boolvalue="true"/>
-        </folder>
-        <folder name="Window">
-            <file name="MotionViewerAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Window/org-opensim-motionviewer-MotionViewerAction.instance"/>
-            </file>
-        </folder>
     </folder>
     <folder name="Toolbars">
         <folder name="Edit">
