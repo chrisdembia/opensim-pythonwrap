@@ -8,6 +8,7 @@ package org.opensim.tracking;
 
 import javax.swing.JComboBox;
 import org.opensim.modeling.BodySet;
+import org.opensim.modeling.Model;
 
 /**
  *
@@ -20,34 +21,34 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       initComponents();
    }
 
-   public void updatePanel(ForwardToolModel forwardToolModel) {
-      keepModelActuators.setSelected(!forwardToolModel.getReplaceActuatorSet());
+   public void updatePanel(AbstractToolModelWithExternalLoads toolModel, Model model) {
+      keepModelActuators.setSelected(!toolModel.getReplaceActuatorSet());
 
       String str = "";
-      for(int i=0; i<forwardToolModel.getActuatorSetFiles().getSize(); i++)
-         str += (i>0?", ":"") + forwardToolModel.getActuatorSetFiles().getitem(i);
+      for(int i=0; i<toolModel.getActuatorSetFiles().getSize(); i++)
+         str += (i>0?", ":"") + toolModel.getActuatorSetFiles().getitem(i);
       actuatorSetFiles.setText(str);
 
       // Update combo boxes with body names
       for(JComboBox comboBox : new JComboBox[]{externalLoadsBody1, externalLoadsBody2}) {
          comboBox.removeAllItems();
-         if(forwardToolModel.getModel()==null) continue;
-         BodySet bodySet = forwardToolModel.getModel().getDynamicsEngine().getBodySet();
+         if(model==null) continue;
+         BodySet bodySet = model.getDynamicsEngine().getBodySet();
          if(bodySet==null) continue;
          for(int i=0; i<bodySet.getSize(); i++) comboBox.addItem(bodySet.get(i).getName());
       }
-      externalLoadsBody1.setSelectedItem(forwardToolModel.getExternalLoadsBody1());
-      externalLoadsBody2.setSelectedItem(forwardToolModel.getExternalLoadsBody2());
+      externalLoadsBody1.setSelectedItem(toolModel.getExternalLoadsBody1());
+      externalLoadsBody2.setSelectedItem(toolModel.getExternalLoadsBody2());
 
-      externalLoadsFileName.setFileName(forwardToolModel.getExternalLoadsFileName(),false);
-      externalLoadsModelKinematicsFileName.setFileName(forwardToolModel.getExternalLoadsModelKinematicsFileName(),false);
-      if(forwardToolModel.getLowpassCutoffFrequencyForLoadKinematics()<0) {
+      externalLoadsFileName.setFileName(toolModel.getExternalLoadsFileName(),false);
+      externalLoadsModelKinematicsFileName.setFileName(toolModel.getExternalLoadsModelKinematicsFileName(),false);
+      if(toolModel.getLowpassCutoffFrequencyForLoadKinematics()<0) {
          filterModelKinematics.setSelected(false);
          cutoffFrequency.setText("");
          cutoffFrequency.setEnabled(false);
       } else {
          filterModelKinematics.setSelected(true);
-         cutoffFrequency.setText(((Double)forwardToolModel.getLowpassCutoffFrequencyForLoadKinematics()).toString());
+         cutoffFrequency.setText(((Double)toolModel.getLowpassCutoffFrequencyForLoadKinematics()).toString());
          cutoffFrequency.setEnabled(true);
       }
    }

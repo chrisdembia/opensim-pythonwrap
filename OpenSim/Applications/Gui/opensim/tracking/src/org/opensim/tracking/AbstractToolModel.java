@@ -3,6 +3,7 @@ package org.opensim.tracking;
 import java.io.File;
 import java.util.Observable;
 import org.opensim.modeling.AbstractTool;
+import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.utils.FileUtils;
@@ -35,6 +36,8 @@ public class AbstractToolModel extends Observable {
    // Actuators
    public boolean getReplaceActuatorSet() { return tool.getReplaceActuatorSet(); }
    public ArrayStr getActuatorSetFiles() { return tool.getActuatorSetFiles(); }
+
+   public AnalysisSet getAnalysisSet() { return tool.getAnalysisSet(); }
 
    public String getModelFileName() { return tool.getModelFilename(); }
    public double getInitialTime() { return tool.getInitialTime(); }
@@ -102,3 +105,13 @@ public class AbstractToolModel extends Observable {
 
    }
 }
+
+abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
+   public AbstractToolModelWithExternalLoads(Model model) { super(model); }
+   public abstract String getExternalLoadsFileName();
+   public abstract String getExternalLoadsModelKinematicsFileName();
+   public abstract String getExternalLoadsBody1();
+   public abstract String getExternalLoadsBody2();
+   public abstract double getLowpassCutoffFrequencyForLoadKinematics();
+}
+

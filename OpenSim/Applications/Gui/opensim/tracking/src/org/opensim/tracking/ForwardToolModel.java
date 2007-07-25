@@ -15,7 +15,7 @@ import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.pub.OpenSimDB;
 
-public class ForwardToolModel extends AbstractToolModel {
+public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
    // ForwardToolWorker
    //========================================================================
@@ -122,25 +122,25 @@ public class ForwardToolModel extends AbstractToolModel {
       setTool(new ForwardTool());
    }
 
-   ForwardTool forwardTool() { return (ForwardTool)tool; }
+   ForwardTool getTool() { return (ForwardTool)tool; }
    Model getOriginalModel() { return originalModel; }
 
    //------------------------------------------------------------------------
    // Get/Set Values
    //------------------------------------------------------------------------
 
-   public String getControlsFileName() { return forwardTool().getControlsFileName(); }
-   public String getInitialStatesFileName() { return forwardTool().getInitialStatesFileName(); }
+   public String getControlsFileName() { return getTool().getControlsFileName(); }
+   public String getInitialStatesFileName() { return getTool().getInitialStatesFileName(); }
 
    // External loads
-   public String getExternalLoadsFileName() { return forwardTool().getExternalLoadsFileName(); }
-   public String getExternalLoadsModelKinematicsFileName() { return forwardTool().getExternalLoadsModelKinematicsFileName(); }
-   public String getExternalLoadsBody1() { return forwardTool().getExternalLoadsBody1(); }
-   public String getExternalLoadsBody2() { return forwardTool().getExternalLoadsBody2(); }
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return forwardTool().getLowpassCutoffFrequencyForLoadKinematics(); }
+   public String getExternalLoadsFileName() { return getTool().getExternalLoadsFileName(); }
+   public String getExternalLoadsModelKinematicsFileName() { return getTool().getExternalLoadsModelKinematicsFileName(); }
+   public String getExternalLoadsBody1() { return getTool().getExternalLoadsBody1(); }
+   public String getExternalLoadsBody2() { return getTool().getExternalLoadsBody2(); }
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return getTool().getLowpassCutoffFrequencyForLoadKinematics(); }
 
    // Integrator settings
-   public boolean getUseSpecifiedDt() { return forwardTool().getUseSpecifiedDt(); }
+   public boolean getUseSpecifiedDt() { return getTool().getUseSpecifiedDt(); }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool
@@ -195,12 +195,13 @@ public class ForwardToolModel extends AbstractToolModel {
       super.relativeToAbsolutePaths(parentFileName);
 
       String parentDir = (new File(parentFileName)).getParent();
-      forwardTool().setModelFilename(FileUtils.makePathAbsolute(forwardTool().getModelFilename(), parentDir));
-      forwardTool().setControlsFileName(FileUtils.makePathAbsolute(forwardTool().getControlsFileName(), parentDir));
-      forwardTool().setInitialStatesFileName(FileUtils.makePathAbsolute(forwardTool().getInitialStatesFileName(), parentDir));
-      forwardTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(forwardTool().getExternalLoadsFileName(), parentDir));
-      forwardTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(forwardTool().getExternalLoadsModelKinematicsFileName(), parentDir));
-      forwardTool().setResultsDir(FileUtils.makePathAbsolute(forwardTool().getResultsDir(), parentDir));
+
+      getTool().setModelFilename(FileUtils.makePathAbsolute(getTool().getModelFilename(), parentDir));
+      getTool().setControlsFileName(FileUtils.makePathAbsolute(getTool().getControlsFileName(), parentDir));
+      getTool().setInitialStatesFileName(FileUtils.makePathAbsolute(getTool().getInitialStatesFileName(), parentDir));
+
+      getTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(getTool().getExternalLoadsFileName(), parentDir));
+      getTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(getTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    public boolean loadSettings(String fileName) {

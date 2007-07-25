@@ -6,9 +6,11 @@
 
 package org.opensim.tracking;
 
+import java.awt.Component;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JPanel;
 import org.opensim.modeling.Model;
 
 /**
@@ -17,20 +19,117 @@ import org.opensim.modeling.Model;
  */
 public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
    
+   AnalyzeToolModel toolModel = null;
    ActuatorsAndExternalLoadsPanel actuatorsAndExternalLoadsPanel = null;
 
    /** Creates new form AnalyzeToolPanel */
    public AnalyzeToolPanel(Model model) throws IOException {
+      toolModel = new AnalyzeToolModel(model);
+
       initComponents();
 
       resultsDirectory.setIncludeOpenButton(true);
 
       actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel();
       jTabbedPane1.addTab("Actuators and External Loads", actuatorsAndExternalLoadsPanel);
+
+      setSettingsFileDescription("Analyze tool settings file");
+      updateFromModel();
+      toolModel.addObserver(this);
    }
 
-   public void update(Observable observable, Object obj) {}
+   public void update(Observable observable, Object obj) {
+      if(observable == toolModel && obj == AbstractToolModel.Operation.ExecutionStateChanged)
+         updateDialogButtons();
+      else
+         updateFromModel(); 
+   }
 
+   private void setEnabled(JPanel panel, boolean enabled) {
+      for(Component comp : panel.getComponents()) {
+         comp.setEnabled(enabled);
+         if(comp instanceof JPanel) setEnabled((JPanel)comp, enabled);
+      }
+   }
+
+   public void updateFromModel() {
+      // Start off with everything enabled
+      setEnabled(mainSettingsPanel, true);
+      setEnabled(analysesPanel, true);
+
+      modelName.setText(toolModel.getOriginalModel().getName());
+      
+      // Input
+      if(toolModel.getInputSource()==AnalyzeToolModel.InputSource.Motion) buttonGroup1.setSelected(motionRadioButton.getModel(),true);
+      else if(toolModel.getInputSource()==AnalyzeToolModel.InputSource.States) buttonGroup1.setSelected(statesRadioButton.getModel(),true);
+      else if(toolModel.getInputSource()==AnalyzeToolModel.InputSource.Coordinates) buttonGroup1.setSelected(coordinatesRadioButton.getModel(),true);
+
+      if(!buttonGroup1.isSelected(motionRadioButton.getModel())) motionsComboBox.setEnabled(false);
+      if(!buttonGroup1.isSelected(statesRadioButton.getModel())) statesFileName.setEnabled(false);
+      if(!buttonGroup1.isSelected(coordinatesRadioButton.getModel())) {
+         coordinatesFileName.setEnabled(false);
+         filterCoordinatesCheckBox.setEnabled(false);
+         cutoffFrequency.setEnabled(false);
+         speedsCheckBox.setEnabled(false);
+         speedsFileName.setEnabled(false);
+      }
+
+      statesFileName.setFileName(toolModel.getStatesFileName(),false);
+      coordinatesFileName.setFileName(toolModel.getCoordinatesFileName(),false);
+
+      // Filter
+      filterCoordinatesCheckBox.setSelected(toolModel.getFilterCoordinates());
+      if(!filterCoordinatesCheckBox.isSelected()) cutoffFrequency.setEnabled(false);
+      cutoffFrequency.setText(((Double)toolModel.getLowpassCutoffFrequency()).toString());
+
+      // Speeds
+      speedsCheckBox.setSelected(toolModel.getLoadSpeeds());
+      if(!speedsCheckBox.isSelected()) speedsFileName.setEnabled(false);
+      speedsFileName.setFileName(toolModel.getSpeedsFileName(),false);
+
+      // Analysis set summary
+      String str = "";
+      for(int i=0; i<toolModel.getAnalysisSet().getSize(); i++)
+         str += (i>0 ? ", " : "") + toolModel.getAnalysisSet().get(i).getType();
+
+      // Time
+      initialTime.setText(((Double)toolModel.getInitialTime()).toString());
+      finalTime.setText(((Double)toolModel.getFinalTime()).toString());
+
+      // Output
+      outputPrecision.setText(((Integer)toolModel.getOutputPrecision()).toString());
+      resultsDirectory.setFileName(toolModel.getResultsDirectory(),false);
+
+      // Actuators & external loads
+      actuatorsAndExternalLoadsPanel.updatePanel(toolModel, toolModel.getOriginalModel());
+   }
+
+   public void updateDialogButtons() {
+      updateApplyButton(!toolModel.isExecuting() && toolModel.isModified() && toolModel.isValid());
+   }
+
+   //------------------------------------------------------------------------
+   // Overrides from BaseToolPanel
+   //------------------------------------------------------------------------
+
+   public void loadSettings(String fileName) { toolModel.loadSettings(fileName); }
+   public void saveSettings(String fileName) { toolModel.saveSettings(fileName); }
+
+   public void pressedCancel() {
+      toolModel.cancel();
+   }
+
+   public void pressedClose() {
+   }
+
+   public void pressedApply() {
+      toolModel.execute();
+      updateDialogButtons();
+   }
+
+   //------------------------------------------------------------------------
+   // Utility to initialize the analyze tool dialog to process inverse dynamics
+   //------------------------------------------------------------------------
    public static AnalyzeToolPanel createInverseDynamicsPanel(Model model) throws IOException {
       return new AnalyzeToolPanel(model);
    }
@@ -44,12 +143,12 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
    private void initComponents() {
       buttonGroup1 = new javax.swing.ButtonGroup();
       jTabbedPane1 = new javax.swing.JTabbedPane();
-      jPanel6 = new javax.swing.JPanel();
+      mainSettingsPanel = new javax.swing.JPanel();
       jPanel2 = new javax.swing.JPanel();
-      motionCheckBox = new javax.swing.JRadioButton();
+      motionRadioButton = new javax.swing.JRadioButton();
       motionsComboBox = new javax.swing.JComboBox();
-      statesCheckBox = new javax.swing.JRadioButton();
-      coordinatesCheckBox = new javax.swing.JRadioButton();
+      statesRadioButton = new javax.swing.JRadioButton();
+      coordinatesRadioButton = new javax.swing.JRadioButton();
       statesFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       coordinatesFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       speedsCheckBox = new javax.swing.JCheckBox();
@@ -73,24 +172,25 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
       jPanel1 = new javax.swing.JPanel();
       jLabel2 = new javax.swing.JLabel();
       modelName = new javax.swing.JTextField();
+      analysesPanel = new javax.swing.JPanel();
 
       jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
-      buttonGroup1.add(motionCheckBox);
-      motionCheckBox.setText("Motion");
-      motionCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      motionCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      buttonGroup1.add(motionRadioButton);
+      motionRadioButton.setText("Motion");
+      motionRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      motionRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
       motionsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-      buttonGroup1.add(statesCheckBox);
-      statesCheckBox.setText("States file");
-      statesCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      statesCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      buttonGroup1.add(statesRadioButton);
+      statesRadioButton.setText("States file");
+      statesRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      statesRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-      buttonGroup1.add(coordinatesCheckBox);
-      coordinatesCheckBox.setText("Coordinates file");
-      coordinatesCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      coordinatesCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      buttonGroup1.add(coordinatesRadioButton);
+      coordinatesRadioButton.setText("Coordinates file");
+      coordinatesRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      coordinatesRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
       speedsCheckBox.setText("Speeds file");
       speedsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -111,9 +211,9 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
          .add(jPanel2Layout.createSequentialGroup()
             .addContainerGap()
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(motionCheckBox)
-               .add(statesCheckBox)
-               .add(coordinatesCheckBox))
+               .add(motionRadioButton)
+               .add(statesRadioButton)
+               .add(coordinatesRadioButton))
             .add(11, 11, 11)
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
@@ -138,14 +238,14 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
          .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(org.jdesktop.layout.GroupLayout.TRAILING, motionsComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, motionCheckBox))
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, motionRadioButton))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(org.jdesktop.layout.GroupLayout.TRAILING, statesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, statesCheckBox))
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, statesRadioButton))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinatesCheckBox)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinatesRadioButton)
                .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinatesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -208,6 +308,7 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
 
       jLabel3.setText("Active analyses");
 
+      activeAnalyses.setEditable(false);
       activeAnalyses.setText("jTextField2");
 
       editAnalysesButton.setText("Edit");
@@ -260,6 +361,7 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
       jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Current Model"));
       jLabel2.setText("Name");
 
+      modelName.setEditable(false);
       modelName.setText("jTextField1");
 
       org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
@@ -283,22 +385,22 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
-      org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
-      jPanel6.setLayout(jPanel6Layout);
-      jPanel6Layout.setHorizontalGroup(
-         jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(jPanel6Layout.createSequentialGroup()
+      org.jdesktop.layout.GroupLayout mainSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(mainSettingsPanel);
+      mainSettingsPanel.setLayout(mainSettingsPanelLayout);
+      mainSettingsPanelLayout.setHorizontalGroup(
+         mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(mainSettingsPanelLayout.createSequentialGroup()
             .addContainerGap()
-            .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+            .add(mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
       );
-      jPanel6Layout.setVerticalGroup(
-         jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(jPanel6Layout.createSequentialGroup()
+      mainSettingsPanelLayout.setVerticalGroup(
+         mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(mainSettingsPanelLayout.createSequentialGroup()
             .addContainerGap()
             .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -309,7 +411,19 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
             .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addContainerGap(18, Short.MAX_VALUE))
       );
-      jTabbedPane1.addTab("Main Settings", jPanel6);
+      jTabbedPane1.addTab("Main Settings", mainSettingsPanel);
+
+      org.jdesktop.layout.GroupLayout analysesPanelLayout = new org.jdesktop.layout.GroupLayout(analysesPanel);
+      analysesPanel.setLayout(analysesPanelLayout);
+      analysesPanelLayout.setHorizontalGroup(
+         analysesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(0, 616, Short.MAX_VALUE)
+      );
+      analysesPanelLayout.setVerticalGroup(
+         analysesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(0, 414, Short.MAX_VALUE)
+      );
+      jTabbedPane1.addTab("Analyses", analysesPanel);
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
@@ -326,15 +440,16 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
    }// </editor-fold>//GEN-END:initComponents
 
    private void editAnalysesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAnalysesButtonActionPerformed
-// TODO add your handling code here:
+      jTabbedPane1.setSelectedIndex(1);
    }//GEN-LAST:event_editAnalysesButtonActionPerformed
    
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JTextField activeAnalyses;
+   private javax.swing.JPanel analysesPanel;
    private javax.swing.ButtonGroup buttonGroup1;
-   private javax.swing.JRadioButton coordinatesCheckBox;
    private org.opensim.swingui.FileTextFieldAndChooser coordinatesFileName;
+   private javax.swing.JRadioButton coordinatesRadioButton;
    private javax.swing.JTextField cutoffFrequency;
    private javax.swing.JButton editAnalysesButton;
    private javax.swing.JCheckBox filterCoordinatesCheckBox;
@@ -351,17 +466,17 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
    private javax.swing.JPanel jPanel2;
    private javax.swing.JPanel jPanel3;
    private javax.swing.JPanel jPanel4;
-   private javax.swing.JPanel jPanel6;
    private javax.swing.JTabbedPane jTabbedPane1;
+   private javax.swing.JPanel mainSettingsPanel;
    private javax.swing.JTextField modelName;
-   private javax.swing.JRadioButton motionCheckBox;
+   private javax.swing.JRadioButton motionRadioButton;
    private javax.swing.JComboBox motionsComboBox;
    private javax.swing.JTextField outputPrecision;
    private org.opensim.swingui.FileTextFieldAndChooser resultsDirectory;
    private javax.swing.JCheckBox speedsCheckBox;
    private org.opensim.swingui.FileTextFieldAndChooser speedsFileName;
-   private javax.swing.JRadioButton statesCheckBox;
    private org.opensim.swingui.FileTextFieldAndChooser statesFileName;
+   private javax.swing.JRadioButton statesRadioButton;
    // End of variables declaration//GEN-END:variables
    
 }

@@ -19,12 +19,12 @@ import org.opensim.modeling.Model;
  */
 public class ForwardToolPanel extends BaseToolPanel implements Observer {
   
-   ForwardToolModel forwardToolModel = null;
+   ForwardToolModel toolModel = null;
    ActuatorsAndExternalLoadsPanel actuatorsAndExternalLoadsPanel = null;
 
    /** Creates new form ForwardToolPanel */
    public ForwardToolPanel(Model model) throws IOException {
-      forwardToolModel = new ForwardToolModel(model);
+      toolModel = new ForwardToolModel(model);
 
       initComponents();
 
@@ -35,11 +35,11 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
 
       setSettingsFileDescription("Forward tool settings file");
       updateFromModel();
-      forwardToolModel.addObserver(this);
+      toolModel.addObserver(this);
    }
 
    public void update(Observable observable, Object obj) {
-      if(observable == forwardToolModel && obj == AbstractToolModel.Operation.ExecutionStateChanged)
+      if(observable == toolModel && obj == AbstractToolModel.Operation.ExecutionStateChanged)
          updateDialogButtons();
       else
          updateFromModel(); 
@@ -58,51 +58,51 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       //disablePanel(advancedSettingsPanel);
       //disablePanel(actuatorsAndExternalLoadsPanel);
 
-      modelName.setText(forwardToolModel.getOriginalModel().getName());
+      modelName.setText(toolModel.getOriginalModel().getName());
       
       // Input
-      controlsFileName.setFileName(forwardToolModel.getControlsFileName(),false);
-      initialStatesFileName.setFileName(forwardToolModel.getInitialStatesFileName(),false);
+      controlsFileName.setFileName(toolModel.getControlsFileName(),false);
+      initialStatesFileName.setFileName(toolModel.getInitialStatesFileName(),false);
 
       // Time
-      initialTime.setText(((Double)forwardToolModel.getInitialTime()).toString());
-      finalTime.setText(((Double)forwardToolModel.getFinalTime()).toString());
+      initialTime.setText(((Double)toolModel.getInitialTime()).toString());
+      finalTime.setText(((Double)toolModel.getFinalTime()).toString());
 
       // Output
-      outputPrecision.setText(((Integer)forwardToolModel.getOutputPrecision()).toString());
-      resultsDirectory.setFileName(forwardToolModel.getResultsDirectory(),false);
+      outputPrecision.setText(((Integer)toolModel.getOutputPrecision()).toString());
+      resultsDirectory.setFileName(toolModel.getResultsDirectory(),false);
 
       // Integrator settings
-      useSpecifiedDt.setSelected(forwardToolModel.getUseSpecifiedDt());
-      maximumNumberOfSteps.setText(((Double)forwardToolModel.getMaximumNumberOfSteps()).toString());
-      maxDT.setText(((Double)forwardToolModel.getMaxDT()).toString());
-      errorTolerance.setText(((Double)forwardToolModel.getErrorTolerance()).toString());
-      fineTolerance.setText(((Double)forwardToolModel.getFineTolerance()).toString());
+      useSpecifiedDt.setSelected(toolModel.getUseSpecifiedDt());
+      maximumNumberOfSteps.setText(((Double)toolModel.getMaximumNumberOfSteps()).toString());
+      maxDT.setText(((Double)toolModel.getMaxDT()).toString());
+      errorTolerance.setText(((Double)toolModel.getErrorTolerance()).toString());
+      fineTolerance.setText(((Double)toolModel.getFineTolerance()).toString());
       
       // Actuators & external loads
-      actuatorsAndExternalLoadsPanel.updatePanel(forwardToolModel);
+      actuatorsAndExternalLoadsPanel.updatePanel(toolModel, toolModel.getOriginalModel());
    }
 
    public void updateDialogButtons() {
-      updateApplyButton(!forwardToolModel.isExecuting() && forwardToolModel.isModified() && forwardToolModel.isValid());
+      updateApplyButton(!toolModel.isExecuting() && toolModel.isModified() && toolModel.isValid());
    }
 
    //------------------------------------------------------------------------
    // Overrides from BaseToolPanel
    //------------------------------------------------------------------------
 
-   public void loadSettings(String fileName) { forwardToolModel.loadSettings(fileName); }
-   public void saveSettings(String fileName) { forwardToolModel.saveSettings(fileName); }
+   public void loadSettings(String fileName) { toolModel.loadSettings(fileName); }
+   public void saveSettings(String fileName) { toolModel.saveSettings(fileName); }
 
    public void pressedCancel() {
-      forwardToolModel.cancel();
+      toolModel.cancel();
    }
 
    public void pressedClose() {
    }
 
    public void pressedApply() {
-      forwardToolModel.execute();
+      toolModel.execute();
       updateDialogButtons();
    }
 
@@ -264,6 +264,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Current Model"));
       jLabel2.setText("Name");
 
+      modelName.setEditable(false);
       modelName.setText("jTextField1");
 
       org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
