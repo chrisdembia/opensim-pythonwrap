@@ -8,6 +8,7 @@ import java.io.File;
 import javax.swing.JCheckBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import org.opensim.utils.BrowserLauncher;
 import org.opensim.utils.FileUtils;
 
 public class FileTextFieldAndChooser extends javax.swing.JPanel implements ActionListener {
@@ -46,6 +47,14 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       this.description = description;
    }
 
+   public void setIncludeOpenButton(boolean includeOpenButton) {
+      if(includeOpenButton) {
+         if(!isAncestorOf(openButton)) add(openButton);
+      } else {
+         if(isAncestorOf(openButton)) remove(openButton);
+      }
+   }
+
    public String getFileName() {
       return fileNameTextField.getText();
    }
@@ -55,8 +64,9 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       if(!name.equals(lastFileName)) {
          lastFileName = name;
          fileNameTextField.setText(name);
-         if(checkIfFileExists) setFileIsValid((new File(name)).exists());
-         else setFileIsValid(true);
+         boolean exists = (new File(name)).exists();
+         setFileIsValid(checkIfFileExists ? exists : true);
+         openButton.setEnabled(isEnabled() && exists); // don't enable open button if the component as a whole is disabled
          if(triggerEvent) fireStateChanged();
       }
    }
@@ -165,8 +175,19 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
     */
    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
    private void initComponents() {
+      openButton = new javax.swing.JButton();
       fileNameTextField = new javax.swing.JTextField();
       browseButton = new javax.swing.JButton();
+
+      openButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/editor.gif")));
+      openButton.setMaximumSize(new java.awt.Dimension(30, 19));
+      openButton.setMinimumSize(new java.awt.Dimension(30, 19));
+      openButton.setPreferredSize(new java.awt.Dimension(30, 19));
+      openButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            openButtonActionPerformed(evt);
+         }
+      });
 
       setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.X_AXIS));
 
@@ -184,7 +205,7 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
 
       add(fileNameTextField);
 
-      browseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("FolderOpen.gif")));
+      browseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/FolderOpen.gif")));
       browseButton.setMaximumSize(new java.awt.Dimension(30, 19));
       browseButton.setMinimumSize(new java.awt.Dimension(30, 19));
       browseButton.setPreferredSize(new java.awt.Dimension(30, 19));
@@ -197,11 +218,16 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       add(browseButton);
 
    }// </editor-fold>//GEN-END:initComponents
+
+   private void openButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openButtonActionPerformed
+      BrowserLauncher.openURL("file://"+getFileName());
+   }//GEN-LAST:event_openButtonActionPerformed
    
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton browseButton;
    private javax.swing.JTextField fileNameTextField;
+   private javax.swing.JButton openButton;
    // End of variables declaration//GEN-END:variables
    
 }

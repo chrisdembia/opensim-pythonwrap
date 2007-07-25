@@ -28,6 +28,8 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
 
       initComponents();
 
+      resultsDirectory.setIncludeOpenButton(true);
+
       actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel();
       jTabbedPane.insertTab("Actuators and External Loads", null, actuatorsAndExternalLoadsPanel, null, 1);
 
@@ -52,9 +54,9 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
 
    public void updateFromModel() {
       // Disable everything for now...
-      disablePanel(mainSettingsPanel);
-      disablePanel(advancedSettingsPanel);
-      disablePanel(actuatorsAndExternalLoadsPanel);
+      //disablePanel(mainSettingsPanel);
+      //disablePanel(advancedSettingsPanel);
+      //disablePanel(actuatorsAndExternalLoadsPanel);
 
       modelName.setText(forwardToolModel.getOriginalModel().getName());
       
@@ -233,12 +235,12 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       jPanel4.setLayout(jPanel4Layout);
       jPanel4Layout.setHorizontalGroup(
          jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
+         .add(jPanel4Layout.createSequentialGroup()
             .addContainerGap()
             .add(jLabel11)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(resultsDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 371, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 32, Short.MAX_VALUE)
+            .add(resultsDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 367, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 36, Short.MAX_VALUE)
             .add(jLabel10)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -247,13 +249,15 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       jPanel4Layout.setVerticalGroup(
          jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jPanel4Layout.createSequentialGroup()
-            .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                  .add(jLabel10)
-                  .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(resultsDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel11)
-                  .add(org.jdesktop.layout.GroupLayout.TRAILING, resultsDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                  .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(jLabel10)
+                     .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                  .add(jPanel4Layout.createSequentialGroup()
+                     .add(6, 6, 6)
+                     .add(jLabel11))))
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
@@ -426,7 +430,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
-            .add(jTabbedPane)
+            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
