@@ -148,8 +148,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jStartTimeTextField = new javax.swing.JTextField();
         jEndTimeTextField = new javax.swing.JTextField();
 
-        setMaximumSize(new java.awt.Dimension(32767, 32));
-        setMinimumSize(new java.awt.Dimension(0, 32));
+        setMaximumSize(new java.awt.Dimension(32767, 38));
+        setMinimumSize(new java.awt.Dimension(0, 38));
         jPlaybackButtonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
         jPlaybackButtonsPanel.setToolTipText("Motion Controls");
@@ -309,16 +309,16 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jMotionSlider.setToolTipText("Seek");
         jMotionSlider.setValue(0);
         jMotionSlider.setFocusable(false);
-        jMotionSlider.setMaximumSize(new java.awt.Dimension(32767, 16));
-        jMotionSlider.setMinimumSize(new java.awt.Dimension(168, 16));
-        jMotionSlider.setPreferredSize(new java.awt.Dimension(168, 16));
+        jMotionSlider.setMaximumSize(new java.awt.Dimension(32767, 22));
+        jMotionSlider.setMinimumSize(new java.awt.Dimension(168, 22));
+        jMotionSlider.setPreferredSize(new java.awt.Dimension(168, 22));
 
         jLabelForMotionNameLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabelForMotionNameLabel.setLabelFor(jMotionNameLabel);
         jLabelForMotionNameLabel.setText("Motion");
-        jLabelForMotionNameLabel.setMaximumSize(new java.awt.Dimension(42, 32));
-        jLabelForMotionNameLabel.setMinimumSize(new java.awt.Dimension(42, 32));
-        jLabelForMotionNameLabel.setPreferredSize(new java.awt.Dimension(42, 32));
+        jLabelForMotionNameLabel.setMaximumSize(new java.awt.Dimension(42, 38));
+        jLabelForMotionNameLabel.setMinimumSize(new java.awt.Dimension(42, 38));
+        jLabelForMotionNameLabel.setPreferredSize(new java.awt.Dimension(42, 38));
 
         jMotionNameLabel.setToolTipText("Current Motion");
         jMotionNameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -328,9 +328,9 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jMotionNameLabel.setPreferredSize(new java.awt.Dimension(200, 20));
 
         jTimeTextField.setToolTipText("Current Time");
-        jTimeTextField.setMaximumSize(new java.awt.Dimension(50, 16));
-        jTimeTextField.setMinimumSize(new java.awt.Dimension(50, 16));
-        jTimeTextField.setPreferredSize(new java.awt.Dimension(50, 16));
+        jTimeTextField.setMaximumSize(new java.awt.Dimension(50, 19));
+        jTimeTextField.setMinimumSize(new java.awt.Dimension(50, 19));
+        jTimeTextField.setPreferredSize(new java.awt.Dimension(50, 19));
         jTimeTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTimeTextFieldActionPerformed(evt);
@@ -348,26 +348,27 @@ public class MotionControlJPanel extends javax.swing.JPanel
         });
 
         jSpeedSpinner.setBackground(new java.awt.Color(255, 255, 255));
+        jSpeedSpinner.setFont(new java.awt.Font("Tahoma", 0, 11));
         jSpeedSpinner.setForeground(new java.awt.Color(0, 0, 0));
         jSpeedSpinner.setModel(smodel);
         jSpeedSpinner.setToolTipText("Play Speed");
-        jSpeedSpinner.setMaximumSize(new java.awt.Dimension(50, 16));
-        jSpeedSpinner.setMinimumSize(new java.awt.Dimension(50, 16));
-        jSpeedSpinner.setPreferredSize(new java.awt.Dimension(50, 16));
+        jSpeedSpinner.setMaximumSize(new java.awt.Dimension(50, 19));
+        jSpeedSpinner.setMinimumSize(new java.awt.Dimension(50, 19));
+        jSpeedSpinner.setPreferredSize(new java.awt.Dimension(50, 19));
 
         jLabelForSpeedSpinner.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabelForSpeedSpinner.setLabelFor(jSpeedSpinner);
         jLabelForSpeedSpinner.setText("Speed");
-        jLabelForSpeedSpinner.setMaximumSize(new java.awt.Dimension(37, 16));
-        jLabelForSpeedSpinner.setMinimumSize(new java.awt.Dimension(37, 16));
-        jLabelForSpeedSpinner.setPreferredSize(new java.awt.Dimension(37, 16));
+        jLabelForSpeedSpinner.setMaximumSize(new java.awt.Dimension(37, 19));
+        jLabelForSpeedSpinner.setMinimumSize(new java.awt.Dimension(37, 19));
+        jLabelForSpeedSpinner.setPreferredSize(new java.awt.Dimension(37, 19));
 
         jLabelForTimeTextField.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabelForTimeTextField.setLabelFor(jTimeTextField);
         jLabelForTimeTextField.setText("Time");
-        jLabelForTimeTextField.setMaximumSize(new java.awt.Dimension(31, 16));
-        jLabelForTimeTextField.setMinimumSize(new java.awt.Dimension(31, 16));
-        jLabelForTimeTextField.setPreferredSize(new java.awt.Dimension(31, 16));
+        jLabelForTimeTextField.setMaximumSize(new java.awt.Dimension(31, 19));
+        jLabelForTimeTextField.setMinimumSize(new java.awt.Dimension(31, 19));
+        jLabelForTimeTextField.setPreferredSize(new java.awt.Dimension(31, 19));
 
         jWrapToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled.png")));
         jWrapToggleButton.setToolTipText("Loop Motion");
@@ -377,10 +378,10 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jWrapToggleButton.setFocusable(false);
         jWrapToggleButton.setIconTextGap(0);
         jWrapToggleButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jWrapToggleButton.setMaximumSize(new java.awt.Dimension(24, 32));
-        jWrapToggleButton.setMinimumSize(new java.awt.Dimension(24, 32));
+        jWrapToggleButton.setMaximumSize(new java.awt.Dimension(24, 38));
+        jWrapToggleButton.setMinimumSize(new java.awt.Dimension(24, 38));
         jWrapToggleButton.setOpaque(true);
-        jWrapToggleButton.setPreferredSize(new java.awt.Dimension(24, 32));
+        jWrapToggleButton.setPreferredSize(new java.awt.Dimension(24, 38));
         jWrapToggleButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled_selected.png")));
         jWrapToggleButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled_rollover.png")));
         jWrapToggleButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled_rollover_selected.png")));
@@ -459,7 +460,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                                 .add(jTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(jLabelForTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(jMotionSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jMotionSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(0, 0, 0)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)

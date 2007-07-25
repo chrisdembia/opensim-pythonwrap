@@ -36,14 +36,14 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
         jLabelForCurrentModelComboBox = new javax.swing.JLabel();
         jCurrentModelComboBox = new javax.swing.JComboBox();
 
-        setMaximumSize(new java.awt.Dimension(151, 32));
-        setMinimumSize(new java.awt.Dimension(151, 32));
+        setMaximumSize(new java.awt.Dimension(151, 38));
+        setMinimumSize(new java.awt.Dimension(151, 38));
         jLabelForCurrentModelComboBox.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabelForCurrentModelComboBox.setLabelFor(jCurrentModelComboBox);
         jLabelForCurrentModelComboBox.setText("Model");
-        jLabelForCurrentModelComboBox.setMaximumSize(new java.awt.Dimension(37, 32));
-        jLabelForCurrentModelComboBox.setMinimumSize(new java.awt.Dimension(37, 32));
-        jLabelForCurrentModelComboBox.setPreferredSize(new java.awt.Dimension(37, 32));
+        jLabelForCurrentModelComboBox.setMaximumSize(new java.awt.Dimension(37, 38));
+        jLabelForCurrentModelComboBox.setMinimumSize(new java.awt.Dimension(37, 38));
+        jLabelForCurrentModelComboBox.setPreferredSize(new java.awt.Dimension(37, 38));
 
         jCurrentModelComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No Models" }));
         jCurrentModelComboBox.setToolTipText("Current Model");

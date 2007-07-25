@@ -28,7 +28,7 @@ public class OneWrapObjectNode extends OpenSimObjectNode{
      * Icon for the body node 
      **/
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/wrap.png");
+        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/wrapNode.png");
         if (imageURL != null) {
             return new ImageIcon(imageURL, "Wrap Object").getImage();
         } else {

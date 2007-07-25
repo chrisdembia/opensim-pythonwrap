@@ -1,8 +1,8 @@
 /*
  *
  * ActuatorGroupNode
- * Author(s): Peter Loan
- * Copyright (c) 2007, Stanford University, Peter Loan
+ * Author(s): Peter Loan & Jeff Reinbolt
+ * Copyright (c) 2007, Stanford University, Peter Loan & Jeff Reinbolt
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,6 +25,9 @@
  */
 package org.opensim.view.nodes;
 
+import java.awt.Image;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import java.util.ResourceBundle;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
@@ -36,7 +39,7 @@ import org.opensim.modeling.ObjectGroup;
 
 /**
  *
- * @author Peter Loan
+ * @author Peter Loan & Jeff Reinbolt
  *
  * Top level Actuators node in Navigator view
  */
@@ -58,6 +61,35 @@ public class ActuatorGroupNode extends OpenSimObjectNode {
          children.add(arrNodes);         
       }
    }
+   
+      public Image getIcon(int i) {
+      URL imageURL=null;
+      try {
+         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/muscleNode.png");
+      } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+      }
+      if (imageURL != null) {
+         return new ImageIcon(imageURL, "").getImage();
+      } else {
+         return null;
+      }
+   }
+   
+   public Image getOpenedIcon(int i) {
+      URL imageURL=null;
+      try {
+         imageURL = Class.forName("org.opensim.view.nodes.OpenSimNode").getResource("/org/opensim/view/nodes/icons/muscleNode.png");
+      } catch (ClassNotFoundException ex) {
+         ex.printStackTrace();
+      }
+      if (imageURL != null) {
+         return new ImageIcon(imageURL, "").getImage();
+      } else {
+         return null;
+      }
+   }
+   
    /**
     * Display name 
     */

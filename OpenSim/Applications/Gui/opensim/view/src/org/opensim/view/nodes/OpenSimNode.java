@@ -84,7 +84,7 @@ public class OpenSimNode extends AbstractNode {
      * Icon for the node 
      **/
     public Image getIcon(int i) {
-        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/node.png");
+        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/osimNode.png");
         if (imageURL != null) {
             return new ImageIcon(imageURL, "").getImage();
         } else {
@@ -93,7 +93,7 @@ public class OpenSimNode extends AbstractNode {
     }
 
     public Image getOpenedIcon(int i) {
-        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/openedNode.png");
+        URL imageURL = this.getClass().getResource("/org/opensim/view/nodes/icons/osimNode.png");
         if (imageURL != null) {
             return new ImageIcon(imageURL, "").getImage();
         } else {
