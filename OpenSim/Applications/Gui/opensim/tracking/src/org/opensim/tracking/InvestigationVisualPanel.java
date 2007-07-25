@@ -1,5 +1,6 @@
 package org.opensim.tracking;
 
+import java.io.IOException;
 import org.opensim.modeling.AbstractTool;
 import org.opensim.modeling.ForwardTool;
 import org.opensim.modeling.PerturbationTool;
@@ -217,7 +218,10 @@ public final class InvestigationVisualPanel extends workflowVisualPanelBase {
             inv= new PerturbationTool(fileName);
         }
         else if (invType==investigtionType.Forward){
+           
+            try {
             inv= new ForwardTool(fileName);
+            } catch (IOException ex) {}
         }
         return inv;
     }
