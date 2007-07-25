@@ -7,6 +7,7 @@ import javax.swing.Action;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import org.openide.util.NbBundle;
+import org.openide.util.SharedClassObject;
 import org.openide.windows.TopComponent;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
@@ -542,8 +543,10 @@ public class ModelWindowVTKTopComponent extends TopComponent
     }
     
     public Action[] getActions(){
-        ViewReplicateAction act1 = new ViewReplicateAction();   // New...
-        ViewEditAction act2 = new ViewEditAction(); //Edit...
+        // Note: seem to need to do it this way rather than just new ViewReplicateAction(), etc. because java complains otherwise
+        // about creating multiple instances of a shared object.
+        ViewReplicateAction act1 = (ViewReplicateAction) SharedClassObject.findObject(ViewReplicateAction.class, true);   // New...
+        ViewEditAction act2 = (ViewEditAction) SharedClassObject.findObject(ViewEditAction.class, true); //Edit...
                          
         return (new Action[]{act1,act2});
     };
