@@ -8,18 +8,17 @@
     </folder>
     <folder name="Menu">
         <folder name="Tools">
-            <attr name="org-opensim-annotationtool-AnnotationAction.shadow/org-opensim-plotter-separatorBefore.instance" boolvalue="true"/>
             <file name="org-opensim-plotter-separatorBefore.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
-            <attr name="org-opensim-plotter-separatorBefore.instance/org-opensim-plotter-ToolsPlotAction.shadow" boolvalue="true"/>
             <file name="org-opensim-plotter-ToolsPlotAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-plotter-ToolsPlotAction.instance"/>
             </file>
-            <attr name="org-opensim-plotter-ToolsPlotAction.shadow/org-opensim-plotter-separatorAfter.instance" boolvalue="true"/>
             <file name="org-opensim-plotter-separatorAfter.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
+            <attr name="org-opensim-plotter-separatorBefore.instance/org-opensim-plotter-ToolsPlotAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-plotter-ToolsPlotAction.shadow/org-opensim-plotter-separatorAfter.instance" boolvalue="true"/>
         </folder>
     </folder>
 </filesystem>

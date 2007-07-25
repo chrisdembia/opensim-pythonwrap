@@ -121,6 +121,15 @@
         <attr name="File/Edit" boolvalue="true"/>
         <folder name="Edit">
             <attr name="Separator2.instance/org-opensim-view-separatorBefore.instance" boolvalue="true"/>
+            <file name="Separator1.instance_hidden"/>
+            <file name="Separator2.instance_hidden"/>
+            <file name="org-openide-actions-CopyAction.instance_hidden"/>
+            <file name="org-openide-actions-CutAction.instance_hidden"/>
+            <file name="org-openide-actions-DeleteAction.instance_hidden"/>
+            <file name="org-openide-actions-FindAction.instance_hidden"/>
+            <file name="org-openide-actions-PasteAction.instance_hidden"/>
+            <file name="org-openide-actions-RedoAction.instance_hidden"/>
+            <file name="org-openide-actions-UndoAction.instance_hidden"/>
             <file name="org-opensim-view-actions-EditPreferencesAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-EditPreferencesAction.instance"/>
             </file>
@@ -142,14 +151,8 @@
             <attr name="org-opensim-view-nodes-ModelInfoAction.instance/org-openide-actions-CopyAction.instance" boolvalue="true"/>
             <attr name="org-opensim-view-actions-EditPreferencesAction.shadow/Separator3.instance" boolvalue="true"/>
             <attr name="org-openide-actions-UndoAction.instance/org-opensim-view-MyUndoAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-view-MyUndoAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-MyUndoAction.instance"/>
-            </file>
             <attr name="org-opensim-view-MyUndoAction.shadow/org-openide-actions-RedoAction.instance" boolvalue="true"/>
             <attr name="org-opensim-view-MyUndoAction.shadow/org-opensim-view-actions-RedoAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-view-MyRedoAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-MyRedoAction.instance"/>
-            </file>
             <attr name="org-opensim-view-actions-RedoAction.shadow/org-openide-actions-RedoAction.instance" boolvalue="true"/>
             <file name="org-netbeans-core-actions-JumpNextAction.shadow_hidden"/>
             <file name="org-netbeans-core-actions-JumpPrevAction.shadow_hidden"/>
@@ -174,12 +177,13 @@
             <attr name="org-opensim-swingui-FileBug.shadow/org-opensim-swingui-separatorAfter.instance" boolvalue="true"/>
         </folder>
         <folder name="Tools">
-            <attr name="Separator1.instance/org-opensim-plot-PlotAction.shadow" boolvalue="false"/>
-            <file name="Separator2.instance_hidden"/>
             <file name="org-netbeans-core-actions-ConfigureShortcutsAction.instance_hidden"/>
             <file name="org-netbeans-core-actions-OptionsAction.instance_hidden"/>
+            <file name="org-netbeans-modules-autoupdate-UpdateAction.instance_hidden"/>
             <file name="org-netbeans-modules-favorites-templates-TemplatesAction.instance_hidden"/>
-            <file name="org-opensim-tools-ScaleToolAction.instance_hidden"/>
+            <file name="org-openide-actions-ToolsAction.instance_hidden"/>
+
+            <attr name="org-opensim-tracking-tools-separatorAfter.instance/org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance" boolvalue="true"/>
         </folder>
         <file name="BuildProject_hidden"/>
         <file name="CVS_hidden"/>
