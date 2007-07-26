@@ -82,15 +82,12 @@ public class Plot {
       
    }
 
-   void add(PlotCurve newCurve) throws PlotterException {
-      String legend = newCurve.getLegend();
-      if (!checkUniqueCurveName(legend))
-           throw new PlotterException("Duplicate curve name is not allowed. Please modify curve name.");
-      
+   void add(PlotCurve newCurve) {
+      String legend = newCurve.getLegend();      
       seriesCollection.addSeries(newCurve.getCurveSeries());
    }
 
-   private boolean checkUniqueCurveName(final String newCurveName) throws PlotterException {
+   private boolean checkUniqueCurveName(final String newCurveName) {
       // Check that name is not a duplicate
       boolean isUnique = true;
       for(int i=0;i<seriesCollection.getSeriesCount() && isUnique;i++){
