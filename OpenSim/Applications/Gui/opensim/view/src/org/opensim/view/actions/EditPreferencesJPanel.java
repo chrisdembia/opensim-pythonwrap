@@ -6,9 +6,11 @@
 
 package org.opensim.view.actions;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Vector;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.opensim.utils.TheApp;
@@ -83,14 +85,32 @@ public class EditPreferencesJPanel extends javax.swing.JPanel {
       );
    }// </editor-fold>//GEN-END:initComponents
 
+   private Vector<String> filterAndSort(Vector<String> list, String regexp) {
+      Vector<String> filtered = new Vector<String>();
+      for(int i=list.size()-1; i>=0; i--) {
+         if(list.get(i).matches(regexp)) {
+            filtered.add(list.get(i));
+            list.remove(i);
+         }
+      }
+      Collections.sort(filtered);
+      return filtered;
+   }
    private void initContent() throws BackingStoreException {
       // Get preferences from TheApp instance and display them
-      String[] options = Preferences.userNodeForPackage(TheApp.class).keys();
-      for(int i=0; i< options.length; i++){
+      //String[] options = Preferences.userNodeForPackage(TheApp.class).keys();
+      Vector<String> options = new Vector<String>(Arrays.asList(Preferences.userNodeForPackage(TheApp.class).keys()));
+      // Some basic sorting
+      Vector<String> sortedOptions = new Vector<String>();
+      sortedOptions.addAll(filterAndSort(options, ".*Color"));
+      sortedOptions.addAll(filterAndSort(options, ".*Path"));
+      sortedOptions.addAll(filterAndSort(options, ".*Dir.*"));
+      sortedOptions.addAll(filterAndSort(options, ".*")); // whatever's left 
+      for(int i=0; i< sortedOptions.size(); i++){
          ((DefaultTableModel)jTable1.getModel()).addRow(
                  new Object[]{
-                        options[i], 
-                        Preferences.userNodeForPackage(TheApp.class).get(options[i], "")});         
+                        sortedOptions.get(i),
+                        Preferences.userNodeForPackage(TheApp.class).get(sortedOptions.get(i), "")});         
       }
       
    }
