@@ -60,13 +60,13 @@ public class ObjectPropertyViewerPanel extends JPanel {
 
 
     public ObjectPropertyViewerPanel(OpenSimObject aObject, boolean allowModification) {
-	this.object = aObject;
-	editMode = allowModification;
+        this.object = aObject;
+        editMode = allowModification;
         if (object == null)
             return;
 
         model = createModel(aObject, editMode);
-	treeTable = createTreeTable();
+        treeTable = createTreeTable();
         // Create column model and assign renderer to show tooltip
         ColumnHeaderRenderer renderer = new ColumnHeaderRenderer();
         TableColumnModel cmodel = treeTable.getColumnModel();
@@ -76,11 +76,11 @@ public class ObjectPropertyViewerPanel extends JPanel {
         }
 
         // Create status bar
-	statusLabel = createStatusLabel();
-	this.add(new JScrollPane(treeTable));
-	//NoStatusLabelForNow this.add(statusLabel, BorderLayout.SOUTH);
+        statusLabel = createStatusLabel();
+        this.add(new JScrollPane(treeTable));
+        //NoStatusLabelForNow this.add(statusLabel, BorderLayout.SOUTH);
 
-	reloadRow = -1;
+        reloadRow = -1;
         reload(model.getRoot(), editMode);
     }
 
@@ -89,11 +89,11 @@ public class ObjectPropertyViewerPanel extends JPanel {
      * of loading.
      */
     protected JLabel createStatusLabel() {
-	JLabel         retLabel = new JLabel("MyStatusLabel");
+        JLabel         retLabel = new JLabel("MyStatusLabel");
 
-	retLabel.setHorizontalAlignment(JLabel.RIGHT);
-	retLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-	return retLabel;
+        retLabel.setHorizontalAlignment(JLabel.RIGHT);
+        retLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        return retLabel;
     }
 
     /**
@@ -102,24 +102,24 @@ public class ObjectPropertyViewerPanel extends JPanel {
      * update the display as files are loaded.
      */
     protected JTreeTable createTreeTable() {
-	JTreeTable       treeTable = new JTreeTable(model);
+        JTreeTable       treeTable = new JTreeTable(model);
 
-	treeTable.getColumnModel().getColumn(1).setCellRenderer
-	                           (new IndicatorRenderer());
+        treeTable.getColumnModel().getColumn(1).setCellRenderer
+                                   (new IndicatorRenderer());
 
-	Reloader rl = new Reloader();
+        Reloader rl = new Reloader();
 
-	timer = new Timer(700, rl);
-	timer.setRepeats(true);
-	treeTable.getTree().addTreeExpansionListener(rl);
-	return treeTable;
+        timer = new Timer(700, rl);
+        timer.setRepeats(true);
+        treeTable.getTree().addTreeExpansionListener(rl);
+        return treeTable;
     }
 
     /**
      * Creates the OpenSimObjectModel that will be used.
      */
     protected OpenSimObjectModel createModel(OpenSimObject object, boolean editable) {
-	return new OpenSimObjectModel(object, editable);
+        return new OpenSimObjectModel(object, editable);
     }
 
 
@@ -128,10 +128,10 @@ public class ObjectPropertyViewerPanel extends JPanel {
      * also restart the timer.
      */
     protected void reload(Object node) {
-	model.reloadChildren(node);
-	if (!timer.isRunning()) {
-	    timer.start();
-	}
+        model.reloadChildren(node);
+        if (!timer.isRunning()) {
+            timer.start();
+        }
     }
 
     /**
@@ -148,17 +148,17 @@ public class ObjectPropertyViewerPanel extends JPanel {
      * Updates the status label based on reloadRow.
      */
     protected void updateStatusLabel() {
-	if (reloadPath != null) {
-	    if ((reloadCounter % 4) < 2) {
-		statusLabel.setForeground(Color.red);
-	    }
-	    else {
-		statusLabel.setForeground(Color.blue);
-	    }
-	}
-	else if (!model.isReloading()) {
-	    statusLabel.setForeground(Color.black);
-	}
+        if (reloadPath != null) {
+            if ((reloadCounter % 4) < 2) {
+                statusLabel.setForeground(Color.red);
+            }
+            else {
+                statusLabel.setForeground(Color.blue);
+            }
+        }
+        else if (!model.isReloading()) {
+            statusLabel.setForeground(Color.black);
+        }
     }
 
 
@@ -181,104 +181,104 @@ public class ObjectPropertyViewerPanel extends JPanel {
      * altered while loading the reloadRow is updated accordingly.
      */
     class Reloader implements ActionListener, TreeExpansionListener {
-	public void actionPerformed(ActionEvent ae) {
-	    if (!model.isReloading()) {
-		// No longer loading.
-		timer.stop();
-		if (reloadRow != -1) {
-		    generateChangeEvent(reloadRow);
-		}
-		reloadRow = -1;
-		reloadPath = null;
-	    }
-	    else {
-		// Still loading, see if paths changed.
-		TreePath       newPath = model.getPathLoading();
+        public void actionPerformed(ActionEvent ae) {
+            if (!model.isReloading()) {
+                // No longer loading.
+                timer.stop();
+                if (reloadRow != -1) {
+                    generateChangeEvent(reloadRow);
+                }
+                reloadRow = -1;
+                reloadPath = null;
+            }
+            else {
+                // Still loading, see if paths changed.
+                TreePath       newPath = model.getPathLoading();
 
-		if (newPath == null) {
-		    // Hmm... Will usually indicate the reload thread
-		    // completed between time we asked if reloading.
-		    if (reloadRow != -1) {
-			generateChangeEvent(reloadRow);
-		    }
-		    reloadRow = -1;
-		    reloadPath = null;
-		}
-		else {
-		    // Ok, valid path, see if matches last path.
-		    int        newRow = treeTable.getTree().getRowForPath
-			                          (newPath);
+                if (newPath == null) {
+                    // Hmm... Will usually indicate the reload thread
+                    // completed between time we asked if reloading.
+                    if (reloadRow != -1) {
+                        generateChangeEvent(reloadRow);
+                    }
+                    reloadRow = -1;
+                    reloadPath = null;
+                }
+                else {
+                    // Ok, valid path, see if matches last path.
+                    int        newRow = treeTable.getTree().getRowForPath
+                                                  (newPath);
 
-		    if (newPath.equals(reloadPath)) {
-			reloadCounter = (reloadCounter + 1) % 8;
-			if (newRow != reloadRow) {
-			    int             lastRow = reloadRow;
+                    if (newPath.equals(reloadPath)) {
+                        reloadCounter = (reloadCounter + 1) % 8;
+                        if (newRow != reloadRow) {
+                            int             lastRow = reloadRow;
 
-			    reloadRow = newRow;
-			    generateChangeEvent(lastRow);
-			}
-			generateChangeEvent(reloadRow);
-		    }
-		    else {
-			int          lastRow = reloadRow;
+                            reloadRow = newRow;
+                            generateChangeEvent(lastRow);
+                        }
+                        generateChangeEvent(reloadRow);
+                    }
+                    else {
+                        int          lastRow = reloadRow;
 
-			reloadCounter = 0;
-			reloadRow = newRow;
-			reloadPath = newPath;
-			if (lastRow != reloadRow) {
-			    generateChangeEvent(lastRow);
-			}
-			generateChangeEvent(reloadRow);
-		    }
-		}
-	    }
-	    updateStatusLabel();
-	}
+                        reloadCounter = 0;
+                        reloadRow = newRow;
+                        reloadPath = newPath;
+                        if (lastRow != reloadRow) {
+                            generateChangeEvent(lastRow);
+                        }
+                        generateChangeEvent(reloadRow);
+                    }
+                }
+            }
+            updateStatusLabel();
+        }
 
-	/**
-	 * Generates and update event for the specified row. FileSystemModel2
-	 * could do this, but it would not know when the row has changed
-	 * as a result of expanding/collapsing nodes in the tree.
-	 */
-	protected void generateChangeEvent(int row) {
-	    if (row != -1) {
-		AbstractTableModel     tModel = (AbstractTableModel)treeTable.
-		                                 getModel();
+        /**
+         * Generates and update event for the specified row. FileSystemModel2
+         * could do this, but it would not know when the row has changed
+         * as a result of expanding/collapsing nodes in the tree.
+         */
+        protected void generateChangeEvent(int row) {
+            if (row != -1) {
+                AbstractTableModel     tModel = (AbstractTableModel)treeTable.
+                                                 getModel();
 
-		tModel.fireTableChanged(new TableModelEvent
-				       (tModel, row, row, 1));
-	    }
-	}
+                tModel.fireTableChanged(new TableModelEvent
+                                       (tModel, row, row, 1));
+            }
+        }
 
-	//
-	// TreeExpansionListener
-	//
+        //
+        // TreeExpansionListener
+        //
 
-	/**
-	 * Invoked when the tree has expanded.
-	 */
-	public void treeExpanded(TreeExpansionEvent te) {
-	    updateRow();
-	}
+        /**
+         * Invoked when the tree has expanded.
+         */
+        public void treeExpanded(TreeExpansionEvent te) {
+            updateRow();
+        }
 
-	/**
-	 * Invoked when the tree has collapsed.
-	 */
-	public void treeCollapsed(TreeExpansionEvent te) {
-	    updateRow();
-	}
+        /**
+         * Invoked when the tree has collapsed.
+         */
+        public void treeCollapsed(TreeExpansionEvent te) {
+            updateRow();
+        }
 
-	/**
-	 * Updates the reloadRow and path, this does not genernate a
-	 * change event.
-	 */
-	protected void updateRow() {
-	    reloadPath = model.getPathLoading();
+        /**
+         * Updates the reloadRow and path, this does not genernate a
+         * change event.
+         */
+        protected void updateRow() {
+            reloadPath = model.getPathLoading();
 
-	    if (reloadPath != null) {
-		reloadRow = treeTable.getTree().getRowForPath(reloadPath);
-	    }
-	}
+            if (reloadPath != null) {
+                reloadRow = treeTable.getTree().getRowForPath(reloadPath);
+            }
+        }
     }
 
 
@@ -286,66 +286,66 @@ public class ObjectPropertyViewerPanel extends JPanel {
      * A renderer that will give an indicator when a cell is being reloaded.
      */
     class IndicatorRenderer extends DefaultTableCellRenderer {
-	/** Makes sure the number of displayed in an internationalized
-	 * manner. */
-	protected NumberFormat       formatter;
-	/** Row that is currently being painted. */
-	protected int                lastRow;
+        /** Makes sure the number of displayed in an internationalized
+         * manner. */
+        protected NumberFormat       formatter;
+        /** Row that is currently being painted. */
+        protected int                lastRow;
 
 
-	IndicatorRenderer() {
-	    setHorizontalAlignment(JLabel.LEFT);
-	    formatter = NumberFormat.getInstance();
-	}
+        IndicatorRenderer() {
+            setHorizontalAlignment(JLabel.LEFT);
+            formatter = NumberFormat.getInstance();
+        }
 
-	/**
-	 * Invoked as part of DefaultTableCellRenderers implemention. Sets
-	 * the text of the label.
-	 */
-	public void setValue(Object value) {
-	    setText((value == null) ? "---" : value.toString());
-	}
+        /**
+         * Invoked as part of DefaultTableCellRenderers implemention. Sets
+         * the text of the label.
+         */
+        public void setValue(Object value) {
+            setText((value == null) ? "---" : value.toString());
+        }
 
-	/**
-	 * Returns this.
-	 */
-	public Component getTableCellRendererComponent(JTable table,
-			    Object value, boolean isSelected, boolean hasFocus,
-			    int row, int column) {
-	    super.getTableCellRendererComponent(table, value, isSelected,
-						hasFocus, row, column);
-	    lastRow = row;
-	    return this;
-	}
+        /**
+         * Returns this.
+         */
+        public Component getTableCellRendererComponent(JTable table,
+                            Object value, boolean isSelected, boolean hasFocus,
+                            int row, int column) {
+            super.getTableCellRendererComponent(table, value, isSelected,
+                                                hasFocus, row, column);
+            lastRow = row;
+            return this;
+        }
 
-	/**
-	 * If the row being painted is also being reloaded this will draw
-	 * a little indicator.
-	 */
-	public void paint(Graphics g) {
-	    if (lastRow == reloadRow) {
-		int       width = getWidth();
-		int       height = getHeight();
+        /**
+         * If the row being painted is also being reloaded this will draw
+         * a little indicator.
+         */
+        public void paint(Graphics g) {
+            if (lastRow == reloadRow) {
+                int       width = getWidth();
+                int       height = getHeight();
 
-		g.setColor(getBackground());
-		g.fillRect(0, 0, width, height);
-		g.setColor(getForeground());
+                g.setColor(getBackground());
+                g.fillRect(0, 0, width, height);
+                g.setColor(getForeground());
 
-		int       diameter = Math.min(width, height);
+                int       diameter = Math.min(width, height);
 
-		if (reloadCounter < 5) {
-		    g.fillArc((width - diameter) / 2, (height - diameter) / 2,
-			      diameter, diameter, 90, -(reloadCounter * 90));
-		}
-		else {
-		    g.fillArc((width - diameter) / 2, (height - diameter) / 2,
-			      diameter, diameter, 90,
-			      (4 - reloadCounter % 4) * 90);
-		}
-	    }
-	    else {
-		super.paint(g);
-	    }
-	}
+                if (reloadCounter < 5) {
+                    g.fillArc((width - diameter) / 2, (height - diameter) / 2,
+                              diameter, diameter, 90, -(reloadCounter * 90));
+                }
+                else {
+                    g.fillArc((width - diameter) / 2, (height - diameter) / 2,
+                              diameter, diameter, 90,
+                              (4 - reloadCounter % 4) * 90);
+                }
+            }
+            else {
+                super.paint(g);
+            }
+        }
     }
 }
