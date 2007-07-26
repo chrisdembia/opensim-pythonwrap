@@ -48,8 +48,7 @@ public class PlotCurve {
    private int domainStorageIndex;
    private int rangeStorageIndex;
    private String domainName;
-   private String rangeName;
-   private String quantityName; // For muscles based curves
+   private String[] rangeNames;
    private boolean muscleCurve=false;
    /**
     * Creates a new instance of PlotCurve
@@ -97,17 +96,18 @@ public class PlotCurve {
            endIndex=xArray.getSize()-1;
        double[] yFiltered = applyFilters(plotCurveSettings.getFilters(), yArray, startIndex, endIndex);
        // Make an XYSeries to hold the data and keep a ref to it with the curve
-       setCurveSeries(new XYSeries(plotCurveSettings.getName()));
+       setCurveSeries(new XYSeries(stringy));
        for (int i = startIndex;i< endIndex;i++){
            if (i==startIndex)
                 System.out.println("Curve"+plotCurveSettings.getName()+xArray.getitem(i)+","+yFiltered[i-startIndex]);
            getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
        }
-       getCurveSeries().setKey(plotCurveSettings.getName());
+       getCurveSeries().setKey(stringy);
        domainName = new String(stringx);
-       rangeName = new String(stringy);
-       quantityName=(sourcey.toString());
-   }
+       String[] names=stringy.split("\\+");
+       rangeNames = new String[names.length];
+       System.arraycopy(names, 0, rangeNames, 0, names.length);
+    }
 
    private ArrayDouble getDataArrayFromStorage(final Storage storage, final String colName, boolean isDomain ) {
       ArrayDouble Array = new ArrayDouble(storage.getSize());
@@ -204,7 +204,7 @@ public class PlotCurve {
    void update(String title, 
            PlotCurveSettings plotCurveSettings, 
            PlotterSourceInterface sourcex, String namex, 
-           PlotterSourceInterface sourcey, String namey) throws PlotterException {
+           PlotterSourceInterface sourcey, String namey){
       settings = plotCurveSettings;
       domainSource=sourcex;
       rangeSource=sourcey;
@@ -264,9 +264,9 @@ public class PlotCurve {
         return labels.getitem(domainStorageIndex+1);*/
     }
     
-    public String getRangeName()
+    public String[] getRangeNames() // To support sum of items (over muscles for example)
     {
-        return rangeName;
+        return rangeNames;
         /*
         ArrayStr labels = rangeSource.getStorage().getColumnLabels();
         return labels.getitem(rangeStorageIndex+1);*/
@@ -280,10 +280,6 @@ public class PlotCurve {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public String getQuantityName() {
-        return quantityName;
-    }
-
    private void clampDataArray(ArrayDouble Array) {
       double dmax=settings.getYmax();
       double dmin=settings.getYmin();
@@ -295,4 +291,8 @@ public class PlotCurve {
        }
       
    }
+
+    String getRangeNameAsString() {
+        return null;
+    }
 }

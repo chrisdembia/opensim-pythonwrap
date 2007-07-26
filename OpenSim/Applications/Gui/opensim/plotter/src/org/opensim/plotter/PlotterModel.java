@@ -31,6 +31,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
+import org.jfree.chart.plot.XYPlot;
 import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.AnalyzeTool;
@@ -93,10 +94,11 @@ public class PlotterModel {
         "PassiveFiberForce",
         "FiberForce"
     };
-   
+   private final String DEFAULT_X_LABEL="x-label";
+   private final String DEFAULT_Y_LABEL="y-label";
    /** Creates a new instance of PlotterModel */
    public PlotterModel() {
-         Plot figure = new Plot("Title", "x-label", "y-label");
+         Plot figure = new Plot("Title", DEFAULT_X_LABEL, DEFAULT_Y_LABEL);
          availablePlots.add(0, figure);
          plotTreeModel.addPlot(figure);
    }
@@ -167,7 +169,7 @@ public class PlotterModel {
     */
    PlotCurve addCurve(String title, PlotCurveSettings plotCurveSettings, 
            PlotterSourceInterface source1, String string1, 
-           PlotterSourceInterface source2, String string2) throws PlotterException {
+           PlotterSourceInterface source2, String string2) {
 
       Plot currentPlot = availablePlots.get(currentPlotIndex);
       PlotCurve newCurve = new PlotCurve(plotCurveSettings, source1, string1, source2, string2);
@@ -176,10 +178,31 @@ public class PlotterModel {
       //currentPlot.dChart.getXYPlot().addAnnotation(new XYTextAnnotation("text", ));
       plotTreeModel.addPlotCurveToTree(newCurve);
       currentPlot.setTitle(title);
-      currentPlot.getChartPanel().getChart().getXYPlot().getDomainAxis().setLabel(string1);
-      currentPlot.getChartPanel().getChart().getXYPlot().getRangeAxis().setLabel("ylabel-here");
-      return newCurve;
+        updatePlotXYLabels(currentPlot, string1, source2);
+     return newCurve;
    }
+
+    private void updatePlotXYLabels(final Plot currentPlot, final String newDomainName, final PlotterSourceInterface source2) {
+             
+        XYPlot dPlot = currentPlot.getChartPanel().getChart().getXYPlot();
+        String oldLabel = dPlot.getDomainAxis().getLabel();
+        String newLabel=oldLabel;
+        if (oldLabel.equalsIgnoreCase("")||oldLabel.equalsIgnoreCase(getDefaulAxisLabel(true)))
+            newLabel=newDomainName;
+        else if (!oldLabel.contains(newDomainName))
+            newLabel += ", "+newDomainName;
+        
+        dPlot.getDomainAxis().setLabel(newLabel);
+        // Now Y
+        oldLabel=dPlot.getRangeAxis().getLabel();
+        newLabel=oldLabel;
+        if (oldLabel.equalsIgnoreCase("")||oldLabel.equalsIgnoreCase(getDefaulAxisLabel(false)))   // First curve
+            newLabel=source2.getDisplayName();
+        else if (!oldLabel.contains(source2.getDisplayName()))
+            newLabel=oldLabel+", "+source2.getDisplayName();
+        
+        dPlot.getRangeAxis().setLabel(newLabel);
+    }
 
    TreeModel getPlotTreeModel() {
       return plotTreeModel;
@@ -215,7 +238,7 @@ public class PlotterModel {
    void updateCurve(PlotCurve currentCurve, String title, 
            PlotCurveSettings plotCurveSettings, 
            PlotterSourceInterface domainSource, String domainColumnName, 
-           PlotterSourceInterface rangeSource, String rangeColumnName) throws PlotterException {
+           PlotterSourceInterface rangeSource, String rangeColumnName){
       
       Plot currentPlot = availablePlots.get(currentPlotIndex);
       currentPlot.setTitle(title);
@@ -351,7 +374,36 @@ public class PlotterModel {
         }
         return null;
     }
+    private String getDefaulAxisLabel(boolean isDomain)
+    {
+        if (isDomain)
+            return DEFAULT_X_LABEL;
+        else
+            return DEFAULT_Y_LABEL;
+    }
 
+    PlotCurve addCurve(String title, PlotCurveSettings settings, PlotterSourceInterface sourceX, String string, PlotterSourceInterface sourceY, String[] rangeNames) {
+      Plot currentPlot = availablePlots.get(currentPlotIndex);
+      String sumString = makeSumString(rangeNames);
+      PlotCurve newCurve = new PlotCurve(settings, sourceX, string, sourceY, sumString);
+      currentPlot.add(newCurve);
+      
+      //currentPlot.dChart.getXYPlot().addAnnotation(new XYTextAnnotation("text", ));
+      plotTreeModel.addPlotCurveToTree(newCurve);
+      currentPlot.setTitle(title);
+      updatePlotXYLabels(currentPlot, string, sourceY);
+     return newCurve;
+    }
+
+    public static String makeSumString(final String[] rangeNames) {
+        String sumString="";
+        for(int i=0; i<rangeNames.length; i++){
+            if (i>0)
+               sumString +="+";
+            sumString += rangeNames[i];
+        }
+        return sumString;
+    }
 
    
 }
