@@ -30,7 +30,7 @@ import org.opensim.view.pub.ViewDB;
 
 /**
  *
- * @author  Ayman
+ * @author  Ayman & Jeff
  * The real value of the slider is maintained in the "value" property of the jFormattedTextField
  * everything else is just a view (text, slider).
  */
@@ -44,7 +44,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
     private boolean rotational;
     private AbstractCoordinate coord;
     private static double ROUNDOFF=1E-5;  // work around for roundoff converting Strings to/from doubles
-    private static String LABELS_FORMAT="###.##";          // Number of digits to show after floating point in bounds
+    private static String LABELS_FORMAT="###.###";          // Number of digits to show after floating point in bounds
     
    public CoordinateSliderWithBox(AbstractCoordinate coord) {
       this.coord = coord;
@@ -54,14 +54,16 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       min=roundBoundIfNeeded(min);
       max=roundBoundIfNeeded(max);
       
-      if (isRotational()){ // Make the step one degree
-         step=1.0;
-      }
-      else
-         this.step = (max-min)/100;
+//      if (isRotational()){ // Make the step one degree
+//         step=1.0;
+//      }
+//      else
+//         this.step = (max-min)/100;
+      step = 0.001; // Make the step one thousandths of a unit
       numTicks = (int)((max - min)/step)+1;
       java.text.NumberFormat numberFormat =
               java.text.NumberFormat.getNumberInstance();
+      numberFormat.setMinimumFractionDigits(3);
       formatter = new NumberFormatter(numberFormat);
       setTextfieldBounds(true);
 
@@ -87,7 +89,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
        }
        jXSlider.setEnabled(!locked);
        jFormattedTextField.setEnabled(!locked);
-       jXSlider.setToolTipText("["+Math.round(min)+", "+Math.round(max)+"]");
+//       jXSlider.setToolTipText("["+Math.round(min)+", "+Math.round(max)+"]");
        jXSlider.addChangeListener(this);
        jFormattedTextField.addPropertyChangeListener("value", this);
 
@@ -124,22 +126,23 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
         setAlignmentY(0.0F);
         jXSlider.setMajorTickSpacing(20);
         jXSlider.setMinorTickSpacing(10);
-        jXSlider.setToolTipText("testtooltip");
+        jXSlider.setToolTipText("Seek");
         jXSlider.setAlignmentX(0.0F);
-        jXSlider.setMaximumSize(new java.awt.Dimension(32767, 22));
-        jXSlider.setMinimumSize(new java.awt.Dimension(36, 22));
-        jXSlider.setPreferredSize(new java.awt.Dimension(200, 22));
+        jXSlider.setMinimumSize(new java.awt.Dimension(50, 25));
+        jXSlider.setPreferredSize(new java.awt.Dimension(50, 25));
 
-        jFormattedTextField.setText("0.123");
+        jFormattedTextField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        jFormattedTextField.setText("-123.456");
+        jFormattedTextField.setToolTipText("Current Value");
         jFormattedTextField.setFont(new java.awt.Font("Tahoma", 0, 11));
-        jFormattedTextField.setMargin(new java.awt.Insets(1, 0, 2, 0));
+        jFormattedTextField.setMinimumSize(new java.awt.Dimension(55, 19));
         jFormattedTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFormattedTextFieldActionPerformed(evt);
             }
         });
 
-        jClampedCheckBox.setToolTipText("Clamp value to limits");
+        jClampedCheckBox.setToolTipText("Toggle Clamp to Bounds");
         jClampedCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jClampedCheckBox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unclamped.png")));
         jClampedCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -155,6 +158,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
             }
         });
 
+        jLockedCheckBox.setToolTipText("Toggle Lock to Value");
         jLockedCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jLockedCheckBox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unlocked.png")));
         jLockedCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -172,43 +176,55 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 
         jCoordinateNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jCoordinateNameLabel.setText("coordinate");
+        jCoordinateNameLabel.setToolTipText("Name");
         jCoordinateNameLabel.setAlignmentX(1.0F);
+        jCoordinateNameLabel.setMaximumSize(new java.awt.Dimension(100, 14));
+        jCoordinateNameLabel.setMinimumSize(new java.awt.Dimension(100, 14));
+        jCoordinateNameLabel.setPreferredSize(new java.awt.Dimension(100, 14));
 
         jMinimumLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jMinimumLabel.setText("-1.00");
+        jMinimumLabel.setText("-123");
+        jMinimumLabel.setToolTipText("Lower Bound");
         jMinimumLabel.setFocusable(false);
         jMinimumLabel.setIconTextGap(0);
+        jMinimumLabel.setMaximumSize(new java.awt.Dimension(25, 25));
+        jMinimumLabel.setMinimumSize(new java.awt.Dimension(25, 25));
+        jMinimumLabel.setPreferredSize(new java.awt.Dimension(25, 25));
 
-        jMaximumLabel.setText("1.00");
+        jMaximumLabel.setText("123");
+        jMaximumLabel.setToolTipText("Upper Bound");
         jMaximumLabel.setFocusable(false);
         jMaximumLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jMaximumLabel.setIconTextGap(0);
+        jMaximumLabel.setMaximumSize(new java.awt.Dimension(25, 25));
+        jMaximumLabel.setMinimumSize(new java.awt.Dimension(25, 25));
+        jMaximumLabel.setPreferredSize(new java.awt.Dimension(25, 25));
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jCoordinateNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jCoordinateNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, 0)
                 .add(jLockedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(0, 0, 0)
                 .add(jClampedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jMinimumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jMinimumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                .add(jXSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jMaximumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jMaximumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                .add(jCoordinateNameLabel)
-                .add(jMaximumLabel)
-                .add(jMinimumLabel)
+                .add(jCoordinateNameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jMaximumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jMinimumLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(jFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(jLockedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(jClampedCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
