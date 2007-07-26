@@ -126,6 +126,9 @@
 	    in the center of mass of a body to reduced DC offsets in MX and MZ. If
 	    true, a new model is writen out that has altered anthropometry.-->
 	<adjust_com_to_reduce_residuals> false </adjust_com_to_reduce_residuals>
+	<!--Name of optimizer to use for CMC.  The choices are ipopt, which is
+	    the default optimizer used if this value is not specified, and cfsqp.-->
+	<optimizer_algorithm> ipopt </optimizer_algorithm>
 	
 </CMCTool>
 
