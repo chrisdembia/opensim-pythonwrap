@@ -3,6 +3,7 @@ package org.opensim.plotter;
 import java.awt.Dialog;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.util.HelpCtx;
@@ -14,10 +15,12 @@ import org.opensim.view.pub.OpenSimDB;
 public final class ToolsPlotAction extends CallableSystemAction {
    
    public void performAction() {
-      //JFrame f = new JPlotterFrame("Plotter Frame");
+      //JFrame f = new JFrame("Plotter Frame");
+      //f.getContentPane().add(new JPlotterPanel());
       //f.setVisible(true);
+      //
       final JPlotterPanel plotterPanel = new JPlotterPanel();
-      DialogDescriptor dlg = new DialogDescriptor(plotterPanel,"Plotter Dialog");
+      DialogDescriptor dlg = new DialogDescriptor(plotterPanel,"Plotter");
       dlg.setModal(false);
       dlg.setClosingOptions(null);
       dlg.setOptions(new Object[]{DialogDescriptor.CLOSED_OPTION});
