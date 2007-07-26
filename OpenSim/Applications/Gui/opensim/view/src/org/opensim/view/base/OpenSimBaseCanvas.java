@@ -76,20 +76,28 @@ public class OpenSimBaseCanvas extends vtkPanel
    }
    
    public void mousePressed(MouseEvent e) {
+      super.mousePressed(e);
+      // Disabled popup for now
+      /*
       // Show popup if right mouse and Shift key, otherwise pass along to super implementation
       if ((e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK))) {
          settingsMenu.show(this, e.getX(), e.getY());
       } else {
          super.mousePressed(e);
       }
+      */
    }
    
    public void mouseDragged(MouseEvent e) {
+      super.mouseDragged(e);
+      // Disabled popup for now
+      /*
       // do nothing (handled by settingsMenu) if right mouse and Shift, otherwise pass along to super implementation
       if ((e.getModifiers() == (InputEvent.BUTTON3_MASK | InputEvent.SHIFT_MASK))) {
       } else {
          super.mouseDragged(e);
       }
+      */
    }
    
    public void createSettingsMenu() {
@@ -97,7 +105,6 @@ public class OpenSimBaseCanvas extends vtkPanel
       /** This should work and is more netBeans like style, but somehow fails to find Actions
        * possibly because of layer file issues*/
       try {
-         
          settingsMenu.add((ModifyWindowSettingsAction) (ModifyWindowSettingsAction.findObject(
                  Class.forName("org.opensim.view.base.ModifyWindowSettingsAction"), true)));
          settingsMenu.add((ToggleAxesAction) ToggleAxesAction.findObject(
@@ -105,10 +112,6 @@ public class OpenSimBaseCanvas extends vtkPanel
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
       }
-       /*
-      settingsMenu.add(new ModifyWindowSettingsAction());
-      settingsMenu.add(new ToggleAxesAction());
-        **/
    }
    
    public JPopupMenu getMenu() {
