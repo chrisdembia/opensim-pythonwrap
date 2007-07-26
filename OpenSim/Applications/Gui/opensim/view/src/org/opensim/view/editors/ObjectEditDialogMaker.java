@@ -25,7 +25,8 @@
  */
 package org.opensim.view.editors;
 
-import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
@@ -42,22 +43,35 @@ public class ObjectEditDialogMaker {
     AbstractEditorPanel       typeSpecificEditorPanel=null;
     DialogDescriptor          topDialog;
     OpenSimObject             objectToEdit;
+    JButton                   confirmButton = new JButton("OK");
     /**
      * Creates a new instance of ObjectEditDialogMaker
      */
     public ObjectEditDialogMaker(OpenSimObject object, ModelWindowVTKTopComponent owner, boolean allowEdit) {
+        // If allowEdit is true,aAssume we're editing properties from a file, so we'll call it "Save" instead of "OK"
+        if(allowEdit) confirmButton.setText("Save");
+
         objectToEdit = object;
         propertiesEditorPanel = new ObjectPropertyViewerPanel(object, allowEdit);
         JPanel topDialogPanel = new JPanel();
-        topDialogPanel.setLayout(new BorderLayout());
-        topDialogPanel.add(propertiesEditorPanel, BorderLayout.SOUTH);
-        // @todo Check that the object is visible first to avoid crashing downstream
+        topDialogPanel.setLayout(new BoxLayout(topDialogPanel, BoxLayout.Y_AXIS));
+
         if (object.getDisplayer()!=null &&
                 ViewDB.getInstance().getVtkRepForObject(object)!=null){   // This should be made more general to account for other editing
             typeSpecificEditorPanel = new VisibilityEditorPanel(object, owner);
-            topDialogPanel.add(typeSpecificEditorPanel, BorderLayout.NORTH);
+            typeSpecificEditorPanel.setAlignmentY(0);
+            typeSpecificEditorPanel.setAlignmentX(0);
+            topDialogPanel.add(typeSpecificEditorPanel);
         }
-        topDialog = new DialogDescriptor(topDialogPanel, "Object Editor");
+
+        propertiesEditorPanel.setAlignmentY(0);
+        propertiesEditorPanel.setAlignmentX(0);
+        topDialogPanel.add(propertiesEditorPanel);
+
+        // @todo Check that the object is visible first to avoid crashing downstream
+        String name = allowEdit ? "Property Editor" : "Property Viewer";
+        topDialog = new DialogDescriptor(topDialogPanel, name);
+        topDialog.setOptions(new Object[]{confirmButton, DialogDescriptor.CANCEL_OPTION});
         // Make undoredo
         DialogDisplayer.getDefault().createDialog(topDialog).setVisible(true);
     }
@@ -83,19 +97,11 @@ public class ObjectEditDialogMaker {
      */
     public boolean process() {
         Object userInput = topDialog.getValue();
-        if (userInput instanceof Integer){
-            Integer ret = (Integer)userInput;
-            if (ret!=DialogDescriptor.OK_OPTION){
-                if (typeSpecificEditorPanel!= null)
-                    typeSpecificEditorPanel.cancelEdit();
-                    
-            }
-            else{
-                if (typeSpecificEditorPanel!= null)
-                    typeSpecificEditorPanel.confirmEdit();
-            }
+        boolean confirm = (userInput==confirmButton);
+        if(typeSpecificEditorPanel!=null) {
+           if(confirm) typeSpecificEditorPanel.confirmEdit();
+           else typeSpecificEditorPanel.cancelEdit();
         }
-        return (((Integer)userInput).compareTo((Integer)DialogDescriptor.OK_OPTION)==0);
-
+        return confirm;
     }
 }

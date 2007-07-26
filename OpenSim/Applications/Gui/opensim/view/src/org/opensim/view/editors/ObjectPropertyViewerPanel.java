@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
+import javax.swing.BoxLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -77,7 +78,9 @@ public class ObjectPropertyViewerPanel extends JPanel {
 
         // Create status bar
         statusLabel = createStatusLabel();
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.add(new JScrollPane(treeTable));
+        //this.add(new JScrollPane(treeTable), BorderLayout.CENTER);
         //NoStatusLabelForNow this.add(statusLabel, BorderLayout.SOUTH);
 
         reloadRow = -1;

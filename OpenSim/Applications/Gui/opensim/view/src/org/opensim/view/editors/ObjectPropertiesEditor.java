@@ -1,38 +1,27 @@
 package org.opensim.view.editors;
 
-import java.util.prefs.Preferences;
-import javax.swing.JFileChooser;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.utils.TheApp;
+import org.opensim.utils.FileUtils;
 
 public final class ObjectPropertiesEditor extends CallableSystemAction {
     
     public void performAction() {
-        // TODO implement action body
-        // Browse for file, create object and open it for editing
-        String defaultDir="";
-        defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", defaultDir);
-        final JFileChooser dlog = new JFileChooser(defaultDir);
-        
-            if (dlog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null) {
-                String fileName = dlog.getSelectedFile().getAbsolutePath();
-                Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
-                OpenSimObject obj = OpenSimObject.makeObjectFromFile(fileName);
-               if (obj != null){
-                    boolean confirm = new ObjectEditDialogMaker(obj, true).process();
-                    if (confirm)
-                        obj.print(fileName);
-                }
-                else
-                    DialogDisplayer.getDefault().notify(
-                        new NotifyDescriptor.Message("Could not construct an object from the specified file.\n"));
-            }
-
+      String fileName = FileUtils.getInstance().browseForFilename(".osim,.xml", "OpenSim model or XML file");
+      if(fileName!=null) {
+         OpenSimObject obj = OpenSimObject.makeObjectFromFile(fileName);
+         if (obj != null){
+            boolean confirm = new ObjectEditDialogMaker(obj, true).process();
+            if (confirm) obj.print(fileName);
+         } else {
+            DialogDisplayer.getDefault().notify(
+               new NotifyDescriptor.Message("Could not construct an object from the specified file."));
+         }
+      }
     }
     
     public String getName() {
