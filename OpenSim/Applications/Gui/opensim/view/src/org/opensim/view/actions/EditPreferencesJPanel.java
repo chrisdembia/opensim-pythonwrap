@@ -40,8 +40,7 @@ public class EditPreferencesJPanel extends javax.swing.JPanel {
       jScrollPane1 = new javax.swing.JScrollPane();
       jTable1 = new javax.swing.JTable();
 
-      jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("User Preferences"));
-      jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+      jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "User Preferences"));
       jTable1.setModel(new javax.swing.table.DefaultTableModel(
          new Object [][] {
 
