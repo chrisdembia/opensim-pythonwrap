@@ -38,7 +38,7 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
 
       setSettingsFileDescription("IK tool settings file");
 
-      jTabbedPane.addTab("IK Tasks", new IKTaskSetPanel(ikToolModel.getIKCommonModel()));
+      jTabbedPane.addTab("Weights", new IKTaskSetPanel(ikToolModel.getIKCommonModel()));
 
       markerFileName.setExtensionsAndDescription(".trc", "IK trial marker data");
       coordinateFileName.setExtensionsAndDescription(".mot", "Coordinates of IK trial");
@@ -227,7 +227,7 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
       markerPlacerPanelLayout.setHorizontalGroup(
          markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanelLayout.createSequentialGroup()
-            .add(60, 60, 60)
+            .addContainerGap()
             .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                .add(coordinateCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(jLabel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -235,17 +235,17 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
                .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(trialNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-               .add(markerFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+               .add(trialNameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+               .add(markerFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanelLayout.createSequentialGroup()
                   .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                     .add(org.jdesktop.layout.GroupLayout.LEADING, coordinateFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                     .add(org.jdesktop.layout.GroupLayout.LEADING, coordinateFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                      .add(markerPlacerPanelLayout.createSequentialGroup()
-                        .add(startTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                        .add(startTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel9)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(endTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)))
+                        .add(endTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
             .add(16, 16, 16)
             .add(markerDataInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -329,7 +329,7 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
          .add(jPanel1Layout.createSequentialGroup()
             .addContainerGap()
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(markerPlacerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(genericModelDataPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addContainerGap())
       );
@@ -342,7 +342,7 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
             .add(markerPlacerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addContainerGap(154, Short.MAX_VALUE))
       );
-      jTabbedPane.addTab("IK Tool Settings", jPanel1);
+      jTabbedPane.addTab("Settings", jPanel1);
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
@@ -350,7 +350,7 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
+            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
             .addContainerGap())
       );
       layout.setVerticalGroup(

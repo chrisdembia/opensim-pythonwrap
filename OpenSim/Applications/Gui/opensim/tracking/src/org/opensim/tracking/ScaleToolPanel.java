@@ -72,7 +72,7 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       measurementSetDialog = DialogDisplayer.getDefault().createDialog(dlg);
 
       jTabbedPane.addTab("Scale Factors", new ScaleFactorsPanel(scaleToolModel, measurementSetDialog));
-      jTabbedPane.addTab("Static Pose IK Tasks", new IKTaskSetPanel(scaleToolModel.getIKCommonModel()));      
+      jTabbedPane.addTab("Static Pose Weights", new IKTaskSetPanel(scaleToolModel.getIKCommonModel()));      
       
       markerSetFileName.setExtensionsAndDescription(".xml", "MarkerSet XML file");
       measurementTrialFileName.setExtensionsAndDescription(".trc", "Measurement trial marker data");
@@ -237,7 +237,6 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       staticTrialEndTime = new javax.swing.JTextField();
       jLabel9 = new javax.swing.JLabel();
       staticTrialStartTime = new javax.swing.JTextField();
-      jLabel10 = new javax.swing.JLabel();
       jLabel12 = new javax.swing.JLabel();
       staticTrialFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       staticTrialInfoPanel = new org.opensim.tracking.MarkerDataInfoPanel();
@@ -303,9 +302,6 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
          }
       });
 
-      jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
-      jLabel10.setText("Static pose for marker placement:");
-
       jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
       jLabel12.setText("Marker data for static pose");
 
@@ -335,29 +331,24 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       markerPlacerPanel.setLayout(markerPlacerPanelLayout);
       markerPlacerPanelLayout.setHorizontalGroup(
          markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(markerPlacerPanelLayout.createSequentialGroup()
+         .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanelLayout.createSequentialGroup()
             .addContainerGap()
             .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinateCheckBox)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanelLayout.createSequentialGroup()
-                  .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, coordinateCheckBox)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                  .add(staticTrialStartTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(staticTrialFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, markerPlacerPanelLayout.createSequentialGroup()
-                        .add(staticTrialStartTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel9)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(staticTrialEndTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
-                     .add(coordinateFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
+                  .add(jLabel9)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(staticTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-               .add(markerPlacerPanelLayout.createSequentialGroup()
-                  .add(jLabel10)
-                  .addContainerGap(547, Short.MAX_VALUE))))
+                  .add(staticTrialEndTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+               .add(coordinateFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+               .add(staticTrialFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(staticTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
       );
 
       markerPlacerPanelLayout.linkSize(new java.awt.Component[] {coordinateCheckBox, jLabel12, jLabel8}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -365,13 +356,12 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       markerPlacerPanelLayout.setVerticalGroup(
          markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(markerPlacerPanelLayout.createSequentialGroup()
-            .add(jLabel10)
-            .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+            .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(staticTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(markerPlacerPanelLayout.createSequentialGroup()
                   .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                     .add(staticTrialFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                     .add(jLabel12))
+                     .add(jLabel12)
+                     .add(staticTrialFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(markerPlacerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                      .add(staticTrialStartTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -456,12 +446,12 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
             .add(modelScalerPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(org.jdesktop.layout.GroupLayout.TRAILING, modelScalerPanelLayout.createSequentialGroup()
-                  .add(measurementTrialStartTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                  .add(measurementTrialStartTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(jLabel6)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(measurementTrialEndTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-               .add(measurementTrialFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE))
+                  .add(measurementTrialEndTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
+               .add(measurementTrialFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(measurementTrialInfoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
       );
@@ -493,7 +483,7 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       subjectDataPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Subject Data"));
       jLabel4.setText("Model name");
 
-      jLabel2.setText("Weight");
+      jLabel2.setText("Mass");
 
       jLabel1.setText("kg");
 
@@ -602,7 +592,7 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       unscaledModelMassTextField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
       unscaledModelMassTextField.setMinimumSize(new java.awt.Dimension(3, 20));
 
-      jLabel14.setText("Weight");
+      jLabel14.setText("Mass");
 
       jLabel15.setText("kg");
 
@@ -653,14 +643,14 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
          jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jPanel1Layout.createSequentialGroup()
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                  .add(6, 6, 6)
-                  .add(modelScalerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                .add(jPanel1Layout.createSequentialGroup()
                   .addContainerGap()
                   .add(subjectDataPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(genericModelDataPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+               .add(jPanel1Layout.createSequentialGroup()
+                  .addContainerGap()
+                  .add(modelScalerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                .add(jPanel1Layout.createSequentialGroup()
                   .addContainerGap()
                   .add(markerPlacerPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -675,11 +665,11 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
                .add(subjectDataPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(modelScalerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(markerPlacerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(16, 16, 16)
+            .add(markerPlacerPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(24, Short.MAX_VALUE))
       );
-      jTabbedPane.addTab("Scale Tool Settings", jPanel1);
+      jTabbedPane.addTab("Settings", jPanel1);
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
@@ -687,7 +677,7 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(jTabbedPane)
+            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
             .addContainerGap())
       );
       layout.setVerticalGroup(
@@ -804,7 +794,6 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
    private org.opensim.swingui.FileTextFieldAndChooser coordinateFileName;
    private javax.swing.JPanel genericModelDataPanel;
    private javax.swing.JLabel jLabel1;
-   private javax.swing.JLabel jLabel10;
    private javax.swing.JLabel jLabel12;
    private javax.swing.JLabel jLabel13;
    private javax.swing.JLabel jLabel14;

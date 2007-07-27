@@ -161,6 +161,7 @@
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="X axis measurement"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[6, 20]"/>
         </Property>
@@ -179,6 +180,7 @@
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Y axis measurement"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[6, 20]"/>
         </Property>
@@ -197,6 +199,7 @@
             <StringItem index="3" value="Item 4"/>
           </StringArray>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Z axis measurement"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[6, 20]"/>
         </Property>
@@ -229,6 +232,7 @@
     <Component class="javax.swing.JTextField" name="manualScaleX">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="11"/>
+        <Property name="toolTipText" type="java.lang.String" value="X axis scale factor"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manualScaleXActionPerformed"/>
@@ -238,6 +242,7 @@
     <Component class="javax.swing.JTextField" name="manualScaleY">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="11"/>
+        <Property name="toolTipText" type="java.lang.String" value="Y axis scale factor"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manualScaleYActionPerformed"/>
@@ -247,6 +252,7 @@
     <Component class="javax.swing.JTextField" name="manualScaleZ">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="11"/>
+        <Property name="toolTipText" type="java.lang.String" value="Z axis scale factor"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manualScaleZActionPerformed"/>

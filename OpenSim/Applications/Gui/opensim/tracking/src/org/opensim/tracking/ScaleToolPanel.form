@@ -14,7 +14,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane" max="32767" attributes="0"/>
+              <Component id="jTabbedPane" pref="787" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -37,8 +37,8 @@
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Scale Tool Settings">
-                <Property name="tabTitle" type="java.lang.String" value="Scale Tool Settings"/>
+              <JTabbedPaneConstraints tabName="Settings">
+                <Property name="tabTitle" type="java.lang.String" value="Settings"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -48,15 +48,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Component id="modelScalerPanel" max="32767" attributes="1"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="subjectDataPanel" max="32767" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="genericModelDataPanel" max="32767" attributes="1"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="modelScalerPanel" max="32767" attributes="1"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
@@ -77,9 +77,9 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="modelScalerPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="markerPlacerPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="markerPlacerPanel" min="-2" pref="107" max="-2" attributes="0"/>
+                      <EmptySpace pref="24" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -101,48 +101,39 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="coordinateCheckBox" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel8" linkSize="4" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" linkSize="4" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="staticTrialFileName" alignment="0" pref="381" max="32767" attributes="1"/>
-                                      <Group type="102" alignment="1" attributes="1">
-                                          <Component id="staticTrialStartTime" pref="177" max="32767" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="staticTrialEndTime" pref="178" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="coordinateFileName" alignment="0" pref="381" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="staticTrialInfoPanel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="547" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="coordinateCheckBox" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel8" linkSize="4" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
+                              <Component id="jLabel12" linkSize="4" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="1">
+                                  <Component id="staticTrialStartTime" pref="177" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="staticTrialEndTime" pref="178" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="coordinateFileName" alignment="0" pref="381" max="32767" attributes="0"/>
+                              <Component id="staticTrialFileName" alignment="0" pref="381" max="32767" attributes="1"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="staticTrialInfoPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="staticTrialInfoPanel" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="staticTrialFileName" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                      <Component id="staticTrialFileName" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -198,14 +189,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="staticTrialTimeRangeActionPerformed"/>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="staticTrialTimeRangeFocusLost"/>
                   </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel10">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="11" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Static pose for marker placement:"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
                   <Properties>
@@ -276,13 +259,13 @@
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="measurementTrialStartTime" pref="160" max="32767" attributes="2"/>
+                                  <Component id="measurementTrialStartTime" pref="158" max="32767" attributes="2"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Component id="measurementTrialEndTime" pref="160" max="32767" attributes="2"/>
+                                  <Component id="measurementTrialEndTime" pref="158" max="32767" attributes="2"/>
                               </Group>
-                              <Component id="measurementTrialFileName" alignment="0" pref="346" max="32767" attributes="1"/>
+                              <Component id="measurementTrialFileName" alignment="0" pref="342" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="measurementTrialInfoPanel" min="-2" max="-2" attributes="0"/>
@@ -484,7 +467,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Weight"/>
+                    <Property name="text" type="java.lang.String" value="Mass"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
@@ -573,19 +556,19 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel14" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="unscaledMarkerSetInfoTextField" alignment="0" pref="193" max="32767" attributes="1"/>
-                              <Component id="unscaledModelNameTextField" alignment="0" pref="193" max="32767" attributes="1"/>
+                              <Component id="unscaledModelNameTextField" alignment="0" pref="193" max="32767" attributes="2"/>
                               <Component id="unscaledModelMassTextField" alignment="0" pref="193" max="32767" attributes="1"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -638,7 +621,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel14">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Weight"/>
+                    <Property name="text" type="java.lang.String" value="Mass"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">

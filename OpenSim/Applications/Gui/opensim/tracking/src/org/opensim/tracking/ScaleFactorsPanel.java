@@ -237,6 +237,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
       });
 
       measurementX.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+      measurementX.setToolTipText("X axis measurement");
       measurementX.setMinimumSize(new java.awt.Dimension(6, 20));
       measurementX.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,6 +246,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
       });
 
       measurementY.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+      measurementY.setToolTipText("Y axis measurement");
       measurementY.setMinimumSize(new java.awt.Dimension(6, 20));
       measurementY.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,6 +255,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
       });
 
       measurementZ.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+      measurementZ.setToolTipText("Z axis measurement");
       measurementZ.setMinimumSize(new java.awt.Dimension(6, 20));
       measurementZ.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,6 +276,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
       });
 
       manualScaleX.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+      manualScaleX.setToolTipText("X axis scale factor");
       manualScaleX.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             manualScaleXActionPerformed(evt);
@@ -285,6 +289,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
       });
 
       manualScaleY.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+      manualScaleY.setToolTipText("Y axis scale factor");
       manualScaleY.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             manualScaleYActionPerformed(evt);
@@ -297,6 +302,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
       });
 
       manualScaleZ.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+      manualScaleZ.setToolTipText("Z axis scale factor");
       manualScaleZ.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             manualScaleZActionPerformed(evt);
