@@ -60,6 +60,9 @@
           <Dimension value="[50, 25]"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="    jXSlider.setUI ( new WindowsSliderUI(jXSlider){&#xa;      public void paintThumb(Graphics g)  {&#xa;          Rectangle knobBounds = thumbRect;&#xa;          Image sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource(&quot;/org/opensim/coordinateviewer/images/sliderKnob.png&quot;));&#xa;          g.drawImage(sliderKnob,knobBounds.x,knobBounds.y,null);&#xa;      }&#xa;    });"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField">
       <Properties>

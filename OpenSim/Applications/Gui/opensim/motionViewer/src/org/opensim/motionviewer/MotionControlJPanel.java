@@ -6,6 +6,11 @@
 
 package org.opensim.motionviewer;
 
+import com.sun.java.swing.plaf.windows.WindowsSliderUI;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -312,6 +317,13 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jMotionSlider.setMaximumSize(new java.awt.Dimension(32767, 22));
         jMotionSlider.setMinimumSize(new java.awt.Dimension(168, 22));
         jMotionSlider.setPreferredSize(new java.awt.Dimension(168, 22));
+        jMotionSlider.setUI ( new WindowsSliderUI(jMotionSlider){
+            public void paintThumb(Graphics g)  {
+                Rectangle knobBounds = thumbRect;
+                Image sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/opensim/motionviewer/images/sliderKnob.png"));
+                g.drawImage(sliderKnob,knobBounds.x,knobBounds.y,null);
+            }
+        });
 
         jLabelForMotionNameLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabelForMotionNameLabel.setLabelFor(jMotionNameLabel);
@@ -473,7 +485,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
                                     .add(jEndTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(jPlaybackButtonsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
                     .add(jWrapToggleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(0, 0, 0))
+                .add(3, 3, 3))
         );
     }// </editor-fold>//GEN-END:initComponents
 

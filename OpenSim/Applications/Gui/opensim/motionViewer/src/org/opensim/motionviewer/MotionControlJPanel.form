@@ -86,7 +86,7 @@
                   </Group>
                   <Component id="jWrapToggleButton" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -411,6 +411,9 @@
           <Dimension value="[168, 22]"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="    jMotionSlider.setUI ( new WindowsSliderUI(jMotionSlider){&#xa;      public void paintThumb(Graphics g)  {&#xa;          Rectangle knobBounds = thumbRect;&#xa;          Image sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource(&quot;/org/opensim/motionviewer/images/sliderKnob.png&quot;));&#xa;          g.drawImage(sliderKnob,knobBounds.x,knobBounds.y,null);&#xa;      }&#xa;    });"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelForMotionNameLabel">
       <Properties>

@@ -6,6 +6,10 @@
 
 package org.opensim.coordinateviewer;
 
+import com.sun.java.swing.plaf.windows.WindowsSliderUI;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -13,11 +17,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.Hashtable;
 import javax.swing.AbstractAction;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
@@ -130,6 +132,13 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
         jXSlider.setAlignmentX(0.0F);
         jXSlider.setMinimumSize(new java.awt.Dimension(50, 25));
         jXSlider.setPreferredSize(new java.awt.Dimension(50, 25));
+        jXSlider.setUI ( new WindowsSliderUI(jXSlider){
+            public void paintThumb(Graphics g)  {
+                Rectangle knobBounds = thumbRect;
+                Image sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/opensim/coordinateviewer/images/sliderKnob.png"));
+                g.drawImage(sliderKnob,knobBounds.x,knobBounds.y,null);
+            }
+        });
 
         jFormattedTextField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         jFormattedTextField.setText("-123.456");
