@@ -137,13 +137,9 @@ public class JavaCMCAnimationCallback extends JavaAnimationCallback{
         cvs = new PlotCurve[qtyNames.length];
         
         for(int i=0; i<qtyNames.length; i++){
-            try {
                 cvs[i]=plotter.showAnalysisCurveAgainstTime(getModel(), s, "Residual Forces", 
                         qtyNames[i], qtyNames[i], "xlabel-to-fill", "y-label-to-fill"
                         );
-            } catch (PlotterException ex) {
-                ex.printStackTrace();
-            }
             qtyIndices[i]=s.getStateIndex(qtyNames[i]);
         }
         plotterInitialized=true;

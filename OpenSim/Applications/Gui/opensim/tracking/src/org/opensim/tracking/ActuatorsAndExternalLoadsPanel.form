@@ -137,7 +137,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Applied to bodies"/>
+            <Property name="text" type="java.lang.String" value="Applied to bodies:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="filterModelKinematics">
