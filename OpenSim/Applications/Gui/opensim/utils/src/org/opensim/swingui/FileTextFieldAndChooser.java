@@ -2,6 +2,7 @@ package org.opensim.swingui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -146,9 +147,14 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
    //------------------------------------------------------------------------
 
    private void updateTextFieldColor() {
-      if(isEnabled() && (!fileIsValid || (!treatEmptyStringAsValid && fileNameTextField.getText().equals(""))))
+      if(!isEnabled()) {
+         fileNameTextField.setBackground(null);
+         fileNameTextField.setEnabled(isEnabled());
+      } else if(!fileIsValid || (!treatEmptyStringAsValid && fileNameTextField.getText().equals(""))) {
          fileNameTextField.setBackground(invalidBackground);
-      else fileNameTextField.setBackground(validBackground); 
+      } else {
+         fileNameTextField.setBackground(validBackground);
+      }
    }
 
    //------------------------------------------------------------------------

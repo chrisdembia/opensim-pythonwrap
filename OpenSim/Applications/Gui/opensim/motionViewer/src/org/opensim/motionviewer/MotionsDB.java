@@ -171,6 +171,10 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    }
 
    public void closeMotion(Model model, Storage simmMotionData) {
+      ArrayList<Storage> motions = mapModels2Motions.get(model);
+      if(motions!=null) { // Shouldn't be null, but just in case...
+         motions.remove(simmMotionData);
+      }
       MotionEvent evt = new MotionEvent(this, model, simmMotionData, MotionEvent.Operation.Close);
       setChanged();
       notifyObservers(evt);

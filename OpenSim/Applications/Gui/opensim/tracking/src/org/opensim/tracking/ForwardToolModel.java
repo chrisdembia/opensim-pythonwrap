@@ -132,15 +132,26 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    public String getControlsFileName() { return getTool().getControlsFileName(); }
    public String getInitialStatesFileName() { return getTool().getInitialStatesFileName(); }
 
-   // External loads
-   public String getExternalLoadsFileName() { return getTool().getExternalLoadsFileName(); }
-   public String getExternalLoadsModelKinematicsFileName() { return getTool().getExternalLoadsModelKinematicsFileName(); }
-   public String getExternalLoadsBody1() { return getTool().getExternalLoadsBody1(); }
-   public String getExternalLoadsBody2() { return getTool().getExternalLoadsBody2(); }
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return getTool().getLowpassCutoffFrequencyForLoadKinematics(); }
-
    // Integrator settings
    public boolean getUseSpecifiedDt() { return getTool().getUseSpecifiedDt(); }
+
+   //------------------------------------------------------------------------
+   // External loads get/set
+   //------------------------------------------------------------------------
+   public String getExternalLoadsFileName() { return getTool().getExternalLoadsFileName(); }
+   protected void setExternalLoadsFileNameInternal(String fileName) { getTool().setExternalLoadsFileName(fileName); }
+
+   public String getExternalLoadsModelKinematicsFileName() { return getTool().getExternalLoadsModelKinematicsFileName(); }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { getTool().setExternalLoadsModelKinematicsFileName(fileName); }
+
+   public String getExternalLoadsBody1() { return getTool().getExternalLoadsBody1(); }
+   protected void setExternalLoadsBody1Internal(String name) { getTool().setExternalLoadsBody1(name); }
+
+   public String getExternalLoadsBody2() { return getTool().getExternalLoadsBody2(); }
+   protected void setExternalLoadsBody2Internal(String name) { getTool().setExternalLoadsBody2(name); }
+
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return getTool().getLowpassCutoffFrequencyForLoadKinematics(); }
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { getTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool

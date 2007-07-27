@@ -2,14 +2,16 @@ package org.opensim.tracking;
 
 import java.io.File;
 import java.io.IOException;
-import javax.swing.SwingUtilities;
+import java.util.ArrayList;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.Cancellable;
 import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.JavaMotionDisplayerCallback;
+import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
@@ -109,8 +111,9 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    
    private Model originalModel = null;
 
-   enum InputSource { Motion, States, Coordinates };
-   private InputSource inputSource = InputSource.Motion;
+   enum InputSource { Motion, States, Coordinates, Unspecified };
+   private InputSource inputSource = InputSource.Unspecified;
+   private Storage inputMotion = null;
    private boolean loadSpeeds = false;
 
    public AnalyzeToolModel(Model model) throws IOException {
@@ -119,36 +122,130 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       this.originalModel = model;
 
       setTool(new AnalyzeTool());
+
+      updateFromTool();
+
+      determineDefaultInputSource();
    }
 
    AnalyzeTool getTool() { return (AnalyzeTool)tool; }
    Model getOriginalModel() { return originalModel; }
 
    //------------------------------------------------------------------------
+   // Default input source
+   //------------------------------------------------------------------------
+
+   protected void determineDefaultInputSource() {
+      inputSource = InputSource.Unspecified;
+      ArrayList<Storage> motions = MotionsDB.getInstance().getModelMotions(getOriginalModel());
+      if(motions!=null && motions.size()>0) {
+         inputMotion = motions.get(0);
+         inputSource = InputSource.Motion;
+      }
+   }
+
+   //------------------------------------------------------------------------
    // Get/Set Values
    //------------------------------------------------------------------------
 
    public InputSource getInputSource() { return inputSource; }
-   public void setInputSource(InputSource inputSource) { this.inputSource = inputSource; }
+   public void setInputSource(InputSource inputSource) { 
+      if(this.inputSource != inputSource) {
+         this.inputSource = inputSource;
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+
+   public Storage getInputMotion() { return inputMotion; }
+   public void setInputMotion(Storage inputMotion) { 
+      if(this.inputMotion != inputMotion) {
+         this.inputMotion = inputMotion;
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
 
    public boolean getLoadSpeeds() { return loadSpeeds; }
-   public void setLoadSpeeds(boolean loadSpeeds) { this.loadSpeeds = loadSpeeds; }
+   public void setLoadSpeeds(boolean loadSpeeds) { 
+      if(this.loadSpeeds != loadSpeeds) {
+         this.loadSpeeds = loadSpeeds;
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
 
    public String getControlsFileName() { return getTool().getControlsFileName(); }
-   public String getStatesFileName() { return getTool().getStatesFileName(); }
-   public String getPseudoStatesFileName() { return getTool().getPseudoStatesFileName(); }
-   public String getCoordinatesFileName() { return getTool().getCoordinatesFileName(); }
-   public String getSpeedsFileName() { return getTool().getSpeedsFileName(); }
-   public double getLowpassCutoffFrequency() { return getTool().getLowpassCutoffFrequency(); }
-   public boolean getFilterCoordinates() { return getLowpassCutoffFrequency() > 0; }
+   void setControlsFileName(String speedsFileName) {
+      if(!getControlsFileName().equals(speedsFileName)) {
+         getTool().setControlsFileName(speedsFileName);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
 
-   // External loads
+   public String getStatesFileName() { return getTool().getStatesFileName(); }
+   void setStatesFileName(String speedsFileName) {
+      if(!getStatesFileName().equals(speedsFileName)) {
+         getTool().setStatesFileName(speedsFileName);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+
+   public String getPseudoStatesFileName() { return getTool().getPseudoStatesFileName(); }
+   void setPseudoStatesFileName(String speedsFileName) {
+      if(!getPseudoStatesFileName().equals(speedsFileName)) {
+         getTool().setPseudoStatesFileName(speedsFileName);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+
+   public String getCoordinatesFileName() { return getTool().getCoordinatesFileName(); }
+   void setCoordinatesFileName(String speedsFileName) {
+      if(!getCoordinatesFileName().equals(speedsFileName)) {
+         getTool().setCoordinatesFileName(speedsFileName);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+
+   public String getSpeedsFileName() { return getTool().getSpeedsFileName(); }
+   void setSpeedsFileName(String speedsFileName) {
+      if(!getSpeedsFileName().equals(speedsFileName)) {
+         getTool().setSpeedsFileName(speedsFileName);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+
+   public double getLowpassCutoffFrequency() { return getTool().getLowpassCutoffFrequency(); }
+   public void setLowpassCutoffFrequency(double frequency) {
+      if(getLowpassCutoffFrequency() != frequency) {
+         getTool().setLowpassCutoffFrequency(frequency);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+
+   public boolean getFilterCoordinates() { return getLowpassCutoffFrequency() > 0; }
+   public void setFilterCoordinates(boolean filterCoordinates) {
+      if(getFilterCoordinates() != filterCoordinates) {
+         if(filterCoordinates) getTool().setLowpassCutoffFrequency(6);
+         else getTool().setLowpassCutoffFrequency(-1);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+
+   //------------------------------------------------------------------------
+   // External loads get/set
+   //------------------------------------------------------------------------
    public String getExternalLoadsFileName() { return getTool().getExternalLoadsFileName(); }
+   protected void setExternalLoadsFileNameInternal(String fileName) { getTool().setExternalLoadsFileName(fileName); }
+
    public String getExternalLoadsModelKinematicsFileName() { return getTool().getExternalLoadsModelKinematicsFileName(); }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { getTool().setExternalLoadsModelKinematicsFileName(fileName); }
+
    public String getExternalLoadsBody1() { return getTool().getExternalLoadsBody1(); }
+   protected void setExternalLoadsBody1Internal(String name) { getTool().setExternalLoadsBody1(name); }
+
    public String getExternalLoadsBody2() { return getTool().getExternalLoadsBody2(); }
+   protected void setExternalLoadsBody2Internal(String name) { getTool().setExternalLoadsBody2(name); }
+
    public double getLowpassCutoffFrequencyForLoadKinematics() { return getTool().getLowpassCutoffFrequencyForLoadKinematics(); }
-   public boolean getFilterLoadKinematics() { return getLowpassCutoffFrequencyForLoadKinematics() > 0; }
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { getTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool
@@ -184,7 +281,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
 
    public boolean isValid() {
-      return true;
+      return getInputSource()!=InputSource.Unspecified;
    }
 
    //------------------------------------------------------------------------
@@ -192,15 +289,19 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
 
    protected void updateFromTool() {
+      super.updateFromTool();
+
       if(!FileUtils.effectivelyNull(getStatesFileName())) inputSource = InputSource.States;
       else if(!FileUtils.effectivelyNull(getCoordinatesFileName())) inputSource = InputSource.Coordinates;
-      else inputSource = InputSource.Motion;
+      else inputSource = InputSource.Unspecified;
 
       loadSpeeds = (inputSource == InputSource.Coordinates && !FileUtils.effectivelyNull(getSpeedsFileName()));
    }
 
    protected void updateTool() {
       super.updateTool();
+
+      setModified(AbstractToolModel.Operation.AllDataChanged);
    }
 
    protected void relativeToAbsolutePaths(String parentFileName) {
@@ -237,8 +338,9 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    public boolean saveSettings(String fileName) {
-      // TODO: implement
-      return false;
+      updateTool();
+      getTool().print(fileName);
+      return true;
    }
 }
 

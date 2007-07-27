@@ -29,11 +29,11 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       initComponents();
 
       resultsDirectory.setIncludeOpenButton(true);
+      setSettingsFileDescription("Forward tool settings file");
 
-      actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel();
+      actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel(toolModel, toolModel.getOriginalModel());
       jTabbedPane.insertTab("Actuators and External Loads", null, actuatorsAndExternalLoadsPanel, null, 1);
 
-      setSettingsFileDescription("Forward tool settings file");
       updateFromModel();
       toolModel.addObserver(this);
    }
@@ -80,7 +80,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       fineTolerance.setText(((Double)toolModel.getFineTolerance()).toString());
       
       // Actuators & external loads
-      actuatorsAndExternalLoadsPanel.updatePanel(toolModel, toolModel.getOriginalModel());
+      actuatorsAndExternalLoadsPanel.updatePanel();
    }
 
    public void updateDialogButtons() {
