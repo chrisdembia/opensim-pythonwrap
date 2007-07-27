@@ -147,7 +147,7 @@ public class AbstractToolModel extends Observable {
    }
 
    protected void updateTool() {
-
+      tool.setAllPropertiesUseDefault(false); // To make sure we serialize all properties even after we've changed their values
    }
 }
 

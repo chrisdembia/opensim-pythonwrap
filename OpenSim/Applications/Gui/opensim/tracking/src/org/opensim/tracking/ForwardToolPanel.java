@@ -28,12 +28,13 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
 
       initComponents();
 
-      resultsDirectory.setIncludeOpenButton(true);
+      outputDirectory.setIncludeOpenButton(true);
       setSettingsFileDescription("Forward tool settings file");
 
       actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel(toolModel, toolModel.getOriginalModel());
       jTabbedPane.insertTab("Actuators and External Loads", null, actuatorsAndExternalLoadsPanel, null, 1);
 
+      updateStaticFields();
       updateFromModel();
       toolModel.addObserver(this);
    }
@@ -45,21 +46,23 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
          updateFromModel(); 
    }
 
-   private void disablePanel(JPanel panel) {
+   private void setEnabled(JPanel panel, boolean enabled) {
       for(Component comp : panel.getComponents()) {
-         comp.setEnabled(false);
-         if(comp instanceof JPanel) disablePanel((JPanel)comp);
+         comp.setEnabled(enabled);
+         if(comp instanceof JPanel) setEnabled((JPanel)comp, enabled);
       }
    }
 
-   public void updateFromModel() {
-      // Disable everything for now...
-      //disablePanel(mainSettingsPanel);
-      //disablePanel(advancedSettingsPanel);
-      //disablePanel(actuatorsAndExternalLoadsPanel);
-
+   public void updateStaticFields() {
       modelName.setText(toolModel.getOriginalModel().getName());
-      
+   }
+
+   public void updateFromModel() {
+      // Start off with everything enabled
+      setEnabled(mainSettingsPanel, true);
+      setEnabled(advancedSettingsPanel, true);
+      setEnabled(actuatorsAndExternalLoadsPanel, true);
+
       // Input
       controlsFileName.setFileName(toolModel.getControlsFileName(),false);
       initialStatesFileName.setFileName(toolModel.getInitialStatesFileName(),false);
@@ -69,8 +72,9 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       finalTime.setText(((Double)toolModel.getFinalTime()).toString());
 
       // Output
+      outputName.setText(toolModel.getOutputPrefix());
+      outputDirectory.setFileName(toolModel.getResultsDirectory(),false);
       outputPrecision.setText(((Integer)toolModel.getOutputPrecision()).toString());
-      resultsDirectory.setFileName(toolModel.getResultsDirectory(),false);
 
       // Integrator settings
       useSpecifiedDt.setSelected(toolModel.getUseSpecifiedDt());
@@ -126,10 +130,12 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       jLabel5 = new javax.swing.JLabel();
       finalTime = new javax.swing.JTextField();
       jPanel4 = new javax.swing.JPanel();
-      jLabel10 = new javax.swing.JLabel();
+      jLabel14 = new javax.swing.JLabel();
+      outputName = new javax.swing.JTextField();
+      jLabel15 = new javax.swing.JLabel();
+      outputDirectory = new org.opensim.swingui.FileTextFieldAndChooser();
       outputPrecision = new javax.swing.JTextField();
-      jLabel11 = new javax.swing.JLabel();
-      resultsDirectory = new org.opensim.swingui.FileTextFieldAndChooser();
+      jLabel16 = new javax.swing.JLabel();
       jPanel1 = new javax.swing.JPanel();
       jLabel2 = new javax.swing.JLabel();
       modelName = new javax.swing.JTextField();
@@ -165,8 +171,8 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
                .add(jLabel1))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
-               .add(controlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE))
+               .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+               .add(controlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
             .addContainerGap())
       );
       jPanel2Layout.setVerticalGroup(
@@ -206,7 +212,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
             .add(jLabel5)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(385, Short.MAX_VALUE))
+            .addContainerGap(222, Short.MAX_VALUE))
       );
 
       jPanel3Layout.linkSize(new java.awt.Component[] {finalTime, initialTime}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -216,20 +222,50 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
          .add(jPanel3Layout.createSequentialGroup()
             .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jLabel4)
-               .add(initialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(jLabel5)
-               .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+               .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(initialTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
       jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Output"));
-      jLabel10.setText("Output precision");
+      jLabel14.setText("Name");
+
+      outputName.setText("jTextField1");
+      outputName.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            outputNameActionPerformed(evt);
+         }
+      });
+      outputName.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusLost(java.awt.event.FocusEvent evt) {
+            outputNameFocusLost(evt);
+         }
+      });
+
+      jLabel15.setText("Directory");
+
+      outputDirectory.addChangeListener(new javax.swing.event.ChangeListener() {
+         public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            outputDirectoryStateChanged(evt);
+         }
+      });
 
       outputPrecision.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
       outputPrecision.setText("jTextField1");
       outputPrecision.setMinimumSize(new java.awt.Dimension(40, 20));
+      outputPrecision.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            outputPrecisionActionPerformed(evt);
+         }
+      });
+      outputPrecision.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusLost(java.awt.event.FocusEvent evt) {
+            outputPrecisionFocusLost(evt);
+         }
+      });
 
-      jLabel11.setText("Results directory");
+      jLabel16.setText("Precision");
 
       org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
       jPanel4.setLayout(jPanel4Layout);
@@ -237,27 +273,35 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
          jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jPanel4Layout.createSequentialGroup()
             .addContainerGap()
-            .add(jLabel11)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(resultsDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 367, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 36, Short.MAX_VALUE)
-            .add(jLabel10)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
+                  .add(jLabel14)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+               .add(jPanel4Layout.createSequentialGroup()
+                  .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                     .add(jLabel16)
+                     .add(jLabel15))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(outputDirectory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+               .add(outputName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
             .addContainerGap())
       );
       jPanel4Layout.setVerticalGroup(
          jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jPanel4Layout.createSequentialGroup()
+            .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(outputName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jLabel14))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-               .add(resultsDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                     .add(jLabel10)
-                     .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                  .add(jPanel4Layout.createSequentialGroup()
-                     .add(6, 6, 6)
-                     .add(jLabel11))))
+               .add(outputDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jLabel15))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jLabel16))
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
@@ -275,7 +319,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
             .addContainerGap()
             .add(jLabel2)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(modelName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+            .add(modelName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
             .addContainerGap())
       );
       jPanel1Layout.setVerticalGroup(
@@ -292,14 +336,15 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       mainSettingsPanel.setLayout(mainSettingsPanelLayout);
       mainSettingsPanelLayout.setHorizontalGroup(
          mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(org.jdesktop.layout.GroupLayout.TRAILING, mainSettingsPanelLayout.createSequentialGroup()
+         .add(mainSettingsPanelLayout.createSequentialGroup()
             .addContainerGap()
             .add(mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addContainerGap())
+               .add(org.jdesktop.layout.GroupLayout.LEADING, mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
       mainSettingsPanelLayout.setVerticalGroup(
          mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -376,7 +421,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
                   .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                      .add(fineTolerance)
                      .add(maxDT, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))))
-            .addContainerGap(137, Short.MAX_VALUE))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
       jPanel5Layout.linkSize(new java.awt.Component[] {errorTolerance, fineTolerance, maxDT, maximumNumberOfSteps}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -416,7 +461,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
          .add(advancedSettingsPanelLayout.createSequentialGroup()
             .addContainerGap()
             .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(186, Short.MAX_VALUE))
+            .addContainerGap(238, Short.MAX_VALUE))
       );
       jTabbedPane.addTab("Advanced Settings", advancedSettingsPanel);
 
@@ -425,17 +470,40 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
-            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
-            .addContainerGap())
+            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 524, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
-            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+            .add(jTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
-   
+
+   private void outputPrecisionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_outputPrecisionFocusLost
+      if(!evt.isTemporary()) outputPrecisionActionPerformed(null);
+   }//GEN-LAST:event_outputPrecisionFocusLost
+
+   private void outputPrecisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputPrecisionActionPerformed
+      try {
+         toolModel.setOutputPrecision(Integer.valueOf(outputPrecision.getText()));
+      } finally {
+         outputPrecision.setText(((Integer)toolModel.getOutputPrecision()).toString());
+      }
+   }//GEN-LAST:event_outputPrecisionActionPerformed
+
+   private void outputDirectoryStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_outputDirectoryStateChanged
+      toolModel.setResultsDirectory(outputDirectory.getFileName());
+   }//GEN-LAST:event_outputDirectoryStateChanged
+
+   private void outputNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_outputNameFocusLost
+      if(!evt.isTemporary()) outputNameActionPerformed(null);
+   }//GEN-LAST:event_outputNameFocusLost
+
+   private void outputNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputNameActionPerformed
+      toolModel.setOutputPrefix(outputName.getText());
+   }//GEN-LAST:event_outputNameActionPerformed
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JPanel advancedSettingsPanel;
@@ -446,10 +514,11 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
    private org.opensim.swingui.FileTextFieldAndChooser initialStatesFileName;
    private javax.swing.JTextField initialTime;
    private javax.swing.JLabel jLabel1;
-   private javax.swing.JLabel jLabel10;
-   private javax.swing.JLabel jLabel11;
    private javax.swing.JLabel jLabel12;
    private javax.swing.JLabel jLabel13;
+   private javax.swing.JLabel jLabel14;
+   private javax.swing.JLabel jLabel15;
+   private javax.swing.JLabel jLabel16;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;
@@ -468,8 +537,9 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
    private javax.swing.JTextField maxDT;
    private javax.swing.JTextField maximumNumberOfSteps;
    private javax.swing.JTextField modelName;
+   private org.opensim.swingui.FileTextFieldAndChooser outputDirectory;
+   private javax.swing.JTextField outputName;
    private javax.swing.JTextField outputPrecision;
-   private org.opensim.swingui.FileTextFieldAndChooser resultsDirectory;
    private javax.swing.JCheckBox useSpecifiedDt;
    // End of variables declaration//GEN-END:variables
    

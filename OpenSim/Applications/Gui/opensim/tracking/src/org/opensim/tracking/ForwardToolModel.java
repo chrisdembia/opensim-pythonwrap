@@ -195,7 +195,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
 
    protected void updateFromTool() {
-
+      super.updateFromTool();
    }
 
    protected void updateTool() {
@@ -234,7 +234,8 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    public boolean saveSettings(String fileName) {
-      // TODO: implement
-      return false;
+      updateTool();
+      getTool().print(fileName);
+      return true;
    }
 }

@@ -188,6 +188,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
+   public boolean needPseudoStates() { return getOriginalModel().getNumPseudoStates()>0; }
+
    public String getPseudoStatesFileName() { return getTool().getPseudoStatesFileName(); }
    void setPseudoStatesFileName(String speedsFileName) {
       if(!getPseudoStatesFileName().equals(speedsFileName)) {
@@ -300,6 +302,17 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
    protected void updateTool() {
       super.updateTool();
+
+      // The C++ code determines whether we're using states or coordinates as input based on whether the file names are nonempty
+      if(inputSource != InputSource.Coordinates) {
+         getTool().setCoordinatesFileName("");
+      } 
+      if(inputSource != InputSource.Coordinates || !getLoadSpeeds()) {
+         getTool().setSpeedsFileName("");
+      }
+      if(inputSource != InputSource.States) {
+         getTool().setStatesFileName("");
+      }
 
       setModified(AbstractToolModel.Operation.AllDataChanged);
    }
