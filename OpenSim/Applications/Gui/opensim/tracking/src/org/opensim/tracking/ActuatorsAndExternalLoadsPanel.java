@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Model;
 import org.opensim.swingui.ComponentTitledBorder;
+import org.opensim.swingui.MultiFileSelectorPanel;
 
 /**
  *
@@ -64,7 +65,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       //---------------------------------------------------------------------
       // Actuators
       //---------------------------------------------------------------------
-      keepModelActuators.setSelected(!toolModel.getReplaceActuatorSet());
+      //keepModelActuators.setSelected(!toolModel.getReplaceActuatorSet());
 
       String str = "";
       for(int i=0; i<toolModel.getActuatorSetFiles().getSize(); i++)
@@ -131,6 +132,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       actuatorSetFiles = new javax.swing.JTextField();
       appendActuatorSetRadioButton = new javax.swing.JRadioButton();
       replaceActuatorSetRadioButton = new javax.swing.JRadioButton();
+      editActuatorSetFiles = new javax.swing.JButton();
 
       externalLoadsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "External Loads"));
       jLabel3.setText("External loads");
@@ -274,6 +276,13 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       replaceActuatorSetRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
       replaceActuatorSetRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
+      editActuatorSetFiles.setText("Edit...");
+      editActuatorSetFiles.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            editActuatorSetFilesActionPerformed(evt);
+         }
+      });
+
       org.jdesktop.layout.GroupLayout actuatorsPanelLayout = new org.jdesktop.layout.GroupLayout(actuatorsPanel);
       actuatorsPanel.setLayout(actuatorsPanelLayout);
       actuatorsPanelLayout.setHorizontalGroup(
@@ -284,7 +293,9 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
                .add(actuatorsPanelLayout.createSequentialGroup()
                   .add(jLabel1)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(actuatorSetFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+                  .add(actuatorSetFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(editActuatorSetFiles))
                .add(appendActuatorSetRadioButton)
                .add(replaceActuatorSetRadioButton))
             .addContainerGap())
@@ -294,6 +305,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
          .add(actuatorsPanelLayout.createSequentialGroup()
             .add(actuatorsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jLabel1)
+               .add(editActuatorSetFiles)
                .add(actuatorSetFiles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(appendActuatorSetRadioButton)
@@ -323,6 +335,10 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void editActuatorSetFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActuatorSetFilesActionPerformed
+      MultiFileSelectorPanel.showDialog();
+   }//GEN-LAST:event_editActuatorSetFilesActionPerformed
 
    private void externalLoadsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_externalLoadsFileNameStateChanged
       toolModel.setExternalLoadsFileName(externalLoadsFileName.getFileName());
@@ -368,6 +384,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
    private javax.swing.JRadioButton appendActuatorSetRadioButton;
    private javax.swing.ButtonGroup buttonGroup1;
    private javax.swing.JTextField cutoffFrequency;
+   private javax.swing.JButton editActuatorSetFiles;
    private javax.swing.JComboBox externalLoadsBody1;
    private javax.swing.JComboBox externalLoadsBody2;
    private org.opensim.swingui.FileTextFieldAndChooser externalLoadsFileName;

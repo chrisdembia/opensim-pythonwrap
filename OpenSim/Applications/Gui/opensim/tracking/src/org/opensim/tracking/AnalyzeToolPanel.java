@@ -69,7 +69,7 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
       setEnabled(mainSettingsPanel, true);
       setEnabled(analysesPanel, true);
 
-      if(!toolModel.needPseudoStates()) pseudoStatesFileName.setEnabled(false);
+      //if(!toolModel.needPseudoStates()) pseudoStatesFileName.setEnabled(false);
       
       // Input
       if(toolModel.getInputSource()==AnalyzeToolModel.InputSource.Motion) buttonGroup1.setSelected(motionRadioButton.getModel(),true);
