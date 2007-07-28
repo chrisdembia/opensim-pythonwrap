@@ -171,6 +171,28 @@
 			<coordinate> ankle_angle_r </coordinate>
 		</rdCMC_Joint>
 
+		<rdCMC_Joint name="subtalar_angle_r">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 2.0e1 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<coordinate> subtalar_angle_r </coordinate>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="mtp_angle_r">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 2.0e1 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<coordinate> mtp_angle_r </coordinate>
+		</rdCMC_Joint>
+
 		<!-- Left Leg -->
 
 		<rdCMC_Joint name="hip_flexion_l">
@@ -228,6 +250,29 @@
 			<coordinate> ankle_angle_l </coordinate>
 		</rdCMC_Joint>
 		
+		<rdCMC_Joint name="subtalar_angle_l">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 2.0e1 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<coordinate> subtalar_angle_l </coordinate>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="mtp_angle_l">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 2.0e1 </weight>
+			<kp> 100.0 </kp>
+			<kv>  20.0 </kv>
+			<coordinate> mtp_angle_l </coordinate>
+		</rdCMC_Joint>
+
+
 		<!-- Back Joint -->
 
 		<rdCMC_Joint name="lumbar_extension">

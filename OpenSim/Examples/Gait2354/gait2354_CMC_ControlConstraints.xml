@@ -62,6 +62,14 @@
 			<default_min> -1000 </default_min>
 			<default_max>  1000 </default_max>
 		</ControlLinear>
+		<ControlLinear name="subtalar_angle_r_reserve.excitation">
+			<default_min> -1000 </default_min>
+			<default_max>  1000 </default_max>
+		</ControlLinear>
+		<ControlLinear name="mtp_angle_r_reserve.excitation">
+			<default_min> -1 </default_min>
+			<default_max>  1 </default_max>
+		</ControlLinear>
 		
 		<!-- left -->
 		<ControlLinear name="hip_flexion_l_reserve.excitation">
@@ -83,6 +91,14 @@
 		<ControlLinear name="ankle_angle_l_reserve.excitation">
 			<default_min> -1000 </default_min>
 			<default_max>  1000 </default_max>
+		</ControlLinear>
+		<ControlLinear name="subtalar_angle_l_reserve.excitation">
+			<default_min> -1000 </default_min>
+			<default_max>  1000 </default_max>
+		</ControlLinear>
+		<ControlLinear name="mtp_angle_l_reserve.excitation">
+			<default_min> -1 </default_min>
+			<default_max>  1 </default_max>
 		</ControlLinear>
 		
 		<!-- back -->

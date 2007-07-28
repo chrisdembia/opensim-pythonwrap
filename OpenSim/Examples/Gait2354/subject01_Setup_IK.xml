@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <IKTool name="subject01">
 	<!--Name of the .osim file used to construct a model.-->
-	<model_file> subject01.osim </model_file>
+	<model_file> subject01_simbody.osim </model_file>
+	<!--Specify whether to use ipopt or cfsqp optimizer.-->
+	<optimizer_algorithm> cfsqp </optimizer_algorithm>
 	<!--Task set used to specify IK weights.-->
 	<IKTaskSet file="gait2354_IK_Tasks.xml"/>
 	<!--Parameters for solving the IK problem for each trial. Each trial
@@ -33,7 +35,7 @@
 				<!--Time range over which the IK problem is solved.-->
 				<time_range> 0.4 2.0 </time_range>
 				<!--Name of the motion file (.mot) to which the results should be written.-->
-				<output_motion_file> subject01_walk1_ik.mot </output_motion_file>
+				<output_motion_file> subject01_walk1_ik_simbody.mot </output_motion_file>
 			</IKTrial>
 		</objects>
 	</IKTrialSet>

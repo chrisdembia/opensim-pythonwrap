@@ -112,6 +112,17 @@
 			<optimal_force> 1.0 </optimal_force>
 		</GeneralizedForce>
 
+		<GeneralizedForce name="subtalar_angle_r_reserve">
+			<coordinate> subtalar_angle_r </coordinate>
+			<optimal_force> 1.0 </optimal_force>
+		</GeneralizedForce>
+
+		<GeneralizedForce name="mtp_angle_r_reserve">
+			<coordinate> mtp_angle_r </coordinate>
+			<optimal_force> 100.0 </optimal_force>
+		</GeneralizedForce>
+
+
 
 		<!-- Left Leg -->
 
@@ -141,6 +152,17 @@
 			<coordinate> ankle_angle_l </coordinate>
 			<optimal_force> 1.0 </optimal_force>
 		</GeneralizedForce>
+
+		<GeneralizedForce name="subtalar_angle_l_reserve">
+			<coordinate> subtalar_angle_l </coordinate>
+			<optimal_force> 1.0 </optimal_force>
+		</GeneralizedForce>
+
+		<GeneralizedForce name="mtp_angle_l_reserve">
+			<coordinate> mtp_angle_l </coordinate>
+			<optimal_force> 100.0 </optimal_force>
+		</GeneralizedForce>
+
 
 
 		<!-- Back Joint -->

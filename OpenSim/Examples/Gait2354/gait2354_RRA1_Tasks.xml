@@ -47,17 +47,6 @@
 
 		<!-- Pelvis -->
 
-		<rdCMC_Joint name="pelvis_tz">
-			<wrt_body> -1 </wrt_body>
-			<express_body> -1 </express_body>
-			<on> true </on>
-			<active> true false false </active>
-			<weight> 1.0e5 </weight>
-			<kp> 1600.0 </kp>
-			<kv>  80.0 </kv>
-			<coordinate> pelvis_tz </coordinate>
-		</rdCMC_Joint>
-
 		<rdCMC_Joint name="pelvis_tx">
 			<wrt_body> -1 </wrt_body>
 			<express_body> -1 </express_body>
@@ -78,6 +67,17 @@
 			<kp> 1600.0 </kp>
 			<kv>  80.0 </kv>
 			<coordinate> pelvis_ty </coordinate>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="pelvis_tz">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e5 </weight>
+			<kp> 1600.0 </kp>
+			<kv>  80.0 </kv>
+			<coordinate> pelvis_tz </coordinate>
 		</rdCMC_Joint>
 
 		<rdCMC_Joint name="pelvis_tilt">
@@ -171,6 +171,28 @@
 			<coordinate> ankle_angle_r </coordinate>
 		</rdCMC_Joint>
 
+		<rdCMC_Joint name="subtalar_angle_r">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e5 </weight>
+			<kp> 1600.0 </kp>
+			<kv>  80.0 </kv>
+			<coordinate> subtalar_angle_r </coordinate>
+		</rdCMC_Joint>
+
+		<rdCMC_Joint name="mtp_angle_r">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e5 </weight>
+			<kp> 1600.0 </kp>
+			<kv>  80.0 </kv>
+			<coordinate> mtp_angle_r </coordinate>
+		</rdCMC_Joint>
+
 		<!-- Left Leg -->
 
 		<rdCMC_Joint name="hip_flexion_l">
@@ -226,6 +248,28 @@
 			<kp> 1600.0 </kp>
 			<kv>  80.0 </kv>
 			<coordinate> ankle_angle_l </coordinate>
+		</rdCMC_Joint>
+		
+		<rdCMC_Joint name="subtalar_angle_l">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e5 </weight>
+			<kp> 1600.0 </kp>
+			<kv>  80.0 </kv>
+			<coordinate> subtalar_angle_l </coordinate>
+		</rdCMC_Joint>
+		
+		<rdCMC_Joint name="mtp_angle_l">
+			<wrt_body> -1 </wrt_body>
+			<express_body> -1 </express_body>
+			<on> true </on>
+			<active> true false false </active>
+			<weight> 1.0e5 </weight>
+			<kp> 1600.0 </kp>
+			<kv>  80.0 </kv>
+			<coordinate> mtp_angle_l </coordinate>
 		</rdCMC_Joint>
 		
 		<!-- Back Joint -->
