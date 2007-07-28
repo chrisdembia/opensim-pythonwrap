@@ -6,26 +6,70 @@
 
 package org.opensim.swingui;
 
+import java.util.Vector;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 
 /**
  *
  * @author  erang
  */
 public class MultiFileSelectorPanel extends javax.swing.JPanel {
-   
+ 
+   Vector<String> fileNames;
+
    /** Creates new form MultiFileSelectorPanel */
-   public MultiFileSelectorPanel() {
+   public MultiFileSelectorPanel(Vector<String> initialFileNames) {
+      this.fileNames = initialFileNames;
+
       initComponents();
+
+      fileList.setListData(fileNames);
+
+      fileList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+         public void valueChanged(ListSelectionEvent event) {
+            if(event.getValueIsAdjusting()) return;
+            listSelectionChanged();
+         }
+      });
+
+      updatePanel();
    }
 
-   static public void showDialog() {
-      MultiFileSelectorPanel panel = new MultiFileSelectorPanel();
+   public Vector<String> getFileNames() { return fileNames; }
+
+   private void listSelectionChanged() {
+      System.out.println("SELECTION CHANGED "+fileList.getSelectedIndex());
+      if(fileList.getSelectedIndex()>=0) {
+         fileName.setEnabled(true);
+         fileName.setFileName(fileNames.get(fileList.getSelectedIndex()),false);
+         deleteButton.setEnabled(true);
+      } else {
+         fileName.setEnabled(false);
+         fileName.setFileName("",false);
+         deleteButton.setEnabled(false);
+      }
+   }
+
+   private void updatePanel() {
+      fileList.setListData(fileNames); // The easiest, though probably not most efficient, way of updating the list
+   }
+
+   //------------------------------------------------------------------------
+   // showDialog helper
+   //------------------------------------------------------------------------
+   static public Vector<String> showDialog(Vector<String> initialFileNames) {
+      // TODO: add file validator callback (FileTextFieldAndChooser needs this)
+      MultiFileSelectorPanel panel = new MultiFileSelectorPanel(initialFileNames);
       DialogDescriptor dlg = new DialogDescriptor(panel, "Edit File List");
       Object answer = DialogDisplayer.getDefault().notify(dlg);
+      if(answer==NotifyDescriptor.OK_OPTION) return panel.getFileNames();
+      else return null;
    }
-   
+
    /** This method is called from within the constructor to
     * initialize the form.
     * WARNING: Do NOT modify this code. The content of this method is
@@ -44,11 +88,28 @@ public class MultiFileSelectorPanel extends javax.swing.JPanel {
          public int getSize() { return strings.length; }
          public Object getElementAt(int i) { return strings[i]; }
       });
+      fileList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
       jScrollPane1.setViewportView(fileList);
 
+      fileName.addChangeListener(new javax.swing.event.ChangeListener() {
+         public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            fileNameStateChanged(evt);
+         }
+      });
+
       addButton.setText("Add");
+      addButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            addButtonActionPerformed(evt);
+         }
+      });
 
       deleteButton.setText("Delete");
+      deleteButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            deleteButtonActionPerformed(evt);
+         }
+      });
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
@@ -80,12 +141,33 @@ public class MultiFileSelectorPanel extends javax.swing.JPanel {
                   .add(addButton)
                   .add(0, 0, 0)
                   .add(deleteButton))
-               .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+               .add(jScrollPane1))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(fileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void fileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_fileNameStateChanged
+      System.out.println("STATE CHANGED "+fileList.getSelectedIndex());
+      if(fileList.getSelectedIndex()>=0) {
+         fileNames.set(fileList.getSelectedIndex(), fileName.getFileName());
+         updatePanel();
+      }
+   }//GEN-LAST:event_fileNameStateChanged
+
+   private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+      if(fileList.getSelectedIndex()>=0) {
+         fileNames.remove(fileList.getSelectedIndex());
+         updatePanel();
+      }
+   }//GEN-LAST:event_deleteButtonActionPerformed
+
+   private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+      fileNames.add("Unassigned");
+      updatePanel();
+      fileList.setSelectedIndex(fileNames.size()-1);
+   }//GEN-LAST:event_addButtonActionPerformed
    
    
    // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -45,6 +45,12 @@ public class AbstractToolModel extends Observable {
    }
 
    public ArrayStr getActuatorSetFiles() { return tool.getActuatorSetFiles(); }
+   public void setActuatorSetFiles(ArrayStr files) {
+      if(!getActuatorSetFiles().arrayEquals(files)) {
+         tool.setActuatorSetFiles(files);
+         setModified(Operation.ActuatorsDataChanged);
+      }
+   }
 
    public AnalysisSet getAnalysisSet() { return tool.getAnalysisSet(); }
 

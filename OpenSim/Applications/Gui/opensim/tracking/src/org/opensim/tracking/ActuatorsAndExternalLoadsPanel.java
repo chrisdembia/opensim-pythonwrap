@@ -9,11 +9,13 @@ package org.opensim.tracking;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Model;
 import org.opensim.swingui.ComponentTitledBorder;
@@ -336,8 +338,27 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       );
    }// </editor-fold>//GEN-END:initComponents
 
+   //------------------------------------------------------------------------
+   // Vector<String> <-> ArrayStr conversion utilities
+   //------------------------------------------------------------------------
+   // TODO: add these to java-wrapped ArrayStr class
+   private static Vector<String> toVector(ArrayStr array) {
+      Vector<String> vector = new Vector<String>(array.getSize());
+      for(int i=0; i<array.getSize(); i++) vector.add(array.getitem(i));
+      return vector;
+   }
+   
+   private static ArrayStr toArrayStr(Vector<String> vector) {
+      ArrayStr array = new ArrayStr();
+      array.setSize(vector.size());
+      for(int i=0; i<vector.size(); i++) array.set(i, vector.get(i));
+      return array;
+   }
+
    private void editActuatorSetFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActuatorSetFilesActionPerformed
-      MultiFileSelectorPanel.showDialog();
+      Vector<String> actuatorSetFiles = toolModel.getActuatorSetFiles().toVector();
+      Vector<String> result = MultiFileSelectorPanel.showDialog(actuatorSetFiles);
+      if(result!=null) toolModel.setActuatorSetFiles(ArrayStr.fromVector(result));
    }//GEN-LAST:event_editActuatorSetFilesActionPerformed
 
    private void externalLoadsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_externalLoadsFileNameStateChanged
