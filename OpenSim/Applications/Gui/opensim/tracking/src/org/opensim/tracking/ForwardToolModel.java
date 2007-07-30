@@ -2,14 +2,19 @@ package org.opensim.tracking;
 
 import java.io.File;
 import java.io.IOException;
-import javax.swing.SwingUtilities;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
+import org.openide.awt.StatusDisplayer;
 import org.openide.util.Cancellable;
 import org.opensim.modeling.ForwardTool;
 import org.opensim.modeling.InterruptingIntegCallback;
+import org.opensim.modeling.Kinematics;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.JavaMotionDisplayerCallback;
+import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
@@ -23,6 +28,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       private ProgressHandle progressHandle = null;
       private JavaMotionDisplayerCallback animationCallback = null;
       private InterruptingIntegCallback interruptingCallback = null;
+      private Kinematics kinematicsAnalysis = null; // For creating a storage we'll use as a motion
       boolean result = false;
       boolean promptToKeepPartialResult = true;
      
@@ -69,6 +75,12 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
          getModel().addIntegCallback(interruptingCallback);
 
+         // Kinematics analysis
+         kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
+         kinematicsAnalysis.setRecordAccelerations(false);
+         kinematicsAnalysis.setInDegrees(false);
+         getModel().addAnalysis(kinematicsAnalysis);
+
          setExecuting(true);
       }
 
@@ -87,6 +99,25 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       }
 
       public void finished() {
+         boolean processResults = result;
+         if(!result && promptToKeepPartialResult) {
+            Object answer = DialogDisplayer.getDefault().notify(new NotifyDescriptor.Confirmation("Forward integration did not complete.  Keep partial result?",NotifyDescriptor.YES_NO_OPTION));
+            if(answer==NotifyDescriptor.YES_OPTION) processResults = true;
+         }
+
+         if(processResults) {
+            Storage motion = new Storage(kinematicsAnalysis.getPositionStorage());
+            MotionsDB.getInstance().addMotion(getModel(), motion);
+         }
+
+         // Remove the kinematics analysis before printing results, so its results won't be written to disk
+         getModel().removeAnalysis(kinematicsAnalysis);
+
+         // TODO: move this to a worker thread so as to not freeze the GUI if writing takes a while?
+         if(processResults) {
+            getTool().printResults();
+         }
+
          progressHandle.finish();
 
          // Clean up motion displayer (this is necessary!)
@@ -200,6 +231,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
    protected void updateTool() {
       super.updateTool();
+      getTool().setPrintResultFiles(false); // we'll manually write them out
    }
 
    protected void relativeToAbsolutePaths(String parentFileName) {

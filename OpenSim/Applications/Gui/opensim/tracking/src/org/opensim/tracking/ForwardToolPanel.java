@@ -85,6 +85,8 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       
       // Actuators & external loads
       actuatorsAndExternalLoadsPanel.updatePanel();
+
+      updateDialogButtons();
    }
 
    public void updateDialogButtons() {
