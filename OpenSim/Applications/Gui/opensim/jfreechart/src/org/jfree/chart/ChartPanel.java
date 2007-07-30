@@ -435,6 +435,8 @@ public class ChartPanel extends JPanel
     protected static ResourceBundle localizationResources 
         = ResourceBundle.getBundle("org.jfree.chart.LocalizationBundle");
 
+    protected boolean printToPrinter=true;
+
     /**
      * Constructs a panel that displays the specified chart.
      *
@@ -2120,7 +2122,7 @@ public class ChartPanel extends JPanel
     }
 
     /**
-     * Creates a print job for the chart.
+     * Creates a print job for the chart. Prints to printer
      */
     public void createChartPrintJob() {
 
@@ -2131,6 +2133,7 @@ public class ChartPanel extends JPanel
             job.setPrintable(this, pf2);
             if (job.printDialog()) {
                 try {
+                    printToPrinter=true;
                     job.print();
                 }
                 catch (PrinterException e) {
@@ -2197,7 +2200,7 @@ public class ChartPanel extends JPanel
                                          boolean print,
                                          boolean zoom) {
 
-        JPopupMenu result = new JPopupMenu("Chart:");
+        JPopupMenu result = new JPopupMenu("Plot");
         boolean separator = false;
 
         if (properties) {
@@ -2206,32 +2209,23 @@ public class ChartPanel extends JPanel
             propertiesItem.setActionCommand(PROPERTIES_COMMAND);
             propertiesItem.addActionListener(this);
             result.add(propertiesItem);
-            separator = true;
-        }
-
-        if (save) {
-            if (separator) {
-                result.addSeparator();
-                separator = false;
-            }
-            JMenuItem saveItem = new JMenuItem(
-                    localizationResources.getString("Save_as..."));
-            saveItem.setActionCommand(SAVE_COMMAND);
-            saveItem.addActionListener(this);
-            result.add(saveItem);
-            separator = true;
-        }
-
-        if (print) {
-            if (separator) {
-                result.addSeparator();
-                separator = false;
-            }
+            result.addSeparator();
             JMenuItem printItem = new JMenuItem(
                     localizationResources.getString("Print..."));
             printItem.setActionCommand(PRINT_COMMAND);
             printItem.addActionListener(this);
             result.add(printItem);
+        }
+
+        if (save) {
+            JMenuItem saveItem = new JMenuItem(
+                    localizationResources.getString("Save_as..."));
+            saveItem.setActionCommand(SAVE_COMMAND);
+            saveItem.addActionListener(this);
+            result.add(saveItem);
+        }
+
+        if (print) {
             JMenuItem printPostScriptItem = new JMenuItem(
                     localizationResources.getString("PrintPostScript..."));
             printPostScriptItem.setActionCommand(PRINT_POSTSCRIPT_COMMAND);
@@ -2405,7 +2399,7 @@ public class ChartPanel extends JPanel
 					flavor, psMimeType);
 		if (factories.length == 0) {
 			System.err.println("No suitable factories");
-			System.exit(0);
+			System.exit(0); // FIXME too
 		}
 
 		try {
@@ -2454,6 +2448,9 @@ public class ChartPanel extends JPanel
        double h = pf.getImageableHeight();
        this.chart.draw(g2, new Rectangle2D.Double(x, y, w, h), this.anchor,
                null);
+       
+       if (printToPrinter)  return PAGE_EXISTS;
+       // The rest should be moved up to the export eps action listener so it's not done per page'
        // Show export dialog
        JFileChooser fileChooser = new JFileChooser();
        ExtensionFileFilter filter = new ExtensionFileFilter(
@@ -2470,6 +2467,7 @@ public class ChartPanel extends JPanel
           } else
              return NO_SUCH_PAGE;
        }
+        
        try {
           OutputStream out = new java.io.FileOutputStream(new File(filename));
           out = new java.io.BufferedOutputStream(out);
