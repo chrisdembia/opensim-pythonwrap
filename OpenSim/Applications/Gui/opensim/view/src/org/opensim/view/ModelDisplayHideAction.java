@@ -18,7 +18,7 @@ public final class ModelDisplayHideAction extends CallableSystemAction {
     public void performAction() {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         ConcreteModelNode modelNode = (ConcreteModelNode) selected[0];
-        ViewDB.getInstance().toggleModelDisplay(modelNode.getModel());
+        ViewDB.getInstance().toggleModelDisplay(modelNode.getModel(), false);
     }
     
     public String getName() {

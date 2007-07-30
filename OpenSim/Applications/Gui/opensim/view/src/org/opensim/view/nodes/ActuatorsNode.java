@@ -40,19 +40,19 @@ import org.opensim.modeling.ActuatorSet;
  *
  * Top level Actuators node in Navigator view
  */
-public class ActuatorsNode extends OpenSimObjectNode {
+public class ActuatorsNode extends OpenSimObjectSetNode {
    
    private static ResourceBundle bundle = NbBundle.getBundle(ActuatorsNode.class);
    /**
     * Creates a new instance of ActuatorsNode
     */
-   public ActuatorsNode(ActuatorSet as) {
-      super(as);
+   public ActuatorsNode(ActuatorSet as, Class classOfSetMembers) {
+      super(as, classOfSetMembers);
       setDisplayName(NbBundle.getMessage(ActuatorsNode.class, "CTL_Actuators"));
-      getChildren().add(new Node[] {new MusclesNode(as)});
-      getChildren().add(new Node[] {new ForcesNode(as)});
-      getChildren().add(new Node[] {new TorquesNode(as)});
-      getChildren().add(new Node[] {new GeneralizedForcesNode(as)});
+      getChildren().add(new Node[] {new MusclesNode(as, classOfSetMembers)});
+      getChildren().add(new Node[] {new ForcesNode(as, classOfSetMembers)});
+      getChildren().add(new Node[] {new TorquesNode(as, classOfSetMembers)});
+      getChildren().add(new Node[] {new GeneralizedForcesNode(as, classOfSetMembers)});
    }
    /**
     * Display name

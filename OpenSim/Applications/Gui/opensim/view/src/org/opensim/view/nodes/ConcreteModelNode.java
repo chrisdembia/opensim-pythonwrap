@@ -14,10 +14,16 @@ public class ConcreteModelNode extends OpenSimObjectNode {
 
     public ConcreteModelNode(Model m) {
         super(m);
-        
-        getChildren().add(new Node[] {new BodiesNode(m.getDynamicsEngine().getBodySet())});
-        getChildren().add(new Node[] {new ActuatorsNode(m.getActuatorSet())});
-        getChildren().add(new Node[] {new JointsNode(m.getDynamicsEngine().getJointSet())});
+        try {
+            getChildren().add(new Node[] {new BodiesNode(m.getDynamicsEngine().getBodySet(), 
+                                Class.forName("org.opensim.modeling.AbstractBody"))});
+            getChildren().add(new Node[] {new ActuatorsNode(m.getActuatorSet(), 
+                                Class.forName("org.opensim.modeling.AbstractActuator"))});
+            getChildren().add(new Node[] {new JointsNode(m.getDynamicsEngine().getJointSet(),
+                                Class.forName("org.opensim.modeling.AbstractJoint"))});
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
    }
     public Model getModel()
     {
@@ -31,20 +37,14 @@ public class ConcreteModelNode extends OpenSimObjectNode {
         Action[] classSpecificActions=null;
         try {
             classSpecificActions = new Action[]{
-                (ModelCloseSelectedAction) ModelDisplayEditAction.findObject(
-                        Class.forName("org.opensim.view.nodes.ModelCloseSelectedAction"), true),
-                (ModelDisplayEditAction) ModelDisplayEditAction.findObject(
-                        Class.forName("org.opensim.view.ModelDisplayEditAction"), true),
-                (ModelDisplayHideAction) ModelDisplayHideAction.findObject(
-                        Class.forName("org.opensim.view.ModelDisplayHideAction"), true),
-                (ModelDisplayShowAction) ModelDisplayShowAction.findObject(
-                        Class.forName("org.opensim.view.ModelDisplayShowAction"), true),
-                (IsolateCurrentModelAction) IsolateCurrentModelAction.findObject(
-                        Class.forName("org.opensim.view.nodes.IsolateCurrentModelAction"), true),
-                (ModelInfoAction) ModelInfoAction.findObject(
-                        Class.forName("org.opensim.view.nodes.ModelInfoAction"), true),
                 (ModelMakeCurrentAction) ModelMakeCurrentAction.findObject(
                         Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true),
+                (ModelDisplayMenuAction) ModelDisplayMenuAction.findObject(
+                        Class.forName("org.opensim.view.ModelDisplayMenuAction"), true),
+                (ModelInfoAction) ModelInfoAction.findObject(
+                        Class.forName("org.opensim.view.nodes.ModelInfoAction"), true),
+                (ModelCloseSelectedAction) ModelDisplayEditAction.findObject(
+                        Class.forName("org.opensim.view.nodes.ModelCloseSelectedAction"), true),
                 
             };
         }

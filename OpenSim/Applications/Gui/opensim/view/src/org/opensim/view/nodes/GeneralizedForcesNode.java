@@ -44,14 +44,14 @@ import org.opensim.modeling.ObjectGroup;
  *
  * GeneralizedForces node (under Actuators) in Navigator view
  */
-public class GeneralizedForcesNode extends OpenSimObjectNode {
+public class GeneralizedForcesNode extends OpenSimObjectSetNode {
    
    private static ResourceBundle bundle = NbBundle.getBundle(GeneralizedForcesNode.class);
    /**
     * Creates a new instance of GeneralizedForcesNode
     */
-   public GeneralizedForcesNode(ActuatorSet as) {
-      super(as);
+   public GeneralizedForcesNode(ActuatorSet as, Class classOfSetMembers) {
+      super(as, classOfSetMembers);
       setDisplayName(NbBundle.getMessage(GeneralizedForcesNode.class, "CTL_GeneralizedForces"));
       Children children = getChildren();
       int numGeneralizedForceGroups = countGeneralizedForceGroups(as);

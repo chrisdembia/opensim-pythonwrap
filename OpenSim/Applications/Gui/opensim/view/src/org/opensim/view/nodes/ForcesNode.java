@@ -44,14 +44,14 @@ import org.opensim.modeling.OpenSimObject;
  *
  * Forces node (under Actuators) in Navigator view
  */
-public class ForcesNode extends OpenSimObjectNode {
+public class ForcesNode extends OpenSimObjectSetNode {
    
    private static ResourceBundle bundle = NbBundle.getBundle(ForcesNode.class);
    /**
     * Creates a new instance of ForcesNode
     */
-   public ForcesNode(ActuatorSet as) {
-      super(as);
+   public ForcesNode(ActuatorSet as, Class classOfSetMembers) {
+      super(as, classOfSetMembers);
       setDisplayName(NbBundle.getMessage(ForcesNode.class, "CTL_Forces"));
       Children children = getChildren();
       int numForceGroups = countForceGroups(as);

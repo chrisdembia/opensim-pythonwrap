@@ -1,14 +1,26 @@
 package org.opensim.view;
 
+import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.nodes.OpenSimObjectNode;
+import org.opensim.view.nodes.OpenSimObjectSetNode;
 import org.opensim.view.pub.ViewDB;
 
 public final class ObjectDisplayShowOnlyAction extends CallableSystemAction {
+   
+   public boolean isEnabled() {
+      Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+      if (selected.length==0) return false;
+      Object  parent = selected[0].getParentNode();
+      boolean sameParent=true;
+      for(int i=0; i < selected.length && sameParent; i++){
+          sameParent = (selected[i].getParentNode().equals(parent));
+      }
+      return sameParent;
+   }
    
    public void performAction() {
       // TODO implement action body
@@ -18,14 +30,29 @@ public final class ObjectDisplayShowOnlyAction extends CallableSystemAction {
       // makes it impossible to show selected node. This sitution is handled by overriding the behavior
       // in appropriate nodes.
       for(int i=0; i < selected.length; i++){
+         if (!(selected[i] instanceof OpenSimObjectNode))
+                continue;
+         
          OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
          Object  parent = objectNode.getParentNode();
          if (parent instanceof OpenSimObjectNode){
             OpenSimObjectNode parentNode = (OpenSimObjectNode) parent;
-            ViewDB.getInstance().toggleObjectsDisplay(parentNode.getOpenSimObject(), false);
+            if (parentNode instanceof OpenSimObjectSetNode){
+                OpenSimObjectSetNode setNode=(OpenSimObjectSetNode) parentNode;
+                Children children=setNode.getChildren();
+                Node[] childNodes = children.getNodes();
+                for(int j=0; j<childNodes.length; j++){
+                    OpenSimObjectNode n = (OpenSimObjectNode) childNodes[j];
+                    ViewDB.getInstance().toggleObjectsDisplay(n.getOpenSimObject(), false);                    
+                }
+            }
+            else
+                ViewDB.getInstance().toggleObjectsDisplay(parentNode.getOpenSimObject(), false);
          }
       }
       for(int i=0; i < selected.length; i++){
+         if (!(selected[i] instanceof OpenSimObjectNode))
+                continue;
          OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
          ViewDB.getInstance().toggleObjectDisplay(objectNode.getOpenSimObject(), true);
       }

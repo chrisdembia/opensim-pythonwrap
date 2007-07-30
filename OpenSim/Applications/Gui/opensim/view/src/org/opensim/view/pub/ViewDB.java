@@ -341,13 +341,16 @@ public final class ViewDB extends Observable implements Observer {
     * Helper function to implement model hide/show.
     *
     */
-   public void toggleModelDisplay(Model model) {
+   public void toggleModelDisplay(Model model, boolean onOff) {
       SingleModelVisuals modelVis = mapModelsToVisuals.get(model);
-      modelVis.setVisible(!modelVis.isVisible());
-      if (modelVis.isVisible())
+      if (!modelVis.isVisible() && onOff){
          sceneAssembly.AddPart(modelVis.getModelDisplayAssembly());
-      else
+         modelVis.setVisible(true);
+      }
+      else if (modelVis.isVisible() && !onOff) {
          sceneAssembly.RemovePart(modelVis.getModelDisplayAssembly());
+         modelVis.setVisible(false);
+      }
       repaintAll();
    }
    /**
@@ -401,7 +404,7 @@ public final class ViewDB extends Observable implements Observer {
    public void adjustModelDisplayOffset(Model abstractModel) {
       // Show dialog for model display ajdustment
       final ModelDisplayOffsetJPanel p = new ModelDisplayOffsetJPanel(abstractModel);
-      DialogDescriptor desc = new DialogDescriptor(p, "Model offset control", false, new ActionListener() {
+      DialogDescriptor desc = new DialogDescriptor(p, "Model Offset", false, new ActionListener() {
 
          public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equalsIgnoreCase("Cancel"))
@@ -758,6 +761,7 @@ public final class ViewDB extends Observable implements Observer {
             toggleObjectDisplay(members.get(i), visible);
          }
       } else {
+          /*
           // If a set
           if (openSimObject.getType().endsWith("Set")){
               // use getSize, getItem by reflection
@@ -780,9 +784,10 @@ public final class ViewDB extends Observable implements Observer {
                 catch (Exception e) {
                     e.printStackTrace();  
                 }
-          }
-          else
+          } 
+          else */
          toggleObjectDisplay(openSimObject, visible);
+           
       }
    }
 
@@ -1017,18 +1022,14 @@ public final class ViewDB extends Observable implements Observer {
       Preferences.userNodeForPackage(TheApp.class).get("NonCurrentModelOpacity", String.valueOf(nonCurrentModelOpacity));
    }
    /**
-    * Show only the passed in model and hide all otehrs.
+    * Show only the passed in model and hide all others.
     */
    public void isolateModel(Model openSimModel) {
       Enumeration<Model> models=mapModelsToVisuals.keys();
       while(models.hasMoreElements()){
          Model next = models.nextElement();
          SingleModelVisuals vis = mapModelsToVisuals.get(next);
-         sceneAssembly.RemovePart(vis.getModelDisplayAssembly());
-         if (openSimModel==next){
-            vis.setVisible(true);
-            sceneAssembly.AddPart(vis.getModelDisplayAssembly());
-}
+         toggleModelDisplay(next, (openSimModel==next));
       }
       repaintAll();
    }

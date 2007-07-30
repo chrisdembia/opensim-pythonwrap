@@ -27,6 +27,9 @@ public final class ObjectDisplayHideAction extends CallableSystemAction {
        // The "hide" option is enabled unless every selected node is hidden.
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         for(int i=0; i < selected.length; i++){
+            
+          if (!(selected[i] instanceof OpenSimObjectNode))
+              continue;
             OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
             if (objectNode.getChildren().getNodesCount()>0)
                 return true;
@@ -40,6 +43,8 @@ public final class ObjectDisplayHideAction extends CallableSystemAction {
    public void performAction() {
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
       for(int i=0; i < selected.length; i++){
+          if (!(selected[i] instanceof OpenSimObjectNode))
+              continue;
          OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
             applyOperationToNode(objectNode);
       }
@@ -53,11 +58,14 @@ public final class ObjectDisplayHideAction extends CallableSystemAction {
             // apply action recursively
             Node[] childNodes=ch.getNodes();
             for(int child=0; child < childNodes.length ; child++){
+                if (!(childNodes[child] instanceof OpenSimObjectNode))
+                    continue;
                OpenSimObjectNode childNode = (OpenSimObjectNode) childNodes[child];
                applyOperationToNode(childNode);
             }
         }
-        ViewDB.getInstance().toggleObjectsDisplay(obj, false);
+        else
+            ViewDB.getInstance().toggleObjectsDisplay(obj, false);
     }
     
     public String getName() {

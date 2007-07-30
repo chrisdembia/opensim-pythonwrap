@@ -13,7 +13,7 @@ public final class ObjectDisplaySurfaceFlatAction extends ObjectDisplayChangeRep
     }
     
     public String getName() {
-        return "Surface -flat";
+        return "Flat-Shaded";
     }
     
     protected void initialize() {

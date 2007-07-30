@@ -30,7 +30,7 @@ public final class ObjectGenericReviewAction  extends CallableSystemAction {
    }
    
    public String getName() {
-      return "Review";
+      return "Property Viewer";
    }
    
    protected void initialize() {

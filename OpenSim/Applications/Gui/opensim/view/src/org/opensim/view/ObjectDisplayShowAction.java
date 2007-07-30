@@ -10,6 +10,7 @@ import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.nodes.OpenSimObjectNode;
+import org.opensim.view.nodes.OpenSimObjectSetNode;
 import org.opensim.view.pub.ViewDB;
 
 public final class ObjectDisplayShowAction extends CallableSystemAction {
@@ -27,6 +28,8 @@ public final class ObjectDisplayShowAction extends CallableSystemAction {
        // The "show" option is enabled unless every selected node is shown.
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
         for(int i=0; i < selected.length; i++){
+            if (!(selected[i] instanceof OpenSimObjectNode))
+                continue;
             OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
             if (objectNode.getChildren().getNodesCount()>0)
                 return true;
@@ -40,8 +43,10 @@ public final class ObjectDisplayShowAction extends CallableSystemAction {
     public void performAction() {
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
       for(int i=0; i < selected.length; i++){
+         if (!(selected[i] instanceof OpenSimObjectNode))
+                continue;
          OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
-            applyOperationToNode(objectNode);
+         applyOperationToNode(objectNode);
       }
       ViewDB.getInstance().repaintAll();
     }
@@ -53,11 +58,14 @@ public final class ObjectDisplayShowAction extends CallableSystemAction {
             // apply action recursively
             Node[] childNodes=ch.getNodes();
             for(int child=0; child < childNodes.length ; child++){
+                if (!(childNodes[child] instanceof OpenSimObjectNode))
+                    continue;
                OpenSimObjectNode childNode = (OpenSimObjectNode) childNodes[child];
                applyOperationToNode(childNode);
             }
         }
-        ViewDB.getInstance().toggleObjectsDisplay(obj, true);
+        else
+            ViewDB.getInstance().toggleObjectsDisplay(obj, true);
     }
     
     public String getName() {

@@ -44,14 +44,14 @@ import org.opensim.modeling.ObjectGroup;
  *
  * Torques node (under Actuators) in Navigator view
  */
-public class TorquesNode extends OpenSimObjectNode {
+public class TorquesNode extends OpenSimObjectSetNode {
    
    private static ResourceBundle bundle = NbBundle.getBundle(TorquesNode.class);
    /**
     * Creates a new instance of TorquesNode
     */
-   public TorquesNode(ActuatorSet as) {
-      super(as);
+   public TorquesNode(ActuatorSet as, Class classOfSetMembers) {
+      super(as, classOfSetMembers);
       setDisplayName(NbBundle.getMessage(TorquesNode.class, "CTL_Torques"));
       Children children = getChildren();
       int numTorqueGroups = countTorqueGroups(as);

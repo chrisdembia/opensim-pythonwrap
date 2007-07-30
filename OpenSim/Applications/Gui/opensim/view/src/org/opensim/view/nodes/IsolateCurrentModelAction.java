@@ -10,10 +10,19 @@ import org.opensim.view.pub.ViewDB;
 
 public final class IsolateCurrentModelAction extends CallableSystemAction {
    
+    public boolean isEnabled() {
+       // The "show" option is enabled unless every selected node is shown.
+        Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+        return  ((selected.length == 1) &&
+           (selected[0] instanceof ConcreteModelNode));
+    }
+    
    public void performAction() {
       // TODO implement action body
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
-      // Action shouldn't be available otherwise'
+      // Action shouldn't be available otherwise
+      if ((selected.length != 1) ||
+         (!(selected[0] instanceof ConcreteModelNode))) return;
       ConcreteModelNode modelNode = (ConcreteModelNode) selected[0];
       Model mdl = modelNode.getModel();
       ViewDB.getInstance().isolateModel(mdl);

@@ -22,8 +22,8 @@ public final class ModelInfoAction extends CallableSystemAction {
         dlg.setModelName(mdl.getName());
         dlg.setModelFile(mdl.getInputFileName());
         dlg.setAuthors(
-                "Bart, Homer and Maggi Simpson.");
-        dlg.setReferences("IEEE TBME, vol. 37, pp. 757-767, 1990.");
+                "Model developed by..");
+        dlg.setReferences("Reference:IEEE TBME, vol. vv, pp. 1-2, 2000.");
         dlg.setVisible(true);
     }
     

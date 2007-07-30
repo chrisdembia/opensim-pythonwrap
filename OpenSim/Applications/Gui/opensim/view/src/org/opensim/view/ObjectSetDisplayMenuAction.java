@@ -1,14 +1,14 @@
 package org.opensim.view;
 
 import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import org.openide.util.HelpCtx;
 import org.openide.util.actions.CallableSystemAction;
 import org.openide.util.actions.Presenter;
+import org.opensim.view.nodes.IsolateCurrentModelAction;
 
-public final class ObjectDisplayMenuAction extends CallableSystemAction implements Presenter.Popup {
+public final class ObjectSetDisplayMenuAction extends CallableSystemAction implements Presenter.Popup {
     
     public boolean isEnabled() {
         return true;
@@ -40,22 +40,9 @@ public final class ObjectDisplayMenuAction extends CallableSystemAction implemen
                  (ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
                  Class.forName("org.opensim.view.ObjectDisplayShowAction"), true)));
          displayMenu.add(new JMenuItem(
-                 (ObjectDisplayShowOnlyAction) ObjectDisplayShowOnlyAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayShowOnlyAction"), true)));
-         displayMenu.add(new JMenuItem(
                  (ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(
                  Class.forName("org.opensim.view.ObjectDisplayHideAction"), true)));
-         displayMenu.addSeparator();
-         displayMenu.add(new JMenuItem(
-                 (ObjectDisplaySurfaceFlatAction) ObjectDisplaySurfaceFlatAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplaySurfaceFlatAction"), true)));
-         displayMenu.add(new JMenuItem(
-                 (ObjectDisplaySurfaceGouraudAction) ObjectDisplaySurfaceGouraudAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplaySurfaceGouraudAction"), true)));
-         displayMenu.add(new JMenuItem(
-                 (ObjectDisplayWireframeAction) ObjectDisplayWireframeAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayWireframeAction"), true)));
-       } catch (ClassNotFoundException ex) {
+      } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
       }     
          

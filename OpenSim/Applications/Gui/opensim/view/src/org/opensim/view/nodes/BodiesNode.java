@@ -26,12 +26,12 @@ import org.opensim.modeling.Model;
 /**
  * Node class to wrap Model's collection of SimmBodies
  */
-public class BodiesNode extends OpenSimObjectNode {
+public class BodiesNode extends OpenSimObjectSetNode {
     boolean topological=false;
     private static ResourceBundle bundle = NbBundle.getBundle(BodiesNode.class);
 
-    public BodiesNode(BodySet bodySet) {
-        super(bodySet);
+    public BodiesNode(BodySet bodySet, Class classOfSetMembers) {
+        super(bodySet, classOfSetMembers);
          
         //Stack<OneBodyNode> stack = new Stack<OneBodyNode>();
 
@@ -96,7 +96,4 @@ public class BodiesNode extends OpenSimObjectNode {
         return "Bodies";
     }
     
-    public Node cloneNode() {
-        return new BodiesNode((BodySet)getOpenSimObject());
-    }
 } // class BodiesNode

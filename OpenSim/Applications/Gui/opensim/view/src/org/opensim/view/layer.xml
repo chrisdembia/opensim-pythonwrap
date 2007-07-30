@@ -41,6 +41,9 @@
             <file name="org-opensim-view-nodes-ModelCloseSelectedAction.instance"/>
             <file name="org-opensim-view-FileSaveAsModelAction.instance"/>
             </folder>
+        <folder name="Help">
+            <file name="org-opensim-view-HelpTutorialsAction.instance"/>
+        </folder>
         <folder name="Window">
             <file name="org-netbeans-core-actions-ViewRuntimeTabAction.instance_hidden"/>
             <file name="org-opensim-view-BottomPanelAction.instance"/>
@@ -172,12 +175,17 @@
             <file name="org-netbeans-core-actions-HTMLViewAction.instance_hidden"/>
         </folder>
         <folder name="Help">
-           <file name="master-help.xml" url="master-help.xml"/>
-           <file name="master-help.xml_hidden"/>
-
            <file name="org-netbeans-core-actions-AboutAction.instance"/>
-
            <attr name="org-netbeans-core-actions-AboutAction.instance/org-opensim-swingui-separatorBefore.instance" boolvalue="true"/>
+
+           <attr name="Separator1.instance/org-opensim-view-TutorialsAction.shadow" boolvalue="true"/>
+
+           <file name="org-opensim-view-TutorialsAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Help/org-opensim-view-HelpTutorialsAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-TutorialsAction.shadow/master-help.xml" boolvalue="true"/>
+            <file name="master-help.xml" url="master-help.xml"/>
+            <file name="master-help.xml_hidden"/>
         </folder>
 
         <attr name="File/Edit" boolvalue="true"/>

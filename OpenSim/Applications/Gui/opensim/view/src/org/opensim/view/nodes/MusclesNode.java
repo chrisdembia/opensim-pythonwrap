@@ -46,14 +46,14 @@ import org.opensim.view.ObjectDisplayMenuAction;
  *
  * Muscles node (under Actuators) in Navigator view
  */
-public class MusclesNode extends OpenSimObjectNode {
+public class MusclesNode extends OpenSimObjectSetNode {
    
    private static ResourceBundle bundle = NbBundle.getBundle(MusclesNode.class);
    /**
     * Creates a new instance of MusclesNode
     */
-   public MusclesNode(ActuatorSet as) {
-      super(as);
+   public MusclesNode(ActuatorSet as, Class classOfSetMembers) {
+      super(as, classOfSetMembers);
       setDisplayName(NbBundle.getMessage(MusclesNode.class, "CTL_Muscles"));
       Children children = getChildren();
       int numMuscleGroups = countMuscleGroups(as);

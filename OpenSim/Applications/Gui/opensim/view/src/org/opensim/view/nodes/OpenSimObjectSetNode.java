@@ -1,6 +1,6 @@
 /*
  *
- * OpenSimObjectNode
+ * OpenSimObjectSetNode
  * Author(s): Ayman Habib
  * Copyright (c) 2005-2006, Stanford University, Ayman Habib
  *
@@ -25,24 +25,26 @@
  */
 package org.opensim.view.nodes;
 
-import java.util.ArrayList;
 import javax.swing.Action;
 import org.opensim.modeling.OpenSimObject;
-import org.opensim.view.ObjectDisplayMenuAction;
 import org.opensim.view.ObjectGenericReviewAction;
+import org.opensim.view.ObjectSetDisplayMenuAction;
 
 /**
  *
  * @author Ayman. A node backed by an OpenSim Object 
  * (or a Set as a set is also an Object)
  */
-public class OpenSimObjectNode extends OpenSimNode {
+public class OpenSimObjectSetNode extends OpenSimObjectNode {
     
     private OpenSimObject openSimObject;
+    private Class setMemberClass;
     
     /** Creates a new instance of OpenSimObjectNode */
-    public OpenSimObjectNode(OpenSimObject obj) {
+    public OpenSimObjectSetNode(OpenSimObject obj, Class setMemberClass) {
+        super(obj);
        this.openSimObject = obj;
+       this.setMemberClass=setMemberClass;
         setDisplayName(obj.getName());
      }
     /**
@@ -69,8 +71,8 @@ public class OpenSimObjectNode extends OpenSimNode {
       try {
          objectNodeActions = new Action[]  {getReviewAction(), 
                                           null, 
-                                          (ObjectDisplayMenuAction) ObjectDisplayMenuAction.findObject(
-                 Class.forName("org.opensim.view.ObjectDisplayMenuAction"), true)};
+                                          (ObjectSetDisplayMenuAction) ObjectSetDisplayMenuAction.findObject(
+                 Class.forName("org.opensim.view.ObjectSetDisplayMenuAction"), true)};
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
          objectNodeActions = new Action[] {null};
@@ -94,5 +96,9 @@ public class OpenSimObjectNode extends OpenSimNode {
       }
       return act;
    }
+
+    public Class getSetMemberClass() {
+        return setMemberClass;
+    }
 
 }

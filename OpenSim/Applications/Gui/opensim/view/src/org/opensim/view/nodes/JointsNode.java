@@ -42,15 +42,15 @@ import org.opensim.modeling.JointSet;
  *
  * Top level Joints node in Navigator view
  */
-public class JointsNode extends OpenSimObjectNode {
+public class JointsNode extends OpenSimObjectSetNode {
     
     private static ResourceBundle bundle = NbBundle.getBundle(JointsNode.class);
     
    /**
     * Creates a new instance of JointsNode
     */
-   public JointsNode(JointSet js) {
-      super(js);
+   public JointsNode(JointSet js, Class classOfSetMembers) {
+      super(js, classOfSetMembers);
       setDisplayName(NbBundle.getMessage(JointsNode.class, "CTL_Joints"));
       Children children = getChildren();
       for (int i=0; i < js.getSize(); i++ ) {
