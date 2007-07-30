@@ -373,6 +373,7 @@ public class OpenSimObjectModel
       else if (property instanceof Property) {
         Property.PropertyType propType = ( (Property) property).getType();
         if (propType == Property.PropertyType.Obj ||
+            propType == Property.PropertyType.ObjPtr ||
             propType == Property.PropertyType.BoolArray ||
             propType == Property.PropertyType.IntArray ||
             propType == Property.PropertyType.FltArray ||
@@ -478,8 +479,10 @@ public class OpenSimObjectModel
         else if (property instanceof Property) {
           Property rdprop = (Property) property;
           Property.PropertyType propType = rdprop.getType();
-          if (propType == Property.PropertyType.Obj) {
-            OpenSimObject childObj = (OpenSimObject) rdprop.getValueObj();
+          if (propType == Property.PropertyType.Obj || propType == Property.PropertyType.ObjPtr) {
+             boolean objPtr=(propType == Property.PropertyType.ObjPtr);
+            OpenSimObject childObj = (objPtr)?(OpenSimObject) rdprop.getValueObjPtr():(OpenSimObject) rdprop.getValueObj();
+            if (childObj==null) return EMPTY_CHILDREN;
             PropertySet props = ( (OpenSimObject) childObj).getPropertySet();
             retArray = new PropertyNode[props.getSize()];
             for (int i = 0; i < props.getSize(); i++) {
