@@ -25,14 +25,17 @@
  */
 package org.opensim.plotter;
 
+import java.awt.Paint;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RectangleEdge;
 
 /**
  *
@@ -45,6 +48,7 @@ public class Plot {
    String         xLabel, yLabel;
    JFreeChart     dChart=null;
    private boolean        enableToolTips; // Normally on but for dynamic plots while updating
+   Paint nextPaint;
    /**
     * Creates a new instance of Plot
     */
@@ -65,8 +69,12 @@ public class Plot {
               false);
       
       chartPanel = new ChartPanel(dChart);
-      
+      // Move Legend
+      LegendTitle legendTitle=dChart.getLegend();
+      legendTitle.setPosition(RectangleEdge.RIGHT);
+
       XYPlot plot = (XYPlot) dChart.getPlot();
+      nextPaint = plot.getDrawingSupplier().getNextPaint();
       plot.setDomainCrosshairVisible(true);
       plot.setRangeCrosshairVisible(true);
       
