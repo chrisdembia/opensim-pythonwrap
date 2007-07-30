@@ -29,6 +29,11 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
       initComponents();
 
       outputDirectory.setIncludeOpenButton(true);
+      outputDirectory.setDirectoriesOnly(true);
+
+      controlsFileName.setExtensionsAndDescription(".xml", "Controls input data for forward integration");
+      initialStatesFileName.setExtensionsAndDescription(".sto", "States data for forward integration");
+
       setSettingsFileDescription("Forward tool settings file");
 
       actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel(toolModel, toolModel.getOriginalModel());

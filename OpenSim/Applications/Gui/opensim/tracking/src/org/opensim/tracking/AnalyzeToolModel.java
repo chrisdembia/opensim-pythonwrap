@@ -10,6 +10,7 @@ import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
+import org.opensim.modeling.InverseDynamics;
 import org.opensim.motionviewer.JavaMotionDisplayerCallback;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
@@ -110,18 +111,30 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
    
    private Model originalModel = null;
+   private boolean inverseDynamicsMode = false;
 
    enum InputSource { Motion, States, Coordinates, Unspecified };
    private InputSource inputSource = InputSource.Unspecified;
    private Storage inputMotion = null;
    private boolean loadSpeeds = false;
 
-   public AnalyzeToolModel(Model model) throws IOException {
+   public AnalyzeToolModel(Model model, boolean inverseDynamicsMode) throws IOException {
       super(null);
 
       this.originalModel = model;
+      this.inverseDynamicsMode = inverseDynamicsMode;
 
       setTool(new AnalyzeTool());
+
+      // By default, set prefix of output to be subject name
+      getTool().setName(model.getName());
+
+      // In inverse dynamics mode, initialize with an inverse dynamics analysis
+      if(inverseDynamicsMode) {
+         InverseDynamics inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy()); // C++-side copy
+         inverseDynamicsAnalysis.setUseModelActuatorSet(false);
+         getTool().getAnalysisSet().append(inverseDynamicsAnalysis);
+      }
 
       updateFromTool();
 
@@ -342,6 +355,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          ErrorDialog.displayIOExceptionDialog("Error loading file","Could not load "+fileName,ex);
          return false;
       }
+
+      // TODO: if in inverse dynamics mode and the file we read in does not appear to be an analysis with an inverse dynamics analysis, print error/warning
 
       setTool(newAnalyzeTool);
       relativeToAbsolutePaths(fileName);

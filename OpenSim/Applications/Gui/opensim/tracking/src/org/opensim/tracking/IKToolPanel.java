@@ -41,7 +41,7 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
       jTabbedPane.addTab("Weights", new IKTaskSetPanel(ikToolModel.getIKCommonModel()));
 
       markerFileName.setExtensionsAndDescription(".trc", "IK trial marker data");
-      coordinateFileName.setExtensionsAndDescription(".mot", "Coordinates of IK trial");
+      coordinateFileName.setExtensionsAndDescription(".mot,.sto", "Coordinates of IK trial");
   
       updateModelDataFromModel();
       updateFromModel();

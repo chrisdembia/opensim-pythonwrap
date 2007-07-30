@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -25,10 +26,12 @@ public class MultiFileSelectorPanel extends javax.swing.JPanel {
    DefaultListModel listModel = new DefaultListModel();
 
    /** Creates new form MultiFileSelectorPanel */
-   public MultiFileSelectorPanel(Vector<String> initialFileNames) {
+   public MultiFileSelectorPanel(Vector<String> initialFileNames, FileFilter fileFilter) {
       this.fileNames = initialFileNames;
 
       initComponents();
+
+      fileName.setFileFilter(fileFilter);
 
       fileList.setModel(listModel);
       for(int i=0; i<fileNames.size(); i++) listModel.addElement(fileNames.get(i));
@@ -39,12 +42,18 @@ public class MultiFileSelectorPanel extends javax.swing.JPanel {
             listSelectionChanged();
          }
       });
+
+      updatePanel();
    }
 
    public Vector<String> getFileNames() { return fileNames; }
 
    private void listSelectionChanged() {
       currentSelectedIndex = fileList.getSelectedIndex();
+      updatePanel();
+   }
+
+   private void updatePanel() {
       if(currentSelectedIndex>=0) {
          fileName.setEnabled(true);
          fileName.setFileName(fileNames.get(currentSelectedIndex),false);
@@ -59,9 +68,9 @@ public class MultiFileSelectorPanel extends javax.swing.JPanel {
    //------------------------------------------------------------------------
    // showDialog helper
    //------------------------------------------------------------------------
-   static public Vector<String> showDialog(Vector<String> initialFileNames) {
+   static public Vector<String> showDialog(Vector<String> initialFileNames, FileFilter fileFilter) {
       // TODO: add file validator callback (FileTextFieldAndChooser needs this)
-      MultiFileSelectorPanel panel = new MultiFileSelectorPanel(initialFileNames);
+      MultiFileSelectorPanel panel = new MultiFileSelectorPanel(initialFileNames, fileFilter);
       DialogDescriptor dlg = new DialogDescriptor(panel, "Edit File List");
       Object answer = DialogDisplayer.getDefault().notify(dlg);
       if(answer==NotifyDescriptor.OK_OPTION) return panel.getFileNames();

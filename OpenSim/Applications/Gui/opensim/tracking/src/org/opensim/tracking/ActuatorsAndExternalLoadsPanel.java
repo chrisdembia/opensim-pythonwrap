@@ -20,6 +20,7 @@ import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Model;
 import org.opensim.swingui.ComponentTitledBorder;
 import org.opensim.swingui.MultiFileSelectorPanel;
+import org.opensim.utils.FileUtils;
 
 /**
  *
@@ -43,6 +44,9 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       this.model = model;
 
       initComponents();
+
+      externalLoadsFileName.setExtensionsAndDescription(".mot,.sto", "External loads data");
+      externalLoadsModelKinematicsFileName.setExtensionsAndDescription(".mot,.sto", "Model kinematics for external loads"); 
 
       // Add checkbox titled borders to external loads panel
       externalLoadsPanelCheckBox.setForeground(new Color(0,70,213));
@@ -377,7 +381,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
 
    private void editActuatorSetFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActuatorSetFilesActionPerformed
       Vector<String> actuatorSetFiles = toolModel.getActuatorSetFiles().toVector();
-      Vector<String> result = MultiFileSelectorPanel.showDialog(actuatorSetFiles);
+      Vector<String> result = MultiFileSelectorPanel.showDialog(actuatorSetFiles, FileUtils.getFileFilter(".xml", "Actuator set file"));
       if(result!=null) toolModel.setActuatorSetFiles(ArrayStr.fromVector(result));
    }//GEN-LAST:event_editActuatorSetFilesActionPerformed
 

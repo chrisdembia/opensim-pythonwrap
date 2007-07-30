@@ -17,10 +17,10 @@ public final class InverseDynamicsToolAction extends CallableSystemAction {
       if(model==null) return;
 
       try {
-         final AnalyzeToolPanel panel = AnalyzeToolPanel.createInverseDynamicsPanel(model);
-         BaseToolPanel.openToolDialog(panel, "Analyze Tool");
+         final AnalyzeToolPanel panel = new AnalyzeToolPanel(model, true);
+         BaseToolPanel.openToolDialog(panel, "Inverse Dynamics Tool");
       } catch (IOException ex) {
-         ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing forward tool",ex);
+         ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing inverse dynamics tool",ex);
       }
    }
    

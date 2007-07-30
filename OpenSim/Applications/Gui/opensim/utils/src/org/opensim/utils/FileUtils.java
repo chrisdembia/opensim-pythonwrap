@@ -180,6 +180,28 @@ public final class FileUtils {
        return browseForFilenameToSave(FileUtils.getFileFilter(extensions, description), promptIfReplacing, currentFilename);
     }
 
+    public String browseForFolder()
+    {
+        // Init dialog to use "WorkDirectory" as thought of by user
+        String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
+        final JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        
+        String outFilename=null;
+        JFrame topFrame = TheApp.getAppFrame();
+        for (;;) {
+           int result = dlog.showOpenDialog(topFrame);
+           outFilename = null;
+           if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
+                outFilename = dlog.getSelectedFile().getAbsolutePath();
+
+           // TODO: prompt to create directory if it doesn't exist?
+           break;
+       }
+       if(outFilename != null) Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
+       return outFilename;
+    }
+
     /**
      * One common place to do the following common functions:
      * 1. Browse for a file using user's "workingDirectory" as initial dir.

@@ -21,19 +21,31 @@ import org.opensim.motionviewer.MotionsDB;
  * @author  erang
  */
 public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
-   
+  
+   private boolean inverseDynamicsMode = false;
    AnalyzeToolModel toolModel = null;
    ActuatorsAndExternalLoadsPanel actuatorsAndExternalLoadsPanel = null;
-   boolean internalTrigger = false;
+   private boolean internalTrigger = false;
 
    /** Creates new form AnalyzeToolPanel */
-   public AnalyzeToolPanel(Model model) throws IOException {
-      toolModel = new AnalyzeToolModel(model);
+   public AnalyzeToolPanel(Model model, boolean inverseDynamicsMode) throws IOException {
+      this.inverseDynamicsMode = inverseDynamicsMode;
+
+      toolModel = new AnalyzeToolModel(model, inverseDynamicsMode);
 
       initComponents();
 
+      // File chooser settings
       outputDirectory.setIncludeOpenButton(true);
-      setSettingsFileDescription("Analyze tool settings file");
+      outputDirectory.setDirectoriesOnly(true);
+
+      String keyword = inverseDynamicsMode ? "inverse dynamics" : "analysis";
+      statesFileName.setExtensionsAndDescription(".sto", "States data for "+keyword);
+      coordinatesFileName.setExtensionsAndDescription(".mot,.sto", "Motion data for "+keyword);
+      speedsFileName.setExtensionsAndDescription(".mot,.sto", "Speeds data for "+keyword);
+
+      if(inverseDynamicsMode) setSettingsFileDescription("Inverse dynamics tool settings files");
+      else setSettingsFileDescription("Analyze tool settings file");
 
       actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel(toolModel, toolModel.getOriginalModel());
       jTabbedPane1.addTab("Actuators and External Loads", actuatorsAndExternalLoadsPanel);
@@ -42,6 +54,16 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
       updateFromModel();
 
       toolModel.addObserver(this);
+
+      // Disable some things if we're just doing inverse dynamics
+      if(inverseDynamicsMode) {
+         jLabel3.setVisible(false);
+         activeAnalyses.setVisible(false);
+         editAnalysesButton.setVisible(false);
+
+         // Change border
+         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Time"));
+      }
    }
 
    public void update(Observable observable, Object obj) {
@@ -157,13 +179,6 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
    public void pressedApply() {
       toolModel.execute();
       updateDialogButtons();
-   }
-
-   //------------------------------------------------------------------------
-   // Utility to initialize the analyze tool dialog to process inverse dynamics
-   //------------------------------------------------------------------------
-   public static AnalyzeToolPanel createInverseDynamicsPanel(Model model) throws IOException {
-      return new AnalyzeToolPanel(model);
    }
    
    /** This method is called from within the constructor to
@@ -558,7 +573,7 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
          .add(mainSettingsPanelLayout.createSequentialGroup()
             .addContainerGap()
             .add(mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+               .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

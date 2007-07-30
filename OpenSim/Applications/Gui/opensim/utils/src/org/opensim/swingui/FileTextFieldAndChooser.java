@@ -2,13 +2,13 @@ package org.opensim.swingui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.JCheckBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileFilter;
 import org.opensim.utils.BrowserLauncher;
 import org.opensim.utils.FileUtils;
 
@@ -17,8 +17,8 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
    private static Color validBackground = Color.white;
    private static Color invalidBackground = new Color(255,102,102);
 
-   private String extensions = null;
-   private String description = null;
+   private FileFilter filter = null;
+   private boolean directoriesOnly = false;
 
    private String lastFileName; // keep track of previous value to avoid firing change events when name stays the same
    private boolean fileIsValid = true;
@@ -33,19 +33,20 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       lastFileName = fileNameTextField.getText();
    }
 
-   public FileTextFieldAndChooser(String extensions, String description) {
-      initComponents();
-      lastFileName = fileNameTextField.getText();
-      setExtensionsAndDescription(extensions,description);
-   }
-
    public void setCheckIfFileExists(boolean check) {
       checkIfFileExists = check;
    }
 
+   public void setDirectoriesOnly(boolean directoriesOnly) {
+      this.directoriesOnly = directoriesOnly;
+   }
+
    public void setExtensionsAndDescription(String extensions, String description) {
-      this.extensions = extensions;
-      this.description = description;
+      filter = FileUtils.getFileFilter(extensions, description);
+   }
+
+   public void setFileFilter(FileFilter filter) {
+      this.filter = filter;
    }
 
    public void setIncludeOpenButton(boolean includeOpenButton) {
@@ -166,7 +167,9 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
    }//GEN-LAST:event_fileNameTextFieldFocusLost
 
    private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
-      String result = FileUtils.getInstance().browseForFilename(extensions, description);
+      String result = directoriesOnly ?
+                      FileUtils.getInstance().browseForFolder() :
+                      FileUtils.getInstance().browseForFilename(filter);
       if(result != null) setFileName(result);
    }//GEN-LAST:event_browseButtonActionPerformed
 

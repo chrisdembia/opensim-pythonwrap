@@ -5,27 +5,27 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
+import org.opensim.tracking.AnalyzeToolPanel;
 import org.opensim.tracking.BaseToolPanel;
-import org.opensim.tracking.ForwardToolPanel;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.view.pub.OpenSimDB;
 
-public final class ForwardToolAction extends CallableSystemAction {
+public final class AnalyzeToolAction extends CallableSystemAction {
    
    public void performAction() {
       Model model = OpenSimDB.getInstance().getCurrentModel();
       if(model==null) return;
 
       try {
-         final ForwardToolPanel panel = new ForwardToolPanel(model);
-         BaseToolPanel.openToolDialog(panel, "Forward Dynamics Tool");
+         final AnalyzeToolPanel panel = new AnalyzeToolPanel(model, false);
+         BaseToolPanel.openToolDialog(panel, "Analyze Tool");
       } catch (IOException ex) {
-         ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing forward dynamics tool",ex);
+         ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing analyze tool",ex);
       }
    }
    
    public String getName() {
-      return NbBundle.getMessage(ForwardToolAction.class, "CTL_ForwardToolAction");
+      return NbBundle.getMessage(AnalyzeToolAction.class, "CTL_AnalyzeToolAction");
    }
    
    protected void initialize() {
