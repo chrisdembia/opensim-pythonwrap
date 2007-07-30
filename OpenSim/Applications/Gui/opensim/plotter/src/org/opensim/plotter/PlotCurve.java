@@ -45,8 +45,8 @@ public class PlotCurve {
    // Source for domain, range needed so that display name (including file can be reconstructed)
    private PlotterSourceInterface domainSource;
    private PlotterSourceInterface rangeSource;
-   private int domainStorageIndex;
-   private int rangeStorageIndex;
+   //private int domainStorageIndex;
+   //private int rangeStorageIndex;
    private String domainName;
    private String[] rangeNames;
    private boolean muscleCurve=false;
@@ -96,13 +96,13 @@ public class PlotCurve {
            endIndex=xArray.getSize()-1;
        double[] yFiltered = applyFilters(plotCurveSettings.getFilters(), yArray, startIndex, endIndex);
        // Make an XYSeries to hold the data and keep a ref to it with the curve
-       setCurveSeries(new XYSeries(stringy));
+       setCurveSeries(new XYSeries(plotCurveSettings.getName()));   // user named curves
        for (int i = startIndex;i< endIndex;i++){
            if (i==startIndex)
                 System.out.println("Curve"+plotCurveSettings.getName()+xArray.getitem(i)+","+yFiltered[i-startIndex]);
            getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
        }
-       getCurveSeries().setKey(stringy);
+       //getCurveSeries().setKey(stringy);  // do not overwrite users specified name
        domainName = new String(stringx);
        String[] names=stringy.split("\\+");
        rangeNames = new String[names.length];
@@ -113,10 +113,10 @@ public class PlotCurve {
       ArrayDouble Array = new ArrayDouble(storage.getSize());
       if (colName.equalsIgnoreCase("time")){
          storage.getTimeColumnWithStartTime(Array, 0.);
-         if (isDomain)
-            domainStorageIndex=-1;
-         else
-            rangeStorageIndex=-1;
+         //if (isDomain)
+         //   domainStorageIndex=-1;
+         //else
+         //   rangeStorageIndex=-1;
       }
       else{
          String[] colNames=colName.trim().split("\\+",-1);
@@ -138,11 +138,12 @@ public class PlotCurve {
                      Array.set(row, Array.getitem(row)+tempArray.getitem(row));
              }
         }
+         /*
          int storageIndex = storage.getStateIndex(colName);
          if (isDomain)
             domainStorageIndex=storageIndex;
          else
-            rangeStorageIndex=storageIndex;
+            rangeStorageIndex=storageIndex;*/
       }
       return Array;
    }
@@ -192,7 +193,7 @@ public class PlotCurve {
    public Storage getRangeStorage() {
       return rangeSource.getStorage();
    }
-
+/*
    public int getDomainStorageIndex() {
       return domainStorageIndex;
    }
@@ -200,7 +201,7 @@ public class PlotCurve {
    public int getRangeStorageIndex() {
       return rangeStorageIndex;
    }
-
+*/
    void update(String title, 
            PlotCurveSettings plotCurveSettings, 
            PlotterSourceInterface sourcex, String namex, 
@@ -272,14 +273,6 @@ public class PlotCurve {
         return labels.getitem(rangeStorageIndex+1);*/
     }
 
-    void setXLabel(String xLabel) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    void setYLabel(String yLabel) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
    private void clampDataArray(ArrayDouble Array) {
       double dmax=settings.getYmax();
       double dmin=settings.getYmin();
@@ -292,7 +285,4 @@ public class PlotCurve {
       
    }
 
-    String getRangeNameAsString() {
-        return null;
-    }
 }

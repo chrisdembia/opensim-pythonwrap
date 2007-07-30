@@ -165,7 +165,7 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
             }
         });
 
-        jLabel1.setText("Filter By:");
+        jLabel1.setText("Filter By");
 
         jLabel2.setText("Source:");
 
@@ -176,7 +176,7 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
             }
         });
 
-        jLabel3.setText("group:");
+        jLabel3.setText("group");
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -195,8 +195,8 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
                                 .add(jModelGroupRadioButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jMuscleGroupComboBox, 0, 187, Short.MAX_VALUE)
-                            .add(jModelComboBox, 0, 187, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jMuscleGroupComboBox, 0, 191, Short.MAX_VALUE)
+                            .add(jModelComboBox, 0, 191, Short.MAX_VALUE)
                             .add(jPanel2Layout.createSequentialGroup()
                                 .add(FilterTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)

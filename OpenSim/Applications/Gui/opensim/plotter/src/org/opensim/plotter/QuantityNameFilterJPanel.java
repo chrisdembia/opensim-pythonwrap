@@ -45,6 +45,17 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
    ArrayList<String> metaCharacters=new ArrayList<String>();
    private boolean sumOnly=false;
    
+   public QuantityNameFilterJPanel(String[] availableNames, String preSelected) {
+       this(availableNames);
+       String[] preSelectedList = preSelected.split(",|\\+");
+       Vector<String> selectedVec = new Vector<String>();
+       for(int i=0; i<preSelectedList.length; i++){
+           String trimmed=preSelectedList[i].trim();
+           selectedVec.add(trimmed);
+       }
+       tableModel.markSelectedNames(selectedVec);
+       updateSelected();
+   }
    /**
     * Creates new form PlotterQuantityNameFilterJPanel
     */

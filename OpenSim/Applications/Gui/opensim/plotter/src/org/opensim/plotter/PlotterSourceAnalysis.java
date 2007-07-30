@@ -59,7 +59,7 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
          allAvailable[i]=labels.getitem(i);
          selectionStatus[i]=false;
       }
-      System.out.println("Created PlotterSourceAnalysis DisplayName="+displayName);
+      //System.out.println("Created PlotterSourceAnalysis DisplayName="+displayName);
    }
 
    public String[] getAllQuantities() {

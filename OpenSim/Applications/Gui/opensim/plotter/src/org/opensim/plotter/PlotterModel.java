@@ -133,10 +133,6 @@ public class PlotterModel {
         }
         //tool.setSolveForEquilibriumForAuxiliaryStates(true);
         models2AnalyzeToolInstances.put(aModel, tool);
-        // dump sources for debugging
-        for(int j=0; j<sources.size(); j++){
-           System.out.println("Source:"+sources.get(j).getDisplayName());
-        }
     }
   /**
     * Get available quantities to use as a Domain variable

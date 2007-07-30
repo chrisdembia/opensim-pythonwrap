@@ -137,8 +137,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jMuscleGroupComboBox" alignment="1" pref="187" max="32767" attributes="0"/>
-                              <Component id="jModelComboBox" alignment="0" pref="187" max="32767" attributes="0"/>
+                              <Component id="jMuscleGroupComboBox" alignment="1" pref="191" max="32767" attributes="0"/>
+                              <Component id="jModelComboBox" alignment="0" pref="191" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="FilterTextField" min="-2" pref="108" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -264,7 +264,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Filter By:"/>
+            <Property name="text" type="java.lang.String" value="Filter By"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -282,7 +282,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="group:"/>
+            <Property name="text" type="java.lang.String" value="group"/>
           </Properties>
         </Component>
       </SubComponents>

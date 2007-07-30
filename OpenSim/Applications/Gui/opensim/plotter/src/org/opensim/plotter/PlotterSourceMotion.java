@@ -42,8 +42,8 @@ public class PlotterSourceMotion extends PlotterSourceStorage {
    /** Creates a new instance of PlotterSourceFile */
    public PlotterSourceMotion(Storage aStorage) {
       super(aStorage);
-      displayName = "Motion:"+aStorage.getName();
-      System.out.println("Created PlotterSourceMotion DisplayName="+displayName);
+      displayName = aStorage.getName();
+      //System.out.println("Created PlotterSourceMotion DisplayName="+displayName);
    }
 
 

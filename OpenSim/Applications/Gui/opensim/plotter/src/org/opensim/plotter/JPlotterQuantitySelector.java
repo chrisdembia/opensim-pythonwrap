@@ -105,7 +105,7 @@ public class JPlotterQuantitySelector  {
                                if (sel < columnNames.length-1)
                                    columnNamesDisplayString+= COLUMN_SEPARATOR;
                            }
-                           selection.setText(source.getDisplayName()+":"+columnNamesDisplayString);
+                           selection.setText(columnNamesDisplayString);
                        }
                        plotterPanel.updatePlotterWithSelection();
                        
@@ -138,7 +138,7 @@ public class JPlotterQuantitySelector  {
                                if (sel < columnNames.length-1)
                                    columnNamesDisplayString+= COLUMN_SEPARATOR;
                            }
-                           selection.setText(source.getDisplayName()+":"+columnNamesDisplayString);
+                           selection.setText(columnNamesDisplayString);
                        }
                        plotterPanel.updatePlotterWithSelection();
                        
@@ -234,7 +234,7 @@ public class JPlotterQuantitySelector  {
       if (((Integer)dlg.getValue()).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
          String[] selected = singleSelectPanel.getSelected();
          if (selected!=null){
-            selection.setText(sourceX.getDisplayName()+":"+selected[0]);
+            selection.setText(selected[0]);
             setColumnToUse(selected[0]);
          }
       }
