@@ -7,6 +7,7 @@
 package org.opensim.swingui;
 
 import java.util.Vector;
+import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.openide.DialogDescriptor;
@@ -20,6 +21,8 @@ import org.openide.NotifyDescriptor;
 public class MultiFileSelectorPanel extends javax.swing.JPanel {
  
    Vector<String> fileNames;
+   int currentSelectedIndex = -1;
+   DefaultListModel listModel = new DefaultListModel();
 
    /** Creates new form MultiFileSelectorPanel */
    public MultiFileSelectorPanel(Vector<String> initialFileNames) {
@@ -27,7 +30,8 @@ public class MultiFileSelectorPanel extends javax.swing.JPanel {
 
       initComponents();
 
-      fileList.setListData(fileNames);
+      fileList.setModel(listModel);
+      for(int i=0; i<fileNames.size(); i++) listModel.addElement(fileNames.get(i));
 
       fileList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
          public void valueChanged(ListSelectionEvent event) {
@@ -35,27 +39,21 @@ public class MultiFileSelectorPanel extends javax.swing.JPanel {
             listSelectionChanged();
          }
       });
-
-      updatePanel();
    }
 
    public Vector<String> getFileNames() { return fileNames; }
 
    private void listSelectionChanged() {
-      System.out.println("SELECTION CHANGED "+fileList.getSelectedIndex());
-      if(fileList.getSelectedIndex()>=0) {
+      currentSelectedIndex = fileList.getSelectedIndex();
+      if(currentSelectedIndex>=0) {
          fileName.setEnabled(true);
-         fileName.setFileName(fileNames.get(fileList.getSelectedIndex()),false);
+         fileName.setFileName(fileNames.get(currentSelectedIndex),false);
          deleteButton.setEnabled(true);
       } else {
          fileName.setEnabled(false);
          fileName.setFileName("",false);
          deleteButton.setEnabled(false);
       }
-   }
-
-   private void updatePanel() {
-      fileList.setListData(fileNames); // The easiest, though probably not most efficient, way of updating the list
    }
 
    //------------------------------------------------------------------------
@@ -149,23 +147,22 @@ public class MultiFileSelectorPanel extends javax.swing.JPanel {
    }// </editor-fold>//GEN-END:initComponents
 
    private void fileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_fileNameStateChanged
-      System.out.println("STATE CHANGED "+fileList.getSelectedIndex());
-      if(fileList.getSelectedIndex()>=0) {
-         fileNames.set(fileList.getSelectedIndex(), fileName.getFileName());
-         updatePanel();
+      if(currentSelectedIndex>=0) {
+         fileNames.set(currentSelectedIndex, fileName.getFileName());
+         listModel.set(currentSelectedIndex, fileName.getFileName());
       }
    }//GEN-LAST:event_fileNameStateChanged
 
    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-      if(fileList.getSelectedIndex()>=0) {
-         fileNames.remove(fileList.getSelectedIndex());
-         updatePanel();
+      if(currentSelectedIndex>=0) {
+         fileNames.remove(currentSelectedIndex);
+         listModel.remove(currentSelectedIndex);
       }
    }//GEN-LAST:event_deleteButtonActionPerformed
 
    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
       fileNames.add("Unassigned");
-      updatePanel();
+      listModel.addElement("Unassigned");
       fileList.setSelectedIndex(fileNames.size()-1);
    }//GEN-LAST:event_addButtonActionPerformed
    

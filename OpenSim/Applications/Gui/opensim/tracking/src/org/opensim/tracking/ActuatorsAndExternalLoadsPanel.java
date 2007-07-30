@@ -67,7 +67,9 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       //---------------------------------------------------------------------
       // Actuators
       //---------------------------------------------------------------------
-      //keepModelActuators.setSelected(!toolModel.getReplaceActuatorSet());
+      buttonGroup1.setSelected(toolModel.getReplaceActuatorSet() ? 
+                               replaceActuatorSetRadioButton.getModel() : 
+                               appendActuatorSetRadioButton.getModel(), true);
 
       String str = "";
       for(int i=0; i<toolModel.getActuatorSetFiles().getSize(); i++)
@@ -272,11 +274,21 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       appendActuatorSetRadioButton.setText("Append to model's actuator set");
       appendActuatorSetRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
       appendActuatorSetRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      appendActuatorSetRadioButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            appendActuatorSetRadioButtonActionPerformed(evt);
+         }
+      });
 
       buttonGroup1.add(replaceActuatorSetRadioButton);
       replaceActuatorSetRadioButton.setText("Replace model's actuator set");
       replaceActuatorSetRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
       replaceActuatorSetRadioButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      replaceActuatorSetRadioButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            replaceActuatorSetRadioButtonActionPerformed(evt);
+         }
+      });
 
       editActuatorSetFiles.setText("Edit...");
       editActuatorSetFiles.addActionListener(new java.awt.event.ActionListener() {
@@ -337,6 +349,14 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
             .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void replaceActuatorSetRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_replaceActuatorSetRadioButtonActionPerformed
+      toolModel.setReplaceActuatorSet(true);
+   }//GEN-LAST:event_replaceActuatorSetRadioButtonActionPerformed
+
+   private void appendActuatorSetRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appendActuatorSetRadioButtonActionPerformed
+      toolModel.setReplaceActuatorSet(false);
+   }//GEN-LAST:event_appendActuatorSetRadioButtonActionPerformed
 
    //------------------------------------------------------------------------
    // Vector<String> <-> ArrayStr conversion utilities
