@@ -75,8 +75,9 @@ public class Plot {
 
       XYPlot plot = (XYPlot) dChart.getPlot();
       nextPaint = plot.getDrawingSupplier().getNextPaint();
-      plot.setDomainCrosshairVisible(true);
-      plot.setRangeCrosshairVisible(true);
+      
+      plot.setDomainCrosshairVisible(false);
+      plot.setRangeCrosshairVisible(false);
       
       XYItemRenderer r = plot.getRenderer();
       if (r instanceof XYLineAndShapeRenderer) {
