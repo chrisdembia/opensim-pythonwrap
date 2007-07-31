@@ -1,10 +1,14 @@
 package org.opensim.utils;
 
 import java.awt.Dimension;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -38,28 +42,30 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
          externalFileName.setCheckIfFileExists(false);
          externalFileName.setFileName(defaultExternalFileName!=null ? defaultExternalFileName : "", false);
 
+         // Update this component's valid flag whenever the filename field changes state
+         externalFileName.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent evt) { putClientProperty("valid", (Boolean)isValid()); }
+         });
+
          add(externalFileName);
       }
 
       public String getName() { return writeExternalCheckBox.getText(); }
       public String getExternalFileName() { return writeExternalCheckBox.isSelected() ? externalFileName.getFileName() : null; }
+      public boolean isValid() { return !writeExternalCheckBox.isSelected() || !FileUtils.effectivelyNull(externalFileName.getFileName()); }
    }
 
    // If returns true then was successful (user pressed OK), and sets new values in externalFileNames
    // If returns then user pressed Cancel
-   static public boolean promptUser(String mainSettingsFileName, Item[] items) {
-      XMLExternalFileChooser panel = new XMLExternalFileChooser(mainSettingsFileName);
-      for(int i=0; i<items.length; i++) panel.jPanel1.add(items[i]);
-      DialogDescriptor dlg = new DialogDescriptor(panel, "Choose external references in XML file");
-      Object answer = DialogDisplayer.getDefault().notify(dlg);
-      return answer==NotifyDescriptor.OK_OPTION;
-   }
-
    static public boolean promptUser(String mainSettingsFileName, String[] names, String[] externalFileNames) {
       assert(names.length == externalFileNames.length);
       XMLExternalFileChooser panel = new XMLExternalFileChooser(mainSettingsFileName);
       for(int i=0; i<names.length; i++) panel.addItem(names[i], externalFileNames[i]);
-      DialogDescriptor dlg = new DialogDescriptor(panel, "Choose external references in XML file");
+      final DialogDescriptor dlg = new DialogDescriptor(panel, "Choose external references in XML file");
+      // Disable "OK" button of dialog if settings are not valid
+      panel.addPropertyChangeListener("valid", new PropertyChangeListener() {
+         public void propertyChange(PropertyChangeEvent evt) { dlg.setValid((Boolean)evt.getNewValue()); }
+      });
       Object answer = DialogDisplayer.getDefault().notify(dlg);
       if(answer==NotifyDescriptor.OK_OPTION) for(int i=0; i<names.length; i++) externalFileNames[i] = panel.getItemExternalFileName(i);
       return answer==NotifyDescriptor.OK_OPTION;
@@ -75,11 +81,23 @@ public class XMLExternalFileChooser extends javax.swing.JPanel {
    }
 
    public void addItem(String name, String defaultExternalFileName) {
-      jPanel1.add(new XMLExternalFileChooser.Item(name, defaultExternalFileName));
+      XMLExternalFileChooser.Item item = new XMLExternalFileChooser.Item(name, defaultExternalFileName);
+      // Update valid flag for this whole component whenever an individual item's valid flag changes
+      item.addPropertyChangeListener("valid", new PropertyChangeListener() {
+         public void propertyChange(PropertyChangeEvent evt) { putClientProperty("valid", (Boolean)isValid()); }
+      });
+      jPanel1.add(item);
    }
 
    public String getItemExternalFileName(int i) {
       return ((XMLExternalFileChooser.Item)jPanel1.getComponent(i)).getExternalFileName();
+   }
+
+   public boolean isValid() {
+      for(int i=0; i<jPanel1.getComponents().length; i++)
+         if(!((XMLExternalFileChooser.Item)jPanel1.getComponent(i)).isValid())
+            return false;
+      return true;
    }
 
    /** This method is called from within the constructor to
