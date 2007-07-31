@@ -132,7 +132,7 @@ public class OpenSimObjectModel
   }
 
   public boolean isCellEditable(Object node, int column) {
-     return editableColumns[column] && ((PropertyNode)node).editable();
+     return column == 0 || (editableColumns[column] && ((PropertyNode)node).editable());
   }
 
   /**

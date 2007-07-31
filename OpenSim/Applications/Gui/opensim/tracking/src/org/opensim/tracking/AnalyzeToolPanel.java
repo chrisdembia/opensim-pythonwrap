@@ -673,7 +673,7 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
    //------------------------------------------------------------------------
 
    private void editAnalysesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAnalysesButtonActionPerformed
-      jTabbedPane1.setSelectedIndex(1);
+      jTabbedPane1.setSelectedComponent(analysisSetPanel);
    }//GEN-LAST:event_editAnalysesButtonActionPerformed
 
    private void initialTimeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_initialTimeFocusLost
