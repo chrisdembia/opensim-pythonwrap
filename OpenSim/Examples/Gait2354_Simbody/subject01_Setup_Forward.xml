@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ForwardTool name="subject01_walk1">
 	<!--Name of the .osim file used to construct a model.-->
-	<model_file> subject01_sdfast_adjusted.osim </model_file>
+	<model_file> subject01_simbody_adjusted.osim </model_file>
 	<!--Replace the model's actuator set with sets specified in
 	    <actuator_set_files>? If false, the actuator set is appended to.-->
 	<replace_actuator_set> false </replace_actuator_set>
@@ -89,16 +89,6 @@
 				<moment_arm_coordinate_list> knee_angle_r ankle_angle_r </moment_arm_coordinate_list>
 				-->
 			</MuscleAnalysis>
-
-			<!--
-			<MomentArmAnalysis name="MomentArmAnalysis">
-				<on> true </on>
-				<step_interval> 8 </step_interval>
-				<in_degrees> true </in_degrees>
-				<coordinate_list> knee_angle_r ankle_angle_r </coordinate_list>
-				<muscle_list> med_gas_r lat_gas_r soleus_r </muscle_list>
-			</MomentArmAnalysis>
-			-->
 		</objects>
 	</AnalysisSet>
 	<!--XML file containing the controls (e.g., muscle excitations) for the
