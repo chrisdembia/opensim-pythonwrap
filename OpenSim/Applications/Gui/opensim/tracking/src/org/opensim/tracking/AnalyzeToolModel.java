@@ -129,6 +129,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       // By default, set prefix of output to be subject name
       getTool().setName(model.getName());
 
+      setDefaultResultsDirectory(model);
+
       // In inverse dynamics mode, initialize with an inverse dynamics analysis
       if(inverseDynamicsMode) {
          InverseDynamics inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy()); // C++-side copy

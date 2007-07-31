@@ -151,6 +151,11 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          throw new IOException("Forward tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
 
       setTool(new ForwardTool());
+
+      // By default, set prefix of output to be subject name
+      getTool().setName(model.getName());
+
+      setDefaultResultsDirectory(model);
    }
 
    ForwardTool getTool() { return (ForwardTool)tool; }

@@ -39,11 +39,13 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
    boolean internalTrigger = false;
 
    /** Creates new form ActuatorsAndExternalLoadsPanel */
-   public ActuatorsAndExternalLoadsPanel(AbstractToolModelWithExternalLoads toolModel, Model model) {
+   public ActuatorsAndExternalLoadsPanel(AbstractToolModelWithExternalLoads toolModel, Model model, boolean includeActuatorsPanel) {
       this.toolModel = toolModel;
       this.model = model;
 
       initComponents();
+      
+      if(!includeActuatorsPanel) actuatorsPanel.setVisible(false);
 
       externalLoadsFileName.setExtensionsAndDescription(".mot,.sto", "External loads data");
       externalLoadsModelKinematicsFileName.setExtensionsAndDescription(".mot,.sto", "Model kinematics for external loads"); 

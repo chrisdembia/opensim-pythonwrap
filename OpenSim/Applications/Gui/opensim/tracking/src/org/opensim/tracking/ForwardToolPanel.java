@@ -36,7 +36,7 @@ public class ForwardToolPanel extends BaseToolPanel implements Observer {
 
       setSettingsFileDescription("Forward tool settings file");
 
-      actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel(toolModel, toolModel.getOriginalModel());
+      actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel(toolModel, toolModel.getOriginalModel(), true);
       jTabbedPane.insertTab("Actuators and External Loads", null, actuatorsAndExternalLoadsPanel, null, 1);
 
       updateStaticFields();

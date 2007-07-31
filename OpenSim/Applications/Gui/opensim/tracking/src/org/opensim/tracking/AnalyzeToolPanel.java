@@ -25,6 +25,7 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
    private boolean inverseDynamicsMode = false;
    AnalyzeToolModel toolModel = null;
    ActuatorsAndExternalLoadsPanel actuatorsAndExternalLoadsPanel = null;
+   AnalysisSetPanel analysisSetPanel = null;
    private boolean internalTrigger = false;
 
    /** Creates new form AnalyzeToolPanel */
@@ -47,13 +48,18 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
       if(inverseDynamicsMode) setSettingsFileDescription("Inverse dynamics tool settings files");
       else setSettingsFileDescription("Analyze tool settings file");
 
-      actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel(toolModel, toolModel.getOriginalModel());
-      jTabbedPane1.addTab("Actuators and External Loads", actuatorsAndExternalLoadsPanel);
+      if(inverseDynamicsMode) {
+         actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel(toolModel, toolModel.getOriginalModel(), false);
+         jTabbedPane1.addTab("External Loads", actuatorsAndExternalLoadsPanel);
+      } else {
+         actuatorsAndExternalLoadsPanel = new ActuatorsAndExternalLoadsPanel(toolModel, toolModel.getOriginalModel(), true);
+         jTabbedPane1.addTab("Actuators and External Loads", actuatorsAndExternalLoadsPanel);
+      }
 
-      updateStaticFields();
-      updateFromModel();
-
-      toolModel.addObserver(this);
+      if(!inverseDynamicsMode) {
+         analysisSetPanel = new AnalysisSetPanel(toolModel);
+         jTabbedPane1.addTab("Analyses", analysisSetPanel);
+      }
 
       // Disable some things if we're just doing inverse dynamics
       if(inverseDynamicsMode) {
@@ -64,6 +70,11 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
          // Change border
          jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Time"));
       }
+
+      updateStaticFields();
+      updateFromModel();
+
+      toolModel.addObserver(this);
    }
 
    public void update(Observable observable, Object obj) {
@@ -89,7 +100,6 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
 
       // Start off with everything enabled
       setEnabled(mainSettingsPanel, true);
-      setEnabled(analysesPanel, true);
 
       //if(!toolModel.needPseudoStates()) pseudoStatesFileName.setEnabled(false);
       
@@ -222,7 +232,6 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
       jPanel1 = new javax.swing.JPanel();
       jLabel2 = new javax.swing.JLabel();
       modelName = new javax.swing.JTextField();
-      analysesPanel = new javax.swing.JPanel();
 
       buttonGroup1.add(unspecifiedRadioButton);
       unspecifiedRadioButton.setText("jRadioButton1");
@@ -594,18 +603,6 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
       );
       jTabbedPane1.addTab("Main Settings", mainSettingsPanel);
 
-      org.jdesktop.layout.GroupLayout analysesPanelLayout = new org.jdesktop.layout.GroupLayout(analysesPanel);
-      analysesPanel.setLayout(analysesPanelLayout);
-      analysesPanelLayout.setHorizontalGroup(
-         analysesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(0, 504, Short.MAX_VALUE)
-      );
-      analysesPanelLayout.setVerticalGroup(
-         analysesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(0, 465, Short.MAX_VALUE)
-      );
-      jTabbedPane1.addTab("Analyses", analysesPanel);
-
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
       layout.setHorizontalGroup(
@@ -733,7 +730,6 @@ public class AnalyzeToolPanel extends BaseToolPanel implements Observer {
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JTextField activeAnalyses;
-   private javax.swing.JPanel analysesPanel;
    private javax.swing.ButtonGroup buttonGroup1;
    private org.opensim.swingui.FileTextFieldAndChooser coordinatesFileName;
    private javax.swing.JRadioButton coordinatesRadioButton;

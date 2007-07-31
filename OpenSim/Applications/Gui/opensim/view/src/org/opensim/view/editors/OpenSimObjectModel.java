@@ -11,14 +11,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.TreePath;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayInt;
-import org.opensim.modeling.ArrayPtrsObj;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Property;
 import org.opensim.modeling.PropertySet;
-import org.opensim.modeling.VisibleObject;
-
-
 
 public class OpenSimObjectModel
     extends AbstractTreeTableModel {
@@ -36,7 +32,7 @@ public class OpenSimObjectModel
   static protected boolean[] editableColumns = {
       true, // TreeTableModel
       true, // Value
-      true}; // UseDefault
+      false}; // Description
 
   final String[] toolTipStr = {
       "Property name in xml file", "Current property value",
@@ -57,7 +53,7 @@ public class OpenSimObjectModel
    * This has to be taken in context as:
    * 1. Column 1 which is the tree is editable only to allow expansion/collapse of tree
    *    even if entries are not editable.
-   * 2. Values & useDefault are editable only in primitive type rows
+   * 2. Values are editable only in primitive type rows
    */
 
   protected boolean isEditable;
@@ -134,19 +130,23 @@ public class OpenSimObjectModel
   public boolean getColumnEditable(int column) {
     return editableColumns[column];
   }
+
+  public boolean isCellEditable(Object node, int column) {
+     return editableColumns[column] && ((PropertyNode)node).editable();
+  }
+
   /**
    * Returns the value of the particular column.
    */
   public Object getValueAt(Object node, int column) {
     PropertyNode fn = (PropertyNode) node;
-    boolean toEdit = fn.editable();
     try {
       switch (column) {
         case 0: // Name
           return fn.getName();
         case 1: // Value
           return fn.getValue();
-        case 2: // use default
+        case 2: // Description
           Object obj = fn.getObject();
           if (obj instanceof Property)
             return ( ( (Property) obj).getComment());

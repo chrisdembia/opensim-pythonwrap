@@ -2,17 +2,19 @@ package org.opensim.tracking;
 
 import java.io.File;
 import java.util.Observable;
+import java.util.prefs.Preferences;
 import org.opensim.modeling.AbstractTool;
+import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalysisSet;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.PropertyStr;
 import org.opensim.tracking.AbstractToolModel.Operation;
 import org.opensim.utils.FileUtils;
+import org.opensim.utils.TheApp;
 
 public class AbstractToolModel extends Observable {
 
-   enum Operation { AllDataChanged, InputDataChanged, OutputDataChanged, TimeRangeChanged, ActuatorsDataChanged, ExternalLoadsDataChanged, ExecutionStateChanged };
+   enum Operation { AllDataChanged, InputDataChanged, OutputDataChanged, TimeRangeChanged, AnalysisDataChanged, AnalysisAddedOrRemoved, ActuatorsDataChanged, ExternalLoadsDataChanged, ExecutionStateChanged };
 
    private boolean modifiedSinceLastExecute = true;
    private boolean executing = false;
@@ -53,6 +55,22 @@ public class AbstractToolModel extends Observable {
    }
 
    public AnalysisSet getAnalysisSet() { return tool.getAnalysisSet(); }
+   public void addCopyOfAnalysis(Analysis analysis) {
+      Analysis analysisCopy = Analysis.safeDownCast(analysis.copy()); // C++-side copy
+      analysisCopy.setName(analysis.getType()); // Change name...  otherwise name will be "default" since currently the analyses we're making copies of come from the registered object table
+      getAnalysisSet().append(analysisCopy);
+      setModified(Operation.AnalysisAddedOrRemoved);
+   }
+   public void replaceAnalysis(int i, Analysis analysis) {
+      getAnalysisSet().set(i, analysis);
+      setModified(Operation.AnalysisDataChanged);
+   }
+   public void removeAnalysis(int i) {
+      getAnalysisSet().remove(i); 
+      setModified(Operation.AnalysisAddedOrRemoved);
+   }
+   // Rely on users to call this since we don't have accessors for all analysis properties
+   public void analysisModified(int i) { setModified(Operation.AnalysisDataChanged); }
 
    public String getModelFileName() { return tool.getModelFilename(); }
 
@@ -94,6 +112,11 @@ public class AbstractToolModel extends Observable {
          tool.setResultsDir(directory);
          setModified(Operation.OutputDataChanged);
       }
+   }
+   protected void setDefaultResultsDirectory(Model model) {
+      // Try to come up with a reasonable output directory
+      if(!model.getInputFileName().equals("")) tool.setResultsDir((new File(model.getInputFileName())).getParent());
+      else tool.setResultsDir(Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", ""));
    }
    
    // Integrator settings
