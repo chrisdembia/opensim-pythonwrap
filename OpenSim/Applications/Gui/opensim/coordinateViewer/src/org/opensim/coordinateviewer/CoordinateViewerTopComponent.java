@@ -32,7 +32,6 @@ import org.opensim.modeling.Model;
 import org.opensim.modeling.ObjectGroup;
 import org.opensim.motionviewer.MotionTimeChangeEvent;
 import org.opensim.motionviewer.MotionsDB;
-import org.opensim.view.GroupEditorPanel;
 import org.opensim.view.ModelEvent;
 import org.opensim.view.pub.ViewDB;
 /**
@@ -207,7 +206,15 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
 
    private void jDeletePoseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeletePoseButtonActionPerformed
       PoseSelectionJPanel p = new PoseSelectionJPanel();
-      p.setPoses(prefs.getPoses());
+      
+      Vector<ModelPose> existing = new Vector<ModelPose>(prefs.getPoses());
+      for(ModelPose pose:existing)
+        if (pose.getPoseName().equalsIgnoreCase(DEFAULT_POSE_NAME)){
+          existing.remove(pose);
+          break;
+        }
+            
+      p.setPoses(existing);
       p.allowMultipleSelection();
       DialogDescriptor dlg = new DialogDescriptor(p, "Delete pose");
       DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
@@ -241,7 +248,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       // Query for name
       int savedPosesCount=prefs.getNumPoses();
       String defaultName= "Pose"+String.valueOf(savedPosesCount+1);
-      NotifyDescriptor.InputLine dlg = new NotifyDescriptor.InputLine("Enter pose name:", "Pose name");
+      NotifyDescriptor.InputLine dlg = new NotifyDescriptor.InputLine("Enter Pose Name", "<Pose Name>");
       dlg.setInputText(defaultName);
       if(DialogDisplayer.getDefault().notify(dlg)==NotifyDescriptor.OK_OPTION){
          String newName = dlg.getInputText();
@@ -309,7 +316,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       // TODO add custom code on component opening
       aModel = OpenSimDB.getInstance().getCurrentModel();
       if (aModel==null){
-         jModelNameLabel.setText("No current model");
+         jModelNameLabel.setText("No Models");
          hasModel=false;
          updateAvailability();
          return;
