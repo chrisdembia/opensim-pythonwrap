@@ -1,14 +1,12 @@
 package org.opensim.motionviewer;
 
 import java.util.Hashtable;
+import java.util.Vector;
 import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-import org.opensim.modeling.Model;
-import org.opensim.modeling.Storage;
 import org.opensim.view.ExplorerTopComponent;
-import org.opensim.motionviewer.OneMotionNode;
 
 public final class MotionsSynchronizeAction extends CallableSystemAction {
     
@@ -28,14 +26,14 @@ public final class MotionsSynchronizeAction extends CallableSystemAction {
      */
     public void performAction() {
        Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
-       MotionsDB.getInstance().flushMotions();
-       for(int i=0; i<selected.length; i++){
+       Vector<MotionsDB.ModelMotionPair> motions = new Vector<MotionsDB.ModelMotionPair>(selected.length);
+       for(int i=0; i<selected.length; i++) {
             OneMotionNode node =((OneMotionNode)selected[i]);
-            Model model = node.getModel();
-            MotionsDB.getInstance().addSyncMotion(model, (Storage) node.getOpenSimObject(), (i==selected.length-1));
+            motions.add(new MotionsDB.ModelMotionPair(node.getModel(), node.getMotion()));
        }
+       MotionsDB.getInstance().setCurrent(motions);
     }
-    
+
     public String getName() {
         return NbBundle.getMessage(MotionsSynchronizeAction.class, "CTL_MotionsSynchronizeAction");
     }

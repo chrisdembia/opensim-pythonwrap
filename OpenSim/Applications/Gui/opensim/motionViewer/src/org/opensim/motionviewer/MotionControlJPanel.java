@@ -745,24 +745,12 @@ public class MotionControlJPanel extends javax.swing.JPanel
          if (!(arg instanceof MotionEvent)) // time should be ignored here
              return;
          MotionEvent evt = (MotionEvent)arg;
-         if (evt.getOperation() == Operation.Open || evt.getOperation() == Operation.SetCurrent){
-            // new motion is loaded or is set current. Update panel display
+         if (evt.getOperation() == Operation.CurrentMotionsChanged){
+            // Current motion changed.  Update master motion
             masterMotion.clear();
-            masterMotion.add(evt.getModel(), evt.getMotion());
+            for(int i=0; i<mdb.getNumCurrentMotions(); i++)
+               masterMotion.add(mdb.getCurrentMotion(i));
             masterMotion.setTime(masterMotion.getStartTime());
-         }
-         else if (evt.getOperation() == Operation.Close){
-            // Currently, even if this motion that's being closed is part of a synched motion, the whole synched motion gets cleared...
-            // eventually may want to re-generate a synched motion that excludes the closed motion
-            if(masterMotion.hasMotion(evt.getModel(), evt.getMotion()))
-               masterMotion.clear();
-         }
-         else if (evt.getOperation() == Operation.Clear){
-            masterMotion.clear();
-         }
-         else if (evt.getOperation() == Operation.AddSyncMotion){
-            masterMotion.add(evt.getModel(), evt.getMotion());
-            if(evt.getLastInASeries()) masterMotion.setTime(masterMotion.getStartTime());
          }
          motionLoaded = (masterMotion.getNumMotions() > 0);
          updatePanelDisplay();

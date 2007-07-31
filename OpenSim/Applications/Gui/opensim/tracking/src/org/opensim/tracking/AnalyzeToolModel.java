@@ -152,8 +152,17 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
    protected void determineDefaultInputSource() {
       inputSource = InputSource.Unspecified;
-      ArrayList<Storage> motions = MotionsDB.getInstance().getModelMotions(getOriginalModel());
+      MotionsDB mdb = MotionsDB.getInstance();
+      ArrayList<Storage> motions = mdb.getModelMotions(getOriginalModel());
       if(motions!=null && motions.size()>0) {
+         // First check if one of the current motions is of this model
+         for(int i=0; i<mdb.getNumCurrentMotions(); i++)
+            if(mdb.getCurrentMotion(i).model==getOriginalModel()) {
+               inputMotion = mdb.getCurrentMotion(i).motion;
+               inputSource = InputSource.Motion;
+               return;
+            }
+         // If not, then pick the first of this model's motions
          inputMotion = motions.get(0);
          inputSource = InputSource.Motion;
       }

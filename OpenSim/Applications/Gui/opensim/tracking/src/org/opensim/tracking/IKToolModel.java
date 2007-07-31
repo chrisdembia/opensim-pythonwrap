@@ -43,7 +43,7 @@ public class IKToolModel extends Observable implements Observer {
 
          // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
          // another motion show up on it)
-         MotionsDB.getInstance().flushMotions();
+         MotionsDB.getInstance().clearCurrent();
 
          // Initialize progress bar, given we know the number of frames to process
          IKTrial trial = ikTool.getIKTrialSet().get(0);

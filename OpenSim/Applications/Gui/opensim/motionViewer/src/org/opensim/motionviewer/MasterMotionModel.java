@@ -144,6 +144,9 @@ public class MasterMotionModel {
       displayers.add(new MotionDisplayer(simmMotionData, abstractModel));
       buildSuperMotion(abstractModel, simmMotionData);
    }
+   void add(MotionsDB.ModelMotionPair pair) {
+      add(pair.model, pair.motion);
+   }
 
    void clear() {
      // unload previously loaded motion of the same model
@@ -180,13 +183,6 @@ public class MasterMotionModel {
     */
    int getNumMotions() {
       return displayers.size();
-   }
-
-   boolean hasMotion(Model model, Storage mot) {
-      for(int i=0; i<displayers.size(); i++)
-         if(displayers.get(i).getModel() == model && displayers.get(i).getSimmMotionData()==mot)
-            return true;
-      return false;
    }
 
    String getDisplayName() {

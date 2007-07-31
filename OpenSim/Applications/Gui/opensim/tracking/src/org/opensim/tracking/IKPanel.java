@@ -96,7 +96,7 @@ public class IKPanel  extends workflowWizardPanelBase{
 
          // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
          // another motion show up on it)
-         MotionsDB.getInstance().flushMotions();
+         MotionsDB.getInstance().clearCurrent();
         
          //final JavaAnimationCallback animationCallback = new JavaAnimationCallback(ikModel);
          final JavaMotionDisplayerCallback animationCallback = new JavaMotionDisplayerCallback(ikModel, trial.getOutputStorage(), null);

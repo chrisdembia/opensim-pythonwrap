@@ -19,12 +19,9 @@ import org.opensim.modeling.Storage;
  */
 public class MotionEvent extends EventObject {
     
-    public enum Operation{Open, Close, SetCurrent, Clear, AddSyncMotion};
+    public enum Operation{Open, Close, CurrentMotionsChanged};
     Model model;
     Storage motion;
-    boolean lastInASeries = false; // for a series of AddSyncMotion, indicates that this is the last motion in the selected group 
-                                   // (so display can update after this event is handled)
-    
     Operation op= Operation.Open;
     /**
      * Creates a new instance of MotionEvent
@@ -33,6 +30,12 @@ public class MotionEvent extends EventObject {
         super(source);
         this.model = model;
         this.motion = motion;
+        this.op = op;
+    }
+    public MotionEvent(Object source, Operation op) {
+        super(source);
+        this.model = null;
+        this.motion = null;
         this.op = op;
     }
         
@@ -50,8 +53,4 @@ public class MotionEvent extends EventObject {
     {
         return op;
     }
-
-    public void setLastInASeries(boolean lastInASeries) { this.lastInASeries = lastInASeries; }
-    public boolean getLastInASeries() { return lastInASeries; }
-    
 }

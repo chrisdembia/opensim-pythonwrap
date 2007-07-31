@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 import javax.swing.SwingUtilities;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -50,10 +51,20 @@ import org.opensim.view.pub.*;
 public class MotionsDB extends Observable // Observed by other entities in motionviewer
         implements Observer {   // Observer OpenSimDB to sync. up when models are deleted
    
+   public static class ModelMotionPair {
+      public Model model;
+      public Storage motion;
+      public ModelMotionPair(Model model, Storage motion) { this.model = model; this.motion = motion; }
+   }
+
    static MotionsDB instance;
+
    // Map model to an ArrayList of Motions linked with it
-   static Hashtable<Model, ArrayList<Storage>> mapModels2Motions =
+   Hashtable<Model, ArrayList<Storage>> mapModels2Motions =
            new Hashtable<Model, ArrayList<Storage>>(4);
+
+   // More than one motion may be current if synchronizing motion
+   Vector<ModelMotionPair> currentMotions = new Vector<ModelMotionPair>();
    
    /** Creates a new instance of MotionsDB */
    private MotionsDB() {
@@ -145,27 +156,31 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       MotionEvent evt = new MotionEvent(this, model, motion, MotionEvent.Operation.Open);
       setChanged();
       notifyObservers(evt);
+
+      setCurrent(model, motion); // Also make it current (a separate event is sent out)
    }
 
    public void addMotion(Model model, Storage motion) {
       addMotion(model, motion, false);
    }
 
-   void setCurrent(Model model, Storage motion) {
-      MotionEvent evt = new MotionEvent(this, model, motion, MotionEvent.Operation.SetCurrent);
+   public void clearCurrent() {
+      clearCurrentMotions();
+      MotionEvent evt = new MotionEvent(this, MotionEvent.Operation.CurrentMotionsChanged);
       setChanged();
       notifyObservers(evt);
    }
 
-   public void flushMotions() {
-      MotionEvent evt = new MotionEvent(this, null, null, MotionEvent.Operation.Clear);
+   public void setCurrent(Model model, Storage motion) {
+      setCurrentMotion(new ModelMotionPair(model, motion));
+      MotionEvent evt = new MotionEvent(this, MotionEvent.Operation.CurrentMotionsChanged);
       setChanged();
       notifyObservers(evt);
    }
 
-   void addSyncMotion(Model model, Storage simmMotionData, boolean lastInASeries) {
-      MotionEvent evt = new MotionEvent(this, model, simmMotionData, MotionEvent.Operation.AddSyncMotion);
-      evt.setLastInASeries(lastInASeries);
+   public void setCurrent(Vector<ModelMotionPair> motions) {
+      setCurrentMotions(motions);
+      MotionEvent evt = new MotionEvent(this, MotionEvent.Operation.CurrentMotionsChanged);
       setChanged();
       notifyObservers(evt);
    }
@@ -175,11 +190,19 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       if(motions!=null) { // Shouldn't be null, but just in case...
          motions.remove(simmMotionData);
       }
+
+      boolean removed = removeFromCurrentMotions(new ModelMotionPair(model, simmMotionData));
+
       MotionEvent evt = new MotionEvent(this, model, simmMotionData, MotionEvent.Operation.Close);
       setChanged();
       notifyObservers(evt);
-   }
 
+      if(removed) {
+         evt = new MotionEvent(this, MotionEvent.Operation.CurrentMotionsChanged);
+         setChanged();
+         notifyObservers(evt);
+      }
+   }
 
    public void update(Observable o, Object arg) {
       if (o instanceof OpenSimDB && arg instanceof ModelEvent){
@@ -258,5 +281,31 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       }
       return null;
    }
-}
 
+   //------------------------------------------------------------------------
+   // Utilities for currentMotions
+   //------------------------------------------------------------------------
+   // TODO: add an equals() method to ModelMotionPair so that we can use more standard Vector routines
+   // in place of these... but then I think we'll have to implement hashCode() and other such base functions.
+   private void clearCurrentMotions() { currentMotions.setSize(0); }
+   private void addToCurrentMotions(ModelMotionPair pair) { currentMotions.add(pair); }
+   private void setCurrentMotion(ModelMotionPair pair) {
+      currentMotions.setSize(1);
+      currentMotions.set(0, pair);
+   }
+   private void setCurrentMotions(Vector<ModelMotionPair> motions) {
+      currentMotions = motions; // TODO: hopefully it's safe to just use = here
+   }
+   private boolean removeFromCurrentMotions(ModelMotionPair pair) {
+      for(int i=0; i<currentMotions.size(); i++) {
+         if(currentMotions.get(i).model == pair.model && currentMotions.get(i).motion == pair.motion) {
+            currentMotions.remove(i);
+            return true;
+         }
+      }
+      return false;
+   }
+
+   public int getNumCurrentMotions() { return currentMotions.size(); }
+   public ModelMotionPair getCurrentMotion(int i) { return currentMotions.get(i); }
+}
