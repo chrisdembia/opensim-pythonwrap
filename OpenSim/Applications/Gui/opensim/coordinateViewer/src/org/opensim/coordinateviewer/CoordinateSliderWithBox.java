@@ -132,13 +132,6 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
         jXSlider.setAlignmentX(0.0F);
         jXSlider.setMinimumSize(new java.awt.Dimension(50, 25));
         jXSlider.setPreferredSize(new java.awt.Dimension(50, 25));
-        jXSlider.setUI ( new WindowsSliderUI(jXSlider){
-            public void paintThumb(Graphics g)  {
-                Rectangle knobBounds = thumbRect;
-                Image sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/opensim/coordinateviewer/images/sliderKnob.png"));
-                g.drawImage(sliderKnob,knobBounds.x,knobBounds.y,null);
-            }
-        });
 
         jFormattedTextField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         jFormattedTextField.setText("-123.456");

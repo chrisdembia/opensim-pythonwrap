@@ -153,8 +153,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jStartTimeTextField = new javax.swing.JTextField();
         jEndTimeTextField = new javax.swing.JTextField();
 
-        setMaximumSize(new java.awt.Dimension(32767, 38));
-        setMinimumSize(new java.awt.Dimension(0, 38));
+        setMaximumSize(new java.awt.Dimension(32767, 42));
+        setMinimumSize(new java.awt.Dimension(0, 42));
         jPlaybackButtonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
         jPlaybackButtonsPanel.setToolTipText("Motion Controls");
@@ -317,20 +317,13 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jMotionSlider.setMaximumSize(new java.awt.Dimension(32767, 22));
         jMotionSlider.setMinimumSize(new java.awt.Dimension(168, 22));
         jMotionSlider.setPreferredSize(new java.awt.Dimension(168, 22));
-        jMotionSlider.setUI ( new WindowsSliderUI(jMotionSlider){
-            public void paintThumb(Graphics g)  {
-                Rectangle knobBounds = thumbRect;
-                Image sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/opensim/motionviewer/images/sliderKnob.png"));
-                g.drawImage(sliderKnob,knobBounds.x,knobBounds.y,null);
-            }
-        });
 
         jLabelForMotionNameLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabelForMotionNameLabel.setLabelFor(jMotionNameLabel);
         jLabelForMotionNameLabel.setText("Motion");
-        jLabelForMotionNameLabel.setMaximumSize(new java.awt.Dimension(42, 38));
-        jLabelForMotionNameLabel.setMinimumSize(new java.awt.Dimension(42, 38));
-        jLabelForMotionNameLabel.setPreferredSize(new java.awt.Dimension(42, 38));
+        jLabelForMotionNameLabel.setMaximumSize(new java.awt.Dimension(42, 42));
+        jLabelForMotionNameLabel.setMinimumSize(new java.awt.Dimension(42, 42));
+        jLabelForMotionNameLabel.setPreferredSize(new java.awt.Dimension(42, 42));
 
         jMotionNameLabel.setToolTipText("Current Motion");
         jMotionNameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -390,10 +383,10 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jWrapToggleButton.setFocusable(false);
         jWrapToggleButton.setIconTextGap(0);
         jWrapToggleButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jWrapToggleButton.setMaximumSize(new java.awt.Dimension(24, 38));
-        jWrapToggleButton.setMinimumSize(new java.awt.Dimension(24, 38));
+        jWrapToggleButton.setMaximumSize(new java.awt.Dimension(24, 42));
+        jWrapToggleButton.setMinimumSize(new java.awt.Dimension(24, 42));
         jWrapToggleButton.setOpaque(true);
-        jWrapToggleButton.setPreferredSize(new java.awt.Dimension(24, 38));
+        jWrapToggleButton.setPreferredSize(new java.awt.Dimension(24, 42));
         jWrapToggleButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled_selected.png")));
         jWrapToggleButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled_rollover.png")));
         jWrapToggleButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled_rollover_selected.png")));
@@ -485,7 +478,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
                                     .add(jEndTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(jPlaybackButtonsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
                     .add(jWrapToggleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(3, 3, 3))
+                .add(1, 1, 1))
         );
     }// </editor-fold>//GEN-END:initComponents
 

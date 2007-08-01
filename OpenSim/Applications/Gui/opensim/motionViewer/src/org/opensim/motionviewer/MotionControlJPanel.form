@@ -3,10 +3,10 @@
 <Form version="1.3" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[32767, 38]"/>
+      <Dimension value="[32767, 42]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[0, 38]"/>
+      <Dimension value="[0, 42]"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -86,7 +86,7 @@
                   </Group>
                   <Component id="jWrapToggleButton" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -411,9 +411,6 @@
           <Dimension value="[168, 22]"/>
         </Property>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="    jMotionSlider.setUI ( new WindowsSliderUI(jMotionSlider){&#xa;      public void paintThumb(Graphics g)  {&#xa;          Rectangle knobBounds = thumbRect;&#xa;          Image sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource(&quot;/org/opensim/motionviewer/images/sliderKnob.png&quot;));&#xa;          g.drawImage(sliderKnob,knobBounds.x,knobBounds.y,null);&#xa;      }&#xa;    });"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelForMotionNameLabel">
       <Properties>
@@ -425,13 +422,13 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Motion"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[42, 38]"/>
+          <Dimension value="[42, 42]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[42, 38]"/>
+          <Dimension value="[42, 42]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[42, 38]"/>
+          <Dimension value="[42, 42]"/>
         </Property>
       </Properties>
     </Component>
@@ -557,14 +554,14 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[24, 38]"/>
+          <Dimension value="[24, 42]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[24, 38]"/>
+          <Dimension value="[24, 42]"/>
         </Property>
         <Property name="opaque" type="boolean" value="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[24, 38]"/>
+          <Dimension value="[24, 42]"/>
         </Property>
         <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/org/opensim/motionviewer/images/wrap_beveled_selected.png"/>

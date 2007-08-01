@@ -29,6 +29,8 @@ public class Installer extends ModuleInstall {
         try {
              // Put your startup code here.
             UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
+            UIManager.put("SliderUI", "org.opensim.view.OpenSimSliderUI");
+            
             SwingUtilities.invokeLater(new Runnable(){
             public void run() {
                MuscleEditorTopComponent.findInstance();
