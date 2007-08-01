@@ -67,7 +67,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
   }
 
   public boolean isLeaf(Object node) { 
-     return ( (PropertyNode) node).isLeaf(); 
+     return ((PropertyNode)node).isLeaf(); 
   }
 
   //-------------------------------------------------------------------------
@@ -362,7 +362,11 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
     }
 
    public JButton getControlButton() {
-      return controlButton;
+      if(controlButton!=null) { // A controlButton is possible, but we check the sizes of the property array to see if we can really add/remove elements
+         if(idx==-1 && ((Property)property).getArraySize() < ((Property)property).getMaxArraySize()) return controlButton; // an add button
+         else if(idx!=-1 && ((Property)property).getArraySize() > ((Property)property).getMinArraySize()) return controlButton; // a delete button
+      }
+      return null;
    }
 
    public void setValue(Object value) {
@@ -445,29 +449,18 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
               retArray[i] = new PropertyNode(this, prop);
             }
           }
-          else if (propType == Property.PropertyType.DblArray) {
-            ArrayDouble dblArray = rdprop.getValueDblArray();
-            retArray = new PropertyNode[dblArray.getSize()];
-            for (int i = 0; i < dblArray.getSize(); i++) retArray[i] = new PropertyNode(this, property, i);
-          }
-          else if (propType == Property.PropertyType.IntArray) {
-            ArrayInt intArray = rdprop.getValueIntArray();
-            retArray = new PropertyNode[intArray.getSize()];
-            for (int i = 0; i < intArray.getSize(); i++) retArray[i] = new PropertyNode(this, property, i);
-          }
-          else if (propType == Property.PropertyType.StrArray) {
-            ArrayStr strArray = rdprop.getValueStrArray();
-            retArray = new PropertyNode[strArray.getSize()];
-            for (int i = 0; i < strArray.getSize(); i++) retArray[i] = new PropertyNode(this, property, i);
-          }
-          else if (propType == Property.PropertyType.BoolArray) {
-            ArrayBool boolArray = rdprop.getValueBoolArray();
-            retArray = new PropertyNode[boolArray.getSize()];
-            for (int i = 0; i < boolArray.getSize(); i++) retArray[i] = new PropertyNode(this, property, i);
+          else if (propType == Property.PropertyType.DblArray ||
+                   propType == Property.PropertyType.IntArray ||
+                   propType == Property.PropertyType.StrArray ||
+                   propType == Property.PropertyType.BoolArray) 
+          {
+            retArray = new PropertyNode[rdprop.getArraySize()];
+            for (int i = 0; i < rdprop.getArraySize(); i++) 
+               retArray[i] = new PropertyNode(this, property, i); // PropertyNode will figure out our type
           }
           else if (propType == Property.PropertyType.ObjArray) {
-            retArray = new PropertyNode[rdprop.getValueObjArraySize()];
-            for (int i = 0; i < rdprop.getValueObjArraySize(); i++) {
+            retArray = new PropertyNode[rdprop.getArraySize()];
+            for (int i = 0; i < rdprop.getArraySize(); i++) {
               OpenSimObject subobj = rdprop.getValueObjPtr(i);
               retArray[i] = new PropertyNode(this, subobj, i);
             }
