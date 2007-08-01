@@ -6,12 +6,11 @@ import java.io.ObjectOutput;
 import javax.swing.SwingUtilities;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
+import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.base.SerializationHelper;
 import org.opensim.view.pub.OpenSimDB;
@@ -31,12 +30,10 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
                 loadModel(fileName);
                 progressHandle.finish();
             } catch (IOException ex) {
-                DialogDisplayer.getDefault().notify(
-                        new NotifyDescriptor.Message(
-                        "Could not construct a model from "+fileName+".\nConsider using File/import instead.\n"));
-
                 progressHandle.finish();
-               
+                ErrorDialog.displayIOExceptionDialog("OpenSim Model Loading Error",
+                  "Could not construct a model from "+fileName+".\nConsider using File/import instead.\n",
+                  ex);
             }
             
             try {
