@@ -1,6 +1,7 @@
 package org.opensim.view.editors;
 
 import java.awt.Component;
+import java.awt.event.MouseEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -37,6 +38,13 @@ class ObjectPropertyViewerTreeTable extends JTreeTable {
       TableCellEditor editor = tableColumn.getCellEditor();
       if (editor == null) editor = getDefaultEditor(model.getCellClass(adapter.nodeForRow(row), convertColumnIndexToModel(column)));
       return editor;
+   }
+
+   public String getToolTipText(MouseEvent e) {
+      java.awt.Point p = e.getPoint();
+      int row = rowAtPoint(p);
+      int column = columnAtPoint(p);
+      return model.getToolTipText(adapter.nodeForRow(row), convertColumnIndexToModel(column));
    }
 }
 

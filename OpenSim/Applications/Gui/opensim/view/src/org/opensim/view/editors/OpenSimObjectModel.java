@@ -11,6 +11,7 @@ import org.opensim.modeling.ArrayBool;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayInt;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.IO;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Property;
 import org.opensim.modeling.PropertySet;
@@ -88,8 +89,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
   }
 
   public boolean isCellEditable(Object node, int column) {
-//     return column == 0 || (isEditable && editableColumns[column] && ((PropertyNode)node).editable());
-   return true;
+   return column == 0 || (isEditable && editableColumns[column] && ((PropertyNode)node).editable());
   }
 
   /**
@@ -128,6 +128,22 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
    */
   public void setValueAt(Object aValue, Object node, int column) {
     if (column==2) ((PropertyNode)node).setValue(aValue);
+  }
+
+  public String getToolTipText(Object node, int column) {
+      if(node==null) return null;
+      if(column==1) {
+         if(((PropertyNode)node).getControlButton()!=null) return (((PropertyNode)node).getControlButton()).getToolTipText();
+         else return null;
+      } else {
+         Object obj = getValueAt(node, column);
+         if(obj!=null) {
+            String str = obj.toString();
+            String formattedStr = IO.formatText(str, "", 120, "<br>");
+            return "<html>"+formattedStr+"</html";
+         }
+         else return null;
+      }
   }
 
   //-------------------------------------------------------------------------
@@ -225,12 +241,14 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
                controlButton.addMouseListener(new MouseInputAdapter() {
                   public void mousePressed(MouseEvent evt) { addPropertyItem(); }
                });
+               controlButton.setToolTipText("Add an item to this property array");
             } else {
                // Button to delete array item
                controlButton = new JButton(removeIcon);
                controlButton.addMouseListener(new MouseInputAdapter() {
                   public void mousePressed(MouseEvent evt) { removePropertyItem(); }
                });
+               controlButton.setToolTipText("Remove this item from the property array");
             }
          }
          else if(propType == Property.PropertyType.Obj ||
