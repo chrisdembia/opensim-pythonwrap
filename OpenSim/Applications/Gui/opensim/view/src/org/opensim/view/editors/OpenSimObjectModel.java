@@ -1,12 +1,18 @@
 package org.opensim.view.editors;
 
-/*
- * OpenSimObjectModel.java
- *
- *
- */
-
+import java.awt.Component;
+import java.awt.Insets;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayInt;
 import org.opensim.modeling.ArrayStr;
@@ -14,28 +20,83 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Property;
 import org.opensim.modeling.PropertySet;
 
+class JTableButtonRenderer implements TableCellRenderer {
+   private TableCellRenderer defaultRenderer;
+
+   public JTableButtonRenderer(TableCellRenderer renderer) { defaultRenderer = renderer; }
+
+   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+      if(value instanceof Component) {
+         Component comp = (Component)value;
+         if(isSelected) comp.setBackground(table.getSelectionBackground());
+         else comp.setBackground(table.getBackground());
+         return comp;
+      } else return defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+   }
+}
+
+class JTableButtonMouseListener implements MouseListener {
+
+  private JTable table;
+
+  private void forwardEventToButton(MouseEvent e) {
+    TableColumnModel columnModel = table.getColumnModel();
+    int column = columnModel.getColumnIndexAtX(e.getX());
+    int row    = e.getY() / table.getRowHeight();
+    Object value;
+    JButton button;
+
+    if(row >= table.getRowCount() || row < 0 || column >= table.getColumnCount() || column < 0)
+      return;
+
+    value = table.getValueAt(row, column);
+
+    if(!(value instanceof JButton)) return;
+
+    button = (JButton)value;
+
+    MouseEvent buttonEvent = (MouseEvent)SwingUtilities.convertMouseEvent(table, e, button);
+    button.dispatchEvent(buttonEvent);
+    // This is necessary so that when a button is pressed and released
+    // it gets rendered properly.  Otherwise, the button may still appear
+    // pressed down when it has been released.
+    table.repaint();
+  }
+
+  public JTableButtonMouseListener(JTable table) { this.table = table; }
+
+  public void mouseClicked(MouseEvent e) { forwardEventToButton(e); }
+  public void mouseEntered(MouseEvent e) { forwardEventToButton(e); }
+  public void mouseExited(MouseEvent e) { forwardEventToButton(e); }
+  public void mousePressed(MouseEvent e) { forwardEventToButton(e); }
+  public void mouseReleased(MouseEvent e) { forwardEventToButton(e); }
+}
+
 //=========================================================================
 // OpenSimObjectModel
 //=========================================================================
 public class OpenSimObjectModel extends AbstractTreeTableModel {
 
   // Names of the columns.
-  static protected String[] cNames = { "Name", "Value", "Description" };
+  static protected String[] cNames = { "Name", "", "Value", "Description" };
 
   // Types of the columns.
-  static protected Class[] cTypes = { TreeTableModel.class, String.class, String.class };
+  static protected Class[] cTypes = { TreeTableModel.class, JButton.class, String.class, String.class };
 
   // Column header tool tips
-  static final String[] toolTipStr = { "Property name in xml file", "Current property value", "Description"};
+  static final String[] toolTipStr = { "Property name in xml file", "Controls for array properties", "Current property value", "Description"};
 
   // Whether columns are editable
   // Column 0 is the tree, needs to be "editable" in order for expansion/collapse of nodes
-  static protected boolean[] editableColumns = { true, true, false };
+  static protected boolean[] editableColumns = { true, false, true, false };
 
   // Whether the table as a whole is editable (false if we're just viewing properties)
   protected boolean isEditable;
 
-  protected static PropertyNode[] EMPTY_CHILDREN = new PropertyNode[0];
+  static protected PropertyNode[] EMPTY_CHILDREN = new PropertyNode[0];
+
+  protected final Icon addIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/addSymbol.png"));
+  protected final Icon removeIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/closeSymbol.png"));
 
   //-------------------------------------------------------------------------
   // Constructor
@@ -89,9 +150,11 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
       switch (column) {
         case 0: // Name
           return fn.getName();
-        case 1: // Value
+        case 1: // Controls
+          return fn.getControlButton();
+        case 2: // Value
           return fn.getValue();
-        case 2: // Description
+        case 3: // Description
           Object obj = fn.getObject();
           if (obj instanceof Property)
             return ( ( (Property) obj).getComment());
@@ -116,7 +179,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
    * and scalar properties are not handled the same. -Ayman 02/07
    */
   public void setValueAt(Object aValue, Object node, int column) {
-    if (column==1) ((PropertyNode)node).setValue(aValue);
+    if (column==2) ((PropertyNode)node).setValue(aValue);
   }
 
   //-------------------------------------------------------------------------
@@ -155,6 +218,8 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
     /** in cases where the node corresponds to an array entry, keep index here */
     protected int idx;
+
+    protected JButton controlButton = null;
 
     //-----------------------------------------------------------------------
     // Constructors
@@ -207,6 +272,32 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
           aggregate = true;
         }
       }
+
+      // Initialize controls buttons
+      if(property instanceof String)  {
+         controlButton = new JButton(removeIcon);
+         controlButton.addMouseListener(new MouseInputAdapter() {
+            public void mousePressed(MouseEvent evt) { removePropertyItem(); }
+         });
+      } else if(property instanceof Property) {
+         Property.PropertyType propType = ( (Property) property).getType();
+         if(propType == Property.PropertyType.BoolArray ||
+            propType == Property.PropertyType.IntArray ||
+            propType == Property.PropertyType.FltArray ||
+            propType == Property.PropertyType.DblArray ||
+            propType == Property.PropertyType.StrArray) 
+         {
+            controlButton = new JButton(addIcon);
+            controlButton.addMouseListener(new MouseInputAdapter() {
+               public void mousePressed(MouseEvent evt) { addPropertyItem(); }
+            });
+         }
+      }
+      if(controlButton!=null) {
+         controlButton.setContentAreaFilled(false);
+         controlButton.setMargin(new Insets(0,0,0,0));
+         controlButton.setOpaque(true);
+      }
     }
 
     //-----------------------------------------------------------------------
@@ -224,6 +315,33 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
     private Object getObject() { return property; }
 
     public boolean editable() { return !aggregate; }
+
+    //-----------------------------------------------------------------------
+    // Add/Remove for property arrays
+    //-----------------------------------------------------------------------
+
+    // This is the parent node for a property array, and we want to add an item to the array
+    private void addPropertyItem() {
+      Property p = (Property)property;
+      // TODO: what values should we use to populate newly created item?
+      if (p.getType() == Property.PropertyType.DblArray) p.getValueDblArray().append(0.0);
+      else if (p.getType() == Property.PropertyType.IntArray) p.getValueIntArray().append(0);
+      else if (p.getType() == Property.PropertyType.StrArray) p.getValueStrArray().append("");
+      else if (p.getType() == Property.PropertyType.BoolArray) p.getValueBoolArray().append(true);
+      reloadChildren(getParent());
+    }
+
+    // This is an item in a property array, and we remove this item
+    private void removePropertyItem() {
+      if(idx != -1) {
+         Property p = (Property)getParent().property;
+         if (p.getType() == Property.PropertyType.DblArray) p.getValueDblArray().remove(idx);
+         else if (p.getType() == Property.PropertyType.IntArray) p.getValueIntArray().remove(idx);
+         else if (p.getType() == Property.PropertyType.StrArray) p.getValueStrArray().remove(idx);
+         else if (p.getType() == Property.PropertyType.BoolArray) p.getValueBoolArray().remove(idx);
+         reloadChildren(getParent());
+      }
+    }
 
     //-----------------------------------------------------------------------
     // Basic get/set/queries
@@ -250,6 +368,10 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
       return ("unknown type!");
     }
+
+   public JButton getControlButton() {
+      return controlButton;
+   }
 
    public void setValue(Object aValue) {
       /**

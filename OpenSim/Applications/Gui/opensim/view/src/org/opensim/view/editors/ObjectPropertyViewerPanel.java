@@ -2,10 +2,12 @@ package org.opensim.view.editors;
 
 import java.awt.Component;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.table.TableCellRenderer;
 import org.opensim.modeling.OpenSimObject;
@@ -15,6 +17,8 @@ import org.opensim.modeling.OpenSimObject;
  * Based on example by Scott Violet, SUN Micro
  */
 public class ObjectPropertyViewerPanel extends JPanel {
+    private static final int controlsColumnWidth = 16;
+
     protected OpenSimObjectModel model;
     protected JTreeTable         treeTable;
     protected OpenSimObject      object;
@@ -33,6 +37,19 @@ public class ObjectPropertyViewerPanel extends JPanel {
         ColumnHeaderRenderer renderer = new ColumnHeaderRenderer();
         for (int i=0;i<model.getColumnCount();i++)
           treeTable.getColumnModel().getColumn(i).setHeaderRenderer(renderer);
+
+        // Set column width for the controls column
+        treeTable.getColumnModel().getColumn(1).setPreferredWidth(controlsColumnWidth);
+        treeTable.getColumnModel().getColumn(1).setMinWidth(controlsColumnWidth);
+        treeTable.getColumnModel().getColumn(1).setMaxWidth(controlsColumnWidth);
+
+        // Don't allow selection (no use for it here)
+        treeTable.setRowSelectionAllowed(false);
+
+        treeTable.setDefaultRenderer(JButton.class, new JTableButtonRenderer(treeTable.getDefaultRenderer(JButton.class)));
+
+        // To handle pressing the "controls" buttons
+        treeTable.addMouseListener(new JTableButtonMouseListener(treeTable));
 
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.add(new JScrollPane(treeTable));
