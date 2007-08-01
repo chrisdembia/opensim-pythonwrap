@@ -123,11 +123,12 @@ public class SingleModelGuiElements {
    public String[] getActuatorClassNames()
    {
       if (actuatorClassNames==null) {
-         actuatorClassNames = new String[4];
-         actuatorClassNames[0] = new String("AbstractMuscle");
-         actuatorClassNames[1] = new String("Force");
-         actuatorClassNames[2] = new String("Torque");
-         actuatorClassNames[3] = new String("GeneralizedForce");
+         actuatorClassNames = new String[5];
+         actuatorClassNames[0] = new String("SimmZajacHill");
+         actuatorClassNames[1] = new String("SimmDarrylMuscle");
+         actuatorClassNames[2] = new String("Force");
+         actuatorClassNames[3] = new String("Torque");
+         actuatorClassNames[4] = new String("GeneralizedForce");
       }
       return actuatorClassNames;
    }

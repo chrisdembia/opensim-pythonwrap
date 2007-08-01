@@ -35,6 +35,7 @@
             <file name="org-opensim-view-base-ToggleAxesAction.instance">
                 <attr name="instanceClass" stringvalue="org.opensim.view.base.ToggleAxesAction"/>
             </file>
+            <file name="org-opensim-view-editors-EditMusclesAction.instance"/>
             <file name="org-opensim-view-editors-ObjectPropertiesEditor.instance"/>
             <file name="org-opensim-view-nodes-EditFromNodeAction.instance"/>
             <file name="org-opensim-view-nodes-IsolateCurrentModelAction.instance"/>
@@ -113,13 +114,24 @@
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
             <attr name="org-opensim-view-separator2.instance/org-netbeans-core-actions-SystemExit.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-editors-EditMusclesAction.shadow/org-opensim-view-editors-separatorAfter.instance" boolvalue="true"/>
 
+            <file name="org-opensim-view-editors-separatorAfter.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+            </file>
+            <attr name="org-opensim-view-editors-separatorAfter.instance/Separator2.instance" boolvalue="true"/>
             <file name="org-openide-actions-PageSetupAction.instance_hidden"/>
             <file name="org-openide-actions-PrintAction.instance_hidden"/>
             <file name="org-openide-actions-SaveAction.instance_hidden"/>
             <file name="org-openide-actions-SaveAllAction.instance_hidden"/>
         </folder>
         <folder name="Edit">
+            <attr name="Separator1.instance/org-opensim-view-editors-EditMusclesAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-editors-EditMusclesAction.shadow" url="org-opensim-view-editors-EditMusclesAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-editors-EditMusclesAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-editors-EditMusclesAction.shadow/Separator2.instance" boolvalue="true"/>
+            <attr name="Separator3.instance/org-opensim-view-editors-ObjectPropertiesEditor.shadow" boolvalue="true"/>
             <file name="org-opensim-view-editors-ObjectPropertiesEditor.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-editors-ObjectPropertiesEditor.instance"/>
             </file>

@@ -71,20 +71,24 @@ public class MusclesNode extends OpenSimObjectSetNode {
             }
          }
       } else {
+         /* If you're going to add an "all" group, make it the first group.
+          * So first see if it's necessary, then add it. Then add the other
+          * groups.
+          */
          boolean userDefinedAllGroup = false;
+         // See if "all" group is already defined.
          for (int i = 0; i < as.getNumGroups(); i++) {
             ObjectGroup grp = as.getGroup(i);
             ArrayPtrsObj apo = grp.getMembers();
             AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
             // If the first member of the group is an AbstractMuscle, then
             // consider this group to be an AbstractMuscle group.
-            if (muscle != null) {
-               children.add(new Node[] {new ActuatorGroupNode(grp)});
-               if (grp.getName().equals("all"))
-                  userDefinedAllGroup = true;
+            if (muscle != null && grp.getName().equals("all")) {
+               userDefinedAllGroup = true;
+               break;
             }
          }
-         // Now make the "all" group, if there is not already one by that name
+         // Now make the "all" group, if necessary.
          if (userDefinedAllGroup == false) {
             ObjectGroup allGroup = new ObjectGroup();
             allGroup.setName("all");
@@ -95,6 +99,16 @@ public class MusclesNode extends OpenSimObjectSetNode {
                }
             }
             children.add(new Node[] {new ActuatorGroupNode(allGroup)});
+         }
+         // Now add the user-defined groups.
+         for (int i = 0; i < as.getNumGroups(); i++) {
+            ObjectGroup grp = as.getGroup(i);
+            ArrayPtrsObj apo = grp.getMembers();
+            AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
+            // If the first member of the group is an AbstractMuscle, then
+            // consider this group to be an AbstractMuscle group.
+            if (muscle != null)
+               children.add(new Node[] {new ActuatorGroupNode(grp)});
          }
       }
       if (getChildren().getNodesCount() == 0)

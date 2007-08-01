@@ -11,12 +11,14 @@ package org.opensim.view.pub;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Vector;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.*;
 import vtk.vtkMatrix4x4;
 
@@ -57,6 +59,9 @@ final public class OpenSimDB extends Observable {
         //currentModel=aModel;
         setChanged();
         ModelEvent evnt = new ModelEvent(aModel, ModelEvent.Operation.Open);
+        //Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+        //objs.add(aModel);
+        //ObjectAddedEvent evnt = new ObjectAddedEvent(this, aModel, objs);
         notifyObservers(evnt);
         setCurrentModel(aModel);
     }
@@ -135,8 +140,11 @@ final public class OpenSimDB extends Observable {
     public void setCurrentModel(final Model aCurrentModel, boolean logEdit) {
         final Model saveCurrentModel=currentModel;
         currentModel = aCurrentModel;
+        Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+        objs.add(aCurrentModel);
+        ObjectSetCurrentEvent evnt = new ObjectSetCurrentEvent(this, aCurrentModel, objs);
         setChanged();
-        ModelEvent evnt = new ModelEvent(aCurrentModel, ModelEvent.Operation.SetCurrent);
+        //ModelEvent evnt = new ModelEvent(aCurrentModel, ModelEvent.Operation.SetCurrent);
         notifyObservers(evnt);
         if (logEdit){
             ExplorerTopComponent.getDefault().getUndoRedoManager().addEdit(new AbstractUndoableEdit() {

@@ -47,7 +47,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
                       <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="195" max="32767" attributes="0"/>
+                      <EmptySpace pref="191" max="32767" attributes="0"/>
                       <Component id="ApplyButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                   </Group>
@@ -61,10 +61,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="MuscleNameTextField" min="-2" pref="125" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                              <Component id="MuscleTypeLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="MuscleTypeComboBox" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="MuscleTypeLabel" min="-2" pref="184" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -79,12 +76,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="MuscleNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="MuscleTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="MuscleTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="MuscleNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="MuscleTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ParametersTabbedPanel" pref="246" max="32767" attributes="0"/>
+                      <Component id="ParametersTabbedPanel" pref="249" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ResetButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -96,11 +92,9 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JComboBox" name="MuscleTypeComboBox">
-            </Component>
             <Component class="javax.swing.JButton" name="ApplyButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="save"/>
+                <Property name="text" type="java.lang.String" value="Save"/>
                 <Property name="toolTipText" type="java.lang.String" value="save changes to this muscle"/>
               </Properties>
               <Events>
@@ -109,16 +103,16 @@
             </Component>
             <Component class="javax.swing.JButton" name="ResetButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="reset"/>
+                <Property name="text" type="java.lang.String" value="Reset"/>
                 <Property name="toolTipText" type="java.lang.String" value="undo changes to last saved version"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[63, 25]"/>
+                  <Dimension value="[65, 25]"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[63, 25]"/>
+                  <Dimension value="[65, 25]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[63, 25]"/>
+                  <Dimension value="[65, 25]"/>
                 </Property>
               </Properties>
               <Events>
@@ -140,18 +134,18 @@
             </Container>
             <Component class="javax.swing.JLabel" name="MuscleNameLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="name:"/>
+                <Property name="text" type="java.lang.String" value="Name"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="MuscleTypeLabel">
               <Properties>
-                <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="type:"/>
+                <Property name="horizontalAlignment" type="int" value="2"/>
+                <Property name="text" type="java.lang.String" value="Type: &lt;class&gt;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="ModelNameLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="model: &lt;name&gt;&#xa;"/>
+                <Property name="text" type="java.lang.String" value="Model: &lt;name&gt; "/>
               </Properties>
             </Component>
           </SubComponents>

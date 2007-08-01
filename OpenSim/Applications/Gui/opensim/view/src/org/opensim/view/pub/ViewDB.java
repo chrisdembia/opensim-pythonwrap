@@ -36,6 +36,7 @@ import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
+import java.util.Vector;
 import java.util.prefs.Preferences;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
@@ -160,12 +161,90 @@ public final class ViewDB extends Observable implements Observer {
       }
    }
    /**
-    * update Method is called whenever a model s added, removed and/or moved in the GUI
+    * update Method is called whenever a model is added, removed and/or moved in the GUI
     * Observable should be of type OpenSimDB.
     */
    public void update(Observable o, Object arg) {
       if (o instanceof OpenSimDB){
-         if (arg instanceof ModelEvent){
+         if (arg instanceof ObjectAddedEvent) {
+            ObjectAddedEvent ev = (ObjectAddedEvent)arg;
+            Vector<OpenSimObject> objs = ev.getObjects();
+            for (int i=0; i<objs.size(); i++) {
+               if (objs.get(i) instanceof Model) {
+                  createNewViewWindowIfNeeded();
+                  // Create visuals for the model
+                  Model model = (Model)objs.get(i);
+                  SingleModelVisuals newModelVisual = new SingleModelVisuals(model);
+                  SingleModelGuiElements newModelGuiElements = new SingleModelGuiElements(model);
+                  processSavedSettings(model);
+                  // add to map from models to modelVisuals so that it's accesisble
+                  // thru tree picks
+                  mapModelsToVisuals.put(model, newModelVisual);
+                  mapModelsToGuiElements.put(model, newModelGuiElements);
+                  //From here on we're adding things to display so we better lock'
+
+                  if (sceneAssembly==null){
+                     createScene();
+                     // Add assembly to all views
+                     Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
+                     while(windowIter.hasNext()){
+                        ModelWindowVTKTopComponent nextWindow = windowIter.next();
+                        nextWindow.getCanvas().GetRenderer().AddViewProp(sceneAssembly);
+                     }
+                  }
+                  // Compute placement so that model does not intersect others
+                  vtkMatrix4x4 m= getInitialTransform(newModelVisual);
+                  newModelVisual.getModelDisplayAssembly().SetUserMatrix(m);
+
+                  sceneAssembly.AddPart(newModelVisual.getModelDisplayAssembly());
+                  // Check if this refits scene into window
+
+                  if(OpenSimDB.getInstance().getNumModels()==1) {
+                     Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
+                     while(windowIter.hasNext()){
+                        ModelWindowVTKTopComponent nextWindow = windowIter.next();
+                        // This line may need to be enclosed in a Lock /UnLock pair per vtkPanel
+                       lockDrawingSurfaces(true);
+                       nextWindow.getCanvas().GetRenderer().ResetCamera(sceneAssembly.GetBounds());
+                       lockDrawingSurfaces(false);
+                     }
+                  }
+                  // add to list of models
+                  getModelVisuals().add(newModelVisual);
+                  repaintAll();
+               }
+            }
+         } else if (arg instanceof ObjectSetCurrentEvent) {
+            // Current model has changed. For view purposes this affects available commands
+            // Changes in the Tree view are handled by the Explorer View. Because only
+            // objects in the current model can be selected and manipulated, clear all
+            // currently selected objects.
+            clearSelectedObjects();
+            ObjectSetCurrentEvent ev = (ObjectSetCurrentEvent)arg;
+            Vector<OpenSimObject> objs = ev.getObjects();
+            for (int i=0; i<objs.size(); i++) {
+               if (objs.get(i) instanceof Model) {
+                  Model currentModel = (Model)objs.get(i);
+                  updateCommandsVisibility();
+                  // Apply opacity to other models
+                  Enumeration<Model> models=mapModelsToVisuals.keys();
+                  while(models.hasMoreElements()){
+                     Model next = models.nextElement();
+                     double nominalOpacity=modelOpacities.get(next);
+                     SingleModelVisuals vis = mapModelsToVisuals.get(next);
+                     if (next == currentModel){
+                        setObjectOpacity(next, nominalOpacity);
+                        vis.setPickable(true);
+                     }
+                     else{
+                        setObjectOpacity(next, getNonCurrentModelOpacity()*nominalOpacity);
+                        vis.setPickable(false);
+                     }
+                  }
+                  break;
+               }
+            }
+         } else if (arg instanceof ModelEvent){
             ModelEvent ev = (ModelEvent)arg;
             // We need to detect if this the first time anything is loaded into the app
             // (or new project) if so we'll open a window, otherwise we will

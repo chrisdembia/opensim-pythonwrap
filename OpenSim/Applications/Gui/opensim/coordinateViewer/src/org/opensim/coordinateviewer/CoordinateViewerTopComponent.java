@@ -30,9 +30,11 @@ import org.opensim.view.ModelPose;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ObjectGroup;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.motionviewer.MotionTimeChangeEvent;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.view.ModelEvent;
+import org.opensim.view.ObjectSetCurrentEvent;
 import org.opensim.view.pub.ViewDB;
 /**
  * Top component which displays something.
@@ -381,6 +383,19 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
             }*/
             // Do we need to handle close separately or should we be called with SetCurrent of null model?
             // save may trigger saving poses and open may trigger loading poses.
+         } else if (arg instanceof ObjectSetCurrentEvent) {
+            ObjectSetCurrentEvent evt = (ObjectSetCurrentEvent)arg;
+            Vector<OpenSimObject> objs = evt.getObjects();
+            // If any of the event objects is a model, this means there is a new
+            // current model. So update the panel.
+            for (int i=0; i<objs.size(); i++) {
+               if (objs.get(i) instanceof Model) {
+                  jPanel1.removeAll();
+                  componentOpened();
+                  repaint();
+                  break;
+               }
+            }
          }
       }
       else if (o instanceof MotionsDB){

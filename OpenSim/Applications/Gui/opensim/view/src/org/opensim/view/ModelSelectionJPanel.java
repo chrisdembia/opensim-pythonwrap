@@ -8,8 +8,10 @@ package org.opensim.view;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 import javax.swing.JComboBox;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.pub.OpenSimDB;
 
 /**
@@ -90,23 +92,40 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
    // This should be invoked only if the user changes model from dropdown   // The events we care about are a model becoming current or a model getting deleted so that there's no more
    // current model'
    public void update(Observable o, Object arg) {
-       if (o instanceof OpenSimDB){
+      if (o instanceof OpenSimDB){
          // if current model is being switched due to open/close or change current then
          // update list of coordinates
          if (arg instanceof ModelEvent) {
-              final ModelEvent evt = (ModelEvent)arg;
-               if (evt.getOperation()==ModelEvent.Operation.SetCurrent){
-                 update(); // update the list 
-                 // The reason we get the Model is because otherwise 
-                 // setSelectedItem triggers another round of DB updates!
-                  jCurrentModelComboBox.getModel().setSelectedItem(evt.getModel());
+            final ModelEvent evt = (ModelEvent)arg;
+            if (evt.getOperation()==ModelEvent.Operation.SetCurrent){
+               update(); // update the list 
+               // The reason we get the Model is because otherwise 
+               // setSelectedItem triggers another round of DB updates!
+               jCurrentModelComboBox.getModel().setSelectedItem(evt.getModel());
+            }
+            else if (evt.getOperation()==ModelEvent.Operation.Close &&
+                     OpenSimDB.getInstance().getCurrentModel()==null){
+               update();
+            }
+         } else if (arg instanceof ObjectSetCurrentEvent) {
+            // If the current model is being switched due to a change current event,
+            // then update the list of models.
+            ObjectSetCurrentEvent evt = (ObjectSetCurrentEvent)arg;
+            Vector<OpenSimObject> objs = evt.getObjects();
+            for (int i=0; i<objs.size(); i++) {
+               if (objs.get(i) instanceof Model) {
+                  Model currentModel = (Model)objs.get(i);
+                  update(); // update the list 
+                  // The reason we get the Model is because otherwise 
+                  // setSelectedItem triggers another round of DB updates!
+                  jCurrentModelComboBox.getModel().setSelectedItem(currentModel);
+                  break;
                }
-               else if (evt.getOperation()==ModelEvent.Operation.Close &&
-                        OpenSimDB.getInstance().getCurrentModel()==null){
-                 update();
-               }
+            }
+         } else if (arg instanceof ObjectAddedEvent) {
+            //update();
          }
-      } 
+      }
   }
 
    private void update() {

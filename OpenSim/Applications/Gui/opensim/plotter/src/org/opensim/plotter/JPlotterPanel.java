@@ -39,6 +39,7 @@ import org.opensim.modeling.ArrayStorage;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.MotionEvent;
@@ -46,6 +47,7 @@ import org.opensim.motionviewer.MotionTimeChangeEvent;
 import org.opensim.utils.FileUtils;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.view.ModelEvent;
+import org.opensim.view.ObjectSetCurrentEvent;
 import org.opensim.view.SingleModelGuiElements;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
@@ -1247,14 +1249,28 @@ public class JPlotterPanel extends javax.swing.JPanel
          }
       }
       else if (o instanceof OpenSimDB){
-         ModelEvent evt = (ModelEvent)arg;
-         if (evt.getModel()==currentModel && evt.getOperation()==ModelEvent.Operation.Close){
+         if (arg instanceof ObjectSetCurrentEvent) {
+            ObjectSetCurrentEvent evt = (ObjectSetCurrentEvent)arg;
+            Vector<OpenSimObject> objs = evt.getObjects();
+            // If any of the event objects is a model, this means there is a new
+            // current model. So update the Y menu.
+            for (int i=0; i<objs.size(); i++) {
+               if (objs.get(i) instanceof Model) {
+                  currentModel = (Model)objs.get(i);
+                  populateYPopup();           
+                  break;
+               }
+            }
+         } else if (arg instanceof ModelEvent) {
+            ModelEvent evt = (ModelEvent)arg;
+            if (evt.getModel()==currentModel && evt.getOperation()==ModelEvent.Operation.Close){
                currentModel=null;
                populateYPopup();            
-         }
-         else if (evt.getOperation()==ModelEvent.Operation.SetCurrent){
+            }
+            else if (evt.getOperation()==ModelEvent.Operation.SetCurrent){
                currentModel=evt.getModel();
                populateYPopup();           
+            }
          }
       }
    }

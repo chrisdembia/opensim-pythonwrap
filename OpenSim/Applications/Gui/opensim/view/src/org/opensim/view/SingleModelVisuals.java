@@ -406,6 +406,13 @@ public class SingleModelVisuals {
         return null;    // No selection
     }
 
+    public void setPickable(boolean pickable) {
+       if (pickable)
+          modelDisplayAssembly.SetPickable(1);
+       else
+          modelDisplayAssembly.SetPickable(0);
+    }
+ 
     public vtkLinearTransform getModelDisplayTransform() {
         return modelDisplayTransform;
     }

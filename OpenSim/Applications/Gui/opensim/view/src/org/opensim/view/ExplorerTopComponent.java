@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 import javax.swing.ActionMap;
 import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultEditorKit;
@@ -189,7 +190,42 @@ final public class ExplorerTopComponent extends TopComponent
         
         public void update(Observable o, Object arg) {
            // Observable is OpenSimDB
-           if (arg instanceof ModelEvent) {
+           if (arg instanceof ObjectAddedEvent) {
+              final ObjectAddedEvent evnt = (ObjectAddedEvent)arg;
+              final Vector<OpenSimObject> objs = evnt.getObjects();
+              for (int i=0; i<objs.size(); i++) {
+                 if (objs.get(i) instanceof Model) {
+                    final int index = i;
+                    // Add the model to the Tree window.
+                    SwingUtilities.invokeLater(new Runnable() {
+                       public void run() {
+                          ExplorerTopComponent tree = ExplorerTopComponent.findInstance();
+                          Node rootNode = tree.getExplorerManager().getRootContext();
+                          Model newModel = (Model)objs.get(index);
+                          ConcreteModelNode newModelNode = new ConcreteModelNode(newModel);
+                          rootNode.getChildren().add(new Node[] { newModelNode});
+                          updateCurrentModelNode(newModel);
+                       }
+                    }
+                    );
+                 }
+              }
+           } else if (arg instanceof ObjectSetCurrentEvent) {
+              ObjectSetCurrentEvent evnt = (ObjectSetCurrentEvent)arg;
+              Vector<OpenSimObject> objs = evnt.getObjects();
+              for (int i=0; i<objs.size(); i++) {
+                 if (objs.get(i) instanceof Model) {
+                    final Model currentModel = (Model)objs.get(i);
+                    SwingUtilities.invokeLater(new Runnable() {
+                       public void run() {
+                          updateCurrentModelNode(currentModel);
+                       }
+                    }
+                    );
+                    break;
+                 }
+              }
+           } else if (arg instanceof ModelEvent) {
               final ModelEvent evnt = (ModelEvent)arg;
               // Add the model to the Tree window.
               SwingUtilities.invokeLater(new Runnable() {
@@ -224,7 +260,6 @@ final public class ExplorerTopComponent extends TopComponent
                           break;
                        }
                     }
-                    
                  }
               }
               );
