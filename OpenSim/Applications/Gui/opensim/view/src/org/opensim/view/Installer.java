@@ -12,6 +12,7 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
 import javax.swing.JPopupMenu;
+import org.opensim.modeling.opensimModelJNI;
 
 /**
  * Manages a module's lifecycle. Remember that an installer is optional and
@@ -45,8 +46,7 @@ public class Installer extends ModuleInstall {
             ex.printStackTrace();
         }
         // Disable the number in the application title that shows after OpenSim
-        System.setProperty ("netbeans.buildnumber", 
-                NbBundle.getMessage(Installer.class, "CTL_OpenSimVersion")); 
+        System.setProperty ("netbeans.buildnumber", opensimModelJNI.GetVersion());
         // Force creation of Model-database OpenSimDB 
         // and a View-database ViewDB
         // and register View as Observer of Model
