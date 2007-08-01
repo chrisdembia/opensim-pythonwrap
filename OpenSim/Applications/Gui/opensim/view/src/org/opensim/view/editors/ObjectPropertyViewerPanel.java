@@ -7,10 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.table.TableCellRenderer;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.swingui.JTableButtonMouseListener;
+import org.opensim.swingui.JTableButtonRenderer;
 
 /**
  * Assembles the UI (a JTreeTable).

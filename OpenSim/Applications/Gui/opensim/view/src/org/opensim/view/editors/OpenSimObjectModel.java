@@ -1,76 +1,18 @@
 package org.opensim.view.editors;
 
-import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputAdapter;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayInt;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Property;
 import org.opensim.modeling.PropertySet;
-
-class JTableButtonRenderer implements TableCellRenderer {
-   private TableCellRenderer defaultRenderer;
-
-   public JTableButtonRenderer(TableCellRenderer renderer) { defaultRenderer = renderer; }
-
-   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-      if(value instanceof Component) {
-         Component comp = (Component)value;
-         if(isSelected) comp.setBackground(table.getSelectionBackground());
-         else comp.setBackground(table.getBackground());
-         return comp;
-      } else return defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-   }
-}
-
-class JTableButtonMouseListener implements MouseListener {
-
-  private JTable table;
-
-  private void forwardEventToButton(MouseEvent e) {
-    TableColumnModel columnModel = table.getColumnModel();
-    int column = columnModel.getColumnIndexAtX(e.getX());
-    int row    = e.getY() / table.getRowHeight();
-    Object value;
-    JButton button;
-
-    if(row >= table.getRowCount() || row < 0 || column >= table.getColumnCount() || column < 0)
-      return;
-
-    value = table.getValueAt(row, column);
-
-    if(!(value instanceof JButton)) return;
-
-    button = (JButton)value;
-
-    MouseEvent buttonEvent = (MouseEvent)SwingUtilities.convertMouseEvent(table, e, button);
-    button.dispatchEvent(buttonEvent);
-    // This is necessary so that when a button is pressed and released
-    // it gets rendered properly.  Otherwise, the button may still appear
-    // pressed down when it has been released.
-    table.repaint();
-  }
-
-  public JTableButtonMouseListener(JTable table) { this.table = table; }
-
-  public void mouseClicked(MouseEvent e) { forwardEventToButton(e); }
-  public void mouseEntered(MouseEvent e) { forwardEventToButton(e); }
-  public void mouseExited(MouseEvent e) { forwardEventToButton(e); }
-  public void mousePressed(MouseEvent e) { forwardEventToButton(e); }
-  public void mouseReleased(MouseEvent e) { forwardEventToButton(e); }
-}
 
 //=========================================================================
 // OpenSimObjectModel
@@ -328,7 +270,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
       else if (p.getType() == Property.PropertyType.IntArray) p.getValueIntArray().append(0);
       else if (p.getType() == Property.PropertyType.StrArray) p.getValueStrArray().append("");
       else if (p.getType() == Property.PropertyType.BoolArray) p.getValueBoolArray().append(true);
-      reloadChildren(getParent());
+      reloadChildren(this);
     }
 
     // This is an item in a property array, and we remove this item
