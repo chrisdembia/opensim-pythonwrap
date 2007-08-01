@@ -6,11 +6,20 @@
 
 package org.opensim.view.actions;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import javax.swing.JCheckBox;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import org.opensim.swingui.FileTextFieldAndChooser;
+
 /**
  *
  * @author  Ayman
  */
-public class SimmToOpenSimOptionsJPanel extends javax.swing.JPanel {
+public class SimmToOpenSimOptionsJPanel extends javax.swing.JPanel 
+        implements ChangeListener{
     String[] DynamicsEngineNames = new String[]{    // internal names corresponding to names exposed in gui
         "SimmKinematicsEngine",
         "Simbody"
@@ -19,7 +28,14 @@ public class SimmToOpenSimOptionsJPanel extends javax.swing.JPanel {
     public SimmToOpenSimOptionsJPanel() {
         initComponents();
         jntfileTextFieldAndChooser.setExtensionsAndDescription(".jnt", "SIMM joint file");
+        jntfileTextFieldAndChooser.setCheckIfFileExists(true);
+        jntfileTextFieldAndChooser.setTreatEmptyStringAsValid(false);
+        jntfileTextFieldAndChooser.addChangeListener(this);
+        
         mslfileTextFieldAndChooser.setExtensionsAndDescription(".msl", "SIMM muscle file");
+        mslfileTextFieldAndChooser.setCheckIfFileExists(true);
+        mslfileTextFieldAndChooser.setTreatEmptyStringAsValid(true);
+        
     }
     
     /** This method is called from within the constructor to
@@ -35,21 +51,93 @@ public class SimmToOpenSimOptionsJPanel extends javax.swing.JPanel {
       jLabel1 = new javax.swing.JLabel();
       jLabel2 = new javax.swing.JLabel();
       mslfileTextFieldAndChooser = new org.opensim.swingui.FileTextFieldAndChooser();
+      jPanel1 = new javax.swing.JPanel();
+      jLabel3 = new javax.swing.JLabel();
+      jOpenSimFilenameTextField = new javax.swing.JTextField();
+      jMarkerSetFilenameTextField = new javax.swing.JTextField();
       jLabel4 = new javax.swing.JLabel();
       jEngineComboBox = new javax.swing.JComboBox();
+      jSeparateMarkerSetCheckBox = new javax.swing.JCheckBox();
+      jLabel5 = new javax.swing.JLabel();
 
       jntfileTextFieldAndChooser.setToolTipText("location of .jnt file");
 
-      jLabel1.setText("Joint file:");
+      jLabel1.setText("Joint file");
 
-      jLabel2.setText("Muscle file:");
+      jLabel2.setText("Muscle file");
 
       mslfileTextFieldAndChooser.setToolTipText("location of .msl file (optional and can be specified in jnt file header)");
 
-      jLabel4.setText("Dynamics Engine for OpenSim Model:");
+      jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("OpenSim Model Options"));
+      jLabel3.setText("OpenSim file (.osim)");
+
+      jOpenSimFilenameTextField.setToolTipText("Name of osim model file");
+
+      jMarkerSetFilenameTextField.setToolTipText("Name of xml file to contain model markers");
+      jMarkerSetFilenameTextField.setEnabled(false);
+
+      jLabel4.setText("Dynamics engine ");
 
       jEngineComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SIMM kinematics engine", "Simbody engine" }));
       jEngineComboBox.setToolTipText("SIMM knematics engine computes kinematics only while Simbody computes accelerations but has some limitations in 1.0.");
+
+      jSeparateMarkerSetCheckBox.setText("Separate markers file (.xml)");
+      jSeparateMarkerSetCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      jSeparateMarkerSetCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      jSeparateMarkerSetCheckBox.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jSeparateMarkerSetCheckBoxActionPerformed(evt);
+         }
+      });
+
+      jLabel5.setText("Files are generated in the same directory as the Joint file");
+
+      org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+      jPanel1.setLayout(jPanel1Layout);
+      jPanel1Layout.setHorizontalGroup(
+         jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(jPanel1Layout.createSequentialGroup()
+            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(jLabel5)
+               .add(jPanel1Layout.createSequentialGroup()
+                  .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                     .add(jPanel1Layout.createSequentialGroup()
+                        .add(66, 66, 66)
+                        .add(jLabel3))
+                     .add(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jSeparateMarkerSetCheckBox))
+                     .add(jPanel1Layout.createSequentialGroup()
+                        .add(80, 80, 80)
+                        .add(jLabel4)))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                     .add(jEngineComboBox, 0, 163, Short.MAX_VALUE)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .add(jOpenSimFilenameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jMarkerSetFilenameTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))))
+            .addContainerGap())
+      );
+      jPanel1Layout.setVerticalGroup(
+         jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .add(jLabel5)
+            .add(15, 15, 15)
+            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(jOpenSimFilenameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jLabel3))
+            .add(15, 15, 15)
+            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(jMarkerSetFilenameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jSeparateMarkerSetCheckBox))
+            .add(14, 14, 14)
+            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jEngineComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      );
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
@@ -57,39 +145,37 @@ public class SimmToOpenSimOptionsJPanel extends javax.swing.JPanel {
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(layout.createSequentialGroup()
-                  .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(jLabel2)
-                     .add(jLabel1))
-                  .add(31, 31, 31)
-                  .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(jntfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                     .add(mslfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
-               .add(layout.createSequentialGroup()
-                  .add(jLabel4)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jEngineComboBox, 0, 153, Short.MAX_VALUE)))
-            .addContainerGap())
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(jLabel2)
+               .add(jLabel1))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(mslfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+               .add(jntfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
+            .add(17, 17, 17))
+         .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-               .add(jLabel1)
-               .add(jntfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+               .add(jntfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jLabel1))
             .add(15, 15, 15)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(jLabel2)
                .add(mslfileTextFieldAndChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(52, 52, 52)
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jEngineComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap())
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void jSeparateMarkerSetCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSeparateMarkerSetCheckBoxActionPerformed
+// TODO add your handling code here:
+      JCheckBox markersCheckbox = (JCheckBox)evt.getSource();
+      jMarkerSetFilenameTextField.setEnabled(markersCheckbox.isSelected());
+   }//GEN-LAST:event_jSeparateMarkerSetCheckBoxActionPerformed
     
     
    // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -98,7 +184,13 @@ public class SimmToOpenSimOptionsJPanel extends javax.swing.JPanel {
    private javax.swing.JComboBox jEngineComboBox;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
+   private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;
+   private javax.swing.JLabel jLabel5;
+   private javax.swing.JTextField jMarkerSetFilenameTextField;
+   private javax.swing.JTextField jOpenSimFilenameTextField;
+   private javax.swing.JPanel jPanel1;
+   private javax.swing.JCheckBox jSeparateMarkerSetCheckBox;
    private org.opensim.swingui.FileTextFieldAndChooser jntfileTextFieldAndChooser;
    private org.opensim.swingui.FileTextFieldAndChooser mslfileTextFieldAndChooser;
    // End of variables declaration//GEN-END:variables
@@ -114,8 +206,75 @@ public class SimmToOpenSimOptionsJPanel extends javax.swing.JPanel {
             return mslfileTextFieldAndChooser.getFileName();
         return null;        
     }
+    String getOsimFilename()
+    {
+       String osimfile = jOpenSimFilenameTextField.getText();
+        if (osimfile==null || osimfile.length()==0)
+           return null;
+       // Appennd ".osim if not there"
+       if (!osimfile.endsWith(".osim"))
+          osimfile = osimfile+".osim";
+        return osimfile;
+    }
+    
+    boolean getUseSeparateMarkersFile()
+    {
+       return jSeparateMarkerSetCheckBox.isSelected();
+    }
+    String getMarkersFileName()
+    {
+       if (getUseSeparateMarkersFile())
+          return jMarkerSetFilenameTextField.getText();
+       return null;
+    }
     String getDynamicsEngine()
     {
         return DynamicsEngineNames[jEngineComboBox.getSelectedIndex()];
     }
+
+   public void stateChanged(ChangeEvent e) {
+      // Listen to jnt file name change
+      Object obj = e.getSource();
+      if (obj instanceof FileTextFieldAndChooser){
+         if (obj.equals(jntfileTextFieldAndChooser)){
+            // If a non empty string is available in the jOpenSimFilenameTextField try to use it, otherwsie makeup one.
+            String jntFilename= getJointFilename();
+            if (jntFilename==null || !jntfileTextFieldAndChooser.getFileIsValid()) return;
+            // Here we have a real jnt file, make up a name for the .osim file if none specified
+            File f = new File(jntFilename);
+            String candidateName = getUniqueOsimFilenameForJntFile(f);
+            // Here we know we have a valid name, show the name as default
+            jOpenSimFilenameTextField.setText(candidateName);
+         }
+      }
+   }
+
+   private String getUniqueOsimFilenameForJntFile(final File f) {
+      File jntFileDir = f.getParentFile();
+      
+      String candidateName = "";
+      int candidateNumber=0;
+      while(true){
+         String nameWithExtension = f.getName();
+         
+         candidateName=nameWithExtension.substring(0, nameWithExtension.indexOf("."))+"_"+String.valueOf(candidateNumber)+".osim";
+         File testExists = new File(jntFileDir+File.separator+candidateName);
+         if (testExists.exists())
+           candidateNumber++;
+         else
+            break;
+      }
+      return candidateName;
+   }
+
+   ActionListener getActionListener() {
+      return new ActionListener(){
+         public void actionPerformed(ActionEvent e) {
+            Object sourceButton= e.getSource();
+            int x=0;
+          }
+         
+      };
+   }
+   
 }
