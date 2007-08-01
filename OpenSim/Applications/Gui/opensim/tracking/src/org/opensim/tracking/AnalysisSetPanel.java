@@ -228,7 +228,7 @@ public class AnalysisSetPanel extends javax.swing.JPanel implements Observer {
       if(currentSelectedRow>=0) {
          Analysis analysis = toolModel.getAnalysisSet().get(currentSelectedRow);
          Analysis analysisCopy = Analysis.safeDownCast(analysis.copy()); // C++-side copy
-         ObjectEditDialogMaker editorDialog = new ObjectEditDialogMaker(analysisCopy, true);
+         ObjectEditDialogMaker editorDialog = new ObjectEditDialogMaker(analysisCopy, true, "OK");
          if(editorDialog.process()) {
             toolModel.replaceAnalysis(currentSelectedRow, analysisCopy);
          } else {

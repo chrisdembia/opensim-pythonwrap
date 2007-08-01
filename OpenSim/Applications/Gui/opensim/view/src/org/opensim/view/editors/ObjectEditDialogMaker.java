@@ -47,9 +47,9 @@ public class ObjectEditDialogMaker {
     /**
      * Creates a new instance of ObjectEditDialogMaker
      */
-    public ObjectEditDialogMaker(OpenSimObject object, ModelWindowVTKTopComponent owner, boolean allowEdit) {
+    public ObjectEditDialogMaker(OpenSimObject object, ModelWindowVTKTopComponent owner, boolean allowEdit, String confirmButtonText) {
         // If allowEdit is true,aAssume we're editing properties from a file, so we'll call it "Save" instead of "OK"
-        if(allowEdit) confirmButton.setText("Save");
+        confirmButton.setText(confirmButtonText);
 
         objectToEdit = object;
         propertiesEditorPanel = new ObjectPropertyViewerPanel(object, allowEdit);
@@ -81,15 +81,19 @@ public class ObjectEditDialogMaker {
      * @todo handle the case of null owner (if no ModelWindowVTKTopComponent is open)
      */
     public ObjectEditDialogMaker(OpenSimObject object, ModelWindowVTKTopComponent owner) {
-        this(object, owner, false);
+        this(object, owner, false, "OK");
     }
     
     /**
      * Non visible objects
      */
+     public ObjectEditDialogMaker(OpenSimObject object, boolean allowEdit, String confirmButtonText) {
+        this(object, null, allowEdit, confirmButtonText);
+     }
+
      public ObjectEditDialogMaker(OpenSimObject object, boolean allowEdit) {
-        this(object, null, allowEdit);
-    }
+        this(object, null, allowEdit, "OK");
+     }
      
     /**
      * process handles the closing of the Editor dialog and calls corresponding AbstractEditor methods

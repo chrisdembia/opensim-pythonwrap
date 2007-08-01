@@ -80,6 +80,11 @@ public class ObjectPropertyViewerPanel extends JPanel {
         treeTable.getColumnModel().getColumn(1).setMinWidth(controlsColumnWidth);
         treeTable.getColumnModel().getColumn(1).setMaxWidth(controlsColumnWidth);
 
+        // Set column width for the extra padding column
+        treeTable.getColumnModel().getColumn(3).setPreferredWidth(controlsColumnWidth);
+        treeTable.getColumnModel().getColumn(3).setMinWidth(controlsColumnWidth);
+        treeTable.getColumnModel().getColumn(3).setMaxWidth(controlsColumnWidth);
+
         // Don't allow selection (no use for it here)
         treeTable.setRowSelectionAllowed(false);
 

@@ -21,17 +21,17 @@ import org.opensim.modeling.PropertySet;
 //=========================================================================
 public class OpenSimObjectModel extends AbstractTreeTableModel {
   // Names of the columns.
-  static protected String[] cNames = { "Name", "", "Value", "Description" };
+  static protected String[] cNames = { "Name", "", "Value", "", "Description" };
 
   // Types of the columns.
-  static protected Class[] cTypes = { TreeTableModel.class, JButton.class, String.class, String.class };
+  static protected Class[] cTypes = { TreeTableModel.class, JButton.class, String.class, String.class, String.class };
 
   // Column header tool tips
-  static final String[] toolTipStr = { "Property name in xml file", "Controls for array properties", "Current property value", "Description"};
+  static final String[] toolTipStr = { "Property name in xml file", "Controls for array properties", "Current property value", null, "Description"};
 
   // Whether columns are editable
   // Column 0 is the tree, needs to be "editable" in order for expansion/collapse of nodes
-  static protected boolean[] editableColumns = { true, false, true, false };
+  static protected boolean[] editableColumns = { true, false, true, false, false };
 
   // Whether the table as a whole is editable (false if we're just viewing properties)
   protected boolean isEditable;
@@ -105,7 +105,9 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
           return fn.getControlButton();
         case 2: // Value
           return fn.getValue();
-        case 3: // Description
+        case 3: // Padding
+          return null;
+        case 4: // Description
           return fn.getDescription();
       }
     }
@@ -362,7 +364,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
     }
 
    public JButton getControlButton() {
-      if(controlButton!=null) { // A controlButton is possible, but we check the sizes of the property array to see if we can really add/remove elements
+      if(isEditable && controlButton!=null) { // A controlButton is possible, but we check the sizes of the property array to see if we can really add/remove elements
          if(idx==-1 && ((Property)property).getArraySize() < ((Property)property).getMaxArraySize()) return controlButton; // an add button
          else if(idx!=-1 && ((Property)property).getArraySize() > ((Property)property).getMinArraySize()) return controlButton; // a delete button
       }

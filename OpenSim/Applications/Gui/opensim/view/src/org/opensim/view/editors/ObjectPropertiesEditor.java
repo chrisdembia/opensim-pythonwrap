@@ -15,7 +15,7 @@ public final class ObjectPropertiesEditor extends CallableSystemAction {
       if(fileName!=null) {
          OpenSimObject obj = OpenSimObject.makeObjectFromFile(fileName);
          if (obj != null){
-            boolean confirm = new ObjectEditDialogMaker(obj, true).process();
+            boolean confirm = new ObjectEditDialogMaker(obj, true, "Save").process();
             if (confirm) obj.print(fileName);
          } else {
             DialogDisplayer.getDefault().notify(
