@@ -7,8 +7,6 @@ package org.opensim.view.editors;
  */
 
 import java.io.IOException;
-import javax.swing.SwingUtilities;
-import javax.swing.tree.TreePath;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayInt;
 import org.opensim.modeling.ArrayStr;
@@ -16,123 +14,70 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Property;
 import org.opensim.modeling.PropertySet;
 
-public class OpenSimObjectModel
-    extends AbstractTreeTableModel {
+//=========================================================================
+// OpenSimObjectModel
+//=========================================================================
+public class OpenSimObjectModel extends AbstractTreeTableModel {
 
   // Names of the columns.
-  static protected String[] cNames = {
-      "Name", "Value", "Description"};
+  static protected String[] cNames = { "Name", "Value", "Description" };
 
   // Types of the columns.
-  static protected Class[] cTypes = {
-      TreeTableModel.class,
-      String.class,
-      String.class};
+  static protected Class[] cTypes = { TreeTableModel.class, String.class, String.class };
 
-  static protected boolean[] editableColumns = {
-      true, // TreeTableModel
-      true, // Value
-      false}; // Description
+  // Column header tool tips
+  static final String[] toolTipStr = { "Property name in xml file", "Current property value", "Description"};
 
-  final String[] toolTipStr = {
-      "Property name in xml file", "Current property value",
-      "Description"};
+  // Whether columns are editable
+  // Column 0 is the tree, needs to be "editable" in order for expansion/collapse of nodes
+  static protected boolean[] editableColumns = { true, true, false };
 
-  /** True if the receiver is valid, once set to false all Threads
-   * loading files will stop. */
-  protected boolean isValid;
-
-  /** Node currently being reloaded, this becomes somewhat muddy if
-   * reloading is happening in multiple threads. */
-  protected PropertyNode reloadNode;
-
-  /** > 0 indicates reloading some nodes. */
-  int reloadCount;
-
-  /** Flag to indicate if the tree will be editable.
-   * This has to be taken in context as:
-   * 1. Column 1 which is the tree is editable only to allow expansion/collapse of tree
-   *    even if entries are not editable.
-   * 2. Values are editable only in primitive type rows
-   */
-
+  // Whether the table as a whole is editable (false if we're just viewing properties)
   protected boolean isEditable;
 
-  protected boolean isVisibleObject;
+  protected static PropertyNode[] EMPTY_CHILDREN = new PropertyNode[0];
 
-  /**
-     * Creates a OpenSimObjectModel with the root being <code>rootPath</code>.
-     * This does not load it, you should invoke
-     * <code>reloadChildren</code> with the root to start loading.
-     */
+  //-------------------------------------------------------------------------
+  // Constructor
+  //-------------------------------------------------------------------------
+
   public OpenSimObjectModel(OpenSimObject obj, boolean isEditable) {
     super(obj);
-    isValid = true;
     this.isEditable = isEditable;
-    root = new PropertyNode(obj, isEditable);
+    root = new PropertyNode(obj);
   }
 
-  //
-  // The TreeModel interface
-  //
+  public String getColumnHeaderToolTip(int column) { return toolTipStr[column]; }
 
-  /**
-   * Returns the number of children of <code>node</code>.
-   */
+  //-------------------------------------------------------------------------
+  // The TreeModel interface
+  //-------------------------------------------------------------------------
+
   public int getChildCount(Object node) {
     Object[] children = getChildren(node);
     return (children == null) ? 0 : children.length;
   }
 
-  /**
-   * Returns the child of <code>node</code> at index <code>i</code>.
-   */
   public Object getChild(Object node, int i) {
     return getChildren(node)[i];
   }
 
-  /**
-   * Returns true if the passed in object represents a leaf, false
-   * otherwise.
-   */
-  public boolean isLeaf(Object node) {
-    return ( (PropertyNode) node).isLeaf();
+  public boolean isLeaf(Object node) { 
+     return ( (PropertyNode) node).isLeaf(); 
   }
 
-  //
-  //  The TreeTableNode interface.
-  //
+  //-------------------------------------------------------------------------
+  // The TreeTableModel interface
+  //-------------------------------------------------------------------------
 
-  /**
-   * Returns the number of columns.
-   */
-  public int getColumnCount() {
-    return cNames.length;
-  }
+  public int getColumnCount() { return cNames.length; }
 
-  /**
-   * Returns the name for a particular column.
-   */
-  public String getColumnName(int column) {
-    return cNames[column];
-  }
+  public String getColumnName(int column) { return cNames[column]; }
 
-  /**
-   * Returns the class for the particular column.
-   */
-  public Class getColumnClass(int column) {
-    return cTypes[column];
-  }
-
-  /**
-   * Returns if the particular column is editable.
-   */
-  public boolean getColumnEditable(int column) {
-    return editableColumns[column];
-  }
+  public Class getColumnClass(int column) { return cTypes[column]; }
 
   public boolean isCellEditable(Object node, int column) {
-     return column == 0 || (editableColumns[column] && ((PropertyNode)node).editable());
+     return column == 0 || (isEditable && editableColumns[column] && ((PropertyNode)node).editable());
   }
 
   /**
@@ -157,6 +102,7 @@ public class OpenSimObjectModel
 
     return null;
   }
+
   /**
    * This's the function to be invoked when editing is finished.
    * It should update the underlying node, refresh display and fire-events as needed.
@@ -170,150 +116,39 @@ public class OpenSimObjectModel
    * and scalar properties are not handled the same. -Ayman 02/07
    */
   public void setValueAt(Object aValue, Object node, int column) {
-    if (column==1){// Changing Value
-      /**
-       * The following steps need to be done
-       * 1. Map property and index if any to a primitive type
-       * 2. Cast aValue into a String sValue;
-       * 3. Parse sValue using type info
-       * 4. call API to ste the value
-       */
-      String newValueString = (String) aValue;
-      // Only primitive properties and array entries can be edited
-      if (((PropertyNode) node).property instanceof Property){
-        Property p = (Property) ((PropertyNode) node).property;
-        p.setUseDefault(false);
-        if (p.getType()== Property.PropertyType.Dbl){
-          double newdbl = Double.parseDouble(newValueString);
-          p.setValue(newdbl);
-        }
-        else if (p.getType()== Property.PropertyType.Int){
-          int newint = Integer.parseInt(newValueString);
-          p.setValue(newint);
-        }
-        else if (p.getType()== Property.PropertyType.Str){
-           p.setValue(newValueString);
-        }
-        else if (p.getType()==Property.PropertyType.Bool){
-          Boolean b = Boolean.valueOf(newValueString);
-          p.setValue(b.booleanValue());
-        }
-      }
-      else if (((PropertyNode) node).idx != -1){// Array index of an aggregate/array property
-         Property p = (Property) ((PropertyNode) node).getParent().property;
-         p.setUseDefault(false);
-         if (p.getType()== Property.PropertyType.DblArray){
-           double newdbl = Double.parseDouble(newValueString);
-           ArrayDouble dblArray = p.getValueDblArray();
-           dblArray.set(((PropertyNode) node).idx, newdbl);
-           reloadChildren(((PropertyNode) node).getParent());
-         }
-         else if (p.getType()== Property.PropertyType.IntArray){
-          int newint = Integer.parseInt(newValueString);
-          ArrayInt intArray = p.getValueIntArray();
-          intArray.set(((PropertyNode) node).idx, newint);
-          reloadChildren(((PropertyNode) node).getParent());
-        }
-        else if (p.getType()== Property.PropertyType.StrArray){
-          p.getValueStrArray().set(((PropertyNode) node).idx, newValueString);
-          reloadChildren(((PropertyNode) node).getParent());
-        }
-        else if (p.getType()== Property.PropertyType.BoolArray){
-          boolean newval = Boolean.getBoolean(newValueString);
-          p.getValueBoolArray().set(((PropertyNode) node).idx, newval);
-          reloadChildren(((PropertyNode) node).getParent());
-        }
-     }
-    }
+    if (column==1) ((PropertyNode)node).setValue(aValue);
   }
-  //
-  // Some convenience methods.
-  //
+
+  //-------------------------------------------------------------------------
+  // Some convenience methods
+  //-------------------------------------------------------------------------
 
   /**
    * Reloads the children of the specified node.
    */
   public void reloadChildren(Object node) {
     PropertyNode fn = (PropertyNode) node;
-
-    synchronized (this) {
-      reloadCount++;
-    }
-    new Thread(new PropertyNodeLoader( (PropertyNode) node)).start();
-  }
-
-  /**
-   * Stops and waits for all threads to finish loading.
-   */
-  public void stopLoading() {
-    isValid = false;
-    synchronized (this) {
-      while (reloadCount > 0) {
-        try {
-          wait();
-        }
-        catch (InterruptedException ie) {}
-      }
-    }
-    isValid = true;
-  }
-
-  /**
-   * Returns true if the receiver is loading any children.
-   */
-  public boolean isReloading() {
-    return (reloadCount > 0);
-  }
-
-  /**
-   * Returns the path to the node that is being loaded.
-   */
-  public TreePath getPathLoading() {
-    PropertyNode rn = reloadNode;
-
-    if (rn != null) {
-      return new TreePath(rn.getPath());
-    }
-    return null;
-  }
-
-  /**
-   * Returns the node being loaded.
-   */
-  public Object getNodeLoading() {
-    return reloadNode;
+    fn.loadChildren();
+    fn.setChildren(fn.getChildren(), true);
+    fn.nodeChanged();
   }
 
   protected Object getObject(Object node) {
-    PropertyNode PropertyNode = ( (PropertyNode) node);
-    return PropertyNode.getObject();
+    return ((PropertyNode)node).getObject();
   }
 
   protected Object[] getChildren(Object node) {
-    PropertyNode PropertyNode = ( (PropertyNode) node);
-    return PropertyNode.getChildren();
+    return ((PropertyNode)node).getChildren();
   }
 
-  protected static PropertyNode[] EMPTY_CHILDREN = new PropertyNode[0];
+  //=========================================================================
+  // PropertyNode
+  //=========================================================================
 
-  /**
-   * A PropertyNode is a derivative of the File class - though we delegate to
-   * the File object rather than subclassing it. It is used to maintain a
-   * cache of a directory's children and therefore avoid repeated access
-   * to the underlying file system during rendering.
-   */
   class PropertyNode {
-    /** java.io.File the receiver represents. */
     protected Object property;
-
-    /** Parent PropertyNode of the receiver. */
     private PropertyNode parent;
-
-    /** Children of the receiver. */
     protected PropertyNode[] children;
-
-    /** Path of the receiver. */
-    protected String canonicalPath;
 
     /** will this object be treated as a leaf or as expandible */
     protected boolean aggregate;
@@ -321,26 +156,16 @@ public class OpenSimObjectModel
     /** in cases where the node corresponds to an array entry, keep index here */
     protected int idx;
 
-    /** Only primitive types in Edit mode should be editable */
-    protected boolean isEditable;
-
-
-    /**
-     * PropertyNode constructor that takes object, no parent or index
-     *
-     * @param property Object
-     */
-    protected PropertyNode(Object property, boolean editable) {
-      this(null, property, -1, editable);
-    }
-
+    //-----------------------------------------------------------------------
+    // Constructors
+    //-----------------------------------------------------------------------
     /**
      * PropertyNode constructor that takes object, no parent or index
      *
      * @param property Object
      */
     protected PropertyNode(Object property) {
-      this(null, property, -1, false);
+      this(null, property, -1);
     }
 
     /**
@@ -349,8 +174,8 @@ public class OpenSimObjectModel
      * @param parent PropertyNode
      * @param property Object
      */
-    protected PropertyNode(PropertyNode parent, Object property, boolean editable) {
-      this(parent, property, -1, editable);
+    protected PropertyNode(PropertyNode parent, Object property) {
+      this(parent, property, -1);
     }
 
     /**
@@ -361,12 +186,11 @@ public class OpenSimObjectModel
      * @param property Object
      * @param index int
      */
-    protected PropertyNode(PropertyNode parent, Object property, int index, boolean editable) {
+    protected PropertyNode(PropertyNode parent, Object property, int index) {
       this.parent = parent;
       this.property = property;
       this.idx = index;
       aggregate = false;
-      this.isEditable = !aggregate && editable;
 
       if (property instanceof OpenSimObject)
         aggregate = true;
@@ -382,13 +206,29 @@ public class OpenSimObjectModel
             propType == Property.PropertyType.ObjArray) {
           aggregate = true;
         }
-
       }
     }
 
-    /**
-     * Returns the the string to be used to display this leaf in the JTree.
-     */
+    //-----------------------------------------------------------------------
+    // Basic get/set/queries
+    //-----------------------------------------------------------------------
+    
+    public String toString() { return getName(); }
+
+    public PropertyNode getParent() { return parent; }
+
+    public boolean isLeaf() { return !aggregate; }
+
+    protected PropertyNode[] getChildren() { return children; }
+
+    private Object getObject() { return property; }
+
+    public boolean editable() { return !aggregate; }
+
+    //-----------------------------------------------------------------------
+    // Basic get/set/queries
+    //-----------------------------------------------------------------------
+
     public String getValue() {
       if (property instanceof OpenSimObject)
         return getName();
@@ -411,48 +251,55 @@ public class OpenSimObjectModel
       return ("unknown type!");
     }
 
-    public String toString() {
-      return getName();
-    }
-
-    /**
-     * Returns the parent of the receiver.
-     */
-    public PropertyNode getParent() {
-      return parent;
-    }
-
-    /**
-     * Returns true if the receiver represents a leaf, that is it is
-     * isn't a directory.
-     */
-    public boolean isLeaf() {
-      return!aggregate;
-    }
-
-    /**
-     * Loads the children, caching the results in the children
-     * instance variable.
-     */
-    protected PropertyNode[] getChildren() {
-      return children;
-    }
-
-    /**
-     * Recursively loads all the children of the receiver.
-     */
-    protected void loadChildren() {
-      children = createChildren();
-      for (int counter = children.length - 1; counter >= 0; counter--) {
-        Thread.yield(); // Give the GUI CPU time to draw itself.
-        if (!children[counter].isLeaf()) {
-          children[counter].loadChildren();
-        }
+   public void setValue(Object aValue) {
+      /**
+      * The following steps need to be done
+      * 1. Map property and index if any to a primitive type
+      * 2. Cast aValue into a String sValue;
+      * 3. Parse sValue using type info
+      * 4. call API to ste the value
+      */
+      String newValueString = (String) aValue;
+      // Only primitive properties and array entries can be edited
+      if(property instanceof Property) {
+         Property p = (Property)property;
+         p.setUseDefault(false);
+         if (p.getType()== Property.PropertyType.Dbl){
+            double newdbl = Double.parseDouble(newValueString);
+            p.setValue(newdbl);
+         } else if (p.getType()== Property.PropertyType.Int){
+            int newint = Integer.parseInt(newValueString);
+            p.setValue(newint);
+         } else if (p.getType()== Property.PropertyType.Str){
+            p.setValue(newValueString);
+         } else if (p.getType()==Property.PropertyType.Bool){
+            Boolean b = Boolean.valueOf(newValueString);
+            p.setValue(b.booleanValue());
+         }
+      } else if (idx != -1) { // Array index of an aggregate/array property
+         Property p = (Property)getParent().property;
+         p.setUseDefault(false);
+         if (p.getType()== Property.PropertyType.DblArray){
+            double newdbl = Double.parseDouble(newValueString);
+            p.getValueDblArray().set(idx, newdbl);
+            reloadChildren(getParent());
+         } else if (p.getType()== Property.PropertyType.IntArray){
+            int newint = Integer.parseInt(newValueString);
+            p.getValueIntArray().set(idx, newint);
+            reloadChildren(getParent());
+         } else if (p.getType()== Property.PropertyType.StrArray){
+            p.getValueStrArray().set(idx, newValueString);
+            reloadChildren(getParent());
+         } else if (p.getType()== Property.PropertyType.BoolArray){
+            boolean newval = Boolean.getBoolean(newValueString);
+            p.getValueBoolArray().set(idx, newval);
+            reloadChildren(getParent());
+         }
       }
-    }
+   }
 
     /**
-     * Loads the children of of the receiver.
+     * Creates PropertyNodes for the children of this node.
      *
      * @return PropertyNode[]
      * @todo Complete the list of types of Property that are aggregates:
@@ -473,7 +320,7 @@ public class OpenSimObjectModel
                   } catch (IOException ex) {
                      ex.printStackTrace();
                   }
-            retArray[i] = new PropertyNode(this, prop, isEditable);
+            retArray[i] = new PropertyNode(this, prop);
           }
         }
         else if (property instanceof Property) {
@@ -492,7 +339,7 @@ public class OpenSimObjectModel
                } catch (IOException ex) {
                   ex.printStackTrace();
                }
-              retArray[i] = new PropertyNode(this, prop, isEditable);
+              retArray[i] = new PropertyNode(this, prop);
             }
           }
           else if (propType == Property.PropertyType.DblArray) {
@@ -500,7 +347,7 @@ public class OpenSimObjectModel
             retArray = new PropertyNode[dblArray.getSize()];
             for (int i = 0; i < dblArray.getSize(); i++) {
               double value = dblArray.getitem(i);
-              retArray[i] = new PropertyNode(this, Double.toString(value), i, isEditable);
+              retArray[i] = new PropertyNode(this, Double.toString(value), i);
             }
           }
           else if (propType == Property.PropertyType.StrArray) {
@@ -508,7 +355,7 @@ public class OpenSimObjectModel
             retArray = new PropertyNode[strArray.getSize()];
             for (int i = 0; i < strArray.getSize(); i++) {
               String value = strArray.getitem(i);
-              retArray[i] = new PropertyNode(this, value, i, isEditable);
+              retArray[i] = new PropertyNode(this, value, i);
             }
           }
           else if (propType == Property.PropertyType.IntArray) {
@@ -516,14 +363,14 @@ public class OpenSimObjectModel
             retArray = new PropertyNode[intArray.getSize()];
             for (int i = 0; i < intArray.getSize(); i++) {
               int value = intArray.getitem(i);
-              retArray[i] = new PropertyNode(this, new Integer(value), i, isEditable);
+              retArray[i] = new PropertyNode(this, new Integer(value), i);
             }
           }
           else if (propType == Property.PropertyType.ObjArray) {
             retArray = new PropertyNode[rdprop.getValueObjArraySize()];
             for (int i = 0; i < rdprop.getValueObjArraySize(); i++) {
               OpenSimObject subobj = rdprop.getValueObjPtr(i);
-              retArray[i] = new PropertyNode(this, subobj, i, isEditable);
+              retArray[i] = new PropertyNode(this, subobj, i);
             }
           }
         }
@@ -535,9 +382,10 @@ public class OpenSimObjectModel
       return retArray;
     }
 
-    /**
-     * Gets the path from the root to the receiver.
-     */
+    //-----------------------------------------------------------------------
+    // Path utilities
+    //-----------------------------------------------------------------------
+
     public PropertyNode[] getPath() {
       return getPathToRoot(this, 0);
     }
@@ -559,22 +407,32 @@ public class OpenSimObjectModel
       return retNodes;
     }
 
+    //-----------------------------------------------------------------------
+    // Node/Children utilities
+    //-----------------------------------------------------------------------
+
+    /**
+     * Recursively loads all the children of the receiver.
+     */
+    protected void loadChildren() {
+      children = createChildren();
+      for (int counter = children.length - 1; counter >= 0; counter--) {
+        if (!children[counter].isLeaf()) {
+          children[counter].loadChildren();
+        }
+      }
+    }
+
     /**
      * Sets the children of the receiver, updates the total size,
      * and if generateEvent is true a tree structure changed event
      * is created.
      */
-    protected void setChildren(PropertyNode[] newChildren,
-                               boolean generateEvent) {
-
+    protected void setChildren(PropertyNode[] newChildren, boolean generateEvent) {
       children = newChildren;
-
       if (generateEvent) {
         PropertyNode[] path = getPath();
-
-        fireTreeStructureChanged(OpenSimObjectModel.this, path, null,
-                                 null);
-
+        fireTreeStructureChanged(OpenSimObjectModel.this, path, null, null);
       }
     }
 
@@ -584,118 +442,12 @@ public class OpenSimObjectModel
      */
     protected void nodeChanged() {
       PropertyNode parent = getParent();
-
       if (parent != null) {
         PropertyNode[] path = parent.getPath();
-        int[] index = {
-            getIndexOfChild(parent, this)};
-        Object[] children = {
-            this};
-
-        fireTreeNodesChanged(OpenSimObjectModel.this, path, index,
-                             children);
-      }
-    }
-
-    /**
-     * getObject
-     *
-     * @return Object
-     */
-    private Object getObject() {
-      return property;
-    }
-
-    /**
-     * isEditable
-     *
-     * @return boolean
-     */
-    public boolean editable() {
-      return !aggregate && this.isEditable;
-    }
-  }
-
-  /**
-   * PropertyNodeLoader can be used to reload all the children of a
-   * particular node. It first resets the children of the PropertyNode
-   * it is created with, and in its run method will reload all of
-   * that nodes children. PropertyNodeLoader may not be running in the event
-   * dispatching thread. As swing is not thread safe it is important
-   * that we don't generate events in this thread. SwingUtilities.invokeLater
-   * is used so that events are generated in the event dispatching thread.
-   */
-  class PropertyNodeLoader
-      implements Runnable {
-    /** Node creating children for. */
-    PropertyNode node;
-
-    PropertyNodeLoader(PropertyNode node) {
-      this.node = node;
-      node.setChildren(node.createChildren(), true);
-    }
-
-    public void run() {
-      PropertyNode[] children = node.getChildren();
-
-      for (int counter = children.length - 1; counter >= 0; counter--) {
-        if (!children[counter].isLeaf()) {
-          reloadNode = children[counter];
-          loadChildren(children[counter]);
-          reloadNode = null;
-        }
-        if (!isValid) {
-          counter = 0;
-        }
-      }
-      if (isValid) {
-        SwingUtilities.invokeLater(new Runnable() {
-          public void run() {
-            node.setChildren(node.getChildren(), true);
-            synchronized (OpenSimObjectModel.this) {
-              reloadCount--;
-              OpenSimObjectModel.this.notifyAll();
-            }
-          }
-        });
-      }
-      else {
-        synchronized (OpenSimObjectModel.this) {
-          reloadCount--;
-          OpenSimObjectModel.this.notifyAll();
-        }
-      }
-    }
-
-    protected void loadChildren(PropertyNode node) {
-      if (!node.isLeaf()) {
-        final PropertyNode[] children = node.createChildren();
-
-        for (int counter = children.length - 1; counter >= 0;
-             counter--) {
-          if (!children[counter].isLeaf()) {
-            children[counter].loadChildren();
-          }
-          if (!isValid) {
-            counter = 0;
-          }
-        }
-        if (isValid) {
-          final PropertyNode fn = node;
-
-          // Reset the children
-          SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-
-              fn.setChildren(children, true);
-              fn.nodeChanged();
-            }
-          });
-        }
-      }
-      else {
+        int[] index = { getIndexOfChild(parent, this)};
+        Object[] children = { this};
+        fireTreeNodesChanged(OpenSimObjectModel.this, path, index, children);
       }
     }
   }
-
 }
