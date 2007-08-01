@@ -369,6 +369,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
                     OpenSimDB.getInstance().getCurrentModel()==null)){
                jPanel1.removeAll();
                componentOpened();
+               repaint();
             }
             /*else if (evt.getOperation()==ModelEvent.Operation.Open){
                // Create a Default pose here since coordinates will change on us later
@@ -498,7 +499,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       for(int i=0; i<savedPoses.size() && !found; i++){
          ModelPose p=savedPoses.get(i);
          if (p.getPoseName().compareTo(DEFAULT_POSE_NAME)==0){
-            savedPoses.set(i, newDefaultPose);
+            //savedPoses.set(i, newDefaultPose);
             found=true;
             break;
          }
