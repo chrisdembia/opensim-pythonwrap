@@ -117,6 +117,9 @@
 	    must be allowed. The recommended time window for RRA is about 0.001
 	    sec, and for CMC is about 0.010 sec.-->
 	<cmc_time_window> 0.01 </cmc_time_window>
+	<!--True/false flag indicating whether or not to use verbose printing for
+	    the cmc controller.-->
+	<use_verbose_printing> false </use_verbose_printing>
 	<!--Flag (true or false) indicating whether or not to use the curvature
 	    filter. Setting this flag to true can reduce oscillations in the
 	    computed muscle excitations.-->
