@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.util.Cancellable;
+import org.opensim.modeling.Analysis;
 import org.opensim.modeling.AnalyzeTool;
 import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Model;
@@ -131,13 +134,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
       setDefaultResultsDirectory(model);
 
-      // In inverse dynamics mode, initialize with an inverse dynamics analysis
-      if(inverseDynamicsMode) {
-         InverseDynamics inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy()); // C++-side copy
-         inverseDynamicsAnalysis.setUseModelActuatorSet(false);
-         getTool().getAnalysisSet().append(inverseDynamicsAnalysis);
-      }
-
+      adjustToolForInverseDynamicsMode();
       updateFromTool();
 
       determineDefaultInputSource();
@@ -145,6 +142,55 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
    AnalyzeTool getTool() { return (AnalyzeTool)tool; }
    Model getOriginalModel() { return originalModel; }
+
+   //------------------------------------------------------------------------
+   // Utilities for inverse dynamics specific analyze tool
+   //------------------------------------------------------------------------
+
+   protected void adjustToolForInverseDynamicsMode() {
+      if(!inverseDynamicsMode) return;
+      // Since we're not using the model's actuator set, clear the actuator set related fields
+      getTool().setReplaceActuatorSet(false);
+      getTool().getActuatorSetFiles().setSize(0);
+      // Check if have non-inverse dynamics analyses, or multiple inverse dynamics analyses
+      boolean foundOtherAnalysis = false;
+      boolean advancedSettings = false;
+      int numInverseDynamicsAnalyses = 0;
+      InverseDynamics inverseDynamicsAnalysis = null;
+      for(int i=getTool().getAnalysisSet().getSize()-1; i>=0; i--) {
+         Analysis analysis = getTool().getAnalysisSet().get(i);
+         System.out.println("PROCESSING ANALYSIS "+analysis.getType()+","+analysis.getName());
+         if(InverseDynamics.safeDownCast(analysis)==null) {
+            foundOtherAnalysis = true;
+            getTool().getAnalysisSet().remove(i);
+         }
+         else { 
+            numInverseDynamicsAnalyses++;
+            if(numInverseDynamicsAnalyses==1) {
+               inverseDynamicsAnalysis = InverseDynamics.safeDownCast(analysis);
+               if(inverseDynamicsAnalysis.getUseModelActuatorSet() || !inverseDynamicsAnalysis.getOn()) 
+                  advancedSettings = true;
+            } else {
+               getTool().getAnalysisSet().remove(i);
+            }
+         }
+      }
+      if(inverseDynamicsAnalysis==null) {
+         inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy()); // C++-side copy
+         getTool().getAnalysisSet().append(inverseDynamicsAnalysis);
+      }
+      inverseDynamicsAnalysis.setOn(true);
+      inverseDynamicsAnalysis.setUseModelActuatorSet(false);
+
+      if(foundOtherAnalysis || advancedSettings || numInverseDynamicsAnalyses>1) {
+         String message = "";
+         if(foundOtherAnalysis) message = "Settings file contained analyses other than inverse dynamics.  The inverse dynamics tool will ignore these.\n";
+         if(numInverseDynamicsAnalyses>1) message += "More than one inverse dynamics analysis found.  Extras will be ignored.\n";
+         if(advancedSettings) message += "Settings file contained an inverse dynamics analysis with advanced settings which will be ignored by the inverse dynamics tool.\n";
+         message += "Please use the analyze tool if you wish to handle different analysis types and advanced analysis settings.\n";
+         DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(message, NotifyDescriptor.WARNING_MESSAGE));
+      }
+   }
 
    //------------------------------------------------------------------------
    // Default input source
@@ -367,10 +413,9 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          return false;
       }
 
-      // TODO: if in inverse dynamics mode and the file we read in does not appear to be an analysis with an inverse dynamics analysis, print error/warning
-
       setTool(newAnalyzeTool);
       relativeToAbsolutePaths(fileName);
+      adjustToolForInverseDynamicsMode();
       updateFromTool();
       setModified(AbstractToolModel.Operation.AllDataChanged);
       return true;
