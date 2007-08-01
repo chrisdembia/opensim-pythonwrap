@@ -8,10 +8,37 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.swingui.JTableButtonMouseListener;
 import org.opensim.swingui.JTableButtonRenderer;
+
+class ObjectPropertyViewerTreeTable extends JTreeTable {
+   private TreeTableModelAdapter adapter = null;
+   private OpenSimObjectModel model = null;
+
+   public ObjectPropertyViewerTreeTable(OpenSimObjectModel model) {
+      super(model);
+      this.model = model;
+      this.adapter = (TreeTableModelAdapter)getModel();
+   }
+
+   public TableCellRenderer getCellRenderer(int row, int column) {
+      TableColumn tableColumn = getColumnModel().getColumn(column);
+      TableCellRenderer renderer = tableColumn.getCellRenderer();
+      if (renderer == null) renderer = getDefaultRenderer(model.getCellClass(adapter.nodeForRow(row), convertColumnIndexToModel(column)));
+      return renderer;
+   }
+
+   public TableCellEditor getCellEditor(int row, int column) {
+      TableColumn tableColumn = getColumnModel().getColumn(column);
+      TableCellEditor editor = tableColumn.getCellEditor();
+      if (editor == null) editor = getDefaultEditor(model.getCellClass(adapter.nodeForRow(row), convertColumnIndexToModel(column)));
+      return editor;
+   }
+}
 
 /**
  * Assembles the UI (a JTreeTable).
@@ -32,7 +59,8 @@ public class ObjectPropertyViewerPanel extends JPanel {
             return;
 
         model = new OpenSimObjectModel(aObject, editMode);
-        treeTable = new JTreeTable(model);
+        //treeTable = new JTreeTable(model);
+        treeTable = new ObjectPropertyViewerTreeTable(model);
 
         // Create column model and assign renderer to show tooltip
         ColumnHeaderRenderer renderer = new ColumnHeaderRenderer();

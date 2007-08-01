@@ -7,6 +7,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.event.MouseInputAdapter;
+import org.opensim.modeling.ArrayBool;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayInt;
 import org.opensim.modeling.ArrayStr;
@@ -18,7 +19,6 @@ import org.opensim.modeling.PropertySet;
 // OpenSimObjectModel
 //=========================================================================
 public class OpenSimObjectModel extends AbstractTreeTableModel {
-
   // Names of the columns.
   static protected String[] cNames = { "Name", "", "Value", "Description" };
 
@@ -77,10 +77,19 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
   public String getColumnName(int column) { return cNames[column]; }
 
+  // Unfortunately, JTable calls this method in some more places rather than always going through getCellEditor, getCellRenderer...
+  // So the net result is that the editor will think it's editing string even when it edits numbers
   public Class getColumnClass(int column) { return cTypes[column]; }
 
+  // This is for the cell renderer
+  public Class getCellClass(Object node, int column) { 
+     if(column==2) return ((PropertyNode)node).getValueClass();
+     else return cTypes[column];
+  }
+
   public boolean isCellEditable(Object node, int column) {
-     return column == 0 || (isEditable && editableColumns[column] && ((PropertyNode)node).editable());
+//     return column == 0 || (isEditable && editableColumns[column] && ((PropertyNode)node).editable());
+   return true;
   }
 
   /**
@@ -97,10 +106,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
         case 2: // Value
           return fn.getValue();
         case 3: // Description
-          Object obj = fn.getObject();
-          if (obj instanceof Property)
-            return ( ( (Property) obj).getComment());
-          return "  ";
+          return fn.getDescription();
       }
     }
     catch (SecurityException se) {}
@@ -138,10 +144,6 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
     fn.nodeChanged();
   }
 
-  protected Object getObject(Object node) {
-    return ((PropertyNode)node).getObject();
-  }
-
   protected Object[] getChildren(Object node) {
     return ((PropertyNode)node).getChildren();
   }
@@ -151,14 +153,15 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
   //=========================================================================
 
   class PropertyNode {
-    protected Object property;
     private PropertyNode parent;
+    protected Object property; // May be OpenSimObject or a Property
     protected PropertyNode[] children;
+    protected Property.PropertyType propValueType = null; // Indicates property type of this node (NOTE: an item of a PropertyDblArray gets the type PropertyDbl!)
 
     /** will this object be treated as a leaf or as expandible */
     protected boolean aggregate;
 
-    /** in cases where the node corresponds to an array entry, keep index here */
+    /** in cases where the node corresponds to an array entry, keep index here, and property will be the property array containing the item */
     protected int idx;
 
     protected JButton controlButton = null;
@@ -199,42 +202,45 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
       this.idx = index;
       aggregate = false;
 
-      if (property instanceof OpenSimObject)
-        aggregate = true;
-      else if (property instanceof Property) {
-        Property.PropertyType propType = ( (Property) property).getType();
-        if (propType == Property.PropertyType.Obj ||
-            propType == Property.PropertyType.ObjPtr ||
-            propType == Property.PropertyType.BoolArray ||
-            propType == Property.PropertyType.IntArray ||
-            propType == Property.PropertyType.FltArray ||
-            propType == Property.PropertyType.DblArray ||
-            propType == Property.PropertyType.StrArray ||
-            propType == Property.PropertyType.ObjArray) {
-          aggregate = true;
-        }
-      }
-
-      // Initialize controls buttons
-      if(property instanceof String)  {
-         controlButton = new JButton(removeIcon);
-         controlButton.addMouseListener(new MouseInputAdapter() {
-            public void mousePressed(MouseEvent evt) { removePropertyItem(); }
-         });
-      } else if(property instanceof Property) {
+      if (property instanceof OpenSimObject) {
+         aggregate = true;
+      } else if (property instanceof Property) {
          Property.PropertyType propType = ( (Property) property).getType();
-         if(propType == Property.PropertyType.BoolArray ||
+
+         if(propType==Property.PropertyType.Dbl || (propType==Property.PropertyType.DblArray && idx!=-1)) propValueType = Property.PropertyType.Dbl; 
+         else if(propType==Property.PropertyType.Int || (propType==Property.PropertyType.IntArray && idx!=-1)) propValueType = Property.PropertyType.Int; 
+         else if(propType==Property.PropertyType.Str || (propType==Property.PropertyType.StrArray && idx!=-1)) propValueType = Property.PropertyType.Str; 
+         else if(propType==Property.PropertyType.Bool || (propType==Property.PropertyType.BoolArray && idx!=-1)) propValueType = Property.PropertyType.Bool; 
+
+         if(propType == Property.PropertyType.DblArray ||
             propType == Property.PropertyType.IntArray ||
-            propType == Property.PropertyType.FltArray ||
-            propType == Property.PropertyType.DblArray ||
-            propType == Property.PropertyType.StrArray) 
+            propType == Property.PropertyType.StrArray ||
+            propType == Property.PropertyType.BoolArray)
          {
-            controlButton = new JButton(addIcon);
-            controlButton.addMouseListener(new MouseInputAdapter() {
-               public void mousePressed(MouseEvent evt) { addPropertyItem(); }
-            });
+            if(idx==-1) {
+               aggregate = true;
+
+               // Button to add array item
+               controlButton = new JButton(addIcon);
+               controlButton.addMouseListener(new MouseInputAdapter() {
+                  public void mousePressed(MouseEvent evt) { addPropertyItem(); }
+               });
+            } else {
+               // Button to delete array item
+               controlButton = new JButton(removeIcon);
+               controlButton.addMouseListener(new MouseInputAdapter() {
+                  public void mousePressed(MouseEvent evt) { removePropertyItem(); }
+               });
+            }
+         }
+         else if(propType == Property.PropertyType.Obj ||
+                 propType == Property.PropertyType.ObjPtr ||
+                 propType == Property.PropertyType.ObjArray)
+         {
+            aggregate = true;
          }
       }
+
       if(controlButton!=null) {
          controlButton.setContentAreaFilled(false);
          controlButton.setMargin(new Insets(0,0,0,0));
@@ -254,7 +260,10 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
     protected PropertyNode[] getChildren() { return children; }
 
-    private Object getObject() { return property; }
+    public String getDescription() {
+       if(property instanceof Property && idx==-1) return ((Property)property).getComment();
+       else return " ";
+    }
 
     public boolean editable() { return !aggregate; }
 
@@ -289,23 +298,46 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
     // Basic get/set/queries
     //-----------------------------------------------------------------------
 
-    public String getValue() {
+    public Object getValue() {
       if (property instanceof OpenSimObject)
         return getName();
-      else if (property instanceof Property)
-        return ( (Property) property).toString();
-      else if (idx != -1)
-        return (String) property;
+      else if (property instanceof Property) {
+         Property p = (Property)property;
+         if(propValueType == Property.PropertyType.Dbl) { 
+            if(idx==-1) return (Double)p.getValueDbl();
+            else return (Double)p.getValueDblArray().getitem(idx); 
+         } else if(propValueType == Property.PropertyType.Int) {
+            if(idx==-1) return (Integer)p.getValueInt();
+            else return (Integer)p.getValueIntArray().getitem(idx); 
+         } else if(propValueType == Property.PropertyType.Str) {
+            if(idx==-1) return (String)p.getValueStr();
+            else return (String)p.getValueStrArray().getitem(idx); 
+         } else if(propValueType == Property.PropertyType.Bool) {
+            if(idx==-1) return (Boolean)p.getValueBool();
+            else return (Boolean)p.getValueBoolArray().getitem(idx); 
+         } else return p.toString();
+      }
+      return "unknownValue";
+    }
 
-        return "unknownValue";
+    public Class getValueClass() { 
+      if (property instanceof OpenSimObject) return String.class;
+      else if (property instanceof Property) {
+         Property p = (Property)property;
+         if(propValueType == Property.PropertyType.Dbl) return Double.class;
+         else if(propValueType == Property.PropertyType.Int) return Integer.class;
+         else if(propValueType == Property.PropertyType.Str) return String.class;
+         else if(propValueType == Property.PropertyType.Bool) return Boolean.class;
+         else return String.class;
+      } else return String.class;
     }
 
     public String getName() {
       if (property instanceof OpenSimObject)
         return ( (OpenSimObject) property).getName();
-      else if (property instanceof Property)
+      else if (property instanceof Property && idx==-1)
         return ( (Property) property).getName();
-      else if (property instanceof String)
+      else if (idx!=-1)
        return ( "["+String.valueOf(idx)+"]");
 
       return ("unknown type!");
@@ -315,50 +347,39 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
       return controlButton;
    }
 
-   public void setValue(Object aValue) {
+   public void setValue(Object value) {
       /**
       * The following steps need to be done
       * 1. Map property and index if any to a primitive type
-      * 2. Cast aValue into a String sValue;
+      * 2. Cast value into a String sValue;
       * 3. Parse sValue using type info
       * 4. call API to ste the value
       */
-      String newValueString = (String) aValue;
       // Only primitive properties and array entries can be edited
       if(property instanceof Property) {
          Property p = (Property)property;
          p.setUseDefault(false);
-         if (p.getType()== Property.PropertyType.Dbl){
-            double newdbl = Double.parseDouble(newValueString);
-            p.setValue(newdbl);
-         } else if (p.getType()== Property.PropertyType.Int){
-            int newint = Integer.parseInt(newValueString);
-            p.setValue(newint);
-         } else if (p.getType()== Property.PropertyType.Str){
-            p.setValue(newValueString);
-         } else if (p.getType()==Property.PropertyType.Bool){
-            Boolean b = Boolean.valueOf(newValueString);
-            p.setValue(b.booleanValue());
+
+         // NOTE: I wanted the values to come in as Double, Integer, etc. but due to some weirdness the table editor thinks
+         // it's editing a string in the cases of Double, Integer, and String... so I check this below (value instanceof String) to be safe
+         try {
+            if(propValueType == Property.PropertyType.Dbl) { 
+               double val = (value instanceof String) ? Double.parseDouble((String)value) : ((Double)value).doubleValue();
+               if(idx==-1) p.setValue(val); else p.getValueDblArray().set(idx, val);
+            } else if(propValueType == Property.PropertyType.Int) {
+               int val = (value instanceof String) ? Integer.parseInt((String)value) : ((Integer)value).intValue();
+               if(idx==-1) p.setValue(val); else p.getValueIntArray().set(idx, val);
+            } else if(propValueType == Property.PropertyType.Str) {
+               String val = (String)value;
+               if(idx==-1) p.setValue(val); else p.getValueStrArray().set(idx, val);
+            } else if(propValueType == Property.PropertyType.Bool) {
+               boolean val = ((Boolean)value).booleanValue();
+               if(idx==-1) p.setValue(val); else p.getValueBoolArray().set(idx, val);
+            }
+         } catch (NumberFormatException ex) { // might get a parsing exception
          }
-      } else if (idx != -1) { // Array index of an aggregate/array property
-         Property p = (Property)getParent().property;
-         p.setUseDefault(false);
-         if (p.getType()== Property.PropertyType.DblArray){
-            double newdbl = Double.parseDouble(newValueString);
-            p.getValueDblArray().set(idx, newdbl);
-            reloadChildren(getParent());
-         } else if (p.getType()== Property.PropertyType.IntArray){
-            int newint = Integer.parseInt(newValueString);
-            p.getValueIntArray().set(idx, newint);
-            reloadChildren(getParent());
-         } else if (p.getType()== Property.PropertyType.StrArray){
-            p.getValueStrArray().set(idx, newValueString);
-            reloadChildren(getParent());
-         } else if (p.getType()== Property.PropertyType.BoolArray){
-            boolean newval = Boolean.getBoolean(newValueString);
-            p.getValueBoolArray().set(idx, newval);
-            reloadChildren(getParent());
-         }
+
+         if(idx!=-1) reloadChildren(getParent());
       }
    }
 
@@ -409,26 +430,22 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
           else if (propType == Property.PropertyType.DblArray) {
             ArrayDouble dblArray = rdprop.getValueDblArray();
             retArray = new PropertyNode[dblArray.getSize()];
-            for (int i = 0; i < dblArray.getSize(); i++) {
-              double value = dblArray.getitem(i);
-              retArray[i] = new PropertyNode(this, Double.toString(value), i);
-            }
-          }
-          else if (propType == Property.PropertyType.StrArray) {
-            ArrayStr strArray = rdprop.getValueStrArray();
-            retArray = new PropertyNode[strArray.getSize()];
-            for (int i = 0; i < strArray.getSize(); i++) {
-              String value = strArray.getitem(i);
-              retArray[i] = new PropertyNode(this, value, i);
-            }
+            for (int i = 0; i < dblArray.getSize(); i++) retArray[i] = new PropertyNode(this, property, i);
           }
           else if (propType == Property.PropertyType.IntArray) {
             ArrayInt intArray = rdprop.getValueIntArray();
             retArray = new PropertyNode[intArray.getSize()];
-            for (int i = 0; i < intArray.getSize(); i++) {
-              int value = intArray.getitem(i);
-              retArray[i] = new PropertyNode(this, new Integer(value), i);
-            }
+            for (int i = 0; i < intArray.getSize(); i++) retArray[i] = new PropertyNode(this, property, i);
+          }
+          else if (propType == Property.PropertyType.StrArray) {
+            ArrayStr strArray = rdprop.getValueStrArray();
+            retArray = new PropertyNode[strArray.getSize()];
+            for (int i = 0; i < strArray.getSize(); i++) retArray[i] = new PropertyNode(this, property, i);
+          }
+          else if (propType == Property.PropertyType.BoolArray) {
+            ArrayBool boolArray = rdprop.getValueBoolArray();
+            retArray = new PropertyNode[boolArray.getSize()];
+            for (int i = 0; i < boolArray.getSize(); i++) retArray[i] = new PropertyNode(this, property, i);
           }
           else if (propType == Property.PropertyType.ObjArray) {
             retArray = new PropertyNode[rdprop.getValueObjArraySize()];
