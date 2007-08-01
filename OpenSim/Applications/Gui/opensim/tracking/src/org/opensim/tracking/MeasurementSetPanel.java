@@ -18,6 +18,8 @@ import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -47,6 +49,8 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
    private static final String DEFAULT_MEASUREMENT_NAME = "Unnamed";
    private static final Dimension buttonDim = new Dimension(BUTTON_WIDTH, HEIGHT);
    private static final Color invalidColor = new Color(255,102,102);
+   private final Icon addIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/addSymbol.png"));
+   private final Icon removeIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/closeSymbol.png"));
 
    private static final Border measurementControlsBorder = BorderFactory.createLineBorder(Color.black); //BorderFactory.createBevelBorder(BevelBorder.LOWERED);
    private static final Border measurementControlsInnerBorder = BorderFactory.createMatteBorder(0,0,0,1,Color.lightGray);
@@ -65,7 +69,7 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
    class RemoveMeasurementAction extends AbstractAction {
       int index;
       public RemoveMeasurementAction(int index) { 
-         super("X"); 
+         super("", removeIcon);
          this.index = index; 
          putValue(Action.SHORT_DESCRIPTION, "Remove this measurement");
       }
@@ -75,7 +79,7 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
    class AddMarkerPairAction extends AbstractAction {
       int measurementIndex;
       public AddMarkerPairAction(int measurementIndex) { 
-         super("+"); 
+         super("", addIcon); 
          this.measurementIndex = measurementIndex; 
          putValue(Action.SHORT_DESCRIPTION, "Add a new marker pair to this measurement");
       }
@@ -86,7 +90,7 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
       int measurementIndex;
       int markerPairIndex;
       public RemoveMarkerPairAction(int measurementIndex, int markerPairIndex) { 
-         super("X"); 
+         super("", removeIcon); 
          this.measurementIndex = measurementIndex;
          this.markerPairIndex = markerPairIndex;
          putValue(Action.SHORT_DESCRIPTION, "Remove this marker pair from this measurement");
@@ -96,7 +100,7 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
 
    class AddMeasurementAction extends AbstractAction {
       public AddMeasurementAction() { 
-         super("+"); 
+         super("", addIcon); 
          putValue(Action.SHORT_DESCRIPTION, "Add a new measurement");
       }
       public void actionPerformed(ActionEvent evt) { 
@@ -233,6 +237,8 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
       addRemoveMeasurementButton.setPreferredSize(buttonDim);
       addRemoveMeasurementButton.setBorder(measurementControlsInnerBorder);
       addRemoveMeasurementButton.setContentAreaFilled(false);
+      addRemoveMeasurementButton.setOpaque(true);
+      addRemoveMeasurementButton.setBackground(Color.white);
       measurementControlsPanel.add(addRemoveMeasurementButton);
 
       // Measurement name
@@ -270,6 +276,8 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
       addMarkerPairButton.setPreferredSize(buttonDim);
       addMarkerPairButton.setBorder(null);
       addMarkerPairButton.setContentAreaFilled(false);
+      addMarkerPairButton.setOpaque(true);
+      addMarkerPairButton.setBackground(Color.white);
       markerPairControlsPanel.add(addMarkerPairButton);
 
       // Put everything in a panel
@@ -352,6 +360,8 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
       removeMarkerPairButton.setPreferredSize(buttonDim);
       removeMarkerPairButton.setBorder(null);
       removeMarkerPairButton.setContentAreaFilled(false);
+      removeMarkerPairButton.setOpaque(true);
+      removeMarkerPairButton.setBackground(Color.white);
       panel.add(removeMarkerPairButton);
 
       return panel;
