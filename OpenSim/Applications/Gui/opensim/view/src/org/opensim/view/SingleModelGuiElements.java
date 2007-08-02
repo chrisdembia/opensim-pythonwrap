@@ -29,10 +29,10 @@ public class SingleModelGuiElements {
     String preferredUnits; // Place holder for model specific Gui pref.
     Model model;   // model that Gui elements are created for
     
-    private static String[] bodyNames=null;
-    private static String[] coordinateNames=null;
-    private static String[] actuatorClassNames=null;
-    private static String[] actuatorNames=null;
+    private String[] bodyNames=null;
+    private String[] coordinateNames=null;
+    private String[] actuatorClassNames=null;
+    private String[] actuatorNames=null;
     
     public SingleModelGuiElements(Model model)
     {
