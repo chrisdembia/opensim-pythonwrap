@@ -67,21 +67,25 @@ public class MusclePoint extends OpenSimObject {
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
+  public void setBody(AbstractBody aBody, boolean preserveLocation) {
+    opensimModelJNI.MusclePoint_setBody__SWIG_0(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, preserveLocation);
+  }
+
   public void setBody(AbstractBody aBody) {
-    opensimModelJNI.MusclePoint_setBody(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody);
+    opensimModelJNI.MusclePoint_setBody__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody);
   }
 
   public String getBodyName() {
     return opensimModelJNI.MusclePoint_getBodyName(swigCPtr, this);
   }
 
-  public void scale(ArrayDouble aScaleFactors) {
-    opensimModelJNI.MusclePoint_scale(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
-  }
-
   public AbstractMuscle getMuscle() {
     long cPtr = opensimModelJNI.MusclePoint_getMuscle(swigCPtr, this);
     return (cPtr == 0) ? null : new AbstractMuscle(cPtr, false);
+  }
+
+  public void scale(ArrayDouble aScaleFactors) {
+    opensimModelJNI.MusclePoint_scale(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
   }
 
   public boolean isActive() {

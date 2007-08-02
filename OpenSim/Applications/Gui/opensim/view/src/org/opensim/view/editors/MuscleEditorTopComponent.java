@@ -122,7 +122,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       MuscleEditorPanel.setMinimumSize(new java.awt.Dimension(5, 5));
       MuscleEditorPanel.setPreferredSize(new java.awt.Dimension(5, 5));
       org.openide.awt.Mnemonics.setLocalizedText(ApplyButton, "Save");
-      ApplyButton.setToolTipText("save changes to this muscle");
+      ApplyButton.setToolTipText("save changes to all muscles in this model");
       ApplyButton.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             ApplyButtonActionPerformed(evt);
@@ -130,10 +130,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       });
 
       org.openide.awt.Mnemonics.setLocalizedText(ResetButton, "Reset");
-      ResetButton.setToolTipText("undo changes to last saved version");
-      ResetButton.setMaximumSize(new java.awt.Dimension(65, 25));
-      ResetButton.setMinimumSize(new java.awt.Dimension(65, 25));
-      ResetButton.setPreferredSize(new java.awt.Dimension(65, 25));
+      ResetButton.setToolTipText("reset all muscles in this model to their previously saved versions");
       ResetButton.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             ResetButtonActionPerformed(evt);
@@ -141,6 +138,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       });
 
       MuscleNameTextField.setText("<muscle name>");
+      MuscleNameTextField.setToolTipText("the name of this muscle");
       MuscleNameTextField.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             MuscleNameTextFieldActionPerformed(evt);
@@ -165,7 +163,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(MuscleEditorPanelLayout.createSequentialGroup()
             .add(118, 118, 118)
-            .add(ResetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(ResetButton)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 191, Short.MAX_VALUE)
             .add(ApplyButton)
             .add(159, 159, 159))
@@ -196,7 +194,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(ResetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(ResetButton)
                .add(ApplyButton))
             .addContainerGap())
       );
@@ -350,7 +348,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       BodySet bodies = model.getDynamicsEngine().getBodySet();
       AbstractBody newBody = bodies.get(bodyComboBox.getSelectedIndex());
       if (AbstractBody.getCPtr(newBody) != AbstractBody.getCPtr(oldBody)) {
-         musclePoints.get(attachmentNum).setBody(newBody);
+         musclePoints.get(attachmentNum).setBody(newBody, true);
          setPendingChanges(true, false);
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -920,6 +918,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          upButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/upArrow.png")));
          upButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/upArrow_selected.png")));
          upButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/upArrow_rollover.png")));
+         upButton.setToolTipText("move this wrap object up in the order");
          upButton.setBorder(null);
          upButton.setBorderPainted(false);
          upButton.setContentAreaFilled(false);
@@ -940,6 +939,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          downButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/downArrow.png")));
          downButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/downArrow_selected.png")));
          downButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/downArrow_rollover.png")));
+         downButton.setToolTipText("move this wrap object down in the order");
          downButton.setBorder(null);
          downButton.setBorderPainted(false);
          downButton.setContentAreaFilled(false);
@@ -961,6 +961,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/close.png")));
          deleteButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/close_selected.png")));
          deleteButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/close_rollover.png")));
+         deleteButton.setToolTipText("delete this wrap object from this muscle");
          deleteButton.setBorder(null);
          deleteButton.setBorderPainted(false);
          deleteButton.setContentAreaFilled(false);
@@ -1335,7 +1336,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             selectedTabName = null;
          MuscleTypeLabel.setText("Type: " + act.getType());
       } else {
-         MuscleTypeLabel.setText("Type: ");
+         MuscleTypeLabel.setText("");
       }
       ParametersTabbedPanel.removeAll();
       AttachmentsTab = null;
@@ -1346,7 +1347,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       if (currentModel != null) {
          ModelNameLabel.setText("Model: " + currentModel.getName());
       } else {
-         ModelNameLabel.setText("Model: No current model");
+         ModelNameLabel.setText("Model: No models");
          MuscleNameTextField.setText("");
          MuscleNameTextField.setEnabled(false);
          //MuscleTypeComboBox.setEnabled(false);
