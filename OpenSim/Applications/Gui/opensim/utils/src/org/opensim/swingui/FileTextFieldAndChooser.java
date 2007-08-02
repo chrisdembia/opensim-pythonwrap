@@ -27,6 +27,7 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
    private boolean checkIfFileExists = true;
 
    private JCheckBox checkBox = null; // Optional associated check box which enables/disables the text field
+   private boolean saveMode = false;   // Whether to bring the file chooser in Open or Save mode
 
    public FileTextFieldAndChooser() {
       initComponents();
@@ -158,6 +159,14 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       }
    }
 
+   public boolean isSaveMode() {
+      return saveMode;
+   }
+
+   public void setSaveMode(boolean saveMode) {
+      this.saveMode = saveMode;
+   }
+
    //------------------------------------------------------------------------
    // Event handling for the text field / button
    //------------------------------------------------------------------------
@@ -167,7 +176,14 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
    }//GEN-LAST:event_fileNameTextFieldFocusLost
 
    private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
-      String result = directoriesOnly ?
+      String result =null;
+     if (isSaveMode()){
+         result = directoriesOnly ?
+                      FileUtils.getInstance().browseForFolder() :
+                      FileUtils.getInstance().browseForFilenameToSave(filter, true, "");
+     }
+     else
+         result = directoriesOnly ?
                       FileUtils.getInstance().browseForFolder() :
                       FileUtils.getInstance().browseForFilename(filter);
       if(result != null) setFileName(result);

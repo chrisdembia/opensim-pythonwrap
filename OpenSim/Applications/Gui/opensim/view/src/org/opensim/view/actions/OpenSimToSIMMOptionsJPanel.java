@@ -17,9 +17,12 @@ public class OpenSimToSIMMOptionsJPanel extends javax.swing.JPanel {
         jntfileTextFieldAndChooser.setExtensionsAndDescription(".jnt", "SIMM joint file");
         jntfileTextFieldAndChooser.setCheckIfFileExists(false);
         jntfileTextFieldAndChooser.setTreatEmptyStringAsValid(false);
+        jntfileTextFieldAndChooser.setSaveMode(true);
+        
         mslfileTextFieldAndChooser.setExtensionsAndDescription(".msl", "SIMM muscle file");
         mslfileTextFieldAndChooser.setCheckIfFileExists(false);
-        mslfileTextFieldAndChooser.setTreatEmptyStringAsValid(true);
+        mslfileTextFieldAndChooser.setTreatEmptyStringAsValid(false);
+        jntfileTextFieldAndChooser.setSaveMode(true);
     }
     
     /** This method is called from within the constructor to
