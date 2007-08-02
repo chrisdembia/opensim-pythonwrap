@@ -97,6 +97,9 @@
                 <Property name="text" type="java.lang.String" value="Save"/>
                 <Property name="toolTipText" type="java.lang.String" value="save changes to all muscles in this model"/>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="save all changes to this muscle"/>
+              </AccessibilityProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ApplyButtonActionPerformed"/>
               </Events>
@@ -106,6 +109,9 @@
                 <Property name="text" type="java.lang.String" value="Reset"/>
                 <Property name="toolTipText" type="java.lang.String" value="reset all muscles in this model to their previously saved versions"/>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="reset this muscle to its previously saved version"/>
+              </AccessibilityProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResetButtonActionPerformed"/>
               </Events>

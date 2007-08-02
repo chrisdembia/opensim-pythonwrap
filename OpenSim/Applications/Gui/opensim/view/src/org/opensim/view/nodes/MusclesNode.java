@@ -80,12 +80,14 @@ public class MusclesNode extends OpenSimObjectSetNode {
          for (int i = 0; i < as.getNumGroups(); i++) {
             ObjectGroup grp = as.getGroup(i);
             ArrayPtrsObj apo = grp.getMembers();
-            AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
-            // If the first member of the group is an AbstractMuscle, then
-            // consider this group to be an AbstractMuscle group.
-            if (muscle != null && grp.getName().equals("all")) {
-               userDefinedAllGroup = true;
-               break;
+            if (apo.getSize() > 0) {
+               AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
+               // If the first member of the group is an AbstractMuscle, then
+               // consider this group to be an AbstractMuscle group.
+               if (muscle != null && grp.getName().equals("all")) {
+                  userDefinedAllGroup = true;
+                  break;
+               }
             }
          }
          // Now make the "all" group, if necessary.
@@ -104,11 +106,13 @@ public class MusclesNode extends OpenSimObjectSetNode {
          for (int i = 0; i < as.getNumGroups(); i++) {
             ObjectGroup grp = as.getGroup(i);
             ArrayPtrsObj apo = grp.getMembers();
-            AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
-            // If the first member of the group is an AbstractMuscle, then
-            // consider this group to be an AbstractMuscle group.
-            if (muscle != null)
-               children.add(new Node[] {new ActuatorGroupNode(grp)});
+            if (apo.getSize() > 0) {
+               AbstractMuscle muscle = AbstractMuscle.safeDownCast(apo.get(0));
+               // If the first member of the group is an AbstractMuscle, then
+               // consider this group to be an AbstractMuscle group.
+               if (muscle != null)
+                  children.add(new Node[] {new ActuatorGroupNode(grp)});
+            }
          }
       }
       if (getChildren().getNodesCount() == 0)

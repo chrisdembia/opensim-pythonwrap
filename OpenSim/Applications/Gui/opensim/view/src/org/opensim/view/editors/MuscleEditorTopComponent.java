@@ -65,6 +65,7 @@ import org.opensim.view.SelectedObject;
 final public class MuscleEditorTopComponent extends TopComponent implements Observer {
    
    private static MuscleEditorTopComponent instance;
+   private Model currentModel = null;
    private AbstractActuator act = null; // the actuator that is currently shown in the Muscle Editor window
    private AbstractActuator actSaved = null; // the state that gets restored when "reset" is pressed
    private boolean pendingChanges = false;
@@ -129,6 +130,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          }
       });
 
+      ApplyButton.getAccessibleContext().setAccessibleDescription("save all changes to this muscle");
+
       org.openide.awt.Mnemonics.setLocalizedText(ResetButton, "Reset");
       ResetButton.setToolTipText("reset all muscles in this model to their previously saved versions");
       ResetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +139,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             ResetButtonActionPerformed(evt);
          }
       });
+
+      ResetButton.getAccessibleContext().setAccessibleDescription("reset this muscle to its previously saved version");
 
       MuscleNameTextField.setText("<muscle name>");
       MuscleNameTextField.setToolTipText("the name of this muscle");
@@ -1559,6 +1564,45 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          OneActuatorNode muscleNode = (OneActuatorNode) selected[0];
          newAct = AbstractActuator.safeDownCast(muscleNode.getOpenSimObject());
          if (newAct != null && newAct != act) {
+            Model newModel = newAct.getModel();
+            if (Model.getCPtr(newModel) != Model.getCPtr(currentModel)) {
+               Object[] options = {"OK"};
+               int answer = JOptionPane.showOptionDialog(this,
+                  "You can only edit muscles that are in the current model.",
+                  "Muscle Editor",
+                  JOptionPane.DEFAULT_OPTION,
+                  JOptionPane.WARNING_MESSAGE,
+                  null,
+                  options,
+                  options[0]);
+            } else {
+               act = newAct;
+               actSaved = AbstractActuator.safeDownCast(act.copy());
+               AttachmentsTab = null;
+               WrapTab = null;
+               CurrentPathTab = null;
+               selectedTabName = null;
+               setPendingChanges(false, false);
+               setupComponent(act);
+            }
+         }
+      } else {
+         setPendingChanges(false, false);
+         setupComponent(null);
+      }
+      super.open();
+      this.requestActive();
+   }
+/* Old version which prompted to save/reset any changes to current muscle
+   public void open() {
+      Mode mode=WindowManager.getDefault().findMode(s_mode);
+      //boolean docked = mode.dockInto(this);
+      AbstractActuator newAct = null;
+      Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+      if (selected.length > 0) {
+         OneActuatorNode muscleNode = (OneActuatorNode) selected[0];
+         newAct = AbstractActuator.safeDownCast(muscleNode.getOpenSimObject());
+         if (newAct != null && newAct != act) {
             boolean switchMuscles = false;
             if (pendingChanges == false) {
                switchMuscles = true;
@@ -1598,7 +1642,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       super.open();
       this.requestActive();
    }
-   
+*/
    // Observable is ViewDB
    public void update(Observable o, Object arg) {
       if (o instanceof ViewDB) {
@@ -1627,8 +1671,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             if (evt.getOperation() == ModelEvent.Operation.SetCurrent ||
                (evt.getOperation() == ModelEvent.Operation.Close &&
                OpenSimDB.getInstance().getCurrentModel() == null)) {
+               setPendingChanges(false, false);
                setupComponent(null);
-               pendingChanges = false;
             }
             // Do we need to handle close separately or should we be called with SetCurrent of null model?
          } else if (arg instanceof ObjectSetCurrentEvent) {
@@ -1638,7 +1682,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             // current model. So update the panel.
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
+                  setPendingChanges(false, false);
                   setupComponent(null);
+                  currentModel = (Model)objs.get(i);
                   break;
                }
             }
@@ -1679,6 +1725,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             mp.setAttachment(0, mp.getAttachment().getitem(0) + dragVectorBody[0]);
             mp.setAttachment(1, mp.getAttachment().getitem(1) + dragVectorBody[1]);
             mp.setAttachment(2, mp.getAttachment().getitem(2) + dragVectorBody[2]);
+            //setPendingChanges(true, false);
             // tell the ViewDB to redraw the model
             m = mp.getMuscle();
             SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(m.getModel());
