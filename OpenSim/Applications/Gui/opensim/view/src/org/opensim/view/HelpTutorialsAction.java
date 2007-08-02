@@ -38,10 +38,11 @@ public final class HelpTutorialsAction extends CallableSystemAction {
       JMenu displayMenu = new JMenu("Tutorials");
       FileFilter fileFilter = new FileFilter() {
                 public boolean accept(File file) {
-                    return (!file.isDirectory()&& file.getName().endsWith(".html"));
+                    return (!file.isDirectory()&& file.getName().endsWith(".pdf"));
                 }
       };
-      File rootHelpDirectory= new File("Help/Tutorials");
+      String TutorialsRootDirectory=NbBundle.getMessage(HelpTutorialsAction.class, "CTL_Tutorials_Root");
+      File rootHelpDirectory= new File(TutorialsRootDirectory);
       String fullPath = rootHelpDirectory.getAbsolutePath();
       File[] files = rootHelpDirectory.listFiles(fileFilter);
       if (files == null)  return displayMenu;

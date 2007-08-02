@@ -1,5 +1,6 @@
 package org.opensim.view;
 
+import java.awt.Frame;
 import java.util.prefs.Preferences;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -12,6 +13,7 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
 import javax.swing.JPopupMenu;
+import org.openide.windows.WindowManager;
 import org.opensim.modeling.opensimModelJNI;
 
 /**
@@ -34,6 +36,9 @@ public class Installer extends ModuleInstall {
             
             SwingUtilities.invokeLater(new Runnable(){
             public void run() {
+               Frame f = WindowManager.getDefault ().getMainWindow ();
+               f.setSize (800, 400);
+               f.setResizable (true);
                MuscleEditorTopComponent.findInstance();
             }});
         } catch (ClassNotFoundException ex) {
