@@ -161,17 +161,39 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
 
    public String getControlsFileName() { return getTool().getControlsFileName(); }
+   public void setControlsFileName(String fileName) {
+      if(!getControlsFileName().equals(fileName)) {
+         getTool().setControlsFileName(fileName);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+
    public String getInitialStatesFileName() { return getTool().getInitialStatesFileName(); }
+   public void setInitialStatesFileName(String fileName) {
+      if(!getInitialStatesFileName().equals(fileName)) {
+         getTool().setInitialStatesFileName(fileName);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+
 
    // TODO: implement
    public double getAvailableInitialTime() { return -1; }
    public double getAvailableFinalTime() { return -1; }
 
-   // Integrator settings
+   //------------------------------------------------------------------------
+   // Integrator settings (continued from AbstractToolModel
+   //------------------------------------------------------------------------
    public boolean getUseSpecifiedDt() { return getTool().getUseSpecifiedDt(); }
+   public void setUseSpecifiedDt(boolean useSpecifiedDt) {
+      if(getUseSpecifiedDt() != useSpecifiedDt) {
+         getTool().setUseSpecifiedDt(useSpecifiedDt);
+         setModified(AbstractToolModel.Operation.IntegratorSettingsChanged);
+      }
+   }
 
    //------------------------------------------------------------------------
-   // External loads get/set
+   // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
    public String getExternalLoadsFileName() { return getTool().getExternalLoadsFileName(); }
    protected void setExternalLoadsFileNameInternal(String fileName) { getTool().setExternalLoadsFileName(fileName); }

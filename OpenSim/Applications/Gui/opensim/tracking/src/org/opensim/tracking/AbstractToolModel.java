@@ -14,7 +14,7 @@ import org.opensim.utils.TheApp;
 
 public abstract class AbstractToolModel extends Observable {
 
-   enum Operation { AllDataChanged, InputDataChanged, OutputDataChanged, TimeRangeChanged, AnalysisDataChanged, AnalysisAddedOrRemoved, ActuatorsDataChanged, ExternalLoadsDataChanged, ExecutionStateChanged };
+   enum Operation { AllDataChanged, InputDataChanged, OutputDataChanged, TimeRangeChanged, AnalysisDataChanged, AnalysisAddedOrRemoved, ActuatorsDataChanged, ExternalLoadsDataChanged, IntegratorSettingsChanged, ExecutionStateChanged };
 
    private boolean modifiedSinceLastExecute = true;
    private boolean executing = false;
@@ -40,7 +40,9 @@ public abstract class AbstractToolModel extends Observable {
    public Model getModel() { return model; }
    protected void setModel(Model model) { this.model = model; }
 
+   //------------------------------------------------------------------------
    // Actuators
+   //------------------------------------------------------------------------
    public boolean getReplaceActuatorSet() { return tool.getReplaceActuatorSet(); }
    public void setReplaceActuatorSet(boolean replace) { 
       if(getReplaceActuatorSet() != replace) {
@@ -57,6 +59,9 @@ public abstract class AbstractToolModel extends Observable {
       }
    }
 
+   //------------------------------------------------------------------------
+   // Analyses
+   //------------------------------------------------------------------------
    public AnalysisSet getAnalysisSet() { return tool.getAnalysisSet(); }
    public void addCopyOfAnalysis(Analysis analysis) {
       Analysis analysisCopy = Analysis.safeDownCast(analysis.copy()); // C++-side copy
@@ -75,8 +80,9 @@ public abstract class AbstractToolModel extends Observable {
    // Rely on users to call this since we don't have accessors for all analysis properties
    public void analysisModified(int i) { setModified(Operation.AnalysisDataChanged); }
 
-   public String getModelFileName() { return tool.getModelFilename(); }
-
+   //------------------------------------------------------------------------
+   // Time range settings
+   //------------------------------------------------------------------------
    public double getInitialTime() { return tool.getInitialTime(); }
    public void setInitialTime(double time) {
       if(getInitialTime() != time) {
@@ -93,6 +99,9 @@ public abstract class AbstractToolModel extends Observable {
       }
    }
 
+   //------------------------------------------------------------------------
+   // Ouptut settings
+   //------------------------------------------------------------------------
    public int getOutputPrecision() { return tool.getOutputPrecision(); }
    public void setOutputPrecision(int precision) {
       if(getOutputPrecision() != precision) {
@@ -122,11 +131,37 @@ public abstract class AbstractToolModel extends Observable {
       else tool.setResultsDir(Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", ""));
    }
    
+   //------------------------------------------------------------------------
    // Integrator settings
-   public double getMaximumNumberOfSteps() { return tool.getMaximumNumberOfSteps(); }
+   //------------------------------------------------------------------------
+   public int getMaximumNumberOfSteps() { return tool.getMaximumNumberOfSteps(); }
+   public void setMaximumNumberOfSteps(int maxSteps) {
+      if(getMaximumNumberOfSteps() != maxSteps) {
+         tool.setMaximumNumberOfSteps(maxSteps);
+         setModified(Operation.IntegratorSettingsChanged);
+      }
+   }
    public double getMaxDT() { return tool.getMaxDT(); }
+   public void setMaxDT(double maxDT) {
+      if(getMaxDT() != maxDT) {
+         tool.setMaxDT(maxDT);
+         setModified(Operation.IntegratorSettingsChanged);
+      }
+   }
    public double getErrorTolerance() { return tool.getErrorTolerance(); }
+   public void setErrorTolerance(double tolerance) {
+      if(getErrorTolerance() != tolerance) {
+         tool.setErrorTolerance(tolerance);
+         setModified(Operation.IntegratorSettingsChanged);
+      }
+   }
    public double getFineTolerance() { return tool.getFineTolerance(); }
+   public void setFineTolerance(double tolerance) {
+      if(getFineTolerance() != tolerance) {
+         tool.setFineTolerance(tolerance);
+         setModified(Operation.IntegratorSettingsChanged);
+      }
+   }
 
    //------------------------------------------------------------------------
    // Functions to override

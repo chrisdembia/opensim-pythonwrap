@@ -307,7 +307,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    public double getAvailableFinalTime() { return -1; }
 
    //------------------------------------------------------------------------
-   // External loads get/set
+   // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
    public String getExternalLoadsFileName() { return getTool().getExternalLoadsFileName(); }
    protected void setExternalLoadsFileNameInternal(String fileName) { getTool().setExternalLoadsFileName(fileName); }

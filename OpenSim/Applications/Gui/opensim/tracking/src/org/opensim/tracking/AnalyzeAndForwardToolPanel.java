@@ -45,9 +45,6 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
       initComponents();
 
-      // Remove it to begin with; we'll add it back in the right place below
-      jTabbedPane1.remove(advancedSettingsPanel);
-
       // File chooser settings
       outputDirectory.setIncludeOpenButton(true);
       outputDirectory.setDirectoriesOnly(true);
@@ -210,7 +207,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
       // Integrator settings
       useSpecifiedDt.setSelected(toolModel.getUseSpecifiedDt());
-      maximumNumberOfSteps.setText(((Double)toolModel.getMaximumNumberOfSteps()).toString());
+      maximumNumberOfSteps.setText(((Integer)toolModel.getMaximumNumberOfSteps()).toString());
       maxDT.setText(((Double)toolModel.getMaxDT()).toString());
       errorTolerance.setText(((Double)toolModel.getErrorTolerance()).toString());
       fineTolerance.setText(((Double)toolModel.getFineTolerance()).toString());
@@ -242,6 +239,19 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
     */
    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
    private void initComponents() {
+      advancedSettingsPanel = new javax.swing.JPanel();
+      integratorSettingsPanel = new javax.swing.JPanel();
+      jLabel13 = new javax.swing.JLabel();
+      jLabel14 = new javax.swing.JLabel();
+      jLabel15 = new javax.swing.JLabel();
+      useSpecifiedDt = new javax.swing.JCheckBox();
+      jLabel16 = new javax.swing.JLabel();
+      maximumNumberOfSteps = new javax.swing.JTextField();
+      jLabel17 = new javax.swing.JLabel();
+      maxDT = new javax.swing.JTextField();
+      errorTolerance = new javax.swing.JTextField();
+      jLabel18 = new javax.swing.JLabel();
+      fineTolerance = new javax.swing.JTextField();
       buttonGroup1 = new javax.swing.ButtonGroup();
       unspecifiedRadioButton = new javax.swing.JRadioButton();
       jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -286,20 +296,149 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       controlsFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       jLabel12 = new javax.swing.JLabel();
       initialStatesFileName = new org.opensim.swingui.FileTextFieldAndChooser();
-      advancedSettingsPanel = new javax.swing.JPanel();
-      integratorSettingsPanel = new javax.swing.JPanel();
-      jLabel13 = new javax.swing.JLabel();
-      jLabel14 = new javax.swing.JLabel();
-      jLabel15 = new javax.swing.JLabel();
-      useSpecifiedDt = new javax.swing.JCheckBox();
-      jLabel16 = new javax.swing.JLabel();
-      maximumNumberOfSteps = new javax.swing.JTextField();
-      jLabel17 = new javax.swing.JLabel();
-      maxDT = new javax.swing.JTextField();
-      errorTolerance = new javax.swing.JTextField();
-      jLabel18 = new javax.swing.JLabel();
-      fineTolerance = new javax.swing.JTextField();
 
+      integratorSettingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Integrator Settings"));
+      jLabel13.setText("Integrator steps:");
+
+      jLabel14.setText("Integrator tolerances:");
+
+      jLabel15.setText("Error tolerance");
+
+      useSpecifiedDt.setText("Use time steps from states file");
+      useSpecifiedDt.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      useSpecifiedDt.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      useSpecifiedDt.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            useSpecifiedDtActionPerformed(evt);
+         }
+      });
+
+      jLabel16.setText("Maximum number");
+
+      maximumNumberOfSteps.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+      maximumNumberOfSteps.setText("jTextField5");
+      maximumNumberOfSteps.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            maximumNumberOfStepsActionPerformed(evt);
+         }
+      });
+      maximumNumberOfSteps.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusLost(java.awt.event.FocusEvent evt) {
+            maximumNumberOfStepsFocusLost(evt);
+         }
+      });
+
+      jLabel17.setText("Maximum  size");
+
+      maxDT.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+      maxDT.setText("jTextField6");
+      maxDT.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            maxDTActionPerformed(evt);
+         }
+      });
+      maxDT.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusLost(java.awt.event.FocusEvent evt) {
+            maxDTFocusLost(evt);
+         }
+      });
+
+      errorTolerance.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+      errorTolerance.setText("jTextField7");
+      errorTolerance.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            errorToleranceActionPerformed(evt);
+         }
+      });
+      errorTolerance.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusLost(java.awt.event.FocusEvent evt) {
+            errorToleranceFocusLost(evt);
+         }
+      });
+
+      jLabel18.setText("Fine tolerance");
+
+      fineTolerance.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+      fineTolerance.setText("jTextField8");
+      fineTolerance.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            fineToleranceActionPerformed(evt);
+         }
+      });
+      fineTolerance.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusLost(java.awt.event.FocusEvent evt) {
+            fineToleranceFocusLost(evt);
+         }
+      });
+
+      org.jdesktop.layout.GroupLayout integratorSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(integratorSettingsPanel);
+      integratorSettingsPanel.setLayout(integratorSettingsPanelLayout);
+      integratorSettingsPanelLayout.setHorizontalGroup(
+         integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(integratorSettingsPanelLayout.createSequentialGroup()
+            .addContainerGap()
+            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(useSpecifiedDt)
+               .add(integratorSettingsPanelLayout.createSequentialGroup()
+                  .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel13)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel14))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel15)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel16))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                     .add(errorTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                     .add(maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel18)
+                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel17))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                     .add(maxDT, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                     .add(fineTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+            .add(0, 0, 0))
+      );
+      integratorSettingsPanelLayout.setVerticalGroup(
+         integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(integratorSettingsPanelLayout.createSequentialGroup()
+            .add(useSpecifiedDt)
+            .add(5, 5, 5)
+            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(jLabel13)
+               .add(jLabel17)
+               .add(maxDT, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jLabel16)
+               .add(maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(jLabel14)
+               .add(jLabel18)
+               .add(fineTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jLabel15)
+               .add(errorTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      );
+
+      org.jdesktop.layout.GroupLayout advancedSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(advancedSettingsPanel);
+      advancedSettingsPanel.setLayout(advancedSettingsPanelLayout);
+      advancedSettingsPanelLayout.setHorizontalGroup(
+         advancedSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(advancedSettingsPanelLayout.createSequentialGroup()
+            .addContainerGap()
+            .add(integratorSettingsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addContainerGap())
+      );
+      advancedSettingsPanelLayout.setVerticalGroup(
+         advancedSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(advancedSettingsPanelLayout.createSequentialGroup()
+            .addContainerGap()
+            .add(integratorSettingsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      );
       buttonGroup1.add(unspecifiedRadioButton);
       unspecifiedRadioButton.setText("jRadioButton1");
       unspecifiedRadioButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -683,7 +822,19 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       forwardInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
       jLabel9.setText("Controls");
 
+      controlsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+         public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            controlsFileNameStateChanged(evt);
+         }
+      });
+
       jLabel12.setText("Initial states");
+
+      initialStatesFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+         public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            initialStatesFileNameStateChanged(evt);
+         }
+      });
 
       org.jdesktop.layout.GroupLayout forwardInputPanelLayout = new org.jdesktop.layout.GroupLayout(forwardInputPanel);
       forwardInputPanel.setLayout(forwardInputPanelLayout);
@@ -745,124 +896,91 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             .add(activeAnalysesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(15, Short.MAX_VALUE))
+            .addContainerGap())
       );
       jTabbedPane1.addTab("Main Settings", mainSettingsPanel);
-
-      integratorSettingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Integrator Settings"));
-      jLabel13.setText("Integrator steps:");
-
-      jLabel14.setText("Integrator tolerances:");
-
-      jLabel15.setText("Error tolerance");
-
-      useSpecifiedDt.setText("Use time steps from states file");
-      useSpecifiedDt.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      useSpecifiedDt.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-      jLabel16.setText("Maximum number");
-
-      maximumNumberOfSteps.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-      maximumNumberOfSteps.setText("jTextField5");
-
-      jLabel17.setText("Maximum  size");
-
-      maxDT.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-      maxDT.setText("jTextField6");
-
-      errorTolerance.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-      errorTolerance.setText("jTextField7");
-
-      jLabel18.setText("Fine tolerance");
-
-      fineTolerance.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-      fineTolerance.setText("jTextField8");
-
-      org.jdesktop.layout.GroupLayout integratorSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(integratorSettingsPanel);
-      integratorSettingsPanel.setLayout(integratorSettingsPanelLayout);
-      integratorSettingsPanelLayout.setHorizontalGroup(
-         integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(integratorSettingsPanelLayout.createSequentialGroup()
-            .addContainerGap()
-            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(useSpecifiedDt)
-               .add(integratorSettingsPanelLayout.createSequentialGroup()
-                  .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel13)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel14))
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, integratorSettingsPanelLayout.createSequentialGroup()
-                        .add(jLabel15)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(errorTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                     .add(integratorSettingsPanelLayout.createSequentialGroup()
-                        .add(jLabel16)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)))
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel18)
-                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel17))
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(maxDT, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                     .add(fineTolerance, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
-            .addContainerGap())
-      );
-      integratorSettingsPanelLayout.setVerticalGroup(
-         integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(integratorSettingsPanelLayout.createSequentialGroup()
-            .add(useSpecifiedDt)
-            .add(5, 5, 5)
-            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(jLabel13)
-               .add(jLabel17)
-               .add(maxDT, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jLabel16)
-               .add(maximumNumberOfSteps, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(integratorSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(jLabel14)
-               .add(jLabel15)
-               .add(errorTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jLabel18)
-               .add(fineTolerance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-      );
-
-      org.jdesktop.layout.GroupLayout advancedSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(advancedSettingsPanel);
-      advancedSettingsPanel.setLayout(advancedSettingsPanelLayout);
-      advancedSettingsPanelLayout.setHorizontalGroup(
-         advancedSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(advancedSettingsPanelLayout.createSequentialGroup()
-            .addContainerGap()
-            .add(integratorSettingsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addContainerGap())
-      );
-      advancedSettingsPanelLayout.setVerticalGroup(
-         advancedSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(advancedSettingsPanelLayout.createSequentialGroup()
-            .addContainerGap()
-            .add(integratorSettingsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(501, Short.MAX_VALUE))
-      );
-      jTabbedPane1.addTab("Integrator Settings", advancedSettingsPanel);
 
       org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+         .add(jTabbedPane1)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
-            .add(jTabbedPane1)
-            .addContainerGap())
+            .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   //------------------------------------------------------------------------
+   // Forward tool input settings
+   //------------------------------------------------------------------------
+
+   private void initialStatesFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_initialStatesFileNameStateChanged
+      forwardToolModel().setInitialStatesFileName(initialStatesFileName.getFileName());
+   }//GEN-LAST:event_initialStatesFileNameStateChanged
+
+   private void controlsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_controlsFileNameStateChanged
+      forwardToolModel().setControlsFileName(controlsFileName.getFileName());
+   }//GEN-LAST:event_controlsFileNameStateChanged
+
+   //------------------------------------------------------------------------
+   // Integrator settings (forward tool)
+   //------------------------------------------------------------------------
+
+   private void fineToleranceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fineToleranceFocusLost
+      if(!evt.isTemporary()) fineToleranceActionPerformed(null);
+   }//GEN-LAST:event_fineToleranceFocusLost
+
+   private void fineToleranceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fineToleranceActionPerformed
+      try {
+         toolModel.setFineTolerance(Double.valueOf(fineTolerance.getText()));
+      } finally {
+         fineTolerance.setText(((Double)toolModel.getFineTolerance()).toString());
+      }
+   }//GEN-LAST:event_fineToleranceActionPerformed
+
+   private void maxDTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maxDTFocusLost
+      if(!evt.isTemporary()) maxDTActionPerformed(null);
+   }//GEN-LAST:event_maxDTFocusLost
+
+   private void maxDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxDTActionPerformed
+      try {
+         toolModel.setMaxDT(Double.valueOf(maxDT.getText()));
+      } finally {
+         maxDT.setText(((Double)toolModel.getMaxDT()).toString());
+      }
+   }//GEN-LAST:event_maxDTActionPerformed
+
+   private void errorToleranceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_errorToleranceFocusLost
+      if(!evt.isTemporary()) errorToleranceActionPerformed(null);
+   }//GEN-LAST:event_errorToleranceFocusLost
+
+   private void errorToleranceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_errorToleranceActionPerformed
+      try {
+         toolModel.setErrorTolerance(Double.valueOf(errorTolerance.getText()));
+      } finally {
+         errorTolerance.setText(((Double)toolModel.getErrorTolerance()).toString());
+      }
+   }//GEN-LAST:event_errorToleranceActionPerformed
+
+   private void maximumNumberOfStepsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_maximumNumberOfStepsFocusLost
+      if(!evt.isTemporary()) maximumNumberOfStepsActionPerformed(null);
+   }//GEN-LAST:event_maximumNumberOfStepsFocusLost
+
+   private void maximumNumberOfStepsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maximumNumberOfStepsActionPerformed
+      try {
+         toolModel.setMaximumNumberOfSteps(Integer.valueOf(maximumNumberOfSteps.getText()));
+      } finally {
+         maximumNumberOfSteps.setText(((Integer)toolModel.getMaximumNumberOfSteps()).toString());
+      }
+   }//GEN-LAST:event_maximumNumberOfStepsActionPerformed
+
+   private void useSpecifiedDtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useSpecifiedDtActionPerformed
+      forwardToolModel().setUseSpecifiedDt(useSpecifiedDt.isSelected());
+   }//GEN-LAST:event_useSpecifiedDtActionPerformed
 
    //------------------------------------------------------------------------
    // Analyze tool input settings
