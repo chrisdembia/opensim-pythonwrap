@@ -44,7 +44,13 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          tool.updateModelActuatorsAndContactForces(model, "");
          model.setup();
          tool.setModel(model);
-         getTool().loadControlsStatesPseudoStatesExternalLoadsFromFiles();
+
+         if(getInputSource()==InputSource.Motion && getInputMotion()!=null)
+            getTool().setStatesFromMotion(getInputMotion(),false); // false == motion is in radians
+         else
+            getTool().loadStatesFromFile();
+         getTool().loadControlsFromFile();
+         getTool().loadPseudoStatesFromFile();
 
          OpenSimDB.getInstance().replaceModel(getModel(), model);
          setModel(model);
@@ -119,11 +125,15 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    private InputSource inputSource = InputSource.Unspecified;
    private Storage inputMotion = null;
    private boolean loadSpeeds = false;
+   private boolean controlsEnabled = false;
+   private String toolName;
 
    public AnalyzeToolModel(Model model, boolean inverseDynamicsMode) throws IOException {
       super(model);
 
       this.inverseDynamicsMode = inverseDynamicsMode;
+      if(inverseDynamicsMode) toolName = "Inverse Dynamics Tool";
+      else toolName = "Analyze Tool";
 
       // In inverse dynamisc mode, we know for sure we'll need a real dynamics engine, so check this up front
       if(inverseDynamicsMode && model.getDynamicsEngine().getType().equals("SimmKinematicsEngine"))
@@ -250,6 +260,13 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
+   public boolean getControlsEnabled() { return controlsEnabled; }
+   public void setControlsEnabled(boolean enabled) {
+      if(controlsEnabled != enabled) {
+         controlsEnabled = enabled;
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
 
    public String getStatesFileName() { return getTool().getStatesFileName(); }
    void setStatesFileName(String speedsFileName) {
@@ -341,6 +358,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
             worker = new AnalyzeToolWorker();
          } catch (IOException ex) {
             setExecuting(false);
+            ErrorDialog.displayIOExceptionDialog(toolName+" Error", "Tool initialization failed.", ex);
             return;
          }
          worker.start();
@@ -380,6 +398,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       else inputSource = InputSource.Unspecified;
 
       loadSpeeds = (inputSource == InputSource.Coordinates && !FileUtils.effectivelyNull(getSpeedsFileName()));
+
+      controlsEnabled = !FileUtils.effectivelyNull(getControlsFileName());
    }
 
    protected void updateTool() {
