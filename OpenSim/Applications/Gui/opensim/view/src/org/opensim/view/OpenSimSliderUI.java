@@ -46,39 +46,39 @@ public class OpenSimSliderUI extends WindowsSliderUI
 	return size;
     }
         
-    public void paintTrack(Graphics g)  {        
-
-        if ( slider.getOrientation() == JSlider.HORIZONTAL ) {
-            int cy, cw, ch;
-
-            Rectangle trackBounds = trackRect;
-            cy = (trackBounds.height / 2) - 3;
-            cw = trackBounds.width;
-            ch = 5;
-
-            g.translate(trackBounds.x, trackBounds.y + cy);
-
-            g.setColor(getShadowColor());
-            g.drawLine(0, 0, cw-1, 0);
-            g.drawLine(0, 1, 0, ch);
-            g.setColor(getHighlightColor());
-            g.drawLine(1, ch, cw, ch);
-            g.drawLine(cw, 0, cw, ch-1);
-            if (slider.isEnabled()) {
-                g.setColor(new Color(159, 178, 209));
-            }
-            else {
-                g.setColor(new Color(199, 199, 199));
-            }
-            g.fillRect(1, 1, cw-1, ch-1);
-
-            g.translate(-trackBounds.x, -(trackBounds.y + cy));
-        }
-        else {
-            super.paintTrack(g);
-        }
-            
-    }
+//    public void paintTrack(Graphics g)  {        
+//
+//        if ( slider.getOrientation() == JSlider.HORIZONTAL ) {
+//            int cy, cw, ch;
+//
+//            Rectangle trackBounds = trackRect;
+//            cy = (trackBounds.height / 2) - 3;
+//            cw = trackBounds.width;
+//            ch = 5;
+//
+//            g.translate(trackBounds.x, trackBounds.y + cy);
+//
+//            g.setColor(getShadowColor());
+//            g.drawLine(0, 0, cw-1, 0);
+//            g.drawLine(0, 1, 0, ch);
+//            g.setColor(getHighlightColor());
+//            g.drawLine(1, ch, cw, ch);
+//            g.drawLine(cw, 0, cw, ch-1);
+//            if (slider.isEnabled()) {
+//                g.setColor(new Color(184, 193, 211));
+//            }
+//            else {
+//                g.setColor(new Color(199, 199, 199));
+//            }
+//            g.fillRect(1, 1, cw-1, ch-1);
+//
+//            g.translate(-trackBounds.x, -(trackBounds.y + cy));
+//        }
+//        else {
+//            super.paintTrack(g);
+//        }
+//            
+//    }
 
     public void paintThumb(Graphics g)  {    
         if ( slider.getOrientation() == JSlider.HORIZONTAL ) {

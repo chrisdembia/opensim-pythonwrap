@@ -47,14 +47,14 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
                       <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="191" max="32767" attributes="0"/>
+                      <EmptySpace pref="195" max="32767" attributes="0"/>
                       <Component id="ApplyButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="ParametersTabbedPanel" alignment="0" pref="570" max="32767" attributes="2"/>
+                          <Component id="ParametersTabbedPanel" alignment="0" pref="574" max="32767" attributes="2"/>
                           <Component id="ModelNameLabel" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="MuscleNameLabel" min="-2" max="-2" attributes="0"/>
@@ -80,7 +80,7 @@
                           <Component id="MuscleTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ParametersTabbedPanel" pref="249" max="32767" attributes="0"/>
+                      <Component id="ParametersTabbedPanel" pref="260" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ResetButton" alignment="3" min="-2" max="-2" attributes="0"/>

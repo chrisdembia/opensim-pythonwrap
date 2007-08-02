@@ -917,7 +917,13 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          WrapPanel.add(endComboBox);
 
          javax.swing.JButton upButton = new javax.swing.JButton();
-         upButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/upArrow.gif")));
+         upButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/upArrow.png")));
+         upButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/upArrow_selected.png")));
+         upButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/upArrow_rollover.png")));
+         upButton.setBorder(null);
+         upButton.setBorderPainted(false);
+         upButton.setContentAreaFilled(false);
+         upButton.setMargin(new java.awt.Insets(1, 1, 1, 1));
          upButton.setBounds(X - 75, Y + 3 + i * 22, 15, 15);
          if (i > 0)
             upButton.setEnabled(true);
@@ -931,7 +937,13 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          WrapPanel.add(upButton);
 
          javax.swing.JButton downButton = new javax.swing.JButton();
-         downButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/downArrow.gif")));
+         downButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/downArrow.png")));
+         downButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/downArrow_selected.png")));
+         downButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/downArrow_rollover.png")));
+         downButton.setBorder(null);
+         downButton.setBorderPainted(false);
+         downButton.setContentAreaFilled(false);
+         downButton.setMargin(new java.awt.Insets(1, 1, 1, 1));
          downButton.setBounds(X - 58, Y + 3 + i * 22, 15, 15);
          if (smw.getSize() > 1 && i < smw.getSize() - 1)
             downButton.setEnabled(true);
@@ -946,7 +958,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
          //C:\\SimTK\\OpenSim\\Applications\\Gui\\opensim\\view\\src\\org\\opensim\\view\\editors\\
          javax.swing.JButton deleteButton = new javax.swing.JButton();
-         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/close.gif")));
+         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/close.png")));
+         deleteButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/close_selected.png")));
+         deleteButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/close_rollover.png")));
+         deleteButton.setBorder(null);
+         deleteButton.setBorderPainted(false);
+         deleteButton.setContentAreaFilled(false);
          deleteButton.setBounds(X - 38, Y + 3 + i * 22, 15, 15);
          deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
