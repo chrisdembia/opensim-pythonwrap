@@ -151,7 +151,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    protected void adjustToolForInverseDynamicsMode() {
       if(!inverseDynamicsMode) return;
       // Since we're not using the model's actuator set, clear the actuator set related fields
-      getTool().setReplaceActuatorSet(false);
+      getTool().setReplaceActuatorSet(true);
       getTool().getActuatorSetFiles().setSize(0);
       // Check if have non-inverse dynamics analyses, or multiple inverse dynamics analyses
       boolean foundOtherAnalysis = false;
@@ -270,9 +270,9 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    public String getCoordinatesFileName() { return getTool().getCoordinatesFileName(); }
-   void setCoordinatesFileName(String speedsFileName) {
-      if(!getCoordinatesFileName().equals(speedsFileName)) {
-         getTool().setCoordinatesFileName(speedsFileName);
+   void setCoordinatesFileName(String coordinatesFileName) {
+      if(!getCoordinatesFileName().equals(coordinatesFileName)) {
+         getTool().setCoordinatesFileName(coordinatesFileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -303,8 +303,15 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    // TODO: implement
-   public double getAvailableInitialTime() { return -1; }
-   public double getAvailableFinalTime() { return -1; }
+   public boolean getAvailableTimeRangeValid() {
+      if(getInputSource()==InputSource.Motion && getInputMotion()!=null) return true;
+      else return false; }
+   public double getAvailableInitialTime() { 
+      if(getInputSource()==InputSource.Motion && getInputMotion()!=null) return getInputMotion().getFirstTime();
+      else return -1; }
+   public double getAvailableFinalTime() { 
+      if(getInputSource()==InputSource.Motion && getInputMotion()!=null) return getInputMotion().getLastTime();
+      return -1; }
 
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)

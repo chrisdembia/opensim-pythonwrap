@@ -130,8 +130,13 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       activeAnalyses.setText(str);
 
       // Time
-      availableInitialTime.setText(((Double)toolModel.getAvailableInitialTime()).toString());
-      availableFinalTime.setText(((Double)toolModel.getAvailableFinalTime()).toString());
+      if(toolModel.getAvailableTimeRangeValid()) {
+         availableInitialTime.setText(((Double)toolModel.getAvailableInitialTime()).toString());
+         availableFinalTime.setText(((Double)toolModel.getAvailableFinalTime()).toString());
+      } else {
+         availableInitialTime.setText("");
+         availableFinalTime.setText("");
+      }
       initialTime.setText(((Double)toolModel.getInitialTime()).toString());
       finalTime.setText(((Double)toolModel.getFinalTime()).toString());
 
@@ -700,7 +705,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          }
       });
 
-      jLabel7.setText("Available time range from data");
+      jLabel7.setText("Available time range from input data");
 
       availableInitialTime.setEditable(false);
       availableInitialTime.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
@@ -735,7 +740,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                   .add(jLabel5)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(187, Short.MAX_VALUE))
+            .addContainerGap(160, Short.MAX_VALUE))
       );
 
       timePanelLayout.linkSize(new java.awt.Component[] {availableFinalTime, availableInitialTime, finalTime, initialTime}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -904,7 +909,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(jTabbedPane1)
+         .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

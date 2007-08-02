@@ -167,6 +167,7 @@ public abstract class AbstractToolModel extends Observable {
    // Functions to override
    //------------------------------------------------------------------------
 
+   public abstract boolean getAvailableTimeRangeValid();
    public abstract double getAvailableInitialTime();
    public abstract double getAvailableFinalTime();
 

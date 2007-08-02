@@ -176,8 +176,8 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
-
    // TODO: implement
+   public boolean getAvailableTimeRangeValid() { return false; }
    public double getAvailableInitialTime() { return -1; }
    public double getAvailableFinalTime() { return -1; }
 

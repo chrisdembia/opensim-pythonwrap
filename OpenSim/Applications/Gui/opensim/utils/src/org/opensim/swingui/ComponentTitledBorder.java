@@ -9,14 +9,20 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 /*
  * ComponentTitledBorder taken from
  * http://www.javalobby.org/java/forums/t33048.html
  * Copyright (C) 2005  Santhosh Kumar T 
+ *
+ * Modified by Eran Guendelman
+ *
  * <p/> 
  * This library is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU Lesser General Public 
@@ -29,7 +35,7 @@ import javax.swing.border.Border;
  * Lesser General Public License for more details. 
  */ 
  
-public class ComponentTitledBorder implements Border, MouseListener, SwingConstants{ 
+public class ComponentTitledBorder implements Border, MouseListener, SwingConstants, ChangeListener { 
     int offset = 5; 
  
     Component comp; 
@@ -42,7 +48,14 @@ public class ComponentTitledBorder implements Border, MouseListener, SwingConsta
         this.container = container; 
         this.border = border; 
         container.addMouseListener(this); 
+        if(comp instanceof AbstractButton) ((AbstractButton)comp).addChangeListener(this);
     } 
+
+    // Added this so that if you programatically change the state of the button component in this border, the border repaints (forcing the button to repaint)
+    // -- Eran
+    public void stateChanged(ChangeEvent evt) {
+       if(evt.getSource()==comp) container.repaint();
+    }
  
     public boolean isBorderOpaque(){ 
         return true; 
