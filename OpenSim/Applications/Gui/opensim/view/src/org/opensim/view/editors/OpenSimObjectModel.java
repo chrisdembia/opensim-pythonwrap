@@ -38,8 +38,10 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
   static protected PropertyNode[] EMPTY_CHILDREN = new PropertyNode[0];
 
-  protected final Icon addIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/addSymbol.png"));
-  protected final Icon removeIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/closeSymbol.png"));
+  protected final Icon addIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/add.png"));
+  protected final Icon addRolloverIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/add_rollover.png"));
+  protected final Icon removeIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/delete.png"));
+  protected final Icon removeRolloverIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/delete_rollover.png"));
 
   //-------------------------------------------------------------------------
   // Constructor
@@ -240,6 +242,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
                // Button to add array item
                controlButton = new JButton(addIcon);
+               controlButton.setRolloverIcon(addRolloverIcon);
                controlButton.addMouseListener(new MouseInputAdapter() {
                   public void mousePressed(MouseEvent evt) { addPropertyItem(); }
                });
@@ -247,6 +250,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
             } else {
                // Button to delete array item
                controlButton = new JButton(removeIcon);
+               controlButton.setRolloverIcon(removeRolloverIcon);
                controlButton.addMouseListener(new MouseInputAdapter() {
                   public void mousePressed(MouseEvent evt) { removePropertyItem(); }
                });

@@ -66,7 +66,7 @@
             <StringItem index="0" value="No Models"/>
           </StringArray>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value="Current Model"/>
+        <Property name="toolTipText" type="java.lang.String" value="Current model"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[200, 20]"/>
         </Property>

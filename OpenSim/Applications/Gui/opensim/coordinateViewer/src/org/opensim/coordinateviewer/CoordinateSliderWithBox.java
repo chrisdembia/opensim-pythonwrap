@@ -135,7 +135,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 
         jFormattedTextField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         jFormattedTextField.setText("-123.456");
-        jFormattedTextField.setToolTipText("Current Value");
+        jFormattedTextField.setToolTipText("Current value");
         jFormattedTextField.setFont(new java.awt.Font("Tahoma", 0, 11));
         jFormattedTextField.setMinimumSize(new java.awt.Dimension(55, 19));
         jFormattedTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +144,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
             }
         });
 
-        jClampedCheckBox.setToolTipText("Toggle Clamp to Bounds");
+        jClampedCheckBox.setToolTipText("Toggle clamp to bounds");
         jClampedCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jClampedCheckBox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unclamped.png")));
         jClampedCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -160,7 +160,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
             }
         });
 
-        jLockedCheckBox.setToolTipText("Toggle Lock to Value");
+        jLockedCheckBox.setToolTipText("Toggle lock value");
         jLockedCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jLockedCheckBox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unlocked.png")));
         jLockedCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -186,7 +186,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 
         jMinimumLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jMinimumLabel.setText("-123");
-        jMinimumLabel.setToolTipText("Lower Bound");
+        jMinimumLabel.setToolTipText("Lower bound");
         jMinimumLabel.setFocusable(false);
         jMinimumLabel.setIconTextGap(0);
         jMinimumLabel.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -194,7 +194,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
         jMinimumLabel.setPreferredSize(new java.awt.Dimension(25, 25));
 
         jMaximumLabel.setText("123");
-        jMaximumLabel.setToolTipText("Upper Bound");
+        jMaximumLabel.setToolTipText("Upper bound");
         jMaximumLabel.setFocusable(false);
         jMaximumLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jMaximumLabel.setIconTextGap(0);

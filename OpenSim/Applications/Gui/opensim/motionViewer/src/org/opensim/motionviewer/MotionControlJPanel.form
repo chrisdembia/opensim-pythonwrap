@@ -116,7 +116,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/rewindToStart_beveled.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Go to Start"/>
+            <Property name="toolTipText" type="java.lang.String" value="Go to start"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -156,7 +156,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/reverseStep_beveled.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Previous Frame"/>
+            <Property name="toolTipText" type="java.lang.String" value="Previous frame"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -196,7 +196,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/reverse_beveled.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Play Backward"/>
+            <Property name="toolTipText" type="java.lang.String" value="Play backward"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -276,7 +276,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/play_beveled.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Play Forward"/>
+            <Property name="toolTipText" type="java.lang.String" value="Play forward"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -316,7 +316,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/step_beveled.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Next Frame"/>
+            <Property name="toolTipText" type="java.lang.String" value="Next frame"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -356,7 +356,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/fastforwardToEnd_beveled.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Go to End"/>
+            <Property name="toolTipText" type="java.lang.String" value="Go to end"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -434,7 +434,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jMotionNameLabel">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Current Motion"/>
+        <Property name="toolTipText" type="java.lang.String" value="Current motion"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
             <EtchetBorder/>
@@ -454,7 +454,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTimeTextField">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Current Time"/>
+        <Property name="toolTipText" type="java.lang.String" value="Current time"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[50, 19]"/>
         </Property>
@@ -485,7 +485,7 @@
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="smodel" type="code"/>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value="Play Speed"/>
+        <Property name="toolTipText" type="java.lang.String" value="Play speed"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[50, 19]"/>
         </Property>
@@ -542,7 +542,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/org/opensim/motionviewer/images/wrap_beveled.png"/>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value="Loop Motion"/>
+        <Property name="toolTipText" type="java.lang.String" value="Loop motion"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -588,7 +588,7 @@
         </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="0"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start Time"/>
+        <Property name="toolTipText" type="java.lang.String" value="Initial time"/>
         <Property name="autoscrolls" type="boolean" value="false"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
@@ -614,7 +614,7 @@
         <Property name="editable" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="11"/>
         <Property name="text" type="java.lang.String" value="100"/>
-        <Property name="toolTipText" type="java.lang.String" value="End Time"/>
+        <Property name="toolTipText" type="java.lang.String" value="Final time"/>
         <Property name="autoscrolls" type="boolean" value="false"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>

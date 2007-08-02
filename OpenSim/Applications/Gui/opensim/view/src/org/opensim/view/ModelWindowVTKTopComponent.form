@@ -55,7 +55,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/view/backgroundColor.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Set View Background Color"/>
+            <Property name="toolTipText" type="java.lang.String" value="Set view background color"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -94,7 +94,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/view/axes.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Show/Hide View Axes"/>
+            <Property name="toolTipText" type="java.lang.String" value="Show/Hide view axes"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -133,7 +133,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/view/frontView_axes.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="-X View"/>
+            <Property name="toolTipText" type="java.lang.String" value="-X view"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -172,7 +172,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/view/backView_axes.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="+X View"/>
+            <Property name="toolTipText" type="java.lang.String" value="+X view"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -211,7 +211,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/view/topView_axes.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="-Y View"/>
+            <Property name="toolTipText" type="java.lang.String" value="-Y view"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -250,7 +250,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/view/bottomView_axes.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="+Y View"/>
+            <Property name="toolTipText" type="java.lang.String" value="+Y view"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -289,7 +289,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/view/rightView_axes.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="-Z View"/>
+            <Property name="toolTipText" type="java.lang.String" value="-Z view"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -328,7 +328,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/view/leftView_axes.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="+Z View"/>
+            <Property name="toolTipText" type="java.lang.String" value="+Z view"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -367,7 +367,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/view/stillCamera.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Save View as Image"/>
+            <Property name="toolTipText" type="java.lang.String" value="Save view as image"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -406,7 +406,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/view/movieCamera.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Start/Stop Save Animation as Movie"/>
+            <Property name="toolTipText" type="java.lang.String" value="Toggle save motion as movie"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>

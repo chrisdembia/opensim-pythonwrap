@@ -88,7 +88,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.setMinimumSize(new java.awt.Dimension(20, 20));
         jModelWindowToolBar.setPreferredSize(new java.awt.Dimension(20, 20));
         jBackgroundColorButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backgroundColor.png")));
-        jBackgroundColorButton.setToolTipText("Set View Background Color");
+        jBackgroundColorButton.setToolTipText("Set view background color");
         jBackgroundColorButton.setAlignmentX(0.5F);
         jBackgroundColorButton.setBorderPainted(false);
         jBackgroundColorButton.setContentAreaFilled(false);
@@ -110,7 +110,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jBackgroundColorButton);
 
         jAxesToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/axes.png")));
-        jAxesToggleButton.setToolTipText("Show/Hide View Axes");
+        jAxesToggleButton.setToolTipText("Show/Hide view axes");
         jAxesToggleButton.setAlignmentX(0.5F);
         jAxesToggleButton.setBorderPainted(false);
         jAxesToggleButton.setContentAreaFilled(false);
@@ -132,7 +132,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jAxesToggleButton);
 
         jMinusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/frontView_axes.png")));
-        jMinusXViewButton.setToolTipText("-X View");
+        jMinusXViewButton.setToolTipText("-X view");
         jMinusXViewButton.setAlignmentX(0.5F);
         jMinusXViewButton.setBorderPainted(false);
         jMinusXViewButton.setContentAreaFilled(false);
@@ -154,7 +154,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jMinusXViewButton);
 
         jPlusXViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/backView_axes.png")));
-        jPlusXViewButton.setToolTipText("+X View");
+        jPlusXViewButton.setToolTipText("+X view");
         jPlusXViewButton.setAlignmentX(0.5F);
         jPlusXViewButton.setBorderPainted(false);
         jPlusXViewButton.setContentAreaFilled(false);
@@ -176,7 +176,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jPlusXViewButton);
 
         jMinusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/topView_axes.png")));
-        jMinusYViewButton.setToolTipText("-Y View");
+        jMinusYViewButton.setToolTipText("-Y view");
         jMinusYViewButton.setAlignmentX(0.5F);
         jMinusYViewButton.setBorderPainted(false);
         jMinusYViewButton.setContentAreaFilled(false);
@@ -198,7 +198,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jMinusYViewButton);
 
         jPlusYViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/bottomView_axes.png")));
-        jPlusYViewButton.setToolTipText("+Y View");
+        jPlusYViewButton.setToolTipText("+Y view");
         jPlusYViewButton.setAlignmentX(0.5F);
         jPlusYViewButton.setBorderPainted(false);
         jPlusYViewButton.setContentAreaFilled(false);
@@ -220,7 +220,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jPlusYViewButton);
 
         jMinusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/rightView_axes.png")));
-        jMinusZViewButton.setToolTipText("-Z View");
+        jMinusZViewButton.setToolTipText("-Z view");
         jMinusZViewButton.setAlignmentX(0.5F);
         jMinusZViewButton.setBorderPainted(false);
         jMinusZViewButton.setContentAreaFilled(false);
@@ -242,7 +242,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jMinusZViewButton);
 
         jPlusZViewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes.png")));
-        jPlusZViewButton.setToolTipText("+Z View");
+        jPlusZViewButton.setToolTipText("+Z view");
         jPlusZViewButton.setAlignmentX(0.5F);
         jPlusZViewButton.setBorderPainted(false);
         jPlusZViewButton.setContentAreaFilled(false);
@@ -264,7 +264,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jPlusZViewButton);
 
         jTakeSnapshotButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/stillCamera.png")));
-        jTakeSnapshotButton.setToolTipText("Save View as Image");
+        jTakeSnapshotButton.setToolTipText("Save view as image");
         jTakeSnapshotButton.setAlignmentX(0.5F);
         jTakeSnapshotButton.setBorderPainted(false);
         jTakeSnapshotButton.setContentAreaFilled(false);
@@ -286,7 +286,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jModelWindowToolBar.add(jTakeSnapshotButton);
 
         jStartStopMovieToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/movieCamera.png")));
-        jStartStopMovieToggleButton.setToolTipText("Start/Stop Save Animation as Movie");
+        jStartStopMovieToggleButton.setToolTipText("Toggle save motion as movie");
         jStartStopMovieToggleButton.setAlignmentX(0.5F);
         jStartStopMovieToggleButton.setBorderPainted(false);
         jStartStopMovieToggleButton.setContentAreaFilled(false);

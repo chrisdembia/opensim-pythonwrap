@@ -162,7 +162,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jPlaybackButtonsPanel.setMinimumSize(new java.awt.Dimension(168, 16));
         jPlaybackButtonsPanel.setPreferredSize(new java.awt.Dimension(168, 16));
         jRestartButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/rewindToStart_beveled.png")));
-        jRestartButton.setToolTipText("Go to Start");
+        jRestartButton.setToolTipText("Go to start");
         jRestartButton.setBorder(null);
         jRestartButton.setBorderPainted(false);
         jRestartButton.setContentAreaFilled(false);
@@ -183,7 +183,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jPlaybackButtonsPanel.add(jRestartButton);
 
         jBackButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/reverseStep_beveled.png")));
-        jBackButton.setToolTipText("Previous Frame");
+        jBackButton.setToolTipText("Previous frame");
         jBackButton.setBorder(null);
         jBackButton.setBorderPainted(false);
         jBackButton.setContentAreaFilled(false);
@@ -204,7 +204,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jPlaybackButtonsPanel.add(jBackButton);
 
         jReverseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/reverse_beveled.png")));
-        jReverseButton.setToolTipText("Play Backward");
+        jReverseButton.setToolTipText("Play backward");
         jReverseButton.setBorder(null);
         jReverseButton.setBorderPainted(false);
         jReverseButton.setContentAreaFilled(false);
@@ -246,7 +246,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jPlaybackButtonsPanel.add(jStopButton);
 
         jPlayButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/play_beveled.png")));
-        jPlayButton.setToolTipText("Play Forward");
+        jPlayButton.setToolTipText("Play forward");
         jPlayButton.setBorder(null);
         jPlayButton.setBorderPainted(false);
         jPlayButton.setContentAreaFilled(false);
@@ -267,7 +267,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jPlaybackButtonsPanel.add(jPlayButton);
 
         jAdvanceButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/step_beveled.png")));
-        jAdvanceButton.setToolTipText("Next Frame");
+        jAdvanceButton.setToolTipText("Next frame");
         jAdvanceButton.setBorder(null);
         jAdvanceButton.setBorderPainted(false);
         jAdvanceButton.setContentAreaFilled(false);
@@ -288,7 +288,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jPlaybackButtonsPanel.add(jAdvanceButton);
 
         jFinishButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/fastforwardToEnd_beveled.png")));
-        jFinishButton.setToolTipText("Go to End");
+        jFinishButton.setToolTipText("Go to end");
         jFinishButton.setBorder(null);
         jFinishButton.setBorderPainted(false);
         jFinishButton.setContentAreaFilled(false);
@@ -325,14 +325,14 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jLabelForMotionNameLabel.setMinimumSize(new java.awt.Dimension(42, 42));
         jLabelForMotionNameLabel.setPreferredSize(new java.awt.Dimension(42, 42));
 
-        jMotionNameLabel.setToolTipText("Current Motion");
+        jMotionNameLabel.setToolTipText("Current motion");
         jMotionNameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jMotionNameLabel.setMaximumSize(new java.awt.Dimension(200, 20));
         jMotionNameLabel.setMinimumSize(new java.awt.Dimension(200, 20));
         jMotionNameLabel.setOpaque(true);
         jMotionNameLabel.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        jTimeTextField.setToolTipText("Current Time");
+        jTimeTextField.setToolTipText("Current time");
         jTimeTextField.setMaximumSize(new java.awt.Dimension(50, 19));
         jTimeTextField.setMinimumSize(new java.awt.Dimension(50, 19));
         jTimeTextField.setPreferredSize(new java.awt.Dimension(50, 19));
@@ -356,7 +356,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jSpeedSpinner.setFont(new java.awt.Font("Tahoma", 0, 11));
         jSpeedSpinner.setForeground(new java.awt.Color(0, 0, 0));
         jSpeedSpinner.setModel(smodel);
-        jSpeedSpinner.setToolTipText("Play Speed");
+        jSpeedSpinner.setToolTipText("Play speed");
         jSpeedSpinner.setMaximumSize(new java.awt.Dimension(50, 19));
         jSpeedSpinner.setMinimumSize(new java.awt.Dimension(50, 19));
         jSpeedSpinner.setPreferredSize(new java.awt.Dimension(50, 19));
@@ -376,7 +376,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jLabelForTimeTextField.setPreferredSize(new java.awt.Dimension(31, 19));
 
         jWrapToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/motionviewer/images/wrap_beveled.png")));
-        jWrapToggleButton.setToolTipText("Loop Motion");
+        jWrapToggleButton.setToolTipText("Loop motion");
         jWrapToggleButton.setBorder(null);
         jWrapToggleButton.setBorderPainted(false);
         jWrapToggleButton.setContentAreaFilled(false);
@@ -401,7 +401,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jStartTimeTextField.setBackground(new java.awt.Color(224, 223, 227));
         jStartTimeTextField.setEditable(false);
         jStartTimeTextField.setText("0");
-        jStartTimeTextField.setToolTipText("Start Time");
+        jStartTimeTextField.setToolTipText("Initial time");
         jStartTimeTextField.setAutoscrolls(false);
         jStartTimeTextField.setBorder(null);
         jStartTimeTextField.setFocusable(false);
@@ -414,7 +414,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jEndTimeTextField.setEditable(false);
         jEndTimeTextField.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         jEndTimeTextField.setText("100");
-        jEndTimeTextField.setToolTipText("End Time");
+        jEndTimeTextField.setToolTipText("Final time");
         jEndTimeTextField.setAutoscrolls(false);
         jEndTimeTextField.setBorder(null);
         jEndTimeTextField.setFocusable(false);

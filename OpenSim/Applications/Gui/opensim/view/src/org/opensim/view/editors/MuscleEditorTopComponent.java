@@ -868,9 +868,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          if (we != null)
             isEllipsoid = true;
          javax.swing.JLabel indexLabel = new javax.swing.JLabel();
-         javax.swing.JComboBox methodComboBox = null;
-         if (isEllipsoid == true)
-            methodComboBox = new javax.swing.JComboBox();
+         javax.swing.JComboBox methodComboBox = new javax.swing.JComboBox();
+         if (isEllipsoid == false)
+            methodComboBox.setEnabled(false);
          javax.swing.JComboBox startComboBox = new javax.swing.JComboBox();
          javax.swing.JComboBox endComboBox = new javax.swing.JComboBox();
          indexLabel.setText(String.valueOf(i+1) + ". " + awo.getName());
@@ -909,13 +909,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          });
 
          indexLabel.setBounds(X - 20, Y + i * 22, 200, 21);
-         if (isEllipsoid == true)
-            methodComboBox.setBounds(X + 130, Y + i * 22, 80, 21);
+         methodComboBox.setBounds(X + 130, Y + i * 22, 80, 21);
          startComboBox.setBounds(X + 220, Y + i * 22, 50, 21);
          endComboBox.setBounds(X + 280, Y + i * 22, 50, 21);
          WrapPanel.add(indexLabel);
-         if (isEllipsoid == true)
-            WrapPanel.add(methodComboBox);
+         WrapPanel.add(methodComboBox);
          WrapPanel.add(startComboBox);
          WrapPanel.add(endComboBox);
 
@@ -963,9 +961,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
          //C:\\SimTK\\OpenSim\\Applications\\Gui\\opensim\\view\\src\\org\\opensim\\view\\editors\\
          javax.swing.JButton deleteButton = new javax.swing.JButton();
-         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/close.png")));
-         deleteButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/close_selected.png")));
-         deleteButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/close_rollover.png")));
+         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/delete.png")));
+         deleteButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/delete_selected.png")));
+         deleteButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/delete_rollover.png")));
          deleteButton.setToolTipText("delete this wrap object from this muscle");
          deleteButton.setBorder(null);
          deleteButton.setBorderPainted(false);
@@ -992,13 +990,58 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          addMenu.add(menuItem);
       }
 
-      // Add the "add" button
+      // Add the "add" line
+      javax.swing.JButton upButton = new javax.swing.JButton();
+      upButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/upArrow.png")));
+      upButton.setBorder(null);
+      upButton.setBorderPainted(false);
+      upButton.setContentAreaFilled(false);
+      upButton.setMargin(new java.awt.Insets(1, 1, 1, 1));
+      upButton.setBounds(X - 75, Y + 3 + smw.getSize() * 22, 15, 15);
+      upButton.setEnabled(false);
+      WrapPanel.add(upButton);
+      
+      javax.swing.JButton downButton = new javax.swing.JButton();
+      downButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/downArrow.png")));
+      downButton.setBorder(null);
+      downButton.setBorderPainted(false);
+      downButton.setContentAreaFilled(false);
+      downButton.setMargin(new java.awt.Insets(1, 1, 1, 1));
+      downButton.setBounds(X - 58, Y + 3 + smw.getSize() * 22, 15, 15);
+      downButton.setEnabled(false);
+      WrapPanel.add(downButton);     
+      
       javax.swing.JButton addButton = new javax.swing.JButton();
-      addButton.setText("Add");
-      addButton.setToolTipText("add a wrap object to this muscle");
-      addButton.setBounds(X + 100, Y + 20 + smw.getSize() * 22, 70, 21);
+      addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/add.png")));
+      addButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/add_selected.png")));
+      addButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/icons/add_rollover.png")));
+      addButton.setBorder(null);
+      addButton.setBorderPainted(false);
+      addButton.setContentAreaFilled(false);
+      addButton.setToolTipText("Add existing wrap object to this muscle");
+      addButton.setBounds(X - 38, Y + 3 + smw.getSize() * 22, 15, 15);
       WrapPanel.add(addButton);
       
+      javax.swing.JLabel indexLabel = new javax.swing.JLabel();
+      indexLabel.setText(String.valueOf(smw.getSize()+1) + ". existing wrap object");
+      indexLabel.setEnabled(false);
+      indexLabel.setBounds(X - 20, Y + smw.getSize() * 22, 200, 21);
+      WrapPanel.add(indexLabel);
+      
+      javax.swing.JComboBox methodComboBox = new javax.swing.JComboBox();
+      methodComboBox.setEnabled(false);
+      methodComboBox.setBounds(X + 130, Y + smw.getSize() * 22, 80, 21);
+      WrapPanel.add(methodComboBox);
+      
+      javax.swing.JComboBox startComboBox = new javax.swing.JComboBox();
+      javax.swing.JComboBox endComboBox = new javax.swing.JComboBox();
+      startComboBox.setEnabled(false);
+      endComboBox.setEnabled(false);
+      startComboBox.setBounds(X + 220, Y + smw.getSize() * 22, 50, 21);
+      endComboBox.setBounds(X + 280, Y + smw.getSize() * 22, 50, 21);
+      WrapPanel.add(startComboBox);
+      WrapPanel.add(endComboBox);
+         
       class PopupListener extends MouseAdapter {
          public void mousePressed(MouseEvent e) {
             //maybeShowPopup(e);
