@@ -5,8 +5,8 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
+import org.opensim.tracking.AnalyzeAndForwardToolPanel;
 import org.opensim.tracking.BaseToolPanel;
-import org.opensim.tracking.ForwardToolPanel;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.view.pub.OpenSimDB;
 
@@ -17,10 +17,10 @@ public final class ForwardToolAction extends CallableSystemAction {
       if(model==null) return;
 
       try {
-         final ForwardToolPanel panel = new ForwardToolPanel(model);
+         final AnalyzeAndForwardToolPanel panel = new AnalyzeAndForwardToolPanel(model,AnalyzeAndForwardToolPanel.Mode.ForwardDynamics);
          BaseToolPanel.openToolDialog(panel, "Forward Dynamics Tool");
       } catch (IOException ex) {
-         ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing forward dynamics tool",ex);
+         ErrorDialog.displayIOExceptionDialog("Forward Dynamics Tool Error","Error while initializing forward dynamics tool",ex);
       }
    }
    

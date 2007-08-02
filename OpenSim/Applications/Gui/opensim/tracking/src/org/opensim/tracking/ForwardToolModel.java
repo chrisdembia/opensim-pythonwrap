@@ -138,17 +138,13 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
    // END ForwardToolWorker
    //========================================================================
-   
-   private Model originalModel = null;
 
    public ForwardToolModel(Model model) throws IOException {
-      super(null);
-
-      this.originalModel = model;
+      super(model);
 
       // Check that the model has a real dynamics engine
       if(model.getDynamicsEngine().getType().equals("SimmKinematicsEngine"))
-         throw new IOException("Forward tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
+         throw new IOException("Forward dynamics tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
 
       setTool(new ForwardTool());
 
@@ -159,7 +155,6 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    ForwardTool getTool() { return (ForwardTool)tool; }
-   Model getOriginalModel() { return originalModel; }
 
    //------------------------------------------------------------------------
    // Get/Set Values
@@ -167,6 +162,10 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
    public String getControlsFileName() { return getTool().getControlsFileName(); }
    public String getInitialStatesFileName() { return getTool().getInitialStatesFileName(); }
+
+   // TODO: implement
+   public double getAvailableInitialTime() { return -1; }
+   public double getAvailableFinalTime() { return -1; }
 
    // Integrator settings
    public boolean getUseSpecifiedDt() { return getTool().getUseSpecifiedDt(); }

@@ -113,7 +113,6 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    // END AnalyzeToolWorker
    //========================================================================
    
-   private Model originalModel = null;
    private boolean inverseDynamicsMode = false;
 
    enum InputSource { Motion, States, Coordinates, Unspecified };
@@ -122,10 +121,13 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    private boolean loadSpeeds = false;
 
    public AnalyzeToolModel(Model model, boolean inverseDynamicsMode) throws IOException {
-      super(null);
+      super(model);
 
-      this.originalModel = model;
       this.inverseDynamicsMode = inverseDynamicsMode;
+
+      // In inverse dynamisc mode, we know for sure we'll need a real dynamics engine, so check this up front
+      if(inverseDynamicsMode && model.getDynamicsEngine().getType().equals("SimmKinematicsEngine"))
+         throw new IOException("Inverse dynamics tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
 
       setTool(new AnalyzeTool());
 
@@ -141,7 +143,6 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    AnalyzeTool getTool() { return (AnalyzeTool)tool; }
-   Model getOriginalModel() { return originalModel; }
 
    //------------------------------------------------------------------------
    // Utilities for inverse dynamics specific analyze tool
@@ -300,6 +301,10 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
+
+   // TODO: implement
+   public double getAvailableInitialTime() { return -1; }
+   public double getAvailableFinalTime() { return -1; }
 
    //------------------------------------------------------------------------
    // External loads get/set

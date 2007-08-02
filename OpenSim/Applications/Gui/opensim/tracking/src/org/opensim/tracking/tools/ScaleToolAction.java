@@ -20,7 +20,7 @@ public final class ScaleToolAction extends CallableSystemAction {
          final ScaleToolPanel panel = new ScaleToolPanel(model);
          BaseToolPanel.openToolDialog(panel, "Scale Tool");
       } catch (IOException ex) {
-         ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing scale tool",ex);
+         ErrorDialog.displayIOExceptionDialog("Scale Tool Error","Error while initializing scale tool",ex);
       }
    }
    

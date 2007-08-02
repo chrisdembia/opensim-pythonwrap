@@ -15,6 +15,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import org.jdesktop.layout.GroupLayout;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Model;
@@ -53,6 +54,9 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       // Add checkbox titled borders to external loads panel
       externalLoadsPanelCheckBox.setForeground(new Color(0,70,213));
       externalLoadsPanel.setBorder(new ComponentTitledBorder(externalLoadsPanelCheckBox, externalLoadsPanel, BorderFactory.createEtchedBorder()));
+
+      // Re-layout panels after we've removed various parts...
+      ((GroupLayout)this.getLayout()).layoutContainer(this);
 
       updatePanel();
    }
@@ -135,7 +139,6 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       externalLoadsFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       externalLoadsModelKinematicsFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       cutoffFrequency = new javax.swing.JTextField();
-      jLabel8 = new javax.swing.JLabel();
       jLabel9 = new javax.swing.JLabel();
       actuatorsPanel = new javax.swing.JPanel();
       jLabel1 = new javax.swing.JLabel();
@@ -147,11 +150,11 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       externalLoadsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "External Loads"));
       jLabel3.setText("External loads");
 
-      jLabel4.setText("Model kinematics for external loads");
+      jLabel4.setText("Kinematics for external loads");
 
       jLabel6.setText("Applied to bodies:");
 
-      filterModelKinematics.setText("Filter model kinematics");
+      filterModelKinematics.setText("Filter kinematics");
       filterModelKinematics.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
       filterModelKinematics.setMargin(new java.awt.Insets(0, 0, 0, 0));
       filterModelKinematics.addActionListener(new java.awt.event.ActionListener() {
@@ -203,8 +206,6 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
          }
       });
 
-      jLabel8.setText("Cutoff frequency");
-
       jLabel9.setText("Hz");
 
       org.jdesktop.layout.GroupLayout externalLoadsPanelLayout = new org.jdesktop.layout.GroupLayout(externalLoadsPanel);
@@ -218,43 +219,37 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
                .add(jLabel4)
                .add(jLabel6)
                .add(jLabel3))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(externalLoadsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+               .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                .add(externalLoadsPanelLayout.createSequentialGroup()
-                  .add(26, 26, 26)
-                  .add(jLabel8)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jLabel9)
-                  .add(86, 86, 86))
-               .add(externalLoadsPanelLayout.createSequentialGroup()
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
-               .add(externalLoadsPanelLayout.createSequentialGroup()
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(externalLoadsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-               .add(externalLoadsPanelLayout.createSequentialGroup()
-                  .add(16, 16, 16)
+                  .add(10, 10, 10)
                   .add(jLabel5)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(externalLoadsBody1, 0, 127, Short.MAX_VALUE)
+                  .add(externalLoadsBody1, 0, 103, Short.MAX_VALUE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(jLabel7)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(externalLoadsBody2, 0, 139, Short.MAX_VALUE)))
+                  .add(externalLoadsBody2, 0, 103, Short.MAX_VALUE))
+               .add(externalLoadsPanelLayout.createSequentialGroup()
+                  .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 139, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(jLabel9)))
             .addContainerGap())
       );
       externalLoadsPanelLayout.setVerticalGroup(
          externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(externalLoadsPanelLayout.createSequentialGroup()
+            .addContainerGap()
             .add(externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                .add(jLabel3)
                .add(externalLoadsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .add(12, 12, 12)
             .add(externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jLabel6)
-               .add(externalLoadsBody1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(jLabel5)
+               .add(externalLoadsBody1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(jLabel7)
                .add(externalLoadsBody2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -263,11 +258,10 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
                .add(externalLoadsModelKinematicsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .add(13, 13, 13)
             .add(externalLoadsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jLabel8)
                .add(filterModelKinematics)
+               .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(jLabel9))
-            .addContainerGap(22, Short.MAX_VALUE))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
       actuatorsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Actuators"));
@@ -313,7 +307,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
                .add(actuatorsPanelLayout.createSequentialGroup()
                   .add(jLabel1)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(actuatorSetFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                  .add(actuatorSetFiles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(editActuatorSetFiles))
                .add(appendActuatorSetRadioButton)
@@ -340,9 +334,9 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(layout.createSequentialGroup()
             .addContainerGap()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, actuatorsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(externalLoadsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(org.jdesktop.layout.GroupLayout.LEADING, actuatorsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(org.jdesktop.layout.GroupLayout.LEADING, externalLoadsPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
       );
       layout.setVerticalGroup(
@@ -444,7 +438,6 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
    private javax.swing.JLabel jLabel5;
    private javax.swing.JLabel jLabel6;
    private javax.swing.JLabel jLabel7;
-   private javax.swing.JLabel jLabel8;
    private javax.swing.JLabel jLabel9;
    private javax.swing.JRadioButton replaceActuatorSetRadioButton;
    // End of variables declaration//GEN-END:variables

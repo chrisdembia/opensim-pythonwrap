@@ -20,7 +20,7 @@ public final class IKToolAction extends CallableSystemAction {
          final IKToolPanel panel = new IKToolPanel(model);
          BaseToolPanel.openToolDialog(panel, "Inverse Kinematics Tool");
       } catch (IOException ex) {
-         ErrorDialog.displayIOExceptionDialog("Unexpected error","Unexpected error while initializing inverse kinematics tool",ex);
+         ErrorDialog.displayIOExceptionDialog("Inverse Kinematics Tool Error","Error while initializing inverse kinematics tool",ex);
       }
    }
    

@@ -12,18 +12,19 @@ import org.opensim.tracking.AbstractToolModel.Operation;
 import org.opensim.utils.FileUtils;
 import org.opensim.utils.TheApp;
 
-public class AbstractToolModel extends Observable {
+public abstract class AbstractToolModel extends Observable {
 
    enum Operation { AllDataChanged, InputDataChanged, OutputDataChanged, TimeRangeChanged, AnalysisDataChanged, AnalysisAddedOrRemoved, ActuatorsDataChanged, ExternalLoadsDataChanged, ExecutionStateChanged };
 
    private boolean modifiedSinceLastExecute = true;
    private boolean executing = false;
 
+   protected Model originalModel = originalModel = null;
    protected Model model = null;
    protected AbstractTool tool = null;
 
-   public AbstractToolModel(Model model) {
-      this.model = model;
+   public AbstractToolModel(Model originalModel) {
+      this.originalModel = originalModel;
    }
 
    public void setTool(AbstractTool tool) {
@@ -33,6 +34,8 @@ public class AbstractToolModel extends Observable {
    //------------------------------------------------------------------------
    // Get/Set Values
    //------------------------------------------------------------------------
+
+   public Model getOriginalModel() { return originalModel; }
 
    public Model getModel() { return model; }
    protected void setModel(Model model) { this.model = model; }
@@ -124,6 +127,21 @@ public class AbstractToolModel extends Observable {
    public double getMaxDT() { return tool.getMaxDT(); }
    public double getErrorTolerance() { return tool.getErrorTolerance(); }
    public double getFineTolerance() { return tool.getFineTolerance(); }
+
+   //------------------------------------------------------------------------
+   // Functions to override
+   //------------------------------------------------------------------------
+
+   public abstract double getAvailableInitialTime();
+   public abstract double getAvailableFinalTime();
+
+   public abstract boolean isValid();
+
+   public abstract void execute();
+   public abstract void cancel();
+
+   public abstract boolean loadSettings(String fileName);
+   public abstract boolean saveSettings(String fileName);
 
    //------------------------------------------------------------------------
    // Execution status
