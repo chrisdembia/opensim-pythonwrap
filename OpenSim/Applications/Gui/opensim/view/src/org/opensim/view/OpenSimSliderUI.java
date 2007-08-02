@@ -102,7 +102,7 @@ public class OpenSimSliderUI extends WindowsSliderUI
                 }
             }
 
-            g.drawImage(sliderKnob,knobBounds.x,knobBounds.y,null);
+            g.drawImage(sliderKnob,knobBounds.x,knobBounds.y,slider);
         }
         else {
             super.paintThumb(g);
