@@ -289,7 +289,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
    
    // support for writing AVI movies.
    vtkAVIWriter movieWriter=null;
-   boolean movieWriterReady=false;
+   static public boolean movieWriterReady=false; // static to represent if movie is being written in any view
    vtkWindowToImageFilter imageFilter=null;
    /**
     * Create a movie with the specified filename
@@ -327,5 +327,4 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
         movieWriterReady=false;
     }
 
-    
 }
