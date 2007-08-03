@@ -535,9 +535,6 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="yQuantityButton">
                   <Properties>
-                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="jSourcePopupMenu"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Y-Quantity..."/>
                   </Properties>
                   <Events>
