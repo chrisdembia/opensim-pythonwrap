@@ -164,6 +164,17 @@ public abstract class AbstractToolModel extends Observable {
    }
 
    //------------------------------------------------------------------------
+   // Other settings
+   //------------------------------------------------------------------------
+   public boolean getSolveForEquilibrium() { return tool.getSolveForEquilibrium(); }
+   public void setSolveForEquilibrium(boolean solve) {
+      if(getSolveForEquilibrium() != solve) {
+         tool.setSolveForEquilibrium(solve);
+         setModified(Operation.InputDataChanged);
+      }
+   }
+
+   //------------------------------------------------------------------------
    // Functions to override
    //------------------------------------------------------------------------
 

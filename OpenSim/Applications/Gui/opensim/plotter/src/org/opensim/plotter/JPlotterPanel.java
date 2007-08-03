@@ -1282,7 +1282,7 @@ public class JPlotterPanel extends javax.swing.JPanel
     */
    void runAnalysisTool(PlotterSourceAnalysis source, PlotterSourceInterface motion, String[] ranges) {
       AnalyzeTool tool = plotterModel.getAnalyzeTool(currentModel);
-      tool.solveForEquilibrium(true);
+      tool.setSolveForEquilibrium(true);
       PlotterSourceAnalysis analysisSource = (PlotterSourceAnalysis)source;
       plotterModel.configureAnalyses(tool, analysisSource, domainName, ranges);
       // Save the state before running the analysis so that we can restore the model afterwards
