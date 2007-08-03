@@ -2401,10 +2401,26 @@ public class ChartPanel extends JPanel
 			System.err.println("No suitable factories");
 			System.exit(0); // FIXME too
 		}
+                // Obtain file name from user
+                JFileChooser fileChooser = new JFileChooser();
+                ExtensionFileFilter filter = new ExtensionFileFilter(
+                        localizationResources.getString("PostScript_Files"), ".eps");
+                fileChooser.addChoosableFileFilter(filter);
+                String filename="";
+                int option = fileChooser.showSaveDialog(this);
+                if (option == JFileChooser.APPROVE_OPTION) {
+                   filename = fileChooser.getSelectedFile().getPath();
+                   if (isEnforceFileExtensions()) {
+                      if (!filename.endsWith(".eps")) {
+                         filename = filename + ".eps";
+                      }
+                   } else
+                      return;
+                }
 
 		try {
 			// Create a file for the exported postscript
-			FileOutputStream fos = new FileOutputStream("out.ps");
+			FileOutputStream fos = new FileOutputStream(filename);
 
 			// Create a Stream printer for Postscript 
 			StreamPrintService sps = factories[0].getPrintService(fos);
