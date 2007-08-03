@@ -242,7 +242,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
                // Button to add array item
                controlButton = new JButton(addIcon);
-               controlButton.setRolloverIcon(addRolloverIcon);
+               controlButton.setRolloverIcon(addRolloverIcon); // doesn't work right now
                controlButton.addMouseListener(new MouseInputAdapter() {
                   public void mousePressed(MouseEvent evt) { addPropertyItem(); }
                });
@@ -250,7 +250,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
             } else {
                // Button to delete array item
                controlButton = new JButton(removeIcon);
-               controlButton.setRolloverIcon(removeRolloverIcon);
+               controlButton.setRolloverIcon(removeRolloverIcon); // doesn't work right now
                controlButton.addMouseListener(new MouseInputAdapter() {
                   public void mousePressed(MouseEvent evt) { removePropertyItem(); }
                });

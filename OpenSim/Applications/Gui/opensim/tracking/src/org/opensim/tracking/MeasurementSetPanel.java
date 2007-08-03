@@ -49,8 +49,12 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
    private static final String DEFAULT_MEASUREMENT_NAME = "Unnamed";
    private static final Dimension buttonDim = new Dimension(BUTTON_WIDTH, HEIGHT);
    private static final Color invalidColor = new Color(255,102,102);
-   private final Icon addIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/addSymbol.png"));
-   private final Icon removeIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/closeSymbol.png"));
+   private final Icon addIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/add.png"));
+   private final Icon addRolloverIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/add_rollover.png"));
+   private final Icon addSelectedIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/add_selected.png"));
+   private final Icon removeIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/delete.png"));
+   private final Icon removeRolloverIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/delete_rollover.png"));
+   private final Icon removeSelectedIcon = new ImageIcon(getClass().getResource("/org/opensim/swingui/delete_selected.png"));
 
    private static final Border measurementControlsBorder = BorderFactory.createLineBorder(Color.black); //BorderFactory.createBevelBorder(BevelBorder.LOWERED);
    private static final Border measurementControlsInnerBorder = BorderFactory.createMatteBorder(0,0,0,1,Color.lightGray);
@@ -230,7 +234,14 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
       measurementControlsPanel.setAlignmentX(0);
 
       // Add/Remove measurement button
-      JButton addRemoveMeasurementButton = (measurement!=null) ? new JButton(new RemoveMeasurementAction(index)) : new JButton(new AddMeasurementAction());
+      JButton addRemoveMeasurementButton = null;
+      if(measurement!=null) {
+         addRemoveMeasurementButton = new JButton(new RemoveMeasurementAction(index));
+         addRemoveMeasurementButton.setRolloverIcon(removeRolloverIcon);
+      } else {
+         addRemoveMeasurementButton = new JButton(new AddMeasurementAction());
+         addRemoveMeasurementButton.setRolloverIcon(addRolloverIcon);
+      }
       addRemoveMeasurementButton.setMargin(new Insets(0,0,0,0));
       addRemoveMeasurementButton.setMinimumSize(buttonDim);
       addRemoveMeasurementButton.setMaximumSize(buttonDim);
@@ -268,7 +279,13 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
       markerPairControlsPanel.setAlignmentX(0);
 
       // Add marker pair button
-      JButton addMarkerPairButton = (measurement!=null) ? new JButton(new AddMarkerPairAction(index)) : new JButton("");
+      JButton addMarkerPairButton = null;
+      if(measurement!=null) {
+         addMarkerPairButton = new JButton(new AddMarkerPairAction(index));
+         addMarkerPairButton.setRolloverIcon(addRolloverIcon);
+      } else {
+         addMarkerPairButton = new JButton("");
+      }
       if(measurement==null) addMarkerPairButton.setEnabled(false);
       addMarkerPairButton.setMargin(new Insets(0,0,0,0));
       addMarkerPairButton.setMinimumSize(buttonDim);
@@ -354,6 +371,7 @@ class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionLi
 
       // Delete marker pair button
       JButton removeMarkerPairButton = new JButton(new RemoveMarkerPairAction(measurementIndex, markerPairIndex));
+      removeMarkerPairButton.setRolloverIcon(removeRolloverIcon);
       removeMarkerPairButton.setMargin(new Insets(0,0,0,0));
       removeMarkerPairButton.setMinimumSize(buttonDim);
       removeMarkerPairButton.setMaximumSize(buttonDim);
