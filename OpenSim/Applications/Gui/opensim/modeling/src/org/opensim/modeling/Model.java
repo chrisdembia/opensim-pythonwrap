@@ -79,6 +79,22 @@ public class Model extends OpenSimObject {
     opensimModelJNI.Model_setInputFileName(swigCPtr, this, fileName);
   }
 
+  public String getCredits() {
+    return opensimModelJNI.Model_getCredits(swigCPtr, this);
+  }
+
+  public void setAuthors(String aCredits) {
+    opensimModelJNI.Model_setAuthors(swigCPtr, this, aCredits);
+  }
+
+  public String getPublications() {
+    return opensimModelJNI.Model_getPublications(swigCPtr, this);
+  }
+
+  public void setPublications(String aPublications) {
+    opensimModelJNI.Model_setPublications(swigCPtr, this, aPublications);
+  }
+
   public Units getLengthUnits() {
     return new Units(opensimModelJNI.Model_getLengthUnits(swigCPtr, this), false);
   }
@@ -278,6 +294,10 @@ public class Model extends OpenSimObject {
 
   public void addAnalysis(Analysis aAnalysis) {
     opensimModelJNI.Model_addAnalysis(swigCPtr, this, Analysis.getCPtr(aAnalysis), aAnalysis);
+  }
+
+  public void removeAnalysis(Analysis aAnalysis) {
+    opensimModelJNI.Model_removeAnalysis(swigCPtr, this, Analysis.getCPtr(aAnalysis), aAnalysis);
   }
 
   public void computeDerivatives(double[] rDYDT) {

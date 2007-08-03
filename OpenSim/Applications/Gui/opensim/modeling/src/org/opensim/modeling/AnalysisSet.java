@@ -131,4 +131,8 @@ public class AnalysisSet extends SetAnalysis {
     opensimModelJNI.AnalysisSet_printResults__SWIG_3(swigCPtr, this, aBaseName);
   }
 
+  public static void getAvailableAnalyses(AnalysisSet as) {
+    opensimModelJNI.AnalysisSet_getAvailableAnalyses(AnalysisSet.getCPtr(as), as);
+  }
+
 }

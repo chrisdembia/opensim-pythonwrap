@@ -53,6 +53,10 @@ public class ArrayDouble {
     this(opensimModelJNI.new_ArrayDouble__SWIG_4(ArrayDouble.getCPtr(aArray), aArray), true);
   }
 
+  public boolean arrayEquals(ArrayDouble aArray) {
+    return opensimModelJNI.ArrayDouble_arrayEquals(swigCPtr, this, ArrayDouble.getCPtr(aArray), aArray);
+  }
+
   public boolean computeNewCapacity(int aMinCapacity, SWIGTYPE_p_int rNewCapacity) {
     return opensimModelJNI.ArrayDouble_computeNewCapacity(swigCPtr, this, aMinCapacity, SWIGTYPE_p_int.getCPtr(rNewCapacity));
   }

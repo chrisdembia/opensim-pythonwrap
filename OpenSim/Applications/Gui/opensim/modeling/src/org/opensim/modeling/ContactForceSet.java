@@ -55,7 +55,15 @@ public class ContactForceSet extends ActuatorSet {
   }
 
   public boolean append(SWIGTYPE_p_OpenSim__ContactForce aContact) {
-    return opensimModelJNI.ContactForceSet_append(swigCPtr, this, SWIGTYPE_p_OpenSim__ContactForce.getCPtr(aContact));
+    return opensimModelJNI.ContactForceSet_append__SWIG_0(swigCPtr, this, SWIGTYPE_p_OpenSim__ContactForce.getCPtr(aContact));
+  }
+
+  public boolean append(ContactForceSet aContactForceSet, boolean aAllowDuplicateNames) {
+    return opensimModelJNI.ContactForceSet_append__SWIG_1(swigCPtr, this, ContactForceSet.getCPtr(aContactForceSet), aContactForceSet, aAllowDuplicateNames);
+  }
+
+  public boolean append(ContactForceSet aContactForceSet) {
+    return opensimModelJNI.ContactForceSet_append__SWIG_2(swigCPtr, this, ContactForceSet.getCPtr(aContactForceSet), aContactForceSet);
   }
 
   public boolean set(int aIndex, SWIGTYPE_p_OpenSim__ContactForce aContact) {

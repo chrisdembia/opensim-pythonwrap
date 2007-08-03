@@ -37,16 +37,20 @@ public class AnalyzeTool extends AbstractTool {
     this(opensimModelJNI.new_AnalyzeTool__SWIG_0(), true);
   }
 
-  public AnalyzeTool(String aFileName) {
-    this(opensimModelJNI.new_AnalyzeTool__SWIG_1(aFileName), true);
+  public AnalyzeTool(String aFileName, boolean aLoadModelAndInput) throws java.io.IOException {
+    this(opensimModelJNI.new_AnalyzeTool__SWIG_1(aFileName, aLoadModelAndInput), true);
+  }
+
+  public AnalyzeTool(String aFileName) throws java.io.IOException {
+    this(opensimModelJNI.new_AnalyzeTool__SWIG_2(aFileName), true);
   }
 
   public AnalyzeTool(AnalyzeTool aObject) {
-    this(opensimModelJNI.new_AnalyzeTool__SWIG_2(AnalyzeTool.getCPtr(aObject), aObject), true);
+    this(opensimModelJNI.new_AnalyzeTool__SWIG_3(AnalyzeTool.getCPtr(aObject), aObject), true);
   }
 
   public AnalyzeTool(Model aModel) {
-    this(opensimModelJNI.new_AnalyzeTool__SWIG_3(Model.getCPtr(aModel), aModel), true);
+    this(opensimModelJNI.new_AnalyzeTool__SWIG_4(Model.getCPtr(aModel), aModel), true);
   }
 
   public OpenSimObject copy() {
@@ -85,8 +89,108 @@ public class AnalyzeTool extends AbstractTool {
     return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
-  public void loadControlsStatesPseudoStatesExternalLoadsFromFiles() {
-    opensimModelJNI.AnalyzeTool_loadControlsStatesPseudoStatesExternalLoadsFromFiles(swigCPtr, this);
+  public String getControlsFileName() {
+    return opensimModelJNI.AnalyzeTool_getControlsFileName(swigCPtr, this);
+  }
+
+  public void setControlsFileName(String aFileName) {
+    opensimModelJNI.AnalyzeTool_setControlsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getStatesFileName() {
+    return opensimModelJNI.AnalyzeTool_getStatesFileName(swigCPtr, this);
+  }
+
+  public void setStatesFileName(String aFileName) {
+    opensimModelJNI.AnalyzeTool_setStatesFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getPseudoStatesFileName() {
+    return opensimModelJNI.AnalyzeTool_getPseudoStatesFileName(swigCPtr, this);
+  }
+
+  public void setPseudoStatesFileName(String aFileName) {
+    opensimModelJNI.AnalyzeTool_setPseudoStatesFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getCoordinatesFileName() {
+    return opensimModelJNI.AnalyzeTool_getCoordinatesFileName(swigCPtr, this);
+  }
+
+  public void setCoordinatesFileName(String aFileName) {
+    opensimModelJNI.AnalyzeTool_setCoordinatesFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getSpeedsFileName() {
+    return opensimModelJNI.AnalyzeTool_getSpeedsFileName(swigCPtr, this);
+  }
+
+  public void setSpeedsFileName(String aFileName) {
+    opensimModelJNI.AnalyzeTool_setSpeedsFileName(swigCPtr, this, aFileName);
+  }
+
+  public double getLowpassCutoffFrequency() {
+    return opensimModelJNI.AnalyzeTool_getLowpassCutoffFrequency(swigCPtr, this);
+  }
+
+  public void setLowpassCutoffFrequency(double aLowpassCutoffFrequency) {
+    opensimModelJNI.AnalyzeTool_setLowpassCutoffFrequency(swigCPtr, this, aLowpassCutoffFrequency);
+  }
+
+  public String getExternalLoadsFileName() {
+    return opensimModelJNI.AnalyzeTool_getExternalLoadsFileName(swigCPtr, this);
+  }
+
+  public void setExternalLoadsFileName(String aFileName) {
+    opensimModelJNI.AnalyzeTool_setExternalLoadsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getExternalLoadsModelKinematicsFileName() {
+    return opensimModelJNI.AnalyzeTool_getExternalLoadsModelKinematicsFileName(swigCPtr, this);
+  }
+
+  public void setExternalLoadsModelKinematicsFileName(String aFileName) {
+    opensimModelJNI.AnalyzeTool_setExternalLoadsModelKinematicsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getExternalLoadsBody1() {
+    return opensimModelJNI.AnalyzeTool_getExternalLoadsBody1(swigCPtr, this);
+  }
+
+  public void setExternalLoadsBody1(String aName) {
+    opensimModelJNI.AnalyzeTool_setExternalLoadsBody1(swigCPtr, this, aName);
+  }
+
+  public String getExternalLoadsBody2() {
+    return opensimModelJNI.AnalyzeTool_getExternalLoadsBody2(swigCPtr, this);
+  }
+
+  public void setExternalLoadsBody2(String aName) {
+    opensimModelJNI.AnalyzeTool_setExternalLoadsBody2(swigCPtr, this, aName);
+  }
+
+  public double getLowpassCutoffFrequencyForLoadKinematics() {
+    return opensimModelJNI.AnalyzeTool_getLowpassCutoffFrequencyForLoadKinematics(swigCPtr, this);
+  }
+
+  public void setLowpassCutoffFrequencyForLoadKinematics(double aLowpassCutoffFrequency) {
+    opensimModelJNI.AnalyzeTool_setLowpassCutoffFrequencyForLoadKinematics(swigCPtr, this, aLowpassCutoffFrequency);
+  }
+
+  public void setStatesFromMotion(Storage aMotion, boolean aInDegrees) throws java.io.IOException {
+    opensimModelJNI.AnalyzeTool_setStatesFromMotion(swigCPtr, this, Storage.getCPtr(aMotion), aMotion, aInDegrees);
+  }
+
+  public void loadControlsFromFile() throws java.io.IOException {
+    opensimModelJNI.AnalyzeTool_loadControlsFromFile(swigCPtr, this);
+  }
+
+  public void loadStatesFromFile() throws java.io.IOException {
+    opensimModelJNI.AnalyzeTool_loadStatesFromFile(swigCPtr, this);
+  }
+
+  public void loadPseudoStatesFromFile() throws java.io.IOException {
+    opensimModelJNI.AnalyzeTool_loadPseudoStatesFromFile(swigCPtr, this);
   }
 
   public void verifyControlsStatesPseudoStates() {
@@ -101,8 +205,8 @@ public class AnalyzeTool extends AbstractTool {
     opensimModelJNI.AnalyzeTool_setPrintResultFiles(swigCPtr, this, aToWrite);
   }
 
-  public void run() {
-    opensimModelJNI.AnalyzeTool_run(swigCPtr, this);
+  public boolean run() {
+    return opensimModelJNI.AnalyzeTool_run(swigCPtr, this);
   }
 
 }

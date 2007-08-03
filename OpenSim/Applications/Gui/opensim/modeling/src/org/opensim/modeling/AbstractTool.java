@@ -42,12 +42,28 @@ public class AbstractTool extends OpenSimObject {
     return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
-  public void setOutputPrecision(int aPrecision) {
-    opensimModelJNI.AbstractTool_setOutputPrecision(swigCPtr, this, aPrecision);
+  public boolean getReplaceActuatorSet() {
+    return opensimModelJNI.AbstractTool_getReplaceActuatorSet(swigCPtr, this);
+  }
+
+  public void setReplaceActuatorSet(boolean aReplace) {
+    opensimModelJNI.AbstractTool_setReplaceActuatorSet(swigCPtr, this, aReplace);
+  }
+
+  public ArrayStr getActuatorSetFiles() {
+    return new ArrayStr(opensimModelJNI.AbstractTool_getActuatorSetFiles(swigCPtr, this), false);
+  }
+
+  public void setActuatorSetFiles(ArrayStr aActuatorSetFiles) {
+    opensimModelJNI.AbstractTool_setActuatorSetFiles(swigCPtr, this, ArrayStr.getCPtr(aActuatorSetFiles), aActuatorSetFiles);
   }
 
   public int getOutputPrecision() {
     return opensimModelJNI.AbstractTool_getOutputPrecision(swigCPtr, this);
+  }
+
+  public void setOutputPrecision(int aPrecision) {
+    opensimModelJNI.AbstractTool_setOutputPrecision(swigCPtr, this, aPrecision);
   }
 
   public AnalysisSet getAnalysisSet() {
@@ -62,20 +78,60 @@ public class AbstractTool extends OpenSimObject {
     opensimModelJNI.AbstractTool_setResultsDir(swigCPtr, this, aString);
   }
 
-  public double getStartTime() {
-    return opensimModelJNI.AbstractTool_getStartTime(swigCPtr, this);
+  public double getInitialTime() {
+    return opensimModelJNI.AbstractTool_getInitialTime(swigCPtr, this);
   }
 
   public double getFinalTime() {
     return opensimModelJNI.AbstractTool_getFinalTime(swigCPtr, this);
   }
 
-  public void setStartTime(double aStartTime) {
-    opensimModelJNI.AbstractTool_setStartTime(swigCPtr, this, aStartTime);
+  public void setInitialTime(double aInitialTime) {
+    opensimModelJNI.AbstractTool_setInitialTime(swigCPtr, this, aInitialTime);
   }
 
   public void setFinalTime(double aFinalTime) {
     opensimModelJNI.AbstractTool_setFinalTime(swigCPtr, this, aFinalTime);
+  }
+
+  public double getStartTime() {
+    return opensimModelJNI.AbstractTool_getStartTime(swigCPtr, this);
+  }
+
+  public void setStartTime(double aStartTime) {
+    opensimModelJNI.AbstractTool_setStartTime(swigCPtr, this, aStartTime);
+  }
+
+  public int getMaximumNumberOfSteps() {
+    return opensimModelJNI.AbstractTool_getMaximumNumberOfSteps(swigCPtr, this);
+  }
+
+  public void setMaximumNumberOfSteps(int aMaxSteps) {
+    opensimModelJNI.AbstractTool_setMaximumNumberOfSteps(swigCPtr, this, aMaxSteps);
+  }
+
+  public double getMaxDT() {
+    return opensimModelJNI.AbstractTool_getMaxDT(swigCPtr, this);
+  }
+
+  public void setMaxDT(double aMaxDT) {
+    opensimModelJNI.AbstractTool_setMaxDT(swigCPtr, this, aMaxDT);
+  }
+
+  public double getErrorTolerance() {
+    return opensimModelJNI.AbstractTool_getErrorTolerance(swigCPtr, this);
+  }
+
+  public void setErrorTolerance(double aErrorTolerance) {
+    opensimModelJNI.AbstractTool_setErrorTolerance(swigCPtr, this, aErrorTolerance);
+  }
+
+  public double getFineTolerance() {
+    return opensimModelJNI.AbstractTool_getFineTolerance(swigCPtr, this);
+  }
+
+  public void setFineTolerance(double aFineTolerance) {
+    opensimModelJNI.AbstractTool_setFineTolerance(swigCPtr, this, aFineTolerance);
   }
 
   public String getModelFilename() {
@@ -84,6 +140,14 @@ public class AbstractTool extends OpenSimObject {
 
   public void setModelFilename(String aModelFile) {
     opensimModelJNI.AbstractTool_setModelFilename(swigCPtr, this, aModelFile);
+  }
+
+  public boolean getSolveForEquilibrium() {
+    return opensimModelJNI.AbstractTool_getSolveForEquilibrium(swigCPtr, this);
+  }
+
+  public void setSolveForEquilibrium(boolean aSolve) {
+    opensimModelJNI.AbstractTool_setSolveForEquilibrium(swigCPtr, this, aSolve);
   }
 
   public void loadModel(String aToolSetupFileName, ActuatorSet rOriginalActuatorSet, ContactForceSet rOriginalContactForceSet) {
@@ -98,16 +162,24 @@ public class AbstractTool extends OpenSimObject {
     opensimModelJNI.AbstractTool_loadModel__SWIG_2(swigCPtr, this, aToolSetupFileName);
   }
 
+  public void updateModelActuatorsAndContactForces(Model model, String aToolSetupFileName, ActuatorSet rOriginalActuatorSet, ContactForceSet rOriginalContactForceSet) {
+    opensimModelJNI.AbstractTool_updateModelActuatorsAndContactForces__SWIG_0(swigCPtr, this, Model.getCPtr(model), model, aToolSetupFileName, ActuatorSet.getCPtr(rOriginalActuatorSet), rOriginalActuatorSet, ContactForceSet.getCPtr(rOriginalContactForceSet), rOriginalContactForceSet);
+  }
+
+  public void updateModelActuatorsAndContactForces(Model model, String aToolSetupFileName, ActuatorSet rOriginalActuatorSet) {
+    opensimModelJNI.AbstractTool_updateModelActuatorsAndContactForces__SWIG_1(swigCPtr, this, Model.getCPtr(model), model, aToolSetupFileName, ActuatorSet.getCPtr(rOriginalActuatorSet), rOriginalActuatorSet);
+  }
+
+  public void updateModelActuatorsAndContactForces(Model model, String aToolSetupFileName) {
+    opensimModelJNI.AbstractTool_updateModelActuatorsAndContactForces__SWIG_2(swigCPtr, this, Model.getCPtr(model), model, aToolSetupFileName);
+  }
+
   public void addAnalysisSetToModel() {
     opensimModelJNI.AbstractTool_addAnalysisSetToModel(swigCPtr, this);
   }
 
-  public void solveForEquilibrium(boolean aSolve) {
-    opensimModelJNI.AbstractTool_solveForEquilibrium(swigCPtr, this, aSolve);
-  }
-
-  public void run() {
-    opensimModelJNI.AbstractTool_run(swigCPtr, this);
+  public boolean run() {
+    return opensimModelJNI.AbstractTool_run(swigCPtr, this);
   }
 
   public void printResults(String aBaseName, String aDir, double aDT, String aExtension) {

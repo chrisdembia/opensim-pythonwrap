@@ -37,12 +37,16 @@ public class ForwardTool extends AbstractTool {
     this(opensimModelJNI.new_ForwardTool__SWIG_0(), true);
   }
 
-  public ForwardTool(String aFileName) {
-    this(opensimModelJNI.new_ForwardTool__SWIG_1(aFileName), true);
+  public ForwardTool(String aFileName, boolean aLoadModel) throws java.io.IOException {
+    this(opensimModelJNI.new_ForwardTool__SWIG_1(aFileName, aLoadModel), true);
+  }
+
+  public ForwardTool(String aFileName) throws java.io.IOException {
+    this(opensimModelJNI.new_ForwardTool__SWIG_2(aFileName), true);
   }
 
   public ForwardTool(ForwardTool aObject) {
-    this(opensimModelJNI.new_ForwardTool__SWIG_2(ForwardTool.getCPtr(aObject), aObject), true);
+    this(opensimModelJNI.new_ForwardTool__SWIG_3(ForwardTool.getCPtr(aObject), aObject), true);
   }
 
   public OpenSimObject copy() {
@@ -50,8 +54,80 @@ public class ForwardTool extends AbstractTool {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void run() {
-    opensimModelJNI.ForwardTool_run(swigCPtr, this);
+  public String getControlsFileName() {
+    return opensimModelJNI.ForwardTool_getControlsFileName(swigCPtr, this);
+  }
+
+  public void setControlsFileName(String aFileName) {
+    opensimModelJNI.ForwardTool_setControlsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getInitialStatesFileName() {
+    return opensimModelJNI.ForwardTool_getInitialStatesFileName(swigCPtr, this);
+  }
+
+  public void setInitialStatesFileName(String aFileName) {
+    opensimModelJNI.ForwardTool_setInitialStatesFileName(swigCPtr, this, aFileName);
+  }
+
+  public boolean getUseSpecifiedDt() {
+    return opensimModelJNI.ForwardTool_getUseSpecifiedDt(swigCPtr, this);
+  }
+
+  public void setUseSpecifiedDt(boolean aUseSpecifiedDt) {
+    opensimModelJNI.ForwardTool_setUseSpecifiedDt(swigCPtr, this, aUseSpecifiedDt);
+  }
+
+  public String getExternalLoadsFileName() {
+    return opensimModelJNI.ForwardTool_getExternalLoadsFileName(swigCPtr, this);
+  }
+
+  public void setExternalLoadsFileName(String aFileName) {
+    opensimModelJNI.ForwardTool_setExternalLoadsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getExternalLoadsModelKinematicsFileName() {
+    return opensimModelJNI.ForwardTool_getExternalLoadsModelKinematicsFileName(swigCPtr, this);
+  }
+
+  public void setExternalLoadsModelKinematicsFileName(String aFileName) {
+    opensimModelJNI.ForwardTool_setExternalLoadsModelKinematicsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getExternalLoadsBody1() {
+    return opensimModelJNI.ForwardTool_getExternalLoadsBody1(swigCPtr, this);
+  }
+
+  public void setExternalLoadsBody1(String aName) {
+    opensimModelJNI.ForwardTool_setExternalLoadsBody1(swigCPtr, this, aName);
+  }
+
+  public String getExternalLoadsBody2() {
+    return opensimModelJNI.ForwardTool_getExternalLoadsBody2(swigCPtr, this);
+  }
+
+  public void setExternalLoadsBody2(String aName) {
+    opensimModelJNI.ForwardTool_setExternalLoadsBody2(swigCPtr, this, aName);
+  }
+
+  public double getLowpassCutoffFrequencyForLoadKinematics() {
+    return opensimModelJNI.ForwardTool_getLowpassCutoffFrequencyForLoadKinematics(swigCPtr, this);
+  }
+
+  public void setLowpassCutoffFrequencyForLoadKinematics(double aLowpassCutoffFrequency) {
+    opensimModelJNI.ForwardTool_setLowpassCutoffFrequencyForLoadKinematics(swigCPtr, this, aLowpassCutoffFrequency);
+  }
+
+  public void setPrintResultFiles(boolean aToWrite) {
+    opensimModelJNI.ForwardTool_setPrintResultFiles(swigCPtr, this, aToWrite);
+  }
+
+  public boolean run() {
+    return opensimModelJNI.ForwardTool_run(swigCPtr, this);
+  }
+
+  public void printResults() {
+    opensimModelJNI.ForwardTool_printResults(swigCPtr, this);
   }
 
   public static void initializeExternalLoads(Model aModel, String aExternalLoadsFileName, String aExternalLoadsModelKinematicsFileName, String aExternalLoadsBody1, String aExternalLoadsBody2, double aLowpassCutoffFrequencyForLoadKinematics, SWIGTYPE_p_p_OpenSim__ForceApplier rRightForceApp, SWIGTYPE_p_p_OpenSim__ForceApplier rLeftForceApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rRightTorqueApp, SWIGTYPE_p_p_OpenSim__TorqueApplier rLeftTorqueApp) {

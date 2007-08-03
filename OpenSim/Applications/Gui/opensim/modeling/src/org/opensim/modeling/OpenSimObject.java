@@ -212,6 +212,10 @@ public class OpenSimObject {
     opensimModelJNI.OpenSimObject_clearXMLStructures(swigCPtr, this);
   }
 
+  public void setAllPropertiesUseDefault(boolean aUseDefault) {
+    opensimModelJNI.OpenSimObject_setAllPropertiesUseDefault(swigCPtr, this, aUseDefault);
+  }
+
   public boolean print(String aFileName) {
     return opensimModelJNI.OpenSimObject_print(swigCPtr, this, aFileName);
   }

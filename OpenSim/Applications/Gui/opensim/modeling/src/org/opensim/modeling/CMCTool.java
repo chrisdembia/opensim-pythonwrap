@@ -50,8 +50,8 @@ public class CMCTool extends AbstractTool {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void run() {
-    opensimModelJNI.CMCTool_run(swigCPtr, this);
+  public boolean run() {
+    return opensimModelJNI.CMCTool_run(swigCPtr, this);
   }
 
   public Storage getForceStorage() {

@@ -50,8 +50,8 @@ public class PerturbationTool extends AbstractTool {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void run() {
-    opensimModelJNI.PerturbationTool_run(swigCPtr, this);
+  public boolean run() {
+    return opensimModelJNI.PerturbationTool_run(swigCPtr, this);
   }
 
   public void printResults(String aBaseName, String aDir, double aDT, String aExtension) {

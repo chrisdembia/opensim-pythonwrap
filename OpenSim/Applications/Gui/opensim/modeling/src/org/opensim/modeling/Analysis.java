@@ -33,6 +33,23 @@ public class Analysis extends IntegCallback {
     super.delete();
   }
 
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.Analysis_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.Analysis_isA(swigCPtr, this, type);
+  }
+
+  public static Analysis safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.Analysis_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Analysis(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.Analysis_copy__SWIG_0(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  }
+
   public Analysis(Model aModel) {
     this(opensimModelJNI.new_Analysis__SWIG_0(Model.getCPtr(aModel), aModel), true);
   }
@@ -54,7 +71,7 @@ public class Analysis extends IntegCallback {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Analysis_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.Analysis_copy__SWIG_1(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

@@ -53,6 +53,10 @@ public class ArrayBool {
     this(opensimModelJNI.new_ArrayBool__SWIG_4(ArrayBool.getCPtr(aArray), aArray), true);
   }
 
+  public boolean arrayEquals(ArrayBool aArray) {
+    return opensimModelJNI.ArrayBool_arrayEquals(swigCPtr, this, ArrayBool.getCPtr(aArray), aArray);
+  }
+
   public boolean computeNewCapacity(int aMinCapacity, SWIGTYPE_p_int rNewCapacity) {
     return opensimModelJNI.ArrayBool_computeNewCapacity(swigCPtr, this, aMinCapacity, SWIGTYPE_p_int.getCPtr(rNewCapacity));
   }

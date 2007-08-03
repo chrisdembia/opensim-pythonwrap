@@ -21,6 +21,26 @@ public class opensimModel implements opensimModelConstants {
     return opensimModelJNI.Storage_DEFAULT_CAPACITY_get();
   }
 
+  public static int getIO_STRLEN() {
+    return opensimModelJNI.IO_STRLEN_get();
+  }
+
+  public static void setOpenSimVersion(String value) {
+    opensimModelJNI.OpenSimVersion_set(value);
+  }
+
+  public static String getOpenSimVersion() {
+    return opensimModelJNI.OpenSimVersion_get();
+  }
+
+  public static String GetVersionAndDate() {
+    return opensimModelJNI.GetVersionAndDate();
+  }
+
+  public static String GetVersion() {
+    return opensimModelJNI.GetVersion();
+  }
+
   public static int getControllerNAME_LENGTH() {
     return opensimModelJNI.ControllerNAME_LENGTH_get();
   }

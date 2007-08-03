@@ -33,6 +33,23 @@ public class Kinematics extends Analysis {
     super.delete();
   }
 
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.Kinematics_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.Kinematics_isA(swigCPtr, this, type);
+  }
+
+  public static Kinematics safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.Kinematics_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Kinematics(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.Kinematics_copy__SWIG_0(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  }
+
   public Kinematics(Model aModel) {
     this(opensimModelJNI.new_Kinematics__SWIG_0(Model.getCPtr(aModel), aModel), true);
   }
@@ -50,7 +67,7 @@ public class Kinematics extends Analysis {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Kinematics_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.Kinematics_copy__SWIG_1(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -75,6 +92,10 @@ public class Kinematics extends Analysis {
 
   public void setModel(Model aModel) {
     opensimModelJNI.Kinematics_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
+  }
+
+  public void setRecordAccelerations(boolean aRecordAccelerations) {
+    opensimModelJNI.Kinematics_setRecordAccelerations(swigCPtr, this, aRecordAccelerations);
   }
 
   public int begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {
@@ -139,10 +160,6 @@ public class Kinematics extends Analysis {
 
   public int printResults(String aBaseName) {
     return opensimModelJNI.Kinematics_printResults__SWIG_3(swigCPtr, this, aBaseName);
-  }
-
-  public ArrayStorage getStorageList() {
-    return new ArrayStorage(opensimModelJNI.Kinematics_getStorageList(swigCPtr, this), false);
   }
 
 }

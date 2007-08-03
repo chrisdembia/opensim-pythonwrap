@@ -74,6 +74,22 @@ public class Property {
     return opensimModelJNI.Property_toString(swigCPtr, this);
   }
 
+  public void setAllowableArraySize(int aMin, int aMax) {
+    opensimModelJNI.Property_setAllowableArraySize__SWIG_0(swigCPtr, this, aMin, aMax);
+  }
+
+  public void setAllowableArraySize(int aNum) {
+    opensimModelJNI.Property_setAllowableArraySize__SWIG_1(swigCPtr, this, aNum);
+  }
+
+  public int getMinArraySize() {
+    return opensimModelJNI.Property_getMinArraySize(swigCPtr, this);
+  }
+
+  public int getMaxArraySize() {
+    return opensimModelJNI.Property_getMaxArraySize(swigCPtr, this);
+  }
+
   public void setValue(boolean aValue) {
     opensimModelJNI.Property_setValue__SWIG_0(swigCPtr, this, aValue);
   }
@@ -171,10 +187,6 @@ public class Property {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public int getValueObjArraySize() {
-    return opensimModelJNI.Property_getValueObjArraySize(swigCPtr, this);
-  }
-
   public OpenSimObject getValueObjPtr(int index) {
     long cPtr = opensimModelJNI.Property_getValueObjPtr__SWIG_1(swigCPtr, this, index);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
@@ -196,18 +208,20 @@ public class Property {
     return opensimModelJNI.Property_getUseDefault(swigCPtr, this);
   }
 
+  public int getArraySize() {
+    return opensimModelJNI.Property_getArraySize(swigCPtr, this);
+  }
+
   public final static class PropertyType {
     public final static PropertyType None = new PropertyType("None", opensimModelJNI.Property_None_get());
     public final static PropertyType Bool = new PropertyType("Bool");
     public final static PropertyType Int = new PropertyType("Int");
-    public final static PropertyType Flt = new PropertyType("Flt");
     public final static PropertyType Dbl = new PropertyType("Dbl");
     public final static PropertyType Str = new PropertyType("Str");
     public final static PropertyType Obj = new PropertyType("Obj");
     public final static PropertyType ObjPtr = new PropertyType("ObjPtr");
     public final static PropertyType BoolArray = new PropertyType("BoolArray");
     public final static PropertyType IntArray = new PropertyType("IntArray");
-    public final static PropertyType FltArray = new PropertyType("FltArray");
     public final static PropertyType DblArray = new PropertyType("DblArray");
     public final static PropertyType StrArray = new PropertyType("StrArray");
     public final static PropertyType ObjArray = new PropertyType("ObjArray");
@@ -246,7 +260,7 @@ public class Property {
       swigNext = this.swigValue+1;
     }
 
-    private static PropertyType[] swigValues = { None, Bool, Int, Flt, Dbl, Str, Obj, ObjPtr, BoolArray, IntArray, FltArray, DblArray, StrArray, ObjArray };
+    private static PropertyType[] swigValues = { None, Bool, Int, Dbl, Str, Obj, ObjPtr, BoolArray, IntArray, DblArray, StrArray, ObjArray };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

@@ -74,4 +74,8 @@ public class PropertyStr extends Property {
     return opensimModelJNI.PropertyStr_getDefaultStr();
   }
 
+  public boolean isValidFileName() {
+    return opensimModelJNI.PropertyStr_isValidFileName(swigCPtr, this);
+  }
+
 }

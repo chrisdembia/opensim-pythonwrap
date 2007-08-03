@@ -53,6 +53,10 @@ public class ArrayMusclePoint {
     this(opensimModelJNI.new_ArrayMusclePoint__SWIG_4(ArrayMusclePoint.getCPtr(aArray), aArray), true);
   }
 
+  public boolean arrayEquals(ArrayMusclePoint aArray) {
+    return opensimModelJNI.ArrayMusclePoint_arrayEquals(swigCPtr, this, ArrayMusclePoint.getCPtr(aArray), aArray);
+  }
+
   public boolean computeNewCapacity(int aMinCapacity, SWIGTYPE_p_int rNewCapacity) {
     return opensimModelJNI.ArrayMusclePoint_computeNewCapacity(swigCPtr, this, aMinCapacity, SWIGTYPE_p_int.getCPtr(rNewCapacity));
   }

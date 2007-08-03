@@ -69,6 +69,10 @@ public class Units {
     return opensimModelJNI.Units_getLabel(swigCPtr, this);
   }
 
+  public String getAbbreviation() {
+    return opensimModelJNI.Units_getAbbreviation(swigCPtr, this);
+  }
+
   public final static class UnitType {
     public final static UnitType simmUnknownUnits = new UnitType("simmUnknownUnits", opensimModelJNI.Units_simmUnknownUnits_get());
     public final static UnitType simmRadians = new UnitType("simmRadians");
