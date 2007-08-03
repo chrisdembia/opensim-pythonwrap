@@ -18,6 +18,9 @@ public class OneWrapObjectNode extends OpenSimObjectNode{
    public OneWrapObjectNode(OpenSimObject b) {
       super(b);
       setShortDescription(bundle.getString("HINT_WrapObjectNode"));
+      addDisplayOption(displayOption.Showable);
+      addDisplayOption(displayOption.Isolatable);
+      addDisplayOption(displayOption.Colorable);
       
    }
 

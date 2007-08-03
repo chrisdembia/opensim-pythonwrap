@@ -46,13 +46,13 @@ public class ActuatorsNode extends OpenSimObjectSetNode {
    /**
     * Creates a new instance of ActuatorsNode
     */
-   public ActuatorsNode(ActuatorSet as, Class classOfSetMembers) {
-      super(as, classOfSetMembers);
+   public ActuatorsNode(ActuatorSet as) {
+      super(as);
       setDisplayName(NbBundle.getMessage(ActuatorsNode.class, "CTL_Actuators"));
-      getChildren().add(new Node[] {new MusclesNode(as, classOfSetMembers)});
-      getChildren().add(new Node[] {new ForcesNode(as, classOfSetMembers)});
-      getChildren().add(new Node[] {new TorquesNode(as, classOfSetMembers)});
-      getChildren().add(new Node[] {new GeneralizedForcesNode(as, classOfSetMembers)});
+      getChildren().add(new Node[] {new MusclesNode(as)});
+      getChildren().add(new Node[] {new ForcesNode(as)});
+      getChildren().add(new Node[] {new TorquesNode(as)});
+      getChildren().add(new Node[] {new GeneralizedForcesNode(as)});
    }
    /**
     * Display name

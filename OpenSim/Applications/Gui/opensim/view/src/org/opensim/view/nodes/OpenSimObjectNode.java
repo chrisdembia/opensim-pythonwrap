@@ -28,8 +28,11 @@ package org.opensim.view.nodes;
 import java.util.ArrayList;
 import javax.swing.Action;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.ObjectDisplayHideAction;
 import org.opensim.view.ObjectDisplayMenuAction;
+import org.opensim.view.ObjectDisplayShowAction;
 import org.opensim.view.ObjectGenericReviewAction;
+import org.opensim.view.pub.ViewDB;
 
 /**
  *
@@ -39,6 +42,8 @@ import org.opensim.view.ObjectGenericReviewAction;
 public class OpenSimObjectNode extends OpenSimNode {
     
     private OpenSimObject openSimObject;
+    public enum displayOption{Showable, Isolatable, Colorable};
+    private ArrayList<displayOption> validDisplayOptions = new ArrayList<displayOption>();
     
     /** Creates a new instance of OpenSimObjectNode */
     public OpenSimObjectNode(OpenSimObject obj) {
@@ -57,6 +62,24 @@ public class OpenSimObjectNode extends OpenSimNode {
      * Action to be invoked on double clicking.
      */
     public Action getPreferredAction() {
+          if (getValidDisplayOptions().size()==0)  // Nothing to show or hide.
+              return getReviewAction();
+          
+         OpenSimObject obj=getOpenSimObject();
+         int currentStatus=ViewDB.getInstance().getDisplayStatus(obj);
+         try {
+            if (currentStatus==0){   // Hidden
+               return ((ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
+                Class.forName("org.opensim.view.ObjectDisplayShowAction"), true));
+            }
+            else if (currentStatus==1 || currentStatus==2){ // 2 for mixed, some shown some hidden, pick show
+                    return ((ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(
+                    Class.forName("org.opensim.view.ObjectDisplayHideAction"), true));
+            }
+         } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+         }
+            
          return getReviewAction();
     }
           
@@ -67,10 +90,15 @@ public class OpenSimObjectNode extends OpenSimNode {
     public Action[] getActions(boolean b) {
       Action[] objectNodeActions;
       try {
-         objectNodeActions = new Action[]  {getReviewAction(), 
+         boolean showDisplayMenu = validDisplayOptions.size()>0;
+         if (showDisplayMenu)
+            objectNodeActions = new Action[]  {getReviewAction(), 
                                           null, 
                                           (ObjectDisplayMenuAction) ObjectDisplayMenuAction.findObject(
                  Class.forName("org.opensim.view.ObjectDisplayMenuAction"), true)};
+         else
+            objectNodeActions = new Action[]  {getReviewAction()};
+         
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
          objectNodeActions = new Action[] {null};
@@ -94,5 +122,14 @@ public class OpenSimObjectNode extends OpenSimNode {
       }
       return act;
    }
+   
+   protected void addDisplayOption(displayOption newOption)
+   {
+      if (!getValidDisplayOptions().contains(newOption))
+         getValidDisplayOptions().add(newOption);
+   }
 
+   public ArrayList<displayOption> getValidDisplayOptions() {
+      return validDisplayOptions;
+   }
 }

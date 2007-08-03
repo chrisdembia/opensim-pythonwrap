@@ -52,8 +52,8 @@ public class MusclesNode extends OpenSimObjectSetNode {
    /**
     * Creates a new instance of MusclesNode
     */
-   public MusclesNode(ActuatorSet as, Class classOfSetMembers) {
-      super(as, classOfSetMembers);
+   public MusclesNode(ActuatorSet as) {
+      super(as);
       setDisplayName(NbBundle.getMessage(MusclesNode.class, "CTL_Muscles"));
       Children children = getChildren();
       int numMuscleGroups = countMuscleGroups(as);
@@ -117,6 +117,7 @@ public class MusclesNode extends OpenSimObjectSetNode {
       }
       if (getChildren().getNodesCount() == 0)
          setChildren(children.LEAF);
+      addDisplayOption(displayOption.Showable);
    }
    
    public Image getIcon(int i) {

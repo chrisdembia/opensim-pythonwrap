@@ -50,8 +50,8 @@ public class TorquesNode extends OpenSimObjectSetNode {
    /**
     * Creates a new instance of TorquesNode
     */
-   public TorquesNode(ActuatorSet as, Class classOfSetMembers) {
-      super(as, classOfSetMembers);
+   public TorquesNode(ActuatorSet as) {
+      super(as);
       setDisplayName(NbBundle.getMessage(TorquesNode.class, "CTL_Torques"));
       Children children = getChildren();
       int numTorqueGroups = countTorqueGroups(as);

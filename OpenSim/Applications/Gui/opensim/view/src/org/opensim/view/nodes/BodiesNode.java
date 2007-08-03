@@ -30,8 +30,8 @@ public class BodiesNode extends OpenSimObjectSetNode {
     boolean topological=false;
     private static ResourceBundle bundle = NbBundle.getBundle(BodiesNode.class);
 
-    public BodiesNode(BodySet bodySet, Class classOfSetMembers) {
-        super(bodySet, classOfSetMembers);
+    public BodiesNode(BodySet bodySet) {
+        super(bodySet);
          
         //Stack<OneBodyNode> stack = new Stack<OneBodyNode>();
 
@@ -58,6 +58,9 @@ public class BodiesNode extends OpenSimObjectSetNode {
                 children.add(arrNodes);
             }
         }
+      addDisplayOption(displayOption.Isolatable);
+      addDisplayOption(displayOption.Showable);
+      addDisplayOption(displayOption.Colorable);
     }
 
       public Image getIcon(int i) {

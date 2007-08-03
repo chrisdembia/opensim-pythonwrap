@@ -50,8 +50,8 @@ public class GeneralizedForcesNode extends OpenSimObjectSetNode {
    /**
     * Creates a new instance of GeneralizedForcesNode
     */
-   public GeneralizedForcesNode(ActuatorSet as, Class classOfSetMembers) {
-      super(as, classOfSetMembers);
+   public GeneralizedForcesNode(ActuatorSet as) {
+      super(as);
       setDisplayName(NbBundle.getMessage(GeneralizedForcesNode.class, "CTL_GeneralizedForces"));
       Children children = getChildren();
       int numGeneralizedForceGroups = countGeneralizedForceGroups(as);

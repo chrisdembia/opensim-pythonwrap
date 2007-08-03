@@ -34,6 +34,9 @@ public class OneBodyNode extends OpenSimObjectNode{
       }
 
       if(children.getNodesCount()==0) setChildren(Children.LEAF);      
+      addDisplayOption(displayOption.Colorable);
+      addDisplayOption(displayOption.Isolatable);
+      addDisplayOption(displayOption.Showable);
    }
 
     public Node cloneNode() {

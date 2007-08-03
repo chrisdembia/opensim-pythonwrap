@@ -49,8 +49,8 @@ public class JointsNode extends OpenSimObjectSetNode {
    /**
     * Creates a new instance of JointsNode
     */
-   public JointsNode(JointSet js, Class classOfSetMembers) {
-      super(js, classOfSetMembers);
+   public JointsNode(JointSet js) {
+      super(js);
       setDisplayName(NbBundle.getMessage(JointsNode.class, "CTL_Joints"));
       Children children = getChildren();
       for (int i=0; i < js.getSize(); i++ ) {

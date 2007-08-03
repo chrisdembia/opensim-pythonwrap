@@ -14,16 +14,12 @@ public class ConcreteModelNode extends OpenSimObjectNode {
 
     public ConcreteModelNode(Model m) {
         super(m);
-        try {
-            getChildren().add(new Node[] {new BodiesNode(m.getDynamicsEngine().getBodySet(), 
-                                Class.forName("org.opensim.modeling.AbstractBody"))});
-            getChildren().add(new Node[] {new ActuatorsNode(m.getActuatorSet(), 
-                                Class.forName("org.opensim.modeling.AbstractActuator"))});
-            getChildren().add(new Node[] {new JointsNode(m.getDynamicsEngine().getJointSet(),
-                                Class.forName("org.opensim.modeling.AbstractJoint"))});
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
+        
+            getChildren().add(new Node[] {new BodiesNode(m.getDynamicsEngine().getBodySet())});
+            getChildren().add(new Node[] {new ActuatorsNode(m.getActuatorSet())});
+            getChildren().add(new Node[] {new JointsNode(m.getDynamicsEngine().getJointSet())});
+      addDisplayOption(displayOption.Isolatable);
+      addDisplayOption(displayOption.Showable);
    }
     public Model getModel()
     {

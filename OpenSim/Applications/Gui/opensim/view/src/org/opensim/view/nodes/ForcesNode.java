@@ -50,8 +50,8 @@ public class ForcesNode extends OpenSimObjectSetNode {
    /**
     * Creates a new instance of ForcesNode
     */
-   public ForcesNode(ActuatorSet as, Class classOfSetMembers) {
-      super(as, classOfSetMembers);
+   public ForcesNode(ActuatorSet as) {
+      super(as);
       setDisplayName(NbBundle.getMessage(ForcesNode.class, "CTL_Forces"));
       Children children = getChildren();
       int numForceGroups = countForceGroups(as);

@@ -26,25 +26,28 @@
 package org.opensim.view.nodes;
 
 import javax.swing.Action;
+import org.openide.nodes.Children;
+import org.openide.nodes.Node;
 import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.ObjectDisplayHideAction;
+import org.opensim.view.ObjectDisplayShowAction;
 import org.opensim.view.ObjectGenericReviewAction;
 import org.opensim.view.ObjectSetDisplayMenuAction;
+import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
+import org.opensim.view.pub.ViewDB;
 
 /**
  *
- * @author Ayman. A node backed by an OpenSim Object 
- * (or a Set as a set is also an Object)
+ * @author Ayman. A node backed by an OpenSim Set
  */
 public class OpenSimObjectSetNode extends OpenSimObjectNode {
     
     private OpenSimObject openSimObject;
-    private Class setMemberClass;
     
     /** Creates a new instance of OpenSimObjectNode */
-    public OpenSimObjectSetNode(OpenSimObject obj, Class setMemberClass) {
+    public OpenSimObjectSetNode(OpenSimObject obj) {
         super(obj);
        this.openSimObject = obj;
-       this.setMemberClass=setMemberClass;
         setDisplayName(obj.getName());
      }
     /**
@@ -59,6 +62,44 @@ public class OpenSimObjectSetNode extends OpenSimObjectNode {
      * Action to be invoked on double clicking.
      */
     public Action getPreferredAction() {
+       if (getValidDisplayOptions().size()==0)  // Nothing to show or hide.
+           return getReviewAction();
+
+         // Collect objects from children and obtain their visibility status
+         Children children = getChildren();
+         Node[] theNodes = children.getNodes();
+         int collectiveStatus = 3;  // unknown;
+         for(int i=0; i<theNodes.length; i++){
+            Node node = theNodes[i];
+            if (!(node instanceof OpenSimObjectNode))
+               continue;
+            // Cycle thru children and get their display status, 
+            int currentStatus=ViewDB.getInstance().getDisplayStatus(((OpenSimObjectNode) node).getOpenSimObject());
+            if (collectiveStatus==3){
+               collectiveStatus=currentStatus;
+            }
+            else {
+               if (currentStatus!=collectiveStatus)
+                  collectiveStatus=2;  // mixed;
+            }
+         }
+         if (collectiveStatus==3)   
+            return getReviewAction();
+         if (collectiveStatus==2) collectiveStatus=0;  // Assume hidden if mixed
+         
+         try {
+            if (collectiveStatus==0){   // Hidden
+               return ((ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
+                Class.forName("org.opensim.view.ObjectDisplayShowAction"), true));
+            }
+            else { // 2 for mixed, some shown some hidden, pick show
+                    return ((ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(
+                    Class.forName("org.opensim.view.ObjectDisplayHideAction"), true));
+            }
+         } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+         }
+            
          return getReviewAction();
     }
           
@@ -96,9 +137,5 @@ public class OpenSimObjectSetNode extends OpenSimObjectNode {
       }
       return act;
    }
-
-    public Class getSetMemberClass() {
-        return setMemberClass;
-    }
 
 }
