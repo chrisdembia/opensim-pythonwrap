@@ -41,7 +41,7 @@ import org.opensim.modeling.MeasurementSet;
 /////////////////////////////////////////////////////////////////////////////
 
 class MeasurementSetScrollPane extends JScrollPane implements Observer, ActionListener {
-   private static final int HEIGHT = 20;
+   private static final int HEIGHT = 16;
    private static final int HEIGHT_INSET = 2;
    private static final int BUTTON_WIDTH = 15;
    private static final int MEASUREMENT_NAME_WIDTH = 120;

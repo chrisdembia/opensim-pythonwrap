@@ -105,7 +105,11 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
          for(int i=0; i<3; i++) {
             if(tableModel.isSameMeasurement(jTable.getSelectedRows(),i)) {
                int measurement = tableModel.getMeasurement(jTable.getSelectedRows()[0],i);
-               measurementXYZ[i].setSelectedIndex(measurement+1);
+               // Measurement should be a valid index, unless there's been an underlying change to the measurement set and
+               // the panel is updating before measurementSetChanged is called (which can happen) -- in this case we
+               // set the selected index to -1, and assume that eventually the panel will re-update with the right selection.
+               if(measurement+1 < measurementXYZ[i].getItemCount()) measurementXYZ[i].setSelectedIndex(measurement+1);
+               else measurementXYZ[i].setSelectedIndex(-1);
             } else measurementXYZ[i].setSelectedIndex(-1);
          }
          boolean uniform = measurementXYZ[0].getSelectedIndex()>=0 &&
