@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ForwardTool name="subject01_walk1">
+
 	<!--Name of the .osim file used to construct a model.-->
 	<model_file> subject01_simbody_adjusted.osim </model_file>
 	<!--Replace the model's actuator set with sets specified in
@@ -18,13 +19,15 @@
 	<!--Maximum number of integrator steps.-->
 	<maximum_number_of_integrator_steps> 30000 </maximum_number_of_integrator_steps>
 	<!--Maximum integration step size.-->
-	<maximum_integrator_step_size> 0.00025 </maximum_integrator_step_size>
+	<maximum_integrator_step_size> 0.0001 </maximum_integrator_step_size>
 	<!--Integrator error tolerance. When the error is greater, the integrator
 	    step size is decreased.-->
 	<integrator_error_tolerance> 5e-006 </integrator_error_tolerance>
 	<!--Integrator fine tolerance. When the error is less, the integrator step
 	    size is increased.-->
 	<integrator_fine_tolerance> 5e-008 </integrator_fine_tolerance>
+	
+	<!-- ANALYSES -->
 	<!--Set of analyses to be run during the investigation.-->
 	<AnalysisSet name="Analyses">
 		<objects>
@@ -64,22 +67,9 @@
 				    not.-->
 				<in_degrees> true </in_degrees>
 			</BodyKinematics>
-			<ActuatorGeneralizedForces name="ActuatorGeneralizedForces">
-				<!--Flag (true or false) specifying whether whether on. True by default.-->
-				<on> true </on>
-				<!--Specifies how often to store results during a simulation. More
-				    specifically, the interval (a positive integer) specifies how many
-				    successful integration steps should be taken before results are
-				    recorded again.-->
-				<step_interval> 10 </step_interval>
-				<!--Flag (true or false) indicating whether the results are in degrees or
-				    not.-->
-				<in_degrees> true </in_degrees>
-				<actuators_list> soleus_r </actuators_list>
-			</ActuatorGeneralizedForces>
 			
 			<MuscleAnalysis name="MuscleAnalysis">
-				<on> true </on>
+				<on> false </on>
 				<step_interval> 1 </step_interval>
 				<in_degrees> true </in_degrees>
 				<muscle_list> all </muscle_list>
@@ -91,6 +81,8 @@
 			</MuscleAnalysis>
 		</objects>
 	</AnalysisSet>
+	
+	<!-- BASIC FORWARD SETTINGS -->
 	<!--XML file containing the controls (e.g., muscle excitations) for the
 	    forward simulation.-->
 	<controls_file> ResultsCMC/subject01_walk1_controls.xml </controls_file>
@@ -104,7 +96,7 @@
 	    the time stamps in this file, inerpolation is NOT used because it is
 	    usually necessary to being a simulation from an exact set of states.
 	    Instead, the closest earlier set of states is used.-->
-	<initial_states_file> ResultsCMC/subject01_walk1_states.sto </initial_states_file>
+	<states_file> ResultsCMC/subject01_walk1_states.sto </states_file>
 	<!--Flag (true or false) indicating whether or not the integrator should
 	    use a particular time stepping.  If true, the time stepping is
 	    extracted from the initial states file.  In this situation, therefore,
@@ -115,6 +107,8 @@
 	    flag is false, the integrator is left to determine its own time
 	    stepping.-->
 	<use_specified_dt> true </use_specified_dt>
+	
+	<!-- EXTERNAL LOADS -->
 	<!--Motion file (.mot) or storage file (.sto) containing the external
 	    loads applied to the model.-->
 	<external_loads_file> subject01_walk1_grf.mot </external_loads_file>
@@ -131,6 +125,27 @@
 	    corresponding to the external loads. A negative value results in no
 	    filtering. The default value is -1.0, so no filtering.-->
 	<lowpass_cutoff_frequency_for_load_kinematics> 6 </lowpass_cutoff_frequency_for_load_kinematics>
+	
+	<!-- CORRECTIVE SPRINGS -->
+	<!--Stiffness for linear (translational) corrective springs-->
+	<corrective_spring_linear_stiffness> 5e+003 5e+003 5e+003 </corrective_spring_linear_stiffness>
+	<!--Damping for linear (translational) corrective springs-->
+	<corrective_spring_linear_damping> 140 140 140 </corrective_spring_linear_damping>
+	<!--Stiffness for torsional corrective springs-->
+	<corrective_spring_torsional_stiffness> 100000 100000 100000 </corrective_spring_torsional_stiffness>
+	<!--Damping for torsional corrective springs-->
+	<corrective_spring_torsional_damping> 1000 1000 1000 </corrective_spring_torsional_damping>
+	
+	<!--True-false flag indicating whether or not to turn on a linear corrective spring for external load body 1.-->
+	<body1_linear_corrective_spring_on> true </body1_linear_corrective_spring_on>
+	<!--True-false flag indicating whether or not to turn on a torsional corrective spring for external load body 1.-->
+	<body1_torsional_corrective_spring_on> false </body1_torsional_corrective_spring_on>
+	<!--True-false flag indicating whether or not to turn on a linear corrective spring for external load body 2.-->
+	<body2_linear_corrective_spring_on> false </body2_linear_corrective_spring_on>
+	<!--True-false flag indicating whether or not to turn on a torsional corrective spring for external load body 2.-->
+	<body2_torsional_corrective_spring_on> false </body2_torsional_corrective_spring_on>
+	
+	
 	
 </ForwardTool>
 
