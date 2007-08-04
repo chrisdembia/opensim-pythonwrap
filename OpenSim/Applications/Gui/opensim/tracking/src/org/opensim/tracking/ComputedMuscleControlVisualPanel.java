@@ -1,5 +1,6 @@
 package org.opensim.tracking;
 
+import java.io.IOException;
 import org.opensim.modeling.CMCTool;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.editors.ObjectEditDialogMaker;
@@ -102,9 +103,11 @@ public final class ComputedMuscleControlVisualPanel extends workflowVisualPanelB
 
    private void jEditCMCSetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditCMCSetupButtonActionPerformed
           String setupFilename = jCMCSetupFileTextField.getText();
-          CMCTool cmc = new CMCTool(setupFilename);
-          new ObjectEditDialogMaker(cmc, true).process();
-          cmc.print(setupFilename);
+          try {
+            CMCTool cmc = new CMCTool(setupFilename);
+            new ObjectEditDialogMaker(cmc, true).process();
+            cmc.print(setupFilename);
+          } catch (IOException ex) {}
 // TODO add your handling code here:
    }//GEN-LAST:event_jEditCMCSetupButtonActionPerformed
 

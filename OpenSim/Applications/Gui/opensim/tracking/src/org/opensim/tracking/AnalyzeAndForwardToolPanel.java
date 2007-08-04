@@ -6,16 +6,24 @@
 
 package org.opensim.tracking;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import org.jdesktop.layout.GroupLayout;
+import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.MotionsDB;
+import org.opensim.swingui.ComponentTitledBorder;
+import org.opensim.view.FileTextFieldAndChooserWithEdit;
 
 /**
  *
@@ -23,7 +31,13 @@ import org.opensim.motionviewer.MotionsDB;
  */
 public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observer {
 
-   public enum Mode { ForwardDynamics, InverseDynamics, Analyze };
+   private JCheckBox rraPanelCheckBox = new JCheckBox(new EnableReduceResidualsAction());
+   class EnableReduceResidualsAction extends AbstractAction {
+      public EnableReduceResidualsAction() { super("Reduce Residuals"); }
+      public void actionPerformed(ActionEvent evt) { cmcToolModel().setResidualReductionEnabled(((JCheckBox)evt.getSource()).isSelected()); }
+   }
+
+   public enum Mode { ForwardDynamics, InverseDynamics, CMC, Analyze };
    private Mode mode;
    String modeName;
   
@@ -40,10 +54,15 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       switch(mode) {
          case ForwardDynamics: modeName = "forward dynamics tool"; toolModel = new ForwardToolModel(model); break;
          case InverseDynamics: modeName = "inverse dynamics tool"; toolModel = new AnalyzeToolModel(model, true); break;
+         case CMC: modeName = "CMC tool"; toolModel = new CMCToolModel(model); break;
          case Analyze: modeName = "analyze tool"; toolModel = new AnalyzeToolModel(model, false); break;
       }
 
       initComponents();
+
+      // Add checkbox titled borders to RRA panel
+      rraPanelCheckBox.setForeground(new Color(0,70,213));
+      rraPanel.setBorder(new ComponentTitledBorder(rraPanelCheckBox, rraPanel, BorderFactory.createEtchedBorder()));
 
       // File chooser settings
       outputDirectory.setIncludeOpenButton(true);
@@ -51,22 +70,31 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
       setSettingsFileDescription("Settings file for "+modeName);
 
+      analyzeInputPanel.setVisible(mode==Mode.InverseDynamics || mode==Mode.Analyze);
+      forwardInputPanel.setVisible(mode==Mode.ForwardDynamics);
+      cmcInputPanel.setVisible(mode==Mode.CMC);
+
+      rraPanel.setVisible(mode==Mode.CMC);
+      activeAnalysesPanel.setVisible(mode==Mode.Analyze);
+      
       if(mode==Mode.InverseDynamics || mode==Mode.Analyze) {
-         forwardInputPanel.setVisible(false);
-         if(mode==Mode.InverseDynamics) {
-            activeAnalysesPanel.setVisible(false);
-            analyzeSolveForEquilibriumCheckBox.setVisible(false);
-         }
+         if(mode==Mode.InverseDynamics) analyzeSolveForEquilibriumCheckBox.setVisible(false);
          // Set file filters for analyze tool / inverse dynamics tool inputs
          statesFileName.setExtensionsAndDescription(".sto", "States data for "+modeName);
          coordinatesFileName.setExtensionsAndDescription(".mot,.sto", "Motion data for "+modeName);
          //speedsFileName.setExtensionsAndDescription(".mot,.sto", "Speeds data for "+modeName);
-      } else {
-         analyzeInputPanel.setVisible(false);
-         activeAnalysesPanel.setVisible(false);
+      } else if(mode==Mode.ForwardDynamics) {
          // Set file filters for forward tool inputs
          controlsFileName.setExtensionsAndDescription(".xml", "Controls input data for forward dynamics tool");
          initialStatesFileName.setExtensionsAndDescription(".sto", "States data for forward dynamics tool");
+      } else if(mode==Mode.CMC) {
+         cmcDesiredKinematicsFileName.setExtensionsAndDescription(".mot,.sto", "Desired kinematics for CMC tool");
+         cmcTaskSetFileName.setExtensionsAndDescription(".xml", "CMC Task Set");
+         //cmcTaskSetFileName.setIncludeEditButton(true);
+         cmcConstraintsFileName.setExtensionsAndDescription(".xml", "CMC constraints");
+         //cmcConstraintsFileName.setIncludeEditButton(true);
+         rraOutputModelFileName.setExtensionsAndDescription(".osim", "Adjusted OpenSim model");
+         rraOutputModelFileName.setSaveMode(true);
       }
 
       // Actuators & External Loads tab
@@ -80,7 +108,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       }
 
       // Integrator settings for forward dynamics
-      if(mode==Mode.ForwardDynamics) {
+      if(mode==Mode.ForwardDynamics || mode==Mode.CMC) {
          jTabbedPane1.addTab("Integrator Settings", advancedSettingsPanel);
       }
 
@@ -95,6 +123,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private AnalyzeToolModel analyzeToolModel() { return (AnalyzeToolModel)toolModel; }
    private ForwardToolModel forwardToolModel() { return (ForwardToolModel)toolModel; } 
+   private CMCToolModel cmcToolModel() { return (CMCToolModel)toolModel; } 
 
    public void update(Observable observable, Object obj) {
       if(observable == toolModel && obj == AbstractToolModel.Operation.ExecutionStateChanged)
@@ -123,8 +152,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
       if(mode==Mode.InverseDynamics || mode==Mode.Analyze) 
          updateAnalyzeToolSpecificFields(analyzeToolModel());
-      else
+      else if(mode==Mode.ForwardDynamics)
          updateForwardToolSpecificFields(forwardToolModel());
+      else
+         updateCMCToolSpecificFields(cmcToolModel());
 
       // Analysis set summary
       String str = "";
@@ -238,6 +269,45 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       solveForEquilibriumCheckBox.setSelected(toolModel.getSolveForEquilibrium());
    }
 
+   //---------------------------------------------------------------------
+   // Fields for CMC tool
+   //---------------------------------------------------------------------
+   public void updateCMCToolSpecificFields(CMCToolModel toolModel) {
+      cmcDesiredKinematicsFileName.setFileName(toolModel.getDesiredKinematicsFileName(),false);
+      cmcTaskSetFileName.setFileName(toolModel.getTaskSetFileName(),false);
+      cmcConstraintsFileName.setFileName(toolModel.getConstraintsFileName(),false);
+
+      cmcFilterKinematicsCheckBox.setSelected(toolModel.getFilterKinematics());
+      if(!cmcFilterKinematicsCheckBox.isSelected()) {
+         cmcCutoffFrequency.setText("");
+         cmcCutoffFrequency.setEnabled(false);
+      } else {
+         cmcCutoffFrequency.setText(((Double)toolModel.getLowpassCutoffFrequency()).toString());
+      }
+
+      cmcConstraintsCheckBox.setSelected(toolModel.getConstraintsEnabled());
+      if(!cmcConstraintsCheckBox.isSelected()) cmcConstraintsFileName.setEnabled(false);
+
+      //----------------------------------------------------------------------
+      // RRA Panel
+      //----------------------------------------------------------------------
+      rraPanelCheckBox.setSelected(toolModel.getResidualReductionEnabled());      
+      if(!rraPanelCheckBox.isSelected()) setEnabled(rraPanel, false);
+
+      rraOutputModelFileName.setFileName(toolModel.getOutputModelFileName(),false);
+
+      rraAdjustedBodyComboBox.removeAllItems();
+      if(toolModel.getOriginalModel()!=null) {
+         BodySet bodySet = toolModel.getOriginalModel().getDynamicsEngine().getBodySet();
+         if(bodySet!=null) {
+            for(int i=0; i<bodySet.getSize(); i++) rraAdjustedBodyComboBox.addItem(bodySet.get(i).getName());
+            String selectedBody = toolModel.getAdjustedCOMBody();
+            int index = bodySet.getIndex(selectedBody);
+            rraAdjustedBodyComboBox.setSelectedIndex(index);
+         }
+      }
+   }
+
    //------------------------------------------------------------------------
    // Overrides from BaseToolPanel
    //------------------------------------------------------------------------
@@ -325,6 +395,21 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       jLabel12 = new javax.swing.JLabel();
       initialStatesFileName = new org.opensim.swingui.FileTextFieldAndChooser();
       solveForEquilibriumCheckBox = new javax.swing.JCheckBox();
+      cmcInputPanel = new javax.swing.JPanel();
+      jLabel19 = new javax.swing.JLabel();
+      cmcDesiredKinematicsFileName = new org.opensim.swingui.FileTextFieldAndChooser();
+      cmcFilterKinematicsCheckBox = new javax.swing.JCheckBox();
+      cmcCutoffFrequency = new javax.swing.JTextField();
+      jLabel20 = new javax.swing.JLabel();
+      cmcTaskSetFileName = new FileTextFieldAndChooserWithEdit();
+      cmcConstraintsFileName = new FileTextFieldAndChooserWithEdit();
+      jLabel22 = new javax.swing.JLabel();
+      cmcConstraintsCheckBox = new javax.swing.JCheckBox();
+      rraPanel = new javax.swing.JPanel();
+      jLabel21 = new javax.swing.JLabel();
+      rraAdjustedBodyComboBox = new javax.swing.JComboBox();
+      jLabel23 = new javax.swing.JLabel();
+      rraOutputModelFileName = new org.opensim.swingui.FileTextFieldAndChooser();
 
       integratorSettingsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Integrator Settings"));
       jLabel13.setText("Integrator steps:");
@@ -597,7 +682,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                            .add(motionRadioButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .add(14, 14, 14)
                         .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                           .add(statesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                           .add(statesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
                            .add(analyzeInputPanelLayout.createSequentialGroup()
                               .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                  .add(filterCoordinatesCheckBox)
@@ -605,11 +690,11 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                                  .add(fromFileMotionRadioButton))
                               .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                               .add(analyzeInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                 .add(motionsComboBox, 0, 239, Short.MAX_VALUE)
+                                 .add(motionsComboBox, 0, 270, Short.MAX_VALUE)
                                  .add(analyzeInputPanelLayout.createSequentialGroup()
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(coordinatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
-                                 .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))))
+                                    .add(coordinatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                                 .add(cutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel1))
                      .add(analyzeSolveForEquilibriumCheckBox))
@@ -617,7 +702,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                .add(analyzeInputPanelLayout.createSequentialGroup()
                   .add(analyzeControlsCheckBox)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(analyzeControlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                  .add(analyzeControlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
                   .add(26, 26, 26))))
       );
 
@@ -709,8 +794,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(outputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(outputPrecision, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(outputName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
-               .add(outputDirectory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
+               .add(outputName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+               .add(outputDirectory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE))
             .addContainerGap())
       );
       outputPanelLayout.setVerticalGroup(
@@ -796,7 +881,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                   .add(jLabel5)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(finalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(111, Short.MAX_VALUE))
+            .addContainerGap(142, Short.MAX_VALUE))
       );
 
       timePanelLayout.linkSize(new java.awt.Component[] {availableFinalTime, availableInitialTime, finalTime, initialTime}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -832,7 +917,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             .addContainerGap()
             .add(jLabel2)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(modelName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+            .add(modelName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
             .addContainerGap())
       );
       modelInfoPanelLayout.setVerticalGroup(
@@ -866,7 +951,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             .addContainerGap()
             .add(jLabel3)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(activeAnalyses, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+            .add(activeAnalyses, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(editAnalysesButton))
       );
@@ -921,8 +1006,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                      .add(jLabel12))
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(controlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                     .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)))
+                     .add(controlsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+                     .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)))
                .add(solveForEquilibriumCheckBox))
             .addContainerGap())
       );
@@ -941,19 +1026,173 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             .addContainerGap())
       );
 
+      cmcInputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Input"));
+      jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+      jLabel19.setText("Desired kinematics");
+
+      cmcDesiredKinematicsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+         public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            cmcDesiredKinematicsFileNameStateChanged(evt);
+         }
+      });
+
+      cmcFilterKinematicsCheckBox.setText("Filter kinematics");
+      cmcFilterKinematicsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      cmcFilterKinematicsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      cmcFilterKinematicsCheckBox.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cmcFilterKinematicsCheckBoxActionPerformed(evt);
+         }
+      });
+
+      cmcCutoffFrequency.setText("jTextField1");
+      cmcCutoffFrequency.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cmcCutoffFrequencyActionPerformed(evt);
+         }
+      });
+      cmcCutoffFrequency.addFocusListener(new java.awt.event.FocusAdapter() {
+         public void focusLost(java.awt.event.FocusEvent evt) {
+            cmcCutoffFrequencyFocusLost(evt);
+         }
+      });
+
+      jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+      jLabel20.setText("Tracking tasks");
+
+      cmcTaskSetFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+         public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            cmcTaskSetFileNameStateChanged(evt);
+         }
+      });
+
+      cmcConstraintsFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+         public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            cmcConstraintsFileNameStateChanged(evt);
+         }
+      });
+
+      jLabel22.setText("Hz");
+
+      cmcConstraintsCheckBox.setText("Actuator constraints");
+      cmcConstraintsCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      cmcConstraintsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+      cmcConstraintsCheckBox.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cmcConstraintsCheckBoxActionPerformed(evt);
+         }
+      });
+
+      org.jdesktop.layout.GroupLayout cmcInputPanelLayout = new org.jdesktop.layout.GroupLayout(cmcInputPanel);
+      cmcInputPanel.setLayout(cmcInputPanelLayout);
+      cmcInputPanelLayout.setHorizontalGroup(
+         cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(cmcInputPanelLayout.createSequentialGroup()
+            .addContainerGap()
+            .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(jLabel20)
+               .add(cmcConstraintsCheckBox)
+               .add(jLabel19))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(cmcInputPanelLayout.createSequentialGroup()
+                  .add(cmcFilterKinematicsCheckBox)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(cmcCutoffFrequency, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+               .add(cmcDesiredKinematicsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+               .add(cmcTaskSetFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+               .add(cmcConstraintsFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jLabel22)
+            .addContainerGap())
+      );
+      cmcInputPanelLayout.setVerticalGroup(
+         cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(cmcInputPanelLayout.createSequentialGroup()
+            .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(cmcDesiredKinematicsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jLabel19))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(cmcInputPanelLayout.createSequentialGroup()
+                  .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(jLabel22)
+                     .add(cmcCutoffFrequency, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(cmcFilterKinematicsCheckBox))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(cmcTaskSetFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+               .add(jLabel20))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(cmcInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(cmcConstraintsCheckBox)
+               .add(cmcConstraintsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      );
+
+      rraPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Reduce Residuals"));
+      jLabel21.setText("Body COM to adjust");
+
+      rraAdjustedBodyComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+      rraAdjustedBodyComboBox.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            rraAdjustedBodyComboBoxActionPerformed(evt);
+         }
+      });
+
+      jLabel23.setText("Adjusted model");
+
+      rraOutputModelFileName.addChangeListener(new javax.swing.event.ChangeListener() {
+         public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            rraOutputModelFileNameStateChanged(evt);
+         }
+      });
+
+      org.jdesktop.layout.GroupLayout rraPanelLayout = new org.jdesktop.layout.GroupLayout(rraPanel);
+      rraPanel.setLayout(rraPanelLayout);
+      rraPanelLayout.setHorizontalGroup(
+         rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(rraPanelLayout.createSequentialGroup()
+            .addContainerGap()
+            .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(rraPanelLayout.createSequentialGroup()
+                  .add(22, 22, 22)
+                  .add(jLabel23)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
+               .add(rraPanelLayout.createSequentialGroup()
+                  .add(jLabel21)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(rraAdjustedBodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap())
+      );
+      rraPanelLayout.setVerticalGroup(
+         rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+         .add(rraPanelLayout.createSequentialGroup()
+            .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(jLabel23)
+               .add(rraOutputModelFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(rraPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+               .add(jLabel21)
+               .add(rraAdjustedBodyComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      );
+
       org.jdesktop.layout.GroupLayout mainSettingsPanelLayout = new org.jdesktop.layout.GroupLayout(mainSettingsPanel);
       mainSettingsPanel.setLayout(mainSettingsPanelLayout);
       mainSettingsPanelLayout.setHorizontalGroup(
          mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(org.jdesktop.layout.GroupLayout.TRAILING, mainSettingsPanelLayout.createSequentialGroup()
+         .add(mainSettingsPanelLayout.createSequentialGroup()
             .addContainerGap()
-            .add(mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, outputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(analyzeInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, modelInfoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(mainSettingsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(rraPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(cmcInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, analyzeInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(modelInfoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(forwardInputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, timePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, activeAnalysesPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+               .add(timePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(activeAnalysesPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .add(outputPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
       );
       mainSettingsPanelLayout.setVerticalGroup(
@@ -966,12 +1205,16 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(forwardInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(cmcInputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(rraPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(timePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(activeAnalysesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(outputPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(12, Short.MAX_VALUE))
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
       jTabbedPane1.addTab("Main Settings", mainSettingsPanel);
 
@@ -979,13 +1222,64 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(jTabbedPane1)
+         .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   //------------------------------------------------------------------------
+   // CMC Input Panel
+   //------------------------------------------------------------------------
+
+   private void cmcConstraintsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmcConstraintsCheckBoxActionPerformed
+      cmcToolModel().setConstraintsEnabled(cmcConstraintsCheckBox.isSelected());
+   }//GEN-LAST:event_cmcConstraintsCheckBoxActionPerformed
+
+   private void cmcConstraintsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cmcConstraintsFileNameStateChanged
+      cmcToolModel().setConstraintsFileName(cmcConstraintsFileName.getFileName());
+   }//GEN-LAST:event_cmcConstraintsFileNameStateChanged
+
+   private void cmcTaskSetFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cmcTaskSetFileNameStateChanged
+      cmcToolModel().setTaskSetFileName(cmcTaskSetFileName.getFileName());
+   }//GEN-LAST:event_cmcTaskSetFileNameStateChanged
+
+   private void cmcFilterKinematicsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmcFilterKinematicsCheckBoxActionPerformed
+      cmcToolModel().setFilterKinematics(cmcFilterKinematicsCheckBox.isSelected());
+   }//GEN-LAST:event_cmcFilterKinematicsCheckBoxActionPerformed
+
+   private void cmcCutoffFrequencyFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmcCutoffFrequencyFocusLost
+      if(!evt.isTemporary()) cmcCutoffFrequencyActionPerformed(null);
+   }//GEN-LAST:event_cmcCutoffFrequencyFocusLost
+
+   private void cmcCutoffFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmcCutoffFrequencyActionPerformed
+      try {
+         cmcToolModel().setLowpassCutoffFrequency(Double.valueOf(cmcCutoffFrequency.getText()));
+      } finally {
+         cmcCutoffFrequency.setText(((Double)cmcToolModel().getLowpassCutoffFrequency()).toString());
+      }
+   }//GEN-LAST:event_cmcCutoffFrequencyActionPerformed
+
+   private void cmcDesiredKinematicsFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cmcDesiredKinematicsFileNameStateChanged
+      cmcToolModel().setDesiredKinematicsFileName(cmcDesiredKinematicsFileName.getFileName());
+   }//GEN-LAST:event_cmcDesiredKinematicsFileNameStateChanged
+
+   //------------------------------------------------------------------------
+   // RRA Settings Panel
+   //------------------------------------------------------------------------
+
+   private void rraAdjustedBodyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rraAdjustedBodyComboBoxActionPerformed
+      if(!internalTrigger) {
+         if(rraAdjustedBodyComboBox.getSelectedItem()==null) cmcToolModel().setAdjustedCOMBody("");
+         else cmcToolModel().setAdjustedCOMBody((String)rraAdjustedBodyComboBox.getSelectedItem());
+      }
+   }//GEN-LAST:event_rraAdjustedBodyComboBoxActionPerformed
+
+   private void rraOutputModelFileNameStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rraOutputModelFileNameStateChanged
+      cmcToolModel().setOutputModelFileName(rraOutputModelFileName.getFileName());
+   }//GEN-LAST:event_rraOutputModelFileNameStateChanged
 
    //------------------------------------------------------------------------
    // Forward tool input settings
@@ -1189,6 +1483,13 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    private javax.swing.JTextField availableInitialTime;
    private javax.swing.ButtonGroup buttonGroup1;
    private javax.swing.ButtonGroup buttonGroup2;
+   private javax.swing.JCheckBox cmcConstraintsCheckBox;
+   private org.opensim.swingui.FileTextFieldAndChooser cmcConstraintsFileName;
+   private javax.swing.JTextField cmcCutoffFrequency;
+   private org.opensim.swingui.FileTextFieldAndChooser cmcDesiredKinematicsFileName;
+   private javax.swing.JCheckBox cmcFilterKinematicsCheckBox;
+   private javax.swing.JPanel cmcInputPanel;
+   private org.opensim.swingui.FileTextFieldAndChooser cmcTaskSetFileName;
    private org.opensim.swingui.FileTextFieldAndChooser controlsFileName;
    private org.opensim.swingui.FileTextFieldAndChooser coordinatesFileName;
    private javax.swing.JTextField cutoffFrequency;
@@ -1212,7 +1513,12 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    private javax.swing.JLabel jLabel16;
    private javax.swing.JLabel jLabel17;
    private javax.swing.JLabel jLabel18;
+   private javax.swing.JLabel jLabel19;
    private javax.swing.JLabel jLabel2;
+   private javax.swing.JLabel jLabel20;
+   private javax.swing.JLabel jLabel21;
+   private javax.swing.JLabel jLabel22;
+   private javax.swing.JLabel jLabel23;
    private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;
    private javax.swing.JLabel jLabel5;
@@ -1233,6 +1539,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    private javax.swing.JTextField outputName;
    private javax.swing.JPanel outputPanel;
    private javax.swing.JTextField outputPrecision;
+   private javax.swing.JComboBox rraAdjustedBodyComboBox;
+   private org.opensim.swingui.FileTextFieldAndChooser rraOutputModelFileName;
+   private javax.swing.JPanel rraPanel;
    private javax.swing.JCheckBox solveForEquilibriumCheckBox;
    private org.opensim.swingui.FileTextFieldAndChooser statesFileName;
    private javax.swing.JRadioButton statesRadioButton;
