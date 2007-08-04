@@ -1199,7 +1199,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "OpenSimJNI_wrap.h"
+#include "C:/cygwin/home/fca/Projects/OpenSim/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel) : OpenSim::SimtkAnimationCallback(aModel), Swig::Director(jenv) {
 }
@@ -26772,7 +26772,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ForwardTool_1s
 }
 
 
-SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_ForwardTool_1getInitialStatesFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_ForwardTool_1getStatesFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jstring jresult = 0 ;
   OpenSim::ForwardTool *arg1 = (OpenSim::ForwardTool *) 0 ;
   std::string *result = 0 ;
@@ -26782,7 +26782,7 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_ForwardTool
   (void)jarg1_;
   arg1 = *(OpenSim::ForwardTool **)&jarg1; 
   {
-    std::string const &_result_ref = ((OpenSim::ForwardTool const *)arg1)->getInitialStatesFileName();
+    std::string const &_result_ref = ((OpenSim::ForwardTool const *)arg1)->getStatesFileName();
     result = (std::string *) &_result_ref;
   }
   jresult = jenv->NewStringUTF(result->c_str()); 
@@ -26790,7 +26790,7 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_ForwardTool
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ForwardTool_1setInitialStatesFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ForwardTool_1setStatesFileName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   OpenSim::ForwardTool *arg1 = (OpenSim::ForwardTool *) 0 ;
   std::string *arg2 = 0 ;
   
@@ -26807,7 +26807,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ForwardTool_1s
   std::string arg2_str(arg2_pstr);
   arg2 = &arg2_str;
   jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
-  (arg1)->setInitialStatesFileName((std::string const &)*arg2);
+  (arg1)->setStatesFileName((std::string const &)*arg2);
 }
 
 
@@ -49780,7 +49780,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1extractConfiguration(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1extractConfiguration_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2, jdoubleArray jarg3, jdoubleArray jarg4) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   double *arg2 ;
   double *arg3 ;
@@ -49803,6 +49803,38 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
   delete [] arg2; 
   delete [] arg3; 
   delete [] arg4; 
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1extractConfiguration_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_) {
+  OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
+  OpenSim::Storage *arg2 = 0 ;
+  OpenSim::Storage *arg3 = 0 ;
+  OpenSim::Storage *arg4 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  (void)jarg4_;
+  arg1 = *(OpenSim::AbstractDynamicsEngine **)&jarg1; 
+  arg2 = *(OpenSim::Storage **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Storage const & reference is null");
+    return ;
+  } 
+  arg3 = *(OpenSim::Storage **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Storage & reference is null");
+    return ;
+  } 
+  arg4 = *(OpenSim::Storage **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Storage & reference is null");
+    return ;
+  } 
+  (arg1)->extractConfiguration((OpenSim::Storage const &)*arg2,*arg3,*arg4);
 }
 
 
@@ -68846,7 +68878,7 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGPerturbat
     jlong baseptr = 0;
     (void)jenv;
     (void)jcls;
-    *(OpenSim::AbstractTool **)&baseptr = *(OpenSim::PerturbationTool **)&jarg1;
+    *(OpenSim::ForwardTool **)&baseptr = *(OpenSim::PerturbationTool **)&jarg1;
     return baseptr;
 }
 
