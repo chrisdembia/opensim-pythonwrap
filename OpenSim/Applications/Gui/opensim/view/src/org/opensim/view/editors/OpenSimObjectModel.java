@@ -101,8 +101,8 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
     PropertyNode fn = (PropertyNode) node;
     try {
       switch (column) {
-        case 0: // Name
-          return fn.getName();
+        case 0: // Name -- handled by tree navigator renderer (uses toString() method on PropertyNode)
+          return null;
         case 1: // Controls
           return fn.getControlButton();
         case 2: // Value
@@ -136,18 +136,16 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
   public String getToolTipText(Object node, int column) {
       if(node==null) return null;
-      if(column==1) {
-         if(((PropertyNode)node).getControlButton()!=null) return (((PropertyNode)node).getControlButton()).getToolTipText();
-         else return null;
-      } else {
-         Object obj = getValueAt(node, column);
-         if(obj!=null) {
-            String str = obj.toString();
-            String formattedStr = IO.formatText(str, "", 120, "<br>");
-            return "<html>"+formattedStr+"</html";
-         }
-         else return null;
-      }
+      PropertyNode pn=(PropertyNode)node;
+      String str = null;
+      if(column==0) str = pn.getTreeNodeToolTipText();
+      else if(column==1) str = pn.getControlButtonToolTipText();
+      else if(column==2) str = pn.getValueToolTipText();
+      else if(column==4) str = pn.getDescriptionToolTipText();
+      if(str!=null) {
+         String formattedStr = IO.formatText(str, "", 120, "<br>");
+         return "<html>"+formattedStr+"</html>";
+      } else return null;
   }
 
   //-------------------------------------------------------------------------
@@ -242,7 +240,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
                // Button to add array item
                controlButton = new JButton(addIcon);
-               controlButton.setRolloverIcon(addRolloverIcon); // doesn't work right now
+               //controlButton.setRolloverIcon(addRolloverIcon); // doesn't work right now
                controlButton.addMouseListener(new MouseInputAdapter() {
                   public void mousePressed(MouseEvent evt) { addPropertyItem(); }
                });
@@ -250,7 +248,7 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
             } else {
                // Button to delete array item
                controlButton = new JButton(removeIcon);
-               controlButton.setRolloverIcon(removeRolloverIcon); // doesn't work right now
+               //controlButton.setRolloverIcon(removeRolloverIcon); // doesn't work right now
                controlButton.addMouseListener(new MouseInputAdapter() {
                   public void mousePressed(MouseEvent evt) { removePropertyItem(); }
                });
@@ -276,8 +274,6 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
     // Basic get/set/queries
     //-----------------------------------------------------------------------
     
-    public String toString() { return getName(); }
-
     public PropertyNode getParent() { return parent; }
 
     public boolean isLeaf() { return !aggregate; }
@@ -322,9 +318,36 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
     // Basic get/set/queries
     //-----------------------------------------------------------------------
 
+    public String getControlButtonToolTipText() {
+       if(getControlButton()!=null) return getControlButton().getToolTipText(); 
+       else return null;
+    }
+
+    public String getTreeNodeToolTipText() { return toString(); }
+
+    public String getValueToolTipText() {
+       if (property instanceof OpenSimObject) {
+          return "Object of type '"+((OpenSimObject)property).getType()+"', name '"+((OpenSimObject)property).getName()+"'";
+       } else if (property instanceof Property) {
+            Property p = (Property)property;
+            if(propValueType == Property.PropertyType.Dbl) return "Double: " + getValue().toString();
+            else if(propValueType == Property.PropertyType.Int) return "Integer: " + getValue().toString();
+            else if(propValueType == Property.PropertyType.Str) return "String: " + getValue().toString();
+            else if(propValueType == Property.PropertyType.Bool) return "Boolean: " + getValue().toString();
+            else if(p.getType()==Property.PropertyType.DblArray) return "Array of doubles: " + getValue().toString();
+            else if(p.getType()==Property.PropertyType.IntArray) return "Array of integers: " + getValue().toString();
+            else if(p.getType()==Property.PropertyType.StrArray) return "Array of strings: " + getValue().toString();
+            else if(p.getType()==Property.PropertyType.BoolArray) return "Array of booleans: " + getValue().toString();
+            else if(p.getType()==Property.PropertyType.ObjPtr) return (p.getValueObjPtr()!=null) ? "Object pointer: " + p.getValueObjPtr().getType() : "Object pointer";
+            else return p.toString();
+       } else return null;
+    }
+
+    public String getDescriptionToolTipText() { return getDescription(); }
+
     public Object getValue() {
       if (property instanceof OpenSimObject)
-        return getName();
+        return ( (OpenSimObject) property).getName();
       else if (property instanceof Property) {
          Property p = (Property)property;
          if(propValueType == Property.PropertyType.Dbl) { 
@@ -339,26 +362,28 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
          } else if(propValueType == Property.PropertyType.Bool) {
             if(idx==-1) return (Boolean)p.getValueBool();
             else return (Boolean)p.getValueBoolArray().getitem(idx); 
+         } else if(p.getType() == Property.PropertyType.ObjPtr && p.getValueObjPtr()!=null) {
+            return p.getValueObjPtr().getType();
          } else return p.toString();
       }
       return "unknownValue";
     }
 
     public Class getValueClass() { 
-      if (property instanceof OpenSimObject) return String.class;
-      else if (property instanceof Property) {
+      if (property instanceof Property) {
          Property p = (Property)property;
          if(propValueType == Property.PropertyType.Dbl) return Double.class;
          else if(propValueType == Property.PropertyType.Int) return Integer.class;
          else if(propValueType == Property.PropertyType.Str) return String.class;
          else if(propValueType == Property.PropertyType.Bool) return Boolean.class;
-         else return String.class;
-      } else return String.class;
+      }
+      return String.class; // If none of the above, it's a string
     }
 
-    public String getName() {
+    // This is the name appearing in the tree navigator part of the property editor
+    public String toString() { 
       if (property instanceof OpenSimObject)
-        return ( (OpenSimObject) property).getName();
+         return ((OpenSimObject)property).getType();
       else if (property instanceof Property && idx==-1)
         return ( (Property) property).getName();
       else if (idx!=-1)
@@ -411,6 +436,25 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
       }
    }
 
+    protected PropertyNode[] createChildren(OpenSimObject obj) {
+       if(obj==null) return null;
+       PropertySet props = obj.getPropertySet();
+       PropertyNode[] retArray = new PropertyNode[props.getSize()];
+       for (int i = 0; i < props.getSize(); i++) {
+            Property prop=null;
+            try {
+               prop = props.get(i);
+            } catch (IOException ex) {
+               ex.printStackTrace();
+            }
+            if(prop!=null && (prop).getType()==Property.PropertyType.Obj)
+               retArray[i] = new PropertyNode(this, prop.getValueObj());
+            else
+               retArray[i] = new PropertyNode(this, prop);
+       }
+       return retArray;
+    }
+
     /**
      * Creates PropertyNodes for the children of this node.
      *
@@ -424,36 +468,15 @@ public class OpenSimObjectModel extends AbstractTreeTableModel {
 
       try {
         if (property instanceof OpenSimObject) {
-          PropertySet props = ( (OpenSimObject) property).getPropertySet();
-          retArray = new PropertyNode[props.getSize()];
-          for (int i = 0; i < props.getSize(); i++) {
-                  Property prop=null;
-                  try {
-                     prop = props.get(i);
-                  } catch (IOException ex) {
-                     ex.printStackTrace();
-                  }
-            retArray[i] = new PropertyNode(this, prop);
-          }
+          retArray = createChildren((OpenSimObject)property);
         }
         else if (property instanceof Property) {
           Property rdprop = (Property) property;
           Property.PropertyType propType = rdprop.getType();
           if (propType == Property.PropertyType.Obj || propType == Property.PropertyType.ObjPtr) {
-             boolean objPtr=(propType == Property.PropertyType.ObjPtr);
+            boolean objPtr=(propType == Property.PropertyType.ObjPtr);
             OpenSimObject childObj = (objPtr)?(OpenSimObject) rdprop.getValueObjPtr():(OpenSimObject) rdprop.getValueObj();
-            if (childObj==null) return EMPTY_CHILDREN;
-            PropertySet props = ( (OpenSimObject) childObj).getPropertySet();
-            retArray = new PropertyNode[props.getSize()];
-            for (int i = 0; i < props.getSize(); i++) {
-               Property prop=null;
-               try {
-                  prop = props.get(i);
-               } catch (IOException ex) {
-                  ex.printStackTrace();
-               }
-              retArray[i] = new PropertyNode(this, prop);
-            }
+            retArray = createChildren(childObj);
           }
           else if (propType == Property.PropertyType.DblArray ||
                    propType == Property.PropertyType.IntArray ||
