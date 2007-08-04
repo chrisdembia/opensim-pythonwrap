@@ -62,12 +62,12 @@ public class ForwardTool extends AbstractTool {
     opensimModelJNI.ForwardTool_setControlsFileName(swigCPtr, this, aFileName);
   }
 
-  public String getInitialStatesFileName() {
-    return opensimModelJNI.ForwardTool_getInitialStatesFileName(swigCPtr, this);
+  public String getStatesFileName() {
+    return opensimModelJNI.ForwardTool_getStatesFileName(swigCPtr, this);
   }
 
-  public void setInitialStatesFileName(String aFileName) {
-    opensimModelJNI.ForwardTool_setInitialStatesFileName(swigCPtr, this, aFileName);
+  public void setStatesFileName(String aFileName) {
+    opensimModelJNI.ForwardTool_setStatesFileName(swigCPtr, this, aFileName);
   }
 
   public boolean getUseSpecifiedDt() {

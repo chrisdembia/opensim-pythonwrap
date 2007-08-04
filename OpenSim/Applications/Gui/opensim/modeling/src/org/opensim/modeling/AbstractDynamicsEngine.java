@@ -172,7 +172,11 @@ public class AbstractDynamicsEngine extends OpenSimObject {
   }
 
   public void extractConfiguration(double[] aY, double[] rQ, double[] rU) {
-    opensimModelJNI.AbstractDynamicsEngine_extractConfiguration(swigCPtr, this, aY, rQ, rU);
+    opensimModelJNI.AbstractDynamicsEngine_extractConfiguration__SWIG_0(swigCPtr, this, aY, rQ, rU);
+  }
+
+  public void extractConfiguration(Storage aYStore, Storage rQStore, Storage rUStore) {
+    opensimModelJNI.AbstractDynamicsEngine_extractConfiguration__SWIG_1(swigCPtr, this, Storage.getCPtr(aYStore), aYStore, Storage.getCPtr(rQStore), rQStore, Storage.getCPtr(rUStore), rUStore);
   }
 
   public void applyDefaultConfiguration() {

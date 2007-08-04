@@ -1409,8 +1409,8 @@ public class opensimModelJNI {
   public final static native long ForwardTool_copy(long jarg1, ForwardTool jarg1_);
   public final static native String ForwardTool_getControlsFileName(long jarg1, ForwardTool jarg1_);
   public final static native void ForwardTool_setControlsFileName(long jarg1, ForwardTool jarg1_, String jarg2);
-  public final static native String ForwardTool_getInitialStatesFileName(long jarg1, ForwardTool jarg1_);
-  public final static native void ForwardTool_setInitialStatesFileName(long jarg1, ForwardTool jarg1_, String jarg2);
+  public final static native String ForwardTool_getStatesFileName(long jarg1, ForwardTool jarg1_);
+  public final static native void ForwardTool_setStatesFileName(long jarg1, ForwardTool jarg1_, String jarg2);
   public final static native boolean ForwardTool_getUseSpecifiedDt(long jarg1, ForwardTool jarg1_);
   public final static native void ForwardTool_setUseSpecifiedDt(long jarg1, ForwardTool jarg1_, boolean jarg2);
   public final static native String ForwardTool_getExternalLoadsFileName(long jarg1, ForwardTool jarg1_);
@@ -2621,7 +2621,8 @@ public class opensimModelJNI {
   public final static native void AbstractDynamicsEngine_getCoordinates(long jarg1, AbstractDynamicsEngine jarg1_, double[] jarg2);
   public final static native void AbstractDynamicsEngine_getSpeeds(long jarg1, AbstractDynamicsEngine jarg1_, double[] jarg2);
   public final static native void AbstractDynamicsEngine_getAccelerations(long jarg1, AbstractDynamicsEngine jarg1_, double[] jarg2);
-  public final static native void AbstractDynamicsEngine_extractConfiguration(long jarg1, AbstractDynamicsEngine jarg1_, double[] jarg2, double[] jarg3, double[] jarg4);
+  public final static native void AbstractDynamicsEngine_extractConfiguration__SWIG_0(long jarg1, AbstractDynamicsEngine jarg1_, double[] jarg2, double[] jarg3, double[] jarg4);
+  public final static native void AbstractDynamicsEngine_extractConfiguration__SWIG_1(long jarg1, AbstractDynamicsEngine jarg1_, long jarg2, Storage jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
   public final static native void AbstractDynamicsEngine_applyDefaultConfiguration(long jarg1, AbstractDynamicsEngine jarg1_);
   public final static native int AbstractDynamicsEngine_assemble(long jarg1, AbstractDynamicsEngine jarg1_, double jarg2, long jarg3, long jarg4, double jarg5, int jarg6, long jarg7, long jarg8);
   public final static native boolean AbstractDynamicsEngine_scale__SWIG_0(long jarg1, AbstractDynamicsEngine jarg1_, long jarg2, ScaleSet jarg2_, double jarg3, boolean jarg4);

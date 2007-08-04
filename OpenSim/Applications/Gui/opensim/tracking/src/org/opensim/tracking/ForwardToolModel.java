@@ -168,10 +168,10 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
-   public String getInitialStatesFileName() { return getTool().getInitialStatesFileName(); }
+   public String getInitialStatesFileName() { return getTool().getStatesFileName(); }
    public void setInitialStatesFileName(String fileName) {
       if(!getInitialStatesFileName().equals(fileName)) {
-         getTool().setInitialStatesFileName(fileName);
+         getTool().setStatesFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -267,7 +267,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
       getTool().setModelFilename(FileUtils.makePathAbsolute(getTool().getModelFilename(), parentDir));
       getTool().setControlsFileName(FileUtils.makePathAbsolute(getTool().getControlsFileName(), parentDir));
-      getTool().setInitialStatesFileName(FileUtils.makePathAbsolute(getTool().getInitialStatesFileName(), parentDir));
+      getTool().setStatesFileName(FileUtils.makePathAbsolute(getTool().getStatesFileName(), parentDir));
 
       getTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(getTool().getExternalLoadsFileName(), parentDir));
       getTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(getTool().getExternalLoadsModelKinematicsFileName(), parentDir));
