@@ -30,6 +30,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ModelWindowVTKTopComponent;
 import org.opensim.view.pub.ViewDB;
@@ -93,6 +94,18 @@ public class ObjectEditDialogMaker {
 
      public ObjectEditDialogMaker(OpenSimObject object, boolean allowEdit) {
         this(object, null, allowEdit, "OK");
+     }
+
+     public static boolean editFile(String fileName) {
+        OpenSimObject obj = OpenSimObject.makeObjectFromFile(fileName);
+        if(obj!=null) {
+           if(new ObjectEditDialogMaker(obj, true, "Save").process()) {
+              obj.print(fileName);
+              return true;
+           }
+        }
+        else DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Could not construct an object from the specified file."));
+        return false;
      }
      
     /**
