@@ -143,6 +143,14 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         return actor;
     }
 
+    public void setPickable(boolean pickable) {
+       if (pickable) {
+          actor.SetPickable(1);
+       } else {
+          actor.SetPickable(0);
+       }
+    }
+
     public void setLocation(int index, double x, double y, double z) {
         pointCloud.SetPoint(index, x, y, z);
     }
@@ -241,10 +249,10 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
         vtkDataArray inputIds = 
             glyph.GetOutput().GetPointData().GetArray("InputPointIds");
         int inputId = (int)inputIds.GetTuple1(ids.GetId(0));
-        System.out.println("GlyphCloud: pickedId="+pickedId+"  inputId="+inputId+"  ids="+ids);
-        for(int i=0;i<(int)ids.GetNumberOfIds();i++) {
-           System.out.println("["+i+"] = "+(int)ids.GetId(i)+" --> "+(int)inputIds.GetTuple1(ids.GetId(i)));
-        }
+        //System.out.println("GlyphCloud: pickedId="+pickedId+"  inputId="+inputId+"  ids="+ids);
+        //for(int i=0;i<(int)ids.GetNumberOfIds();i++) {
+           //System.out.println("["+i+"] = "+(int)ids.GetId(i)+" --> "+(int)inputIds.GetTuple1(ids.GetId(i)));
+        //}
         return mapPointIdsToObjectIds.get(inputId);
     }
  

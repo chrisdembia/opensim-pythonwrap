@@ -33,12 +33,30 @@ public class SingleModelGuiElements {
     private String[] coordinateNames=null;
     private String[] actuatorClassNames=null;
     private String[] actuatorNames=null;
-    
+
+    private boolean unsavedChanges = false;
+
     public SingleModelGuiElements(Model model)
     {
        this.model=model;
     }
-    
+
+    /**
+     * Turn on/off the flag for marking changes to the model.
+     */
+    public void setUnsavedChangesFlag(boolean state)
+    {
+       unsavedChanges = state;
+    }
+
+    /**
+     * Get the flag for marking changes to the model.
+     */
+    public boolean getUnsavedChangesFlag()
+    {
+       return unsavedChanges;
+    }
+
     /**
      * Get a list of names for model bodies
      */

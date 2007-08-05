@@ -10,6 +10,7 @@
 package org.opensim.view;
 
 import java.io.File;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import org.opensim.modeling.AbstractActuator;
@@ -18,11 +19,7 @@ import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ActuatorSet;
-import org.opensim.modeling.AnalyticCylinder;
-import org.opensim.modeling.AnalyticEllipsoid;
 import org.opensim.modeling.AnalyticGeometry;
-import org.opensim.modeling.AnalyticSphere;
-import org.opensim.modeling.AnalyticTorus;
 import org.opensim.modeling.BodySet;
 import org.opensim.modeling.Geometry;
 import org.opensim.modeling.MusclePoint;
@@ -35,13 +32,9 @@ import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
 import vtk.vtkAssemblyPath;
-import vtk.vtkClipPolyData;
 import vtk.vtkCylinderSource;
 import vtk.vtkLinearTransform;
 import vtk.vtkMatrix4x4;
-import vtk.vtkParametricFunctionSource;
-import vtk.vtkParametricTorus;
-import vtk.vtkPlane;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
@@ -406,11 +399,27 @@ public class SingleModelVisuals {
         return null;    // No selection
     }
 
+    /* Make the entire model pickable or not pickable. modelDisplayAssembly.setPickable()
+     * does not seem to do anything, so the pickable flag for each actor in the model
+     * needs to be set.
+     */
     public void setPickable(boolean pickable) {
-       if (pickable)
+       if (pickable) {
           modelDisplayAssembly.SetPickable(1);
-       else
+          Enumeration<vtkProp3D> props = mapObject2VtkObjects.elements();
+          while (props.hasMoreElements()) {
+             props.nextElement().SetPickable(1);
+          }
+       } else {
           modelDisplayAssembly.SetPickable(0);
+          Enumeration<vtkProp3D> props = mapObject2VtkObjects.elements();
+          while (props.hasMoreElements()) {
+             props.nextElement().SetPickable(0);
+          }
+       }
+       markersRep.setPickable(pickable);
+       musclePointsRep.setPickable(pickable);
+       muscleSegmentsRep.setPickable(pickable);
     }
  
     public vtkLinearTransform getModelDisplayTransform() {

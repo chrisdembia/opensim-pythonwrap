@@ -54,9 +54,6 @@ final public class OpenSimDB extends Observable {
     public void addModel(Model aModel) {
         setupGroups(aModel);
         models.add(aModel);
-        // Mark model as current
-        // Don't use setCurrent to avoid multiple events
-        //currentModel=aModel;
         setChanged();
         ModelEvent evnt = new ModelEvent(aModel, ModelEvent.Operation.Open);
         //Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
@@ -85,7 +82,7 @@ final public class OpenSimDB extends Observable {
     public int getNumModels() {
         return models.size();
     }
-    
+
     public void removeModel(Model model)
     {
         models.remove(model);
@@ -130,13 +127,13 @@ final public class OpenSimDB extends Observable {
       notifyObservers(evnt);
    } 
 
-    /**
-     * For now this just fires an event to make sure the GUI indicates what's the current Model but
-     * the database itself does not keep track of which one in the models is Current.
-     */
     public void setCurrentModel(final Model aCurrentModel) {
         setCurrentModel(aCurrentModel, true);
     }
+
+    /**
+     * Set the current model to the new one and fire an event for the change.
+     */
     public void setCurrentModel(final Model aCurrentModel, boolean logEdit) {
         final Model saveCurrentModel=currentModel;
         currentModel = aCurrentModel;

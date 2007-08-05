@@ -100,6 +100,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          if (repaint == true)
             ViewDB.getInstance().repaintAll();
       }
+      // Mark the model as dirty as well.
+      if (state == true && currentModel != null) {
+         SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
+         guiElem.setUnsavedChangesFlag(true);
+      }
    }
 
    /** This method is called from within the constructor to

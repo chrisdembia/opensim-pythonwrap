@@ -115,6 +115,14 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
       pointPolyData.Modified();	//Enough to mark the polyData object as modified to trigger re-execution of the pipeline.
    }
 
+    public void setPickable(boolean pickable) {
+       if (pickable) {
+          actor.SetPickable(1);
+       } else {
+          actor.SetPickable(0);
+       }
+    }
+
    /////////////////////////////////////////////////////////////////////////////
    // Add/Remove locations
    /////////////////////////////////////////////////////////////////////////////

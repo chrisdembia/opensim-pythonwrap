@@ -235,8 +235,7 @@ public final class ViewDB extends Observable implements Observer {
                      if (next == currentModel){
                         setObjectOpacity(next, nominalOpacity);
                         vis.setPickable(true);
-                     }
-                     else{
+                     } else {
                         setObjectOpacity(next, getNonCurrentModelOpacity()*nominalOpacity);
                         vis.setPickable(false);
                      }
@@ -350,7 +349,6 @@ public final class ViewDB extends Observable implements Observer {
          OpenSimObject obj = nextModel.pickObject(asmPath);
          if (obj != null){
             // Find corresponding tree node
-            
             return obj;
          }
       }
@@ -594,7 +592,7 @@ public final class ViewDB extends Observable implements Observer {
       for(int i=selectedObjects.size()-1; i>=0; i--) {
          Model ownerModel = selectedObjects.get(i).getOwnerModel();
          if(Model.getCPtr(model) == Model.getCPtr(ownerModel)) {
-            markSelected(selectedObjects.get(i), false, false, true);
+            markSelected(selectedObjects.get(i), false, false, false);
             selectedObjects.remove(i);
             modified = true;
          }
@@ -662,9 +660,14 @@ public final class ViewDB extends Observable implements Observer {
       int i = findObjectInSelectedList(obj);
       if(i >= 0) {
          // mark it as unselected
-         markSelected(selectedObjects.get(i), false, true, true);
+         markSelected(selectedObjects.get(i), false, true, false);
          // remove the object from the list of selected ones
          selectedObjects.remove(i);
+         // markSelected can't properly update the statusDisplay because
+         // the object is not removed from selectedObjects until after
+         // markSelected is called.
+         statusDisplaySelectedObjects();
+         repaintAll();
          return true;
       }
       return false;
