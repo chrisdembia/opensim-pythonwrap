@@ -28,18 +28,15 @@ package org.opensim.view.pub;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
 import java.util.Vector;
 import java.util.prefs.Preferences;
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.awt.StatusDisplayer;
@@ -61,13 +58,11 @@ import vtk.AxesActor;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyPath;
-import vtk.vtkFollower;
+import vtk.vtkCamera;
 import vtk.vtkMatrix4x4;
-import vtk.vtkPolyDataMapper;
 import vtk.vtkProp3D;
 import vtk.vtkProp3DCollection;
 import vtk.vtkProperty;
-import vtk.vtkVectorText;
 
 /**
  *
@@ -391,6 +386,7 @@ public final class ViewDB extends Observable implements Observer {
    }
    /**
     * Add a new Viewing. window
+    * This executes in the Swing thread.
     */
    public void addViewWindow() {
       // Create the window
@@ -404,6 +400,10 @@ public final class ViewDB extends Observable implements Observer {
                  new Object[] { new Integer(ct++) }
          ));
       };
+      if (currentModelWindow!=null){    // Copy camera from 
+          vtkCamera lastCamera=currentModelWindow.getCanvas().GetRenderer().GetActiveCamera();
+          win.getCanvas().applyOrientation(lastCamera);
+      }
       win.open();
       win.requestActive();
       setCurrentModelWindow(win);

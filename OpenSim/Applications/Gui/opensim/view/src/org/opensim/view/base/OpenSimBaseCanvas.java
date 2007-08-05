@@ -168,14 +168,7 @@ public class OpenSimBaseCanvas extends vtkPanel
     * A method to apply a prespecified Camera (selectedCamera) to the current Canvas
     */
    public void applyCamera(vtkCamera selectedCamera) {
-      vtkCamera currentCamera = GetRenderer().GetActiveCamera();
-      currentCamera.SetPosition(selectedCamera.GetPosition());
-      currentCamera.SetFocalPoint(selectedCamera.GetFocalPoint());
-      currentCamera.SetViewAngle(selectedCamera.GetViewAngle());
-      currentCamera.SetDistance(selectedCamera.GetDistance());
-      currentCamera.SetClippingRange(selectedCamera.GetClippingRange());
-      currentCamera.SetViewUp(selectedCamera.GetViewUp());
-      currentCamera.SetParallelScale(selectedCamera.GetParallelScale());
+        applyOrientation(selectedCamera);
       
       vtkLightCollection lights = GetRenderer().GetLights();
       lights.RemoveAllItems();
@@ -184,5 +177,16 @@ public class OpenSimBaseCanvas extends vtkPanel
       //GetRenderer().Render();
       repaint();
    }
+
+    public void applyOrientation(final vtkCamera selectedCamera) {
+        vtkCamera currentCamera = GetRenderer().GetActiveCamera();
+        currentCamera.SetPosition(selectedCamera.GetPosition());
+        currentCamera.SetFocalPoint(selectedCamera.GetFocalPoint());
+        currentCamera.SetViewAngle(selectedCamera.GetViewAngle());
+        currentCamera.SetDistance(selectedCamera.GetDistance());
+        currentCamera.SetClippingRange(selectedCamera.GetClippingRange());
+        currentCamera.SetViewUp(selectedCamera.GetViewUp());
+        currentCamera.SetParallelScale(selectedCamera.GetParallelScale());
+    }
    
 }
