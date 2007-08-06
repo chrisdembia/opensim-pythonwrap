@@ -18,7 +18,6 @@ import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
-import org.opensim.view.pub.OpenSimDB;
 
 public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
@@ -35,6 +34,10 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       ForwardToolWorker() throws IOException {
          updateTool();
 
+         // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
+         // another motion show up on it)
+         MotionsDB.getInstance().clearCurrent();
+
          // Re-initialize our copy of the model
          Model model = getOriginalModel().clone();
          model.setInputFileName("");
@@ -45,7 +48,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          model.setup();
          tool.setModel(model);
 
-         OpenSimDB.getInstance().replaceModel(getModel(), model);
+         // don't add the model... we'll run forward on the new model but will actually apply the resulting motions to the current model
          setModel(model);
 
          // set model in our tool
@@ -63,8 +66,8 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
                                  }
                               });
 
-         // Animation callback will update the display during forward
-         animationCallback = new JavaMotionDisplayerCallback(getModel(), null, progressHandle);
+         // Animation callback will update the display *of the original model* during forward
+         animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
          getModel().addIntegCallback(animationCallback);
          animationCallback.setStepInterval(10);
          animationCallback.startProgressUsingTime(ti,tf);
@@ -75,7 +78,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
          getModel().addIntegCallback(interruptingCallback);
 
-         // Kinematics analysis
+         // Kinematics analysis -- so that we can extract the resulting motion
          kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
          kinematicsAnalysis.setRecordAccelerations(false);
          kinematicsAnalysis.setInDegrees(false);
@@ -107,7 +110,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
          if(processResults) {
             Storage motion = new Storage(kinematicsAnalysis.getPositionStorage());
-            MotionsDB.getInstance().addMotion(getModel(), motion);
+            updateMotion(motion); // replaces current motion
          }
 
          // Remove the kinematics analysis before printing results, so its results won't be written to disk
@@ -139,6 +142,8 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    // END ForwardToolWorker
    //========================================================================
 
+   private Storage motion = null;
+
    public ForwardToolModel(Model model) throws IOException {
       super(model);
 
@@ -155,6 +160,19 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    ForwardTool getTool() { return (ForwardTool)tool; }
+
+   //------------------------------------------------------------------------
+   // Setting the motion in the model
+   //------------------------------------------------------------------------
+   private void updateMotion(Storage newMotion) {
+      if(motion!=null) {
+         MotionsDB.getInstance().closeMotion(getOriginalModel(), motion);
+      }
+      motion = newMotion;
+      if(motion!=null) {
+         MotionsDB.getInstance().addMotion(getOriginalModel(), motion);
+      }
+   }
 
    //------------------------------------------------------------------------
    // Get/Set Values
@@ -234,9 +252,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
    public void cancel() {
       interrupt(false);
-      if(getModel()!=null) {
-         OpenSimDB.getInstance().removeModel(getModel());
-      }
+      updateMotion(null);
    }
 
    //------------------------------------------------------------------------

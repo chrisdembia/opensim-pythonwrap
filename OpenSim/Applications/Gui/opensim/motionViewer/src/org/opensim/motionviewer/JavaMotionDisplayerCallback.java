@@ -49,11 +49,19 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    int endStep = 1;
 
    /** Creates a new instance of JavaMotionDisplayerCallback */
+   public JavaMotionDisplayerCallback(Model aModel, Model aModelForDisplay, Storage storage, ProgressHandle progressHandle) {
+      super(aModel, aModelForDisplay);
+      if(storage!=null) {
+         this.storage = storage;
+         motionDisplayer = new MotionDisplayer(storage, getModelForDisplay());
+      }
+      this.progressHandle = progressHandle;
+   }
    public JavaMotionDisplayerCallback(Model aModel, Storage storage, ProgressHandle progressHandle) {
       super(aModel);
       if(storage!=null) {
          this.storage = storage;
-         motionDisplayer = new MotionDisplayer(storage, aModel);
+         motionDisplayer = new MotionDisplayer(storage, getModelForDisplay());
       }
       this.progressHandle = progressHandle;
    }
@@ -76,7 +84,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       try {
          SwingUtilities.invokeAndWait(new Runnable(){
             public void run() {
-               ViewDB.getInstance().updateModelDisplay(getModel());
+               ViewDB.getInstance().updateModelDisplay(getModelForDisplay());
                if(motionDisplayer!=null) {
                   if(storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);
                }
