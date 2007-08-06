@@ -1,2 +1,2 @@
 #-----------------------------------------------------------------------------
-SUBDIRS(Block gait23_patella)
+SUBDIRS(Block gait23 gait23_patella)
