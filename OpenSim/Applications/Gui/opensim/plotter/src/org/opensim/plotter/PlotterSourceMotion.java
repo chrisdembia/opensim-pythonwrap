@@ -47,7 +47,7 @@ public class PlotterSourceMotion extends PlotterSourceStorage {
    }
    
    public boolean convertAngularUnits() {
-       return false;
+       return true;
    }
    
    public boolean isValidName(String columnName) {
