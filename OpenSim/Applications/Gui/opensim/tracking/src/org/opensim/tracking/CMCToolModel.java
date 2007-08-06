@@ -19,7 +19,6 @@ import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
-import org.opensim.view.pub.OpenSimDB;
 
 public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
@@ -48,7 +47,6 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          model.setup();
          tool.setModel(model);
 
-         OpenSimDB.getInstance().replaceModel(getModel(), model);
          setModel(model);
 
          // TODO: eventually we'll want to have the kinematics analysis store the motion for us...
@@ -65,7 +63,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
                               });
 
          // Animation callback will update the display during forward
-         animationCallback = new JavaMotionDisplayerCallback(getModel(), null, progressHandle);
+         animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
          getModel().addIntegCallback(animationCallback);
          animationCallback.setStepInterval(10);
          animationCallback.startProgressUsingTime(ti,tf);
@@ -86,9 +84,6 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
       public Object construct() {
          result = tool.run();
-
-         // Update one last time (TODO: is this necessary?)
-         animationCallback.updateDisplaySynchronously();
 
          return this;
       }
@@ -143,6 +138,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
+   public boolean getDesiredKinematicsValid() { return (new File(getDesiredKinematicsFileName()).exists()); }
 
    public String getTaskSetFileName() { return getTool().getTaskSetFileName(); }
    public void setTaskSetFileName(String fileName) {
@@ -151,6 +147,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
+   public boolean getTaskSetValid() { return (new File(getTaskSetFileName()).exists()); }
 
    public String getConstraintsFileName() { return getTool().getConstraintsFileName(); }
    public void setConstraintsFileName(String fileName) {
@@ -159,6 +156,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
+   public boolean getConstraintsValid() { return !getConstraintsEnabled() || (new File(getConstraintsFileName()).exists()); }
 
    public boolean getConstraintsEnabled() { return constraintsEnabled; }
    public void setConstraintsEnabled(boolean enabled) {
@@ -259,9 +257,6 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
    public void cancel() {
       interrupt(false);
-      if(getModel()!=null) {
-         OpenSimDB.getInstance().removeModel(getModel());
-      }
    }
 
    //------------------------------------------------------------------------
@@ -269,7 +264,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
 
    public boolean isValid() {
-      return true;
+      return super.isValid() && getDesiredKinematicsValid() && getTaskSetValid() && getConstraintsValid();
    }
 
    //------------------------------------------------------------------------

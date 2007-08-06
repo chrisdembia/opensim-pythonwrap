@@ -321,5 +321,9 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
       super.updateTool();
       if(!externalLoadsEnabled) setExternalLoadsFileNameInternal("");
    }
+
+   public boolean isValid() {
+      return !getExternalLoadsEnabled() || ((new File(getExternalLoadsFileName()).exists()) && (new File(getExternalLoadsModelKinematicsFileName()).exists()));
+   }
 }
 

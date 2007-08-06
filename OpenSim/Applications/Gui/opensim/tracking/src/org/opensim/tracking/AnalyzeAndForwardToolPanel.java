@@ -67,6 +67,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       // File chooser settings
       outputDirectory.setIncludeOpenButton(true);
       outputDirectory.setDirectoriesOnly(true);
+      outputDirectory.setCheckIfFileExists(false);
 
       setSettingsFileDescription("Settings file for "+modeName);
 
@@ -110,6 +111,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       // Integrator settings for forward dynamics
       if(mode==Mode.ForwardDynamics || mode==Mode.CMC) {
          jTabbedPane1.addTab("Integrator Settings", advancedSettingsPanel);
+         if(mode==Mode.CMC) useSpecifiedDt.setVisible(false);
       }
 
       // Re-layout panels after we've removed various parts...
@@ -259,14 +261,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       controlsFileName.setFileName(toolModel.getControlsFileName(),false);
       initialStatesFileName.setFileName(toolModel.getInitialStatesFileName(),false);
 
-      // Integrator settings
       useSpecifiedDt.setSelected(toolModel.getUseSpecifiedDt());
-      maximumNumberOfSteps.setText(((Integer)toolModel.getMaximumNumberOfSteps()).toString());
-      maxDT.setText(((Double)toolModel.getMaxDT()).toString());
-      errorTolerance.setText(((Double)toolModel.getErrorTolerance()).toString());
-      fineTolerance.setText(((Double)toolModel.getFineTolerance()).toString());
-
       solveForEquilibriumCheckBox.setSelected(toolModel.getSolveForEquilibrium());
+
+      updateIntegratorSettings(toolModel);
    }
 
    //---------------------------------------------------------------------
@@ -306,6 +304,18 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             rraAdjustedBodyComboBox.setSelectedIndex(index);
          }
       }
+
+      updateIntegratorSettings(toolModel);
+   }
+
+   //---------------------------------------------------------------------
+   // Integrator settings fields
+   //---------------------------------------------------------------------
+   public void updateIntegratorSettings(AbstractToolModel toolModel) {
+      maximumNumberOfSteps.setText(((Integer)toolModel.getMaximumNumberOfSteps()).toString());
+      maxDT.setText(((Double)toolModel.getMaxDT()).toString());
+      errorTolerance.setText(((Double)toolModel.getErrorTolerance()).toString());
+      fineTolerance.setText(((Double)toolModel.getFineTolerance()).toString());
    }
 
    //------------------------------------------------------------------------
@@ -974,7 +984,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          }
       });
 
-      jLabel12.setText("Initial states");
+      jLabel12.setText("States");
 
       initialStatesFileName.addChangeListener(new javax.swing.event.ChangeListener() {
          public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -999,10 +1009,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
             .addContainerGap()
             .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(forwardInputPanelLayout.createSequentialGroup()
-                  .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(forwardInputPanelLayout.createSequentialGroup()
-                        .add(19, 19, 19)
-                        .add(jLabel9))
+                  .add(19, 19, 19)
+                  .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                     .add(jLabel9)
                      .add(jLabel12))
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                   .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1019,8 +1028,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
                .add(controlsFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(forwardInputPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-               .add(jLabel12)
-               .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+               .add(initialStatesFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+               .add(jLabel12))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 24, Short.MAX_VALUE)
             .add(solveForEquilibriumCheckBox)
             .addContainerGap())
@@ -1349,6 +1358,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       }
    }//GEN-LAST:event_maximumNumberOfStepsActionPerformed
 
+   // NOTE: forward tool specific!
    private void useSpecifiedDtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useSpecifiedDtActionPerformed
       forwardToolModel().setUseSpecifiedDt(useSpecifiedDt.isSelected());
    }//GEN-LAST:event_useSpecifiedDtActionPerformed

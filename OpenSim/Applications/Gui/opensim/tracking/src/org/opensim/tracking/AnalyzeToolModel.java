@@ -19,7 +19,6 @@ import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
-import org.opensim.view.pub.OpenSimDB;
 
 public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
@@ -52,10 +51,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          getTool().loadControlsFromFile();
          getTool().loadPseudoStatesFromFile();
 
-         OpenSimDB.getInstance().replaceModel(getModel(), model);
+         // We don't need to add model to the 3D view... just using it to dump analyses result files
          setModel(model);
-
-         // TODO: eventually we'll want to have the kinematics analysis store the motion for us...
 
          // Initialize progress bar, given we know the number of frames to process
          double ti = getInitialTime();
@@ -69,9 +66,9 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
                               });
 
          // Animation callback will update the display during forward
-         animationCallback = new JavaMotionDisplayerCallback(getModel(), null, progressHandle);
+         animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
          getModel().addIntegCallback(animationCallback);
-         animationCallback.setStepInterval(10);
+         animationCallback.setStepInterval(1);
          animationCallback.startProgressUsingTime(ti,tf);
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
@@ -90,9 +87,6 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
       public Object construct() {
          result = tool.run();
-
-         // Update one last time (TODO: is this necessary?)
-         animationCallback.updateDisplaySynchronously();
 
          return this;
       }
@@ -245,14 +239,6 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
-   public boolean getLoadSpeeds() { return loadSpeeds; }
-   public void setLoadSpeeds(boolean loadSpeeds) { 
-      if(this.loadSpeeds != loadSpeeds) {
-         this.loadSpeeds = loadSpeeds;
-         setModified(AbstractToolModel.Operation.InputDataChanged);
-      }
-   }
-
    public String getControlsFileName() { return getTool().getControlsFileName(); }
    void setControlsFileName(String speedsFileName) {
       if(!getControlsFileName().equals(speedsFileName)) {
@@ -260,6 +246,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
+   public boolean getControlsValid() { return !getControlsEnabled() || (new File(getControlsFileName()).exists()); }
    public boolean getControlsEnabled() { return controlsEnabled; }
    public void setControlsEnabled(boolean enabled) {
       if(controlsEnabled != enabled) {
@@ -275,6 +262,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
+   public boolean getStatesValid() { return (new File(getStatesFileName()).exists()); }
 
    public boolean needPseudoStates() { return getOriginalModel().getNumPseudoStates()>0; }
 
@@ -293,11 +281,20 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
+   public boolean getCoordinatesValid() { return (new File(getCoordinatesFileName()).exists()); }
 
    public String getSpeedsFileName() { return getTool().getSpeedsFileName(); }
    void setSpeedsFileName(String speedsFileName) {
       if(!getSpeedsFileName().equals(speedsFileName)) {
          getTool().setSpeedsFileName(speedsFileName);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+   public boolean getSpeedsValid() { return !getLoadSpeeds() || (new File(getSpeedsFileName()).exists()); }
+   public boolean getLoadSpeeds() { return loadSpeeds; }
+   public void setLoadSpeeds(boolean loadSpeeds) { 
+      if(this.loadSpeeds != loadSpeeds) {
+         this.loadSpeeds = loadSpeeds;
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -373,17 +370,20 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
    public void cancel() {
       interrupt(false);
-      if(getModel()!=null) {
-         OpenSimDB.getInstance().removeModel(getModel());
-      }
    }
 
    //------------------------------------------------------------------------
    // Validation
    //------------------------------------------------------------------------
 
+   private boolean isValidInput() {
+      return (getInputSource()==InputSource.Motion && getInputMotion()!=null) ||
+             (getInputSource()==InputSource.States && getStatesValid()) ||
+             (getInputSource()==InputSource.Coordinates && getCoordinatesValid()); // TODO check SpeedsValid once we re-enable speeds
+   }
+
    public boolean isValid() {
-      return getInputSource()!=InputSource.Unspecified;
+      return super.isValid() && isValidInput() && getControlsValid();
    }
 
    //------------------------------------------------------------------------

@@ -95,9 +95,6 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       public Object construct() {
          result = tool.run();
 
-         // Update one last time (TODO: is this necessary?)
-         animationCallback.updateDisplaySynchronously();
-
          return this;
       }
 
@@ -185,6 +182,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
+   public boolean getControlsValid() { return (new File(getControlsFileName()).exists()); }
 
    public String getInitialStatesFileName() { return getTool().getStatesFileName(); }
    public void setInitialStatesFileName(String fileName) {
@@ -193,6 +191,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
+   public boolean getInitialStatesValid() { return (new File(getInitialStatesFileName()).exists()); }
 
    // TODO: implement
    public boolean getAvailableTimeRangeValid() { return false; }
@@ -260,7 +259,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
 
    public boolean isValid() {
-      return true;
+      return super.isValid() && getInitialStatesValid() && getControlsValid();
    }
 
    //------------------------------------------------------------------------
