@@ -84,10 +84,10 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       try {
          SwingUtilities.invokeAndWait(new Runnable(){
             public void run() {
-               ViewDB.getInstance().updateModelDisplay(getModelForDisplay());
-               if(motionDisplayer!=null) {
-                  if(storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);
-               }
+               ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
+               if(motionDisplayer!=null && storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);
+               //ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
+               ViewDB.getInstance().repaintAll();
             }});
       } catch (InterruptedException ex) {
          ex.printStackTrace();

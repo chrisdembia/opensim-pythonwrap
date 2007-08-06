@@ -92,6 +92,11 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       }
 
       public void finished() {
+         boolean processResults = result;
+         if(!result) { // TODO: prompt to keep partial results?
+            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Tool execution canceled by user.  Output files not written."));
+         }
+
          progressHandle.finish();
 
          // Clean up motion displayer (this is necessary!)
