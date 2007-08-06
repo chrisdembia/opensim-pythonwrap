@@ -908,10 +908,10 @@ public class JPlotterPanel extends javax.swing.JPanel
            }
            // Add name for y-axis here
            if (sumCurve)
-                plotCurve = plotterModel.addCurve(title, settings,
+                plotCurve = plotterModel.addCurveMultipleRangeNames(title, settings,
                    sourceX, getDomainName(), sourceY, rangeNames);
            else 
-                plotCurve = plotterModel.addCurve(title, settings,
+                plotCurve = plotterModel.addCurveSingleRangeName(title, settings,
                    sourceX, getDomainName(), sourceY, rangeNames[curveIndex]);
        }
        makeCurveCurrent(plotCurve);
@@ -1224,7 +1224,7 @@ public class JPlotterPanel extends javax.swing.JPanel
         PlotCurve plotCurve=null;
         //settings.setXMin(s.getFirstTime());
         //settings.setXMax(s.getLastTime());
-        plotCurve = plotterModel.addCurve(title, settings,
+        plotCurve = plotterModel.addCurveSingleRangeName(title, settings,
                 sourceX, getDomainName(),                 sourceY, rangeNames[0]);
         makeCurveCurrent(plotCurve);
          **/
@@ -1545,43 +1545,42 @@ public class JPlotterPanel extends javax.swing.JPanel
    public void setBuiltinMuscleCurve(boolean muscleSpecific) {
       this.builtinMuscleCurve = muscleSpecific;
    }
+   
    private boolean validateXY() {
-      boolean validXY=false;
-      if (sourceY!=null){   // Same file source in both X, Y
-         if (sourceY instanceof PlotterSourceFile){
-            if ((sourceX!=null) && 
-                (sourceX instanceof PlotterSourceFile) && 
-                 sourceX.getStorage()==sourceY.getStorage())
-               validXY=sourceX.isValidName(jXQtyTextField.getText());  // Check X is selected
-            return validXY;
-         }
-      }
-      else
-         return false;
-      
-      if (sourceY!=null){   // Same motion source in both X, Y
-         if (sourceY instanceof PlotterSourceMotion){
-            if ((sourceX!=null) && 
-                (sourceX instanceof PlotterSourceMotion) && 
-                 sourceX.getStorage()==sourceY.getStorage())
+       boolean validXY=false;
+       if (sourceY==null)
+           return false;
+      // Same file source in both X, Y
+       if (sourceY instanceof PlotterSourceFile){
+           if ((sourceX!=null) &&
+                   (sourceX instanceof PlotterSourceFile) &&
+                   sourceX.getStorage()==sourceY.getStorage())
+               validXY=sourceX.isValidName(jXQtyTextField.getText());  // Check some X is selected and is valid for file
+           return validXY;
+       }
+       if (sourceY instanceof PlotterSourceMotion){
+           if ((sourceX!=null) &&
+                   (sourceX instanceof PlotterSourceMotion) &&
+                   sourceX.getStorage()==sourceY.getStorage())
                validXY=sourceX.isValidName(jXQtyTextField.getText());
-            return validXY;
-         }
-      }
-      if (builtinMuscleCurve){
-         // Check that some muscles have been selected
-         
-         return validateMuscleNames(rangeNames);
-         // Y is one of the built in quantities or a user's analysis'
-         //if (sourceY!=null && sourceY.size()>0){   // Same file source in both X, Y
-            //if (sourceY instanceof PlotterSourceAnalysis){
-               // X could be either a motion, motion column or a gc
-               // quantity should always be non-empty either a muscle or a group of muscles
-               //int x=0;
-            //}
-         //}
-      }
-      return false;
+           return validXY;
+       }
+       if (builtinMuscleCurve){
+           // Check that some muscles have been selected
+           String dom = getDomainName();
+           // Todo check dom is valid so that Add is not enabled prematurely
+           //
+           return validateMuscleNames(rangeNames);
+           // Y is one of the built in quantities or a user's analysis'
+           //if (sourceY!=null && sourceY.size()>0){   // Same file source in both X, Y
+           //if (sourceY instanceof PlotterSourceAnalysis){
+           // X could be either a motion, motion column or a gc
+           // quantity should always be non-empty either a muscle or a group of muscles
+           //int x=0;
+           //}
+           //}
+       }
+       return false;
    }
 
    public boolean isClamp() {
@@ -1695,7 +1694,7 @@ public class JPlotterPanel extends javax.swing.JPanel
          sourceY=(nextMotion);
          sourceX = sourceY;
          PlotterQuantityNameFilterJPanel filterpanel = new PlotterQuantityNameFilterJPanel(sourceY);
-         DialogDescriptor dlg = new DialogDescriptor(filterpanel, "Select Motion Column");
+         DialogDescriptor dlg = new DialogDescriptor(filterpanel, "Select Motion Quantity");
          dlg.setModal(true);
          DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
          if (((Integer) dlg.getValue()).compareTo((Integer) DialogDescriptor.OK_OPTION) == 0) {

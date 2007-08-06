@@ -60,5 +60,7 @@ public interface PlotterSourceInterface {
    public double getDefaultMax(String domainName);
    
    public boolean isValidName(String columnName);
+   
+   public boolean convertAngularUnits();
 
 }

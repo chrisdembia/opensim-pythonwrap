@@ -98,7 +98,7 @@ public class PlotterModel {
    private final String DEFAULT_Y_LABEL="y-label";
    /** Creates a new instance of PlotterModel */
    public PlotterModel() {
-         Plot figure = new Plot("Title", DEFAULT_X_LABEL, DEFAULT_Y_LABEL);
+         Plot figure = new Plot("Use properties to set Title.", DEFAULT_X_LABEL, DEFAULT_Y_LABEL);
          availablePlots.add(0, figure);
          plotTreeModel.addPlot(figure);
    }
@@ -163,22 +163,34 @@ public class PlotterModel {
     * otherwise null is returned to indicate that no new Panel was created. The actual addition should be
     * done by the caller JPlotterFrame
     */
-   PlotCurve addCurve(String title, PlotCurveSettings plotCurveSettings, 
+   PlotCurve addCurveSingleRangeName(String title, PlotCurveSettings plotCurveSettings, 
            PlotterSourceInterface source1, String string1, 
            PlotterSourceInterface source2, String string2) {
 
       Plot currentPlot = availablePlots.get(currentPlotIndex);
+      boolean motionCurve=false;
+      if (source1 instanceof PlotterSourceMotion){  
+          motionCurve=true;
+      }
       PlotCurve newCurve = new PlotCurve(plotCurveSettings, source1, string1, source2, string2);
       currentPlot.add(newCurve);
       
       //currentPlot.dChart.getXYPlot().addAnnotation(new XYTextAnnotation("text", ));
       plotTreeModel.addPlotCurveToTree(newCurve);
-      currentPlot.setTitle(title);
-        updatePlotXYLabels(currentPlot, string1, source2);
+      //currentPlot.setTitle(title);
+      // if motionCurve xlabel is motion name, ylabel string2
+      if (motionCurve){
+         if(string1.equalsIgnoreCase(source1.getDisplayName()))
+            updatePlotXYLabels(currentPlot, source1.getDisplayName(), string2);   
+         else
+            updatePlotXYLabels(currentPlot, string1, string2);
+      }
+      else
+        updatePlotXYLabels(currentPlot, string1, source2.getDisplayName());
      return newCurve;
    }
 
-    private void updatePlotXYLabels(final Plot currentPlot, final String newDomainName, final PlotterSourceInterface source2) {
+    private void updatePlotXYLabels(final Plot currentPlot, final String newDomainName, String addYLabel) {
              
         XYPlot dPlot = currentPlot.getChartPanel().getChart().getXYPlot();
         String oldLabel = dPlot.getDomainAxis().getLabel();
@@ -193,9 +205,9 @@ public class PlotterModel {
         oldLabel=dPlot.getRangeAxis().getLabel();
         newLabel=oldLabel;
         if (oldLabel.equalsIgnoreCase("")||oldLabel.equalsIgnoreCase(getDefaulAxisLabel(false)))   // First curve
-            newLabel=source2.getDisplayName();
-        else if (!oldLabel.contains(source2.getDisplayName()))
-            newLabel=oldLabel+", "+source2.getDisplayName();
+            newLabel=addYLabel;
+        else if (!oldLabel.contains(addYLabel))
+            newLabel=oldLabel+", "+addYLabel;
         
         dPlot.getRangeAxis().setLabel(newLabel);
     }
@@ -237,7 +249,7 @@ public class PlotterModel {
            PlotterSourceInterface rangeSource, String rangeColumnName){
       
       Plot currentPlot = availablePlots.get(currentPlotIndex);
-      currentPlot.setTitle(title);
+      //currentPlot.setTitle(title);
       currentCurve.update(title, plotCurveSettings, domainSource, domainColumnName, rangeSource, rangeColumnName);
       // Find path and mark it as changed to update the tree 
        TreeNode[] path=plotTreeModel.getPathToRoot((TreeNode) plotTreeModel.getRoot());
@@ -378,16 +390,16 @@ public class PlotterModel {
             return DEFAULT_Y_LABEL;
     }
 
-    PlotCurve addCurve(String title, PlotCurveSettings settings, PlotterSourceInterface sourceX, String string, PlotterSourceInterface sourceY, String[] rangeNames) {
+    PlotCurve addCurveMultipleRangeNames(String title, PlotCurveSettings settings, PlotterSourceInterface sourceX, String string, 
+            PlotterSourceInterface sourceY, String[] rangeNames) {
       Plot currentPlot = availablePlots.get(currentPlotIndex);
       String sumString = makeSumString(rangeNames);
       PlotCurve newCurve = new PlotCurve(settings, sourceX, string, sourceY, sumString);
       currentPlot.add(newCurve);
       
-      //currentPlot.dChart.getXYPlot().addAnnotation(new XYTextAnnotation("text", ));
       plotTreeModel.addPlotCurveToTree(newCurve);
-      currentPlot.setTitle(title);
-      updatePlotXYLabels(currentPlot, string, sourceY);
+      //currentPlot.setTitle(title);
+      updatePlotXYLabels(currentPlot, string, sourceY.getDisplayName());
      return newCurve;
     }
 

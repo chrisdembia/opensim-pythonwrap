@@ -45,6 +45,15 @@ public class PlotterSourceMotion extends PlotterSourceStorage {
       displayName = aStorage.getName();
       //System.out.println("Created PlotterSourceMotion DisplayName="+displayName);
    }
-
-
+   
+   public boolean convertAngularUnits() {
+       return false;
+   }
+   
+   public boolean isValidName(String columnName) {
+       if (columnName.equalsIgnoreCase(displayName))
+           return true;
+       return super.isValidName(columnName);
+   }
+   
 }

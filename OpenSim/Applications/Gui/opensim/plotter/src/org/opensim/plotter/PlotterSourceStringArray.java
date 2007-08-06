@@ -135,4 +135,8 @@ public class PlotterSourceStringArray implements PlotterSourceInterface {
       return false;
    }
 
+    public boolean convertAngularUnits() {
+        return false;
+    }
+
 }

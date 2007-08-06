@@ -31,6 +31,10 @@ class QuantitySelectionPanel extends JPanel
       //final JPopupMenu p = new JPopupMenu();
       DefaultListModel listModel = new DefaultListModel();
       int k = 0;
+      if (isDomain && source instanceof PlotterSourceMotion){
+          listModel.add(k, source.getStorage().getName());
+          k++;
+      }
       for (int j = 0; j < columnLabels.getSize(); j++){
          final String columnName = columnLabels.getitem(j);
          if (Pattern.matches(filterRegex, columnName)){

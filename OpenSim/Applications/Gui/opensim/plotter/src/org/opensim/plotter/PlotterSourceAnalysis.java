@@ -160,4 +160,8 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
       }
       return false;
    }
+
+    public boolean convertAngularUnits() {
+        return false;
+    }
 }

@@ -43,5 +43,8 @@ public class PlotterSourceFile extends PlotterSourceStorage {
       displayName = new File(fullFileName).getName();
       System.out.println("Created PlotterSourceFile DisplayName="+displayName);
    }
-
+   
+    public boolean convertAngularUnits() {
+        return false;
+    }
 }

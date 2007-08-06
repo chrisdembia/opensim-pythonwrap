@@ -148,4 +148,8 @@ public class PlotterSourceStorage implements PlotterSourceInterface {
       return false;
    }
 
+    public boolean convertAngularUnits() {
+        return false;
+    }
+
 }

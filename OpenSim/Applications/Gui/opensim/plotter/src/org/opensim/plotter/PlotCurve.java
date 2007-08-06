@@ -28,9 +28,13 @@ package org.opensim.plotter;
 import java.util.Vector;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
+import org.opensim.modeling.AbstractCoordinate;
+import org.opensim.modeling.AbstractDof;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.Storage;
+import org.opensim.view.pub.OpenSimDB;
 
 /**
  *
@@ -68,6 +72,11 @@ public class PlotCurve {
          String[] names=stringx.split(":",-1);
          localX=names[names.length-1];
       }
+      // If motion and stringx  = motion name we really mean time
+      if (domainSource instanceof PlotterSourceMotion &&
+              localX.equalsIgnoreCase(domainSource.getDisplayName())){    // We'really plotting against time'
+          localX="time";
+      }
       if (stringy.contains(":")){   // Strip qualifiers if any
          String[] names=stringy.split(":",-1);
          localY=names[names.length-1];
@@ -76,8 +85,8 @@ public class PlotCurve {
       // which should be enforced by the GUI.
       // In case this restriction is removed, rangeStorage will need to be sampled
       // at domain sample values (e.g. plot quantities against time coming from another storage
-       ArrayDouble xArray = getDataArrayFromStorage(domainStorage, localX, true);
-       ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, localY, false);
+       ArrayDouble xArray = getDataArrayFromStorage(domainStorage, localX, true, sourcex.convertAngularUnits());
+       ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, localY, false, sourcey.convertAngularUnits());
        int xSize = xArray.getSize();
        int ySize = yArray.getSize();
        if (xSize != ySize)
@@ -96,7 +105,8 @@ public class PlotCurve {
            endIndex=xArray.getSize()-1;
        double[] yFiltered = applyFilters(plotCurveSettings.getFilters(), yArray, startIndex, endIndex);
        // Make an XYSeries to hold the data and keep a ref to it with the curve
-       setCurveSeries(new XYSeries(plotCurveSettings.getName()));   // user named curves
+       XYSeries curveSeries = new XYSeries(plotCurveSettings.getName(), false, true);
+       setCurveSeries(curveSeries);   // user named curves
        for (int i = startIndex;i< endIndex;i++){
            if (i==startIndex)
                 System.out.println("Curve"+plotCurveSettings.getName()+xArray.getitem(i)+","+yFiltered[i-startIndex]);
@@ -109,14 +119,10 @@ public class PlotCurve {
        System.arraycopy(names, 0, rangeNames, 0, names.length);
     }
 
-   private ArrayDouble getDataArrayFromStorage(final Storage storage, final String colName, boolean isDomain ) {
+   private ArrayDouble getDataArrayFromStorage(final Storage storage, final String colName, boolean isDomain, boolean convertAnglesToDegrees ) {
       ArrayDouble Array = new ArrayDouble(storage.getSize());
       if (colName.equalsIgnoreCase("time")){
          storage.getTimeColumnWithStartTime(Array, 0.);
-         //if (isDomain)
-         //   domainStorageIndex=-1;
-         //else
-         //   rangeStorageIndex=-1;
       }
       else{
          String[] colNames=colName.trim().split("\\+",-1);
@@ -127,11 +133,17 @@ public class PlotCurve {
              colNames[i]=colNames[i].trim();
              if (i==0){
                 storage.getDataColumn(colNames[i], Array);
+                // convert units if in radians
+                // have to do this before clamoing since clamping is done in degrees
+                if (convertAnglesToDegrees)
+                    convertDegreesToAnglesIfNeeded(colNames[i], Array);
                 if (settings.isClamp())
                   clampDataArray(Array);
              }
              else { // get data into temporary array and then add it in place
                  storage.getDataColumn(colNames[i], tempArray);
+                 if (convertAnglesToDegrees)
+                    convertDegreesToAnglesIfNeeded(colNames[i], tempArray);
                  if (settings.isClamp())
                    clampDataArray(tempArray);
                  for(int row=0;row<storage.getSize();row++)
@@ -211,8 +223,8 @@ public class PlotCurve {
       rangeSource=sourcey;
       Storage domainStorage=domainSource.getStorage();
       Storage rangeStorage=rangeSource.getStorage();
-      ArrayDouble xArray = getDataArrayFromStorage(domainStorage, namex, true);
-      ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, namey, false);
+      ArrayDouble xArray = getDataArrayFromStorage(domainStorage, namex, true, domainSource.convertAngularUnits());
+      ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, namey, false, rangeSource.convertAngularUnits());
       
       // Make an XYSeries to hold the data
       setLegend(plotCurveSettings.getName());
@@ -284,5 +296,25 @@ public class PlotCurve {
        }
       
    }
+
+    private void convertDegreesToAnglesIfNeeded(String string, ArrayDouble tempArray) {
+        // Check if name is a rotational degree of freedom in current model if so convert
+        // every entry in the pased in array of data values, otherwise do nothing.
+        CoordinateSet coords= OpenSimDB.getInstance().getCurrentModel().getDynamicsEngine().getCoordinateSet();
+        ArrayStr coordinateNames = new ArrayStr();
+        coords.getNames(coordinateNames);
+        if (coordinateNames.findIndex(string)!=-1){
+            // Check if rotational rather than translational
+            AbstractCoordinate coord = coords.get(string);
+            if (coord.getMotionType() == AbstractDof.DofType.Rotational){
+                double conversion = Math.toDegrees(1.0);
+                for(int i=0; i<tempArray.getSize(); i++){
+                    tempArray.setitem(i, conversion*tempArray.getitem(i));
+                }
+            }
+            else
+                return;
+        }
+    }
 
 }
