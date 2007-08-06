@@ -29,6 +29,7 @@ import java.awt.Paint;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -75,7 +76,7 @@ public class Plot {
 
       XYPlot plot = (XYPlot) dChart.getPlot();
       nextPaint = plot.getDrawingSupplier().getNextPaint();
-      
+      plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
       plot.setDomainCrosshairVisible(false);
       plot.setRangeCrosshairVisible(false);
       
