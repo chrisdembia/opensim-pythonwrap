@@ -37,17 +37,125 @@ public class CMCTool extends AbstractTool {
     this(opensimModelJNI.new_CMCTool__SWIG_0(), true);
   }
 
-  public CMCTool(String aFileName) {
-    this(opensimModelJNI.new_CMCTool__SWIG_1(aFileName), true);
+  public CMCTool(String aFileName, boolean aLoadModel) throws java.io.IOException {
+    this(opensimModelJNI.new_CMCTool__SWIG_1(aFileName, aLoadModel), true);
+  }
+
+  public CMCTool(String aFileName) throws java.io.IOException {
+    this(opensimModelJNI.new_CMCTool__SWIG_2(aFileName), true);
   }
 
   public CMCTool(CMCTool aObject) {
-    this(opensimModelJNI.new_CMCTool__SWIG_2(CMCTool.getCPtr(aObject), aObject), true);
+    this(opensimModelJNI.new_CMCTool__SWIG_3(CMCTool.getCPtr(aObject), aObject), true);
   }
 
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.CMCTool_copy(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
+  }
+
+  public String getDesiredKinematicsFileName() {
+    return opensimModelJNI.CMCTool_getDesiredKinematicsFileName(swigCPtr, this);
+  }
+
+  public void setDesiredKinematicsFileName(String aFileName) {
+    opensimModelJNI.CMCTool_setDesiredKinematicsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getConstraintsFileName() {
+    return opensimModelJNI.CMCTool_getConstraintsFileName(swigCPtr, this);
+  }
+
+  public void setConstraintsFileName(String aFileName) {
+    opensimModelJNI.CMCTool_setConstraintsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getTaskSetFileName() {
+    return opensimModelJNI.CMCTool_getTaskSetFileName(swigCPtr, this);
+  }
+
+  public void setTaskSetFileName(String aFileName) {
+    opensimModelJNI.CMCTool_setTaskSetFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getRRAControlsFileName() {
+    return opensimModelJNI.CMCTool_getRRAControlsFileName(swigCPtr, this);
+  }
+
+  public void setRRAControlsFileName(String aFileName) {
+    opensimModelJNI.CMCTool_setRRAControlsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getOutputModelFileName() {
+    return opensimModelJNI.CMCTool_getOutputModelFileName(swigCPtr, this);
+  }
+
+  public void setOutputModelFileName(String aFileName) {
+    opensimModelJNI.CMCTool_setOutputModelFileName(swigCPtr, this, aFileName);
+  }
+
+  public boolean getAdjustCOMToReduceResiduals() {
+    return opensimModelJNI.CMCTool_getAdjustCOMToReduceResiduals(swigCPtr, this);
+  }
+
+  public void setAdjustCOMToReduceResiduals(boolean aAdjust) {
+    opensimModelJNI.CMCTool_setAdjustCOMToReduceResiduals(swigCPtr, this, aAdjust);
+  }
+
+  public String getAdjustedCOMBody() {
+    return opensimModelJNI.CMCTool_getAdjustedCOMBody(swigCPtr, this);
+  }
+
+  public void setAdjustedCOMBody(String aBody) {
+    opensimModelJNI.CMCTool_setAdjustedCOMBody(swigCPtr, this, aBody);
+  }
+
+  public double getLowpassCutoffFrequency() {
+    return opensimModelJNI.CMCTool_getLowpassCutoffFrequency(swigCPtr, this);
+  }
+
+  public void setLowpassCutoffFrequency(double aLowpassCutoffFrequency) {
+    opensimModelJNI.CMCTool_setLowpassCutoffFrequency(swigCPtr, this, aLowpassCutoffFrequency);
+  }
+
+  public String getExternalLoadsFileName() {
+    return opensimModelJNI.CMCTool_getExternalLoadsFileName(swigCPtr, this);
+  }
+
+  public void setExternalLoadsFileName(String aFileName) {
+    opensimModelJNI.CMCTool_setExternalLoadsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getExternalLoadsModelKinematicsFileName() {
+    return opensimModelJNI.CMCTool_getExternalLoadsModelKinematicsFileName(swigCPtr, this);
+  }
+
+  public void setExternalLoadsModelKinematicsFileName(String aFileName) {
+    opensimModelJNI.CMCTool_setExternalLoadsModelKinematicsFileName(swigCPtr, this, aFileName);
+  }
+
+  public String getExternalLoadsBody1() {
+    return opensimModelJNI.CMCTool_getExternalLoadsBody1(swigCPtr, this);
+  }
+
+  public void setExternalLoadsBody1(String aName) {
+    opensimModelJNI.CMCTool_setExternalLoadsBody1(swigCPtr, this, aName);
+  }
+
+  public String getExternalLoadsBody2() {
+    return opensimModelJNI.CMCTool_getExternalLoadsBody2(swigCPtr, this);
+  }
+
+  public void setExternalLoadsBody2(String aName) {
+    opensimModelJNI.CMCTool_setExternalLoadsBody2(swigCPtr, this, aName);
+  }
+
+  public double getLowpassCutoffFrequencyForLoadKinematics() {
+    return opensimModelJNI.CMCTool_getLowpassCutoffFrequencyForLoadKinematics(swigCPtr, this);
+  }
+
+  public void setLowpassCutoffFrequencyForLoadKinematics(double aLowpassCutoffFrequency) {
+    opensimModelJNI.CMCTool_setLowpassCutoffFrequencyForLoadKinematics(swigCPtr, this, aLowpassCutoffFrequency);
   }
 
   public boolean run() {
@@ -57,6 +165,10 @@ public class CMCTool extends AbstractTool {
   public Storage getForceStorage() {
     long cPtr = opensimModelJNI.CMCTool_getForceStorage(swigCPtr, this);
     return (cPtr == 0) ? null : new Storage(cPtr, false);
+  }
+
+  public void setOriginalActuatorSet(ActuatorSet aActuatorSet) {
+    opensimModelJNI.CMCTool_setOriginalActuatorSet(swigCPtr, this, ActuatorSet.getCPtr(aActuatorSet), aActuatorSet);
   }
 
 }

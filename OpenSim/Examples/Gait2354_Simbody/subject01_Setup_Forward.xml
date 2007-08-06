@@ -127,15 +127,6 @@
 	<lowpass_cutoff_frequency_for_load_kinematics> 6 </lowpass_cutoff_frequency_for_load_kinematics>
 	
 	<!-- CORRECTIVE SPRINGS -->
-	<!--Stiffness for linear (translational) corrective springs-->
-	<corrective_spring_linear_stiffness> 5e+003 5e+003 5e+003 </corrective_spring_linear_stiffness>
-	<!--Damping for linear (translational) corrective springs-->
-	<corrective_spring_linear_damping> 140 140 140 </corrective_spring_linear_damping>
-	<!--Stiffness for torsional corrective springs-->
-	<corrective_spring_torsional_stiffness> 100000 100000 100000 </corrective_spring_torsional_stiffness>
-	<!--Damping for torsional corrective springs-->
-	<corrective_spring_torsional_damping> 1000 1000 1000 </corrective_spring_torsional_damping>
-	
 	<!--True-false flag indicating whether or not to turn on a linear corrective spring for external load body 1.-->
 	<body1_linear_corrective_spring_on> true </body1_linear_corrective_spring_on>
 	<!--True-false flag indicating whether or not to turn on a torsional corrective spring for external load body 1.-->
@@ -144,6 +135,16 @@
 	<body2_linear_corrective_spring_on> false </body2_linear_corrective_spring_on>
 	<!--True-false flag indicating whether or not to turn on a torsional corrective spring for external load body 2.-->
 	<body2_torsional_corrective_spring_on> false </body2_torsional_corrective_spring_on>
+	
+	<!--Stiffness for linear (translational) corrective springs-->
+	<corrective_spring_linear_stiffness> 5e+004 5e+004 5e+004 </corrective_spring_linear_stiffness>
+	<!--Damping for linear (translational) corrective springs-->
+	<corrective_spring_linear_damping> 440 440 440 </corrective_spring_linear_damping>
+	<!--Stiffness for torsional corrective springs-->
+	<corrective_spring_torsional_stiffness> 100000 100000 100000 </corrective_spring_torsional_stiffness>
+	<!--Damping for torsional corrective springs-->
+	<corrective_spring_torsional_damping> 1000 1000 1000 </corrective_spring_torsional_damping>
+	
 	
 	
 	

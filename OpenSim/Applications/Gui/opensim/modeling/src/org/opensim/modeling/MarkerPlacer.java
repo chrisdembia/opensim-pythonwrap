@@ -146,4 +146,17 @@ public class MarkerPlacer extends OpenSimObject {
     opensimModelJNI.MarkerPlacer_setPrintResultFiles(swigCPtr, this, aToWrite);
   }
 
+  public boolean getMoveModelMarkers() {
+    return opensimModelJNI.MarkerPlacer_getMoveModelMarkers(swigCPtr, this);
+  }
+
+  public void setMoveModelMarkers(boolean aMove) {
+    opensimModelJNI.MarkerPlacer_setMoveModelMarkers(swigCPtr, this, aMove);
+  }
+
+  public Storage getOutputStorage() {
+    long cPtr = opensimModelJNI.MarkerPlacer_getOutputStorage(swigCPtr, this);
+    return (cPtr == 0) ? null : new Storage(cPtr, false);
+  }
+
 }

@@ -1768,7 +1768,7 @@
 					<stiffness>0.000000000000</stiffness>
 					<keys>a_key</keys>
 					<clamped>true</clamped>
-					<locked>true</locked>
+					<locked>false</locked>
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="mtp_angle_r">
@@ -1778,7 +1778,7 @@
 					<stiffness>0.000000000000</stiffness>
 					<keys>t_key</keys>
 					<clamped>true</clamped>
-					<locked>true</locked>
+					<locked>false</locked>
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="hip_flexion_l">
@@ -1838,7 +1838,7 @@
 					<stiffness>0.000000000000</stiffness>
 					<keys>a_key</keys>
 					<clamped>true</clamped>
-					<locked>true</locked>
+					<locked>false</locked>
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="mtp_angle_l">
@@ -1848,7 +1848,7 @@
 					<stiffness>0.000000000000</stiffness>
 					<keys>t_key</keys>
 					<clamped>true</clamped>
-					<locked>true</locked>
+					<locked>false</locked>
 					<restraint_active>false</restraint_active>
 				</SimmCoordinate>
 				<SimmCoordinate name="lumbar_extension">

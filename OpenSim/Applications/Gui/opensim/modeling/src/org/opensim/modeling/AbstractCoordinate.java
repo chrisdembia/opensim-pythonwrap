@@ -60,7 +60,11 @@ public class AbstractCoordinate extends OpenSimObject {
   }
 
   public boolean setValue(double aValue) {
-    return opensimModelJNI.AbstractCoordinate_setValue(swigCPtr, this, aValue);
+    return opensimModelJNI.AbstractCoordinate_setValue__SWIG_0(swigCPtr, this, aValue);
+  }
+
+  public boolean setValue(double aValue, boolean aRealize) {
+    return opensimModelJNI.AbstractCoordinate_setValue__SWIG_1(swigCPtr, this, aValue, aRealize);
   }
 
   public boolean getValueUseDefault() {
