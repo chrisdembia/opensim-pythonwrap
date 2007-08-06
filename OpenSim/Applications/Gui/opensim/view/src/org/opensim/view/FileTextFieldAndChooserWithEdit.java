@@ -15,6 +15,7 @@ public class FileTextFieldAndChooserWithEdit extends FileTextFieldAndChooser {
    public FileTextFieldAndChooserWithEdit() {
       editButton = new javax.swing.JButton();
       editButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/editor.gif")));
+      editButton.setToolTipText("Edit file contents");
       editButton.setMaximumSize(new java.awt.Dimension(30, 19));
       editButton.setMinimumSize(new java.awt.Dimension(30, 19));
       editButton.setPreferredSize(new java.awt.Dimension(30, 19));

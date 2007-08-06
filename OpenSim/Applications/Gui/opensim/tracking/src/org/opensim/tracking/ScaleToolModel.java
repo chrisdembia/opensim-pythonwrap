@@ -23,7 +23,9 @@ import org.opensim.modeling.PropertyStr;
 import org.opensim.modeling.Scale;
 import org.opensim.modeling.ScaleSet;
 import org.opensim.modeling.ScaleTool;
+import org.opensim.modeling.Storage;
 import org.opensim.modeling.rdMath;
+import org.opensim.motionviewer.MotionsDB;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.pub.OpenSimDB;
@@ -345,6 +347,12 @@ public class ScaleToolModel extends Observable implements Observer {
 
             assert(SwingUtilities.isEventDispatchThread());
             OpenSimDB.getInstance().replaceModel(oldScaledModel, scaledModel);
+
+            if(getMarkerPlacerEnabled() && scaleTool.getMarkerPlacer().getOutputStorage()!=null) {
+               Storage motion = new Storage(scaleTool.getMarkerPlacer().getOutputStorage());
+               motion.setName("static pose");
+               MotionsDB.getInstance().addMotion(scaledModel, motion);
+            }
 
             resetModified();
          } catch (Exception ex) {
@@ -759,6 +767,14 @@ public class ScaleToolModel extends Observable implements Observer {
    }
    public boolean getMarkerPlacerEnabled() {
       return scaleTool.getMarkerPlacer().getApply();
+   }
+
+   public boolean getMoveModelMarkers() { return scaleTool.getMarkerPlacer().getMoveModelMarkers(); }
+   public void setMoveModelMarkers(boolean move) { 
+      if(getMoveModelMarkers() != move) {
+         scaleTool.getMarkerPlacer().setMoveModelMarkers(move);
+         setModified(Operation.MarkerPlacerDataChanged);
+      }
    }
 
    //------------------------------------------------------------------------

@@ -205,6 +205,7 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       browseButton = new javax.swing.JButton();
 
       openButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/folderOpen.png")));
+      openButton.setToolTipText("Open file/folder");
       openButton.setMaximumSize(new java.awt.Dimension(30, 19));
       openButton.setMinimumSize(new java.awt.Dimension(30, 19));
       openButton.setPreferredSize(new java.awt.Dimension(30, 19));
@@ -231,6 +232,7 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       add(fileNameTextField);
 
       browseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/swingui/folderBrowse.png")));
+      browseButton.setToolTipText("Browse for file/folder");
       browseButton.setMaximumSize(new java.awt.Dimension(30, 19));
       browseButton.setMinimumSize(new java.awt.Dimension(30, 19));
       browseButton.setPreferredSize(new java.awt.Dimension(30, 19));
