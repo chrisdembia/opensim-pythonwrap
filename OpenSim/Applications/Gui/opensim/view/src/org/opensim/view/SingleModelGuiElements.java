@@ -35,6 +35,10 @@ public class SingleModelGuiElements {
     private String[] actuatorNames=null;
 
     private boolean unsavedChanges = false;
+    // Not a semaphore, just a flag to disallow the closing (and possibly editing)
+    // of a model while in use.
+    private boolean locked = false;
+    private String lockOwner = null;
 
     public SingleModelGuiElements(Model model)
     {
@@ -55,6 +59,45 @@ public class SingleModelGuiElements {
     public boolean getUnsavedChangesFlag()
     {
        return unsavedChanges;
+    }
+
+    /**
+     * Get the flag for marking the model as locked.
+     */
+    public boolean isLocked()
+    {
+       return locked;
+    }
+
+    /**
+     * Get the owner of the lock.
+     */
+    public String getLockOwner()
+    {
+       return lockOwner;
+    }
+
+    /**
+     * Mark the model as locked. If it's already locked, return false.
+     */
+    public boolean lockModel(String owner)
+    {
+       if (locked == false) {
+          locked = true;
+          lockOwner = owner;
+          return true;
+       } else {
+          return false;
+       }
+    }
+
+    /**
+     * Unlock the model.
+     */
+    public void unlockModel()
+    {
+       locked = false;
+       lockOwner = "";
     }
 
     /**

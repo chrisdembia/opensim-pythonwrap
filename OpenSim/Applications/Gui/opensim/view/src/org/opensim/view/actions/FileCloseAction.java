@@ -1,11 +1,13 @@
 package org.opensim.view.actions;
 
+import javax.swing.JOptionPane;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
+import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.FileSaveAsModelAction;
 import org.opensim.view.ModelSettingsSerializer;
 import org.opensim.view.SingleModelGuiElements;
@@ -17,8 +19,17 @@ public final class FileCloseAction extends CallableSystemAction {
    public static void closeModel(Model model) {
       if(model==null) return;
 
-      // Confirm closing
       SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
+
+      // Do not allow the model to be closed if it is locked.
+      if (guiElem.isLocked()) {
+         NotifyDescriptor dlg = new NotifyDescriptor.Message(model.getName() + " is currently in use by " +
+            guiElem.getLockOwner() + " and cannot be closed.", NotifyDescriptor.INFORMATION_MESSAGE);
+         DialogDisplayer.getDefault().notify(dlg);
+         return;
+      }
+
+      // Confirm closing
       if (guiElem.getUnsavedChangesFlag()) {
          if (saveAndConfirmClose(model) == false)
             return;
