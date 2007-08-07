@@ -1442,7 +1442,8 @@ public class opensimModelJNI {
   public final static native void PerturbationTool_printResults__SWIG_2(long jarg1, PerturbationTool jarg1_, String jarg2, String jarg3);
   public final static native void PerturbationTool_printResults__SWIG_3(long jarg1, PerturbationTool jarg1_, String jarg2);
   public final static native long SimtkAnimationCallback_CreateAnimationCallback(long jarg1, Model jarg1_);
-  public final static native long new_SimtkAnimationCallback(long jarg1, Model jarg1_);
+  public final static native long new_SimtkAnimationCallback__SWIG_0(long jarg1, Model jarg1_, long jarg2, Model jarg2_);
+  public final static native long new_SimtkAnimationCallback__SWIG_1(long jarg1, Model jarg1_);
   public final static native double SimtkAnimationCallback_getCurrentTime(long jarg1, SimtkAnimationCallback jarg1_);
   public final static native int SimtkAnimationCallback_step__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
   public final static native int SimtkAnimationCallback_stepSwigExplicitSimtkAnimationCallback__SWIG_0(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, long jarg3, long jarg4, int jarg5, double jarg6, double jarg7, long jarg8, long jarg9, long jarg10, long jarg11, long jarg12);
@@ -1462,6 +1463,7 @@ public class opensimModelJNI {
   public final static native int SimtkAnimationCallback_beginSwigExplicitSimtkAnimationCallback__SWIG_3(long jarg1, SimtkAnimationCallback jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6);
   public final static native long SimtkAnimationCallback_getBodyTransform(long jarg1, SimtkAnimationCallback jarg1_, int jarg2);
   public final static native void SimtkAnimationCallback_extractOffsets(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, Model jarg2_);
+  public final static native long SimtkAnimationCallback_getModelForDisplay(long jarg1, SimtkAnimationCallback jarg1_);
   public final static native void SimtkAnimationCallback_getTransformsFromKinematicsEngine(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, Model jarg2_);
   public final static native void SimtkAnimationCallback_director_connect(SimtkAnimationCallback obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void SimtkAnimationCallback_change_ownership(SimtkAnimationCallback obj, long cptr, boolean take_or_release);

@@ -1201,7 +1201,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
 
 #include "C:/cygwin/home/fca/Projects/OpenSim/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
 
-SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel) : OpenSim::SimtkAnimationCallback(aModel), Swig::Director(jenv) {
+SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel, OpenSim::Model *aModelForDisplay) : OpenSim::SimtkAnimationCallback(aModel, aModelForDisplay), Swig::Director(jenv) {
 }
 
 SwigDirector_SimtkAnimationCallback::~SwigDirector_SimtkAnimationCallback() {
@@ -27584,7 +27584,25 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimatio
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimtkAnimationCallback(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimtkAnimationCallback_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
+  OpenSim::Model *arg2 = (OpenSim::Model *) 0 ;
+  OpenSim::SimtkAnimationCallback *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::Model **)&jarg1; 
+  arg2 = *(OpenSim::Model **)&jarg2; 
+  result = (OpenSim::SimtkAnimationCallback *)new SwigDirector_SimtkAnimationCallback(jenv,arg1,arg2);
+  *(OpenSim::SimtkAnimationCallback **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimtkAnimationCallback_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
   OpenSim::SimtkAnimationCallback *result = 0 ;
@@ -28142,6 +28160,21 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimation
     return ;
   } 
   (arg1)->extractOffsets(*arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimtkAnimationCallback_1getModelForDisplay(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::SimtkAnimationCallback *arg1 = (OpenSim::SimtkAnimationCallback *) 0 ;
+  OpenSim::Model *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimtkAnimationCallback **)&jarg1; 
+  result = (OpenSim::Model *)(arg1)->getModelForDisplay();
+  *(OpenSim::Model **)&jresult = result; 
+  return jresult;
 }
 
 

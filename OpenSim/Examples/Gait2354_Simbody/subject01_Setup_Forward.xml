@@ -127,10 +127,15 @@
 	<lowpass_cutoff_frequency_for_load_kinematics> 6 </lowpass_cutoff_frequency_for_load_kinematics>
 	
 	<!-- CORRECTIVE SPRINGS -->
+	<!-- body1 -->
 	<!--True-false flag indicating whether or not to turn on a linear corrective spring for external load body 1.-->
 	<body1_linear_corrective_spring_on> true </body1_linear_corrective_spring_on>
 	<!--True-false flag indicating whether or not to turn on a torsional corrective spring for external load body 1.-->
 	<body1_torsional_corrective_spring_on> false </body1_torsional_corrective_spring_on>
+	<r_foot_flat> 0.8 </r_foot_flat>
+	<r_heel_off> 1.10 </r_heel_off>
+	
+	<!-- body2 -->
 	<!--True-false flag indicating whether or not to turn on a linear corrective spring for external load body 2.-->
 	<body2_linear_corrective_spring_on> false </body2_linear_corrective_spring_on>
 	<!--True-false flag indicating whether or not to turn on a torsional corrective spring for external load body 2.-->
