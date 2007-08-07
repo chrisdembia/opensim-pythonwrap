@@ -27,9 +27,12 @@ package org.opensim.motionviewer;
 
 import java.awt.Image;
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
-import javax.swing.Action;
 import javax.swing.ImageIcon;
+import org.openide.nodes.Children;
+import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.opensim.view.nodes.*;
 
@@ -37,9 +40,9 @@ import org.opensim.view.nodes.*;
  *
  * @author Ayman Habib
  *
- * Top level motions node in Navigator view
+ * Top level motions node in Navigator view. One per model
  */
-public class MotionsNode extends OpenSimNode {
+public class MotionsNode extends OpenSimNode implements Observer{
    
    private static ResourceBundle bundle = NbBundle.getBundle(MotionsNode.class);
    
@@ -77,6 +80,17 @@ public class MotionsNode extends OpenSimNode {
          return new ImageIcon(imageURL, "").getImage();
       } else {
          return null;
+      }
+   }
+
+   public void update(Observable o, Object arg) {
+      if (o instanceof MotionsDB && arg instanceof MotionEvent) {
+         // No matter what set the names of the naodes so that the explorer view is updated 
+         // with what's current in bold'
+         Node[] nodes = this.getChildren().getNodes();
+         for(int i=0; i< nodes.length; i++){
+            nodes[i].setName(nodes[i].getName());
+         }
       }
    }
 

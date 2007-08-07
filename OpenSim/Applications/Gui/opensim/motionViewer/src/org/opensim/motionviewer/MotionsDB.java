@@ -212,8 +212,11 @@ public class MotionsDB extends Observable // Observed by other entities in motio
             // Send motion close events for all motions associated with this model
             ArrayList<Storage> motionsForModel = mapModels2Motions.get(evnt.getModel());
             if(motionsForModel != null) {
-               for(int i=0; i<motionsForModel.size(); i++)
+               for(int i=0; i<motionsForModel.size(); i++){
+                  ModelMotionPair pair = new ModelMotionPair(model, motionsForModel.get(i));
+                  removeFromCurrentMotions(pair);
                   closeMotion(model, motionsForModel.get(i));
+               }
             }
          }
       } else if (o instanceof MotionsDB && arg instanceof MotionEvent) {
@@ -224,9 +227,10 @@ public class MotionsDB extends Observable // Observed by other entities in motio
                   case Open:
                   {
                      Node modelNode = ExplorerTopComponent.findInstance().getModelNode(evnt.getModel());
-                     Node motionsNode = modelNode.getChildren().findChild("Motions");
+                     MotionsNode motionsNode = (MotionsNode) modelNode.getChildren().findChild("Motions");
                      if(motionsNode==null) {
                         motionsNode = new MotionsNode();
+                        getInstance().addObserver(motionsNode);
                         modelNode.getChildren().add(new Node[]{motionsNode});
                      }
                      Node newMotionNode = new OneMotionNode(evnt.getMotion());
@@ -308,4 +312,12 @@ public class MotionsDB extends Observable // Observed by other entities in motio
 
    public int getNumCurrentMotions() { return currentMotions.size(); }
    public ModelMotionPair getCurrentMotion(int i) { return currentMotions.get(i); }
+
+   boolean isModelMotionPairCurrent(ModelMotionPair pair) {
+      for(int i=0; i<currentMotions.size(); i++) {
+         if(currentMotions.get(i).model == pair.model && currentMotions.get(i).motion == pair.motion) 
+            return true;
+      }
+      return false;
+   }
 }

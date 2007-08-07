@@ -102,4 +102,14 @@ public class OneMotionNode extends OpenSimObjectNode{
         
         return retValue;
     }
+    
+    public String getHtmlDisplayName() {
+        String retValue;
+        
+        retValue = super.getHtmlDisplayName();
+        MotionsDB.ModelMotionPair modelMotionPair = new MotionsDB.ModelMotionPair(getModel(), getMotion());
+        if (MotionsDB.getInstance().isModelMotionPairCurrent(modelMotionPair))
+           retValue = "<b>"+retValue+"</b>";
+        return retValue;
+    }
 }
