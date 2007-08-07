@@ -48,8 +48,7 @@ public final class ObjectDisplayMenuAction extends CallableSystemAction implemen
                showShadingOptions=true;
         }
 
-      try {
-      
+      try {      
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayShowAction) ObjectDisplayShowAction.findObject(
                  Class.forName("org.opensim.view.ObjectDisplayShowAction"), true)));
@@ -70,6 +69,10 @@ public final class ObjectDisplayMenuAction extends CallableSystemAction implemen
             displayMenu.add(new JMenuItem(
                     (ObjectDisplayWireframeAction) ObjectDisplayWireframeAction.findObject(
                     Class.forName("org.opensim.view.ObjectDisplayWireframeAction"), true)));
+            displayMenu.add(new JMenuItem(
+                    (ObjectDisplayColorAction) ObjectDisplayColorAction.findObject(
+                    Class.forName("org.opensim.view.ObjectDisplayColorAction"), true)));
+            
          }
        } catch (ClassNotFoundException ex) {
          ex.printStackTrace();

@@ -34,6 +34,8 @@ public final class ObjectSetDisplayMenuAction extends CallableSystemAction imple
 
    public JMenuItem getPopupPresenter() {
       JMenu displayMenu = new JMenu("Display");
+      boolean showColorSelection=false;
+      
       try {
       
          displayMenu.add(new JMenuItem(
@@ -42,6 +44,9 @@ public final class ObjectSetDisplayMenuAction extends CallableSystemAction imple
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayHideAction) ObjectDisplayHideAction.findObject(
                  Class.forName("org.opensim.view.ObjectDisplayHideAction"), true)));
+         displayMenu.add(new JMenuItem(
+                 (ObjectDisplayColorAction) ObjectDisplayColorAction.findObject(
+                 Class.forName("org.opensim.view.ObjectDisplayColorAction"), true)));
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
       }     
