@@ -239,7 +239,18 @@ public final class ViewDB extends Observable implements Observer {
                   break;
                }
             }
-         } else if (arg instanceof ModelEvent){
+         } else if (arg instanceof ObjectsDeletedEvent) {
+            ObjectsDeletedEvent ev = (ObjectsDeletedEvent)arg;
+            Vector<OpenSimObject> objs = ev.getObjects();
+            for (int i=0; i<objs.size(); i++) {
+               //OpenSimObject ob = objs.get(i);
+               if (objs.get(i) instanceof Model) {
+                  // TODO: do same stuff as ModelEvent.Operation.Close event
+               } else if (objs.get(i) instanceof AbstractMuscle) {
+                  removeObjectsBelongingToMuscleFromSelection((AbstractMuscle)objs.get(i));
+               }
+            }
+         } else if (arg instanceof ModelEvent) {
             ModelEvent ev = (ModelEvent)arg;
             // We need to detect if this the first time anything is loaded into the app
             // (or new project) if so we'll open a window, otherwise we will
@@ -596,6 +607,43 @@ public final class ViewDB extends Observable implements Observer {
             markSelected(selectedObjects.get(i), false, false, false);
             selectedObjects.remove(i);
             modified = true;
+         }
+      }
+      if(modified) {
+         statusDisplaySelectedObjects();
+         repaintAll();
+      }
+   }
+   
+   /**
+    * Remove items from selection list which belong to the given model
+    */
+   public void removeObjectsBelongingToMuscleFromSelection(AbstractMuscle muscle)
+   {
+      boolean modified = false;
+      for (int i=selectedObjects.size()-1; i>=0; i--) {
+         // First see if the selected object is a muscle.
+         AbstractMuscle asm = AbstractMuscle.safeDownCast(selectedObjects.get(i).getOpenSimObject());
+         if (asm != null) {
+            if (AbstractMuscle.getCPtr(asm) == AbstractMuscle.getCPtr(muscle)) {
+               markSelected(selectedObjects.get(i), false, false, false);
+               selectedObjects.remove(i);
+               modified = true;
+               continue;
+            }
+         }
+         // Now see if the selected object is a muscle point.
+         MusclePoint mp = MusclePoint.safeDownCast(selectedObjects.get(i).getOpenSimObject());
+         if (mp != null) {
+            for (int j=0; j < muscle.getAttachmentSet().getSize(); j++) {
+               if (MusclePoint.getCPtr(mp) == MusclePoint.getCPtr(muscle.getAttachmentSet().get(j))) {
+                  markSelected(selectedObjects.get(i), false, false, false);
+                  //System.out.println("removing " + mp.getName());
+                  selectedObjects.remove(i);
+                  modified = true;
+                  break;
+               }
+            }
          }
       }
       if(modified) {

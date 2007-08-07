@@ -13,6 +13,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
@@ -23,6 +24,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
 import org.opensim.modeling.AbstractCoordinate;
 import org.opensim.modeling.AbstractDof;
+import org.opensim.modeling.OpenSimObject;
+import org.opensim.view.ObjectsChangedEvent;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
@@ -33,17 +36,17 @@ import org.opensim.view.pub.ViewDB;
  * everything else is just a view (text, slider).
  */
 public class CoordinateSliderWithBox extends javax.swing.JPanel implements ChangeListener,
-         PropertyChangeListener{
+        PropertyChangeListener{
    
-    private double min, max, step;
-    private double conversion=1.0;
-    int numTicks=0;
-    NumberFormatter formatter;
-    private boolean rotational;
-    private AbstractCoordinate coord;
-    private static double ROUNDOFF=1E-5;  // work around for roundoff converting Strings to/from doubles
-    private static String LABELS_FORMAT="###.###";          // Number of digits to show after floating point in bounds
-    
+   private double min, max, step;
+   private double conversion=1.0;
+   int numTicks=0;
+   NumberFormatter formatter;
+   private boolean rotational;
+   private AbstractCoordinate coord;
+   private static double ROUNDOFF=1E-5;  // work around for roundoff converting Strings to/from doubles
+   private static String LABELS_FORMAT="###.###";          // Number of digits to show after floating point in bounds
+   
    public CoordinateSliderWithBox(AbstractCoordinate coord) {
       this.coord = coord;
       setRotational(coord.getMotionType()==AbstractDof.DofType.Rotational);
@@ -64,48 +67,47 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       numberFormat.setMinimumFractionDigits(3);
       formatter = new NumberFormatter(numberFormat);
       setTextfieldBounds(true);
-
-       initComponents();
-       
-       jFormattedTextField.getInputMap().put(KeyStroke.getKeyStroke(
-                                KeyEvent.VK_ENTER, 0),
-                                "check");
-       jFormattedTextField.getActionMap().put("check", new handleReturnAction());
-       jXSlider.setMinimum(0);
-       jXSlider.setMaximum(numTicks-1);
-       
-       
-       createBoundsLabels(jXSlider, min, max, 0, numTicks-1);
-       jCoordinateNameLabel.setText(coord.getName());
-       boolean clamped = coord.getClamped();
-       jClampedCheckBox.setSelected(clamped);
-       boolean locked = coord.getLocked();
-       jLockedCheckBox.setSelected(locked);
-       if (!clamped | locked){
-           jMinimumLabel.setEnabled(false);
-           jMaximumLabel.setEnabled(false);
-       }
-       jXSlider.setEnabled(!locked);
-       jFormattedTextField.setEnabled(!locked);
+      
+      initComponents();
+      
+      jFormattedTextField.getInputMap().put(KeyStroke.getKeyStroke(
+              KeyEvent.VK_ENTER, 0),
+              "check");
+      jFormattedTextField.getActionMap().put("check", new handleReturnAction());
+      jXSlider.setMinimum(0);
+      jXSlider.setMaximum(numTicks-1);
+      
+      
+      createBoundsLabels(jXSlider, min, max, 0, numTicks-1);
+      jCoordinateNameLabel.setText(coord.getName());
+      boolean clamped = coord.getClamped();
+      jClampedCheckBox.setSelected(clamped);
+      boolean locked = coord.getLocked();
+      jLockedCheckBox.setSelected(locked);
+      if (!clamped | locked){
+         jMinimumLabel.setEnabled(false);
+         jMaximumLabel.setEnabled(false);
+      }
+      jXSlider.setEnabled(!locked);
+      jFormattedTextField.setEnabled(!locked);
 //       jXSlider.setToolTipText("["+Math.round(min)+", "+Math.round(max)+"]");
-       jXSlider.addChangeListener(this);
-       jFormattedTextField.addPropertyChangeListener("value", this);
-
-       updateValue();
+      jXSlider.addChangeListener(this);
+      jFormattedTextField.addPropertyChangeListener("value", this);
+      
+      updateValue();
    }
-
+   
    private void setTextfieldBounds(boolean trueFalse) {
       if (trueFalse){
          formatter.setMinimum(new Double(min));
          formatter.setMaximum(new Double(max));
-      }
-      else {
+      } else {
          formatter.setMinimum(new Double(-1e30));
          formatter.setMaximum(new Double(1e30));
          
       }
    }
-      
+   
    /** This method is called from within the constructor to
     * initialize the form.
     * WARNING: Do NOT modify this code. The content of this method is
@@ -229,29 +231,27 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
             .add(jXSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
    private void jClampedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClampedCheckBoxActionPerformed
       boolean newValue = ((JCheckBox)(evt.getSource())).isSelected();
       coord.setClamped(newValue);
       setTextfieldBounds(newValue);
       if (jLockedCheckBox.isSelected()) {
-          // do nothing
-      }
-      else {
-          jMinimumLabel.setEnabled(newValue);
-          jMaximumLabel.setEnabled(newValue);
+         // do nothing
+      } else {
+         jMinimumLabel.setEnabled(newValue);
+         jMaximumLabel.setEnabled(newValue);
       }
       if (coord.getClamped()){
          if (coord.getValue()>coord.getRangeMax()){
             setTheValue(coord.getRangeMax()*conversion, true, true, true, true);
-         }
-         else if (coord.getValue()<coord.getRangeMin()){
+         } else if (coord.getValue()<coord.getRangeMin()){
             setTheValue(coord.getRangeMin()*conversion, true, true, true, true);
          }
       }
 // TODO add your handling code here:
    }//GEN-LAST:event_jClampedCheckBoxActionPerformed
-
+   
    private void jLockedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLockedCheckBoxActionPerformed
 // TODO add your handling code here:
       boolean newValue = ((JCheckBox)(evt.getSource())).isSelected();
@@ -259,11 +259,11 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
       jXSlider.setEnabled(!newValue);
       jFormattedTextField.setEnabled(!newValue);
       if (jClampedCheckBox.isSelected()) {
-          jMinimumLabel.setEnabled(!newValue);
-          jMaximumLabel.setEnabled(!newValue);
+         jMinimumLabel.setEnabled(!newValue);
+         jMaximumLabel.setEnabled(!newValue);
       }
    }//GEN-LAST:event_jLockedCheckBoxActionPerformed
-
+   
    private void jFormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldActionPerformed
 // TODO add your handling code here:
    }//GEN-LAST:event_jFormattedTextFieldActionPerformed
@@ -278,18 +278,17 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
     private javax.swing.JLabel jMinimumLabel;
     private javax.swing.JSlider jXSlider;
     // End of variables declaration//GEN-END:variables
-      /**
+    /**
      * Set current value. May not correspond to a tickmark.
      * ONE SINGLE PLACE TO SET THE VALUE
      * During initialization, we don't want to update display of the whole model for every single slider.
      * but do it once after all the sliders were initialized.
      */
-    void setTheValue(double theValue, boolean setText, boolean setSlider, boolean setCoordinate, boolean updateDisplay)
-    {
+    void setTheValue(double theValue, boolean setText, boolean setSlider, boolean setCoordinate, boolean updateDisplay) {
        // Remove change listeners before calling setValue to avoid extraneous events
        if(setText) {
           jFormattedTextField.removePropertyChangeListener("value", this);
-          jFormattedTextField.setValue(new Double(theValue)); 
+          jFormattedTextField.setValue(new Double(theValue));
           jFormattedTextField.addPropertyChangeListener("value", this);
        }
        if(setSlider) {
@@ -304,129 +303,127 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
              //ViewDB.getInstance().updateModelDisplay(OpenSimDB.getInstance().getCurrentModel());
              ViewDB.getInstance().updateModelDisplayNoRepaint(OpenSimDB.getInstance().getCurrentModel());
              ViewDB.getInstance().renderAll();
+             Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
+             objs.add(coord);
+             ObjectsChangedEvent evnt = new ObjectsChangedEvent(this, coord.getDynamicsEngine().getModel(), objs);
+             OpenSimDB.getInstance().setChanged();
+             OpenSimDB.getInstance().notifyObservers(evnt);
           }
        }
     }
-
-     public double getTheValue()
-    {
-        return ((Double)jFormattedTextField.getValue()).doubleValue();
+    
+    public double getTheValue() {
+       return ((Double)jFormattedTextField.getValue()).doubleValue();
     }
-
-   /**
-    * Update the value of the slider and textbox from the coordinate's current value without triggering any extraneous events or affecting display
-    * Called from CoordinateSliderWithBox in response to model coordinates changing.
-    */
-   public void updateValue()
-   {
-      double theValue=coord.getValue() * conversion;
-      setTheValue(theValue, true, true, false, false);
-   }
-
+    
+    /**
+     * Update the value of the slider and textbox from the coordinate's current value without triggering any extraneous events or affecting display
+     * Called from CoordinateSliderWithBox in response to model coordinates changing.
+     */
+    public void updateValue() {
+       double theValue=coord.getValue() * conversion;
+       setTheValue(theValue, true, true, false, false);
+    }
+    
     /**
      * Slider change
      */
-     public void stateChanged(ChangeEvent e) {
-        JSlider source = (JSlider) e.getSource();
-        if (source != jXSlider) return;
-        double theValue = jXSlider.getValue()*step+min;
-        setTheValue(theValue, true, false, true, (source.getValueIsAdjusting()));
-     }
-     /**
-      * Text field change
-      */
-     public void propertyChange(PropertyChangeEvent evt) {
+    public void stateChanged(ChangeEvent e) {
+       JSlider source = (JSlider) e.getSource();
+       if (source != jXSlider) return;
+       double theValue = jXSlider.getValue()*step+min;
+       setTheValue(theValue, true, false, true, (source.getValueIsAdjusting()));
+    }
+    /**
+     * Text field change
+     */
+    public void propertyChange(PropertyChangeEvent evt) {
        if ("value".equals(evt.getPropertyName())) {
-           Number value = (Number)evt.getNewValue();
-           Number valueOld = (Number)evt.getOldValue();
+          Number value = (Number)evt.getNewValue();
+          Number valueOld = (Number)evt.getOldValue();
           if (value != null && valueOld!=value) {
-               setTheValue(value.doubleValue(), false, true, true, true);
-           }
+             setTheValue(value.doubleValue(), false, true, true, true);
+          }
        }
-     }
-
-   private void createBoundsLabels(JSlider jXSlider, double min, double max, int minint, int maxint) {
-      double rounded = Math.round(min);
-      if (Math.abs(min-rounded)<ROUNDOFF) min=rounded;
-      // Limit display to 2 significant digit
-      DecimalFormat formatter = new DecimalFormat(LABELS_FORMAT);
-      String myString = formatter.format(min);
-      jMinimumLabel.setText(myString);
-      //JLabel startLabel = new JLabel(myString);
-      rounded = Math.round(max);
-      if (Math.abs(max-rounded)<ROUNDOFF) max=rounded;
-      myString = formatter.format(max);
-      //JLabel endLabel = new JLabel(myString);
-      jMaximumLabel.setText(myString);
-      //Hashtable<Integer,JLabel> labels = new Hashtable<Integer,JLabel>(2);
-      //labels.put(minint, startLabel);
-      //labels.put(maxint, endLabel);
-      //jXSlider.setLabelTable(labels);
-   }
-      
-     class handleReturnAction extends AbstractAction {
-        public void actionPerformed(ActionEvent e) {
-           if (!jFormattedTextField.isEditValid()) { //The text is invalid.
-              Toolkit.getDefaultToolkit().beep();
-              String text = jFormattedTextField.getText();
-              // Try to parse the text into a double as it could be out of range, in this case truncate
-              try {
-                  double valueFromTextField = Double.parseDouble(text);
-                  if (coord.getClamped()){
-                     if (valueFromTextField >max){
-                        jFormattedTextField.setText(String.valueOf(max)) ;
-                        jFormattedTextField.commitEdit();
-                     }
-                     else {
-                        jFormattedTextField.setText(String.valueOf(min)) ;
-                        jFormattedTextField.commitEdit();
-                     }
-                  }
-                  else
-                     throw new UnsupportedOperationException();
-              }
-              catch (NumberFormatException ex){
-                 // Really invalid text for a double
-              }
-              catch (ParseException ex){
-                 // Really invalid text for a double
-              }
-              
-              jFormattedTextField.selectAll();
-           } else try {                    //The text is valid,
-              jFormattedTextField.commitEdit();     //so use it.
-            } catch (java.text.ParseException exc) { 
-               System.out.println("Parsing Exception");
-            }
-           
-        }
-        
-     }
-
-   public boolean isRotational() {
-      return rotational;
-   }
-
-   public void setRotational(boolean rotational) {
-      this.rotational = rotational;
-      if (rotational)
-         conversion=180.0/Math.PI;
-   }
-
-   /**
-    * Due to round off in converting back and forth between ints and floats we need to make sure sliders
-    * and text boxes end up with proper int bounds if warranted
-    * 
-    * This doesn't work now because of tight tolerances setting coordinate values
-    */
-   private double roundBoundIfNeeded(double bound) {
-      double absBound = Math.abs(bound);
-      double roundAbsBound= Math.round(absBound);
-      if (Math.abs(absBound-roundAbsBound)<ROUNDOFF){
-         return (bound>0)?roundAbsBound:-roundAbsBound;
-      }
-      else
-         return bound;
-   }
-   
+    }
+    
+    private void createBoundsLabels(JSlider jXSlider, double min, double max, int minint, int maxint) {
+       double rounded = Math.round(min);
+       if (Math.abs(min-rounded)<ROUNDOFF) min=rounded;
+       // Limit display to 2 significant digit
+       DecimalFormat formatter = new DecimalFormat(LABELS_FORMAT);
+       String myString = formatter.format(min);
+       jMinimumLabel.setText(myString);
+       //JLabel startLabel = new JLabel(myString);
+       rounded = Math.round(max);
+       if (Math.abs(max-rounded)<ROUNDOFF) max=rounded;
+       myString = formatter.format(max);
+       //JLabel endLabel = new JLabel(myString);
+       jMaximumLabel.setText(myString);
+       //Hashtable<Integer,JLabel> labels = new Hashtable<Integer,JLabel>(2);
+       //labels.put(minint, startLabel);
+       //labels.put(maxint, endLabel);
+       //jXSlider.setLabelTable(labels);
+    }
+    
+    class handleReturnAction extends AbstractAction {
+       public void actionPerformed(ActionEvent e) {
+          if (!jFormattedTextField.isEditValid()) { //The text is invalid.
+             Toolkit.getDefaultToolkit().beep();
+             String text = jFormattedTextField.getText();
+             // Try to parse the text into a double as it could be out of range, in this case truncate
+             try {
+                double valueFromTextField = Double.parseDouble(text);
+                if (coord.getClamped()){
+                   if (valueFromTextField >max){
+                      jFormattedTextField.setText(String.valueOf(max)) ;
+                      jFormattedTextField.commitEdit();
+                   } else {
+                      jFormattedTextField.setText(String.valueOf(min)) ;
+                      jFormattedTextField.commitEdit();
+                   }
+                } else
+                   throw new UnsupportedOperationException();
+             } catch (NumberFormatException ex){
+                // Really invalid text for a double
+             } catch (ParseException ex){
+                // Really invalid text for a double
+             }
+             
+             jFormattedTextField.selectAll();
+          } else try {                    //The text is valid,
+             jFormattedTextField.commitEdit();     //so use it.
+          } catch (java.text.ParseException exc) {
+             System.out.println("Parsing Exception");
+          }
+          
+       }
+       
+    }
+    
+    public boolean isRotational() {
+       return rotational;
+    }
+    
+    public void setRotational(boolean rotational) {
+       this.rotational = rotational;
+       if (rotational)
+          conversion=180.0/Math.PI;
+    }
+    
+    /**
+     * Due to round off in converting back and forth between ints and floats we need to make sure sliders
+     * and text boxes end up with proper int bounds if warranted
+     *
+     * This doesn't work now because of tight tolerances setting coordinate values
+     */
+    private double roundBoundIfNeeded(double bound) {
+       double absBound = Math.abs(bound);
+       double roundAbsBound= Math.round(absBound);
+       if (Math.abs(absBound-roundAbsBound)<ROUNDOFF){
+          return (bound>0)?roundAbsBound:-roundAbsBound;
+       } else
+          return bound;
+    }
+    
 }
