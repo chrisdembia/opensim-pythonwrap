@@ -2,23 +2,19 @@ package org.opensim.tracking;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.Cancellable;
-import org.opensim.modeling.Analysis;
 import org.opensim.modeling.CMCTool;
 import org.opensim.modeling.InterruptingIntegCallback;
 import org.opensim.modeling.Model;
-import org.opensim.modeling.Storage;
-import org.opensim.modeling.InverseDynamics;
 import org.opensim.motionviewer.JavaMotionDisplayerCallback;
-import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
+import org.opensim.view.pub.OpenSimDB;
 
 public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
@@ -94,6 +90,24 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
             DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Tool execution canceled by user.  Output files not written."));
          }
 
+         // Add adjusted RRA model if we're in that mode
+         if(processResults) {
+            if(getResidualReductionEnabled()) {
+               Model newReducedResidualsModel = null;
+               try {
+                  newReducedResidualsModel = new Model(getOutputModelFileName());
+                  newReducedResidualsModel.setup();
+               } catch (IOException ex) {
+                  newReducedResidualsModel = null;
+               }
+               OpenSimDB.getInstance().replaceModel(reducedResidualsModel, newReducedResidualsModel);
+               reducedResidualsModel = newReducedResidualsModel;
+            } else if(reducedResidualsModel!=null) {
+               OpenSimDB.getInstance().removeModel(reducedResidualsModel);
+               reducedResidualsModel = null;
+            }
+         }
+
          progressHandle.finish();
 
          // Clean up motion displayer (this is necessary!)
@@ -116,6 +130,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    //========================================================================
 
    private boolean constraintsEnabled = false;
+   private Model reducedResidualsModel = null;
 
    public CMCToolModel(Model model) throws IOException {
       super(model);
@@ -171,14 +186,6 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
-   public String getOutputModelFileName() { return getTool().getOutputModelFileName(); }
-   public void setOutputModelFileName(String fileName) {
-      if(!getOutputModelFileName().equals(fileName)) {
-         getTool().setOutputModelFileName(fileName);
-         setModified(AbstractToolModel.Operation.InputDataChanged);
-      }
-   }
-
    public double getLowpassCutoffFrequency() { return getTool().getLowpassCutoffFrequency(); }
    public void setLowpassCutoffFrequency(double frequency) {
       if(getLowpassCutoffFrequency() != frequency) {
@@ -198,6 +205,14 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
    // RRA settings
    //
+   public String getOutputModelFileName() { return getTool().getOutputModelFileName(); }
+   public void setOutputModelFileName(String fileName) {
+      if(!getOutputModelFileName().equals(fileName)) {
+         getTool().setOutputModelFileName(fileName);
+         setModified(AbstractToolModel.Operation.InputDataChanged);
+      }
+   }
+
    public boolean getResidualReductionEnabled() { return getTool().getAdjustCOMToReduceResiduals(); }
    public void setResidualReductionEnabled(boolean enabled) {
       if(getResidualReductionEnabled() != enabled) {
@@ -212,6 +227,13 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          getTool().setAdjustedCOMBody(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
+   }
+   public boolean getAdjustedCOMBodyValid() {
+      return getOriginalModel().getDynamicsEngine().getBodySet().getIndex(getAdjustedCOMBody())>=0;
+   }
+
+   private boolean isRRAValid() {
+      return !getResidualReductionEnabled() || (!FileUtils.effectivelyNull(getOutputModelFileName()) && getAdjustedCOMBodyValid());
    }
 
    //------------------------------------------------------------------------
@@ -262,6 +284,10 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
    public void cancel() {
       interrupt(false);
+      if(reducedResidualsModel!=null) {
+         OpenSimDB.getInstance().removeModel(reducedResidualsModel);
+         reducedResidualsModel = null;
+      }
    }
 
    //------------------------------------------------------------------------
@@ -269,7 +295,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
 
    public boolean isValid() {
-      return super.isValid() && getDesiredKinematicsValid() && getTaskSetValid() && getConstraintsValid();
+      return super.isValid() && getDesiredKinematicsValid() && getTaskSetValid() && getConstraintsValid() && isRRAValid();
    }
 
    //------------------------------------------------------------------------

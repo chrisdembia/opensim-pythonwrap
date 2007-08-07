@@ -111,11 +111,13 @@ final public class OpenSimDB extends Observable {
          }
          removeModel(oldModel);
       }
-      addModel(newModel);
-      SingleModelVisuals rep = ViewDB.getInstance().getModelVisuals(newModel);
-      if(offset!=null) {
-         ViewDB.getInstance().setModelVisualsTransform(rep, offset);
-         ViewDB.getInstance().setObjectOpacity(newModel, opacity);
+      if(newModel!=null) {
+         addModel(newModel);
+         SingleModelVisuals rep = ViewDB.getInstance().getModelVisuals(newModel);
+         if(offset!=null) {
+            ViewDB.getInstance().setModelVisualsTransform(rep, offset);
+            ViewDB.getInstance().setObjectOpacity(newModel, opacity);
+         }
       }
    }
 
