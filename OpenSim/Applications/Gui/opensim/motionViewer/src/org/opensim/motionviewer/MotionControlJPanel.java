@@ -680,7 +680,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
          if (!(arg instanceof MotionEvent)) // time should be ignored here
              return;
          MotionEvent evt = (MotionEvent)arg;
-         if (evt.getOperation() == Operation.CurrentMotionsChanged){
+         if (evt.getOperation() == Operation.CurrentMotionsChanged ||
+                 evt.getOperation() == Operation.Close){
             // Current motion changed.  Update master motion
             double currentTime = masterMotion.getCurrentTime();
             masterMotion.clear();
