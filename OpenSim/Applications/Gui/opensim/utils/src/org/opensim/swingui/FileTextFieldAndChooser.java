@@ -165,6 +165,7 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
 
    public void setSaveMode(boolean saveMode) {
       this.saveMode = saveMode;
+      if(saveMode) setCheckIfFileExists(false);
    }
 
    //------------------------------------------------------------------------

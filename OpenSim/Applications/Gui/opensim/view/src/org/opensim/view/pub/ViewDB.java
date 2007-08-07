@@ -43,6 +43,7 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractActuator;
+import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ArrayPtrsObj;
 import org.opensim.modeling.Model;
@@ -513,16 +514,16 @@ public final class ViewDB extends Observable implements Observer {
     * Set the color of the passed in object.
     */
    public void setObjectColor(OpenSimObject object, double[] colorComponents) {
-      MusclePoint mp = MusclePoint.safeDownCast(object);
-      if (mp != null) {
+      if(MusclePoint.safeDownCast(object)!=null) {
+         MusclePoint mp = MusclePoint.safeDownCast(object);
          SingleModelVisuals visuals = getModelVisuals(mp.getMuscle().getModel());
          OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
          cloud.updateUnselectedColor(colorComponents);
          AbstractMuscle m = mp.getMuscle();
          visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
-      } else { // should check for body here
+      } else if(AbstractBody.safeDownCast(object)!=null) { // should check for body here
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
-         applyColor(colorComponents, asm);
+         if(asm!=null) applyColor(colorComponents, asm);
       }
    }
 
