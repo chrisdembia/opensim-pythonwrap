@@ -490,19 +490,10 @@ public class MotionControlJPanel extends javax.swing.JPanel
       if (isMotionLoaded()) { 
           masterMotion.setTime(masterMotion.getEndTime());
           // correct selected modes
-          jFinishButton.setSelected(false);
-          jAdvanceButton.setSelected(false);
-          if (jPlayButton.isSelected()) {
-              if (jWrapToggleButton.isSelected()) {
-                  // do nothing
-              }
-              else {
-                  jStopButton.setSelected(true);
-                  jPlayButton.setSelected(false);
-              }
+          if (jPlayButton.isSelected() && !jWrapToggleButton.isSelected()) {
+              jStopButton.setSelected(true);
+              jPlayButton.setSelected(false);
           }
-          jBackButton.setSelected(false);
-          jRestartButton.setSelected(false);
       }
       else { jMotionSlider.setValue(0); }
     }//GEN-LAST:event_jFinishButtonActionPerformed
@@ -512,19 +503,10 @@ public class MotionControlJPanel extends javax.swing.JPanel
       if (isMotionLoaded()) { 
           masterMotion.setTime(masterMotion.getStartTime());
           // correct selected modes
-          jFinishButton.setSelected(false);
-          jAdvanceButton.setSelected(false);
-          if (jReverseButton.isSelected()) {
-              if (jWrapToggleButton.isSelected()) {
-                  // do nothing
-              }
-              else {
-                  jStopButton.setSelected(true);
-                  jReverseButton.setSelected(false);
-              }
+          if (jReverseButton.isSelected() && !jWrapToggleButton.isSelected()) {
+              jStopButton.setSelected(true);
+              jReverseButton.setSelected(false);
           }
-          jBackButton.setSelected(false);
-          jRestartButton.setSelected(false);
       }
       else { jMotionSlider.setValue(0); }
    }//GEN-LAST:event_jRestartButtonActionPerformed
@@ -566,13 +548,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
           animationTimer = new Timer(timerRate, new RealTimePlayActionListener(-1));
           animationTimer.start();
           // correct selected modes
-          jFinishButton.setSelected(false);
-          jAdvanceButton.setSelected(false);
-          jPlayButton.setSelected(false);
-          jStopButton.setSelected(false);
+          deselectPlaybackButtons();
           jReverseButton.setSelected(true);
-          jBackButton.setSelected(false);
-          jRestartButton.setSelected(false);
       }
    }//GEN-LAST:event_jPlayReverseButtonActionPerformed
    
@@ -581,13 +558,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
           animationTimer.stop();
           animationTimer = null;
           // correct selected modes
-          jFinishButton.setSelected(false);
-          jAdvanceButton.setSelected(false);
-          jPlayButton.setSelected(false);
+          deselectPlaybackButtons();
           jStopButton.setSelected(true);
-          jReverseButton.setSelected(false);
-          jBackButton.setSelected(false);
-          jRestartButton.setSelected(false);
        }
     }//GEN-LAST:event_jStopButtonActionPerformed
     
@@ -617,13 +589,8 @@ public class MotionControlJPanel extends javax.swing.JPanel
           animationTimer = new Timer(timerRate, new RealTimePlayActionListener(1));
           animationTimer.start();
           // correct selected modes
-          jFinishButton.setSelected(false);
-          jAdvanceButton.setSelected(false);
+          deselectPlaybackButtons();
           jPlayButton.setSelected(true);
-          jStopButton.setSelected(false);
-          jReverseButton.setSelected(false);
-          jBackButton.setSelected(false);
-          jRestartButton.setSelected(false);
       }
     }//GEN-LAST:event_jPlayButtonActionPerformed
     
@@ -685,50 +652,22 @@ public class MotionControlJPanel extends javax.swing.JPanel
          Hashtable labels = makeLabels(5, 0, 1);
          jMotionSlider.setLabelTable(labels);
          // disable components
-         jAdvanceButton.setEnabled(false);
-         jBackButton.setEnabled(false);
-         jFinishButton.setEnabled(false);
-         jLabelForMotionNameLabel.setEnabled(false);
-         jLabelForSpeedSpinner.setEnabled(false);
-         jLabelForTimeTextField.setEnabled(false);
-         jMotionNameLabel.setEnabled(false);
-         jMotionSlider.setEnabled(false);
-         jPlayButton.setEnabled(false);
-         jPlaybackButtonsPanel.setEnabled(false);
-         jRestartButton.setEnabled(false);
-         jReverseButton.setEnabled(false);
-         jSpeedSpinner.setEnabled(false);
-         jStopButton.setEnabled(false);
-         jTimeTextField.setEnabled(false);
-         jWrapToggleButton.setEnabled(false);
+         disableComponents();
       }
       else {
          if (masterMotion.getNumMotions()>=1){
             jMotionNameLabel.setText(masterMotion.getDisplayName());
-            setTimeTextField(masterMotion.getStartTime());
+            setTimeTextField(masterMotion.getCurrentTime());
             setStartTimeTextField(masterMotion.getStartTime());
             setEndTimeTextField(masterMotion.getEndTime());
             Hashtable labels = makeLabels(5, masterMotion.getStartTime(), masterMotion.getEndTime());
             jMotionSlider.setLabelTable(labels);
-            // correct selected mode
-            jStopButton.setSelected(true);
             // enable components
-            jAdvanceButton.setEnabled(true);
-            jBackButton.setEnabled(true);
-            jFinishButton.setEnabled(true);
-            jLabelForMotionNameLabel.setEnabled(true);
-            jLabelForSpeedSpinner.setEnabled(true);
-            jLabelForTimeTextField.setEnabled(true);
-            jMotionNameLabel.setEnabled(true);
-            jMotionSlider.setEnabled(true);
-            jPlayButton.setEnabled(true);
-            jPlaybackButtonsPanel.setEnabled(true);
-            jRestartButton.setEnabled(true);
-            jReverseButton.setEnabled(true);
-            jSpeedSpinner.setEnabled(true);
-            jStopButton.setEnabled(true);
-            jTimeTextField.setEnabled(true);
-            jWrapToggleButton.setEnabled(true);
+            enableComponents();
+            // correct selected mode
+            if (!jPlayButton.isSelected() && !jReverseButton.isSelected()){
+                jStopButton.setSelected(true);
+            }
          }
       }
    }
@@ -743,10 +682,11 @@ public class MotionControlJPanel extends javax.swing.JPanel
          MotionEvent evt = (MotionEvent)arg;
          if (evt.getOperation() == Operation.CurrentMotionsChanged){
             // Current motion changed.  Update master motion
+            double currentTime = masterMotion.getCurrentTime();
             masterMotion.clear();
             for(int i=0; i<mdb.getNumCurrentMotions(); i++)
                masterMotion.add(mdb.getCurrentMotion(i));
-            masterMotion.setTime(masterMotion.getStartTime());
+            masterMotion.setTime(currentTime);
          }
          motionLoaded = (masterMotion.getNumMotions() > 0);
          updatePanelDisplay();
@@ -786,6 +726,57 @@ public class MotionControlJPanel extends javax.swing.JPanel
       if(masterMotion==null) return 0;
       double alpha = (double)sliderValue/rangeResolution;
       return masterMotion.getStartTime() + alpha * (masterMotion.getEndTime()-masterMotion.getStartTime());
+   }
+
+   public void enableComponents() 
+   {
+        jAdvanceButton.setEnabled(true);
+        jBackButton.setEnabled(true);
+        jFinishButton.setEnabled(true);
+        jLabelForMotionNameLabel.setEnabled(true);
+        jLabelForSpeedSpinner.setEnabled(true);
+        jLabelForTimeTextField.setEnabled(true);
+        jMotionNameLabel.setEnabled(true);
+        jMotionSlider.setEnabled(true);
+        jPlayButton.setEnabled(true);
+        jPlaybackButtonsPanel.setEnabled(true);
+        jRestartButton.setEnabled(true);
+        jReverseButton.setEnabled(true);
+        jSpeedSpinner.setEnabled(true);
+        jStopButton.setEnabled(true);
+        jTimeTextField.setEnabled(true);
+        jWrapToggleButton.setEnabled(true);
+   }
+   
+   public void disableComponents() 
+   {
+        jAdvanceButton.setEnabled(false);
+        jBackButton.setEnabled(false);
+        jFinishButton.setEnabled(false);
+        jLabelForMotionNameLabel.setEnabled(false);
+        jLabelForSpeedSpinner.setEnabled(false);
+        jLabelForTimeTextField.setEnabled(false);
+        jMotionNameLabel.setEnabled(false);
+        jMotionSlider.setEnabled(false);
+        jPlayButton.setEnabled(false);
+        jPlaybackButtonsPanel.setEnabled(false);
+        jRestartButton.setEnabled(false);
+        jReverseButton.setEnabled(false);
+        jSpeedSpinner.setEnabled(false);
+        jStopButton.setEnabled(false);
+        jTimeTextField.setEnabled(false);
+        jWrapToggleButton.setEnabled(false);
+   }
+   
+   public void deselectPlaybackButtons() 
+   {
+       jAdvanceButton.setSelected(false);
+       jBackButton.setSelected(false);
+       jFinishButton.setSelected(false);
+       jPlayButton.setSelected(false);
+       jRestartButton.setSelected(false);
+       jReverseButton.setSelected(false);
+       jStopButton.setSelected(false);
    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
