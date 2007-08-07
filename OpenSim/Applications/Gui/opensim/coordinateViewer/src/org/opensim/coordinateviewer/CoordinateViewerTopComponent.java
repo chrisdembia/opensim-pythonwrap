@@ -508,9 +508,6 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
     **/
    private void createDefaultPoseIfNeeded(Vector<ModelPose> savedPoses) {
       boolean found=false;
-      ModelPose newDefaultPose = new ModelPose(coords,DEFAULT_POSE_NAME);
-      for(int i=0;i<coords.getSize();i++)
-         coords.get(i).setValue(coords.get(i).getDefaultValue());
       for(int i=0; i<savedPoses.size() && !found; i++){
          ModelPose p=savedPoses.get(i);
          if (p.getPoseName().compareTo(DEFAULT_POSE_NAME)==0){
@@ -520,6 +517,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          }
       } 
       if (!found){
+         ModelPose newDefaultPose = new ModelPose(coords,DEFAULT_POSE_NAME);
          savedPoses.add(0, newDefaultPose);
       }
    }
