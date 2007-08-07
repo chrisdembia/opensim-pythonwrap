@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.HelpCtx;
+import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.OpenSimObject;
@@ -14,8 +15,8 @@ import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 import org.opensim.view.pub.ViewDB;
 
 public final class ObjectDisplayColorAction extends CallableSystemAction {
-    
-    public void performAction() {
+   
+   public void performAction() {
         float[] colorComponents=null;
         // Bring color chooser and apply color to selected nodes.
         JColorChooser objectColorChooser = new JColorChooser();
@@ -66,24 +67,24 @@ public final class ObjectDisplayColorAction extends CallableSystemAction {
             }
         }
         return isColorable;
-    }
-
-    public String getName() {
-        return "Color...";
-    }
-    
-    protected void initialize() {
-        super.initialize();
-        // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
-        putValue("noIconInMenu", Boolean.TRUE);
-    }
-    
-    public HelpCtx getHelpCtx() {
-        return HelpCtx.DEFAULT_HELP;
-    }
-    
-    protected boolean asynchronous() {
-        return false;
-    }
-    
+   }
+   
+   public String getName() {
+      return NbBundle.getMessage(ObjectDisplayColorAction.class, "CTL_ObjectDisplayColorAction");
+   }
+   
+   protected void initialize() {
+      super.initialize();
+      // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
+      putValue("noIconInMenu", Boolean.TRUE);
+   }
+   
+   public HelpCtx getHelpCtx() {
+      return HelpCtx.DEFAULT_HELP;
+   }
+   
+   protected boolean asynchronous() {
+      return false;
+   }
+   
 }

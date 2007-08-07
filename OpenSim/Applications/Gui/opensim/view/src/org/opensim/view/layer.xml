@@ -7,10 +7,11 @@
             <file name="org-opensim-view-ModelDisplayEditAction.instance"/>
             <file name="org-opensim-view-ModelDisplayHideAction.instance"/>
             <file name="org-opensim-view-ModelDisplayShowAction.instance"/>
+            <file name="org-opensim-view-ObjectDisplayColorAction.instance"/>
             <file name="org-opensim-view-ObjectDisplayShowOnlyAction.instance"/>
             <file name="org-opensim-view-ShowModelsDropdownAction.instance"/>
             <file name="org-opensim-view-ViewEditAction.instance"/>
-            <file name="org-opensim-view-FileExportSIMMJntAction.instance"/>
+            <file name="org-opensim-view-FileExportSIMMModelAction.instance"/>
             <file name="org-opensim-view-ViewReplicateAction.instance"/>
             <file name="org-opensim-view-SaveAction.instance"/>
             <file name="org-opensim-view-LoadGaitModelAction.instance">
@@ -105,11 +106,11 @@
             <file name="org-opensim-view-actions-FileImportSIMMAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-FileImportSIMMAction.instance"/>
             </file>
-            <attr name="org-opensim-view-actions-FileImportSIMMAction.shadow/org-opensim-view-FileExportSIMMJntAction.shadow" boolvalue="true"/>
-            <file name="org-opensim-view-FileExportSIMMJntAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileExportSIMMJntAction.instance"/>
+            <attr name="org-opensim-view-actions-FileImportSIMMAction.shadow/org-opensim-view-FileExportSIMMModelAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-FileExportSIMMModelAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-FileExportSIMMModelAction.instance"/>
             </file>
-            <attr name="org-opensim-view-FileExportSIMMJntAction.shadow/org-opensim-view-separator2.instance" boolvalue="true"/>
+            <attr name="org-opensim-view-FileExportSIMMModelAction.shadow/org-opensim-view-separator2.instance" boolvalue="true"/>
             <file name="org-opensim-view-separator2.instance">
                 <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
             </file>
