@@ -53,7 +53,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    ObjectGroup currentGroup;
    Hashtable<AbstractCoordinate, CoordinateSliderWithBox> mapCoordinates2Sliders =
            new Hashtable<AbstractCoordinate, CoordinateSliderWithBox>(4);
-   String DEFAULT_POSE_NAME="Default";
+   static final String DEFAULT_POSE_NAME="Default";
 
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
@@ -517,7 +517,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
          }
       } 
       if (!found){
-         ModelPose newDefaultPose = new ModelPose(coords,DEFAULT_POSE_NAME);
+         ModelPose newDefaultPose = new ModelPose(coords,DEFAULT_POSE_NAME, true);
          savedPoses.add(0, newDefaultPose);
       }
    }

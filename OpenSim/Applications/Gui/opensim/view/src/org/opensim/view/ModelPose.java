@@ -45,14 +45,20 @@ public class ModelPose {
    }
 
    public ModelPose(CoordinateSet coords, String name) {
+      this(coords, name, false);
+   }
+
+   public ModelPose(CoordinateSet coords, String name, boolean isDefault) {
       setPoseName(name);
       for(int i=0; i< coords.getSize(); i++){
          AbstractCoordinate coord = coords.get(i);
          getCoordinateNames().add(coord.getName());
-         getCoordinateValues().add(coord.getValue());
+         if (isDefault)
+            getCoordinateValues().add(coord.getDefaultValue());
+         else
+            getCoordinateValues().add(coord.getValue());
       }
    }
-
    public Vector<Double> getCoordinateValues() {
       return coordinateValues;
    }
