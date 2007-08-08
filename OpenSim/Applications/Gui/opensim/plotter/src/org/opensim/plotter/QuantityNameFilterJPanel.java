@@ -61,6 +61,7 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
     */
    public QuantityNameFilterJPanel(String[] availableNames) {
       initComponents();
+      
       metaCharacters.add("*");
       metaCharacters.add("+");
       metaCharacters.add("?");
@@ -185,7 +186,7 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
          }
       });
 
-      jLabel1.setText("Filter By:");
+      jLabel1.setText("Filter By");
 
       jShowAllButton.setText("Show All");
       jShowAllButton.addActionListener(new java.awt.event.ActionListener() {
@@ -194,7 +195,7 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
          }
       });
 
-      jLabel3.setText("group:");
+      jLabel3.setText("group");
 
       org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
       jPanel2.setLayout(jPanel2Layout);
@@ -274,7 +275,7 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, 0, 0, Short.MAX_VALUE)
                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap(14, Short.MAX_VALUE))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -297,6 +298,7 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
    private void jSumCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSumCheckBoxActionPerformed
 // TODO add your handling code here:
        setSumOnly(((JCheckBox)evt.getSource()).isSelected());
+       tableModel.fireTableDataChanged();
    }//GEN-LAST:event_jSumCheckBoxActionPerformed
 
     private void jMuscleGroupComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMuscleGroupComboBoxActionPerformed
@@ -415,10 +417,8 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
         else {
             jSelectAllCheckBox.setEnabled(true);
             jDeselectAllCheckBox.setEnabled(true);
-            
         }
-        
-    }
+     }
 
     public void tableChanged(TableModelEvent e) {
         int type=e.getType();
@@ -559,5 +559,14 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
 
     public void setSumOnly(boolean sumOnly) {
         this.sumOnly = sumOnly;
+    }
+    
+    public void addSelectionChangeListener(TableModelListener l)
+    {
+        tableModel.addTableModelListener(l);
+    }
+    public void removeSelectionChangeListener(TableModelListener l)
+    {
+        tableModel.removeTableModelListener(l);
     }
 }

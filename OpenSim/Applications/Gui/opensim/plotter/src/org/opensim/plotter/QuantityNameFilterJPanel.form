@@ -30,7 +30,7 @@
                   <Component id="jScrollPane1" alignment="0" min="0" pref="0" max="32767" attributes="3"/>
                   <Component id="jPanel2" alignment="0" max="32767" attributes="3"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -261,7 +261,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Filter By:"/>
+            <Property name="text" type="java.lang.String" value="Filter By"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jShowAllButton">
@@ -274,7 +274,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="group:"/>
+            <Property name="text" type="java.lang.String" value="group"/>
           </Properties>
         </Component>
       </SubComponents>

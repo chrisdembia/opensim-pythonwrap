@@ -25,11 +25,13 @@
  */
 package org.opensim.plotter;
 
+import java.awt.BasicStroke;
 import java.awt.Paint;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.DatasetRenderingOrder;
+import org.jfree.chart.plot.SeriesRenderingOrder;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -75,8 +77,8 @@ public class Plot {
       legendTitle.setPosition(RectangleEdge.RIGHT);
 
       XYPlot plot = (XYPlot) dChart.getPlot();
-      nextPaint = plot.getDrawingSupplier().getNextPaint();
       plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
+      plot.setSeriesRenderingOrder(SeriesRenderingOrder.FORWARD);
       plot.setDomainCrosshairVisible(false);
       plot.setRangeCrosshairVisible(false);
       
@@ -84,7 +86,8 @@ public class Plot {
       if (r instanceof XYLineAndShapeRenderer) {
          XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
          renderer.setBaseShapesVisible(false);
-         renderer.setBaseShapesFilled(false);
+         renderer.setBaseShapesFilled(true);
+         renderer.setStroke(new BasicStroke(2.0f));
       }
       new JOpenSimChartMouseListener(chartPanel);
       chartPanel.setDisplayToolTips(true);

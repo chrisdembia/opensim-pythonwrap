@@ -24,6 +24,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -701,20 +703,26 @@ public class JPlotterPanel extends javax.swing.JPanel
            return;
         SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
         String[] muscleNames = guiElem.getActuatorNames();
-        QuantityNameFilterJPanel filterPanel = new QuantityNameFilterJPanel(muscleNames, preSelected);
-        DialogDescriptor filterDlg = new DialogDescriptor(filterPanel, "Select muscles");
-        filterDlg.setModal(true);
+        final QuantityNameFilterJPanel filterPanel = new QuantityNameFilterJPanel(muscleNames, preSelected);
+        DialogDescriptor filterDlg = new DialogDescriptor(filterPanel, "Select muscles", false, null);
+        filterDlg.setOptions(new Object[]{new JButton("Close")});
+        filterPanel.addSelectionChangeListener(new TableModelListener(){
+            public void tableChanged(TableModelEvent e) {
+                jSelectedMusclesTextField.setText(filterPanel.getSelectedAsString());
+                sumCurve=filterPanel.isSumOnly();
+                if (sumCurve)
+                   rangeNames = filterPanel.getSelectedAsString().trim().split("\\+",-1);
+                else
+                   rangeNames = filterPanel.getSelectedAsString().trim().split(",",-1);
+                for(int i=0;i<rangeNames.length;i++)
+                   rangeNames[i]=rangeNames[i].trim();
+                updateContextGuiElements();
+                jPlotterAddPlotButton.setEnabled(validateXY());
+            }});
+/*            public void actionPerformed(ActionEvent e) {
+            }
+        };*/
         DialogDisplayer.getDefault().createDialog(filterDlg).setVisible(true);
-        jSelectedMusclesTextField.setText(filterPanel.getSelectedAsString());
-        sumCurve=filterPanel.isSumOnly();
-        if (sumCurve)
-           rangeNames = filterPanel.getSelectedAsString().trim().split("\\+",-1);
-        else
-           rangeNames = filterPanel.getSelectedAsString().trim().split(",",-1);
-        for(int i=0;i<rangeNames.length;i++)
-           rangeNames[i]=rangeNames[i].trim();
-        updateContextGuiElements();
-        jPlotterAddPlotButton.setEnabled(validateXY());
        // The following will be called from an Apply/MakeCurves button on the filterDlg
       //printPlotDescriptor();
        
@@ -914,7 +922,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                 plotCurve = plotterModel.addCurveSingleRangeName(title, settings,
                    sourceX, getDomainName(), sourceY, rangeNames[curveIndex]);
        }
-       makeCurveCurrent(plotCurve);
+       //makeCurveCurrent(plotCurve);
        
        this.doLayout();
        repaint();

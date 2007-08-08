@@ -98,7 +98,7 @@ public class PlotterModel {
    private final String DEFAULT_Y_LABEL="y-label";
    /** Creates a new instance of PlotterModel */
    public PlotterModel() {
-         Plot figure = new Plot("Use properties to set Title.", DEFAULT_X_LABEL, DEFAULT_Y_LABEL);
+         Plot figure = new Plot("Use \"Properties...\" button to set title.", DEFAULT_X_LABEL, DEFAULT_Y_LABEL);
          availablePlots.add(0, figure);
          plotTreeModel.addPlot(figure);
    }
@@ -169,7 +169,7 @@ public class PlotterModel {
 
       Plot currentPlot = availablePlots.get(currentPlotIndex);
       boolean motionCurve=false;
-      if (source1 instanceof PlotterSourceMotion){  
+      if (source1 instanceof PlotterSourceMotion || source1 instanceof PlotterSourceFile){  
           motionCurve=true;
       }
       PlotCurve newCurve = new PlotCurve(plotCurveSettings, source1, string1, source2, string2);
@@ -179,6 +179,7 @@ public class PlotterModel {
       plotTreeModel.addPlotCurveToTree(newCurve);
       //currentPlot.setTitle(title);
       // if motionCurve xlabel is motion name, ylabel string2
+      //System.out.println("Curve domain, range=["+string1+"],["+string2+"]");
       if (motionCurve){
          if(string1.equalsIgnoreCase(source1.getDisplayName()))
             updatePlotXYLabels(currentPlot, source1.getDisplayName(), string2);   
@@ -192,6 +193,7 @@ public class PlotterModel {
 
     private void updatePlotXYLabels(final Plot currentPlot, final String newDomainName, String addYLabel) {
              
+       //System.out.println("Adding labels ["+newDomainName+"], ["+addYLabel+"] to plot");
         XYPlot dPlot = currentPlot.getChartPanel().getChart().getXYPlot();
         String oldLabel = dPlot.getDomainAxis().getLabel();
         String newLabel=oldLabel;
