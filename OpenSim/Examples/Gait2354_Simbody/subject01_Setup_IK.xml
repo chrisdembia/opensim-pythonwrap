@@ -33,7 +33,7 @@
 				    is used to solve the IK problem.-->
 				<coordinate_file> subject01_walk1.mot </coordinate_file>
 				<!--Time range over which the IK problem is solved.-->
-				<time_range> 0.4 2.0 </time_range>
+				<time_range> 0.4 1.60 </time_range>
 				<!--Name of the motion file (.mot) to which the results should be written.-->
 				<output_motion_file> subject01_walk1_ik.mot </output_motion_file>
 			</IKTrial>

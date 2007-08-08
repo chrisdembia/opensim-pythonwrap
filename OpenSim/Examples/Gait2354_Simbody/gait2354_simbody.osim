@@ -1653,7 +1653,7 @@
 			<objects>
 				<SimbodyCoordinate name="pelvis_tx">
 					<range>-5.000000000000 5.000000000000</range>
-					<default_value>0.120000000000</default_value>
+					<default_value>0.0</default_value>
 					<tolerance>0.000000000000</tolerance>
 					<stiffness>0.000000000000</stiffness>
 					<keys>p_key</keys>
