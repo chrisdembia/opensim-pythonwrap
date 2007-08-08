@@ -3,5 +3,5 @@
 <tc-ref version="2.0" >
    <module name="org.opensim.coordinateviewer" spec="1.0"/>
    <tc-id id="CoordinateViewerTopComponent"/>
-   <state opened="false"/>
+   <state opened="true"/>
 </tc-ref>
