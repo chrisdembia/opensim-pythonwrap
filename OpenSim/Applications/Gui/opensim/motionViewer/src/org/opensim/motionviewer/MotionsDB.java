@@ -208,13 +208,12 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       if (o instanceof OpenSimDB && arg instanceof ModelEvent){
          ModelEvent evnt = (ModelEvent) arg;
          if (evnt.getOperation()==ModelEvent.Operation.Close){
+
             Model model = evnt.getModel();
             // Send motion close events for all motions associated with this model
             ArrayList<Storage> motionsForModel = mapModels2Motions.get(evnt.getModel());
             if(motionsForModel != null) {
-               for(int i=0; i<motionsForModel.size(); i++){
-                  ModelMotionPair pair = new ModelMotionPair(model, motionsForModel.get(i));
-                  removeFromCurrentMotions(pair);
+               for(int i=motionsForModel.size()-1; i>=0; i--){
                   closeMotion(model, motionsForModel.get(i));
                }
             }
