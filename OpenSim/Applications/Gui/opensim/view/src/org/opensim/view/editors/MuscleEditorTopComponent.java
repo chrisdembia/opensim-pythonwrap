@@ -24,6 +24,7 @@ import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
+import org.opensim.modeling.AbstractDof;
 import org.opensim.modeling.AbstractDynamicsEngine;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.AbstractWrapObject;
@@ -349,8 +350,13 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    public void AttachmentPointEntered(javax.swing.JTextField field, int attachmentNum, int coordNum) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
       MusclePointSet musclePoints = asm.getAttachmentSet();
-      double oldValue = musclePoints.get(attachmentNum).getAttachment().getitem(coordNum);
-      double newValue = Double.parseDouble(field.getText());
+      double newValue, oldValue = musclePoints.get(attachmentNum).getAttachment().getitem(coordNum);
+      try {
+         newValue = Double.parseDouble(field.getText());
+      } catch (NumberFormatException ex) {
+         newValue = oldValue;
+         oldValue = Double.MAX_VALUE; // to force the field to update itself with the old value
+      }
       NumberFormat nf = NumberFormat.getInstance();
       nf.setMaximumFractionDigits(5); // TODO
       nf.setMinimumFractionDigits(5); // TODO
@@ -416,15 +422,17 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             via.setRangeMax(newCoord.getRangeMax());
             needsUpdating = true;
          } else {
+            // It's OK if the range from the old coordinate is bigger than
+            // the range of the new. Don't trim it down to size. JPL 08/08/07
             // Adjust the min and max to fit in the new range
-            if (rangeMin < newCoord.getRangeMin()) {
-               via.setRangeMin(newCoord.getRangeMin());
-               needsUpdating = true;
-            }
-            if (rangeMax > newCoord.getRangeMax()) {
-               via.setRangeMax(newCoord.getRangeMax());
-               needsUpdating = true;
-            }
+            //if (rangeMin < newCoord.getRangeMin()) {
+            //   via.setRangeMin(newCoord.getRangeMin());
+            //   needsUpdating = true;
+            //}
+            //if (rangeMax > newCoord.getRangeMax()) {
+            //   via.setRangeMax(newCoord.getRangeMax());
+            //   needsUpdating = true;
+            //}
          }
          if (needsUpdating) {
             setPendingChanges(true, false);
@@ -444,25 +452,36 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
       MusclePointSet musclePoints = asm.getAttachmentSet();
       MuscleViaPoint via = MuscleViaPoint.safeDownCast(musclePoints.get(attachmentNum));
-      double oldValue = via.getRange().getitem(0);
-      double smallestAllowed = via.getCoordinate().getRangeMin();
-      double biggestAllowed = via.getRange().getitem(1);
-      double newValue = Double.parseDouble(field.getText());
+
+      // Conversions between radians and degrees
+      double conversion = 1.0;
       NumberFormat nf = NumberFormat.getInstance();
-      nf.setMaximumFractionDigits(5); // TODO
-      nf.setMinimumFractionDigits(5); // TODO
+      if (via.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
+         conversion = 180.0/Math.PI;
+         nf.setMaximumFractionDigits(2);
+         nf.setMinimumFractionDigits(2);
+      } else {
+         nf.setMaximumFractionDigits(5);
+         nf.setMinimumFractionDigits(5);
+      }
+
+      double newValue, oldValue = via.getRange().getitem(0)*conversion;
+      double biggestAllowed = via.getRange().getitem(1)*conversion;
+      try {
+         newValue = Double.parseDouble(field.getText());
+      } catch (NumberFormatException ex) {
+         newValue = Double.MAX_VALUE; // to force the field to update itself with the old value
+      }
+
       if (newValue > biggestAllowed) {
          // user entered min that is greater than max, ignore it
          field.setText(nf.format(oldValue));
       } else {
-         // if the new value is less than the coordinate's min, use coordinate's min
-         if (newValue < smallestAllowed)
-            newValue = smallestAllowed;
          // format the number and write it back into the text field
          field.setText(nf.format(newValue));
          // update the model if the number has changed
          if (newValue != oldValue) {
-            via.setRangeMin(newValue);
+            via.setRangeMin(newValue/conversion);
             setPendingChanges(true, false);
             // tell the ViewDB to redraw the model
             Model model = asm.getModel();
@@ -479,25 +498,36 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
       MusclePointSet musclePoints = asm.getAttachmentSet();
       MuscleViaPoint via = MuscleViaPoint.safeDownCast(musclePoints.get(attachmentNum));
-      double oldValue = via.getRange().getitem(1);
-      double smallestAllowed = via.getRange().getitem(0);
-      double biggestAllowed = via.getCoordinate().getRangeMax();
-      double newValue = Double.parseDouble(field.getText());
+
+      // Conversions between radians and degrees
+      double conversion = 1.0;
       NumberFormat nf = NumberFormat.getInstance();
-      nf.setMaximumFractionDigits(5); // TODO
-      nf.setMinimumFractionDigits(5); // TODO
+      if (via.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
+         conversion = 180.0/Math.PI;
+         nf.setMaximumFractionDigits(2);
+         nf.setMinimumFractionDigits(2);
+      } else {
+         nf.setMaximumFractionDigits(5);
+         nf.setMinimumFractionDigits(5);
+      }
+
+      double newValue, oldValue = via.getRange().getitem(1)*conversion;
+      double smallestAllowed = via.getRange().getitem(0)*conversion;
+      try {
+         newValue = Double.parseDouble(field.getText());
+      } catch (NumberFormatException ex) {
+         newValue = -Double.MAX_VALUE; // to force the field to update itself with the old value
+      }
+
       if (newValue < smallestAllowed) {
          // user entered max that is less than min, ignore it
          field.setText(nf.format(oldValue));
       } else {
-         // if the new value is greater than the coordinate's max, use coordinate's max
-         if (newValue > biggestAllowed)
-            newValue = biggestAllowed;
          // format the number and write it back into the text field
          field.setText(nf.format(newValue));
          // update the model if the number has changed
          if (newValue != oldValue) {
-            via.setRangeMax(newValue);
+            via.setRangeMax(newValue/conversion);
             setPendingChanges(true, false);
             // tell the ViewDB to redraw the model
             Model model = asm.getModel();
@@ -647,8 +677,19 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          ex.printStackTrace();
       }
       if (prop != null) {
-         double oldValue = prop.getValueDbl();
-         double newValue = Double.parseDouble(field.getText());
+         double newValue, oldValue = prop.getValueDbl();
+         try {
+            newValue = Double.parseDouble(field.getText());
+         } catch (NumberFormatException ex) {
+            newValue = oldValue;
+            oldValue = Double.MAX_VALUE; // to force the field to update itself with the old value
+         }
+         NumberFormat nf = NumberFormat.getInstance();
+         nf.setMaximumFractionDigits(6);
+         nf.setMinimumFractionDigits(6);
+         // format the number and write it back into the text field
+         field.setText(nf.format(newValue));
+
          if (newValue != oldValue) {
             prop.setValue(newValue);
             setPendingChanges(true, false);
@@ -656,7 +697,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          }
       }
    }
-   
+
    public void IntPropertyEntered(javax.swing.JTextField field, int propertyNum) {
       Property prop = null;
       try {
@@ -665,8 +706,16 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          ex.printStackTrace();
       }
       if (prop != null) {
-         int oldValue = prop.getValueInt();
-         int newValue = Integer.parseInt(field.getText());
+         int newValue, oldValue = prop.getValueInt();
+         try {
+            newValue = Integer.parseInt(field.getText());
+         } catch (NumberFormatException ex) {
+            newValue = oldValue;
+            oldValue = Integer.MAX_VALUE; // to force the field to update itself with the old value
+         }
+         // write the value back into the text field (for consistent formatting)
+         field.setText(Integer.toString(newValue));
+
          if (newValue != oldValue) {
             prop.setValue(newValue);
             setPendingChanges(true, false);
@@ -748,8 +797,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // Put the points in the current path in the CurrentPath tab
       ArrayMusclePoint asmp = asm.getCurrentPath();
       NumberFormat nf = NumberFormat.getInstance();
-      nf.setMaximumFractionDigits(5); // TODO
-      nf.setMinimumFractionDigits(5); // TODO
+      nf.setMaximumFractionDigits(5);
+      nf.setMinimumFractionDigits(5);
       int X = 30;
       int Y = 40;
       
@@ -1121,8 +1170,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       int X = 30;
       int Y = 40;
       NumberFormat nf = NumberFormat.getInstance();
-      nf.setMaximumFractionDigits(5); // TODO
-      nf.setMinimumFractionDigits(5); // TODO
       
       // Set up the muscle-independent labels
       boolean anyViaPoints = false;
@@ -1192,8 +1239,17 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             String[] coordinateNames = guiElem.getCoordinateNames();
             coordComboBox.setModel(new javax.swing.DefaultComboBoxModel(coordinateNames));
             coordComboBox.setSelectedIndex(findElement(coordinateNames, via.getCoordinateName()));
-            rangeMinField.setText(nf.format(via.getRange().getitem(0)));
-            rangeMaxField.setText(nf.format(via.getRange().getitem(1)));
+            double conversion = 1.0;
+            if (via.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
+               nf.setMaximumFractionDigits(2);
+               nf.setMinimumFractionDigits(2);
+               conversion = 180.0/Math.PI;
+            } else {
+               nf.setMaximumFractionDigits(5);
+               nf.setMinimumFractionDigits(5);
+            }
+            rangeMinField.setText(nf.format(via.getRange().getitem(0)*conversion));
+            rangeMaxField.setText(nf.format(via.getRange().getitem(1)*conversion));
             coordComboBox.setBounds(X + 3*width + 140, height, 130, 21);
             rangeMinField.setBounds(X + 3*width + 280, height, 60, 21);
             rangeMaxField.setBounds(X + 3*width + 345, height, 60, 21);
@@ -1230,6 +1286,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          zField.setBounds(X + 2*width + 2, height, width, 21);
          comboBox.setBounds(X + 3*width + 10, height, 90, 21);
          attachmentSelectBox[i].setBounds(X + 3*width + 110, height, 21, 21);
+         nf.setMaximumFractionDigits(5);
+         nf.setMinimumFractionDigits(5);
          xField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(0)));
          xField.setToolTipText("X coordinate of the attachment point");
          yField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(1)));
@@ -1473,8 +1531,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       
       int i, j;
       NumberFormat nf = NumberFormat.getInstance();
-      nf.setMaximumFractionDigits(5); // TODO
-      nf.setMinimumFractionDigits(5); // TODO
+      nf.setMaximumFractionDigits(6);
+      nf.setMinimumFractionDigits(6);
       MuscleNameTextField.setText(act.getName());
       PropertySet ps = act.getPropertySet();
       
@@ -1522,7 +1580,10 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                propLabel.setToolTipText(p.getComment());
                javax.swing.JTextField propField = new javax.swing.JTextField();
                propField.setBounds(210, 20 + tabPropertyCount[groupNum] * 22, 120, 21);
-               propField.setText(p.toString());
+               if (p.getType() == org.opensim.modeling.Property.PropertyType.Dbl)
+                  propField.setText(nf.format(p.getValueDbl()));
+               else
+                  propField.setText(p.toString());
                propField.setToolTipText(p.getComment());
                propPanel[groupNum].add(propLabel);
                propPanel[groupNum].add(propField);
