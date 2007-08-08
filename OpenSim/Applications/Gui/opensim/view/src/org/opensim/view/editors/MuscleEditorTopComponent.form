@@ -47,7 +47,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
                       <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="191" max="32767" attributes="0"/>
+                      <EmptySpace pref="201" max="32767" attributes="0"/>
                       <Component id="ApplyButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                   </Group>
@@ -94,8 +94,8 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="ApplyButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Save"/>
-                <Property name="toolTipText" type="java.lang.String" value="Save a copy of this actuator"/>
+                <Property name="text" type="java.lang.String" value="Set"/>
+                <Property name="toolTipText" type="java.lang.String" value="Make a backup copy of this actuator. Click &quot;Reset&quot; to return to these values."/>
               </Properties>
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="save all changes to this muscle"/>
@@ -107,7 +107,7 @@
             <Component class="javax.swing.JButton" name="ResetButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reset"/>
-                <Property name="toolTipText" type="java.lang.String" value="Reset this actuator to the last saved version"/>
+                <Property name="toolTipText" type="java.lang.String" value="Reset this actuator to the backup copy made when &quot;Set&quot; was pressed."/>
               </Properties>
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="reset this muscle to its previously saved version"/>

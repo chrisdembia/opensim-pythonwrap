@@ -130,8 +130,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       MuscleEditorScrollPane.setBorder(null);
       MuscleEditorPanel.setMinimumSize(new java.awt.Dimension(5, 5));
       MuscleEditorPanel.setPreferredSize(new java.awt.Dimension(5, 5));
-      org.openide.awt.Mnemonics.setLocalizedText(ApplyButton, "Save");
-      ApplyButton.setToolTipText("Save a copy of this actuator");
+      org.openide.awt.Mnemonics.setLocalizedText(ApplyButton, "Set");
+      ApplyButton.setToolTipText("Make a backup copy of this actuator. Click \"Reset\" to return to these values.");
       ApplyButton.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             ApplyButtonActionPerformed(evt);
@@ -141,7 +141,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       ApplyButton.getAccessibleContext().setAccessibleDescription("save all changes to this muscle");
 
       org.openide.awt.Mnemonics.setLocalizedText(ResetButton, "Reset");
-      ResetButton.setToolTipText("Reset this actuator to the last saved version");
+      ResetButton.setToolTipText("Reset this actuator to the backup copy made when \"Set\" was pressed.");
       ResetButton.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             ResetButtonActionPerformed(evt);
@@ -179,7 +179,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          .add(MuscleEditorPanelLayout.createSequentialGroup()
             .add(118, 118, 118)
             .add(ResetButton)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 191, Short.MAX_VALUE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 201, Short.MAX_VALUE)
             .add(ApplyButton)
             .add(159, 159, 159))
          .add(MuscleEditorPanelLayout.createSequentialGroup()
