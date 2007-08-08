@@ -82,6 +82,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
          kinematicsAnalysis.setRecordAccelerations(false);
          kinematicsAnalysis.setInDegrees(false);
+         kinematicsAnalysis.setPrintResultFiles(false);
          getModel().addAnalysis(kinematicsAnalysis);
 
          setExecuting(true);
@@ -110,7 +111,6 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
             updateMotion(motion); // replaces current motion
          }
 
-         // Remove the kinematics analysis before printing results, so its results won't be written to disk
          getModel().removeAnalysis(kinematicsAnalysis);
 
          // TODO: move this to a worker thread so as to not freeze the GUI if writing takes a while?

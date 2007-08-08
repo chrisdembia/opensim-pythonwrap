@@ -47,6 +47,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    static final double progressTimeResolution = 1e2;
    int startStep = 0;
    int endStep = 1;
+   int lastProgressStep = -1;
 
    /** Creates a new instance of JavaMotionDisplayerCallback */
    public JavaMotionDisplayerCallback(Model aModel, Model aModelForDisplay, Storage storage, ProgressHandle progressHandle) {
@@ -98,8 +99,11 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
 
    public void processStep(int step) {
       if(progressHandle!=null) {
-         if(progressUsingTime) progressHandle.progress((int)((getCurrentTime()-startTime)*progressTimeResolution));
-         else progressHandle.progress(step-startStep+1);
+         int progressStep = progressUsingTime ? (int)((getCurrentTime()-startTime)*progressTimeResolution) : step-startStep+1;
+         if(progressStep > lastProgressStep) { // make sure we only advance progress (else an exception is thrown)
+            progressHandle.progress(progressStep);
+            lastProgressStep = progressStep;
+         }
       }
       if(proceed(step)) updateDisplaySynchronously();
    }

@@ -26,7 +26,7 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
    private FileFilter settingsFilter = null;
 
    protected JButton settingsButton = new JButton("Settings >");
-   protected JButton applyButton = new JButton("Apply");
+   protected JButton applyButton = new JButton("Run");
    protected JButton okButton = new JButton("Close");
    protected Dialog ownerDialog = null;
 

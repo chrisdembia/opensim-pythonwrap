@@ -34,6 +34,10 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       AnalyzeToolWorker() throws IOException {
          updateTool();
 
+         // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
+         // another motion show up on it)
+         MotionsDB.getInstance().clearCurrent();
+
          // Re-initialize our copy of the model
          Model model = getOriginalModel().clone();
          model.setInputFileName("");

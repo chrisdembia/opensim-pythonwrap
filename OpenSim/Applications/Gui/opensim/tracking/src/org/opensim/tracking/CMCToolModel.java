@@ -9,8 +9,11 @@ import org.openide.NotifyDescriptor;
 import org.openide.util.Cancellable;
 import org.opensim.modeling.CMCTool;
 import org.opensim.modeling.InterruptingIntegCallback;
+import org.opensim.modeling.Kinematics;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.Storage;
 import org.opensim.motionviewer.JavaMotionDisplayerCallback;
+import org.opensim.motionviewer.MotionsDB;
 import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
@@ -24,11 +27,16 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       private ProgressHandle progressHandle = null;
       private JavaMotionDisplayerCallback animationCallback = null;
       private InterruptingIntegCallback interruptingCallback = null;
+      private Kinematics kinematicsAnalysis = null; // For creating a storage we'll use as a motion
       boolean result = false;
       boolean promptToKeepPartialResult = true;
      
       CMCToolWorker() throws IOException {
          updateTool();
+
+         // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
+         // another motion show up on it)
+         MotionsDB.getInstance().clearCurrent();
 
          // CMC needs to remember the original actuator set, since it is replaced in updateModelActuatorsAndContactForces
          getTool().setOriginalActuatorSet(getOriginalModel().getActuatorSet());
@@ -61,7 +69,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          // Animation callback will update the display during forward
          animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
          getModel().addIntegCallback(animationCallback);
-         animationCallback.setStepInterval(10);
+         animationCallback.setStepInterval(1);
          animationCallback.startProgressUsingTime(ti,tf);
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
@@ -69,6 +77,13 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          // it would then later try to delete it yet again)
          interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
          getModel().addIntegCallback(interruptingCallback);
+
+         // Kinematics analysis -- so that we can extract the resulting motion
+         kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
+         kinematicsAnalysis.setRecordAccelerations(false);
+         kinematicsAnalysis.setInDegrees(false);
+         kinematicsAnalysis.setPrintResultFiles(false);
+         getModel().addAnalysis(kinematicsAnalysis);
 
          setExecuting(true);
       }
@@ -92,6 +107,15 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
          // Add adjusted RRA model if we're in that mode
          if(processResults) {
+            // Remove previous motion
+            if(motion!=null) {
+               if(reducedResidualsModel!=null) MotionsDB.getInstance().closeMotion(reducedResidualsModel, motion);
+               else MotionsDB.getInstance().closeMotion(getOriginalModel(), motion);
+               motion = null;
+            }
+
+            motion = new Storage(kinematicsAnalysis.getPositionStorage());
+
             if(getAdjustModelToReduceResidualsEnabled()) {
                Model newReducedResidualsModel = null;
                try {
@@ -102,11 +126,18 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
                }
                OpenSimDB.getInstance().replaceModel(reducedResidualsModel, newReducedResidualsModel);
                reducedResidualsModel = newReducedResidualsModel;
-            } else if(reducedResidualsModel!=null) {
-               OpenSimDB.getInstance().removeModel(reducedResidualsModel);
-               reducedResidualsModel = null;
+               MotionsDB.getInstance().addMotion(reducedResidualsModel, motion);
+            } else {
+               if(reducedResidualsModel!=null) {
+                  OpenSimDB.getInstance().removeModel(reducedResidualsModel);
+                  reducedResidualsModel = null;
+               }
+               MotionsDB.getInstance().addMotion(getOriginalModel(), motion);
             }
          }
+
+         // Remove the kinematics analysis before printing results, so its results won't be written to disk
+         getModel().removeAnalysis(kinematicsAnalysis);
 
          progressHandle.finish();
 
@@ -131,6 +162,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
    private boolean constraintsEnabled = false;
    private Model reducedResidualsModel = null;
+   private Storage motion = null;
 
    public CMCToolModel(Model model) throws IOException {
       super(model);
