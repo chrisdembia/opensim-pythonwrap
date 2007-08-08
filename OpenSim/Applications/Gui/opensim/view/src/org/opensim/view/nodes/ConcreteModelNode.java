@@ -35,6 +35,8 @@ public class ConcreteModelNode extends OpenSimObjectNode {
             classSpecificActions = new Action[]{
                 (ModelMakeCurrentAction) ModelMakeCurrentAction.findObject(
                         Class.forName("org.opensim.view.nodes.ModelMakeCurrentAction"), true),
+                (ModelRenameAction) ModelRenameAction.findObject(
+                        Class.forName("org.opensim.view.ModelRenameAction"), true),
                 (ModelDisplayMenuAction) ModelDisplayMenuAction.findObject(
                         Class.forName("org.opensim.view.ModelDisplayMenuAction"), true),
                 (ModelInfoAction) ModelInfoAction.findObject(
