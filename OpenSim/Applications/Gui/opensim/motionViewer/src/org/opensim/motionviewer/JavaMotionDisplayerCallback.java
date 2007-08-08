@@ -98,6 +98,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    }
 
    public void processStep(int step) {
+      if(!getOn()) return;
       if(progressHandle!=null) {
          int progressStep = progressUsingTime ? (int)((getCurrentTime()-startTime)*progressTimeResolution) : step-startStep+1;
          if(progressStep > lastProgressStep) { // make sure we only advance progress (else an exception is thrown)
