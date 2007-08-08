@@ -322,15 +322,12 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    // TODO: implement
-   public boolean getAvailableTimeRangeValid() {
-      if(getInputSource()==InputSource.Motion && getInputMotion()!=null) return true;
-      else return false; }
-   public double getAvailableInitialTime() { 
-      if(getInputSource()==InputSource.Motion && getInputMotion()!=null) return getInputMotion().getFirstTime();
-      else return -1; }
-   public double getAvailableFinalTime() { 
-      if(getInputSource()==InputSource.Motion && getInputMotion()!=null) return getInputMotion().getLastTime();
-      return -1; }
+   public double[] getAvailableTimeRange() { 
+      double range[] = null;
+      if(getInputSource()==InputSource.Motion && getInputMotion()!=null) 
+         range = new double[]{getInputMotion().getFirstTime(), getInputMotion().getLastTime()};
+      return range;
+   }
 
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)

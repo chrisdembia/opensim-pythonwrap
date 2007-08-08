@@ -194,9 +194,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    public boolean getInitialStatesValid() { return (new File(getInitialStatesFileName()).exists()); }
 
    // TODO: implement
-   public boolean getAvailableTimeRangeValid() { return false; }
-   public double getAvailableInitialTime() { return -1; }
-   public double getAvailableFinalTime() { return -1; }
+   public double[] getAvailableTimeRange() { return null; }
 
    //------------------------------------------------------------------------
    // Integrator settings (continued from AbstractToolModel

@@ -33,8 +33,8 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
    private JCheckBox rraPanelCheckBox = new JCheckBox(new EnableReduceResidualsAction());
    class EnableReduceResidualsAction extends AbstractAction {
-      public EnableReduceResidualsAction() { super("Reduce Residuals"); }
-      public void actionPerformed(ActionEvent evt) { cmcToolModel().setResidualReductionEnabled(((JCheckBox)evt.getSource()).isSelected()); }
+      public EnableReduceResidualsAction() { super("Adjust Model to Reduce Residuals"); }
+      public void actionPerformed(ActionEvent evt) { cmcToolModel().setAdjustModelToReduceResidualsEnabled(((JCheckBox)evt.getSource()).isSelected()); }
    }
 
    public enum Mode { ForwardDynamics, InverseDynamics, CMC, Analyze };
@@ -77,6 +77,12 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
 
       rraPanel.setVisible(mode==Mode.CMC);
       activeAnalysesPanel.setVisible(mode==Mode.Analyze);
+
+      // disable for now
+      jLabel7.setVisible(false);
+      jLabel8.setVisible(false);
+      availableInitialTime.setVisible(false);
+      availableFinalTime.setVisible(false);
       
       if(mode==Mode.InverseDynamics || mode==Mode.Analyze) {
          if(mode==Mode.InverseDynamics) analyzeSolveForEquilibriumCheckBox.setVisible(false);
@@ -166,9 +172,10 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       activeAnalyses.setText(str);
 
       // Time
-      if(toolModel.getAvailableTimeRangeValid()) {
-         availableInitialTime.setText(((Double)toolModel.getAvailableInitialTime()).toString());
-         availableFinalTime.setText(((Double)toolModel.getAvailableFinalTime()).toString());
+      double[] range = toolModel.getAvailableTimeRange();
+      if(range!=null) {
+         availableInitialTime.setText(((Double)range[0]).toString());
+         availableFinalTime.setText(((Double)range[1]).toString());
       } else {
          availableInitialTime.setText("");
          availableFinalTime.setText("");
@@ -289,7 +296,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       //----------------------------------------------------------------------
       // RRA Panel
       //----------------------------------------------------------------------
-      rraPanelCheckBox.setSelected(toolModel.getResidualReductionEnabled());      
+      rraPanelCheckBox.setSelected(toolModel.getAdjustModelToReduceResidualsEnabled());      
       if(!rraPanelCheckBox.isSelected()) setEnabled(rraPanel, false);
 
       rraOutputModelFileName.setFileName(toolModel.getOutputModelFileName(),false);

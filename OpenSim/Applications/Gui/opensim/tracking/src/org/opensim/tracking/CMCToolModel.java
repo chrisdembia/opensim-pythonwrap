@@ -92,7 +92,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
          // Add adjusted RRA model if we're in that mode
          if(processResults) {
-            if(getResidualReductionEnabled()) {
+            if(getAdjustModelToReduceResidualsEnabled()) {
                Model newReducedResidualsModel = null;
                try {
                   newReducedResidualsModel = new Model(getOutputModelFileName());
@@ -213,9 +213,9 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
-   public boolean getResidualReductionEnabled() { return getTool().getAdjustCOMToReduceResiduals(); }
-   public void setResidualReductionEnabled(boolean enabled) {
-      if(getResidualReductionEnabled() != enabled) {
+   public boolean getAdjustModelToReduceResidualsEnabled() { return getTool().getAdjustCOMToReduceResiduals(); }
+   public void setAdjustModelToReduceResidualsEnabled(boolean enabled) {
+      if(getAdjustModelToReduceResidualsEnabled() != enabled) {
          getTool().setAdjustCOMToReduceResiduals(enabled);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
@@ -233,7 +233,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    private boolean isRRAValid() {
-      return !getResidualReductionEnabled() || (!FileUtils.effectivelyNull(getOutputModelFileName()) && getAdjustedCOMBodyValid());
+      return !getAdjustModelToReduceResidualsEnabled() || (!FileUtils.effectivelyNull(getOutputModelFileName()) && getAdjustedCOMBodyValid());
    }
 
    //------------------------------------------------------------------------
@@ -255,9 +255,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { getTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    // TODO: implement
-   public boolean getAvailableTimeRangeValid() { return false; }
-   public double getAvailableInitialTime() { return -1 ;}
-   public double getAvailableFinalTime() { return -1; }
+   public double[] getAvailableTimeRange() { return null; }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool

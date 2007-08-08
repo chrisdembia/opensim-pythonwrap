@@ -178,9 +178,7 @@ public abstract class AbstractToolModel extends Observable {
    // Functions to override
    //------------------------------------------------------------------------
 
-   public abstract boolean getAvailableTimeRangeValid();
-   public abstract double getAvailableInitialTime();
-   public abstract double getAvailableFinalTime();
+   public abstract double[] getAvailableTimeRange();
 
    public abstract boolean isValid();
 
@@ -324,6 +322,10 @@ abstract class AbstractToolModelWithExternalLoads extends AbstractToolModel {
 
    public boolean isValid() {
       return !getExternalLoadsEnabled() || ((new File(getExternalLoadsFileName()).exists()) && (new File(getExternalLoadsModelKinematicsFileName()).exists()));
+   }
+
+   protected double[] intersectTimeRanges(double[] range1, double[] range2) {
+      return new double[]{(range1[0]>range2[0])?range1[0]:range2[0], (range1[1]<range2[1])?range1[1]:range2[1]};
    }
 }
 
