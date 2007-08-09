@@ -48,6 +48,8 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    int startStep = 0;
    int endStep = 1;
    int lastProgressStep = -1;
+   double lastRenderTime = -1e10;
+   double minRenderTimeInterval = -1;
 
    /** Creates a new instance of JavaMotionDisplayerCallback */
    public JavaMotionDisplayerCallback(Model aModel, Model aModelForDisplay, Storage storage, ProgressHandle progressHandle) {
@@ -67,6 +69,8 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       this.progressHandle = progressHandle;
    }
 
+   public void setMinRenderTimeInterval(double interval) { minRenderTimeInterval = interval; }
+
    public void startProgressUsingTime(double startTime, double endTime) {
       progressUsingTime = true;
       this.startTime = startTime;
@@ -85,10 +89,13 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       try {
          SwingUtilities.invokeAndWait(new Runnable(){
             public void run() {
-               ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
-               if(motionDisplayer!=null && storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);
-               //ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
-               ViewDB.getInstance().repaintAll();
+               if(minRenderTimeInterval<=0 || getCurrentTime()-lastRenderTime>minRenderTimeInterval) {
+                  ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
+                  if(motionDisplayer!=null && storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);
+                  //ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
+                  ViewDB.getInstance().repaintAll();
+                  lastRenderTime = getCurrentTime();
+               }
             }});
       } catch (InterruptedException ex) {
          ex.printStackTrace();
