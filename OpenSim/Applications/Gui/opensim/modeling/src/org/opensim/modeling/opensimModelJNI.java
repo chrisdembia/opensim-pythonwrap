@@ -995,7 +995,8 @@ public class opensimModelJNI {
   public final static native void Analysis_setColumnLabels(long jarg1, Analysis jarg1_, long jarg2, ArrayStr jarg2_);
   public final static native long Analysis_getColumnLabels(long jarg1, Analysis jarg1_);
   public final static native long Analysis_getStorageList(long jarg1, Analysis jarg1_);
-  public final static native void Analysis_setWriteResultsToFiles(long jarg1, Analysis jarg1_, boolean jarg2);
+  public final static native void Analysis_setPrintResultFiles(long jarg1, Analysis jarg1_, boolean jarg2);
+  public final static native boolean Analysis_getPrintResultFiles(long jarg1, Analysis jarg1_);
   public final static native int Analysis_printResults__SWIG_0(long jarg1, Analysis jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native int Analysis_printResults__SWIG_1(long jarg1, Analysis jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native int Analysis_printResults__SWIG_2(long jarg1, Analysis jarg1_, String jarg2, String jarg3);

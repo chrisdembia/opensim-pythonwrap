@@ -1870,6 +1870,14 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             Vector<OpenSimObject> objs = evt.getObjects();
             // If any of the event objects is a model, this means there is a new
             // current model. So update the panel.
+            // Kluge: Handle model name change separately!
+            if ((objs.size()==1) && (objs.get(0) instanceof Model)){
+               if (currentModel != null && currentModel.equals(objs.get(0))){
+                  // Safe change just a name change probably. Don't do anything 
+                  ModelNameLabel.setText("Model: " + currentModel.getName());
+                  return;
+               }
+            }
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
                   setPendingChanges(false, false);

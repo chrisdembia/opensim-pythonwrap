@@ -289,7 +289,8 @@ public class SingleModelVisuals {
             // The reverse map takes an actor to an Object and is filled as actors are created.
             vtkProp3D bodyRep= mapObject2VtkObjects.get(body);
             vtkMatrix4x4 bodyVtkTransform= getBodyTransform(model, body);
-            bodyRep.SetUserMatrix(bodyVtkTransform);
+            if (bodyRep!=null)
+               bodyRep.SetUserMatrix(bodyVtkTransform);
 
             // For dependents (markers, muscle points, update xforms as well)
             VisibleObject bodyDisplayer = body.getDisplayer();
