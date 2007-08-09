@@ -27,6 +27,37 @@
 	    size is increased.-->
 	<integrator_fine_tolerance> 1e-006 </integrator_fine_tolerance>
 
+	<!-- ANALYSES -->
+	<!--Set of analyses to be run during the investigation.-->
+	<AnalysisSet name="Analyses">
+		<objects>
+			<Kinematics name="Kinematics">
+				<!--Flag (true or false) specifying whether whether on. True by default.-->
+				<on> true </on>
+				<!--Specifies how often to store results during a simulation. More
+				    specifically, the interval (a positive integer) specifies how many
+				    successful integration steps should be taken before results are
+				    recorded again.-->
+				<step_interval> 10 </step_interval>
+				<!--Flag (true or false) indicating whether the results are in degrees or
+				    not.-->
+				<in_degrees> true </in_degrees>
+			</Kinematics>
+			<Actuation name="Actuation">
+				<!--Flag (true or false) specifying whether whether on. True by default.-->
+				<on> true </on>
+				<!--Specifies how often to store results during a simulation. More
+				    specifically, the interval (a positive integer) specifies how many
+				    successful integration steps should be taken before results are
+				    recorded again.-->
+				<step_interval> 10 </step_interval>
+				<!--Flag (true or false) indicating whether the results are in degrees or
+				    not.-->
+				<in_degrees> true </in_degrees>
+			</Actuation>
+		</objects>
+	</AnalysisSet>
+	
 	<!--Motion (.mot) or storage (.sto) file containing the desired kinematic
 	    trajectories.-->
 	<desired_kinematics_file> subject01_walk1_ik.mot </desired_kinematics_file>
