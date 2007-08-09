@@ -412,7 +412,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       );
 
       jPlotSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Curve Add/Update"));
-      jPlotSpecPanel.setToolTipText("Legend:");
+      jPlotSpecPanel.setToolTipText("");
       jLabel2.setText("Curve Name");
 
       jCurveLegendTextField.setToolTipText("Name of curve, to show in legend, Curves List.");

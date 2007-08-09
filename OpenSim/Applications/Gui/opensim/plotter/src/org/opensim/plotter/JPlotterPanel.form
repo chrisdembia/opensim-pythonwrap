@@ -458,7 +458,7 @@
                     <TitledBorder title="Curve Add/Update"/>
                   </Border>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Legend:"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
 
               <Layout>
