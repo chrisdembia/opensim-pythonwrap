@@ -79,8 +79,8 @@ public class Installer extends ModuleInstall {
          Preferences.userNodeForPackage(TheApp.class).put("NonCurrentModelOpacity", saved);
 
          String defaultGeometryPath = NbBundle.getMessage(OpenSimBaseCanvas.class,"CTL_GeometryPath");
-         saved=Preferences.userNodeForPackage(TheApp.class).get("GeometryPath", defaultGeometryPath);
-         Preferences.userNodeForPackage(TheApp.class).put("GeometryPath", saved);
+         saved=Preferences.userNodeForPackage(TheApp.class).get("Geometry Path", defaultGeometryPath);
+         Preferences.userNodeForPackage(TheApp.class).put("Geometry Path", saved);
 
          String defaultBgColor = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_BackgroundColorRGB");        
          saved = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBgColor);

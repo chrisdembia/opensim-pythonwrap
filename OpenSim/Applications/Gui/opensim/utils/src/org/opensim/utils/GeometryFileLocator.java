@@ -62,7 +62,7 @@ public class GeometryFileLocator {
       //System.out.println("Try:"+candidate);
       if (new File(candidate).exists())
          return candidate;
-      String GeometryPath=Preferences.userNodeForPackage(TheApp.class).get("GeometryPath", ".");
+      String GeometryPath=Preferences.userNodeForPackage(TheApp.class).get("Geometry Path", ".");
       if (GeometryPath!=null){
          // Split at ";" to get directoryList
          StringTokenizer tokenizer = new StringTokenizer(GeometryPath, File.pathSeparator);
