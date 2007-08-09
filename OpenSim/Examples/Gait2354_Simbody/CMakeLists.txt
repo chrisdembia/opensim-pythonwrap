@@ -1,5 +1,7 @@
-SET(GAIT2354_FILES gait2354.osim gait2354_zeros.mot subject01_static.trc subject01_walk1.mot subject01_walk1.trc subject01_walk1_grf.mot subject01_Setup_Scale.xml subject01_Setup_IK.xml subject01_Setup_RRA1.xml subject01_Setup_RRA2.xml subject01_Setup_CMC.xml subject01_Setup_Forward.xml subject01_Setup_Perturb.xml gait2354_RRA1_Actuators.xml gait2354_RRA2_Actuators.xml gait2354_CMC_Actuators.xml gait2354_Scale_Tasks.xml gait2354_IK_Tasks.xml gait2354_RRA1_Tasks.xml gait2354_RRA2_Tasks.xml gait2354_CMC_Tasks.xml gait2354_RRA1_ControlConstraints.xml gait2354_RRA2_ControlConstraints.xml gait2354_CMC_ControlConstraints.xml gait2354_Scale_MarkerSet.xml gait2354_Scale_MeasurementSet.xml subject01_Scale_ScaleSet.xml)
+SET(GAIT2354_FILES subject01_static.trc subject01_walk1.trc markers_coords_ik.sto gait2354_zeros.mot subject01_walk1.mot subject01_walk1_grf.mot gait2354_simbody.osim)
+FILE(GLOB GAIT2354_SETUP_FILES *.xml)
 FILE(GLOB BONE_FILES Geometry/*.vtp)
 
-INSTALL_FILES(/examples/Gait2354/ FILES ${GAIT2354_FILES})
+INSTALL_FILES(/examples/Gait2354_Simbody/ FILES ${GAIT2354_FILES})
+INSTALL_FILES(/examples/Gait2354_Simbody/ FILES ${GAIT2354_SETUP_FILES})
 INSTALL_FILES(/Geometry FILES ${BONE_FILES})
