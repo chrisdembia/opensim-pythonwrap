@@ -89,7 +89,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    
    private MuscleEditorTopComponent() {
       initComponents();
-      ViewDB.getInstance().addObserver(this);
       setName(NbBundle.getMessage(MuscleEditorTopComponent.class, "CTL_MuscleEditorTopComponent"));
       setToolTipText(NbBundle.getMessage(MuscleEditorTopComponent.class, "HINT_MuscleEditorTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
@@ -1791,7 +1790,10 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    private boolean needToHandleEvent(Observable o, Object arg) {
       if (o instanceof ViewDB) {
          // We only care about ViewDB events if there is a current actuator
-         // and the event's model is the muscle editor's current model.
+         // and the event's model is the muscle editor's current model (unless
+         // it's a DragObjectsEvent).
+         if (arg instanceof DragObjectsEvent)
+            return true;
          if (act == null)
             return false;
          if (arg instanceof OpenSimEvent) {
