@@ -1061,6 +1061,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          }
       });
 
+      cmcCutoffFrequency.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
       cmcCutoffFrequency.setText("jTextField1");
       cmcCutoffFrequency.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
