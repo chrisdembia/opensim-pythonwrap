@@ -44,6 +44,7 @@ public class ModelInfoJPanel extends javax.swing.JPanel {
       jPublicationsTextArea.setLineWrap(true);
       jPublicationsTextArea.setRows(5);
       jPublicationsTextArea.setText("References and publications go here.");
+      jPublicationsTextArea.setWrapStyleWord(true);
       jScrollPane1.setViewportView(jPublicationsTextArea);
 
       jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13));
