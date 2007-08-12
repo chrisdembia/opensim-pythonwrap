@@ -34,6 +34,10 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       lastFileName = fileNameTextField.getText();
    }
 
+   public void setToolTipText(String text) {
+      fileNameTextField.setToolTipText(text);
+   }
+
    public void setCheckIfFileExists(boolean check) {
       checkIfFileExists = check;
    }

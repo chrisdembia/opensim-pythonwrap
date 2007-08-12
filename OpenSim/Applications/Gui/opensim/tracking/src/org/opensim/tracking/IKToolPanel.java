@@ -6,23 +6,12 @@
 
 package org.opensim.tracking;
 
-import java.awt.Dialog;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.filechooser.FileFilter;
-import org.openide.DialogDescriptor;
+import org.opensim.modeling.IKTrial;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.Model;
-import org.opensim.utils.FileUtils;
 
 public class IKToolPanel extends BaseToolPanel implements Observer {
    private IKToolModel ikToolModel = null;
@@ -35,6 +24,7 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
       //ikToolModel.loadSettings("C:\\eran\\dev\\simbios\\opensim\\Trunk\\OpenSim\\Examples\\Gait2354\\subject01_Setup_IK.xml");
 
       initComponents();
+      bindPropertiesToComponents();
 
       setSettingsFileDescription("IK tool settings file");
 
@@ -47,6 +37,14 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
       updateFromModel();
 
       ikToolModel.addObserver(this);
+   }
+
+   private void bindPropertiesToComponents() {
+      IKTrial fakeTrial = new IKTrial();
+      ToolCommon.bindProperty(fakeTrial, "marker_file", markerFileName);
+      ToolCommon.bindProperty(fakeTrial, "coordinate_file", coordinateFileName);
+      ToolCommon.bindProperty(fakeTrial, "time_range", startTime);
+      ToolCommon.bindProperty(fakeTrial, "time_range", endTime);
    }
 
    public void update(Observable observable, Object obj) {

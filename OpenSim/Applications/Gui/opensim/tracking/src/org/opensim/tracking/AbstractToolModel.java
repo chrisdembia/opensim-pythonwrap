@@ -27,9 +27,8 @@ public abstract class AbstractToolModel extends Observable {
       this.originalModel = originalModel;
    }
 
-   public void setTool(AbstractTool tool) {
-      this.tool = tool;
-   }
+   public void setTool(AbstractTool tool) { this.tool = tool; }
+   public AbstractTool getTool() { return tool; }
 
    //------------------------------------------------------------------------
    // Get/Set Values

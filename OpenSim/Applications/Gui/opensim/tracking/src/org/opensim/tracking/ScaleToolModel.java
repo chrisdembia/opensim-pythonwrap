@@ -12,8 +12,10 @@ import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodyScale;
 import org.opensim.modeling.BodyScaleSet;
 import org.opensim.modeling.BodySet;
+import org.opensim.modeling.GenericModelMaker;
 import org.opensim.modeling.MarkerData;
 import org.opensim.modeling.MarkerPair;
+import org.opensim.modeling.MarkerPlacer;
 import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.Measurement;
 import org.opensim.modeling.MeasurementSet;
@@ -299,6 +301,9 @@ public class ScaleToolModel extends Observable implements Observer {
    // Simple accessors
    public Model getUnscaledModel() { return unscaledModel; }
    public ScaleTool getScaleTool() { return scaleTool; }
+   public GenericModelMaker getGenericModelMaker() { return scaleTool.getGenericModelMaker(); }
+   public ModelScaler getModelScaler() { return scaleTool.getModelScaler(); }
+   public MarkerPlacer getMarkerPlacer() { return scaleTool.getMarkerPlacer(); }
    public IKCommonModel getIKCommonModel() { return ikCommonModel; }
 
    //------------------------------------------------------------------------

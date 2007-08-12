@@ -59,6 +59,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       }
 
       initComponents();
+      bindPropertiesToComponents();
 
       // Add checkbox titled borders to RRA panel
       rraPanelCheckBox.setForeground(new Color(0,70,213));
@@ -128,6 +129,37 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
       updateFromModel();
 
       toolModel.addObserver(this);
+   }
+
+   private void bindPropertiesToComponents() {
+      if(mode==Mode.InverseDynamics || mode==Mode.Analyze) {
+         ToolCommon.bindProperty(toolModel.getTool(), "controls_file", analyzeControlsFileName);
+         ToolCommon.bindProperty(toolModel.getTool(), "states_file", statesFileName);
+         ToolCommon.bindProperty(toolModel.getTool(), "coordinates_file", coordinatesFileName);
+         ToolCommon.bindProperty(toolModel.getTool(), "lowpass_cutoff_frequency_for_coordinates", cutoffFrequency);
+      } else if(mode==Mode.ForwardDynamics) {
+         ToolCommon.bindProperty(toolModel.getTool(), "controls_file", controlsFileName);
+         ToolCommon.bindProperty(toolModel.getTool(), "states_file", initialStatesFileName);
+         ToolCommon.bindProperty(toolModel.getTool(), "use_specified_dt", useSpecifiedDt);
+      } else {
+         ToolCommon.bindProperty(toolModel.getTool(), "desired_kinematics_file", cmcDesiredKinematicsFileName);
+         ToolCommon.bindProperty(toolModel.getTool(), "lowpass_cutoff_frequency", cmcCutoffFrequency);
+         ToolCommon.bindProperty(toolModel.getTool(), "task_set_file", cmcTaskSetFileName);
+         ToolCommon.bindProperty(toolModel.getTool(), "constraints_file", cmcConstraintsFileName);
+         ToolCommon.bindProperty(toolModel.getTool(), "output_model_file", rraOutputModelFileName);
+         ToolCommon.bindProperty(toolModel.getTool(), "adjusted_com_body", rraAdjustedBodyComboBox);
+      }
+
+      ToolCommon.bindProperty(toolModel.getTool(), "solve_for_equilibrium_for_auxiliary_states", solveForEquilibriumCheckBox);
+      ToolCommon.bindProperty(toolModel.getTool(), "maximum_number_of_integrator_steps", maximumNumberOfSteps);
+      ToolCommon.bindProperty(toolModel.getTool(), "maximum_integrator_step_size", maxDT);
+      ToolCommon.bindProperty(toolModel.getTool(), "integrator_error_tolerance", errorTolerance);
+      ToolCommon.bindProperty(toolModel.getTool(), "integrator_fine_tolerance", fineTolerance);
+
+      ToolCommon.bindProperty(toolModel.getTool(), "initial_time", initialTime);
+      ToolCommon.bindProperty(toolModel.getTool(), "final_time", finalTime);
+      ToolCommon.bindProperty(toolModel.getTool(), "results_directory", outputDirectory);
+      ToolCommon.bindProperty(toolModel.getTool(), "output_precision", outputPrecision);
    }
 
    private AnalyzeToolModel analyzeToolModel() { return (AnalyzeToolModel)toolModel; }

@@ -13,6 +13,7 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
 import javax.swing.JPopupMenu;
+import javax.swing.ToolTipManager;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.opensimModelJNI;
 
@@ -26,6 +27,7 @@ public class Installer extends ModuleInstall {
    static {
       JPopupMenu.setDefaultLightWeightPopupEnabled(false);
       javax.swing.ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
+      javax.swing.ToolTipManager.sharedInstance().setDismissDelay(600000); // keep tooltips up for a minute!
    }
     public void restored() {
         super.restored();
@@ -61,7 +63,6 @@ public class Installer extends ModuleInstall {
          * @todo open explorer window, Restore default directory and Bones directories, ..
          */
         restorePrefs();
-
     }
     
     private void restorePrefs()

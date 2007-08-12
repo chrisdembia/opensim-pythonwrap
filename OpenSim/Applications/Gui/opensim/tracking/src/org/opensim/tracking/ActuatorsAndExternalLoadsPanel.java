@@ -45,6 +45,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       this.model = model;
 
       initComponents();
+      bindPropertiesToComponents();
       
       if(!includeActuatorsPanel) actuatorsPanel.setVisible(false);
 
@@ -59,6 +60,15 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
       ((GroupLayout)this.getLayout()).layoutContainer(this);
 
       updatePanel();
+   }
+
+   private void bindPropertiesToComponents() {
+      ToolCommon.bindProperty(toolModel.getTool(), "actuator_set_files", actuatorSetFiles);
+      ToolCommon.bindProperty(toolModel.getTool(), "external_loads_file", externalLoadsFileName);
+      ToolCommon.bindProperty(toolModel.getTool(), "external_loads_body1", externalLoadsBody1);
+      ToolCommon.bindProperty(toolModel.getTool(), "external_loads_body2", externalLoadsBody2);
+      ToolCommon.bindProperty(toolModel.getTool(), "external_loads_model_kinematics_file", externalLoadsModelKinematicsFileName);
+      ToolCommon.bindProperty(toolModel.getTool(), "lowpass_cutoff_frequency_for_load_kinematics", cutoffFrequency);
    }
 
    private void setEnabled(JPanel panel, boolean enabled) {

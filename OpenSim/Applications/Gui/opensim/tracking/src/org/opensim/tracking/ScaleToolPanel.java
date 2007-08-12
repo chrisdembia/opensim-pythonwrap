@@ -59,6 +59,7 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       //scaleToolModel.loadSettings("C:\\eran\\dev\\simbios\\opensim\\Trunk\\OpenSim\\Examples\\Gait2354\\subject01_Setup_Scale.xml");
 
       initComponents();
+      bindPropertiesToComponents();
 
       setSettingsFileDescription("Scale tool settings file");
 
@@ -90,6 +91,22 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       updateFromModel();
 
       scaleToolModel.addObserver(this);
+   }
+
+   private void bindPropertiesToComponents() {
+      // Subject data
+      ToolCommon.bindProperty(scaleToolModel.getScaleTool(), "mass", modelMassTextField);
+      ToolCommon.bindProperty(scaleToolModel.getGenericModelMaker(), "marker_set_file", markerSetFileName);
+      // Model scaler
+      ToolCommon.bindProperty(scaleToolModel.getModelScaler(), "preserve_mass_distribution", preserveMassDistributionCheckBox);
+      ToolCommon.bindProperty(scaleToolModel.getModelScaler(), "marker_file", measurementTrialFileName);
+      ToolCommon.bindProperty(scaleToolModel.getModelScaler(), "time_range", measurementTrialStartTime);
+      ToolCommon.bindProperty(scaleToolModel.getModelScaler(), "time_range", measurementTrialEndTime);
+      // Maker placer
+      ToolCommon.bindProperty(scaleToolModel.getMarkerPlacer(), "marker_file", staticTrialFileName);
+      ToolCommon.bindProperty(scaleToolModel.getMarkerPlacer(), "time_range", staticTrialStartTime);
+      ToolCommon.bindProperty(scaleToolModel.getMarkerPlacer(), "time_range", staticTrialEndTime);
+      ToolCommon.bindProperty(scaleToolModel.getMarkerPlacer(), "coordinate_file", coordinateFileName);
    }
 
    public void update(Observable observable, Object obj) {
