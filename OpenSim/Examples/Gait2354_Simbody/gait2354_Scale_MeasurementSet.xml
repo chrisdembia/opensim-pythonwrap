@@ -146,12 +146,6 @@ in the specified axis directions (e.g., X Y Z).-->
 					<BodyScale name="toes_l">
 						<axes> X Y Z </axes>
 					</BodyScale>
-					<BodyScale name="calcn_rp">
-						<axes> X Y Z </axes>
-					</BodyScale>
-					<BodyScale name="calcn_lp">
-						<axes> X Y Z </axes>
-					</BodyScale>
 				</objects>
 			</BodyScaleSet>
 		</Measurement>
