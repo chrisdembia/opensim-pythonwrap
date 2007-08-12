@@ -50,7 +50,6 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
    }
 
    public void update(Observable observable, Object obj) {
-      System.out.println("UPDATE");
       if(observable == ikToolModel && obj == IKToolModel.Operation.ExecutionStateChanged) {
          // Just need to update the buttons
          updateDialogButtons();
@@ -71,8 +70,6 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
    }
 
    public void updateFromModel() {
-      System.out.println("updateFromModel");
-   
       // IK trial name
       trialNameTextField.setText(ikToolModel.getTrialName());
 
@@ -96,8 +93,6 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
       // Dialog buttons
       //---------------------------------------------------------------------
       updateDialogButtons();
-
-      System.out.println("updateFromModel FINISHED");
    }
 
 

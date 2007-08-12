@@ -93,7 +93,6 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
    }
 
    public void update(Observable observable, Object obj) {
-      System.out.println("UPDATE");
       updateFromModel();
    }
 
@@ -112,8 +111,6 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
    }
 
    public void updateFromModel() {
-      System.out.println("updateFromModel");
-
       //---------------------------------------------------------------------
       // Subject data
       //---------------------------------------------------------------------
@@ -197,8 +194,6 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
       // Dialog buttons
       //---------------------------------------------------------------------
       updateDialogButtons();
-
-      System.out.println("updateFromModel FINISHED");
    }
 
    public void updateDialogButtons() {

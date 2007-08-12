@@ -202,7 +202,6 @@ public class IKToolModel extends Observable implements Observer {
    }
 
    public void cancel() {
-      System.out.println("IKToolModel.cancel");
       interrupt(false);
       updateMotion(null);
    }

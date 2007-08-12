@@ -173,7 +173,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       InverseDynamics inverseDynamicsAnalysis = null;
       for(int i=getTool().getAnalysisSet().getSize()-1; i>=0; i--) {
          Analysis analysis = getTool().getAnalysisSet().get(i);
-         System.out.println("PROCESSING ANALYSIS "+analysis.getType()+","+analysis.getName());
+         //System.out.println("PROCESSING ANALYSIS "+analysis.getType()+","+analysis.getName());
          if(InverseDynamics.safeDownCast(analysis)==null) {
             foundOtherAnalysis = true;
             getTool().getAnalysisSet().remove(i);

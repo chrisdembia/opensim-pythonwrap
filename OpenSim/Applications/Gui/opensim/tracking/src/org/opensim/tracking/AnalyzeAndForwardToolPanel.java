@@ -89,6 +89,7 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
          // Set file filters for analyze tool / inverse dynamics tool inputs
          statesFileName.setExtensionsAndDescription(".sto", "States data for "+modeName);
          coordinatesFileName.setExtensionsAndDescription(".mot,.sto", "Motion data for "+modeName);
+         analyzeControlsFileName.setExtensionsAndDescription(".xml", "Controls input data for "+modeName);
          //speedsFileName.setExtensionsAndDescription(".mot,.sto", "Speeds data for "+modeName);
       } else if(mode==Mode.ForwardDynamics) {
          // Set file filters for forward tool inputs

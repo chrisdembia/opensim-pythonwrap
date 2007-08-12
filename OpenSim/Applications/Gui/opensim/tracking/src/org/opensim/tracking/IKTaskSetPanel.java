@@ -63,12 +63,10 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
    // Table data and selection handlers
    //------------------------------------------------------------------------
    public void tableChanged(TableModelEvent evt) {
-      System.out.println("tableChanged");
       updatePanel();
    }
 
    public void valueChanged(ListSelectionEvent event) {
-      System.out.println("valueChanged "+event);
       if(event.getValueIsAdjusting()) return;
 
       // Update activeTable
@@ -93,7 +91,6 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
    }
 
    private void updateSelectionCheckBoxes() {
-      System.out.println("updateSelectionCheckBoxes");
       enableSelectedCheckBox.setSelected(false);
       disableSelectedCheckBox.setSelected(false);
       enableSelectedCheckBox.setEnabled(false);

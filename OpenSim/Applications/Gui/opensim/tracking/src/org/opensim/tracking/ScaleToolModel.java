@@ -174,7 +174,7 @@ class BodySetScaleFactors extends Vector<BodyScaleFactors> {
          }
       }
 
-      print();
+      //print();
    }
 
    public void toModelScaler() {
@@ -314,11 +314,8 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    public void execute() {
-      System.out.println("ScaleToolModel.execute");
       if(isModified()) {
          try {
-            System.out.println("scaleToolModel.execute -- actually doing it");
-
             updateScaleTool();
 
             Model oldScaledModel = scaledModel;
@@ -363,7 +360,6 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    public void cancel() {
-      System.out.println("ScaleToolModel.cancel");
       if(scaledModel!=null) OpenSimDB.getInstance().removeModel(scaledModel);
       scaledModel = null;
    }
@@ -610,6 +606,7 @@ public class ScaleToolModel extends Observable implements Observer {
          array.append(timeRange[0]);
          array.append(timeRange[1]);
          scaleTool.getModelScaler().setTimeRange(array);
+         recomputeMeasurements();
          setModified(Operation.ModelScalerDataChanged);
       }
    }
