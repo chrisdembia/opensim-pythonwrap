@@ -133,22 +133,32 @@ public class PlotCurve {
              colNames[i]=colNames[i].trim();
              if (i==0){
                 storage.getDataColumn(colNames[i], Array);
-                // convert units if in radians
-                // have to do this before clamoing since clamping is done in degrees
+                System.out.println("Summation bug process "+colNames[i]);
+                 // have to do this before clamoing since clamping is done in degrees
                 if (convertAnglesToDegrees)
-                    convertDegreesToAnglesIfNeeded(colNames[i], Array);
+                    convertAnglesToDegreesIfNeeded(colNames[i], Array);
                 if (settings.isClamp())
                   clampDataArray(Array);
+                System.out.println("Summation bug "+colNames[i]+" entry after filtering"+Array.getitem(0));
              }
              else { // get data into temporary array and then add it in place
                  storage.getDataColumn(colNames[i], tempArray);
-                 if (convertAnglesToDegrees)
-                    convertDegreesToAnglesIfNeeded(colNames[i], tempArray);
-                 if (settings.isClamp())
+                 System.out.println("Summation bug  process "+colNames[i]+" raw data"+tempArray.getitem(0));
+                 if (convertAnglesToDegrees){
+                    convertAnglesToDegreesIfNeeded(colNames[i], tempArray);
+                    System.out.println("Summation bug  process "+colNames[i]+" after conversion"+tempArray.getitem(0));
+                 }
+                 if (settings.isClamp()){
                    clampDataArray(tempArray);
-                 for(int row=0;row<storage.getSize();row++)
-                     Array.set(row, Array.getitem(row)+tempArray.getitem(row));
+                    System.out.println("Summation bug  process "+colNames[i]+" after clamping"+tempArray.getitem(0));
+                 }
+                System.out.println("Summation bug "+colNames[i]+" add in"+tempArray.getitem(0));
+                 for(int row=0;row<storage.getSize();row++){
+                     double newValue = Array.getitem(row)+tempArray.getitem(row);
+                     Array.set(row, newValue);
+                 }
              }
+             System.out.println("Summation bug after loop start entry after filtering"+Array.getitem(0));
         }
          /*
          int storageIndex = storage.getStateIndex(colName);
@@ -297,7 +307,7 @@ public class PlotCurve {
       
    }
 
-    private void convertDegreesToAnglesIfNeeded(String string, ArrayDouble tempArray) {
+    private void convertAnglesToDegreesIfNeeded(String string, ArrayDouble tempArray) {
         // Check if name is a rotational degree of freedom in current model if so convert
         // every entry in the pased in array of data values, otherwise do nothing.
         CoordinateSet coords= OpenSimDB.getInstance().getCurrentModel().getDynamicsEngine().getCoordinateSet();
