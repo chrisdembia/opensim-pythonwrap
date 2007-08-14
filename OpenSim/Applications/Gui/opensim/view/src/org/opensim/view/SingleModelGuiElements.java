@@ -185,8 +185,8 @@ public class SingleModelGuiElements {
    {
       if (actuatorClassNames==null) {
          actuatorClassNames = new String[5];
-         actuatorClassNames[0] = new String("SimmZajacHill");
-         actuatorClassNames[1] = new String("SimmDarrylMuscle");
+         actuatorClassNames[0] = new String("Schutte1993Muscle");
+         actuatorClassNames[1] = new String("Thelen2003Muscle");
          actuatorClassNames[2] = new String("Force");
          actuatorClassNames[3] = new String("Torque");
          actuatorClassNames[4] = new String("GeneralizedForce");

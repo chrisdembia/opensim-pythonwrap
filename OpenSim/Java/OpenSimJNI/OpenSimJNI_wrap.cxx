@@ -487,8 +487,8 @@ namespace Swig {
 #include <OpenSim/Simulation/Model/Force.h>
 #include <OpenSim/Simulation/Model/GeneralizedForce.h>
 #include <OpenSim/Actuators/Torque.h>
-#include <OpenSim/Actuators/SimmDarrylMuscle.h>
-#include <OpenSim/Actuators/SimmZajacHill.h>
+#include <OpenSim/Actuators/Thelen2003Muscle.h>
+#include <OpenSim/Actuators/Schutte1993Muscle.h>
 
 #include <OpenSim/Tools/IKTrial.h>
 #include <OpenSim/Tools/IKTrialSet.h>
@@ -1199,7 +1199,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "C:/cygwin/home/fca/Projects/OpenSim/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
+#include "OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel, OpenSim::Model *aModelForDisplay) : OpenSim::SimtkAnimationCallback(aModel, aModelForDisplay), Swig::Director(jenv) {
 }
@@ -19309,7 +19309,7 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1get
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1setWriteResultsToFiles(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1setPrintResultFiles(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
   OpenSim::Analysis *arg1 = (OpenSim::Analysis *) 0 ;
   bool arg2 ;
   
@@ -19318,7 +19318,22 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1setW
   (void)jarg1_;
   arg1 = *(OpenSim::Analysis **)&jarg1; 
   arg2 = jarg2 ? true : false; 
-  (arg1)->setWriteResultsToFiles(arg2);
+  (arg1)->setPrintResultFiles(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Analysis_1getPrintResultFiles(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  OpenSim::Analysis *arg1 = (OpenSim::Analysis *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Analysis **)&jarg1; 
+  result = (bool)((OpenSim::Analysis const *)arg1)->getPrintResultFiles();
+  jresult = (jboolean)result; 
+  return jresult;
 }
 
 
@@ -58192,90 +58207,90 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Torque_1copy_1
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmDarrylMuscle_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Thelen2003Muscle_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *result = 0 ;
+  OpenSim::Thelen2003Muscle *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (OpenSim::SimmDarrylMuscle *)new OpenSim::SimmDarrylMuscle();
-  *(OpenSim::SimmDarrylMuscle **)&jresult = result; 
+  result = (OpenSim::Thelen2003Muscle *)new OpenSim::Thelen2003Muscle();
+  *(OpenSim::Thelen2003Muscle **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmDarrylMuscle_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Thelen2003Muscle_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = 0 ;
-  OpenSim::SimmDarrylMuscle *result = 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = 0 ;
+  OpenSim::Thelen2003Muscle *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1;
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1;
   if(!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::SimmDarrylMuscle const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Thelen2003Muscle const & reference is null");
     return 0;
   } 
-  result = (OpenSim::SimmDarrylMuscle *)new OpenSim::SimmDarrylMuscle((OpenSim::SimmDarrylMuscle const &)*arg1);
-  *(OpenSim::SimmDarrylMuscle **)&jresult = result; 
+  result = (OpenSim::Thelen2003Muscle *)new OpenSim::Thelen2003Muscle((OpenSim::Thelen2003Muscle const &)*arg1);
+  *(OpenSim::Thelen2003Muscle **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1SimmDarrylMuscle(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1Thelen2003Muscle(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   delete arg1;
   
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1copy_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1copy_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   OpenSim::Object *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
-  result = (OpenSim::Object *)((OpenSim::SimmDarrylMuscle const *)arg1)->copy();
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
+  result = (OpenSim::Object *)((OpenSim::Thelen2003Muscle const *)arg1)->copy();
   *(OpenSim::Object **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1copyData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
-  OpenSim::SimmDarrylMuscle *arg2 = 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1copyData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
-  arg2 = *(OpenSim::SimmDarrylMuscle **)&jarg2;
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
+  arg2 = *(OpenSim::Thelen2003Muscle **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::SimmDarrylMuscle const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Thelen2003Muscle const & reference is null");
     return ;
   } 
-  (arg1)->copyData((OpenSim::SimmDarrylMuscle const &)*arg2);
+  (arg1)->copyData((OpenSim::Thelen2003Muscle const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1copyPropertyValues(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1copyPropertyValues(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   OpenSim::AbstractActuator *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = *(OpenSim::AbstractActuator **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractActuator & reference is null");
@@ -58285,315 +58300,315 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMusc
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getMaxIsometricForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getMaxIsometricForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getMaxIsometricForce();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getOptimalFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getOptimalFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getOptimalFiberLength();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getTendonSlackLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getTendonSlackLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getTendonSlackLength();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getPennationAngleAtOptimalFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getPennationAngleAtOptimalFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getPennationAngleAtOptimalFiberLength();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getActivationTimeConstant(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getActivationTimeConstant(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getActivationTimeConstant();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getDeactivationTimeConstant(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getDeactivationTimeConstant(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getDeactivationTimeConstant();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getVmax(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getVmax(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getVmax();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getVmax0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getVmax0(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getVmax0();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getFmaxTendonStrain(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getFmaxTendonStrain(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getFmaxTendonStrain();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getFmaxMuscleStrain(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getFmaxMuscleStrain(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getFmaxMuscleStrain();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getKshapeActive(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getKshapeActive(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getKshapeActive();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getKshapePassive(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getKshapePassive(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getKshapePassive();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getDamping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getDamping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getDamping();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getAf(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getAf(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getAf();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getFlen(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getFlen(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getFlen();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getPennationAngle(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getPennationAngle(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getPennationAngle();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getFiberLength();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getNormalizedFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getNormalizedFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getNormalizedFiberLength();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getPassiveFiberForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getPassiveFiberForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   result = (double)(arg1)->getPassiveFiberForce();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1getStress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1getStress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
-  result = (double)((OpenSim::SimmDarrylMuscle const *)arg1)->getStress();
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
+  result = (double)((OpenSim::Thelen2003Muscle const *)arg1)->getStress();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1computeStateDerivatives(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1computeStateDerivatives(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double *arg2 ;
   jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
   (arg1)->computeStateDerivatives(arg2);
   SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
@@ -58601,82 +58616,82 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMusc
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1computeEquilibrium(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1computeEquilibrium(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   (arg1)->computeEquilibrium();
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1computeActuation(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1computeActuation(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   (arg1)->computeActuation();
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1calcTendonForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1calcTendonForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double arg2 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = (double)jarg2; 
-  result = (double)((OpenSim::SimmDarrylMuscle const *)arg1)->calcTendonForce(arg2);
+  result = (double)((OpenSim::Thelen2003Muscle const *)arg1)->calcTendonForce(arg2);
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1calcPassiveForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1calcPassiveForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double arg2 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = (double)jarg2; 
-  result = (double)((OpenSim::SimmDarrylMuscle const *)arg1)->calcPassiveForce(arg2);
+  result = (double)((OpenSim::Thelen2003Muscle const *)arg1)->calcPassiveForce(arg2);
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1calcActiveForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1calcActiveForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double arg2 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = (double)jarg2; 
-  result = (double)((OpenSim::SimmDarrylMuscle const *)arg1)->calcActiveForce(arg2);
+  result = (double)((OpenSim::Thelen2003Muscle const *)arg1)->calcActiveForce(arg2);
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1calcFiberVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3, jdouble jarg4) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1calcFiberVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3, jdouble jarg4) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double arg2 ;
   double arg3 ;
   double arg4 ;
@@ -58685,26 +58700,26 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylM
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = (double)jarg2; 
   arg3 = (double)jarg3; 
   arg4 = (double)jarg4; 
-  result = (double)((OpenSim::SimmDarrylMuscle const *)arg1)->calcFiberVelocity(arg2,arg3,arg4);
+  result = (double)((OpenSim::Thelen2003Muscle const *)arg1)->calcFiberVelocity(arg2,arg3,arg4);
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1computeIsometricForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1computeIsometricForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
   jdouble jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   double arg2 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = (double)jarg2; 
   result = (double)(arg1)->computeIsometricForce(arg2);
   jresult = (jdouble)result; 
@@ -58712,15 +58727,15 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylM
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1postScale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1postScale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   OpenSim::ScaleSet *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = *(OpenSim::ScaleSet **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ScaleSet const & reference is null");
@@ -58730,15 +58745,15 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMusc
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   OpenSim::ScaleSet *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = *(OpenSim::ScaleSet **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ScaleSet const & reference is null");
@@ -58748,21 +58763,21 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMusc
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   OpenSim::Model *arg2 = (OpenSim::Model *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = *(OpenSim::Model **)&jarg2; 
   (arg1)->setup(arg2);
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
   bool result;
@@ -58774,59 +58789,59 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarryl
     arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
     if (!arg1) return 0;
   }
-  result = (bool)OpenSim::SimmDarrylMuscle::isKindOf((char const *)arg1);
+  result = (bool)OpenSim::Thelen2003Muscle::isKindOf((char const *)arg1);
   jresult = (jboolean)result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
   return jresult;
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1isA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1isA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   jboolean jresult = 0 ;
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   char *arg2 = (char *) 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = 0;
   if (jarg2) {
     arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
     if (!arg2) return 0;
   }
-  result = (bool)((OpenSim::SimmDarrylMuscle const *)arg1)->isA((char const *)arg2);
+  result = (bool)((OpenSim::Thelen2003Muscle const *)arg1)->isA((char const *)arg2);
   jresult = (jboolean)result; 
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1safeDownCast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1safeDownCast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::Object *arg1 = (OpenSim::Object *) 0 ;
-  OpenSim::SimmDarrylMuscle *result = 0 ;
+  OpenSim::Thelen2003Muscle *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Object **)&jarg1; 
-  result = (OpenSim::SimmDarrylMuscle *)OpenSim::SimmDarrylMuscle::safeDownCast(arg1);
-  *(OpenSim::SimmDarrylMuscle **)&jresult = result; 
+  result = (OpenSim::Thelen2003Muscle *)OpenSim::Thelen2003Muscle::safeDownCast(arg1);
+  *(OpenSim::Thelen2003Muscle **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMuscle_1copy_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmDarrylMuscle *arg1 = (OpenSim::SimmDarrylMuscle *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Thelen2003Muscle_1copy_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Thelen2003Muscle *arg1 = (OpenSim::Thelen2003Muscle *) 0 ;
   OpenSim::Object *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmDarrylMuscle **)&jarg1; 
+  arg1 = *(OpenSim::Thelen2003Muscle **)&jarg1; 
   arg2 = *(OpenSim::Object **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Object const & reference is null");
@@ -58836,90 +58851,90 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmDarrylMusc
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmZajacHill_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Schutte1993Muscle_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  OpenSim::SimmZajacHill *result = 0 ;
+  OpenSim::Schutte1993Muscle *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (OpenSim::SimmZajacHill *)new OpenSim::SimmZajacHill();
-  *(OpenSim::SimmZajacHill **)&jresult = result; 
+  result = (OpenSim::Schutte1993Muscle *)new OpenSim::Schutte1993Muscle();
+  *(OpenSim::Schutte1993Muscle **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmZajacHill_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Schutte1993Muscle_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = 0 ;
-  OpenSim::SimmZajacHill *result = 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = 0 ;
+  OpenSim::Schutte1993Muscle *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1;
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1;
   if(!arg1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::SimmZajacHill const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Schutte1993Muscle const & reference is null");
     return 0;
   } 
-  result = (OpenSim::SimmZajacHill *)new OpenSim::SimmZajacHill((OpenSim::SimmZajacHill const &)*arg1);
-  *(OpenSim::SimmZajacHill **)&jresult = result; 
+  result = (OpenSim::Schutte1993Muscle *)new OpenSim::Schutte1993Muscle((OpenSim::Schutte1993Muscle const &)*arg1);
+  *(OpenSim::Schutte1993Muscle **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1SimmZajacHill(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1Schutte1993Muscle(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   delete arg1;
   
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1copy_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1copy_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   OpenSim::Object *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
-  result = (OpenSim::Object *)((OpenSim::SimmZajacHill const *)arg1)->copy();
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
+  result = (OpenSim::Object *)((OpenSim::Schutte1993Muscle const *)arg1)->copy();
   *(OpenSim::Object **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1copyData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
-  OpenSim::SimmZajacHill *arg2 = 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1copyData(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
+  OpenSim::Schutte1993Muscle *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
-  arg2 = *(OpenSim::SimmZajacHill **)&jarg2;
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
+  arg2 = *(OpenSim::Schutte1993Muscle **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::SimmZajacHill const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Schutte1993Muscle const & reference is null");
     return ;
   } 
-  (arg1)->copyData((OpenSim::SimmZajacHill const &)*arg2);
+  (arg1)->copyData((OpenSim::Schutte1993Muscle const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1copyPropertyValues(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1copyPropertyValues(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   OpenSim::AbstractActuator *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   arg2 = *(OpenSim::AbstractActuator **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractActuator & reference is null");
@@ -58929,180 +58944,180 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getMaxIsometricForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getMaxIsometricForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getMaxIsometricForce();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getOptimalFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getOptimalFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getOptimalFiberLength();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getTendonSlackLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getTendonSlackLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getTendonSlackLength();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getPennationAngleAtOptimalFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getPennationAngleAtOptimalFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getPennationAngleAtOptimalFiberLength();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getMaxContractionVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getMaxContractionVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getMaxContractionVelocity();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getTimeScale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getTimeScale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getTimeScale();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getDamping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getDamping(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getDamping();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getPennationAngle(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getPennationAngle(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getPennationAngle();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getFiberLength();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getNormalizedFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getNormalizedFiberLength(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getNormalizedFiberLength();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getPassiveFiberForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getPassiveFiberForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   result = (double)(arg1)->getPassiveFiberForce();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1computeStateDerivatives(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1computeStateDerivatives(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double *arg2 ;
   jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
   (arg1)->computeStateDerivatives(arg2);
   SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
@@ -59110,37 +59125,37 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1computeEquilibrium(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1computeEquilibrium(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   (arg1)->computeEquilibrium();
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1computeActuation(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1computeActuation(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   (arg1)->computeActuation();
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1postScale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1postScale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   OpenSim::ScaleSet *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   arg2 = *(OpenSim::ScaleSet **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ScaleSet const & reference is null");
@@ -59150,15 +59165,15 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   OpenSim::ScaleSet *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   arg2 = *(OpenSim::ScaleSet **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ScaleSet const & reference is null");
@@ -59168,83 +59183,83 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   OpenSim::Model *arg2 = (OpenSim::Model *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   arg2 = *(OpenSim::Model **)&jarg2; 
   (arg1)->setup(arg2);
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getActiveForceLengthCurve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getActiveForceLengthCurve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   OpenSim::Function *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
-  result = (OpenSim::Function *)((OpenSim::SimmZajacHill const *)arg1)->getActiveForceLengthCurve();
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
+  result = (OpenSim::Function *)((OpenSim::Schutte1993Muscle const *)arg1)->getActiveForceLengthCurve();
   *(OpenSim::Function **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getPassiveForceLengthCurve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getPassiveForceLengthCurve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   OpenSim::Function *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
-  result = (OpenSim::Function *)((OpenSim::SimmZajacHill const *)arg1)->getPassiveForceLengthCurve();
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
+  result = (OpenSim::Function *)((OpenSim::Schutte1993Muscle const *)arg1)->getPassiveForceLengthCurve();
   *(OpenSim::Function **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getTendonForceLengthCurve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getTendonForceLengthCurve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   OpenSim::Function *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
-  result = (OpenSim::Function *)((OpenSim::SimmZajacHill const *)arg1)->getTendonForceLengthCurve();
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
+  result = (OpenSim::Function *)((OpenSim::Schutte1993Muscle const *)arg1)->getTendonForceLengthCurve();
   *(OpenSim::Function **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getForceVelocityCurve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getForceVelocityCurve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   OpenSim::Function *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
-  result = (OpenSim::Function *)((OpenSim::SimmZajacHill const *)arg1)->getForceVelocityCurve();
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
+  result = (OpenSim::Function *)((OpenSim::Schutte1993Muscle const *)arg1)->getForceVelocityCurve();
   *(OpenSim::Function **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1calcNonzeroPassiveForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1calcNonzeroPassiveForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double arg2 ;
   double arg3 ;
   double result;
@@ -59252,18 +59267,18 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHi
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   arg2 = (double)jarg2; 
   arg3 = (double)jarg3; 
-  result = (double)((OpenSim::SimmZajacHill const *)arg1)->calcNonzeroPassiveForce(arg2,arg3);
+  result = (double)((OpenSim::Schutte1993Muscle const *)arg1)->calcNonzeroPassiveForce(arg2,arg3);
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1calcFiberVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3, jdouble jarg4) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1calcFiberVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdouble jarg3, jdouble jarg4) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double arg2 ;
   double arg3 ;
   double arg4 ;
@@ -59272,58 +59287,58 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHi
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   arg2 = (double)jarg2; 
   arg3 = (double)jarg3; 
   arg4 = (double)jarg4; 
-  result = (double)((OpenSim::SimmZajacHill const *)arg1)->calcFiberVelocity(arg2,arg3,arg4);
+  result = (double)((OpenSim::Schutte1993Muscle const *)arg1)->calcFiberVelocity(arg2,arg3,arg4);
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1calcTendonForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1calcTendonForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double arg2 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   arg2 = (double)jarg2; 
-  result = (double)((OpenSim::SimmZajacHill const *)arg1)->calcTendonForce(arg2);
+  result = (double)((OpenSim::Schutte1993Muscle const *)arg1)->calcTendonForce(arg2);
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1getStress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1getStress(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
-  result = (double)((OpenSim::SimmZajacHill const *)arg1)->getStress();
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
+  result = (double)((OpenSim::Schutte1993Muscle const *)arg1)->getStress();
   jresult = (jdouble)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1computeIsometricForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1computeIsometricForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
   jdouble jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   double arg2 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   arg2 = (double)jarg2; 
   result = (double)(arg1)->computeIsometricForce(arg2);
   jresult = (jdouble)result; 
@@ -59331,7 +59346,7 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHi
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
   bool result;
@@ -59343,59 +59358,59 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacH
     arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
     if (!arg1) return 0;
   }
-  result = (bool)OpenSim::SimmZajacHill::isKindOf((char const *)arg1);
+  result = (bool)OpenSim::Schutte1993Muscle::isKindOf((char const *)arg1);
   jresult = (jboolean)result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
   return jresult;
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1isA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1isA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   jboolean jresult = 0 ;
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   char *arg2 = (char *) 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   arg2 = 0;
   if (jarg2) {
     arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
     if (!arg2) return 0;
   }
-  result = (bool)((OpenSim::SimmZajacHill const *)arg1)->isA((char const *)arg2);
+  result = (bool)((OpenSim::Schutte1993Muscle const *)arg1)->isA((char const *)arg2);
   jresult = (jboolean)result; 
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1safeDownCast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1safeDownCast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::Object *arg1 = (OpenSim::Object *) 0 ;
-  OpenSim::SimmZajacHill *result = 0 ;
+  OpenSim::Schutte1993Muscle *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Object **)&jarg1; 
-  result = (OpenSim::SimmZajacHill *)OpenSim::SimmZajacHill::safeDownCast(arg1);
-  *(OpenSim::SimmZajacHill **)&jresult = result; 
+  result = (OpenSim::Schutte1993Muscle *)OpenSim::Schutte1993Muscle::safeDownCast(arg1);
+  *(OpenSim::Schutte1993Muscle **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmZajacHill_1copy_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  OpenSim::SimmZajacHill *arg1 = (OpenSim::SimmZajacHill *) 0 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Schutte1993Muscle_1copy_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::Schutte1993Muscle *arg1 = (OpenSim::Schutte1993Muscle *) 0 ;
   OpenSim::Object *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(OpenSim::SimmZajacHill **)&jarg1; 
+  arg1 = *(OpenSim::Schutte1993Muscle **)&jarg1; 
   arg2 = *(OpenSim::Object **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Object const & reference is null");
@@ -69939,19 +69954,19 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGTorqueUpc
     return baseptr;
 }
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGSimmDarrylMuscleUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGThelen2003MuscleUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong baseptr = 0;
     (void)jenv;
     (void)jcls;
-    *(OpenSim::AbstractMuscle **)&baseptr = *(OpenSim::SimmDarrylMuscle **)&jarg1;
+    *(OpenSim::AbstractMuscle **)&baseptr = *(OpenSim::Thelen2003Muscle **)&jarg1;
     return baseptr;
 }
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGSimmZajacHillUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGSchutte1993MuscleUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
     jlong baseptr = 0;
     (void)jenv;
     (void)jcls;
-    *(OpenSim::AbstractMuscle **)&baseptr = *(OpenSim::SimmZajacHill **)&jarg1;
+    *(OpenSim::AbstractMuscle **)&baseptr = *(OpenSim::Schutte1993Muscle **)&jarg1;
     return baseptr;
 }
 

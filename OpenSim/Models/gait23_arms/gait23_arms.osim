@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Model name="3DGaitModelSimple">
 	<defaults>
-		<SimmZajacHill name="(null)">
-		</SimmZajacHill>
-		<SimmDarrylMuscle name="(null)">
-		</SimmDarrylMuscle>
+		<Schutte1993Muscle name="(null)">
+		</Schutte1993Muscle>
+		<Thelen2003Muscle name="(null)">
+		</Thelen2003Muscle>
 	</defaults>
 	<angle_units> radians </angle_units>
 	<ActuatorSet>

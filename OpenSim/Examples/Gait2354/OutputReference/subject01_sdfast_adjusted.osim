@@ -26,7 +26,7 @@
 			<coordinate> Unassigned </coordinate>
 			<optimal_force>       1.00000000 </optimal_force>
 		</GeneralizedForce>
-		<SimmDarrylMuscle name="default">
+		<Thelen2003Muscle name="default">
 			<MusclePointSet name="">
 				<objects/>
 			</MusclePointSet>
@@ -60,8 +60,8 @@
 			<damping>       0.05000000 </damping>
 			<Af>       0.30000000 </Af>
 			<Flen>       1.80000000 </Flen>
-		</SimmDarrylMuscle>
-		<SimmZajacHill name="default">
+		</Thelen2003Muscle>
+		<Schutte1993Muscle name="default">
 			<MusclePointSet name="">
 				<objects/>
 			</MusclePointSet>
@@ -137,7 +137,7 @@
 					<y>       0.00000000       0.01041700       0.02173900       0.03409100       0.04761900       0.06250000       0.07894700       0.09722200       0.11764700       0.14062500       0.16666700       0.19642900       0.23076900       0.27083300       0.31818200       0.37500000       0.44444400       0.53125000       0.64285700       0.79166700       1.00000000       1.48201400       1.60157100       1.65579100       1.68673900       1.70675100       1.72075300       1.73109900       1.73905500       1.74536500       1.75049000       1.75473600       1.75831200       1.76136400       1.76399900       1.76629800       1.76832100       1.77011500       1.77171700       1.77315500       1.77445500 </y>
 				</natCubicSpline>
 			</force_velocity_curve>
-		</SimmZajacHill>
+		</Schutte1993Muscle>
 		<Torque name="default">
 			<body_A> Unassigned </body_A>
 			<direction_A>       1.00000000       0.00000000       0.00000000 </direction_A>
@@ -1662,7 +1662,7 @@
 		</ObjectGroup>
 	</groups>
 		<objects>
-			<SimmDarrylMuscle name="glut_med1_r">
+			<Thelen2003Muscle name="glut_med1_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -1724,8 +1724,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_med2_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_med2_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -1787,8 +1787,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_med3_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_med3_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -1850,8 +1850,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="bifemlh_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="bifemlh_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -1927,8 +1927,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="bifemsh_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="bifemsh_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2004,8 +2004,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="sar_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="sar_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2109,8 +2109,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="add_mag2_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="add_mag2_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2172,8 +2172,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="tfl_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="tfl_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2263,8 +2263,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="pect_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="pect_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2326,8 +2326,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="grac_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="grac_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2419,8 +2419,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_max1_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_max1_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2510,8 +2510,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_max2_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_max2_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2601,8 +2601,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_max3_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_max3_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2692,8 +2692,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="iliacus_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="iliacus_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2799,8 +2799,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="psoas_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="psoas_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2906,8 +2906,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="quad_fem_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="quad_fem_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -2969,8 +2969,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="gem_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="gem_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3032,8 +3032,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="peri_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="peri_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3109,8 +3109,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="rect_fem_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="rect_fem_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3188,8 +3188,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="vas_int_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="vas_int_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3281,8 +3281,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="med_gas_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="med_gas_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3360,8 +3360,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="soleus_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="soleus_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3423,8 +3423,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="tib_post_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="tib_post_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3514,8 +3514,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="tib_ant_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="tib_ant_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3591,8 +3591,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_med1_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_med1_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3654,8 +3654,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_med2_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_med2_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3717,8 +3717,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_med3_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_med3_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3780,8 +3780,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="bifemlh_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="bifemlh_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3857,8 +3857,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="bifemsh_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="bifemsh_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -3934,8 +3934,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="sar_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="sar_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4039,8 +4039,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="add_mag2_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="add_mag2_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4102,8 +4102,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="tfl_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="tfl_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4193,8 +4193,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="pect_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="pect_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4256,8 +4256,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="grac_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="grac_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4349,8 +4349,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_max1_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_max1_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4440,8 +4440,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_max2_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_max2_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4531,8 +4531,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="glut_max3_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="glut_max3_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4622,8 +4622,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="iliacus_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="iliacus_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4729,8 +4729,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="psoas_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="psoas_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4836,8 +4836,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="quad_fem_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="quad_fem_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4899,8 +4899,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="gem_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="gem_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -4962,8 +4962,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="peri_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="peri_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5039,8 +5039,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="rect_fem_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="rect_fem_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5118,8 +5118,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="vas_int_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="vas_int_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5211,8 +5211,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="med_gas_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="med_gas_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5290,8 +5290,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="soleus_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="soleus_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5353,8 +5353,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="tib_post_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="tib_post_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5444,8 +5444,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="tib_ant_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="tib_ant_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5521,8 +5521,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="ercspn_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="ercspn_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5584,8 +5584,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="ercspn_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="ercspn_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5647,8 +5647,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="intobl_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="intobl_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5710,8 +5710,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="intobl_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="intobl_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5773,8 +5773,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="extobl_r">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="extobl_r">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5836,8 +5836,8 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
-			<SimmDarrylMuscle name="extobl_l">
+			</Thelen2003Muscle>
+			<Thelen2003Muscle name="extobl_l">
 				<MusclePointSet name="">
 					<objects>
 						<MusclePoint name="">
@@ -5899,7 +5899,7 @@
 				<damping>       0.05000000 </damping>
 				<Af>       0.30000000 </Af>
 				<Flen>       1.80000000 </Flen>
-			</SimmDarrylMuscle>
+			</Thelen2003Muscle>
 		</objects>
 	</ActuatorSet>
 	<length_units> meters </length_units>
