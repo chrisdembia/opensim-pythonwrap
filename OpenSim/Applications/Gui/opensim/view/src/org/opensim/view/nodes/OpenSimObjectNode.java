@@ -63,7 +63,7 @@ public class OpenSimObjectNode extends OpenSimNode {
      */
     public Action getPreferredAction() {
           if (getValidDisplayOptions().size()==0)  // Nothing to show or hide.
-              return getReviewAction();
+              return null;
           
          OpenSimObject obj=getOpenSimObject();
          int currentStatus=ViewDB.getInstance().getDisplayStatus(obj);

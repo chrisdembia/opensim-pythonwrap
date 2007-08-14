@@ -63,7 +63,7 @@ public class OpenSimObjectSetNode extends OpenSimObjectNode {
      */
     public Action getPreferredAction() {
        if (getValidDisplayOptions().size()==0)  // Nothing to show or hide.
-           return getReviewAction();
+           return null;
 
          // Collect objects from children and obtain their visibility status
          Children children = getChildren();
@@ -84,7 +84,7 @@ public class OpenSimObjectSetNode extends OpenSimObjectNode {
             }
          }
          if (collectiveStatus==3)   
-            return getReviewAction();
+            return null;
          if (collectiveStatus==2) collectiveStatus=0;  // Assume hidden if mixed
          
          try {
@@ -100,7 +100,7 @@ public class OpenSimObjectSetNode extends OpenSimObjectNode {
             ex.printStackTrace();
          }
             
-         return getReviewAction();
+         return null;
     }
           
     /**
