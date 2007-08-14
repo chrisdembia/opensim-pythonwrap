@@ -205,6 +205,8 @@ public class PlotterModel {
         XYPlot dPlot = currentPlot.getChartPanel().getChart().getXYPlot();
         String oldLabel = dPlot.getDomainAxis().getLabel();
         String newLabel=oldLabel;
+        System.out.println("Old label="+oldLabel);
+        System.out.println("newDomainName="+newDomainName);
         if (oldLabel.equalsIgnoreCase("")||oldLabel.equalsIgnoreCase(getDefaulAxisLabel(true)))
             newLabel=newDomainName;
         else if (!oldLabel.contains(newDomainName))
@@ -214,6 +216,8 @@ public class PlotterModel {
         // Now Y
         oldLabel=dPlot.getRangeAxis().getLabel();
         newLabel=oldLabel;
+        System.out.println("Old label="+oldLabel);
+        System.out.println("newDomainName="+addYLabel);
         if (oldLabel.equalsIgnoreCase("")||oldLabel.equalsIgnoreCase(getDefaulAxisLabel(false)))   // First curve
             newLabel=addYLabel;
         else if (!oldLabel.contains(addYLabel))
@@ -421,7 +425,10 @@ public class PlotterModel {
       
       plotTreeModel.addPlotCurveToTree(newCurve);
       //currentPlot.setTitle(title);
-      updatePlotXYLabels(currentPlot, string, sourceY.getDisplayName());
+      newCurve.setXLabel(string);
+      newCurve.setYLabel(sourceY.getDisplayName());
+      updatePlotXYLabels(currentPlot, newCurve);
+
      return newCurve;
     }
 
