@@ -2,6 +2,7 @@ package org.opensim.view;
 
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
@@ -22,6 +23,11 @@ public final class FileExportSIMMModelAction extends CallableSystemAction {
         // TODO implement action body
         Model mdl = OpenSimDB.getInstance().getCurrentModel();
         if (mdl != null){
+            if (mdl.getDynamicsEngine().getType().equalsIgnoreCase("SimbodyEngine")){
+               DialogDisplayer.getDefault().notify(
+                    new NotifyDescriptor.Message("Models based on Simbody Engine cannot be exported to SIMM."));
+               return;
+            }
             OpenSimToSIMMOptionsJPanel exportPanel = new OpenSimToSIMMOptionsJPanel();
             DialogDescriptor dlg = new DialogDescriptor(exportPanel, "Export SIMM Model");
             DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
