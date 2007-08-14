@@ -210,9 +210,13 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    }
 
    public void closeMotion(Model model, Storage simmMotionData) {
+      closeMotion(model, simmMotionData, true);
+   }
+
+   public void closeMotion(Model model, Storage simmMotionData, boolean confirmCloseIfModified) {
       // Prompt user to confirm the close and possibly save the motion if it has been modified.
-      if (getMotionModified(simmMotionData) == true) {
-         if (confirmCloseMotion(model, simmMotionData) == false)
+      if (confirmCloseIfModified && getMotionModified(simmMotionData)) {
+         if (!confirmCloseMotion(model, simmMotionData))
             return;
       }
 

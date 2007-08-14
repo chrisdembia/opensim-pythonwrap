@@ -109,8 +109,8 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          if(processResults) {
             // Remove previous motion
             if(motion!=null) {
-               if(reducedResidualsModel!=null) MotionsDB.getInstance().closeMotion(reducedResidualsModel, motion);
-               else MotionsDB.getInstance().closeMotion(getOriginalModel(), motion);
+               if(reducedResidualsModel!=null) MotionsDB.getInstance().closeMotion(reducedResidualsModel, motion, false);
+               else MotionsDB.getInstance().closeMotion(getOriginalModel(), motion, false);
                motion = null;
             }
 
