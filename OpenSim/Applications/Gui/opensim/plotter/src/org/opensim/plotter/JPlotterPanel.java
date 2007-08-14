@@ -1405,6 +1405,8 @@ public class JPlotterPanel extends javax.swing.JPanel
       jYQtyTextField.setText("");
       jDomainStartTextField.setText("");
       jDomainEndTextField.setText("");
+      jSelectedMusclesTextField.setText("");
+      jCurveLegendTextField.setText("");
    }
    
    private void processCurrentModel() {
@@ -1413,6 +1415,8 @@ public class JPlotterPanel extends javax.swing.JPanel
          statesStorage=createStateStorageWithHeader(currentModel);
       }
       populateYPopup();
+      // Clear up any left over X, Y, muscles as they need to be re-hooked
+      resetXY();
    }
    /**
     * Populate the top level pop up for Y-qty to use.
@@ -1508,6 +1512,7 @@ public class JPlotterPanel extends javax.swing.JPanel
          ////////////////////////////////////////////////////////////////////////
          addedSomething=false;
          ArrayList<Storage> motions = MotionsDB.getInstance().getModelMotions(currentModel);
+         getPlotterModel().removeAllMotions();
          if (motions!=null){
             for(int i=0; i<motions.size(); i++){
                Storage nextMotionStorage = motions.get(i);

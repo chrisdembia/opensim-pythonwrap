@@ -419,6 +419,17 @@ public class PlotterModel {
    void fireChangeEvent(DefaultMutableTreeNode node) {
       plotTreeModel.nodeChanged(node);
    }
+   /**
+    * When a model is changed, motions from other models should not be available to plot against.
+    * Remove all motions here and then they are added one by one.
+    */
+   void removeAllMotions() {
+      for(int i=sources.size()-1; i>=0; i--){
+         if (sources.get(i) instanceof PlotterSourceMotion)
+            sources.remove(i);
+      }
+      
+   }
 
    
 }
