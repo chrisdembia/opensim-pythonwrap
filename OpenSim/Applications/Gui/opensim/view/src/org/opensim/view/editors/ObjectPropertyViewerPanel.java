@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -46,6 +47,13 @@ class ObjectPropertyViewerTreeTable extends JTreeTable {
       int column = columnAtPoint(p);
       return model.getToolTipText(adapter.nodeForRow(row), convertColumnIndexToModel(column));
    }
+}
+
+// The default renderer for double values in the table sucks because it uses commas (e.g. 100,000.0) and also doesn't use scientific notation
+// even for huge numbers... so I prefer using toString() which does a pretty good job of formatting doubles.
+class MyNumberRenderer extends DefaultTableCellRenderer.UIResource {
+   public MyNumberRenderer() { super(); setHorizontalAlignment(JLabel.RIGHT); } 
+	public void setValue(Object value) { setText((value==null) ? "" : value.toString()); }
 }
 
 /**
@@ -89,6 +97,7 @@ public class ObjectPropertyViewerPanel extends JPanel {
         treeTable.setRowSelectionAllowed(false);
 
         treeTable.setDefaultRenderer(JButton.class, new JTableButtonRenderer(treeTable.getDefaultRenderer(JButton.class)));
+        treeTable.setDefaultRenderer(Double.class, new MyNumberRenderer());
 
         // To handle pressing the "controls" buttons
         treeTable.addMouseListener(new JTableButtonMouseListener(treeTable));
