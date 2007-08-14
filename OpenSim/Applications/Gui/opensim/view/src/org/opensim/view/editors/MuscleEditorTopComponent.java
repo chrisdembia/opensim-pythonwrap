@@ -829,8 +829,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             isWrapPoint = true;
          javax.swing.JLabel indexLabel = new javax.swing.JLabel();
          javax.swing.JLabel xField = new javax.swing.JLabel();
+         xField.setHorizontalAlignment(SwingConstants.TRAILING);
          javax.swing.JLabel yField = new javax.swing.JLabel();
+         yField.setHorizontalAlignment(SwingConstants.TRAILING);
          javax.swing.JLabel zField = new javax.swing.JLabel();
+         zField.setHorizontalAlignment(SwingConstants.TRAILING);
          javax.swing.JLabel bodyLabel = new javax.swing.JLabel();
          javax.swing.JLabel typeLabel = new javax.swing.JLabel();
          indexLabel.setText(String.valueOf(i+1) + ".");
@@ -1211,8 +1214,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          indexLabel.setText(String.valueOf(aCount+1) + ".");
          
          javax.swing.JTextField xField = new javax.swing.JTextField();
+         xField.setHorizontalAlignment(SwingConstants.TRAILING);
          javax.swing.JTextField yField = new javax.swing.JTextField();
+         yField.setHorizontalAlignment(SwingConstants.TRAILING);
          javax.swing.JTextField zField = new javax.swing.JTextField();
+         zField.setHorizontalAlignment(SwingConstants.TRAILING);
          javax.swing.JComboBox comboBox = new javax.swing.JComboBox();
          attachmentSelectBox[i] = new javax.swing.JCheckBox();
          javax.swing.JComboBox coordComboBox = null;
@@ -1579,6 +1585,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                propLabel.setToolTipText(p.getComment());
                javax.swing.JTextField propField = new javax.swing.JTextField();
                propField.setBounds(210, 20 + tabPropertyCount[groupNum] * 22, 120, 21);
+               propField.setHorizontalAlignment(SwingConstants.TRAILING);
                if (p.getType() == org.opensim.modeling.Property.PropertyType.Dbl)
                   propField.setText(nf.format(p.getValueDbl()));
                else
