@@ -49,11 +49,11 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          tool.setModel(model);
 
          if(getInputSource()==InputSource.Motion && getInputMotion()!=null)
-            getTool().setStatesFromMotion(getInputMotion(),false); // false == motion is in radians
+            analyzeTool().setStatesFromMotion(getInputMotion(),false); // false == motion is in radians
          else
-            getTool().loadStatesFromFile();
-         getTool().loadControlsFromFile();
-         getTool().loadPseudoStatesFromFile();
+            analyzeTool().loadStatesFromFile();
+         analyzeTool().loadControlsFromFile();
+         analyzeTool().loadPseudoStatesFromFile();
 
          // We don't need to add model to the 3D view... just using it to dump analyses result files
          setModel(model);
@@ -145,7 +145,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       setTool(new AnalyzeTool());
 
       // By default, set prefix of output to be subject name
-      getTool().setName(model.getName());
+      analyzeTool().setName(model.getName());
 
       setDefaultResultsDirectory(model);
 
@@ -155,7 +155,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       determineDefaultInputSource();
    }
 
-   AnalyzeTool getTool() { return (AnalyzeTool)tool; }
+   AnalyzeTool analyzeTool() { return (AnalyzeTool)tool; }
 
    //------------------------------------------------------------------------
    // Utilities for inverse dynamics specific analyze tool
@@ -164,19 +164,19 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    protected void adjustToolForInverseDynamicsMode() {
       if(!inverseDynamicsMode) return;
       // Since we're not using the model's actuator set, clear the actuator set related fields
-      getTool().setReplaceActuatorSet(true);
-      getTool().getActuatorSetFiles().setSize(0);
+      analyzeTool().setReplaceActuatorSet(true);
+      analyzeTool().getActuatorSetFiles().setSize(0);
       // Check if have non-inverse dynamics analyses, or multiple inverse dynamics analyses
       boolean foundOtherAnalysis = false;
       boolean advancedSettings = false;
       int numInverseDynamicsAnalyses = 0;
       InverseDynamics inverseDynamicsAnalysis = null;
-      for(int i=getTool().getAnalysisSet().getSize()-1; i>=0; i--) {
-         Analysis analysis = getTool().getAnalysisSet().get(i);
+      for(int i=analyzeTool().getAnalysisSet().getSize()-1; i>=0; i--) {
+         Analysis analysis = analyzeTool().getAnalysisSet().get(i);
          //System.out.println("PROCESSING ANALYSIS "+analysis.getType()+","+analysis.getName());
          if(InverseDynamics.safeDownCast(analysis)==null) {
             foundOtherAnalysis = true;
-            getTool().getAnalysisSet().remove(i);
+            analyzeTool().getAnalysisSet().remove(i);
          }
          else { 
             numInverseDynamicsAnalyses++;
@@ -185,13 +185,13 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
                if(inverseDynamicsAnalysis.getUseModelActuatorSet() || !inverseDynamicsAnalysis.getOn()) 
                   advancedSettings = true;
             } else {
-               getTool().getAnalysisSet().remove(i);
+               analyzeTool().getAnalysisSet().remove(i);
             }
          }
       }
       if(inverseDynamicsAnalysis==null) {
          inverseDynamicsAnalysis = InverseDynamics.safeDownCast(new InverseDynamics().copy()); // C++-side copy
-         getTool().getAnalysisSet().append(inverseDynamicsAnalysis);
+         analyzeTool().getAnalysisSet().append(inverseDynamicsAnalysis);
       }
       inverseDynamicsAnalysis.setOn(true);
       inverseDynamicsAnalysis.setUseModelActuatorSet(false);
@@ -248,10 +248,10 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
-   public String getControlsFileName() { return getTool().getControlsFileName(); }
+   public String getControlsFileName() { return analyzeTool().getControlsFileName(); }
    void setControlsFileName(String speedsFileName) {
       if(!getControlsFileName().equals(speedsFileName)) {
-         getTool().setControlsFileName(speedsFileName);
+         analyzeTool().setControlsFileName(speedsFileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -264,10 +264,10 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
-   public String getStatesFileName() { return getTool().getStatesFileName(); }
+   public String getStatesFileName() { return analyzeTool().getStatesFileName(); }
    void setStatesFileName(String speedsFileName) {
       if(!getStatesFileName().equals(speedsFileName)) {
-         getTool().setStatesFileName(speedsFileName);
+         analyzeTool().setStatesFileName(speedsFileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -275,27 +275,27 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
    public boolean needPseudoStates() { return getOriginalModel().getNumPseudoStates()>0; }
 
-   public String getPseudoStatesFileName() { return getTool().getPseudoStatesFileName(); }
+   public String getPseudoStatesFileName() { return analyzeTool().getPseudoStatesFileName(); }
    void setPseudoStatesFileName(String speedsFileName) {
       if(!getPseudoStatesFileName().equals(speedsFileName)) {
-         getTool().setPseudoStatesFileName(speedsFileName);
+         analyzeTool().setPseudoStatesFileName(speedsFileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
 
-   public String getCoordinatesFileName() { return getTool().getCoordinatesFileName(); }
+   public String getCoordinatesFileName() { return analyzeTool().getCoordinatesFileName(); }
    void setCoordinatesFileName(String coordinatesFileName) {
       if(!getCoordinatesFileName().equals(coordinatesFileName)) {
-         getTool().setCoordinatesFileName(coordinatesFileName);
+         analyzeTool().setCoordinatesFileName(coordinatesFileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
    public boolean getCoordinatesValid() { return (new File(getCoordinatesFileName()).exists()); }
 
-   public String getSpeedsFileName() { return getTool().getSpeedsFileName(); }
+   public String getSpeedsFileName() { return analyzeTool().getSpeedsFileName(); }
    void setSpeedsFileName(String speedsFileName) {
       if(!getSpeedsFileName().equals(speedsFileName)) {
-         getTool().setSpeedsFileName(speedsFileName);
+         analyzeTool().setSpeedsFileName(speedsFileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -308,10 +308,10 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
-   public double getLowpassCutoffFrequency() { return getTool().getLowpassCutoffFrequency(); }
+   public double getLowpassCutoffFrequency() { return analyzeTool().getLowpassCutoffFrequency(); }
    public void setLowpassCutoffFrequency(double frequency) {
       if(getLowpassCutoffFrequency() != frequency) {
-         getTool().setLowpassCutoffFrequency(frequency);
+         analyzeTool().setLowpassCutoffFrequency(frequency);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -319,8 +319,8 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    public boolean getFilterCoordinates() { return getLowpassCutoffFrequency() > 0; }
    public void setFilterCoordinates(boolean filterCoordinates) {
       if(getFilterCoordinates() != filterCoordinates) {
-         if(filterCoordinates) getTool().setLowpassCutoffFrequency(6);
-         else getTool().setLowpassCutoffFrequency(-1);
+         if(filterCoordinates) analyzeTool().setLowpassCutoffFrequency(6);
+         else analyzeTool().setLowpassCutoffFrequency(-1);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -336,20 +336,20 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
-   public String getExternalLoadsFileName() { return getTool().getExternalLoadsFileName(); }
-   protected void setExternalLoadsFileNameInternal(String fileName) { getTool().setExternalLoadsFileName(fileName); }
+   public String getExternalLoadsFileName() { return analyzeTool().getExternalLoadsFileName(); }
+   protected void setExternalLoadsFileNameInternal(String fileName) { analyzeTool().setExternalLoadsFileName(fileName); }
 
-   public String getExternalLoadsModelKinematicsFileName() { return getTool().getExternalLoadsModelKinematicsFileName(); }
-   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { getTool().setExternalLoadsModelKinematicsFileName(fileName); }
+   public String getExternalLoadsModelKinematicsFileName() { return analyzeTool().getExternalLoadsModelKinematicsFileName(); }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { analyzeTool().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public String getExternalLoadsBody1() { return getTool().getExternalLoadsBody1(); }
-   protected void setExternalLoadsBody1Internal(String name) { getTool().setExternalLoadsBody1(name); }
+   public String getExternalLoadsBody1() { return analyzeTool().getExternalLoadsBody1(); }
+   protected void setExternalLoadsBody1Internal(String name) { analyzeTool().setExternalLoadsBody1(name); }
 
-   public String getExternalLoadsBody2() { return getTool().getExternalLoadsBody2(); }
-   protected void setExternalLoadsBody2Internal(String name) { getTool().setExternalLoadsBody2(name); }
+   public String getExternalLoadsBody2() { return analyzeTool().getExternalLoadsBody2(); }
+   protected void setExternalLoadsBody2Internal(String name) { analyzeTool().setExternalLoadsBody2(name); }
 
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return getTool().getLowpassCutoffFrequencyForLoadKinematics(); }
-   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { getTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return analyzeTool().getLowpassCutoffFrequencyForLoadKinematics(); }
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { analyzeTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool
@@ -413,13 +413,13 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
       // The C++ code determines whether we're using states or coordinates as input based on whether the file names are nonempty
       if(inputSource != InputSource.Coordinates) {
-         getTool().setCoordinatesFileName("");
+         analyzeTool().setCoordinatesFileName("");
       } 
       if(inputSource != InputSource.Coordinates || !getLoadSpeeds()) {
-         getTool().setSpeedsFileName("");
+         analyzeTool().setSpeedsFileName("");
       }
       if(inputSource != InputSource.States) {
-         getTool().setStatesFileName("");
+         analyzeTool().setStatesFileName("");
       }
 
       setModified(AbstractToolModel.Operation.AllDataChanged);
@@ -430,14 +430,14 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
       String parentDir = (new File(parentFileName)).getParent();
 
-      getTool().setControlsFileName(FileUtils.makePathAbsolute(getTool().getControlsFileName(), parentDir));
-      getTool().setStatesFileName(FileUtils.makePathAbsolute(getTool().getStatesFileName(), parentDir));
-      getTool().setPseudoStatesFileName(FileUtils.makePathAbsolute(getTool().getPseudoStatesFileName(), parentDir));
-      getTool().setCoordinatesFileName(FileUtils.makePathAbsolute(getTool().getCoordinatesFileName(), parentDir));
-      getTool().setSpeedsFileName(FileUtils.makePathAbsolute(getTool().getSpeedsFileName(), parentDir));
+      analyzeTool().setControlsFileName(FileUtils.makePathAbsolute(analyzeTool().getControlsFileName(), parentDir));
+      analyzeTool().setStatesFileName(FileUtils.makePathAbsolute(analyzeTool().getStatesFileName(), parentDir));
+      analyzeTool().setPseudoStatesFileName(FileUtils.makePathAbsolute(analyzeTool().getPseudoStatesFileName(), parentDir));
+      analyzeTool().setCoordinatesFileName(FileUtils.makePathAbsolute(analyzeTool().getCoordinatesFileName(), parentDir));
+      analyzeTool().setSpeedsFileName(FileUtils.makePathAbsolute(analyzeTool().getSpeedsFileName(), parentDir));
 
-      getTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(getTool().getExternalLoadsFileName(), parentDir));
-      getTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(getTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      analyzeTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(analyzeTool().getExternalLoadsFileName(), parentDir));
+      analyzeTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(analyzeTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    public boolean loadSettings(String fileName) {
@@ -461,7 +461,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
 
    public boolean saveSettings(String fileName) {
       updateTool();
-      getTool().print(fileName);
+      analyzeTool().print(fileName);
       return true;
    }
 }

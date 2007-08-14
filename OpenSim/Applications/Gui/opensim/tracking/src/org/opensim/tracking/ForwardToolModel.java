@@ -115,7 +115,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
          // TODO: move this to a worker thread so as to not freeze the GUI if writing takes a while?
          if(processResults) {
-            getTool().printResults();
+            forwardTool().printResults();
          }
 
          progressHandle.finish();
@@ -151,12 +151,12 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       setTool(new ForwardTool());
 
       // By default, set prefix of output to be subject name
-      getTool().setName(model.getName());
+      forwardTool().setName(model.getName());
 
       setDefaultResultsDirectory(model);
    }
 
-   ForwardTool getTool() { return (ForwardTool)tool; }
+   ForwardTool forwardTool() { return (ForwardTool)tool; }
 
    //------------------------------------------------------------------------
    // Setting the motion in the model
@@ -175,19 +175,19 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    // Get/Set Values
    //------------------------------------------------------------------------
 
-   public String getControlsFileName() { return getTool().getControlsFileName(); }
+   public String getControlsFileName() { return forwardTool().getControlsFileName(); }
    public void setControlsFileName(String fileName) {
       if(!getControlsFileName().equals(fileName)) {
-         getTool().setControlsFileName(fileName);
+         forwardTool().setControlsFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
    public boolean getControlsValid() { return (new File(getControlsFileName()).exists()); }
 
-   public String getInitialStatesFileName() { return getTool().getStatesFileName(); }
+   public String getInitialStatesFileName() { return forwardTool().getStatesFileName(); }
    public void setInitialStatesFileName(String fileName) {
       if(!getInitialStatesFileName().equals(fileName)) {
-         getTool().setStatesFileName(fileName);
+         forwardTool().setStatesFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -199,10 +199,10 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
    // Integrator settings (continued from AbstractToolModel
    //------------------------------------------------------------------------
-   public boolean getUseSpecifiedDt() { return getTool().getUseSpecifiedDt(); }
+   public boolean getUseSpecifiedDt() { return forwardTool().getUseSpecifiedDt(); }
    public void setUseSpecifiedDt(boolean useSpecifiedDt) {
       if(getUseSpecifiedDt() != useSpecifiedDt) {
-         getTool().setUseSpecifiedDt(useSpecifiedDt);
+         forwardTool().setUseSpecifiedDt(useSpecifiedDt);
          setModified(AbstractToolModel.Operation.IntegratorSettingsChanged);
       }
    }
@@ -210,20 +210,20 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
-   public String getExternalLoadsFileName() { return getTool().getExternalLoadsFileName(); }
-   protected void setExternalLoadsFileNameInternal(String fileName) { getTool().setExternalLoadsFileName(fileName); }
+   public String getExternalLoadsFileName() { return forwardTool().getExternalLoadsFileName(); }
+   protected void setExternalLoadsFileNameInternal(String fileName) { forwardTool().setExternalLoadsFileName(fileName); }
 
-   public String getExternalLoadsModelKinematicsFileName() { return getTool().getExternalLoadsModelKinematicsFileName(); }
-   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { getTool().setExternalLoadsModelKinematicsFileName(fileName); }
+   public String getExternalLoadsModelKinematicsFileName() { return forwardTool().getExternalLoadsModelKinematicsFileName(); }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { forwardTool().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public String getExternalLoadsBody1() { return getTool().getExternalLoadsBody1(); }
-   protected void setExternalLoadsBody1Internal(String name) { getTool().setExternalLoadsBody1(name); }
+   public String getExternalLoadsBody1() { return forwardTool().getExternalLoadsBody1(); }
+   protected void setExternalLoadsBody1Internal(String name) { forwardTool().setExternalLoadsBody1(name); }
 
-   public String getExternalLoadsBody2() { return getTool().getExternalLoadsBody2(); }
-   protected void setExternalLoadsBody2Internal(String name) { getTool().setExternalLoadsBody2(name); }
+   public String getExternalLoadsBody2() { return forwardTool().getExternalLoadsBody2(); }
+   protected void setExternalLoadsBody2Internal(String name) { forwardTool().setExternalLoadsBody2(name); }
 
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return getTool().getLowpassCutoffFrequencyForLoadKinematics(); }
-   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { getTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return forwardTool().getLowpassCutoffFrequencyForLoadKinematics(); }
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { forwardTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    //------------------------------------------------------------------------
    // Utilities for running/canceling tool
@@ -270,7 +270,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
    protected void updateTool() {
       super.updateTool();
-      getTool().setPrintResultFiles(false); // we'll manually write them out
+      forwardTool().setPrintResultFiles(false); // we'll manually write them out
    }
 
    protected void relativeToAbsolutePaths(String parentFileName) {
@@ -278,12 +278,12 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
       String parentDir = (new File(parentFileName)).getParent();
 
-      getTool().setModelFilename(FileUtils.makePathAbsolute(getTool().getModelFilename(), parentDir));
-      getTool().setControlsFileName(FileUtils.makePathAbsolute(getTool().getControlsFileName(), parentDir));
-      getTool().setStatesFileName(FileUtils.makePathAbsolute(getTool().getStatesFileName(), parentDir));
+      forwardTool().setModelFilename(FileUtils.makePathAbsolute(forwardTool().getModelFilename(), parentDir));
+      forwardTool().setControlsFileName(FileUtils.makePathAbsolute(forwardTool().getControlsFileName(), parentDir));
+      forwardTool().setStatesFileName(FileUtils.makePathAbsolute(forwardTool().getStatesFileName(), parentDir));
 
-      getTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(getTool().getExternalLoadsFileName(), parentDir));
-      getTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(getTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      forwardTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(forwardTool().getExternalLoadsFileName(), parentDir));
+      forwardTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(forwardTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    public boolean loadSettings(String fileName) {
@@ -306,7 +306,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
    public boolean saveSettings(String fileName) {
       updateTool();
-      getTool().print(fileName);
+      forwardTool().print(fileName);
       return true;
    }
 }

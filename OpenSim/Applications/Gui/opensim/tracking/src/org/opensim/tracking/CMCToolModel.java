@@ -39,7 +39,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          MotionsDB.getInstance().clearCurrent();
 
          // CMC needs to remember the original actuator set, since it is replaced in updateModelActuatorsAndContactForces
-         getTool().setOriginalActuatorSet(getOriginalModel().getActuatorSet());
+         cmcTool().setOriginalActuatorSet(getOriginalModel().getActuatorSet());
 
          // Re-initialize our copy of the model
          Model model = getOriginalModel().clone();
@@ -170,41 +170,41 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       setTool(new CMCTool());
 
       // By default, set prefix of output to be subject name
-      getTool().setName(model.getName());
+      cmcTool().setName(model.getName());
 
       setDefaultResultsDirectory(model);
 
       updateFromTool();
    }
 
-   CMCTool getTool() { return (CMCTool)tool; }
+   CMCTool cmcTool() { return (CMCTool)tool; }
 
    //------------------------------------------------------------------------
    // Get/set
    //------------------------------------------------------------------------
 
-   public String getDesiredKinematicsFileName() { return getTool().getDesiredKinematicsFileName(); }
+   public String getDesiredKinematicsFileName() { return cmcTool().getDesiredKinematicsFileName(); }
    public void setDesiredKinematicsFileName(String fileName) {
       if(!getDesiredKinematicsFileName().equals(fileName)) {
-         getTool().setDesiredKinematicsFileName(fileName);
+         cmcTool().setDesiredKinematicsFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
    public boolean getDesiredKinematicsValid() { return (new File(getDesiredKinematicsFileName()).exists()); }
 
-   public String getTaskSetFileName() { return getTool().getTaskSetFileName(); }
+   public String getTaskSetFileName() { return cmcTool().getTaskSetFileName(); }
    public void setTaskSetFileName(String fileName) {
       if(!getTaskSetFileName().equals(fileName)) {
-         getTool().setTaskSetFileName(fileName);
+         cmcTool().setTaskSetFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
    public boolean getTaskSetValid() { return (new File(getTaskSetFileName()).exists()); }
 
-   public String getConstraintsFileName() { return getTool().getConstraintsFileName(); }
+   public String getConstraintsFileName() { return cmcTool().getConstraintsFileName(); }
    public void setConstraintsFileName(String fileName) {
       if(!getConstraintsFileName().equals(fileName)) {
-         getTool().setConstraintsFileName(fileName);
+         cmcTool().setConstraintsFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -218,10 +218,10 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
       }
    }
 
-   public double getLowpassCutoffFrequency() { return getTool().getLowpassCutoffFrequency(); }
+   public double getLowpassCutoffFrequency() { return cmcTool().getLowpassCutoffFrequency(); }
    public void setLowpassCutoffFrequency(double frequency) {
       if(getLowpassCutoffFrequency() != frequency) {
-         getTool().setLowpassCutoffFrequency(frequency);
+         cmcTool().setLowpassCutoffFrequency(frequency);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -229,34 +229,34 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    public boolean getFilterKinematics() { return getLowpassCutoffFrequency() > 0; }
    public void setFilterKinematics(boolean filterKinematics) {
       if(getFilterKinematics() != filterKinematics) {
-         if(filterKinematics) getTool().setLowpassCutoffFrequency(6);
-         else getTool().setLowpassCutoffFrequency(-1);
+         if(filterKinematics) cmcTool().setLowpassCutoffFrequency(6);
+         else cmcTool().setLowpassCutoffFrequency(-1);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
 
    // RRA settings
    //
-   public String getOutputModelFileName() { return getTool().getOutputModelFileName(); }
+   public String getOutputModelFileName() { return cmcTool().getOutputModelFileName(); }
    public void setOutputModelFileName(String fileName) {
       if(!getOutputModelFileName().equals(fileName)) {
-         getTool().setOutputModelFileName(fileName);
+         cmcTool().setOutputModelFileName(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
 
-   public boolean getAdjustModelToReduceResidualsEnabled() { return getTool().getAdjustCOMToReduceResiduals(); }
+   public boolean getAdjustModelToReduceResidualsEnabled() { return cmcTool().getAdjustCOMToReduceResiduals(); }
    public void setAdjustModelToReduceResidualsEnabled(boolean enabled) {
       if(getAdjustModelToReduceResidualsEnabled() != enabled) {
-         getTool().setAdjustCOMToReduceResiduals(enabled);
+         cmcTool().setAdjustCOMToReduceResiduals(enabled);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
 
-   public String getAdjustedCOMBody() { return getTool().getAdjustedCOMBody(); }
+   public String getAdjustedCOMBody() { return cmcTool().getAdjustedCOMBody(); }
    public void setAdjustedCOMBody(String fileName) {
       if(!getAdjustedCOMBody().equals(fileName)) {
-         getTool().setAdjustedCOMBody(fileName);
+         cmcTool().setAdjustedCOMBody(fileName);
          setModified(AbstractToolModel.Operation.InputDataChanged);
       }
    }
@@ -271,20 +271,20 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    //------------------------------------------------------------------------
    // External loads get/set (don't need to call setModified since AbstractToolModel does that)
    //------------------------------------------------------------------------
-   public String getExternalLoadsFileName() { return getTool().getExternalLoadsFileName(); }
-   protected void setExternalLoadsFileNameInternal(String fileName) { getTool().setExternalLoadsFileName(fileName); }
+   public String getExternalLoadsFileName() { return cmcTool().getExternalLoadsFileName(); }
+   protected void setExternalLoadsFileNameInternal(String fileName) { cmcTool().setExternalLoadsFileName(fileName); }
 
-   public String getExternalLoadsModelKinematicsFileName() { return getTool().getExternalLoadsModelKinematicsFileName(); }
-   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { getTool().setExternalLoadsModelKinematicsFileName(fileName); }
+   public String getExternalLoadsModelKinematicsFileName() { return cmcTool().getExternalLoadsModelKinematicsFileName(); }
+   protected void setExternalLoadsModelKinematicsFileNameInternal(String fileName) { cmcTool().setExternalLoadsModelKinematicsFileName(fileName); }
 
-   public String getExternalLoadsBody1() { return getTool().getExternalLoadsBody1(); }
-   protected void setExternalLoadsBody1Internal(String name) { getTool().setExternalLoadsBody1(name); }
+   public String getExternalLoadsBody1() { return cmcTool().getExternalLoadsBody1(); }
+   protected void setExternalLoadsBody1Internal(String name) { cmcTool().setExternalLoadsBody1(name); }
 
-   public String getExternalLoadsBody2() { return getTool().getExternalLoadsBody2(); }
-   protected void setExternalLoadsBody2Internal(String name) { getTool().setExternalLoadsBody2(name); }
+   public String getExternalLoadsBody2() { return cmcTool().getExternalLoadsBody2(); }
+   protected void setExternalLoadsBody2Internal(String name) { cmcTool().setExternalLoadsBody2(name); }
 
-   public double getLowpassCutoffFrequencyForLoadKinematics() { return getTool().getLowpassCutoffFrequencyForLoadKinematics(); }
-   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { getTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
+   public double getLowpassCutoffFrequencyForLoadKinematics() { return cmcTool().getLowpassCutoffFrequencyForLoadKinematics(); }
+   protected void setLowpassCutoffFrequencyForLoadKinematicsInternal(double cutoffFrequency) { cmcTool().setLowpassCutoffFrequencyForLoadKinematics(cutoffFrequency); }
 
    // TODO: implement
    public double[] getAvailableTimeRange() { return null; }
@@ -341,7 +341,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    protected void updateTool() {
       super.updateTool();
 
-      if(!constraintsEnabled) getTool().setConstraintsFileName("");
+      if(!constraintsEnabled) cmcTool().setConstraintsFileName("");
 
       setModified(AbstractToolModel.Operation.AllDataChanged);
    }
@@ -351,14 +351,14 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
       String parentDir = (new File(parentFileName)).getParent();
 
-      getTool().setDesiredKinematicsFileName(FileUtils.makePathAbsolute(getTool().getDesiredKinematicsFileName(), parentDir));
-      getTool().setConstraintsFileName(FileUtils.makePathAbsolute(getTool().getConstraintsFileName(), parentDir));
-      getTool().setTaskSetFileName(FileUtils.makePathAbsolute(getTool().getTaskSetFileName(), parentDir));
-      getTool().setRRAControlsFileName(FileUtils.makePathAbsolute(getTool().getRRAControlsFileName(), parentDir));
-      getTool().setOutputModelFileName(FileUtils.makePathAbsolute(getTool().getOutputModelFileName(), parentDir));
+      cmcTool().setDesiredKinematicsFileName(FileUtils.makePathAbsolute(cmcTool().getDesiredKinematicsFileName(), parentDir));
+      cmcTool().setConstraintsFileName(FileUtils.makePathAbsolute(cmcTool().getConstraintsFileName(), parentDir));
+      cmcTool().setTaskSetFileName(FileUtils.makePathAbsolute(cmcTool().getTaskSetFileName(), parentDir));
+      cmcTool().setRRAControlsFileName(FileUtils.makePathAbsolute(cmcTool().getRRAControlsFileName(), parentDir));
+      cmcTool().setOutputModelFileName(FileUtils.makePathAbsolute(cmcTool().getOutputModelFileName(), parentDir));
 
-      getTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(getTool().getExternalLoadsFileName(), parentDir));
-      getTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(getTool().getExternalLoadsModelKinematicsFileName(), parentDir));
+      cmcTool().setExternalLoadsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoadsFileName(), parentDir));
+      cmcTool().setExternalLoadsModelKinematicsFileName(FileUtils.makePathAbsolute(cmcTool().getExternalLoadsModelKinematicsFileName(), parentDir));
    }
 
    public boolean loadSettings(String fileName) {
@@ -381,7 +381,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
 
    public boolean saveSettings(String fileName) {
       updateTool();
-      getTool().print(fileName);
+      cmcTool().print(fileName);
       return true;
    }
 }
