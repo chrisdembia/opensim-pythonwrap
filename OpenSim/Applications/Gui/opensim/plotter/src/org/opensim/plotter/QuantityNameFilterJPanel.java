@@ -39,7 +39,7 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
    
    private QuantityNameFilterTableModel tableModel;
    public enum FilterBy {RegularExpression, ModelGroup};
-   private FilterBy currentFilter = FilterBy.RegularExpression;
+   private static FilterBy currentFilter = FilterBy.RegularExpression;
    private String   pattern="";
    private Model currentModel=null;
    ArrayList<String> metaCharacters=new ArrayList<String>();
@@ -54,7 +54,16 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
            selectedVec.add(trimmed);
        }
        tableModel.markSelectedNames(selectedVec);
+        if (currentFilter.equals(FilterBy.RegularExpression)){
+           jPatternRadioButton.setSelected(true);
+        }
+        else{
+            // Fill data to back up dropdowns then preselect
+            jModelGroupRadioButtonActionPerformed(null);
+            jModelGroupRadioButton.setSelected(true);
+        }
        updateSelected();
+       //System.out.println("Filter status="+currentFilter.toString());
    }
    /**
     * Creates new form PlotterQuantityNameFilterJPanel
@@ -69,10 +78,17 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
       FilterTextField.setText(getPattern());
       tableModel = new QuantityNameFilterTableModel(availableNames);
       jTable1.setModel(tableModel);
-      jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+      jTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
       tableModel.addTableModelListener(this);
       //Don't track selection jTable1.getSelectionModel().addListSelectionListener(this);
-      setFilter(currentFilter);
+      if (currentFilter.equals(FilterBy.RegularExpression)){
+        jPatternRadioButton.setSelected(true);
+      }
+      else{
+         // Fill data to back up dropdowns then preselect
+         jModelGroupRadioButtonActionPerformed(null);
+         jModelGroupRadioButton.setSelected(true);
+      }
       updateSelected();
    }
    
@@ -104,12 +120,13 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
 
       jTable1.setModel(new javax.swing.table.DefaultTableModel(
          new Object [][] {
-            {null, null},
-            {null, null},
-            {null, null}
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null}
          },
          new String [] {
-            "Title 1", "Title 2"
+            "Title 1", "Title 2", "Title 3", "Title 4"
          }
       ));
       jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
@@ -418,8 +435,9 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
             jSelectAllCheckBox.setEnabled(true);
             jDeselectAllCheckBox.setEnabled(true);
         }
-     }
-
+        
+    }
+    
     public void tableChanged(TableModelEvent e) {
         int type=e.getType();
         updateSelected();

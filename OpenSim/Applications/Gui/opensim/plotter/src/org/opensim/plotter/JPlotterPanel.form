@@ -327,12 +327,12 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jPlotNavigationPanel" alignment="0" max="32767" attributes="3"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPlotNavigationPanel" alignment="0" max="32767" attributes="2"/>
                           <Component id="jPlotSpecPanel" alignment="0" max="32767" attributes="3"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -342,7 +342,11 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Curves List"/>
+                    <TitledBorder title="Curves List">
+                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder/>
+                      </Border>
+                    </TitledBorder>
                   </Border>
                 </Property>
               </Properties>
@@ -365,7 +369,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jScrollPane1" pref="89" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="93" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -455,7 +459,11 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Curve Add/Update"/>
+                    <TitledBorder title="Curve Add">
+                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                        <EtchetBorder/>
+                      </Border>
+                    </TitledBorder>
                   </Border>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -478,11 +486,11 @@
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jCurveLegendTextField" alignment="0" pref="166" max="32767" attributes="2"/>
-                              <Component id="jSummaryAdvancedTextField" alignment="1" pref="166" max="32767" attributes="0"/>
-                              <Component id="jSelectedMusclesTextField" alignment="0" pref="166" max="32767" attributes="0"/>
-                              <Component id="jXQtyTextField" alignment="1" pref="166" max="32767" attributes="2"/>
-                              <Component id="jYQtyTextField" alignment="1" pref="166" max="32767" attributes="2"/>
+                              <Component id="jCurveLegendTextField" alignment="0" pref="174" max="32767" attributes="2"/>
+                              <Component id="jSummaryAdvancedTextField" alignment="1" pref="174" max="32767" attributes="0"/>
+                              <Component id="jSelectedMusclesTextField" alignment="0" pref="174" max="32767" attributes="0"/>
+                              <Component id="jXQtyTextField" alignment="1" pref="174" max="32767" attributes="2"/>
+                              <Component id="jYQtyTextField" alignment="1" pref="174" max="32767" attributes="2"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -495,26 +503,27 @@
                               <Component id="jCurveLegendTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="yQuantityButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jYQtyTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jSelectedMusclesTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jMuscleSelectButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jXQtyTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="xQuantityButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jSummaryAdvancedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jAdvancedOptionsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

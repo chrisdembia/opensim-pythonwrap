@@ -108,8 +108,6 @@ public class PlotCurve {
        XYSeries curveSeries = new XYSeries(plotCurveSettings.getName(), false, true);
        setCurveSeries(curveSeries);   // user named curves
        for (int i = startIndex;i< endIndex;i++){
-           if (i==startIndex)
-                System.out.println("Curve"+plotCurveSettings.getName()+xArray.getitem(i)+","+yFiltered[i-startIndex]);
            getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
        }
        //getCurveSeries().setKey(stringy);  // do not overwrite users specified name
@@ -117,6 +115,8 @@ public class PlotCurve {
        String[] names=stringy.split("\\+");
        rangeNames = new String[names.length];
        System.arraycopy(names, 0, rangeNames, 0, names.length);
+       // Make description here after everything is set
+       curveSeries.setDescription(makeDescription());
     }
 
    private ArrayDouble getDataArrayFromStorage(final Storage storage, final String colName, boolean isDomain, boolean convertAnglesToDegrees ) {
@@ -130,42 +130,31 @@ public class PlotCurve {
          if (colNames.length>1)
               tempArray = new ArrayDouble(storage.getSize());
          for(int i=0; i<colNames.length; i++){
-             colNames[i]=colNames[i].trim();
+            colNames[i]=colNames[i].trim();
              if (i==0){
                 storage.getDataColumn(colNames[i], Array);
-                System.out.println("Summation bug process "+colNames[i]);
                  // have to do this before clamoing since clamping is done in degrees
                 if (convertAnglesToDegrees)
                     convertAnglesToDegreesIfNeeded(colNames[i], Array);
                 if (settings.isClamp())
                   clampDataArray(Array);
-                System.out.println("Summation bug "+colNames[i]+" entry after filtering"+Array.getitem(0));
              }
              else { // get data into temporary array and then add it in place
+                 tempArray = new ArrayDouble(storage.getSize());
                  storage.getDataColumn(colNames[i], tempArray);
-                 System.out.println("Summation bug  process "+colNames[i]+" raw data"+tempArray.getitem(0));
                  if (convertAnglesToDegrees){
                     convertAnglesToDegreesIfNeeded(colNames[i], tempArray);
-                    System.out.println("Summation bug  process "+colNames[i]+" after conversion"+tempArray.getitem(0));
                  }
                  if (settings.isClamp()){
                    clampDataArray(tempArray);
-                    System.out.println("Summation bug  process "+colNames[i]+" after clamping"+tempArray.getitem(0));
                  }
-                System.out.println("Summation bug "+colNames[i]+" add in"+tempArray.getitem(0));
                  for(int row=0;row<storage.getSize();row++){
                      double newValue = Array.getitem(row)+tempArray.getitem(row);
                      Array.set(row, newValue);
                  }
+                 
              }
-             System.out.println("Summation bug after loop start entry after filtering"+Array.getitem(0));
         }
-         /*
-         int storageIndex = storage.getStateIndex(colName);
-         if (isDomain)
-            domainStorageIndex=storageIndex;
-         else
-            rangeStorageIndex=storageIndex;*/
       }
       return Array;
    }
@@ -326,5 +315,28 @@ public class PlotCurve {
                 return;
         }
     }
+
+   private String makeDescription() {
+      String ret="";
+      if (settings.isMusclePlot()){
+         // both Y, X are storage files produced by analysis tool
+         ret = "Plot "+rangeSource.getDisplayName();
+         ret += " for muscle "+rangeNames[0];
+         ret += "vs. "+domainName;
+      }
+      else {
+         if (rangeSource instanceof PlotterSourceMotion){
+            ret = "Plot data from Motion "+rangeSource.getDisplayName()+"\n";
+            ret += (rangeNames.length==1)?rangeNames[0]:"Sum of";
+            ret += "vs. "+domainName;
+         }
+         else if (rangeSource instanceof PlotterSourceFile){
+            ret = "Plot data from data file "+rangeSource.getDisplayName()+"\n";
+            ret += (rangeNames.length==1)?rangeNames[0]:"Sum of";
+            ret += "vs. "+domainName;
+         }
+      }
+      return ret;
+   }
 
 }

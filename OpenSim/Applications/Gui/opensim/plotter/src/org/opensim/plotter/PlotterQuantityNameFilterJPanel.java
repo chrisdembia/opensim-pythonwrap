@@ -44,6 +44,7 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
    private Model currentModel=null;
    ArrayList<String> metaCharacters=new ArrayList<String>();
    private boolean sumOnly=false;
+   private static boolean filterByModel;
    /**
     * Creates new form PlotterQuantityNameFilterJPanel
     */

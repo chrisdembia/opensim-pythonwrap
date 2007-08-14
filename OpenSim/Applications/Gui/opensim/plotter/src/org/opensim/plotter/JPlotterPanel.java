@@ -7,6 +7,7 @@
 package org.opensim.plotter;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -81,6 +82,7 @@ public class JPlotterPanel extends javax.swing.JPanel
    private String[]    rangeNames;  // many range names
    private boolean     builtinMuscleCurve=false;   // Whether muscle selection is required for specified Y qty
    boolean sumCurve=false;
+   Dialog dFilterDlg=null;
    
    // Plotting from a motion or storage has obvious domain, sourceX values
    //       range names are for multiple curves or one sum curve. Single sourceY
@@ -354,7 +356,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       jSplitPane1.setLeftComponent(jTopChartingPanel);
 
       jPlotControlPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-      jPlotNavigationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Curves List"));
+      jPlotNavigationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Curves List"));
       jScrollPane1.setAutoscrolls(true);
       jPlotsTree.setModel(plotterModel.getPlotTreeModel());
       jPlotsTree.addMouseListener(this);
@@ -408,12 +410,12 @@ public class JPlotterPanel extends javax.swing.JPanel
       jPlotNavigationPanelLayout.setVerticalGroup(
          jPlotNavigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(org.jdesktop.layout.GroupLayout.TRAILING, jPlotNavigationPanelLayout.createSequentialGroup()
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
       );
 
-      jPlotSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Curve Add/Update"));
+      jPlotSpecPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Curve Add"));
       jPlotSpecPanel.setToolTipText("");
       jLabel2.setText("Curve Name");
 
@@ -463,11 +465,11 @@ public class JPlotterPanel extends javax.swing.JPanel
                .add(yQuantityButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(jCurveLegendTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, jSummaryAdvancedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-               .add(jSelectedMusclesTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, jXQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, jYQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
+               .add(jCurveLegendTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jSummaryAdvancedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+               .add(jSelectedMusclesTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jXQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jYQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
             .addContainerGap())
       );
       jPlotSpecPanelLayout.setVerticalGroup(
@@ -476,7 +478,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jCurveLegendTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(jLabel2))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(10, 10, 10)
             .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(yQuantityButton)
                .add(jYQtyTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -491,7 +493,8 @@ public class JPlotterPanel extends javax.swing.JPanel
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jSummaryAdvancedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jAdvancedOptionsButton)))
+               .add(jAdvancedOptionsButton))
+            .add(0, 0, Short.MAX_VALUE))
       );
 
       org.jdesktop.layout.GroupLayout jPlotControlPanelLayout = new org.jdesktop.layout.GroupLayout(jPlotControlPanel);
@@ -509,10 +512,10 @@ public class JPlotterPanel extends javax.swing.JPanel
          jPlotControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(org.jdesktop.layout.GroupLayout.TRAILING, jPlotControlPanelLayout.createSequentialGroup()
             .addContainerGap()
-            .add(jPlotControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+            .add(jPlotControlPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(jPlotNavigationPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(jPlotSpecPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addContainerGap())
+            .add(24, 24, 24))
       );
       jSplitPane1.setRightComponent(jPlotControlPanel);
 
@@ -705,11 +708,23 @@ public class JPlotterPanel extends javax.swing.JPanel
        //XX2
         if (currentModel==null || builtinMuscleCurve==false)
            return;
+        if (dFilterDlg != null) // An instance is already up
+           return;
         SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
         String[] muscleNames = guiElem.getActuatorNames();
         final QuantityNameFilterJPanel filterPanel = new QuantityNameFilterJPanel(muscleNames, preSelected);
-        DialogDescriptor filterDlg = new DialogDescriptor(filterPanel, "Select muscles", false, null);
+        DialogDescriptor filterDlg = new DialogDescriptor(filterPanel, "Select Muscles", false, null);
         filterDlg.setOptions(new Object[]{new JButton("Close")});
+        filterDlg.setButtonListener(new ActionListener(){
+         public void actionPerformed(ActionEvent e) {
+            if (e.getSource() instanceof JButton){
+               boolean isClose = e.getActionCommand().equalsIgnoreCase("Close");
+               if (isClose){   // This is useful to track down if the muscle dialog is up.
+                  dFilterDlg.dispose();
+                  dFilterDlg = null;
+               }
+            }
+         }});
         filterPanel.addSelectionChangeListener(new TableModelListener(){
             public void tableChanged(TableModelEvent e) {
                 jSelectedMusclesTextField.setText(filterPanel.getSelectedAsString());
@@ -723,10 +738,9 @@ public class JPlotterPanel extends javax.swing.JPanel
                 updateContextGuiElements();
                 jPlotterAddPlotButton.setEnabled(validateXY());
             }});
-/*            public void actionPerformed(ActionEvent e) {
-            }
-        };*/
-        DialogDisplayer.getDefault().createDialog(filterDlg).setVisible(true);
+
+        dFilterDlg = DialogDisplayer.getDefault().createDialog(filterDlg);
+        dFilterDlg.setVisible(true);
        // The following will be called from an Apply/MakeCurves button on the filterDlg
       //printPlotDescriptor();
        
@@ -896,6 +910,7 @@ public class JPlotterPanel extends javax.swing.JPanel
        // The following should repeat for every single Y qty selected
        String title = jPlotNameTextField.getText();
        PlotCurve plotCurve=null;
+       String domain = jXQtyTextField.getText();
        if (isBuiltinMuscleCurve()){
            // run AnalysisTool once since model can't change in between'
            runAnalysisTool((PlotterSourceAnalysis) sourceY, sourceX, rangeNames);
@@ -1204,27 +1219,20 @@ public class JPlotterPanel extends javax.swing.JPanel
     * Get a string representing the list of column names
     */
   private String getRangeNamesAsString(String separator) {
+      return getRangeNamesAsString(separator, rangeNames);
+   }
+   
+   private String getRangeNamesAsString(String separator, String[] names) {
       String rep="";
-       /*NoQualifiers
-       if (isBuiltinMuscleCurve())
-         rep="select muscle";
-       **/
-      if (rangeNames!=null){
-          /*NoQualifiers
-         if (isBuiltinMuscleCurve()){
-            rep=jYQtyTextField.getText()+":";
-         } else
-            rep=sourceY.getDisplayName()+":";
-           **/
+       if (rangeNames!=null){
          for(int i=0; i<rangeNames.length; i++){
             rep = rep + rangeNames[i];
             if (i<rangeNames.length-1)
                rep = rep + separator;
          }
       }
-      return rep;
+      return rep;      
    }
-   
    public PlotCurve showAnalysisCurveAgainstTime(Model aModel, Storage s,
            String title,
            String curveLegend, String columnName,
@@ -1278,6 +1286,9 @@ public class JPlotterPanel extends javax.swing.JPanel
                   currentModel = (Model)objs.get(i);
                   processCurrentModel();
                   populateYPopup();           
+                  if (dFilterDlg != null)
+                     dFilterDlg.dispose();
+                  updatePlotterWithSelection();
                   break;
                }
             }
@@ -1285,12 +1296,18 @@ public class JPlotterPanel extends javax.swing.JPanel
             ModelEvent evt = (ModelEvent)arg;
             if (evt.getModel()==currentModel && evt.getOperation()==ModelEvent.Operation.Close){
                currentModel=null;
-               populateYPopup();            
+               populateYPopup(); 
+               if (dFilterDlg != null)
+                  dFilterDlg.dispose();
+               updatePlotterWithSelection();
             }
             else if (evt.getOperation()==ModelEvent.Operation.SetCurrent){
                currentModel=evt.getModel();
                populateYPopup();           
-            }
+               if (dFilterDlg != null)
+                  dFilterDlg.dispose();
+               updatePlotterWithSelection();
+           }
             // Handle model open so that an AnalyzeTool is created.
          }
       }
@@ -1582,10 +1599,10 @@ public class JPlotterPanel extends javax.swing.JPanel
        }
        if (builtinMuscleCurve){
            // Check that some muscles have been selected
-           String dom = getDomainName();
+           //String dom = getDomainName();
            // Todo check dom is valid so that Add is not enabled prematurely
            //
-           return validateMuscleNames(rangeNames);
+           return (validateMuscleNames(rangeNames) && domainName!= null);
            // Y is one of the built in quantities or a user's analysis'
            //if (sourceY!=null && sourceY.size()>0){   // Same file source in both X, Y
            //if (sourceY instanceof PlotterSourceAnalysis){
@@ -1645,46 +1662,79 @@ public class JPlotterPanel extends javax.swing.JPanel
    public void setModelChanged(boolean modelChanged) {
       this.modelChanged = modelChanged;
    }
-
+   /*
+    * This function is responsible for populating and handling the callbacks for the context
+    * menu of the tree of plots shown on the right in the plotter dialog.
+    */
    private void invokeTreePopupIfNeeded(int evtX, int evtY) {
-      TreePath clickedElement = jPlotsTree.getPathForLocation(evtX, evtY);
+      final TreePath clickedElement = jPlotsTree.getPathForLocation(evtX, evtY);
        
       //  Display the name of the selected tree element in the selection field
       String clickedElementName;
       if (clickedElement != null){
          Object[] pathObjects = clickedElement.getPath();
          int depth =pathObjects.length-1;
-         DefaultMutableTreeNode node = (DefaultMutableTreeNode)pathObjects[depth];
+         final DefaultMutableTreeNode node = (DefaultMutableTreeNode)pathObjects[depth];
          PlotCurve cv=null;
+         Plot dPlot=null;
          if (node instanceof PlotNode){ // Chart properties
+            dPlot = ((Plot)node.getUserObject());
          } else if (node instanceof PlotCurveNode){
             cv = ((PlotCurve)node.getUserObject());
          }
-         final PlotCurve cv2=cv;
+         final PlotCurve cv2=cv; // keep a final reference to object so action listeners are happy
+         
          JPopupMenu curvePopup = new JPopupMenu();
+         if (cv ==null){ // A whole plot is picked
+            JMenuItem propMenuItem = new JMenuItem("Properties...");
+            propMenuItem.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                       plotterModel.getCurrentPlot().getChartPanel().doEditChartProperties();
+                }});
+            curvePopup.add(propMenuItem);
+            curvePopup.show(jPlotsTree, evtX, evtY);
+            return;
+         }
          JMenuItem infoMenuItem = new JMenuItem("Info...");
+         // Info button
          infoMenuItem.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
-                    // Make label of curve name, domain name, range name
-                 NotifyDescriptor.Message dlg =
-                         new NotifyDescriptor.Message("Curve Name: "+cv2.getCurveSeries().getKey()+
-                         " of "+cv2.getRangeNames()+" vs. "+cv2.getDomainName());
-                 DialogDisplayer.getDefault().notify(dlg);
-                }});
+                   if (cv2!=null)
+                     displayCurveInfo(cv2);
+                }
+
+               private void displayCurveInfo(final PlotCurve cv2) {
+                     // Make label of curve name, domain name, range name
+                  String displayRangeName = "";
+                  if (cv2.getRangeNames().length>1){
+                     displayRangeName = getRangeNamesAsString("+", cv2.getRangeNames());
+                  }
+                  else
+                     displayRangeName = cv2.getRangeNames()[0];
+
+                  NotifyDescriptor.Message dlg =
+                          new NotifyDescriptor.Message(cv2.getCurveSeries().getDescription());
+                  DialogDisplayer.getDefault().notify(dlg);
+               }});
          curvePopup.add(infoMenuItem);
-         JMenuItem renamMenuItem = new JMenuItem("Rename...");
-         renamMenuItem.addActionListener(new ActionListener(){
-             public void actionPerformed(ActionEvent e) {
-                 NotifyDescriptor.InputLine dlg =
-                         new NotifyDescriptor.InputLine("Current Name: "+cv2.getCurveSeries().getKey(), "Rename Curve to");
-                 if(DialogDisplayer.getDefault().notify(dlg)==NotifyDescriptor.OK_OPTION){
-                     String newName = dlg.getInputText();
-                     cv2.getCurveSeries().setKey(newName);
-                     cv2.getCurveSeries().fireSeriesChanged();
-                 }
-             }
-         });
-         curvePopup.add(renamMenuItem);
+         if (cv2 !=null){  // Show rename only for individual curves
+            JMenuItem renamMenuItem = new JMenuItem("Rename...");
+            renamMenuItem.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                    NotifyDescriptor.InputLine dlg =
+                            new NotifyDescriptor.InputLine("Current Name: "+cv2.getLegend(), "Rename Curve to");
+                    if(DialogDisplayer.getDefault().notify(dlg)==NotifyDescriptor.OK_OPTION){
+                        String newName = dlg.getInputText();
+                        // Fix tree display by forcing repaint
+                        cv2.setLegend(newName);
+                        cv2.getCurveSeries().fireSeriesChanged();
+                        // Invoke nodesChanged so that the renderer updates
+                        plotterModel.fireChangeEvent(node);
+                    }
+                }
+            });
+            curvePopup.add(renamMenuItem);
+         }
          curvePopup.show(jPlotsTree, evtX, evtY);
       }
       

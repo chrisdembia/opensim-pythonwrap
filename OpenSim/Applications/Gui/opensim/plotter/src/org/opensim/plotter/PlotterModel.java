@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 import org.jfree.chart.plot.XYPlot;
@@ -414,6 +415,10 @@ public class PlotterModel {
         }
         return sumString;
     }
+
+   void fireChangeEvent(DefaultMutableTreeNode node) {
+      plotTreeModel.nodeChanged(node);
+   }
 
    
 }
