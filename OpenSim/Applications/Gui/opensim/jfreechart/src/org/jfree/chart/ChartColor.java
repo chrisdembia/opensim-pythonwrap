@@ -151,7 +151,7 @@ public class ChartColor extends Color {
     public static Paint[] createDefaultPaintArray() {
 
         return new Paint[] {
-            new Color(0xFF, 0x55, 0x55),
+            //new Color(0xFF, 0x55, 0x55),
             //new Color(0x55, 0x55, 0xFF),
             //new Color(0x55, 0xFF, 0x55),
             //new Color(0xFF, 0xFF, 0x55),
