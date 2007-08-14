@@ -27,6 +27,7 @@ package org.opensim.motionviewer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
@@ -39,6 +40,7 @@ import org.openide.nodes.Node;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Storage;
+import org.opensim.utils.FileUtils;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.ModelEvent;
 import org.opensim.view.nodes.ConcreteModelNode;
@@ -62,6 +64,11 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    // Map model to an ArrayList of Motions linked with it
    Hashtable<Model, ArrayList<Storage>> mapModels2Motions =
            new Hashtable<Model, ArrayList<Storage>>(4);
+
+   // Map motion to a BitSet for storing dirty bit, etc.
+   Hashtable<Storage, BitSet> mapMotion2BitSet = new Hashtable<Storage, BitSet>(1);
+   private final static int numBits = 4;
+   private final static int modifiedBit = 0;
 
    // More than one motion may be current if synchronizing motion
    Vector<ModelMotionPair> currentMotions = new Vector<ModelMotionPair>();
@@ -153,11 +160,28 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       }
       motions.add(motion);
 
+      // Add to mapMotion2BitSet
+      BitSet motionBits = new BitSet(numBits);
+      mapMotion2BitSet.put(motion, motionBits);
+
       MotionEvent evt = new MotionEvent(this, model, motion, MotionEvent.Operation.Open);
       setChanged();
       notifyObservers(evt);
 
       setCurrent(model, motion); // Also make it current (a separate event is sent out)
+   }
+
+   public void setMotionModified(Storage motion, boolean state) {
+      BitSet motionBits = mapMotion2BitSet.get(motion);
+      if (motionBits != null)
+         motionBits.set(modifiedBit, state);
+   }
+
+   public boolean getMotionModified(Storage motion) {
+      BitSet motionBits = mapMotion2BitSet.get(motion);
+      if (motionBits != null)
+         return motionBits.get(modifiedBit);
+      return false;
    }
 
    public void addMotion(Model model, Storage motion) {
@@ -186,10 +210,19 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    }
 
    public void closeMotion(Model model, Storage simmMotionData) {
+      // Prompt user to confirm the close and possibly save the motion if it has been modified.
+      if (getMotionModified(simmMotionData) == true) {
+         if (confirmCloseMotion(model, simmMotionData) == false)
+            return;
+      }
+
       ArrayList<Storage> motions = mapModels2Motions.get(model);
       if(motions!=null) { // Shouldn't be null, but just in case...
          motions.remove(simmMotionData);
       }
+
+      // Remove from mapMotion2BitSet
+      mapMotion2BitSet.remove(simmMotionData);
 
       boolean removed = removeFromCurrentMotions(new ModelMotionPair(model, simmMotionData));
 
@@ -202,6 +235,20 @@ public class MotionsDB extends Observable // Observed by other entities in motio
          setChanged();
          notifyObservers(evt);
       }
+   }
+
+   private boolean confirmCloseMotion(Model model, Storage simmMotionData) {
+      NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save the changes to " + simmMotionData.getName() + "?", "OpenSim");
+      Object userSelection = DialogDisplayer.getDefault().notify(dlg);
+      if (((Integer)userSelection).intValue() == ((Integer)NotifyDescriptor.OK_OPTION).intValue()) {
+         String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "");
+         if (fileName != null)
+            (new MotionsSaveAsAction()).saveMotion((model), simmMotionData, fileName);
+         return true;
+      } else if (((Integer)userSelection).intValue() == ((Integer)NotifyDescriptor.NO_OPTION).intValue()) {
+         return true;
+      }
+      return false;
    }
 
    public void update(Observable o, Object arg) {
