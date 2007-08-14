@@ -115,5 +115,23 @@ public class OpenSimNode extends AbstractNode {
        
        return null;
     }
+ 
+    /* Rename a node that contain a certain object. Check the 'this' node
+     * and all its children, recursively, because there may be more than
+     * one node that contains the object.
+     */
+    public void renameObjectNode(Object objectToRename, String newName) {
+       if (this instanceof OpenSimObjectNode){
+          if (((OpenSimObjectNode)this).getOpenSimObject().equals(objectToRename)) {
+             setName(newName);
+             setDisplayName(newName);
+          }
+       }
+       
+       Node[] children = getChildren().getNodes();
+       for (int i=0; i<children.length; i++) {
+          ((OpenSimNode)children[i]).renameObjectNode(objectToRename, newName);
+       }
+    }
 
 } // class OpenSimNode

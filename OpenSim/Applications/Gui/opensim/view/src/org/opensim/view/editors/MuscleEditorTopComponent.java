@@ -232,15 +232,52 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       );
    }// </editor-fold>//GEN-END:initComponents
    
+   private boolean validName(String actName)
+   {
+      if (currentModel != null && act != null) {
+         if (actName.length() < 1) {
+            MuscleNameTextField.setText(act.getName());
+            return false;
+         }
+         AbstractActuator existingAct = currentModel.getActuatorSet().get(actName);
+         if (existingAct != null && existingAct != act) {
+            MuscleNameTextField.setText(act.getName());
+            Object[] options = {"OK"};
+            String message = "The name \"" + actName + "\" is already being used. Please choose a different actuator name";
+            int answer = JOptionPane.showOptionDialog(this,
+                         message,
+                         "Muscle Editor",
+                         JOptionPane.OK_OPTION,
+                         JOptionPane.WARNING_MESSAGE,
+                         null,
+                         options,
+                         options[0]);
+            return false;
+         } else {
+            return true;
+         }
+      }
+
+      return false;
+   }
+
    private void MuscleNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MuscleNameTextFieldFocusLost
+      if (act == null || act.getName().equals(MuscleNameTextField.getText()) == true)
+         return;
+      if (validName(MuscleNameTextField.getText()) == false)
+         return;
       act.setName(MuscleNameTextField.getText());
       setPendingChanges(true, false);
       OpenSimDB.getInstance().setChanged();
       NameChangedEvent evnt = new NameChangedEvent(act);
       OpenSimDB.getInstance().notifyObservers(evnt);
    }//GEN-LAST:event_MuscleNameTextFieldFocusLost
-   
+
    private void MuscleNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MuscleNameTextFieldActionPerformed
+      if (act == null || act.getName().equals(MuscleNameTextField.getText()) == true)
+         return;
+      if (validName(MuscleNameTextField.getText()) == false)
+         return;
       act.setName(MuscleNameTextField.getText());
       setPendingChanges(true, false);
       OpenSimDB.getInstance().setChanged();
@@ -257,11 +294,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    }//GEN-LAST:event_ApplyButtonActionPerformed
    
    private void saveActuator() {
-      act.setName(MuscleNameTextField.getText());
+      //act.setName(MuscleNameTextField.getText());
       setPendingChanges(false, false);
-      OpenSimDB.getInstance().setChanged();
-      NameChangedEvent evnt = new NameChangedEvent(act);
-      OpenSimDB.getInstance().notifyObservers(evnt);
+      //OpenSimDB.getInstance().setChanged();
+      //NameChangedEvent evnt = new NameChangedEvent(act);
+      //OpenSimDB.getInstance().notifyObservers(evnt);
       actSaved = AbstractActuator.safeDownCast(act.copy());
       actSaved.setName(act.getName()); // TODO: what about other properties of parent classes?
    }
@@ -270,7 +307,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
     *  Because the type of the actuator may have changed, you have to remove the current
     *  one (act) and replace it with the saved one (actSaved).
     */
-   private void resetActuator() {
+   private void resetActuatorReplace() {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(act);
       Model model = asm.getModel();
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -301,6 +338,36 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       NameChangedEvent ev = new NameChangedEvent(act);
       OpenSimDB.getInstance().setChanged();
       OpenSimDB.getInstance().notifyObservers(ev);
+
+      setPendingChanges(false, false);
+      setupComponent(act);
+      ViewDB.getInstance().repaintAll();
+   }
+
+   /* The version of resetActuator above replaces the actuator in the
+    * model's actuator set, because the type may have been changed (so
+    * the actuator to reset to is an entirely different object). This
+    * causes problems in the GUI because other components like the
+    * navigator do not yet handle replace-objects events. Also, with
+    * the muscle-type combo box commented out for 1.0, the actuator
+    * object cannot change between a set/reset, so the function below
+    * was created to do a simple copy-in-place when reset is pressed.
+    * This version sends out only a name-changed event because the
+    * other GUI components do not yet handle property-change events.
+    */
+   private void resetActuator() {
+      SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
+
+      // If the name has changed, fire an event.
+      if (act.getName().equals(actSaved.getName()) == false) {
+         NameChangedEvent ev = new NameChangedEvent(act);
+         OpenSimDB.getInstance().setChanged();
+         OpenSimDB.getInstance().notifyObservers(ev);
+      }
+
+      // Copy the elements of the saved actuator into the current actuator.
+      act.copy(actSaved);
+      vis.updateActuatorGeometry(act, true);
 
       setPendingChanges(false, false);
       setupComponent(act);
@@ -1698,7 +1765,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       if (selected.length > 0) {
          OneActuatorNode muscleNode = (OneActuatorNode) selected[0];
          newAct = AbstractActuator.safeDownCast(muscleNode.getOpenSimObject());
-         if (newAct != null && newAct != act) {
+         if (newAct != null && AbstractActuator.getCPtr(newAct) != AbstractActuator.getCPtr(act)) {
             Model newModel = newAct.getModel();
             if (Model.getCPtr(newModel) != Model.getCPtr(currentModel)) {
                Object[] options = {"OK"};

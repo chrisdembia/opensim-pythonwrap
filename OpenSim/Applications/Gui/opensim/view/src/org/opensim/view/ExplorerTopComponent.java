@@ -271,11 +271,7 @@ final public class ExplorerTopComponent extends TopComponent
               Node[] nodes = rootNode.getChildren().getNodes();
               for (int i=0; i<nodes.length; i++) {
                  if (nodes[i] instanceof OpenSimNode) {
-                    OpenSimObjectNode match = ((OpenSimNode)nodes[i]).findChild(obj);
-                    if (match != null) {
-                       //match.setName(ev.getName());
-                       match.setDisplayName(ev.getName());
-                    }
+                    ((OpenSimNode)nodes[i]).renameObjectNode(obj, ev.getName());
                  }
               }
            }
