@@ -39,6 +39,7 @@ public final class ModelMakeCurrentAction extends CallableSystemAction {
     
     public boolean isEnabled() {
         Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+        if(selected.length!=1) return false; // only if a single item is selected
         // Action shouldn't be available otherwise'
         ConcreteModelNode modelNode = (ConcreteModelNode) selected[0];
         Model mdl = modelNode.getModel();

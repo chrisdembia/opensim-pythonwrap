@@ -34,4 +34,8 @@ public final class ModelDisplayEditAction extends CallableSystemAction {
         return false;
     }
     
+    public boolean isEnabled() {
+       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+       return selected.length==1;
+    }
 }

@@ -49,5 +49,9 @@ public final class ModelInfoAction extends CallableSystemAction {
     protected boolean asynchronous() {
         return false;
     }
-    
+   
+    public boolean isEnabled() {
+      Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+      return selected.length==1;
+    }
 }

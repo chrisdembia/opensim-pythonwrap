@@ -36,5 +36,9 @@ public final class ModelCloseSelectedAction extends CallableSystemAction {
    protected boolean asynchronous() {
       return false;
    }
-      
+   
+   public boolean isEnabled() {
+      Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+      return selected.length==1;
+   }
 }
