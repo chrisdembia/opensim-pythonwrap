@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Observable;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -80,6 +81,10 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    private String selectedTabName = null;
    private javax.swing.JCheckBox attachmentSelectBox[] = null; // array of checkboxes for selecting attachment points
    private String[] wrapObjectNames = null;
+
+   private NumberFormat doublePropFormat = new DecimalFormat("0.000000");
+   private NumberFormat positionFormat = new DecimalFormat("0.00000");
+   private NumberFormat angleFormat = new DecimalFormat("0.00");
    
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
@@ -356,11 +361,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          newValue = oldValue;
          oldValue = Double.MAX_VALUE; // to force the field to update itself with the old value
       }
-      NumberFormat nf = NumberFormat.getInstance();
-      nf.setMaximumFractionDigits(5); // TODO
-      nf.setMinimumFractionDigits(5); // TODO
       // format the number and write it back into the text field
-      field.setText(nf.format(newValue));
+      field.setText(positionFormat.format(newValue));
       // update the model if the number has changed
       if (oldValue != newValue) {
          musclePoints.get(attachmentNum).setAttachment(coordNum, newValue);
@@ -454,14 +456,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
       // Conversions between radians and degrees
       double conversion = 1.0;
-      NumberFormat nf = NumberFormat.getInstance();
+      NumberFormat nf = null;
       if (via.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
          conversion = 180.0/Math.PI;
-         nf.setMaximumFractionDigits(2);
-         nf.setMinimumFractionDigits(2);
+         nf = angleFormat;
       } else {
-         nf.setMaximumFractionDigits(5);
-         nf.setMinimumFractionDigits(5);
+         nf = positionFormat;
       }
 
       double newValue, oldValue = via.getRange().getitem(0)*conversion;
@@ -500,14 +500,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
       // Conversions between radians and degrees
       double conversion = 1.0;
-      NumberFormat nf = NumberFormat.getInstance();
+      NumberFormat nf = null;
       if (via.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
          conversion = 180.0/Math.PI;
-         nf.setMaximumFractionDigits(2);
-         nf.setMinimumFractionDigits(2);
+         nf = angleFormat;
       } else {
-         nf.setMaximumFractionDigits(5);
-         nf.setMinimumFractionDigits(5);
+         nf = positionFormat;
       }
 
       double newValue, oldValue = via.getRange().getitem(1)*conversion;
@@ -683,11 +681,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             newValue = oldValue;
             oldValue = Double.MAX_VALUE; // to force the field to update itself with the old value
          }
-         NumberFormat nf = NumberFormat.getInstance();
-         nf.setMaximumFractionDigits(6);
-         nf.setMinimumFractionDigits(6);
          // format the number and write it back into the text field
-         field.setText(nf.format(newValue));
+         field.setText(doublePropFormat.format(newValue));
 
          if (newValue != oldValue) {
             prop.setValue(newValue);
@@ -795,9 +790,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
       // Put the points in the current path in the CurrentPath tab
       ArrayMusclePoint asmp = asm.getCurrentPath();
-      NumberFormat nf = NumberFormat.getInstance();
-      nf.setMaximumFractionDigits(5);
-      nf.setMinimumFractionDigits(5);
       int X = 30;
       int Y = 40;
       
@@ -837,9 +829,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          javax.swing.JLabel bodyLabel = new javax.swing.JLabel();
          javax.swing.JLabel typeLabel = new javax.swing.JLabel();
          indexLabel.setText(String.valueOf(i+1) + ".");
-         xField.setText(nf.format(asmp.get(i).getAttachment().getitem(0)));
-         yField.setText(nf.format(asmp.get(i).getAttachment().getitem(1)));
-         zField.setText(nf.format(asmp.get(i).getAttachment().getitem(2)));
+         xField.setText(positionFormat.format(asmp.get(i).getAttachment().getitem(0)));
+         yField.setText(positionFormat.format(asmp.get(i).getAttachment().getitem(1)));
+         zField.setText(positionFormat.format(asmp.get(i).getAttachment().getitem(2)));
          bodyLabel.setText(asmp.get(i).getBodyName());
          if (isWrapPoint)
             typeLabel.setText("wrap" + " (" + asmp.get(i).getWrapObject().getName() + ")");
@@ -1171,7 +1163,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       int i, aCount = 0;
       int X = 30;
       int Y = 40;
-      NumberFormat nf = NumberFormat.getInstance();
       
       // Set up the muscle-independent labels
       boolean anyViaPoints = false;
@@ -1245,13 +1236,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             coordComboBox.setModel(new javax.swing.DefaultComboBoxModel(coordinateNames));
             coordComboBox.setSelectedIndex(findElement(coordinateNames, via.getCoordinateName()));
             double conversion = 1.0;
+            NumberFormat nf =  null;
             if (via.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
-               nf.setMaximumFractionDigits(2);
-               nf.setMinimumFractionDigits(2);
                conversion = 180.0/Math.PI;
+               nf = angleFormat;
             } else {
-               nf.setMaximumFractionDigits(5);
-               nf.setMinimumFractionDigits(5);
+               nf = positionFormat;
             }
             rangeMinField.setText(nf.format(via.getRange().getitem(0)*conversion));
             rangeMaxField.setText(nf.format(via.getRange().getitem(1)*conversion));
@@ -1291,13 +1281,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          zField.setBounds(X + 2*width + 2, height, width, 21);
          comboBox.setBounds(X + 3*width + 10, height, 90, 21);
          attachmentSelectBox[i].setBounds(X + 3*width + 110, height, 21, 21);
-         nf.setMaximumFractionDigits(5);
-         nf.setMinimumFractionDigits(5);
-         xField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(0)));
+         xField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(0)));
          xField.setToolTipText("X coordinate of the attachment point");
-         yField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(1)));
+         yField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(1)));
          yField.setToolTipText("Y coordinate of the attachment point");
-         zField.setText(nf.format(musclePoints.get(i).getAttachment().getitem(2)));
+         zField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(2)));
          zField.setToolTipText("Z coordinate of the attachment point");
          comboBox.setToolTipText("Body the attachment point is fixed to");
          attachmentSelectBox[i].setToolTipText("Click to select/unselect this attachment point");
@@ -1535,9 +1523,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          setupAttachmentPanel(asm);
       
       int i, j;
-      NumberFormat nf = NumberFormat.getInstance();
-      nf.setMaximumFractionDigits(6);
-      nf.setMinimumFractionDigits(6);
       MuscleNameTextField.setText(act.getName());
       PropertySet ps = act.getPropertySet();
       
@@ -1587,7 +1572,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                propField.setBounds(210, 20 + tabPropertyCount[groupNum] * 22, 120, 21);
                propField.setHorizontalAlignment(SwingConstants.TRAILING);
                if (p.getType() == org.opensim.modeling.Property.PropertyType.Dbl)
-                  propField.setText(nf.format(p.getValueDbl()));
+                  propField.setText(doublePropFormat.format(p.getValueDbl()));
                else
                   propField.setText(p.toString());
                propField.setToolTipText(p.getComment());
