@@ -9,7 +9,7 @@ public final class ObjectDisplayShowAction extends ObjectDisplayShowHideBaseActi
    }
 
    public String getName() {
-      return NbBundle.getMessage(ModelDisplayHideAction.class, "CTL_ModelDisplayShowAction");
+      return NbBundle.getMessage(ObjectDisplayHideAction.class, "CTL_ModelDisplayShowAction");
    }
 
 }
