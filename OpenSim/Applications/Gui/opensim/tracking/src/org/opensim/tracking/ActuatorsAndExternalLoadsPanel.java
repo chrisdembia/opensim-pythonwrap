@@ -424,7 +424,7 @@ public class ActuatorsAndExternalLoadsPanel extends javax.swing.JPanel {
    private void cutoffFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutoffFrequencyActionPerformed
       try {
          toolModel.setLowpassCutoffFrequencyForLoadKinematics(Double.valueOf(cutoffFrequency.getText()));
-      } finally {
+      } catch (NumberFormatException ex) {
          cutoffFrequency.setText(((Double)toolModel.getLowpassCutoffFrequencyForLoadKinematics()).toString());
       }
    }//GEN-LAST:event_cutoffFrequencyActionPerformed
