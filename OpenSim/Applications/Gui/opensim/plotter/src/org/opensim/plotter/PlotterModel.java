@@ -182,14 +182,21 @@ public class PlotterModel {
       // if motionCurve xlabel is motion name, ylabel string2
       //System.out.println("Curve domain, range=["+string1+"],["+string2+"]");
       if (motionCurve){
-         if(string1.equalsIgnoreCase(source1.getDisplayName()))
-            updatePlotXYLabels(currentPlot, source1.getDisplayName(), string2);   
-         else
-            updatePlotXYLabels(currentPlot, string1, string2);
+         if(string1.equalsIgnoreCase(source1.getDisplayName())){
+            newCurve.setXLabel(source1.getDisplayName());
+            newCurve.setYLabel(string2);
+         }
+         else{
+            newCurve.setXLabel(string1);
+            newCurve.setYLabel(string2);
+        }
       }
-      else
-        updatePlotXYLabels(currentPlot, string1, source2.getDisplayName());
-     return newCurve;
+      else{
+         newCurve.setXLabel(string1);
+         newCurve.setYLabel(source2.getDisplayName());
+      }
+      updatePlotXYLabels(currentPlot, newCurve);
+      return newCurve;
    }
 
     private void updatePlotXYLabels(final Plot currentPlot, final String newDomainName, String addYLabel) {
@@ -232,6 +239,7 @@ public class PlotterModel {
       PlotNode figNode = plotTreeModel.findPlotNode(cvToDelete);
       if (figNode ==null)  // Owner figure might have been deleted already
          return;
+      
       // Actual object deletion
       ((Plot)figNode.getUserObject()).deleteCurve(cvToDelete);
       // Removal from tree
@@ -239,6 +247,17 @@ public class PlotterModel {
       figNode.remove(figNode.getIndex(cNode));
       plotTreeModel.reload((TreeNode) figNode);
       
+      XYPlot dPlot = getCurrentPlot().getChartPanel().getChart().getXYPlot();
+      dPlot.getDomainAxis().setLabel("");
+      dPlot.getRangeAxis().setLabel("");
+      // update plot labels with left over curves
+      int numChildren = figNode.getChildCount();
+      for(int i=0; i< numChildren; i++){
+         // Find curve for node and append if not included already
+         PlotCurveNode curveNode = (PlotCurveNode)figNode.getChildAt(i);
+         updatePlotXYLabels( (Plot)figNode.getUserObject(),
+                 (PlotCurve)curveNode.getUserObject());       
+      }
    }
 
    Plot getCurrentPlot()
@@ -429,6 +448,10 @@ public class PlotterModel {
             sources.remove(i);
       }
       
+   }
+
+   private void updatePlotXYLabels(Plot currentPlot, PlotCurve newCurve) {
+      updatePlotXYLabels(currentPlot, newCurve.getXLabel(), newCurve.getYLabel());
    }
 
    
