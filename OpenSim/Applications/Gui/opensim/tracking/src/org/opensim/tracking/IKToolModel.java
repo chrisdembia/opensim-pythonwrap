@@ -35,11 +35,12 @@ public class IKToolModel extends Observable implements Observer {
       boolean result = false;
       boolean promptToKeepPartialResult = true;
      
-      IKToolWorker() {
+      IKToolWorker() throws Exception {
          updateIKTool();
 
          // We assume we're working with trial 0.  No support for dealing with other trials in the trial set right now.
-         ikTool.initializeTrial(0);
+         if (!ikTool.initializeTrial(0))
+            throw new Exception("Inverse kinematics tool initialization failed -- check messages window for more details.");
 
          // Make no motion be currently selected (so model doesn't have extraneous ground forces/experimental markers from
          // another motion show up on it)
@@ -190,8 +191,13 @@ public class IKToolModel extends Observable implements Observer {
 
    public void execute() {
       if(isModified() && worker==null) {
-         worker = new IKToolWorker();
-         worker.start();
+         try {
+            worker = new IKToolWorker();
+            worker.start();
+         } catch (Exception ex) {
+            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(ex.getMessage(), NotifyDescriptor.ERROR_MESSAGE));
+            worker = null;
+         }
       }
    }
 
