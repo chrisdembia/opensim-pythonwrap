@@ -242,7 +242,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
    }
 
    private boolean confirmCloseMotion(Model model, Storage simmMotionData) {
-      NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save the changes to " + simmMotionData.getName() + "?", "OpenSim");
+      NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save the changes to motion '" + simmMotionData.getName() + "'?", "Save Modified Motion?");
       Object userSelection = DialogDisplayer.getDefault().notify(dlg);
       if (((Integer)userSelection).intValue() == ((Integer)NotifyDescriptor.OK_OPTION).intValue()) {
          String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "");

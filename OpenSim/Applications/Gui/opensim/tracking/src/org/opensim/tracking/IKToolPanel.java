@@ -58,7 +58,7 @@ public class IKToolPanel extends BaseToolPanel implements Observer {
 
    public void updateModelDataFromModel() {
       // Fill in model data -- only needs to be done once in beginning
-      Model model = ikToolModel.getModel();
+      Model model = ikToolModel.getOriginalModel();
       modelNameTextField.setText(model.getName());
       modelNameTextField.setCaretPosition(0);
       MarkerSet markerSet = model.getDynamicsEngine().getMarkerSet();

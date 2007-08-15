@@ -90,8 +90,8 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
          SwingUtilities.invokeAndWait(new Runnable(){
             public void run() {
                if(minRenderTimeInterval<=0 || getCurrentTime()-lastRenderTime>minRenderTimeInterval) {
-                  ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
                   if(motionDisplayer!=null && storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);
+                  ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
                   //ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
                   ViewDB.getInstance().repaintAll();
                   lastRenderTime = getCurrentTime();

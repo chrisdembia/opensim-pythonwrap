@@ -34,9 +34,16 @@ public class IKToolModel extends Observable implements Observer {
       private InterruptingIntegCallback interruptingCallback = null;
       boolean result = false;
       boolean promptToKeepPartialResult = true;
+      private Model modelCopy = null;
      
       IKToolWorker() throws Exception {
          updateIKTool();
+
+         // Operate on a copy of the model -- this way if users play with parameters in the GUI it won't affect the model we're actually computing on
+         modelCopy = getOriginalModel().clone();
+         modelCopy.setInputFileName("");
+         modelCopy.setup();
+         ikTool.setModel(modelCopy);
 
          // We assume we're working with trial 0.  No support for dealing with other trials in the trial set right now.
          if (!ikTool.initializeTrial(0))
@@ -59,8 +66,9 @@ public class IKToolModel extends Observable implements Observer {
                               });
 
          // Animation callback will update the display during IK solve
-         animationCallback = new JavaMotionDisplayerCallback(getModel(), ikTool.getIKTrialSet().get(0).getOutputStorage(), progressHandle);
-         getModel().addIntegCallback(animationCallback);
+         animationCallback = new JavaMotionDisplayerCallback(modelCopy, getOriginalModel(), ikTool.getIKTrialSet().get(0).getOutputStorage(), progressHandle);
+         animationCallback.setModelForDisplaySetConfiguration(false);
+         modelCopy.addIntegCallback(animationCallback);
          animationCallback.setStepInterval(1);
          animationCallback.startProgressUsingSteps(1, endFrame-startFrame+1);
 
@@ -68,7 +76,7 @@ public class IKToolModel extends Observable implements Observer {
          // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object
          // it would then later try to delete it yet again)
          interruptingCallback = InterruptingIntegCallback.safeDownCast((new InterruptingIntegCallback()).copy());
-         getModel().addIntegCallback(interruptingCallback);
+         modelCopy.addIntegCallback(interruptingCallback);
 
          setExecuting(true);
       }
@@ -81,9 +89,6 @@ public class IKToolModel extends Observable implements Observer {
       public Object construct() {
          result = ikTool.solveTrial(0);
 
-         // Update one last time (TODO: is this necessary?)
-         animationCallback.updateDisplaySynchronously();
-
          return this;
       }
 
@@ -93,8 +98,8 @@ public class IKToolModel extends Observable implements Observer {
          // Clean up motion displayer (this is necessary!)
          animationCallback.cleanupMotionDisplayer();
 
-         getModel().removeIntegCallback(animationCallback);
-         getModel().removeIntegCallback(interruptingCallback);
+         modelCopy.removeIntegCallback(animationCallback);
+         modelCopy.removeIntegCallback(interruptingCallback);
          interruptingCallback = null;
 
          if(result) resetModified();
@@ -119,6 +124,7 @@ public class IKToolModel extends Observable implements Observer {
 
          setExecuting(false);
 
+         modelCopy = null;
          worker = null;
       }
    }
@@ -130,7 +136,7 @@ public class IKToolModel extends Observable implements Observer {
    enum Operation { AllDataChanged, IKTrialNameChanged, IKTaskSetChanged, ExecutionStateChanged };
 
    private IKTool ikTool = null;
-   private Model model = null;
+   private Model originalModel = null;
    private boolean modifiedSinceLastExecute = true;
    private IKCommonModel ikCommonModel;
    private Storage motion = null;
@@ -139,17 +145,16 @@ public class IKToolModel extends Observable implements Observer {
 
    public IKToolModel(Model originalModel) throws IOException {
       // Store original model
-      this.model = originalModel;
+      this.originalModel = originalModel;
 
       // Create IK tool
       ikTool = new IKTool();
-      ikTool.setModel(model);
 
-      ikCommonModel = new IKCommonModel(model);
+      ikCommonModel = new IKCommonModel(originalModel);
       ikCommonModel.addObserver(this);
    }
 
-   public Model getModel() { return model; }
+   public Model getOriginalModel() { return originalModel; }
    public IKTool getIKTool() { return ikTool; }
    public IKCommonModel getIKCommonModel() { return ikCommonModel; }
    
@@ -171,11 +176,11 @@ public class IKToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
    private void updateMotion(Storage newMotion) {
       if(motion!=null) {
-         MotionsDB.getInstance().closeMotion(getModel(), motion, false);
+         MotionsDB.getInstance().closeMotion(getOriginalModel(), motion, false);
       }
       motion = newMotion;
       if(motion!=null) {
-         MotionsDB.getInstance().addMotion(getModel(), motion);
+         MotionsDB.getInstance().addMotion(getOriginalModel(), motion);
          MotionsDB.getInstance().setMotionModified(motion, true);
       }
    }
@@ -277,7 +282,7 @@ public class IKToolModel extends Observable implements Observer {
       // TODO: set current working directory before trying to read it?
       IKTool newIKTool = null;
       try {
-         newIKTool = new IKTool(fileName, model);
+         newIKTool = new IKTool(fileName, false);
       } catch (IOException ex) {
          ErrorDialog.displayIOExceptionDialog("Error loading file","Could not load "+fileName,ex);
          return false;
