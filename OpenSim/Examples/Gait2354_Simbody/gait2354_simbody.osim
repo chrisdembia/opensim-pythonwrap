@@ -1550,6 +1550,9 @@
 					<mass>0.000000000000</mass>
 					<mass_center>0.000000000000 0.000000000000 0.000000000000</mass_center>
 					<inertia>0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> treadmill.vtp </geometry_files>
+					</VisibleObject>
 				</SimbodyBody>
 				<SimbodyBody name="pelvis">
 					<mass>11.777000000000</mass>
