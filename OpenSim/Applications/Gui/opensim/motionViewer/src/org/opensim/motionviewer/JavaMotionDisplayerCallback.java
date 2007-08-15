@@ -30,6 +30,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.SwingUtilities;
 import org.netbeans.api.progress.ProgressHandle;
 import org.opensim.modeling.*;
+import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.pub.ViewDB;
 
 /**
@@ -61,15 +62,17 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       this.progressHandle = progressHandle;
    }
    public JavaMotionDisplayerCallback(Model aModel, Storage storage, ProgressHandle progressHandle) {
-      super(aModel);
-      if(storage!=null) {
-         this.storage = storage;
-         motionDisplayer = new MotionDisplayer(storage, getModelForDisplay());
-      }
-      this.progressHandle = progressHandle;
+      this(aModel, aModel, storage, progressHandle);
    }
 
    public void setMinRenderTimeInterval(double interval) { minRenderTimeInterval = interval; }
+
+   public void setRenderMuscleActivations(boolean render) {
+      if(getModelForDisplayCompatibleStates()) {
+        SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(getModelForDisplay());
+        if(vis!=null) vis.setRenderMuscleActivations(render);
+      }
+   }
 
    public void startProgressUsingTime(double startTime, double endTime) {
       progressUsingTime = true;
@@ -145,6 +148,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    }
 
    public void cleanupMotionDisplayer() {
+      setRenderMuscleActivations(false);
       if(motionDisplayer!=null) motionDisplayer.cleanupDisplay();
    }
 

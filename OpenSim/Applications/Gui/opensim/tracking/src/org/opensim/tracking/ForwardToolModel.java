@@ -70,6 +70,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
          getModel().addIntegCallback(animationCallback);
          animationCallback.setStepInterval(10);
+         animationCallback.setRenderMuscleActivations(true);
          animationCallback.startProgressUsingTime(ti,tf);
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
@@ -79,11 +80,12 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          getModel().addIntegCallback(interruptingCallback);
 
          // Kinematics analysis -- so that we can extract the resulting motion
-         kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
-         kinematicsAnalysis.setRecordAccelerations(false);
-         kinematicsAnalysis.setInDegrees(false);
-         kinematicsAnalysis.setPrintResultFiles(false);
-         getModel().addAnalysis(kinematicsAnalysis);
+         // NO LONGER NEEDED SINCE WE JUST GET THE STATES FROM THE INTEGRAND
+         //kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
+         //kinematicsAnalysis.setRecordAccelerations(false);
+         //kinematicsAnalysis.setInDegrees(false);
+         //kinematicsAnalysis.setPrintResultFiles(false);
+         //getModel().addAnalysis(kinematicsAnalysis);
 
          setExecuting(true);
       }
@@ -106,13 +108,21 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
             if(answer==NotifyDescriptor.YES_OPTION) processResults = true;
          }
 
+         // Clean up motion displayer (this is necessary!)
+         // Do it before adding/removing motions in MotionsDB since here we disable muscle activation rendering, 
+         // but we want added motions to be able to enable that
+         animationCallback.cleanupMotionDisplayer();
+
          if(processResults) {
-            Storage motion = new Storage(kinematicsAnalysis.getPositionStorage());
-            motion.resampleLinear(0.001); // so that we don't get a crazy oversampled storage
+            Storage motion = null;
+            if(forwardTool().getStateStorage()!=null) {
+               motion = new Storage(forwardTool().getStateStorage());
+               motion.resampleLinear(0.001);
+            }
             updateMotion(motion); // replaces current motion
          }
 
-         getModel().removeAnalysis(kinematicsAnalysis);
+         //getModel().removeAnalysis(kinematicsAnalysis);
 
          // TODO: move this to a worker thread so as to not freeze the GUI if writing takes a while?
          if(processResults) {
@@ -120,9 +130,6 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          }
 
          progressHandle.finish();
-
-         // Clean up motion displayer (this is necessary!)
-         animationCallback.cleanupMotionDisplayer();
 
          getModel().removeIntegCallback(animationCallback);
          getModel().removeIntegCallback(interruptingCallback);

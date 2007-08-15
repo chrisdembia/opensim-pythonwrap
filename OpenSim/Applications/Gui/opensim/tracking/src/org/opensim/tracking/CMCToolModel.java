@@ -70,6 +70,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
          getModel().addIntegCallback(animationCallback);
          animationCallback.setStepInterval(1);
+         animationCallback.setRenderMuscleActivations(true);
          animationCallback.startProgressUsingTime(ti,tf);
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
@@ -79,11 +80,12 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          getModel().addIntegCallback(interruptingCallback);
 
          // Kinematics analysis -- so that we can extract the resulting motion
-         kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
-         kinematicsAnalysis.setRecordAccelerations(false);
-         kinematicsAnalysis.setInDegrees(false);
-         kinematicsAnalysis.setPrintResultFiles(false);
-         getModel().addAnalysis(kinematicsAnalysis);
+         // NO LONGER NEEDED SINCE WE JUST GET THE STATES FROM THE INTEGRAND
+         //kinematicsAnalysis = Kinematics.safeDownCast((new Kinematics()).copy());
+         //kinematicsAnalysis.setRecordAccelerations(false);
+         //kinematicsAnalysis.setInDegrees(false);
+         //kinematicsAnalysis.setPrintResultFiles(false);
+         //getModel().addAnalysis(kinematicsAnalysis);
 
          setExecuting(true);
       }
@@ -105,6 +107,11 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
             DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Tool execution canceled by user.  Output files not written."));
          }
 
+         // Clean up motion displayer (this is necessary!)
+         // Do it before adding/removing motions in MotionsDB since here we disable muscle activation rendering, 
+         // but we want added motions to be able to enable that
+         animationCallback.cleanupMotionDisplayer();
+
          // Add adjusted RRA model if we're in that mode
          if(processResults) {
             // Remove previous motion
@@ -114,8 +121,11 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
                motion = null;
             }
 
-            motion = new Storage(kinematicsAnalysis.getPositionStorage());
-            motion.resampleLinear(0.001); // so that we don't get a crazy oversampled storage
+            motion = null;
+            if(cmcTool().getStateStorage()!=null) {
+               motion = new Storage(cmcTool().getStateStorage());
+               motion.resampleLinear(0.001); // so that we don't get a crazy oversampled storage
+            }
 
             if(getAdjustModelToReduceResidualsEnabled()) {
                Model newReducedResidualsModel = null;
@@ -138,12 +148,9 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          }
 
          // Remove the kinematics analysis before printing results, so its results won't be written to disk
-         getModel().removeAnalysis(kinematicsAnalysis);
+         //getModel().removeAnalysis(kinematicsAnalysis);
 
          progressHandle.finish();
-
-         // Clean up motion displayer (this is necessary!)
-         animationCallback.cleanupMotionDisplayer();
 
          getModel().removeIntegCallback(animationCallback);
          getModel().removeIntegCallback(interruptingCallback);
