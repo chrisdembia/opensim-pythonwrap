@@ -16,6 +16,7 @@ import vtk.vtkMatrix4x4;
 public class LineSegmentMuscleDisplayer {
 
    private AbstractMuscle act;
+   private boolean renderActivation = false;
 
    private OpenSimvtkGlyphCloud musclePointsRep;
    private OpenSimvtkOrientedGlyphCloud muscleSegmentsRep;
@@ -29,6 +30,11 @@ public class LineSegmentMuscleDisplayer {
       this.act = act;
       this.musclePointsRep = musclePointsRep;
       this.muscleSegmentsRep = muscleSegmentsRep;
+   }
+
+   public void setRenderActivation(boolean enabled) {
+      renderActivation = enabled;
+      updateGeometry(false);
    }
 
    private void freeGlyphIds()
@@ -120,6 +126,9 @@ public class LineSegmentMuscleDisplayer {
 
       if (dp == DisplayPreference.None) return;
 
+      // TODO: fix this major hack... we assume activation is state 0 for the muscle
+      double activation = (renderActivation && act.getNumStates()>0) ? act.getState(0) : 1.0;
+
       // A displayer is found, get geometry
       int geomSize = actuatorDisplayer.countGeometry();
       if (geomSize > 0) {
@@ -152,6 +161,7 @@ public class LineSegmentMuscleDisplayer {
                              xform[0], xform[4], xform[8],
                              length*xform[1], length*xform[5], length*xform[9],
                              xform[2], xform[6], xform[10]);
+            muscleSegmentsRep.setScalarDataAtLocation(idx, activation);
 
             //
             // Draw non-wrap muscle points
@@ -163,6 +173,7 @@ public class LineSegmentMuscleDisplayer {
                   idx = pointIdx.intValue();
                   musclePointsRep.show(idx);
                   musclePointsRep.setLocation(idx, position1);
+                  if(!musclePointsRep.getSelected(idx)) musclePointsRep.setScalarDataAtLocation(idx, activation);
                }
             }
             if(i==geomSize-1) {
@@ -174,6 +185,7 @@ public class LineSegmentMuscleDisplayer {
                      idx = pointIdx.intValue();
                      musclePointsRep.show(idx);
                      musclePointsRep.setLocation(idx, position2);
+                     if(!musclePointsRep.getSelected(idx)) musclePointsRep.setScalarDataAtLocation(idx, activation);
                   }
                }
             }

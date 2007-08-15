@@ -526,12 +526,13 @@ public final class ViewDB extends Observable implements Observer {
     */
    public void setObjectColor(OpenSimObject object, double[] colorComponents) {
       if(MusclePoint.safeDownCast(object)!=null) {
-         MusclePoint mp = MusclePoint.safeDownCast(object);
-         SingleModelVisuals visuals = getModelVisuals(mp.getMuscle().getModel());
-         OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
-         cloud.updateUnselectedColor(colorComponents);
-         AbstractMuscle m = mp.getMuscle();
-         visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
+         // I don't think this is called from anywhere - Eran.
+         //MusclePoint mp = MusclePoint.safeDownCast(object);
+         //SingleModelVisuals visuals = getModelVisuals(mp.getMuscle().getModel());
+         //OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
+         //cloud.updateUnselectedColor(colorComponents);
+         //AbstractMuscle m = mp.getMuscle();
+         //visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
       } else if(AbstractBody.safeDownCast(object)!=null) { // should check for body here
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          if(asm!=null) applyColor(colorComponents, asm);

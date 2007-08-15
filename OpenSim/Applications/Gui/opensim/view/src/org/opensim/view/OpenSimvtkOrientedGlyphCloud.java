@@ -83,17 +83,23 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
         actor.GetProperty().SetOpacity(newOpacity);
     }
 
+   private void initializeLookupTableIfNecessary() {
+      if(lookupTable==null) {
+         scalarData = new vtkFloatArray();
+         scalarData.SetNumberOfTuples(1);
+         scalarData.SetNumberOfComponents(1);
+         pointPolyData.GetPointData().SetScalars(scalarData);
+         glyph.SetColorGlyphs(1);
+         glyph.SetColorModeToScalars();
+         lookupTable = new vtkColorTransferFunction();
+         mapper.SetLookupTable(lookupTable);
+      }
+   }
+
    public void setColorRange(double[] color0, double[] color1) {
-      scalarData = new vtkFloatArray();
-      scalarData.SetNumberOfTuples(1);
-      scalarData.SetNumberOfComponents(1);
-      pointPolyData.GetPointData().SetScalars(scalarData);
-      glyph.SetColorGlyphs(1);
-      glyph.SetColorModeToScalars();
-      lookupTable = new vtkColorTransferFunction();
+      initializeLookupTableIfNecessary();
       lookupTable.AddRGBPoint(0.0, color0[0], color0[1], color0[2]);
       lookupTable.AddRGBPoint(1.0, color1[0], color1[1], color1[2]);
-      mapper.SetLookupTable(lookupTable);
    }
     
     public vtkActor getVtkActor() {
@@ -163,7 +169,7 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
       } else {
          idx = pointCloud.InsertNextPoint(px, py, pz);
          tensorData.InsertTuple9(idx, 1., 0., 0., 0., 1., 0., 0., 0., 1.);
-         if(scalarData!=null) scalarData.InsertTuple1(idx, 1);
+         if(scalarData!=null) scalarData.InsertTuple1(idx, 0.);
       }
       return idx;
    }

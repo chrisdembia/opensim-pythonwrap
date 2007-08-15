@@ -67,6 +67,7 @@ public class SingleModelVisuals {
     private double[] bounds = new double[6];
     private boolean visible;
 
+    private double[] inactiveMuscleColor = new double[]{0.0, 0.0, 1.0};
     private double[] defaultMuscleColor = new double[]{0.8, 0.1, 0.1};
     private double[] defaultMusclePointColor = new double[]{1.0, 0.0, 0.0};
     private double[] defaultMarkerColor = new double[]{1.0, 0.6, 0.8};
@@ -377,6 +378,13 @@ public class SingleModelVisuals {
       }
    }
 
+   public void setRenderMuscleActivations(boolean enabled) {
+      Iterator<LineSegmentMuscleDisplayer> dispIter = mapActuator2Displayer.values().iterator();
+      while(dispIter.hasNext()) dispIter.next().setRenderActivation(enabled);
+      getMuscleSegmentsRep().setModified();
+      getMusclePointsRep().setModified();
+   }
+
      /**
       * Get the vtkTransform matrix between ground and a body frame,
       */
@@ -535,7 +543,9 @@ public class SingleModelVisuals {
        vtkSphereSource marker=new vtkSphereSource();
        marker.SetRadius(DEFAULT_MARKER_RADIUS);
        marker.SetCenter(0., 0., 0.);
-       getMarkersRep().setColors(defaultMarkerColor, SelectedObject.defaultSelectedColor);
+       //getMarkersRep().setColors(defaultMarkerColor, SelectedObject.defaultSelectedColor);
+       getMarkersRep().setColorRange(defaultMarkerColor, defaultMarkerColor);
+       getMarkersRep().setSelectedColor(SelectedObject.defaultSelectedColor);
        vtkStripper strip1 = new vtkStripper();
        strip1.SetInput(marker.GetOutput());
        getMarkersRep().setShape(strip1.GetOutput());
@@ -544,7 +554,9 @@ public class SingleModelVisuals {
        vtkSphereSource viaPoint=new vtkSphereSource();
        viaPoint.SetRadius(DEFAULT_MUSCLE_POINT_RADIUS);
        viaPoint.SetCenter(0., 0., 0.);
-       getMusclePointsRep().setColors(defaultMusclePointColor, SelectedObject.defaultSelectedColor);
+       //getMusclePointsRep().setColors(defaultMusclePointColor, SelectedObject.defaultSelectedColor);
+       getMusclePointsRep().setColorRange(inactiveMuscleColor, defaultMusclePointColor);
+       getMusclePointsRep().setSelectedColor(SelectedObject.defaultSelectedColor);
        vtkStripper strip2 = new vtkStripper();
        strip2.SetInput(viaPoint.GetOutput());
        getMusclePointsRep().setShape(strip2.GetOutput());
@@ -556,7 +568,8 @@ public class SingleModelVisuals {
        muscleSegment.SetHeight(1.0);
        muscleSegment.SetCenter(0.0, 0.0, 0.0);
        muscleSegment.CappingOff();
-       getMuscleSegmentsRep().setColor(defaultMuscleColor);
+       //getMuscleSegmentsRep().setColor(defaultMuscleColor);
+       getMuscleSegmentsRep().setColorRange(inactiveMuscleColor, defaultMuscleColor);
        getMuscleSegmentsRep().setShape(muscleSegment.GetOutput());
     }
 

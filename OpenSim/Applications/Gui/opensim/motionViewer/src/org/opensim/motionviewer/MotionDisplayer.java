@@ -23,6 +23,7 @@ import org.opensim.modeling.MarkerSet;
 import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
 import org.opensim.view.OpenSimvtkGlyphCloud;
+import org.opensim.view.SingleModelVisuals;
 import org.opensim.view.pub.ViewDB;
 
 /**
@@ -74,6 +75,8 @@ public class MotionDisplayer {
     ArrayList<ObjectIndexPair> segmentForceColumns=null; // state vector index of the first of six (px py pz vx vy vz) coordinates for a force vector
 
     ArrayDouble interpolatedStates = null;
+
+    boolean statesFile = false; // special type of file that contains full state vectors
     
     // A local copy of motionObjects so that different motions have different motion objects
     //Hashtable<String, vtkActor> motionObjectInstances =new Hashtable<String, vtkActor>(10);
@@ -82,38 +85,50 @@ public class MotionDisplayer {
     public MotionDisplayer(Storage motionData, Model model) {
         this.model = model;
         simmMotionData = motionData;
+
         AddMotionObjectsRep(model);
-        
+
         ArrayStr colNames = motionData.getColumnLabels();
         int numColumnsIncludingTime = colNames.getSize();
-        // We should build sorted lists of object names so that we can find them easily
-        for(int i=0; i < numColumnsIncludingTime; i++){
-           String columnName = colNames.getitem(i);   // Time is included in labels
-           int numClassified = classifyColumn(model, i, columnName); // find out if column is gencord/muscle/segment/...etc.
-           ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
-           if (numClassified>1)  // If we did a group then skip the group
-              i += (numClassified-1);
-        }
-
         interpolatedStates = new ArrayDouble(0.0, numColumnsIncludingTime-1);
 
-        genCoordColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
-        segmentMarkerColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
-        segmentForceColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
-        for (int i = 0; i< numColumnsIncludingTime; i++){
-            ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
-            switch(cType){
-               case GenCoord: 
-                  genCoordColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
-                  break;
-               case Segment_marker_p1:
-                  segmentMarkerColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
-                  break;
-               case Segment_force_p1:
-                  segmentForceColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
-                  break;
+        ArrayStr stateNames = new ArrayStr();
+        stateNames.append("time");
+        model.getStateNames(stateNames);
+
+        if(colNames.arrayEquals(stateNames)) {
+           // This is a states file
+           statesFile = true;
+           SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+           if(vis!=null) vis.setRenderMuscleActivations(true);
+        } else  {
+           // We should build sorted lists of object names so that we can find them easily
+           for(int i=0; i < numColumnsIncludingTime; i++){
+              String columnName = colNames.getitem(i);   // Time is included in labels
+              int numClassified = classifyColumn(model, i, columnName); // find out if column is gencord/muscle/segment/...etc.
+              ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
+              if (numClassified>1)  // If we did a group then skip the group
+                 i += (numClassified-1);
+           }
+
+           genCoordColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
+           segmentMarkerColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
+           segmentForceColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
+           for (int i = 0; i< numColumnsIncludingTime; i++){
+               ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
+               switch(cType){
+                  case GenCoord: 
+                     genCoordColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
+                     break;
+                  case Segment_marker_p1:
+                     segmentMarkerColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
+                     break;
+                  case Segment_force_p1:
+                     segmentForceColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
+                     break;
+               }
             }
-         }
+        }
     }
 
     private void AddMotionObjectsRep(final Model model) {
@@ -125,6 +140,7 @@ public class MotionDisplayer {
         
         markersRep.setShape(MotionObjectsDB.getInstance().getShape("marker"));
         markersRep.setColor(new double[]{0.0, 0.0, 1.0}); //Scale , scaleBy
+
         ViewDB.getInstance().addUserObject(model, forcesRep.getVtkActor());
         ViewDB.getInstance().addUserObject(model, markersRep.getVtkActor());
     }
@@ -273,32 +289,36 @@ public class MotionDisplayer {
 
    private void applyStatesToModel(ArrayDouble states) 
    {
-      for(int i=0; i<genCoordColumns.size(); i++) {
-         AbstractCoordinate coord=(AbstractCoordinate)(genCoordColumns.get(i).object);
-         if(!coord.getLocked()) {
-            int index = genCoordColumns.get(i).stateVectorIndex;
-            coord.setValue(states.getitem(index));
+      if(statesFile) {
+         model.setStates(states);
+      } else {
+         for(int i=0; i<genCoordColumns.size(); i++) {
+            AbstractCoordinate coord=(AbstractCoordinate)(genCoordColumns.get(i).object);
+            if(!coord.getLocked()) {
+               int index = genCoordColumns.get(i).stateVectorIndex;
+               coord.setValue(states.getitem(index));
+            }
          }
-      }
 
-      for(int i=0; i<segmentMarkerColumns.size(); i++) {
-         int markerIndex = ((Integer)(segmentMarkerColumns.get(i).object)).intValue();
-         int index = segmentMarkerColumns.get(i).stateVectorIndex;
-         markersRep.setLocation(markerIndex, states.getitem(index), states.getitem(index+1), states.getitem(index+2));
-      }
-      if(segmentMarkerColumns.size()>0) markersRep.setModified();
+         for(int i=0; i<segmentMarkerColumns.size(); i++) {
+            int markerIndex = ((Integer)(segmentMarkerColumns.get(i).object)).intValue();
+            int index = segmentMarkerColumns.get(i).stateVectorIndex;
+            markersRep.setLocation(markerIndex, states.getitem(index), states.getitem(index+1), states.getitem(index+2));
+         }
+         if(segmentMarkerColumns.size()>0) markersRep.setModified();
 
-      for(int i=0; i<segmentForceColumns.size(); i++) {
-         int forceIndex = ((Integer)(segmentForceColumns.get(i).object)).intValue();
-         int index = segmentForceColumns.get(i).stateVectorIndex;
-         forcesRep.setNormalAtLocation(forceIndex, states.getitem(index), 
-                 states.getitem(index+1),
-                 states.getitem(index+2));
-         forcesRep.setLocation(forceIndex, states.getitem(index+3), 
-                 states.getitem(index+4),
-                 states.getitem(index+5));
+         for(int i=0; i<segmentForceColumns.size(); i++) {
+            int forceIndex = ((Integer)(segmentForceColumns.get(i).object)).intValue();
+            int index = segmentForceColumns.get(i).stateVectorIndex;
+            forcesRep.setNormalAtLocation(forceIndex, states.getitem(index), 
+                    states.getitem(index+1),
+                    states.getitem(index+2));
+            forcesRep.setLocation(forceIndex, states.getitem(index+3), 
+                    states.getitem(index+4),
+                    states.getitem(index+5));
+         }
+         if(segmentForceColumns.size()>0) forcesRep.setModified();
       }
-      if(segmentForceColumns.size()>0) forcesRep.setModified();
     }
 
     /*
@@ -307,6 +327,9 @@ public class MotionDisplayer {
     void cleanupDisplay() {
         ViewDB.getInstance().removeUserObject(model, forcesRep.getVtkActor());
         ViewDB.getInstance().removeUserObject(model, markersRep.getVtkActor());
+
+        SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+        if(vis!=null) vis.setRenderMuscleActivations(false);
     }
 
    public Storage getSimmMotionData() {
