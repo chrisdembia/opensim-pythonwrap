@@ -6,7 +6,11 @@ import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
-import javax.swing.SwingUtilities;
+import org.netbeans.api.progress.ProgressHandle;
+import org.netbeans.api.progress.ProgressHandleFactory;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
+import org.openide.util.Cancellable;
 import org.opensim.modeling.ArrayDouble;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.BodyScale;
@@ -28,6 +32,7 @@ import org.opensim.modeling.ScaleTool;
 import org.opensim.modeling.Storage;
 import org.opensim.modeling.rdMath;
 import org.opensim.motionviewer.MotionsDB;
+import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.pub.OpenSimDB;
@@ -251,8 +256,93 @@ class BodySetScaleFactors extends Vector<BodyScaleFactors> {
 // ScaleToolModel
 //==================================================================
 public class ScaleToolModel extends Observable implements Observer {
+   //========================================================================
+   // ScaleToolWorker
+   //========================================================================
+   class ScaleToolWorker extends SwingWorker {
+      private ProgressHandle progressHandle = null;
+      boolean result = false;
+      private Model processedModel = null;
+     
+      ScaleToolWorker() throws Exception {
+         updateScaleTool();
 
-   enum Operation { AllDataChanged, SubjectDataChanged, MarkerSetChanged, MeasurementSetChanged, ModelScalerDataChanged, MarkerPlacerDataChanged };
+         progressHandle = ProgressHandleFactory.createHandle("Executing scaling...",
+                              new Cancellable() {
+                                 public boolean cancel() {
+                                    interrupt();
+                                    return true;
+                                 }
+                              });
+         progressHandle.start();
+
+         processedModel = unscaledModel.clone();
+         processedModel.setName(scaleTool.getName());
+         processedModel.setInputFileName("");
+         processedModel.setup(); // need to call setup() after clone() because some internal variables aren't (properly) copied
+
+         setExecuting(true);
+      }
+
+      // TODO: we can't actually interrupt model scaler / marker placer part way...
+      public void interrupt() {
+         if(getMarkerPlacerEnabled() && scaleTool.getMarkerPlacer().getIKTrial()!=null)
+            scaleTool.getMarkerPlacer().getIKTrial().interrupt();
+      }
+
+      public Object construct() {
+         result = true;
+
+         // TODO: use the Storage's we've already read in rather than reading them againag
+         if(getModelScalerEnabled()) {
+            System.out.println("ModelScaler...");
+            // Pass empty path as path to subject, since we already have the measurement trial as an absolute path
+            if(!scaleTool.getModelScaler().processModel(processedModel, "", scaleTool.getSubjectMass())) {
+               result = false;
+               return this;
+            }
+         }
+
+         if(getMarkerPlacerEnabled()) {
+            System.out.println("MarkerPlacer...");
+            // Pass empty path as path to subject, since we already have the static trial as an absolute path
+            if(!scaleTool.getMarkerPlacer().processModel(processedModel, "")) {
+               result = false;
+               return this;
+            }
+         }
+
+         return this;
+      }
+
+      public void finished() {
+         progressHandle.finish();
+
+         if(result) {
+            OpenSimDB.getInstance().replaceModel(scaledModel, processedModel);
+            scaledModel = processedModel;
+
+            if(getMarkerPlacerEnabled() && scaleTool.getMarkerPlacer().getOutputStorage()!=null) {
+               Storage motion = new Storage(scaleTool.getMarkerPlacer().getOutputStorage());
+               motion.setName("static pose");
+               MotionsDB.getInstance().addMotion(scaledModel, motion);
+            }
+            resetModified();
+         }
+
+         setExecuting(false);
+
+         processedModel = null;
+         worker = null;
+      }
+   }
+   private ScaleToolWorker worker = null;
+   //========================================================================
+   // END ScaleToolWorker
+   //========================================================================
+
+
+   enum Operation { AllDataChanged, SubjectDataChanged, MarkerSetChanged, MeasurementSetChanged, ModelScalerDataChanged, MarkerPlacerDataChanged, ExecutionStateChanged };
 
    private ScaleTool scaleTool = null;
    private Model originalModel = null;
@@ -275,6 +365,7 @@ public class ScaleToolModel extends Observable implements Observer {
    private BodySetScaleFactors bodySetScaleFactors;
    
    private IKCommonModel ikCommonModel; // Stores marker placer stuff that's also common to IKTool
+   private boolean executing = false;
 
    public ScaleToolModel(Model originalModel) throws IOException {
       // Store original model; create copy of the original model as our unscaled model (i.e. the model we'll scale)
@@ -319,52 +410,25 @@ public class ScaleToolModel extends Observable implements Observer {
    }
 
    public void execute() {
-      if(isModified()) {
+      if(isModified() && worker==null) {
          try {
-            updateScaleTool();
-
-            Model oldScaledModel = scaledModel;
-
-            scaledModel = unscaledModel.clone();
-            scaledModel.setName(scaleTool.getName());
-            scaledModel.setInputFileName("");
-            scaledModel.setup(); // need to call setup() after clone() because some internal variables aren't (properly) copied
-
-            // TODO: use the Storage's we've already read in rather than reading them again
-            if(getModelScalerEnabled()) {
-               System.out.println("ModelScaler...");
-               // Pass empty path as path to subject, since we already have the measurement trial as an absolute path
-               if(!scaleTool.getModelScaler().processModel(scaledModel, "", scaleTool.getSubjectMass())) {
-                  // TODO: handle error
-               }
-            }
-
-            if(getMarkerPlacerEnabled()) {
-               System.out.println("MarkerPlacer...");
-               // Pass empty path as path to subject, since we already have the static trial as an absolute path
-               if(!scaleTool.getMarkerPlacer().processModel(scaledModel, "")) {
-                  // TODO: handle error
-               }
-            }
-
-            assert(SwingUtilities.isEventDispatchThread());
-            OpenSimDB.getInstance().replaceModel(oldScaledModel, scaledModel);
-
-            if(getMarkerPlacerEnabled() && scaleTool.getMarkerPlacer().getOutputStorage()!=null) {
-               Storage motion = new Storage(scaleTool.getMarkerPlacer().getOutputStorage());
-               motion.setName("static pose");
-               MotionsDB.getInstance().addMotion(scaledModel, motion);
-            }
-
-            resetModified();
+            worker = new ScaleToolWorker();
+            worker.start();
          } catch (Exception ex) {
-            ex.printStackTrace();
-            scaledModel = null;
+            DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(ex.getMessage(), NotifyDescriptor.ERROR_MESSAGE));
+            worker = null;
          }
       }
    }
 
+   // TODO: may need to use locks and such to ensure that worker doesn't get set to null (by IKToolWorker.finished()) in between worker!=null check and worker.interrupt()
+   // But I think both will typically run on the swing thread so probably safe
+   public void interrupt(boolean promptToKeepPartialResult) {
+      if(worker!=null) worker.interrupt();
+   }
+
    public void cancel() {
+      interrupt(false);
       if(scaledModel!=null) OpenSimDB.getInstance().removeModel(scaledModel);
       scaledModel = null;
    }
@@ -374,6 +438,21 @@ public class ScaleToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
    public void update(Observable observable, Object obj) {
       if(observable==ikCommonModel) setModified(Operation.MarkerPlacerDataChanged);
+   }
+
+   //------------------------------------------------------------------------
+   // Execution status
+   //------------------------------------------------------------------------
+
+   private void setExecuting(boolean executing) {
+      if(this.executing != executing) {
+         this.executing = executing;
+         setChanged();
+         notifyObservers(Operation.ExecutionStateChanged);
+      }
+   }
+   public boolean isExecuting() {
+      return executing;
    }
 
    //------------------------------------------------------------------------

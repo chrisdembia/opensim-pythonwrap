@@ -110,7 +110,12 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
    }
 
    public void update(Observable observable, Object obj) {
-      updateFromModel();
+      if(observable == scaleToolModel && obj == ScaleToolModel.Operation.ExecutionStateChanged) {
+         // Just need to update the buttons
+         updateDialogButtons();
+      } else {
+         updateFromModel();
+      }
    }
 
    public void updateUnscaledModelDataFromModel() {
@@ -214,7 +219,7 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
    }
 
    public void updateDialogButtons() {
-      updateApplyButton(scaleToolModel.isModified() && scaleToolModel.isValid());
+      updateApplyButton(!scaleToolModel.isExecuting() && scaleToolModel.isModified() && scaleToolModel.isValid());
    }
 
    //------------------------------------------------------------------------
