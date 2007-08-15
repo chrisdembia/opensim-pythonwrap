@@ -47,6 +47,9 @@ public final class ObjectSetDisplayMenuAction extends CallableSystemAction imple
          displayMenu.add(new JMenuItem(
                  (ObjectDisplayColorAction) ObjectDisplayColorAction.findObject(
                  Class.forName("org.opensim.view.ObjectDisplayColorAction"), true)));
+         displayMenu.add(new JMenuItem(
+                 (ObjectDisplayOpacityAction) ObjectDisplayOpacityAction.findObject(
+                 Class.forName("org.opensim.view.ObjectDisplayOpacityAction"), true)));
       } catch (ClassNotFoundException ex) {
          ex.printStackTrace();
       }     
