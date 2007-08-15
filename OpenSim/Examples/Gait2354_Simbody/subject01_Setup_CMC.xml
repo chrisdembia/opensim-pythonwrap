@@ -60,7 +60,7 @@
 
 	<!--Motion (.mot) or storage (.sto) file containing the desired kinematic
 	    trajectories.-->
-	<desired_kinematics_file> ResultsRRA2/subject01_walk1_RRA2_Kinematics_q.sto </desired_kinematics_file>
+	<desired_kinematics_file> ResultsRRA/subject01_walk1_RRA_Kinematics_q.sto </desired_kinematics_file>
 	<!--Low-pass cut-off frequency for filtering the desired kinematics. A
 	    negative value results in no filtering. The default value is -1.0, so
 	    no filtering.-->

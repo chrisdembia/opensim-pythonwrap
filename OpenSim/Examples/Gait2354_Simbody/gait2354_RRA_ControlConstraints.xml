@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ControlSet name="gait2354_RRA2">
+<ControlSet name="gait2354_RRA">
 	<defaults>
 		<ControlLinear name="default">
 			<is_model_control> true </is_model_control>

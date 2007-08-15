@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rdCMC_TaskSet name="gait2354_RRA2">
+<rdCMC_TaskSet name="gait2354_RRA">
 
 	<defaults>
 		<rdCMC_Joint name="default">
