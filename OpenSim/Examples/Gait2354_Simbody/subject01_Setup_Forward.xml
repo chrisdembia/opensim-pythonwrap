@@ -9,7 +9,7 @@
 	<!--List of xml files used to construct an actuator set for the model.-->
 	<actuator_set_files> gait2354_CMC_Actuators.xml </actuator_set_files>
 	<!--Directory used for writing results.-->
-	<results_directory> ./ResultsForward </results_directory>
+	<results_directory> ResultsForward </results_directory>
 	<!--Output precision.  It is 8 by default.-->
 	<output_precision> 20 </output_precision>
 	<!--Initial time for the simulation.-->
