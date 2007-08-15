@@ -25,6 +25,9 @@ public class LineSegmentMuscleDisplayer {
    Vector<Integer> musclePointGlyphIds = new Vector<Integer>(10);
    Vector<Integer> muscleSegmentGlyphIds = new Vector<Integer>(10);
 
+   final static double activationColorTau = 5;
+   final static double activationColorFactor = 1/(1-Math.exp(-activationColorTau));
+
    public LineSegmentMuscleDisplayer(AbstractMuscle act, OpenSimvtkGlyphCloud musclePointsRep, OpenSimvtkOrientedGlyphCloud muscleSegmentsRep)
    {
       this.act = act;
@@ -126,8 +129,12 @@ public class LineSegmentMuscleDisplayer {
 
       if (dp == DisplayPreference.None) return;
 
-      // TODO: fix this major hack... we assume activation is state 0 for the muscle
-      double activation = (renderActivation && act.getNumStates()>0) ? act.getState(0) : 1.0;
+      double activation = 1.0;
+      if(renderActivation) {
+         activation = act.getActivation();
+         // Apply this transfer function to get better results from the color map
+         activation = activationColorFactor * (1-Math.exp(-activationColorTau*activation));
+      }
 
       // A displayer is found, get geometry
       int geomSize = actuatorDisplayer.countGeometry();
