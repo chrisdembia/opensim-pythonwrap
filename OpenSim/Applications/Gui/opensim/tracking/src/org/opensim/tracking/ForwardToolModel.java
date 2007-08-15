@@ -108,6 +108,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
          if(processResults) {
             Storage motion = new Storage(kinematicsAnalysis.getPositionStorage());
+            motion.resampleLinear(0.001); // so that we don't get a crazy oversampled storage
             updateMotion(motion); // replaces current motion
          }
 

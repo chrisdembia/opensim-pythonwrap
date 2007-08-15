@@ -115,6 +115,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
             }
 
             motion = new Storage(kinematicsAnalysis.getPositionStorage());
+            motion.resampleLinear(0.001); // so that we don't get a crazy oversampled storage
 
             if(getAdjustModelToReduceResidualsEnabled()) {
                Model newReducedResidualsModel = null;
