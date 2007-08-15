@@ -28,9 +28,9 @@ package org.opensim.view;
 
 import java.util.Stack;
 import vtk.vtkActor;
+import vtk.vtkColorTransferFunction;
 import vtk.vtkCylinderSource;
 import vtk.vtkFloatArray;
-import vtk.vtkLookupTable;
 import vtk.vtkPoints;
 import vtk.vtkPolyData;
 import vtk.vtkPolyDataMapper;
@@ -53,7 +53,7 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
     private vtkFloatArray       tensorData = new vtkFloatArray();
 
     private vtkFloatArray       scalarData = null;
-    private vtkLookupTable      lookupTable = null;
+    private vtkColorTransferFunction  lookupTable = null;
 
     private Stack<Integer> freeList = new Stack<Integer>();
     
@@ -90,15 +90,9 @@ public class OpenSimvtkOrientedGlyphCloud {    // Assume same shape
       pointPolyData.GetPointData().SetScalars(scalarData);
       glyph.SetColorGlyphs(1);
       glyph.SetColorModeToScalars();
-      lookupTable = new vtkLookupTable();
-      double c0[] = (color0.length==3) ? new double[]{color0[0], color0[1], color0[2], 1.0} : color0;
-      double c1[] = (color1.length==3) ? new double[]{color1[0], color1[1], color1[2], 1.0} : color1;
-      double c[] = new double[4];
-      lookupTable.SetNumberOfTableValues(101);
-      for(int i=0; i<101; i++) {
-         double alpha = 0.01*i;
-         lookupTable.SetTableValue(i, c0[0]+alpha*(c1[0]-c0[0]), c0[1]+alpha*(c1[1]-c0[1]), c0[2]+alpha*(c1[2]-c0[2]), c0[3]+alpha*(c1[3]-c0[3]));
-      }
+      lookupTable = new vtkColorTransferFunction();
+      lookupTable.AddRGBPoint(0.0, color0[0], color0[1], color0[2]);
+      lookupTable.AddRGBPoint(1.0, color1[0], color1[1], color1[2]);
       mapper.SetLookupTable(lookupTable);
    }
     
