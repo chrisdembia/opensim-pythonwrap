@@ -47,8 +47,6 @@ import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.VisibleProperties.DisplayPreference;
-import org.opensim.utils.ShutDown;
-import org.opensim.utils.ShutDownThread;
 import org.opensim.view.ClearSelectedObjectsEvent;
 import org.opensim.view.DragObjectsEvent;
 import org.opensim.view.ExplorerTopComponent;
