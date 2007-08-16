@@ -30,6 +30,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    private JTextField[] manualScaleXYZ;
    private boolean internalChange = false;
    private Dialog measurementSetDialog;
+   private int[] selectedRows = new int[]{};
 
    /** Creates new form ScaleFactorsPanel */
    public ScaleFactorsPanel(ScaleToolModel scaleToolModel, Dialog measurementSetDialog) {
@@ -58,6 +59,12 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
       updatePanel();
    }
 
+   // Use these rather than directly calling jTable.getSelectedRows() so that if 
+   // changing selected rows causes a focus lost event on a text field the updated text
+   // field value applies to the right (old) row(s) selected
+   private int[] getSelectedRows() { return selectedRows; }
+   private int getSelectedRowCount() { return selectedRows.length; }
+
    public void update(Observable observable, Object obj) {
       ScaleToolModel.Operation op = (ScaleToolModel.Operation)obj;
       if(op==ScaleToolModel.Operation.MeasurementSetChanged || op==ScaleToolModel.Operation.AllDataChanged) 
@@ -66,15 +73,14 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    }
 
    private void tableSelectionChanged() {
-      // TODO: if pending changes, might want to apply them to old selection
-      System.out.println("Table selection changed");
+      selectedRows = jTable.getSelectedRows().clone();
       updatePanel();
    }
 
    private void updatePanel() {
       // Base enabled settings (everything on or off depending on whether we have any selection)
       // Everything in this panel except for the scroll pane containing the table and the edit measurement set button should be disabled if there is no selection
-      boolean enabled = (jTable.getSelectedRowCount() > 0);
+      boolean enabled = (getSelectedRowCount() > 0);
       for(Component comp : getComponents()) 
          if(comp!=jScrollPane1 && comp!=editMeasurementSetButton) comp.setEnabled(enabled);
 
@@ -98,13 +104,13 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    }
    private void updateMeasurementSelections() {
       internalChange = true;
-      if(jTable.getSelectedRowCount()==0) {
+      if(getSelectedRowCount()==0) {
          for(JComboBox combo : measurementXYZ) combo.setSelectedIndex(-1);
          measurementUniformCheckBox.setSelected(false);
       } else {
          for(int i=0; i<3; i++) {
-            if(tableModel.isSameMeasurement(jTable.getSelectedRows(),i)) {
-               int measurement = tableModel.getMeasurement(jTable.getSelectedRows()[0],i);
+            if(tableModel.isSameMeasurement(getSelectedRows(),i)) {
+               int measurement = tableModel.getMeasurement(getSelectedRows()[0],i);
                // Measurement should be a valid index, unless there's been an underlying change to the measurement set and
                // the panel is updating before measurementSetChanged is called (which can happen) -- in this case we
                // set the selected index to -1, and assume that eventually the panel will re-update with the right selection.
@@ -121,13 +127,13 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    }
    private void updateManualScaleFields() {
       internalChange = true;
-      if(jTable.getSelectedRowCount()==0) {
+      if(getSelectedRowCount()==0) {
          for(JTextField field : manualScaleXYZ) field.setText("");
          manualScaleUniformCheckBox.setSelected(false);
       } else {
          for(int i=0; i<3; i++) {
-            if(tableModel.isSameManualScale(jTable.getSelectedRows(),i)) {
-               double manualScale = tableModel.getManualScale(jTable.getSelectedRows()[0],i);
+            if(tableModel.isSameManualScale(getSelectedRows(),i)) {
+               double manualScale = tableModel.getManualScale(getSelectedRows()[0],i);
                manualScaleXYZ[i].setText(((Double)manualScale).toString());
             } else manualScaleXYZ[i].setText("");
          }
@@ -138,11 +144,11 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
       internalChange = false;
    }
    private void updateRadioButtons() {
-      if(jTable.getSelectedRowCount()==0) {
+      if(getSelectedRowCount()==0) {
          buttonGroup1.setSelected(useNoneRadioButton.getModel(),true);
       } else {
-         if(tableModel.isSameUseManualScale(jTable.getSelectedRows())) {
-            if(tableModel.getUseManualScale(jTable.getSelectedRows()[0]))
+         if(tableModel.isSameUseManualScale(getSelectedRows())) {
+            if(tableModel.getUseManualScale(getSelectedRows()[0]))
                buttonGroup1.setSelected(useManualScaleRadioButton.getModel(),true);
             else
                buttonGroup1.setSelected(useMeasurementRadioButton.getModel(),true);
@@ -435,24 +441,18 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
       );
    }// </editor-fold>//GEN-END:initComponents
 
-   // We don't want to process a focus event if the focus is lost due to clicking on one of the tables because then the
-   // selected rows of that table would be different from the row we would like to apply the change to (the old selected rows list)
-   private boolean safeToProcessFocusEvent(java.awt.event.FocusEvent evt) {
-      return !evt.isTemporary() && evt.getOppositeComponent()!=jTable;
-   }
-
    //------------------------------------------------------------------------
    // Radio buttons
    //------------------------------------------------------------------------
 
    private void useManualScaleRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useManualScaleRadioButtonActionPerformed
-      for(int row : jTable.getSelectedRows())
+      for(int row : getSelectedRows())
          scaleToolModel.getBodySetScaleFactors().get(row).setUseManualScale(true);
       scaleToolModel.bodySetScaleFactorsModified();
    }//GEN-LAST:event_useManualScaleRadioButtonActionPerformed
 
    private void useMeasurementRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useMeasurementRadioButtonActionPerformed
-      for(int row : jTable.getSelectedRows())
+      for(int row : getSelectedRows())
          scaleToolModel.getBodySetScaleFactors().get(row).setUseManualScale(false);
       scaleToolModel.bodySetScaleFactorsModified();
    }//GEN-LAST:event_useMeasurementRadioButtonActionPerformed
@@ -472,7 +472,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    private void setManualScalesFromTextField(int axis) {
       try {
          double scale = Double.valueOf(manualScaleXYZ[axis].getText());
-         for(int row : jTable.getSelectedRows())
+         for(int row : getSelectedRows())
             scaleToolModel.getBodySetScaleFactors().get(row).manualScales[axis] = scale;
       } catch (NumberFormatException ex) {
          // If not a valid double, skip it
@@ -487,7 +487,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    }
 
    private void manualScaleZFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_manualScaleZFocusLost
-      if(safeToProcessFocusEvent(evt)) manualScaleXYZActionPerformed(2);
+      if(!evt.isTemporary()) manualScaleXYZActionPerformed(2);
    }//GEN-LAST:event_manualScaleZFocusLost
 
    private void manualScaleZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualScaleZActionPerformed
@@ -495,7 +495,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    }//GEN-LAST:event_manualScaleZActionPerformed
 
    private void manualScaleYFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_manualScaleYFocusLost
-      if(safeToProcessFocusEvent(evt)) manualScaleXYZActionPerformed(1);
+      if(!evt.isTemporary()) manualScaleXYZActionPerformed(1);
    }//GEN-LAST:event_manualScaleYFocusLost
 
    private void manualScaleYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualScaleYActionPerformed
@@ -503,7 +503,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    }//GEN-LAST:event_manualScaleYActionPerformed
 
    private void manualScaleXFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_manualScaleXFocusLost
-      if(safeToProcessFocusEvent(evt)) manualScaleXYZActionPerformed(0);
+      if(!evt.isTemporary()) manualScaleXYZActionPerformed(0);
    }//GEN-LAST:event_manualScaleXFocusLost
 
    private void manualScaleXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualScaleXActionPerformed
@@ -517,7 +517,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
    }
 
    private void resetToMeasurementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetToMeasurementButtonActionPerformed
-      tableModel.copyMeasurementValueToManualScales(jTable.getSelectedRows());
+      tableModel.copyMeasurementValueToManualScales(getSelectedRows());
       scaleToolModel.bodySetScaleFactorsModified();
    }//GEN-LAST:event_resetToMeasurementButtonActionPerformed
 
@@ -535,7 +535,7 @@ public class ScaleFactorsPanel extends javax.swing.JPanel implements Observer {
 
    private void setMeasurementsFromComboBox(int axis) {
       int measurement = measurementXYZ[axis].getSelectedIndex()-1;
-      for(int row : jTable.getSelectedRows())
+      for(int row : getSelectedRows())
          scaleToolModel.getBodySetScaleFactors().get(row).measurements[axis] = measurement;
    }
 

@@ -27,6 +27,7 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
    IKTasksTableModel ikCoordinateTasksTableModel;
 
    JTable activeTable = null; // the one which was the source of the last selection event (the one whose data is displayed in the panel's fields)
+   private int[] selectedRows = new int[]{}; // Selected rows of active table
    
    /** Creates new form IKCoordinateTaskPanel */
    public IKTaskSetPanel(IKCommonModel ikCommonModel) {
@@ -66,6 +67,12 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
       updatePanel();
    }
 
+   // Use these rather than directly calling jTable.getSelectedRows() so that if 
+   // changing selected rows causes a focus lost event on a text field the updated text
+   // field value applies to the right (old) row(s) selected
+   private int[] getSelectedRows() { return selectedRows; }
+   private int getSelectedRowCount() { return selectedRows.length; }
+
    public void valueChanged(ListSelectionEvent event) {
       if(event.getValueIsAdjusting()) return;
 
@@ -79,6 +86,9 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
          otherTable.getSelectionModel().clearSelection();
          otherTable.getSelectionModel().addListSelectionListener(this);
       }
+
+      // Update copy of selected rows
+      selectedRows = activeTable.getSelectedRows().clone();
 
       // TODO: if pending changes, might want to apply them to old selection
       updatePanel();
@@ -95,10 +105,10 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
       disableSelectedCheckBox.setSelected(false);
       enableSelectedCheckBox.setEnabled(false);
       disableSelectedCheckBox.setEnabled(false);
-      if(activeTable!=null && activeTable.getSelectedRowCount()>0) {
-         boolean sameEnabled = activeTableModel().isSameEnabled(activeTable.getSelectedRows());
+      if(activeTable!=null && getSelectedRowCount()>0) {
+         boolean sameEnabled = activeTableModel().isSameEnabled(getSelectedRows());
          if(sameEnabled) {
-            if(activeModel().getEnabled(activeTable.getSelectedRows()[0])) { // all are enabled
+            if(activeModel().getEnabled(getSelectedRows()[0])) { // all are enabled
                enableSelectedCheckBox.setSelected(true);
                disableSelectedCheckBox.setEnabled(true);
             } else {
@@ -114,14 +124,14 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
 
    private void updateWeightTextField() {
       weightTextField.setText("");
-      if(activeTable!=null && activeTable.getSelectedRowCount() > 0) {
-         boolean sameWeight = activeTableModel().isSameWeight(activeTable.getSelectedRows());
+      if(activeTable!=null && getSelectedRowCount() > 0) {
+         boolean sameWeight = activeTableModel().isSameWeight(getSelectedRows());
          if(sameWeight) {
-            if(activeModel().isLocked(activeTable.getSelectedRows()[0])) {
+            if(activeModel().isLocked(getSelectedRows()[0])) {
                weightTextField.setText(IKTasksTableModel.LockedStr); // and keep disabled
                weightTextField.setEnabled(false);
             } else {
-               weightTextField.setText(((Double)activeModel().getWeight(activeTable.getSelectedRows()[0])).toString());
+               weightTextField.setText(((Double)activeModel().getWeight(getSelectedRows()[0])).toString());
                weightTextField.setEnabled(true);
             }
          } else {
@@ -133,7 +143,7 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
    }
 
    private void updateValueComponents() {
-      if(activeTable==null || activeTable.getSelectedRowCount()==0) {
+      if(activeTable==null || getSelectedRowCount()==0) {
          fromFileTextField.setText("");
          defaultValueTextField.setText("");
          manualValueTextField.setText("");
@@ -141,13 +151,13 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
          for(Component comp : new Component[]{fromFileRadioButton, defaultValueRadioButton, manualValueRadioButton, fromFileTextField, defaultValueTextField, manualValueTextField})
             comp.setEnabled(false);
       } else {
-         boolean sameValueType = activeTableModel().isSameValueType(activeTable.getSelectedRows());
-         boolean sameDefaultValue = activeTableModel().isSameDefaultValue(activeTable.getSelectedRows());
-         boolean sameManualValue = activeTableModel().isSameManualValue(activeTable.getSelectedRows());
+         boolean sameValueType = activeTableModel().isSameValueType(getSelectedRows());
+         boolean sameDefaultValue = activeTableModel().isSameDefaultValue(getSelectedRows());
+         boolean sameManualValue = activeTableModel().isSameManualValue(getSelectedRows());
 
          Component enabledTextField = null;
          if(sameValueType) {
-            switch(activeModel().getValueType(activeTable.getSelectedRows()[0])) {
+            switch(activeModel().getValueType(getSelectedRows()[0])) {
                case FromFile:
                   buttonGroup1.setSelected(fromFileRadioButton.getModel(),true); 
                   enabledTextField = fromFileTextField;
@@ -176,9 +186,9 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
             defaultValueRadioButton.setEnabled(true);
             manualValueRadioButton.setEnabled(true);
 
-            if(sameDefaultValue) defaultValueTextField.setText(((Double)activeModel().getDefaultValue(activeTable.getSelectedRows()[0])).toString());
+            if(sameDefaultValue) defaultValueTextField.setText(((Double)activeModel().getDefaultValue(getSelectedRows()[0])).toString());
             else defaultValueTextField.setText("Different");
-            if(sameManualValue) manualValueTextField.setText(((Double)activeModel().getManualValue(activeTable.getSelectedRows()[0])).toString());
+            if(sameManualValue) manualValueTextField.setText(((Double)activeModel().getManualValue(getSelectedRows()[0])).toString());
             else manualValueTextField.setText("");
          } else {
             fromFileRadioButton.setEnabled(true);
@@ -390,34 +400,28 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
       );
    }// </editor-fold>//GEN-END:initComponents
 
-   // We don't want to process a focus event if the focus is lost due to clicking on one of the tables because then the
-   // selected rows of that table would be different from the row we would like to apply the change to (the old selected rows list)
-   private boolean safeToProcessFocusEvent(java.awt.event.FocusEvent evt) {
-      return !evt.isTemporary() && evt.getOppositeComponent()!=ikMarkerTasksTable && evt.getOppositeComponent()!=ikCoordinateTasksTable;
-   }
-
    private void manualValueRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualValueRadioButtonActionPerformed
-      activeTableModel().setValueType(activeTable.getSelectedRows(), IKTasksModel.ValueType.ManualValue);
+      activeTableModel().setValueType(getSelectedRows(), IKTasksModel.ValueType.ManualValue);
    }//GEN-LAST:event_manualValueRadioButtonActionPerformed
 
    private void defaultValueRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defaultValueRadioButtonActionPerformed
-      activeTableModel().setValueType(activeTable.getSelectedRows(), IKTasksModel.ValueType.DefaultValue);
+      activeTableModel().setValueType(getSelectedRows(), IKTasksModel.ValueType.DefaultValue);
    }//GEN-LAST:event_defaultValueRadioButtonActionPerformed
 
    private void fromFileRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fromFileRadioButtonActionPerformed
-      activeTableModel().setValueType(activeTable.getSelectedRows(), IKTasksModel.ValueType.FromFile);
+      activeTableModel().setValueType(getSelectedRows(), IKTasksModel.ValueType.FromFile);
    }//GEN-LAST:event_fromFileRadioButtonActionPerformed
 
    private void setManualValueFromTextField() {
       try {
          double value = Double.valueOf(manualValueTextField.getText());
-         activeTableModel().setManualValue(activeTable.getSelectedRows(), value);
+         activeTableModel().setManualValue(getSelectedRows(), value);
       } catch (NumberFormatException ex) {
       }
    }
 
    private void manualValueTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_manualValueTextFieldFocusLost
-      if(safeToProcessFocusEvent(evt)) setManualValueFromTextField();
+      if(!evt.isTemporary()) setManualValueFromTextField();
    }//GEN-LAST:event_manualValueTextFieldFocusLost
 
    private void manualValueTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualValueTextFieldActionPerformed
@@ -427,13 +431,13 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
    private void setWeightFromTextField() {
       try {
          double weight = Double.valueOf(weightTextField.getText());
-         activeTableModel().setWeight(activeTable.getSelectedRows(), weight);
+         activeTableModel().setWeight(getSelectedRows(), weight);
       } catch (NumberFormatException ex) {
       }
    }
 
    private void weightTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_weightTextFieldFocusLost
-      if(safeToProcessFocusEvent(evt)) setWeightFromTextField();
+      if(!evt.isTemporary()) setWeightFromTextField();
    }//GEN-LAST:event_weightTextFieldFocusLost
 
    private void weightTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weightTextFieldActionPerformed
@@ -441,11 +445,11 @@ public class IKTaskSetPanel extends javax.swing.JPanel implements ListSelectionL
    }//GEN-LAST:event_weightTextFieldActionPerformed
 
    private void disableSelectedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disableSelectedCheckBoxActionPerformed
-      activeTableModel().setEnabled(activeTable.getSelectedRows(), false);
+      activeTableModel().setEnabled(getSelectedRows(), false);
    }//GEN-LAST:event_disableSelectedCheckBoxActionPerformed
 
    private void enableSelectedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableSelectedCheckBoxActionPerformed
-      activeTableModel().setEnabled(activeTable.getSelectedRows(), true);
+      activeTableModel().setEnabled(getSelectedRows(), true);
    }//GEN-LAST:event_enableSelectedCheckBoxActionPerformed
    
    // Variables declaration - do not modify//GEN-BEGIN:variables
