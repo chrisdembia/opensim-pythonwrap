@@ -205,8 +205,6 @@ public class PlotterModel {
         XYPlot dPlot = currentPlot.getChartPanel().getChart().getXYPlot();
         String oldLabel = dPlot.getDomainAxis().getLabel();
         String newLabel=oldLabel;
-        System.out.println("Old label="+oldLabel);
-        System.out.println("newDomainName="+newDomainName);
         if (oldLabel.equalsIgnoreCase("")||oldLabel.equalsIgnoreCase(getDefaulAxisLabel(true)))
             newLabel=newDomainName;
         else if (!oldLabel.contains(newDomainName))
@@ -216,8 +214,6 @@ public class PlotterModel {
         // Now Y
         oldLabel=dPlot.getRangeAxis().getLabel();
         newLabel=oldLabel;
-        System.out.println("Old label="+oldLabel);
-        System.out.println("newDomainName="+addYLabel);
         if (oldLabel.equalsIgnoreCase("")||oldLabel.equalsIgnoreCase(getDefaulAxisLabel(false)))   // First curve
             newLabel=addYLabel;
         else if (!oldLabel.contains(addYLabel))
@@ -459,6 +455,27 @@ public class PlotterModel {
 
    private void updatePlotXYLabels(Plot currentPlot, PlotCurve newCurve) {
       updatePlotXYLabels(currentPlot, newCurve.getXLabel(), newCurve.getYLabel());
+   }
+
+   void renameMotion(Storage storage) {
+       ArrayList<PlotterSourceMotion> motionSources=getLoadedMotionSources();
+       for(int i=0; i<motionSources.size(); i++){
+         if (motionSources.get(i).getStorage().equals(storage)){
+            motionSources.get(i).updateMotionName();
+            return;
+         }
+      }
+       
+   }
+
+   void removeMotion(Storage storage) {
+      for(int i=0; i<sources.size(); i++){
+         if (sources.get(i) instanceof PlotterSourceMotion &&
+                 sources.get(i).getStorage().equals(storage)){
+            sources.remove(i);
+            break;
+         }
+      }
    }
 
    

@@ -17,6 +17,9 @@ public final class MotionsSaveAsAction extends CallableSystemAction {
       // Needs to be converted to degrees, therefore we need to make a copy of it first
       Storage motionCopy = new Storage(motion);
       model.getDynamicsEngine().convertRadiansToDegrees(motionCopy);
+      String extension = FileUtils.getExtension(fileName);
+      if (extension==null)
+         fileName += ".sto";
       if(FileUtils.getExtension(fileName).toLowerCase().equals("mot"))
          motionCopy.setWriteSIMMHeader(true); // Write SIMM header for SIMM compatibility
       // TODO: set precision?

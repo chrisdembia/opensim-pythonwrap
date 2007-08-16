@@ -39,10 +39,12 @@ import org.openide.awt.StatusDisplayer;
 import org.openide.nodes.Node;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Storage;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.ModelEvent;
+import org.opensim.view.NameChangedEvent;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.pub.*;
 
@@ -369,5 +371,13 @@ public class MotionsDB extends Observable // Observed by other entities in motio
             return true;
       }
       return false;
+   }
+
+   void renameMotion(OpenSimObject openSimObject, String newName) {
+      // Object has been renamed already make a change event and send it to interested parties
+      NameChangedEvent evnt = new NameChangedEvent(openSimObject);
+      setMotionModified((Storage)openSimObject, true);
+      setChanged();
+      getInstance().notifyObservers(evnt);
    }
 }

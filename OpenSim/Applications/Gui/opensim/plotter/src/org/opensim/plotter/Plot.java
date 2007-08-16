@@ -30,6 +30,7 @@ import java.awt.Paint;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.SeriesRenderingOrder;
 import org.jfree.chart.plot.XYPlot;
@@ -81,7 +82,7 @@ public class Plot {
       plot.setSeriesRenderingOrder(SeriesRenderingOrder.FORWARD);
       plot.setDomainCrosshairVisible(false);
       plot.setRangeCrosshairVisible(false);
-      
+      ((NumberAxis)plot.getRangeAxis()).setAutoRangeStickyZero(false);
       XYItemRenderer r = plot.getRenderer();
       if (r instanceof XYLineAndShapeRenderer) {
          XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;

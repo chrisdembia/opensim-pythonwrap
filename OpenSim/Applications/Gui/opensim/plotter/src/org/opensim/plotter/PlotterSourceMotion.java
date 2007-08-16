@@ -55,5 +55,9 @@ public class PlotterSourceMotion extends PlotterSourceStorage {
            return true;
        return super.isValidName(columnName);
    }
+
+   void updateMotionName() {  // Update display name after a motion rename
+     displayName = storage.getName();
+   }
    
 }

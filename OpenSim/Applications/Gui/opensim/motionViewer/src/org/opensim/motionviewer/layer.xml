@@ -4,6 +4,7 @@
     <folder name="Actions">
         <folder name="Edit">
             <file name="org-opensim-motionviewer-FileLoadMotionAction.instance"/>
+            <file name="org-opensim-motionviewer-MotionRenameAction.instance"/>
             <file name="org-opensim-motionviewer-MotionsCloseAction.instance"/>
             <file name="org-opensim-motionviewer-MotionsSaveAsAction.instance"/>
             <file name="org-opensim-motionviewer-MotionsSetCurrentAction.instance"/>

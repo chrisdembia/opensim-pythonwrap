@@ -53,6 +53,7 @@ import org.opensim.motionviewer.MotionTimeChangeEvent;
 import org.opensim.utils.FileUtils;
 import org.opensim.motionviewer.MotionsDB;
 import org.opensim.view.ModelEvent;
+import org.opensim.view.NameChangedEvent;
 import org.opensim.view.ObjectSetCurrentEvent;
 import org.opensim.view.SingleModelGuiElements;
 import org.opensim.view.pub.OpenSimDB;
@@ -788,8 +789,8 @@ public class JPlotterPanel extends javax.swing.JPanel
              JMenuItem motionMenuItem = new JMenuItem(nextMotion.getDisplayName());
              motionMenuItem.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
-                   setDomainName(nextMotion.getDisplayName()+":time");
-                   jXQtyTextField.setText(nextMotion.getDisplayName()+":time");
+                   setDomainName(nextMotion.getDisplayName());
+                   jXQtyTextField.setText(nextMotion.getDisplayName());
                    jDomainStartTextField.setValue((double)nextMotion.getDefaultMin("time"));
                    jDomainEndTextField.setValue((double)nextMotion.getDefaultMax("time"));
                    sourceX=nextMotion;
@@ -1273,7 +1274,15 @@ public class JPlotterPanel extends javax.swing.JPanel
                plotterModel.addMotion(mev.getMotion());
                populateYPopup();
             }
+            else if (mev.getOperation()==mev.getOperation().Close){  // Some motion is closed
+               plotterModel.removeMotion(mev.getMotion());
+               populateYPopup();
+            }
          }
+         else if (arg instanceof NameChangedEvent){
+            plotterModel.renameMotion((Storage)((NameChangedEvent)arg).getObject());
+         }
+         
       }
       else if (o instanceof OpenSimDB){
          if (arg instanceof ObjectSetCurrentEvent) {

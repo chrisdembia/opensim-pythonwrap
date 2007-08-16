@@ -19,14 +19,14 @@ public final class MotionRenameAction extends CallableSystemAction {
 			String newName = dlg.getInputText();
 			objectNode.getOpenSimObject().setName(newName);
 			objectNode.setName(newName);  // Force navigartor window update
-			
-			// Now propagate change to other GUI 
+			MotionsDB.getInstance().renameMotion(objectNode.getOpenSimObject(), newName);
+
 	   }
 
    }
    
    public String getName() {
-      return NbBundle.getMessage(MotionsCloseAction.class, "CTL_MotionsCloseAction");
+      return NbBundle.getMessage(MotionRenameAction.class, "CTL_MotionRenameAction");
    }
    
    protected void initialize() {
@@ -48,4 +48,5 @@ public final class MotionRenameAction extends CallableSystemAction {
       for(int i=0; i<selected.length; i++) if(!(selected[i] instanceof OneMotionNode)) return false; // one of the nodes is not a OneMotionNode
       return (selected.length==1);
    }
+   
 }

@@ -19,6 +19,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.opensim.motionviewer.MotionEvent.Operation;
+import org.opensim.view.NameChangedEvent;
 
 /**
  *
@@ -677,6 +678,10 @@ public class MotionControlJPanel extends javax.swing.JPanel
       // Recover motion info, update toolbar accordingly
       if (o instanceof MotionsDB){
          MotionsDB mdb = (MotionsDB)o;
+         if (arg instanceof NameChangedEvent){
+            updatePanelDisplay();
+            return;
+         }
          if (!(arg instanceof MotionEvent)) // time should be ignored here
              return;
          MotionEvent evt = (MotionEvent)arg;
