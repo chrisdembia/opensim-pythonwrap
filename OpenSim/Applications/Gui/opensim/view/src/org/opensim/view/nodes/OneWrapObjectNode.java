@@ -17,6 +17,7 @@ public class OneWrapObjectNode extends OpenSimObjectNode{
    private static ResourceBundle bundle = NbBundle.getBundle(OneBodyNode.class);
    public OneWrapObjectNode(OpenSimObject b) {
       super(b);
+      setChildren(Children.LEAF);
       setShortDescription(bundle.getString("HINT_WrapObjectNode"));
       addDisplayOption(displayOption.Showable);
       addDisplayOption(displayOption.Isolatable);
