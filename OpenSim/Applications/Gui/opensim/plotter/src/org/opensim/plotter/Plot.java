@@ -82,7 +82,8 @@ public class Plot {
       plot.setSeriesRenderingOrder(SeriesRenderingOrder.FORWARD);
       plot.setDomainCrosshairVisible(false);
       plot.setRangeCrosshairVisible(false);
-      ((NumberAxis)plot.getRangeAxis()).setAutoRangeStickyZero(false);
+      ((NumberAxis)plot.getRangeAxis()).setAutoRangeIncludesZero(false);
+      
       XYItemRenderer r = plot.getRenderer();
       if (r instanceof XYLineAndShapeRenderer) {
          XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
