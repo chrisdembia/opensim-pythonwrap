@@ -14,7 +14,7 @@ import java.util.Vector;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ActuatorSet;
-import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.BodySet;
@@ -155,7 +155,7 @@ public class SingleModelGuiElements {
         if (actuators !=null){
            ObjectGroup group=actuators.getGroup(groupName);
            assert(group!=null);
-           ArrayPtrsObj objects = group.getMembers();
+           ArrayObjPtr objects = group.getMembers();
            for(int i=0; i<objects.getSize();i++){
                 ret.add(objects.get(i).getName());
            }

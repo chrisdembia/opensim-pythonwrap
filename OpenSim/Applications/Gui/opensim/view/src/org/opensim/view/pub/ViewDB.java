@@ -45,7 +45,7 @@ import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractMuscle;
-import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.ObjectGroup;
@@ -920,7 +920,7 @@ public final class ViewDB extends Observable implements Observer {
    public void toggleObjectsDisplay(OpenSimObject openSimObject, boolean visible) {
       ObjectGroup group = ObjectGroup.safeDownCast(openSimObject);
       if (group != null) {
-         ArrayPtrsObj members = group.getMembers();
+         ArrayObjPtr members = group.getMembers();
          for (int i = 0; i < members.getSize(); i++) {
             toggleObjectDisplay(members.get(i), visible);
          }
@@ -978,7 +978,7 @@ public final class ViewDB extends Observable implements Observer {
 
       if (openSimObject instanceof ObjectGroup){
           ObjectGroup grp = (ObjectGroup) openSimObject;
-          ArrayPtrsObj members = grp.getMembers();
+          ArrayObjPtr members = grp.getMembers();
           for(int i=0;i<members.getSize();i++)
               toggleObjectDisplay(members.get(i), visible); // Recur
           return;
@@ -1001,7 +1001,7 @@ public final class ViewDB extends Observable implements Observer {
       if (group != null) {
          boolean foundHidden = false;
          boolean foundShown = false;
-         ArrayPtrsObj members = group.getMembers();
+         ArrayObjPtr members = group.getMembers();
          for (int i = 0; i < members.getSize(); i++) {
             VisibleObject vo = members.get(i).getDisplayer();
             if (vo != null) {

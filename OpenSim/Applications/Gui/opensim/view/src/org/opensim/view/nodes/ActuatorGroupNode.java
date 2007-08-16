@@ -34,7 +34,7 @@ import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.ActuatorSet;
-import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.ObjectGroup;
 
 /**
@@ -53,7 +53,7 @@ public class ActuatorGroupNode extends OpenSimObjectNode {
       super(group);
       setDisplayName(group.getName());
       Children children = getChildren();
-      ArrayPtrsObj members = group.getMembers();
+      ArrayObjPtr members = group.getMembers();
       for (int i = 0; i < members.getSize(); i++ ) {
          OneActuatorNode node = new OneActuatorNode(members.get(i));
          Node[] arrNodes = new Node[1];

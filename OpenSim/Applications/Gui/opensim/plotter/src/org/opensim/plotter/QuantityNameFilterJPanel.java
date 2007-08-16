@@ -21,7 +21,7 @@ import javax.swing.event.TableModelListener;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ActuatorSet;
-import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.ObjectGroup;
 import org.opensim.view.pub.OpenSimDB;
@@ -325,7 +325,7 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
        // get members and use them to filter
         ActuatorSet acts=currentModel.getActuatorSet();
         ObjectGroup gp=acts.getGroup(groupName);
-        ArrayPtrsObj members=gp.getMembers();
+        ArrayObjPtr members=gp.getMembers();
         // Form a vector of muscle names
         String tempPattern="";
         for(int i=0;i<members.getSize();i++){

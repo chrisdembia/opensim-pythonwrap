@@ -34,7 +34,7 @@ import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.ActuatorSet;
-import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.GeneralizedForce;
 import org.opensim.modeling.ObjectGroup;
 
@@ -71,7 +71,8 @@ public class GeneralizedForcesNode extends OpenSimObjectSetNode {
       } else {
          for (int i = 0; i < as.getNumGroups(); i++) {
             ObjectGroup grp = as.getGroup(i);
-            ArrayPtrsObj apo = grp.getMembers();
+            ArrayObjPtr apo = grp.getMembers();
+            if(apo.getSize()==0) continue;
             GeneralizedForce genforce = GeneralizedForce.safeDownCast(apo.get(0));
             // If the first member of the group is a GeneralizedForce, then
             // consider this group to be a GeneralizedForce group.
@@ -123,7 +124,7 @@ public class GeneralizedForcesNode extends OpenSimObjectSetNode {
       int count = 0;
       for (int i = 0; i < as.getNumGroups(); i++) {
          ObjectGroup grp = as.getGroup(i);
-         ArrayPtrsObj apo = grp.getMembers();
+         ArrayObjPtr apo = grp.getMembers();
          if (apo.getSize()==0) continue;  // Gaurd against empty groups
          GeneralizedForce genforce = GeneralizedForce.safeDownCast(apo.get(0));
          // If the first member of the group is a GeneralizedForce, then

@@ -10,7 +10,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.CoordinateSet;
@@ -317,7 +317,7 @@ public class GroupEditorPanel extends javax.swing.JPanel
     // Populate list of current Group members 
    private void updateCurrentGroup() {
       // Get group members and populate the "to" list"
-      ArrayPtrsObj members =currentGroup.getMembers();
+      ArrayObjPtr members =currentGroup.getMembers();
       currentSetMembers.removeAllElements();
       for(int i=0; i<members.getSize(); i++)
          currentSetMembers.addElement(members.get(i).getName());

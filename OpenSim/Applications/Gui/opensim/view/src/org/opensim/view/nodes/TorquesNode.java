@@ -34,7 +34,7 @@ import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.ActuatorSet;
-import org.opensim.modeling.ArrayPtrsObj;
+import org.opensim.modeling.ArrayObjPtr;
 import org.opensim.modeling.Torque;
 import org.opensim.modeling.ObjectGroup;
 
@@ -71,7 +71,8 @@ public class TorquesNode extends OpenSimObjectSetNode {
       } else {
          for (int i = 0; i < as.getNumGroups(); i++) {
             ObjectGroup grp = as.getGroup(i);
-            ArrayPtrsObj apo = grp.getMembers();
+            ArrayObjPtr apo = grp.getMembers();
+            if(apo.getSize()==0) continue;
             Torque torque = Torque.safeDownCast(apo.get(0));
             // If the first member of the group is a Torque, then
             // consider this group to be a Torque group.
@@ -123,7 +124,7 @@ public class TorquesNode extends OpenSimObjectSetNode {
       int count = 0;
       for (int i = 0; i < as.getNumGroups(); i++) {
          ObjectGroup grp = as.getGroup(i);
-         ArrayPtrsObj apo = grp.getMembers();
+         ArrayObjPtr apo = grp.getMembers();
          if (apo.getSize()==0) continue;  // Gaurd against empty groups
          Torque torque = Torque.safeDownCast(apo.get(0));
          // If the first member of the group is a Torque, then
