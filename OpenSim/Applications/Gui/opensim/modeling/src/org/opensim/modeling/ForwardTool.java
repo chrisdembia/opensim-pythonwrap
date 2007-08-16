@@ -122,6 +122,11 @@ public class ForwardTool extends AbstractTool {
     opensimModelJNI.ForwardTool_setPrintResultFiles(swigCPtr, this, aToWrite);
   }
 
+  public Storage getStateStorage() {
+    long cPtr = opensimModelJNI.ForwardTool_getStateStorage(swigCPtr, this);
+    return (cPtr == 0) ? null : new Storage(cPtr, false);
+  }
+
   public boolean run() {
     return opensimModelJNI.ForwardTool_run(swigCPtr, this);
   }

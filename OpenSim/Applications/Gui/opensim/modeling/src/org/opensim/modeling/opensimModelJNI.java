@@ -449,6 +449,7 @@ public class opensimModelJNI {
   public final static native String Storage_DEFAULT_HEADER_TOKEN_get();
   public final static native void Storage_DEFAULT_HEADER_SEPARATOR_set(String jarg1);
   public final static native String Storage_DEFAULT_HEADER_SEPARATOR_get();
+  public final static native int Storage_MAX_RESAMPLE_SIZE_get();
   public final static native long new_Storage__SWIG_0(int jarg1, String jarg2);
   public final static native long new_Storage__SWIG_1(int jarg1);
   public final static native long new_Storage__SWIG_2();
@@ -546,7 +547,8 @@ public class opensimModelJNI {
   public final static native int Storage_findIndex__SWIG_0(long jarg1, Storage jarg1_, double jarg2);
   public final static native int Storage_findIndex__SWIG_1(long jarg1, Storage jarg1_, int jarg2, double jarg3);
   public final static native void Storage_findFrameRange(long jarg1, Storage jarg1_, double jarg2, double jarg3, long jarg4, long jarg5);
-  public final static native void Storage_resample(long jarg1, Storage jarg1_, double jarg2, int jarg3);
+  public final static native double Storage_resample(long jarg1, Storage jarg1_, double jarg2, int jarg3);
+  public final static native double Storage_resampleLinear(long jarg1, Storage jarg1_, double jarg2);
   public final static native void Storage_print__SWIG_0(long jarg1, Storage jarg1_);
   public final static native boolean Storage_print__SWIG_1(long jarg1, Storage jarg1_, String jarg2, String jarg3, String jarg4);
   public final static native boolean Storage_print__SWIG_2(long jarg1, Storage jarg1_, String jarg2, String jarg3);
@@ -1055,7 +1057,9 @@ public class opensimModelJNI {
   public final static native long AnalysisSet_copy(long jarg1, AnalysisSet jarg1_);
   public final static native void AnalysisSet_setModel(long jarg1, AnalysisSet jarg1_, long jarg2, Model jarg2_);
   public final static native long AnalysisSet_getModel(long jarg1, AnalysisSet jarg1_);
-  public final static native void AnalysisSet_setOn(long jarg1, AnalysisSet jarg1_, boolean jarg2);
+  public final static native void AnalysisSet_setOn__SWIG_0(long jarg1, AnalysisSet jarg1_, boolean jarg2);
+  public final static native void AnalysisSet_setOn__SWIG_1(long jarg1, AnalysisSet jarg1_, long jarg2, ArrayBool jarg2_);
+  public final static native long AnalysisSet_getOn(long jarg1, AnalysisSet jarg1_);
   public final static native void AnalysisSet_begin__SWIG_0(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8, long jarg9);
   public final static native void AnalysisSet_begin__SWIG_1(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7, long jarg8);
   public final static native void AnalysisSet_begin__SWIG_2(long jarg1, AnalysisSet jarg1_, int jarg2, double jarg3, double jarg4, long jarg5, long jarg6, long jarg7);
@@ -1120,7 +1124,8 @@ public class opensimModelJNI {
   public final static native double Model_getControl__SWIG_1(long jarg1, Model jarg1_, String jarg2);
   public final static native String Model_getControlName(long jarg1, Model jarg1_, int jarg2);
   public final static native void Model_getStateNames(long jarg1, Model jarg1_, long jarg2, ArrayStr jarg2_);
-  public final static native void Model_setStates(long jarg1, Model jarg1_, double[] jarg2);
+  public final static native void Model_setStates__SWIG_0(long jarg1, Model jarg1_, long jarg2, ArrayDouble jarg2_);
+  public final static native void Model_setStates__SWIG_1(long jarg1, Model jarg1_, double[] jarg2);
   public final static native void Model_getStates(long jarg1, Model jarg1_, double[] jarg2);
   public final static native void Model_setInitialStates(long jarg1, Model jarg1_, double[] jarg2);
   public final static native void Model_getInitialStates(long jarg1, Model jarg1_, double[] jarg2);
@@ -1425,6 +1430,7 @@ public class opensimModelJNI {
   public final static native double ForwardTool_getLowpassCutoffFrequencyForLoadKinematics(long jarg1, ForwardTool jarg1_);
   public final static native void ForwardTool_setLowpassCutoffFrequencyForLoadKinematics(long jarg1, ForwardTool jarg1_, double jarg2);
   public final static native void ForwardTool_setPrintResultFiles(long jarg1, ForwardTool jarg1_, boolean jarg2);
+  public final static native long ForwardTool_getStateStorage(long jarg1, ForwardTool jarg1_);
   public final static native boolean ForwardTool_run(long jarg1, ForwardTool jarg1_);
   public final static native void ForwardTool_printResults(long jarg1, ForwardTool jarg1_);
   public final static native void ForwardTool_initializeExternalLoads__SWIG_0(long jarg1, Model jarg1_, String jarg2, String jarg3, String jarg4, String jarg5, double jarg6, long jarg7, long jarg8, long jarg9, long jarg10);
@@ -1465,6 +1471,8 @@ public class opensimModelJNI {
   public final static native long SimtkAnimationCallback_getBodyTransform(long jarg1, SimtkAnimationCallback jarg1_, int jarg2);
   public final static native void SimtkAnimationCallback_extractOffsets(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, Model jarg2_);
   public final static native long SimtkAnimationCallback_getModelForDisplay(long jarg1, SimtkAnimationCallback jarg1_);
+  public final static native void SimtkAnimationCallback_setModelForDisplaySetConfiguration(long jarg1, SimtkAnimationCallback jarg1_, boolean jarg2);
+  public final static native boolean SimtkAnimationCallback_getModelForDisplayCompatibleStates(long jarg1, SimtkAnimationCallback jarg1_);
   public final static native void SimtkAnimationCallback_getTransformsFromKinematicsEngine(long jarg1, SimtkAnimationCallback jarg1_, long jarg2, Model jarg2_);
   public final static native void SimtkAnimationCallback_director_connect(SimtkAnimationCallback obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void SimtkAnimationCallback_change_ownership(SimtkAnimationCallback obj, long cptr, boolean take_or_release);
@@ -2953,6 +2961,7 @@ public class opensimModelJNI {
   public final static native double AbstractMuscle_getPassiveFiberForce(long jarg1, AbstractMuscle jarg1_);
   public final static native double AbstractMuscle_getActiveFiberForceAlongTendon(long jarg1, AbstractMuscle jarg1_);
   public final static native double AbstractMuscle_getPassiveFiberForceAlongTendon(long jarg1, AbstractMuscle jarg1_);
+  public final static native double AbstractMuscle_getActivation(long jarg1, AbstractMuscle jarg1_);
   public final static native void AbstractMuscle_computeActuation(long jarg1, AbstractMuscle jarg1_);
   public final static native double AbstractMuscle_computeMomentArm(long jarg1, AbstractMuscle jarg1_, long jarg2, AbstractCoordinate jarg2_);
   public final static native void AbstractMuscle_computeMomentArms(long jarg1, AbstractMuscle jarg1_, long jarg2, ArrayDouble jarg2_);
@@ -3089,6 +3098,7 @@ public class opensimModelJNI {
   public final static native double Thelen2003Muscle_getNormalizedFiberLength(long jarg1, Thelen2003Muscle jarg1_);
   public final static native double Thelen2003Muscle_getPassiveFiberForce(long jarg1, Thelen2003Muscle jarg1_);
   public final static native double Thelen2003Muscle_getStress(long jarg1, Thelen2003Muscle jarg1_);
+  public final static native double Thelen2003Muscle_getActivation(long jarg1, Thelen2003Muscle jarg1_);
   public final static native void Thelen2003Muscle_computeStateDerivatives(long jarg1, Thelen2003Muscle jarg1_, double[] jarg2);
   public final static native void Thelen2003Muscle_computeEquilibrium(long jarg1, Thelen2003Muscle jarg1_);
   public final static native void Thelen2003Muscle_computeActuation(long jarg1, Thelen2003Muscle jarg1_);
@@ -3136,6 +3146,7 @@ public class opensimModelJNI {
   public final static native double Schutte1993Muscle_calcTendonForce(long jarg1, Schutte1993Muscle jarg1_, double jarg2);
   public final static native double Schutte1993Muscle_getStress(long jarg1, Schutte1993Muscle jarg1_);
   public final static native double Schutte1993Muscle_computeIsometricForce(long jarg1, Schutte1993Muscle jarg1_, double jarg2);
+  public final static native double Schutte1993Muscle_getActivation(long jarg1, Schutte1993Muscle jarg1_);
   public final static native boolean Schutte1993Muscle_isKindOf(String jarg1);
   public final static native boolean Schutte1993Muscle_isA(long jarg1, Schutte1993Muscle jarg1_, String jarg2);
   public final static native long Schutte1993Muscle_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3187,6 +3198,7 @@ public class opensimModelJNI {
   public final static native boolean IKTrial_initializeTrialCommon(long jarg1, IKTrial jarg1_, long jarg2, Model jarg2_, long jarg3, IKTaskSet jarg3_, long jarg4, MarkerData jarg4_);
   public final static native boolean IKTrial_initializeTrial(long jarg1, IKTrial jarg1_, long jarg2, Model jarg2_, long jarg3, IKTaskSet jarg3_);
   public final static native boolean IKTrial_solveTrial(long jarg1, IKTrial jarg1_, long jarg2, Model jarg2_, long jarg3, IKTaskSet jarg3_);
+  public final static native void IKTrial_interrupt(long jarg1, IKTrial jarg1_);
   public final static native double IKTrial_getStartTime(long jarg1, IKTrial jarg1_);
   public final static native double IKTrial_getEndTime(long jarg1, IKTrial jarg1_);
   public final static native void IKTrial_setStartTime(long jarg1, IKTrial jarg1_, double jarg2);
@@ -3361,9 +3373,10 @@ public class opensimModelJNI {
   public final static native void delete_IKSolverInterface(long jarg1);
   public final static native void IKSolverInterface_initializeSolver(long jarg1, IKSolverInterface jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
   public final static native void IKSolverInterface_solveFrames(long jarg1, IKSolverInterface jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
+  public final static native void IKSolverInterface_interrupt(long jarg1, IKSolverInterface jarg1_);
   public final static native void delete_IKTool(long jarg1);
   public final static native long new_IKTool__SWIG_0();
-  public final static native long new_IKTool__SWIG_1(String jarg1, long jarg2, Model jarg2_) throws java.io.IOException;
+  public final static native long new_IKTool__SWIG_1(String jarg1, boolean jarg2) throws java.io.IOException;
   public final static native long new_IKTool__SWIG_2(String jarg1) throws java.io.IOException;
   public final static native long new_IKTool__SWIG_3(long jarg1, IKTool jarg1_);
   public final static native long IKTool_copy(long jarg1, IKTool jarg1_);
@@ -3581,10 +3594,12 @@ public class opensimModelJNI {
   public final static native boolean MarkerPlacer_getMoveModelMarkers(long jarg1, MarkerPlacer jarg1_);
   public final static native void MarkerPlacer_setMoveModelMarkers(long jarg1, MarkerPlacer jarg1_, boolean jarg2);
   public final static native long MarkerPlacer_getOutputStorage(long jarg1, MarkerPlacer jarg1_);
+  public final static native long MarkerPlacer_getIKTrial(long jarg1, MarkerPlacer jarg1_);
   public final static native long new_IKSolverImpl(long jarg1);
   public final static native void delete_IKSolverImpl(long jarg1);
   public final static native void IKSolverImpl_initializeSolver(long jarg1, IKSolverImpl jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
   public final static native void IKSolverImpl_solveFrames(long jarg1, IKSolverImpl jarg1_, long jarg2, IKTrial jarg2_, long jarg3, Storage jarg3_, long jarg4, Storage jarg4_);
+  public final static native void IKSolverImpl_interrupt(long jarg1, IKSolverImpl jarg1_);
   public final static native void delete_CMCTool(long jarg1);
   public final static native long new_CMCTool__SWIG_0();
   public final static native long new_CMCTool__SWIG_1(String jarg1, boolean jarg2) throws java.io.IOException;
@@ -3605,6 +3620,8 @@ public class opensimModelJNI {
   public final static native void CMCTool_setAdjustCOMToReduceResiduals(long jarg1, CMCTool jarg1_, boolean jarg2);
   public final static native String CMCTool_getAdjustedCOMBody(long jarg1, CMCTool jarg1_);
   public final static native void CMCTool_setAdjustedCOMBody(long jarg1, CMCTool jarg1_, String jarg2);
+  public final static native boolean CMCTool_getAdjustKinematicsToReduceResiduals(long jarg1, CMCTool jarg1_);
+  public final static native void CMCTool_setAdjustKinematicsToReduceResiduals(long jarg1, CMCTool jarg1_, boolean jarg2);
   public final static native double CMCTool_getLowpassCutoffFrequency(long jarg1, CMCTool jarg1_);
   public final static native void CMCTool_setLowpassCutoffFrequency(long jarg1, CMCTool jarg1_, double jarg2);
   public final static native String CMCTool_getExternalLoadsFileName(long jarg1, CMCTool jarg1_);
@@ -3619,6 +3636,7 @@ public class opensimModelJNI {
   public final static native void CMCTool_setLowpassCutoffFrequencyForLoadKinematics(long jarg1, CMCTool jarg1_, double jarg2);
   public final static native boolean CMCTool_run(long jarg1, CMCTool jarg1_);
   public final static native long CMCTool_getForceStorage(long jarg1, CMCTool jarg1_);
+  public final static native long CMCTool_getStateStorage(long jarg1, CMCTool jarg1_);
   public final static native void CMCTool_setOriginalActuatorSet(long jarg1, CMCTool jarg1_, long jarg2, ActuatorSet jarg2_);
   public final static native long new_ScaleTool__SWIG_0();
   public final static native long new_ScaleTool__SWIG_1(String jarg1) throws java.io.IOException;
@@ -3653,7 +3671,7 @@ public class opensimModelJNI {
   public final static native void AnalyzeTool_setControlSet(long jarg1, AnalyzeTool jarg1_, long jarg2, ControlSet jarg2_);
   public final static native long AnalyzeTool_getControlSet(long jarg1, AnalyzeTool jarg1_);
   public final static native void AnalyzeTool_setStatesStorage(long jarg1, AnalyzeTool jarg1_, long jarg2, Storage jarg2_);
-  public final static native void AnalyzeTool_setStatesStorageFromCoordinatesAndSpeeds(long jarg1, AnalyzeTool jarg1_, long jarg2, Storage jarg2_, long jarg3, Storage jarg3_);
+  public final static native long AnalyzeTool_createStatesStorageFromCoordinatesAndSpeeds(long jarg1, Model jarg1_, long jarg2, Storage jarg2_, long jarg3, Storage jarg3_);
   public final static native long AnalyzeTool_getStatesStorage(long jarg1, AnalyzeTool jarg1_);
   public final static native void AnalyzeTool_setPseudoStatesStorage(long jarg1, AnalyzeTool jarg1_, long jarg2, Storage jarg2_);
   public final static native long AnalyzeTool_getPseudoStatesStorage(long jarg1, AnalyzeTool jarg1_);
@@ -3686,7 +3704,8 @@ public class opensimModelJNI {
   public final static native void AnalyzeTool_verifyControlsStatesPseudoStates(long jarg1, AnalyzeTool jarg1_);
   public final static native double AnalyzeTool_getControlsStatesPseudoStates(long jarg1, AnalyzeTool jarg1_, int jarg2, long jarg3, ArrayDouble jarg3_, long jarg4, ArrayDouble jarg4_, long jarg5, ArrayDouble jarg5_);
   public final static native void AnalyzeTool_setPrintResultFiles(long jarg1, AnalyzeTool jarg1_, boolean jarg2);
-  public final static native boolean AnalyzeTool_run(long jarg1, AnalyzeTool jarg1_);
+  public final static native boolean AnalyzeTool_run__SWIG_0(long jarg1, AnalyzeTool jarg1_);
+  public final static native void AnalyzeTool_run__SWIG_1(long jarg1, Model jarg1_, int jarg2, int jarg3, long jarg4, Storage jarg4_, long jarg5, Storage jarg5_, long jarg6, ControlSet jarg6_, boolean jarg7);
   public final static native long SWIGPropertyStrUpcast(long jarg1);
   public final static native long SWIGObjectGroupUpcast(long jarg1);
   public final static native long SWIGVisiblePropertiesUpcast(long jarg1);

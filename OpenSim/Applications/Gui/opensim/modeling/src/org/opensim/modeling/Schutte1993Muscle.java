@@ -162,6 +162,10 @@ public class Schutte1993Muscle extends AbstractMuscle {
     return opensimModelJNI.Schutte1993Muscle_computeIsometricForce(swigCPtr, this, activation);
   }
 
+  public double getActivation() {
+    return opensimModelJNI.Schutte1993Muscle_getActivation(swigCPtr, this);
+  }
+
   public static boolean isKindOf(String type) {
     return opensimModelJNI.Schutte1993Muscle_isKindOf(type);
   }

@@ -37,8 +37,8 @@ public class IKTool extends AbstractTool {
     this(opensimModelJNI.new_IKTool__SWIG_0(), true);
   }
 
-  public IKTool(String aFileName, Model guiModel) throws java.io.IOException {
-    this(opensimModelJNI.new_IKTool__SWIG_1(aFileName, Model.getCPtr(guiModel), guiModel), true);
+  public IKTool(String aFileName, boolean aLoadModel) throws java.io.IOException {
+    this(opensimModelJNI.new_IKTool__SWIG_1(aFileName, aLoadModel), true);
   }
 
   public IKTool(String aFileName) throws java.io.IOException {

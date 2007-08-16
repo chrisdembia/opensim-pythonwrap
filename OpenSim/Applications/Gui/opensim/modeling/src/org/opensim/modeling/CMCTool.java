@@ -110,6 +110,14 @@ public class CMCTool extends AbstractTool {
     opensimModelJNI.CMCTool_setAdjustedCOMBody(swigCPtr, this, aBody);
   }
 
+  public boolean getAdjustKinematicsToReduceResiduals() {
+    return opensimModelJNI.CMCTool_getAdjustKinematicsToReduceResiduals(swigCPtr, this);
+  }
+
+  public void setAdjustKinematicsToReduceResiduals(boolean aAdjust) {
+    opensimModelJNI.CMCTool_setAdjustKinematicsToReduceResiduals(swigCPtr, this, aAdjust);
+  }
+
   public double getLowpassCutoffFrequency() {
     return opensimModelJNI.CMCTool_getLowpassCutoffFrequency(swigCPtr, this);
   }
@@ -164,6 +172,11 @@ public class CMCTool extends AbstractTool {
 
   public Storage getForceStorage() {
     long cPtr = opensimModelJNI.CMCTool_getForceStorage(swigCPtr, this);
+    return (cPtr == 0) ? null : new Storage(cPtr, false);
+  }
+
+  public Storage getStateStorage() {
+    long cPtr = opensimModelJNI.CMCTool_getStateStorage(swigCPtr, this);
     return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 

@@ -159,4 +159,9 @@ public class MarkerPlacer extends OpenSimObject {
     return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
+  public IKTrial getIKTrial() {
+    long cPtr = opensimModelJNI.MarkerPlacer_getIKTrial(swigCPtr, this);
+    return (cPtr == 0) ? null : new IKTrial(cPtr, false);
+  }
+
 }

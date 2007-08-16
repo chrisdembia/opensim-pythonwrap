@@ -45,4 +45,8 @@ public class IKSolverInterface {
     opensimModelJNI.IKSolverInterface_solveFrames(swigCPtr, this, IKTrial.getCPtr(aIKOptions), aIKOptions, Storage.getCPtr(inputData), inputData, Storage.getCPtr(outputData), outputData);
   }
 
+  public void interrupt() {
+    opensimModelJNI.IKSolverInterface_interrupt(swigCPtr, this);
+  }
+
 }

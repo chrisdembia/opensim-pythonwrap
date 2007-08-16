@@ -134,6 +134,10 @@ public class Thelen2003Muscle extends AbstractMuscle {
     return opensimModelJNI.Thelen2003Muscle_getStress(swigCPtr, this);
   }
 
+  public double getActivation() {
+    return opensimModelJNI.Thelen2003Muscle_getActivation(swigCPtr, this);
+  }
+
   public void computeStateDerivatives(double[] rDYDT) {
     opensimModelJNI.Thelen2003Muscle_computeStateDerivatives(swigCPtr, this, rDYDT);
   }

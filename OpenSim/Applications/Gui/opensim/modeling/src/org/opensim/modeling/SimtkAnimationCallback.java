@@ -109,6 +109,14 @@ public class SimtkAnimationCallback extends IntegCallback {
     return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
+  public void setModelForDisplaySetConfiguration(boolean aSetConfiguration) {
+    opensimModelJNI.SimtkAnimationCallback_setModelForDisplaySetConfiguration(swigCPtr, this, aSetConfiguration);
+  }
+
+  public boolean getModelForDisplayCompatibleStates() {
+    return opensimModelJNI.SimtkAnimationCallback_getModelForDisplayCompatibleStates(swigCPtr, this);
+  }
+
   public void getTransformsFromKinematicsEngine(Model simmModel) {
     opensimModelJNI.SimtkAnimationCallback_getTransformsFromKinematicsEngine(swigCPtr, this, Model.getCPtr(simmModel), simmModel);
   }

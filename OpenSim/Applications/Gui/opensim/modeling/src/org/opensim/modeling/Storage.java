@@ -57,6 +57,10 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_DEFAULT_HEADER_SEPARATOR_get();
   }
 
+  public static int getMAX_RESAMPLE_SIZE() {
+    return opensimModelJNI.Storage_MAX_RESAMPLE_SIZE_get();
+  }
+
   public Storage(int aCapacity, String aName) {
     this(opensimModelJNI.new_Storage__SWIG_0(aCapacity, aName), true);
   }
@@ -448,8 +452,12 @@ public class Storage extends OpenSimObject {
     opensimModelJNI.Storage_findFrameRange(swigCPtr, this, aStartTime, aEndTime, SWIGTYPE_p_int.getCPtr(oStartFrame), SWIGTYPE_p_int.getCPtr(oEndFrame));
   }
 
-  public void resample(double aDT, int aDegree) {
-    opensimModelJNI.Storage_resample(swigCPtr, this, aDT, aDegree);
+  public double resample(double aDT, int aDegree) {
+    return opensimModelJNI.Storage_resample(swigCPtr, this, aDT, aDegree);
+  }
+
+  public double resampleLinear(double aDT) {
+    return opensimModelJNI.Storage_resampleLinear(swigCPtr, this, aDT);
   }
 
   public void print() {

@@ -70,6 +70,10 @@ public class IKTrial extends OpenSimObject {
     return opensimModelJNI.IKTrial_solveTrial(swigCPtr, this, Model.getCPtr(aModel), aModel, IKTaskSet.getCPtr(aIKTaskSet), aIKTaskSet);
   }
 
+  public void interrupt() {
+    opensimModelJNI.IKTrial_interrupt(swigCPtr, this);
+  }
+
   public double getStartTime() {
     return opensimModelJNI.IKTrial_getStartTime(swigCPtr, this);
   }

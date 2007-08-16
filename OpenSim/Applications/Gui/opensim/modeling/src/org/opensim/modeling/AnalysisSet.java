@@ -64,7 +64,15 @@ public class AnalysisSet extends SetAnalysis {
   }
 
   public void setOn(boolean aTrueFalse) {
-    opensimModelJNI.AnalysisSet_setOn(swigCPtr, this, aTrueFalse);
+    opensimModelJNI.AnalysisSet_setOn__SWIG_0(swigCPtr, this, aTrueFalse);
+  }
+
+  public void setOn(ArrayBool aOn) {
+    opensimModelJNI.AnalysisSet_setOn__SWIG_1(swigCPtr, this, ArrayBool.getCPtr(aOn), aOn);
+  }
+
+  public ArrayBool getOn() {
+    return new ArrayBool(opensimModelJNI.AnalysisSet_getOn(swigCPtr, this), true);
   }
 
   public void begin(int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {

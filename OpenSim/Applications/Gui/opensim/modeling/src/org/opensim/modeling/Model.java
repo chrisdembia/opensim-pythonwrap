@@ -219,8 +219,12 @@ public class Model extends OpenSimObject {
     opensimModelJNI.Model_getStateNames(swigCPtr, this, ArrayStr.getCPtr(rStateNames), rStateNames);
   }
 
+  public void setStates(ArrayDouble aY) {
+    opensimModelJNI.Model_setStates__SWIG_0(swigCPtr, this, ArrayDouble.getCPtr(aY), aY);
+  }
+
   public void setStates(double[] aY) {
-    opensimModelJNI.Model_setStates(swigCPtr, this, aY);
+    opensimModelJNI.Model_setStates__SWIG_1(swigCPtr, this, aY);
   }
 
   public void getStates(double[] rY) {

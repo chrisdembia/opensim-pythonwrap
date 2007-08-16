@@ -71,8 +71,9 @@ public class AnalyzeTool extends AbstractTool {
     opensimModelJNI.AnalyzeTool_setStatesStorage(swigCPtr, this, Storage.getCPtr(aStore), aStore);
   }
 
-  public void setStatesStorageFromCoordinatesAndSpeeds(Storage aQStore, Storage aUStore) {
-    opensimModelJNI.AnalyzeTool_setStatesStorageFromCoordinatesAndSpeeds(swigCPtr, this, Storage.getCPtr(aQStore), aQStore, Storage.getCPtr(aUStore), aUStore);
+  public static Storage createStatesStorageFromCoordinatesAndSpeeds(Model aModel, Storage aQStore, Storage aUStore) {
+    long cPtr = opensimModelJNI.AnalyzeTool_createStatesStorageFromCoordinatesAndSpeeds(Model.getCPtr(aModel), aModel, Storage.getCPtr(aQStore), aQStore, Storage.getCPtr(aUStore), aUStore);
+    return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
   public Storage getStatesStorage() {
@@ -206,7 +207,11 @@ public class AnalyzeTool extends AbstractTool {
   }
 
   public boolean run() {
-    return opensimModelJNI.AnalyzeTool_run(swigCPtr, this);
+    return opensimModelJNI.AnalyzeTool_run__SWIG_0(swigCPtr, this);
+  }
+
+  public static void run(Model aModel, int iInitial, int iFinal, Storage aStatesStore, Storage aPseudoStore, ControlSet aControlSet, boolean aSolveForEquilibrium) {
+    opensimModelJNI.AnalyzeTool_run__SWIG_1(Model.getCPtr(aModel), aModel, iInitial, iFinal, Storage.getCPtr(aStatesStore), aStatesStore, Storage.getCPtr(aPseudoStore), aPseudoStore, ControlSet.getCPtr(aControlSet), aControlSet, aSolveForEquilibrium);
   }
 
 }
