@@ -76,7 +76,7 @@ abstract class ObjectDisplayShowHideBaseAction extends CallableSystemAction {
                applyOperationToNode(childNode);
             }
         }
-        else
+        //else
             ViewDB.getInstance().toggleObjectsDisplay(obj, show);
     }
     
