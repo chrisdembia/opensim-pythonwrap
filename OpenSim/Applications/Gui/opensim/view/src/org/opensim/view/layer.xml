@@ -51,7 +51,6 @@
         </folder>
         <folder name="Window">
             <file name="org-netbeans-core-actions-ViewRuntimeTabAction.instance_hidden"/>
-            <file name="org-opensim-view-BottomPanelAction.instance"/>
             <file name="org-opensim-view-ExplorerAction.instance"/>
             <file name="org-opensim-view-editors-MuscleEditorAction.instance"/>
             </folder>
@@ -261,7 +260,6 @@
     </folder>
     <folder name="Windows2">
         <folder name="Components">
-            <file name="BottomPanelTopComponent.settings" url="BottomPanelTopComponentSettings.xml"/>
             <file name="ExplorerTopComponent.settings" url="ExplorerTopComponentSettings.xml"/>
             <file name="MuscleEditorTopComponent.settings" url="MuscleEditorTopComponentSettings.xml"/>
         </folder>
@@ -273,7 +271,6 @@
                 <file name="MuscleEditorTopComponent.wstcref" url="MuscleEditorTopComponentWstcref.xml"/>
             </folder>
             <folder name="output">
-                 <file name="BottomPanelTopComponent.wstcref" url="BottomPanelTopComponentWstcref.xml"/>
                 <file name="LoggerTopComponent.wstcref_hidden"/>
             </folder>
             <folder name="rightSlidingSide">

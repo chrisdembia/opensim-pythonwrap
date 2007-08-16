@@ -26,7 +26,7 @@
 package org.opensim.tracking;
 
 import javax.swing.JPanel;
-import org.opensim.view.BottomPanelTopComponent;
+import org.opensim.logger.OpenSimLogger;
 /**
  *
  * @author Ayman Habib
@@ -53,7 +53,7 @@ public abstract class workflowVisualPanelBase extends JPanel{
 
     abstract public void appendMessage(String message);
     public void displayMessage(String message) {
-        BottomPanelTopComponent.findInstance().showLogMessage(message);
+      OpenSimLogger.logMessage(message, OpenSimLogger.INFO);
     }
     // A common place to check if values entered in the GUI make sense together
     // Usually this ends up calling setGuiCanAdvance().

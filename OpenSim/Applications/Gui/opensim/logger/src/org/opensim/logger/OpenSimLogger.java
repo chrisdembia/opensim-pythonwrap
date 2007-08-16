@@ -38,7 +38,7 @@ public final class OpenSimLogger {
    public static int OFF=-2;   // Could use enum too
    public static int DEBUG=-1;      
    public static int INFO=0;      
-   public static int WRANING=1;      
+   public static int WARNING=1;      
    public static int ERROR=2;
    
    private static int errorLevel=INFO;

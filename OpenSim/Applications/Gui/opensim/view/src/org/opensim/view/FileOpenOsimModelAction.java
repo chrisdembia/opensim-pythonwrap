@@ -9,6 +9,7 @@ import org.netbeans.api.progress.ProgressHandleFactory;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
+import org.opensim.logger.OpenSimLogger;
 import org.opensim.modeling.Model;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
@@ -52,11 +53,11 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
         boolean retValue = false;
         boolean isOk = aModel.builtOK();
         if (!isOk){
-            BottomPanelTopComponent.findInstance().showErrorMessage("Failed to construct model from file "+fileName+"\n");
+            OpenSimLogger.logMessage("Failed to construct model from file "+fileName+"\n", OpenSimLogger.ERROR);
             return retValue;            
         }
         if (OpenSimDB.getInstance().hasModel(aModel)){   // If model is already loaded, complain and return.
-            BottomPanelTopComponent.findInstance().showErrorMessage("Model is already loaded\n");
+            OpenSimLogger.logMessage("Model is already loaded\n", OpenSimLogger.ERROR);
             return retValue;            
            
         }
@@ -65,7 +66,8 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
             public void run() {
                 OpenSimDB.getInstance().addModel(aModel);
                 // Log message to Log window. 
-                BottomPanelTopComponent.findInstance().showLogMessage("Model has been created from file "+aModel.getInputFileName()+"\n");
+                // Actually don't do it since C++ already prints this message
+                //OpenSimLogger.logMessage("Model has been created from file "+aModel.getInputFileName()+"\n", OpenSimLogger.INFO);
             }});
         retValue = true;
         return retValue;        
@@ -83,7 +85,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
         boolean retValue = false;
         final Model aModel = new Model(fileName);
         if (aModel == null){
-             BottomPanelTopComponent.findInstance().showErrorMessage("Failed to construct model from file "+fileName+"\n");
+             OpenSimLogger.logMessage("Failed to construct model from file "+fileName+"\n", OpenSimLogger.ERROR);
             return retValue;
         }
         aModel.setup();
