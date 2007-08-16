@@ -315,7 +315,7 @@ public final class HelpAboutJPanel extends javax.swing.JPanel implements ImageOb
       jTextArea4.setFont(new java.awt.Font("Tahoma", 0, 11));
       jTextArea4.setLineWrap(true);
       jTextArea4.setRows(5);
-      jTextArea4.setText("For details see \n\nDelp, S.L., Anderson, F.C., Arnold, A. S., Loan, P., Habib, A., John, C., Guendelman, E., Thelen, D.G.\nOpenSim: Open-source software to create and analyze dynamic simulations of movement.  \nIEEE Transactions on Biomedical Engineering, Nov. 2007.  \nOther citations and contributions noted within the application.");
+      jTextArea4.setText("For details see \n\nDelp, S.L., Anderson, F.C., Arnold, A. S., Loan, P., Habib, A., John, C., Guendelman, E., Thelen, D.G.   OpenSim: Open-source software to create and analyze dynamic simulations of movement.  IEEE Transactions on Biomedical Engineering, Nov. 2007.  Other citations and contributions noted within the application.");
       jTextArea4.setWrapStyleWord(true);
       jTextArea4.setMargin(new java.awt.Insets(0, 5, 0, 0));
       jScrollPane4.setViewportView(jTextArea4);

@@ -151,6 +151,7 @@ public class ModelInfoJPanel extends javax.swing.JPanel {
     public void setReferences(String referencesValue)
     {
        jPublicationsTextArea.setText(referencesValue);
+       jPublicationsTextArea.setCaretPosition(0);
     }
 
    public void setDynamicsEngineName(String string) {

@@ -520,7 +520,7 @@
                         </Property>
                         <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="5"/>
-                        <Property name="text" type="java.lang.String" value="For details see &#xa;&#xa;Delp, S.L., Anderson, F.C., Arnold, A. S., Loan, P., Habib, A., John, C., Guendelman, E., Thelen, D.G.&#xa;OpenSim: Open-source software to create and analyze dynamic simulations of movement.  &#xa;IEEE Transactions on Biomedical Engineering, Nov. 2007.  &#xa;Other citations and contributions noted within the application."/>
+                        <Property name="text" type="java.lang.String" value="For details see &#xa;&#xa;Delp, S.L., Anderson, F.C., Arnold, A. S., Loan, P., Habib, A., John, C., Guendelman, E., Thelen, D.G.   OpenSim: Open-source software to create and analyze dynamic simulations of movement.  IEEE Transactions on Biomedical Engineering, Nov. 2007.  Other citations and contributions noted within the application."/>
                         <Property name="wrapStyleWord" type="boolean" value="true"/>
                         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                           <Insets value="[0, 5, 0, 0]"/>
