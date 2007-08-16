@@ -205,8 +205,16 @@ public class SimmCoordinate extends AbstractCoordinate {
     return new SWIGTYPE_p_OpenSim__ArrayTOpenSim__AbstractJoint_p_t(opensimModelJNI.SimmCoordinate_getJointList(swigCPtr, this), false);
   }
 
+  public void clearJointList() {
+    opensimModelJNI.SimmCoordinate_clearJointList(swigCPtr, this);
+  }
+
   public SWIGTYPE_p_OpenSim__ArrayTOpenSim__SimmPath_p_t getPathList() {
     return new SWIGTYPE_p_OpenSim__ArrayTOpenSim__SimmPath_p_t(opensimModelJNI.SimmCoordinate_getPathList(swigCPtr, this), false);
+  }
+
+  public void clearPathList() {
+    opensimModelJNI.SimmCoordinate_clearPathList(swigCPtr, this);
   }
 
   public void determineType() {

@@ -74,8 +74,8 @@ public class ObjectGroup extends OpenSimObject {
     opensimModelJNI.ObjectGroup_setup(swigCPtr, this, ArrayPtrsObj.getCPtr(aObjects), aObjects);
   }
 
-  public ArrayPtrsObj getMembers() {
-    return new ArrayPtrsObj(opensimModelJNI.ObjectGroup_getMembers(swigCPtr, this), false);
+  public ArrayObjPtr getMembers() {
+    return new ArrayObjPtr(opensimModelJNI.ObjectGroup_getMembers(swigCPtr, this), false);
   }
 
   public static boolean isKindOf(String type) {
