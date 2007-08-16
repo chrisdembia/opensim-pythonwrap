@@ -40,7 +40,7 @@ public class IKToolModel extends Observable implements Observer {
          updateIKTool();
 
          // Operate on a copy of the model -- this way if users play with parameters in the GUI it won't affect the model we're actually computing on
-         modelCopy = getOriginalModel().clone();
+         modelCopy = new Model(getOriginalModel());
          modelCopy.setInputFileName("");
          modelCopy.setup();
          ikTool.setModel(modelCopy);

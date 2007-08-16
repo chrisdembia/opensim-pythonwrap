@@ -42,7 +42,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          cmcTool().setOriginalActuatorSet(getOriginalModel().getActuatorSet());
 
          // Re-initialize our copy of the model
-         Model model = getOriginalModel().clone();
+         Model model = new Model(getOriginalModel());
          model.setInputFileName("");
 
          // Update actuator set and contact force set based on settings in the tool, then call setup() and setModel()

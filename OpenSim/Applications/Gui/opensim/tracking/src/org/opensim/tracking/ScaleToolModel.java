@@ -276,10 +276,10 @@ public class ScaleToolModel extends Observable implements Observer {
                               });
          progressHandle.start();
 
-         processedModel = unscaledModel.clone();
+         processedModel = new Model(unscaledModel);
          processedModel.setName(scaleTool.getName());
          processedModel.setInputFileName("");
-         processedModel.setup(); // need to call setup() after clone() because some internal variables aren't (properly) copied
+         processedModel.setup();
 
          setExecuting(true);
       }
@@ -370,10 +370,9 @@ public class ScaleToolModel extends Observable implements Observer {
    public ScaleToolModel(Model originalModel) throws IOException {
       // Store original model; create copy of the original model as our unscaled model (i.e. the model we'll scale)
       this.originalModel = originalModel;
-      // clone may throw an exception... passed back up to the caller...
-      unscaledModel = originalModel.clone();
+      unscaledModel = new Model(originalModel);
       unscaledModel.setInputFileName("");
-      unscaledModel.setup(); // need to call setup() after clone() because some internal variables aren't (properly) copied
+      unscaledModel.setup();
       originalMarkerSet = new MarkerSet(unscaledModel.getDynamicsEngine().getMarkerSet());
 
       // Create scale tool
