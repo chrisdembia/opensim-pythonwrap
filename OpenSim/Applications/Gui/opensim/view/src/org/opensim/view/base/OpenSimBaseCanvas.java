@@ -25,7 +25,6 @@
  */
 package org.opensim.view.base;
 
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -33,6 +32,7 @@ import java.util.prefs.Preferences;
 import javax.swing.JPopupMenu;
 import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
+import org.opensim.view.pub.ViewDB;
 import vtk.vtkCamera;
 import vtk.vtkLightCollection;
 import vtk.vtkPanel;
@@ -163,17 +163,33 @@ public class OpenSimBaseCanvas extends vtkPanel
    public void applyCameraMinusX() {
       applyCamera(camerasMenu.pickStandardCamera("Front"));
    }
+
+   // Overrides vtkPanel.resetCamera() to reset camera on selected objects (if any)
+   public void resetCamera() {
+      Lock();
+      double[] bounds = ViewDB.getInstance().getSelectedObjectBounds();
+      if(bounds!=null) GetRenderer().ResetCamera(bounds);
+      else {
+         bounds = ViewDB.getInstance().getSceneBoundsBodiesOnly();
+         if(bounds!=null) GetRenderer().ResetCamera(bounds);
+         else GetRenderer().ResetCamera();
+      }
+      UnLock();
+   } 
+      
    
    /**
     * A method to apply a prespecified Camera (selectedCamera) to the current Canvas
     */
    public void applyCamera(vtkCamera selectedCamera) {
-        applyOrientation(selectedCamera);
+      applyOrientation(selectedCamera);
       
       vtkLightCollection lights = GetRenderer().GetLights();
       lights.RemoveAllItems();
       GetRenderer().CreateLight();
-      GetRenderer().ResetCamera();
+
+      resetCamera();
+
       //GetRenderer().Render();
       repaint();
    }

@@ -28,6 +28,7 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.Transform;
 import org.opensim.modeling.VisibleObject;
 import org.opensim.utils.GeometryFileLocator;
+import org.opensim.view.pub.ViewDB;
 import vtk.vtkActor;
 import vtk.vtkAssembly;
 import vtk.vtkAssemblyNode;
@@ -91,7 +92,8 @@ public class SingleModelVisuals {
     private OpenSimvtkGlyphCloud  musclePointsRep=new OpenSimvtkGlyphCloud(false);
     private OpenSimvtkOrientedGlyphCloud  muscleSegmentsRep = new OpenSimvtkOrientedGlyphCloud();
 
-    private vtkProp3DCollection    userObjects = new vtkProp3DCollection();
+    private vtkProp3DCollection  userObjects = new vtkProp3DCollection();
+    private vtkProp3DCollection  bodiesCollection = new vtkProp3DCollection();
 
     /**
      * Creates a new instance of SingleModelVisuals
@@ -225,8 +227,10 @@ public class SingleModelVisuals {
       bodyRep.SetScale(scales);
 
       // Add to assembly only if populated to avoid artificially big bounding box
-      if (bodyDisplayer.getNumGeometryFiles()>0)
+      if (bodyDisplayer.getNumGeometryFiles()>0) {
+         bodiesCollection.AddItem(bodyRep);
          modelAssembly.AddPart(bodyRep);
+      }
 
       return bodyRep;
    }
@@ -465,6 +469,43 @@ public class SingleModelVisuals {
     private void computeModelBoundingbox() {
         modelDisplayAssembly.GetBounds(bounds);
     }
+
+    // NOTE: these functions are necessary in order to deal with the model offsets...
+    // Not the most general solution (e.g. if the hierarchy changed and there was more than one user matrix
+    // modifying the model then this would not work).  But should work for now.
+    public void transformModelToWorldPoint(double[] point) {
+      vtkMatrix4x4 body2world = modelDisplayAssembly.GetUserMatrix();
+      if(body2world != null) {
+         double[] point4 = body2world.MultiplyPoint(new double[]{point[0],point[1],point[2],1.0});
+         for(int i=0; i<3; i++) point[i]=point4[i];
+      }
+    }
+
+    public void transformModelToWorldBounds(double[] bounds) {
+      vtkMatrix4x4 body2world = modelDisplayAssembly.GetUserMatrix();
+      if(body2world != null) {
+         double[] minCorner = body2world.MultiplyPoint(new double[]{bounds[0],bounds[2],bounds[4],1.0});
+         double[] width = new double[]{bounds[1]-bounds[0], bounds[3]-bounds[2], bounds[5]-bounds[4]};
+         for(int i=0; i<3; i++) { bounds[2*i]=bounds[2*i+1]=minCorner[i]; } // initialize as min corner
+         for(int i=0; i<3; i++) for(int j=0; j<3; j++) {
+            if(body2world.GetElement(i,j)<0) bounds[2*i]+=width[j]*body2world.GetElement(i,j);
+            else bounds[2*i+1]+=width[j]*body2world.GetElement(i,j);
+         }
+      }
+    }
+
+   public double[] getBoundsBodiesOnly() {
+      double[] bounds = null;
+      bodiesCollection.InitTraversal();
+      for(;;) {
+         vtkProp3D prop = bodiesCollection.GetNextProp3D();
+         if(prop==null) break;
+         if(prop.GetVisibility()!=0) bounds = ViewDB.boundsUnion(bounds, prop.GetBounds());
+      }
+      transformModelToWorldBounds(bounds);
+      return bounds;
+   }
+
     /**
      * A flag indicating if the model assembly is shown or not for global visibility control
      */

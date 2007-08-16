@@ -96,4 +96,39 @@ public class SelectedObject {
             ViewDB.getInstance().applyColor(unselectedColor, asm);
       }
    }
+
+   public double[] getBounds()
+   {
+      double pointSize = 0.05;
+      double[] bounds = null;
+      if (MusclePoint.safeDownCast(object) != null) {
+         MusclePoint mp = MusclePoint.safeDownCast(object);
+         SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(mp));
+         OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
+         double[] location = new double[3];
+         cloud.getLocation(cloud.getPointId(object), location);
+         visuals.transformModelToWorldPoint(location); // Transform to world space
+         bounds = new double[]{location[0]-pointSize,location[0]+pointSize,
+                               location[1]-pointSize,location[1]+pointSize,
+                               location[2]-pointSize,location[2]+pointSize};
+      } else if (AbstractMarker.safeDownCast(object) != null) {
+         AbstractMarker marker = AbstractMarker.safeDownCast(object);
+         SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(marker));
+         OpenSimvtkGlyphCloud cloud = visuals.getMarkersRep();
+         double[] location = new double[3];
+         cloud.getLocation(cloud.getPointId(object), location);
+         visuals.transformModelToWorldPoint(location); // Transform to world space
+         bounds = new double[]{location[0]-pointSize,location[0]+pointSize,
+                               location[1]-pointSize,location[1]+pointSize,
+                               location[2]-pointSize,location[2]+pointSize};
+      } else if (AbstractBody.safeDownCast(object) != null) {
+         vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
+         if(asm!=null) {
+            bounds = asm.GetBounds();
+            SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel((AbstractBody)object));
+            if(bounds!=null && visuals!=null) visuals.transformModelToWorldBounds(bounds);
+         }
+      }
+      return bounds;
+   }
 }

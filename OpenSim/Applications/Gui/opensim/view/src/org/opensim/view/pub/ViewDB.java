@@ -805,6 +805,7 @@ public final class ViewDB extends Observable implements Observer {
       }
       return m;
    }
+
    /**
     * get method for the visualization transform (to place a model in a scene).
     */
@@ -825,6 +826,37 @@ public final class ViewDB extends Observable implements Observer {
       sceneAssembly.GetBounds(sceneBounds);
       return sceneBounds;
    }
+
+   public static double[] boundsUnion(double[] bounds1, double[] bounds2) {
+      if(bounds1==null) return bounds2;
+      else if(bounds2==null) return bounds1;
+      else {
+         double[] bounds = new double[6];
+         bounds[0]=(bounds1[0]<bounds2[0])?bounds1[0]:bounds2[0];
+         bounds[1]=(bounds1[1]>bounds2[1])?bounds1[1]:bounds2[1];
+         bounds[2]=(bounds1[2]<bounds2[2])?bounds1[2]:bounds2[2];
+         bounds[3]=(bounds1[3]>bounds2[3])?bounds1[3]:bounds2[3];
+         bounds[4]=(bounds1[4]<bounds2[4])?bounds1[4]:bounds2[4];
+         bounds[5]=(bounds1[5]>bounds2[5])?bounds1[5]:bounds2[5];
+         return bounds;
+      }
+   }
+
+   public double[] getSelectedObjectBounds() {
+      double[] bounds = null;
+      for(int i=0; i<selectedObjects.size(); i++) bounds = boundsUnion(bounds, selectedObjects.get(i).getBounds());
+      return bounds;
+   }
+
+   // Don't include glyphs since they often also have glyphs at the origin which screws up the bounding box
+   // Also don't include axes
+   public double[] getSceneBoundsBodiesOnly() {
+      double[] bounds = null;
+      Iterator<SingleModelVisuals> iter = modelVisuals.iterator();
+      while(iter.hasNext()) bounds = boundsUnion(bounds, iter.next().getBoundsBodiesOnly());
+      return bounds;
+   }
+
    /**
     * createScene is invoked once to create the assembly representing the scene
     * that models attach to. If all windows are closed then this function will not be called again.

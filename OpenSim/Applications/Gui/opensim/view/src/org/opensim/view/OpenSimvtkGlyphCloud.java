@@ -32,6 +32,7 @@ import org.opensim.modeling.OpenSimObject;
 import vtk.vtkActor;
 import vtk.vtkColorTransferFunction;
 import vtk.vtkDataArray;
+import vtk.vtkDataSet;
 import vtk.vtkFloatArray;
 import vtk.vtkGlyph3D;
 import vtk.vtkIdList;
@@ -135,7 +136,6 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     }
     
     public vtkActor getVtkActor() {
-      
         glyph.SetSource(shape);
         glyph.SetInput(pointPolyData);
         mapper.SetInput(glyph.GetOutput());
@@ -157,6 +157,10 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
 
     public void setLocation(int index, double[] point) {
         pointCloud.SetPoint(index, point[0], point[1], point[2]);
+    }
+
+    public void getLocation(int index, double[] point) {
+       pointCloud.GetPoint(index, point);
     }
 
     public void setNormalAtLocation(int index, double x, double y, double z) {
