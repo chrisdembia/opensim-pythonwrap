@@ -712,7 +712,7 @@ public class JPlotterPanel extends javax.swing.JPanel
         if (dFilterDlg != null) // An instance is already up
            return;
         SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
-        String[] muscleNames = guiElem.getActuatorNames();
+        String[] muscleNames = guiElem.getActuatorNames(true);
         final QuantityNameFilterJPanel filterPanel = new QuantityNameFilterJPanel(muscleNames, preSelected);
         DialogDescriptor filterDlg = new DialogDescriptor(filterPanel, "Select Muscles", false, null);
         filterDlg.setOptions(new Object[]{new JButton("Close")});

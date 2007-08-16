@@ -197,7 +197,7 @@ public class SingleModelGuiElements {
    /**
     * Get names of actuators
     */
-   public String[] getActuatorNames()
+   public String[] getActuatorNames(boolean sort)
    {
         ArrayList<String> namesList=new ArrayList<String>(4);
         ActuatorSet actuators = model.getActuatorSet();
@@ -212,6 +212,8 @@ public class SingleModelGuiElements {
         }
         String[] ret = new String[namesList.size()];
         System.arraycopy(namesList.toArray(), 0, ret, 0, namesList.size());
+        if (sort)
+           java.util.Arrays.sort(ret);
         return ret;
    }
 }

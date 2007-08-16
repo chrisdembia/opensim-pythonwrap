@@ -57,11 +57,15 @@
                           <Component id="ParametersTabbedPanel" alignment="0" pref="570" max="32767" attributes="2"/>
                           <Component id="ModelNameLabel" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
+                              <Component id="MuscleSelectLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="MuscleComboBox" min="-2" pref="128" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Component id="MuscleNameLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="MuscleNameTextField" min="-2" pref="125" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                              <Component id="MuscleTypeLabel" min="-2" pref="184" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="MuscleTypeLabel" pref="178" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -75,12 +79,14 @@
                       <Component id="ModelNameLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="MuscleNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="MuscleSelectLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="MuscleComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="MuscleNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="MuscleNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="MuscleTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ParametersTabbedPanel" pref="249" max="32767" attributes="0"/>
+                      <Component id="ParametersTabbedPanel" pref="246" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ResetButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -147,6 +153,27 @@
                 <Property name="text" type="java.lang.String" value="Model: &lt;name&gt; "/>
                 <Property name="toolTipText" type="java.lang.String" value="The name of the current model"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="MuscleSelectLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Muscle"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="MuscleComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="&lt;a muscle&gt;"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Select the actuator to edit"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MuscleComboBoxActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
