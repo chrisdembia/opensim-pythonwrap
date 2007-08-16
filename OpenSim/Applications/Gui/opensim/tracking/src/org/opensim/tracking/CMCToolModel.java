@@ -175,6 +175,9 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
    public CMCToolModel(Model model) throws IOException {
       super(model);
 
+      if(model.getDynamicsEngine().getType().equals("SimmKinematicsEngine"))
+         throw new IOException("Computed muscle control tool requires a model with SdfastEngine or SimbodyEngine; SimmKinematicsEngine does not support dynamics.");
+
       setTool(new CMCTool());
 
       // By default, set prefix of output to be subject name
