@@ -1559,7 +1559,7 @@
 					<mass_center>-0.070700000000 0.000000000000 0.000000000000</mass_center>
 					<inertia>0.102800000000 0.000000000000 0.000000000000 0.000000000000 0.087100000000 0.000000000000 0.000000000000 0.000000000000 0.057900000000</inertia>
 					<VisibleObject name="">
-						<geometry_files> sacrum2.vtp pelvis.vtp l_pelvis.vtp </geometry_files>
+						<geometry_files> sacrum.vtp pelvis.vtp l_pelvis.vtp </geometry_files>
 					</VisibleObject>
 				</SimbodyBody>
 				<SimbodyBody name="femur_r">

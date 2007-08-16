@@ -125,18 +125,14 @@
 	<!-- CORRECTIVE SPRINGS -->
 	<!-- body1 -->
 	<!--True-false flag indicating whether or not to turn on a linear corrective spring for external load body 1.-->
-	<body1_linear_corrective_spring_on> true </body1_linear_corrective_spring_on>
+	<body1_linear_corrective_spring_active> true </body1_linear_corrective_spring_active>
 	<!--True-false flag indicating whether or not to turn on a torsional corrective spring for external load body 1.-->
-	<body1_torsional_corrective_spring_on> true </body1_torsional_corrective_spring_on>
-	<r_foot_flat> 0.8 </r_foot_flat>
-	<r_heel_off> 1.18 </r_heel_off>
-	
-	<!-- body2 -->
-	<!--True-false flag indicating whether or not to turn on a linear corrective spring for external load body 2.-->
-	<body2_linear_corrective_spring_on> false </body2_linear_corrective_spring_on>
-	<!--True-false flag indicating whether or not to turn on a torsional corrective spring for external load body 2.-->
-	<body2_torsional_corrective_spring_on> false </body2_torsional_corrective_spring_on>
-	
+	<body1_torsional_corrective_spring_active> true </body1_torsional_corrective_spring_active>
+	<!--Time at which the torsional spring comes on for body1 (if it is active). By default, this time is 0.0.-->
+	<body1_torsional_corrective_spring_time_on> 0.8 </body1_torsional_corrective_spring_time_on>
+	<!--Time at which the torsional spring turns off for body1 (if it is active). By default, this time is 0.0.-->
+	<body1_torsional_corrective_spring_time_off> 1.18 </body1_torsional_corrective_spring_time_off>
+		
 	<!--Stiffness for linear (translational) corrective springs-->
 	<corrective_spring_linear_stiffness> 5e+004 5e+004 5e+004 </corrective_spring_linear_stiffness>
 	<!--Damping for linear (translational) corrective springs-->
@@ -145,7 +141,6 @@
 	<corrective_spring_torsional_stiffness> 900 900 900 </corrective_spring_torsional_stiffness>
 	<!--Damping for torsional corrective springs-->
 	<corrective_spring_torsional_damping> 60 60 60 </corrective_spring_torsional_damping>
-	
 	
 </ForwardTool>
 
