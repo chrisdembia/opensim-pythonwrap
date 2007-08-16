@@ -321,22 +321,34 @@ public class PlotCurve {
 
    private String makeDescription() {
       String ret="";
+      String rangeNameString = "";
+      if (rangeNames.length==1){
+         rangeNameString=rangeNames[0];
+      }
+      else {
+         rangeNameString = "sum of ";
+         for (int i=0; i<rangeNames.length; i++){
+            rangeNameString += rangeNames[i];
+            if (i != rangeNames.length-1)
+               rangeNameString += "+";
+         }
+      }
       if (settings.isMusclePlot()){
          // both Y, X are storage files produced by analysis tool
          ret = "Plot "+rangeSource.getDisplayName();
-         ret += " for muscle "+rangeNames[0];
-         ret += "vs. "+domainName;
+         ret += " for "+rangeNameString;
+         ret += " vs. "+domainName;
       }
       else {
          if (rangeSource instanceof PlotterSourceMotion){
             ret = "Plot data from Motion "+rangeSource.getDisplayName()+"\n";
-            ret += (rangeNames.length==1)?rangeNames[0]:"Sum of";
-            ret += "vs. "+domainName;
+            ret += rangeNameString;
+            ret += " vs. "+domainName;
          }
          else if (rangeSource instanceof PlotterSourceFile){
             ret = "Plot data from data file "+rangeSource.getDisplayName()+"\n";
-            ret += (rangeNames.length==1)?rangeNames[0]:"Sum of";
-            ret += "vs. "+domainName;
+            ret += rangeNameString;
+            ret += " vs. "+domainName;
          }
       }
       return ret;

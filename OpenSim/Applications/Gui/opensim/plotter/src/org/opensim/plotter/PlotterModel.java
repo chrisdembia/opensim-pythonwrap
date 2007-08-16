@@ -65,7 +65,7 @@ public class PlotterModel {
         "fiber-length",
         "tendon-length",
         "normalized fiber-length",
-        "force",
+        "tendon force",
         "active fiber-force",
         "passive fiber-force",
         "total fiber-force"
@@ -90,7 +90,7 @@ public class PlotterModel {
         "FiberLength",
         "TendonLength",
         "NormalizedFiberLength",
-        "Force",
+        "TendonForce",
         "ActiveFiberForce",
         "PassiveFiberForce",
         "FiberForce"

@@ -36,7 +36,7 @@ import javax.swing.table.AbstractTableModel;
 public class QuantityNameFilterTableModel extends AbstractTableModel {
    /** Creates a new instance of PlotterQuantityNameFilterTableModel */
    PlotterSourceInterface source;
-   String[] tableColumnNames= new String[]{"Quantity Name", "Selected"};
+   String[] tableColumnNames= new String[]{"Msucle Name", "Selected"};
    String[] availableQuantities;
    Vector<Integer> shownQuantities=new Vector<Integer>(50);
    boolean[] selected;
