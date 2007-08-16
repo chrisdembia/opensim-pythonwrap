@@ -137,25 +137,29 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
        ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(obj, ViewDB.getInstance().getCurrenWindow());
        editorDialog.process();
        ViewDB.getInstance().statusDisplaySelectedObjects();
-    }
+   }
+
+   private void setPicking(boolean enabled) {
+      ViewDB.getInstance().setPicking(enabled);
+      if(enabled) setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+      else setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+   }
 
    public void keyPressed(KeyEvent e) {
-      if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
-         //System.out.println("picking on");
-         ViewDB.getInstance().setPicking(true);
-        setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-      }
-      else
-         super.keyPressed(e);
+      if (e.getKeyCode() == KeyEvent.VK_CONTROL) setPicking(true);
+      else super.keyPressed(e);
    }
 
    public void keyReleased(KeyEvent e) {
-      if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
-         //System.out.println("picking off");
-         ViewDB.getInstance().setPicking(false);
-         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-       } else
-         super.keyReleased(e);
+      if (e.getKeyCode() == KeyEvent.VK_CONTROL) setPicking(false);
+      else super.keyReleased(e);
+   }
+
+   // Update picking status on mouse enter because CTRL may have been 
+   // pressed/released while we were not in focus
+   public void mouseEntered(MouseEvent e) { 
+      super.mouseEntered(e); 
+      setPicking((e.getModifiersEx() & InputEvent.CTRL_DOWN_MASK) != 0);
    }
 
    public void mouseDragged(MouseEvent e) {
