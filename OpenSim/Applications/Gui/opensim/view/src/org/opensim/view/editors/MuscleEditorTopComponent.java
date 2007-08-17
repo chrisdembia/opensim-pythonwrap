@@ -272,7 +272,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             return false;
          }
          AbstractActuator existingAct = currentModel.getActuatorSet().get(actName);
-         if (existingAct != null && existingAct != currentAct) {
+         if (existingAct != null && AbstractActuator.getCPtr(existingAct) != AbstractActuator.getCPtr(currentAct)) {
             MuscleNameTextField.setText(currentAct.getName());
             Object[] options = {"OK"};
             String message = "The name \"" + actName + "\" is already being used. Please choose a different actuator name";
@@ -1581,9 +1581,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // is a current model). So if 'act' is passed in as null,
       // make the model's first actuator the current one.
 
-      Model currentModel = OpenSimDB.getInstance().getCurrentModel();
+      //currentModel = OpenSimDB.getInstance().getCurrentModel();
       SingleModelGuiElements guiElem = null;
-      if (currentModel != null && newAct == null)
+      if (currentModel != null && newAct == null && currentModel.getActuatorSet().getSize() > 0)
          newAct = currentModel.getActuatorSet().get(0);
 
       // Save the currently selected GUI tab.
@@ -1983,9 +1983,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          // update tool window
          if (arg instanceof ModelEvent) {
             final ModelEvent evt = (ModelEvent)arg;
-            if (evt.getOperation() == ModelEvent.Operation.SetCurrent ||
-                    (evt.getOperation() == ModelEvent.Operation.Close &&
-                    OpenSimDB.getInstance().getCurrentModel() == null)) {
+            if (evt.getOperation() == ModelEvent.Operation.Close && OpenSimDB.getInstance().getCurrentModel() == null) {
+               currentModel = null;
                setPendingChanges(false, false);
                setupComponent(null);
             }
@@ -2005,9 +2004,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             }
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
+                  currentModel = (Model)objs.get(i);
                   setPendingChanges(false, false);
                   setupComponent(null);
-                  currentModel = (Model)objs.get(i);
                   break;
                }
             }
