@@ -73,6 +73,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
          animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
          getModel().addIntegCallback(animationCallback);
          animationCallback.setStepInterval(1);
+         animationCallback.setMinRenderTimeInterval(0.1); // to avoid rendering really frequently which can slow down our execution
          animationCallback.startProgressUsingTime(ti,tf);
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 

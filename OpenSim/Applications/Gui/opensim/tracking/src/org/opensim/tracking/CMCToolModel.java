@@ -70,6 +70,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
          getModel().addIntegCallback(animationCallback);
          animationCallback.setStepInterval(1);
+         animationCallback.setMinRenderTimeInterval(0.1); // to avoid rendering really frequently which can slow down our execution
          animationCallback.setRenderMuscleActivations(true);
          animationCallback.startProgressUsingTime(ti,tf);
 

@@ -69,7 +69,8 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
          // Animation callback will update the display *of the original model* during forward
          animationCallback = new JavaMotionDisplayerCallback(getModel(), getOriginalModel(), null, progressHandle);
          getModel().addIntegCallback(animationCallback);
-         animationCallback.setStepInterval(10);
+         animationCallback.setStepInterval(1);
+         animationCallback.setMinRenderTimeInterval(0.1); // to avoid rendering really frequently which can slow down our execution
          animationCallback.setRenderMuscleActivations(true);
          animationCallback.startProgressUsingTime(ti,tf);
 

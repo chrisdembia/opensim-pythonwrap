@@ -65,6 +65,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       this(aModel, aModel, storage, progressHandle);
    }
 
+   // In seconds
    public void setMinRenderTimeInterval(double interval) { minRenderTimeInterval = interval; }
 
    public void setRenderMuscleActivations(boolean render) {
@@ -88,16 +89,21 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       if(progressHandle!=null) progressHandle.start(endStep-startStep+1);
    }
 
+   private double getCurrentRealTime() {
+      return 1e-9*System.nanoTime();
+   }
+
    public void updateDisplaySynchronously() {
       try {
          SwingUtilities.invokeAndWait(new Runnable(){
             public void run() {
-               if(minRenderTimeInterval<=0 || getCurrentTime()-lastRenderTime>minRenderTimeInterval) {
+               double currentRealTime = getCurrentRealTime();
+               if(minRenderTimeInterval<=0 || currentRealTime-lastRenderTime>minRenderTimeInterval) {
                   if(motionDisplayer!=null && storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);
                   ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
                   //ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
                   ViewDB.getInstance().repaintAll();
-                  lastRenderTime = getCurrentTime();
+                  lastRenderTime = currentRealTime;
                }
             }});
       } catch (InterruptedException ex) {
