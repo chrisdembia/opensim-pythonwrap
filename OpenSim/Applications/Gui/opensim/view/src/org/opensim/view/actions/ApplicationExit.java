@@ -32,7 +32,7 @@ public class ApplicationExit extends WindowAdapter
       //confirmExit();
    }
 
-   static public void confirmExit()
+   static public boolean confirmExit()
    {
       // Make sure the user really wants to quit.
       Object[] options = {"Yes", "Cancel"};
@@ -45,7 +45,7 @@ public class ApplicationExit extends WindowAdapter
          options,
          options[1]);
       if (answer == 1)
-         return;
+         return false;
 
       // Close all of the models, prompting the user to save them if necessary.
       // If any of the closes returns false, that model was not closed, so abort
@@ -53,13 +53,10 @@ public class ApplicationExit extends WindowAdapter
       Object[] models = OpenSimDB.getInstance().getAllModels();
       for (int i=0; i<models.length; i++) {
          if (FileCloseAction.closeModel((Model)models[i]) == false)
-            return;
+            return false;
       }
 
-      // Clean up and exit.
-      LifecycleManager.getDefault().exit();
-      TheApp.getAppFrame().dispose();
-      System.exit(0);
+      return true;
    }
 }
 

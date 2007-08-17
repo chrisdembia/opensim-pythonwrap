@@ -33,8 +33,7 @@ public class Installer extends ModuleInstall {
 
    // This function is called when File...Exit is chosen.
    public boolean closing() {
-      ApplicationExit.confirmExit();
-      return false;
+      return ApplicationExit.confirmExit();
    }
 
     public void restored() {
@@ -46,10 +45,6 @@ public class Installer extends ModuleInstall {
             
             SwingUtilities.invokeLater(new Runnable(){
             public void run() {
-               Frame f = WindowManager.getDefault().getMainWindow();
-               ((JFrame)f).setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-               f.addWindowListener(new ApplicationExit());
-               TheApp.setAppFrame((JFrame)f);
                // This line is important because it forces the muscle editor to initialize at the start
                // which is necessary to allow moving muscle points even if the muscle editor top component is not shown
                // Note that this may cause a warning exception "Cannot find MuscleEditor component" to be shown... just ignore it.
