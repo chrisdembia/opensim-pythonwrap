@@ -389,7 +389,7 @@ public class AnalyzeToolModel extends AbstractToolModelWithExternalLoads {
    }
 
    public boolean isValid() {
-      return super.isValid() && isValidInput() && getControlsValid();
+      return super.isValid() && isValidInput() && getControlsValid() && getAnalysisSet().getSize()>0;
    }
 
    //------------------------------------------------------------------------
