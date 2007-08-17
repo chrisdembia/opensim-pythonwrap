@@ -15,34 +15,39 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
 public final class FileCloseAction extends CallableSystemAction {
- 
-   public static void closeModel(Model model) {
-      if(model==null) return;
 
-      SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
+/* Close the model. If it's locked, tell the user and abort. If it's
+ * modified, ask the user to save the changes, with the option to cancel
+ * the close. If the model is not closed, return false.
+ */
+public static boolean closeModel(Model model) {
+   if(model==null) return true;
 
-      // Do not allow the model to be closed if it is locked.
-      if (guiElem.isLocked()) {
-         NotifyDescriptor dlg = new NotifyDescriptor.Message(model.getName() + " is currently in use by " +
-            guiElem.getLockOwner() + " and cannot be closed.", NotifyDescriptor.INFORMATION_MESSAGE);
-         DialogDisplayer.getDefault().notify(dlg);
-         return;
-      }
-
-      // Confirm closing
-      if (guiElem.getUnsavedChangesFlag()) {
-         if (saveAndConfirmClose(model) == false)
-            return;
-      }
-
-      // TODO: check for unsaved changes to model before closing...
-      // Write settings to persistent storage
-      ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(model);
-      if (ser.confirmAndWrite()==NotifyDescriptor.CANCEL_OPTION)
-         return;
-
-      OpenSimDB.getInstance().removeModel(model);
+   SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
+   
+   // Do not allow the model to be closed if it is locked.
+   if (guiElem.isLocked()) {
+      NotifyDescriptor dlg = new NotifyDescriptor.Message(model.getName() + " is currently in use by " +
+              guiElem.getLockOwner() + " and cannot be closed.", NotifyDescriptor.INFORMATION_MESSAGE);
+      DialogDisplayer.getDefault().notify(dlg);
+      return false;
    }
+   
+   // Confirm closing
+   if (guiElem.getUnsavedChangesFlag()) {
+      if (saveAndConfirmClose(model) == false)
+         return false;
+   }
+   
+   // Write settings to persistent storage
+   ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(model);
+   if (ser.confirmAndWrite()==NotifyDescriptor.CANCEL_OPTION)
+      return false;
+   
+   OpenSimDB.getInstance().removeModel(model);
+   
+   return true;
+}
 
    private static boolean saveAndConfirmClose(Model model)
    {

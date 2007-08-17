@@ -1,6 +1,8 @@
 package org.opensim.view;
 
+import java.awt.Frame;
 import java.util.prefs.Preferences;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -12,7 +14,9 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
 import javax.swing.JPopupMenu;
+import org.openide.windows.WindowManager;
 import org.opensim.modeling.opensimModelJNI;
+import org.opensim.view.actions.ApplicationExit;
 
 /**
  * Manages a module's lifecycle. Remember that an installer is optional and
@@ -20,12 +24,19 @@ import org.opensim.modeling.opensimModelJNI;
  */
 public class Installer extends ModuleInstall {
     
-   // Enable opoups to display on top of heavy weight component/canvas
+   // Enable popups to display on top of heavy weight component/canvas
    static {
       JPopupMenu.setDefaultLightWeightPopupEnabled(false);
       javax.swing.ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
       javax.swing.ToolTipManager.sharedInstance().setDismissDelay(600000); // keep tooltips up for a minute!
    }
+
+   // This function is called when File...Exit is chosen.
+   public boolean closing() {
+      ApplicationExit.confirmExit();
+      return false;
+   }
+
     public void restored() {
         super.restored();
         try {
@@ -35,9 +46,10 @@ public class Installer extends ModuleInstall {
             
             SwingUtilities.invokeLater(new Runnable(){
             public void run() {
-               //Frame f = WindowManager.getDefault ().getMainWindow ();
-               //f.setSize (800, 400);
-               //f.setResizable (true);
+               Frame f = WindowManager.getDefault().getMainWindow();
+               ((JFrame)f).setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+               f.addWindowListener(new ApplicationExit());
+               TheApp.setAppFrame((JFrame)f);
                // This line is important because it forces the muscle editor to initialize at the start
                // which is necessary to allow moving muscle points even if the muscle editor top component is not shown
                // Note that this may cause a warning exception "Cannot find MuscleEditor component" to be shown... just ignore it.
