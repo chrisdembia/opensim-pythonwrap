@@ -8,6 +8,7 @@ import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.nodes.OpenSimObjectNode;
+import org.opensim.view.nodes.OpenSimObjectNode.displayOption;
 
 public final class ObjectDisplayOpacityAction extends CallableSystemAction {
    
@@ -50,7 +51,17 @@ public final class ObjectDisplayOpacityAction extends CallableSystemAction {
    }
 
    // Make it available only if selected objects have representation and belong to same model
-   public boolean isEnabled() {
-      return true;
-   }
+    public boolean isEnabled() {
+       // The "hide" option is enabled unless every selected node is hidden.
+        Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
+        boolean isColorable=true;
+        for(int i=0; i<selected.length && isColorable; i++){
+            isColorable = (selected[i] instanceof OpenSimObjectNode);
+            if (isColorable){
+                OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[i];
+                isColorable=objectNode.getValidDisplayOptions().contains(displayOption.Colorable);
+            }
+        }
+        return isColorable;
+    }
 }
