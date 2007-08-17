@@ -279,6 +279,7 @@ public class ScaleToolModel extends Observable implements Observer {
          processedModel = new Model(unscaledModel);
          processedModel.setName(scaleTool.getName());
          processedModel.setInputFileName("");
+         processedModel.setOriginalModelPathFromModel(unscaledModel); // important to keep track of the original path so bone loading works
          processedModel.setup();
 
          setExecuting(true);
@@ -372,6 +373,7 @@ public class ScaleToolModel extends Observable implements Observer {
       this.originalModel = originalModel;
       unscaledModel = new Model(originalModel);
       unscaledModel.setInputFileName("");
+      unscaledModel.setOriginalModelPathFromModel(originalModel); // important to keep track of the original path so bone loading works
       unscaledModel.setup();
       originalMarkerSet = new MarkerSet(unscaledModel.getDynamicsEngine().getMarkerSet());
 

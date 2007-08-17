@@ -33,6 +33,23 @@ public class Model extends OpenSimObject {
     super.delete();
   }
 
+  private String originalModelPath = null;
+  // Important that we only refer to originalModelPath if the model's getInputFileName() is not set
+  public void setOriginalModelPathFromModel(Model model) {
+    originalModelPath = null;
+    if(model.getInputFileName()!=null && !model.getInputFileName().equals(""))
+      originalModelPath = (new java.io.File(model.getInputFileName())).getParent();
+	 else if(model.originalModelPath!=null && !model.originalModelPath.equals(""))
+      originalModelPath = model.originalModelPath;
+  }
+  public String getFilePath() {
+    if(getInputFileName()!=null && !getInputFileName().equals("") && (new java.io.File(getInputFileName())).getParent()!=null)
+      return (new java.io.File(getInputFileName())).getParent() + java.io.File.separator;
+    else if(originalModelPath!=null && !originalModelPath.equals(""))
+      return originalModelPath + java.io.File.separator;
+    else return "";
+  }
+
   public Model() {
     this(opensimModelJNI.new_Model__SWIG_0(), true);
   }

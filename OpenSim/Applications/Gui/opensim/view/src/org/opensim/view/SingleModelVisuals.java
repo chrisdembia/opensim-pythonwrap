@@ -126,10 +126,7 @@ public class SingleModelVisuals {
      */
     protected vtkAssembly createModelAssembly(Model model)
     {
-        File modelFile = new File(model.getInputFileName());
-        String modelFilePath = "";
-        if (modelFile.getParent()!= null)
-            modelFilePath= modelFile.getParent()+ modelFile.separator; // Could this be null?
+        String modelFilePath = model.getFilePath();
                 
         vtkAssembly modelAssembly = new vtkAssembly();
 
