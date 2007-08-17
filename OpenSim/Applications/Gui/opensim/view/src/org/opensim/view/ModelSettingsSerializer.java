@@ -27,11 +27,13 @@ package org.opensim.view;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import org.opensim.modeling.Model;
 
 /**
  *
@@ -68,13 +70,16 @@ public class ModelSettingsSerializer {
       }
    }
    
-   public Object confirmAndWrite()
+   public Object confirmAndWrite(Model model)
    {
       if(getFilename()==null) { // Settings don't have a filename associated with them, can't save
          return NotifyDescriptor.NO_OPTION;
       }
       // Show message to prompt user
-     NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save model settings to file?", "Save settings?");
+     String modelName = (model!=null && model.getName()!=null) ? model.getName() : "";
+     String modelFileName = (model!=null && model.getInputFileName()!=null) ? (new File(model.getInputFileName())).getName() : "";
+     String modelStr = modelName+" ("+modelFileName+")";
+     NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save settings (e.g. poses) for model "+modelStr+" to file?", "Save model settings?");
      Object userSelection=DialogDisplayer.getDefault().notify(dlg);
      if(((Integer)userSelection).intValue()==((Integer)NotifyDescriptor.OK_OPTION).intValue()){
          XMLEncoder encoder;

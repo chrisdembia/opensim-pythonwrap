@@ -1140,7 +1140,7 @@ public final class ViewDB extends Observable implements Observer {
     * Write ettings to an xml file [model-file]_settings.xml
     */
     public void saveSettings(Model model) {
-      mapModelsToSettings.get(model).confirmAndWrite();
+      mapModelsToSettings.get(model).confirmAndWrite(model);
    }
    public ModelSettingsSerializer getModelSavedSettings(Model model)
    {

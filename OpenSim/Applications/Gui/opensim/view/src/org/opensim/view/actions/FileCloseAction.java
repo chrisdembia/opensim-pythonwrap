@@ -41,7 +41,7 @@ public static boolean closeModel(Model model) {
    
    // Write settings to persistent storage
    ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(model);
-   if (ser.confirmAndWrite()==NotifyDescriptor.CANCEL_OPTION)
+   if (ser.confirmAndWrite(model)==NotifyDescriptor.CANCEL_OPTION)
       return false;
    
    OpenSimDB.getInstance().removeModel(model);
@@ -51,7 +51,7 @@ public static boolean closeModel(Model model) {
 
    private static boolean saveAndConfirmClose(Model model)
    {
-      NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save the changes to " + model.getName() + "?", "OpenSim");
+      NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save the changes to " + model.getName() + "?", "Save model?");
       Object userSelection = DialogDisplayer.getDefault().notify(dlg);
       if (((Integer)userSelection).intValue() == ((Integer)NotifyDescriptor.OK_OPTION).intValue()) {
           if (!model.getInputFileName().equals(""))
