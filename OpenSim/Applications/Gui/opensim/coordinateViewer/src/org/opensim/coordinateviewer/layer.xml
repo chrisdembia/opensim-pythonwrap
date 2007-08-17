@@ -18,9 +18,9 @@
             <file name="CoordinateViewerTopComponent.settings" url="CoordinateViewerTopComponentSettings.xml"/>
         </folder>
         <folder name="Modes">
-          <file name="explorer.wsmode" url="explorer.wsmode" />
-            <folder name="explorer">
-                <file name="CoordinateViewerTopComponent.wstcref" url="CoordinateViewerTopComponentWstcref.xml"/>
+            <folder name="osimExplorerMode">
+               <file name="CoordinateViewerTopComponent.wstcref" url="CoordinateViewerTopComponentWstcref.xml"/>
+               <attr name="ExplorerTopComponent.wstcref/CoordinateViewerTopComponent.wstcref" boolvalue="true"/>
             </folder>
         </folder>
     </folder>

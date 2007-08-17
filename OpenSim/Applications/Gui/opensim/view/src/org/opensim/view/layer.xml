@@ -261,25 +261,25 @@
     <folder name="Windows2">
         <folder name="Components">
             <file name="ExplorerTopComponent.settings" url="ExplorerTopComponentSettings.xml"/>
-            <file name="MuscleEditorTopComponent.settings" url="MuscleEditorTopComponentSettings.xml"/>
+            <file name="MuscleEditorTopComponent.settings" url="editors/MuscleEditorTopComponentSettings.xml"/>
         </folder>
         <folder name="Modes">
-            <folder name="explorer">
+            <file name="osimExplorerMode.wsmode" url="osimExplorerMode.wsmode"/>-->
+            <file name="osimMessagesMode.wsmode" url="osimMessagesMode.wsmode"/>
+            <file name="osimEditorsMode.wsmode" url="osimEditorsMode.wsmode"/>
+            <folder name="osimExplorerMode">
                 <file name="ExplorerTopComponent.wstcref" url="ExplorerTopComponentWstcref.xml"/>
             </folder>
-            <folder name="leftSlidingSide">
-                <file name="MuscleEditorTopComponent.wstcref" url="MuscleEditorTopComponentWstcref.xml"/>
+            <folder name="osimEditorsMode">
+                <file name="MuscleEditorTopComponent.wstcref" url="editors/MuscleEditorTopComponentWstcref.xml"/>
             </folder>
-            <folder name="output">
-                <file name="LoggerTopComponent.wstcref_hidden"/>
-            </folder>
-            <folder name="rightSlidingSide">
-                <file name="LoggerTopComponent.wstcref" url="LoggerTopComponentWstcref_1.xml"/>
-                <attr name="LoggerTopComponent.wstcref/CoordinateViewerTopComponent.wstcref" boolvalue="true"/>
-            </folder>
+            <file name="properties.wsmode_hidden"/>
+            <file name="explorer.wsmode_hidden"/>
         </folder>
     </folder>
-    <folder name="Windows2Local"/>
+    <folder name="Windows2Local">
+       <file name="WindowManager.wswmgr" url="WindowManager.wswmgr"/>
+    </folder>
     <folder name="xml">
         <file name="memory_hidden"/>
     </folder>

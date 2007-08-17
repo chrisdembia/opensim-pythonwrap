@@ -90,7 +90,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
    
    private static final String PREFERRED_ID = "MuscleEditorTopComponent";
-   private static String s_mode="leftSlidingSide";
    
    private MuscleEditorTopComponent() {
       initComponents();
@@ -1822,8 +1821,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    }
    
    public void open() {
-      Mode mode=WindowManager.getDefault().findMode(s_mode);
-      //boolean docked = mode.dockInto(this);
       AbstractActuator newAct = null;
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
       if (selected.length > 0 && selected[0] instanceof OneActuatorNode) {
@@ -1861,8 +1858,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    }
 /* Old version which prompted to save/reset any changes to current muscle
    public void open() {
-      Mode mode=WindowManager.getDefault().findMode(s_mode);
-      //boolean docked = mode.dockInto(this);
       AbstractActuator newAct = null;
       Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
       if (selected.length > 0) {
