@@ -2019,6 +2019,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
                   currentModel = (Model)objs.get(i);
+                  savedAct = null; // Don't want to keep around old saved actuator!
                   setPendingChanges(false, false);
                   setupComponent(null);
                   break;
