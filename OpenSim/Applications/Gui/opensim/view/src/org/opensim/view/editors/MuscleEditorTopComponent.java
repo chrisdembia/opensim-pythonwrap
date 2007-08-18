@@ -856,6 +856,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    
    public void deleteAttachmentPerformed(int menuChoice) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
+      // remove from selection (it also handles case where it's not selected)
+      ViewDB.getInstance().removeObjectFromSelectedList(asm.getAttachmentSet().get(menuChoice));
       boolean result = asm.deleteAttachmentPoint(menuChoice);
       if (result == false) {
          Object[] options = {"OK"};

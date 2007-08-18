@@ -706,7 +706,7 @@ public final class ViewDB extends Observable implements Observer {
       return -1;
    }
 
-   private boolean removeObjectFromSelectedList(OpenSimObject obj) {
+   public boolean removeObjectFromSelectedList(OpenSimObject obj) {
       int i = findObjectInSelectedList(obj);
       if(i >= 0) {
          // mark it as unselected
