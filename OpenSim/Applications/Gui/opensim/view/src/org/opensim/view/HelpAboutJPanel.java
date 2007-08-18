@@ -83,11 +83,11 @@ public final class HelpAboutJPanel extends javax.swing.JPanel implements ImageOb
       jPanel1.setLayout(jPanel1Layout);
       jPanel1Layout.setHorizontalGroup(
          jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(0, 415, Short.MAX_VALUE)
+         .add(0, 405, Short.MAX_VALUE)
       );
       jPanel1Layout.setVerticalGroup(
          jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(0, 515, Short.MAX_VALUE)
+         .add(0, 487, Short.MAX_VALUE)
       );
       jTabbedPane1.addTab("About", jPanel1);
 
@@ -99,7 +99,7 @@ public final class HelpAboutJPanel extends javax.swing.JPanel implements ImageOb
       );
       jPanel4Layout.setVerticalGroup(
          jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(0, 515, Short.MAX_VALUE)
+         .add(0, 487, Short.MAX_VALUE)
       );
 
       jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18));
@@ -146,11 +146,11 @@ public final class HelpAboutJPanel extends javax.swing.JPanel implements ImageOb
                   .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                      .add(jPanel5Layout.createSequentialGroup()
                         .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                           .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                           .add(jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                           .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                           .add(jLabel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                           .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                           .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                           .add(jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                           .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                           .add(jLabel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                           .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
                      .add(jPanel5Layout.createSequentialGroup()
                         .add(jLabel7)
@@ -159,9 +159,9 @@ public final class HelpAboutJPanel extends javax.swing.JPanel implements ImageOb
                      .add(libraryPathString)
                      .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                         .add(VMvendorString)
-                        .add(operatingSystemString, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                        .add(versionString, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                        .add(jreString, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                        .add(operatingSystemString, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                        .add(versionString, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                        .add(jreString, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                         .add(jHomeDirString)))))
             .addContainerGap())
       );
@@ -194,7 +194,7 @@ public final class HelpAboutJPanel extends javax.swing.JPanel implements ImageOb
             .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jLabel7)
                .add(libraryPathString))
-            .addContainerGap(334, Short.MAX_VALUE))
+            .addContainerGap(306, Short.MAX_VALUE))
       );
 
       org.jdesktop.layout.GroupLayout jDetailsPanelLayout = new org.jdesktop.layout.GroupLayout(jDetailsPanel);
@@ -243,7 +243,7 @@ public final class HelpAboutJPanel extends javax.swing.JPanel implements ImageOb
          .add(jPanel6Layout.createSequentialGroup()
             .add(jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
+            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
       );
       jPanel6Layout.setVerticalGroup(
          jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -285,7 +285,7 @@ public final class HelpAboutJPanel extends javax.swing.JPanel implements ImageOb
          .add(jPanel3Layout.createSequentialGroup()
             .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
       );
       jPanel3Layout.setVerticalGroup(
          jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -326,7 +326,7 @@ public final class HelpAboutJPanel extends javax.swing.JPanel implements ImageOb
       jTextArea1.setColumns(20);
       jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 11));
       jTextArea1.setRows(5);
-      jTextArea1.setText("\nThis program includes software developed by the\nApache Software Foundation (http://www.apache.org/).\n\nThe application uses VTK, JFreeChart\nand is built on top of NetBeans platform.");
+      jTextArea1.setText("\nThis program includes software developed by the\nApache Software Foundation (http://www.apache.org/).\n\nThe application uses VTK (http://www.vtk.org), JFreeChart (http://www.jfree.org)\nand is built on top of NetBeans platform (http://www.netbeans.org).");
       jTextArea1.setMargin(new java.awt.Insets(0, 10, 0, 10));
       jScrollPane3.setViewportView(jTextArea1);
 
@@ -337,8 +337,8 @@ public final class HelpAboutJPanel extends javax.swing.JPanel implements ImageOb
          .add(jPanel8Layout.createSequentialGroup()
             .add(jPanel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
-         .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+            .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
+         .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
       );
       jPanel8Layout.setVerticalGroup(
          jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
