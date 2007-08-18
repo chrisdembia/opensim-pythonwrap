@@ -280,7 +280,4 @@
     <folder name="Windows2Local">
        <file name="WindowManager.wswmgr" url="WindowManager.wswmgr"/>
     </folder>
-    <folder name="xml">
-        <file name="memory_hidden"/>
-    </folder>
 </filesystem>
