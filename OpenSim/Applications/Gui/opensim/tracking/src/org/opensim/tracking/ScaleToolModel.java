@@ -36,6 +36,7 @@ import org.opensim.swingui.SwingWorker;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
 import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 //==================================================================
 // OptionalFile (helper class)
@@ -322,6 +323,8 @@ public class ScaleToolModel extends Observable implements Observer {
          if(result) {
             OpenSimDB.getInstance().replaceModel(scaledModel, processedModel);
             scaledModel = processedModel;
+            if(ViewDB.getInstance().getModelGuiElements(scaledModel)!=null)
+               ViewDB.getInstance().getModelGuiElements(scaledModel).setUnsavedChangesFlag(true);
 
             if(getMarkerPlacerEnabled() && scaleTool.getMarkerPlacer().getOutputStorage()!=null) {
                Storage motion = new Storage(scaleTool.getMarkerPlacer().getOutputStorage());

@@ -20,16 +20,19 @@ public final class FileSaveAsModelAction extends CallableSystemAction {
       StatusDisplayer.getDefault().setStatusText("Saved model "+model.getName()+" to "+fileName);
    }
 
+   public static boolean saveAsModel(Model model) {
+      String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.OpenSimModelFileFilter, true, model.getInputFileName());
+      if(fileName!=null) {
+         // If no extension was specified, append ".osim""
+         if (!fileName.contains(".")) fileName += ".osim";
+         saveModel(model, fileName);
+         return true;
+      } else return false;
+   }
+
    public void performAction() {
       Model mdl = ViewDB.getInstance().getCurrentModel();
-      if (mdl != null) {
-         String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.OpenSimModelFileFilter, true, mdl.getInputFileName());
-         if(fileName!=null) {
-            // If no extension was specified, append ".osim""
-            if (!fileName.contains(".")) fileName += ".osim";
-            saveModel(mdl, fileName);
-         }
-      }
+      if (mdl != null) saveAsModel(mdl);
    }
    
    public String getName() {

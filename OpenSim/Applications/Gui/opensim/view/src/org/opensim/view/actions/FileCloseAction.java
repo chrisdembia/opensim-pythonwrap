@@ -1,14 +1,12 @@
 package org.opensim.view.actions;
 
-import javax.swing.JOptionPane;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.modeling.Model;
-import org.opensim.view.ExplorerTopComponent;
-import org.opensim.view.FileSaveAsModelAction;
+import org.opensim.view.FileSaveModelAction;
 import org.opensim.view.ModelSettingsSerializer;
 import org.opensim.view.SingleModelGuiElements;
 import org.opensim.view.pub.OpenSimDB;
@@ -54,11 +52,7 @@ public static boolean closeModel(Model model) {
       NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save the changes to " + model.getName() + "?", "Save model?");
       Object userSelection = DialogDisplayer.getDefault().notify(dlg);
       if (((Integer)userSelection).intValue() == ((Integer)NotifyDescriptor.OK_OPTION).intValue()) {
-          if (!model.getInputFileName().equals(""))
-             FileSaveAsModelAction.saveModel(model, model.getInputFileName());
-          else
-             (new FileSaveAsModelAction()).performAction();
-          return true;
+         return FileSaveModelAction.saveOrSaveAsModel(model);
       } else if (((Integer)userSelection).intValue() == ((Integer)NotifyDescriptor.NO_OPTION).intValue()) {
          return true;
       } else {
