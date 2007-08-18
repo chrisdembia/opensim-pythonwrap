@@ -844,6 +844,13 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       int index = menuChoice;
       if (index > musclePoints.getSize() - 1)
          index = musclePoints.getSize() - 1;
+
+      // ideally we'd like to just deselect the point we're deleting but the muscle displayer doesn't
+      // deal well with maintaining the right glyph colors when the attachment set changes.
+      // TODO: send some event that the muscle displayer can listen for and know to deselect the point
+      // and make sure the rest of the points maintain correct selection status
+      ViewDB.getInstance().removeObjectsBelongingToMuscleFromSelection(AbstractMuscle.safeDownCast(currentAct));
+
       MusclePoint closestPoint = musclePoints.get(index);
       asm.addAttachmentPoint(menuChoice, closestPoint.getBody());
       setPendingChanges(true, false);
@@ -856,8 +863,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    
    public void deleteAttachmentPerformed(int menuChoice) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
-      // remove from selection (it also handles case where it's not selected)
-      ViewDB.getInstance().removeObjectFromSelectedList(asm.getAttachmentSet().get(menuChoice));
+      // ideally we'd like to just deselect the point we're deleting but the muscle displayer doesn't
+      // deal well with maintaining the right glyph colors when the attachment set changes.
+      // TODO: send some event that the muscle displayer can listen for and know to deselect the point
+      // and make sure the rest of the points maintain correct selection status
+      ViewDB.getInstance().removeObjectsBelongingToMuscleFromSelection(AbstractMuscle.safeDownCast(currentAct));
       boolean result = asm.deleteAttachmentPoint(menuChoice);
       if (result == false) {
          Object[] options = {"OK"};
