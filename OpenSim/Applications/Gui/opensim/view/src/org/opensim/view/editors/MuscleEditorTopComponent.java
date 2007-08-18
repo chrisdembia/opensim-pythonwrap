@@ -394,7 +394,16 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
     * other GUI components do not yet handle property-change events.
     */
    private void resetActuator() {
+      // Should never be null, but just in case...
+      if (savedAct == null)
+         return;
+
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
+
+      // Deselect all attachment points on the muscle being reset.
+      AbstractMuscle currentMuscle = AbstractMuscle.safeDownCast(currentAct);
+      if (currentMuscle != null)
+         ViewDB.getInstance().removeObjectsBelongingToMuscleFromSelection(currentMuscle);
 
       // If the name has changed, fire an event.
       if (currentAct.getName().equals(savedAct.getName()) == false) {
@@ -1600,6 +1609,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // Set the current actuator to the newly selected one (should only be null
       // if the model is null or if the model has no actuators).
       currentAct = newAct;
+      // Make a backup copy of the current actuator, if not already done.
+      if (currentAct != null && savedAct == null)
+         saveActuator();
 
       if (currentModel != null) {
          guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
@@ -1611,6 +1623,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             MuscleComboBox.setEnabled(false);
          }
       } else {
+         savedAct = null;
          ModelNameLabel.setText("Model: No models");
          MuscleNameTextField.setText("");
          MuscleNameTextField.setEnabled(false);
@@ -1623,6 +1636,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       }
       
       if (currentAct == null) {
+         savedAct = null;
          MuscleTypeLabel.setText("");
          MuscleNameTextField.setText("");
          MuscleNameTextField.setEnabled(false);
@@ -2059,7 +2073,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             mp.setAttachment(2, mp.getAttachment().getitem(2) + dragVectorBody[2]);
             m = mp.getMuscle();
             // Check to see if the muscle editor's current muscle was moved.
-            if (AbstractMuscle.getCPtr(m) == AbstractMuscle.getCPtr(currentMuscle))
+            if (m != null && AbstractMuscle.getCPtr(m) == AbstractMuscle.getCPtr(currentMuscle))
                currentMuscleMoved = true;
             // Update the geometry of the muscle.
             SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(m.getModel());
