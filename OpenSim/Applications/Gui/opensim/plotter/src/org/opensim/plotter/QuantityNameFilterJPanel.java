@@ -30,6 +30,9 @@ import org.opensim.view.pub.ViewDB;
 /**
  *
  * @author  Ayman
+ *
+ * Important: This class and PlotterQuantityNameFilterJPanel are almost identical
+ * and will be merged.
  */
 
 public class QuantityNameFilterJPanel extends javax.swing.JPanel 

@@ -148,7 +148,7 @@ public class QuantityNameFilterTableModel extends AbstractTableModel {
     }
     
     void restrictNamesBy(String pattern){
-      Pattern p = Pattern.compile(pattern);
+      Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
       shownQuantities.clear();
       for(int i=0; i<availableQuantities.length ;i++){
         //System.out.println("Match ["+availableQuantities[i]+"] against pattern "+pattern+" returns "+p.matcher(availableQuantities[i]).matches());
@@ -160,7 +160,7 @@ public class QuantityNameFilterTableModel extends AbstractTableModel {
     }
 
     void select(String pattern, boolean b) {
-      Pattern p = Pattern.compile(pattern);
+      Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
       for(int i=0; i<shownQuantities.size() ;i++){
         if (p.matcher(availableQuantities[i]).matches())
             selected[i]=b;
