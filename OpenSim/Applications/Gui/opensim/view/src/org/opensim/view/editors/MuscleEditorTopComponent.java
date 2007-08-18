@@ -394,7 +394,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
     * other GUI components do not yet handle property-change events.
     */
    private void resetActuator() {
-      // Should never be null, but just in case...
+         // Should never be null, but just in case...
       if (savedAct == null)
          return;
 
@@ -2091,7 +2091,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             updateCurrentPathPanel(currentMuscle);
             setPendingChanges(true, false);
          }
-         ViewDB.getInstance().repaintAll();
+         //ViewDB.getInstance().repaintAll();
+         ViewDB.getInstance().renderAll();
       }
    }
    
