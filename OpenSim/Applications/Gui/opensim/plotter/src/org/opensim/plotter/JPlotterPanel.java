@@ -11,6 +11,8 @@ import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -84,6 +86,7 @@ public class JPlotterPanel extends javax.swing.JPanel
    private boolean     builtinMuscleCurve=false;   // Whether muscle selection is required for specified Y qty
    boolean sumCurve=false;
    Dialog dFilterDlg=null;
+   boolean muscleDialogUp=false;
    
    // Plotting from a motion or storage has obvious domain, sourceX values
    //       range names are for multiple curves or one sum curve. Single sourceY
@@ -709,7 +712,7 @@ public class JPlotterPanel extends javax.swing.JPanel
        //XX2
         if (currentModel==null || builtinMuscleCurve==false)
            return;
-        if (dFilterDlg != null) // An instance is already up
+        if (muscleDialogUp==true) // An instance is already up
            return;
         SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
         String[] muscleNames = guiElem.getActuatorNames(true);
@@ -723,6 +726,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                if (isClose){   // This is useful to track down if the muscle dialog is up.
                   dFilterDlg.dispose();
                   dFilterDlg = null;
+                  muscleDialogUp=false;
                }
             }
          }});
@@ -741,7 +745,19 @@ public class JPlotterPanel extends javax.swing.JPanel
             }});
 
         dFilterDlg = DialogDisplayer.getDefault().createDialog(filterDlg);
+        dFilterDlg.addWindowListener(new WindowAdapter(){
+         public void windowClosing(WindowEvent e) {
+            dFilterDlg=null;
+            muscleDialogUp=false;
+         }
+
+         public void windowClosed(WindowEvent e) {
+            dFilterDlg=null;
+            muscleDialogUp=false;
+         }
+       });
         dFilterDlg.setVisible(true);
+        muscleDialogUp=true;
        // The following will be called from an Apply/MakeCurves button on the filterDlg
       //printPlotDescriptor();
        
@@ -1295,8 +1311,11 @@ public class JPlotterPanel extends javax.swing.JPanel
                   currentModel = (Model)objs.get(i);
                   processCurrentModel();
                   populateYPopup();           
-                  if (dFilterDlg != null)
+                  if (dFilterDlg != null){
                      dFilterDlg.dispose();
+                     dFilterDlg=null;
+                     muscleDialogUp=false;
+                  }
                   updatePlotterWithSelection();
                   break;
                }
@@ -1305,16 +1324,22 @@ public class JPlotterPanel extends javax.swing.JPanel
             ModelEvent evt = (ModelEvent)arg;
             if (evt.getModel()==currentModel && evt.getOperation()==ModelEvent.Operation.Close){
                currentModel=null;
-               populateYPopup(); 
-               if (dFilterDlg != null)
+               populateYPopup();
+               if (dFilterDlg != null){
                   dFilterDlg.dispose();
+                  dFilterDlg=null;
+                  muscleDialogUp=false;
+               }
                updatePlotterWithSelection();
             }
             else if (evt.getOperation()==ModelEvent.Operation.SetCurrent){
                currentModel=evt.getModel();
                populateYPopup();           
-               if (dFilterDlg != null)
+               if (dFilterDlg != null){
                   dFilterDlg.dispose();
+                  dFilterDlg=null;
+                  muscleDialogUp=false;
+               }
                updatePlotterWithSelection();
            }
             // Handle model open so that an AnalyzeTool is created.
@@ -1416,6 +1441,8 @@ public class JPlotterPanel extends javax.swing.JPanel
       jDomainEndTextField.setText("");
       jSelectedMusclesTextField.setText("");
       jCurveLegendTextField.setText("");
+      jMuscleSelectButton.setEnabled(false);
+      jPlotterAddPlotButton.setEnabled(validateXY());
    }
    
    private void processCurrentModel() {
@@ -1706,6 +1733,12 @@ public class JPlotterPanel extends javax.swing.JPanel
                        plotterModel.getCurrentPlot().getChartPanel().doEditChartProperties();
                 }});
             curvePopup.add(propMenuItem);
+            JMenuItem exportMenuItem = new JMenuItem("Export Data...");
+            exportMenuItem.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                       plotterModel.getCurrentPlot().exportDataToFile();
+                }});
+            curvePopup.add(exportMenuItem);            
             curvePopup.show(jPlotsTree, evtX, evtY);
             return;
          }

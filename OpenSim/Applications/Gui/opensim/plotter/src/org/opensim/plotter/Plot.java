@@ -27,6 +27,12 @@ package org.opensim.plotter;
 
 import java.awt.BasicStroke;
 import java.awt.Paint;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Vector;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -40,6 +46,12 @@ import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
+import org.opensim.modeling.ArrayStr;
+import org.opensim.modeling.StateVector;
+import org.opensim.modeling.Storage;
+import org.opensim.utils.FileUtils;
 
 /**
  *
@@ -53,6 +65,7 @@ public class Plot {
    JFreeChart     dChart=null;
    private boolean        enableToolTips; // Normally on but for dynamic plots while updating
    Paint nextPaint;
+   private ArrayList<PlotCurve> curvesList = new ArrayList<PlotCurve>(4);
    /**
     * Creates a new instance of Plot
     */
@@ -97,20 +110,9 @@ public class Plot {
       
    }
 
-   void add(PlotCurve newCurve) {
-      String legend = newCurve.getLegend();      
+   void add(PlotCurve newCurve) {      
       seriesCollection.addSeries(newCurve.getCurveSeries());
-   }
-
-   private boolean checkUniqueCurveName(final String newCurveName) {
-      // Check that name is not a duplicate
-      boolean isUnique = true;
-      for(int i=0;i<seriesCollection.getSeriesCount() && isUnique;i++){
-         XYSeries ser = seriesCollection.getSeries(i);
-         if (((String)ser.getKey()).compareTo(newCurveName)==0)
-            isUnique=false;
-      }
-      return isUnique;
+      curvesList.add(newCurve);
    }
 
    public ChartPanel getChartPanel() {
@@ -129,6 +131,7 @@ public class Plot {
    }
 
    void deleteCurve(PlotCurve cvToDelete) {
+      curvesList.remove(cvToDelete);
       seriesCollection.removeSeries(cvToDelete.getCurveSeries());
    }
 
@@ -142,6 +145,128 @@ public class Plot {
 
    void setDomainCrosshair(double time) {
       chartPanel.getChart().getXYPlot().setDomainCrosshairValue(time);
+   }
+   
+    void exportDataToFile() {
+       String filename=FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "");
+       if (filename==null)
+          return;
+        exportData(filename);
+       
+    }
+    
+   void exportData(String filename) {
+      if (seriesCollection==null)
+         return;     // Nothing to export
+      try {
+      BufferedWriter out = new BufferedWriter(new FileWriter(filename, true));  
+      // Create a list to represent which curves have common X
+      Vector<Integer> curveGroup = new Vector<Integer>(10);
+      int numDistinctDomains=0;
+      for (int i=0; i< curvesList.size(); i++){
+         XYSeries series = seriesCollection.getSeries(i);
+         String desc1=series.getDescription();
+         boolean found=false;
+         for(int j=0; j<i && !found; j++){
+            // Check series i against series j if same domain set entry of curveGroup[i]=j and continue
+            String desc2=seriesCollection.getSeries(j).getDescription();
+            String temp = desc1 + "\t"+ desc2;
+            if (sameDomain(series, seriesCollection.getSeries(j))){
+               curveGroup.add(j);
+               found=true;
+            }
+         }
+         // i was not found, add it.
+         if (!found){
+            curveGroup.add(i);
+            numDistinctDomains++;
+         }
+      }
+      // e.g. curveGroup contents at this point is:
+      // X1 vs Y1, X2 vs Y5, X2 vs Y1, X1 vs. Y5  would result curveGroups
+      // {{0}, {1}, {0}, {1}}
+      //if (numDistinctDomains != 1){
+      // For now punt, later either exprt to different files using some convention or
+      // append to same file with separator.
+      //return;
+      //}
+      // {0, 1, 2, 3} -> {0, 0, 2, 2} ->{{0,0},{0,1},{2,2},{2,3}}
+      if (numDistinctDomains>1){
+          DialogDisplayer.getDefault().notify(new 
+                  NotifyDescriptor.Message("Exported curves have different domains. Creating "+numDistinctDomains+" files."));
+
+      }
+      Vector<Integer> distinctX = new Vector<Integer>(4);
+      for (int i=0; i<curveGroup.size(); i++){
+         if (!distinctX.contains(curveGroup.get(i))) 
+            distinctX.add((Integer)curveGroup.get(i));
+      }
+      //DecimalFormat numberFormat = new DecimalFormat("0.000E0");
+      String origFilename = filename;
+      // Assumption is that series indices are packed always 0, 1, ...
+      for (int si=0; si< distinctX.size(); si++){
+         if (si>0){
+            int locationOfDot = filename.lastIndexOf('.');
+            filename = origFilename.substring(0, locationOfDot);   // Prepend index (should append to fielename -extension""
+            filename += "_"+String.valueOf(si);
+            filename += origFilename.substring(locationOfDot);
+         }
+         Storage newStorage = new Storage();
+         
+         // Domain is "si", Range is "seriesCollection.getSeries(j)" where curveGroup.get(j)==distinctX.get(si);
+         int currentSeriesIndex=(Integer)distinctX.get(si);
+         ArrayStr columnLabels = new ArrayStr();
+         columnLabels.append("time");
+         XYSeries series = seriesCollection.getSeries(currentSeriesIndex);
+         String domain = curvesList.get(currentSeriesIndex).getXLabel();
+         columnLabels.append(domain);
+         for (int j=0; j< curveGroup.size(); j++){
+            if (curveGroup.get(j)==currentSeriesIndex){
+               XYSeries ySeries = seriesCollection.getSeries(j);
+               String nextRange = curvesList.get(j).getLegend();
+               columnLabels.append(nextRange);
+            }
+         }
+      
+         newStorage.setColumnLabels(columnLabels);
+         
+         
+         currentSeriesIndex=(Integer)distinctX.get(si);
+         series = seriesCollection.getSeries(currentSeriesIndex);
+         double[] [] values = series.toArray();
+         for (int i=0; i<=series.getItemCount(); i++){   //LAST POINT?
+            StateVector nextRow = new StateVector();
+            nextRow.setTime((double)i);
+            nextRow.getData().append(values[0][i]);
+            //out.write((values[0][i])+"\t");
+            for (int j=0; j< curveGroup.size(); j++){
+               if (curveGroup.get(j)==currentSeriesIndex){
+                  XYSeries ySeries = seriesCollection.getSeries(j);
+                  //out.write((ySeries.getY(i))+"\t");
+                  nextRow.getData().append(ySeries.getY(i).doubleValue());
+               }
+            }
+            //out.write("\n");
+            newStorage.append(nextRow);
+         }
+         //out.write("\n\n");
+         newStorage.print(filename);
+      }
+        // out.close();
+      } catch (IOException ex) {
+         ex.printStackTrace();   // Show error dialog that file could not be written
+      }
+   }
+   
+   private boolean sameDomain(XYSeries series, XYSeries xYSeries) {
+      int count = series.getItemCount();
+      if (count!=xYSeries.getItemCount())
+         return false;
+      // same count, check first and last entry
+      if (!(series.getX(0).equals(xYSeries.getX(0)))) return false;
+      if (!(series.getX(count-1).equals(xYSeries.getX(count-1)))) return false;
+      // We need more checking to probe intermediate X values.
+      return true;
    }
    
 }
