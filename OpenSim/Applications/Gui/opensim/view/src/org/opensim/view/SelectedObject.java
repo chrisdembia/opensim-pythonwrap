@@ -78,15 +78,21 @@ public class SelectedObject {
          MusclePoint mp = MusclePoint.safeDownCast(object);
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(mp));
          OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
-         cloud.setSelected(cloud.getPointId(object), highlight);
-         AbstractMuscle m = mp.getMuscle();
-         visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
+         int id = cloud.getPointId(object);
+         if(id>=0) { // just to be safe
+            cloud.setSelected(id, highlight);
+            AbstractMuscle m = mp.getMuscle();
+            visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
+         }
       } else if (AbstractMarker.safeDownCast(object) != null) {
          AbstractMarker marker = AbstractMarker.safeDownCast(object);
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(marker));
          OpenSimvtkGlyphCloud cloud = visuals.getMarkersRep();
-         cloud.setSelected(cloud.getPointId(object), highlight);
-         cloud.setModified();
+         int id = cloud.getPointId(object);
+         if(id>=0) { // just to be safe
+            cloud.setSelected(id, highlight);
+            cloud.setModified();
+         }
       } else if (AbstractBody.safeDownCast(object) != null) {
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          double unselectedColor[] = {1.0, 1.0, 1.0};
@@ -97,30 +103,29 @@ public class SelectedObject {
       }
    }
 
+   private static double[] getGlyphPointBounds(OpenSimvtkGlyphCloud cloud, SingleModelVisuals visuals, OpenSimObject object) {
+      double pointSize = 0.05;
+      int id = cloud.getPointId(object);
+      if(id<0) return null; // just to be safe
+      double[] location = new double[3];
+      cloud.getLocation(id, location);
+      visuals.transformModelToWorldPoint(location); // Transform to world space
+      return new double[]{location[0]-pointSize,location[0]+pointSize,
+                          location[1]-pointSize,location[1]+pointSize,
+                          location[2]-pointSize,location[2]+pointSize};
+   }
+
    public double[] getBounds()
    {
-      double pointSize = 0.05;
       double[] bounds = null;
       if (MusclePoint.safeDownCast(object) != null) {
          MusclePoint mp = MusclePoint.safeDownCast(object);
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(mp));
-         OpenSimvtkGlyphCloud cloud = visuals.getMusclePointsRep();
-         double[] location = new double[3];
-         cloud.getLocation(cloud.getPointId(object), location);
-         visuals.transformModelToWorldPoint(location); // Transform to world space
-         bounds = new double[]{location[0]-pointSize,location[0]+pointSize,
-                               location[1]-pointSize,location[1]+pointSize,
-                               location[2]-pointSize,location[2]+pointSize};
+         bounds = getGlyphPointBounds(visuals.getMusclePointsRep(), visuals, object);
       } else if (AbstractMarker.safeDownCast(object) != null) {
          AbstractMarker marker = AbstractMarker.safeDownCast(object);
          SingleModelVisuals visuals = ViewDB.getInstance().getModelVisuals(getModel(marker));
-         OpenSimvtkGlyphCloud cloud = visuals.getMarkersRep();
-         double[] location = new double[3];
-         cloud.getLocation(cloud.getPointId(object), location);
-         visuals.transformModelToWorldPoint(location); // Transform to world space
-         bounds = new double[]{location[0]-pointSize,location[0]+pointSize,
-                               location[1]-pointSize,location[1]+pointSize,
-                               location[2]-pointSize,location[2]+pointSize};
+         bounds = getGlyphPointBounds(visuals.getMarkersRep(), visuals, object);
       } else if (AbstractBody.safeDownCast(object) != null) {
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          if(asm!=null) {

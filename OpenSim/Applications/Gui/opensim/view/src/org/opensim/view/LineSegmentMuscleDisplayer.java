@@ -2,6 +2,7 @@ package org.opensim.view;
 
 import java.util.Hashtable;
 import java.util.Vector;
+import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ArrayMusclePoint;
 import org.opensim.modeling.Geometry;
@@ -72,21 +73,28 @@ public class LineSegmentMuscleDisplayer {
       if(newPointsSize > oldPointsSize) {
          //System.out.println("LineSegmentMuscleDisplay ("+act.getName()+"): updateGlyphIds - points "+oldPointsSize+"->"+newPointsSize);
 
-         MusclePointSet as = act.getAttachmentSet();
          // for muscle points, we assume the visible points are fixed attachments or moving via points, and we assume
          // the number of these doesn't change between typical updates... so we allocate the exact number of requested points
          musclePointGlyphIds.setSize(newPointsSize);
-         mapMusclePointToGlyphId.clear();
          for(int i=oldPointsSize; i<newPointsSize; i++) {
             int index = musclePointsRep.addLocation();
             musclePointGlyphIds.set(i, index);
             musclePointsRep.setVectorDataAtLocation(index,1,1,1);
          }
-         for(int i=0; i<newPointsSize; i++) {
-            musclePointsRep.setObjectAtPointId(musclePointGlyphIds.get(i), as.get(i));
-            mapMusclePointToGlyphId.put(as.get(i), musclePointGlyphIds.get(i));
-         }
       }
+
+      // update pointers
+      MusclePointSet as = act.getAttachmentSet();
+      mapMusclePointToGlyphId.clear();
+      for(int i=0; i<newPointsSize; i++) {
+         musclePointsRep.setObjectAtPointId(musclePointGlyphIds.get(i), as.get(i));
+         mapMusclePointToGlyphId.put(as.get(i), musclePointGlyphIds.get(i));
+         //System.out.println("MAP "+as.get(i)+" -- "+MusclePoint.getCPtr(as.get(i))+" to index "+musclePointGlyphIds.get(i));
+         //System.out.println("VERIFY: "+musclePointsRep.getPointId(as.get(i)));
+      }
+      // if we've shrunk in size, remove references to non-existent objects from stale id's
+      for(int i=newPointsSize; i<musclePointGlyphIds.size(); i++)
+         musclePointsRep.setObjectAtPointId(musclePointGlyphIds.get(i), null);
 
       if(newSegmentsSize > oldSegmentsSize) {
          //System.out.println("LineSegmentMuscleDisplay ("+act.getName()+"): updateGlyphIds - segments "+oldSegmentsSize+"->"+newSegmentsSize);

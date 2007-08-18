@@ -62,7 +62,7 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
     private vtkFloatArray       vectorData = new vtkFloatArray();
     private vtkFloatArray       scalarData = null;
     private vtkColorTransferFunction  lookupTable = null;
-    private HashMap<OpenSimObject,Integer> mapObjectIdsToPointIds = new HashMap<OpenSimObject,Integer>(100);
+    private HashMap<OpenSimObject,Integer> mapObjectIdsToPointIds = new HashMap<OpenSimObject,Integer>(100); // maps to -1 for invalid objects
     private HashMap<Integer,OpenSimObject> mapPointIdsToObjectIds = new HashMap<Integer,OpenSimObject>(100);
 
     private Stack<Integer> freeList = new Stack<Integer>();
@@ -270,12 +270,14 @@ public class OpenSimvtkGlyphCloud {    // Assume same shape
 
    public void setObjectAtPointId(int id, OpenSimObject obj) {
       // To be safe, get rid of any stale mappings
-      Integer oldId = mapObjectIdsToPointIds.get(obj);
-      if(oldId!=null && oldId!=id) mapPointIdsToObjectIds.put(oldId,null);
-      mapObjectIdsToPointIds.put(obj,id);
+      if(obj!=null) {
+         Integer oldId = mapObjectIdsToPointIds.get(obj);
+         if(oldId!=null && (int)oldId!=id) mapPointIdsToObjectIds.put(oldId,null);
+         mapObjectIdsToPointIds.put(obj,id);
+      }
 
       OpenSimObject oldObj = mapPointIdsToObjectIds.get(id);
-      if(oldObj!=null && oldObj!=obj) mapObjectIdsToPointIds.put(oldObj,null);
+      if(oldObj!=null && !oldObj.equals(obj)) mapObjectIdsToPointIds.put(oldObj,-1);
       mapPointIdsToObjectIds.put(id,obj);
    }
 }
