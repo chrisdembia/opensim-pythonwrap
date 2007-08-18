@@ -234,7 +234,7 @@ public class Plot {
          currentSeriesIndex=(Integer)distinctX.get(si);
          series = seriesCollection.getSeries(currentSeriesIndex);
          double[] [] values = series.toArray();
-         for (int i=0; i<=series.getItemCount(); i++){   //LAST POINT?
+         for (int i=0; i<series.getItemCount(); i++){   //LAST POINT?
             StateVector nextRow = new StateVector();
             nextRow.setTime((double)i);
             nextRow.getData().append(values[0][i]);
