@@ -66,6 +66,10 @@ import org.opensim.view.SelectedObject;
 
 /**
  * Top component which displays the Muscle Editor window.
+ *
+ * TODO: fix potential memory leak -- savedAct is a C++-side copy of the actuator.  This is necessary
+ * for the case where we end up calling replaceActuator(currentAct, savedAct), but if we don't end up
+ * doing this we end up leaking memory since this C++-side copy won't be used or deleted.
  */
 final public class MuscleEditorTopComponent extends TopComponent implements Observer {
    
