@@ -32,6 +32,7 @@ import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractMarker;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.view.pub.ViewDB;
+import vtk.vtkActor;
 import vtk.vtkProp3D;
 
 
@@ -96,10 +97,19 @@ public class SelectedObject {
       } else if (AbstractBody.safeDownCast(object) != null) {
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
          double unselectedColor[] = {1.0, 1.0, 1.0};
-         if(highlight)
-            ViewDB.getInstance().applyColor(defaultSelectedColor, asm);
-         else
-            ViewDB.getInstance().applyColor(unselectedColor, asm);
+         if(highlight){
+             // Save existing color with the body for later restoration
+             AbstractBody b=(AbstractBody)object;
+             double[] currentColor = ((vtkActor)asm).GetProperty().GetColor();
+             b.getDisplayer().getVisibleProperties().setColor(currentColor);
+             ViewDB.getInstance().applyColor(defaultSelectedColor, asm);
+         }
+         else{
+            AbstractBody b=(AbstractBody)object;
+            double[] actualColor = new double[3];
+            b.getDisplayer().getVisibleProperties().getColor(actualColor);
+            ViewDB.getInstance().applyColor(actualColor, asm);
+         }
       }
    }
 
