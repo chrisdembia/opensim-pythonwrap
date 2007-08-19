@@ -125,6 +125,8 @@ final public class OpenSimDB extends Observable {
     public void saveModel(Model model, String fileName) {
       model.print(fileName);
       model.setInputFileName(fileName); // update the source filename of the model
+      SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
+      if(guiElem!=null) guiElem.setUnsavedChangesFlag(false);
       setChanged();
       ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Save);
       notifyObservers(evnt);
