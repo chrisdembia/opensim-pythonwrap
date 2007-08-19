@@ -156,6 +156,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    public void cleanupMotionDisplayer() {
       setRenderMuscleActivations(false);
       if(motionDisplayer!=null) motionDisplayer.cleanupDisplay();
+      ViewDB.getInstance().repaintAll();
    }
 
    protected void finalize() {
