@@ -58,6 +58,11 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
       }});
 
       setSettingsFileDescription("Settings file");
+
+      //settingsButton.setToolTipText("Load or save tool settings to an XML file.");
+      //applyButton.setToolTipText("Run tool.  Disabled while tool is running, and if settings are either invalid or unchanged since last run.");
+      //okButton.setToolTipText("Close tool dialog while letting tool continue running and keeping results.");
+      // TODO: tool tip for cancel button -- what's the easiest way to do this?
    }
 
    public void setSettingsFileDescription(String description) {
