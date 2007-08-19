@@ -176,7 +176,7 @@ public class IKToolModel extends Observable implements Observer {
    //------------------------------------------------------------------------
    private void updateMotion(Storage newMotion) {
       if(motion!=null) {
-         MotionsDB.getInstance().closeMotion(getOriginalModel(), motion, false);
+         MotionsDB.getInstance().closeMotion(getOriginalModel(), motion, false, false);
       }
       motion = newMotion;
       if(motion!=null) {

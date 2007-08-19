@@ -15,7 +15,7 @@ public final class MotionsCloseAction extends CallableSystemAction {
       for(int i=0; i<selected.length; i++) {
          if(selected[i] instanceof OneMotionNode) { // Should be the case anyway (otherwise this action would not be enabled), but doesn't hurt to double check
             OneMotionNode node = (OneMotionNode)selected[i];
-            MotionsDB.getInstance().closeMotion(node.getModel(), (Storage)node.getOpenSimObject());
+            MotionsDB.getInstance().closeMotion(node.getModel(), (Storage)node.getOpenSimObject(), true);
          }
       }
    }

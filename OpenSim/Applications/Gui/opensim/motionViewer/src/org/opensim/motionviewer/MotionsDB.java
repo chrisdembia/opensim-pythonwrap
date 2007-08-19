@@ -211,14 +211,14 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       notifyObservers(evt);
    }
 
-   public void closeMotion(Model model, Storage simmMotionData) {
-      closeMotion(model, simmMotionData, true);
+   public void closeMotion(Model model, Storage simmMotionData, boolean allowCancel) {
+      closeMotion(model, simmMotionData, true, allowCancel);
    }
 
-   public void closeMotion(Model model, Storage simmMotionData, boolean confirmCloseIfModified) {
+   public void closeMotion(Model model, Storage simmMotionData, boolean confirmCloseIfModified, boolean allowCancel) {
       // Prompt user to confirm the close and possibly save the motion if it has been modified.
       if (confirmCloseIfModified && getMotionModified(simmMotionData)) {
-         if (!confirmCloseMotion(model, simmMotionData))
+         if (!confirmCloseMotion(model, simmMotionData, allowCancel))
             return;
       }
 
@@ -243,14 +243,24 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       }
    }
 
-   private boolean confirmCloseMotion(Model model, Storage simmMotionData) {
-      NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save the changes to motion '" + simmMotionData.getName() + "'?", "Save Modified Motion?");
+   private boolean confirmCloseMotion(Model model, Storage simmMotionData, boolean allowCancel) {
+      int dialogType = NotifyDescriptor.YES_NO_OPTION;
+      if (allowCancel)
+         dialogType = NotifyDescriptor.YES_NO_CANCEL_OPTION;
+      NotifyDescriptor dlg = new NotifyDescriptor.Confirmation("Do you want to save the changes to motion '" + simmMotionData.getName() + "'?",
+              "Save Modified Motion?", dialogType);
       Object userSelection = DialogDisplayer.getDefault().notify(dlg);
       if (((Integer)userSelection).intValue() == ((Integer)NotifyDescriptor.OK_OPTION).intValue()) {
          String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "");
-         if (fileName != null)
+         if (fileName != null) {
             (new MotionsSaveAsAction()).saveMotion((model), simmMotionData, fileName);
-         return true;
+            return true;
+         } else {
+            // The user cancelled out of saving the file, which we interpret as wanting to cancel
+            // the closing of the motion. But if allowCancel == false then we have to return true
+            // so the close is not cancelled.
+            return !allowCancel;
+         }
       } else if (((Integer)userSelection).intValue() == ((Integer)NotifyDescriptor.NO_OPTION).intValue()) {
          return true;
       }
@@ -267,7 +277,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
             ArrayList<Storage> motionsForModel = mapModels2Motions.get(evnt.getModel());
             if(motionsForModel != null) {
                for(int i=motionsForModel.size()-1; i>=0; i--){
-                  closeMotion(model, motionsForModel.get(i));
+                  closeMotion(model, motionsForModel.get(i), false);
                }
             }
          }
