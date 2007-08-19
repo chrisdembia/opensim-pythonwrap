@@ -12,6 +12,7 @@ package org.opensim.view.pub;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
+import java.util.regex.Pattern;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
@@ -232,6 +233,20 @@ final public class OpenSimDB extends Observable {
          }
       }
    }
+   /**
+    * Common place to validate new object names to make sure
+    * They start with a an alphanumeric
+    * contain any combinaton of letters, numbers, _, ., - but no special chars.
+    */
+   static public boolean validateName(String proposedName, boolean allowSpace)
+   {
+      Pattern p;
+      if (allowSpace)
+          p = Pattern.compile("[A-Z][A-Z0-9_. -]*", Pattern.CASE_INSENSITIVE);
+      else
+           p = Pattern.compile("[A-Z][A-Z0-9_.-]*", Pattern.CASE_INSENSITIVE);
+         
+        return (p.matcher(proposedName).matches());
 
-
+   }
 }

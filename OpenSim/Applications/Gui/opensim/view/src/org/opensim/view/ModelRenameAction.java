@@ -25,17 +25,20 @@ public final class ModelRenameAction extends CallableSystemAction {
          NotifyDescriptor.InputLine dlg =
                  new NotifyDescriptor.InputLine("Current Name: "+objectNode.getOpenSimObject().getName(), "Rename Object");
          if(DialogDisplayer.getDefault().notify(dlg)==NotifyDescriptor.OK_OPTION){
-            String newName = dlg.getInputText();
-            objectNode.getOpenSimObject().setName(newName);
-            objectNode.setName(newName);  // Force navigartor window update
-            // The following is specific to renaming a model since
-            // other windows may display currentModel's name
-            // A more generic scheme using events should be used.
-            Model dModel = ((ConcreteModelNode)objectNode).getModel();
-            if (dModel==OpenSimDB.getInstance().getCurrentModel())
-               OpenSimDB.getInstance().setCurrentModel(dModel);   // Need to do this so that model dropdown updates
+             String newName = dlg.getInputText();
+             if (OpenSimDB.getInstance().validateName(newName, true)){
+                 objectNode.getOpenSimObject().setName(newName);
+                 objectNode.setName(newName);  // Force navigartor window update
+                 // The following is specific to renaming a model since
+                 // other windows may display currentModel's name
+                 // A more generic scheme using events should be used.
+                 Model dModel = ((ConcreteModelNode)objectNode).getModel();
+                 if (dModel==OpenSimDB.getInstance().getCurrentModel())
+                     OpenSimDB.getInstance().setCurrentModel(dModel);   // Need to do this so that model dropdown updates
+             } else
+                 DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Provided name "+newName+" is not valid"));
          }
-         
+    
       } else { // Should never happen
          DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Rename of multiple objects is not supported."));
       }
