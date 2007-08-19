@@ -253,7 +253,7 @@ public class MotionsDB extends Observable // Observed by other entities in motio
       if (((Integer)userSelection).intValue() == ((Integer)NotifyDescriptor.OK_OPTION).intValue()) {
          String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "");
          if (fileName != null) {
-            (new MotionsSaveAsAction()).saveMotion((model), simmMotionData, fileName);
+            MotionsSaveAsAction.saveMotion((model), simmMotionData, fileName);
             return true;
          } else {
             // The user cancelled out of saving the file, which we interpret as wanting to cancel

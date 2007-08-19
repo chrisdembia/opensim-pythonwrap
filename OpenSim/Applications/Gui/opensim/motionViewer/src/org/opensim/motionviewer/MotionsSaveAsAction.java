@@ -12,7 +12,7 @@ import org.opensim.view.ExplorerTopComponent;
 
 public final class MotionsSaveAsAction extends CallableSystemAction {
   
-   public void saveMotion(Model model, Storage motion, String fileName) {
+   public static void saveMotion(Model model, Storage motion, String fileName) {
       StatusDisplayer.getDefault().setStatusText("Saving motion...");
       // Needs to be converted to degrees, therefore we need to make a copy of it first
       Storage motionCopy = new Storage(motion);
