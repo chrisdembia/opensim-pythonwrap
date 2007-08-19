@@ -58,7 +58,7 @@ public class CMCToolModel extends AbstractToolModelWithExternalLoads {
          // Initialize progress bar, given we know the number of frames to process
          double ti = getInitialTime();
          double tf = getFinalTime();
-         progressHandle = ProgressHandleFactory.createHandle("Executing analyses...",
+         progressHandle = ProgressHandleFactory.createHandle("Executing computed muscle control...",
                               new Cancellable() {
                                  public boolean cancel() {
                                     interrupt(false);
