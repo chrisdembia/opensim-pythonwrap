@@ -130,7 +130,9 @@
 	<!--Flag (true or false) indicating whether or not to make an adjustment
 	    in the center of mass of a body to reduced DC offsets in MX and MZ. If
 	    true, a new model is writen out that has altered anthropometry.-->
-	<adjust_com_to_reduce_residuals> false </adjust_com_to_reduce_residuals>
+        <adjust_com_to_reduce_residuals> false </adjust_com_to_reduce_residuals>
+        <!--True-false flag indicating whether or not to turn on verbose printing for cmc.-->
+        <use_verbose_printing> false </use_verbose_printing>
 	
 </CMCTool>
 
