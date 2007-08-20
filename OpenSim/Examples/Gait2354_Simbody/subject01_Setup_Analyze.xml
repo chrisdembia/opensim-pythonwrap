@@ -58,16 +58,9 @@
 				<on> true </on>
 				<step_interval> 1 </step_interval>
 				<in_degrees> true </in_degrees>
+				<muscle_list> all </muscle_list>
+				<moment_arm_coordinate_list> knee_angle_r </moment_arm_coordinate_list>
 			</MuscleAnalysis>
-			<!-- MomentArmAnalysis currently produces "failed to assemble" messages, but still should run and give results -->
-			<!--
-			<MomentArmAnalysis name="MomentArmAnalysis">
-				<on> true </on>
-				<step_interval> 100 </step_interval>
-				<in_degrees> true </in_degrees>
-				<muscle_list> soleus_l </muscle_list>
-			</MomentArmAnalysis>
-			-->
 		</objects>
 	</AnalysisSet>
 	<!--XML file containing the controls (e.g., muscle excitations) for the

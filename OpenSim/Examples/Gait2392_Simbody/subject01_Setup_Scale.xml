@@ -82,7 +82,7 @@
 		    coordinates, the IK solution will try to match not only the marker
 		    positions, but also the coordinates in this file. Least-squared error
 		    is used to solve the IK problem.-->
-		<coordinate_file> gait2392_zeros.mot </coordinate_file>
+		<coordinate_file> </coordinate_file>
 		<!--Time range over which the marker positions are averaged.-->
 		<time_range> 1 2 </time_range>
 		<!--Name of the new SIMM Joint file (.jnt) after scaling and marker
