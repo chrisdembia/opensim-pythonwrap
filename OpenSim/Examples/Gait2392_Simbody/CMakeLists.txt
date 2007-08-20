@@ -18,4 +18,4 @@ subject01_Setup_RRA.xml
 subject01_Setup_Scale.xml)
 
 INSTALL_FILES(/examples/Gait2392_Simbody/ FILES ${GAIT2392_FILES})
-INSTALL(DIRECTORY OutputReference DESTINATION examples/Gait2392_Simbody/ PATTERN ".svn" EXCLUDE)
+##INSTALL(DIRECTORY OutputReference DESTINATION examples/Gait2392_Simbody/ PATTERN ".svn" EXCLUDE)
