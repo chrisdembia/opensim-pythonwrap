@@ -1576,7 +1576,7 @@ public class JPlotterPanel extends javax.swing.JPanel
                jSourcePopupMenu.add(fileMenuItem);
          }
       }
-      JMenuItem newfileMenuItem = new JMenuItem("New file...");
+      JMenuItem newfileMenuItem = new JMenuItem("Load file...");
       newfileMenuItem.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e) {
             // browse for file
