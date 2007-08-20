@@ -33,7 +33,7 @@ public class AbstractTool extends OpenSimObject {
     super.delete();
   }
 
-  public void setModel(Model aModel) {
+  public void setModel(Model aModel) throws java.io.IOException {
     opensimModelJNI.AbstractTool_setModel(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 

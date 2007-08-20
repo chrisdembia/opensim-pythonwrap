@@ -1366,7 +1366,7 @@ public class opensimModelJNI {
   public final static native boolean Manager_integrate__SWIG_1(long jarg1, Manager jarg1_, int jarg2);
   public final static native boolean Manager_integrate__SWIG_2(long jarg1, Manager jarg1_, double jarg2);
   public final static native void delete_AbstractTool(long jarg1);
-  public final static native void AbstractTool_setModel(long jarg1, AbstractTool jarg1_, long jarg2, Model jarg2_);
+  public final static native void AbstractTool_setModel(long jarg1, AbstractTool jarg1_, long jarg2, Model jarg2_) throws java.io.IOException;
   public final static native long AbstractTool_getModel(long jarg1, AbstractTool jarg1_);
   public final static native boolean AbstractTool_getReplaceActuatorSet(long jarg1, AbstractTool jarg1_);
   public final static native void AbstractTool_setReplaceActuatorSet(long jarg1, AbstractTool jarg1_, boolean jarg2);
