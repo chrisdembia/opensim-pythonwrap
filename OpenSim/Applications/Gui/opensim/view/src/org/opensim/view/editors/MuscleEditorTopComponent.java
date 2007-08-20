@@ -928,13 +928,13 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // Set up the muscle-independent labels
       javax.swing.JLabel currentPathXLabel = new javax.swing.JLabel();
       currentPathXLabel.setText("X");
-      currentPathXLabel.setBounds(X + 20, Y - 30, 8, 16);
+      currentPathXLabel.setBounds(X + 35, Y - 30, 8, 16);
       javax.swing.JLabel currentPathYLabel = new javax.swing.JLabel();
       currentPathYLabel.setText("Y");
-      currentPathYLabel.setBounds(X + 80, Y - 30, 8, 16);
+      currentPathYLabel.setBounds(X + 95, Y - 30, 8, 16);
       javax.swing.JLabel currentPathZLabel = new javax.swing.JLabel();
       currentPathZLabel.setText("Z");
-      currentPathZLabel.setBounds(X + 140, Y - 30, 8, 16);
+      currentPathZLabel.setBounds(X + 155, Y - 30, 8, 16);
       javax.swing.JLabel currentPathBodyLabel = new javax.swing.JLabel();
       currentPathBodyLabel.setText("Body");
       currentPathBodyLabel.setBounds(X + 210, Y - 30, 30, 16);
@@ -1047,15 +1047,15 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // Set up the muscle-independent labels
       javax.swing.JLabel wrapObjectLabel = new javax.swing.JLabel();
       wrapObjectLabel.setText("Object");
-      wrapObjectLabel.setBounds(X + 40, 10, 50, 16);
+      wrapObjectLabel.setBounds(X + 30, 10, 50, 16);
       WrapPanel.add(wrapObjectLabel);
       javax.swing.JLabel wrapMethodLabel = new javax.swing.JLabel();
       wrapMethodLabel.setText("Method");
-      wrapMethodLabel.setBounds(X + 140, 10, 50, 16);
+      wrapMethodLabel.setBounds(X + 150, 10, 50, 16);
       WrapPanel.add(wrapMethodLabel);
       javax.swing.JLabel wrapStartLabel = new javax.swing.JLabel();
       wrapStartLabel.setText("Start Pt");
-      wrapStartLabel.setBounds(X + 225, 10, 80, 16);
+      wrapStartLabel.setBounds(X + 223, 10, 80, 16);
       WrapPanel.add(wrapStartLabel);
       javax.swing.JLabel wrapEndLabel = new javax.swing.JLabel();
       wrapEndLabel.setText("End Pt");
@@ -1300,19 +1300,19 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       boolean anyViaPoints = false;
       javax.swing.JLabel attachmentXLabel = new javax.swing.JLabel();
       attachmentXLabel.setText("X");
-      attachmentXLabel.setBounds(X + 20, Y - 30, 8, 16);
+      attachmentXLabel.setBounds(X + 30, Y - 30, 8, 16);
       javax.swing.JLabel attachmentYLabel = new javax.swing.JLabel();
       attachmentYLabel.setText("Y");
-      attachmentYLabel.setBounds(X + 80, Y - 30, 8, 16);
+      attachmentYLabel.setBounds(X + 90, Y - 30, 8, 16);
       javax.swing.JLabel attachmentZLabel = new javax.swing.JLabel();
       attachmentZLabel.setText("Z");
-      attachmentZLabel.setBounds(X + 140, Y - 30, 8, 16);
+      attachmentZLabel.setBounds(X + 150, Y - 30, 8, 16);
       javax.swing.JLabel attachmentBodyLabel = new javax.swing.JLabel();
       attachmentBodyLabel.setText("Body");
-      attachmentBodyLabel.setBounds(X + 210, Y - 30, 30, 16);
+      attachmentBodyLabel.setBounds(X + 215, Y - 30, 30, 16);
       javax.swing.JLabel attachmentSelLabel = new javax.swing.JLabel();
       attachmentSelLabel.setText("Sel");
-      attachmentSelLabel.setBounds(X + 290, Y - 30, 25, 16);
+      attachmentSelLabel.setBounds(X + 292, Y - 30, 25, 16);
       javax.swing.JLabel coordLabel = new javax.swing.JLabel();
       coordLabel.setText("Coordinate");
       coordLabel.setBounds(X + 350, Y - 30, 90, 16);
@@ -1821,7 +1821,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       }
       
       //Dimension windowSize = MuscleEditorScrollPane.getParent().getSize();
-      Dimension d = new Dimension(495, 358);
+      Dimension d = new Dimension(565, 358);
       MuscleEditorPanel.setPreferredSize(d);
       
       this.revalidate();
