@@ -93,26 +93,5 @@ public class Installer extends ModuleInstall {
          String defaultBgColor = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_BackgroundColorRGB");        
          saved = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBgColor);
          Preferences.userNodeForPackage(TheApp.class).put("BackgroundColor", saved);
-         
-         String defaultMuscleColor = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_MuscleColorRGB");        
-         saved = Preferences.userNodeForPackage(TheApp.class).get("MuscleColor", defaultMuscleColor);
-         Preferences.userNodeForPackage(TheApp.class).put("MuscleColor", saved);
-
-         String defaultMarkerColor = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_MarkerColorRGB");        
-         saved = Preferences.userNodeForPackage(TheApp.class).get("MarkerColor", defaultMarkerColor);
-         Preferences.userNodeForPackage(TheApp.class).put("MarkerColor", saved);
-
-         String defaultMusclePointColor = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_MusclePointColorRGB");        
-         saved = Preferences.userNodeForPackage(TheApp.class).get("MusclePointColor", defaultMusclePointColor);
-         Preferences.userNodeForPackage(TheApp.class).put("MusclePointColor", saved);
-
-         String defaultWrapObjectColor = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_WrapObjectColorRGB");        
-         saved = Preferences.userNodeForPackage(TheApp.class).get("WrapObjectColor", defaultWrapObjectColor);
-         Preferences.userNodeForPackage(TheApp.class).put("WrapObjectColor", saved);
-
-         String showWrapObjects = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_ShowWrapObjects");
-         saved = Preferences.userNodeForPackage(TheApp.class).get("ShowWrapObjects", showWrapObjects);
-         Preferences.userNodeForPackage(TheApp.class).put("ShowWrapObjects", saved);
-         
     }
 }

@@ -13,7 +13,6 @@ import org.opensim.logger.OpenSimLogger;
 import org.opensim.modeling.Model;
 import org.opensim.utils.ErrorDialog;
 import org.opensim.utils.FileUtils;
-import org.opensim.view.base.SerializationHelper;
 import org.opensim.view.pub.OpenSimDB;
 
 public class FileOpenOsimModelAction extends CallableSystemAction {
@@ -35,13 +34,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
                 ErrorDialog.displayIOExceptionDialog("OpenSim Model Loading Error",
                   "Could not construct a model from "+fileName+".\nConsider using File/import instead.\n",
                   ex);
-            }
-            
-            try {
-                writeExternal(SerializationHelper.getLogStream());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }            
+            }    
         }
     }
 
