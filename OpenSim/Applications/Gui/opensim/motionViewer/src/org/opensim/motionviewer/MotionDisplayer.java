@@ -335,7 +335,7 @@ public class MotionDisplayer {
         // associated with it.  It may be because setRenderMuscleActivations ends up updating the actuator
         // geometry, and if the model is closing it may be that it was in the process of being deleted when
         // those actuators were referred to...  So we avoid all that with this if statement.
-        if(OpenSimDB.getInstance().hasModel(model)) {
+        if(OpenSimDB.getInstance().hasModel(model) && statesFile) {
            SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
            if(vis!=null) vis.setRenderMuscleActivations(false);
         }
