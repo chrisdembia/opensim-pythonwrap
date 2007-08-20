@@ -457,14 +457,22 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    private void applyPose(final ModelPose pose) {
       Vector<String> coordinateNames=pose.getCoordinateNames();
       Vector coordinateValues=pose.getCoordinateValues();
+      if (coordinateNames.size() != coordinateNames.size()){
+         // Some coordinates may not have values, probably because of model changes in this case
+         // show error and return;
+          DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message(
+                    "Number of coordinates in saved pose does not match the model... Aborting pose setting."));
+      }
       for(int i=0;i<coordinateNames.size();i++){
          // Values in file
          String name=coordinateNames.get(i);
          double storedValue = (Double)coordinateValues.get(i);
          
          AbstractCoordinate coord=coords.get(name);
-         coord.setValue(storedValue);
-         mapCoordinates2Sliders.get(coord).updateValue();
+         if (coord !=null){
+            coord.setValue(storedValue);
+            mapCoordinates2Sliders.get(coord).updateValue();
+         }
       }
    }
 
