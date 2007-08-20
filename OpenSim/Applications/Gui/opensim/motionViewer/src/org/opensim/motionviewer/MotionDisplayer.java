@@ -24,6 +24,7 @@ import org.opensim.modeling.StateVector;
 import org.opensim.modeling.Storage;
 import org.opensim.view.OpenSimvtkGlyphCloud;
 import org.opensim.view.SingleModelVisuals;
+import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
 /**
@@ -328,8 +329,16 @@ public class MotionDisplayer {
         ViewDB.getInstance().removeUserObject(model, forcesRep.getVtkActor());
         ViewDB.getInstance().removeUserObject(model, markersRep.getVtkActor());
 
-        SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
-        if(vis!=null) vis.setRenderMuscleActivations(false);
+        // Don't attempt to change muscle activation color if we're here because
+        // the model is closing... check this by checking model is still in models list
+        // This may help fix a crash that Sam got when he closed a model that had a MotionDisplayer
+        // associated with it.  It may be because setRenderMuscleActivations ends up updating the actuator
+        // geometry, and if the model is closing it may be that it was in the process of being deleted when
+        // those actuators were referred to...  So we avoid all that with this if statement.
+        if(OpenSimDB.getInstance().hasModel(model)) {
+           SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+           if(vis!=null) vis.setRenderMuscleActivations(false);
+        }
     }
 
    public Storage getSimmMotionData() {
