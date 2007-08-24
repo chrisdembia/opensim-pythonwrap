@@ -509,12 +509,13 @@ public class ModelWindowVTKTopComponent extends TopComponent
                 if (!fileName.endsWith(".avi"))
                     fileName = fileName+".avi";
                 getCanvas().createMovie(fileName);
+               // correct selected mode
+               jStartStopMovieToggleButton.setSelected(true);
             }
             else {
                 btn.getModel().setSelected(false);
+                btn.getModel().setArmed(false);
             }
-            // correct selected mode
-            jStartStopMovieToggleButton.setSelected(true);
         }
         else {
             getCanvas().finishMovie();
