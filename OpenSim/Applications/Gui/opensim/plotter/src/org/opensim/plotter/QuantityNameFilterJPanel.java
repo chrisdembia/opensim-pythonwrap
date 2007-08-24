@@ -325,20 +325,24 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
 // TODO add your handling code here:
         JComboBox cb = (JComboBox)evt.getSource();
         String groupName = (String) cb.getSelectedItem();
-       // get members and use them to filter
-        ActuatorSet acts=currentModel.getActuatorSet();
-        ObjectGroup gp=acts.getGroup(groupName);
-        ArrayObjPtr members=gp.getMembers();
-        // Form a vector of muscle names
-        String tempPattern="";
-        for(int i=0;i<members.getSize();i++){
-            tempPattern +=members.get(i).getName();
-            if (i<members.getSize()-1)
-               tempPattern += "|"; 
-        }
-        // Filter visible items by musclesInGroup
-        tableModel.restrictNamesBy(tempPattern);
+        restrictToGroup(groupName);
     }//GEN-LAST:event_jMuscleGroupComboBoxActionPerformed
+
+   private void restrictToGroup(final String groupName) {
+       // get members and use them to filter
+      ActuatorSet acts=currentModel.getActuatorSet();
+      ObjectGroup gp=acts.getGroup(groupName);
+      ArrayObjPtr members=gp.getMembers();
+      // Form a vector of muscle names
+      String tempPattern="";
+      for(int i=0;i<members.getSize();i++){
+          tempPattern +=members.get(i).getName();
+          if (i<members.getSize()-1)
+             tempPattern += "|"; 
+      }
+      // Filter visible items by musclesInGroup
+      tableModel.restrictNamesBy(tempPattern);
+   }
 
     private void jModelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jModelComboBoxActionPerformed
 // TODO add your handling code here:
@@ -387,6 +391,7 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
         Vector<String> groups=ViewDB.getInstance().getModelGuiElements(currentModel).getActuatorGroupNames();
         jMuscleGroupComboBox.setModel(new DefaultComboBoxModel(groups));
         setFilter(currentFilter);
+        restrictToGroup(groups.get(0));
         
 // TODO add your handling code here:
     }//GEN-LAST:event_jModelGroupRadioButtonActionPerformed
