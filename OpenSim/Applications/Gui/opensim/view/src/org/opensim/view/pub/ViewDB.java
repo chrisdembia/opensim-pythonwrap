@@ -127,7 +127,7 @@ public final class ViewDB extends Observable implements Observer {
         super.setChanged();
     }
     
-   public static ModelWindowVTKTopComponent getCurrenWindow() {
+   public static ModelWindowVTKTopComponent getCurrentModelWindow() {
       return currentModelWindow;
    }
    /**
@@ -896,6 +896,15 @@ public final class ViewDB extends Observable implements Observer {
    public SingleModelGuiElements getModelGuiElements(Model aModel) {
       return mapModelsToGuiElements.get(aModel);
    }
+
+   public void applyTimeToViews(double time) {
+      Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
+      while(windowIter.hasNext()){
+         ModelWindowVTKTopComponent nextWindow = windowIter.next();
+         nextWindow.getCanvas().applyTime(time);
+      }
+   }
+
    /**
     * This function is called from a timer thread that runs parallel to the simulation thread
     * Obviously should run as fast as possible. 

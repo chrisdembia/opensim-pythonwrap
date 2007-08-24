@@ -20,13 +20,13 @@ public class ViewEditAction extends CallableSystemAction {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ViewEditJDialog dlg = 
-                new ViewEditJDialog(TheApp.getAppFrame(), true, ViewDB.getInstance().getCurrenWindow());
+                new ViewEditJDialog(TheApp.getAppFrame(), true, ViewDB.getInstance().getCurrentModelWindow());
                 dlg.setLocationRelativeTo(ExplorerTopComponent.getDefault());
                 dlg.setVisible(true);
             }
         });
         /*
-        DialogDescriptor viewEditDlg = new DialogDescriptor(new RenameViewPanel(ViewDB.getInstance().getCurrenWindow()), "Rename View");
+        DialogDescriptor viewEditDlg = new DialogDescriptor(new RenameViewPanel(ViewDB.getInstance().getCurrentModelWindow()), "Rename View");
         viewEditDlg.addPropertyChangeListener(new PropertyChangeListener(){
             public void propertyChange(PropertyChangeEvent evt) {
                 Object obj = evt.getSource();
@@ -34,12 +34,12 @@ public class ViewEditAction extends CallableSystemAction {
                 if (propName.equalsIgnoreCase("Value")){
                     int acceptReject = ((Integer)evt.getNewValue()).intValue();
                     if (acceptReject==1){   //OK
-                        ViewDB.getInstance().getCurrenWindow().setTabDisplayName("OK");
-                        ViewDB.getInstance().getCurrenWindow().setDisplayName("OK");
+                        ViewDB.getInstance().getCurrentModelWindow().setTabDisplayName("OK");
+                        ViewDB.getInstance().getCurrentModelWindow().setDisplayName("OK");
                     }
                     else {  //Cancel
-                        ViewDB.getInstance().getCurrenWindow().setTabDisplayName("Cancel");
-                        ViewDB.getInstance().getCurrenWindow().setDisplayName("Cancel");                        
+                        ViewDB.getInstance().getCurrentModelWindow().setTabDisplayName("Cancel");
+                        ViewDB.getInstance().getCurrentModelWindow().setDisplayName("Cancel");                        
                     }
                 }
             }});

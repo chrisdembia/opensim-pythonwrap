@@ -49,6 +49,20 @@ public class MasterMotionModel {
    MasterMotionModel() {
    }
 
+   private void doUpdateAndRepaint() 
+   {
+      ViewDB.getInstance().applyTimeToViews(getCurrentTime());
+      for(int i=0; i<displayers.size(); i++) {
+         MotionDisplayer disp = displayers.get(i);
+         Model dModel = disp.getModel();
+         ViewDB.getInstance().updateModelDisplayNoRepaint(dModel);
+      }
+      //ViewDB.getInstance().repaintAll();
+      ViewDB.getInstance().renderAll();
+      MotionsDB motionsDB = MotionsDB.getInstance();
+      motionsDB.reportTimeChange(getCurrentTime());
+   }
+
    private void applyTime() 
    {
       if(displayers.size() == 0) return;
@@ -59,30 +73,11 @@ public class MasterMotionModel {
 
       // If in event dispatch thrread then execute synchronously
       if (SwingUtilities.isEventDispatchThread()){
-         for(int i=0; i<displayers.size(); i++) {
-            MotionDisplayer disp = displayers.get(i);
-            Model dModel = disp.getModel();
-            ViewDB.getInstance().updateModelDisplayNoRepaint(dModel);
-         }
-         //ViewDB.getInstance().repaintAll();
-         ViewDB.getInstance().renderAll();
-         MotionsDB motionsDB = MotionsDB.getInstance();
-         motionsDB.reportTimeChange(getCurrentTime());
+         doUpdateAndRepaint();
       }
       else {
          try {
-            SwingUtilities.invokeAndWait(new Runnable(){
-               public void run(){
-                  for(int i=0; i<displayers.size(); i++) {
-                     MotionDisplayer disp = displayers.get(i);
-                     Model dModel = disp.getModel();
-                     ViewDB.getInstance().updateModelDisplayNoRepaint(dModel);
-                  }
-                  ViewDB.getInstance().repaintAll();
-                  MotionsDB motionsDB = MotionsDB.getInstance();
-                  motionsDB.reportTimeChange(getCurrentTime());
-               }
-               });
+            SwingUtilities.invokeAndWait(new Runnable(){ public void run(){ doUpdateAndRepaint(); } });
          } catch (InvocationTargetException ex) {
             ex.printStackTrace();
          } catch (InterruptedException ex) {

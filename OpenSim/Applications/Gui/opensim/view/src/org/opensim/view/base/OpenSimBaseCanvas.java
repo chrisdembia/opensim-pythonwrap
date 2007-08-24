@@ -32,6 +32,7 @@ import java.util.prefs.Preferences;
 import javax.swing.JPopupMenu;
 import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
+import org.opensim.view.Camera;
 import org.opensim.view.pub.ViewDB;
 import vtk.vtkCamera;
 import vtk.vtkLightCollection;
@@ -52,6 +53,9 @@ public class OpenSimBaseCanvas extends vtkPanel
    int    numAAFrames=0;
    JPopupMenu settingsMenu = new JPopupMenu();
    CamerasMenu camerasMenu;
+
+   double currentTime = 0;
+   Camera camera = null;
    
    // Enable opoups to display on top of heavy weight component/canvas
    static {
@@ -72,7 +76,6 @@ public class OpenSimBaseCanvas extends vtkPanel
          numAAFrames=desiredAAFrames;
       }
       GetRenderWindow().SetAAFrames(numAAFrames);
-      
    }
    
    public void mousePressed(MouseEvent e) {
@@ -204,5 +207,39 @@ public class OpenSimBaseCanvas extends vtkPanel
         currentCamera.SetViewUp(selectedCamera.GetViewUp());
         currentCamera.SetParallelScale(selectedCamera.GetParallelScale());
     }
-   
+
+
+   //========================================================================
+   // Methods for new (animatable) Camera class
+   //========================================================================
+
+   public void setCamera(Camera camera) {
+      System.out.println("OpenSimBaseCanvas.setCamera "+((camera!=null)?camera.getName():""));
+      this.camera = camera;
+      applyTime(currentTime);
+   }
+   public Camera getCamera() { return camera; }
+
+   // TODO: really we should be querying the motion controller for the current time, but it's inaccessible from this package
+   public double getCurrentTime() { return currentTime; }
+
+   public void applyCameraConfiguration(Camera.Configuration config, boolean doRepaint) {
+      config.applyToView(this);
+      vtkLightCollection lights = GetRenderer().GetLights();
+      lights.RemoveAllItems();
+      GetRenderer().CreateLight();
+      if(doRepaint) repaint();
+   }
+  
+   public void applyTime(double time) {
+      // Cache time since we don't have direct access to the motion controller
+      currentTime = time;
+
+      // if camera not null, apply modified camera
+      // if not animated camera, don't need to do anything (assume that when user switched to that
+      // nonanimated camera, the proper configuration was selected and that was good enough
+      if(camera!=null && camera.getNumKeyFrames()>0) {
+         applyCameraConfiguration(camera.getConfiguration(currentTime), false);
+      }
+   } 
 }

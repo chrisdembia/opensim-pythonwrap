@@ -1,11 +1,19 @@
 package org.opensim.view;
 
 import java.awt.Color;
+import java.awt.Dialog;
+import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.util.prefs.Preferences;
+import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
 import org.openide.util.NbBundle;
 import org.openide.util.SharedClassObject;
 import org.openide.windows.TopComponent;
@@ -19,7 +27,31 @@ import vtk.vtkFileOutputWindow;
  */
 public class ModelWindowVTKTopComponent extends TopComponent
 {
-    
+   class SetCameraAction extends AbstractAction {
+      private Camera camera;
+      public SetCameraAction(Camera camera) {
+         super((camera!=null) ? camera.getName() : "none");
+         this.camera = camera;
+      }
+      public void actionPerformed(ActionEvent evt) {
+         getCanvas().setCamera(camera);
+      }
+   }
+
+   class CameraEditorAction extends AbstractAction {
+      public CameraEditorAction() {
+         super("Edit Cameras...");
+      }
+      public void actionPerformed(ActionEvent evt) {
+         CameraEditorPanel panel = new CameraEditorPanel();
+         DialogDescriptor dlg = new DialogDescriptor(panel, "Camera Editor");
+         dlg.setModal(false);
+         dlg.setOptions(new Object[]{DialogDescriptor.OK_OPTION});
+         Dialog dialog = DialogDisplayer.getDefault().createDialog(dlg);
+         dialog.setVisible(true);
+      }
+   }
+   
     private static final long serialVersionUID = 1L;
     private static int ct = 0; //A counter used to provide names for new models
     private String tabDisplayName;
@@ -65,6 +97,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
         jPlusZViewButton = new javax.swing.JButton();
         jTakeSnapshotButton = new javax.swing.JButton();
         jStartStopMovieToggleButton = new javax.swing.JToggleButton();
+        cameraEditorButton = new javax.swing.JButton();
         openSimCanvas1 = new org.opensim.view.OpenSimCanvas();
 
         org.openide.awt.Mnemonics.setLocalizedText(jRefitModelButton, "Refit");
@@ -308,6 +341,28 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
         jModelWindowToolBar.add(jStartStopMovieToggleButton);
 
+        org.openide.awt.Mnemonics.setLocalizedText(cameraEditorButton, "C");
+        cameraEditorButton.setToolTipText("+Z view");
+        cameraEditorButton.setAlignmentX(0.5F);
+        cameraEditorButton.setBorderPainted(false);
+        cameraEditorButton.setContentAreaFilled(false);
+        cameraEditorButton.setFocusPainted(false);
+        cameraEditorButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        cameraEditorButton.setMaximumSize(new java.awt.Dimension(20, 20));
+        cameraEditorButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        cameraEditorButton.setPreferredSize(new java.awt.Dimension(20, 20));
+        cameraEditorButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_selected.png")));
+        cameraEditorButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_rollover.png")));
+        cameraEditorButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_rollover_selected.png")));
+        cameraEditorButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/view/leftView_axes_selected.png")));
+        cameraEditorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cameraEditorButtonMousePressed(evt);
+            }
+        });
+
+        jModelWindowToolBar.add(cameraEditorButton);
+
         add(jModelWindowToolBar, java.awt.BorderLayout.EAST);
 
         openSimCanvas1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -325,6 +380,27 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cameraEditorButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cameraEditorButtonMousePressed
+      JPopupMenu cameraPopup = new JPopupMenu();
+      JRadioButtonMenuItem item = null;
+
+      // null camera
+      item = new JRadioButtonMenuItem(new SetCameraAction(null));
+      if(getCanvas().getCamera()==null) item.setSelected(true);
+      cameraPopup.add(item);
+
+      for(int i=0; i<CameraDB.getInstance().getNumCameras(); i++) {
+         Camera camera = CameraDB.getInstance().getCamera(i);
+         item = new JRadioButtonMenuItem(new SetCameraAction(camera));
+         if(camera.equals(getCanvas().getCamera())) item.setSelected(true);
+         cameraPopup.add(item);
+      }
+
+      cameraPopup.addSeparator();
+      cameraPopup.add(new JMenuItem(new CameraEditorAction()));
+      cameraPopup.show(evt.getComponent(), evt.getX(), evt.getY());
+    }//GEN-LAST:event_cameraEditorButtonMousePressed
+
     private void openSimCanvas1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openSimCanvas1MouseReleased
 // TODO add your handling code here:
         if ((evt.getModifiers() == (InputEvent.BUTTON1_MASK))) {
@@ -340,7 +416,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
     private void jBackgroundColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackgroundColorButtonActionPerformed
 // TODO add your handling code here:
         JColorChooser backgroundColorChooser = new JColorChooser();
-        OpenSimCanvas dCanvas = ViewDB.getInstance().getCurrenWindow().getCanvas();
+        OpenSimCanvas dCanvas = ViewDB.getInstance().getCurrentModelWindow().getCanvas();
         Color newColor = backgroundColorChooser.showDialog(dCanvas, "Select new background color", dCanvas.getBackground());
         if (newColor != null){
              float[] colorComponents = newColor.getRGBComponents(null);
@@ -371,7 +447,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
     private void openSimCanvas1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_openSimCanvas1FocusGained
 // TODO add your handling code here:
         ViewDB.getInstance().setCurrentModelWindow(this);
-        double[] canvasBackgroundDouble = ViewDB.getInstance().getCurrenWindow().getCanvas().GetRenderer().GetBackground();
+        double[] canvasBackgroundDouble = ViewDB.getInstance().getCurrentModelWindow().getCanvas().GetRenderer().GetBackground();
         Color canvasBackgroundColor = new java.awt.Color((int) (canvasBackgroundDouble[0]*255), (int) (canvasBackgroundDouble[1]*255), (int) (canvasBackgroundDouble[2]*255));
         Color toolBarBackgroundColor = jModelWindowToolBar.getBackground();
         if (toolBarBackgroundColor == canvasBackgroundColor) {
@@ -506,6 +582,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
     }//GEN-LAST:event_jRefitModelButtonActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cameraEditorButton;
     private javax.swing.JToggleButton jAxesToggleButton;
     private javax.swing.JButton jBackgroundColorButton;
     private javax.swing.JButton jMinusXViewButton;

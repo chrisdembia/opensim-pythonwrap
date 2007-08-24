@@ -22,7 +22,7 @@ public final class ObjectGenericReviewAction  extends CallableSystemAction {
          OpenSimObjectNode objectNode = (OpenSimObjectNode) selected[0];
          
          ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(objectNode.getOpenSimObject(),
-                 ViewDB.getInstance().getCurrenWindow());
+                 ViewDB.getInstance().getCurrentModelWindow());
          editorDialog.process();
       } else { // Should never happen
          DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Review of multiple objects is not supported."));

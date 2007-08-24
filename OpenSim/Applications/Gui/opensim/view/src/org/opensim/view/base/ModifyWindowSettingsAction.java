@@ -15,7 +15,7 @@ public final class ModifyWindowSettingsAction extends CallableSystemAction {
     public void performAction() {
         // TODO implement action body
         JColorChooser backgroundColorChooser = new JColorChooser();
-        OpenSimCanvas dCanvas = ViewDB.getInstance().getCurrenWindow().getCanvas();
+        OpenSimCanvas dCanvas = ViewDB.getInstance().getCurrentModelWindow().getCanvas();
         Color newColor = backgroundColorChooser.showDialog(dCanvas, "Select new background color", dCanvas.getBackground());
         if (newColor != null){
              float[] colorComponents = newColor.getRGBComponents(null);

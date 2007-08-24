@@ -135,7 +135,7 @@ public class OpenSimCanvas extends OpenSimBaseCanvas {
      * Callback invoked when the user doubleclicks an object in the graphics window
      */
     void handleDoubleClick(OpenSimObject obj) {
-       ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(obj, ViewDB.getInstance().getCurrenWindow());
+       ObjectEditDialogMaker editorDialog =new ObjectEditDialogMaker(obj, ViewDB.getInstance().getCurrentModelWindow());
        editorDialog.process();
        ViewDB.getInstance().statusDisplaySelectedObjects();
    }
