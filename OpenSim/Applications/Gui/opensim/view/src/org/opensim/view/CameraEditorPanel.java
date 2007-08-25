@@ -58,13 +58,12 @@ class CameraKeyFramesTableModel extends AbstractTableModel implements Observer {
    }
 
    public boolean isCellEditable(int row, int col) {
-      // TODO
-      return false;
+      return (col==0);
    }
 
 
    public void setValueAt(Object value, int row, int col) {
-      // TODO
+      if(col==0) camera.setKeyFrameTime(row, ((Double)value).doubleValue());
    }
 }
 

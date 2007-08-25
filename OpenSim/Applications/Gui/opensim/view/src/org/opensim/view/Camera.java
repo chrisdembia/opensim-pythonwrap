@@ -114,9 +114,15 @@ public class Camera
 
    public int getNumKeyFrames() { return configurationKeyFrames.size(); }
    public double getKeyFrameTime(int i) { return configurationKeyFrames.get(i).time; }
+   public void setKeyFrameTime(int i, double time) { 
+      if(configurationKeyFrames.get(i).time != time) {
+         configurationKeyFrames.get(i).time = time;
+         CameraDB.getInstance().fireEvent(new CameraEvent(this, this, CameraEvent.Operation.CameraKeyFrameModified));
+      }
+   }
 
    public Configuration getKeyFrameConfiguration(int i) { return configurationKeyFrames.get(i).config; }
-   public void setKeyFrameConfiguration(int i, Configuration config) { 
+   public void setKeyFrameConfiguration(int i, Configuration config) {
       configurationKeyFrames.get(i).config = config; 
       CameraDB.getInstance().fireEvent(new CameraEvent(this, this, CameraEvent.Operation.CameraKeyFrameModified));
    }
