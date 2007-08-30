@@ -149,6 +149,7 @@ public class IKToolModel extends Observable implements Observer {
 
       // Create IK tool
       ikTool = new IKTool();
+      addTrialIfNecessary();
 
       ikCommonModel = new IKCommonModel(originalModel);
       ikCommonModel.addObserver(this);
@@ -157,6 +158,12 @@ public class IKToolModel extends Observable implements Observer {
    public Model getOriginalModel() { return originalModel; }
    public IKTool getIKTool() { return ikTool; }
    public IKCommonModel getIKCommonModel() { return ikCommonModel; }
+
+   private void addTrialIfNecessary() {
+      if(ikTool.getIKTrialSet().getSize()==0) {
+         ikTool.getIKTrialSet().append(IKTrial.safeDownCast(new IKTrial().copy()));
+      }
+   }
    
    //------------------------------------------------------------------------
    // IK trial name
@@ -288,6 +295,7 @@ public class IKToolModel extends Observable implements Observer {
          return false;
       }
       ikTool = newIKTool;
+      addTrialIfNecessary();
       relativeToAbsolutePaths(fileName);
 
       ikCommonModel.fromIKTool(ikTool);
