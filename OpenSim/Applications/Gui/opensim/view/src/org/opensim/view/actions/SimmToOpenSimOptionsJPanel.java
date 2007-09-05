@@ -257,7 +257,7 @@ public class SimmToOpenSimOptionsJPanel extends javax.swing.JPanel
       while(true){
          String nameWithExtension = f.getName();
          
-         candidateName=nameWithExtension.substring(0, nameWithExtension.indexOf("."))+"_"+String.valueOf(candidateNumber)+".osim";
+         candidateName=nameWithExtension.substring(0, nameWithExtension.lastIndexOf("."))+"_"+String.valueOf(candidateNumber)+".osim";
          File testExists = new File(jntFileDir+File.separator+candidateName);
          if (testExists.exists())
            candidateNumber++;
