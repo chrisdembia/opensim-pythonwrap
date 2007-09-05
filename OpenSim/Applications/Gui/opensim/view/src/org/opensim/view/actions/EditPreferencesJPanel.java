@@ -41,6 +41,7 @@ public class EditPreferencesJPanel extends javax.swing.JPanel {
    /** Creates new form EditPreferencesJPanel */
    public EditPreferencesJPanel() throws BackingStoreException {
       initComponents();
+      jTable1.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
       initContent();
    }
    
