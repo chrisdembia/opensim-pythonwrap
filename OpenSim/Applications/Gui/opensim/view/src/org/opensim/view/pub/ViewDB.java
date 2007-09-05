@@ -1132,7 +1132,7 @@ public final class ViewDB extends Observable implements Observer {
    private String getDefaultSettingsFileName(Model model) {
       String modelFileName = model.getInputFileName(); // TODO: should we use DocumentFileName or InputFileName?
       if(modelFileName==null || modelFileName.length()==0) return null;
-      else return modelFileName.substring(0, modelFileName.indexOf("."))+"_settings.xml";
+      else return modelFileName.substring(0, modelFileName.lastIndexOf("."))+"_settings.xml";
    }
    private void processSavedSettings(Model model) {
       // Read settings file if exist, should have file name =
