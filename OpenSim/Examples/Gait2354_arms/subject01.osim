@@ -1,0 +1,3554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model name="3DGaitModelSimple">
+	<defaults>
+		<Thelen2003Muscle name="default">
+			<MusclePointSet name="">
+				<objects/>
+				<groups/>
+			</MusclePointSet>
+			<VisibleObject name="">
+				<geometry_files> </geometry_files>
+				<VisibleProperties name="">
+					<display_preference> 4 </display_preference>
+					<show_normals> false </show_normals>
+					<show_axes> false </show_axes>
+					<material_name> DEFAULT </material_name>
+				</VisibleProperties>
+				<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+			</VisibleObject>
+			<MuscleWrapSet name="">
+				<objects/>
+				<groups/>
+			</MuscleWrapSet>
+			<muscle_model> 4 </muscle_model>
+			<max_isometric_force>   0.00000000 </max_isometric_force>
+			<optimal_fiber_length>   0.00000000 </optimal_fiber_length>
+			<tendon_slack_length>   0.00000000 </tendon_slack_length>
+			<pennation_angle>   0.00000000 </pennation_angle>
+			<activation_time_constant>   0.00000000 </activation_time_constant>
+			<deactivation_time_constant>   0.00000000 </deactivation_time_constant>
+			<Vmax>   0.00000000 </Vmax>
+			<Vmax0>   0.00000000 </Vmax0>
+			<FmaxTendonStrain>   0.00000000 </FmaxTendonStrain>
+			<FmaxMuscleStrain>   0.00000000 </FmaxMuscleStrain>
+			<KshapeActive>   0.00000000 </KshapeActive>
+			<KshapePassive>   0.00000000 </KshapePassive>
+			<damping>   0.00000000 </damping>
+			<Af>   0.00000000 </Af>
+			<Flen>   0.00000000 </Flen>
+		</Thelen2003Muscle>
+		<Schutte1993Muscle name="default">
+			<MusclePointSet name="">
+				<objects/>
+				<groups/>
+			</MusclePointSet>
+			<VisibleObject name="">
+				<geometry_files> </geometry_files>
+				<VisibleProperties name="">
+					<display_preference> 4 </display_preference>
+					<show_normals> false </show_normals>
+					<show_axes> false </show_axes>
+					<material_name> DEFAULT </material_name>
+				</VisibleProperties>
+				<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+			</VisibleObject>
+			<MuscleWrapSet name="">
+				<objects/>
+				<groups/>
+			</MuscleWrapSet>
+			<muscle_model> 4 </muscle_model>
+			<time_scale>   0.00000000 </time_scale>
+			<activation1>   0.00000000 </activation1>
+			<activation2>   0.00000000 </activation2>
+			<max_isometric_force>   0.00000000 </max_isometric_force>
+			<optimal_fiber_length>   0.00000000 </optimal_fiber_length>
+			<tendon_slack_length>   0.00000000 </tendon_slack_length>
+			<pennation_angle>   0.00000000 </pennation_angle>
+			<max_contraction_velocity>   0.00000000 </max_contraction_velocity>
+			<damping>   0.00000000 </damping>
+			<tendon_force_length_curve/>
+			<active_force_length_curve/>
+			<passive_force_length_curve/>
+			<force_velocity_curve/>
+		</Schutte1993Muscle>
+	</defaults>
+	<angle_units> radians </angle_units>
+	<ActuatorSet name="">
+	<groups>
+	</groups>
+	<objects>
+	</objects>
+	</ActuatorSet>
+	<DynamicsEngine>
+		<SimmKinematicsEngine name="">
+			<!--Acceleration due to gravity expressed.-->
+			<gravity>   0.00000000  -9.80665000   0.00000000 </gravity>
+			<!--Bodies in the model.-->
+			<BodySet name="">
+			<objects>
+				<SimmBody name="ground">
+					<mass>   0.00000000 </mass>
+					<mass_center>   0.00000000   0.00000000   0.00000000 </mass_center>
+					<inertia>   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000 </inertia>
+				</SimmBody>
+				<SimmBody name="pelvis">
+					<mass>  10.32937882 </mass>
+					<mass_center>  -0.07243760   0.00000000   0.00000000 </mass_center>
+					<inertia>   0.09465028   0.00000000   0.00000000   0.00000000   0.08019493   0.00000000   0.00000000   0.00000000   0.05330983 </inertia>
+					<VisibleObject name="">
+						<geometry_files> sacrum2.vtp pelvis.vtp l_pelvis.vtp </geometry_files>
+						<scale_factors>   1.02457704   1.02457704   1.02457704 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="femur_r">
+					<mass>   8.15807796 </mass>
+					<mass_center>   0.00000000  -0.19503080   0.00000000 </mass_center>
+					<inertia>   0.15457123   0.00000000   0.00000000   0.00000000   0.04051867   0.00000000   0.00000000   0.00000000   0.16299819 </inertia>
+					<VisibleObject name="">
+						<geometry_files> femur.vtp </geometry_files>
+						<scale_factors>   1.14724000   1.14724000   1.14724000 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="tibia_r">
+					<mass>   3.25177651 </mass>
+					<mass_center>   0.00000000  -0.18455724   0.00000000 </mass_center>
+					<inertia>   0.04319601   0.00000000   0.00000000   0.00000000   0.00437102   0.00000000   0.00000000   0.00000000   0.04379595 </inertia>
+					<VisibleObject name="">
+						<geometry_files> tibia.vtp fibula.vtp </geometry_files>
+						<scale_factors>   0.98852300   0.98852300   0.98852300 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="patella_r">
+					<mass>   0.08770807 </mass>
+					<mass_center>   0.00000000   0.00000000   0.00000000 </mass_center>
+					<inertia>   0.00100536   0.00000000   0.00000000   0.00000000   0.00100536   0.00000000   0.00000000   0.00000000   0.00100536 </inertia>
+					<VisibleObject name="">
+						<geometry_files> pat.vtp </geometry_files>
+						<scale_factors>   1.07063273   1.07063273   1.07063273 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="talus_r">
+					<mass>   0.08770807 </mass>
+					<mass_center>   0.00000000   0.00000000   0.00000000 </mass_center>
+					<inertia>   0.00108841   0.00000000   0.00000000   0.00000000   0.00108841   0.00000000   0.00000000   0.00000000   0.00108841 </inertia>
+					<VisibleObject name="">
+						<geometry_files> talus.vtp </geometry_files>
+						<scale_factors>   1.11397808   1.11397808   1.11397808 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="calcn_r">
+					<mass>   1.09635081 </mass>
+					<mass_center>   0.10270848   0.03081254   0.00000000 </mass_center>
+					<inertia>   0.00129533   0.00000000   0.00000000   0.00000000   0.00360842   0.00000000   0.00000000   0.00000000   0.00379346 </inertia>
+					<VisibleObject name="">
+						<geometry_files> foot.vtp </geometry_files>
+						<scale_factors>   1.02708477   1.02708477   1.02708477 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="toes_r">
+					<mass>   0.18997567 </mass>
+					<mass_center>   0.03553713   0.00616251  -0.01797398 </mass_center>
+					<inertia>   0.00009252   0.00000000   0.00000000   0.00000000   0.00018505   0.00000000   0.00000000   0.00000000   0.00092524 </inertia>
+					<VisibleObject name="">
+						<geometry_files> bofoot.vtp </geometry_files>
+						<scale_factors>   1.02708477   1.02708477   1.02708477 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="femur_l">
+					<mass>   8.15807796 </mass>
+					<mass_center>   0.00000000  -0.19503080   0.00000000 </mass_center>
+					<inertia>   0.15457123   0.00000000   0.00000000   0.00000000   0.04051867   0.00000000   0.00000000   0.00000000   0.16299819 </inertia>
+					<VisibleObject name="">
+						<geometry_files> l_femur.vtp </geometry_files>
+						<scale_factors>   1.14724000   1.14724000   1.14724000 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="tibia_l">
+					<mass>   3.25177651 </mass>
+					<mass_center>   0.00000000  -0.18455724   0.00000000 </mass_center>
+					<inertia>   0.04319601   0.00000000   0.00000000   0.00000000   0.00437102   0.00000000   0.00000000   0.00000000   0.04379595 </inertia>
+					<VisibleObject name="">
+						<geometry_files> l_tibia.vtp l_fibula.vtp </geometry_files>
+						<scale_factors>   0.98852300   0.98852300   0.98852300 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="patella_l">
+					<mass>   0.08770807 </mass>
+					<mass_center>   0.00000000   0.00000000   0.00000000 </mass_center>
+					<inertia>   0.00100536   0.00000000   0.00000000   0.00000000   0.00100536   0.00000000   0.00000000   0.00000000   0.00100536 </inertia>
+					<VisibleObject name="">
+						<geometry_files> l_patella.vtp </geometry_files>
+						<scale_factors>   1.07063273   1.07063273   1.07063273 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="talus_l">
+					<mass>   0.08770807 </mass>
+					<mass_center>   0.00000000   0.00000000   0.00000000 </mass_center>
+					<inertia>   0.00108841   0.00000000   0.00000000   0.00000000   0.00108841   0.00000000   0.00000000   0.00000000   0.00108841 </inertia>
+					<VisibleObject name="">
+						<geometry_files> l_talus.vtp </geometry_files>
+						<scale_factors>   1.11397808   1.11397808   1.11397808 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="calcn_l">
+					<mass>   1.09635081 </mass>
+					<mass_center>   0.10270848   0.03081254   0.00000000 </mass_center>
+					<inertia>   0.00129533   0.00000000   0.00000000   0.00000000   0.00360842   0.00000000   0.00000000   0.00000000   0.00379346 </inertia>
+					<VisibleObject name="">
+						<geometry_files> l_foot.vtp </geometry_files>
+						<scale_factors>   1.02708477   1.02708477   1.02708477 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="toes_l">
+					<mass>   0.18997567 </mass>
+					<mass_center>   0.03553713   0.00616251   0.01797398 </mass_center>
+					<inertia>   0.00009252   0.00000000   0.00000000   0.00000000   0.00018505   0.00000000   0.00000000   0.00000000   0.00092524 </inertia>
+					<VisibleObject name="">
+						<geometry_files> l_bofoot.vtp </geometry_files>
+						<scale_factors>   1.02708477   1.02708477   1.02708477 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="torso">
+					<mass>  30.02825939 </mass>
+					<mass_center>  -0.03239160   0.34551037   0.00000000 </mass_center>
+					<inertia>   1.50767076   0.00000000   0.00000000   0.00000000   0.77249594   0.00000000   0.00000000   0.00000000   1.46360117 </inertia>
+					<VisibleObject name="">
+						<geometry_files> hat_spine.vtp hat_jaw.vtp hat_skull.vtp hat_ribs.vtp </geometry_files>
+						<scale_factors>   1.07971989   1.07971989   1.07971989 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="humerus_r">
+					<mass>   1.78266642 </mass>
+					<mass_center>   0.00000000  -0.17801255   0.00000000 </mass_center>
+					<inertia>   0.01226933   0.00000000   0.00000000   0.00000000   0.00423254   0.00000000   0.00000000   0.00000000   0.01377193 </inertia>
+					<VisibleObject name="">
+						<geometry_files> humerus_rv.vtp </geometry_files>
+						<scale_factors>   1.08213000   1.08213000   1.08213000 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="ulna_r">
+					<mass>   0.53282650 </mass>
+					<mass_center>   0.00000000  -0.12956096   0.00000000 </mass_center>
+					<inertia>   0.00300205   0.00000000   0.00000000   0.00000000   0.00062636   0.00000000   0.00000000   0.00000000   0.00325645 </inertia>
+					<VisibleObject name="">
+						<geometry_files> ulna_rv.vtp </geometry_files>
+						<scale_factors>   1.07497165   1.07497165   1.07497165 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="radius_r">
+					<mass>   0.53282650 </mass>
+					<mass_center>   0.00000000  -0.12956096   0.00000000 </mass_center>
+					<inertia>   0.00300205   0.00000000   0.00000000   0.00000000   0.00062636   0.00000000   0.00000000   0.00000000   0.00325645 </inertia>
+					<VisibleObject name="">
+						<geometry_files> radius_rv.vtp </geometry_files>
+						<scale_factors>   1.07497165   1.07497165   1.07497165 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="hand_r">
+					<mass>   0.40126440 </mass>
+					<mass_center>   0.00000000  -0.06792666   0.00000000 </mass_center>
+					<inertia>   0.00077849   0.00000000   0.00000000   0.00000000   0.00047739   0.00000000   0.00000000   0.00000000   0.00116948 </inertia>
+					<VisibleObject name="">
+						<geometry_files> pisiform_rvs.vtp lunate_rvs.vtp scaphoid_rvs.vtp triquetrum_rvs.vtp hamate_rvs.vtp capitate_rvs.vtp trapezoid_rvs.vtp trapezium_rvs.vtp metacarpal2_rvs.vtp index_proximal_rvs.vtp index_medial_rvs.vtp index_distal_rvs.vtp metacarpal3_rvs.vtp middle_proximal_rvs.vtp middle_medial_rvs.vtp middle_distal_rvs.vtp metacarpal4_rvs.vtp ring_proximal_rvs.vtp ring_medial_rvs.vtp ring_distal_rvs.vtp metacarpal5_rvs.vtp little_proximal_rvs.vtp little_medial_rvs.vtp little_distal_rvs.vtp metacarpal1_rvs.vtp thumb_proximal_rvs.vtp thumb_distal_rvs.vtp </geometry_files>
+						<scale_factors>   0.99752790   0.99752790   0.99752790 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="humerus_l">
+					<mass>   1.78266642 </mass>
+					<mass_center>   0.00000000  -0.17801255   0.00000000 </mass_center>
+					<inertia>   0.01226933   0.00000000   0.00000000   0.00000000   0.00423254   0.00000000   0.00000000   0.00000000   0.01377193 </inertia>
+					<VisibleObject name="">
+						<geometry_files> humerus_lv.vtp </geometry_files>
+						<scale_factors>   1.08213000   1.08213000   1.08213000 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="ulna_l">
+					<mass>   0.53282650 </mass>
+					<mass_center>   0.00000000  -0.12956096   0.00000000 </mass_center>
+					<inertia>   0.00300205   0.00000000   0.00000000   0.00000000   0.00062636   0.00000000   0.00000000   0.00000000   0.00325645 </inertia>
+					<VisibleObject name="">
+						<geometry_files> ulna_lv.vtp </geometry_files>
+						<scale_factors>   1.07497165   1.07497165   1.07497165 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="radius_l">
+					<mass>   0.53282650 </mass>
+					<mass_center>   0.00000000  -0.12956096   0.00000000 </mass_center>
+					<inertia>   0.00300205   0.00000000   0.00000000   0.00000000   0.00062636   0.00000000   0.00000000   0.00000000   0.00325645 </inertia>
+					<VisibleObject name="">
+						<geometry_files> radius_lv.vtp </geometry_files>
+						<scale_factors>   1.07497165   1.07497165   1.07497165 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="hand_l">
+					<mass>   0.40126440 </mass>
+					<mass_center>   0.00000000  -0.06792666   0.00000000 </mass_center>
+					<inertia>   0.00077849   0.00000000   0.00000000   0.00000000   0.00047739   0.00000000   0.00000000   0.00000000   0.00116948 </inertia>
+					<VisibleObject name="">
+						<geometry_files> pisiform_lvs.vtp lunate_lvs.vtp scaphoid_lvs.vtp triquetrum_lvs.vtp hamate_lvs.vtp capitate_lvs.vtp trapezoid_lvs.vtp trapezium_lvs.vtp metacarpal2_lvs.vtp index_proximal_lvs.vtp index_medial_lvs.vtp index_distal_lvs.vtp metacarpal3_lvs.vtp middle_proximal_lvs.vtp middle_medial_lvs.vtp middle_distal_lvs.vtp metacarpal4_lvs.vtp ring_proximal_lvs.vtp ring_medial_lvs.vtp ring_distal_lvs.vtp metacarpal5_lvs.vtp little_proximal_lvs.vtp little_medial_lvs.vtp little_distal_lvs.vtp metacarpal1_lvs.vtp thumb_proximal_lvs.vtp thumb_distal_lvs.vtp </geometry_files>
+						<scale_factors>   0.99752790   0.99752790   0.99752790 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="r_scapula">
+					<mass>   0.00000000 </mass>
+					<mass_center>   0.00000000   0.00000000   0.00000000 </mass_center>
+					<inertia>   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000 </inertia>
+					<VisibleObject name="">
+						<geometry_files> r_scapula.vtp </geometry_files>
+						<scale_factors>   1.07971989   1.07971989   1.07971989 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="r_clavicle">
+					<mass>   0.00000000 </mass>
+					<mass_center>   0.00000000   0.00000000   0.00000000 </mass_center>
+					<inertia>   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000 </inertia>
+					<VisibleObject name="">
+						<geometry_files> r_clavicle.vtp </geometry_files>
+						<scale_factors>   1.07971989   1.07971989   1.07971989 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="l_scapula">
+					<mass>   0.00000000 </mass>
+					<mass_center>   0.00000000   0.00000000   0.00000000 </mass_center>
+					<inertia>   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000 </inertia>
+					<VisibleObject name="">
+						<geometry_files> l_scapula.vtp </geometry_files>
+						<scale_factors>   1.07971989   1.07971989   1.07971989 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+				<SimmBody name="l_clavicle">
+					<mass>   0.00000000 </mass>
+					<mass_center>   0.00000000   0.00000000   0.00000000 </mass_center>
+					<inertia>   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000   0.00000000 </inertia>
+					<VisibleObject name="">
+						<geometry_files> l_clavicle.vtp </geometry_files>
+						<scale_factors>   1.07971989   1.07971989   1.07971989 </scale_factors>
+						</VisibleObject>
+				</SimmBody>
+			</objects>
+			</BodySet>
+			<!--Generalized coordinates in the model.-->
+			<CoordinateSet name="">
+			<objects>
+				<SimmCoordinate name="pelvis_tx">
+					<!--Allowd range for a coordinate.-->
+						<range>  -5.00000000   5.00000000 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.12000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> p_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pelvis_ty">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.00000000   2.00000000 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.93000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> q_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pelvis_tz">
+					<!--Allowd range for a coordinate.-->
+						<range>  -3.00000000   3.00000000 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> q_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pelvis_list">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> q_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pelvis_rotation">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> q_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pelvis_tilt">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> q_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_flexion_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -2.09439510   2.09439510 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> h_key leftmouse_button </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_adduction_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -2.09439510   2.09439510 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> h_key leftmouse_button </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_rotation_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -2.09439510   2.09439510 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> h_key leftmouse_button </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="knee_angle_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -2.09439510   0.17453293 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> k_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="ankle_angle_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> a_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="subtalar_angle_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> a_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> true </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="mtp_angle_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> t_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> true </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_flexion_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -2.09439510   2.09439510 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> h_key leftmouse_button </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_adduction_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -2.09439510   2.09439510 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> h_key leftmouse_button </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_rotation_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -2.09439510   2.09439510 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> h_key leftmouse_button </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="knee_angle_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -2.09439510   0.17453293 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> k_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="ankle_angle_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.04719755   1.04719755 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> a_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="subtalar_angle_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> a_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> true </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="mtp_angle_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.04719755   1.04719755 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> t_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> true </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="lumbar_extension">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> q_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="lumbar_bending">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> q_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="lumbar_rotation">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Computer keyboard keys that can be used to manipulate in a graphical
+						    application.-->
+						<keys> q_key </keys>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_add_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -2.09439510   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_rot_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_flex_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="elbow_flex_r">
+					<!--Allowd range for a coordinate.-->
+						<range>   0.00000000   2.26892803 </range>
+					<!--Default value for a coordinate.-->
+					<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pro_sup_r">
+					<!--Allowd range for a coordinate.-->
+						<range>   0.00000000   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+					<default_value>   1.04719755 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="wrist_dev_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -0.43633231   0.61086524 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="wrist_flex_r">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.22173048   1.22173048 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_add_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -2.09439510   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_rot_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_flex_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.57079633   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="elbow_flex_l">
+					<!--Allowd range for a coordinate.-->
+						<range>   0.00000000   2.26892803 </range>
+					<!--Default value for a coordinate.-->
+					<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pro_sup_l">
+					<!--Allowd range for a coordinate.-->
+						<range>   0.00000000   1.57079633 </range>
+					<!--Default value for a coordinate.-->
+					<default_value>   1.04719755 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="wrist_dev_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -0.43633231   0.61086524 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="wrist_flex_l">
+					<!--Allowd range for a coordinate.-->
+						<range>  -1.22173048   1.22173048 </range>
+					<!--Default value for a coordinate.-->
+						<default_value>   0.00000000 </default_value>
+					<!--Tolerance for a coordinate.-->
+						<tolerance>   0.00000000 </tolerance>
+					<!--Stiffness of a coordinate.-->
+						<stiffness>   0.00000000 </stiffness>
+					<!--Flag (true or false) indicating whether a coordinate is not permitted
+						    outside its range.-->
+						<clamped> true </clamped>
+					<!--Flag (true or false) indicating whether a coordinate is fixed or
+						    locked at its current value.-->
+						<locked> false </locked>
+					<!--Flag (true or false) indicating whether or not the restraint function
+						    is active.-->
+						<restraint_active> false </restraint_active>
+				</SimmCoordinate>
+			</objects>
+			</CoordinateSet>
+			<!--Joints in the model.-->
+			<JointSet name="">
+			<objects>
+				<SimmJoint name="ground_pelvis">
+					<bodies> ground pelvis </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<coordinate> pelvis_tx </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x> -360.00000000 360.00000000 </x>
+									<y> -360.00000000 360.00000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<coordinate> pelvis_ty </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x> -360.00000000 360.00000000 </x>
+									<y> -360.00000000 360.00000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<coordinate> pelvis_tz </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x> -360.00000000 360.00000000 </x>
+									<y> -360.00000000 360.00000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> pelvis_tilt </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<coordinate> pelvis_list </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<coordinate> pelvis_rotation </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="hip_r">
+					<bodies> pelvis femur_r </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>  -0.07243760 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.06772454 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.08555218 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> hip_flexion_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<coordinate> hip_adduction_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<coordinate> hip_rotation_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="knee_r">
+					<bodies> femur_r tibia_r </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<coordinate> knee_angle_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -2.09439510  -1.74532925  -1.39626340  -1.04719755  -0.69813170  -0.34906585  -0.17453293   0.19734422   0.33739496   0.49017757   1.52146027   2.09439510 </x>
+									<y>  -0.00367117   0.00205356   0.00471516   0.00470368   0.00243215  -0.00114724  -0.00355644  -0.00599662  -0.00623525  -0.00639472  -0.00623525  -0.00602301 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<coordinate> knee_angle_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -2.09439510  -1.22173048  -0.52359878  -0.34906585  -0.17453293   0.15914856   2.09439510 </x>
+									<y>  -0.48482362  -0.46830337  -0.45774876  -0.45614262  -0.45499538  -0.45346267  -0.45430704 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> knee_angle_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="tib_pat_r">
+					<bodies> tibia_r patella_r </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<coordinate> knee_angle_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -2.09439510  -1.39626340  -1.04719755  -0.69813170  -0.34906585  -0.17453293   0.00000000   0.00017453   0.00034907   0.08726646   2.09439510 </x>
+									<y>   0.01710145   0.03202815   0.03766273   0.04250649   0.04636173   0.04784451   0.04903074   0.04903074   0.04903074   0.04903074   0.04903074 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<coordinate> knee_angle_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -2.09439510  -1.57079633  -1.39626340  -1.04719755  -0.69813170  -0.34906585  -0.17453293   0.00000000   0.00017453   0.00034907   0.08726646   2.09439510 </x>
+									<y>  -0.02164865  -0.01996816  -0.01977046  -0.02016587  -0.02085784  -0.02164865  -0.02204406  -0.02243947  -0.02243947  -0.02243947  -0.02243947  -0.02243947 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.00237246 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> knee_angle_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -2.09439510  -1.99997279  -1.45752446  -0.52639130   0.02792527   0.17453293 </x>
+									<y>   0.30805061   0.30805061   0.30630528   0.27017697  -0.03700098  -0.27995081 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="ankle_r">
+					<bodies> tibia_r talus_r </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.42506489 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>  -0.10501355  -0.17402245   0.97912632 </axis>
+							<coordinate> ankle_angle_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="subtalar_r">
+					<bodies> talus_r calcn_r </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>  -0.05432871 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.04673138 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.00882271 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.78717961   0.60474746  -0.12094949 </axis>
+							<coordinate> subtalar_angle_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="mtp_r">
+					<bodies> calcn_r toes_r </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.18364276 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.00205417 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.00110925 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>  -0.58095440   0.00000000   0.81393611 </axis>
+							<coordinate> mtp_angle_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="hip_l">
+					<bodies> pelvis femur_l </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>  -0.07243760 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.06772454 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>  -0.08555218 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> hip_flexion_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>  -1.00000000   0.00000000   0.00000000 </axis>
+							<coordinate> hip_adduction_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000  -1.00000000   0.00000000 </axis>
+							<coordinate> hip_rotation_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="knee_l">
+					<bodies> femur_l tibia_l </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<coordinate> knee_angle_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -2.09439510  -1.74532925  -1.39626340  -1.04719755  -0.69813170  -0.34906585  -0.17453293   0.19734422   0.33739496   0.49017757   1.52146027   2.09439510 </x>
+									<y>  -0.00367117   0.00205356   0.00471516   0.00470368   0.00243215  -0.00114724  -0.00355644  -0.00599662  -0.00623525  -0.00639472  -0.00623525  -0.00602301 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<coordinate> knee_angle_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -2.09439510  -1.22173048  -0.52359878  -0.34906585  -0.17453293   0.15914856   2.09439510 </x>
+									<y>  -0.48482362  -0.46830337  -0.45774876  -0.45614262  -0.45499538  -0.45346267  -0.45430704 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> knee_angle_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="tib_pat_l">
+					<bodies> tibia_l patella_l </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<coordinate> knee_angle_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -2.09439510  -1.39626340  -1.04719755  -0.69813170  -0.34906585  -0.17453293   0.00000000   0.00017453   0.00034907   0.08726646   2.09439510 </x>
+									<y>   0.01710145   0.03202815   0.03766273   0.04250649   0.04636173   0.04784451   0.04903074   0.04903074   0.04903074   0.04903074   0.04903074 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<coordinate> knee_angle_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -2.09439510  -1.57079633  -1.39626340  -1.04719755  -0.69813170  -0.34906585  -0.17453293   0.00000000   0.00017453   0.00034907   0.08726646   2.09439510 </x>
+									<y>  -0.02164865  -0.01996816  -0.01977046  -0.02016587  -0.02085784  -0.02164865  -0.02204406  -0.02243947  -0.02243947  -0.02243947  -0.02243947  -0.02243947 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>  -0.00237246 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> knee_angle_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -2.09439510  -1.99997279  -1.45752446  -0.52639130   0.02792527   0.17453293 </x>
+									<y>   0.30805061   0.30805061   0.30630528   0.27017697  -0.03700098  -0.27995081 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="ankle_l">
+					<bodies> tibia_l talus_l </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.42506489 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.10501355  -0.17402245   0.97912632 </axis>
+							<coordinate> ankle_angle_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="subtalar_l">
+					<bodies> talus_l calcn_l </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>  -0.05432871 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.04673138 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>  -0.00882271 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>  -0.78717961  -0.60474746  -0.12094949 </axis>
+							<coordinate> subtalar_angle_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="mtp_l">
+					<bodies> calcn_l toes_l </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.18364276 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.00205417 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>  -0.00110925 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.58095440   0.00000000   0.81393611 </axis>
+							<coordinate> mtp_angle_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="back">
+					<bodies> pelvis torso </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>  -0.10317491 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>   0.08350303 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> lumbar_extension </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<coordinate> lumbar_bending </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<coordinate> lumbar_rotation </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="acromial_r">
+					<bodies> torso humerus_r </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.00340652 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>   0.40111594 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.18355238 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<coordinate> arm_add_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> arm_flex_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<coordinate> arm_rot_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="elbow_r">
+					<bodies> humerus_r ulna_r </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.01422352 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.30978460 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>  -0.01038304 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.22604696   0.02226900   0.97386183 </axis>
+							<coordinate> elbow_flex_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="radioulnar_r">
+					<bodies> ulna_r radius_r </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>  -0.00723133 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.01398216 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.02803849 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.05639803   0.99840646   0.00195200 </axis>
+							<coordinate> pro_sup_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="radius_hand_r">
+					<bodies> radius_r hand_r </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>  -0.00945653 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.25352239 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.01463036 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> wrist_flex_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<coordinate> wrist_dev_r </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="acromial_l">
+					<bodies> torso humerus_l </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.00340652 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>   0.40111594 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>  -0.18355238 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>  -1.00000000   0.00000000   0.00000000 </axis>
+							<coordinate> arm_add_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> arm_flex_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000  -1.00000000   0.00000000 </axis>
+							<coordinate> arm_rot_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="elbow_l">
+					<bodies> humerus_l ulna_l </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.01422352 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.30978460 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.01038304 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>  -0.22604696  -0.02226900   0.97386183 </axis>
+							<coordinate> elbow_flex_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000  -1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>  -1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="radioulnar_l">
+					<bodies> ulna_l radius_l </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>  -0.00723133 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.01398216 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>  -0.02803849 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>  -1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>  -0.05639803  -0.99840646   0.00195200 </axis>
+							<coordinate> pro_sup_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="radius_hand_l">
+					<bodies> radius_l hand_l </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>  -0.00945653 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>  -0.25352239 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>  -0.01463036 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<coordinate> wrist_flex_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000  -1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>  -1.00000000   0.00000000   0.00000000 </axis>
+							<coordinate> wrist_dev_l </coordinate>
+							<Value>
+								<natCubicSpline name="">
+									<x>  -6.28318531   6.28318531 </x>
+									<y>  -6.28318531   6.28318531 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="r_scapulothoracic">
+					<bodies> torso r_scapula </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.01371244 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>   0.43782642 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.17383490 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>  -0.26179939 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>  -0.17453293 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="r_sternoclavicular">
+					<bodies> torso r_clavicle </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.02915244 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>   0.41612405 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>   0.02749507 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>  -0.03490659 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>  -0.04363323 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="l_scapulothoracic">
+					<bodies> torso l_scapula </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.01371244 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>   0.43782642 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>  -0.17383490 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.26179939 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>  -0.17453293 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="l_sternoclavicular">
+					<bodies> torso l_clavicle </bodies>
+					<DofSet name="">
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant name="">
+									<value>   0.02915244 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant name="">
+									<value>   0.41612405 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant name="">
+									<value>  -0.02749507 </value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>   1.00000000   0.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.03490659 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>   0.00000000   1.00000000   0.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.04363323 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>   0.00000000   0.00000000   1.00000000 </axis>
+							<Value>
+								<Constant name="">
+									<value>   0.00000000 </value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+			</objects>
+			</JointSet>
+			<!--Markers in the model.-->
+			<MarkerSet name="">
+				<objects>
+					<Marker name="Sternum">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> torso </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.11813729   0.30707711  -0.02791825 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Acromium">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> torso </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.03159435   0.43018202   0.16051665 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Acromium">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> torso </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.03377659   0.43955119  -0.17424448 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="Top.Head">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> torso </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.09600553   0.69550885  -0.01858773 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.ASIS">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> pelvis </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.02347139   0.03605828   0.13084833 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.ASIS">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> pelvis </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.02839958   0.02735336  -0.13125245 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="V.Sacral">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> pelvis </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.17247453   0.04060214   0.00702671 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Thigh.Upper">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> femur_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.04624900  -0.21981329   0.09179782 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Thigh.Front">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> femur_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.10842561  -0.28135893  -0.00075606 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Thigh.Rear">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> femur_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.03556528  -0.34046378   0.08185235 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Knee.Lat">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> femur_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.00326495  -0.42591929   0.06137088 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Knee.Med">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> femur_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.00054449  -0.44281478  -0.05971609 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Shank.Upper">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> tibia_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.02736070  -0.05969510   0.07017441 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Shank.Front">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> tibia_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.05100281  -0.09520300   0.01972528 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Shank.Rear">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> tibia_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.01137128  -0.14515394   0.08028266 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Ankle.Lat">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> tibia_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.00756642  -0.43046095   0.05550661 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Ankle.Med">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> tibia_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.00455916  -0.41604253  -0.03333863 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Heel">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.02034206   0.01727727  -0.00555827 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Midfoot.Sup">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.12266406   0.03359222  -0.04041028 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Midfoot.Lat">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.11819214   0.00666562   0.06540536 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Toe.Lat">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.20885138  -0.01621495   0.07285305 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Toe.Med">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.20974136   0.00357808  -0.03452710 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Toe.Tip">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.27090390   0.00361381  -0.00313717 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Thigh.Upper">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> femur_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.02330297  -0.20661317  -0.09698908 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Thigh.Front">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> femur_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.11063485  -0.24876800  -0.03271883 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Thigh.Rear">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> femur_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.01566874  -0.31529626  -0.08217579 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Knee.Lat">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> femur_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.00845861  -0.44558648  -0.06418322 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Knee.Med">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> femur_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.00760024  -0.44573009   0.05099839 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Shank.Upper">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> tibia_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.00582853  -0.07134870  -0.07945265 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Shank.Front">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> tibia_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.04524539  -0.12128584  -0.03025673 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Shank.Rear">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> tibia_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.02389871  -0.11438351  -0.08819655 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Ankle.Lat">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> tibia_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.00257331  -0.42822925  -0.05714036 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Ankle.Med">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> tibia_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.01301919  -0.40519232   0.03298542 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Heel">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.02224646   0.02736265   0.00668348 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Midfoot.Sup">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.14983135   0.03565910   0.03435615 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Midfoot.Lat">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.13333035   0.01698213  -0.06233751 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Toe.Lat">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.19596980  -0.00807537  -0.06769791 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Toe.Med">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.21178364   0.01167854   0.03259250 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Toe.Tip">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> calcn_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.26150456   0.00801223   0.00846024 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Bicep">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> humerus_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.01691450  -0.16233545   0.00102834 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Elbow">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> humerus_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.02500713  -0.26226246  -0.00024114 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Wrist.Lat">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> radius_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.03213024  -0.19970723   0.00018024 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="R.Wrist.Med">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> radius_r </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.00133810  -0.19652334   0.05552922 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Bicep">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> humerus_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.01005171  -0.17471050  -0.02105089 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Elbow">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> humerus_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.02580303  -0.27575910  -0.05273426 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Wrist.Lat">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> radius_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>  -0.03087382  -0.19272848  -0.01080446 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+					<Marker name="L.Wrist.Med">
+						<!--Body segment in the model on which the marker resides.-->
+						<body> radius_l </body>
+						<!--Location of a marker on the body segment.-->
+						<location>   0.03487260  -0.18448927  -0.04572226 </location>
+						<!--Flag (true or false) specifying whether or not a marker should be kept
+						    fixed in the marker placement step.  i.e. If false, the marker is
+						    allowed to move.-->
+						<fixed> false </fixed>
+						<!--Used for displaying a marker in the visuals.-->
+						<VisibleObject name="">
+							<geometry_files> </geometry_files>
+							<VisibleProperties name="">
+								<display_preference> 4 </display_preference>
+								<show_normals> false </show_normals>
+								<show_axes> false </show_axes>
+								<material_name> DEFAULT </material_name>
+							</VisibleProperties>
+							<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+						</VisibleObject>
+					</Marker>
+				</objects>
+				<groups/>
+			</MarkerSet>
+		</SimmKinematicsEngine>
+	</DynamicsEngine>
+</Model>
+

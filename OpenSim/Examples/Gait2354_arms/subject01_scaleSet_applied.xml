@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScaleSet name="ScaleSet">
+	<defaults>
+		<Thelen2003Muscle name="default">
+			<MusclePointSet name="">
+				<objects/>
+				<groups/>
+			</MusclePointSet>
+			<VisibleObject name="">
+				<geometry_files> </geometry_files>
+				<VisibleProperties name="">
+					<display_preference> 4 </display_preference>
+					<show_normals> false </show_normals>
+					<show_axes> false </show_axes>
+					<material_name> DEFAULT </material_name>
+				</VisibleProperties>
+				<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+			</VisibleObject>
+			<MuscleWrapSet name="">
+				<objects/>
+				<groups/>
+			</MuscleWrapSet>
+			<muscle_model> 4 </muscle_model>
+			<max_isometric_force>   0.00000000 </max_isometric_force>
+			<optimal_fiber_length>   0.00000000 </optimal_fiber_length>
+			<tendon_slack_length>   0.00000000 </tendon_slack_length>
+			<pennation_angle>   0.00000000 </pennation_angle>
+			<activation_time_constant>   0.00000000 </activation_time_constant>
+			<deactivation_time_constant>   0.00000000 </deactivation_time_constant>
+			<Vmax>   0.00000000 </Vmax>
+			<Vmax0>   0.00000000 </Vmax0>
+			<FmaxTendonStrain>   0.00000000 </FmaxTendonStrain>
+			<FmaxMuscleStrain>   0.00000000 </FmaxMuscleStrain>
+			<KshapeActive>   0.00000000 </KshapeActive>
+			<KshapePassive>   0.00000000 </KshapePassive>
+			<damping>   0.00000000 </damping>
+			<Af>   0.00000000 </Af>
+			<Flen>   0.00000000 </Flen>
+		</Thelen2003Muscle>
+		<Schutte1993Muscle name="default">
+			<MusclePointSet name="">
+				<objects/>
+				<groups/>
+			</MusclePointSet>
+			<VisibleObject name="">
+				<geometry_files> </geometry_files>
+				<VisibleProperties name="">
+					<display_preference> 4 </display_preference>
+					<show_normals> false </show_normals>
+					<show_axes> false </show_axes>
+					<material_name> DEFAULT </material_name>
+				</VisibleProperties>
+				<scale_factors>   1.00000000   1.00000000   1.00000000 </scale_factors>
+			</VisibleObject>
+			<MuscleWrapSet name="">
+				<objects/>
+				<groups/>
+			</MuscleWrapSet>
+			<muscle_model> 4 </muscle_model>
+			<time_scale>   0.00000000 </time_scale>
+			<activation1>   0.00000000 </activation1>
+			<activation2>   0.00000000 </activation2>
+			<max_isometric_force>   0.00000000 </max_isometric_force>
+			<optimal_fiber_length>   0.00000000 </optimal_fiber_length>
+			<tendon_slack_length>   0.00000000 </tendon_slack_length>
+			<pennation_angle>   0.00000000 </pennation_angle>
+			<max_contraction_velocity>   0.00000000 </max_contraction_velocity>
+			<damping>   0.00000000 </damping>
+			<tendon_force_length_curve/>
+			<active_force_length_curve/>
+			<passive_force_length_curve/>
+			<force_velocity_curve/>
+		</Schutte1993Muscle>
+	</defaults>
+	<objects>
+		<Scale name="">
+			<scales>   1.00000000   1.00000000   1.00000000 </scales>
+			<segment> ground </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.02457704   1.02457704   1.02457704 </scales>
+			<segment> pelvis </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.14724000   1.14724000   1.14724000 </scales>
+			<segment> femur_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   0.98852300   0.98852300   0.98852300 </scales>
+			<segment> tibia_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07063273   1.07063273   1.07063273 </scales>
+			<segment> patella_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.11397808   1.11397808   1.11397808 </scales>
+			<segment> talus_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.02708477   1.02708477   1.02708477 </scales>
+			<segment> calcn_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.02708477   1.02708477   1.02708477 </scales>
+			<segment> toes_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.14724000   1.14724000   1.14724000 </scales>
+			<segment> femur_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   0.98852300   0.98852300   0.98852300 </scales>
+			<segment> tibia_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07063273   1.07063273   1.07063273 </scales>
+			<segment> patella_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.11397808   1.11397808   1.11397808 </scales>
+			<segment> talus_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.02708477   1.02708477   1.02708477 </scales>
+			<segment> calcn_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.02708477   1.02708477   1.02708477 </scales>
+			<segment> toes_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07971989   1.07971989   1.07971989 </scales>
+			<segment> torso </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.08213000   1.08213000   1.08213000 </scales>
+			<segment> humerus_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07497165   1.07497165   1.07497165 </scales>
+			<segment> ulna_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07497165   1.07497165   1.07497165 </scales>
+			<segment> radius_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   0.99752790   0.99752790   0.99752790 </scales>
+			<segment> hand_r </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.08213000   1.08213000   1.08213000 </scales>
+			<segment> humerus_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07497165   1.07497165   1.07497165 </scales>
+			<segment> ulna_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07497165   1.07497165   1.07497165 </scales>
+			<segment> radius_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   0.99752790   0.99752790   0.99752790 </scales>
+			<segment> hand_l </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07971989   1.07971989   1.07971989 </scales>
+			<segment> r_scapula </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07971989   1.07971989   1.07971989 </scales>
+			<segment> r_clavicle </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07971989   1.07971989   1.07971989 </scales>
+			<segment> l_scapula </segment>
+			<apply> true </apply>
+		</Scale>
+		<Scale name="">
+			<scales>   1.07971989   1.07971989   1.07971989 </scales>
+			<segment> l_clavicle </segment>
+			<apply> true </apply>
+		</Scale>
+	</objects>
+	<groups/>
+</ScaleSet>
+

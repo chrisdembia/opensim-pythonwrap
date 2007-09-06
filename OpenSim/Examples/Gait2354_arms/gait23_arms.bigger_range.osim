@@ -1,0 +1,2052 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model name="3DGaitModelSimple">
+	<defaults>
+		<Schutte1993Muscle name="(null)">
+		</Schutte1993Muscle>
+		<Thelen2003Muscle name="(null)">
+		</Thelen2003Muscle>
+	</defaults>
+	<angle_units> radians </angle_units>
+	<ActuatorSet>
+	<groups>
+	</groups>
+	<objects>
+	</objects>
+	</ActuatorSet>
+	<DynamicsEngine>
+		<SimmKinematicsEngine>
+			<gravity>0.0 -9.80665 0.0</gravity>
+			<BodySet>
+			<objects>
+				<SimmBody name="ground">
+					<mass>0.000000000000</mass>
+					<mass_center>0.000000000000 0.000000000000 0.000000000000</mass_center>
+					<inertia>0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000</inertia>
+				</SimmBody>
+				<SimmBody name="pelvis">
+					<mass>11.777000000000</mass>
+					<mass_center>-0.070700000000 0.000000000000 0.000000000000</mass_center>
+					<inertia>0.102800000000 0.000000000000 0.000000000000 0.000000000000 0.087100000000 0.000000000000 0.000000000000 0.000000000000 0.057900000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> sacrum2.vtp pelvis.vtp l_pelvis.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="femur_r">
+					<mass>9.301400000000</mass>
+					<mass_center>0.000000000000 -0.170000000000 0.000000000000</mass_center>
+					<inertia>0.133900000000 0.000000000000 0.000000000000 0.000000000000 0.035100000000 0.000000000000 0.000000000000 0.000000000000 0.141200000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> femur.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="tibia_r">
+					<mass>3.707500000000</mass>
+					<mass_center>0.000000000000 -0.186700000000 0.000000000000</mass_center>
+					<inertia>0.050400000000 0.000000000000 0.000000000000 0.000000000000 0.005100000000 0.000000000000 0.000000000000 0.000000000000 0.051100000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> tibia.vtp fibula.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="patella_r">
+					<mass>0.100000000000</mass>
+					<mass_center>0.000000000000 0.000000000000 0.000000000000</mass_center>
+					<inertia>0.001000000000 0.000000000000 0.000000000000 0.000000000000 0.001000000000 0.000000000000 0.000000000000 0.000000000000 0.001000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> pat.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="talus_r">
+					<mass>0.100000000000</mass>
+					<mass_center>0.000000000000 0.000000000000 0.000000000000</mass_center>
+					<inertia>0.001000000000 0.000000000000 0.000000000000 0.000000000000 0.001000000000 0.000000000000 0.000000000000 0.000000000000 0.001000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> talus.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="calcn_r">
+					<mass>1.250000000000</mass>
+					<mass_center>0.100000000000 0.030000000000 0.000000000000</mass_center>
+					<inertia>0.001400000000 0.000000000000 0.000000000000 0.000000000000 0.003900000000 0.000000000000 0.000000000000 0.000000000000 0.004100000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> foot.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="toes_r">
+					<mass>0.216600000000</mass>
+					<mass_center>0.034600000000 0.006000000000 -0.017500000000</mass_center>
+					<inertia>0.000100000000 0.000000000000 0.000000000000 0.000000000000 0.000200000000 0.000000000000 0.000000000000 0.000000000000 0.001000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> bofoot.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="femur_l">
+					<mass>9.301400000000</mass>
+					<mass_center>0.000000000000 -0.170000000000 0.000000000000</mass_center>
+					<inertia>0.133900000000 0.000000000000 0.000000000000 0.000000000000 0.035100000000 0.000000000000 0.000000000000 0.000000000000 0.141200000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> l_femur.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="tibia_l">
+					<mass>3.707500000000</mass>
+					<mass_center>0.000000000000 -0.186700000000 0.000000000000</mass_center>
+					<inertia>0.050400000000 0.000000000000 0.000000000000 0.000000000000 0.005100000000 0.000000000000 0.000000000000 0.000000000000 0.051100000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> l_tibia.vtp l_fibula.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="patella_l">
+					<mass>0.100000000000</mass>
+					<mass_center>0.000000000000 0.000000000000 0.000000000000</mass_center>
+					<inertia>0.001000000000 0.000000000000 0.000000000000 0.000000000000 0.001000000000 0.000000000000 0.000000000000 0.000000000000 0.001000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> l_patella.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="talus_l">
+					<mass>0.100000000000</mass>
+					<mass_center>0.000000000000 0.000000000000 0.000000000000</mass_center>
+					<inertia>0.001000000000 0.000000000000 0.000000000000 0.000000000000 0.001000000000 0.000000000000 0.000000000000 0.000000000000 0.001000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> l_talus.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="calcn_l">
+					<mass>1.250000000000</mass>
+					<mass_center>0.100000000000 0.030000000000 0.000000000000</mass_center>
+					<inertia>0.001400000000 0.000000000000 0.000000000000 0.000000000000 0.003900000000 0.000000000000 0.000000000000 0.000000000000 0.004100000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> l_foot.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="toes_l">
+					<mass>0.216600000000</mass>
+					<mass_center>0.034600000000 0.006000000000 0.017500000000</mass_center>
+					<inertia>0.000100000000 0.000000000000 0.000000000000 0.000000000000 0.000200000000 0.000000000000 0.000000000000 0.000000000000 0.001000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> l_bofoot.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="torso">
+					<mass>34.236600000000</mass>
+					<mass_center>-0.030000000000 0.320000000000 0.000000000000</mass_center>
+					<inertia>1.474500000000 0.000000000000 0.000000000000 0.000000000000 0.755500000000 0.000000000000 0.000000000000 0.000000000000 1.431400000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> hat_spine.vtp hat_jaw.vtp hat_skull.vtp hat_ribs.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="humerus_r">
+					<mass>2.032500000000</mass>
+					<mass_center>0.000000000000 -0.164502000000 0.000000000000</mass_center>
+					<inertia>0.011946000000 0.000000000000 0.000000000000 0.000000000000 0.004121000000 0.000000000000 0.000000000000 0.000000000000 0.013409000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> humerus_rv.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="ulna_r">
+					<mass>0.607500000000</mass>
+					<mass_center>0.000000000000 -0.120525000000 0.000000000000</mass_center>
+					<inertia>0.002962000000 0.000000000000 0.000000000000 0.000000000000 0.000618000000 0.000000000000 0.000000000000 0.000000000000 0.003213000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> ulna_rv.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="radius_r">
+					<mass>0.607500000000</mass>
+					<mass_center>0.000000000000 -0.120525000000 0.000000000000</mass_center>
+					<inertia>0.002962000000 0.000000000000 0.000000000000 0.000000000000 0.000618000000 0.000000000000 0.000000000000 0.000000000000 0.003213000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> radius_rv.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="hand_r">
+					<mass>0.457500000000</mass>
+					<mass_center>0.000000000000 -0.068095000000 0.000000000000</mass_center>
+					<inertia>0.000892000000 0.000000000000 0.000000000000 0.000000000000 0.000547000000 0.000000000000 0.000000000000 0.000000000000 0.001340000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> pisiform_rvs.vtp lunate_rvs.vtp scaphoid_rvs.vtp triquetrum_rvs.vtp hamate_rvs.vtp capitate_rvs.vtp trapezoid_rvs.vtp trapezium_rvs.vtp metacarpal2_rvs.vtp index_proximal_rvs.vtp index_medial_rvs.vtp index_distal_rvs.vtp metacarpal3_rvs.vtp middle_proximal_rvs.vtp middle_medial_rvs.vtp middle_distal_rvs.vtp metacarpal4_rvs.vtp ring_proximal_rvs.vtp ring_medial_rvs.vtp ring_distal_rvs.vtp metacarpal5_rvs.vtp little_proximal_rvs.vtp little_medial_rvs.vtp little_distal_rvs.vtp metacarpal1_rvs.vtp thumb_proximal_rvs.vtp thumb_distal_rvs.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="humerus_l">
+					<mass>2.032500000000</mass>
+					<mass_center>0.000000000000 -0.164502000000 0.000000000000</mass_center>
+					<inertia>0.011946000000 0.000000000000 0.000000000000 0.000000000000 0.004121000000 0.000000000000 0.000000000000 0.000000000000 0.013409000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> humerus_lv.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="ulna_l">
+					<mass>0.607500000000</mass>
+					<mass_center>0.000000000000 -0.120525000000 0.000000000000</mass_center>
+					<inertia>0.002962000000 0.000000000000 0.000000000000 0.000000000000 0.000618000000 0.000000000000 0.000000000000 0.000000000000 0.003213000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> ulna_lv.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="radius_l">
+					<mass>0.607500000000</mass>
+					<mass_center>0.000000000000 -0.120525000000 0.000000000000</mass_center>
+					<inertia>0.002962000000 0.000000000000 0.000000000000 0.000000000000 0.000618000000 0.000000000000 0.000000000000 0.000000000000 0.003213000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> radius_lv.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="hand_l">
+					<mass>0.457500000000</mass>
+					<mass_center>0.000000000000 -0.068095000000 0.000000000000</mass_center>
+					<inertia>0.000892000000 0.000000000000 0.000000000000 0.000000000000 0.000547000000 0.000000000000 0.000000000000 0.000000000000 0.001340000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> pisiform_lvs.vtp lunate_lvs.vtp scaphoid_lvs.vtp triquetrum_lvs.vtp hamate_lvs.vtp capitate_lvs.vtp trapezoid_lvs.vtp trapezium_lvs.vtp metacarpal2_lvs.vtp index_proximal_lvs.vtp index_medial_lvs.vtp index_distal_lvs.vtp metacarpal3_lvs.vtp middle_proximal_lvs.vtp middle_medial_lvs.vtp middle_distal_lvs.vtp metacarpal4_lvs.vtp ring_proximal_lvs.vtp ring_medial_lvs.vtp ring_distal_lvs.vtp metacarpal5_lvs.vtp little_proximal_lvs.vtp little_medial_lvs.vtp little_distal_lvs.vtp metacarpal1_lvs.vtp thumb_proximal_lvs.vtp thumb_distal_lvs.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="r_scapula">
+					<mass>0.000000000000</mass>
+					<mass_center>0.000000000000 0.000000000000 0.000000000000</mass_center>
+					<inertia>0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> r_scapula.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="r_clavicle">
+					<mass>0.000000000000</mass>
+					<mass_center>0.000000000000 0.000000000000 0.000000000000</mass_center>
+					<inertia>0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> r_clavicle.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="l_scapula">
+					<mass>0.000000000000</mass>
+					<mass_center>0.000000000000 0.000000000000 0.000000000000</mass_center>
+					<inertia>0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> l_scapula.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+				<SimmBody name="l_clavicle">
+					<mass>0.000000000000</mass>
+					<mass_center>0.000000000000 0.000000000000 0.000000000000</mass_center>
+					<inertia>0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000 0.000000000000</inertia>
+					<VisibleObject name="">
+						<geometry_files> l_clavicle.vtp </geometry_files>
+					</VisibleObject>
+				</SimmBody>
+			</objects>
+			</BodySet>
+			<CoordinateSet>
+			<objects>
+				<SimmCoordinate name="pelvis_tx">
+					<range>-5.000000000000 5.000000000000</range>
+					<default_value>0.120000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>p_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pelvis_ty">
+					<range>-1.000000000000 2.000000000000</range>
+					<default_value>0.930000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>q_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pelvis_tz">
+					<range>-3.000000000000 3.000000000000</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>q_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pelvis_list">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>q_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pelvis_rotation">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>q_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pelvis_tilt">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>q_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_flexion_r">
+					<range>-2.094395102393 2.094395102393</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>h_key leftmouse_button</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_adduction_r">
+					<range>-2.094395102393 2.094395102393</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>h_key leftmouse_button</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_rotation_r">
+					<range>-2.094395102393 2.094395102393</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>h_key leftmouse_button</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="knee_angle_r">
+					<range>-2.094395102393 0.174532925199</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>k_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="ankle_angle_r">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>a_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="subtalar_angle_r">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>a_key</keys>
+					<clamped>true</clamped>
+					<locked>true</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="mtp_angle_r">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>t_key</keys>
+					<clamped>true</clamped>
+					<locked>true</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_flexion_l">
+					<range>-2.094395102393 2.094395102393</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>h_key leftmouse_button</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_adduction_l">
+					<range>-2.094395102393 2.094395102393</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>h_key leftmouse_button</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="hip_rotation_l">
+					<range>-2.094395102393 2.094395102393</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>h_key leftmouse_button</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="knee_angle_l">
+					<range>-2.094395102393 0.174532925199</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>k_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="ankle_angle_l">
+					<range>-1.047197551197 1.047197551197</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>a_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="subtalar_angle_l">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>a_key</keys>
+					<clamped>true</clamped>
+					<locked>true</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="mtp_angle_l">
+					<range>-1.047197551197 1.047197551197</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>t_key</keys>
+					<clamped>true</clamped>
+					<locked>true</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="lumbar_extension">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>q_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="lumbar_bending">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>q_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="lumbar_rotation">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<keys>q_key</keys>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_add_r">
+					<range>-2.094395102393 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_rot_r">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_flex_r">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="elbow_flex_r">
+					<!--<range>0.000000000000 2.268928027593</range>-->
+					<range>-2.000000000000 2.268928027593</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pro_sup_r">
+					<!--<range>0.000000000000 1.570796326795</range>-->
+					<range>0.000000000000 3.570796326795</range>
+					<default_value>1.047197551197</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="wrist_dev_r">
+					<range>-0.436332312999 0.610865238198</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="wrist_flex_r">
+					<range>-1.221730476396 1.221730476396</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_add_l">
+					<range>-2.094395102393 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_rot_l">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="arm_flex_l">
+					<range>-1.570796326795 1.570796326795</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="elbow_flex_l">
+					<!--<range>0.000000000000 2.268928027593</range>-->
+					<range>-2.000000000000 2.268928027593</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="pro_sup_l">
+					<!--<range>0.000000000000 1.570796326795</range>-->
+					<range>0.000000000000 3.570796326795</range>
+					<default_value>1.047197551197</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="wrist_dev_l">
+					<range>-0.436332312999 0.610865238198</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+				<SimmCoordinate name="wrist_flex_l">
+					<range>-1.221730476396 1.221730476396</range>
+					<default_value>0.000000000000</default_value>
+					<tolerance>0.000000000000</tolerance>
+					<stiffness>0.000000000000</stiffness>
+					<clamped>true</clamped>
+					<locked>false</locked>
+					<restraint_active>false</restraint_active>
+				</SimmCoordinate>
+			</objects>
+			</CoordinateSet>
+			<JointSet>
+			<objects>
+				<SimmJoint name="ground_pelvis">
+					<bodies>ground pelvis</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<coordinate>pelvis_tx</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-360.000000000000 360.000000000000 </x>
+									<y>-360.000000000000 360.000000000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<coordinate>pelvis_ty</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-360.000000000000 360.000000000000 </x>
+									<y>-360.000000000000 360.000000000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<coordinate>pelvis_tz</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-360.000000000000 360.000000000000 </x>
+									<y>-360.000000000000 360.000000000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>pelvis_tilt</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<coordinate>pelvis_list</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<coordinate>pelvis_rotation</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="hip_r">
+					<bodies>pelvis femur_r</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>-0.070700000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.066100000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.083500000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>hip_flexion_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<coordinate>hip_adduction_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<coordinate>hip_rotation_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="knee_r">
+					<bodies>femur_r tibia_r</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<coordinate>knee_angle_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-2.094395102393 -1.745329251994 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.197344221443 0.337394955864 0.490177570472 1.521460267071 2.094395102393 </x>
+									<y>-0.003200000000 0.001790000000 0.004110000000 0.004100000000 0.002120000000 -0.001000000000 -0.003100000000 -0.005227000000 -0.005435000000 -0.005574000000 -0.005435000000 -0.005250000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<coordinate>knee_angle_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-2.094395102393 -1.221730476396 -0.523598775598 -0.349065850399 -0.174532925199 0.159148563428 2.094395102393 </x>
+									<y>-0.422600000000 -0.408200000000 -0.399000000000 -0.397600000000 -0.396600000000 -0.395264000000 -0.396000000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>knee_angle_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="tib_pat_r">
+					<bodies>tibia_r patella_r</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<coordinate>knee_angle_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-2.094395102393 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.000000000000 0.000174532925 0.000349065850 0.087266462600 2.094395102393 </x>
+									<y>0.017300000000 0.032400000000 0.038100000000 0.043000000000 0.046900000000 0.048400000000 0.049600000000 0.049600000000 0.049600000000 0.049600000000 0.049600000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<coordinate>knee_angle_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-2.094395102393 -1.570796326795 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.000000000000 0.000174532925 0.000349065850 0.087266462600 2.094395102393 </x>
+									<y>-0.021900000000 -0.020200000000 -0.020000000000 -0.020400000000 -0.021100000000 -0.021900000000 -0.022300000000 -0.022700000000 -0.022700000000 -0.022700000000 -0.022700000000 -0.022700000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.002400000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>knee_angle_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-2.094395102393 -1.999972789860 -1.457524458340 -0.526391302401 0.027925268032 0.174532925199 </x>
+									<y>0.308050612977 0.308050612977 0.306305283725 0.270176968209 -0.037000980142 -0.279950812020 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="ankle_r">
+					<bodies>tibia_r talus_r</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.430000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>-0.105013547622 -0.174022450344 0.979126315443</axis>
+							<coordinate>ankle_angle_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="subtalar_r">
+					<bodies>talus_r calcn_r</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>-0.048770000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.041950000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.007920000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.787179606862 0.604747457256 -0.120949491451</axis>
+							<coordinate>subtalar_angle_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="mtp_r">
+					<bodies>calcn_r toes_r</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.178800000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.002000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.001080000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>-0.580954396870 0.000000000000 0.813936108523</axis>
+							<coordinate>mtp_angle_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="hip_l">
+					<bodies>pelvis femur_l</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>-0.070700000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.066100000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>-0.083500000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>hip_flexion_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>-1.000000000000 0.000000000000 0.000000000000</axis>
+							<coordinate>hip_adduction_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 -1.000000000000 0.000000000000</axis>
+							<coordinate>hip_rotation_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="knee_l">
+					<bodies>femur_l tibia_l</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<coordinate>knee_angle_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-2.094395102393 -1.745329251994 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.197344221443 0.337394955864 0.490177570472 1.521460267071 2.094395102393 </x>
+									<y>-0.003200000000 0.001790000000 0.004110000000 0.004100000000 0.002120000000 -0.001000000000 -0.003100000000 -0.005227000000 -0.005435000000 -0.005574000000 -0.005435000000 -0.005250000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<coordinate>knee_angle_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-2.094395102393 -1.221730476396 -0.523598775598 -0.349065850399 -0.174532925199 0.159148563428 2.094395102393 </x>
+									<y>-0.422600000000 -0.408200000000 -0.399000000000 -0.397600000000 -0.396600000000 -0.395264000000 -0.396000000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>knee_angle_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="tib_pat_l">
+					<bodies>tibia_l patella_l</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<coordinate>knee_angle_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-2.094395102393 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.000000000000 0.000174532925 0.000349065850 0.087266462600 2.094395102393 </x>
+									<y>0.017300000000 0.032400000000 0.038100000000 0.043000000000 0.046900000000 0.048400000000 0.049600000000 0.049600000000 0.049600000000 0.049600000000 0.049600000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<coordinate>knee_angle_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-2.094395102393 -1.570796326795 -1.396263401595 -1.047197551197 -0.698131700798 -0.349065850399 -0.174532925199 0.000000000000 0.000174532925 0.000349065850 0.087266462600 2.094395102393 </x>
+									<y>-0.021900000000 -0.020200000000 -0.020000000000 -0.020400000000 -0.021100000000 -0.021900000000 -0.022300000000 -0.022700000000 -0.022700000000 -0.022700000000 -0.022700000000 -0.022700000000 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>-0.002400000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>knee_angle_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-2.094395102393 -1.999972789860 -1.457524458340 -0.526391302401 0.027925268032 0.174532925199 </x>
+									<y>0.308050612977 0.308050612977 0.306305283725 0.270176968209 -0.037000980142 -0.279950812020 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="ankle_l">
+					<bodies>tibia_l talus_l</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.430000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.105013547622 -0.174022450344 0.979126315443</axis>
+							<coordinate>ankle_angle_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="subtalar_l">
+					<bodies>talus_l calcn_l</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>-0.048770000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.041950000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>-0.007920000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>-0.787179606862 -0.604747457256 -0.120949491451</axis>
+							<coordinate>subtalar_angle_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="mtp_l">
+					<bodies>calcn_l toes_l</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.178800000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.002000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>-0.001080000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.580954396870 0.000000000000 0.813936108523</axis>
+							<coordinate>mtp_angle_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="back">
+					<bodies>pelvis torso</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>-0.100700000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>0.081500000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>lumbar_extension</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<coordinate>lumbar_bending</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<coordinate>lumbar_rotation</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="acromial_r">
+					<bodies>torso humerus_r</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.003155000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>0.371500000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.170000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<coordinate>arm_add_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>arm_flex_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<coordinate>arm_rot_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="elbow_r">
+					<bodies>humerus_r ulna_r</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.013144000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.286273000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>-0.009595000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.226046960485 0.022268996107 0.973861829762</axis>
+							<coordinate>elbow_flex_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="radioulnar_r">
+					<bodies>ulna_r radius_r</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>-0.006727000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.013007000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.026083000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.056398025787 0.998406456499 0.001952000893</axis>
+							<coordinate>pro_sup_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="radius_hand_r">
+					<bodies>radius_r hand_r</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>-0.008797000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.235841000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.013610000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>wrist_flex_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<coordinate>wrist_dev_r</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="acromial_l">
+					<bodies>torso humerus_l</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.003155000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>0.371500000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>-0.170000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>-1.000000000000 0.000000000000 0.000000000000</axis>
+							<coordinate>arm_add_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>arm_flex_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 -1.000000000000 0.000000000000</axis>
+							<coordinate>arm_rot_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="elbow_l">
+					<bodies>humerus_l ulna_l</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.013144000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.286273000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.009595000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>-0.226046960485 -0.022268996107 0.973861829762</axis>
+							<coordinate>elbow_flex_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 -1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>-1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="radioulnar_l">
+					<bodies>ulna_l radius_l</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>-0.006727000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.013007000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>-0.026083000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>-1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>-0.056398025787 -0.998406456499 0.001952000893</axis>
+							<coordinate>pro_sup_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="radius_hand_l">
+					<bodies>radius_l hand_l</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>-0.008797000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>-0.235841000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>-0.013610000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<coordinate>wrist_flex_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 -1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>-1.000000000000 0.000000000000 0.000000000000</axis>
+							<coordinate>wrist_dev_l</coordinate>
+							<Value>
+								<natCubicSpline>
+									<x>-6.283185307179 6.283185307179 </x>
+									<y>-6.283185307179 6.283185307179 </y>
+								</natCubicSpline>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="r_scapulothoracic">
+					<bodies>torso r_scapula</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.012700000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>0.405500000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.161000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>-0.261799387799</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>-0.174532925199</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="r_sternoclavicular">
+					<bodies>torso r_clavicle</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.027000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>0.385400000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>0.025465000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>-0.034906585040</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>-0.043633231300</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="l_scapulothoracic">
+					<bodies>torso l_scapula</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.012700000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>0.405500000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>-0.161000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.261799387799</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>-0.174532925199</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+				<SimmJoint name="l_sternoclavicular">
+					<bodies>torso l_clavicle</bodies>
+					<DofSet>
+					<objects>
+						<SimmTranslationDof name="tx">
+							<Value>
+								<Constant>
+									<value>0.027000000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="ty">
+							<Value>
+								<Constant>
+									<value>0.385400000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmTranslationDof name="tz">
+							<Value>
+								<Constant>
+									<value>-0.025465000000</value>
+								</Constant>
+							</Value>
+						</SimmTranslationDof>
+						<SimmRotationDof name="r1">
+							<axis>1.000000000000 0.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.034906585040</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r2">
+							<axis>0.000000000000 1.000000000000 0.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.043633231300</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+						<SimmRotationDof name="r3">
+							<axis>0.000000000000 0.000000000000 1.000000000000</axis>
+							<Value>
+								<Constant>
+									<value>0.000000000000</value>
+								</Constant>
+							</Value>
+						</SimmRotationDof>
+					</objects>
+					</DofSet>
+				</SimmJoint>
+			</objects>
+			</JointSet>
+		</SimmKinematicsEngine>
+	</DynamicsEngine>
+</Model>
