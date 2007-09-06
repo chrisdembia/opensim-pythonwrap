@@ -1,0 +1,1088 @@
+/****************************************************************************
+
+  BODY-MODEL.JNT
+
+  (c) Copyright 1996-9, MusculoGraphics, Inc.
+
+  This file contains joints and segments for displaying the complete human
+  skeleton. The bone files were originally created for animation purposes
+  by Donald Stredney, Ohio State University. MusculoGraphics therefore makes
+  no claim about the accuracy of the bone surfaces or the joint kinematics.
+  In some cases (e.g., the leg), the joint definitions have been replaced
+  with the more realistic models developed by Scott Delp, Northwestern University.
+
+  In the anatomical position, the X-axis point anteriorly, the Y-axis points
+  superiorly, and the Z-axis point laterally.
+
+******************************************************************************/
+
+name Whole Body
+
+beginview default
+0.0000 0.0000 1.0000 0.0000 
+0.0000 1.0000 0.0000 0.0000 
+-1.000 0.0000 0.0000 0.0000 
+0.0450 0.1071 -2.8530 1.0000 
+endview
+
+/****************************************************************************
+ (1) JOINT DEFINITIONS
+ ****************************************************************************/
+
+beginjoint grnd_pelvis
+segments ground pelvis
+order  t r3 r1 r2          
+tx function f42(tX)
+ty function f43(tY)
+tz constant 0.0
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r3 function f39(rZ)
+r1 function f40(rX)
+r2 function f41(rY)
+endjoint
+
+beginjoint hip
+segments pelvis r_femur
+order  t r3 r1 r2
+tx constant -0.0707
+ty constant -0.0661
+tz constant  0.0835
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r3 function f1(r_hip_flexion)
+r1 function f2(r_hip_adduction)
+r2 function f3(r_hip_rotation)
+endjoint
+
+beginjoint r_fem_tib
+segments r_femur r_tibia
+order t r3 r1 r2
+tx function f5(r_knee_angle)
+ty function f6(r_knee_angle)
+tz constant 0.0
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r3 function f4(r_knee_angle)
+r1 constant 0.0
+r2 constant 0.0
+endjoint
+
+beginjoint r_tib_pat
+segments r_tibia r_patella
+order t r3 r1 r2
+tx function f7(r_knee_angle)
+ty function f8(r_knee_angle)
+tz constant  0.0024
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r3 function f9(r_knee_angle)
+r1 constant 0.0
+r2 constant 0.0
+endjoint
+
+beginjoint r_ankle
+segments r_tibia r_talus
+order t r3 r1 r2
+tx constant  0.0
+ty constant -0.43
+tz constant  0.0
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 -0.10453 -0.17365 0.97925
+r3 function f10(r_ankle_angle)
+r1 constant 0.0
+r2 constant 0.0
+endjoint
+
+beginjoint r_subtalar
+segments r_talus r_calcn
+order t r1 r2 r3
+tx constant  -0.04877
+ty constant  -0.04195
+tz constant   0.00792
+axis1 0.781 0.60 -0.12
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r1 function f11(r_subt_angle)
+r2 constant 0.0
+r3 constant 0.0
+endjoint
+
+beginjoint r_mtp
+segments r_calcn r_toes
+order t r1 r2 r3
+tx constant  0.1788
+ty constant  -0.0020
+tz constant  0.00108
+axis1 0.5808 0.0 -0.8140
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r1 function f12(r_mtp_angle)
+r2 constant 0.0
+r3 constant 0.0
+endjoint
+
+beginjoint l_hip
+segments  pelvis l_femur
+order  t r3 r1 r2
+tx constant -0.0707
+ty constant -0.0661
+tz constant -0.0835
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r3 function f13(l_hip_flexion)
+r1 function f14(l_hip_adduction)
+r2 function f15(l_hip_rotation)
+endjoint
+
+beginjoint l_fem_tib
+segments l_femur l_tibia
+order t r3 r1 r2
+tx function f17(l_knee_angle)
+ty function f18(l_knee_angle)
+tz constant 0.0
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r3 function f16(l_knee_angle)
+r1 constant 0.0
+r2 constant 0.0
+endjoint
+
+beginjoint l_tib_pat
+segments  l_tibia l_patella
+order t r3 r1 r2
+tx function f19(l_knee_angle)
+ty function f20(l_knee_angle)
+tz constant -0.0024
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r3 function f21(l_knee_angle)
+r1 constant 0.0
+r2 constant 0.0
+endjoint
+
+beginjoint l_ankle
+segments l_tibia l_talus
+order t r3 r1 r2
+tx constant  0.0
+ty constant -0.43
+tz constant  0.0
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 -0.10453 -0.17365 -0.97925
+r3 function f22(l_ankle_angle)
+r1 constant 0.0
+r2 constant 0.0
+endjoint
+
+beginjoint l_subtalar
+segments  l_talus l_calcn
+order t r1 r2 r3
+tx constant  -.04877
+ty constant  -.04195
+tz constant  -.00792
+axis1 0.781 0.60 0.12
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r1 function f23(l_subt_angle)
+r2 constant 0.0
+r3 constant 0.0
+endjoint
+
+beginjoint l_mtp
+segments  l_calcn l_toes
+order t r1 r2 r3
+tx constant  0.1788
+ty constant  -0.0020
+tz constant  -0.00108
+axis1 0.5808 0.0 0.8140
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+r1 function f24(l_mtp_angle)
+r2 constant 0.0
+r3 constant 0.0
+endjoint
+
+beginjoint torso
+segments  pelvis thorax 
+order t r3 r1 r2        
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+tx  constant -0.08
+ty  constant 0.46
+tz  constant 0.0
+r3 constant 0.0
+r1 constant 0.0
+r2 constant 0.0
+endjoint
+
+beginjoint r_shoulder
+segments thorax r_humerus
+order t r3 r2 r1
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+tx  constant -0.017545
+ty  constant -0.007
+tz  constant 0.17
+r1  function f25(r_shoulder_add)
+r2  function f26(r_shoulder_rot)
+r3  function f27(r_shoulder_flex)
+endjoint
+
+beginjoint r_elbow
+segments r_humerus r_ulna
+order t r3 r2 r1
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.226047 0.191040 0.955200
+tx  function f28(r_elbow_flexion)
+ty  function f29(r_elbow_flexion)
+tz  constant 0.0389
+r1  constant 0.0
+r2  constant 0.0
+r3  function f30(r_elbow_flexion)
+endjoint
+
+beginjoint r_radioulnar
+segments r_ulna r_radius
+order t r3 r2 r1
+axis1 1.0 0.0 0.0
+axis2 0.056398 0.983577 -0.171449
+axis3 0.0 0.0 1.0
+tx  constant -0.0065
+ty  constant -0.008
+tz  constant 0.025
+r1  constant 0.0
+r2  function f31(r_pro_sup)
+r3  constant 0.0
+endjoint
+
+beginjoint r_wrist
+segments r_radius r_hand
+order t r3 r1 r2       
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+tx  constant  0.22
+ty  constant -0.0165
+tz  constant  0.06
+r1  constant  0.0
+r2  constant  0.0
+r3  constant  0.0
+endjoint
+
+beginjoint r_scapulothoracic
+segments thorax r_scapula
+order t r1 r2 r3
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+tx  constant -0.008
+ty  constant 0.027
+tz  constant 0.161
+r1  constant 0.0
+r2  constant -15.0
+r3  constant -10.0
+endjoint
+
+beginjoint r_sternoclavicular
+segments thorax r_clavicle
+order t r1 r2 r3
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+tx  constant 0.006325
+ty  constant 0.006930
+tz  constant 0.025465
+r1  constant -2.0
+r2  constant -2.50
+r3  constant 0.0
+endjoint
+
+beginjoint l_shoulder 
+segments  thorax l_humerus
+order t r3 r2 r1
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+tx  constant -0.017545
+ty  constant -0.007
+tz  constant -0.17
+r1  function f32(l_shoulder_add)
+r2  function f33(l_shoulder_rot)
+r3  function f34(l_shoulder_flex)
+endjoint
+
+beginjoint l_elbow
+segments l_humerus l_ulna
+order t r3 r2 r1
+axis1 1.0 0.0  0.0
+axis2 0.0 1.0  0.0
+axis3 0.226047 0.191040 -0.955200
+tx  function f35(l_elbow_flexion)
+ty  function f36(l_elbow_flexion)
+tz  constant -0.038900
+r1  constant 0.0
+r2  constant 0.0
+r3  function f37(l_elbow_flexion)
+endjoint
+
+beginjoint l_radioulnar
+segments l_ulna l_radius
+order t r3 r2 r1
+axis1 1.0 0.0 0.0
+axis2 0.056398 0.983577 0.171449
+axis3 0.0 0.0 1.0
+tx  constant -0.006500
+ty  constant -0.008000
+tz  constant -0.025000
+r1  constant 0.0
+r2  function f38(l_pro_sup)
+r3  constant 0.0
+endjoint
+
+beginjoint l_wrist
+segments l_radius l_hand 
+order t r3 r1 r2       
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+tx  constant  0.22
+ty  constant -0.0165
+tz  constant -0.06
+r1  constant  0.0
+r2  constant  0.0
+r3  constant  0.0
+endjoint
+
+beginjoint  l_scapulothoracic
+segments thorax l_scapula
+order t r1 r2 r3
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+tx  constant -0.008000
+ty  constant 0.027000
+tz  constant -0.161000
+r1  constant 0.0
+r2  constant 15.0
+r3  constant -10.0
+endjoint
+
+beginjoint l_sternoclavicular
+segments thorax l_clavicle
+order t r1 r2 r3
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+tx  constant 0.006325
+ty  constant 0.006930
+tz  constant -0.025465
+r1  constant 2.0
+r2  constant 2.50
+r3  constant 0.0
+endjoint
+
+beginjoint trans
+segments thorax torso
+order t r3 r1 r2       
+axis1 1.0 0.0 0.0
+axis2 0.0 1.0 0.0
+axis3 0.0 0.0 1.0
+tx  constant  0.0
+ty  constant -0.2875
+tz  constant -0.0
+r1  constant  0.0
+r2  constant  0.0
+r3  constant  0.0
+endjoint
+
+
+/****************************************************************************
+ (2) DEGREES OF FREEDOM (DOFS)
+ ****************************************************************************/
+
+begingencoord r_hip_flexion
+range -10.0 95.0
+keys h_key leftmouse_button
+endgencoord
+
+begingencoord r_hip_adduction
+range -50.0 15.0
+keys h_key middlemouse_button
+endgencoord
+
+begingencoord r_hip_rotation
+range -20.0  20.0
+keys h_key rightmouse_button
+endgencoord
+
+begingencoord r_knee_angle
+range -120.0 0.0
+keys k_key
+endgencoord
+
+begingencoord r_ankle_angle
+range -30 30.0
+keys a_key
+endgencoord
+
+begingencoord r_subt_angle
+range -20.0 20.0
+keys s_key
+endgencoord
+
+begingencoord r_mtp_angle
+range -30.0 30.0
+keys t_key
+endgencoord
+
+begingencoord l_hip_flexion
+range -10.0 95.0
+endgencoord
+
+begingencoord l_hip_adduction
+range -50.0 15.0
+endgencoord
+
+begingencoord l_hip_rotation
+range -20.0  20.0
+endgencoord
+
+begingencoord l_knee_angle
+range -120.0 0.0
+endgencoord
+
+begingencoord l_ankle_angle
+range -30 30.0
+endgencoord
+
+begingencoord l_subt_angle
+range -20.0 20.0
+endgencoord
+
+begingencoord l_mtp_angle
+range -30.0 30.0
+endgencoord
+
+begingencoord r_shoulder_add
+range -10.0 180.0
+endgencoord
+
+begingencoord r_shoulder_rot
+range -20.0 20.0
+endgencoord
+
+begingencoord r_shoulder_flex
+range -30.0 180.0
+endgencoord
+
+begingencoord r_elbow_flexion
+range 0.0 130.0
+endgencoord
+
+begingencoord r_pro_sup
+range 0.0 180.0
+endgencoord
+
+begingencoord l_shoulder_add
+range -10.0 180.0
+endgencoord
+
+begingencoord l_shoulder_rot
+range -20.0 20.0
+endgencoord
+
+begingencoord l_shoulder_flex
+range -30.0 180.0
+endgencoord
+
+begingencoord l_elbow_flexion
+range 0.0 130.0
+endgencoord
+
+begingencoord l_pro_sup
+range 0.0 180.0
+endgencoord
+
+begingencoord rX
+range -180.0  180.0
+endgencoord
+
+begingencoord rY
+range -180.0  180.0
+endgencoord
+
+begingencoord rZ
+range -180.0  180.0
+endgencoord
+
+begingencoord tX
+range 0.0  3.0
+endgencoord
+
+begingencoord tY
+range -1.5  1.5
+endgencoord
+
+
+/****************************************************************************
+ (3) BONE FILES IN EACH BODY SEGMENT
+ ****************************************************************************/
+
+beginsegment ground
+beginfiles 
+endfiles  
+endsegment
+
+beginsegment pelvis
+beginfiles
+r_pelvis.asc
+sacrum.asc
+l_pelvis.asc
+endfiles
+endsegment
+
+beginsegment r_femur
+beginfiles
+r_femur.asc
+endfiles
+endsegment
+
+beginsegment r_tibia
+beginfiles
+r_tibia.asc
+r_fibula.asc
+endfiles
+endsegment
+
+beginsegment r_patella
+beginfiles
+r_patella.asc
+endfiles
+endsegment
+
+beginsegment r_talus
+beginfiles
+r_talus.asc
+endfiles
+endsegment
+
+beginsegment r_calcn
+beginfiles
+r_foot.asc
+endfiles
+endsegment
+
+beginsegment r_toes
+beginfiles
+r_bofoot.asc
+endfiles
+endsegment
+
+beginsegment l_femur
+beginfiles
+l_femur.asc
+endfiles
+endsegment
+
+beginsegment l_tibia
+beginfiles
+l_tibia.asc
+l_fibula.asc
+endfiles
+endsegment
+
+beginsegment l_patella
+beginfiles
+l_patella.asc
+endfiles
+endsegment
+
+beginsegment l_talus
+beginfiles
+l_talus.asc
+endfiles
+endsegment
+
+beginsegment l_calcn
+beginfiles
+l_foot.asc
+endfiles
+endsegment
+
+beginsegment l_toes
+beginfiles
+l_bofoot.asc
+endfiles
+endsegment
+ 
+beginsegment thorax
+beginfiles
+ribs.asc
+endfiles
+endsegment
+
+beginsegment r_humerus
+beginfiles
+r_humerus.asc
+endfiles
+endsegment
+
+beginsegment r_ulna
+beginfiles
+r_ulna.asc
+endfiles
+endsegment
+
+beginsegment r_radius
+beginfiles
+r_radius.asc
+endfiles
+endsegment
+
+beginsegment r_hand
+beginfiles
+r_hand.asc
+endfiles 
+endsegment
+
+beginsegment r_scapula
+beginfiles
+r_scapula.asc
+endfiles
+endsegment
+
+beginsegment r_clavicle
+beginfiles
+r_clavicle.asc
+endfiles
+endsegment
+
+beginsegment l_humerus
+beginfiles
+l_humerus.asc
+endfiles
+endsegment
+
+beginsegment l_ulna
+beginfiles
+l_ulna.asc
+endfiles
+endsegment
+
+beginsegment l_radius
+beginfiles
+l_radius.asc
+endfiles
+endsegment
+
+beginsegment l_hand
+beginfiles
+l_hand.asc
+endfiles
+endsegment
+
+beginsegment l_scapula
+beginfiles
+l_scapula.asc
+endfiles
+endsegment
+
+beginsegment l_clavicle
+beginfiles
+l_clavicle.asc
+endfiles
+endsegment
+
+beginsegment torso
+beginfiles
+spine.asc
+jaw.asc
+skull.asc
+endfiles
+endsegment
+
+
+/****************************************************************************
+ (4) KINEMATIC FUNCTIONS
+ ****************************************************************************/
+                                
+beginfunction f1        /* hip flexion (+) and extension (-) */
+/* (hip flexion angle, rotation about axis 3) */
+(-360.0, -360.0)
+( 360.0,  360.0)
+endfunction
+
+
+beginfunction f2        /* hip addduction (+) and abduction (-) */
+/* (hip adduction angle, rotation about axis 1) */
+(-360.0, -360.0)
+( 360.0,  360.0)
+endfunction
+
+
+beginfunction f3       /* hip internal (+) and external rotation (-) */
+/* (hip rotation angle, rotation about axis 2) */
+(-360.0, -360.0)
+( 360.0,  360.0)
+endfunction
+
+
+beginfunction f4       /* 0 degrees is full extension, neg. angles are flexion */
+/* (knee flexion angle, rotation about axis 3) */
+(-360.0, -360.0)
+( 360.0,  360.0)
+endfunction
+
+/****************************************************************************
+*   FEMUR-TIBIA KINEMATICS
+*   TX and TY for femoral-tibial kinematics were determined by the 
+*   following process.  I first printed a medial view of the knee joint 
+*   from the iris. I next fit an elipse to the femoral condyles using
+*   adobe illustrator (semimajor axis = 3.54 cm, semiminor axis = 2.42cm).
+*   The tibial plateau was characterized by a line of length 5.5 cm. 
+*   Using Eric Topp's modification of Gary Yamaguchi's cmknee program
+*   the translations that make the ellipse (femur) and the line (tibia)
+*   of contact according to Nissel's data (1985).
+*****************************************************************************/
+
+
+/* tx for femoral-tibial joint                                              */
+beginfunction f5    /* range of motion: 120 deg.flexion to 0 deg.ext        */
+/* knee angle, x-translation from femural to tibial frame                   */
+(-120.0, -0.00320)
+(-100.0,  0.00179)
+( -80.0,  0.00411)
+( -60.0,  0.00410)
+( -40.0,  0.00212)
+( -20.0, -0.00100)
+( -10.0, -0.00310)
+(   0.0, -0.00525)
+endfunction
+
+/* ty for femoral-tibial joint                                              */
+beginfunction f6    /* range of motion: 120 deg.flexion to 0 deg.ext        */
+/* knee angle, y-translation from femural to tibial frame                   */
+(-120.0, -0.4226)
+( -70.0, -0.4082)
+( -30.0, -0.3990)
+( -20.0, -0.3976)
+( -10.0, -0.3966)
+(   0.0, -0.3960)
+endfunction
+
+/* **************************************************************************
+ * TIBIA-PATELLA KINEMATICS
+ * TX and TY for tibial-patellar motion were determined by assuming
+ * that the patallar ligament is inextensible and has length 5.5cm.
+ * The patallar ligament angle was taken from Yamaguchi (1989) because
+ * he fits experimental data (Nissel, 1985 and VanEijden, 1985) well.
+ * With patallar length and angle, tx and ty were computed.
+ * I subtracted 8mm from all of the tx values because the patella was
+ * tracking too far from the femur.  This is because the tibial tuberosity
+ * on my bones is too large.  Effectively, subtracting the 8mm reduces
+ * the size of the tuberosity.
+ * RZ was taken directly from VanEijden, 1985. (Actually I used Yama's
+ * plot of VanE's data because it was easier to read). I subtracted 5 
+ * degrees from all rz values because it looked better. (my patella was 
+ * oriented about 5 degrees differently initially). I visually compared
+ * the iris display of the knee kinematics to xerograms of knee in four
+ * different positions.
+ ****************************************************************************/
+   
+ 
+/* tx for tibial-patellar motion                                            */
+beginfunction f7    /* range of motion: 120 deg.flexion to 0 deg.ext        */
+/* knee angle, x-translation from tibial to patallar frame                  */
+(-120.0, 0.0173)
+( -80.0, 0.0324)
+( -60.0, 0.0381)
+( -40.0, 0.0430)
+( -20.0, 0.0469)
+( -10.0, 0.0484)
+(   0.0, 0.0496)
+endfunction
+
+/* ty for tibial-patellar motion                                            */
+beginfunction f8    /* range of motion: 120 deg.flexion to 0 deg.ext        */
+/* knee angle, y-translation from tibial to patallar frame                  */
+(-120.0,  -0.0219)
+( -90.0,  -0.0202)
+( -80.0,  -0.0200)
+( -60.0,  -0.0204)
+( -40.0,  -0.0211)
+( -20.0,  -0.0219)
+( -10.0,  -0.0223)
+(   0.286,-0.0227)
+endfunction
+
+/* rz for tibial-patellar motion                                            */
+beginfunction f9    /* range of motion: 120 deg.flexion to 0 deg.ext        */
+/* knee angle, z-rotation from tibial to patallar frame                     */
+(-120.00,  17.65)
+(-114.59,  17.65)
+( -83.51,  17.55)
+( -30.16,  15.48)
+(   1.60,  -2.12)
+(  10.00, -16.04)
+endfunction
+
+
+/* ankle motion                                                             */
+beginfunction f10    /* range of motion: 30 deg.flex to 45 deg. ext         */
+/* ankle angle, rotation about axis 3                                       */
+(-360.0, -360.0)
+( 360.0,  360.0)
+endfunction
+
+/* subtalar motion                                                          */
+beginfunction f11    /* range of motion: 22 deg.inv to 17 deg. evert        */
+/* inversion angle, rotation about axis 1                                   */
+(-360.0, -360.0)
+( 360.0,  360.0)
+endfunction
+
+/* metatarsophalangeal motion                                               */
+beginfunction f12    /* range of motion: 45 deg.flex to 45 deg. ext         */
+/* toe angle, rotation about axis 1                                         */
+(-360.0, -360.0)
+( 360.0,  360.0)
+endfunction
+
+beginfunction f13        /* hip flexion (+) and extension (-) */
+/* (hip flexion angle, rotation about axis 3) */
+(-360.0, -360.0)
+( 360.0,  360.0)
+endfunction
+
+beginfunction f14       
+/* (hip adduction angle, rotation about axis 1) */
+(-360.0, 360.0)
+( 360.0, -360.0)
+endfunction
+
+beginfunction f15      
+/* (hip rotation angle, rotation about axis 2) */
+(-360.0, 360.0)
+(360.0,  -360.0)
+endfunction
+
+beginfunction f16      /* 0 degrees is full extension, neg. angles are flexion */
+/* (knee flexion angle, rotation about axis 3) */
+(-360.0, -360.0)
+( 360.0,  360.0)
+endfunction
+
+/* tx for femoral-tibial joint                                              */
+beginfunction f17    /* range of motion: 120 deg.flexion to 0 deg.ext        */
+/* knee angle, x-translation from femural to tibial frame                   */
+(-120.0, -0.00320)
+(-100.0,  0.00179)
+( -80.0,  0.00411)
+( -60.0,  0.00410)
+( -40.0,  0.00212)
+( -20.0, -0.00100)
+( -10.0, -0.00310)
+(   0.0, -0.00525)
+endfunction
+
+/* ty for femoral-tibial joint                                              */
+beginfunction f18    /* range of motion: 120 deg.flexion to 0 deg.ext        */
+/* knee angle, y-translation from femural to tibial frame                   */
+(-120.0, -0.4226)
+( -70.0, -0.4082)
+( -30.0, -0.3990)
+( -20.0, -0.3976)
+( -10.0, -0.3966)
+(   0.0, -0.3960)
+endfunction
+
+/* tx for tibial-patellar motion                                            */
+beginfunction f19    /* range of motion: 120 deg.flexion to 0 deg.ext        */
+/* knee angle, x-translation from tibial to patallar frame                  */
+(-120.0, 0.0173)
+( -80.0, 0.0324)
+( -60.0, 0.0381)
+( -40.0, 0.0430)
+( -20.0, 0.0469)
+( -10.0, 0.0484)
+(   0.0, 0.0496)
+endfunction
+
+/* ty for tibial-patellar motion                                            */
+beginfunction f20   /* range of motion: 120 deg.flexion to 0 deg.ext        */
+/* knee angle, y-translation from tibial to patallar frame                  */
+(-120.0,  -0.0219)
+( -90.0,  -0.0202)
+( -80.0,  -0.0200)
+( -60.0,  -0.0204)
+( -40.0,  -0.0211)
+( -20.0,  -0.0219)
+( -10.0,  -0.0223)
+(   0.286,-0.0227)
+endfunction
+
+/* rz for tibial-patellar motion                                            */
+beginfunction f21    /* range of motion: 120 deg.flexion to 0 deg.ext        */
+/* knee angle, z-rotation from tibial to patallar frame                     */
+(-120.00,  17.65)
+(-114.59,  17.65)
+( -83.51,  17.55)
+( -30.16,  15.48)
+(   1.60,  -2.12)
+(  10.00, -16.04)
+endfunction
+
+/* ankle motion                                                             */
+beginfunction f22    /* range of motion: 30 deg.flex to 45 deg. ext         */
+/* ankle angle, rotation about axis 3                                       */
+(-360.0, 360.0)
+( 360.0, -360.0)
+endfunction
+
+/* subtalar motion                                                          */
+beginfunction f23    /* range of motion: 22 deg.inv to 17 deg. evert        */
+/* inversion angle, rotation about axis 1                                   */
+(-360.0, 360.0)
+( 360.0,  -360.0)
+endfunction
+
+/* metatarsophalangeal motion                                               */
+beginfunction f24   /* range of motion: 45 deg.flex to 45 deg. ext         */
+/* toe angle, rotation about axis 1                                         */
+(-360.0, 360.0)
+( 360.0, -360.0)
+endfunction
+
+beginfunction f25
+(-360.0,-360.0)
+( 360.0, 360.0)
+endfunction
+
+beginfunction f26
+(-360.0,-360.0)
+( 360.0, 360.0)
+endfunction
+
+beginfunction f27
+(-360.0,-360.0)
+( 360.0, 360.0)
+endfunction
+
+beginfunction f28
+(   0.000000,   0.014371)
+(   8.500000,   0.013113)
+(  35.500000,   0.011762)
+(  66.477270,   0.011700)
+(  78.787876,   0.011700)
+(  91.590906,   0.011700)
+( 106.363633,   0.011700)
+( 118.000000,   0.011700)
+( 130.000000,   0.011700)
+endfunction
+
+beginfunction f29
+(   0.000000,  -0.275795)
+(   8.500000,  -0.274614)
+(  34.500000,  -0.272998)
+(  70.909088,  -0.272800)
+(  86.666664,  -0.272800)
+( 103.500000,  -0.272800)
+( 119.000000,  -0.272800)
+( 130.000000,  -0.272800)
+endfunction
+
+beginfunction f30
+(-360.0,-360.0)
+( 360.0, 360.0)
+endfunction
+
+beginfunction f31
+(-360.0,-360.0)
+( 360.0, 360.0)
+endfunction
+
+
+beginfunction f32
+(-360.0,360.0)
+( 360.0,-360.0)
+endfunction
+
+beginfunction f33
+(-360.0,360.0)
+( 360.0,-360.0)
+endfunction
+
+beginfunction f34
+(-360.0,-360.0)
+( 360.0, 360.0)
+endfunction
+
+beginfunction f35
+(   0.000000,   0.014371)
+(   8.500000,   0.013113)
+(  35.500000,   0.011762)
+(  66.477270,   0.011700)
+(  78.787876,   0.011700)
+(  91.590906,   0.011700)
+( 106.363633,   0.011700)
+( 118.000000,   0.011700)
+( 130.000000,   0.011700)
+endfunction
+
+beginfunction f36
+(   0.000000,  -0.275795)
+(   8.500000,  -0.274614)
+(  34.500000,  -0.272998)
+(  70.909088,  -0.272800)
+(  86.666664,  -0.272800)
+( 103.500000,  -0.272800)
+( 119.000000,  -0.272800)
+( 130.000000,  -0.272800)
+endfunction
+
+beginfunction f37
+(-360.0,360.0)
+( 360.0, -360.0)
+endfunction
+
+beginfunction f38
+(-360.0,360.0)
+( 360.0, -360.0)
+endfunction
+
+beginfunction f39
+(-360.0,-360.0)
+( 360.0, 360.0)
+endfunction
+
+beginfunction f40
+(-360.0,-360.0)
+( 360.0, 360.0)
+endfunction
+
+beginfunction f41
+(-360.0,-360.0)
+( 360.0, 360.0)
+endfunction
+
+beginfunction f42
+(-10.0,-10.0)
+( 10.0, 10.0)
+endfunction
+
+beginfunction f43
+(-10.0,-10.0)
+( 10.0, 10.0)
+endfunction
