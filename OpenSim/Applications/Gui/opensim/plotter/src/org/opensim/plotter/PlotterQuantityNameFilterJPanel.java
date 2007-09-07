@@ -379,7 +379,11 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
         Vector<String> groups=ViewDB.getInstance().getModelGuiElements(currentModel).getActuatorGroupNames();
         jMuscleGroupComboBox.setModel(new DefaultComboBoxModel(groups));
         setFilter(currentFilter);
-        restrictToGroup(groups.get(0));
+        if (groups.size()>0){
+           jMuscleGroupComboBox.setSelectedIndex(0);
+           restrictToGroup(groups.get(0));
+        }
+        
 // TODO add your handling code here:
     }//GEN-LAST:event_jModelGroupRadioButtonActionPerformed
 

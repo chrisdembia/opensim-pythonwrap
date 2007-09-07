@@ -351,6 +351,10 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
         // Find model's muscle groups and fill in drop down'
         Vector<String> groups=ViewDB.getInstance().getModelGuiElements(currentModel).getActuatorGroupNames();
         jMuscleGroupComboBox.setModel(new DefaultComboBoxModel(groups));
+        if (groups.size()>0){
+           jMuscleGroupComboBox.setSelectedIndex(0);
+           restrictToGroup(groups.get(0));
+       }
 
     }//GEN-LAST:event_jModelComboBoxActionPerformed
 
