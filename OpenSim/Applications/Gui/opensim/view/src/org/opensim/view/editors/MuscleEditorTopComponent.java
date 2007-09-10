@@ -297,22 +297,15 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    }
 
    private void MuscleNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MuscleNameTextFieldFocusLost
-      if (currentAct == null || currentAct.getName().equals(MuscleNameTextField.getText()) == true)
-         return;
-      if (validName(MuscleNameTextField.getText()) == false)
-         return;
-      currentAct.setName(MuscleNameTextField.getText());
-      SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
-      String [] actNames = guiElem.getActuatorNames(true);
-      MuscleComboBox.setModel(new javax.swing.DefaultComboBoxModel(actNames));
-      MuscleComboBox.setSelectedIndex(findElement(actNames, currentAct.getName()));
-      setPendingChanges(true, false);
-      OpenSimDB.getInstance().setChanged();
-      NameChangedEvent evnt = new NameChangedEvent(currentAct);
-      OpenSimDB.getInstance().notifyObservers(evnt);
+      if (!evt.isTemporary())
+          MuscleNameEntered();
    }//GEN-LAST:event_MuscleNameTextFieldFocusLost
 
    private void MuscleNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MuscleNameTextFieldActionPerformed
+      MuscleNameEntered();
+   }//GEN-LAST:event_MuscleNameTextFieldActionPerformed
+
+   private void MuscleNameEntered() {
       if (currentAct == null || currentAct.getName().equals(MuscleNameTextField.getText()) == true)
          return;
       if (validName(MuscleNameTextField.getText()) == false)
@@ -326,8 +319,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       OpenSimDB.getInstance().setChanged();
       NameChangedEvent evnt = new NameChangedEvent(currentAct);
       OpenSimDB.getInstance().notifyObservers(evnt);
-   }//GEN-LAST:event_MuscleNameTextFieldActionPerformed
-   
+   }
+
    private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
       resetActuator();
    }//GEN-LAST:event_ResetButtonActionPerformed
@@ -569,7 +562,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          updateCurrentPathPanel(asm);
       }
    }
-   
+
    public void RangeMinEntered(javax.swing.JTextField field, int attachmentNum) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
       MusclePointSet musclePoints = asm.getAttachmentSet();
@@ -1393,7 +1386,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             });
             rangeMinField.addFocusListener(new java.awt.event.FocusAdapter() {
                public void focusLost(java.awt.event.FocusEvent evt) {
-                  RangeMinEntered(((javax.swing.JTextField)evt.getSource()), num);
+                  if (!evt.isTemporary())
+                     RangeMinEntered(((javax.swing.JTextField)evt.getSource()), num);
                }
             });
             rangeMaxField.addActionListener(new java.awt.event.ActionListener() {
@@ -1403,7 +1397,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             });
             rangeMaxField.addFocusListener(new java.awt.event.FocusAdapter() {
                public void focusLost(java.awt.event.FocusEvent evt) {
-                  RangeMaxEntered(((javax.swing.JTextField)evt.getSource()), num);
+                  if (!evt.isTemporary())
+                     RangeMaxEntered(((javax.swing.JTextField)evt.getSource()), num);
                }
             });
          }
@@ -1432,7 +1427,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          });
          xField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 0);
+               if (!evt.isTemporary())
+                  AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 0);
             }
          });
          yField.addActionListener(new java.awt.event.ActionListener() {
@@ -1442,7 +1438,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          });
          yField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 1);
+               if (!evt.isTemporary())
+                  AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 1);
             }
          });
          zField.addActionListener(new java.awt.event.ActionListener() {
@@ -1452,7 +1449,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          });
          zField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 2);
+               if (!evt.isTemporary())
+                  AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 2);
             }
          });
          comboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -1748,7 +1746,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                   });
                   propField.addFocusListener(new java.awt.event.FocusAdapter() {
                      public void focusLost(java.awt.event.FocusEvent evt) {
-                        DoublePropertyEntered(((javax.swing.JTextField)evt.getSource()), num);
+                        if (!evt.isTemporary())
+                           DoublePropertyEntered(((javax.swing.JTextField)evt.getSource()), num);
                      }
                   });
                } else if (p.getType() == org.opensim.modeling.Property.PropertyType.Int) {
@@ -1759,7 +1758,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                   });
                   propField.addFocusListener(new java.awt.event.FocusAdapter() {
                      public void focusLost(java.awt.event.FocusEvent evt) {
-                        IntPropertyEntered(((javax.swing.JTextField)evt.getSource()), num);
+                        if (!evt.isTemporary())
+                           IntPropertyEntered(((javax.swing.JTextField)evt.getSource()), num);
                      }
                   });
                }
