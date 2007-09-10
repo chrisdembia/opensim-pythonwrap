@@ -102,6 +102,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
       ViewDB.getInstance().addObserver(this);
       OpenSimDB.getInstance().addObserver(this);
+      setupComponent(null);
    }
    
    private void setPendingChanges(boolean state, boolean repaint) {
