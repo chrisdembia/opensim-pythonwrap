@@ -103,8 +103,7 @@ public class ModelSelectionJPanel extends javax.swing.JPanel implements Observer
                // setSelectedItem triggers another round of DB updates!
                jCurrentModelComboBox.getModel().setSelectedItem(evt.getModel());
             }
-            else if (evt.getOperation()==ModelEvent.Operation.Close &&
-                     OpenSimDB.getInstance().getCurrentModel()==null){
+            else if (evt.getOperation()==ModelEvent.Operation.Close){
                update();
             }
          } else if (arg instanceof ObjectSetCurrentEvent) {
