@@ -535,7 +535,12 @@ public final class ViewDB extends Observable implements Observer {
          //visuals.updateActuatorGeometry(m, false); //TODO: perhaps overkill for getting musclepoint to update?
       } else if(AbstractBody.safeDownCast(object)!=null) { // should check for body here
          vtkProp3D asm = ViewDB.getInstance().getVtkRepForObject(object);
-         if(asm!=null) applyColor(colorComponents, asm);
+         /** make sure the object is not selected, if so change only in database */
+         if (ViewDB.getInstance().findObjectInSelectedList(object)!=-1){
+             object.getDisplayer().getVisibleProperties().setColor(colorComponents);
+         }
+         else
+            if(asm!=null) applyColor(colorComponents, asm);
       }
    }
 
