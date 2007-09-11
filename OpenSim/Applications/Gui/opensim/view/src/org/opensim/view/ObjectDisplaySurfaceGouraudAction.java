@@ -13,7 +13,7 @@ public final class ObjectDisplaySurfaceGouraudAction extends ObjectDisplayChange
     }
     
     public String getName() {
-        return "Smooth Shaded";
+        return "Smooth-Shaded";
     }
     
     protected void initialize() {
