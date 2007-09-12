@@ -143,21 +143,17 @@ public class JPlotterPanel extends javax.swing.JPanel
 
       jTopChartingPanel.setLayout(new BorderLayout());
       xSelector = new JPlotterQuantitySelector(jXQtyTextField, this, true);
-      //ySelector = new JPlotterQuantitySelector(jYQtyTextField, this, false);
       jPlotsTree.addTreeSelectionListener(this);
       
       jPlotterDeletePlotButton.setEnabled(false);
-      //jPlotterUpdatePlotButton.setEnabled(false);
       jPlotterAddPlotButton.setEnabled(validateXY());
       // Add in blank figure by default
       jTopChartingPanel.add(plotterModel.getCurrentPlot().getChartPanel());
-      //jPropertiesButton.setComponentPopupMenu(plotterModel.getCurrentPlot().getChartPanel().getPopupMenu());
       jPropertiesButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 plotterModel.getCurrentPlot().getChartPanel().doEditChartProperties();
             }
-        });
+      });
       processCurrentModel();
       useMuscles(false);
       jPlotsTree.setRootVisible(false);
@@ -782,6 +778,7 @@ public class JPlotterPanel extends javax.swing.JPanel
              coordinateMenuItem.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                    setDomainName(coordinateName);
+                   sourceX=null;
                    jXQtyTextField.setText(coordinateName);
                    CoordinateSet cs = currentModel.getDynamicsEngine().getCoordinateSet();
                    AbstractCoordinate coord = cs.get(coordinateName);
@@ -1357,6 +1354,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       tool.setSolveForEquilibrium(true);
       PlotterSourceAnalysis analysisSource = (PlotterSourceAnalysis)source;
       plotterModel.configureAnalyses(tool, analysisSource, domainName, ranges);
+      
       // Save the state before running the analysis so that we can restore the model afterwards
       int numStates = currentModel.getNumStates();
       ArrayStr stateNames = new ArrayStr();
@@ -1372,10 +1370,13 @@ public class JPlotterPanel extends javax.swing.JPanel
          statesStorage = buildStatesStorageFromMotion(motion.getStorage(), false, 1.0);
          tool.setStatesStorage(statesStorage);
       } else {
+         // Recreate stateStorage
+         statesStorage=createStateStorageWithHeader(currentModel);
+         
           // make states for analysis by setting fiberlength and activation and form complete storage
-          double[] statesForAnalysis = new double[numStates];
-          currentModel.getStates(statesForAnalysis);
-          setNonzeroDefaultValues(stateNames, statesForAnalysis);
+         double[] statesForAnalysis = new double[numStates];
+         currentModel.getStates(statesForAnalysis);
+         setNonzeroDefaultValues(stateNames, statesForAnalysis);
          double NUM_STEPS=100.0;
          int xIndex = statesStorage.getStateIndex(getDomainName());
          AbstractCoordinate coord = currentModel.getDynamicsEngine().getCoordinateSet().get(getDomainName());
@@ -1442,6 +1443,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       jSelectedMusclesTextField.setText("");
       jCurveLegendTextField.setText("");
       jMuscleSelectButton.setEnabled(false);
+      sourceX=null;
       jPlotterAddPlotButton.setEnabled(validateXY());
    }
    
@@ -1809,8 +1811,15 @@ public class JPlotterPanel extends javax.swing.JPanel
          else
             dialogTitle="Select data column(s) to plot";
          DialogDescriptor dlg = new DialogDescriptor(filterpanel, dialogTitle);
+         
          dlg.setModal(true);
          DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+         /*
+         JDialog dlg2 = new JDialog(getOwner(), dialogTitle, true);
+         dlg2.getContentPane().add(new JTree());
+         dlg2.doLayout();
+         dlg2.setVisible(true);
+          **/
          if (((Integer) dlg.getValue()).compareTo((Integer) DialogDescriptor.OK_OPTION) == 0) {
             jYQtyTextField.setText(filterpanel.getSelectedAsString());
             rangeNames = new String[filterpanel.getNumSelected()];
@@ -1839,9 +1848,17 @@ public class JPlotterPanel extends javax.swing.JPanel
          sourceY=(nextMotion);
          sourceX = sourceY;
          PlotterQuantityNameFilterJPanel filterpanel = new PlotterQuantityNameFilterJPanel(sourceY);
+         
          DialogDescriptor dlg = new DialogDescriptor(filterpanel, "Select Motion Quantity");
          dlg.setModal(true);
          DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+         /*
+         JDialog qtySelectionDialog = new JDialog(getOwner(), "Select Motion Quantity", true);
+         qtySelectionDialog.getContentPane().setLayout(new BorderLayout());
+         qtySelectionDialog.getContentPane().add(filterpanel);
+         qtySelectionDialog.doLayout();
+         qtySelectionDialog.setVisible(true);
+         */
          if (((Integer) dlg.getValue()).compareTo((Integer) DialogDescriptor.OK_OPTION) == 0) {
             jYQtyTextField.setText( filterpanel.getSelectedAsString());
             rangeNames = new String[filterpanel.getNumSelected()];
@@ -1849,8 +1866,8 @@ public class JPlotterPanel extends javax.swing.JPanel
             useMuscles(false);
             updateContextGuiElements();
             jPlotterAddPlotButton.setEnabled(validateXY());
- //printPlotDescriptor();
-         }
+          }
+          
       }
    }
 
@@ -1869,11 +1886,11 @@ public class JPlotterPanel extends javax.swing.JPanel
        if (sourceX == null)
             System.out.println("sourceX =["+null+"]");
        else
-           System.out.println("sourceX =["+sourceX.getDisplayName()+"]");
+           System.out.println("sourceX =["+sourceX.getClass().getName()+":"+sourceX.getDisplayName()+"]");
        if (sourceY == null)
             System.out.println("sourceY =["+null+"]");
        else{
-           System.out.println("sourceY =["+sourceY.getDisplayName()+"]");
+           System.out.println("sourceY =["+sourceY.getClass().getName()+":"+sourceY.getDisplayName()+"]");
        }
         System.out.println("================================");
           
@@ -1890,9 +1907,6 @@ public class JPlotterPanel extends javax.swing.JPanel
       // Cycle thru stateNames if name exists in motionsStorage then use it,
       // if activation orride with passed in value if desired
       ArrayStr motionStateNames = motionsStorage.getColumnLabels();
-      for(int i=0; i<motionStateNames.getSize(); i++){
-         System.out.println("motionStateNames "+i+" is "+motionStateNames.getitem(i));
-      }
       ArrayList<Integer> mapColumns= new ArrayList<Integer>(stateNames.getSize());
       ArrayList<Boolean> activationColumns= new ArrayList<Boolean>(stateNames.getSize());
       int numRows = motionsStorage.getSize();
@@ -1940,5 +1954,4 @@ public class JPlotterPanel extends javax.swing.JPanel
    void updatePlotterWithSelection() {
             jPlotterAddPlotButton.setEnabled(validateXY());
    }
-   
 }

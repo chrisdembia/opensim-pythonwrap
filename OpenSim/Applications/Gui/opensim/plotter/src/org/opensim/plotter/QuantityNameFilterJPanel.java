@@ -18,6 +18,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.TableColumn;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ActuatorSet;
@@ -73,13 +74,12 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
     */
    public QuantityNameFilterJPanel(String[] availableNames) {
       initComponents();
-      
       metaCharacters.add("*");
       metaCharacters.add("+");
       metaCharacters.add("?");
       FilterTextField.getDocument().addDocumentListener(this);
       FilterTextField.setText(getPattern());
-      tableModel = new QuantityNameFilterTableModel(availableNames);
+      tableModel = new QuantityNameFilterTableModel(availableNames, new String[]{"Muscle Name", "Selected"});
       jTable1.setModel(tableModel);
       jTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
       tableModel.addTableModelListener(this);

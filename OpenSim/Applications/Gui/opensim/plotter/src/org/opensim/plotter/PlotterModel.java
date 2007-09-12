@@ -184,7 +184,10 @@ public class PlotterModel {
       if (motionCurve){
          if(string1.equalsIgnoreCase(source1.getDisplayName())){
             newCurve.setXLabel(source1.getDisplayName());
-            newCurve.setYLabel(string2);
+            if (source2 instanceof PlotterSourceAnalysis)
+               newCurve.setYLabel(source2.getDisplayName());
+            else
+               newCurve.setYLabel(string2);
          }
          else{
             newCurve.setXLabel(string1);

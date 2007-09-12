@@ -39,7 +39,7 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
                                                        DocumentListener
 {
    
-   private PlotterQuantityNameFilterTableModel tableModel;
+   private QuantityNameFilterTableModel tableModel;
    public enum FilterBy {RegularExpression, ModelGroup};
    private FilterBy currentFilter = FilterBy.RegularExpression;
    private String   pattern="";
@@ -58,7 +58,7 @@ public class PlotterQuantityNameFilterJPanel extends javax.swing.JPanel
       FilterTextField.getDocument().addDocumentListener(this);
       FilterTextField.setText(getPattern());
       jFilename.setText(src.getDisplayName());
-      tableModel = new PlotterQuantityNameFilterTableModel(src);
+      tableModel = new QuantityNameFilterTableModel(src, new String[]{"Quantity Name", "Selected"});
       jTable1.setModel(tableModel);
       jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
       tableModel.addTableModelListener(this);

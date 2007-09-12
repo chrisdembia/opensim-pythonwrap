@@ -36,12 +36,13 @@ import javax.swing.table.AbstractTableModel;
 public class QuantityNameFilterTableModel extends AbstractTableModel {
    /** Creates a new instance of PlotterQuantityNameFilterTableModel */
    PlotterSourceInterface source;
-   String[] tableColumnNames= new String[]{"Msucle Name", "Selected"};
+   String[] tableColumnNames= new String[2];
    String[] availableQuantities;
    Vector<Integer> shownQuantities=new Vector<Integer>(50);
    boolean[] selected;
    
-   public QuantityNameFilterTableModel(PlotterSourceInterface source) {
+   public QuantityNameFilterTableModel(PlotterSourceInterface source, String[] columnNames) {
+      System.arraycopy(columnNames, 0, tableColumnNames, 0, 2);
       availableQuantities = source.getAllQuantities();
       showAll();
       source.clearSelectionStatus();
@@ -49,7 +50,8 @@ public class QuantityNameFilterTableModel extends AbstractTableModel {
       select(".*", false);
    }
 
-   public QuantityNameFilterTableModel(String[] quantities) {
+   public QuantityNameFilterTableModel(String[] quantities, String[] columnNames) {
+      System.arraycopy(columnNames, 0, tableColumnNames, 0, 2);
       availableQuantities = new String[quantities.length];
       System.arraycopy(quantities, 0, availableQuantities, 0, quantities.length);
       source = new PlotterSourceStringArray(quantities);
@@ -173,5 +175,18 @@ public class QuantityNameFilterTableModel extends AbstractTableModel {
             selected[shownQuantities.get(i)]=b;
       }
       fireTableDataChanged();
+    }
+
+    String[] getSelected()
+    {
+        String[] sel = new String[getNumSelected()];
+        int j=0;
+        for(int i=0;i<selected.length; i++){
+            if (selected[i]){
+                sel[j]=availableQuantities[i];
+                j++;
+            }
+        }
+        return sel;
     }
 }

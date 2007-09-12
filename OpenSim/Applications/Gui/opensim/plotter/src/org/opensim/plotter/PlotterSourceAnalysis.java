@@ -52,6 +52,12 @@ public class PlotterSourceAnalysis implements PlotterSourceInterface {
       this.storage = storage;
       live=true;
       displayName = modelAnalysisString;
+      
+      if (storage.getName().startsWith("MomentArm_"))
+         displayName = storage.getName().substring(10)+" "+displayName;
+      else if (storage.getName().startsWith("Moment_"))
+         displayName = storage.getName().substring(7)+" "+displayName;
+      
       ArrayStr labels = storage.getColumnLabels();
       allAvailable = new String[labels.getSize()];
       selectionStatus = new boolean[labels.getSize()];
