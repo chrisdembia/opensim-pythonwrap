@@ -3,24 +3,15 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Edit">
-            <file name="org-opensim-tracking-ExecuteWorkflowStepAction.instance"/>
-            <file name="org-opensim-tracking-TrackingWorkflowAction.instance">
-                <attr name="instanceClass" stringvalue="org.opensim.tracking.TrackingWorkflowAction"/>
-            </file>
-                <file name="org-opensim-tracking-tools-AnalyzeToolAction.instance"/>
+            <file name="org-opensim-tracking-tools-AnalyzeToolAction.instance"/>
             <file name="org-opensim-tracking-tools-CMCToolAction.instance"/>
             <file name="org-opensim-tracking-tools-ForwardToolAction.instance"/>
             <file name="org-opensim-tracking-tools-InverseDynamicsToolAction.instance"/>
-            <file name="org-opensim-tracking-tools-ToolsScaleAction.instance"/>
-                <file name="org-opensim-tracking-tools-ToolsIKWizardAction.instance"/>                
-                <file name="org-opensim-tracking-tools-ToolsRunCMCWizardAction.instance"/>                
+            <file name="org-opensim-tracking-tools-ToolsScaleAction.instance"/>                
+                                
         </folder>
         <folder name="Tools">
             <file name="org-opensim-tracking-tools-IKToolAction.instance"/>
-            <file name="org-opensim-tracking-InvestigationAction.instance"/>
-            <file name="org-opensim-tracking-TrackingWorkflowAction.shadow" url="org-opensim-tracking-TrackingWorkflowAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-tracking-TrackingWorkflowAction.instance"/>
-            </file>
             <file name="org-opensim-tracking-tools-ScaleToolAction.instance"/>
         </folder>
     </folder>
