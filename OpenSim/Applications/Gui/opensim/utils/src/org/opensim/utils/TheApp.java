@@ -25,10 +25,12 @@
  */
 package org.opensim.utils;
 
+import java.awt.Image;
 import javax.swing.JFrame;
 import org.openide.DialogDisplayer;
 import org.openide.LifecycleManager;
 import org.openide.NotifyDescriptor;
+import org.openide.util.Utilities;
 
 /**
  *
@@ -38,7 +40,8 @@ import org.openide.NotifyDescriptor;
 public final class TheApp {
     
     //static TheApp instance=null;
-    private static JFrame appFrame;    // Application's frame, cached in for quick access'
+    private static JFrame appFrame;    // Application's frame, cached in for quick access
+    private static Image appImage;
     /** Creates a new instance of TheApp 
     protected TheApp() {
     }
@@ -85,6 +88,12 @@ public final class TheApp {
      */
     public static JFrame getAppFrame() {
         return appFrame;
+    }
+
+    public static Image getAppImage() {
+        if (appImage==null)
+            appImage=Utilities.loadImage("org/opensim/view/images/frame48.gif");
+        return appImage;
     }
     
 }

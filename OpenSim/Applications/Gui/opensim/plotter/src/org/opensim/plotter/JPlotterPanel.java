@@ -8,6 +8,7 @@ package org.opensim.plotter;
 
 import java.awt.BorderLayout;
 import java.awt.Dialog;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -21,6 +22,7 @@ import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -54,6 +56,8 @@ import org.opensim.motionviewer.MotionEvent;
 import org.opensim.motionviewer.MotionTimeChangeEvent;
 import org.opensim.utils.FileUtils;
 import org.opensim.motionviewer.MotionsDB;
+import org.opensim.utils.DialogUtils;
+import org.opensim.utils.OpenSimDialog;
 import org.opensim.view.ModelEvent;
 import org.opensim.view.NameChangedEvent;
 import org.opensim.view.ObjectSetCurrentEvent;
@@ -67,6 +71,7 @@ import org.opensim.view.pub.ViewDB;
 public class JPlotterPanel extends javax.swing.JPanel
         implements java.awt.event.ActionListener, javax.swing.event.TreeSelectionListener, java.awt.event.FocusListener, java.util.Observer, java.beans.PropertyChangeListener, java.awt.event.InputMethodListener, java.awt.event.MouseListener {
    
+    private Frame frame;   // We keep track of frame so that child windows can use it as parent.
    // PlotterModel kkeps track of two things
    // 1. For motions and free files, a PlotterSourceInterface is created and maintained so that
    //      files don't need to be re read/parsed'
@@ -667,11 +672,14 @@ public class JPlotterPanel extends javax.swing.JPanel
    
     private void jAdvancedOptionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdvancedOptionsButtonActionPerformed
 // TODO add your handling code here:
-       DialogDescriptor dd = new DialogDescriptor(jAdvancedPanel, "AdvancedOptions");
-       dd.setModal(true);
-       DialogDisplayer.getDefault().createDialog(dd).setVisible(true);
-       setClamp(jClampCheckBox.isSelected());
-      updateSummary();
+       OpenSimDialog  advDlg=DialogUtils.createDialogForPanelWithParent(getFrame(), jAdvancedPanel, "Advanced Options");
+       DialogUtils.addStandardButtons(advDlg);
+       advDlg.setModal(true);
+       advDlg.setVisible(true);
+       if (advDlg.getDialogReturnValue()==OpenSimDialog.OK_OPTION){
+           setClamp(jClampCheckBox.isSelected());
+           updateSummary();
+       }
     }//GEN-LAST:event_jAdvancedOptionsButtonActionPerformed
 
    private void updateSummary() {
@@ -704,59 +712,51 @@ public class JPlotterPanel extends javax.swing.JPanel
     private void jMuscleSelectButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMuscleSelectButtonMousePressed
         String preSelected=jSelectedMusclesTextField.getText();
 // TODO add your handling code here:
-       // Show muscle selection, multiple
-       //XX2
+        // Show muscle selection, multiple
+        //XX2
         if (currentModel==null || builtinMuscleCurve==false)
-           return;
+            return;
         if (muscleDialogUp==true) // An instance is already up
-           return;
+            return;
         SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
         String[] muscleNames = guiElem.getActuatorNames(true);
         final QuantityNameFilterJPanel filterPanel = new QuantityNameFilterJPanel(muscleNames, preSelected);
-        DialogDescriptor filterDlg = new DialogDescriptor(filterPanel, "Select Muscles", false, null);
-        filterDlg.setOptions(new Object[]{new JButton("Close")});
-        filterDlg.setButtonListener(new ActionListener(){
-         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() instanceof JButton){
-               boolean isClose = e.getActionCommand().equalsIgnoreCase("Close");
-               if (isClose){   // This is useful to track down if the muscle dialog is up.
-                  dFilterDlg.dispose();
-                  dFilterDlg = null;
-                  muscleDialogUp=false;
-               }
+        //DialogDescriptor filterDlg = new DialogDescriptor(filterPanel, "Select Muscles", false, null);
+        //filterDlg.setOptions(new Object[]{new JButton("Close")});
+        dFilterDlg=DialogUtils.createDialogForPanelWithParent(getFrame(), filterPanel, "Select Muscles");
+        dFilterDlg.addWindowListener(new WindowAdapter(){
+            private void close() {
+                if (dFilterDlg!=null)
+                    dFilterDlg.dispose();
+                dFilterDlg = null;
+                muscleDialogUp=false;
             }
-         }});
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                close();
+            }
+            
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e);
+                close();
+            }});
         filterPanel.addSelectionChangeListener(new TableModelListener(){
             public void tableChanged(TableModelEvent e) {
                 jSelectedMusclesTextField.setText(filterPanel.getSelectedAsString());
                 sumCurve=filterPanel.isSumOnly();
                 if (sumCurve)
-                   rangeNames = filterPanel.getSelectedAsString().trim().split("\\+",-1);
+                    rangeNames = filterPanel.getSelectedAsString().trim().split("\\+",-1);
                 else
-                   rangeNames = filterPanel.getSelectedAsString().trim().split(",",-1);
+                    rangeNames = filterPanel.getSelectedAsString().trim().split(",",-1);
                 for(int i=0;i<rangeNames.length;i++)
-                   rangeNames[i]=rangeNames[i].trim();
+                    rangeNames[i]=rangeNames[i].trim();
                 updateContextGuiElements();
                 jPlotterAddPlotButton.setEnabled(validateXY());
             }});
 
-        dFilterDlg = DialogDisplayer.getDefault().createDialog(filterDlg);
-        dFilterDlg.addWindowListener(new WindowAdapter(){
-         public void windowClosing(WindowEvent e) {
-            dFilterDlg=null;
-            muscleDialogUp=false;
-         }
-
-         public void windowClosed(WindowEvent e) {
-            dFilterDlg=null;
-            muscleDialogUp=false;
-         }
-       });
         dFilterDlg.setVisible(true);
         muscleDialogUp=true;
-       // The following will be called from an Apply/MakeCurves button on the filterDlg
-      //printPlotDescriptor();
-       
+                
     }//GEN-LAST:event_jMuscleSelectButtonMousePressed
     
     private void xQuantityButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xQuantityButtonMouseReleased
@@ -770,6 +770,9 @@ public class JPlotterPanel extends javax.swing.JPanel
        if (isBuiltinMuscleCurve()){
           // May plot against motion curve or against a GC
           jXPopupMenu.removeAll();
+          currentModel = OpenSimDB.getInstance().getCurrentModel();
+          // Guard against all models being deleted while the dialog is up
+          if (currentModel==null) return;
           SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
           String[] coordNames = guiElem.getCoordinateNames();
           for(int i=0; i<coordNames.length; i++){
@@ -819,7 +822,7 @@ public class JPlotterPanel extends javax.swing.JPanel
        } else{    // Select X from a motion or a file
           if (plotterModel.countSources()==0 || sourceX==null)
              return;
-          xSelector.showSingleSelectionPanel(plotterModel,  sourceX);
+          xSelector.showSingleSelectionPanel(plotterModel,  sourceX, frame);
           jDomainStartTextField.setValue((double)sourceX.getDefaultMin("time"));
           jDomainEndTextField.setValue((double)sourceX.getDefaultMax("time"));
           String dn = xSelector.getColumnToUse();
@@ -974,7 +977,7 @@ public class JPlotterPanel extends javax.swing.JPanel
    private void jLoadFileToPlotterMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoadFileToPlotterMenuItemActionPerformed
       
       // Browse for Storage or Motion file (for now) and preprocess the file if needed for plotting
-      String dataFilename = FileUtils.getInstance().browseForFilename(".sto, .mot", "Files containing data to plot", true);
+      String dataFilename = FileUtils.getInstance().browseForFilename(".sto, .mot", "Files containing data to plot", true, this);
       if (dataFilename != null){
          try {
             PlotterSourceFile src = new PlotterSourceFile(dataFilename);
@@ -1582,7 +1585,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       newfileMenuItem.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e) {
             // browse for file
-            String dataFilename = FileUtils.getInstance().browseForFilename(".sto, .mot", "Files containing data to plot", true);
+            String dataFilename = FileUtils.getInstance().browseForFilename(".sto, .mot", "Files containing data to plot", true, JPlotterPanel.this);
             if (dataFilename != null){
                PlotterSourceFile src= getPlotterModel().addFile(dataFilename);
                xQuantityButton.setEnabled(getPlotterModel().countSources()>0);
@@ -1738,7 +1741,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             JMenuItem exportMenuItem = new JMenuItem("Export Data...");
             exportMenuItem.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
-                       plotterModel.getCurrentPlot().exportDataToFile();
+                       plotterModel.getCurrentPlot().exportDataToFile(frame);
                 }});
             curvePopup.add(exportMenuItem);            
             curvePopup.show(jPlotsTree, evtX, evtY);
@@ -1810,25 +1813,22 @@ public class JPlotterPanel extends javax.swing.JPanel
             dialogTitle="Select motion quantity";
          else
             dialogTitle="Select data column(s) to plot";
-         DialogDescriptor dlg = new DialogDescriptor(filterpanel, dialogTitle);
          
-         dlg.setModal(true);
-         DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
-         /*
-         JDialog dlg2 = new JDialog(getOwner(), dialogTitle, true);
-         dlg2.getContentPane().add(new JTree());
-         dlg2.doLayout();
-         dlg2.setVisible(true);
-          **/
-         if (((Integer) dlg.getValue()).compareTo((Integer) DialogDescriptor.OK_OPTION) == 0) {
+         OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent(getFrame(), filterpanel, dialogTitle);
+         DialogUtils.addStandardButtons(selectionDlg);
+         selectionDlg.setModal(true);
+         selectionDlg.setVisible(true);
+         // Replace with std Dlg ok
+         
+         if (selectionDlg.getDialogReturnValue()==selectionDlg.OK_OPTION) {
             jYQtyTextField.setText(filterpanel.getSelectedAsString());
             rangeNames = new String[filterpanel.getNumSelected()];
             System.arraycopy(filterpanel.getSelected(), 0, rangeNames, 0, filterpanel.getNumSelected());
             useMuscles(false);
             updateContextGuiElements();
             jPlotterAddPlotButton.setEnabled(validateXY());
-//printPlotDescriptor();
          }
+         
       }
    }
 
@@ -1954,4 +1954,13 @@ public class JPlotterPanel extends javax.swing.JPanel
    void updatePlotterWithSelection() {
             jPlotterAddPlotButton.setEnabled(validateXY());
    }
+
+    public Frame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(Frame frame) {
+        this.frame = frame;
+        plotterModel.getCurrentPlot().setOwnerFrame(frame);
+    }
 }

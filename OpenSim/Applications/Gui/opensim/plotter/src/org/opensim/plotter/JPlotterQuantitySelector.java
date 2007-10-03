@@ -25,6 +25,7 @@
  */
 package org.opensim.plotter;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ import org.openide.DialogDisplayer;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.Storage;
+import org.opensim.utils.DialogUtils;
+import org.opensim.utils.OpenSimDialog;
 import org.opensim.view.SingleModelGuiElements;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
@@ -226,12 +229,16 @@ public class JPlotterQuantitySelector  {
       this.xMax = xMax;
    }
 
-   void showSingleSelectionPanel(PlotterModel plotterModel, PlotterSourceInterface sourceX) {
+   void showSingleSelectionPanel(PlotterModel plotterModel, PlotterSourceInterface sourceX, Frame ownerFrame) {
       QuantitySelectionPanel singleSelectPanel = new QuantitySelectionPanel(this, sourceX, ".*", true);
-      DialogDescriptor dlg = new DialogDescriptor(singleSelectPanel,"Select X Quantity");
-      dlg.setModal(true);
-      DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
-      if (((Integer)dlg.getValue()).compareTo((Integer)DialogDescriptor.OK_OPTION)==0){
+      //DialogDescriptor dlg = new DialogDescriptor(singleSelectPanel,"Select X Quantity");
+      //dlg.setModal(true);
+      //DialogDisplayer.getDefault().createDialog(dlg).setVisible(true);
+      OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent(ownerFrame, singleSelectPanel, "Select X Quantity");
+      DialogUtils.addStandardButtons(selectionDlg);
+      selectionDlg.setModal(true);
+      selectionDlg.setVisible(true);
+      if (selectionDlg.getDialogReturnValue()==selectionDlg.OK_OPTION){
          String[] selected = singleSelectPanel.getSelected();
          if (selected!=null){
             selection.setText(selected[0]);

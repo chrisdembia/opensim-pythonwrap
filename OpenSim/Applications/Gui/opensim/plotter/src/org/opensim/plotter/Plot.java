@@ -26,13 +26,17 @@
 package org.opensim.plotter;
 
 import java.awt.BasicStroke;
+import java.awt.Frame;
 import java.awt.Paint;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Vector;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -66,6 +70,7 @@ public class Plot {
    private boolean        enableToolTips; // Normally on but for dynamic plots while updating
    Paint nextPaint;
    private ArrayList<PlotCurve> curvesList = new ArrayList<PlotCurve>(4);
+   private Frame ownerFrame;
    /**
     * Creates a new instance of Plot
     */
@@ -108,6 +113,17 @@ public class Plot {
       chartPanel.setDisplayToolTips(true);
       chartPanel.setInitialDelay(0);
       
+      // Add Export Data option
+      JPopupMenu stdPopup = chartPanel.getPopupMenu();
+      stdPopup.addSeparator();
+      JMenuItem exportDataMenuitem = new JMenuItem("Export Data...");
+      exportDataMenuitem.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                // Browse for file name 
+                exportDataToFile(ownerFrame);
+            }
+      });
+      stdPopup.add(exportDataMenuitem);
    }
 
    void add(PlotCurve newCurve) {      
@@ -147,8 +163,8 @@ public class Plot {
       chartPanel.getChart().getXYPlot().setDomainCrosshairValue(time);
    }
    
-    void exportDataToFile() {
-       String filename=FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "");
+    void exportDataToFile(Frame parentFrame) {
+       String filename=FileUtils.getInstance().browseForFilenameToSave(FileUtils.MotionFileFilter, true, "", parentFrame);
        if (filename==null)
           return;
         exportData(filename);
@@ -268,5 +284,9 @@ public class Plot {
       // We need more checking to probe intermediate X values.
       return true;
    }
+
+    public void setOwnerFrame(Frame ownerFrame) {
+        this.ownerFrame = ownerFrame;
+    }
    
 }

@@ -1,32 +1,31 @@
 package org.opensim.plotter;
 
+import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 import org.opensim.motionviewer.MotionsDB;
+import org.opensim.utils.DialogUtils;
+import org.opensim.utils.TheApp;
 import org.opensim.view.pub.OpenSimDB;
 
 public final class ToolsPlotAction extends CallableSystemAction {
    
    public void performAction() {
-      //JFrame f = new JFrame("Plotter Frame");
-      //f.getContentPane().add(new JPlotterPanel());
-      //f.setVisible(true);
-      //
       final JPlotterPanel plotterPanel = new JPlotterPanel();
-      DialogDescriptor dlg = new DialogDescriptor(plotterPanel,"Plotter");
-      dlg.setModal(false);
-      dlg.setClosingOptions(null);
-      dlg.setOptions(new Object[]{DialogDescriptor.CLOSED_OPTION});
       
-      Dialog awtDialog =DialogDisplayer.getDefault().createDialog(dlg);
-      awtDialog.addWindowListener(new WindowAdapter(){
+      JFrame f= DialogUtils.createFrameForPanel(plotterPanel, "Plotter");
+      plotterPanel.setFrame(f);
+      f.setVisible(true);
+
+      f.addWindowListener(new WindowAdapter(){
          public void windowOpened(WindowEvent e) {
             MotionsDB.getInstance().addObserver(plotterPanel);
             OpenSimDB.getInstance().addObserver(plotterPanel);   // Make sure current model does not change under us
@@ -43,9 +42,9 @@ public final class ToolsPlotAction extends CallableSystemAction {
          }
 
     });
-      awtDialog.setVisible(true);
       
    }
+
    
    public String getName() {
       return NbBundle.getMessage(ToolsPlotAction.class, "CTL_ToolsPlotAction");

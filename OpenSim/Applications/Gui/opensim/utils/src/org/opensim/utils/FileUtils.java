@@ -24,6 +24,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package org.opensim.utils;
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -154,15 +155,25 @@ public final class FileUtils {
     // If currentFilename!=null, and the user chooses that file, then the prompt is skipped, since it is assumed they're simply saving over their currently loaded copy.
     public String browseForFilenameToSave(FileFilter filter, boolean promptIfReplacing, String currentFilename)
     {
+        return browseForFilenameToSave(filter, promptIfReplacing, currentFilename, null);
+    }
+    
+    public String browseForFilenameToSave(FileFilter filter, boolean promptIfReplacing, String currentFilename, Component parent)
+    {
         // Init dialog to use "WorkDirectory" as thought of by user
         String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
         final JFileChooser dlog = new JFileChooser(defaultDir);
         if(filter!=null) dlog.setFileFilter(filter);
         
         String outFilename=null;
-        JFrame topFrame = TheApp.getAppFrame();
+        Component topWindow;
+        if (parent==null)
+            topWindow = TheApp.getAppFrame();
+        else
+            topWindow = parent;
+        
         for (;;) {
-           int result = dlog.showSaveDialog(topFrame);
+           int result = dlog.showSaveDialog(topWindow);
            outFilename = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
                 outFilename = dlog.getSelectedFile().getAbsolutePath();
@@ -214,7 +225,7 @@ public final class FileUtils {
      *
      * @todo this could be improved by making our own JFileChooser container JPanel
      */
-    public String browseForFilename(FileFilter filter, boolean isRequired2Exist)
+    public String browseForFilename(FileFilter filter, boolean isRequired2Exist, Component parent)
     {
         // Init dialog to use "WorkDirectory" as thought of by user
         String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
@@ -222,9 +233,13 @@ public final class FileUtils {
         if(filter!=null) dlog.setFileFilter(filter);
         
         String outFilename=null;
-        JFrame topFrame = TheApp.getAppFrame();
+        Component topWindow;
+        if (parent==null)
+            topWindow = TheApp.getAppFrame();
+        else
+            topWindow = parent;
         for (;;) {
-           int result = dlog.showOpenDialog(topFrame);
+           int result = dlog.showOpenDialog(parent);
            outFilename = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
                 outFilename = dlog.getSelectedFile().getAbsolutePath();
@@ -239,17 +254,32 @@ public final class FileUtils {
        if(outFilename != null) Preferences.userNodeForPackage(TheApp.class).put("WorkDirectory", dlog.getSelectedFile().getParent());
        return outFilename;
     }
+    public String browseForFilename(String extensions, String description, boolean isRequired2Exist, Component parent)
+    {
+       return browseForFilename(FileUtils.getFileFilter(extensions, description), isRequired2Exist, parent);
+    }
+    public String browseForFilename(String extensions, String description, Component parent)
+    {
+        return browseForFilename(extensions, description, true, parent);
+    }
+    public String browseForFilename(FileFilter filter, Component parent)
+    {
+        return browseForFilename(filter, true, parent);
+    }
+    /**
+     * A variation that assumes no parent frame (== parent is the Application window)
+     */
     public String browseForFilename(String extensions, String description, boolean isRequired2Exist)
     {
-       return browseForFilename(FileUtils.getFileFilter(extensions, description), isRequired2Exist);
+       return browseForFilename(FileUtils.getFileFilter(extensions, description), isRequired2Exist, null);
     }
     public String browseForFilename(String extensions, String description)
     {
-        return browseForFilename(extensions, description, true);
+        return browseForFilename(extensions, description, true, null);
     }
     public String browseForFilename(FileFilter filter)
     {
-        return browseForFilename(filter, true);
+        return browseForFilename(filter, true, null);
     }
     
     /**

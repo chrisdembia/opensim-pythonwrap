@@ -28,6 +28,7 @@ package org.opensim.view.base;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.prefs.Preferences;
 import javax.swing.JPopupMenu;
 import org.opensim.utils.Prefs;
@@ -47,7 +48,7 @@ import vtk.vtkPanel;
  * to OpenSim's Top Gui Application.
  */
 public class OpenSimBaseCanvas extends vtkPanel
-        implements KeyListener {
+        implements KeyListener, MouseListener {
    
    String defaultBackgroundColor="0.15, 0.15, 0.15";
    int    numAAFrames=0;
@@ -242,4 +243,12 @@ public class OpenSimBaseCanvas extends vtkPanel
          applyCameraConfiguration(camera.getConfiguration(currentTime), false);
       }
    } 
+
+   // mouseEntered and being a MouseListener is done for the specific purpose
+   // of not calling super.mouseEnetered as it requests focus which throws modeless windows 
+   // on top of the vtk window to the back. Alternatively we can change vtkPanel (but 
+   // that's messy since it's a part of the standard VTK distribution).
+    public void mouseEntered(MouseEvent e) {
+        // super.mouseEntered(e);
+    }
 }
