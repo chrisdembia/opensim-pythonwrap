@@ -170,16 +170,24 @@ public class OpenSimObject {
     opensimModelJNI.OpenSimObject_updateDefaultObjectsFromXMLNode(swigCPtr, this);
   }
 
+  public void updateXMLNode(SWIGTYPE_p_DOMElement aParent, int aNodeIndex) {
+    opensimModelJNI.OpenSimObject_updateXMLNode__SWIG_0(swigCPtr, this, SWIGTYPE_p_DOMElement.getCPtr(aParent), aNodeIndex);
+  }
+
   public void updateXMLNode(SWIGTYPE_p_DOMElement aParent) {
-    opensimModelJNI.OpenSimObject_updateXMLNode(swigCPtr, this, SWIGTYPE_p_DOMElement.getCPtr(aParent));
+    opensimModelJNI.OpenSimObject_updateXMLNode__SWIG_1(swigCPtr, this, SWIGTYPE_p_DOMElement.getCPtr(aParent));
   }
 
   public void updateDefaultObjectsXMLNode(SWIGTYPE_p_DOMElement aParent) {
     opensimModelJNI.OpenSimObject_updateDefaultObjectsXMLNode(swigCPtr, this, SWIGTYPE_p_DOMElement.getCPtr(aParent));
   }
 
+  public void generateXMLNode(SWIGTYPE_p_DOMElement aParent, int aNodeIndex) {
+    opensimModelJNI.OpenSimObject_generateXMLNode__SWIG_0(swigCPtr, this, SWIGTYPE_p_DOMElement.getCPtr(aParent), aNodeIndex);
+  }
+
   public void generateXMLNode(SWIGTYPE_p_DOMElement aParent) {
-    opensimModelJNI.OpenSimObject_generateXMLNode(swigCPtr, this, SWIGTYPE_p_DOMElement.getCPtr(aParent));
+    opensimModelJNI.OpenSimObject_generateXMLNode__SWIG_1(swigCPtr, this, SWIGTYPE_p_DOMElement.getCPtr(aParent));
   }
 
   public boolean getInlined() {

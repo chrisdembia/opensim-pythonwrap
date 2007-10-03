@@ -170,6 +170,10 @@ public class Thelen2003Muscle extends AbstractMuscle {
     return opensimModelJNI.Thelen2003Muscle_computeIsometricForce(swigCPtr, this, activation);
   }
 
+  public double computeIsokineticForceAssumingInfinitelyStiffTendon(double aActivation) {
+    return opensimModelJNI.Thelen2003Muscle_computeIsokineticForceAssumingInfinitelyStiffTendon(swigCPtr, this, aActivation);
+  }
+
   public void postScale(ScaleSet aScaleSet) {
     opensimModelJNI.Thelen2003Muscle_postScale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }

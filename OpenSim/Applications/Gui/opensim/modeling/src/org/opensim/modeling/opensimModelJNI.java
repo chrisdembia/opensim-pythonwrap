@@ -217,9 +217,11 @@ public class opensimModelJNI {
   public final static native boolean OpenSimObject_isValidDefaultType(long jarg1, OpenSimObject jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native void OpenSimObject_updateFromXMLNode(long jarg1, OpenSimObject jarg1_);
   public final static native void OpenSimObject_updateDefaultObjectsFromXMLNode(long jarg1, OpenSimObject jarg1_);
-  public final static native void OpenSimObject_updateXMLNode(long jarg1, OpenSimObject jarg1_, long jarg2);
+  public final static native void OpenSimObject_updateXMLNode__SWIG_0(long jarg1, OpenSimObject jarg1_, long jarg2, int jarg3);
+  public final static native void OpenSimObject_updateXMLNode__SWIG_1(long jarg1, OpenSimObject jarg1_, long jarg2);
   public final static native void OpenSimObject_updateDefaultObjectsXMLNode(long jarg1, OpenSimObject jarg1_, long jarg2);
-  public final static native void OpenSimObject_generateXMLNode(long jarg1, OpenSimObject jarg1_, long jarg2);
+  public final static native void OpenSimObject_generateXMLNode__SWIG_0(long jarg1, OpenSimObject jarg1_, long jarg2, int jarg3);
+  public final static native void OpenSimObject_generateXMLNode__SWIG_1(long jarg1, OpenSimObject jarg1_, long jarg2);
   public final static native boolean OpenSimObject_getInlined(long jarg1, OpenSimObject jarg1_);
   public final static native void OpenSimObject_setInlined__SWIG_0(long jarg1, OpenSimObject jarg1_, boolean jarg2, String jarg3);
   public final static native void OpenSimObject_setInlined__SWIG_1(long jarg1, OpenSimObject jarg1_, boolean jarg2);
@@ -3020,8 +3022,11 @@ public class opensimModelJNI {
   public final static native double AbstractMuscle_getPassiveFiberForceAlongTendon(long jarg1, AbstractMuscle jarg1_);
   public final static native double AbstractMuscle_getActivation(long jarg1, AbstractMuscle jarg1_);
   public final static native void AbstractMuscle_computeActuation(long jarg1, AbstractMuscle jarg1_);
+  public final static native double AbstractMuscle_computeIsometricForce(long jarg1, AbstractMuscle jarg1_, double jarg2);
+  public final static native double AbstractMuscle_computeIsokineticForceAssumingInfinitelyStiffTendon(long jarg1, AbstractMuscle jarg1_, double jarg2);
   public final static native double AbstractMuscle_computeMomentArm(long jarg1, AbstractMuscle jarg1_, long jarg2, AbstractCoordinate jarg2_);
   public final static native void AbstractMuscle_computeMomentArms(long jarg1, AbstractMuscle jarg1_, long jarg2, ArrayDouble jarg2_);
+  public final static native double AbstractMuscle_evaluateForceLengthVelocityCurve(long jarg1, AbstractMuscle jarg1_, double jarg2, double jarg3, double jarg4);
   public final static native void AbstractMuscle_computePath(long jarg1, AbstractMuscle jarg1_);
   public final static native void AbstractMuscle_applyWrapObjects(long jarg1, AbstractMuscle jarg1_);
   public final static native double AbstractMuscle__calc_muscle_length_change(long jarg1, AbstractMuscle jarg1_, long jarg2, AbstractWrapObject jarg2_, long jarg3);
@@ -3164,6 +3169,7 @@ public class opensimModelJNI {
   public final static native double Thelen2003Muscle_calcActiveForce(long jarg1, Thelen2003Muscle jarg1_, double jarg2);
   public final static native double Thelen2003Muscle_calcFiberVelocity(long jarg1, Thelen2003Muscle jarg1_, double jarg2, double jarg3, double jarg4);
   public final static native double Thelen2003Muscle_computeIsometricForce(long jarg1, Thelen2003Muscle jarg1_, double jarg2);
+  public final static native double Thelen2003Muscle_computeIsokineticForceAssumingInfinitelyStiffTendon(long jarg1, Thelen2003Muscle jarg1_, double jarg2);
   public final static native void Thelen2003Muscle_postScale(long jarg1, Thelen2003Muscle jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void Thelen2003Muscle_scale(long jarg1, Thelen2003Muscle jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void Thelen2003Muscle_setup(long jarg1, Thelen2003Muscle jarg1_, long jarg2, Model jarg2_);
@@ -3188,9 +3194,12 @@ public class opensimModelJNI {
   public final static native double Schutte1993Muscle_getFiberLength(long jarg1, Schutte1993Muscle jarg1_);
   public final static native double Schutte1993Muscle_getNormalizedFiberLength(long jarg1, Schutte1993Muscle jarg1_);
   public final static native double Schutte1993Muscle_getPassiveFiberForce(long jarg1, Schutte1993Muscle jarg1_);
+  public final static native double Schutte1993Muscle_getStress(long jarg1, Schutte1993Muscle jarg1_);
   public final static native void Schutte1993Muscle_computeStateDerivatives(long jarg1, Schutte1993Muscle jarg1_, double[] jarg2);
   public final static native void Schutte1993Muscle_computeEquilibrium(long jarg1, Schutte1993Muscle jarg1_);
   public final static native void Schutte1993Muscle_computeActuation(long jarg1, Schutte1993Muscle jarg1_);
+  public final static native double Schutte1993Muscle_computeIsometricForce(long jarg1, Schutte1993Muscle jarg1_, double jarg2);
+  public final static native double Schutte1993Muscle_computeIsokineticForceAssumingInfinitelyStiffTendon(long jarg1, Schutte1993Muscle jarg1_, double jarg2);
   public final static native void Schutte1993Muscle_postScale(long jarg1, Schutte1993Muscle jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void Schutte1993Muscle_scale(long jarg1, Schutte1993Muscle jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void Schutte1993Muscle_setup(long jarg1, Schutte1993Muscle jarg1_, long jarg2, Model jarg2_);
@@ -3201,8 +3210,6 @@ public class opensimModelJNI {
   public final static native double Schutte1993Muscle_calcNonzeroPassiveForce(long jarg1, Schutte1993Muscle jarg1_, double jarg2, double jarg3);
   public final static native double Schutte1993Muscle_calcFiberVelocity(long jarg1, Schutte1993Muscle jarg1_, double jarg2, double jarg3, double jarg4);
   public final static native double Schutte1993Muscle_calcTendonForce(long jarg1, Schutte1993Muscle jarg1_, double jarg2);
-  public final static native double Schutte1993Muscle_getStress(long jarg1, Schutte1993Muscle jarg1_);
-  public final static native double Schutte1993Muscle_computeIsometricForce(long jarg1, Schutte1993Muscle jarg1_, double jarg2);
   public final static native double Schutte1993Muscle_getActivation(long jarg1, Schutte1993Muscle jarg1_);
   public final static native boolean Schutte1993Muscle_isKindOf(String jarg1);
   public final static native boolean Schutte1993Muscle_isA(long jarg1, Schutte1993Muscle jarg1_, String jarg2);
@@ -3245,10 +3252,14 @@ public class opensimModelJNI {
   public final static native int SimmTranslationDof_getMotionType(long jarg1, SimmTranslationDof jarg1_);
   public final static native void SimmTranslationDof_getTranslation(long jarg1, SimmTranslationDof jarg1_, double[] jarg2);
   public final static native int SimmTranslationDof_getAxisIndex(long jarg1, SimmTranslationDof jarg1_);
+  public final static native boolean IKTrial_isKindOf(String jarg1);
+  public final static native boolean IKTrial_isA(long jarg1, IKTrial jarg1_, String jarg2);
+  public final static native long IKTrial_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void IKTrial_copy__SWIG_0(long jarg1, IKTrial jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native long new_IKTrial__SWIG_0();
   public final static native long new_IKTrial__SWIG_1(long jarg1, IKTrial jarg1_);
   public final static native void delete_IKTrial(long jarg1);
-  public final static native long IKTrial_copy(long jarg1, IKTrial jarg1_);
+  public final static native long IKTrial_copy__SWIG_1(long jarg1, IKTrial jarg1_);
   public final static native void IKTrial_copyData(long jarg1, IKTrial jarg1_, long jarg2, IKTrial jarg2_);
   public final static native double IKTrial_getKinematicsSmoothing(long jarg1, IKTrial jarg1_);
   public final static native double IKTrial_getGroundReactionSmoothing(long jarg1, IKTrial jarg1_);
@@ -3901,13 +3912,19 @@ public class opensimModelJNI {
   public static void SwigDirector_SimtkAnimationCallback_updateDefaultObjectsFromXMLNode(SimtkAnimationCallback self) {
     self.updateDefaultObjectsFromXMLNode();
   }
-  public static void SwigDirector_SimtkAnimationCallback_updateXMLNode(SimtkAnimationCallback self, long aParent) {
+  public static void SwigDirector_SimtkAnimationCallback_updateXMLNode__SWIG_0(SimtkAnimationCallback self, long aParent, int aNodeIndex) {
+    self.updateXMLNode(new SWIGTYPE_p_DOMElement(aParent, false), aNodeIndex);
+  }
+  public static void SwigDirector_SimtkAnimationCallback_updateXMLNode__SWIG_1(SimtkAnimationCallback self, long aParent) {
     self.updateXMLNode(new SWIGTYPE_p_DOMElement(aParent, false));
   }
   public static void SwigDirector_SimtkAnimationCallback_updateDefaultObjectsXMLNode(SimtkAnimationCallback self, long aParent) {
     self.updateDefaultObjectsXMLNode(new SWIGTYPE_p_DOMElement(aParent, false));
   }
-  public static void SwigDirector_SimtkAnimationCallback_generateXMLNode(SimtkAnimationCallback self, long aParent) {
+  public static void SwigDirector_SimtkAnimationCallback_generateXMLNode__SWIG_0(SimtkAnimationCallback self, long aParent, int aNodeIndex) {
+    self.generateXMLNode(new SWIGTYPE_p_DOMElement(aParent, false), aNodeIndex);
+  }
+  public static void SwigDirector_SimtkAnimationCallback_generateXMLNode__SWIG_1(SimtkAnimationCallback self, long aParent) {
     self.generateXMLNode(new SWIGTYPE_p_DOMElement(aParent, false));
   }
   public static void SwigDirector_SimtkAnimationCallback_update(SimtkAnimationCallback self, long aObject, long aEvent) {

@@ -98,6 +98,10 @@ public class Schutte1993Muscle extends AbstractMuscle {
     return opensimModelJNI.Schutte1993Muscle_getPassiveFiberForce(swigCPtr, this);
   }
 
+  public double getStress() {
+    return opensimModelJNI.Schutte1993Muscle_getStress(swigCPtr, this);
+  }
+
   public void computeStateDerivatives(double[] rDYDT) {
     opensimModelJNI.Schutte1993Muscle_computeStateDerivatives(swigCPtr, this, rDYDT);
   }
@@ -108,6 +112,14 @@ public class Schutte1993Muscle extends AbstractMuscle {
 
   public void computeActuation() {
     opensimModelJNI.Schutte1993Muscle_computeActuation(swigCPtr, this);
+  }
+
+  public double computeIsometricForce(double activation) {
+    return opensimModelJNI.Schutte1993Muscle_computeIsometricForce(swigCPtr, this, activation);
+  }
+
+  public double computeIsokineticForceAssumingInfinitelyStiffTendon(double aActivation) {
+    return opensimModelJNI.Schutte1993Muscle_computeIsokineticForceAssumingInfinitelyStiffTendon(swigCPtr, this, aActivation);
   }
 
   public void postScale(ScaleSet aScaleSet) {
@@ -152,14 +164,6 @@ public class Schutte1993Muscle extends AbstractMuscle {
 
   public double calcTendonForce(double aNormTendonLength) {
     return opensimModelJNI.Schutte1993Muscle_calcTendonForce(swigCPtr, this, aNormTendonLength);
-  }
-
-  public double getStress() {
-    return opensimModelJNI.Schutte1993Muscle_getStress(swigCPtr, this);
-  }
-
-  public double computeIsometricForce(double activation) {
-    return opensimModelJNI.Schutte1993Muscle_computeIsometricForce(swigCPtr, this, activation);
   }
 
   public double getActivation() {

@@ -33,6 +33,23 @@ public class IKTrial extends OpenSimObject {
     super.delete();
   }
 
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.IKTrial_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.IKTrial_isA(swigCPtr, this, type);
+  }
+
+  public static IKTrial safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.IKTrial_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new IKTrial(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.IKTrial_copy__SWIG_0(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
+  }
+
   public IKTrial() {
     this(opensimModelJNI.new_IKTrial__SWIG_0(), true);
   }
@@ -42,7 +59,7 @@ public class IKTrial extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.IKTrial_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.IKTrial_copy__SWIG_1(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 

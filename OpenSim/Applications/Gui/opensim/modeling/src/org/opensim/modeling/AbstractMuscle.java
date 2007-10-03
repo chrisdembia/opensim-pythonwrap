@@ -151,12 +151,24 @@ public class AbstractMuscle extends AbstractActuator {
     opensimModelJNI.AbstractMuscle_computeActuation(swigCPtr, this);
   }
 
+  public double computeIsometricForce(double activation) {
+    return opensimModelJNI.AbstractMuscle_computeIsometricForce(swigCPtr, this, activation);
+  }
+
+  public double computeIsokineticForceAssumingInfinitelyStiffTendon(double aActivation) {
+    return opensimModelJNI.AbstractMuscle_computeIsokineticForceAssumingInfinitelyStiffTendon(swigCPtr, this, aActivation);
+  }
+
   public double computeMomentArm(AbstractCoordinate aCoord) {
     return opensimModelJNI.AbstractMuscle_computeMomentArm(swigCPtr, this, AbstractCoordinate.getCPtr(aCoord), aCoord);
   }
 
   public void computeMomentArms(ArrayDouble rMomentArms) {
     opensimModelJNI.AbstractMuscle_computeMomentArms(swigCPtr, this, ArrayDouble.getCPtr(rMomentArms), rMomentArms);
+  }
+
+  public double evaluateForceLengthVelocityCurve(double aActivation, double aNormalizedLength, double aNormalizedVelocity) {
+    return opensimModelJNI.AbstractMuscle_evaluateForceLengthVelocityCurve(swigCPtr, this, aActivation, aNormalizedLength, aNormalizedVelocity);
   }
 
   public void computePath() {
