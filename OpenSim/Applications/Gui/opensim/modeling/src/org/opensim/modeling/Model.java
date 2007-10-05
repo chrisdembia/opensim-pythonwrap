@@ -84,6 +84,10 @@ public class Model extends OpenSimObject {
     opensimModelJNI.Model_setup(swigCPtr, this);
   }
 
+  public void cleanup() {
+    opensimModelJNI.Model_cleanup(swigCPtr, this);
+  }
+
   public boolean builtOK() {
     return opensimModelJNI.Model_builtOK(swigCPtr, this);
   }

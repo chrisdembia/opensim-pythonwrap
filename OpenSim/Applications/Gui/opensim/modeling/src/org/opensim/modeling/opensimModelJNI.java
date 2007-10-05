@@ -1088,6 +1088,7 @@ public class opensimModelJNI {
   public final static native void Model_setupProperties(long jarg1, Model jarg1_);
   public final static native long Model_clone(long jarg1, Model jarg1_);
   public final static native void Model_setup(long jarg1, Model jarg1_) throws java.io.IOException;
+  public final static native void Model_cleanup(long jarg1, Model jarg1_);
   public final static native boolean Model_builtOK(long jarg1, Model jarg1_);
   public final static native String Model_getInputFileName(long jarg1, Model jarg1_);
   public final static native void Model_setInputFileName(long jarg1, Model jarg1_, String jarg2);
