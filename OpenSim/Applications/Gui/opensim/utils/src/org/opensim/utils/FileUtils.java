@@ -239,7 +239,7 @@ public final class FileUtils {
         else
             topWindow = parent;
         for (;;) {
-           int result = dlog.showOpenDialog(parent);
+           int result = dlog.showOpenDialog(topWindow);
            outFilename = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
                 outFilename = dlog.getSelectedFile().getAbsolutePath();
