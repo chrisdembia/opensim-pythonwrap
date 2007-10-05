@@ -631,4 +631,10 @@ public class SingleModelVisuals {
     public OpenSimvtkOrientedGlyphCloud getMuscleSegmentsRep() {
         return muscleSegmentsRep;
     }
+    // Remmove dead references to help garbage collector.
+    public void cleanup() {
+        modelDisplayAssembly=null;
+        mapObject2VtkObjects=null;
+        mapVtkObjects2Objects=null;
+    }
 }

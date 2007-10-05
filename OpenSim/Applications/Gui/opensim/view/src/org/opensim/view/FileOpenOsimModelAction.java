@@ -6,6 +6,7 @@ import java.io.ObjectOutput;
 import javax.swing.SwingUtilities;
 import org.netbeans.api.progress.ProgressHandle;
 import org.netbeans.api.progress.ProgressHandleFactory;
+import org.openide.awt.StatusDisplayer;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -29,6 +30,7 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
                 progressHandle.start();
                 loadModel(fileName);
                 progressHandle.finish();
+                StatusDisplayer.getDefault().setStatusText("");
             } catch (IOException ex) {
                 progressHandle.finish();
                 ErrorDialog.displayIOExceptionDialog("OpenSim Model Loading Error",

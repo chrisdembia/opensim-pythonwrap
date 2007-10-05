@@ -68,7 +68,7 @@ public class OpenSimBaseCanvas extends vtkPanel
       defaultBackgroundColor = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBackgroundColor);
       double[] background = Prefs.getInstance().parseColor(defaultBackgroundColor);
       GetRenderer().SetBackground(background);
-      createSettingsMenu();
+      //createSettingsMenu();
       camerasMenu = new CamerasMenu(this);
       addKeyListener(this);
       // AntiAliasing
@@ -104,23 +104,6 @@ public class OpenSimBaseCanvas extends vtkPanel
       */
    }
    
-   public void createSettingsMenu() {
-      settingsMenu = new JPopupMenu();
-      /** This should work and is more netBeans like style, but somehow fails to find Actions
-       * possibly because of layer file issues*/
-      try {
-         settingsMenu.add((ModifyWindowSettingsAction) (ModifyWindowSettingsAction.findObject(
-                 Class.forName("org.opensim.view.base.ModifyWindowSettingsAction"), true)));
-         settingsMenu.add((ToggleAxesAction) ToggleAxesAction.findObject(
-                 Class.forName("org.opensim.view.base.ToggleAxesAction"), true));
-      } catch (ClassNotFoundException ex) {
-         ex.printStackTrace();
-      }
-   }
-   
-   public JPopupMenu getMenu() {
-      return settingsMenu;
-   }
    /**
     * Handle keys for default cameras, otherwise pass on to super
     * to get default vtkPanel behavior.

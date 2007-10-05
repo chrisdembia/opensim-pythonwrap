@@ -97,6 +97,9 @@ final public class OpenSimDB extends Observable {
         setChanged();
         ModelEvent evnt = new ModelEvent(model, ModelEvent.Operation.Close);
         notifyObservers(evnt);
+        
+        model.cleanup();    // Cleanup after removal 
+        System.gc();
     }
 
    // removes old model and adds new model, but also transfers over some display properties

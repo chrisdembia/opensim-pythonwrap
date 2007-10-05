@@ -65,7 +65,6 @@ public class Installer extends ModuleInstall {
         // and a View-database ViewDB
         // and register View as Observer of Model
         OpenSimDB.getInstance().addObserver(ViewDB.getInstance());
-        ViewDB.updateCommandsVisibility();
         /**
          * @todo open explorer window, Restore default directory and Bones directories, ..
          */

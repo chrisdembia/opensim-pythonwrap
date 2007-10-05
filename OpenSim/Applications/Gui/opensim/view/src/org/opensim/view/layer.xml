@@ -16,9 +16,6 @@
             <file name="org-opensim-view-FileExportSIMMModelAction.instance"/>
             <file name="org-opensim-view-ViewReplicateAction.instance"/>
             <file name="org-opensim-view-SaveAction.instance"/>
-            <file name="org-opensim-view-LoadGaitModelAction.instance">
-                <attr name="instanceClass" stringvalue="org.opensim.view.LoadGaitModelAction"/>
-            </file>
             <file name="org-opensim-view-FileOpenOsimModelAction.instance"/>
                     <file name="org-opensim-view-FileSaveModelAction.instance"/>
             <file name="org-opensim-view-actions-EditPreferencesAction.instance"/>

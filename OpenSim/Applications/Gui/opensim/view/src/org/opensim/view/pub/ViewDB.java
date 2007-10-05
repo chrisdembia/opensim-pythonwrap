@@ -312,6 +312,7 @@ public final class ViewDB extends Observable implements Observer {
                mapModelsToGuiElements.remove(dModel);
                mapModelsToSettings.remove(dModel);
                modelOpacities.remove(dModel);
+               visModel.cleanup();
                //StatusDisplayer.getDefault().setStatusText("mapModelsToVisuals size="+mapModelsToVisuals.size());
                updateCommandsVisibility();
             }
