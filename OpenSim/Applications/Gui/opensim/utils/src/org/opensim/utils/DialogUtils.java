@@ -95,6 +95,8 @@ public final class DialogUtils {
                     dlg.dispose();
                 }});
                 buttonPanel.add(cancelButton);
+                // Window listener is added here since closing the dialog with [x] should
+                // behave the same as close/cancel
         dlg.addWindowListener(new WindowAdapter(){
             public void windowClosed(WindowEvent e) {
                 super.windowClosed(e);
@@ -108,5 +110,19 @@ public final class DialogUtils {
         });
         dlg.doLayout();
         dlg.pack();
+    }
+
+    public static void addButtons(JFrame frame, JButton[] buttonsList, ActionListener listener) {
+        // Create a control panel at the bottom of the passed in window for control buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.add(Box.createGlue());
+        frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        for (int i=0; i<buttonsList.length; i++){
+            buttonPanel.add(buttonsList[i]);
+            buttonsList[i].addActionListener(listener);
+            // Should also set return value for ok, cancel
+        }
+       
     }
 }

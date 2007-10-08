@@ -7,18 +7,21 @@
 package org.opensim.tracking;
 
 import java.awt.Dialog;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileFilter;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.opensim.utils.DialogUtils;
 import org.opensim.utils.FileUtils;
 
 public abstract class BaseToolPanel extends JPanel implements ActionListener {
@@ -28,7 +31,8 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
    protected JButton settingsButton = new JButton("Settings >");
    protected JButton applyButton = new JButton("Run");
    protected JButton okButton = new JButton("Close");
-   protected Dialog ownerDialog = null;
+   protected JButton cancelButton = new JButton("Cancel");
+   protected JFrame ownerDialog = null;
 
    //------------------------------------------------------------------------
    // Load/Save Settings Actions
@@ -81,19 +85,20 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
    //------------------------------------------------------------------------
    // Dialog Operations
    //------------------------------------------------------------------------
-   public Object[] getDialogOptions() {
-      return new Object[]{settingsButton, applyButton, okButton, DialogDescriptor.CANCEL_OPTION};
+   public JButton[] getDialogOptions() {
+      return new JButton[]{settingsButton, applyButton, okButton, cancelButton};
    }
 
-   public void setOwner(Dialog dialog) { ownerDialog = dialog; }
+   public void setOwner(JFrame window) { ownerDialog = window; }
 
    public void updateApplyButton(boolean applyEnabled) {
       applyButton.setEnabled(applyEnabled);
    }
 
    public void actionPerformed(ActionEvent evt) {
-      if(evt.getActionCommand().equals("Cancel")) {
+      if(evt.getSource() == cancelButton) {
          pressedCancel();
+         ownerDialog.dispose();
          // the owner dialog will automatically handle disposing of the dialog in response to Cancel, since this is a standard option (CANCEL_OPTION)
       } else if(evt.getSource() == okButton) {
          pressedClose();
@@ -107,11 +112,13 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
    // Helper function to create dialog
    //------------------------------------------------------------------------
    public static void openToolDialog(BaseToolPanel panel, String name) {
-      DialogDescriptor dlg = new DialogDescriptor(panel, name, false, panel);
-      dlg.setOptions(panel.getDialogOptions());
-      Dialog dialog = DialogDisplayer.getDefault().createDialog(dlg);
-      panel.setOwner(dialog);
-      dialog.setVisible(true);      
-      dialog.requestFocus();
+      //DialogDescriptor dlg = new DialogDescriptor(panel, name, false, panel);
+      //dlg.setOptions(panel.getDialogOptions());
+      //Dialog dialog = DialogDisplayer.getDefault().createDialog(dlg);
+      JFrame toolFrame = DialogUtils.createFrameForPanel(panel, name);
+      DialogUtils.addButtons(toolFrame, (JButton[]) panel.getDialogOptions(), panel);
+      panel.setOwner(toolFrame);
+      toolFrame.setVisible(true);      
+      toolFrame.requestFocus();
    }
 }
