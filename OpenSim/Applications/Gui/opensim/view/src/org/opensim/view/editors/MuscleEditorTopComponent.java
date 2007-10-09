@@ -2152,6 +2152,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             final ModelEvent evt = (ModelEvent)arg;
             if (evt.getOperation() == ModelEvent.Operation.Close && OpenSimDB.getInstance().getCurrentModel() == null) {
                currentModel = null;
+               currentAct = null;
                backupAllActuators();
                setAllPendingChanges(false, false);
                setupComponent(null);
