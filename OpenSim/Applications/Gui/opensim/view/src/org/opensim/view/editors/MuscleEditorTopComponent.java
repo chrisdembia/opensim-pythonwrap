@@ -14,12 +14,14 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Observer;
 import java.util.Vector;
 import org.openide.ErrorManager;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
-import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.opensim.modeling.AbstractActuator;
@@ -45,6 +47,7 @@ import org.opensim.modeling.SetMuscleWrap;
 import org.opensim.modeling.ArrayMusclePoint;
 import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.AbstractMuscle;
+import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.VisibleProperties.DisplayPreference;
 import org.opensim.view.ClearSelectedObjectsEvent;
@@ -76,8 +79,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    private static MuscleEditorTopComponent instance;
    private Model currentModel = null;
    private AbstractActuator currentAct = null; // the actuator that is currently shown in the Muscle Editor window
-   private AbstractActuator savedAct = null; // the state that gets restored when "reset" is pressed
-   private boolean pendingChanges = false;
    private static final String[] wrapMethodNames = {"hybrid", "midpoint", "axial"};
    private javax.swing.JScrollPane AttachmentsTab = null;
    private javax.swing.JScrollPane WrapTab = null;
@@ -85,6 +86,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    private String selectedTabName = null;
    private javax.swing.JCheckBox attachmentSelectBox[] = null; // array of checkboxes for selecting attachment points
    private String[] wrapObjectNames = null;
+   private Hashtable<AbstractActuator, Boolean> pendingChanges = new Hashtable<AbstractActuator, Boolean>();
+   private Hashtable<AbstractActuator, AbstractActuator> savedActs = new Hashtable<AbstractActuator, AbstractActuator>();
 
    private NumberFormat doublePropFormat = new DecimalFormat("0.000000");
    private NumberFormat positionFormat = new DecimalFormat("0.00000");
@@ -104,14 +107,92 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       OpenSimDB.getInstance().addObserver(this);
       setupComponent(null);
    }
-   
-   private void setPendingChanges(boolean state, boolean repaint) {
-      pendingChanges = state;
-      if (ResetButton.isEnabled() != state) {
-         ResetButton.setEnabled(state);
+
+   private void backupAllActuators() {
+      // Delete any existing actuator backups, and clear the savedActs hash table.
+      Iterator<AbstractActuator> actIter = savedActs.values().iterator();
+      while(actIter.hasNext())
+         AbstractActuator.deleteActuator(actIter.next());
+      savedActs.clear();
+
+      pendingChanges.clear();
+
+      // Make a backup of each actuator in the current model and add it to the savedActs hash table.
+      if (currentModel != null) {
+         ActuatorSet actuators = currentModel.getActuatorSet();
+         for (int i=0; i<actuators.getSize(); i++) {
+            AbstractActuator savedAct = AbstractActuator.safeDownCast(actuators.get(i).copy());
+            savedActs.put(actuators.get(i), savedAct);
+            pendingChanges.put(actuators.get(i), false);
+         }
+      }
+   }
+
+   private void updateBackupRestoreButtons(boolean repaint) {
+      boolean needsRepainting = false;
+ 
+      if (currentAct != null) {
+          boolean state = pendingChanges.get(currentAct);
+          if (RestoreButton.isEnabled() != state) {
+              RestoreButton.setEnabled(state);
+              needsRepainting = repaint;
+          }
+          if (BackupButton.isEnabled() != state) {
+              BackupButton.setEnabled(state);
+              needsRepainting = repaint;
+          }
+      }
+
+      boolean anyPendingChanges = false;
+      Enumeration<AbstractActuator> acts = pendingChanges.keys();
+      while(acts.hasMoreElements()) {
+         AbstractActuator next = acts.nextElement();
+         if (pendingChanges.get(next) == true) {
+             anyPendingChanges = true;
+            break;
+         }
+      }
+      if (RestoreAllButton.isEnabled() != anyPendingChanges) {
+          RestoreAllButton.setEnabled(anyPendingChanges);
+          needsRepainting = repaint;
+      }
+      if (BackupAllButton.isEnabled() != anyPendingChanges) {
+          BackupAllButton.setEnabled(anyPendingChanges);
+          needsRepainting = repaint;
+      }
+
+      if (needsRepainting)
+         ViewDB.getInstance().repaintAll();
+   }
+
+   private void setPendingChanges(boolean state, AbstractActuator act, boolean update, boolean repaint) {
+      pendingChanges.put(act, state);
+      if (RestoreButton.isEnabled() != state) {
+         RestoreButton.setEnabled(state);
          if (repaint == true)
             ViewDB.getInstance().repaintAll();
       }
+
+      if (update)
+         updateBackupRestoreButtons(repaint);
+
+      // Mark the model as dirty as well.
+      if (state == true && currentModel != null) {
+         SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
+         guiElem.setUnsavedChangesFlag(true);
+      }
+   }
+   
+   private void setAllPendingChanges(boolean state, boolean repaint) {
+      boolean needsRepainting = false;
+      Enumeration<AbstractActuator> acts = pendingChanges.keys();
+      while(acts.hasMoreElements()) {
+         AbstractActuator next = acts.nextElement();
+         pendingChanges.put(next, state);
+      }
+
+      updateBackupRestoreButtons(repaint);
+
       // Mark the model as dirty as well.
       if (state == true && currentModel != null) {
          SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
@@ -124,135 +205,165 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
     * WARNING: Do NOT modify this code. The content of this method is
     * always regenerated by the Form Editor.
     */
-   // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
-   private void initComponents() {
-      MuscleEditorScrollPane = new javax.swing.JScrollPane();
-      MuscleEditorPanel = new javax.swing.JPanel();
-      ApplyButton = new javax.swing.JButton();
-      ResetButton = new javax.swing.JButton();
-      MuscleNameTextField = new javax.swing.JTextField();
-      ParametersTabbedPanel = new javax.swing.JTabbedPane();
-      MuscleNameLabel = new javax.swing.JLabel();
-      MuscleTypeLabel = new javax.swing.JLabel();
-      ModelNameLabel = new javax.swing.JLabel();
-      MuscleSelectLabel = new javax.swing.JLabel();
-      MuscleComboBox = new javax.swing.JComboBox();
+    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        MuscleEditorScrollPane = new javax.swing.JScrollPane();
+        MuscleEditorPanel = new javax.swing.JPanel();
+        BackupButton = new javax.swing.JButton();
+        BackupAllButton = new javax.swing.JButton();
+        RestoreButton = new javax.swing.JButton();
+        RestoreAllButton = new javax.swing.JButton();
+        MuscleNameTextField = new javax.swing.JTextField();
+        ParametersTabbedPanel = new javax.swing.JTabbedPane();
+        MuscleNameLabel = new javax.swing.JLabel();
+        MuscleTypeLabel = new javax.swing.JLabel();
+        ModelNameLabel = new javax.swing.JLabel();
+        MuscleSelectLabel = new javax.swing.JLabel();
+        MuscleComboBox = new javax.swing.JComboBox();
 
-      MuscleEditorScrollPane.setBorder(null);
-      MuscleEditorPanel.setMinimumSize(new java.awt.Dimension(5, 5));
-      MuscleEditorPanel.setPreferredSize(new java.awt.Dimension(5, 5));
-      org.openide.awt.Mnemonics.setLocalizedText(ApplyButton, "Set");
-      ApplyButton.setToolTipText("Make a backup copy of this actuator. Click \"Reset\" to return to these values.");
-      ApplyButton.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            ApplyButtonActionPerformed(evt);
-         }
-      });
+        MuscleEditorScrollPane.setBorder(null);
+        MuscleEditorPanel.setMinimumSize(new java.awt.Dimension(5, 5));
+        MuscleEditorPanel.setPreferredSize(new java.awt.Dimension(5, 5));
+        org.openide.awt.Mnemonics.setLocalizedText(BackupButton, "Backup current");
+        BackupButton.setToolTipText("Make a backup copy of the current actuator. Click \"Restore current\" or \"Restore all\" to return to these values.");
+        BackupButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackupButtonActionPerformed(evt);
+            }
+        });
 
-      ApplyButton.getAccessibleContext().setAccessibleDescription("save all changes to this muscle");
+        org.openide.awt.Mnemonics.setLocalizedText(BackupAllButton, "Backup all");
+        BackupAllButton.setToolTipText("Make backup copies of all actuators in the current model. Click \"Restore all\" or \"Restore current\" to return to these values.");
+        BackupAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackupAllButtonActionPerformed(evt);
+            }
+        });
 
-      org.openide.awt.Mnemonics.setLocalizedText(ResetButton, "Reset");
-      ResetButton.setToolTipText("Reset this actuator to the backup copy made when \"Set\" was pressed.");
-      ResetButton.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            ResetButtonActionPerformed(evt);
-         }
-      });
+        org.openide.awt.Mnemonics.setLocalizedText(RestoreButton, "Restore current");
+        RestoreButton.setToolTipText("Restore the current actuator to the backup copy made when \"Backup\" or \"Backup all\" was pressed (or when the model was first loaded).");
+        RestoreButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RestoreButtonActionPerformed(evt);
+            }
+        });
 
-      ResetButton.getAccessibleContext().setAccessibleDescription("reset this muscle to its previously saved version");
+        org.openide.awt.Mnemonics.setLocalizedText(RestoreAllButton, "Restore all");
+        RestoreAllButton.setToolTipText("Restore all actuators to their backup copies made when \"Backup\" or \"Backup all\" was pressed (or when the model was first loaded).");
+        RestoreAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RestoreAllButtonActionPerformed(evt);
+            }
+        });
 
-      MuscleNameTextField.setText("<actuator name>");
-      MuscleNameTextField.setToolTipText("The name of this actuator");
-      MuscleNameTextField.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            MuscleNameTextFieldActionPerformed(evt);
-         }
-      });
-      MuscleNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-         public void focusLost(java.awt.event.FocusEvent evt) {
-            MuscleNameTextFieldFocusLost(evt);
-         }
-      });
+        MuscleNameTextField.setText("<actuator name>");
+        MuscleNameTextField.setToolTipText("The name of this actuator");
+        MuscleNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MuscleNameTextFieldActionPerformed(evt);
+            }
+        });
+        MuscleNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                MuscleNameTextFieldFocusLost(evt);
+            }
+        });
 
-      org.openide.awt.Mnemonics.setLocalizedText(MuscleNameLabel, "Name");
+        org.openide.awt.Mnemonics.setLocalizedText(MuscleNameLabel, "Name");
 
-      MuscleTypeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-      org.openide.awt.Mnemonics.setLocalizedText(MuscleTypeLabel, "Type: <class>");
-      MuscleTypeLabel.setToolTipText("The type of this actuator");
+        MuscleTypeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(MuscleTypeLabel, "Type: <class>");
+        MuscleTypeLabel.setToolTipText("The type of this actuator");
 
-      org.openide.awt.Mnemonics.setLocalizedText(ModelNameLabel, "Model: <name> ");
-      ModelNameLabel.setToolTipText("The name of the current model");
+        org.openide.awt.Mnemonics.setLocalizedText(ModelNameLabel, "Model: <name> ");
+        ModelNameLabel.setToolTipText("The name of the current model");
 
-      org.openide.awt.Mnemonics.setLocalizedText(MuscleSelectLabel, "Muscle");
+        org.openide.awt.Mnemonics.setLocalizedText(MuscleSelectLabel, "Muscle");
 
-      MuscleComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<a muscle>", "Item 2", "Item 3", "Item 4" }));
-      MuscleComboBox.setToolTipText("Select the actuator to edit");
-      MuscleComboBox.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            MuscleComboBoxActionPerformed(evt);
-         }
-      });
+        MuscleComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<a muscle>", "Item 2", "Item 3", "Item 4" }));
+        MuscleComboBox.setToolTipText("Select the actuator to edit");
+        MuscleComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MuscleComboBoxActionPerformed(evt);
+            }
+        });
 
-      org.jdesktop.layout.GroupLayout MuscleEditorPanelLayout = new org.jdesktop.layout.GroupLayout(MuscleEditorPanel);
-      MuscleEditorPanel.setLayout(MuscleEditorPanelLayout);
-      MuscleEditorPanelLayout.setHorizontalGroup(
-         MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(MuscleEditorPanelLayout.createSequentialGroup()
-            .add(118, 118, 118)
-            .add(ResetButton)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 201, Short.MAX_VALUE)
-            .add(ApplyButton)
-            .add(159, 159, 159))
-         .add(MuscleEditorPanelLayout.createSequentialGroup()
-            .addContainerGap()
-            .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-               .add(ModelNameLabel)
-               .add(MuscleEditorPanelLayout.createSequentialGroup()
-                  .add(MuscleSelectLabel)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(MuscleComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 128, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .add(34, 34, 34)
-                  .add(MuscleNameLabel)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .add(23, 23, 23)
-                  .add(MuscleTypeLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)))
-            .addContainerGap())
-      );
-      MuscleEditorPanelLayout.setVerticalGroup(
-         MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(MuscleEditorPanelLayout.createSequentialGroup()
-            .addContainerGap()
-            .add(ModelNameLabel)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(MuscleSelectLabel)
-               .add(MuscleComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(MuscleNameLabel)
-               .add(MuscleTypeLabel))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(ResetButton)
-               .add(ApplyButton))
-            .addContainerGap())
-      );
-      MuscleEditorScrollPane.setViewportView(MuscleEditorPanel);
+        org.jdesktop.layout.GroupLayout MuscleEditorPanelLayout = new org.jdesktop.layout.GroupLayout(MuscleEditorPanel);
+        MuscleEditorPanel.setLayout(MuscleEditorPanelLayout);
+        MuscleEditorPanelLayout.setHorizontalGroup(
+            MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(MuscleEditorPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(MuscleEditorPanelLayout.createSequentialGroup()
+                        .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+                            .add(ModelNameLabel)
+                            .add(MuscleEditorPanelLayout.createSequentialGroup()
+                                .add(MuscleSelectLabel)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(MuscleComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 147, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(14, 14, 14)
+                                .add(MuscleNameLabel)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 147, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(15, 15, 15)
+                                .add(MuscleTypeLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .add(MuscleEditorPanelLayout.createSequentialGroup()
+                        .add(10, 10, 10)
+                        .add(RestoreButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(RestoreAllButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 111, Short.MAX_VALUE)
+                        .add(BackupButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(BackupAllButton)
+                        .add(27, 27, 27))))
+        );
+        MuscleEditorPanelLayout.setVerticalGroup(
+            MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(MuscleEditorPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(ModelNameLabel)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(MuscleSelectLabel)
+                    .add(MuscleComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(MuscleNameLabel)
+                    .add(MuscleNameTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(MuscleTypeLabel))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(ParametersTabbedPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(MuscleEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(RestoreButton)
+                    .add(RestoreAllButton)
+                    .add(BackupAllButton)
+                    .add(BackupButton))
+                .addContainerGap())
+        );
+        MuscleEditorScrollPane.setViewportView(MuscleEditorPanel);
 
-      org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
-      this.setLayout(layout);
-      layout.setHorizontalGroup(
-         layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(MuscleEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
-      );
-      layout.setVerticalGroup(
-         layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(MuscleEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-      );
-   }// </editor-fold>//GEN-END:initComponents
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(MuscleEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(MuscleEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void BackupAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackupAllButtonActionPerformed
+       backupActuators();
+    }//GEN-LAST:event_BackupAllButtonActionPerformed
+
+    private void RestoreAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestoreAllButtonActionPerformed
+       restoreActuators();
+    }//GEN-LAST:event_RestoreAllButtonActionPerformed
 
    private void MuscleComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MuscleComboBoxActionPerformed
       if (currentModel == null)
@@ -261,8 +372,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       AbstractActuator newAct = currentModel.getActuatorSet().get(nameOfNewAct);
       if (newAct != null && AbstractActuator.getCPtr(newAct) != AbstractActuator.getCPtr(currentAct)) {
          currentAct = newAct;
-         savedAct = AbstractActuator.safeDownCast(currentAct.copy());
-         setPendingChanges(false, false);
+         updateBackupRestoreButtons(false);
          setupComponent(currentAct);
       }
    }//GEN-LAST:event_MuscleComboBoxActionPerformed
@@ -315,35 +425,55 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       String [] actNames = guiElem.getActuatorNames(true);
       MuscleComboBox.setModel(new javax.swing.DefaultComboBoxModel(actNames));
       MuscleComboBox.setSelectedIndex(findElement(actNames, currentAct.getName()));
-      setPendingChanges(true, false);
+      setPendingChanges(true, currentAct, true, false);
       OpenSimDB.getInstance().setChanged();
       NameChangedEvent evnt = new NameChangedEvent(currentAct);
       OpenSimDB.getInstance().notifyObservers(evnt);
    }
 
-   private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
-      resetActuator();
-   }//GEN-LAST:event_ResetButtonActionPerformed
+   private void RestoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestoreButtonActionPerformed
+      restoreActuator();
+   }//GEN-LAST:event_RestoreButtonActionPerformed
    
-   private void ApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApplyButtonActionPerformed
-      saveActuator();
-   }//GEN-LAST:event_ApplyButtonActionPerformed
+   private void BackupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackupButtonActionPerformed
+      backupActuator();
+   }//GEN-LAST:event_BackupButtonActionPerformed
    
-   private void saveActuator() {
+   private void backupActuator() {
       //act.setName(MuscleNameTextField.getText());
-      setPendingChanges(false, false);
+      setPendingChanges(false, currentAct, true, false);
       //OpenSimDB.getInstance().setChanged();
       //NameChangedEvent evnt = new NameChangedEvent(act);
       //OpenSimDB.getInstance().notifyObservers(evnt);
-      savedAct = AbstractActuator.safeDownCast(currentAct.copy());
+      AbstractActuator savedAct = AbstractActuator.safeDownCast(currentAct.copy());
       savedAct.setName(currentAct.getName()); // TODO: what about other properties of parent classes?
+      savedActs.put(currentAct, savedAct);
    }
-   
-   /** resetActuator
+
+   private void backupActuators() {
+      // Should never be null, but just in case...
+       if (currentModel == null)
+          return;
+
+      // Loop through the actuator set, backing up only the ones that have been modified.
+      ActuatorSet actSet = currentModel.getActuatorSet();
+      for (int i=0; i<actSet.getSize(); i++) {
+         AbstractActuator act = actSet.get(i);
+         if (pendingChanges.get(act)) {
+             AbstractActuator savedAct = savedActs.get(act);
+             // Copy the elements of the saved actuator into the [regular] actuator.
+             savedAct.copy(act);
+         }
+      }
+
+      setAllPendingChanges(false, false);
+   }
+
+   /** restoreActuator
     *  Because the type of the actuator may have changed, you have to remove the current
     *  one (act) and replace it with the saved one (savedAct).
     */
-   private void resetActuatorReplace() {
+   private void restoreActuatorReplace() {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
       Model model = asm.getModel();
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -362,9 +492,18 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       OpenSimDB.getInstance().notifyObservers(evnt);
 
       vis.removeActuatorGeometry(currentAct);
+      AbstractActuator savedAct = savedActs.get(currentAct);
+      // Remove the current actuator from the pendingChanges and savedActs hash tables.
+      pendingChanges.remove(currentAct);
+      savedActs.remove(currentAct);
+      // Replace the actuator with the saved one.
       model.getActuatorSet().replaceActuator(currentAct, savedAct);
-      currentAct = savedAct; // act now points to the actuator in the model's actuator set.
-      savedAct = AbstractActuator.safeDownCast(currentAct.copy()); // Make a new backup copy of the actuator.
+      currentAct = savedAct; // currentAct now points to the actuator in the model's actuator set.
+      // Make a new backup copy of the actuator.
+      savedAct = AbstractActuator.safeDownCast(currentAct.copy());
+      // Put the new current actuator in the pendingChanges and savedActs hash tables.
+      pendingChanges.put(currentAct, true); // old state must have been true for restore to be called
+      savedActs.put(currentAct, savedAct);
       // Set the display preference of the new muscle to the same as the old.
       currentAct.getDisplayer().getVisibleProperties().setDisplayPreference(dp);
       vis.addActuatorGeometry(currentAct, true);
@@ -375,30 +514,33 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       OpenSimDB.getInstance().setChanged();
       OpenSimDB.getInstance().notifyObservers(ev);
 
-      setPendingChanges(false, false);
+      setPendingChanges(false, currentAct, false, false);
       setupComponent(currentAct);
       ViewDB.getInstance().repaintAll();
    }
 
-   /* The version of resetActuator above replaces the actuator in the
+   /* The version of restoreActuator above replaces the actuator in the
     * model's actuator set, because the type may have been changed (so
-    * the actuator to reset to is an entirely different object). This
+    * the actuator to restore to is an entirely different object). This
     * causes problems in the GUI because other components like the
     * navigator do not yet handle replace-objects events. Also, with
     * the muscle-type combo box commented out for 1.0, the actuator
-    * object cannot change between a set/reset, so the function below
-    * was created to do a simple copy-in-place when reset is pressed.
+    * object cannot change between a backup/restore, so the function below
+    * was created to do a simple copy-in-place when restore is pressed.
     * This version sends out only a name-changed event because the
     * other GUI components do not yet handle property-change events.
     */
-   private void resetActuator() {
-         // Should never be null, but just in case...
+   private void restoreActuator() {
+      // Should never be null, but just in case...
+       if (currentAct == null || currentModel ==  null)
+          return;
+      AbstractActuator savedAct = savedActs.get(currentAct);
       if (savedAct == null)
          return;
 
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
 
-      // Deselect all attachment points on the muscle being reset.
+      // Deselect all attachment points on the muscle being restored.
       AbstractMuscle currentMuscle = AbstractMuscle.safeDownCast(currentAct);
       if (currentMuscle != null)
          ViewDB.getInstance().removeObjectsBelongingToMuscleFromSelection(currentMuscle);
@@ -414,24 +556,66 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       currentAct.copy(savedAct);
       vis.updateActuatorGeometry(currentAct, true);
 
-      setPendingChanges(false, false);
+      setPendingChanges(false, currentAct, false, false);
       setupComponent(currentAct);
       ViewDB.getInstance().repaintAll();
    }
-   
-   // Variables declaration - do not modify//GEN-BEGIN:variables
-   private javax.swing.JButton ApplyButton;
-   private javax.swing.JLabel ModelNameLabel;
-   private javax.swing.JComboBox MuscleComboBox;
-   private javax.swing.JPanel MuscleEditorPanel;
-   private javax.swing.JScrollPane MuscleEditorScrollPane;
-   private javax.swing.JLabel MuscleNameLabel;
-   private javax.swing.JTextField MuscleNameTextField;
-   private javax.swing.JLabel MuscleSelectLabel;
-   private javax.swing.JLabel MuscleTypeLabel;
-   private javax.swing.JTabbedPane ParametersTabbedPanel;
-   private javax.swing.JButton ResetButton;
-   // End of variables declaration//GEN-END:variables
+
+   private void restoreActuators() {
+      // Should never be null, but just in case...
+       if (currentModel == null)
+          return;
+
+      boolean updateEditor = false;
+      SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(currentModel);
+
+      // Deselect all attachment points.
+      ViewDB.getInstance().removeObjectsBelongingToModelFromSelection(currentModel);
+
+      // Make a note if the current actuator needs to be restored, so you can call
+      // setupComponent() later.
+      if (pendingChanges.get(currentAct))
+          updateEditor = true;
+
+      // Loop through the actuator set, restoring only the ones that have been modified.
+      ActuatorSet actSet = currentModel.getActuatorSet();
+      for (int i=0; i<actSet.getSize(); i++) {
+          AbstractActuator act = actSet.get(i);
+          if (pendingChanges.get(act)) {
+              AbstractActuator savedAct = savedActs.get(act);
+              // If the name has changed, fire an event.
+              if (act.getName().equals(savedAct.getName()) == false) {
+                 NameChangedEvent ev = new NameChangedEvent(currentAct);
+                 OpenSimDB.getInstance().setChanged();
+                 OpenSimDB.getInstance().notifyObservers(ev);
+              }
+              // Copy the elements of the saved actuator into the [regular] actuator.
+              act.copy(savedAct);
+              vis.updateActuatorGeometry(act, true);
+          }
+      }
+
+      setAllPendingChanges(false, false);
+      if (updateEditor)
+         setupComponent(currentAct);
+      ViewDB.getInstance().repaintAll();
+   }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BackupAllButton;
+    private javax.swing.JButton BackupButton;
+    private javax.swing.JLabel ModelNameLabel;
+    private javax.swing.JComboBox MuscleComboBox;
+    private javax.swing.JPanel MuscleEditorPanel;
+    private javax.swing.JScrollPane MuscleEditorScrollPane;
+    private javax.swing.JLabel MuscleNameLabel;
+    private javax.swing.JTextField MuscleNameTextField;
+    private javax.swing.JLabel MuscleSelectLabel;
+    private javax.swing.JLabel MuscleTypeLabel;
+    private javax.swing.JTabbedPane ParametersTabbedPanel;
+    private javax.swing.JButton RestoreAllButton;
+    private javax.swing.JButton RestoreButton;
+    // End of variables declaration//GEN-END:variables
    
    /**
     * Gets default instance. Do not use directly: reserved for *.settings files only,
@@ -480,7 +664,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // update the model if the number has changed
       if (oldValue != newValue) {
          musclePoints.get(attachmentNum).setAttachment(coordNum, newValue);
-         setPendingChanges(true, false);
+         setPendingChanges(true, currentAct, true, false);
          // tell the ViewDB to redraw the model
          Model model = asm.getModel();
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -500,7 +684,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       AbstractBody newBody = bodies.get(bodyComboBox.getSelectedIndex());
       if (AbstractBody.getCPtr(newBody) != AbstractBody.getCPtr(oldBody)) {
          musclePoints.get(attachmentNum).setBody(newBody, true);
-         setPendingChanges(true, false);
+         setPendingChanges(true, currentAct, true, false);
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
          vis.updateActuatorGeometry(asm, true);
@@ -550,7 +734,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             //}
          }
          if (needsUpdating) {
-            setPendingChanges(true, false);
+            setPendingChanges(true, currentAct, true, false);
             updateAttachmentPanel(asm);
          }
          ParametersTabbedPanel.setSelectedComponent(AttachmentsTab);
@@ -595,7 +779,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          // update the model if the number has changed
          if (newValue != oldValue) {
             via.setRangeMin(newValue/conversion);
-            setPendingChanges(true, false);
+            setPendingChanges(true, currentAct, true, false);
             // tell the ViewDB to redraw the model
             Model model = asm.getModel();
             SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -639,7 +823,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          // update the model if the number has changed
          if (newValue != oldValue) {
             via.setRangeMax(newValue/conversion);
-            setPendingChanges(true, false);
+            setPendingChanges(true, currentAct, true, false);
             // tell the ViewDB to redraw the model
             Model model = asm.getModel();
             SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -660,7 +844,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          newStartPt = -1;
       if (newStartPt != oldStartPt) {
          mw.setStartPoint(newStartPt);
-         setPendingChanges(true, false);
+         setPendingChanges(true, currentAct, true, false);
          Model model = asm.getModel();
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -682,7 +866,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          newEndPt++;
       if (newEndPt != oldEndPt) {
          mw.setEndPoint(newEndPt);
-         setPendingChanges(true, false);
+         setPendingChanges(true, currentAct, true, false);
          Model model = asm.getModel();
          // tell the ViewDB to redraw the model
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -697,7 +881,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
       AbstractWrapObject awo = asm.getModel().getDynamicsEngine().getWrapObject(wrapObjectNames[menuChoice]);
       asm.addMuscleWrap(awo);
-      setPendingChanges(true, false);
+      setPendingChanges(true, currentAct, true, false);
       setupComponent(currentAct);
       Model model = asm.getModel();
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -708,7 +892,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    public void moveUpMuscleWrap(int num) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
       asm.moveUpMuscleWrap(num);
-      setPendingChanges(true, false);
+      setPendingChanges(true, currentAct, true, false);
       setupComponent(currentAct);
       Model model = asm.getModel();
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -719,7 +903,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    public void moveDownMuscleWrap(int num) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
       asm.moveDownMuscleWrap(num);
-      setPendingChanges(true, false);
+      setPendingChanges(true, currentAct, true, false);
       setupComponent(currentAct);
       Model model = asm.getModel();
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -730,7 +914,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    public void deleteMuscleWrap(int num) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
       asm.deleteMuscleWrap(num);
-      setPendingChanges(true, false);
+      setPendingChanges(true, currentAct, true, false);
       setupComponent(currentAct);
       Model model = asm.getModel();
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -749,7 +933,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          mw.setMethod(MuscleWrap.WrapMethod.midpoint);
       else if (methodInt == 2)
          mw.setMethod(MuscleWrap.WrapMethod.axial);
-      setPendingChanges(true, false);
+      setPendingChanges(true, currentAct, true, false);
       setupComponent(currentAct);
       Model model = asm.getModel();
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -769,10 +953,13 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          // Store the display preference of the muscle before it is deleted.
          DisplayPreference dp = currentAct.getDisplayer().getVisibleProperties().getDisplayPreference();
          vis.removeActuatorGeometry(currentAct);
+         boolean oldState = pendingChanges.get(currentAct);
+         pendingChanges.remove(currentAct);
          currentAct = model.getActuatorSet().changeActuatorType(currentAct, newTypeName);
+         pendingChanges.put(currentAct, oldState);
          // Set the display preference of the new muscle to the same as the old.
          currentAct.getDisplayer().getVisibleProperties().setDisplayPreference(dp);
-         setPendingChanges(true, false);
+         setPendingChanges(true, currentAct, true, false);
          setupComponent(currentAct);
          // tell the ViewDB to redraw the model
          vis.addActuatorGeometry(currentAct, true);
@@ -800,7 +987,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
          if (newValue != oldValue) {
             prop.setValue(newValue);
-            setPendingChanges(true, false);
+            setPendingChanges(true, currentAct, true, false);
             // TODO generate an event for this??
          }
       }
@@ -826,7 +1013,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
          if (newValue != oldValue) {
             prop.setValue(newValue);
-            setPendingChanges(true, false);
+            setPendingChanges(true, currentAct, true, false);
             // TODO generate an event for this??
          }
       }
@@ -847,7 +1034,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
 
       MusclePoint closestPoint = musclePoints.get(index);
       asm.addAttachmentPoint(menuChoice, closestPoint.getBody());
-      setPendingChanges(true, false);
+      setPendingChanges(true, currentAct, false, false);
       setupComponent(currentAct);
       Model model = asm.getModel();
       SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -874,7 +1061,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                  options,
                  options[0]);
       } else {
-         setPendingChanges(true, false);
+         setPendingChanges(true, currentAct, false, false);
          setupComponent(currentAct);
          Model model = asm.getModel();
          SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
@@ -1596,7 +1783,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // numbers and types of components and panels.
       // But before they are removed, store the name of the
       // currently selected tab (if any) so that you can try
-      // to restore this selection (e.g., after the "reset"
+      // to restore this selection (e.g., after the "restore"
       // button is pressed.
       // Since MuscleComboBox was added to the GUI, the muscle
       // editor now always has a current actuator (as long as there
@@ -1625,9 +1812,10 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       // if the model is null or if the model has no actuators).
       currentAct = newAct;
       // Make a backup copy of the current actuator, if not already done.
-      if (currentAct != null && savedAct == null)
-         saveActuator();
-
+      //if (currentAct != null && savedAct == null)
+         //saveActuator();
+//maybe don't save any actuators because this should have been done
+//when the editor was set to a model, not when it's switched to a different muscle
       if (currentModel != null) {
          guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
          ModelNameLabel.setText("Model: " + currentModel.getName());
@@ -1638,32 +1826,35 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             MuscleComboBox.setEnabled(false);
          }
       } else {
-         savedAct = null;
          ModelNameLabel.setText("Model: No models");
          MuscleNameTextField.setText("");
          MuscleNameTextField.setEnabled(false);
          MuscleTypeLabel.setText("");
          //MuscleTypeComboBox.setEnabled(false);
          MuscleComboBox.setEnabled(false);
-         ApplyButton.setEnabled(false);
-         ResetButton.setEnabled(false);
+         BackupButton.setEnabled(false);
+         RestoreButton.setEnabled(false);
+         BackupAllButton.setEnabled(false);
+         RestoreAllButton.setEnabled(false);
          return;
       }
       
       if (currentAct == null) {
-         savedAct = null;
          MuscleTypeLabel.setText("");
          MuscleNameTextField.setText("");
          MuscleNameTextField.setEnabled(false);
          //MuscleTypeComboBox.setEnabled(false);
-         ApplyButton.setEnabled(false);
-         ResetButton.setEnabled(false);
+         BackupButton.setEnabled(false);
+         RestoreButton.setEnabled(false);
+         BackupAllButton.setEnabled(false);
+         RestoreAllButton.setEnabled(false);
          return;
       } else {
          MuscleTypeLabel.setText("Type: " + currentAct.getType());
          MuscleNameTextField.setEnabled(true);
          //MuscleTypeComboBox.setEnabled(true);
-         ApplyButton.setEnabled(true);
+         BackupButton.setEnabled(true);
+         BackupAllButton.setEnabled(true);
          MuscleComboBox.setSelectedIndex(findElement(guiElem.getActuatorNames(true), currentAct.getName()));
       }
       
@@ -1804,8 +1995,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          setupCurrentPathPanel(asm);
       }
       
-      // Gray out the reset button if there are no pending changes
-      ResetButton.setEnabled(pendingChanges);
+      // Enable/disable the backup and restore buttons
+      updateBackupRestoreButtons(false);
       
       // Set the selected tab in the ParametersTabbedPanel to the
       // one whose name matches selectedTabName.
@@ -1870,70 +2061,21 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                        options[0]);
             } else {
                currentAct = newAct;
-               savedAct = AbstractActuator.safeDownCast(currentAct.copy());
                AttachmentsTab = null;
                WrapTab = null;
                CurrentPathTab = null;
                selectedTabName = null;
-               setPendingChanges(false, false);
+               setPendingChanges(false, currentAct, false, false);
                setupComponent(currentAct);
             }
          }
       } else {
-         setPendingChanges(false, false);
+         setAllPendingChanges(false, false);
          setupComponent(null);
       }
       super.open();
       this.requestActive();
    }
-/* Old version which prompted to save/reset any changes to current muscle
-   public void open() {
-      AbstractActuator newAct = null;
-      Node[] selected = ExplorerTopComponent.findInstance().getExplorerManager().getSelectedNodes();
-      if (selected.length > 0) {
-         OneActuatorNode muscleNode = (OneActuatorNode) selected[0];
-         newAct = AbstractActuator.safeDownCast(muscleNode.getOpenSimObject());
-         if (newAct != null && newAct != act) {
-            boolean switchMuscles = false;
-            if (pendingChanges == false) {
-               switchMuscles = true;
-            } else {
-               Object[] options = {"Yes", "No", "Cancel"};
-               int answer = JOptionPane.showOptionDialog(this,
-                  "Do you want to save the changes you made to " + act.getName() + "?",
-                  "Muscle Editor",
-                  JOptionPane.YES_NO_CANCEL_OPTION,
-                  JOptionPane.WARNING_MESSAGE,
-                  null,
-                  options,
-                  options[2]);
-               if (answer == 0) {
-                  saveActuator();
-                  switchMuscles = true;
-               } else if (answer == 1) {
-                  resetActuator();
-                  switchMuscles = true;
-               } else if (answer == 2) {
-                  switchMuscles = false;
-               }
-            }
-            if (switchMuscles == true) {
-               act = newAct;
-               savedAct = AbstractActuator.safeDownCast(act.copy());
-               AttachmentsTab = null;
-               WrapTab = null;
-               CurrentPathTab = null;
-               selectedTabName = null;
-               setupComponent(act);
-            }
-         }
-      } else {
-         setupComponent(null);
-      }
-      super.open();
-      this.requestActive();
-   }
- */
 
    private boolean needToHandleEvent(Observable o, Object arg) {
       if (o instanceof ViewDB) {
@@ -2010,7 +2152,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             final ModelEvent evt = (ModelEvent)arg;
             if (evt.getOperation() == ModelEvent.Operation.Close && OpenSimDB.getInstance().getCurrentModel() == null) {
                currentModel = null;
-               setPendingChanges(false, false);
+               backupAllActuators();
+               setAllPendingChanges(false, false);
                setupComponent(null);
             }
             // Do we need to handle close separately or should we be called with SetCurrent of null model?
@@ -2030,8 +2173,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
                   currentModel = (Model)objs.get(i);
-                  savedAct = null; // Don't want to keep around old saved actuator!
-                  setPendingChanges(false, false);
+                  currentAct = null;
+                  backupAllActuators();
+                  setAllPendingChanges(false, false);
                   setupComponent(null);
                   break;
                }
@@ -2091,8 +2235,10 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             mp.setAttachment(2, mp.getAttachment().getitem(2) + dragVectorBody[2]);
             m = mp.getMuscle();
             // Check to see if the muscle editor's current muscle was moved.
-            if (m != null && AbstractMuscle.getCPtr(m) == AbstractMuscle.getCPtr(currentMuscle))
+            if (m != null && AbstractMuscle.getCPtr(m) == AbstractMuscle.getCPtr(currentMuscle)) {
                currentMuscleMoved = true;
+               setPendingChanges(true, (AbstractMuscle)m, false, false);
+            }
             // Update the geometry of the muscle.
             SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(m.getModel());
             vis.updateActuatorGeometry(m, true);
@@ -2107,8 +2253,8 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          if (currentMuscleMoved) {
             updateAttachmentPanel(currentMuscle);
             updateCurrentPathPanel(currentMuscle);
-            setPendingChanges(true, false);
          }
+         updateBackupRestoreButtons(false);
          //ViewDB.getInstance().repaintAll();
          ViewDB.getInstance().renderAll();
       }

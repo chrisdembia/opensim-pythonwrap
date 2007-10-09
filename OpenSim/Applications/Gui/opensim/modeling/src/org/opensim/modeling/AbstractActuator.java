@@ -46,6 +46,10 @@ public class AbstractActuator extends OpenSimObject {
     opensimModelJNI.AbstractActuator_copyPropertyValues(swigCPtr, this, AbstractActuator.getCPtr(aActuator), aActuator);
   }
 
+  public static void deleteActuator(AbstractActuator aActuator) {
+    opensimModelJNI.AbstractActuator_deleteActuator(AbstractActuator.getCPtr(aActuator), aActuator);
+  }
+
   public void setup(Model aModel) {
     opensimModelJNI.AbstractActuator_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
