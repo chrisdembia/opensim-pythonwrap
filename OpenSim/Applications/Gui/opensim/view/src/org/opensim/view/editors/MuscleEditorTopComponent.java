@@ -2235,10 +2235,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             mp.setAttachment(1, mp.getAttachment().getitem(1) + dragVectorBody[1]);
             mp.setAttachment(2, mp.getAttachment().getitem(2) + dragVectorBody[2]);
             m = mp.getMuscle();
-            // Check to see if the muscle editor's current muscle was moved.
+            if (m != null)
+               setPendingChanges(true, (AbstractActuator)m, false, false);
+            // Check to see if the muscle editor's current muscle was moved, so you can update the window later.
             if (m != null && AbstractMuscle.getCPtr(m) == AbstractMuscle.getCPtr(currentMuscle)) {
                currentMuscleMoved = true;
-               setPendingChanges(true, (AbstractMuscle)m, false, false);
             }
             // Update the geometry of the muscle.
             SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(m.getModel());
