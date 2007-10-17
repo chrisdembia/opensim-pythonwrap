@@ -15,6 +15,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Vector;
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSlider;
@@ -46,6 +47,15 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
    private AbstractCoordinate coord;
    private static double ROUNDOFF=1E-5;  // work around for roundoff converting Strings to/from doubles
    private static String LABELS_FORMAT="###.###";          // Number of digits to show after floating point in bounds
+   private static ImageIcon unclamped_image_icon = null;
+   private static ImageIcon clamped_image_icon = null;
+   private static ImageIcon unclamped_rollover_image_icon = null;
+   private static ImageIcon clamped_rollover_image_icon = null;
+   private static ImageIcon unlocked_image_icon = null;
+   private static ImageIcon locked_image_icon = null;
+   private static ImageIcon unlocked_rollover_image_icon = null;
+   private static ImageIcon locked_rollover_image_icon = null;
+   
    
    public CoordinateSliderWithBox(AbstractCoordinate coord) {
       this.coord = coord;
@@ -60,6 +70,7 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 //      }
 //      else
 //         this.step = (max-min)/100;
+      setIconsIfNeeded();
       step = 0.001; // Make the step one thousandths of a unit
       numTicks = (int)((max - min)/step)+1;
       java.text.NumberFormat numberFormat =
@@ -144,14 +155,14 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 
         jClampedCheckBox.setToolTipText("Toggle clamp to bounds");
         jClampedCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jClampedCheckBox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unclamped.png")));
+        jClampedCheckBox.setIcon(unclamped_image_icon);
         jClampedCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jClampedCheckBox.setMaximumSize(new java.awt.Dimension(20, 20));
         jClampedCheckBox.setMinimumSize(new java.awt.Dimension(20, 20));
         jClampedCheckBox.setPreferredSize(new java.awt.Dimension(20, 20));
-        jClampedCheckBox.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unclamped_rollover.png")));
-        jClampedCheckBox.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/clamped_rollover.png")));
-        jClampedCheckBox.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/clamped.png")));
+        jClampedCheckBox.setRolloverIcon(unclamped_rollover_image_icon);
+        jClampedCheckBox.setRolloverSelectedIcon(clamped_rollover_image_icon);
+        jClampedCheckBox.setSelectedIcon(clamped_image_icon);
         jClampedCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jClampedCheckBoxActionPerformed(evt);
@@ -160,14 +171,14 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
 
         jLockedCheckBox.setToolTipText("Toggle lock value");
         jLockedCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jLockedCheckBox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unlocked.png")));
+        jLockedCheckBox.setIcon(unlocked_image_icon);
         jLockedCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jLockedCheckBox.setMaximumSize(new java.awt.Dimension(20, 20));
         jLockedCheckBox.setMinimumSize(new java.awt.Dimension(20, 20));
         jLockedCheckBox.setPreferredSize(new java.awt.Dimension(20, 20));
-        jLockedCheckBox.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unlocked_rollover.png")));
-        jLockedCheckBox.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/locked_rollover.png")));
-        jLockedCheckBox.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/locked.png")));
+        jLockedCheckBox.setRolloverIcon(unlocked_rollover_image_icon);
+        jLockedCheckBox.setRolloverSelectedIcon(locked_rollover_image_icon);
+        jLockedCheckBox.setSelectedIcon(locked_image_icon);
         jLockedCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLockedCheckBoxActionPerformed(evt);
@@ -424,6 +435,27 @@ public class CoordinateSliderWithBox extends javax.swing.JPanel implements Chang
           return (bound>0)?roundAbsBound:-roundAbsBound;
        } else
           return bound;
+    }
+    /**
+     * Populate static holders of icons so that they are not recreated/new'ed for every coordinate
+     */
+    private void setIconsIfNeeded() {
+      if (unclamped_image_icon==null)
+          unclamped_image_icon = new ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unclamped.png"));
+      if (clamped_image_icon==null)
+          clamped_image_icon = new ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/clamped.png"));
+      if (unclamped_rollover_image_icon == null)
+          unclamped_rollover_image_icon=new ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unclamped_rollover.png"));
+      if (clamped_rollover_image_icon == null)
+          clamped_rollover_image_icon=new ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/clamped_rollover.png"));
+      if (unlocked_image_icon==null)
+          unlocked_image_icon = new ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unlocked.png"));
+      if (locked_image_icon==null)
+          locked_image_icon = new ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/locked.png"));
+      if (unlocked_rollover_image_icon == null)
+          unlocked_rollover_image_icon=new ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/unlocked_rollover.png"));
+      if (locked_rollover_image_icon == null)
+          locked_rollover_image_icon=new ImageIcon(getClass().getResource("/org/opensim/coordinateviewer/images/locked_rollover.png"));
     }
     
 }
