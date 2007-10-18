@@ -27,6 +27,7 @@
 package org.opensim.utils;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,6 +79,8 @@ public final class DialogUtils {
     public static void addStandardButtons(final OpenSimDialog dlg) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.add(Box.createRigidArea(new Dimension(50, 50)));
+        buttonPanel.add(Box.createVerticalStrut(50));
         buttonPanel.add(Box.createGlue());
         dlg.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         
@@ -108,14 +111,17 @@ public final class DialogUtils {
                 dlg.setDialogReturnValue(OpenSimDialog.CANCEL_OPTION);
             }
         });
-        dlg.doLayout();
+        //dlg.doLayout();
         dlg.pack();
+
     }
 
     public static void addButtons(JFrame frame, JButton[] buttonsList, ActionListener listener) {
         // Create a control panel at the bottom of the passed in window for control buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.add(Box.createRigidArea(new Dimension(50, 50)));
+        buttonPanel.add(Box.createVerticalStrut(50));
         buttonPanel.add(Box.createGlue());
         frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         for (int i=0; i<buttonsList.length; i++){
@@ -123,6 +129,7 @@ public final class DialogUtils {
             buttonsList[i].addActionListener(listener);
             // Should also set return value for ok, cancel
         }
-       
+       //frame.doLayout();
+       frame.pack();
     }
 }

@@ -312,6 +312,10 @@ public class Model extends OpenSimObject {
     opensimModelJNI.Model_addDerivCallback(swigCPtr, this, SWIGTYPE_p_OpenSim__DerivCallback.getCPtr(aCallback));
   }
 
+  public void removeAllDerivCallbacks() {
+    opensimModelJNI.Model_removeAllDerivCallbacks(swigCPtr, this);
+  }
+
   public AnalysisSet getAnalysisSet() {
     long cPtr = opensimModelJNI.Model_getAnalysisSet(swigCPtr, this);
     return (cPtr == 0) ? null : new AnalysisSet(cPtr, false);

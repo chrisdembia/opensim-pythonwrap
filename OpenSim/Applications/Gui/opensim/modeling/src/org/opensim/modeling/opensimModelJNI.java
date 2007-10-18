@@ -1144,6 +1144,7 @@ public class opensimModelJNI {
   public final static native void Model_removeIntegCallback(long jarg1, Model jarg1_, long jarg2, IntegCallback jarg2_);
   public final static native long Model_getDerivCallbackSet(long jarg1, Model jarg1_);
   public final static native void Model_addDerivCallback(long jarg1, Model jarg1_, long jarg2);
+  public final static native void Model_removeAllDerivCallbacks(long jarg1, Model jarg1_);
   public final static native long Model_getAnalysisSet(long jarg1, Model jarg1_);
   public final static native void Model_addAnalysis(long jarg1, Model jarg1_, long jarg2, Analysis jarg2_);
   public final static native void Model_removeAnalysis(long jarg1, Model jarg1_, long jarg2, Analysis jarg2_);

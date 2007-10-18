@@ -10,7 +10,7 @@ public class AxesActor extends vtkAssembly {
 
   private double axisLength = 0.5;
   private double axisTextLength = 0.1;
-  private vtkTextActor xactor, yactor, zactor;
+  //private vtkTextActor xactor, yactor, zactor;
 
   public AxesActor() {
     super();
@@ -224,9 +224,9 @@ public class AxesActor extends vtkAssembly {
   public void setAxesVisibility(boolean ison) {
     this.SetVisibility(ison ? 1 : 0);
 
-    xactor.SetVisibility(ison ? 1 : 0);
-    yactor.SetVisibility(ison ? 1 : 0);
-    zactor.SetVisibility(ison ? 1 : 0);
+    //xactor.SetVisibility(ison ? 1 : 0);
+    //yactor.SetVisibility(ison ? 1 : 0);
+    //zactor.SetVisibility(ison ? 1 : 0);
   }
 
 }
