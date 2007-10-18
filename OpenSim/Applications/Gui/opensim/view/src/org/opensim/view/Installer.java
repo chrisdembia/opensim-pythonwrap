@@ -92,5 +92,9 @@ public class Installer extends ModuleInstall {
          String defaultBgColor = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_BackgroundColorRGB");        
          saved = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBgColor);
          Preferences.userNodeForPackage(TheApp.class).put("BackgroundColor", saved);
+
+         String markerColor = NbBundle.getMessage(ViewDB.class, "CTL_MarkersColorRGB");        
+         saved = Preferences.userNodeForPackage(TheApp.class).get("Markers Color", markerColor);
+         Preferences.userNodeForPackage(TheApp.class).put("Markers Color", saved);
     }
 }

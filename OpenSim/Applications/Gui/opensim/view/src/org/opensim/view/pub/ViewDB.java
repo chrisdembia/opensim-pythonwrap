@@ -53,6 +53,7 @@ import org.opensim.modeling.OpenSimObject;
 import org.opensim.modeling.VisibleObject;
 import org.opensim.modeling.VisibleProperties;
 import org.opensim.modeling.VisibleProperties.DisplayPreference;
+import org.opensim.utils.Prefs;
 import org.opensim.utils.TheApp;
 import org.opensim.view.*;
 import vtk.AxesActor;
@@ -185,7 +186,7 @@ public final class ViewDB extends Observable implements Observer {
                      Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
                      while(windowIter.hasNext()){
                         ModelWindowVTKTopComponent nextWindow = windowIter.next();
-                        nextWindow.getCanvas().GetRenderer().AddViewProp(sceneAssembly);
+                        //nextWindow.getCanvas().GetRenderer().AddViewProp(sceneAssembly);
                      }
                   }
                   // Compute placement so that model does not intersect others
@@ -284,7 +285,7 @@ public final class ViewDB extends Observable implements Observer {
                
                sceneAssembly.AddPart(newModelVisual.getModelDisplayAssembly());
                // Check if this refits scene into window
-              
+               // int rc = newModelVisual.getModelDisplayAssembly().GetReferenceCount();
                if(OpenSimDB.getInstance().getNumModels()==1) { 
                   Iterator<ModelWindowVTKTopComponent> windowIter = openWindows.iterator();
                   while(windowIter.hasNext()){
@@ -297,7 +298,9 @@ public final class ViewDB extends Observable implements Observer {
                }
                // add to list of models
                getModelVisuals().add(newModelVisual);
+               //rc = newModelVisual.getModelDisplayAssembly().GetReferenceCount();
                repaintAll();
+               //rc = newModelVisual.getModelDisplayAssembly().GetReferenceCount();
             }
             else if (ev.getOperation()==ModelEvent.Operation.Close){
                Model dModel = ev.getModel();
@@ -305,14 +308,18 @@ public final class ViewDB extends Observable implements Observer {
                removeObjectsBelongingToModelFromSelection(dModel);
                SingleModelVisuals visModel = mapModelsToVisuals.get(dModel);
                // Remove from display
+               //int rc = visModel.getModelDisplayAssembly().GetReferenceCount();
                removeObjectFromScene(visModel.getModelDisplayAssembly());
+               //rc = visModel.getModelDisplayAssembly().GetReferenceCount();
                // Remove from lists
                modelVisuals.remove(visModel);
                mapModelsToVisuals.remove(dModel);
                mapModelsToGuiElements.remove(dModel);
                mapModelsToSettings.remove(dModel);
                modelOpacities.remove(dModel);
+               //rc = visModel.getModelDisplayAssembly().GetReferenceCount();
                visModel.cleanup();
+               
                //StatusDisplayer.getDefault().setStatusText("mapModelsToVisuals size="+mapModelsToVisuals.size());
                updateCommandsVisibility();
             }
@@ -1211,5 +1218,14 @@ public final class ViewDB extends Observable implements Observer {
          toggleModelDisplay(next, (openSimModel==next));
       }
       repaintAll();
+   }
+   
+   public double[] getDefaultMarkersColor() {
+         String markersColorStr = NbBundle.getMessage(ViewDB.class,"CTL_MarkersColorRGB");
+         markersColorStr =Preferences.userNodeForPackage(TheApp.class).get("Markers Color", markersColorStr);
+         double[] color = new double[]{1.0, 0.6, 0.8};
+         if (markersColorStr != null)
+            color = Prefs.getInstance().parseColor(markersColorStr);
+         return color;
    }
 }

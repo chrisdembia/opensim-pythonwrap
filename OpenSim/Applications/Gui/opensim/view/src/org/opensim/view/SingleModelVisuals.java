@@ -101,6 +101,8 @@ public class SingleModelVisuals {
     public SingleModelVisuals(Model aModel) {
         initDefaultShapesAndColors();
         modelDisplayAssembly = createModelAssembly(aModel);
+        //modelDisplayAssembly.DebugOn();
+        //int rc = modelDisplayAssembly.GetReferenceCount();
         setVisible(true);
     }
     /**
@@ -129,8 +131,9 @@ public class SingleModelVisuals {
         String modelFilePath = model.getFilePath();
                 
         vtkAssembly modelAssembly = new vtkAssembly();
-
+        
         // Keep track of ground body to avoid recomputation
+        defaultMarkerColor = ViewDB.getInstance().getDefaultMarkersColor();
         AbstractBody gnd = model.getDynamicsEngine().getGroundBody();
         BodySet bodies = model.getDynamicsEngine().getBodySet();
  
@@ -582,6 +585,7 @@ public class SingleModelVisuals {
        marker.SetRadius(DEFAULT_MARKER_RADIUS);
        marker.SetCenter(0., 0., 0.);
        //getMarkersRep().setColors(defaultMarkerColor, SelectedObject.defaultSelectedColor);
+       defaultMarkerColor = ViewDB.getInstance().getDefaultMarkersColor();
        getMarkersRep().setColorRange(defaultMarkerColor, defaultMarkerColor);
        getMarkersRep().setSelectedColor(SelectedObject.defaultSelectedColor);
        vtkStripper strip1 = new vtkStripper();
@@ -633,8 +637,22 @@ public class SingleModelVisuals {
     }
     // Remmove dead references to help garbage collector.
     public void cleanup() {
+        int rc = modelDisplayAssembly.GetReferenceCount();
+        vtkProp3DCollection parts = modelDisplayAssembly.GetParts();
+        for(int i=parts.GetNumberOfItems()-1; i>=0; i--){
+            modelDisplayAssembly.RemovePart(parts.GetLastProp3D());
+        }
+        userObjects.RemoveAllItems();
+        userObjects=null;
+        bodiesCollection.RemoveAllItems();
+        bodiesCollection=null;
+                
         modelDisplayAssembly=null;
         mapObject2VtkObjects=null;
         mapVtkObjects2Objects=null;
+        markersRep=null;
+        musclePointsRep=null;
+        muscleSegmentsRep=null;
+        
     }
 }
