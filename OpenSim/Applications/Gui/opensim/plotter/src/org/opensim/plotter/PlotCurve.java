@@ -110,7 +110,7 @@ public class PlotCurve {
        // Make an XYSeries to hold the data and keep a ref to it with the curve
        XYSeries curveSeries = new XYSeries(plotCurveSettings.getName(), false, true);
        setCurveSeries(curveSeries);   // user named curves
-       for (int i = startIndex;i< endIndex;i++){
+       for (int i = startIndex;i<= endIndex;i++){
            getCurveSeries().add(xArray.getitem(i),yFiltered[i-startIndex]) ;//add the computed values to the series
        }
        //getCurveSeries().setKey(stringy);  // do not overwrite users specified name
@@ -185,7 +185,7 @@ public class PlotCurve {
       double[] returnValues = new double[end-start+1];
       
       // Copy portion of interest from yArray into returnValues
-      for(int i=start; i<end; i++){
+      for(int i=start; i<=end; i++){
          returnValues[i-start]=yArray.getitem(i);
       }
       

@@ -1394,7 +1394,7 @@ public class JPlotterPanel extends javax.swing.JPanel
          statesStorage.purge();
          for(int i=0; i<NUM_STEPS; i++){
             double time = (double)i;
-            double increment = 1./NUM_STEPS*(domEnd-domStart);
+            double increment = 1./(NUM_STEPS-1)*(domEnd-domStart);
             double val=domStart+increment*i;
             //double degVal = Math.toDegrees(val);
             //System.out.println("Step="+i+", val="+degVal);
