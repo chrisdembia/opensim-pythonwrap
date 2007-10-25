@@ -96,4 +96,7 @@ public final class TheApp {
         return appImage;
     }
     
+    public static Image getApplicationIcon() {
+       return Utilities.loadImage("/org/opensim/utils/frame.gif");
+    }
 }

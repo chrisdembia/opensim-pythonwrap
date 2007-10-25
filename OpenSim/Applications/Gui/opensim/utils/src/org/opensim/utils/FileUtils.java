@@ -51,7 +51,8 @@ public final class FileUtils {
      *
      */
     static FileUtils instance=null;
-
+    static JFileChooser dlog = new JFileChooser();
+    
     // Some predefined filters
     public static FileFilter OpenSimModelFileFilter = getFileFilter(".osim", "OpenSim model");
     public static FileFilter MotionFileFilter = getFileFilter(".mot,.sto", "Motion or storage file");
@@ -162,7 +163,9 @@ public final class FileUtils {
     {
         // Init dialog to use "WorkDirectory" as thought of by user
         String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
-        final JFileChooser dlog = new JFileChooser(defaultDir);
+        //final JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setCurrentDirectory(new File(defaultDir));
+        dlog.setName("");
         if(filter!=null) dlog.setFileFilter(filter);
         
         String outFilename=null;
@@ -173,7 +176,8 @@ public final class FileUtils {
             topWindow = parent;
         
         for (;;) {
-           int result = dlog.showSaveDialog(topWindow);
+           dlog.setSelectedFile(new File(currentFilename));
+           int result = dlog.showSaveDialog(topFrame);
            outFilename = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
                 outFilename = dlog.getSelectedFile().getAbsolutePath();
@@ -195,12 +199,14 @@ public final class FileUtils {
     {
         // Init dialog to use "WorkDirectory" as thought of by user
         String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
-        final JFileChooser dlog = new JFileChooser(defaultDir);
+        //final JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setCurrentDirectory(new File(defaultDir));
         dlog.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         
         String outFilename=null;
         JFrame topFrame = TheApp.getAppFrame();
         for (;;) {
+           dlog.setSelectedFile(new File(""));
            int result = dlog.showOpenDialog(topFrame);
            outFilename = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
@@ -229,7 +235,8 @@ public final class FileUtils {
     {
         // Init dialog to use "WorkDirectory" as thought of by user
         String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
-        final JFileChooser dlog = new JFileChooser(defaultDir);
+        //JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setCurrentDirectory(new File(defaultDir));
         if(filter!=null) dlog.setFileFilter(filter);
         
         String outFilename=null;
@@ -239,7 +246,8 @@ public final class FileUtils {
         else
             topWindow = parent;
         for (;;) {
-           int result = dlog.showOpenDialog(topWindow);
+           dlog.setSelectedFile(new File(" "));
+           int result = dlog.showOpenDialog(topFrame);
            outFilename = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
                 outFilename = dlog.getSelectedFile().getAbsolutePath();
@@ -349,13 +357,15 @@ public final class FileUtils {
         String desc="SIMM model files, one .jnt file and optional one .msl file";
         // Init dialog to use "WorkDirectory" as thought of by user
         String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
-        final JFileChooser dlog = new JFileChooser(defaultDir);
+        // final JFileChooser dlog = new JFileChooser(defaultDir);
+        dlog.setCurrentDirectory(new File(defaultDir));
         dlog.setMultiSelectionEnabled(true);
         dlog.setFileFilter(getFileFilter(extensions, desc));
         
         File[] outFiles=null;
         JFrame topFrame = TheApp.getAppFrame();
         for (;;) {
+           dlog.setSelectedFile(new File(""));
            int result = dlog.showOpenDialog(topFrame);
            outFiles = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFiles() != null)

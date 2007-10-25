@@ -2,6 +2,7 @@ package org.opensim.swingui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -28,10 +29,17 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
 
    private JCheckBox checkBox = null; // Optional associated check box which enables/disables the text field
    private boolean saveMode = false;   // Whether to bring the file chooser in Open or Save mode
+   private Frame ownerFrame=null;
 
    public FileTextFieldAndChooser() {
       initComponents();
       lastFileName = fileNameTextField.getText();
+   }
+
+   public FileTextFieldAndChooser(Frame owner) {
+      initComponents();
+      lastFileName = fileNameTextField.getText();
+      setOwnerFrame(owner);
    }
 
    public void setToolTipText(String text) {
@@ -172,6 +180,14 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       if(saveMode) setCheckIfFileExists(false);
    }
 
+    public Frame getOwnerFrame() {
+        return ownerFrame;
+    }
+
+    public void setOwnerFrame(Frame ownerFrame) {
+        this.ownerFrame = ownerFrame;
+    }
+
    //------------------------------------------------------------------------
    // Event handling for the text field / button
    //------------------------------------------------------------------------
@@ -180,13 +196,13 @@ public class FileTextFieldAndChooser extends javax.swing.JPanel implements Actio
       String result =null;
      if (isSaveMode()){
          result = directoriesOnly ?
-                      FileUtils.getInstance().browseForFolder() :
-                      FileUtils.getInstance().browseForFilenameToSave(filter, true, "");
+                      FileUtils.getInstance().browseForFolder(ownerFrame) :
+                      FileUtils.getInstance().browseForFilenameToSave(filter, true, "", ownerFrame);
      }
      else
          result = directoriesOnly ?
-                      FileUtils.getInstance().browseForFolder() :
-                      FileUtils.getInstance().browseForFilename(filter);
+                      FileUtils.getInstance().browseForFolder(ownerFrame) :
+                      FileUtils.getInstance().browseForFilename(filter, ownerFrame);
       if(result != null) setFileName(result);
    }//GEN-LAST:event_browseButtonActionPerformed
 
