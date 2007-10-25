@@ -115,17 +115,21 @@ public class MotionDisplayer {
            genCoordColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
            segmentMarkerColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
            segmentForceColumns = new ArrayList<ObjectIndexPair>(numColumnsIncludingTime);
-           for (int i = 0; i< numColumnsIncludingTime; i++){
+           for (int i = 1; i< numColumnsIncludingTime; i++){
                ObjectTypesInMotionFiles cType = mapIndicesToObjectTypes.get(i);
+               Object o=mapIndicesToObjects.get(i);
+               if (cType==null)
+                  continue;
+               ObjectIndexPair newPair = new ObjectIndexPair(o,i-1);
                switch(cType){
                   case GenCoord: 
-                     genCoordColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
+                     genCoordColumns.add(newPair);
                      break;
                   case Segment_marker_p1:
-                     segmentMarkerColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
+                     segmentMarkerColumns.add(newPair);
                      break;
                   case Segment_force_p1:
-                     segmentForceColumns.add(new ObjectIndexPair(mapIndicesToObjects.get(i),i-1));
+                     segmentForceColumns.add(newPair);
                      break;
                }
             }
@@ -173,7 +177,7 @@ public class MotionDisplayer {
          }
          // GenCoord_Velocilty
          if (columnName.endsWith("_vel")){
-            if (columnName.substring(0, cName.length()-4).equals(cName))
+            if (columnName.equals(cName+"_vel"))
                mapIndicesToObjectTypes.put(columnIndex, ObjectTypesInMotionFiles.GenCoord_Velocilty);
                mapIndicesToObjects.put(columnIndex, co); 
                return 1;
