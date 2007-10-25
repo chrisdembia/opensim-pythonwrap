@@ -13,6 +13,7 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
 public final class FileCloseAction extends CallableSystemAction {
+   static boolean noGFX=false;
 
 /* Close the model. If it's locked, tell the user and abort. If it's
  * modified, ask the user to save the changes, with the option to cancel
@@ -20,6 +21,7 @@ public final class FileCloseAction extends CallableSystemAction {
  */
 public static boolean closeModel(Model model) {
    if(model==null) return true;
+
 
    SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
    
@@ -41,7 +43,7 @@ public static boolean closeModel(Model model) {
    ModelSettingsSerializer ser = ViewDB.getInstance().getModelSavedSettings(model);
    if (ser.confirmAndWrite(model)==NotifyDescriptor.CANCEL_OPTION)
       return false;
-   
+
    OpenSimDB.getInstance().removeModel(model);
    
    return true;
@@ -72,7 +74,6 @@ public static boolean closeModel(Model model) {
       super.initialize();
       // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
       putValue("noIconInMenu", Boolean.TRUE);
-      ViewDB.getInstance().registerModelCommand(this);
    }
    
    public HelpCtx getHelpCtx() {

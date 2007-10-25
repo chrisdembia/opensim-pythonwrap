@@ -43,8 +43,8 @@ public final class FileSaveAsModelAction extends CallableSystemAction {
       super.initialize();
       // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
       putValue("noIconInMenu", Boolean.TRUE);
-      setEnabled(false);
-      ViewDB.getInstance().registerModelCommand(this);
+      //setEnabled(false);
+      //ViewDB.getInstance().registerModelCommand(this);
    }
    
    public HelpCtx getHelpCtx() {

@@ -60,9 +60,6 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
         SwingUtilities.invokeLater(new Runnable(){
             public void run() {
                 OpenSimDB.getInstance().addModel(aModel);
-                // Log message to Log window. 
-                // Actually don't do it since C++ already prints this message
-                //OpenSimLogger.logMessage("Model has been created from file "+aModel.getInputFileName()+"\n", OpenSimLogger.INFO);
             }});
         retValue = true;
         return retValue;        
@@ -78,7 +75,8 @@ public class FileOpenOsimModelAction extends CallableSystemAction {
      }
      public boolean loadModel(final String fileName, boolean loadInForground) throws IOException {
         boolean retValue = false;
-        final Model aModel = new Model(fileName);
+        Model aModel=null;
+        aModel= new Model(fileName);
         if (aModel == null){
              OpenSimLogger.logMessage("Failed to construct model from file "+fileName+"\n", OpenSimLogger.ERROR);
             return retValue;

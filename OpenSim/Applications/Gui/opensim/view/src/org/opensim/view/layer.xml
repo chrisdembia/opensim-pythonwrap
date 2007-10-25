@@ -3,7 +3,6 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Edit">
-            <file name="org-opensim-view-CameraAction.instance"/>
             <file name="org-opensim-view-ModelDisplayEditAction.instance"/>
             <file name="org-opensim-view-ModelDisplayHideAction.instance"/>
             <file name="org-opensim-view-ModelDisplayShowAction.instance"/>
@@ -226,11 +225,7 @@
         </folder>
         <folder name="MIMEResolver"/>
     </folder>
-    <folder name="Shortcuts">
-        <file name="O-P.shadow">
-            <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-CameraAction.instance"/>
-        </file>
-    </folder>
+    <folder name="Shortcuts"/>
     <folder name="Templates">
         <folder name="Other"/>
     </folder>

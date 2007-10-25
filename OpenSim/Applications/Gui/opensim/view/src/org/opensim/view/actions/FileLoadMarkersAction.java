@@ -20,7 +20,7 @@ public final class FileLoadMarkersAction extends CallableSystemAction {
       super.initialize();
       // see org.openide.util.actions.SystemAction.iconResource() javadoc for more details
       putValue("noIconInMenu", Boolean.TRUE);
-      ViewDB.getInstance().registerModelCommand(this);
+      //ViewDB.getInstance().registerModelCommand(this);
    }
    
    public HelpCtx getHelpCtx() {

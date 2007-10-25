@@ -9,6 +9,7 @@ import org.openide.util.actions.Presenter;
 import org.opensim.view.nodes.IsolateCurrentModelAction;
 
 public final class ModelDisplayMenuAction extends CallableSystemAction implements Presenter.Popup {
+    static boolean noGFX=false;
     
     public boolean isEnabled() {
         return true;
@@ -34,6 +35,8 @@ public final class ModelDisplayMenuAction extends CallableSystemAction implement
 
    public JMenuItem getPopupPresenter() {
       JMenu displayMenu = new JMenu("Display");
+      if (noGFX)
+         return displayMenu;
       try {
       
          displayMenu.add(new JMenuItem(
