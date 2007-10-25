@@ -177,7 +177,7 @@ public final class FileUtils {
         
         for (;;) {
            dlog.setSelectedFile(new File(currentFilename));
-           int result = dlog.showSaveDialog(topFrame);
+           int result = dlog.showSaveDialog(topWindow);
            outFilename = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
                 outFilename = dlog.getSelectedFile().getAbsolutePath();
@@ -247,7 +247,7 @@ public final class FileUtils {
             topWindow = parent;
         for (;;) {
            dlog.setSelectedFile(new File(" "));
-           int result = dlog.showOpenDialog(topFrame);
+           int result = dlog.showOpenDialog(topWindow);
            outFilename = null;
            if (result == JFileChooser.APPROVE_OPTION && dlog.getSelectedFile() != null)
                 outFilename = dlog.getSelectedFile().getAbsolutePath();
