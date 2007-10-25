@@ -39,7 +39,7 @@ import org.opensim.view.pub.OpenSimDB;
  * Top component which displays something.
  */
 final public class ExplorerTopComponent extends TopComponent
-        implements Observer, ExplorerManager.Provider, LookupListener, Lookup.Provider{
+        implements Observer, ExplorerManager.Provider{
    
    private static final long serialVersionUID = 1L;
    
@@ -52,7 +52,6 @@ final public class ExplorerTopComponent extends TopComponent
    private final ExplorerManager manager = new ExplorerManager();
    private final BeanTreeView modelTree = new BeanTreeView();
    
-   private Lookup.Result result = null;
    private UndoRedo.Manager undoRedoManager = new UndoRedoManager();
 
    private ExplorerTopComponent() {
@@ -67,17 +66,7 @@ final public class ExplorerTopComponent extends TopComponent
       modelTree.setRootVisible(false);
       OpenSimNode root = new OpenSimNode.RootNode();
       manager.setRootContext(root);
-      
-      // The following code activates/makes available Copy/Paste/Delete
-      ActionMap map = this.getActionMap();
-      map.put(DefaultEditorKit.copyAction, ExplorerUtils.actionCopy(manager));
-      map.put(DefaultEditorKit.cutAction, ExplorerUtils.actionCut(manager));
-      map.put(DefaultEditorKit.pasteAction, ExplorerUtils.actionPaste(manager));
-      map.put("delete", ExplorerUtils.actionDelete(manager, true)); // or false
-      map.put("paste", ExplorerUtils.actionPaste(manager)); // or false
-      
-      // following line tells the top component which lookup should be associated with it
-      associateLookup(ExplorerUtils.createLookup(getExplorerManager(), map));
+       
    }
    
    BeanTreeView getTree() {
@@ -150,35 +139,12 @@ final public class ExplorerTopComponent extends TopComponent
         }
         
         public void componentOpened() {
-           Lookup.Template tpl = new Lookup.Template(ModelWindowVTKTopComponent.class);
-           result = Utilities.actionsGlobalContext().lookup(tpl);
-           result.addLookupListener(this);
            redisplay();
         }
         
         public void componentClosed() {
-           result.removeLookupListener(this);
-           result = null;
         }
-        
-        public void resultChanged(LookupEvent lookupEvent) {
-           Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
-           Collection c = r.allInstances();
-                /*
-                 if (!c.isEmpty()) {
-                 ModelWindowVTKTopComponent o = (ModelWindowVTKTopComponent) c.iterator().next();
-                 Model m = o.getModel();
-                 Node modelNode = mapModels2Nodes.get(m);
-                 if (modelNode==null)
-                 return;
-                 Node[] selectedNodes = new Node[1];
-                 selectedNodes[0] = modelNode;
-                 manager.setExploredContext(modelNode);
-                 setActivatedNodes(selectedNodes);
-                 }
-                 **/
-        }
-        
+                
         /** replaces this in object stream */
         public Object writeReplace() {
            return new ResolvableHelper();
@@ -247,6 +213,7 @@ final public class ExplorerTopComponent extends TopComponent
                           Model closingModel = evnt.getModel();
                           ConcreteModelNode modelNode = getModelNode(closingModel);
                           try {
+                             rootNode.getChildren().remove(new Node[] {modelNode});
                              if(modelNode != null) modelNode.destroy();
                              updateCurrentModelNode(null);
                           } catch (IOException ex) {
