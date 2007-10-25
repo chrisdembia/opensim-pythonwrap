@@ -54,7 +54,7 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
    Hashtable<AbstractCoordinate, CoordinateSliderWithBox> mapCoordinates2Sliders =
            new Hashtable<AbstractCoordinate, CoordinateSliderWithBox>(4);
    static final String DEFAULT_POSE_NAME="Default";
-
+   
    /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
    
@@ -320,6 +320,8 @@ final class CoordinateViewerTopComponent extends TopComponent implements Observe
       if (aModel==null){
          jModelNameLabel.setText("No Models");
          hasModel=false;
+         coords = null;    // Don't keep reference to old model's coordinates to avoid memory leak'
+         mapCoordinates2Sliders.clear();
          updateAvailability();
          return;
       }
