@@ -22,7 +22,7 @@ public class OpenSimToSIMMOptionsJPanel extends javax.swing.JPanel {
         mslfileTextFieldAndChooser.setExtensionsAndDescription(".msl", "SIMM muscle file");
         mslfileTextFieldAndChooser.setCheckIfFileExists(false);
         mslfileTextFieldAndChooser.setTreatEmptyStringAsValid(false);
-        jntfileTextFieldAndChooser.setSaveMode(true);
+        mslfileTextFieldAndChooser.setSaveMode(true);
     }
     
     /** This method is called from within the constructor to
