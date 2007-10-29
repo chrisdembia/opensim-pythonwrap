@@ -27,6 +27,10 @@ public final class FileExportSIMMModelAction extends CallableSystemAction {
                DialogDisplayer.getDefault().notify(
                     new NotifyDescriptor.Message("Models based on Simbody Engine cannot be exported to SIMM."));
                return;
+            } else if (mdl.getDynamicsEngine().getType().equalsIgnoreCase("SdfastEngine")){
+               DialogDisplayer.getDefault().notify(
+                    new NotifyDescriptor.Message("Models based on SD/FAST Engine cannot be exported to SIMM."));
+               return;
             }
             OpenSimToSIMMOptionsJPanel exportPanel = new OpenSimToSIMMOptionsJPanel();
             DialogDescriptor dlg = new DialogDescriptor(exportPanel, "Export SIMM Model");
