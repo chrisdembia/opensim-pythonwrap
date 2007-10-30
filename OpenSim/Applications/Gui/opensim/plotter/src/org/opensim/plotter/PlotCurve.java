@@ -90,6 +90,7 @@ public class PlotCurve {
       // at domain sample values (e.g. plot quantities against time coming from another storage
        ArrayDouble xArray = getDataArrayFromStorage(domainStorage, localX, true, sourcex.convertAngularUnits());
        ArrayDouble yArray = getDataArrayFromStorage(rangeStorage, localY, false, sourcey.convertAngularUnits());
+        
        int xSize = xArray.getSize();
        int ySize = yArray.getSize();
        if (xSize != ySize)
@@ -100,6 +101,7 @@ public class PlotCurve {
        // this assumes some ordering on x values so that the set of xValues plotted
        // are those at or higher than the first occurance of the value xMin
        // and less than the last occurance of the value xMax.
+       
        int startIndex=xArray.findIndex(plotCurveSettings.getXMin());
        if (startIndex ==-1) // Cut to bounds with data
            startIndex=0;
@@ -139,7 +141,7 @@ public class PlotCurve {
                  // have to do this before clamoing since clamping is done in degrees
                 if (convertAnglesToDegrees)
                     convertAnglesToDegreesIfNeeded(colNames[i], Array);
-                if (settings.isClamp())
+                if (settings.isClamp() && !isDomain)
                   clampDataArray(Array);
              }
              else { // get data into temporary array and then add it in place
@@ -148,7 +150,7 @@ public class PlotCurve {
                  if (convertAnglesToDegrees){
                     convertAnglesToDegreesIfNeeded(colNames[i], tempArray);
                  }
-                 if (settings.isClamp()){
+                 if (settings.isClamp() && !isDomain){
                    clampDataArray(tempArray);
                  }
                  for(int row=0;row<storage.getSize();row++){

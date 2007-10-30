@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -33,6 +34,7 @@ import javax.swing.KeyStroke;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.event.TreeSelectionEvent;
+import javax.swing.text.NumberFormatter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -92,6 +94,9 @@ public class JPlotterPanel extends javax.swing.JPanel
    boolean sumCurve=false;
    Dialog dFilterDlg=null;
    boolean muscleDialogUp=false;
+   NumberFormat    numberFormat=NumberFormat.getNumberInstance();
+   NumberFormatter doubleFormatter= new NumberFormatter(numberFormat);
+
    
    // Plotting from a motion or storage has obvious domain, sourceX values
    //       range names are for multiple curves or one sum curve. Single sourceY
@@ -127,24 +132,10 @@ public class JPlotterPanel extends javax.swing.JPanel
     */
    public JPlotterPanel() {
       initComponents();
-      jDomainStartTextField.setValue(0.0);
-      jDomainEndTextField.setValue(1.0);
-      jDomainStartTextField.getInputMap().put(KeyStroke.getKeyStroke(
-                                KeyEvent.VK_ENTER, 0),
-                                "check");
-      jDomainStartTextField.getActionMap().put("check", new handleReturnAction(jDomainStartTextField));
-      jDomainEndTextField.getInputMap().put(KeyStroke.getKeyStroke(
-                                KeyEvent.VK_ENTER, 0),
-                                "check");
-      jDomainEndTextField.getActionMap().put("check", new handleReturnAction(jDomainEndTextField));
-      jFormattedTextFieldYmin.getInputMap().put(KeyStroke.getKeyStroke(
-                                KeyEvent.VK_ENTER, 0),
-                                "check");
-      jFormattedTextFieldYmin.getActionMap().put("check", new handleReturnAction(jFormattedTextFieldYmin));
-      jFormattedTextFieldYmax.getInputMap().put(KeyStroke.getKeyStroke(
-                                KeyEvent.VK_ENTER, 0),
-                                "check");
-      jFormattedTextFieldYmax.getActionMap().put("check", new handleReturnAction(jFormattedTextFieldYmax));
+      jDomainStartTextField.setValue(0.0);   jDomainStartTextField.addActionListener(new handleReturnAction(jDomainStartTextField));
+      jDomainEndTextField.setValue(1.0);   jDomainEndTextField.addActionListener(new handleReturnAction(jDomainEndTextField));
+      jFormattedTextFieldYmin.setValue(-10000);   jFormattedTextFieldYmin.addActionListener(new handleReturnAction(jFormattedTextFieldYmin));
+      jFormattedTextFieldYmax.setValue(10000);   jFormattedTextFieldYmax.addActionListener(new handleReturnAction(jFormattedTextFieldYmax));
 
       jTopChartingPanel.setLayout(new BorderLayout());
       xSelector = new JPlotterQuantitySelector(jXQtyTextField, this, true);
@@ -184,11 +175,11 @@ public class JPlotterPanel extends javax.swing.JPanel
       jLabel3 = new javax.swing.JLabel();
       jRectifyCheckBox = new javax.swing.JCheckBox();
       jLabel9 = new javax.swing.JLabel();
-      jDomainStartTextField = new javax.swing.JFormattedTextField();
+      jDomainStartTextField = new JFormattedTextField(doubleFormatter);
       jLabel10 = new javax.swing.JLabel();
-      jDomainEndTextField = new javax.swing.JFormattedTextField();
-      jFormattedTextFieldYmin = new javax.swing.JFormattedTextField();
-      jFormattedTextFieldYmax = new javax.swing.JFormattedTextField();
+      jDomainEndTextField = new JFormattedTextField(doubleFormatter);
+      jFormattedTextFieldYmin = new JFormattedTextField(doubleFormatter);
+      jFormattedTextFieldYmax = new JFormattedTextField(doubleFormatter);
       jPlotTitlePanel = new javax.swing.JPanel();
       jPlotLabelJLabel = new javax.swing.JLabel();
       jPlotNameTextField = new javax.swing.JTextField();
@@ -1411,7 +1402,11 @@ public class JPlotterPanel extends javax.swing.JPanel
       }
       tool.setPrintResultFiles(false);
       analysisSource.getStorage().purge();
-      tool.run();
+      try {
+         tool.run();
+      } catch (IOException ex) {
+         ex.printStackTrace();
+      }
       analysisSource.getStorage().print("toolOutput.sto");
       currentModel.getDynamicsEngine().convertRadiansToDegrees(analysisSource.getStorage());
       currentModel.getDynamicsEngine().convertRadiansToDegrees(statesStorage);
