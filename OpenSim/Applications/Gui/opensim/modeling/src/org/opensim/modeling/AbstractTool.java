@@ -178,7 +178,19 @@ public class AbstractTool extends OpenSimObject {
     opensimModelJNI.AbstractTool_addAnalysisSetToModel(swigCPtr, this);
   }
 
-  public boolean run() {
+  public void removeAnalysisSetFromModel() {
+    opensimModelJNI.AbstractTool_removeAnalysisSetFromModel(swigCPtr, this);
+  }
+
+  public void setToolOwnsModel(boolean trueFalse) {
+    opensimModelJNI.AbstractTool_setToolOwnsModel(swigCPtr, this, trueFalse);
+  }
+
+  public boolean getToolOwnsModel() {
+    return opensimModelJNI.AbstractTool_getToolOwnsModel(swigCPtr, this);
+  }
+
+  public boolean run() throws java.io.IOException {
     return opensimModelJNI.AbstractTool_run(swigCPtr, this);
   }
 

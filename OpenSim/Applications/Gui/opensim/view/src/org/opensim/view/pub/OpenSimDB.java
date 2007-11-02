@@ -13,12 +13,10 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
 import java.util.regex.Pattern;
-import javax.swing.undo.AbstractUndoableEdit;
-import javax.swing.undo.CannotRedoException;
-import javax.swing.undo.CannotUndoException;
 import org.opensim.modeling.ActuatorSet;
 import org.opensim.modeling.CoordinateSet;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.opensimModelJNI;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.*;
 import vtk.vtkMatrix4x4;
@@ -55,12 +53,10 @@ final public class OpenSimDB extends Observable {
     public void addModel(Model aModel) {
         setupGroups(aModel);
         models.add(aModel);
+        
         setChanged();
         ModelEvent evnt = new ModelEvent(aModel, ModelEvent.Operation.Open);
-        //Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
-        //objs.add(aModel);
-        //ObjectAddedEvent evnt = new ObjectAddedEvent(this, aModel, objs);
-        notifyObservers(evnt);
+        notifyObservers(evnt); 
         setCurrentModel(aModel);
     }
 
@@ -87,6 +83,7 @@ final public class OpenSimDB extends Observable {
     public void removeModel(Model model)
     {
         models.remove(model);
+        model.cleanup();
         if (models.size()>0){
              if (model==currentModel)
                 setCurrentModel(models.get(0));
@@ -142,8 +139,7 @@ final public class OpenSimDB extends Observable {
     /**
      * Set the current model to the new one and fire an event for the change.
      */
-    public void setCurrentModel(final Model aCurrentModel, boolean logEdit) {
-        final Model saveCurrentModel=currentModel;
+    public void setCurrentModel(Model aCurrentModel, boolean logEdit) {
         currentModel = aCurrentModel;
         Vector<OpenSimObject> objs = new Vector<OpenSimObject>(1);
         objs.add(aCurrentModel);
@@ -151,6 +147,8 @@ final public class OpenSimDB extends Observable {
         setChanged();
         //ModelEvent evnt = new ModelEvent(aCurrentModel, ModelEvent.Operation.SetCurrent);
         notifyObservers(evnt);
+        objs.clear();
+        /*
         if (logEdit){
             ExplorerTopComponent.getDefault().getUndoRedoManager().addEdit(new AbstractUndoableEdit() {
                 public void undo() throws CannotUndoException {
@@ -173,8 +171,7 @@ final public class OpenSimDB extends Observable {
                     return true;
                 }
            });
-        //StatusDisplayer.getDefault().setStatusText("Current model:"+aCurrentModel.getName());
-    }
+    }*/
     }
     
     public synchronized void undo()

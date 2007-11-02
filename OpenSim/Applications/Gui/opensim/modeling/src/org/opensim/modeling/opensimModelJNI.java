@@ -655,6 +655,7 @@ public class opensimModelJNI {
   public final static native void delete_AbstractActuator(long jarg1);
   public final static native long AbstractActuator_copy__SWIG_0(long jarg1, AbstractActuator jarg1_);
   public final static native void AbstractActuator_copyPropertyValues(long jarg1, AbstractActuator jarg1_, long jarg2, AbstractActuator jarg2_);
+  public final static native void AbstractActuator_deleteActuator(long jarg1, AbstractActuator jarg1_);
   public final static native void AbstractActuator_setup(long jarg1, AbstractActuator jarg1_, long jarg2, Model jarg2_);
   public final static native void AbstractActuator_setModel(long jarg1, AbstractActuator jarg1_, long jarg2, Model jarg2_);
   public final static native long AbstractActuator_getModel(long jarg1, AbstractActuator jarg1_);
@@ -1406,7 +1407,10 @@ public class opensimModelJNI {
   public final static native void AbstractTool_updateModelActuatorsAndContactForces__SWIG_1(long jarg1, AbstractTool jarg1_, long jarg2, Model jarg2_, String jarg3, long jarg4, ActuatorSet jarg4_);
   public final static native void AbstractTool_updateModelActuatorsAndContactForces__SWIG_2(long jarg1, AbstractTool jarg1_, long jarg2, Model jarg2_, String jarg3);
   public final static native void AbstractTool_addAnalysisSetToModel(long jarg1, AbstractTool jarg1_);
-  public final static native boolean AbstractTool_run(long jarg1, AbstractTool jarg1_);
+  public final static native void AbstractTool_removeAnalysisSetFromModel(long jarg1, AbstractTool jarg1_);
+  public final static native void AbstractTool_setToolOwnsModel(long jarg1, AbstractTool jarg1_, boolean jarg2);
+  public final static native boolean AbstractTool_getToolOwnsModel(long jarg1, AbstractTool jarg1_);
+  public final static native boolean AbstractTool_run(long jarg1, AbstractTool jarg1_) throws java.io.IOException;
   public final static native void AbstractTool_printResults__SWIG_0(long jarg1, AbstractTool jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native void AbstractTool_printResults__SWIG_1(long jarg1, AbstractTool jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native void AbstractTool_printResults__SWIG_2(long jarg1, AbstractTool jarg1_, String jarg2, String jarg3);
@@ -1435,7 +1439,7 @@ public class opensimModelJNI {
   public final static native void ForwardTool_setLowpassCutoffFrequencyForLoadKinematics(long jarg1, ForwardTool jarg1_, double jarg2);
   public final static native void ForwardTool_setPrintResultFiles(long jarg1, ForwardTool jarg1_, boolean jarg2);
   public final static native long ForwardTool_getStateStorage(long jarg1, ForwardTool jarg1_);
-  public final static native boolean ForwardTool_run(long jarg1, ForwardTool jarg1_);
+  public final static native boolean ForwardTool_run(long jarg1, ForwardTool jarg1_) throws java.io.IOException;
   public final static native void ForwardTool_printResults(long jarg1, ForwardTool jarg1_);
   public final static native void ForwardTool_initializeExternalLoads__SWIG_0(long jarg1, Model jarg1_, String jarg2, String jarg3, String jarg4, String jarg5, double jarg6, long jarg7, long jarg8, long jarg9, long jarg10);
   public final static native void ForwardTool_initializeExternalLoads__SWIG_1(long jarg1, Model jarg1_, String jarg2, String jarg3, String jarg4, String jarg5, double jarg6, long jarg7, long jarg8, long jarg9);
@@ -1447,7 +1451,7 @@ public class opensimModelJNI {
   public final static native void delete_PerturbationTool(long jarg1);
   public final static native long new_PerturbationTool__SWIG_2(long jarg1, PerturbationTool jarg1_);
   public final static native long PerturbationTool_copy(long jarg1, PerturbationTool jarg1_);
-  public final static native boolean PerturbationTool_run(long jarg1, PerturbationTool jarg1_);
+  public final static native boolean PerturbationTool_run(long jarg1, PerturbationTool jarg1_) throws java.io.IOException;
   public final static native void PerturbationTool_printResults__SWIG_0(long jarg1, PerturbationTool jarg1_, String jarg2, String jarg3, double jarg4, String jarg5);
   public final static native void PerturbationTool_printResults__SWIG_1(long jarg1, PerturbationTool jarg1_, String jarg2, String jarg3, double jarg4);
   public final static native void PerturbationTool_printResults__SWIG_2(long jarg1, PerturbationTool jarg1_, String jarg2, String jarg3);
@@ -3455,7 +3459,7 @@ public class opensimModelJNI {
   public final static native long IKTool_getIKTaskSet(long jarg1, IKTool jarg1_);
   public final static native boolean IKTool_initializeTrial(long jarg1, IKTool jarg1_, int jarg2);
   public final static native boolean IKTool_solveTrial(long jarg1, IKTool jarg1_, int jarg2);
-  public final static native boolean IKTool_run(long jarg1, IKTool jarg1_);
+  public final static native boolean IKTool_run(long jarg1, IKTool jarg1_) throws java.io.IOException;
   public final static native void IKTool_setPrintResultFiles(long jarg1, IKTool jarg1_, boolean jarg2);
   public final static native boolean MarkerPair_isKindOf(String jarg1);
   public final static native boolean MarkerPair_isA(long jarg1, MarkerPair jarg1_, String jarg2);
@@ -3704,7 +3708,7 @@ public class opensimModelJNI {
   public final static native void CMCTool_setExternalLoadsBody2(long jarg1, CMCTool jarg1_, String jarg2);
   public final static native double CMCTool_getLowpassCutoffFrequencyForLoadKinematics(long jarg1, CMCTool jarg1_);
   public final static native void CMCTool_setLowpassCutoffFrequencyForLoadKinematics(long jarg1, CMCTool jarg1_, double jarg2);
-  public final static native boolean CMCTool_run(long jarg1, CMCTool jarg1_);
+  public final static native boolean CMCTool_run(long jarg1, CMCTool jarg1_) throws java.io.IOException;
   public final static native long CMCTool_getForceStorage(long jarg1, CMCTool jarg1_);
   public final static native long CMCTool_getStateStorage(long jarg1, CMCTool jarg1_);
   public final static native void CMCTool_setOriginalActuatorSet(long jarg1, CMCTool jarg1_, long jarg2, ActuatorSet jarg2_);
@@ -3774,7 +3778,7 @@ public class opensimModelJNI {
   public final static native void AnalyzeTool_verifyControlsStatesPseudoStates(long jarg1, AnalyzeTool jarg1_);
   public final static native double AnalyzeTool_getControlsStatesPseudoStates(long jarg1, AnalyzeTool jarg1_, int jarg2, long jarg3, ArrayDouble jarg3_, long jarg4, ArrayDouble jarg4_, long jarg5, ArrayDouble jarg5_);
   public final static native void AnalyzeTool_setPrintResultFiles(long jarg1, AnalyzeTool jarg1_, boolean jarg2);
-  public final static native boolean AnalyzeTool_run__SWIG_0(long jarg1, AnalyzeTool jarg1_);
+  public final static native boolean AnalyzeTool_run__SWIG_0(long jarg1, AnalyzeTool jarg1_) throws java.io.IOException;
   public final static native void AnalyzeTool_run__SWIG_1(long jarg1, Model jarg1_, int jarg2, int jarg3, long jarg4, Storage jarg4_, long jarg5, Storage jarg5_, long jarg6, ControlSet jarg6_, boolean jarg7);
   public final static native long SWIGPropertyStrUpcast(long jarg1);
   public final static native long SWIGObjectGroupUpcast(long jarg1);

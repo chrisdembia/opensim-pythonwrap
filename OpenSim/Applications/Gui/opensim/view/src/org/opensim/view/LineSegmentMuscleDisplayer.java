@@ -92,6 +92,7 @@ public class LineSegmentMuscleDisplayer {
          //System.out.println("MAP "+as.get(i)+" -- "+MusclePoint.getCPtr(as.get(i))+" to index "+musclePointGlyphIds.get(i));
          //System.out.println("VERIFY: "+musclePointsRep.getPointId(as.get(i)));
       }
+      as=null; // Make sure we don't keep stale pointers'
       // if we've shrunk in size, remove references to non-existent objects from stale id's
       for(int i=newPointsSize; i<musclePointGlyphIds.size(); i++)
          musclePointsRep.setObjectAtPointId(musclePointGlyphIds.get(i), null);

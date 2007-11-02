@@ -95,7 +95,6 @@ public final class ViewDB extends Observable implements Observer {
    // Window currently designated as current.
    private static ModelWindowVTKTopComponent currentModelWindow=null;
    
-   static ArrayList<CallableSystemAction> modelCommands = new ArrayList<CallableSystemAction>(10);
    // Flag indicating whether new models are open in a new window or in the same window
    static boolean openModelInNewWindow=true;
    
@@ -108,6 +107,7 @@ public final class ViewDB extends Observable implements Observer {
    private boolean dragging = false;
    private double draggingZ = 0.0;
    private double nonCurrentModelOpacity = 0.4;
+   
    
    /** Creates a new instance of ViewDB */
    private ViewDB() {
@@ -140,24 +140,6 @@ public final class ViewDB extends Observable implements Observer {
    }
    
    /**
-    * Model Commands are UI commands that are valid or should be enabled only
-    * when at least one model is loaded in the application.
-    * Events that change the number of models (e.g. open/close/...) should call
-    * updateCommandsVisibility afterwards to update the enable/disable state of commands
-    * by calling the setEnabled method.
-    */
-   public static void registerModelCommand(CallableSystemAction newCommand) {
-      modelCommands.add(newCommand);
-   }
-   
-   public static void updateCommandsVisibility() {
-      boolean enable =  (OpenSimDB.getInstance().getNumModels())>0;
-      Iterator<CallableSystemAction> iter = modelCommands.iterator();
-      while (iter.hasNext()){
-         iter.next().setEnabled(enable);
-      }
-   }
-   /**
     * update Method is called whenever a model is added, removed and/or moved in the GUI
     * Observable should be of type OpenSimDB.
     */
@@ -168,16 +150,17 @@ public final class ViewDB extends Observable implements Observer {
             Vector<OpenSimObject> objs = ev.getObjects();
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
-                  createNewViewWindowIfNeeded();
                   // Create visuals for the model
                   Model model = (Model)objs.get(i);
-                  SingleModelVisuals newModelVisual = new SingleModelVisuals(model);
                   SingleModelGuiElements newModelGuiElements = new SingleModelGuiElements(model);
-                  processSavedSettings(model);
+                  processSavedSettings(model);                  
+                  mapModelsToGuiElements.put(model, newModelGuiElements);
+                  
+                  createNewViewWindowIfNeeded();
+                  SingleModelVisuals newModelVisual = new SingleModelVisuals(model);
                   // add to map from models to modelVisuals so that it's accesisble
                   // thru tree picks
                   mapModelsToVisuals.put(model, newModelVisual);
-                  mapModelsToGuiElements.put(model, newModelGuiElements);
                   //From here on we're adding things to display so we better lock'
 
                   if (sceneAssembly==null){
@@ -212,6 +195,7 @@ public final class ViewDB extends Observable implements Observer {
                }
             }
          } else if (arg instanceof ObjectSetCurrentEvent) {
+
             // Current model has changed. For view purposes this affects available commands
             // Changes in the Tree view are handled by the Explorer View. Because only
             // objects in the current model can be selected and manipulated, clear all
@@ -222,7 +206,6 @@ public final class ViewDB extends Observable implements Observer {
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
                   Model currentModel = (Model)objs.get(i);
-                  updateCommandsVisibility();
                   // Apply opacity to other models
                   Enumeration<Model> models=mapModelsToVisuals.keys();
                   while(models.hasMoreElements()){
@@ -240,7 +223,8 @@ public final class ViewDB extends Observable implements Observer {
                   break;
                }
             }
-         } else if (arg instanceof ObjectsDeletedEvent) {
+         } else if (arg instanceof ObjectsDeletedEvent ) {
+
             ObjectsDeletedEvent ev = (ObjectsDeletedEvent)arg;
             Vector<OpenSimObject> objs = ev.getObjects();
             for (int i=0; i<objs.size(); i++) {
@@ -251,22 +235,24 @@ public final class ViewDB extends Observable implements Observer {
                   removeObjectsBelongingToMuscleFromSelection((AbstractMuscle)objs.get(i));
                }
             }
-         } else if (arg instanceof ModelEvent) {
+         } else if (arg instanceof ModelEvent ) {
             ModelEvent ev = (ModelEvent)arg;
             // We need to detect if this the first time anything is loaded into the app
             // (or new project) if so we'll open a window, otherwise we will
             // display the new Model in existing views
             if (ev.getOperation()==ModelEvent.Operation.Open){
-               createNewViewWindowIfNeeded();
-               // Create visuals for the model
                Model model = ev.getModel();
-               SingleModelVisuals newModelVisual = new SingleModelVisuals(model);
                SingleModelGuiElements newModelGuiElements = new SingleModelGuiElements(model);
                processSavedSettings(model);
+               mapModelsToGuiElements.put(model, newModelGuiElements);
+
+               
+               createNewViewWindowIfNeeded();
+               // Create visuals for the model
+               SingleModelVisuals newModelVisual = new SingleModelVisuals(model);
                // add to map from models to modelVisuals so that it's accesisble
                // thru tree picks
                mapModelsToVisuals.put(model, newModelVisual);
-               mapModelsToGuiElements.put(model, newModelGuiElements);
                modelOpacities.put(model, 1.0);
                //From here on we're adding things to display so we better lock'
                
@@ -304,6 +290,9 @@ public final class ViewDB extends Observable implements Observer {
             }
             else if (ev.getOperation()==ModelEvent.Operation.Close){
                Model dModel = ev.getModel();
+               mapModelsToGuiElements.remove(dModel);
+               mapModelsToSettings.remove(dModel);
+
                // Remove model-associated objects from selection list!
                removeObjectsBelongingToModelFromSelection(dModel);
                SingleModelVisuals visModel = mapModelsToVisuals.get(dModel);
@@ -314,19 +303,15 @@ public final class ViewDB extends Observable implements Observer {
                // Remove from lists
                modelVisuals.remove(visModel);
                mapModelsToVisuals.remove(dModel);
-               mapModelsToGuiElements.remove(dModel);
-               mapModelsToSettings.remove(dModel);
                modelOpacities.remove(dModel);
                //rc = visModel.getModelDisplayAssembly().GetReferenceCount();
                visModel.cleanup();
                
-               //StatusDisplayer.getDefault().setStatusText("mapModelsToVisuals size="+mapModelsToVisuals.size());
-               updateCommandsVisibility();
             }
             // Current model has changed. For view purposes this affects available commands
             // Changes in the Tree view are handled by the Explorer View
             else if (ev.getOperation()==ModelEvent.Operation.SetCurrent) {
-               updateCommandsVisibility();
+
                // Apply opacity to other models
                Enumeration<Model> models=mapModelsToVisuals.keys();
                while(models.hasMoreElements()){
@@ -347,6 +332,7 @@ public final class ViewDB extends Observable implements Observer {
             }
            
          } else if (arg instanceof NameChangedEvent){
+
             NameChangedEvent ev = (NameChangedEvent)arg;
             repaintAll();
          }

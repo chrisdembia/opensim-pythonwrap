@@ -25,6 +25,7 @@
  */
 package org.opensim.utils;
 import java.awt.Component;
+import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -197,6 +198,11 @@ public final class FileUtils {
 
     public String browseForFolder()
     {
+       return browseForFolder(null);
+    }
+    
+    public String browseForFolder(Frame parent)
+    {
         // Init dialog to use "WorkDirectory" as thought of by user
         String defaultDir = Preferences.userNodeForPackage(TheApp.class).get("WorkDirectory", "");
         //final JFileChooser dlog = new JFileChooser(defaultDir);
@@ -204,7 +210,7 @@ public final class FileUtils {
         dlog.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         
         String outFilename=null;
-        JFrame topFrame = TheApp.getAppFrame();
+        Frame topFrame = (parent==null)?TheApp.getAppFrame():parent;
         for (;;) {
            dlog.setSelectedFile(new File(""));
            int result = dlog.showOpenDialog(topFrame);

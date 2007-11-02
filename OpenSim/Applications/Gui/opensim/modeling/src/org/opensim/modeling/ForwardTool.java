@@ -127,7 +127,7 @@ public class ForwardTool extends AbstractTool {
     return (cPtr == 0) ? null : new Storage(cPtr, false);
   }
 
-  public boolean run() {
+  public boolean run() throws java.io.IOException {
     return opensimModelJNI.ForwardTool_run(swigCPtr, this);
   }
 

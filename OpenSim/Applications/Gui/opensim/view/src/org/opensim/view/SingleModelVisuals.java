@@ -218,7 +218,7 @@ public class SingleModelVisuals {
 
       // Mapper
       vtkPolyDataMapper bodyMapper = new vtkPolyDataMapper();
-      bodyMapper.SetInput(bodyPolyData.GetOutput());
+      bodyMapper.SetInput(bodyPolyData.GetOutput());  bodyPolyData=null;
       bodyRep.SetMapper(bodyMapper);
 
       // Scale
@@ -350,6 +350,7 @@ public class SingleModelVisuals {
           getMuscleSegmentsRep().setModified();
           getMusclePointsRep().setModified();
        }
+       muscle=null;
     }
 
    private void updateActuatorsGeometry(ActuatorSet acts) {

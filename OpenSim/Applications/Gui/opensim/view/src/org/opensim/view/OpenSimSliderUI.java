@@ -14,7 +14,7 @@ import java.awt.*;
 
 import javax.swing.plaf.*;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicGraphicsUtils;
+import org.openide.util.Utilities;
 
 /**
  *
@@ -22,7 +22,13 @@ import javax.swing.plaf.basic.BasicGraphicsUtils;
  */
 public class OpenSimSliderUI extends WindowsSliderUI 
 {
-    
+    // use static class members to avoid reloading/creation of image for every slider in the system. -Ayman
+    //
+    static Image  sliderKnobArrowImg = Utilities.loadImage("org/opensim/view/sliderKnobArrow.png");
+    static Image sliderKnobImg=Utilities.loadImage("org/opensim/view/sliderKnob.png");
+    static Image sliderKnobArrow_disabledImg=Utilities.loadImage("org/opensim/view/sliderKnobArrow_disabled.png");
+    static Image sliderKnob_disabledImg=Utilities.loadImage("org/opensim/view/sliderKnob_disabled.png");
+
     public OpenSimSliderUI(JSlider b){
 	super(b);
     }
@@ -87,18 +93,18 @@ public class OpenSimSliderUI extends WindowsSliderUI
 
             if (slider.isEnabled()) {
                 if (slider.getPaintTicks()) {
-                    sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/opensim/view/sliderKnobArrow.png"));
+                    sliderKnob = sliderKnobArrowImg;
                 }
                 else {
-                    sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/opensim/view/sliderKnob.png"));
+                    sliderKnob = sliderKnobImg;
                 }
             }
             else {
                 if (slider.getPaintTicks()) {
-                    sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/opensim/view/sliderKnobArrow_disabled.png"));
+                    sliderKnob = sliderKnobArrow_disabledImg;
                 }
                 else {
-                    sliderKnob = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/opensim/view/sliderKnob_disabled.png"));
+                    sliderKnob = sliderKnob_disabledImg;
                 }
             }
 

@@ -12944,6 +12944,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuat
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuator_1deleteActuator(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::AbstractActuator *arg1 = (OpenSim::AbstractActuator *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractActuator **)&jarg1; 
+  OpenSim::AbstractActuator::deleteActuator(arg1);
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuator_1setup(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   OpenSim::AbstractActuator *arg1 = (OpenSim::AbstractActuator *) 0 ;
   OpenSim::Model *arg2 = (OpenSim::Model *) 0 ;
@@ -26645,6 +26656,45 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractTool_1
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractTool_1removeAnalysisSetFromModel(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::AbstractTool *arg1 = (OpenSim::AbstractTool *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractTool **)&jarg1; 
+  (arg1)->removeAnalysisSetFromModel();
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractTool_1setToolOwnsModel(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  OpenSim::AbstractTool *arg1 = (OpenSim::AbstractTool *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractTool **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setToolOwnsModel(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractTool_1getToolOwnsModel(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  OpenSim::AbstractTool *arg1 = (OpenSim::AbstractTool *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::AbstractTool **)&jarg1; 
+  result = (bool)((OpenSim::AbstractTool const *)arg1)->getToolOwnsModel();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractTool_1run(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jboolean jresult = 0 ;
   OpenSim::AbstractTool *arg1 = (OpenSim::AbstractTool *) 0 ;
@@ -26654,7 +26704,18 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractTo
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractTool **)&jarg1; 
-  result = (bool)(arg1)->run();
+  try {
+    result = (bool)(arg1)->run();
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return 0;
+    }
+  }
+  
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -27240,7 +27301,18 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ForwardToo
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ForwardTool **)&jarg1; 
-  result = (bool)(arg1)->run();
+  try {
+    result = (bool)(arg1)->run();
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return 0;
+    }
+  }
+  
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -27630,7 +27702,18 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Perturbati
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::PerturbationTool **)&jarg1; 
-  result = (bool)(arg1)->run();
+  try {
+    result = (bool)(arg1)->run();
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return 0;
+    }
+  }
+  
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -64951,7 +65034,18 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_IKTool_1ru
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::IKTool **)&jarg1; 
-  result = (bool)(arg1)->run();
+  try {
+    result = (bool)(arg1)->run();
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return 0;
+    }
+  }
+  
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -69496,7 +69590,18 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_CMCTool_1r
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::CMCTool **)&jarg1; 
-  result = (bool)(arg1)->run();
+  try {
+    result = (bool)(arg1)->run();
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return 0;
+    }
+  }
+  
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -70738,7 +70843,18 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AnalyzeToo
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AnalyzeTool **)&jarg1; 
-  result = (bool)(arg1)->run();
+  try {
+    result = (bool)(arg1)->run();
+  }
+  catch(OpenSim::Exception &_e) {
+    {
+      jclass excep = jenv->FindClass("java/io/IOException");
+      if (excep)
+      jenv->ThrowNew(excep, (_e).getMessage());
+      return 0;
+    }
+  }
+  
   jresult = (jboolean)result; 
   return jresult;
 }

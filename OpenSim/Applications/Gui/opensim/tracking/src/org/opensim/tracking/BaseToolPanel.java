@@ -32,7 +32,7 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
    protected JButton applyButton = new JButton("Run");
    protected JButton okButton = new JButton("Close");
    protected JButton cancelButton = new JButton("Cancel");
-   protected JFrame ownerDialog = null;
+   protected Dialog ownerDialog = null;
 
    //------------------------------------------------------------------------
    // Load/Save Settings Actions
@@ -89,7 +89,7 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
       return new JButton[]{settingsButton, applyButton, okButton, cancelButton};
    }
 
-   public void setOwner(JFrame window) { ownerDialog = window; }
+   public void setOwner(Dialog window) { ownerDialog = window; }
 
    public void updateApplyButton(boolean applyEnabled) {
       applyButton.setEnabled(applyEnabled);
@@ -112,13 +112,16 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
    // Helper function to create dialog
    //------------------------------------------------------------------------
    public static void openToolDialog(BaseToolPanel panel, String name) {
-      //DialogDescriptor dlg = new DialogDescriptor(panel, name, false, panel);
-      //dlg.setOptions(panel.getDialogOptions());
-      //Dialog dialog = DialogDisplayer.getDefault().createDialog(dlg);
-      JFrame toolFrame = DialogUtils.createFrameForPanel(panel, name);
-      DialogUtils.addButtons(toolFrame, (JButton[]) panel.getDialogOptions(), panel);
-      panel.setOwner(toolFrame);
-      toolFrame.setVisible(true);      
-      toolFrame.requestFocus();
+      DialogDescriptor dlg = new DialogDescriptor(panel, name, false, panel);
+      dlg.setOptions(panel.getDialogOptions());
+      Dialog dialog = DialogDisplayer.getDefault().createDialog(dlg);
+      panel.setOwner(dialog);
+      dialog.setVisible(true);      
+      dialog.requestFocus();      
+      //JFrame toolFrame = DialogUtils.createFrameForPanel(panel, name);
+      //DialogUtils.addButtons(toolFrame, (JButton[]) panel.getDialogOptions(), panel);
+      //panel.setOwner(toolFrame);
+      //toolFrame.setVisible(true);      
+      dialog.requestFocus();
    }
 }

@@ -25,6 +25,7 @@
  */
 package org.opensim.view.base;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -191,7 +192,6 @@ public class OpenSimBaseCanvas extends vtkPanel
         currentCamera.SetViewUp(selectedCamera.GetViewUp());
         currentCamera.SetParallelScale(selectedCamera.GetParallelScale());
     }
-
 
    //========================================================================
    // Methods for new (animatable) Camera class

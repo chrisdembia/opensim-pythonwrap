@@ -442,8 +442,10 @@
         </Component>
         <Component class="javax.swing.JButton" name="cameraEditorButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="C"/>
-            <Property name="toolTipText" type="java.lang.String" value="+Z view"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/org/opensim/view/cameraDolly.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Camera Dolly"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -464,13 +466,13 @@
               <Image iconType="3" name="/org/opensim/view/leftView_axes_selected.png"/>
             </Property>
             <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/leftView_axes_rollover.png"/>
+              <Image iconType="3" name="/org/opensim/view/cameraDolly_rollover.png"/>
             </Property>
             <Property name="rolloverSelectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/leftView_axes_rollover_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/cameraDolly_rollover_selected.png"/>
             </Property>
             <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/org/opensim/view/leftView_axes_selected.png"/>
+              <Image iconType="3" name="/org/opensim/view/cameraDolly_selected.png"/>
             </Property>
           </Properties>
           <Events>

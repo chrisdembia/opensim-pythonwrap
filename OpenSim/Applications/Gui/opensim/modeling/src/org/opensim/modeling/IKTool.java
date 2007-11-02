@@ -74,7 +74,7 @@ public class IKTool extends AbstractTool {
     return opensimModelJNI.IKTool_solveTrial(swigCPtr, this, i);
   }
 
-  public boolean run() {
+  public boolean run() throws java.io.IOException {
     return opensimModelJNI.IKTool_run(swigCPtr, this);
   }
 
