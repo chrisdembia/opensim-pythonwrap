@@ -1,0 +1,27 @@
+SET(KIT MyModel)
+
+SET(OpenSim_SOURCE_DIR "" CACHE PATH "OpenSim Source Location")
+SET(XERCES_SRC_INCLUDE ${OpenSim_SOURCE_DIR}/Vendors/xerces-c-src_2_7_0/src CACHE PATH "Xerces src Include Files")
+SET(OpenSim_LIB_DIR "" CACHE PATH "OpenSim libraries location")
+
+FILE(GLOB SOURCE_FILES *.cpp *.c ${OpenSim_SOURCE_DIR}/OpenSim/DynamicsEngines/SdfastEngine/SIMMPipeline/*.cpp)
+FILE(GLOB INCLUDE_FILES *.h)
+
+INCLUDE_DIRECTORIES(${OpenSim_SOURCE_DIR} ${XERCES_SRC_INCLUDE} ${OpenSim_SOURCE_DIR}/OpenSim/DynamicsEngines/SdfastEngine/SIMMPipeline)
+
+LINK_LIBRARIES(
+    debug osimCommon_d optimized osimCommon
+	debug osimSimulation_d optimized osimSimulation
+	debug osimSdfastEngine_d optimized osimSdfastEngine)
+
+LINK_DIRECTORIES(${OpenSim_LIB_DIR})
+
+ADD_LIBRARY(${KIT} SHARED ${SOURCE_FILES} ${INCLUDE_FILES}) 
+
+SET_TARGET_PROPERTIES(${KIT} PROPERTIES PROJECT_LABEL "Models - MyModel")
+
+SET_TARGET_PROPERTIES(${KIT} PROPERTIES
+	LINK_FLAGS "/DEF:${OpenSim_SOURCE_DIR}/OpenSim/DynamicsEngines/SdfastEngine/SIMMPipeline/SdfastModelDLL.def"
+)
+
+
