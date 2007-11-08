@@ -2713,7 +2713,7 @@ public class opensimModelJNI {
   public final static native double AbstractDynamicsEngine_getNetAppliedGeneralizedForce(long jarg1, AbstractDynamicsEngine jarg1_, long jarg2, AbstractCoordinate jarg2_);
   public final static native void AbstractDynamicsEngine_computeGeneralizedForces(long jarg1, AbstractDynamicsEngine jarg1_, double[] jarg2, double[] jarg3);
   public final static native void AbstractDynamicsEngine_computeReactions(long jarg1, AbstractDynamicsEngine jarg1_, long jarg2, long jarg3);
-  public final static native void AbstractDynamicsEngine_computeConstrainedCoordinates(long jarg1, AbstractDynamicsEngine jarg1_, long jarg2);
+  public final static native void AbstractDynamicsEngine_computeConstrainedCoordinates(long jarg1, AbstractDynamicsEngine jarg1_, double[] jarg2);
   public final static native void AbstractDynamicsEngine_formCompleteStorages(long jarg1, AbstractDynamicsEngine jarg1_, long jarg2, Storage jarg2_, long jarg3, long jarg4);
   public final static native void AbstractDynamicsEngine_formMassMatrix(long jarg1, AbstractDynamicsEngine jarg1_, long jarg2);
   public final static native void AbstractDynamicsEngine_formEulerTransform(long jarg1, AbstractDynamicsEngine jarg1_, long jarg2, AbstractBody jarg2_, long jarg3);
@@ -2836,7 +2836,7 @@ public class opensimModelJNI {
   public final static native void SimmKinematicsEngine_convertDirectionCosinesToQuaternions__SWIG_1(long jarg1, SimmKinematicsEngine jarg1_, long jarg2, long jarg3, long jarg4, long jarg5, long jarg6);
   public final static native void SimmKinematicsEngine_convertQuaternionsToDirectionCosines__SWIG_0(long jarg1, SimmKinematicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
   public final static native void SimmKinematicsEngine_convertQuaternionsToDirectionCosines__SWIG_1(long jarg1, SimmKinematicsEngine jarg1_, double jarg2, double jarg3, double jarg4, double jarg5, long jarg6);
-  public final static native void SimmKinematicsEngine_computeConstrainedCoordinates(long jarg1, SimmKinematicsEngine jarg1_, long jarg2);
+  public final static native void SimmKinematicsEngine_computeConstrainedCoordinates(long jarg1, SimmKinematicsEngine jarg1_, double[] jarg2);
   public final static native long new_MusclePoint__SWIG_0();
   public final static native long new_MusclePoint__SWIG_1(long jarg1, MusclePoint jarg1_);
   public final static native void delete_MusclePoint(long jarg1);
