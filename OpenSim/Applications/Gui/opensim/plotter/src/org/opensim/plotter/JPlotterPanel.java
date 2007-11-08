@@ -1391,7 +1391,8 @@ public class JPlotterPanel extends javax.swing.JPanel
             //System.out.println("Step="+i+", val="+degVal);
             statesForAnalysis[xIndex]=val;
             StateVector newVector = new StateVector();
-            newVector.setStates(time, numStates, statesForAnalysis);
+            currentModel.getDynamicsEngine().computeConstrainedCoordinates(statesForAnalysis);
+            newVector.setStates(time, numStates, statesForAnalysis);            
             statesStorage.append(newVector);
          }
          tool.setStatesStorage(statesStorage);
@@ -1926,6 +1927,7 @@ public class JPlotterPanel extends javax.swing.JPanel
             if (activationColumns.get(j) && overrideActivation)
                buffer[j]=newActivation;
          }
+         currentModel.getDynamicsEngine().computeConstrainedCoordinates(buffer);
          outputStateVector.setStates(statesFromMotion.getTime(), numStates, buffer);
          outputStorage.append(outputStateVector);
       }

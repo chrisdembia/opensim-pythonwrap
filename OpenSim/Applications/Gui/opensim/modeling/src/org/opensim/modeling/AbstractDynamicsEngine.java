@@ -323,8 +323,8 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_computeReactions(swigCPtr, this, SWIGTYPE_p_a_3__double.getCPtr(rForces), SWIGTYPE_p_a_3__double.getCPtr(rTorques));
   }
 
-  public void computeConstrainedCoordinates(SWIGTYPE_p_double rQ) {
-    opensimModelJNI.AbstractDynamicsEngine_computeConstrainedCoordinates(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rQ));
+  public void computeConstrainedCoordinates(double[] rQ) {
+    opensimModelJNI.AbstractDynamicsEngine_computeConstrainedCoordinates(swigCPtr, this, rQ);
   }
 
   public void formCompleteStorages(Storage aQIn, Storage rQComplete, Storage rUComplete) {

@@ -384,8 +384,8 @@ public class SimmKinematicsEngine extends AbstractDynamicsEngine {
     opensimModelJNI.SimmKinematicsEngine_convertQuaternionsToDirectionCosines__SWIG_1(swigCPtr, this, aQ1, aQ2, aQ3, aQ4, SWIGTYPE_p_double.getCPtr(rDirCos));
   }
 
-  public void computeConstrainedCoordinates(SWIGTYPE_p_double rQ) {
-    opensimModelJNI.SimmKinematicsEngine_computeConstrainedCoordinates(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rQ));
+  public void computeConstrainedCoordinates(double[] rQ) {
+    opensimModelJNI.SimmKinematicsEngine_computeConstrainedCoordinates(swigCPtr, this, rQ);
   }
 
 }
