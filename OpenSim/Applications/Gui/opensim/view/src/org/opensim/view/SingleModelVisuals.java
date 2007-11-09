@@ -503,7 +503,8 @@ public class SingleModelVisuals {
          if(prop==null) break;
          if(prop.GetVisibility()!=0) bounds = ViewDB.boundsUnion(bounds, prop.GetBounds());
       }
-      transformModelToWorldBounds(bounds);
+      if (bounds!=null)
+         transformModelToWorldBounds(bounds);
       return bounds;
    }
 
