@@ -64,7 +64,8 @@ public class MotionDisplayer {
     OpenSimvtkGlyphCloud  markersRep=new OpenSimvtkGlyphCloud(false);
     private Storage simmMotionData;
     private Model model;
-
+    private double[] statesBuffer;
+    
     public class ObjectIndexPair {
        public Object object;
        public int stateVectorIndex; // Actual (0-based) index into state vector
@@ -134,6 +135,8 @@ public class MotionDisplayer {
                }
             }
         }
+        // create a buffer to be used for comuptation of constrained states
+        statesBuffer = new double[model.getNumStates()];
     }
 
     private void AddMotionObjectsRep(final Model model) {
@@ -304,7 +307,11 @@ public class MotionDisplayer {
                coord.setValue(states.getitem(index));
             }
          }
-
+         // update states to make sure constraints are valid
+         model.getStates(statesBuffer);
+         model.getDynamicsEngine().computeConstrainedCoordinates(statesBuffer);
+         model.setStates(statesBuffer);
+         
          for(int i=0; i<segmentMarkerColumns.size(); i++) {
             int markerIndex = ((Integer)(segmentMarkerColumns.get(i).object)).intValue();
             int index = segmentMarkerColumns.get(i).stateVectorIndex;
