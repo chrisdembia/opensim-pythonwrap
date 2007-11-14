@@ -864,5 +864,10 @@ public class ScaleToolPanel extends BaseToolPanel implements Observer {
    private javax.swing.JTextField unscaledModelMassTextField;
    private javax.swing.JTextField unscaledModelNameTextField;
    // End of variables declaration//GEN-END:variables
+   // Relinquish C++ resources by setting references to them to null
+   public void cleanup()
+   {
+      scaleToolModel.cleanup();
+   }
    
 }

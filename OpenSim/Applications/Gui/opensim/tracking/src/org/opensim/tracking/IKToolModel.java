@@ -142,6 +142,7 @@ public class IKToolModel extends Observable implements Observer {
    private Storage motion = null;
    private boolean executing = false;
    private String trialName = "ik trial";
+   private boolean cleanupAfterExecuting = false;  // Keep track if cleaning up needs to be done on execution finish vs. dialog close
 
    public IKToolModel(Model originalModel) throws IOException {
       // Store original model
@@ -313,5 +314,17 @@ public class IKToolModel extends Observable implements Observer {
       updateIKTool();
       ikTool.print(fileName);
       return true;
+   }
+   
+   void cleanup() {
+      if (isExecuting()){
+         cleanupAfterExecuting = true;
+      }
+      else{
+         ikCommonModel.deleteObservers();
+         ikCommonModel=null;
+         ikTool = null;
+         System.gc();
+      }
    }
 }

@@ -7,21 +7,20 @@
 package org.opensim.tracking;
 
 import java.awt.Dialog;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileFilter;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
-import org.opensim.utils.DialogUtils;
 import org.opensim.utils.FileUtils;
 
 public abstract class BaseToolPanel extends JPanel implements ActionListener {
@@ -33,6 +32,7 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
    protected JButton okButton = new JButton("Close");
    protected JButton cancelButton = new JButton("Cancel");
    protected Dialog ownerDialog = null;
+   protected boolean cleanupAfterExecuting = false;  // Keep track if cleaning up needs to be done on execution finish vs. dialog close
 
    //------------------------------------------------------------------------
    // Load/Save Settings Actions
@@ -111,7 +111,7 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
    //------------------------------------------------------------------------
    // Helper function to create dialog
    //------------------------------------------------------------------------
-   public static void openToolDialog(BaseToolPanel panel, String name) {
+   public static void openToolDialog(final BaseToolPanel panel, String name) {
       DialogDescriptor dlg = new DialogDescriptor(panel, name, false, panel);
       dlg.setOptions(panel.getDialogOptions());
       Dialog dialog = DialogDisplayer.getDefault().createDialog(dlg);
@@ -123,5 +123,24 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
       //panel.setOwner(toolFrame);
       //toolFrame.setVisible(true);      
       dialog.requestFocus();
+      dialog.addWindowListener(new WindowAdapter(){
+         public void windowClosed(WindowEvent e) {
+            super.windowClosed(e);
+            panel.cleanup();
+         }
+
+         public void windowClosing(WindowEvent e) {
+            super.windowClosing(e);
+            panel.cleanup();
+         }
+      });
+   }
+   // Relinquish C++ resources by setting references to them to null
+   public void cleanup()
+   {
+      // If tool is still running don't do any cleanup until the tool is done otherwise cleanup now
+      // by freeing C++ allocated resources.
+      
+
    }
 }

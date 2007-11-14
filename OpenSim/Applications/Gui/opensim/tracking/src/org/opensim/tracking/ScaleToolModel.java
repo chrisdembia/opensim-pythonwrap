@@ -335,7 +335,8 @@ public class ScaleToolModel extends Observable implements Observer {
          }
 
          setExecuting(false);
-
+         if (cleanupAfterExecuting)
+            cleanup();
          processedModel = null;
          worker = null;
       }
@@ -370,6 +371,7 @@ public class ScaleToolModel extends Observable implements Observer {
    
    private IKCommonModel ikCommonModel; // Stores marker placer stuff that's also common to IKTool
    private boolean executing = false;
+   private boolean cleanupAfterExecuting = false;  // Keep track if cleaning up needs to be done on execution finish vs. dialog close
 
    public ScaleToolModel(Model originalModel) throws IOException {
       // Store original model; create copy of the original model as our unscaled model (i.e. the model we'll scale)
@@ -934,5 +936,18 @@ public class ScaleToolModel extends Observable implements Observer {
       for(int i=0; i<bodySet.getSize(); i++)
          mass += bodySet.get(i).getMass();
       return mass;
+   }
+   // Release C++ resources on exit (either dialog closing or execution finish whichever is later
+   void cleanup() {
+      if (isExecuting()){
+         cleanupAfterExecuting = true;
+      }
+      else{
+         ikCommonModel.deleteObservers();
+         measurementTrial=null;
+         extraMarkerSet = null;
+         scaleTool = null;
+         System.gc();
+      }
    }
 }

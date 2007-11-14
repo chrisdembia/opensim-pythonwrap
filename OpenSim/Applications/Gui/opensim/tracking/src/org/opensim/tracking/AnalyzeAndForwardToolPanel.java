@@ -1600,5 +1600,9 @@ public class AnalyzeAndForwardToolPanel extends BaseToolPanel implements Observe
    private javax.swing.JRadioButton unspecifiedRadioButton;
    private javax.swing.JCheckBox useSpecifiedDt;
    // End of variables declaration//GEN-END:variables
-   
+   // Relinquish C++ resources by setting references to them to null
+   public void cleanup()
+   {
+      
+   }
 }
