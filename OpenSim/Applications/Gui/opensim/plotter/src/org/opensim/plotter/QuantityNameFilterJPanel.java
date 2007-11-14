@@ -85,7 +85,7 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
       tableModel.addTableModelListener(this);
       //Don't track selection jTable1.getSelectionModel().addListSelectionListener(this);
       if (currentFilter.equals(FilterBy.RegularExpression)){
-        jPatternRadioButton.setSelected(true);
+        jPatternRadioButtonActionPerformed(null);
       }
       else{
          // Fill data to back up dropdowns then preselect
@@ -153,7 +153,7 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
          .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
             .addContainerGap()
             .add(jSumCheckBox)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 69, Short.MAX_VALUE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 51, Short.MAX_VALUE)
             .add(jNumSelectedLabel)
             .addContainerGap())
       );
@@ -166,7 +166,6 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
             .addContainerGap())
       );
 
-      jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
       FilterTextField.setToolTipText("use '.*' for wildcard, add patterns with '|' and press Apply");
 
       jMuscleGroupComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select Muscle Group" }));
@@ -227,23 +226,24 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(jPatternRadioButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 72, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                  .add(jLabel3)
-                  .add(jModelGroupRadioButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+               .add(jModelGroupRadioButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, jMuscleGroupComboBox, 0, 187, Short.MAX_VALUE)
                .add(jModelComboBox, 0, 187, Short.MAX_VALUE)
                .add(jPanel2Layout.createSequentialGroup()
                   .add(FilterTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 108, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jShowAllButton)))
+                  .add(jShowAllButton))
+               .add(jPanel2Layout.createSequentialGroup()
+                  .add(jLabel3)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(jMuscleGroupComboBox, 0, 155, Short.MAX_VALUE)))
             .addContainerGap())
       );
       jPanel2Layout.setVerticalGroup(
          jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(jPanel2Layout.createSequentialGroup()
-            .add(49, 49, 49)
+            .addContainerGap()
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(jLabel1)
                .add(jPatternRadioButton)
@@ -255,8 +255,8 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
                .add(jModelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-               .add(jMuscleGroupComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(jLabel3))
+               .add(jLabel3)
+               .add(jMuscleGroupComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .addContainerGap())
       );
 
@@ -284,18 +284,22 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(layout.createSequentialGroup()
-            .addContainerGap()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(jSelectAllCheckBox)
-               .add(jDeselectAllCheckBox))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-         .add(layout.createSequentialGroup()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1, 0, 0, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addContainerGap(14, Short.MAX_VALUE))
+         .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+               .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                  .addContainerGap()
+                  .add(jScrollPane1, 0, 0, Short.MAX_VALUE))
+               .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                  .addContainerGap()
+                  .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                     .add(jSelectAllCheckBox)
+                     .add(jDeselectAllCheckBox))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+               .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                  .addContainerGap()
+                  .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 318, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap())
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -303,15 +307,15 @@ public class QuantityNameFilterJPanel extends javax.swing.JPanel
             .addContainerGap()
             .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 236, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(layout.createSequentialGroup()
                   .add(jSelectAllCheckBox)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .add(jDeselectAllCheckBox)
-                  .addContainerGap())
-               .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 8, Short.MAX_VALUE)
+                  .add(jDeselectAllCheckBox))
+               .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
 
