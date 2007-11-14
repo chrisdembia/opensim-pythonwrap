@@ -132,6 +132,7 @@ public class JPlotterPanel extends javax.swing.JPanel
     */
    public JPlotterPanel() {
       initComponents();
+      doubleFormatter.setValueClass(java.lang.Double.class);
       jDomainStartTextField.setValue(0.0);   jDomainStartTextField.addActionListener(new handleReturnAction(jDomainStartTextField));
       jDomainEndTextField.setValue(1.0);   jDomainEndTextField.addActionListener(new handleReturnAction(jDomainEndTextField));
       jFormattedTextFieldYmin.setValue(-10000);   jFormattedTextFieldYmin.addActionListener(new handleReturnAction(jFormattedTextFieldYmin));
