@@ -1636,7 +1636,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.12000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1658,7 +1658,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.93000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1680,7 +1680,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1702,7 +1702,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1724,7 +1724,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1746,7 +1746,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1768,7 +1768,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1790,7 +1790,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1812,7 +1812,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1834,7 +1834,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1856,7 +1856,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1878,7 +1878,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1900,7 +1900,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1922,7 +1922,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1944,7 +1944,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1966,7 +1966,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -1988,7 +1988,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -2010,7 +2010,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -2032,7 +2032,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -2054,7 +2054,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -2076,7 +2076,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -2098,7 +2098,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical
@@ -2120,7 +2120,7 @@
 					<!--Default value for a coordinate.-->
 						<default_value>   0.00000000 </default_value>
 					<!--Tolerance for a coordinate.-->
-						<tolerance>   0.00000000 </tolerance>
+						<tolerance>   0.00000001 </tolerance>
 					<!--Stiffness of a coordinate.-->
 						<stiffness>   0.00000000 </stiffness>
 					<!--Computer keyboard keys that can be used to manipulate in a graphical

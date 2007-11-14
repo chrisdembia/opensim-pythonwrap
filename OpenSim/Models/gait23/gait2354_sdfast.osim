@@ -486,7 +486,7 @@
 					<SdfastCoordinate name="pelvis_tz">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -3.00000000       3.00000000 </range>
 						<keys> </keys>
@@ -507,7 +507,7 @@
 					<SdfastCoordinate name="pelvis_tx">
 						<default_value>       0.12000000 </default_value>
 						<initial_value>       0.12000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -5.00000000       5.00000000 </range>
 						<keys> </keys>
@@ -528,7 +528,7 @@
 					<SdfastCoordinate name="pelvis_ty">
 						<default_value>       0.93000000 </default_value>
 						<initial_value>       0.93000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.00000000       2.00000000 </range>
 						<keys> </keys>
@@ -549,7 +549,7 @@
 					<SdfastCoordinate name="pelvis_tilt">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.57079633       1.57079633 </range>
 						<keys> </keys>
@@ -570,7 +570,7 @@
 					<SdfastCoordinate name="pelvis_list">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.57079633       1.57079633 </range>
 						<keys> </keys>
@@ -591,7 +591,7 @@
 					<SdfastCoordinate name="pelvis_rotation">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.57079633       1.57079633 </range>
 						<keys> </keys>
@@ -612,7 +612,7 @@
 					<SdfastCoordinate name="hip_flexion_r">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -2.09439510       2.09439510 </range>
 						<keys> </keys>
@@ -633,7 +633,7 @@
 					<SdfastCoordinate name="hip_adduction_r">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -2.09439510       2.09439510 </range>
 						<keys> </keys>
@@ -654,7 +654,7 @@
 					<SdfastCoordinate name="hip_rotation_r">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -2.09439510       2.09439510 </range>
 						<keys> </keys>
@@ -739,7 +739,7 @@
 					<SdfastCoordinate name="knee_angle_r">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -2.09439510       0.17453293 </range>
 						<keys> </keys>
@@ -760,7 +760,7 @@
 					<SdfastCoordinate name="ankle_angle_r">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.57079633       1.57079633 </range>
 						<keys> </keys>
@@ -781,7 +781,7 @@
 					<SdfastCoordinate name="subtalar_angle_r">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.57079633       1.57079633 </range>
 						<keys> </keys>
@@ -802,7 +802,7 @@
 					<SdfastCoordinate name="mtp_angle_r">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.57079633       1.57079633 </range>
 						<keys> </keys>
@@ -823,7 +823,7 @@
 					<SdfastCoordinate name="hip_flexion_l">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -2.09439510       2.09439510 </range>
 						<keys> </keys>
@@ -844,7 +844,7 @@
 					<SdfastCoordinate name="hip_adduction_l">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -2.09439510       2.09439510 </range>
 						<keys> </keys>
@@ -865,7 +865,7 @@
 					<SdfastCoordinate name="hip_rotation_l">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -2.09439510       2.09439510 </range>
 						<keys> </keys>
@@ -950,7 +950,7 @@
 					<SdfastCoordinate name="knee_angle_l">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -2.09439510       0.17453293 </range>
 						<keys> </keys>
@@ -971,7 +971,7 @@
 					<SdfastCoordinate name="ankle_angle_l">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.04719755       1.04719755 </range>
 						<keys> </keys>
@@ -992,7 +992,7 @@
 					<SdfastCoordinate name="subtalar_angle_l">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.57079633       1.57079633 </range>
 						<keys> </keys>
@@ -1013,7 +1013,7 @@
 					<SdfastCoordinate name="mtp_angle_l">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.04719755       1.04719755 </range>
 						<keys> </keys>
@@ -1034,7 +1034,7 @@
 					<SdfastCoordinate name="lumbar_extension">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.57079633       1.57079633 </range>
 						<keys> </keys>
@@ -1055,7 +1055,7 @@
 					<SdfastCoordinate name="lumbar_bending">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.57079633       1.57079633 </range>
 						<keys> </keys>
@@ -1076,7 +1076,7 @@
 					<SdfastCoordinate name="lumbar_rotation">
 						<default_value>       0.00000000 </default_value>
 						<initial_value>       0.00000000 </initial_value>
-						<tolerance>       0.00000100 </tolerance>
+						<tolerance>       0.00000001 </tolerance>
 						<stiffness>       0.00000000 </stiffness>
 						<range>      -1.57079633       1.57079633 </range>
 						<keys> </keys>

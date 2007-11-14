@@ -1664,7 +1664,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="pelvis_tx">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -5.00000000000000000000       5.00000000000000000000 </range>
 						<keys> p_key </keys>
@@ -1679,7 +1679,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="pelvis_ty">
 						<default_value>       0.93000000000000005000 </default_value>
 						<initial_value>       0.93000000000000005000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.00000000000000000000       2.00000000000000000000 </range>
 						<keys> q_key </keys>
@@ -1694,7 +1694,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="pelvis_tz">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -3.00000000000000000000       3.00000000000000000000 </range>
 						<keys> q_key </keys>
@@ -1709,7 +1709,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="pelvis_tilt">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.57079632679500000000       1.57079632679500000000 </range>
 						<keys> q_key </keys>
@@ -1724,7 +1724,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="pelvis_list">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.57079632679500000000       1.57079632679500000000 </range>
 						<keys> q_key </keys>
@@ -1739,7 +1739,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="pelvis_rotation">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.57079632679500000000       1.57079632679500000000 </range>
 						<keys> q_key </keys>
@@ -1754,7 +1754,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="hip_flexion_r">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -2.09439510239299990000       2.09439510239299990000 </range>
 						<keys> h_key leftmouse_button </keys>
@@ -1769,7 +1769,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="hip_adduction_r">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -2.09439510239299990000       2.09439510239299990000 </range>
 						<keys> h_key leftmouse_button </keys>
@@ -1784,7 +1784,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="hip_rotation_r">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -2.09439510239299990000       2.09439510239299990000 </range>
 						<keys> h_key leftmouse_button </keys>
@@ -1799,7 +1799,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="knee_angle_r">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -2.09439510239299990000       0.17453292519899999000 </range>
 						<keys> k_key </keys>
@@ -1814,7 +1814,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="ankle_angle_r">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.57079632679500000000       1.57079632679500000000 </range>
 						<keys> a_key </keys>
@@ -1829,7 +1829,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="subtalar_angle_r">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.57079632679500000000       1.57079632679500000000 </range>
 						<keys> a_key </keys>
@@ -1844,7 +1844,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="mtp_angle_r">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.57079632679500000000       1.57079632679500000000 </range>
 						<keys> t_key </keys>
@@ -1859,7 +1859,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="hip_flexion_l">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -2.09439510239299990000       2.09439510239299990000 </range>
 						<keys> h_key leftmouse_button </keys>
@@ -1874,7 +1874,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="hip_adduction_l">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -2.09439510239299990000       2.09439510239299990000 </range>
 						<keys> h_key leftmouse_button </keys>
@@ -1889,7 +1889,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="hip_rotation_l">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -2.09439510239299990000       2.09439510239299990000 </range>
 						<keys> h_key leftmouse_button </keys>
@@ -1904,7 +1904,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="knee_angle_l">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -2.09439510239299990000       0.17453292519899999000 </range>
 						<keys> k_key </keys>
@@ -1919,7 +1919,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="ankle_angle_l">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.04719755119700000000       1.04719755119700000000 </range>
 						<keys> a_key </keys>
@@ -1934,7 +1934,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="subtalar_angle_l">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.57079632679500000000       1.57079632679500000000 </range>
 						<keys> a_key </keys>
@@ -1949,7 +1949,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="mtp_angle_l">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.04719755119700000000       1.04719755119700000000 </range>
 						<keys> t_key </keys>
@@ -1964,7 +1964,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="lumbar_extension">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.57079632679500000000       1.57079632679500000000 </range>
 						<keys> q_key </keys>
@@ -1979,7 +1979,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="lumbar_bending">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.57079632679500000000       1.57079632679500000000 </range>
 						<keys> q_key </keys>
@@ -1994,7 +1994,7 @@ Anderson F.C., Pandy M.G.: Dynamic optimization of human walking. Journal of Bio
 					<SimbodyCoordinate name="lumbar_rotation">
 						<default_value>       0.00000000000000000000 </default_value>
 						<initial_value>       0.00000000000000000000 </initial_value>
-						<tolerance>       0.00000000000000000000 </tolerance>
+						<tolerance>       0.00000001000000000000 </tolerance>
 						<stiffness>       0.00000000000000000000 </stiffness>
 						<range>      -1.57079632679500000000       1.57079632679500000000 </range>
 						<keys> q_key </keys>
