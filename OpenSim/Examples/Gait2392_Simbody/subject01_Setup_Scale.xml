@@ -44,11 +44,11 @@
 		    mass between segments.-->
 		<preserve_mass_distribution> true </preserve_mass_distribution>
 		<!--Name of SIMM joint file to write when done scaling. If not specified,
-		    a file will not be written.
-		<output_joint_file> subject01_scaledOnly.jnt </output_joint_file>-->
+		    a file will not be written.-->
+		<output_joint_file> subject01_scaledOnly.jnt </output_joint_file>
 		<!--Name of SIMM muscle file to write when done scaling. If not specified,
-		    a file will not be written.
-		<output_muscle_file> subject01_scaledOnly.msl </output_muscle_file>-->
+		    a file will not be written.-->
+		<output_muscle_file> subject01_scaledOnly.msl </output_muscle_file>
 		<!--Name of OpenSim model file (.osim) to write when done scaling.-->
 		<output_model_file> subject01_scaledOnly.osim </output_model_file>
 		<!--Name of file to write containing the scale factors that were applied
@@ -86,11 +86,11 @@
 		<!--Time range over which the marker positions are averaged.-->
 		<time_range> 1 2 </time_range>
 		<!--Name of the new SIMM Joint file (.jnt) after scaling and marker
-		    placement (optional).
-		<output_joint_file> subject01.jnt </output_joint_file>-->
+		    placement (optional).-->
+		<output_joint_file> subject01.jnt </output_joint_file>
 		<!--Name of the SIMM muscle file (.msl) after scaling and marker placement
-		    (optional).
-		<output_muscle_file> subject01.msl </output_muscle_file>-->
+		    (optional).-->
+		<output_muscle_file> subject01.msl </output_muscle_file>
 		<!--Output OpenSim model file (.osim) after scaling and maker placement.-->
 		<output_model_file> subject01_simbody.osim </output_model_file>
 		<!--Name of the motion file (.mot) written after marker relocation
