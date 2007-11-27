@@ -47,7 +47,7 @@ public abstract class BaseToolPanel extends JPanel implements ActionListener {
    class SaveSettingsAction extends AbstractAction {
       public SaveSettingsAction() { super("Save Settings..."); }
       public void actionPerformed(ActionEvent evt) {
-         String fileName = FileUtils.getInstance().browseForFilenameToSave(settingsFilter, true, null);
+         String fileName = FileUtils.getInstance().browseForFilenameToSave(settingsFilter, true, "", null);
          if(fileName!=null) saveSettings(fileName);
       }
    }
