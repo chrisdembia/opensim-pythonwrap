@@ -1417,9 +1417,10 @@ public class opensimModelJNI {
   public final static native void AbstractTool_printResults__SWIG_3(long jarg1, AbstractTool jarg1_, String jarg2);
   public final static native void delete_ForwardTool(long jarg1);
   public final static native long new_ForwardTool__SWIG_0();
-  public final static native long new_ForwardTool__SWIG_1(String jarg1, boolean jarg2) throws java.io.IOException;
-  public final static native long new_ForwardTool__SWIG_2(String jarg1) throws java.io.IOException;
-  public final static native long new_ForwardTool__SWIG_3(long jarg1, ForwardTool jarg1_);
+  public final static native long new_ForwardTool__SWIG_1(String jarg1, boolean jarg2, boolean jarg3) throws java.io.IOException;
+  public final static native long new_ForwardTool__SWIG_2(String jarg1, boolean jarg2) throws java.io.IOException;
+  public final static native long new_ForwardTool__SWIG_3(String jarg1) throws java.io.IOException;
+  public final static native long new_ForwardTool__SWIG_4(long jarg1, ForwardTool jarg1_);
   public final static native long ForwardTool_copy(long jarg1, ForwardTool jarg1_);
   public final static native String ForwardTool_getControlsFileName(long jarg1, ForwardTool jarg1_);
   public final static native void ForwardTool_setControlsFileName(long jarg1, ForwardTool jarg1_, String jarg2);

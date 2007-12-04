@@ -305,7 +305,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
       ForwardTool newForwardTool = null;
       try {
          // TODO: pass it our model instead
-         newForwardTool = new ForwardTool(fileName, false);
+         newForwardTool = new ForwardTool(fileName, true, false);
       } catch (IOException ex) {
          ErrorDialog.displayIOExceptionDialog("Error loading file","Could not load "+fileName,ex);
          return false;

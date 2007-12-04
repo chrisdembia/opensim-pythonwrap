@@ -37,16 +37,20 @@ public class ForwardTool extends AbstractTool {
     this(opensimModelJNI.new_ForwardTool__SWIG_0(), true);
   }
 
-  public ForwardTool(String aFileName, boolean aLoadModel) throws java.io.IOException {
-    this(opensimModelJNI.new_ForwardTool__SWIG_1(aFileName, aLoadModel), true);
+  public ForwardTool(String aFileName, boolean aUpdateFromXMLNode, boolean aLoadModel) throws java.io.IOException {
+    this(opensimModelJNI.new_ForwardTool__SWIG_1(aFileName, aUpdateFromXMLNode, aLoadModel), true);
+  }
+
+  public ForwardTool(String aFileName, boolean aUpdateFromXMLNode) throws java.io.IOException {
+    this(opensimModelJNI.new_ForwardTool__SWIG_2(aFileName, aUpdateFromXMLNode), true);
   }
 
   public ForwardTool(String aFileName) throws java.io.IOException {
-    this(opensimModelJNI.new_ForwardTool__SWIG_2(aFileName), true);
+    this(opensimModelJNI.new_ForwardTool__SWIG_3(aFileName), true);
   }
 
   public ForwardTool(ForwardTool aObject) {
-    this(opensimModelJNI.new_ForwardTool__SWIG_3(ForwardTool.getCPtr(aObject), aObject), true);
+    this(opensimModelJNI.new_ForwardTool__SWIG_4(ForwardTool.getCPtr(aObject), aObject), true);
   }
 
   public OpenSimObject copy() {
