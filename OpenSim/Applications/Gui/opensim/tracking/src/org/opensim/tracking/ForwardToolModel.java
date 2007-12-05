@@ -284,7 +284,7 @@ public class ForwardToolModel extends AbstractToolModelWithExternalLoads {
 
    protected void updateTool() {
       super.updateTool();
-      forwardTool().setPrintResultFiles(false); // we'll manually write them out
+      //forwardTool().setPrintResultFiles(false); // we'll manually write them out
    }
 
    protected void relativeToAbsolutePaths(String parentFileName) {
