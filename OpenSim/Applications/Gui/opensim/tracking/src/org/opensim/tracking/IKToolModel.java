@@ -71,6 +71,7 @@ public class IKToolModel extends Observable implements Observer {
          modelCopy.addIntegCallback(animationCallback);
          animationCallback.setStepInterval(1);
          animationCallback.startProgressUsingSteps(1, endFrame-startFrame+1);
+         animationCallback.setOptimizerAlgorithm(ikTool.getIKTrialSet().get(0).getOptimizerAlgorithm());
 
          // Do this manouver (there's gotta be a nicer way) to create the object so that C++ owns it and not Java (since 
          // removeIntegCallback in finished() will cause the C++-side callback to be deleted, and if Java owned this object

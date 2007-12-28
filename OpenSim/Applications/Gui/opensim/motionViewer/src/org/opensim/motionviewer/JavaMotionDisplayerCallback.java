@@ -61,6 +61,7 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    double stopDisplayTime = 0;
    double minSimTime = -1;
    double currentSimTime = 0;
+   String optimizerAlgorithm = null;
 
    /** Creates a new instance of JavaMotionDisplayerCallback */
    public JavaMotionDisplayerCallback(Model aModel, Model aModelForDisplay, Storage storage, ProgressHandle progressHandle) {
@@ -97,6 +98,10 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
       this.startStep = startStep;
       this.endStep = endStep;
       if(progressHandle!=null) progressHandle.start(endStep-startStep+1);
+   }
+   
+   public void setOptimizerAlgorithm(String aOptimizerAlgorithm) {
+       optimizerAlgorithm = IO.Uppercase(aOptimizerAlgorithm);
    }
 
    private double getCurrentRealTime() {
@@ -141,8 +146,11 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
           startDisplayTime = getCurrentRealTime(); // Start timing of display update
           updateDisplaySynchronously();
           stopDisplayTime = getCurrentRealTime();  // Stop timing of display update
-          minSimTime = currentSimTime+(stopDisplayTime-startDisplayTime)+(stopIKTime-startIKTime);  // Set minimum simulation time for next display update 
+          if(optimizerAlgorithm.equals("JACOBIAN")) {
+              minSimTime = currentSimTime+(stopDisplayTime-startDisplayTime)+(stopIKTime-startIKTime);  // Set minimum simulation time for next display update 
+          }
           //System.out.println("minSimTime = "+currentSimTime+" + "+(stopDisplayTime-startDisplayTime)+" + "+(stopIKTime-startIKTime)+" = "+minSimTime);
+          //System.out.println(optimizerAlgorithm);
           startIKTime = getCurrentRealTime(); // Start timing of ik computations
       }
    }
