@@ -55,6 +55,12 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
    int lastProgressStep = -1;
    double lastRenderTime = -1e10;
    double minRenderTimeInterval = -1;
+   double startIKTime = getCurrentRealTime();
+   double stopIKTime = 0;
+   double startDisplayTime = 0;
+   double stopDisplayTime = 0;
+   double minSimTime = -1;
+   double currentSimTime = 0;
 
    /** Creates a new instance of JavaMotionDisplayerCallback */
    public JavaMotionDisplayerCallback(Model aModel, Model aModelForDisplay, Storage storage, ProgressHandle progressHandle) {
@@ -103,20 +109,23 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
             public void run() {
                double currentRealTime = getCurrentRealTime();
                if(minRenderTimeInterval<=0 || currentRealTime-lastRenderTime>minRenderTimeInterval) {
-                  if(motionDisplayer!=null && storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);
-                  ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
-                  //ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
-                  ViewDB.getInstance().repaintAll();
-                  lastRenderTime = currentRealTime;
+                  if(motionDisplayer!=null && storage.getSize()>0) motionDisplayer.applyFrameToModel(storage.getSize()-1);            
+                  ViewDB.getInstance().updateModelDisplay(getModelForDisplay());  // Faster? than the next few indented lines
+                    //ViewDB.getInstance().updateModelDisplayNoRepaint(getModelForDisplay());
+                    ////ViewDB.getInstance().renderAll(); // Render now (if want to do it later, use repaintAll()) -- may slow things down too much
+                    //ViewDB.getInstance().repaintAll();
+                  lastRenderTime = currentRealTime; 
+                  //System.out.println("REPAINTED");
                }
-            }});
-      } catch (InterruptedException ex) {
+              }});                      
+      } 
+      catch (InterruptedException ex) {
          ex.printStackTrace();
       } catch (InvocationTargetException ex) {
          ex.printStackTrace();
       }
    }
-
+   
    public void processStep(int step) {
       if(!getOn()) return;
       if(progressHandle!=null) {
@@ -126,7 +135,16 @@ public class JavaMotionDisplayerCallback extends SimtkAnimationCallback{
             lastProgressStep = progressStep;
          }
       }
-      if(proceed(step)) updateDisplaySynchronously();
+      currentSimTime = getCurrentTime();   
+      if(proceed(step) && currentSimTime>minSimTime) {
+          stopIKTime = getCurrentRealTime(); // Stop timing of ik computations
+          startDisplayTime = getCurrentRealTime(); // Start timing of display update
+          updateDisplaySynchronously();
+          stopDisplayTime = getCurrentRealTime();  // Stop timing of display update
+          minSimTime = currentSimTime+(stopDisplayTime-startDisplayTime)+(stopIKTime-startIKTime);  // Set minimum simulation time for next display update 
+          //System.out.println("minSimTime = "+currentSimTime+" + "+(stopDisplayTime-startDisplayTime)+" + "+(stopIKTime-startIKTime)+" = "+minSimTime);
+          startIKTime = getCurrentRealTime(); // Start timing of ik computations
+      }
    }
    
    public int step(SWIGTYPE_p_double aXPrev, SWIGTYPE_p_double aYPrev, SWIGTYPE_p_double aYPPrev, int aStep, double aDT, double aT, SWIGTYPE_p_double aX, SWIGTYPE_p_double aY, SWIGTYPE_p_double aYP, SWIGTYPE_p_double aDYDT, SWIGTYPE_p_void aClientData) {

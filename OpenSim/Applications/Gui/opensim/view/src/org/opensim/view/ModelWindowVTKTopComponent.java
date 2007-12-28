@@ -404,12 +404,7 @@ public class ModelWindowVTKTopComponent extends TopComponent
     private void openSimCanvas1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openSimCanvas1MouseReleased
 // TODO add your handling code here:
         if ((evt.getModifiers() == (InputEvent.BUTTON1_MASK))) {
-            jMinusZViewButton.setSelected(false);
-            jPlusZViewButton.setSelected(false);
-            jPlusYViewButton.setSelected(false);
-            jMinusYViewButton.setSelected(false);
-            jPlusXViewButton.setSelected(false);
-            jMinusXViewButton.setSelected(false);
+            deselectViewButtons();
         }
     }//GEN-LAST:event_openSimCanvas1MouseReleased
 
@@ -462,36 +457,24 @@ public class ModelWindowVTKTopComponent extends TopComponent
 // TODO add your handling code here:
         openSimCanvas1.applyCameraPlusX();
         // correct selected modes
-        jMinusZViewButton.setSelected(false);
-        jPlusZViewButton.setSelected(false);
-        jPlusYViewButton.setSelected(false);
-        jMinusYViewButton.setSelected(false);
+        deselectViewButtons();
         jPlusXViewButton.setSelected(true);
-        jMinusXViewButton.setSelected(false);
     }//GEN-LAST:event_jPlusXViewButtonActionPerformed
 
     private void jPlusYViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlusYViewButtonActionPerformed
 // TODO add your handling code here:
         openSimCanvas1.applyCameraPlusY();
         // correct selected modes
-        jMinusZViewButton.setSelected(false);
-        jPlusZViewButton.setSelected(false);
+        deselectViewButtons();
         jPlusYViewButton.setSelected(true);
-        jMinusYViewButton.setSelected(false);
-        jPlusXViewButton.setSelected(false);
-        jMinusXViewButton.setSelected(false);
     }//GEN-LAST:event_jPlusYViewButtonActionPerformed
 
     private void jMinusZViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMinusZViewButtonActionPerformed
 // TODO add your handling code here:
         openSimCanvas1.applyCameraMinusZ();
         // correct selected modes
-        jMinusZViewButton.setSelected(true);
-        jPlusZViewButton.setSelected(false);
-        jPlusYViewButton.setSelected(false);
-        jMinusYViewButton.setSelected(false);
-        jPlusXViewButton.setSelected(false);
-        jMinusXViewButton.setSelected(false);        
+        deselectViewButtons();
+        jMinusZViewButton.setSelected(true);       
     }//GEN-LAST:event_jMinusZViewButtonActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
@@ -529,23 +512,15 @@ public class ModelWindowVTKTopComponent extends TopComponent
 // TODO add your handling code here:
         openSimCanvas1.applyCameraPlusZ();
         // correct selected modes
-        jMinusZViewButton.setSelected(false);
+        deselectViewButtons();
         jPlusZViewButton.setSelected(true);
-        jPlusYViewButton.setSelected(false);
-        jMinusYViewButton.setSelected(false);
-        jPlusXViewButton.setSelected(false);
-        jMinusXViewButton.setSelected(false);
     }//GEN-LAST:event_jPlusZViewButtonActionPerformed
 
     private void jMinusXViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMinusXViewButtonActionPerformed
 // TODO add your handling code here:
         openSimCanvas1.applyCameraMinusX();
         // correct selected modes
-        jMinusZViewButton.setSelected(false);
-        jPlusZViewButton.setSelected(false);
-        jPlusYViewButton.setSelected(false);
-        jMinusYViewButton.setSelected(false);
-        jPlusXViewButton.setSelected(false);
+        deselectViewButtons();
         jMinusXViewButton.setSelected(true);      
     }//GEN-LAST:event_jMinusXViewButtonActionPerformed
 
@@ -553,12 +528,8 @@ public class ModelWindowVTKTopComponent extends TopComponent
 // TODO add your handling code here:
         openSimCanvas1.applyCameraMinusY();
         // correct selected modes
-        jMinusZViewButton.setSelected(false);
-        jPlusZViewButton.setSelected(false);
-        jPlusYViewButton.setSelected(false);
-        jMinusYViewButton.setSelected(true);
-        jPlusXViewButton.setSelected(false);
-        jMinusXViewButton.setSelected(false);      
+        deselectViewButtons();
+        jMinusYViewButton.setSelected(true);    
    }//GEN-LAST:event_jMinusYViewButtonActionPerformed
 
     private void jTakeSnapshotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTakeSnapshotButtonActionPerformed
@@ -644,6 +615,16 @@ public class ModelWindowVTKTopComponent extends TopComponent
 
     public void setTabDisplayName(String tabDisplayName) {
         this.tabDisplayName = tabDisplayName;
+    }
+    
+    public void deselectViewButtons() 
+    {
+        jMinusZViewButton.setSelected(false);
+        jPlusZViewButton.setSelected(false);
+        jPlusYViewButton.setSelected(false);
+        jMinusYViewButton.setSelected(false);
+        jPlusXViewButton.setSelected(false);
+        jMinusXViewButton.setSelected(false);
     }
 
 }

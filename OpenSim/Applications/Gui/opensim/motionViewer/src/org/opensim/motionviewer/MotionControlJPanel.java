@@ -170,6 +170,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jRestartButton.setBorder(null);
         jRestartButton.setBorderPainted(false);
         jRestartButton.setContentAreaFilled(false);
+        jRestartButton.setFocusPainted(false);
         jRestartButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jRestartButton.setMaximumSize(new java.awt.Dimension(24, 16));
         jRestartButton.setMinimumSize(new java.awt.Dimension(24, 16));
@@ -191,6 +192,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jBackButton.setBorder(null);
         jBackButton.setBorderPainted(false);
         jBackButton.setContentAreaFilled(false);
+        jBackButton.setFocusPainted(false);
         jBackButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jBackButton.setMaximumSize(new java.awt.Dimension(24, 16));
         jBackButton.setMinimumSize(new java.awt.Dimension(24, 16));
@@ -212,6 +214,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jReverseButton.setBorder(null);
         jReverseButton.setBorderPainted(false);
         jReverseButton.setContentAreaFilled(false);
+        jReverseButton.setFocusPainted(false);
         jReverseButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jReverseButton.setMaximumSize(new java.awt.Dimension(24, 16));
         jReverseButton.setMinimumSize(new java.awt.Dimension(24, 16));
@@ -233,6 +236,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jStopButton.setBorder(null);
         jStopButton.setBorderPainted(false);
         jStopButton.setContentAreaFilled(false);
+        jStopButton.setFocusPainted(false);
         jStopButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jStopButton.setMaximumSize(new java.awt.Dimension(24, 16));
         jStopButton.setMinimumSize(new java.awt.Dimension(24, 16));
@@ -254,6 +258,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jPlayButton.setBorder(null);
         jPlayButton.setBorderPainted(false);
         jPlayButton.setContentAreaFilled(false);
+        jPlayButton.setFocusPainted(false);
         jPlayButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jPlayButton.setMaximumSize(new java.awt.Dimension(24, 16));
         jPlayButton.setMinimumSize(new java.awt.Dimension(24, 16));
@@ -275,6 +280,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jAdvanceButton.setBorder(null);
         jAdvanceButton.setBorderPainted(false);
         jAdvanceButton.setContentAreaFilled(false);
+        jAdvanceButton.setFocusPainted(false);
         jAdvanceButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jAdvanceButton.setMaximumSize(new java.awt.Dimension(24, 16));
         jAdvanceButton.setMinimumSize(new java.awt.Dimension(24, 16));
@@ -296,6 +302,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jFinishButton.setBorder(null);
         jFinishButton.setBorderPainted(false);
         jFinishButton.setContentAreaFilled(false);
+        jFinishButton.setFocusPainted(false);
         jFinishButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jFinishButton.setMaximumSize(new java.awt.Dimension(24, 16));
         jFinishButton.setMinimumSize(new java.awt.Dimension(24, 16));
@@ -384,6 +391,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
         jWrapToggleButton.setBorder(null);
         jWrapToggleButton.setBorderPainted(false);
         jWrapToggleButton.setContentAreaFilled(false);
+        jWrapToggleButton.setFocusPainted(false);
         jWrapToggleButton.setFocusable(false);
         jWrapToggleButton.setIconTextGap(0);
         jWrapToggleButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -454,7 +462,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
                         .add(jEndTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jMotionSlider, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jWrapToggleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jWrapToggleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -481,7 +489,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jEndTimeTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(jPlaybackButtonsPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                    .add(jWrapToggleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jWrapToggleButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(1, 1, 1))
         );
     }// </editor-fold>//GEN-END:initComponents
