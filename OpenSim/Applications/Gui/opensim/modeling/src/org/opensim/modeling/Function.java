@@ -38,6 +38,10 @@ public class Function extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public void init(int aN, SWIGTYPE_p_double aXValues, SWIGTYPE_p_double aYValues) {
+    opensimModelJNI.Function_init(swigCPtr, this, aN, SWIGTYPE_p_double.getCPtr(aXValues), SWIGTYPE_p_double.getCPtr(aYValues));
+  }
+
   public void setMinX(double aMinX) {
     opensimModelJNI.Function_setMinX(swigCPtr, this, aMinX);
   }
@@ -86,16 +90,77 @@ public class Function extends OpenSimObject {
     return opensimModelJNI.Function_getMaxZ(swigCPtr, this);
   }
 
+  public int getNumberOfPoints() {
+    return opensimModelJNI.Function_getNumberOfPoints(swigCPtr, this);
+  }
+
+  public SWIGTYPE_p_double getXValues() {
+    long cPtr = opensimModelJNI.Function_getXValues(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
+  }
+
+  public SWIGTYPE_p_double getYValues() {
+    long cPtr = opensimModelJNI.Function_getYValues(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
+  }
+
+  public double getX(int aIndex) {
+    return opensimModelJNI.Function_getX(swigCPtr, this, aIndex);
+  }
+
+  public double getY(int aIndex) {
+    return opensimModelJNI.Function_getY(swigCPtr, this, aIndex);
+  }
+
+  public double getZ(int aIndex) {
+    return opensimModelJNI.Function_getZ(swigCPtr, this, aIndex);
+  }
+
+  public void setX(int aIndex, double aValue) {
+    opensimModelJNI.Function_setX(swigCPtr, this, aIndex, aValue);
+  }
+
+  public void setY(int aIndex, double aValue) {
+    opensimModelJNI.Function_setY(swigCPtr, this, aIndex, aValue);
+  }
+
+  public void setZ(int aIndex, double aValue) {
+    opensimModelJNI.Function_setZ(swigCPtr, this, aIndex, aValue);
+  }
+
+  public void deletePoint(int aIndex) {
+    opensimModelJNI.Function_deletePoint(swigCPtr, this, aIndex);
+  }
+
+  public void addPoint(double aX, double aY) {
+    opensimModelJNI.Function_addPoint(swigCPtr, this, aX, aY);
+  }
+
+  public ArrayXYPoint renderAsLineSegments(double aStart, double aEnd) {
+    long cPtr = opensimModelJNI.Function_renderAsLineSegments__SWIG_0(swigCPtr, this, aStart, aEnd);
+    return (cPtr == 0) ? null : new ArrayXYPoint(cPtr, false);
+  }
+
+  public ArrayXYPoint renderAsLineSegments(int aIndex) {
+    long cPtr = opensimModelJNI.Function_renderAsLineSegments__SWIG_1(swigCPtr, this, aIndex);
+    return (cPtr == 0) ? null : new ArrayXYPoint(cPtr, false);
+  }
+
+  public static void deleteXYPointArray(ArrayXYPoint aArray) {
+    opensimModelJNI.Function_deleteXYPointArray(ArrayXYPoint.getCPtr(aArray), aArray);
+  }
+
   public void isLinear(double aTol, double aMinX, double aMaxX, SWIGTYPE_p_double rMX, double aMinY, double aMaxY, SWIGTYPE_p_double rMY, double aMinZ, double aMaxZ, SWIGTYPE_p_double rMZ) {
     opensimModelJNI.Function_isLinear(swigCPtr, this, aTol, aMinX, aMaxX, SWIGTYPE_p_double.getCPtr(rMX), aMinY, aMaxY, SWIGTYPE_p_double.getCPtr(rMY), aMinZ, aMaxZ, SWIGTYPE_p_double.getCPtr(rMZ));
   }
 
-  public void updateBoundingBox() {
-    opensimModelJNI.Function_updateBoundingBox(swigCPtr, this);
+  public static Function makeFunctionOfType(Function aFunction, String aNewTypeName) {
+    long cPtr = opensimModelJNI.Function_makeFunctionOfType(Function.getCPtr(aFunction), aFunction, aNewTypeName);
+    return (cPtr == 0) ? null : new Function(cPtr, false);
   }
 
-  public int getNumberOfPoints() {
-    return opensimModelJNI.Function_getNumberOfPoints(swigCPtr, this);
+  public void updateBoundingBox() {
+    opensimModelJNI.Function_updateBoundingBox(swigCPtr, this);
   }
 
   public double evaluate(int aDerivOrder, double aX, double aY, double aZ) {

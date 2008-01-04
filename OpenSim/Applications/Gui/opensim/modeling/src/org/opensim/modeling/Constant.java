@@ -54,8 +54,32 @@ public class Constant extends Function {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
+  public void init(int aN, SWIGTYPE_p_double aXValues, SWIGTYPE_p_double aYValues) {
+    opensimModelJNI.Constant_init(swigCPtr, this, aN, SWIGTYPE_p_double.getCPtr(aXValues), SWIGTYPE_p_double.getCPtr(aYValues));
+  }
+
   public int getNumberOfPoints() {
     return opensimModelJNI.Constant_getNumberOfPoints(swigCPtr, this);
+  }
+
+  public double getX(int aIndex) {
+    return opensimModelJNI.Constant_getX(swigCPtr, this, aIndex);
+  }
+
+  public double getY(int aIndex) {
+    return opensimModelJNI.Constant_getY(swigCPtr, this, aIndex);
+  }
+
+  public double getZ(int aIndex) {
+    return opensimModelJNI.Constant_getZ(swigCPtr, this, aIndex);
+  }
+
+  public void deletePoint(int aIndex) {
+    opensimModelJNI.Constant_deletePoint(swigCPtr, this, aIndex);
+  }
+
+  public void addPoint(double aX, double aY) {
+    opensimModelJNI.Constant_addPoint(swigCPtr, this, aX, aY);
   }
 
   public void setValue(double aValue) {
