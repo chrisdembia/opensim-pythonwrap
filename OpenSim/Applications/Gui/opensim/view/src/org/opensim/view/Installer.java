@@ -1,8 +1,6 @@
 package org.opensim.view;
 
-import java.awt.Frame;
 import java.util.prefs.Preferences;
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -14,7 +12,7 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
 import javax.swing.JPopupMenu;
-import org.openide.windows.WindowManager;
+import org.opensim.functioneditor.FunctionEditorTopComponent;
 import org.opensim.modeling.opensimModelJNI;
 import org.opensim.view.actions.ApplicationExit;
 
@@ -49,6 +47,7 @@ public class Installer extends ModuleInstall {
                // which is necessary to allow moving muscle points even if the muscle editor top component is not shown
                // Note that this may cause a warning exception "Cannot find MuscleEditor component" to be shown... just ignore it.
                MuscleEditorTopComponent.findInstance();
+               FunctionEditorTopComponent.findInstance();
             }});
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();

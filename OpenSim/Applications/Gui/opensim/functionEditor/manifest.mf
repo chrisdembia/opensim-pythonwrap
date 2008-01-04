@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.opensim.functioneditor
+OpenIDE-Module-Layer: org/opensim/functioneditor/layer.xml
+OpenIDE-Module-Localizing-Bundle: org/opensim/functioneditor/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

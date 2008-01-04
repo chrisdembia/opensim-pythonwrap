@@ -122,6 +122,10 @@ public class NumberTickUnit extends TickUnit implements Serializable {
         return true;
     }
 
+    public NumberFormat getFormatter() {
+       return formatter;
+    }
+
     /**
      * Returns a hash code for this instance.
      * 
