@@ -34,7 +34,7 @@ public class AbstractDof extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AbstractDof_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractDof_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -83,6 +83,32 @@ public class AbstractDof extends OpenSimObject {
   public Function getFunction() {
     long cPtr = opensimModelJNI.AbstractDof_getFunction(swigCPtr, this);
     return (cPtr == 0) ? null : new Function(cPtr, false);
+  }
+
+  public void setFunction(Function aFunction) {
+    opensimModelJNI.AbstractDof_setFunction(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
+  }
+
+  public AbstractJoint getJoint() {
+    long cPtr = opensimModelJNI.AbstractDof_getJoint(swigCPtr, this);
+    return (cPtr == 0) ? null : new AbstractJoint(cPtr, false);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.AbstractDof_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.AbstractDof_isA(swigCPtr, this, type);
+  }
+
+  public static AbstractDof safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.AbstractDof_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new AbstractDof(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.AbstractDof_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
   public final static class DofType {

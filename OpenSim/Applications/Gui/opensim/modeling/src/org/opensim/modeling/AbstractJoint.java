@@ -34,7 +34,7 @@ public class AbstractJoint extends OpenSimObject {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.AbstractJoint_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.AbstractJoint_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -55,9 +55,9 @@ public class AbstractJoint extends OpenSimObject {
     opensimModelJNI.AbstractJoint_invalidate(swigCPtr, this);
   }
 
-  public SWIGTYPE_p_OpenSim__DofSet getDofSet() {
+  public DofSet getDofSet() {
     long cPtr = opensimModelJNI.AbstractJoint_getDofSet(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__DofSet(cPtr, false);
+    return (cPtr == 0) ? null : new DofSet(cPtr, false);
   }
 
   public AbstractBody getChildBody() {
@@ -88,6 +88,23 @@ public class AbstractJoint extends OpenSimObject {
 
   public void scale(ScaleSet aScaleSet) {
     opensimModelJNI.AbstractJoint_scale(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.AbstractJoint_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.AbstractJoint_isA(swigCPtr, this, type);
+  }
+
+  public static AbstractJoint safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.AbstractJoint_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new AbstractJoint(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.AbstractJoint_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

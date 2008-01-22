@@ -12,7 +12,7 @@ import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.editors.MuscleEditorTopComponent;
 import javax.swing.JPopupMenu;
-import org.opensim.functioneditor.FunctionEditorTopComponent;
+import org.opensim.view.functionEditor.FunctionEditorTopComponent;
 import org.opensim.modeling.opensimModelJNI;
 import org.opensim.view.actions.ApplicationExit;
 

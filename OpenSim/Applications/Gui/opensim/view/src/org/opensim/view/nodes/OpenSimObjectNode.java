@@ -51,7 +51,7 @@ public class OpenSimObjectNode extends OpenSimNode {
     /** Creates a new instance of OpenSimObjectNode */
     public OpenSimObjectNode(OpenSimObject obj) {
        this.openSimObject = obj;
-        setDisplayName(obj.getName());
+       setDisplayName(obj.getName());
      }
     /**
      * Display name 

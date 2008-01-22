@@ -24,7 +24,6 @@ import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
-import org.opensim.functioneditor.FunctionChangeListener;
 import org.opensim.modeling.AbstractActuator;
 import org.opensim.modeling.AbstractBody;
 import org.opensim.modeling.AbstractCoordinate;
@@ -67,7 +66,7 @@ import org.opensim.view.nodes.OneActuatorNode;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 import org.opensim.view.SelectedObject;
-import org.opensim.functioneditor.FunctionEditorTopComponent;
+import org.opensim.view.functionEditor.FunctionEditorTopComponent;
 
 /**
  * Top component which displays the Muscle Editor window.
@@ -408,14 +407,26 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       if (validName(MuscleNameTextField.getText()) == false)
          return;
       currentAct.setName(MuscleNameTextField.getText());
+      // Let the event handler update the muscle editor, because muscle names
+      // could also be changed from outside the editor.
+      NameChangedEvent evnt = new NameChangedEvent(currentAct);
+      OpenSimDB.getInstance().setChanged();
+      OpenSimDB.getInstance().notifyObservers(evnt);
+   }
+
+   // Called from update(), this function handles name changes to any actuator in
+   // the current model. It assumes that the actuator's name has already been
+   // changed, so only the muscle editor needs to be updated.
+   private void updateActuatorName(AbstractActuator act) {
       SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(currentModel);
       String [] actNames = guiElem.getActuatorNames(true);
       MuscleComboBox.setModel(new javax.swing.DefaultComboBoxModel(actNames));
-      MuscleComboBox.setSelectedIndex(findElement(actNames, currentAct.getName()));
-      setPendingChanges(true, currentAct, true);
-      OpenSimDB.getInstance().setChanged();
-      NameChangedEvent evnt = new NameChangedEvent(currentAct);
-      OpenSimDB.getInstance().notifyObservers(evnt);
+      if (currentAct != null) {
+         MuscleComboBox.setSelectedIndex(findElement(actNames, currentAct.getName()));
+         if (currentAct.equals(act))
+            MuscleNameTextField.setText(currentAct.getName());
+      }
+      setPendingChanges(true, act, true);
    }
 
    private void RestoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestoreButtonActionPerformed
@@ -572,7 +583,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
               AbstractActuator savedAct = savedActs.get(act);
               // If the name has changed, fire an event.
               if (act.getName().equals(savedAct.getName()) == false) {
-                 NameChangedEvent ev = new NameChangedEvent(currentAct);
+                 NameChangedEvent ev = new NameChangedEvent(act);
                  OpenSimDB.getInstance().setChanged();
                  OpenSimDB.getInstance().notifyObservers(ev);
               }
@@ -1017,7 +1028,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          OpenSimObject obj = prop.getValueObjPtr();
          Function func = Function.safeDownCast(obj);
          FunctionEditorTopComponent win = FunctionEditorTopComponent.findInstance();
-         win.addChangeListener(new MuscleFunctionChangeListener());
+         win.addChangeListener(new MuscleFunctionEventListener());
          String title = currentModel.getName() + "->" + currentAct.getName() + ": " + prop.getName();
          String XLabel = "norm length";
          String YLabel = "norm force";
@@ -2114,11 +2125,13 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          } else if (arg instanceof ObjectSetCurrentEvent) {
             ObjectSetCurrentEvent evt = (ObjectSetCurrentEvent)arg;
             Vector<OpenSimObject> objs = evt.getObjects();
-            // If any of the event objects is a model, this means there is a new
+            // If any of the event objects is a model not equal to the current model, this means there is a new
             // current model, so we need to handle the event.
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
-                  return true;
+                  if (currentModel == null || !currentModel.equals(objs.get(i))) {
+                     return true;
+                  }
                }
             }
             return false;
@@ -2128,6 +2141,17 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             ObjectsChangedEvent evt = (ObjectsChangedEvent)arg;
             if (Model.getCPtr(evt.getModel()) == Model.getCPtr(currentModel))
                return true;
+            return false;
+         } else if (arg instanceof NameChangedEvent) {
+            NameChangedEvent evt = (NameChangedEvent)arg;
+            if (evt.getObject() instanceof Model) {
+               if (currentModel != null && currentModel.equals(evt.getObject()))
+                  return true;
+            } else if (evt.getObject() instanceof AbstractActuator) {
+               AbstractActuator act = (AbstractActuator)evt.getObject();
+               if (currentModel != null && currentModel.equals(act.getModel()))
+                  return true;
+            }
             return false;
          }
       }
@@ -2171,24 +2195,18 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          } else if (arg instanceof ObjectSetCurrentEvent) {
             ObjectSetCurrentEvent evt = (ObjectSetCurrentEvent)arg;
             Vector<OpenSimObject> objs = evt.getObjects();
-            // If any of the event objects is a model, this means there is a new
-            // current model. So update the panel.
-            // Kluge: Handle model name change separately!
-            if ((objs.size()==1) && (objs.get(0) instanceof Model)){
-               if (currentModel != null && currentModel.equals(objs.get(0))){
-                  // Safe change just a name change probably. Don't do anything 
-                  ModelNameLabel.setText("Model: " + currentModel.getName());
-                  return;
-               }
-            }
+            // If any of the event objects is a model not equal to the current model, this means there is a new
+            // current model. So clear out the panel.
             for (int i=0; i<objs.size(); i++) {
                if (objs.get(i) instanceof Model) {
-                  currentModel = (Model)objs.get(i);
-                  currentAct = null;
-                  backupAllActuators();
-                  setAllPendingChanges(false);
-                  setupComponent(null);
-                  break;
+                  if (currentModel == null || !currentModel.equals(objs.get(i))) {
+                     currentModel = (Model)objs.get(i);
+                     currentAct = null;
+                     backupAllActuators();
+                     setAllPendingChanges(false);
+                     setupComponent(null);
+                     break;
+                  }
                }
             }
          } else if (arg instanceof ObjectsChangedEvent) {
@@ -2204,6 +2222,17 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                   }
                   break;
                }
+            }
+         } else if (arg instanceof NameChangedEvent) {
+            NameChangedEvent ev = (NameChangedEvent)arg;
+            if (ev.getObject() instanceof Model) {
+               if (currentModel != null && currentModel.equals(ev.getObject())) {
+                  ModelNameLabel.setText("Model: " + currentModel.getName());
+               }
+            } else if (ev.getObject() instanceof AbstractActuator) {
+               AbstractActuator act = (AbstractActuator)ev.getObject();
+               if (currentModel != null && currentModel.equals(act.getModel()))
+                  updateActuatorName(act);
             }
          }
       }

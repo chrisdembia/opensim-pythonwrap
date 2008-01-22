@@ -37,12 +37,20 @@ public class PerturbationTool extends ForwardTool {
     this(opensimModelJNI.new_PerturbationTool__SWIG_0(), true);
   }
 
+  public PerturbationTool(String aFileName, boolean aUpdateFromXMLNode, boolean aLoadModel) {
+    this(opensimModelJNI.new_PerturbationTool__SWIG_1(aFileName, aUpdateFromXMLNode, aLoadModel), true);
+  }
+
+  public PerturbationTool(String aFileName, boolean aUpdateFromXMLNode) {
+    this(opensimModelJNI.new_PerturbationTool__SWIG_2(aFileName, aUpdateFromXMLNode), true);
+  }
+
   public PerturbationTool(String aFileName) {
-    this(opensimModelJNI.new_PerturbationTool__SWIG_1(aFileName), true);
+    this(opensimModelJNI.new_PerturbationTool__SWIG_3(aFileName), true);
   }
 
   public PerturbationTool(PerturbationTool aObject) {
-    this(opensimModelJNI.new_PerturbationTool__SWIG_2(PerturbationTool.getCPtr(aObject), aObject), true);
+    this(opensimModelJNI.new_PerturbationTool__SWIG_4(PerturbationTool.getCPtr(aObject), aObject), true);
   }
 
   public OpenSimObject copy() {

@@ -54,9 +54,9 @@ public class SimmJoint extends AbstractJoint {
     opensimModelJNI.SimmJoint_copyData(swigCPtr, this, SimmJoint.getCPtr(aJoint), aJoint);
   }
 
-  public SWIGTYPE_p_OpenSim__DofSet getDofSet() {
+  public DofSet getDofSet() {
     long cPtr = opensimModelJNI.SimmJoint_getDofSet(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_OpenSim__DofSet(cPtr, false);
+    return (cPtr == 0) ? null : new DofSet(cPtr, false);
   }
 
   public AbstractBody getChildBody() {

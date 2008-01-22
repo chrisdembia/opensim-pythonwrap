@@ -10,6 +10,7 @@ import org.opensim.modeling.Model;
 import org.opensim.view.nodes.ConcreteModelNode;
 import org.opensim.view.nodes.OpenSimObjectNode;
 import org.opensim.view.pub.OpenSimDB;
+import org.opensim.view.pub.ViewDB;
 
 public final class ModelRenameAction extends CallableSystemAction {
    
@@ -28,13 +29,22 @@ public final class ModelRenameAction extends CallableSystemAction {
              String newName = dlg.getInputText();
              if (OpenSimDB.getInstance().validateName(newName, true)){
                  objectNode.getOpenSimObject().setName(newName);
-                 objectNode.setName(newName);  // Force navigartor window update
+                 objectNode.setName(newName);  // Force navigator window update
+                 // Create event to tell everyone else
+                 NameChangedEvent evnt = new NameChangedEvent(objectNode.getOpenSimObject());
+                 OpenSimDB.getInstance().setChanged();
+                 OpenSimDB.getInstance().notifyObservers(evnt);
                  // The following is specific to renaming a model since
                  // other windows may display currentModel's name
                  // A more generic scheme using events should be used.
-                 Model dModel = ((ConcreteModelNode)objectNode).getModel();
-                 if (dModel==OpenSimDB.getInstance().getCurrentModel())
-                     OpenSimDB.getInstance().setCurrentModel(dModel);   // Need to do this so that model dropdown updates
+                 if (objectNode instanceof ConcreteModelNode) {
+                    Model dModel = ((ConcreteModelNode)objectNode).getModel();
+                    if (dModel==OpenSimDB.getInstance().getCurrentModel())
+                       OpenSimDB.getInstance().setCurrentModel(dModel);   // Need to do this so that model dropdown updates
+                    // Mark the model as dirty
+                    SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(dModel);
+                    guiElem.setUnsavedChangesFlag(true);
+                 }
              } else
                  DialogDisplayer.getDefault().notify(new NotifyDescriptor.Message("Provided name "+newName+" is not valid"));
          }

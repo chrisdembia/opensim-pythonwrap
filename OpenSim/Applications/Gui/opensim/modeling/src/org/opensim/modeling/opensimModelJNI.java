@@ -12,9 +12,9 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("osimJavaJNI");		// All OpenSim classes required for GUI operation.
-        System.loadLibrary("osimSdfastEngine");	//to load sdfast based models
-        System.loadLibrary("osimSimbodyEngine");	//to load sdfast based models
+        System.loadLibrary("osimJavaJNI_d");		// All OpenSim classes required for GUI operation.
+        System.loadLibrary("osimSdfastEngine_d");	//to load sdfast based models
+        System.loadLibrary("osimSimbodyEngine_d");	//to load sdfast based models
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic libraries osimJavaJNI, osimSdfastEngine, and osimSimbodyEngine are in your PATH\n"+e);
@@ -734,7 +734,7 @@ public class opensimModelJNI {
   public final static native long new_Constant__SWIG_2(int jarg1, long jarg2, long jarg3);
   public final static native long new_Constant__SWIG_3(long jarg1, Constant jarg1_);
   public final static native void delete_Constant(long jarg1);
-  public final static native long Constant_copy(long jarg1, Constant jarg1_);
+  public final static native long Constant_copy__SWIG_0(long jarg1, Constant jarg1_);
   public final static native void Constant_init(long jarg1, Constant jarg1_, int jarg2, long jarg3, long jarg4);
   public final static native int Constant_getNumberOfPoints(long jarg1, Constant jarg1_);
   public final static native double Constant_getX(long jarg1, Constant jarg1_, int jarg2);
@@ -750,6 +750,10 @@ public class opensimModelJNI {
   public final static native double Constant_evaluate__SWIG_3(long jarg1, Constant jarg1_, int jarg2);
   public final static native double Constant_evaluate__SWIG_4(long jarg1, Constant jarg1_);
   public final static native void Constant_scaleY(long jarg1, Constant jarg1_, double jarg2);
+  public final static native boolean Constant_isKindOf(String jarg1);
+  public final static native boolean Constant_isA(long jarg1, Constant jarg1_, String jarg2);
+  public final static native long Constant_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void Constant_copy__SWIG_1(long jarg1, Constant jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native long new_NatCubicSpline__SWIG_0();
   public final static native long new_NatCubicSpline__SWIG_1(int jarg1, long jarg2, long jarg3, String jarg4);
   public final static native long new_NatCubicSpline__SWIG_2(int jarg1, long jarg2, long jarg3);
@@ -2586,7 +2590,7 @@ public class opensimModelJNI {
   public final static native long new_BodyScaleSet__SWIG_1(long jarg1, BodyScaleSet jarg1_);
   public final static native void delete_BodyScaleSet(long jarg1);
   public final static native void delete_AbstractDof(long jarg1);
-  public final static native long AbstractDof_copy(long jarg1, AbstractDof jarg1_);
+  public final static native long AbstractDof_copy__SWIG_0(long jarg1, AbstractDof jarg1_);
   public final static native void AbstractDof_copyData(long jarg1, AbstractDof jarg1_, long jarg2, AbstractDof jarg2_);
   public final static native void AbstractDof_setup(long jarg1, AbstractDof jarg1_, long jarg2, AbstractDynamicsEngine jarg2_, long jarg3, AbstractJoint jarg3_);
   public final static native void AbstractDof_setCoordinateName(long jarg1, AbstractDof jarg1_, String jarg2);
@@ -2598,6 +2602,61 @@ public class opensimModelJNI {
   public final static native double AbstractDof_getValue(long jarg1, AbstractDof jarg1_);
   public final static native long AbstractDof_getCoordinate(long jarg1, AbstractDof jarg1_);
   public final static native long AbstractDof_getFunction(long jarg1, AbstractDof jarg1_);
+  public final static native void AbstractDof_setFunction(long jarg1, AbstractDof jarg1_, long jarg2, Function jarg2_);
+  public final static native long AbstractDof_getJoint(long jarg1, AbstractDof jarg1_);
+  public final static native boolean AbstractDof_isKindOf(String jarg1);
+  public final static native boolean AbstractDof_isA(long jarg1, AbstractDof jarg1_, String jarg2);
+  public final static native long AbstractDof_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void AbstractDof_copy__SWIG_1(long jarg1, AbstractDof jarg1_, long jarg2, OpenSimObject jarg2_);
+  public final static native void delete_SetDofs(long jarg1);
+  public final static native long new_SetDofs__SWIG_0();
+  public final static native long new_SetDofs__SWIG_1(String jarg1, boolean jarg2);
+  public final static native long new_SetDofs__SWIG_2(String jarg1);
+  public final static native long new_SetDofs__SWIG_3(long jarg1, SetDofs jarg1_);
+  public final static native long SetDofs_copy(long jarg1, SetDofs jarg1_);
+  public final static native void SetDofs_setup(long jarg1, SetDofs jarg1_);
+  public final static native void SetDofs_setMemoryOwner(long jarg1, SetDofs jarg1_, boolean jarg2);
+  public final static native boolean SetDofs_getMemoryOwner(long jarg1, SetDofs jarg1_);
+  public final static native boolean SetDofs_computeNewCapacity(long jarg1, SetDofs jarg1_, int jarg2, long jarg3);
+  public final static native boolean SetDofs_ensureCapacity(long jarg1, SetDofs jarg1_, int jarg2);
+  public final static native void SetDofs_trim(long jarg1, SetDofs jarg1_);
+  public final static native int SetDofs_getCapacity(long jarg1, SetDofs jarg1_);
+  public final static native void SetDofs_setCapacityIncrement(long jarg1, SetDofs jarg1_, int jarg2);
+  public final static native int SetDofs_getCapacityIncrement(long jarg1, SetDofs jarg1_);
+  public final static native boolean SetDofs_setSize(long jarg1, SetDofs jarg1_, int jarg2);
+  public final static native int SetDofs_getSize(long jarg1, SetDofs jarg1_);
+  public final static native int SetDofs_getIndex__SWIG_0(long jarg1, SetDofs jarg1_, long jarg2, AbstractDof jarg2_, int jarg3);
+  public final static native int SetDofs_getIndex__SWIG_1(long jarg1, SetDofs jarg1_, long jarg2, AbstractDof jarg2_);
+  public final static native int SetDofs_getIndex__SWIG_2(long jarg1, SetDofs jarg1_, String jarg2, int jarg3);
+  public final static native int SetDofs_getIndex__SWIG_3(long jarg1, SetDofs jarg1_, String jarg2);
+  public final static native void SetDofs_getGroupNamesContaining(long jarg1, SetDofs jarg1_, String jarg2, long jarg3, ArrayStr jarg3_);
+  public final static native boolean SetDofs_append__SWIG_0(long jarg1, SetDofs jarg1_, long jarg2, AbstractDof jarg2_);
+  public final static native boolean SetDofs_append__SWIG_1(long jarg1, SetDofs jarg1_, long jarg2);
+  public final static native boolean SetDofs_insert(long jarg1, SetDofs jarg1_, int jarg2, long jarg3, AbstractDof jarg3_);
+  public final static native boolean SetDofs_remove__SWIG_0(long jarg1, SetDofs jarg1_, int jarg2);
+  public final static native boolean SetDofs_remove__SWIG_1(long jarg1, SetDofs jarg1_, long jarg2, AbstractDof jarg2_);
+  public final static native boolean SetDofs_replace(long jarg1, SetDofs jarg1_, int jarg2, long jarg3, AbstractDof jarg3_);
+  public final static native void SetDofs_clearAndDestroy(long jarg1, SetDofs jarg1_);
+  public final static native boolean SetDofs_set(long jarg1, SetDofs jarg1_, int jarg2, long jarg3, AbstractDof jarg3_);
+  public final static native long SetDofs_get__SWIG_0(long jarg1, SetDofs jarg1_, int jarg2);
+  public final static native long SetDofs_get__SWIG_1(long jarg1, SetDofs jarg1_, String jarg2);
+  public final static native void SetDofs_getNames(long jarg1, SetDofs jarg1_, long jarg2, ArrayStr jarg2_);
+  public final static native long SetDofs_getLast(long jarg1, SetDofs jarg1_);
+  public final static native int SetDofs_searchBinary__SWIG_0(long jarg1, SetDofs jarg1_, long jarg2, AbstractDof jarg2_, boolean jarg3, int jarg4, int jarg5);
+  public final static native int SetDofs_searchBinary__SWIG_1(long jarg1, SetDofs jarg1_, long jarg2, AbstractDof jarg2_, boolean jarg3, int jarg4);
+  public final static native int SetDofs_searchBinary__SWIG_2(long jarg1, SetDofs jarg1_, long jarg2, AbstractDof jarg2_, boolean jarg3);
+  public final static native int SetDofs_searchBinary__SWIG_3(long jarg1, SetDofs jarg1_, long jarg2, AbstractDof jarg2_);
+  public final static native int SetDofs_getNumGroups(long jarg1, SetDofs jarg1_);
+  public final static native void SetDofs_addGroup(long jarg1, SetDofs jarg1_, String jarg2);
+  public final static native void SetDofs_removeGroup(long jarg1, SetDofs jarg1_, String jarg2);
+  public final static native void SetDofs_renameGroup(long jarg1, SetDofs jarg1_, String jarg2, String jarg3);
+  public final static native void SetDofs_addObjectToGroup(long jarg1, SetDofs jarg1_, String jarg2, String jarg3);
+  public final static native void SetDofs_getGroupNames(long jarg1, SetDofs jarg1_, long jarg2, ArrayStr jarg2_);
+  public final static native long SetDofs_getGroup__SWIG_0(long jarg1, SetDofs jarg1_, String jarg2);
+  public final static native long SetDofs_getGroup__SWIG_1(long jarg1, SetDofs jarg1_, int jarg2);
+  public final static native long new_DofSet__SWIG_0();
+  public final static native long new_DofSet__SWIG_1(long jarg1, DofSet jarg1_);
+  public final static native void delete_DofSet(long jarg1);
   public final static native void delete_AbstractCoordinate(long jarg1);
   public final static native long AbstractCoordinate_copy(long jarg1, AbstractCoordinate jarg1_);
   public final static native void AbstractCoordinate_copyData(long jarg1, AbstractCoordinate jarg1_, long jarg2, AbstractCoordinate jarg2_);
@@ -2738,7 +2797,7 @@ public class opensimModelJNI {
   public final static native void delete_CoordinateSet(long jarg1);
   public final static native void CoordinateSet_setup(long jarg1, CoordinateSet jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
   public final static native void delete_AbstractJoint(long jarg1);
-  public final static native long AbstractJoint_copy(long jarg1, AbstractJoint jarg1_);
+  public final static native long AbstractJoint_copy__SWIG_0(long jarg1, AbstractJoint jarg1_);
   public final static native void AbstractJoint_copyData(long jarg1, AbstractJoint jarg1_, long jarg2, AbstractJoint jarg2_);
   public final static native long AbstractJoint_getDynamicsEngine(long jarg1, AbstractJoint jarg1_);
   public final static native void AbstractJoint_setup(long jarg1, AbstractJoint jarg1_, long jarg2, AbstractDynamicsEngine jarg2_);
@@ -2751,6 +2810,10 @@ public class opensimModelJNI {
   public final static native boolean AbstractJoint_isCoordinateUsed(long jarg1, AbstractJoint jarg1_, long jarg2, AbstractCoordinate jarg2_);
   public final static native boolean AbstractJoint_hasXYZAxes(long jarg1, AbstractJoint jarg1_);
   public final static native void AbstractJoint_scale(long jarg1, AbstractJoint jarg1_, long jarg2, ScaleSet jarg2_);
+  public final static native boolean AbstractJoint_isKindOf(String jarg1);
+  public final static native boolean AbstractJoint_isA(long jarg1, AbstractJoint jarg1_, String jarg2);
+  public final static native long AbstractJoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
+  public final static native void AbstractJoint_copy__SWIG_1(long jarg1, AbstractJoint jarg1_, long jarg2, OpenSimObject jarg2_);
   public final static native long new_SimmJoint__SWIG_0();
   public final static native long new_SimmJoint__SWIG_1(long jarg1, SimmJoint jarg1_);
   public final static native void delete_SimmJoint(long jarg1);
@@ -4026,6 +4089,8 @@ public class opensimModelJNI {
   public final static native long SWIGSetBodyScalesUpcast(long jarg1);
   public final static native long SWIGBodyScaleSetUpcast(long jarg1);
   public final static native long SWIGAbstractDofUpcast(long jarg1);
+  public final static native long SWIGSetDofsUpcast(long jarg1);
+  public final static native long SWIGDofSetUpcast(long jarg1);
   public final static native long SWIGAbstractCoordinateUpcast(long jarg1);
   public final static native long SWIGSimmCoordinateUpcast(long jarg1);
   public final static native long SWIGSetCoordinatesUpcast(long jarg1);

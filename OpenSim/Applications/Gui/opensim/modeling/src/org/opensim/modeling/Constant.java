@@ -50,7 +50,7 @@ public class Constant extends Function {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.Constant_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.Constant_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -112,6 +112,23 @@ public class Constant extends Function {
 
   public void scaleY(double aScaleFactor) {
     opensimModelJNI.Constant_scaleY(swigCPtr, this, aScaleFactor);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.Constant_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.Constant_isA(swigCPtr, this, type);
+  }
+
+  public static Constant safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.Constant_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new Constant(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.Constant_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }

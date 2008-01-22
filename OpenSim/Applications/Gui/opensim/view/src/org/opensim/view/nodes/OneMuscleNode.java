@@ -48,9 +48,9 @@ public class OneMuscleNode extends OpenSimObjectNode{
     /** Creates a new instance of OneMuscleNode */
     public OneMuscleNode(OpenSimObject actuator) {
         super(actuator);
-        setShortDescription(bundle.getString("HINT_ActuatorNode"));
-      addDisplayOption(displayOption.Showable);
-      addDisplayOption(displayOption.Isolatable);
+        setShortDescription(bundle.getString("HINT_MuscleNode"));
+        addDisplayOption(displayOption.Showable);
+        addDisplayOption(displayOption.Isolatable);
     }
     public Image getIcon(int i) {
         URL imageURL = this.getClass().getResource("icons/muscleNode.png");

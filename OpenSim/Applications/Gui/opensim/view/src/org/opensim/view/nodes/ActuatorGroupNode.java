@@ -55,6 +55,7 @@ public class ActuatorGroupNode extends OpenSimObjectNode {
    public ActuatorGroupNode(ObjectGroup group) {
       super(group);
       setDisplayName(group.getName());
+      setShortDescription(bundle.getString("HINT_ActuatorGroupNode"));
       Children children = getChildren();
       ArrayObjPtr members = group.getMembers();
       for (int i = 0; i < members.getSize(); i++ ) {
