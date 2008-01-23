@@ -11,7 +11,6 @@ import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -21,16 +20,13 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Vector;
 import javax.swing.AbstractAction;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -94,8 +90,10 @@ public class JPlotterPanel extends javax.swing.JPanel
    boolean sumCurve=false;
    Dialog dFilterDlg=null;
    boolean muscleDialogUp=false;
-   NumberFormat    numberFormat=NumberFormat.getNumberInstance();
-   NumberFormatter doubleFormatter= new NumberFormatter(numberFormat);
+   NumberFormat    domainFormat=NumberFormat.getNumberInstance();
+   NumberFormatter domainFormatter= new NumberFormatter(domainFormat);
+   NumberFormat    rangeFormat=NumberFormat.getNumberInstance();
+   NumberFormatter rangeFormatter= new NumberFormatter(rangeFormat);
 
    
    // Plotting from a motion or storage has obvious domain, sourceX values
@@ -132,7 +130,8 @@ public class JPlotterPanel extends javax.swing.JPanel
     */
    public JPlotterPanel() {
       initComponents();
-      doubleFormatter.setValueClass(java.lang.Double.class);
+      domainFormatter.setValueClass(java.lang.Double.class);
+      rangeFormatter.setValueClass(java.lang.Double.class);
       jDomainStartTextField.setValue(0.0);   jDomainStartTextField.addActionListener(new handleReturnAction(jDomainStartTextField));
       jDomainEndTextField.setValue(1.0);   jDomainEndTextField.addActionListener(new handleReturnAction(jDomainEndTextField));
       jFormattedTextFieldYmin.setValue(-10000.0);   jFormattedTextFieldYmin.addActionListener(new handleReturnAction(jFormattedTextFieldYmin));
@@ -176,11 +175,11 @@ public class JPlotterPanel extends javax.swing.JPanel
       jLabel3 = new javax.swing.JLabel();
       jRectifyCheckBox = new javax.swing.JCheckBox();
       jLabel9 = new javax.swing.JLabel();
-      jDomainStartTextField = new JFormattedTextField(doubleFormatter);
+      jDomainStartTextField = new JFormattedTextField(domainFormatter);
       jLabel10 = new javax.swing.JLabel();
-      jDomainEndTextField = new JFormattedTextField(doubleFormatter);
-      jFormattedTextFieldYmin = new JFormattedTextField(doubleFormatter);
-      jFormattedTextFieldYmax = new JFormattedTextField(doubleFormatter);
+      jDomainEndTextField = new JFormattedTextField(domainFormatter);
+      jFormattedTextFieldYmin = new JFormattedTextField(rangeFormatter);
+      jFormattedTextFieldYmax = new JFormattedTextField(rangeFormatter);
       jPlotTitlePanel = new javax.swing.JPanel();
       jPlotLabelJLabel = new javax.swing.JLabel();
       jPlotNameTextField = new javax.swing.JTextField();
@@ -242,6 +241,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       jLabel10.setText("xmax");
 
       jDomainEndTextField.setToolTipText("domain end");
+      jDomainEndTextField.addActionListener(this);
       jDomainEndTextField.addPropertyChangeListener(this);
 
       jFormattedTextFieldYmin.setEditable(false);
@@ -407,7 +407,7 @@ public class JPlotterPanel extends javax.swing.JPanel
       jPlotNavigationPanelLayout.setVerticalGroup(
          jPlotNavigationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
          .add(org.jdesktop.layout.GroupLayout.TRAILING, jPlotNavigationPanelLayout.createSequentialGroup()
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
       );
@@ -457,16 +457,16 @@ public class JPlotterPanel extends javax.swing.JPanel
                   .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
                .add(jMuscleSelectButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .add(jAdvancedOptionsButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+               .add(jAdvancedOptionsButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 97, Short.MAX_VALUE)
                .add(xQuantityButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .add(yQuantityButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPlotSpecPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-               .add(jCurveLegendTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, jSummaryAdvancedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-               .add(jSelectedMusclesTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, jXQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-               .add(org.jdesktop.layout.GroupLayout.TRAILING, jYQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+               .add(jCurveLegendTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jSummaryAdvancedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+               .add(jSelectedMusclesTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jXQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, jYQtyTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
             .addContainerGap())
       );
       jPlotSpecPanelLayout.setVerticalGroup(
@@ -564,6 +564,9 @@ public class JPlotterPanel extends javax.swing.JPanel
       else if (evt.getSource() == jXQtyTextField) {
          JPlotterPanel.this.jXQtyTextFieldActionPerformed(evt);
       }
+      else if (evt.getSource() == jDomainEndTextField) {
+         JPlotterPanel.this.jDomainEndTextFieldActionPerformed(evt);
+      }
    }
 
    public void focusGained(java.awt.event.FocusEvent evt) {
@@ -638,6 +641,10 @@ public class JPlotterPanel extends javax.swing.JPanel
       }
    }// </editor-fold>//GEN-END:initComponents
 
+   private void jDomainEndTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDomainEndTextFieldActionPerformed
+      jDomainEndTextField.setValue(getMaxX()); // to reformat the entered value
+   }//GEN-LAST:event_jDomainEndTextFieldActionPerformed
+
    private void jPlotsTreeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPlotsTreeMouseReleased
 // TODO add your handling code here:
      if (evt.isPopupTrigger())
@@ -655,7 +662,7 @@ public class JPlotterPanel extends javax.swing.JPanel
    }//GEN-LAST:event_jFormattedTextFieldYminActionPerformed
 
    private void jDomainStartTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDomainStartTextFieldActionPerformed
-// TODO add your handling code here:
+      jDomainStartTextField.setValue(getMinX()); // to reformat the entered value
    }//GEN-LAST:event_jDomainStartTextFieldActionPerformed
 
    private void jRectifyCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRectifyCheckBoxActionPerformed
@@ -777,11 +784,22 @@ public class JPlotterPanel extends javax.swing.JPanel
                    jXQtyTextField.setText(coordinateName);
                    CoordinateSet cs = currentModel.getDynamicsEngine().getCoordinateSet();
                    AbstractCoordinate coord = cs.get(coordinateName);
-                   double conversionToGuiUnits=(coord.getMotionType()==AbstractDof.DofType.Rotational)?Math.toDegrees(1.0):1.0;
-                   long l=Math.round(conversionToGuiUnits*coord.getRangeMin());
-                   jDomainStartTextField.setValue((double)l);
-                   l=Math.round(conversionToGuiUnits*coord.getRangeMax());
-                   jDomainEndTextField.setValue((double)l);
+                   if (coord.getMotionType() == AbstractDof.DofType.Rotational) {
+                      double conversionToGuiUnits = Math.toDegrees(1.0);
+                      domainFormat.setMinimumFractionDigits(0);
+                      domainFormat.setMaximumFractionDigits(5);
+                      domainFormatter.setMinimum(conversionToGuiUnits*coord.getRangeMin());
+                      domainFormatter.setMaximum(conversionToGuiUnits*coord.getRangeMax());
+                      jDomainStartTextField.setValue(conversionToGuiUnits*coord.getRangeMin());
+                      jDomainEndTextField.setValue(conversionToGuiUnits*coord.getRangeMax());
+                   } else {
+                      domainFormat.setMinimumFractionDigits(3);
+                      domainFormat.setMaximumFractionDigits(5);
+                      domainFormatter.setMinimum(coord.getRangeMin());
+                      domainFormatter.setMaximum(coord.getRangeMax());
+                      jDomainStartTextField.setValue(coord.getRangeMin());
+                      jDomainEndTextField.setValue(coord.getRangeMax());
+                   }
                    updateContextGuiElements();
                    jPlotterAddPlotButton.setEnabled(validateXY());
       //printPlotDescriptor();
@@ -1380,7 +1398,11 @@ public class JPlotterPanel extends javax.swing.JPanel
          double domEnd=(Double)jDomainEndTextField.getValue();
          if (coord.getMotionType() == AbstractDof.DofType.Rotational){
             domStart=Math.toRadians(domStart);
+            if (domStart < coord.getRangeMin())
+               domStart = coord.getRangeMin();
             domEnd=Math.toRadians(domEnd);
+            if (domEnd > coord.getRangeMax())
+               domEnd = coord.getRangeMax();
          }
          // Make 100 steps along the way, varying the quantity on sourceX by 1/100 of the distance between domStart & domEnd
          statesStorage.purge();

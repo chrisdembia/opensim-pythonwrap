@@ -165,7 +165,7 @@
             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jDomainStartTextFieldPropertyChange"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(doubleFormatter);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(domainFormatter);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
@@ -178,10 +178,11 @@
             <Property name="toolTipText" type="java.lang.String" value="domain end"/>
           </Properties>
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jDomainEndTextFieldActionPerformed"/>
             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jDomainEndTextFieldPropertyChange"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(doubleFormatter);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(domainFormatter);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldYmin">
@@ -193,7 +194,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFormattedTextFieldYminActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(doubleFormatter);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(rangeFormatter);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldYmax">
@@ -203,7 +204,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(doubleFormatter);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(rangeFormatter);"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -381,7 +382,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jScrollPane1" pref="93" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="101" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -498,11 +499,11 @@
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jCurveLegendTextField" alignment="0" pref="174" max="32767" attributes="2"/>
-                              <Component id="jSummaryAdvancedTextField" alignment="1" pref="174" max="32767" attributes="0"/>
-                              <Component id="jSelectedMusclesTextField" alignment="0" pref="174" max="32767" attributes="0"/>
-                              <Component id="jXQtyTextField" alignment="1" pref="174" max="32767" attributes="2"/>
-                              <Component id="jYQtyTextField" alignment="1" pref="174" max="32767" attributes="2"/>
+                              <Component id="jCurveLegendTextField" alignment="0" pref="138" max="32767" attributes="2"/>
+                              <Component id="jSummaryAdvancedTextField" alignment="1" pref="138" max="32767" attributes="0"/>
+                              <Component id="jSelectedMusclesTextField" alignment="0" pref="138" max="32767" attributes="0"/>
+                              <Component id="jXQtyTextField" alignment="1" pref="138" max="32767" attributes="2"/>
+                              <Component id="jYQtyTextField" alignment="1" pref="138" max="32767" attributes="2"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
