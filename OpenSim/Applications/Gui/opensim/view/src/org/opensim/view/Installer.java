@@ -1,6 +1,8 @@
 package org.opensim.view;
 
+import java.awt.Frame;
 import java.util.prefs.Preferences;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -47,7 +49,6 @@ public class Installer extends ModuleInstall {
                // which is necessary to allow moving muscle points even if the muscle editor top component is not shown
                // Note that this may cause a warning exception "Cannot find MuscleEditor component" to be shown... just ignore it.
                MuscleEditorTopComponent.findInstance();
-               FunctionEditorTopComponent.findInstance();
             }});
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -69,7 +70,10 @@ public class Installer extends ModuleInstall {
          */
         restorePrefs();
     }
-    
+    /**
+     * restorePrefs is primarily used for the first time around where there are no pref values
+     * stored in the backing file/registry. It sets values in the backing store based on the resource/Bundle files
+     * built nito the application */
     private void restorePrefs()
     {
          String AAFRamesDefaultStr = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_AAFrames");        
@@ -91,6 +95,14 @@ public class Installer extends ModuleInstall {
          String defaultBgColor = NbBundle.getMessage(OpenSimBaseCanvas.class, "CTL_BackgroundColorRGB");        
          saved = Preferences.userNodeForPackage(TheApp.class).get("BackgroundColor", defaultBgColor);
          Preferences.userNodeForPackage(TheApp.class).put("BackgroundColor", saved);
+
+         String muscleRadius = NbBundle.getMessage(ViewDB.class, "CTL_MuscleRadius");        
+         saved = Preferences.userNodeForPackage(TheApp.class).get("Muscle Display Radius", muscleRadius);
+         Preferences.userNodeForPackage(TheApp.class).put("Muscle Display Radius", saved);
+
+         String markerRadius = NbBundle.getMessage(ViewDB.class, "CTL_MarkerRadius");        
+         saved = Preferences.userNodeForPackage(TheApp.class).get("Marker Display Radius", markerRadius);
+         Preferences.userNodeForPackage(TheApp.class).put("Marker Display Radius", saved);
 
          String markerColor = NbBundle.getMessage(ViewDB.class, "CTL_MarkersColorRGB");        
          saved = Preferences.userNodeForPackage(TheApp.class).get("Markers Color", markerColor);

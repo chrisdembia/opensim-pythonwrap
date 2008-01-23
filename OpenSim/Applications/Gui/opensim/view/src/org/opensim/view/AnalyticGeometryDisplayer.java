@@ -94,8 +94,8 @@ public class AnalyticGeometryDisplayer {
           double[] params = new double[]{1.0, 1.0};
           typed.getTorusParams(params);
           //System.out.println("Processing torus (r1, r2)"+params[0]+","+params[1]);
-          torus.SetRingRadius(params[0]);
-          torus.SetCrossSectionRadius(params[1]);
+          torus.SetRingRadius(params[1]+params[0]);
+          torus.SetCrossSectionRadius(params[0]);
           vtkPolyData full = torusSource.GetOutput();
           if (ag.isPiece())
             return clipPolyData(quadrants, full);

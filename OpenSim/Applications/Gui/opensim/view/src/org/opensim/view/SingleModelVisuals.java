@@ -73,9 +73,9 @@ public class SingleModelVisuals {
     private double[] defaultMusclePointColor = new double[]{1.0, 0.0, 0.0};
     private double[] defaultMarkerColor = new double[]{1.0, 0.6, 0.8};
     private double[] defaultWrapObjectColor = new double[]{0.0, 1.0, 1.0};
-    private double DEFAULT_MUSCLE_RADIUS = .005;
-    private double DEFAULT_MUSCLE_POINT_RADIUS = .005;
-    private double DEFAULT_MARKER_RADIUS = .01;
+    //private double DEFAULT_MUSCLE_RADIUS = .005;
+    //private double DEFAULT_MUSCLE_POINT_RADIUS = .005;
+    //private double DEFAULT_MARKER_RADIUS = .01;
 
     // Maps between objects and vtkProp3D for going from Actor to Object and vice versa
     // Objects are mapped to vtkProp3D in general, but some are known to be assemblies
@@ -584,7 +584,7 @@ public class SingleModelVisuals {
 
        // Markers
        vtkSphereSource marker=new vtkSphereSource();
-       marker.SetRadius(DEFAULT_MARKER_RADIUS);
+       marker.SetRadius(ViewDB.getInstance().getMarkerDisplayRadius());
        marker.SetCenter(0., 0., 0.);
        //getMarkersRep().setColors(defaultMarkerColor, SelectedObject.defaultSelectedColor);
        defaultMarkerColor = ViewDB.getInstance().getDefaultMarkersColor();
@@ -596,7 +596,7 @@ public class SingleModelVisuals {
        
        // Muscle points
        vtkSphereSource viaPoint=new vtkSphereSource();
-       viaPoint.SetRadius(DEFAULT_MUSCLE_POINT_RADIUS);
+       viaPoint.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
        viaPoint.SetCenter(0., 0., 0.);
        //getMusclePointsRep().setColors(defaultMusclePointColor, SelectedObject.defaultSelectedColor);
        getMusclePointsRep().setColorRange(inactiveMuscleColor, defaultMusclePointColor);
@@ -608,7 +608,7 @@ public class SingleModelVisuals {
       
        // Muscle segments 
        vtkCylinderSource muscleSegment=new vtkCylinderSource();
-       muscleSegment.SetRadius(DEFAULT_MUSCLE_RADIUS);
+       muscleSegment.SetRadius(ViewDB.getInstance().getMuscleDisplayRadius());
        muscleSegment.SetHeight(1.0);
        muscleSegment.SetCenter(0.0, 0.0, 0.0);
        muscleSegment.CappingOff();

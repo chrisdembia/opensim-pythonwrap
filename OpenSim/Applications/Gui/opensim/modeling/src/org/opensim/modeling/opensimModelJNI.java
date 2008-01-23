@@ -12,9 +12,9 @@ public class opensimModelJNI {
 
   static {
       try{
-        System.loadLibrary("osimJavaJNI_d");		// All OpenSim classes required for GUI operation.
-        System.loadLibrary("osimSdfastEngine_d");	//to load sdfast based models
-        System.loadLibrary("osimSimbodyEngine_d");	//to load sdfast based models
+        System.loadLibrary("osimJavaJNI");		// All OpenSim classes required for GUI operation.
+        System.loadLibrary("osimSdfastEngine");	//to load sdfast based models
+        System.loadLibrary("osimSimbodyEngine");	//to load sdfast based models
       }
       catch(UnsatisfiedLinkError e){
            TheApp.exitApp("Required library failed to load. Check that the dynamic libraries osimJavaJNI, osimSdfastEngine, and osimSimbodyEngine are in your PATH\n"+e);
@@ -2825,10 +2825,13 @@ public class opensimModelJNI {
   public final static native long SimmJoint_getParentBody(long jarg1, SimmJoint jarg1_);
   public final static native long SimmJoint_getForwardTransform(long jarg1, SimmJoint jarg1_);
   public final static native long SimmJoint_getInverseTransform(long jarg1, SimmJoint jarg1_);
+  public final static native void SimmJoint_invalidate(long jarg1, SimmJoint jarg1_);
   public final static native boolean SimmJoint_isCoordinateUsed(long jarg1, SimmJoint jarg1_, long jarg2, AbstractCoordinate jarg2_);
   public final static native boolean SimmJoint_hasXYZAxes(long jarg1, SimmJoint jarg1_);
   public final static native void SimmJoint_scale__SWIG_0(long jarg1, SimmJoint jarg1_, long jarg2, ScaleSet jarg2_);
   public final static native void SimmJoint_scale__SWIG_1(long jarg1, SimmJoint jarg1_, long jarg2, ArrayDouble jarg2_);
+  public final static native void SimmJoint_addPathToList(long jarg1, SimmJoint jarg1_, long jarg2);
+  public final static native void SimmJoint_clearPathList(long jarg1, SimmJoint jarg1_);
   public final static native void delete_SetJoints(long jarg1);
   public final static native long new_SetJoints__SWIG_0();
   public final static native long new_SetJoints__SWIG_1(String jarg1, boolean jarg2);

@@ -110,8 +110,8 @@ public final class ViewDB extends Observable implements Observer {
    private boolean dragging = false;
    private double draggingZ = 0.0;
    private double nonCurrentModelOpacity = 0.4;
-   
-   
+   private double muscleDisplayRadius = 0.005;
+   private double markerDisplayRadius = .01;
    /** Creates a new instance of ViewDB */
    private ViewDB() {
    }
@@ -1217,4 +1217,28 @@ public final class ViewDB extends Observable implements Observer {
             color = Prefs.getInstance().parseColor(markersColorStr);
          return color;
    }
+   
+    public double getMuscleDisplayRadius() {
+         String muscleDisplayRadiusStr = NbBundle.getMessage(ViewDB.class,"CTL_MuscleRadius");
+         muscleDisplayRadiusStr =Preferences.userNodeForPackage(TheApp.class).get("Muscle Display Radius", muscleDisplayRadiusStr);
+         if (muscleDisplayRadiusStr != null)
+            muscleDisplayRadius = Double.parseDouble(muscleDisplayRadiusStr);
+        return muscleDisplayRadius;
+    }
+
+    public void setMuscleDisplayRadius(double muscleDisplayRadius) {
+        this.muscleDisplayRadius = muscleDisplayRadius;
+    }
+
+    public double getMarkerDisplayRadius() {
+         String markerDisplayRadiusStr = NbBundle.getMessage(ViewDB.class,"CTL_MarkerRadius");
+         markerDisplayRadiusStr =Preferences.userNodeForPackage(TheApp.class).get("Marker Display Radius", markerDisplayRadiusStr);
+         if (markerDisplayRadiusStr != null)
+            markerDisplayRadius = Double.parseDouble(markerDisplayRadiusStr);
+        return markerDisplayRadius;
+    }
+
+    public void setMarkerDisplayRadius(double markerDisplayRadius) {
+        this.markerDisplayRadius = markerDisplayRadius;
+    }
 }

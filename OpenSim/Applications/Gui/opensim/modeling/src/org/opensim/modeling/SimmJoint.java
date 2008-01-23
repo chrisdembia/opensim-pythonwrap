@@ -77,6 +77,10 @@ public class SimmJoint extends AbstractJoint {
     return new Transform(opensimModelJNI.SimmJoint_getInverseTransform(swigCPtr, this), false);
   }
 
+  public void invalidate() {
+    opensimModelJNI.SimmJoint_invalidate(swigCPtr, this);
+  }
+
   public boolean isCoordinateUsed(AbstractCoordinate aCoordinate) {
     return opensimModelJNI.SimmJoint_isCoordinateUsed(swigCPtr, this, AbstractCoordinate.getCPtr(aCoordinate), aCoordinate);
   }
@@ -91,6 +95,14 @@ public class SimmJoint extends AbstractJoint {
 
   public void scale(ArrayDouble aScaleFactors) {
     opensimModelJNI.SimmJoint_scale__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  }
+
+  public void addPathToList(SWIGTYPE_p_OpenSim__SimmPath aPath) {
+    opensimModelJNI.SimmJoint_addPathToList(swigCPtr, this, SWIGTYPE_p_OpenSim__SimmPath.getCPtr(aPath));
+  }
+
+  public void clearPathList() {
+    opensimModelJNI.SimmJoint_clearPathList(swigCPtr, this);
   }
 
 }
