@@ -32,9 +32,11 @@ import java.awt.Image;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
+import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractJoint;
+import org.opensim.modeling.DofSet;
 import org.opensim.modeling.OpenSimObject;
 
 /**
@@ -49,8 +51,15 @@ public class OneJointNode extends OpenSimObjectNode{
         super(j);
         setShortDescription(bundle.getString("HINT_JointNode"));
         AbstractJoint joint = AbstractJoint.safeDownCast(j);
-        if (joint != null)
-           getChildren().add(new Node[] {new DofsNode(joint.getDofSet())});
+        if (joint != null) {
+           DofSet dofs = joint.getDofSet();
+           if (dofs != null)
+              getChildren().add(new Node[] {new DofsNode(joint.getDofSet())});
+           else
+              setChildren(Children.LEAF);
+        } else {
+           setChildren(Children.LEAF);
+        }
     }
     public Image getIcon(int i) {
         URL imageURL = this.getClass().getResource("icons/jointNode.png");
