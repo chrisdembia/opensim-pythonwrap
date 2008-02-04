@@ -156,8 +156,8 @@ public class AbstractActuator extends OpenSimObject {
     opensimModelJNI.AbstractActuator_updateDisplayer(swigCPtr, this);
   }
 
-  public void replaceFunction(Function aOldFunction, Function aNewFunction) {
-    opensimModelJNI.AbstractActuator_replaceFunction(swigCPtr, this, Function.getCPtr(aOldFunction), aOldFunction, Function.getCPtr(aNewFunction), aNewFunction);
+  public void replacePropertyFunction(Function aOldFunction, Function aNewFunction) {
+    opensimModelJNI.AbstractActuator_replacePropertyFunction(swigCPtr, this, Function.getCPtr(aOldFunction), aOldFunction, Function.getCPtr(aNewFunction), aNewFunction);
   }
 
   public static boolean isKindOf(String type) {

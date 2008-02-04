@@ -29,11 +29,13 @@ import org.openide.ErrorManager;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
+import org.opensim.modeling.Constant;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.Model;
 import org.opensim.modeling.OpenSimObject;
 import org.opensim.view.ModelEvent;
 import org.opensim.view.ObjectSetCurrentEvent;
+import org.opensim.view.functionEditor.FunctionNode;
 import org.opensim.view.pub.OpenSimDB;
 import org.opensim.view.pub.ViewDB;
 
@@ -47,7 +49,7 @@ import org.opensim.view.pub.ViewDB;
 /**
  * Top component which displays something.
  */
-final public class FunctionEditorTopComponent extends TopComponent implements Observer {
+final public class FunctionEditorTopComponent extends TopComponent implements Observer, FunctionPanelListener {
     
    private static FunctionEditorTopComponent instance;
    /** path to the icon used by the component and its open action */
@@ -68,16 +70,17 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
    private FunctionXYSeries xySeries = null;
    private XYPlot xyPlot = null;
    private XYDataset xyDataset = null;
-   private ArrayList<Integer> selectedNodes = new ArrayList<Integer>(0);
    private NumberFormat coordinatesFormat = new DecimalFormat("0.00000");
    private Paint highlightPaint = Color.YELLOW;
    private boolean pendingChanges = false;
+   private String[] functionTypeNames = {"natCubicSpline", "GCVSpline", "LinearFunction", "StepFunction", "Constant"};
 
    /** Storage for registered change listeners. */
-   private transient EventListenerList listenerList;
+   private transient EventListenerList listenerList = null;
 
    private FunctionEditorTopComponent() {
       initComponents();
+      typeComboBox.setModel(new javax.swing.DefaultComboBoxModel(functionTypeNames));
       setName(NbBundle.getMessage(FunctionEditorTopComponent.class, "CTL_FunctionEditorTopComponent"));
       setToolTipText(NbBundle.getMessage(FunctionEditorTopComponent.class, "HINT_FunctionEditorTopComponent"));
 //      setIcon(Utilities.loadImage(ICON_PATH, true));
@@ -97,7 +100,12 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
    }
 
    public void removeChangeListener(FunctionEventListener listener) {
-      this.listenerList.remove(FunctionEventListener.class, listener);
+      if (this.listenerList != null)
+         this.listenerList.remove(FunctionEventListener.class, listener);
+   }
+
+   public void clearChangeListenerList() {
+      this.listenerList = null;
    }
 
    public void notifyListeners(FunctionEvent event) {
@@ -179,7 +187,6 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
 
       org.openide.awt.Mnemonics.setLocalizedText(typeLabel, "Type:");
 
-      typeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "natCubicSpline", "GCVSpline", "StepFunction", "LinearFunction" }));
       typeComboBox.setMaximumSize(new java.awt.Dimension(125, 24));
       typeComboBox.setMinimumSize(new java.awt.Dimension(125, 24));
       typeComboBox.setPreferredSize(new java.awt.Dimension(125, 24));
@@ -316,9 +323,12 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       if (function == null)
          return;
       String nameOfNewType = typeComboBox.getSelectedItem().toString();
+      String nameOfOldType = function.getType();
+      if (nameOfNewType.equals(nameOfOldType)) {
+         return;
+      }
       Function newFunction = Function.makeFunctionOfType(function, nameOfNewType);
       if (newFunction == null) {
-         int foo = 3;
          return;
       }
       //TODO: put the following lines in a function? in functionPanel? backup other quantities?
@@ -329,7 +339,6 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       Function func = function;
       function = newFunction;
       notifyListeners(new FunctionReplacedEvent(model, object, func, newFunction));
-      clearSelectedNodes();
       setupComponent();
       setPendingChanges(true, true);
       functionPanel.getChart().getXYPlot().getDomainAxis().setRange(domainRange);
@@ -355,18 +364,20 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
        if (field.getText().length() > 0) {
           double newValue = Double.parseDouble(field.getText());
           field.setText(coordinatesFormat.format(newValue));
+          ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
           for (int i=0; i<selectedNodes.size(); i++) {
-             int index = selectedNodes.get(i).intValue();
+             int index = selectedNodes.get(i).node;
              function.setY(index, newValue);
              xySeries.updateByIndex(index, newValue);
           }
           setPendingChanges(true, true);
+          notifyListeners(new FunctionModifiedEvent(model, object, function));
        }
     }
 
     private void xValueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_xValueFocusLost
-    if (!evt.isTemporary())
-       xValueEntered((javax.swing.JTextField)evt.getSource());
+       if (!evt.isTemporary())
+          xValueEntered((javax.swing.JTextField)evt.getSource());
     }//GEN-LAST:event_xValueFocusLost
 
     private void xValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xValueActionPerformed
@@ -378,14 +389,38 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
        if (field.getText().length() > 0) {
           double newValue = Double.parseDouble(field.getText());
           field.setText(coordinatesFormat.format(newValue));
+          ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
           for (int i=0; i<selectedNodes.size(); i++) {
-             int index = selectedNodes.get(i).intValue();
+             int index = selectedNodes.get(i).node;
              function.setX(index, newValue);
              xySeries.updateByIndex(index, newValue, function.getY(index));
           }
           setPendingChanges(true, true);
+          notifyListeners(new FunctionModifiedEvent(model, object, function));
        }
     }
+ 
+    private void constantValueFocusLost(java.awt.event.FocusEvent evt) {                                 
+       if (!evt.isTemporary())
+          constantValueEntered((javax.swing.JTextField)evt.getSource());
+    }                                
+
+    private void constantValueActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        constantValueEntered((javax.swing.JTextField)evt.getSource());
+    }                                      
+
+   private void constantValueEntered(javax.swing.JTextField field) {
+      Constant constant = Constant.safeDownCast(function);
+      if (constant != null) {
+         if (field.getText().length() > 0) {
+            double newValue = Double.parseDouble(field.getText());
+            field.setText(coordinatesFormat.format(newValue));
+            constant.setValue(newValue);
+            setPendingChanges(true, true);
+            notifyListeners(new FunctionModifiedEvent(model, object, function));
+         }
+      }
+   }
  
    private void setPendingChanges(boolean state, boolean update) {
       pendingChanges = state;
@@ -404,14 +439,6 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
          //SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(model);
          //guiElem.setUnsavedChangesFlag(true);
       }
-
-      // This is a bit of a hack, but you want to return focus to the
-      // editing panel after buttons are pressed, numbers are entered, etc.
-      // Basically, after anything changes in the editor window. This is
-      // so that you can ctrl-click on nodes to select them without first
-      // having to click on the editing panel to give it keyboard focus.
-      //if (function != null && functionPanel != null)
-         //functionPanel.requestFocusInWindow();
    }
 
    private void updateBackupRestoreButtons() {
@@ -539,56 +566,97 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       functionJPanel.removeAll();
 
       if (function != null) {
-         XYSeriesCollection seriesCollection = new XYSeriesCollection();
-         xySeries = new FunctionXYSeries("function");
-         for (int i=0; i<function.getNumberOfPoints(); i++) {
-            xySeries.add(new XYDataItem(function.getX(i), function.getY(i)));
+         Constant constant = Constant.safeDownCast(function);
+         if (constant != null) {
+            backupFunctionButton.setEnabled(true);
+            restoreFunctionButton.setEnabled(true);
+            typeComboBox.setEnabled(true);
+            typeComboBox.setSelectedIndex(findElement(functionTypeNames, constant.getType()));
+            javax.swing.JLabel valueLabel = new javax.swing.JLabel();
+            valueLabel.setText("value");
+            javax.swing.JTextField valueField = new javax.swing.JTextField();
+            valueField.setText(coordinatesFormat.format(constant.evaluate()));
+            xValueTextField.setEnabled(false);
+            yValueTextField.setEnabled(false);
+            crosshairsCheckBox.setEnabled(false);
+            valueField.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  constantValueActionPerformed(evt);
+               }
+            });
+            valueField.addFocusListener(new java.awt.event.FocusAdapter() {
+               public void focusLost(java.awt.event.FocusEvent evt) {
+                  constantValueFocusLost(evt);
+               }
+            });
+            org.jdesktop.layout.GroupLayout constantLayout = new org.jdesktop.layout.GroupLayout(functionJPanel);
+            functionJPanel.setLayout(constantLayout);
+            constantLayout.setHorizontalGroup(
+               constantLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(constantLayout.createSequentialGroup()
+                  .add(121, 121, 121)
+                  .add(valueLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                  .add(valueField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                  .addContainerGap(317, Short.MAX_VALUE))
+            );
+            constantLayout.setVerticalGroup(
+               constantLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+               .add(org.jdesktop.layout.GroupLayout.TRAILING, constantLayout.createSequentialGroup()
+                  .addContainerGap(118, Short.MAX_VALUE)
+                  .add(constantLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                     .add(valueLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(valueField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                  .add(118, 118, 118))
+            );
+         } else {
+            XYSeriesCollection seriesCollection = new XYSeriesCollection();
+            xySeries = new FunctionXYSeries("function");
+            for (int i=0; i<function.getNumberOfPoints(); i++) {
+               xySeries.add(new XYDataItem(function.getX(i), function.getY(i)));
+            }
+            seriesCollection.addSeries(xySeries);
+            chart = ChartFactory.createXYLineChart(
+               "", functionXLabel, functionYLabel, seriesCollection,
+               org.jfree.chart.plot.PlotOrientation.VERTICAL,
+               true, true, false);
+            xyPlot = chart.getXYPlot();
+            xyDataset = xyPlot.getDataset();
+            renderer = new FunctionRenderer(function);
+            Shape circle = new Ellipse2D.Float(-3, -3, 6, 6);
+            renderer.setBaseShapesVisible(true);
+            renderer.setBaseShapesFilled(true);
+            renderer.setSeriesShape(0, circle);
+            renderer.setBaseSeriesVisibleInLegend(false);
+            renderer.setDrawOutlines(true);
+            renderer.setUseFillPaint(true);
+            renderer.setSeriesStroke(0, new BasicStroke(1.5f));
+            renderer.setSeriesOutlineStroke(0, new BasicStroke(1.0f));
+            renderer.setFunctionPaint(0, Color.BLUE);
+            renderer.setFunctionDefaultFillPaint(0, Color.WHITE);
+            renderer.setFunctionHighlightFillPaint(0, Color.YELLOW);
+            ValueAxis va = xyPlot.getRangeAxis();
+            if (va instanceof NumberAxis) {
+               NumberAxis na = (NumberAxis) va;
+               na.setAutoRangeIncludesZero(false);
+               na.setAutoRangeStickyZero(false);
+               xyPlot.setRangeAxis(na);
+            }
+            xyPlot.setRenderer(renderer);
+            functionPanel = new FunctionPanel(chart);
+            functionJPanel.setLayout(new BorderLayout());
+            functionJPanel.add(functionPanel);
+            functionPanel.addFunctionPanelListener(this);
+            //functionPanel.requestFocusInWindow();
+            backupFunctionButton.setEnabled(true);
+            restoreFunctionButton.setEnabled(true);
+            typeComboBox.setEnabled(true);
+            typeComboBox.setSelectedIndex(findElement(functionTypeNames, function.getType()));
+            xValueTextField.setEnabled(true);
+            yValueTextField.setEnabled(true);
+            crosshairsCheckBox.setEnabled(true);
+            functionDescriptionLabel.setText(functionTitle);
          }
-         seriesCollection.addSeries(xySeries);
-         chart = ChartFactory.createXYLineChart(
-            "",
-            functionXLabel,
-            functionYLabel,
-            seriesCollection,
-            org.jfree.chart.plot.PlotOrientation.VERTICAL,
-            true,
-            true,
-            false);
-         xyPlot = chart.getXYPlot();
-         xyDataset = xyPlot.getDataset();
-         renderer = new FunctionRenderer(function);
-         Shape circle = new Ellipse2D.Float(-3, -3, 6, 6);
-         renderer.setBaseShapesVisible(true);
-         renderer.setBaseShapesFilled(true);
-         renderer.setSeriesShape(0, circle);
-         renderer.setBaseSeriesVisibleInLegend(false);
-         renderer.setDrawOutlines(true);
-         renderer.setUseFillPaint(true);
-         renderer.setSeriesStroke(0, new BasicStroke(1.5f));
-         renderer.setSeriesOutlineStroke(0, new BasicStroke(1.0f));
-         renderer.setFunctionPaint(0, Color.BLUE);
-         renderer.setFunctionDefaultFillPaint(0, Color.WHITE);
-         renderer.setFunctionHighlightFillPaint(0, Color.YELLOW);
-         ValueAxis va = xyPlot.getRangeAxis();
-         if (va instanceof NumberAxis) {
-            NumberAxis na = (NumberAxis) va;
-            na.setAutoRangeIncludesZero(false);
-            na.setAutoRangeStickyZero(false);
-            xyPlot.setRangeAxis(na);
-         }
-         xyPlot.setRenderer(renderer);
-         functionPanel = new FunctionPanel(chart);
-         functionJPanel.setLayout(new BorderLayout());
-         functionJPanel.add(functionPanel);
-         //functionPanel.requestFocusInWindow();
-         backupFunctionButton.setEnabled(true);
-         restoreFunctionButton.setEnabled(true);
-         // TODO: set typeComboBox to proper setting!!!
-         typeComboBox.setEnabled(true);
-         xValueTextField.setEnabled(true);
-         yValueTextField.setEnabled(true);
-         crosshairsCheckBox.setEnabled(true);
-         functionDescriptionLabel.setText(functionTitle);
       } else {
          backupFunctionButton.setEnabled(false);
          restoreFunctionButton.setEnabled(false);
@@ -597,6 +665,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
          yValueTextField.setEnabled(false);
          crosshairsCheckBox.setEnabled(false);
          functionDescriptionLabel.setText("");
+         clearChangeListenerList();
       }
 
       Dimension d = new Dimension(500, 430);
@@ -623,111 +692,42 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       return function;
    }
 
-   public void updateSelectedNodes(int index) {
-      for (int i=0; i<selectedNodes.size(); i++) {
-         if (selectedNodes.get(i).intValue() == index) {
-            selectedNodes.remove(i);
-            renderer.unhighlightControlPoint(0, index);
-            //xyPlot.addAnnotation(new XYTextAnnotation("", xyDataset.getXValue(0, index), xyDataset.getYValue(0, index))); //TODO
-            this.repaint();
-            return;
-         }
-      }
-
-      selectedNodes.add(new Integer(index));
-      double x = xyDataset.getXValue(0, index);
-      double y = xyDataset.getYValue(0, index);
-      renderer.highlightControlPoint(0, index);
-      xValueTextField.setText(coordinatesFormat.format(x));
-      yValueTextField.setText(coordinatesFormat.format(y));
-      this.repaint();
-   }
-
- /* Random notes for excitation editor:
-  * put all excitations on same chart, with checkboxes for display/edit/hide individual ones
-  * some help for adding symmetry (sync with other side, sync with other muscle)
-  */
-
    private void updateXYTextFields() {
+      ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
+
       if (selectedNodes.size() == 1) {
-         double x = xyDataset.getXValue(0, selectedNodes.get(0));;
-         double y = xyDataset.getYValue(0, selectedNodes.get(0));
+         double x = xyDataset.getXValue(selectedNodes.get(0).series, selectedNodes.get(0).node);
+         double y = xyDataset.getYValue(selectedNodes.get(0).series, selectedNodes.get(0).node);
          xValueTextField.setText(coordinatesFormat.format(x));
          xValueTextField.setEnabled(true);
          yValueTextField.setText(coordinatesFormat.format(y));
-         //yValueTextField.setEnabled(true);
       } else {
          xValueTextField.setText("");
          xValueTextField.setEnabled(false);
          yValueTextField.setText("");
-         //yValueTextField.setEnabled(false);
       }
    }
 
-   private int findObjectInSelectedList(int node) {
-      for (int i = 0; i < selectedNodes.size(); i++)
-         if (selectedNodes.get(i).intValue() == node)
-            return i;
-      return -1;
-   }
-
-   public void toggleAddSelectedNode(int node) {
-      int nodeIndex = findObjectInSelectedList(node);
-      // If the node is already in the list, remove it
-      if (nodeIndex >= 0) {
-         selectedNodes.remove(nodeIndex);
-         renderer.unhighlightControlPoint(0, node);
-      } else {
-         // If the node is not already in the list, add it
-         Integer selectedNode = new Integer(node);
-         selectedNodes.add(selectedNode);
-         renderer.highlightControlPoint(0, node);
-      }
+   public void toggleSelectedNode(int series, int node) {
       updateXYTextFields();
-      // The highlighted/unhighlighted control points will be
-      // drawn either when the function panel is redrawn, or
-      // manually by the method calling this one (e.g., during
-      // a box select).
    }
 
    public void clearSelectedNodes() {
-      for (int i = 0; i < selectedNodes.size(); i++)
-         renderer.unhighlightControlPoint(0, selectedNodes.get(i).intValue());
-      selectedNodes.clear();
       updateXYTextFields();
-      this.repaint();
    }
 
-   public void replaceSelectedNode(int node) {
-      // If the node is already in the list of selected ones, do nothing (a la Illustrator)
-      // If the node is not already in the list, make this node the only selected one
-      if(!isSelected(node))
-         setSelectedNode(node);
-   }
-
-   public boolean isSelected(int node) {
-      return (findObjectInSelectedList(node) >= 0);
-   }
-
-   public void setSelectedNode(int node) {
-      clearSelectedNodes();
-
-      if (node >= 0) {
-         Integer selectedNode = new Integer(node);
-         selectedNodes.add(selectedNode);
-         renderer.highlightControlPoint(0, node);
-      }
+   public void replaceSelectedNode(int series, int node) {
       updateXYTextFields();
-      this.repaint();
    }
 
    private void cropDragVector(double dragVector[]) {
       // Don't allow any dragged node to go past either of its neighbors in the X dimension.
       double minGap = 99999999.9;
+      ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       if (dragVector[0] < 0.0) {
          for (int i=0; i<selectedNodes.size(); i++) {
-            int index = selectedNodes.get(i).intValue();
-            if (index == 0 || isSelected(index-1))
+            int index = selectedNodes.get(i).node;
+            if (index == 0 || functionPanel.isNodeSelected(0, index-1))
                continue;
             double gap = function.getX(index) - function.getX(index-1);
             if (gap < minGap)
@@ -740,8 +740,8 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
             dragVector[0] = -minGap;
       } else if (dragVector[0] > 0.0) {
          for (int i=0; i<selectedNodes.size(); i++) {
-            int index = selectedNodes.get(i).intValue();
-            if (index == function.getNumberOfPoints()-1 || isSelected(index+1))
+            int index = selectedNodes.get(i).node;
+            if (index == function.getNumberOfPoints()-1 || functionPanel.isNodeSelected(0, index+1))
                continue;
             double gap = function.getX(index+1) - function.getX(index);
             if (gap < minGap)
@@ -754,11 +754,13 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
             dragVector[0] = minGap;
       }
    }
-   public void dragSelectedNodes(int dragNode, double dragVector[]) {
+
+   public void dragSelectedNodes(int series, int node, double dragVector[]) {
       cropDragVector(dragVector);
       // Now move all the function points by dragVector.
+      ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       for (int i=0; i<selectedNodes.size(); i++) {
-         int index = selectedNodes.get(i).intValue();
+         int index = selectedNodes.get(i).node;
          double newX = function.getX(index) + dragVector[0];
          double newY = function.getY(index) + dragVector[1];
          function.setX(index, newX);
@@ -779,44 +781,44 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
 
    private void restoreFunction() {
       if (savedFunction != null) {
-         clearSelectedNodes();
          function = savedFunction;
          // make a new backup copy
          backupFunction();
       }
    }
 
-   public void duplicateNode(int node) {
+   public void duplicateNode(int series, int node) {
       if (function != null && node >= 0 && node < function.getNumberOfPoints()) {
          // Make a new point that is offset slightly in the X direction from
          // the point to be duplicated.
          double newX = function.getX(node) + 0.00001;
          double newY = function.getY(node);
-         addNode(newX, newY);
+         addNode(0, newX, newY);
       }
    }
 
-   public void deleteNode(int node) {
+   public void deleteNode(int series, int node) {
       if (function != null && node >= 0 && node < function.getNumberOfPoints()) {
-         function.deletePoint(node);
-         xySeries.delete(node, node);
-         clearSelectedNodes();
-         setPendingChanges(true, true);
+         if (function.deletePoint(node)) {
+            xySeries.delete(node, node);
+            setPendingChanges(true, true);
+         }
       }
    }
 
-   public void addNode(double x, double y) {
+   public void addNode(int series, double x, double y) {
       if (function != null) {
-         clearSelectedNodes();
          function.addPoint(x, y);
          xySeries.add(x, y);
-         // Set the color for the new control point.
-         // You don't know the index of the new control point, but it doesn't matter since
-         // all control points have been deselected anyway. So just set the paint of the
-         // last point to the default series paint, since that index was not previously
-         // mapped to a paint.
-         renderer.unhighlightControlPoint(0, xySeries.getItemCount()-1);
          setPendingChanges(true, true);
       }
+   }
+
+   private int findElement(String[] nameList, String name) {
+      int i;
+      for (i = 0; i < nameList.length; i++)
+         if (nameList[i].equals(name))
+            return i;
+      return -1;
    }
 }

@@ -116,8 +116,8 @@ public class StepFunction extends Function {
     opensimModelJNI.StepFunction_scaleY(swigCPtr, this, aScaleFactor);
   }
 
-  public void deletePoint(int aIndex) {
-    opensimModelJNI.StepFunction_deletePoint(swigCPtr, this, aIndex);
+  public boolean deletePoint(int aIndex) {
+    return opensimModelJNI.StepFunction_deletePoint(swigCPtr, this, aIndex);
   }
 
   public void addPoint(double aX, double aY) {

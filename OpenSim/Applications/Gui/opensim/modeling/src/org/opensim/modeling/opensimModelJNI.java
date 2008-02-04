@@ -678,7 +678,7 @@ public class opensimModelJNI {
   public final static native void Function_setX(long jarg1, Function jarg1_, int jarg2, double jarg3);
   public final static native void Function_setY(long jarg1, Function jarg1_, int jarg2, double jarg3);
   public final static native void Function_setZ(long jarg1, Function jarg1_, int jarg2, double jarg3);
-  public final static native void Function_deletePoint(long jarg1, Function jarg1_, int jarg2);
+  public final static native boolean Function_deletePoint(long jarg1, Function jarg1_, int jarg2);
   public final static native void Function_addPoint(long jarg1, Function jarg1_, double jarg2, double jarg3);
   public final static native long Function_renderAsLineSegments__SWIG_0(long jarg1, Function jarg1_, double jarg2, double jarg3);
   public final static native long Function_renderAsLineSegments__SWIG_1(long jarg1, Function jarg1_, int jarg2);
@@ -740,7 +740,7 @@ public class opensimModelJNI {
   public final static native double Constant_getX(long jarg1, Constant jarg1_, int jarg2);
   public final static native double Constant_getY(long jarg1, Constant jarg1_, int jarg2);
   public final static native double Constant_getZ(long jarg1, Constant jarg1_, int jarg2);
-  public final static native void Constant_deletePoint(long jarg1, Constant jarg1_, int jarg2);
+  public final static native boolean Constant_deletePoint(long jarg1, Constant jarg1_, int jarg2);
   public final static native void Constant_addPoint(long jarg1, Constant jarg1_, double jarg2, double jarg3);
   public final static native void Constant_setValue(long jarg1, Constant jarg1_, double jarg2);
   public final static native void Constant_updateBoundingBox(long jarg1, Constant jarg1_);
@@ -775,7 +775,7 @@ public class opensimModelJNI {
   public final static native void NatCubicSpline_setX(long jarg1, NatCubicSpline jarg1_, int jarg2, double jarg3);
   public final static native void NatCubicSpline_setY(long jarg1, NatCubicSpline jarg1_, int jarg2, double jarg3);
   public final static native void NatCubicSpline_scaleY(long jarg1, NatCubicSpline jarg1_, double jarg2);
-  public final static native void NatCubicSpline_deletePoint(long jarg1, NatCubicSpline jarg1_, int jarg2);
+  public final static native boolean NatCubicSpline_deletePoint(long jarg1, NatCubicSpline jarg1_, int jarg2);
   public final static native void NatCubicSpline_addPoint(long jarg1, NatCubicSpline jarg1_, double jarg2, double jarg3);
   public final static native long NatCubicSpline_renderAsLineSegments__SWIG_0(long jarg1, NatCubicSpline jarg1_, double jarg2, double jarg3);
   public final static native long NatCubicSpline_renderAsLineSegments__SWIG_1(long jarg1, NatCubicSpline jarg1_, int jarg2);
@@ -812,7 +812,7 @@ public class opensimModelJNI {
   public final static native void StepFunction_setX(long jarg1, StepFunction jarg1_, int jarg2, double jarg3);
   public final static native void StepFunction_setY(long jarg1, StepFunction jarg1_, int jarg2, double jarg3);
   public final static native void StepFunction_scaleY(long jarg1, StepFunction jarg1_, double jarg2);
-  public final static native void StepFunction_deletePoint(long jarg1, StepFunction jarg1_, int jarg2);
+  public final static native boolean StepFunction_deletePoint(long jarg1, StepFunction jarg1_, int jarg2);
   public final static native void StepFunction_addPoint(long jarg1, StepFunction jarg1_, double jarg2, double jarg3);
   public final static native long StepFunction_renderAsLineSegments__SWIG_0(long jarg1, StepFunction jarg1_, double jarg2, double jarg3);
   public final static native long StepFunction_renderAsLineSegments__SWIG_1(long jarg1, StepFunction jarg1_, int jarg2);
@@ -849,7 +849,7 @@ public class opensimModelJNI {
   public final static native void LinearFunction_setX(long jarg1, LinearFunction jarg1_, int jarg2, double jarg3);
   public final static native void LinearFunction_setY(long jarg1, LinearFunction jarg1_, int jarg2, double jarg3);
   public final static native void LinearFunction_scaleY(long jarg1, LinearFunction jarg1_, double jarg2);
-  public final static native void LinearFunction_deletePoint(long jarg1, LinearFunction jarg1_, int jarg2);
+  public final static native boolean LinearFunction_deletePoint(long jarg1, LinearFunction jarg1_, int jarg2);
   public final static native void LinearFunction_addPoint(long jarg1, LinearFunction jarg1_, double jarg2, double jarg3);
   public final static native long LinearFunction_renderAsLineSegments__SWIG_0(long jarg1, LinearFunction jarg1_, double jarg2, double jarg3);
   public final static native long LinearFunction_renderAsLineSegments__SWIG_1(long jarg1, LinearFunction jarg1_, int jarg2);
@@ -900,7 +900,7 @@ public class opensimModelJNI {
   public final static native void AbstractActuator_getPseudoStates(long jarg1, AbstractActuator jarg1_, double[] jarg2);
   public final static native long AbstractActuator_getDisplayer(long jarg1, AbstractActuator jarg1_);
   public final static native void AbstractActuator_updateDisplayer(long jarg1, AbstractActuator jarg1_);
-  public final static native void AbstractActuator_replaceFunction(long jarg1, AbstractActuator jarg1_, long jarg2, Function jarg2_, long jarg3, Function jarg3_);
+  public final static native void AbstractActuator_replacePropertyFunction(long jarg1, AbstractActuator jarg1_, long jarg2, Function jarg2_, long jarg3, Function jarg3_);
   public final static native boolean AbstractActuator_isKindOf(String jarg1);
   public final static native boolean AbstractActuator_isA(long jarg1, AbstractActuator jarg1_, String jarg2);
   public final static native long AbstractActuator_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3149,6 +3149,12 @@ public class opensimModelJNI {
   public final static native String MovingMusclePoint_getXCoordinateName(long jarg1, MovingMusclePoint jarg1_);
   public final static native String MovingMusclePoint_getYCoordinateName(long jarg1, MovingMusclePoint jarg1_);
   public final static native String MovingMusclePoint_getZCoordinateName(long jarg1, MovingMusclePoint jarg1_);
+  public final static native long MovingMusclePoint_getXFunction(long jarg1, MovingMusclePoint jarg1_);
+  public final static native long MovingMusclePoint_getYFunction(long jarg1, MovingMusclePoint jarg1_);
+  public final static native long MovingMusclePoint_getZFunction(long jarg1, MovingMusclePoint jarg1_);
+  public final static native void MovingMusclePoint_setXFunction(long jarg1, MovingMusclePoint jarg1_, long jarg2, Function jarg2_);
+  public final static native void MovingMusclePoint_setYFunction(long jarg1, MovingMusclePoint jarg1_, long jarg2, Function jarg2_);
+  public final static native void MovingMusclePoint_setZFunction(long jarg1, MovingMusclePoint jarg1_, long jarg2, Function jarg2_);
   public final static native void MovingMusclePoint_scale(long jarg1, MovingMusclePoint jarg1_, long jarg2, ArrayDouble jarg2_);
   public final static native boolean MovingMusclePoint_isActive(long jarg1, MovingMusclePoint jarg1_);
   public final static native void MovingMusclePoint_setup(long jarg1, MovingMusclePoint jarg1_, long jarg2, Model jarg2_, long jarg3, AbstractMuscle jarg3_);

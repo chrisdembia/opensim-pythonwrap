@@ -116,8 +116,8 @@ public class LinearFunction extends Function {
     opensimModelJNI.LinearFunction_scaleY(swigCPtr, this, aScaleFactor);
   }
 
-  public void deletePoint(int aIndex) {
-    opensimModelJNI.LinearFunction_deletePoint(swigCPtr, this, aIndex);
+  public boolean deletePoint(int aIndex) {
+    return opensimModelJNI.LinearFunction_deletePoint(swigCPtr, this, aIndex);
   }
 
   public void addPoint(double aX, double aY) {

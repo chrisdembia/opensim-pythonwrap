@@ -74,8 +74,8 @@ public class Constant extends Function {
     return opensimModelJNI.Constant_getZ(swigCPtr, this, aIndex);
   }
 
-  public void deletePoint(int aIndex) {
-    opensimModelJNI.Constant_deletePoint(swigCPtr, this, aIndex);
+  public boolean deletePoint(int aIndex) {
+    return opensimModelJNI.Constant_deletePoint(swigCPtr, this, aIndex);
   }
 
   public void addPoint(double aX, double aY) {

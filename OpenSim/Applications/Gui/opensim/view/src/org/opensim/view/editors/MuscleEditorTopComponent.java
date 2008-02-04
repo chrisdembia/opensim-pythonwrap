@@ -48,6 +48,7 @@ import org.opensim.modeling.ArrayMusclePoint;
 import org.opensim.modeling.SetWrapObject;
 import org.opensim.modeling.AbstractMuscle;
 import org.opensim.modeling.ActuatorSet;
+import org.opensim.modeling.MovingMusclePoint;
 import org.opensim.modeling.MusclePoint;
 import org.opensim.modeling.VisibleProperties.DisplayPreference;
 import org.opensim.view.ClearSelectedObjectsEvent;
@@ -557,6 +558,13 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       setPendingChanges(false, currentAct, false);
       setupComponent(currentAct);
       ViewDB.getInstance().repaintAll();
+
+      ///TODO: TEST HACK FOR FUNCTION EDITOR
+      /// need a way to tell the function editor to clear itself only if
+      /// it's showing a function from the muscle that was just restored.
+      FunctionEditorTopComponent win = FunctionEditorTopComponent.findInstance();
+      win.open(null, null, null, null, null, null);
+      ///
    }
 
    private void restoreActuators() {
@@ -1017,7 +1025,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       }
    }
 
-   public void EditFunction(javax.swing.JButton button, int propertyNum) {
+   public void EditPropertyFunction(javax.swing.JButton button, int propertyNum) {
       Property prop = null;
       try {
          prop = currentAct.getPropertySet().get(propertyNum);
@@ -1028,13 +1036,36 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          OpenSimObject obj = prop.getValueObjPtr();
          Function func = Function.safeDownCast(obj);
          FunctionEditorTopComponent win = FunctionEditorTopComponent.findInstance();
-         win.addChangeListener(new MuscleFunctionEventListener());
+         win.addChangeListener(new MusclePropertyFunctionEventListener());
          String title = currentModel.getName() + "->" + currentAct.getName() + ": " + prop.getName();
          String XLabel = "norm length";
          String YLabel = "norm force";
          win.open(currentModel, currentAct, func, title, XLabel, YLabel);
       }
    }
+
+   public void EditMusclePointFunction(javax.swing.JButton button, int attachmentNum, int xyz) {
+      AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
+      if (asm != null) {
+         MovingMusclePoint mmp = MovingMusclePoint.safeDownCast(asm.getAttachmentSet().get(attachmentNum));
+         if (mmp != null) {
+            Function func = null;
+            if (xyz == 0)
+               func = mmp.getXFunction();
+            else if (xyz == 1)
+               func = mmp.getYFunction();
+            else if (xyz == 2)
+               func = mmp.getZFunction();
+            FunctionEditorTopComponent win = FunctionEditorTopComponent.findInstance();
+            win.addChangeListener(new MusclePointFunctionEventListener());
+            String title = currentModel.getName() + "->" + currentAct.getName() + ": " + String.valueOf(attachmentNum) + "." + String.valueOf(xyz);
+            String XLabel = "norm length";
+            String YLabel = "norm force";
+            win.open(currentModel, mmp, func, title, XLabel, YLabel);
+         }
+      }
+   }
+
    public void addAttachmentPerformed(int menuChoice) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
       MusclePointSet musclePoints = asm.getAttachmentSet();
@@ -1529,41 +1560,149 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       
       for (i = 0; i < musclePoints.getSize(); i++) {
          MuscleViaPoint via = MuscleViaPoint.safeDownCast(musclePoints.get(i));
-         javax.swing.JLabel indexLabel = null;
-         indexLabel = new javax.swing.JLabel();
-         indexLabel.setText(String.valueOf(aCount+1) + ".");
-         
-         javax.swing.JTextField xField = new javax.swing.JTextField();
-         xField.setHorizontalAlignment(SwingConstants.TRAILING);
-         javax.swing.JTextField yField = new javax.swing.JTextField();
-         yField.setHorizontalAlignment(SwingConstants.TRAILING);
-         javax.swing.JTextField zField = new javax.swing.JTextField();
-         zField.setHorizontalAlignment(SwingConstants.TRAILING);
-         javax.swing.JComboBox comboBox = new javax.swing.JComboBox();
-         attachmentSelectBox[i] = new javax.swing.JCheckBox();
-         javax.swing.JComboBox coordComboBox = null;
-         javax.swing.JTextField rangeMinField = null;
-         javax.swing.JTextField rangeMaxField = null;
-         if (via != null) {
-            anyViaPoints = true;
-            coordComboBox = new javax.swing.JComboBox();
-            rangeMinField = new javax.swing.JTextField();
-            rangeMaxField = new javax.swing.JTextField();
-         }
-         
+         MovingMusclePoint mmp = MovingMusclePoint.safeDownCast(musclePoints.get(i));
+
          int height = Y + i * 22;
          int width = 60;
-         
          final int num = i;
-         
+
+         // The number label for the point
+         javax.swing.JLabel indexLabel = null;
+         indexLabel = new javax.swing.JLabel();
+         indexLabel.setText(String.valueOf(num+1) + ".");
+         indexLabel.setBounds(X - 20, height, 20, 21);
+         AttachmentsPanel.add(indexLabel);
+
+         // The X coordinate of the point
+         if (mmp == null) {
+            javax.swing.JTextField xField = new javax.swing.JTextField();
+            xField.setHorizontalAlignment(SwingConstants.TRAILING);
+            xField.setBounds(X, height, width, 21);
+            xField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(0)));
+            xField.setToolTipText("X coordinate of the attachment point");
+            xField.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 0);
+               }
+            });
+            xField.addFocusListener(new java.awt.event.FocusAdapter() {
+               public void focusLost(java.awt.event.FocusEvent evt) {
+                  if (!evt.isTemporary())
+                     AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 0);
+               }
+            });
+            AttachmentsPanel.add(xField);
+         } else {
+            javax.swing.JButton editXButton = new javax.swing.JButton();
+            editXButton.setBounds(X, height, width, 21);
+            editXButton.setText("Edit");
+            editXButton.setEnabled(true);
+            editXButton.setToolTipText("Edit the function controlling this X coordinate");
+            editXButton.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  EditMusclePointFunction(((javax.swing.JButton)evt.getSource()), num, 0);
+               }
+            });
+            AttachmentsPanel.add(editXButton);
+         }
+
+         // The Y coordinate of the point
+         if (mmp == null) {
+            javax.swing.JTextField yField = new javax.swing.JTextField();
+            yField.setHorizontalAlignment(SwingConstants.TRAILING);
+            yField.setBounds(X + width + 1, height, width, 21);
+            yField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(1)));
+            yField.setToolTipText("Y coordinate of the attachment point");
+            yField.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 1);
+               }
+            });
+            yField.addFocusListener(new java.awt.event.FocusAdapter() {
+               public void focusLost(java.awt.event.FocusEvent evt) {
+                  if (!evt.isTemporary())
+                     AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 1);
+               }
+            });
+            AttachmentsPanel.add(yField);
+         } else {
+            javax.swing.JButton editYButton = new javax.swing.JButton();
+            editYButton.setBounds(X + width + 1, height, width, 21);
+            editYButton.setText("Edit");
+            editYButton.setEnabled(true);
+            editYButton.setToolTipText("Edit the function controlling this Y coordinate");
+            editYButton.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  EditMusclePointFunction(((javax.swing.JButton)evt.getSource()), num, 1);
+               }
+            });
+            AttachmentsPanel.add(editYButton);
+         }
+
+         // The Z coordinate of the point
+         if (mmp == null) {
+            javax.swing.JTextField zField = new javax.swing.JTextField();
+            zField.setHorizontalAlignment(SwingConstants.TRAILING);
+            zField.setBounds(X + 2*width + 2, height, width, 21);
+            zField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(2)));
+            zField.setToolTipText("Z coordinate of the attachment point");
+            zField.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 2);
+               }
+            });
+            zField.addFocusListener(new java.awt.event.FocusAdapter() {
+               public void focusLost(java.awt.event.FocusEvent evt) {
+                  if (!evt.isTemporary())
+                     AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 2);
+               }
+            });
+            AttachmentsPanel.add(zField);
+         } else {
+            javax.swing.JButton editZButton = new javax.swing.JButton();
+            editZButton.setBounds(X + 2*width + 2, height, width, 21);
+            editZButton.setText("Edit");
+            editZButton.setEnabled(true);
+            editZButton.setToolTipText("Edit the function controlling this Z coordinate");
+            editZButton.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  EditMusclePointFunction(((javax.swing.JButton)evt.getSource()), num, 2);
+               }
+            });
+            AttachmentsPanel.add(editZButton);
+         }
+
+         // The combo box containing the body the point is attached to
+         javax.swing.JComboBox comboBox = new javax.swing.JComboBox();
          SingleModelGuiElements guiElem = ViewDB.getInstance().getModelGuiElements(asm.getModel());
          String[] bodyNames = guiElem.getBodyNames();
          comboBox.setModel(new javax.swing.DefaultComboBoxModel(bodyNames));
          comboBox.setSelectedIndex(findElement(bodyNames, musclePoints.get(i).getBodyName()));
+         comboBox.setBounds(X + 3*width + 10, height, 90, 21);
+         comboBox.setToolTipText("Body the attachment point is fixed to");
+         comboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               AttachmentBodyChosen(((javax.swing.JComboBox)evt.getSource()), num);
+            }
+         });
+         AttachmentsPanel.add(comboBox);
+         
+         // The checkbox for selecting/unselecting the point for editing
+         attachmentSelectBox[i] = new javax.swing.JCheckBox();
+         attachmentSelectBox[i].setBounds(X + 3*width + 110, height, 21, 21);
+         attachmentSelectBox[i].setToolTipText("Click to select/unselect this attachment point");
+         attachmentSelectBox[i].addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               AttachmentSelected(((javax.swing.JCheckBox)evt.getSource()), num);
+            }
+         });
+         AttachmentsPanel.add(attachmentSelectBox[i]);
+         if (mmp != null)
+            attachmentSelectBox[i].setEnabled(false);
+
+         // GUI items for via points (coord combo box, min range field, max range field)
          if (via != null) {
-            String[] coordinateNames = guiElem.getCoordinateNames();
-            coordComboBox.setModel(new javax.swing.DefaultComboBoxModel(coordinateNames));
-            coordComboBox.setSelectedIndex(findElement(coordinateNames, via.getCoordinateName()));
+            anyViaPoints = true;
             double conversion = 1.0;
             NumberFormat nf =  null;
             if (via.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
@@ -1572,16 +1711,24 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             } else {
                nf = positionFormat;
             }
-            rangeMinField.setText(nf.format(via.getRange().getitem(0)*conversion));
-            rangeMaxField.setText(nf.format(via.getRange().getitem(1)*conversion));
+
+            // The combo box containing the coordinate for the via point
+            String[] coordinateNames = guiElem.getCoordinateNames();
+            javax.swing.JComboBox coordComboBox = new javax.swing.JComboBox();
+            coordComboBox.setModel(new javax.swing.DefaultComboBoxModel(coordinateNames));
+            coordComboBox.setSelectedIndex(findElement(coordinateNames, via.getCoordinateName()));
             coordComboBox.setBounds(X + 3*width + 140, height, 130, 21);
-            rangeMinField.setBounds(X + 3*width + 280, height, 60, 21);
-            rangeMaxField.setBounds(X + 3*width + 345, height, 60, 21);
             coordComboBox.addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(java.awt.event.ActionEvent evt) {
                   ViaCoordinateChosen(((javax.swing.JComboBox)evt.getSource()), num);
                }
             });
+            AttachmentsPanel.add(coordComboBox);
+
+            // The min range of the coordinate range
+            javax.swing.JTextField rangeMinField = new javax.swing.JTextField();
+            rangeMinField.setText(nf.format(via.getRange().getitem(0)*conversion));
+            rangeMinField.setBounds(X + 3*width + 280, height, 60, 21);
             rangeMinField.addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(java.awt.event.ActionEvent evt) {
                   RangeMinEntered(((javax.swing.JTextField)evt.getSource()), num);
@@ -1593,6 +1740,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                      RangeMinEntered(((javax.swing.JTextField)evt.getSource()), num);
                }
             });
+            AttachmentsPanel.add(rangeMinField);
+
+            // The max range of the coordinate range
+            javax.swing.JTextField rangeMaxField = new javax.swing.JTextField();
+            rangeMaxField.setText(nf.format(via.getRange().getitem(1)*conversion));
+            rangeMaxField.setBounds(X + 3*width + 345, height, 60, 21);
             rangeMaxField.addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(java.awt.event.ActionEvent evt) {
                   RangeMaxEntered(((javax.swing.JTextField)evt.getSource()), num);
@@ -1604,76 +1757,6 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                      RangeMaxEntered(((javax.swing.JTextField)evt.getSource()), num);
                }
             });
-         }
-         
-         indexLabel.setBounds(X - 20, height, 20, 21);
-         xField.setBounds(X, height, width, 21);
-         yField.setBounds(X + width + 1, height, width, 21);
-         zField.setBounds(X + 2*width + 2, height, width, 21);
-         comboBox.setBounds(X + 3*width + 10, height, 90, 21);
-         attachmentSelectBox[i].setBounds(X + 3*width + 110, height, 21, 21);
-         xField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(0)));
-         xField.setToolTipText("X coordinate of the attachment point");
-         yField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(1)));
-         yField.setToolTipText("Y coordinate of the attachment point");
-         zField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(2)));
-         zField.setToolTipText("Z coordinate of the attachment point");
-         comboBox.setToolTipText("Body the attachment point is fixed to");
-         attachmentSelectBox[i].setToolTipText("Click to select/unselect this attachment point");
-         AttachmentsPanel.add(indexLabel);
-         aCount++;
-         
-         xField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 0);
-            }
-         });
-         xField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-               if (!evt.isTemporary())
-                  AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 0);
-            }
-         });
-         yField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 1);
-            }
-         });
-         yField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-               if (!evt.isTemporary())
-                  AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 1);
-            }
-         });
-         zField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-               AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 2);
-            }
-         });
-         zField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-               if (!evt.isTemporary())
-                  AttachmentPointEntered(((javax.swing.JTextField)evt.getSource()), num, 2);
-            }
-         });
-         comboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-               AttachmentBodyChosen(((javax.swing.JComboBox)evt.getSource()), num);
-            }
-         });
-         attachmentSelectBox[i].addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-               AttachmentSelected(((javax.swing.JCheckBox)evt.getSource()), num);
-            }
-         });
-         AttachmentsPanel.add(xField);
-         AttachmentsPanel.add(yField);
-         AttachmentsPanel.add(zField);
-         AttachmentsPanel.add(comboBox);
-         AttachmentsPanel.add(attachmentSelectBox[i]);
-         if (via != null) {
-            AttachmentsPanel.add(coordComboBox);
-            AttachmentsPanel.add(rangeMinField);
             AttachmentsPanel.add(rangeMaxField);
          }
       }
@@ -1981,11 +2064,12 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
                   propLabel.setToolTipText(p.getComment());
                   javax.swing.JButton propButton = new javax.swing.JButton();
                   propButton.setBounds(230, 20 + tabPropertyCount[groupNum] * 22, 65, 21);
-                  propButton.setText("Edit...");
+                  propButton.setText("Edit");
                   propButton.setEnabled(true);
+                  propButton.setToolTipText("Edit the function controlling this property");
                   propButton.addActionListener(new java.awt.event.ActionListener() {
                      public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        EditFunction(((javax.swing.JButton)evt.getSource()), num);
+                        EditPropertyFunction(((javax.swing.JButton)evt.getSource()), num);
                      }
                   });
                   propPanel[groupNum].add(propLabel);
@@ -2299,7 +2383,27 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          ViewDB.getInstance().renderAll();
       }
    }
-   
+
+   /* This function is called by the MusclePointFunctionEventListener when a moving muscle
+    * point's X, Y, or Z function has been changed.
+    */
+   public void movingPointMoved(Model model, AbstractMuscle muscle, MovingMusclePoint point) {
+      setPendingChanges(true, muscle, true);
+      // tell the ViewDB to redraw the model
+      SingleModelVisuals vis = ViewDB.getInstance().getModelVisuals(model);
+      vis.updateActuatorGeometry(muscle, true);
+      ViewDB.getInstance().repaintAll();
+      // update the current path panel
+      updateCurrentPathPanel(muscle);
+   }
+
+   /* This function is called by the MusclePropertyFunctionEventListener when a muscle
+    * property that's a function has been changed.
+    */
+   public void propertyFunctionChanged(Model model, AbstractActuator act) {
+      setPendingChanges(true, act, true);
+   }
+
    final static class ResolvableHelper implements Serializable {
       private static final long serialVersionUID = 1L;
       public Object readResolve() {

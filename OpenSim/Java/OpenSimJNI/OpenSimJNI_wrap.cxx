@@ -13289,16 +13289,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Function_1setZ
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Function_1deletePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Function_1deletePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
   OpenSim::Function *arg1 = (OpenSim::Function *) 0 ;
   int arg2 ;
+  bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Function **)&jarg1; 
   arg2 = (int)jarg2; 
-  (arg1)->deletePoint(arg2);
+  result = (bool)(arg1)->deletePoint(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
 }
 
 
@@ -14450,16 +14454,20 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_Constant_1g
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Constant_1deletePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Constant_1deletePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
   OpenSim::Constant *arg1 = (OpenSim::Constant *) 0 ;
   int arg2 ;
+  bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Constant **)&jarg1; 
   arg2 = (int)jarg2; 
-  (arg1)->deletePoint(arg2);
+  result = (bool)(arg1)->deletePoint(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
 }
 
 
@@ -15024,16 +15032,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_NatCubicSpline
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_NatCubicSpline_1deletePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_NatCubicSpline_1deletePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
   OpenSim::NatCubicSpline *arg1 = (OpenSim::NatCubicSpline *) 0 ;
   int arg2 ;
+  bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::NatCubicSpline **)&jarg1; 
   arg2 = (int)jarg2; 
-  (arg1)->deletePoint(arg2);
+  result = (bool)(arg1)->deletePoint(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
 }
 
 
@@ -15644,16 +15656,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_StepFunction_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_StepFunction_1deletePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_StepFunction_1deletePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
   OpenSim::StepFunction *arg1 = (OpenSim::StepFunction *) 0 ;
   int arg2 ;
+  bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::StepFunction **)&jarg1; 
   arg2 = (int)jarg2; 
-  (arg1)->deletePoint(arg2);
+  result = (bool)(arg1)->deletePoint(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
 }
 
 
@@ -16264,16 +16280,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LinearFunction
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LinearFunction_1deletePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_LinearFunction_1deletePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
   OpenSim::LinearFunction *arg1 = (OpenSim::LinearFunction *) 0 ;
   int arg2 ;
+  bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::LinearFunction **)&jarg1; 
   arg2 = (int)jarg2; 
-  (arg1)->deletePoint(arg2);
+  result = (bool)(arg1)->deletePoint(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
 }
 
 
@@ -17101,7 +17121,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuat
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuator_1replaceFunction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuator_1replacePropertyFunction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
   OpenSim::AbstractActuator *arg1 = (OpenSim::AbstractActuator *) 0 ;
   OpenSim::Function *arg2 = (OpenSim::Function *) 0 ;
   OpenSim::Function *arg3 = (OpenSim::Function *) 0 ;
@@ -17114,7 +17134,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractActuat
   arg1 = *(OpenSim::AbstractActuator **)&jarg1; 
   arg2 = *(OpenSim::Function **)&jarg2; 
   arg3 = *(OpenSim::Function **)&jarg3; 
-  (arg1)->replaceFunction(arg2,arg3);
+  (arg1)->replacePropertyFunction(arg2,arg3);
 }
 
 
@@ -53328,6 +53348,17 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1ge
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1invalidate(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::SimmJoint *arg1 = (OpenSim::SimmJoint *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimmJoint **)&jarg1; 
+  (arg1)->invalidate();
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1isCoordinateUsed(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jboolean jresult = 0 ;
   OpenSim::SimmJoint *arg1 = (OpenSim::SimmJoint *) 0 ;
@@ -53394,6 +53425,30 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1sca
     return ;
   } 
   (arg1)->scale((OpenSim::Array<double > const &)*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1addPathToList(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::SimmJoint *arg1 = (OpenSim::SimmJoint *) 0 ;
+  OpenSim::SimmPath *arg2 = (OpenSim::SimmPath *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimmJoint **)&jarg1; 
+  arg2 = *(OpenSim::SimmPath **)&jarg2; 
+  (arg1)->addPathToList(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1clearPathList(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::SimmJoint *arg1 = (OpenSim::SimmJoint *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::SimmJoint **)&jarg1; 
+  (arg1)->clearPathList();
 }
 
 
@@ -59842,6 +59897,105 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMuscl
   }
   jresult = jenv->NewStringUTF(result->c_str()); 
   return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePoint_1getXFunction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::MovingMusclePoint *arg1 = (OpenSim::MovingMusclePoint *) 0 ;
+  OpenSim::Function *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MovingMusclePoint **)&jarg1; 
+  result = (OpenSim::Function *)((OpenSim::MovingMusclePoint const *)arg1)->getXFunction();
+  *(OpenSim::Function **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePoint_1getYFunction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::MovingMusclePoint *arg1 = (OpenSim::MovingMusclePoint *) 0 ;
+  OpenSim::Function *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MovingMusclePoint **)&jarg1; 
+  result = (OpenSim::Function *)((OpenSim::MovingMusclePoint const *)arg1)->getYFunction();
+  *(OpenSim::Function **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePoint_1getZFunction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::MovingMusclePoint *arg1 = (OpenSim::MovingMusclePoint *) 0 ;
+  OpenSim::Function *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MovingMusclePoint **)&jarg1; 
+  result = (OpenSim::Function *)((OpenSim::MovingMusclePoint const *)arg1)->getZFunction();
+  *(OpenSim::Function **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePoint_1setXFunction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::MovingMusclePoint *arg1 = (OpenSim::MovingMusclePoint *) 0 ;
+  OpenSim::Function *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::MovingMusclePoint **)&jarg1; 
+  arg2 = *(OpenSim::Function **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Function & reference is null");
+    return ;
+  } 
+  (arg1)->setXFunction(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePoint_1setYFunction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::MovingMusclePoint *arg1 = (OpenSim::MovingMusclePoint *) 0 ;
+  OpenSim::Function *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::MovingMusclePoint **)&jarg1; 
+  arg2 = *(OpenSim::Function **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Function & reference is null");
+    return ;
+  } 
+  (arg1)->setYFunction(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePoint_1setZFunction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::MovingMusclePoint *arg1 = (OpenSim::MovingMusclePoint *) 0 ;
+  OpenSim::Function *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::MovingMusclePoint **)&jarg1; 
+  arg2 = *(OpenSim::Function **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Function & reference is null");
+    return ;
+  } 
+  (arg1)->setZFunction(*arg2);
 }
 
 

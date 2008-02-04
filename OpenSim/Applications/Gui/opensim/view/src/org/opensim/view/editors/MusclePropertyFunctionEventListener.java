@@ -1,5 +1,5 @@
 /*
- * MuscleFunctionEventListener.java
+ * MusclePropertyFunctionEventListener.java
  *
  * Created on January 10, 2008, 4:51 PM
  *
@@ -21,10 +21,10 @@ import org.opensim.modeling.OpenSimObject;
  *
  * @author Peter Loan
  */
-public class MuscleFunctionEventListener implements FunctionEventListener {
+public class MusclePropertyFunctionEventListener implements FunctionEventListener {
    
-   /** Creates a new instance of MuscleFunctionEventListener */
-   public MuscleFunctionEventListener() {
+   /** Creates a new instance of MusclePropertyFunctionEventListener */
+   public MusclePropertyFunctionEventListener() {
    }
 
    public void handleFunctionEvent(FunctionEvent event) {
@@ -37,14 +37,12 @@ public class MuscleFunctionEventListener implements FunctionEventListener {
             Function oldFunction = fre.getFunction();
             Function newFunction = fre.getReplacementFunction();
             if (Function.getCPtr(oldFunction) != Function.getCPtr(newFunction)) {
-               act.replaceFunction(oldFunction, newFunction);
+               act.replacePropertyFunction(oldFunction, newFunction);
+               MuscleEditorTopComponent.findInstance().propertyFunctionChanged(event.getModel(), act);
             }
          } else if (event instanceof FunctionModifiedEvent) {
-            // do nothing
+            MuscleEditorTopComponent.findInstance().propertyFunctionChanged(event.getModel(), act);
          }
       }
-      // if oldfunc != newfunc:
-      //    actuator act = object;
-      //    act.replaceFunctionProperty(old, new);
    }
 }

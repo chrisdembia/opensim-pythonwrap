@@ -128,8 +128,8 @@ public class Function extends OpenSimObject {
     opensimModelJNI.Function_setZ(swigCPtr, this, aIndex, aValue);
   }
 
-  public void deletePoint(int aIndex) {
-    opensimModelJNI.Function_deletePoint(swigCPtr, this, aIndex);
+  public boolean deletePoint(int aIndex) {
+    return opensimModelJNI.Function_deletePoint(swigCPtr, this, aIndex);
   }
 
   public void addPoint(double aX, double aY) {

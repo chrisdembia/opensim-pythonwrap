@@ -89,6 +89,33 @@ public class MovingMusclePoint extends MusclePoint {
     return opensimModelJNI.MovingMusclePoint_getZCoordinateName(swigCPtr, this);
   }
 
+  public Function getXFunction() {
+    long cPtr = opensimModelJNI.MovingMusclePoint_getXFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new Function(cPtr, false);
+  }
+
+  public Function getYFunction() {
+    long cPtr = opensimModelJNI.MovingMusclePoint_getYFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new Function(cPtr, false);
+  }
+
+  public Function getZFunction() {
+    long cPtr = opensimModelJNI.MovingMusclePoint_getZFunction(swigCPtr, this);
+    return (cPtr == 0) ? null : new Function(cPtr, false);
+  }
+
+  public void setXFunction(Function aFunction) {
+    opensimModelJNI.MovingMusclePoint_setXFunction(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
+  }
+
+  public void setYFunction(Function aFunction) {
+    opensimModelJNI.MovingMusclePoint_setYFunction(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
+  }
+
+  public void setZFunction(Function aFunction) {
+    opensimModelJNI.MovingMusclePoint_setZFunction(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
+  }
+
   public void scale(ArrayDouble aScaleFactors) {
     opensimModelJNI.MovingMusclePoint_scale(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
   }

@@ -236,25 +236,23 @@ public class FunctionRenderer extends XYLineAndShapeRenderer
    
    /**
     * Function colors
-    * The FunctionRenderer is designed to handle multiple functions,
-    * but the function editor uses only one. Each function (series)
-    * has its own color, which is used for the function lines and
-    * the outlines of the control point circles. The insides of the
-    * circles are white for all points in all series. When a control
-    * point is selected, its fill color is yellow but its outline is
-    * still the series color.
+    * Each function (series) has its own color, which is used for the
+    * function lines and the outlines of the node circles. The insides
+    * of the circles are white for all nodes in all series. When a node
+    * is selected, its fill color is yellow but its outline is still
+    * the series color.
     */
-   public void highlightControlPoint(int function, int point) {
+   public void highlightNode(int function, int point) {
       if (function < functionList.size())
          shapeFillPaintList[function].setPaint(point, functionHighlightFillPaintList.getPaint(function));
    }
 
-   public void unhighlightControlPoint(int function, int point) {
+   public void unhighlightNode(int function, int point) {
       if (function < functionList.size())
          shapeFillPaintList[function].setPaint(point, functionDefaultFillPaintList.getPaint(function));
    }
 
-   public Paint getControlPointPaint(int function, int point) {
+   public Paint getNodePaint(int function, int point) {
       if (function < functionList.size())
          return shapeFillPaintList[function].getPaint(point);
       else
@@ -268,7 +266,7 @@ public class FunctionRenderer extends XYLineAndShapeRenderer
    }
    
    public Paint getItemFillPaint(int series, int item) {
-      return getControlPointPaint(series, item);
+      return getNodePaint(series, item);
    }
    
    public void setFunctionDefaultFillPaint(int function, Paint paint) {
@@ -277,8 +275,8 @@ public class FunctionRenderer extends XYLineAndShapeRenderer
          functionDefaultFillPaintList.setPaint(function, paint);
          // Update the individual point's fill colors if they were equal to the old default color
          for (int i=0; i<functionList.get(function).getNumberOfPoints(); i++) {
-            if (getControlPointPaint(function, i) == oldPaint)
-               unhighlightControlPoint(function, i);
+            if (getNodePaint(function, i) == oldPaint)
+               unhighlightNode(function, i);
          }
       }
    }
@@ -296,8 +294,8 @@ public class FunctionRenderer extends XYLineAndShapeRenderer
          functionHighlightFillPaintList.setPaint(function, paint);
          // Update the individual point's fill colors if they were equal to the old highlight color
          for (int i=0; i<functionList.get(function).getNumberOfPoints(); i++) {
-            if (getControlPointPaint(function, i) == oldPaint)
-               highlightControlPoint(function, i);
+            if (getNodePaint(function, i) == oldPaint)
+               highlightNode(function, i);
          }
       }
    }

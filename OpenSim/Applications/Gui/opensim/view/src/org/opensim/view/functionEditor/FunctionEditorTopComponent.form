@@ -175,14 +175,6 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="typeComboBox">
               <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="natCubicSpline"/>
-                    <StringItem index="1" value="GCVSpline"/>
-                    <StringItem index="2" value="StepFunction"/>
-                    <StringItem index="3" value="LinearFunction"/>
-                  </StringArray>
-                </Property>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[125, 24]"/>
                 </Property>
