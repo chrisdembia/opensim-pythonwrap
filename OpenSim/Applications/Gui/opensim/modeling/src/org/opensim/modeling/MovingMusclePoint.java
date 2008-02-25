@@ -50,6 +50,10 @@ public class MovingMusclePoint extends MusclePoint {
     opensimModelJNI.MovingMusclePoint_copyData(swigCPtr, this, MovingMusclePoint.getCPtr(aPoint), aPoint);
   }
 
+  public void init(MusclePoint aPoint) {
+    opensimModelJNI.MovingMusclePoint_init(swigCPtr, this, MusclePoint.getCPtr(aPoint), aPoint);
+  }
+
   public AbstractCoordinate getXCoordinate() {
     long cPtr = opensimModelJNI.MovingMusclePoint_getXCoordinate(swigCPtr, this);
     return (cPtr == 0) ? null : new AbstractCoordinate(cPtr, false);

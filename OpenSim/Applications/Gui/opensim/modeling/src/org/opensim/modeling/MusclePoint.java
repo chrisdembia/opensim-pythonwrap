@@ -50,6 +50,10 @@ public class MusclePoint extends OpenSimObject {
     opensimModelJNI.MusclePoint_copyData(swigCPtr, this, MusclePoint.getCPtr(aPoint), aPoint);
   }
 
+  public void init(MusclePoint aPoint) {
+    opensimModelJNI.MusclePoint_init(swigCPtr, this, MusclePoint.getCPtr(aPoint), aPoint);
+  }
+
   public ArrayDouble getAttachment() {
     return new ArrayDouble(opensimModelJNI.MusclePoint_getAttachment(swigCPtr, this), false);
   }
@@ -116,6 +120,11 @@ public class MusclePoint extends OpenSimObject {
 
   public void updateGeometry() {
     opensimModelJNI.MusclePoint_updateGeometry(swigCPtr, this);
+  }
+
+  public static MusclePoint makeMusclePointOfType(MusclePoint aPoint, String aNewTypeName) {
+    long cPtr = opensimModelJNI.MusclePoint_makeMusclePointOfType(MusclePoint.getCPtr(aPoint), aPoint, aNewTypeName);
+    return (cPtr == 0) ? null : new MusclePoint(cPtr, false);
   }
 
   public static boolean isKindOf(String type) {

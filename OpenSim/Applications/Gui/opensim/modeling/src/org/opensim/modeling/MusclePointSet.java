@@ -41,4 +41,8 @@ public class MusclePointSet extends SetMusclePoint {
     this(opensimModelJNI.new_MusclePointSet__SWIG_1(MusclePointSet.getCPtr(aSimmMusclePointSet), aSimmMusclePointSet), true);
   }
 
+  public void replaceMusclePoint(MusclePoint aOldMusclePoint, MusclePoint aNewMusclePoint) {
+    opensimModelJNI.MusclePointSet_replaceMusclePoint(swigCPtr, this, MusclePoint.getCPtr(aOldMusclePoint), aOldMusclePoint, MusclePoint.getCPtr(aNewMusclePoint), aNewMusclePoint);
+  }
+
 }
