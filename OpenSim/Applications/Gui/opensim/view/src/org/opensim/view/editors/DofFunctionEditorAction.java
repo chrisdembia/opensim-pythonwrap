@@ -8,8 +8,10 @@ import org.openide.util.NbBundle;
 import org.opensim.modeling.AbstractDof;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.Model;
+import org.opensim.modeling.Units;
 import org.opensim.view.ExplorerTopComponent;
 import org.opensim.view.functionEditor.FunctionEditorTopComponent;
+import org.opensim.view.functionEditor.FunctionEditorTopComponent.FunctionEditorOptions;
 import org.opensim.view.nodes.DofFunctionNode;
 import org.opensim.view.pub.OpenSimDB;
 
@@ -48,7 +50,27 @@ public class DofFunctionEditorAction extends AbstractAction {
                        options[0]);
             } else {
                functionEditor.addChangeListener(new DofFunctionEventListener());
-               functionEditor.open(newModel, dof, newFunction, "title", "Xlabel", "Ylabel");
+               FunctionEditorOptions options = new FunctionEditorOptions();
+               options.title = dof.getJoint().getName();
+               if (dof.getMotionType() == AbstractDof.DofType.Rotational) {
+                  options.YUnits = new Units(Units.UnitType.simmRadians);
+                  options.YDisplayUnits = new Units(Units.UnitType.simmDegrees);
+               } else {
+                  options.YUnits = new Units(Units.UnitType.simmMeters);
+                  options.YDisplayUnits = options.YUnits;
+               }
+               options.YLabel = options.YDisplayUnits.getLabel();
+               if (dof.getCoordinate() != null) {
+                  if (dof.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
+                     options.XUnits = new Units(Units.UnitType.simmRadians);
+                     options.XDisplayUnits = new Units(Units.UnitType.simmDegrees);
+                  } else {
+                     options.XUnits = new Units(Units.UnitType.simmMeters);
+                     options.XDisplayUnits = options.XUnits;
+                  }
+                  options.XLabel = dof.getCoordinate().getName() + " (deg)";
+               }
+               functionEditor.open(newModel, dof, newFunction, options);
                functionEditor.requestActive();
             }
          }
