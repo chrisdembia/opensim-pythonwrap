@@ -9,12 +9,10 @@
 
 package org.opensim.view.functionEditor;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Shape;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,8 +30,10 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PaintList;
 import org.jfree.util.PublicCloneable;
+import org.jfree.util.ShapeUtilities;
 import org.opensim.modeling.ArrayXYPoint;
 import org.opensim.modeling.Function;
+import org.opensim.modeling.Units;
 
 /**
  *
@@ -59,6 +59,11 @@ public class FunctionRenderer extends XYLineAndShapeRenderer
    /** For each function, the shape fill color for selected control points. */
    private PaintList functionHighlightFillPaintList;
 
+   private Units XUnits;         // units of array of X values
+   private Units XDisplayUnits;  // units for displaying X values to user
+   private Units YUnits;         // units of array of Y values
+   private Units YDisplayUnits;  // units for displaying Y values to user
+
    /** Creates a FunctionRenderer for a single function. */
    public FunctionRenderer(Function theFunction) {
       functionList.add(theFunction);
@@ -72,6 +77,10 @@ public class FunctionRenderer extends XYLineAndShapeRenderer
       functionHighlightFillPaintList.setPaint(0, Color.BLACK);
       for (int i=0; i<theFunction.getNumberOfPoints(); i++)
          shapeFillPaintList[0].setPaint(i, Color.GREEN);
+      XUnits = new Units(Units.UnitType.simmRadians);
+      XDisplayUnits = new Units(Units.UnitType.simmDegrees);
+      YUnits = new Units(Units.UnitType.simmMeters);
+      YDisplayUnits = new Units(Units.UnitType.simmMeters);
    }
    
    /**
@@ -181,14 +190,13 @@ public class FunctionRenderer extends XYLineAndShapeRenderer
 
       RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
       RectangleEdge yAxisLocation = plot.getRangeAxisEdge();
-      
+
       State s = (State) state;
       ArrayXYPoint xyPts = functionList.get(series).renderAsLineSegments(item);
-      //System.out.println("item = " + String.valueOf(item));
       if (xyPts != null) {
          for (int i = 0; i < xyPts.getSize(); i++) {
-            float datax = (float) xyPts.get(i).get_x();
-            float datay = (float) xyPts.get(i).get_y();
+            double datax = (xyPts.get(i).get_x() * XUnits.convertTo(XDisplayUnits));
+            double datay = (xyPts.get(i).get_y() * YUnits.convertTo(YDisplayUnits));
             double screenx = domainAxis.valueToJava2D(datax, dataArea, xAxisLocation);
             double screeny = rangeAxis.valueToJava2D(datay, dataArea, yAxisLocation);
             if (!Double.isNaN(screenx) && !Double.isNaN(screeny)) {
@@ -205,7 +213,6 @@ public class FunctionRenderer extends XYLineAndShapeRenderer
                }
                s.setLastPointGood(true);
             }
-            //System.out.println("x = " + String.valueOf(screenx) + " y = " + String.valueOf(screeny));
          }
          functionList.get(series).deleteXYPointArray(xyPts);
       } else {
@@ -233,7 +240,7 @@ public class FunctionRenderer extends XYLineAndShapeRenderer
       g2.setPaint(getFunctionPaint(series));
       g2.draw(shape);
    }
-   
+
    /**
     * Function colors
     * Each function (series) has its own color, which is used for the
@@ -316,5 +323,21 @@ public class FunctionRenderer extends XYLineAndShapeRenderer
          return functionPaintList.getPaint(function);
       else
          return Color.BLACK;
+   }
+
+   public void setXUnits(Units XUnits) {
+      this.XUnits = XUnits;
+   }
+
+   public void setXDisplayUnits(Units XDisplayUnits) {
+      this.XDisplayUnits = XDisplayUnits;
+   }
+
+   public void setYUnits(Units YUnits) {
+      this.YUnits = YUnits;
+   }
+
+   public void setYDisplayUnits(Units YDisplayUnits) {
+      this.YDisplayUnits = YDisplayUnits;
    }
 }
