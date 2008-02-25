@@ -28,6 +28,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYTextAnnotation;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
@@ -86,6 +87,11 @@ public class FunctionPanel extends ChartPanel
       this.addNodePopUpMenu = createAddNodePopupMenu();
       this.crosshairAnnotation = new XYTextAnnotation("", 0, 0);
       this.crosshairAnnotation.setTextAnchor(TextAnchor.BOTTOM_LEFT);
+      // Make sure the X and Y ranges are not zero, which messes up the display
+      ValueAxis rangeAxis = chart.getXYPlot().getRangeAxis();
+      ValueAxis domainAxis = chart.getXYPlot().getDomainAxis();
+      if (rangeAxis.getUpperBound() - rangeAxis.getLowerBound() < 0.000001)
+         rangeAxis.setAutoRangeMinimumSize(0.000001);
    }
 
    public void updateCursorLocation(MouseEvent e) {
@@ -474,16 +480,75 @@ public class FunctionPanel extends ChartPanel
    }
 
    public void keyPressed(KeyEvent e) {
-      if (e.getKeyCode() == KeyEvent.VK_CONTROL)
+      if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
          picking = true;
-      else if (e.getKeyCode() == KeyEvent.VK_F1) {
-         //mandatoryCrosshairs = true;
-         //setCrosshairsState(true);
-         //updateCrosshairs(lastMouseX, lastMouseY);
+      } else if (e.getKeyCode() == KeyEvent.VK_I) {
+         zoomPlot(lastMouseX, lastMouseY, true);
+      } else if (e.getKeyCode() == KeyEvent.VK_O) {
+         zoomPlot(lastMouseX, lastMouseY, false);
+      } else if (e.getKeyCode() == KeyEvent.VK_L || e.getKeyCode() == KeyEvent.VK_R ||
+                 e.getKeyCode() == KeyEvent.VK_U || e.getKeyCode() == KeyEvent.VK_D) {
+         panPlot(e.getKeyCode());
       }
    }
 
-   public void keyTyped(KeyEvent e) { }
+   public void keyTyped(KeyEvent e) {
+   }
+
+   private void zoomPlot(int screenX, int screenY, boolean zoomIn) {
+      XYPlot xyPlot = getChart().getXYPlot();
+      RectangleEdge xAxisLocation = xyPlot.getDomainAxisEdge();
+      RectangleEdge yAxisLocation = xyPlot.getRangeAxisEdge();
+      Rectangle2D dataArea = getScreenDataArea();
+      double XOrthoChange = -(xyPlot.getDomainAxis().getUpperBound() - xyPlot.getDomainAxis().getLowerBound()) * 0.02;
+      double YOrthoChange = -(xyPlot.getRangeAxis().getUpperBound() - xyPlot.getRangeAxis().getLowerBound()) * 0.02;
+      if (zoomIn == false) {
+         XOrthoChange = -XOrthoChange;
+         YOrthoChange = -YOrthoChange;
+      }
+      double XPercent = (screenX - (dataArea.getMinX() + dataArea.getMaxX()) * 0.5) / ((dataArea.getMaxX() - dataArea.getMinX()) * 0.5);
+      double YPercent = -(screenY - (dataArea.getMinY() + dataArea.getMaxY()) * 0.5) / ((dataArea.getMaxY() - dataArea.getMinY()) * 0.5);
+      double newMinX = xyPlot.getDomainAxis().getLowerBound() - XOrthoChange * (XPercent + 1.0) * 0.5;
+      double newMaxX = xyPlot.getDomainAxis().getUpperBound() - XOrthoChange * (XPercent - 1.0) * 0.5;
+      double newMinY = xyPlot.getRangeAxis().getLowerBound() - YOrthoChange * (YPercent + 1.0) * 0.5;
+      double newMaxY = xyPlot.getRangeAxis().getUpperBound() - YOrthoChange * (YPercent - 1.0) * 0.5;
+      xyPlot.getDomainAxis().setLowerBound(newMinX);
+      xyPlot.getDomainAxis().setUpperBound(newMaxX);
+      xyPlot.getRangeAxis().setLowerBound(newMinY);
+      xyPlot.getRangeAxis().setUpperBound(newMaxY);
+   }
+
+   private void panPlot(int keyCode) {
+      XYPlot xyPlot = getChart().getXYPlot();
+      RectangleEdge xAxisLocation = xyPlot.getDomainAxisEdge();
+      RectangleEdge yAxisLocation = xyPlot.getRangeAxisEdge();
+      Rectangle2D dataArea = getScreenDataArea();
+      if (keyCode == KeyEvent.VK_U) {
+         double YOrthoChange = -0.008 * (xyPlot.getRangeAxis().getUpperBound() - xyPlot.getRangeAxis().getLowerBound());
+         double newMinY = xyPlot.getRangeAxis().getLowerBound() + YOrthoChange;
+         double newMaxY = xyPlot.getRangeAxis().getUpperBound() + YOrthoChange;
+         xyPlot.getRangeAxis().setLowerBound(newMinY);
+         xyPlot.getRangeAxis().setUpperBound(newMaxY);
+      } else if (keyCode == KeyEvent.VK_D) {
+         double YOrthoChange = 0.008 * (xyPlot.getRangeAxis().getUpperBound() - xyPlot.getRangeAxis().getLowerBound());
+         double newMinY = xyPlot.getRangeAxis().getLowerBound() + YOrthoChange;
+         double newMaxY = xyPlot.getRangeAxis().getUpperBound() + YOrthoChange;
+         xyPlot.getRangeAxis().setLowerBound(newMinY);
+         xyPlot.getRangeAxis().setUpperBound(newMaxY);
+      } else if (keyCode == KeyEvent.VK_R) {
+         double XOrthoChange = -0.008 * (xyPlot.getDomainAxis().getUpperBound() - xyPlot.getDomainAxis().getLowerBound());
+         double newMinX = xyPlot.getDomainAxis().getLowerBound() + XOrthoChange;
+         double newMaxX = xyPlot.getDomainAxis().getUpperBound() + XOrthoChange;
+         xyPlot.getDomainAxis().setLowerBound(newMinX);
+         xyPlot.getDomainAxis().setUpperBound(newMaxX);
+      } else if (keyCode == KeyEvent.VK_L) {
+         double XOrthoChange = 0.008 * (xyPlot.getDomainAxis().getUpperBound() - xyPlot.getDomainAxis().getLowerBound());
+         double newMinX = xyPlot.getDomainAxis().getLowerBound() + XOrthoChange;
+         double newMaxX = xyPlot.getDomainAxis().getUpperBound() + XOrthoChange;
+         xyPlot.getDomainAxis().setLowerBound(newMinX);
+         xyPlot.getDomainAxis().setUpperBound(newMaxX);
+      }
+   }
 
    public void keyReleased(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_CONTROL)
