@@ -42,6 +42,10 @@ public class AbstractMuscle extends AbstractActuator {
     opensimModelJNI.AbstractMuscle_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
+  public void setName(String aName) {
+    opensimModelJNI.AbstractMuscle_setName(swigCPtr, this, aName);
+  }
+
   public void copyData(AbstractMuscle aMuscle) {
     opensimModelJNI.AbstractMuscle_copyData(swigCPtr, this, AbstractMuscle.getCPtr(aMuscle), aMuscle);
   }
