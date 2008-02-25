@@ -337,6 +337,8 @@ public final class ViewDB extends Observable implements Observer {
          } else if (arg instanceof NameChangedEvent){
 
             NameChangedEvent ev = (NameChangedEvent)arg;
+            // The name change might be for one of the selected objects
+            statusDisplaySelectedObjects();
             repaintAll();
          }
       }
