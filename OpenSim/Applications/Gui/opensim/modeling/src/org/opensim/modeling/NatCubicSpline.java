@@ -54,8 +54,8 @@ public class NatCubicSpline extends Function {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void init(int aN, SWIGTYPE_p_double aXValues, SWIGTYPE_p_double aYValues) {
-    opensimModelJNI.NatCubicSpline_init(swigCPtr, this, aN, SWIGTYPE_p_double.getCPtr(aXValues), SWIGTYPE_p_double.getCPtr(aYValues));
+  public void init(Function aFunction) {
+    opensimModelJNI.NatCubicSpline_init(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
   }
 
   public int getSize() {
@@ -124,13 +124,8 @@ public class NatCubicSpline extends Function {
     opensimModelJNI.NatCubicSpline_addPoint(swigCPtr, this, aX, aY);
   }
 
-  public ArrayXYPoint renderAsLineSegments(double aStart, double aEnd) {
-    long cPtr = opensimModelJNI.NatCubicSpline_renderAsLineSegments__SWIG_0(swigCPtr, this, aStart, aEnd);
-    return (cPtr == 0) ? null : new ArrayXYPoint(cPtr, false);
-  }
-
   public ArrayXYPoint renderAsLineSegments(int aIndex) {
-    long cPtr = opensimModelJNI.NatCubicSpline_renderAsLineSegments__SWIG_1(swigCPtr, this, aIndex);
+    long cPtr = opensimModelJNI.NatCubicSpline_renderAsLineSegments(swigCPtr, this, aIndex);
     return (cPtr == 0) ? null : new ArrayXYPoint(cPtr, false);
   }
 

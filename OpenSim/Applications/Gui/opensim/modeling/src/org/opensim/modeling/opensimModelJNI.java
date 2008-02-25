@@ -656,7 +656,7 @@ public class opensimModelJNI {
   public final static native void delete_XYPoint(long jarg1);
   public final static native void delete_Function(long jarg1);
   public final static native long Function_copy__SWIG_0(long jarg1, Function jarg1_);
-  public final static native void Function_init(long jarg1, Function jarg1_, int jarg2, long jarg3, long jarg4);
+  public final static native void Function_init(long jarg1, Function jarg1_, long jarg2, Function jarg2_);
   public final static native void Function_setMinX(long jarg1, Function jarg1_, double jarg2);
   public final static native double Function_getMinX(long jarg1, Function jarg1_);
   public final static native void Function_setMaxX(long jarg1, Function jarg1_, double jarg2);
@@ -735,7 +735,7 @@ public class opensimModelJNI {
   public final static native long new_Constant__SWIG_3(long jarg1, Constant jarg1_);
   public final static native void delete_Constant(long jarg1);
   public final static native long Constant_copy__SWIG_0(long jarg1, Constant jarg1_);
-  public final static native void Constant_init(long jarg1, Constant jarg1_, int jarg2, long jarg3, long jarg4);
+  public final static native void Constant_init(long jarg1, Constant jarg1_, long jarg2, Function jarg2_);
   public final static native int Constant_getNumberOfPoints(long jarg1, Constant jarg1_);
   public final static native double Constant_getX(long jarg1, Constant jarg1_, int jarg2);
   public final static native double Constant_getY(long jarg1, Constant jarg1_, int jarg2);
@@ -760,7 +760,7 @@ public class opensimModelJNI {
   public final static native long new_NatCubicSpline__SWIG_3(long jarg1, NatCubicSpline jarg1_);
   public final static native void delete_NatCubicSpline(long jarg1);
   public final static native long NatCubicSpline_copy__SWIG_0(long jarg1, NatCubicSpline jarg1_);
-  public final static native void NatCubicSpline_init(long jarg1, NatCubicSpline jarg1_, int jarg2, long jarg3, long jarg4);
+  public final static native void NatCubicSpline_init(long jarg1, NatCubicSpline jarg1_, long jarg2, Function jarg2_);
   public final static native int NatCubicSpline_getSize(long jarg1, NatCubicSpline jarg1_);
   public final static native double NatCubicSpline_getMinX(long jarg1, NatCubicSpline jarg1_);
   public final static native double NatCubicSpline_getMaxX(long jarg1, NatCubicSpline jarg1_);
@@ -777,8 +777,7 @@ public class opensimModelJNI {
   public final static native void NatCubicSpline_scaleY(long jarg1, NatCubicSpline jarg1_, double jarg2);
   public final static native boolean NatCubicSpline_deletePoint(long jarg1, NatCubicSpline jarg1_, int jarg2);
   public final static native void NatCubicSpline_addPoint(long jarg1, NatCubicSpline jarg1_, double jarg2, double jarg3);
-  public final static native long NatCubicSpline_renderAsLineSegments__SWIG_0(long jarg1, NatCubicSpline jarg1_, double jarg2, double jarg3);
-  public final static native long NatCubicSpline_renderAsLineSegments__SWIG_1(long jarg1, NatCubicSpline jarg1_, int jarg2);
+  public final static native long NatCubicSpline_renderAsLineSegments(long jarg1, NatCubicSpline jarg1_, int jarg2);
   public final static native void NatCubicSpline_updateBoundingBox(long jarg1, NatCubicSpline jarg1_);
   public final static native double NatCubicSpline_evaluate__SWIG_0(long jarg1, NatCubicSpline jarg1_, int jarg2, double jarg3, double jarg4, double jarg5);
   public final static native double NatCubicSpline_evaluate__SWIG_1(long jarg1, NatCubicSpline jarg1_, int jarg2, double jarg3, double jarg4);
@@ -797,7 +796,7 @@ public class opensimModelJNI {
   public final static native long new_StepFunction__SWIG_3(long jarg1, StepFunction jarg1_);
   public final static native void delete_StepFunction(long jarg1);
   public final static native long StepFunction_copy__SWIG_0(long jarg1, StepFunction jarg1_);
-  public final static native void StepFunction_init(long jarg1, StepFunction jarg1_, int jarg2, long jarg3, long jarg4);
+  public final static native void StepFunction_init(long jarg1, StepFunction jarg1_, long jarg2, Function jarg2_);
   public final static native int StepFunction_getSize(long jarg1, StepFunction jarg1_);
   public final static native double StepFunction_getMinX(long jarg1, StepFunction jarg1_);
   public final static native double StepFunction_getMaxX(long jarg1, StepFunction jarg1_);
@@ -834,7 +833,7 @@ public class opensimModelJNI {
   public final static native long new_LinearFunction__SWIG_3(long jarg1, LinearFunction jarg1_);
   public final static native void delete_LinearFunction(long jarg1);
   public final static native long LinearFunction_copy__SWIG_0(long jarg1, LinearFunction jarg1_);
-  public final static native void LinearFunction_init(long jarg1, LinearFunction jarg1_, int jarg2, long jarg3, long jarg4);
+  public final static native void LinearFunction_init(long jarg1, LinearFunction jarg1_, long jarg2, Function jarg2_);
   public final static native int LinearFunction_getSize(long jarg1, LinearFunction jarg1_);
   public final static native double LinearFunction_getMinX(long jarg1, LinearFunction jarg1_);
   public final static native double LinearFunction_getMaxX(long jarg1, LinearFunction jarg1_);
@@ -3083,6 +3082,7 @@ public class opensimModelJNI {
   public final static native void delete_MusclePoint(long jarg1);
   public final static native long MusclePoint_copy__SWIG_0(long jarg1, MusclePoint jarg1_);
   public final static native void MusclePoint_copyData(long jarg1, MusclePoint jarg1_, long jarg2, MusclePoint jarg2_);
+  public final static native void MusclePoint_init(long jarg1, MusclePoint jarg1_, long jarg2, MusclePoint jarg2_);
   public final static native long MusclePoint_getAttachment(long jarg1, MusclePoint jarg1_);
   public final static native void MusclePoint_setAttachment__SWIG_0(long jarg1, MusclePoint jarg1_, double[] jarg2);
   public final static native void MusclePoint_setAttachment__SWIG_1(long jarg1, MusclePoint jarg1_, int jarg2, double jarg3);
@@ -3099,6 +3099,7 @@ public class opensimModelJNI {
   public final static native void MusclePoint_getVelocity(long jarg1, MusclePoint jarg1_, double[] jarg2);
   public final static native long MusclePoint_getDisplayer(long jarg1, MusclePoint jarg1_);
   public final static native void MusclePoint_updateGeometry(long jarg1, MusclePoint jarg1_);
+  public final static native long MusclePoint_makeMusclePointOfType(long jarg1, MusclePoint jarg1_, String jarg2);
   public final static native boolean MusclePoint_isKindOf(String jarg1);
   public final static native boolean MusclePoint_isA(long jarg1, MusclePoint jarg1_, String jarg2);
   public final static native long MusclePoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3140,6 +3141,7 @@ public class opensimModelJNI {
   public final static native void delete_MovingMusclePoint(long jarg1);
   public final static native long MovingMusclePoint_copy__SWIG_0(long jarg1, MovingMusclePoint jarg1_);
   public final static native void MovingMusclePoint_copyData(long jarg1, MovingMusclePoint jarg1_, long jarg2, MovingMusclePoint jarg2_);
+  public final static native void MovingMusclePoint_init(long jarg1, MovingMusclePoint jarg1_, long jarg2, MusclePoint jarg2_);
   public final static native long MovingMusclePoint_getXCoordinate(long jarg1, MovingMusclePoint jarg1_);
   public final static native long MovingMusclePoint_getYCoordinate(long jarg1, MovingMusclePoint jarg1_);
   public final static native long MovingMusclePoint_getZCoordinate(long jarg1, MovingMusclePoint jarg1_);
@@ -3245,9 +3247,11 @@ public class opensimModelJNI {
   public final static native long new_MusclePointSet__SWIG_0();
   public final static native long new_MusclePointSet__SWIG_1(long jarg1, MusclePointSet jarg1_);
   public final static native void delete_MusclePointSet(long jarg1);
+  public final static native void MusclePointSet_replaceMusclePoint(long jarg1, MusclePointSet jarg1_, long jarg2, MusclePoint jarg2_, long jarg3, MusclePoint jarg3_);
   public final static native void delete_AbstractMuscle(long jarg1);
   public final static native long AbstractMuscle_copy__SWIG_0(long jarg1, AbstractMuscle jarg1_);
   public final static native void AbstractMuscle_setup(long jarg1, AbstractMuscle jarg1_, long jarg2, Model jarg2_);
+  public final static native void AbstractMuscle_setName(long jarg1, AbstractMuscle jarg1_, String jarg2);
   public final static native void AbstractMuscle_copyData(long jarg1, AbstractMuscle jarg1_, long jarg2, AbstractMuscle jarg2_);
   public final static native long AbstractMuscle_getAttachmentSet(long jarg1, AbstractMuscle jarg1_);
   public final static native long AbstractMuscle_getCurrentPath(long jarg1, AbstractMuscle jarg1_);

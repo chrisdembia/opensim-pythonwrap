@@ -38,8 +38,8 @@ public class Function extends OpenSimObject {
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
-  public void init(int aN, SWIGTYPE_p_double aXValues, SWIGTYPE_p_double aYValues) {
-    opensimModelJNI.Function_init(swigCPtr, this, aN, SWIGTYPE_p_double.getCPtr(aXValues), SWIGTYPE_p_double.getCPtr(aYValues));
+  public void init(Function aFunction) {
+    opensimModelJNI.Function_init(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
   }
 
   public void setMinX(double aMinX) {
