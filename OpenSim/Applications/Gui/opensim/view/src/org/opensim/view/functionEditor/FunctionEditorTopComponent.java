@@ -724,6 +724,11 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
             xValueTextField.setEnabled(true);
             yValueTextField.setEnabled(true);
             crosshairsCheckBox.setEnabled(true);
+            // Update the crosshair state, to handle cases like:
+            // 1. while editing function, turned crosshairs on
+            // 2. switched type to Constant
+            // 3. switched type back to a function (crosshair checkbox is still checked)
+            functionPanel.setMandatoryCrosshairs(crosshairsCheckBox.isSelected());
          }
          updateFunctionTitle();
       } else {
@@ -808,9 +813,16 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       if (dragVector[0] < 0.0) {
          for (int i=0; i<selectedNodes.size(); i++) {
             int index = selectedNodes.get(i).node;
-            if (index == 0 || functionPanel.isNodeSelected(0, index-1))
+            double gap = minGap;
+            if (index == 0)
+               gap = function.getX(index) - xyPlot.getDomainAxis().getLowerBound();
+            else if (!functionPanel.isNodeSelected(0, index-1))
+               gap = function.getX(index) - function.getX(index-1);
+            else
                continue;
-            double gap = function.getX(index) - function.getX(index-1);
+            //if (index == 0 || functionPanel.isNodeSelected(0, index-1))
+            //   continue;
+            //double gap = function.getX(index) - function.getX(index-1);
             if (gap < minGap)
                minGap = gap;
          }
@@ -822,9 +834,16 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       } else if (dragVector[0] > 0.0) {
          for (int i=0; i<selectedNodes.size(); i++) {
             int index = selectedNodes.get(i).node;
-            if (index == function.getNumberOfPoints()-1 || functionPanel.isNodeSelected(0, index+1))
+            double gap = minGap;
+            if (index == function.getNumberOfPoints() - 1)
+               gap = xyPlot.getDomainAxis().getUpperBound() - function.getX(index);
+            else if (!functionPanel.isNodeSelected(0, index+1))
+               gap = function.getX(index+1) - function.getX(index);
+            else
                continue;
-            double gap = function.getX(index+1) - function.getX(index);
+            //if (index == function.getNumberOfPoints()-1 || functionPanel.isNodeSelected(0, index+1))
+            //   continue;
+            //double gap = function.getX(index+1) - function.getX(index);
             if (gap < minGap)
                minGap = gap;
          }
