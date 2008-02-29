@@ -50,6 +50,10 @@ public class MuscleViaPoint extends MusclePoint {
     opensimModelJNI.MuscleViaPoint_copyData(swigCPtr, this, MuscleViaPoint.getCPtr(aPoint), aPoint);
   }
 
+  public void init(MusclePoint aPoint) {
+    opensimModelJNI.MuscleViaPoint_init(swigCPtr, this, MusclePoint.getCPtr(aPoint), aPoint);
+  }
+
   public ArrayDouble getRange() {
     return new ArrayDouble(opensimModelJNI.MuscleViaPoint_getRange(swigCPtr, this), false);
   }

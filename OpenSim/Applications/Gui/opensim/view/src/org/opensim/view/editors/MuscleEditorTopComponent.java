@@ -824,7 +824,24 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       int newType = musclePointTypeComboBox.getSelectedIndex();
       if (newType != oldType) {
          MusclePoint newPoint = MusclePoint.makeMusclePointOfType(mp, musclePointClassNames[newType]);
-         asm.getAttachmentSet().replaceMusclePoint(mp, newPoint);
+         boolean result = asm.getAttachmentSet().replaceMusclePoint(mp, newPoint);
+         if (result == false) {
+            // Reset the combo box state without triggering an event
+            musclePointTypeComboBox.setEnabled(false);
+            musclePointTypeComboBox.setSelectedIndex(oldType);
+            musclePointTypeComboBox.setEnabled(true);
+            Object[] options = {"OK"};
+            int answer = JOptionPane.showOptionDialog(this,
+               "A muscle must contain at least 2 attachment points that are not via points.",
+               "Muscle Editor",
+               JOptionPane.OK_OPTION,
+               JOptionPane.WARNING_MESSAGE,
+               null,
+               options,
+               options[0]);
+            MusclePoint.deleteMusclePoint(newPoint);
+            return;
+         }
          setPendingChanges(true, currentAct, true);
          ParametersTabbedPanel.setSelectedComponent(AttachmentsTab);
          // tell the ViewDB to redraw the model
@@ -843,12 +860,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       MuscleViaPoint via = MuscleViaPoint.safeDownCast(musclePoints.get(attachmentNum));
 
       // Conversions between radians and degrees
-      double conversion = 1.0;
-      NumberFormat nf = null;
-      if (via.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
-         conversion = 180.0/Math.PI;
-         nf = angleFormat;
-      } else {
+      double conversion = 180.0/Math.PI;
+      NumberFormat nf = angleFormat;
+      AbstractCoordinate coordinate = via.getCoordinate();
+      if (coordinate != null && coordinate.getMotionType() == AbstractDof.DofType.Translational) {
+         conversion = 1.0;
          nf = positionFormat;
       }
 
@@ -887,12 +903,11 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       MuscleViaPoint via = MuscleViaPoint.safeDownCast(musclePoints.get(attachmentNum));
 
       // Conversions between radians and degrees
-      double conversion = 1.0;
-      NumberFormat nf = null;
-      if (via.getCoordinate().getMotionType() == AbstractDof.DofType.Rotational) {
-         conversion = 180.0/Math.PI;
-         nf = angleFormat;
-      } else {
+      double conversion = 180.0/Math.PI;
+      NumberFormat nf = angleFormat;
+      AbstractCoordinate coordinate = via.getCoordinate();
+      if (coordinate != null && coordinate.getMotionType() == AbstractDof.DofType.Translational) {
+         conversion = 1.0;
          nf = positionFormat;
       }
 
@@ -1213,7 +1228,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
       if (result == false) {
          Object[] options = {"OK"};
          int answer = JOptionPane.showOptionDialog(this,
-                 "A muscle must contain at least 2 fixed attachment points.",
+                 "A muscle must contain at least 2 attachment points that are not via points.",
                  "Muscle Editor",
                  JOptionPane.OK_OPTION,
                  JOptionPane.WARNING_MESSAGE,

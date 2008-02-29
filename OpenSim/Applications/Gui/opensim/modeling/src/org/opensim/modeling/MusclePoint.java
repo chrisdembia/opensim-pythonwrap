@@ -127,6 +127,10 @@ public class MusclePoint extends OpenSimObject {
     return (cPtr == 0) ? null : new MusclePoint(cPtr, false);
   }
 
+  public static void deleteMusclePoint(MusclePoint aPoint) {
+    opensimModelJNI.MusclePoint_deleteMusclePoint(MusclePoint.getCPtr(aPoint), aPoint);
+  }
+
   public static boolean isKindOf(String type) {
     return opensimModelJNI.MusclePoint_isKindOf(type);
   }

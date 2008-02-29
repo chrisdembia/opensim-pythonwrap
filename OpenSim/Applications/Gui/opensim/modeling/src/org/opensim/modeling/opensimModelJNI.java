@@ -3100,6 +3100,7 @@ public class opensimModelJNI {
   public final static native long MusclePoint_getDisplayer(long jarg1, MusclePoint jarg1_);
   public final static native void MusclePoint_updateGeometry(long jarg1, MusclePoint jarg1_);
   public final static native long MusclePoint_makeMusclePointOfType(long jarg1, MusclePoint jarg1_, String jarg2);
+  public final static native void MusclePoint_deleteMusclePoint(long jarg1, MusclePoint jarg1_);
   public final static native boolean MusclePoint_isKindOf(String jarg1);
   public final static native boolean MusclePoint_isA(long jarg1, MusclePoint jarg1_, String jarg2);
   public final static native long MusclePoint_safeDownCast(long jarg1, OpenSimObject jarg1_);
@@ -3124,6 +3125,7 @@ public class opensimModelJNI {
   public final static native void delete_MuscleViaPoint(long jarg1);
   public final static native long MuscleViaPoint_copy__SWIG_0(long jarg1, MuscleViaPoint jarg1_);
   public final static native void MuscleViaPoint_copyData(long jarg1, MuscleViaPoint jarg1_, long jarg2, MuscleViaPoint jarg2_);
+  public final static native void MuscleViaPoint_init(long jarg1, MuscleViaPoint jarg1_, long jarg2, MusclePoint jarg2_);
   public final static native long MuscleViaPoint_getRange(long jarg1, MuscleViaPoint jarg1_);
   public final static native long MuscleViaPoint_getCoordinate(long jarg1, MuscleViaPoint jarg1_);
   public final static native void MuscleViaPoint_setCoordinate(long jarg1, MuscleViaPoint jarg1_, long jarg2, AbstractCoordinate jarg2_);
@@ -3247,7 +3249,7 @@ public class opensimModelJNI {
   public final static native long new_MusclePointSet__SWIG_0();
   public final static native long new_MusclePointSet__SWIG_1(long jarg1, MusclePointSet jarg1_);
   public final static native void delete_MusclePointSet(long jarg1);
-  public final static native void MusclePointSet_replaceMusclePoint(long jarg1, MusclePointSet jarg1_, long jarg2, MusclePoint jarg2_, long jarg3, MusclePoint jarg3_);
+  public final static native boolean MusclePointSet_replaceMusclePoint(long jarg1, MusclePointSet jarg1_, long jarg2, MusclePoint jarg2_, long jarg3, MusclePoint jarg3_);
   public final static native void delete_AbstractMuscle(long jarg1);
   public final static native long AbstractMuscle_copy__SWIG_0(long jarg1, AbstractMuscle jarg1_);
   public final static native void AbstractMuscle_setup(long jarg1, AbstractMuscle jarg1_, long jarg2, Model jarg2_);

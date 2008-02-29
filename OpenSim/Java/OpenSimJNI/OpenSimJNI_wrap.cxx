@@ -59090,6 +59090,17 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1
 }
 
 
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1deleteMusclePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MusclePoint **)&jarg1; 
+  OpenSim::MusclePoint::deleteMusclePoint(arg1);
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
@@ -59477,6 +59488,24 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleViaPoint
     return ;
   } 
   (arg1)->copyData((OpenSim::MuscleViaPoint const &)*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MuscleViaPoint_1init(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::MuscleViaPoint *arg1 = (OpenSim::MuscleViaPoint *) 0 ;
+  OpenSim::MusclePoint *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::MuscleViaPoint **)&jarg1; 
+  arg2 = *(OpenSim::MusclePoint **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::MusclePoint const & reference is null");
+    return ;
+  } 
+  (arg1)->init((OpenSim::MusclePoint const &)*arg2);
 }
 
 
@@ -61679,10 +61708,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1Muscle
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePointSet_1replaceMusclePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePointSet_1replaceMusclePoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  jboolean jresult = 0 ;
   OpenSim::MusclePointSet *arg1 = (OpenSim::MusclePointSet *) 0 ;
   OpenSim::MusclePoint *arg2 = (OpenSim::MusclePoint *) 0 ;
   OpenSim::MusclePoint *arg3 = (OpenSim::MusclePoint *) 0 ;
+  bool result;
   
   (void)jenv;
   (void)jcls;
@@ -61692,7 +61723,9 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePointSet
   arg1 = *(OpenSim::MusclePointSet **)&jarg1; 
   arg2 = *(OpenSim::MusclePoint **)&jarg2; 
   arg3 = *(OpenSim::MusclePoint **)&jarg3; 
-  (arg1)->replaceMusclePoint(arg2,arg3);
+  result = (bool)(arg1)->replaceMusclePoint(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
 }
 
 
