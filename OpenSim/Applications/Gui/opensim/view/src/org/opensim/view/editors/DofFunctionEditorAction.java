@@ -70,7 +70,7 @@ public class DofFunctionEditorAction extends AbstractAction {
                   }
                   options.XLabel = dof.getCoordinate().getName() + " (deg)";
                }
-               functionEditor.open(newModel, dof, newFunction, options);
+               functionEditor.open(newModel, dof, null, newFunction, options);
                functionEditor.requestActive();
             }
          }
