@@ -815,7 +815,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
             int index = selectedNodes.get(i).node;
             double gap = minGap;
             if (index == 0)
-               gap = function.getX(index) - xyPlot.getDomainAxis().getLowerBound();
+               gap = function.getX(index) - xyPlot.getDomainAxis().getLowerBound() * options.XDisplayUnits.convertTo(options.XUnits);
             else if (!functionPanel.isNodeSelected(0, index-1))
                gap = function.getX(index) - function.getX(index-1);
             else
@@ -836,7 +836,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
             int index = selectedNodes.get(i).node;
             double gap = minGap;
             if (index == function.getNumberOfPoints() - 1)
-               gap = xyPlot.getDomainAxis().getUpperBound() - function.getX(index);
+               gap = xyPlot.getDomainAxis().getUpperBound() * options.XDisplayUnits.convertTo(options.XUnits) - function.getX(index);
             else if (!functionPanel.isNodeSelected(0, index+1))
                gap = function.getX(index+1) - function.getX(index);
             else
