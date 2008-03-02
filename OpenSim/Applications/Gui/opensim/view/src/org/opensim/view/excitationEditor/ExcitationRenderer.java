@@ -1,5 +1,5 @@
 /*
- * FunctionRenderer.java
+ * ExcitationRenderer.java
  *
  * Created on October 25, 2007, 10:52 AM
  *
@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package org.opensim.view.functionEditor;
+package org.opensim.view.excitationEditor;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -30,22 +30,22 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.PaintList;
 import org.jfree.util.PublicCloneable;
-import org.jfree.util.ShapeUtilities;
 import org.opensim.modeling.ArrayXYPoint;
+import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.Function;
-import org.opensim.modeling.Units;
+import org.opensim.view.functionEditor.XYLineAndShapeRendererWithHighlight;
 
 /**
  *
- * @author Peter Loan
+ * @author Ayman Habib after Peter Loan's FunctionEditor
  */
-public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
+public class ExcitationRenderer extends XYLineAndShapeRendererWithHighlight
         implements XYItemRenderer,
         Cloneable,
         PublicCloneable,
         Serializable {
 
-   private ArrayList<Function> functionList = new ArrayList<Function>(0);
+   private ArrayList<ControlLinear> functionList = new ArrayList<ControlLinear>(0);
    
    /** For each control point in each function, the shape fill color,
     * which is either the highlight color (yellow) or the default fill
@@ -59,13 +59,10 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    /** For each function, the shape fill color for selected control points. */
    private PaintList functionHighlightFillPaintList;
 
-   private Units XUnits;         // units of array of X values
-   private Units XDisplayUnits;  // units for displaying X values to user
-   private Units YUnits;         // units of array of Y values
-   private Units YDisplayUnits;  // units for displaying Y values to user
-
-   /** Creates a FunctionRenderer for a single function. */
-   public FunctionRenderer(Function theFunction) {
+   /**
+     * Creates a ExcitationRenderer for a single function.
+     */
+   public ExcitationRenderer(ControlLinear theFunction) {
       functionList.add(theFunction);
       shapeFillPaintList = new PaintList[functionList.size()];
       shapeFillPaintList[0] = new PaintList();
@@ -75,12 +72,8 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       setFunctionPaint(0, Color.GREEN);
       functionDefaultFillPaintList.setPaint(0, Color.GREEN);
       functionHighlightFillPaintList.setPaint(0, Color.BLACK);
-      for (int i=0; i<theFunction.getNumberOfPoints(); i++)
+      for (int i=0; i<theFunction.getControlValues().getSize(); i++)
          shapeFillPaintList[0].setPaint(i, Color.GREEN);
-      XUnits = new Units(Units.UnitType.simmRadians);
-      XDisplayUnits = new Units(Units.UnitType.simmDegrees);
-      YUnits = new Units(Units.UnitType.simmMeters);
-      YDisplayUnits = new Units(Units.UnitType.simmMeters);
    }
    
    /**
@@ -174,7 +167,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
     * @param domainAxis  the domain axis.
     * @param rangeAxis  the range axis.
     * @param dataArea  the area within which the data is being drawn.
-    */
+    *
    protected void drawPrimaryLineAsPath(XYItemRendererState state,
            Graphics2D g2, XYPlot plot,
            XYDataset dataset,
@@ -190,13 +183,14 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
 
       RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
       RectangleEdge yAxisLocation = plot.getRangeAxisEdge();
-
+      
       State s = (State) state;
       ArrayXYPoint xyPts = functionList.get(series).renderAsLineSegments(item);
+      //System.out.println("item = " + String.valueOf(item));
       if (xyPts != null) {
          for (int i = 0; i < xyPts.getSize(); i++) {
-            double datax = (xyPts.get(i).get_x() * XUnits.convertTo(XDisplayUnits));
-            double datay = (xyPts.get(i).get_y() * YUnits.convertTo(YDisplayUnits));
+            float datax = (float) xyPts.get(i).get_x();
+            float datay = (float) xyPts.get(i).get_y();
             double screenx = domainAxis.valueToJava2D(datax, dataArea, xAxisLocation);
             double screeny = rangeAxis.valueToJava2D(datay, dataArea, yAxisLocation);
             if (!Double.isNaN(screenx) && !Double.isNaN(screeny)) {
@@ -213,6 +207,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
                }
                s.setLastPointGood(true);
             }
+            //System.out.println("x = " + String.valueOf(screenx) + " y = " + String.valueOf(screeny));
          }
          functionList.get(series).deleteXYPointArray(xyPts);
       } else {
@@ -240,26 +235,28 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       g2.setPaint(getFunctionPaint(series));
       g2.draw(shape);
    }
-
+   
    /**
-    * Function colors
-    * Each function (series) has its own color, which is used for the
-    * function lines and the outlines of the node circles. The insides
-    * of the circles are white for all nodes in all series. When a node
-    * is selected, its fill color is yellow but its outline is still
-    * the series color.
-    */
-   public void highlightNode(int function, int point) {
+     * Function colors
+     * The ExcitationRenderer is designed to handle multiple functions,
+     * but the function editor uses only one. Each function (series)
+     * has its own color, which is used for the function lines and
+     * the outlines of the control point circles. The insides of the
+     * circles are white for all points in all series. When a control
+     * point is selected, its fill color is yellow but its outline is
+     * still the series color.
+     */
+   public void highlightControlPoint(int function, int point) {
       if (function < functionList.size())
          shapeFillPaintList[function].setPaint(point, functionHighlightFillPaintList.getPaint(function));
    }
 
-   public void unhighlightNode(int function, int point) {
+   public void unhighlightControlPoint(int function, int point) {
       if (function < functionList.size())
          shapeFillPaintList[function].setPaint(point, functionDefaultFillPaintList.getPaint(function));
    }
 
-   public Paint getNodePaint(int function, int point) {
+   public Paint getControlPointPaint(int function, int point) {
       if (function < functionList.size())
          return shapeFillPaintList[function].getPaint(point);
       else
@@ -273,7 +270,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    }
    
    public Paint getItemFillPaint(int series, int item) {
-      return getNodePaint(series, item);
+      return getControlPointPaint(series, item);
    }
    
    public void setFunctionDefaultFillPaint(int function, Paint paint) {
@@ -281,9 +278,9 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
          Paint oldPaint = functionDefaultFillPaintList.getPaint(function);
          functionDefaultFillPaintList.setPaint(function, paint);
          // Update the individual point's fill colors if they were equal to the old default color
-         for (int i=0; i<functionList.get(function).getNumberOfPoints(); i++) {
-            if (getNodePaint(function, i) == oldPaint)
-               unhighlightNode(function, i);
+         for (int i=0; i<functionList.get(function).getControlValues().getSize(); i++) {
+            if (getControlPointPaint(function, i) == oldPaint)
+               unhighlightControlPoint(function, i);
          }
       }
    }
@@ -300,9 +297,9 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
          Paint oldPaint = functionHighlightFillPaintList.getPaint(function);
          functionHighlightFillPaintList.setPaint(function, paint);
          // Update the individual point's fill colors if they were equal to the old highlight color
-         for (int i=0; i<functionList.get(function).getNumberOfPoints(); i++) {
-            if (getNodePaint(function, i) == oldPaint)
-               highlightNode(function, i);
+         for (int i=0; i<functionList.get(function).getControlValues().getSize(); i++) {
+            if (getControlPointPaint(function, i) == oldPaint)
+               highlightControlPoint(function, i);
          }
       }
    }
@@ -324,20 +321,21 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       else
          return Color.BLACK;
    }
-
-   public void setXUnits(Units XUnits) {
-      this.XUnits = XUnits;
+   /**
+    * Function colors
+    * Each function (series) has its own color, which is used for the
+    * function lines and the outlines of the node circles. The insides
+    * of the circles are white for all nodes in all series. When a node
+    * is selected, its fill color is yellow but its outline is still
+    * the series color.
+    */
+   public void highlightNode(int function, int point) {
+      if (function < functionList.size())
+         shapeFillPaintList[function].setPaint(point, functionHighlightFillPaintList.getPaint(function));
    }
 
-   public void setXDisplayUnits(Units XDisplayUnits) {
-      this.XDisplayUnits = XDisplayUnits;
-   }
-
-   public void setYUnits(Units YUnits) {
-      this.YUnits = YUnits;
-   }
-
-   public void setYDisplayUnits(Units YDisplayUnits) {
-      this.YDisplayUnits = YDisplayUnits;
+   public void unhighlightNode(int function, int point) {
+      if (function < functionList.size())
+         shapeFillPaintList[function].setPaint(point, functionDefaultFillPaintList.getPaint(function));
    }
 }

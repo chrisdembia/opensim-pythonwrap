@@ -31,6 +31,7 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
 
@@ -64,7 +65,7 @@ public class FunctionPanel extends ChartPanel
    private ArrayList<FunctionNode> selectedNodes = new ArrayList<FunctionNode>(0);
    private ArrayList<FunctionNode> oldBoxSelectNodes = null;
    private final java.awt.Color boxSelectColor = java.awt.Color.green; // to get purple select box
-   private FunctionRenderer renderer;
+   private XYLineAndShapeRendererWithHighlight renderer;
    private JPopupMenu addNodePopUpMenu;
    private JPopupMenu nodePopUpMenu;
    private XYTextAnnotation crosshairAnnotation = null;
@@ -73,13 +74,12 @@ public class FunctionPanel extends ChartPanel
    public static final String ADD_NODE_COMMAND = "ADD_NODE";
    private EventListenerList functionPanelListeners;
 
-
    /** Creates a new instance of FunctionPanel */
    public FunctionPanel(JFreeChart chart) {
       super(chart);
       //this.setFocusable(true);
       this.functionPanelListeners = new EventListenerList();
-      this.renderer = (FunctionRenderer) chart.getXYPlot().getRenderer();
+      this.renderer = (XYLineAndShapeRendererWithHighlight) chart.getXYPlot().getRenderer();
       this.enableEvents(AWTEvent.INPUT_METHOD_EVENT_MASK);
       this.enableEvents(AWTEvent.KEY_EVENT_MASK);
       this.addKeyListener(this);

@@ -36,6 +36,7 @@
             </file>
             <file name="org-opensim-view-editors-EditMusclesAction.instance"/>
             <file name="org-opensim-view-editors-ObjectPropertiesEditor.instance"/>
+            <file name="org-opensim-view-excitationEditor-ExcitationEditorAction.instance"/>
             <file name="org-opensim-view-nodes-EditFromNodeAction.instance"/>
             <file name="org-opensim-view-nodes-IsolateCurrentModelAction.instance"/>
             <file name="org-opensim-view-nodes-ModelCloseSelectedAction.instance"/>
@@ -126,28 +127,39 @@
         </folder>
         <folder name="Edit">
             <attr name="Separator1.instance/org-opensim-view-editors-EditMusclesAction.shadow" boolvalue="true"/>
+            <attr name="Separator3.instance/org-opensim-view-editors-ObjectPropertiesEditor.shadow" boolvalue="true"/>
+            <attr name="Separator3.instance/org-opensim-view-editors-EditMusclesAction.shadow" boolvalue="true"/>
             <file name="org-opensim-view-editors-EditMusclesAction.shadow" url="org-opensim-view-editors-EditMusclesAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-editors-EditMusclesAction.instance"/>
             </file>
+            <attr name="org-opensim-view-editors-EditMusclesAction.shadow/org-opensim-view-excitationEditor-ExcitationEditorAction.shadow" boolvalue="true"/>
+            <file name="org-opensim-view-excitationEditor-ExcitationEditorAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-excitationEditor-ExcitationEditorAction.instance"/>
+            </file>
+            <attr name="org-opensim-view-excitationEditor-ExcitationEditorAction.shadow/Separator2.instance" boolvalue="true"/>
             <attr name="org-opensim-view-editors-EditMusclesAction.shadow/Separator2.instance" boolvalue="true"/>
-            <attr name="Separator3.instance/org-opensim-view-editors-ObjectPropertiesEditor.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-excitationEditor-ExcitationEditorAction.shadow/org-opensim-view-editors-ObjectPropertiesEditor.shadow" boolvalue="true"/>
+            <attr name="Separator2.instance/org-opensim-view-editors-ObjectPropertiesEditor.shadow" boolvalue="true"/>
             <file name="org-opensim-view-editors-ObjectPropertiesEditor.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-editors-ObjectPropertiesEditor.instance"/>
             </file>
+            <attr name="org-opensim-view-editors-ObjectPropertiesEditor.shadow/org-opensim-view-actions-EditPreferencesAction.shadow" boolvalue="false"/>
+            <attr name="Separator2.instance/org-opensim-view-actions-EditPreferencesAction.shadow" boolvalue="true"/>
             <file name="org-opensim-view-actions-EditPreferencesAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Edit/org-opensim-view-actions-EditPreferencesAction.instance"/>
             </file>
-            <attr name="org-opensim-view-editors-ObjectPropertiesEditor.shadow/org-opensim-view-actions-EditPreferencesAction.shadow" boolvalue="true"/>
+            <attr name="org-opensim-view-actions-EditPreferencesAction.shadow/Separator2.instance" boolvalue="false"/>
+            <file name="org-netbeans-core-actions-JumpNextAction.shadow_hidden"/>
+            <file name="org-netbeans-core-actions-JumpPrevAction.shadow_hidden"/>
             <file name="org-openide-actions-CopyAction.instance_hidden"/>
             <file name="org-openide-actions-CutAction.instance_hidden"/>
             <file name="org-openide-actions-DeleteAction.instance_hidden"/>
             <file name="org-openide-actions-FindAction.instance_hidden"/>
             <file name="org-openide-actions-PasteAction.instance_hidden"/>
             <file name="org-openide-actions-RedoAction.instance_hidden"/>
-            <file name="org-openide-actions-UndoAction.instance_hidden"/>
             <file name="org-openide-actions-ReplaceAction.instance_hidden"/>
-            <file name="org-netbeans-core-actions-JumpNextAction.shadow_hidden"/>
-            <file name="org-netbeans-core-actions-JumpPrevAction.shadow_hidden"/>
+            <file name="org-openide-actions-UndoAction.instance_hidden"/>
+            <attr name="org-opensim-view-actions-EditPreferencesAction.shadow/org-opensim-view-editors-ObjectPropertiesEditor.shadow" boolvalue="true"/>
         </folder>
         <folder name="Tools">
             <file name="org-netbeans-modules-autoupdate-catalog-ModuleCatalogAction.instance_hidden"/>

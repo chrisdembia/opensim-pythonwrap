@@ -414,6 +414,7 @@ namespace Swig {
 #include <OpenSim/Simulation/Control/ControlSet.h>
 #include <OpenSim/Simulation/Control/ControlConstant.h>
 #include <OpenSim/Simulation/Control/ControlLinear.h>
+#include <OpenSim/Simulation/Control/ControlLinearNode.h>
 #include <OpenSim/Simulation/Control/Controller.h>
 #include <OpenSim/Simulation/Integrator/Integrand.h>
 #include <OpenSim/Simulation/Integrator/RKF.h>
@@ -1217,7 +1218,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "C:/SimTK/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
+#include "C:/Projects/OpenSim105/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel, OpenSim::Model *aModelForDisplay) : OpenSim::SimtkAnimationCallback(aModel, aModelForDisplay), Swig::Director(jenv) {
 }
@@ -28363,7 +28364,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1Contro
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlConstant_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlConstant_1copy_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::ControlConstant *arg1 = (OpenSim::ControlConstant *) 0 ;
   OpenSim::Object *result = 0 ;
@@ -28707,6 +28708,80 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlConstan
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlConstant_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jboolean jresult = 0 ;
+  char *arg1 = (char *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return 0;
+  }
+  result = (bool)OpenSim::ControlConstant::isKindOf((char const *)arg1);
+  jresult = (jboolean)result; 
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlConstant_1isA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ControlConstant *arg1 = (OpenSim::ControlConstant *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlConstant **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return 0;
+  }
+  result = (bool)((OpenSim::ControlConstant const *)arg1)->isA((char const *)arg2);
+  jresult = (jboolean)result; 
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlConstant_1safeDownCast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::Object *arg1 = (OpenSim::Object *) 0 ;
+  OpenSim::ControlConstant *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Object **)&jarg1; 
+  result = (OpenSim::ControlConstant *)OpenSim::ControlConstant::safeDownCast(arg1);
+  *(OpenSim::ControlConstant **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlConstant_1copy_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::ControlConstant *arg1 = (OpenSim::ControlConstant *) 0 ;
+  OpenSim::Object *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ControlConstant **)&jarg1; 
+  arg2 = *(OpenSim::Object **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Object const & reference is null");
+    return ;
+  } 
+  (arg1)->copy((OpenSim::Object const &)*arg2);
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1ControlLinear(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
   
@@ -28718,7 +28793,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1Contro
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1copy_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
   OpenSim::Object *result = 0 ;
@@ -29157,6 +29232,60 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_
 }
 
 
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1getControlValues(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
+  OpenSim::ArrayPtrs<ControlLinearNode > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinear **)&jarg1; 
+  {
+    OpenSim::ArrayPtrs<ControlLinearNode > &_result_ref = (arg1)->getControlValues();
+    result = (OpenSim::ArrayPtrs<ControlLinearNode > *) &_result_ref;
+  }
+  *(OpenSim::ArrayPtrs<ControlLinearNode > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1getControlMinValues(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
+  OpenSim::ArrayPtrs<ControlLinearNode > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinear **)&jarg1; 
+  {
+    OpenSim::ArrayPtrs<ControlLinearNode > &_result_ref = (arg1)->getControlMinValues();
+    result = (OpenSim::ArrayPtrs<ControlLinearNode > *) &_result_ref;
+  }
+  *(OpenSim::ArrayPtrs<ControlLinearNode > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1getControlMaxValues(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
+  OpenSim::ArrayPtrs<ControlLinearNode > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinear **)&jarg1; 
+  {
+    OpenSim::ArrayPtrs<ControlLinearNode > &_result_ref = (arg1)->getControlMaxValues();
+    result = (OpenSim::ArrayPtrs<ControlLinearNode > *) &_result_ref;
+  }
+  *(OpenSim::ArrayPtrs<ControlLinearNode > **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1getFirstTime(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jdouble jresult = 0 ;
   OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
@@ -29215,6 +29344,821 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_
   arg1 = *(OpenSim::ControlLinear **)&jarg1; 
   arg2 = (double)jarg2; 
   (arg1)->filter(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1isKindOf(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jboolean jresult = 0 ;
+  char *arg1 = (char *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return 0;
+  }
+  result = (bool)OpenSim::ControlLinear::isKindOf((char const *)arg1);
+  jresult = (jboolean)result; 
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1isA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
+  char *arg2 = (char *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinear **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return 0;
+  }
+  result = (bool)((OpenSim::ControlLinear const *)arg1)->isA((char const *)arg2);
+  jresult = (jboolean)result; 
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1safeDownCast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::Object *arg1 = (OpenSim::Object *) 0 ;
+  OpenSim::ControlLinear *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Object **)&jarg1; 
+  result = (OpenSim::ControlLinear *)OpenSim::ControlLinear::safeDownCast(arg1);
+  *(OpenSim::ControlLinear **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinear_1copy_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
+  OpenSim::Object *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ControlLinear **)&jarg1; 
+  arg2 = *(OpenSim::Object **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Object const & reference is null");
+    return ;
+  } 
+  (arg1)->copy((OpenSim::Object const &)*arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinearNode_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jdouble jarg1, jdouble jarg2) {
+  jlong jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  OpenSim::ControlLinearNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  result = (OpenSim::ControlLinearNode *)new OpenSim::ControlLinearNode(arg1,arg2);
+  *(OpenSim::ControlLinearNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinearNode_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jdouble jarg1) {
+  jlong jresult = 0 ;
+  double arg1 ;
+  OpenSim::ControlLinearNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (double)jarg1; 
+  result = (OpenSim::ControlLinearNode *)new OpenSim::ControlLinearNode(arg1);
+  *(OpenSim::ControlLinearNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinearNode_1_1SWIG_12(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::ControlLinearNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::ControlLinearNode *)new OpenSim::ControlLinearNode();
+  *(OpenSim::ControlLinearNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinearNode_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ControlLinearNode *arg1 = 0 ;
+  OpenSim::ControlLinearNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinearNode **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ControlLinearNode const & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::ControlLinearNode *)new OpenSim::ControlLinearNode((OpenSim::ControlLinearNode const &)*arg1);
+  *(OpenSim::ControlLinearNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinearNode_1copy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ControlLinearNode *arg1 = (OpenSim::ControlLinearNode *) 0 ;
+  OpenSim::Object *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinearNode **)&jarg1; 
+  result = (OpenSim::Object *)((OpenSim::ControlLinearNode const *)arg1)->copy();
+  *(OpenSim::Object **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1ControlLinearNode(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::ControlLinearNode *arg1 = (OpenSim::ControlLinearNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::ControlLinearNode **)&jarg1; 
+  delete arg1;
+  
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinearNode_1setTime(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+  OpenSim::ControlLinearNode *arg1 = (OpenSim::ControlLinearNode *) 0 ;
+  double arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinearNode **)&jarg1; 
+  arg2 = (double)jarg2; 
+  (arg1)->setTime(arg2);
+}
+
+
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinearNode_1getTime(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jdouble jresult = 0 ;
+  OpenSim::ControlLinearNode *arg1 = (OpenSim::ControlLinearNode *) 0 ;
+  double result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinearNode **)&jarg1; 
+  result = (double)((OpenSim::ControlLinearNode const *)arg1)->getTime();
+  jresult = (jdouble)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinearNode_1setValue(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2) {
+  OpenSim::ControlLinearNode *arg1 = (OpenSim::ControlLinearNode *) 0 ;
+  double arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinearNode **)&jarg1; 
+  arg2 = (double)jarg2; 
+  (arg1)->setValue(arg2);
+}
+
+
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinearNode_1getValue(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jdouble jresult = 0 ;
+  OpenSim::ControlLinearNode *arg1 = (OpenSim::ControlLinearNode *) 0 ;
+  double result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinearNode **)&jarg1; 
+  result = (double)((OpenSim::ControlLinearNode const *)arg1)->getValue();
+  jresult = (jdouble)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlLinearNode_1toString(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  OpenSim::ControlLinearNode *arg1 = (OpenSim::ControlLinearNode *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinearNode **)&jarg1; 
+  result = (char *)(arg1)->toString();
+  if(result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1SetControlNodes(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  delete arg1;
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SetControlNodes_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *)new OpenSim::ArrayPtrs<OpenSim::ControlLinearNode >(arg1);
+  *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SetControlNodes_1_1SWIG_11(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *)new OpenSim::ArrayPtrs<OpenSim::ControlLinearNode >();
+  *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SetControlNodes_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *)new OpenSim::ArrayPtrs<OpenSim::ControlLinearNode >((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const &)*arg1);
+  *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1clearAndDestroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  (arg1)->clearAndDestroy();
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1setMemoryOwner(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  (arg1)->setMemoryOwner(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1getMemoryOwner(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  result = (bool)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->getMemoryOwner();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1computeNewCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int arg2 ;
+  int *arg3 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(int **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "int & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->computeNewCapacity(arg2,*arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1ensureCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->ensureCapacity(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1trim(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  (arg1)->trim();
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1getCapacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->getCapacity();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1setCapacityIncrement(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  (arg1)->setCapacityIncrement(arg2);
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1getCapacityIncrement(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->getCapacityIncrement();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1setSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->setSize(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1getSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->getSize();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1getIndex_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  OpenSim::ControlLinearNode *arg2 = (OpenSim::ControlLinearNode *) 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = *(OpenSim::ControlLinearNode **)&jarg2; 
+  arg3 = (int)jarg3; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->getIndex((OpenSim::ControlLinearNode const *)arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1getIndex_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  OpenSim::ControlLinearNode *arg2 = (OpenSim::ControlLinearNode *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = *(OpenSim::ControlLinearNode **)&jarg2; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->getIndex((OpenSim::ControlLinearNode const *)arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1getIndex_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jint jarg3) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  std::string *arg2 = 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  arg3 = (int)jarg3; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->getIndex((std::string const &)*arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1getIndex_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  std::string *arg2 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->getIndex((std::string const &)*arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1append_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  OpenSim::ControlLinearNode *arg2 = (OpenSim::ControlLinearNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = *(OpenSim::ControlLinearNode **)&jarg2; 
+  result = (bool)(arg1)->append(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1append_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg2 = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > & reference is null");
+    return 0;
+  } 
+  result = (bool)(arg1)->append(*arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1insert(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int arg2 ;
+  OpenSim::ControlLinearNode *arg3 = (OpenSim::ControlLinearNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(OpenSim::ControlLinearNode **)&jarg3; 
+  result = (bool)(arg1)->insert(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1remove_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)(arg1)->remove(arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1remove_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  OpenSim::ControlLinearNode *arg2 = (OpenSim::ControlLinearNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = *(OpenSim::ControlLinearNode **)&jarg2; 
+  result = (bool)(arg1)->remove((OpenSim::ControlLinearNode const *)arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jboolean jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int arg2 ;
+  OpenSim::ControlLinearNode *arg3 = (OpenSim::ControlLinearNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(OpenSim::ControlLinearNode **)&jarg3; 
+  result = (bool)(arg1)->set(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1get_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  int arg2 ;
+  OpenSim::ControlLinearNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (OpenSim::ControlLinearNode *)(arg1)->get(arg2);
+  *(OpenSim::ControlLinearNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1get_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  std::string *arg2 = 0 ;
+  OpenSim::ControlLinearNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::string");
+    return 0;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  result = (OpenSim::ControlLinearNode *)(arg1)->get((std::string const &)*arg2);
+  *(OpenSim::ControlLinearNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1getLast(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  OpenSim::ControlLinearNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  result = (OpenSim::ControlLinearNode *)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->getLast();
+  *(OpenSim::ControlLinearNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1searchBinary_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3, jint jarg4, jint jarg5) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  OpenSim::ControlLinearNode *arg2 = 0 ;
+  bool arg3 ;
+  int arg4 ;
+  int arg5 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = *(OpenSim::ControlLinearNode **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ControlLinearNode const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->searchBinary((OpenSim::ControlLinearNode const &)*arg2,arg3,arg4,arg5);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1searchBinary_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3, jint jarg4) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  OpenSim::ControlLinearNode *arg2 = 0 ;
+  bool arg3 ;
+  int arg4 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = *(OpenSim::ControlLinearNode **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ControlLinearNode const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  arg4 = (int)jarg4; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->searchBinary((OpenSim::ControlLinearNode const &)*arg2,arg3,arg4);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1searchBinary_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  OpenSim::ControlLinearNode *arg2 = 0 ;
+  bool arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = *(OpenSim::ControlLinearNode **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ControlLinearNode const & reference is null");
+    return 0;
+  } 
+  arg3 = jarg3 ? true : false; 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->searchBinary((OpenSim::ControlLinearNode const &)*arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_SetControlNodes_1searchBinary_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *arg1 = (OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > *) 0 ;
+  OpenSim::ControlLinearNode *arg2 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > **)&jarg1; 
+  arg2 = *(OpenSim::ControlLinearNode **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ControlLinearNode const & reference is null");
+    return 0;
+  } 
+  result = (int)((OpenSim::ArrayPtrs<OpenSim::ControlLinearNode > const *)arg1)->searchBinary((OpenSim::ControlLinearNode const &)*arg2);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
@@ -75639,6 +76583,14 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGControlLi
     (void)jenv;
     (void)jcls;
     *(OpenSim::Control **)&baseptr = *(OpenSim::ControlLinear **)&jarg1;
+    return baseptr;
+}
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SWIGControlLinearNodeUpcast(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+    jlong baseptr = 0;
+    (void)jenv;
+    (void)jcls;
+    *(OpenSim::Object **)&baseptr = *(OpenSim::ControlLinearNode **)&jarg1;
     return baseptr;
 }
 

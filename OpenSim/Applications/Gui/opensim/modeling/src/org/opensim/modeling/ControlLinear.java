@@ -34,7 +34,7 @@ public class ControlLinear extends Control {
   }
 
   public OpenSimObject copy() {
-    long cPtr = opensimModelJNI.ControlLinear_copy(swigCPtr, this);
+    long cPtr = opensimModelJNI.ControlLinear_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
   }
 
@@ -142,6 +142,18 @@ public class ControlLinear extends Control {
     opensimModelJNI.ControlLinear_clearControlNodes(swigCPtr, this);
   }
 
+  public SetControlNodes getControlValues() {
+    return new SetControlNodes(opensimModelJNI.ControlLinear_getControlValues(swigCPtr, this), false);
+  }
+
+  public SetControlNodes getControlMinValues() {
+    return new SetControlNodes(opensimModelJNI.ControlLinear_getControlMinValues(swigCPtr, this), false);
+  }
+
+  public SetControlNodes getControlMaxValues() {
+    return new SetControlNodes(opensimModelJNI.ControlLinear_getControlMaxValues(swigCPtr, this), false);
+  }
+
   public double getFirstTime() {
     return opensimModelJNI.ControlLinear_getFirstTime(swigCPtr, this);
   }
@@ -156,6 +168,23 @@ public class ControlLinear extends Control {
 
   public void filter(double aT) {
     opensimModelJNI.ControlLinear_filter(swigCPtr, this, aT);
+  }
+
+  public static boolean isKindOf(String type) {
+    return opensimModelJNI.ControlLinear_isKindOf(type);
+  }
+
+  public boolean isA(String type) {
+    return opensimModelJNI.ControlLinear_isA(swigCPtr, this, type);
+  }
+
+  public static ControlLinear safeDownCast(OpenSimObject obj) {
+    long cPtr = opensimModelJNI.ControlLinear_safeDownCast(OpenSimObject.getCPtr(obj), obj);
+    return (cPtr == 0) ? null : new ControlLinear(cPtr, false);
+  }
+
+  public void copy(OpenSimObject aObject) {
+    opensimModelJNI.ControlLinear_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
 
 }
