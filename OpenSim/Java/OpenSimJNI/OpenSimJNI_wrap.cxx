@@ -527,6 +527,7 @@ namespace Swig {
 #include <OpenSim/Tools/AnalyzeTool.h>
 
 using namespace OpenSim;
+using namespace SimTK;
 
 
 #if defined(SWIG_NOINCLUDE) || defined(SWIG_NOARRAYS)
@@ -1218,7 +1219,7 @@ SWIGINTERN void OpenSim_Array_Sl_OpenSim_MusclePoint_Sm__Sg__setitem(OpenSim::Ar
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "C:/Projects/OpenSim105/OpenSim/Java/OpenSimJNI/OpenSimJNI_wrap.h"
+#include "OpenSimJNI_wrap.h"
 
 SwigDirector_SimtkAnimationCallback::SwigDirector_SimtkAnimationCallback(JNIEnv *jenv, OpenSim::Model *aModel, OpenSim::Model *aModelForDisplay) : OpenSim::SimtkAnimationCallback(aModel, aModelForDisplay), Swig::Director(jenv) {
 }
@@ -6561,27 +6562,24 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Transfor
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Transform_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jdouble jarg1, jint jarg2, jdoubleArray jarg3) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1Transform_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jdouble jarg1, jint jarg2, jlong jarg3) {
   jlong jresult = 0 ;
   double arg1 ;
   OpenSim::Transform::AnglePreference arg2 ;
-  double *arg3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::Transform *result = 0 ;
-  jdouble *jarr3 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = (double)jarg1; 
   arg2 = (OpenSim::Transform::AnglePreference)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return 0; 
-  result = (OpenSim::Transform *)new OpenSim::Transform(arg1,arg2,(double const (*))arg3);
+  } 
+  result = (OpenSim::Transform *)new OpenSim::Transform(arg1,arg2,(SimTK::Vec3 const &)*arg3);
   *(OpenSim::Transform **)&jresult = result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
   return jresult;
 }
 
@@ -6623,7 +6621,24 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1pri
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1getPosition(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1getPosition_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Transform **)&jarg1; 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return ;
+  } 
+  ((OpenSim::Transform const *)arg1)->getPosition(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1getPosition_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
   OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
   double *arg2 ;
   jdouble *jarr2 ;
@@ -6643,23 +6658,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1get
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1setPosition(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1setPosition(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Transform **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->setPosition((double const (*))arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->setPosition((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -6771,12 +6783,11 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1rot
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1rotateAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jint jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1rotateAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jint jarg3, jlong jarg4) {
   OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
   double arg2 ;
   OpenSim::Transform::AnglePreference arg3 ;
-  double *arg4 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -6784,14 +6795,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1rot
   arg1 = *(OpenSim::Transform **)&jarg1; 
   arg2 = (double)jarg2; 
   arg3 = (OpenSim::Transform::AnglePreference)jarg3; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  (arg1)->rotateAxis(arg2,arg3,(double const (*))arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg4; 
+  } 
+  (arg1)->rotateAxis(arg2,arg3,(SimTK::Vec3 const &)*arg4);
 }
 
 
@@ -6879,23 +6888,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1tra
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1translate(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1translate(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Transform **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->translate((double const (*))arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->translate((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -6919,18 +6925,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1tra
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1transformPoint_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1transformPoint_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::Transform **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
   } 
   ((OpenSim::Transform const *)arg1)->transformPoint(*arg2);
@@ -6957,18 +6962,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1tra
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1transformVector_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Transform_1transformVector_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Transform *arg1 = (OpenSim::Transform *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::Transform **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
   } 
   ((OpenSim::Transform const *)arg1)->transformVector(*arg2);
@@ -7101,32 +7105,26 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Geometry_1
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1LineGeometry_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jdoubleArray jarg1, jdoubleArray jarg2) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1LineGeometry_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   jlong jresult = 0 ;
-  double *arg1 ;
-  double *arg2 ;
+  SimTK::Vec3 *arg1 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   OpenSim::LineGeometry *result = 0 ;
-  jdouble *jarr1 ;
-  jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
-  if (jarg1 && jenv->GetArrayLength(jarg1) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg1 = *(SimTK::Vec3 **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr1, &arg1, jarg1)) return 0; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
-  result = (OpenSim::LineGeometry *)new OpenSim::LineGeometry(arg1,arg2);
+  } 
+  result = (OpenSim::LineGeometry *)new OpenSim::LineGeometry(*arg1,*arg2);
   *(OpenSim::LineGeometry **)&jresult = result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr1, arg1, jarg1); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg1; 
-  delete [] arg2; 
   return jresult;
 }
 
@@ -7154,7 +7152,30 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1LineGe
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LineGeometry_1getPoints(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LineGeometry_1getPoints_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::LineGeometry *arg1 = (OpenSim::LineGeometry *) 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::LineGeometry **)&jarg1; 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return ;
+  } 
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return ;
+  } 
+  ((OpenSim::LineGeometry const *)arg1)->getPoints(*arg2,*arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LineGeometry_1getPoints_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2, jdoubleArray jarg3) {
   OpenSim::LineGeometry *arg1 = (OpenSim::LineGeometry *) 0 ;
   double *arg2 ;
   double *arg3 ;
@@ -7165,15 +7186,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LineGeometry_1
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::LineGeometry **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
-    return ;
-  }
   if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
-    return ;
-  }
   if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
   ((OpenSim::LineGeometry const *)arg1)->getPoints(arg2,arg3);
   SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
@@ -7183,7 +7196,30 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LineGeometry_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LineGeometry_1setPoints(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LineGeometry_1setPoints_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+  OpenSim::LineGeometry *arg1 = (OpenSim::LineGeometry *) 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::LineGeometry **)&jarg1; 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return ;
+  } 
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return ;
+  } 
+  (arg1)->setPoints(*arg2,*arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LineGeometry_1setPoints_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2, jdoubleArray jarg3) {
   OpenSim::LineGeometry *arg1 = (OpenSim::LineGeometry *) 0 ;
   double *arg2 ;
   double *arg3 ;
@@ -7194,15 +7230,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_LineGeometry_1
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::LineGeometry **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
-    return ;
-  }
   if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
-    return ;
-  }
   if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
   (arg1)->setPoints(arg2,arg3);
   SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
@@ -7227,34 +7255,28 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_LineGeometry_
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrowGeometry(JNIEnv *jenv, jclass jcls, jdoubleArray jarg1, jdoubleArray jarg2, jdouble jarg3) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ArrowGeometry(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jdouble jarg3) {
   jlong jresult = 0 ;
-  double *arg1 ;
-  double *arg2 ;
+  SimTK::Vec3 *arg1 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   double arg3 ;
   OpenSim::ArrowGeometry *result = 0 ;
-  jdouble *jarr1 ;
-  jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
-  if (jarg1 && jenv->GetArrayLength(jarg1) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg1 = *(SimTK::Vec3 **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr1, &arg1, jarg1)) return 0; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
+  } 
   arg3 = (double)jarg3; 
-  result = (OpenSim::ArrowGeometry *)new OpenSim::ArrowGeometry(arg1,arg2,arg3);
+  result = (OpenSim::ArrowGeometry *)new OpenSim::ArrowGeometry(*arg1,*arg2,arg3);
   *(OpenSim::ArrowGeometry **)&jresult = result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr1, arg1, jarg1); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg1; 
-  delete [] arg2; 
   return jresult;
 }
 
@@ -8015,7 +8037,41 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1setScaleFactors(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1setScaleFactors_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::VisibleObject *arg1 = (OpenSim::VisibleObject *) 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::VisibleObject **)&jarg1; 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
+    return ;
+  } 
+  (arg1)->setScaleFactors((SimTK::Vec3 const &)*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1getScaleFactors_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::VisibleObject *arg1 = (OpenSim::VisibleObject *) 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::VisibleObject **)&jarg1; 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return ;
+  } 
+  ((OpenSim::VisibleObject const *)arg1)->getScaleFactors(*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1setScaleFactors_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
   OpenSim::VisibleObject *arg1 = (OpenSim::VisibleObject *) 0 ;
   double *arg2 ;
   jdouble *jarr2 ;
@@ -8024,10 +8080,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::VisibleObject **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
-    return ;
-  }
   if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
   (arg1)->setScaleFactors((double const (*))arg2);
   SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
@@ -8035,7 +8087,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1getScaleFactors(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1getScaleFactors_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
   OpenSim::VisibleObject *arg1 = (OpenSim::VisibleObject *) 0 ;
   double *arg2 ;
   jdouble *jarr2 ;
@@ -8044,10 +8096,6 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::VisibleObject **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
-    return ;
-  }
   if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
   ((OpenSim::VisibleObject const *)arg1)->getScaleFactors(arg2);
   SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
@@ -8136,25 +8184,22 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1rotateRadiansAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1rotateRadiansAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jlong jarg3) {
   OpenSim::VisibleObject *arg1 = (OpenSim::VisibleObject *) 0 ;
   double arg2 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::VisibleObject **)&jarg1; 
   arg2 = (double)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  (arg1)->rotateRadiansAxis(arg2,(double const (*))arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  (arg1)->rotateRadiansAxis(arg2,(SimTK::Vec3 const &)*arg3);
 }
 
 
@@ -8239,45 +8284,39 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1rotateDegreesAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1rotateDegreesAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jlong jarg3) {
   OpenSim::VisibleObject *arg1 = (OpenSim::VisibleObject *) 0 ;
   double arg2 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::VisibleObject **)&jarg1; 
   arg2 = (double)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  (arg1)->rotateDegreesAxis(arg2,(double const (*))arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  (arg1)->rotateDegreesAxis(arg2,(SimTK::Vec3 const &)*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1translate(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_VisibleObject_1translate(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::VisibleObject *arg1 = (OpenSim::VisibleObject *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::VisibleObject **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->translate((double const (*))arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->translate((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -10292,6 +10331,54 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1appen
 }
 
 
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1append_1_1SWIG_15(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jlong jarg3, jboolean jarg4) {
+  jint jresult = 0 ;
+  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
+  double arg2 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  bool arg4 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Storage **)&jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
+    return 0;
+  } 
+  arg4 = jarg4 ? true : false; 
+  result = (int)(arg1)->append(arg2,(SimTK::Vec3 const &)*arg3,arg4);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1append_1_1SWIG_16(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdouble jarg2, jlong jarg3) {
+  jint jresult = 0 ;
+  OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
+  double arg2 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Storage **)&jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
+    return 0;
+  } 
+  result = (int)(arg1)->append(arg2,(SimTK::Vec3 const &)*arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_Storage_1store(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdouble jarg3, jint jarg4, jlong jarg5) {
   jint jresult = 0 ;
   OpenSim::Storage *arg1 = (OpenSim::Storage *) 0 ;
@@ -11322,18 +11409,6 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_Units_1getA
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1PI_1get(JNIEnv *jenv, jclass jcls) {
-  jdouble jresult = 0 ;
-  double result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (double)(double)OpenSim::rdMath::PI;
-  jresult = (jdouble)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1PI_12_1get(JNIEnv *jenv, jclass jcls) {
   jdouble jresult = 0 ;
   double result;
@@ -11341,30 +11416,6 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1PI_
   (void)jenv;
   (void)jcls;
   result = (double)(double)OpenSim::rdMath::PI_2;
-  jresult = (jdouble)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1RTD_1get(JNIEnv *jenv, jclass jcls) {
-  jdouble jresult = 0 ;
-  double result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (double)(double)OpenSim::rdMath::RTD;
-  jresult = (jdouble)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1DTR_1get(JNIEnv *jenv, jclass jcls) {
-  jdouble jresult = 0 ;
-  double result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (double)(double)OpenSim::rdMath::DTR;
   jresult = (jdouble)result; 
   return jresult;
 }
@@ -11610,32 +11661,7 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1Int
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1ComputeIntersection(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jdoubleArray jarg3) {
-  jint jresult = 0 ;
-  OpenSim::Line *arg1 = (OpenSim::Line *) 0 ;
-  OpenSim::Plane *arg2 = (OpenSim::Plane *) 0 ;
-  double *arg3 ;
-  int result;
-  jdouble *jarr3 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(OpenSim::Line **)&jarg1; 
-  arg2 = *(OpenSim::Plane **)&jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
-    return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return 0; 
-  result = (int)OpenSim::rdMath::ComputeIntersection((OpenSim::Line const *)arg1,(OpenSim::Plane const *)arg2,arg3);
-  jresult = (jint)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1ComputeNormal(JNIEnv *jenv, jclass jcls, jdouble jarg1, jdouble jarg2, jdouble jarg3, jdouble jarg4, jdouble jarg5, jdouble jarg6, jdouble jarg7, jdouble jarg8, jdouble jarg9, jdoubleArray jarg10) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1ComputeNormal(JNIEnv *jenv, jclass jcls, jdouble jarg1, jdouble jarg2, jdouble jarg3, jdouble jarg4, jdouble jarg5, jdouble jarg6, jdouble jarg7, jdouble jarg8, jdouble jarg9, jlong jarg10) {
   double arg1 ;
   double arg2 ;
   double arg3 ;
@@ -11645,8 +11671,7 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1Comput
   double arg7 ;
   double arg8 ;
   double arg9 ;
-  double *arg10 ;
-  jdouble *jarr10 ;
+  SimTK::Vec3 *arg10 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -11659,220 +11684,173 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1Comput
   arg7 = (double)jarg7; 
   arg8 = (double)jarg8; 
   arg9 = (double)jarg9; 
-  if (jarg10 && jenv->GetArrayLength(jarg10) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg10 = *(SimTK::Vec3 **)&jarg10;
+  if(!arg10) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr10, &arg10, jarg10)) return ; 
-  OpenSim::rdMath::ComputeNormal(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr10, arg10, jarg10); 
-  delete [] arg10; 
+  } 
+  OpenSim::rdMath::ComputeNormal(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,*arg10);
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1IntersectLines(JNIEnv *jenv, jclass jcls, jdoubleArray jarg1, jdoubleArray jarg2, jdoubleArray jarg3, jdoubleArray jarg4, jdoubleArray jarg5, jlong jarg6, jdoubleArray jarg7, jlong jarg8) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1IntersectLines(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6, jlong jarg7, jlong jarg8) {
   jboolean jresult = 0 ;
-  double *arg1 ;
-  double *arg2 ;
-  double *arg3 ;
-  double *arg4 ;
-  double *arg5 ;
+  SimTK::Vec3 *arg1 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
+  SimTK::Vec3 *arg5 = 0 ;
   double *arg6 = 0 ;
-  double *arg7 ;
+  SimTK::Vec3 *arg7 = 0 ;
   double *arg8 = 0 ;
   bool result;
-  jdouble *jarr1 ;
-  jdouble *jarr2 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
-  jdouble *jarr5 ;
-  jdouble *jarr7 ;
   
   (void)jenv;
   (void)jcls;
-  if (jarg1 && jenv->GetArrayLength(jarg1) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg1 = *(SimTK::Vec3 **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr1, &arg1, jarg1)) return 0; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return 0; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return 0; 
-  if (jarg5 && jenv->GetArrayLength(jarg5) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg5 = *(SimTK::Vec3 **)&jarg5;
+  if(!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr5, &arg5, jarg5)) return 0; 
+  } 
   arg6 = *(double **)&jarg6;
   if(!arg6) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "double & reference is null");
     return 0;
   } 
-  if (jarg7 && jenv->GetArrayLength(jarg7) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg7 = *(SimTK::Vec3 **)&jarg7;
+  if(!arg7) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr7, &arg7, jarg7)) return 0; 
+  } 
   arg8 = *(double **)&jarg8;
   if(!arg8) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "double & reference is null");
     return 0;
   } 
-  result = (bool)OpenSim::rdMath::IntersectLines(arg1,arg2,arg3,arg4,arg5,*arg6,arg7,*arg8);
+  result = (bool)OpenSim::rdMath::IntersectLines(*arg1,*arg2,*arg3,*arg4,*arg5,*arg6,*arg7,*arg8);
   jresult = (jboolean)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr1, arg1, jarg1); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr5, arg5, jarg5); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr7, arg7, jarg7); 
-  delete [] arg1; 
-  delete [] arg2; 
-  delete [] arg3; 
-  delete [] arg4; 
-  delete [] arg5; 
-  delete [] arg7; 
   return jresult;
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1IntersectLineSegPlane(JNIEnv *jenv, jclass jcls, jdoubleArray jarg1, jdoubleArray jarg2, jdoubleArray jarg3, jdouble jarg4, jdoubleArray jarg5) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1IntersectLineSegPlane(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3, jdouble jarg4, jlong jarg5) {
   jboolean jresult = 0 ;
-  double *arg1 ;
-  double *arg2 ;
-  double *arg3 ;
+  SimTK::Vec3 *arg1 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   double arg4 ;
-  double *arg5 ;
+  SimTK::Vec3 *arg5 = 0 ;
   bool result;
-  jdouble *jarr1 ;
-  jdouble *jarr2 ;
-  jdouble *jarr3 ;
-  jdouble *jarr5 ;
   
   (void)jenv;
   (void)jcls;
-  if (jarg1 && jenv->GetArrayLength(jarg1) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg1 = *(SimTK::Vec3 **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr1, &arg1, jarg1)) return 0; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return 0; 
+  } 
   arg4 = (double)jarg4; 
-  if (jarg5 && jenv->GetArrayLength(jarg5) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg5 = *(SimTK::Vec3 **)&jarg5;
+  if(!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr5, &arg5, jarg5)) return 0; 
-  result = (bool)OpenSim::rdMath::IntersectLineSegPlane(arg1,arg2,arg3,arg4,arg5);
+  } 
+  result = (bool)OpenSim::rdMath::IntersectLineSegPlane(*arg1,*arg2,*arg3,arg4,*arg5);
   jresult = (jboolean)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr1, arg1, jarg1); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr5, arg5, jarg5); 
-  delete [] arg1; 
-  delete [] arg2; 
-  delete [] arg3; 
-  delete [] arg5; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1ConvertAxisAngleToQuaternion(JNIEnv *jenv, jclass jcls, jdoubleArray jarg1, jdouble jarg2, jdoubleArray jarg3) {
-  double *arg1 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1ConvertAxisAngleToQuaternion(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jdoubleArray jarg3) {
+  SimTK::Vec3 *arg1 = 0 ;
   double arg2 ;
   double *arg3 ;
-  jdouble *jarr1 ;
   jdouble *jarr3 ;
   
   (void)jenv;
   (void)jcls;
-  if (jarg1 && jenv->GetArrayLength(jarg1) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg1 = *(SimTK::Vec3 **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr1, &arg1, jarg1)) return ; 
+  } 
   arg2 = (double)jarg2; 
   if (jarg3 && jenv->GetArrayLength(jarg3) != 4) {
     SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
     return ;
   }
   if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  OpenSim::rdMath::ConvertAxisAngleToQuaternion((double const (*))arg1,arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr1, arg1, jarg1); 
+  OpenSim::rdMath::ConvertAxisAngleToQuaternion((SimTK::Vec3 const &)*arg1,arg2,arg3);
   SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg1; 
   delete [] arg3; 
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1GetClosestPointOnLineToPoint(JNIEnv *jenv, jclass jcls, jdoubleArray jarg1, jdoubleArray jarg2, jdoubleArray jarg3, jdoubleArray jarg4, jlong jarg5) {
-  double *arg1 ;
-  double *arg2 ;
-  double *arg3 ;
-  double *arg4 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1GetClosestPointOnLineToPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3, jlong jarg4, jlong jarg5) {
+  SimTK::Vec3 *arg1 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   double *arg5 = 0 ;
-  jdouble *jarr1 ;
-  jdouble *jarr2 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
   
   (void)jenv;
   (void)jcls;
-  if (jarg1 && jenv->GetArrayLength(jarg1) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg1 = *(SimTK::Vec3 **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr1, &arg1, jarg1)) return ; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
+  } 
   arg5 = *(double **)&jarg5;
   if(!arg5) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "double & reference is null");
     return ;
   } 
-  OpenSim::rdMath::GetClosestPointOnLineToPoint(arg1,arg2,arg3,arg4,*arg5);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr1, arg1, jarg1); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg1; 
-  delete [] arg2; 
-  delete [] arg3; 
-  delete [] arg4; 
+  OpenSim::rdMath::GetClosestPointOnLineToPoint(*arg1,*arg2,*arg3,*arg4,*arg5);
 }
 
 
@@ -11889,96 +11867,95 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1Make3x
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1ConvertAxisAngleTo4x4DirCosMatrix(JNIEnv *jenv, jclass jcls, jdoubleArray jarg1, jdouble jarg2, jlong jarg3) {
-  double *arg1 ;
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1ConvertAxisAngleTo4x4DirCosMatrix(JNIEnv *jenv, jclass jcls, jlong jarg1, jdouble jarg2, jlong jarg3) {
+  SimTK::Vec3 *arg1 = 0 ;
   double arg2 ;
   double (*arg3)[4] ;
-  jdouble *jarr1 ;
   
   (void)jenv;
   (void)jcls;
-  if (jarg1 && jenv->GetArrayLength(jarg1) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg1 = *(SimTK::Vec3 **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr1, &arg1, jarg1)) return ; 
+  } 
   arg2 = (double)jarg2; 
   arg3 = *(double (**)[4])&jarg3; 
-  OpenSim::rdMath::ConvertAxisAngleTo4x4DirCosMatrix((double const (*))arg1,arg2,(double (*)[4])arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr1, arg1, jarg1); 
-  delete [] arg1; 
+  OpenSim::rdMath::ConvertAxisAngleTo4x4DirCosMatrix((SimTK::Vec3 const &)*arg1,arg2,(double (*)[4])arg3);
   
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1CalcDistanceSquaredBetweenPoints(JNIEnv *jenv, jclass jcls, jdoubleArray jarg1, jdoubleArray jarg2) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1CalcDistanceSquaredBetweenPoints(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   jdouble jresult = 0 ;
-  double *arg1 ;
-  double *arg2 ;
+  SimTK::Vec3 *arg1 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   double result;
-  jdouble *jarr1 ;
-  jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr1, &arg1, jarg1)) return 0; 
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
-  result = (double)OpenSim::rdMath::CalcDistanceSquaredBetweenPoints(arg1,arg2);
+  arg1 = *(SimTK::Vec3 **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return 0;
+  } 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return 0;
+  } 
+  result = (double)OpenSim::rdMath::CalcDistanceSquaredBetweenPoints(*arg1,*arg2);
   jresult = (jdouble)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr1, arg1, jarg1); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg1; 
-  delete [] arg2; 
   return jresult;
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1CalcDistanceSquaredPointToLine(JNIEnv *jenv, jclass jcls, jdoubleArray jarg1, jdoubleArray jarg2, jdoubleArray jarg3) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1CalcDistanceSquaredPointToLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
   jdouble jresult = 0 ;
-  double *arg1 ;
-  double *arg2 ;
-  double *arg3 ;
+  SimTK::Vec3 *arg1 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   double result;
-  jdouble *jarr1 ;
-  jdouble *jarr2 ;
-  jdouble *jarr3 ;
   
   (void)jenv;
   (void)jcls;
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr1, &arg1, jarg1)) return 0; 
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return 0; 
-  result = (double)OpenSim::rdMath::CalcDistanceSquaredPointToLine(arg1,arg2,arg3);
+  arg1 = *(SimTK::Vec3 **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return 0;
+  } 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return 0;
+  } 
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return 0;
+  } 
+  result = (double)OpenSim::rdMath::CalcDistanceSquaredPointToLine(*arg1,*arg2,*arg3);
   jresult = (jdouble)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr1, arg1, jarg1); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg1; 
-  delete [] arg2; 
-  delete [] arg3; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1RotateMatrixAxisAngle(JNIEnv *jenv, jclass jcls, jlong jarg1, jdoubleArray jarg2, jdouble jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_rdMath_1RotateMatrixAxisAngle(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jdouble jarg3) {
   double (*arg1)[4] ;
-  double *arg2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   double arg3 ;
-  jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(double (**)[4])&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  } 
   arg3 = (double)jarg3; 
-  OpenSim::rdMath::RotateMatrixAxisAngle((double (*)[4])arg1,(double const (*))arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  OpenSim::rdMath::RotateMatrixAxisAngle((double (*)[4])arg1,(SimTK::Vec3 const &)*arg2,arg3);
   
-  delete [] arg2; 
 }
 
 
@@ -19632,277 +19609,229 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceS
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1setContactPointA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1setContactPointA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
   OpenSim::ContactForceSet *arg1 = (OpenSim::ContactForceSet *) 0 ;
   int arg2 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ContactForceSet **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  (arg1)->setContactPointA(arg2,(double const (*))arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  (arg1)->setContactPointA(arg2,(SimTK::Vec3 const &)*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactPointA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactPointA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
   OpenSim::ContactForceSet *arg1 = (OpenSim::ContactForceSet *) 0 ;
   int arg2 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ContactForceSet **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::ContactForceSet const *)arg1)->getContactPointA(arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::ContactForceSet const *)arg1)->getContactPointA(arg2,*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1setContactPointB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1setContactPointB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
   OpenSim::ContactForceSet *arg1 = (OpenSim::ContactForceSet *) 0 ;
   int arg2 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ContactForceSet **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  (arg1)->setContactPointB(arg2,(double const (*))arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  (arg1)->setContactPointB(arg2,(SimTK::Vec3 const &)*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactPointB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactPointB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
   OpenSim::ContactForceSet *arg1 = (OpenSim::ContactForceSet *) 0 ;
   int arg2 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ContactForceSet **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::ContactForceSet const *)arg1)->getContactPointB(arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::ContactForceSet const *)arg1)->getContactPointB(arg2,*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactForce_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactForce_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
   OpenSim::ContactForceSet *arg1 = (OpenSim::ContactForceSet *) 0 ;
   int arg2 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ContactForceSet **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::ContactForceSet const *)arg1)->getContactForce(arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::ContactForceSet const *)arg1)->getContactForce(arg2,*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactNormalForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdoubleArray jarg3, jdoubleArray jarg4, jdoubleArray jarg5) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactNormalForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jlong jarg4, jlong jarg5) {
   OpenSim::ContactForceSet *arg1 = (OpenSim::ContactForceSet *) 0 ;
   int arg2 ;
-  double *arg3 ;
-  double *arg4 ;
-  double *arg5 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
-  jdouble *jarr5 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
+  SimTK::Vec3 *arg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ContactForceSet **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  if (jarg5 && jenv->GetArrayLength(jarg5) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg5 = *(SimTK::Vec3 **)&jarg5;
+  if(!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr5, &arg5, jarg5)) return ; 
-  ((OpenSim::ContactForceSet const *)arg1)->getContactNormalForce(arg2,arg3,arg4,arg5);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr5, arg5, jarg5); 
-  delete [] arg3; 
-  delete [] arg4; 
-  delete [] arg5; 
+  } 
+  ((OpenSim::ContactForceSet const *)arg1)->getContactNormalForce(arg2,*arg3,*arg4,*arg5);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactTangentForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdoubleArray jarg3, jdoubleArray jarg4, jdoubleArray jarg5) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactTangentForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jlong jarg4, jlong jarg5) {
   OpenSim::ContactForceSet *arg1 = (OpenSim::ContactForceSet *) 0 ;
   int arg2 ;
-  double *arg3 ;
-  double *arg4 ;
-  double *arg5 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
-  jdouble *jarr5 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
+  SimTK::Vec3 *arg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ContactForceSet **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  if (jarg5 && jenv->GetArrayLength(jarg5) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg5 = *(SimTK::Vec3 **)&jarg5;
+  if(!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr5, &arg5, jarg5)) return ; 
-  ((OpenSim::ContactForceSet const *)arg1)->getContactTangentForce(arg2,arg3,arg4,arg5);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr5, arg5, jarg5); 
-  delete [] arg3; 
-  delete [] arg4; 
-  delete [] arg5; 
+  } 
+  ((OpenSim::ContactForceSet const *)arg1)->getContactTangentForce(arg2,*arg3,*arg4,*arg5);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactStiffness(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactStiffness(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jlong jarg4) {
   OpenSim::ContactForceSet *arg1 = (OpenSim::ContactForceSet *) 0 ;
   int arg2 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ContactForceSet **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  ((OpenSim::ContactForceSet const *)arg1)->getContactStiffness(arg2,(double const (*))arg3,arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  ((OpenSim::ContactForceSet const *)arg1)->getContactStiffness(arg2,(SimTK::Vec3 const &)*arg3,*arg4);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactViscosity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactViscosity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jlong jarg4) {
   OpenSim::ContactForceSet *arg1 = (OpenSim::ContactForceSet *) 0 ;
   int arg2 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ContactForceSet **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  ((OpenSim::ContactForceSet const *)arg1)->getContactViscosity(arg2,(double const (*))arg3,arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  ((OpenSim::ContactForceSet const *)arg1)->getContactViscosity(arg2,(SimTK::Vec3 const &)*arg3,*arg4);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactFrictionCorrection(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ContactForceSet_1getContactFrictionCorrection(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3) {
   OpenSim::ContactForceSet *arg1 = (OpenSim::ContactForceSet *) 0 ;
   int arg2 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::ContactForceSet **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::ContactForceSet const *)arg1)->getContactFrictionCorrection(arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::ContactForceSet const *)arg1)->getContactFrictionCorrection(arg2,*arg3);
 }
 
 
@@ -25135,46 +25064,40 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1getFor
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1getGravity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1getGravity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Model **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::Model const *)arg1)->getGravity(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::Model const *)arg1)->getGravity(*arg2);
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1setGravity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_Model_1setGravity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jboolean jresult = 0 ;
   OpenSim::Model *arg1 = (OpenSim::Model *) 0 ;
-  double *arg2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   bool result;
-  jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Model **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
-  result = (bool)(arg1)->setGravity(arg2);
+  } 
+  result = (bool)(arg1)->setGravity(*arg2);
   jresult = (jboolean)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
   return jresult;
 }
 
@@ -41253,74 +41176,56 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker
 
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1getOffset_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
-  double *arg2 = (double *) 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractMarker **)&jarg1; 
-  arg2 = *(double **)&jarg2; 
-  ((OpenSim::AbstractMarker const *)arg1)->getOffset(arg2);
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return ;
+  } 
+  ((OpenSim::AbstractMarker const *)arg1)->getOffset(*arg2);
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1getOffset_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
-  double *result = 0 ;
+  SimTK::Vec3 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractMarker **)&jarg1; 
-  result = (double *)((OpenSim::AbstractMarker const *)arg1)->getOffset();
-  *(double **)&jresult = result; 
+  {
+    SimTK::Vec3 const &_result_ref = ((OpenSim::AbstractMarker const *)arg1)->getOffset();
+    result = (SimTK::Vec3 *) &_result_ref;
+  }
+  *(SimTK::Vec3 **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1setOffset_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1setOffset(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jboolean jresult = 0 ;
   OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::AbstractMarker **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return 0;
   } 
-  result = (bool)(arg1)->setOffset(*arg2);
+  result = (bool)(arg1)->setOffset((SimTK::Vec3 const &)*arg2);
   jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1setOffset_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
-  jboolean jresult = 0 ;
-  OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
-  double *arg2 ;
-  bool result;
-  jdouble *jarr2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(OpenSim::AbstractMarker **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
-    return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
-  result = (bool)(arg1)->setOffset((double const (*))arg2);
-  jresult = (jboolean)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
   return jresult;
 }
 
@@ -41488,21 +41393,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractMarker_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractMarker *arg1 = (OpenSim::AbstractMarker *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::AbstractMarker **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale((OpenSim::Array<double > const &)*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -42982,18 +42886,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Scale_1setSegm
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Scale_1getScaleFactors_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Scale_1getScaleFactors_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Scale *arg1 = (OpenSim::Scale *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::Scale **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
   } 
   ((OpenSim::Scale const *)arg1)->getScaleFactors(*arg2);
@@ -43003,36 +42906,67 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Scale_1getScal
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Scale_1getScaleFactors_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::Scale *arg1 = (OpenSim::Scale *) 0 ;
-  OpenSim::Array<double > *result = 0 ;
+  SimTK::Vec3 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Scale **)&jarg1; 
   {
-    OpenSim::Array<double > &_result_ref = (arg1)->getScaleFactors();
-    result = (OpenSim::Array<double > *) &_result_ref;
+    SimTK::Vec3 &_result_ref = (arg1)->getScaleFactors();
+    result = (SimTK::Vec3 *) &_result_ref;
   }
-  *(OpenSim::Array<double > **)&jresult = result; 
+  *(SimTK::Vec3 **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Scale_1setScaleFactors(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Scale_1getScaleFactors_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
   OpenSim::Scale *arg1 = (OpenSim::Scale *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::Scale **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  (arg1)->getScaleFactors(arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Scale_1setScaleFactors_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::Scale *arg1 = (OpenSim::Scale *) 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Scale **)&jarg1; 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->setScaleFactors(*arg2);
+  (arg1)->setScaleFactors((SimTK::Vec3 const &)*arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Scale_1setScaleFactors_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+  OpenSim::Scale *arg1 = (OpenSim::Scale *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::Scale **)&jarg1; 
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  (arg1)->setScaleFactors((double const (*))arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
 }
 
 
@@ -44038,21 +43972,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractWrapOb
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractWrapObject_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractWrapObject_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractWrapObject *arg1 = (OpenSim::AbstractWrapObject *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::AbstractWrapObject **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale(*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -44271,11 +44204,11 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractWrapOb
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractWrapObject_1wrapLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractWrapObject_1wrapLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
   jint jresult = 0 ;
   OpenSim::AbstractWrapObject *arg1 = (OpenSim::AbstractWrapObject *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::MuscleWrap *arg4 = 0 ;
   OpenSim::WrapResult *arg5 = 0 ;
   bool *arg6 = 0 ;
@@ -44284,18 +44217,16 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractWrapOb
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
   arg1 = *(OpenSim::AbstractWrapObject **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
   } 
   arg4 = *(OpenSim::MuscleWrap **)&jarg4;
@@ -44450,21 +44381,20 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapSphere_
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapSphere_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapSphere_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::WrapSphere *arg1 = (OpenSim::WrapSphere *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::WrapSphere **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale(*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -44485,11 +44415,11 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapSphere_1se
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapSphere_1wrapLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapSphere_1wrapLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
   jint jresult = 0 ;
   OpenSim::WrapSphere *arg1 = (OpenSim::WrapSphere *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::MuscleWrap *arg4 = 0 ;
   OpenSim::WrapResult *arg5 = 0 ;
   bool *arg6 = 0 ;
@@ -44498,18 +44428,16 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapSphere_1wr
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
   arg1 = *(OpenSim::WrapSphere **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
   } 
   arg4 = *(OpenSim::MuscleWrap **)&jarg4;
@@ -44694,21 +44622,20 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapCylinde
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapCylinder_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapCylinder_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::WrapCylinder *arg1 = (OpenSim::WrapCylinder *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::WrapCylinder **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale(*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -44729,11 +44656,11 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapCylinder_1
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapCylinder_1wrapLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapCylinder_1wrapLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
   jint jresult = 0 ;
   OpenSim::WrapCylinder *arg1 = (OpenSim::WrapCylinder *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::MuscleWrap *arg4 = 0 ;
   OpenSim::WrapResult *arg5 = 0 ;
   bool *arg6 = 0 ;
@@ -44742,18 +44669,16 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapCylinder_1
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
   arg1 = *(OpenSim::WrapCylinder **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
   } 
   arg4 = *(OpenSim::MuscleWrap **)&jarg4;
@@ -44882,21 +44807,20 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapTorus_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapTorus_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapTorus_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::WrapTorus *arg1 = (OpenSim::WrapTorus *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::WrapTorus **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale(*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -44917,11 +44841,11 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapTorus_1set
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapTorus_1wrapLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapTorus_1wrapLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
   jint jresult = 0 ;
   OpenSim::WrapTorus *arg1 = (OpenSim::WrapTorus *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::MuscleWrap *arg4 = 0 ;
   OpenSim::WrapResult *arg5 = 0 ;
   bool *arg6 = 0 ;
@@ -44930,18 +44854,16 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapTorus_1wra
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
   arg1 = *(OpenSim::WrapTorus **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
   } 
   arg4 = *(OpenSim::MuscleWrap **)&jarg4;
@@ -45070,21 +44992,20 @@ SWIGEXPORT jstring JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapEllipso
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapEllipsoid_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapEllipsoid_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::WrapEllipsoid *arg1 = (OpenSim::WrapEllipsoid *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::WrapEllipsoid **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale(*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -45105,11 +45026,11 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapEllipsoid_
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapEllipsoid_1wrapLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
+SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapEllipsoid_1wrapLine(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5, jlong jarg6) {
   jint jresult = 0 ;
   OpenSim::WrapEllipsoid *arg1 = (OpenSim::WrapEllipsoid *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::MuscleWrap *arg4 = 0 ;
   OpenSim::WrapResult *arg5 = 0 ;
   bool *arg6 = 0 ;
@@ -45118,18 +45039,16 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_WrapEllipsoid_
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
   arg1 = *(OpenSim::WrapEllipsoid **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return 0;
   } 
   arg4 = *(OpenSim::MuscleWrap **)&jarg4;
@@ -47512,159 +47431,151 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBo
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1getMassCenter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1getMassCenter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::AbstractBody const *)arg1)->getMassCenter(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::AbstractBody const *)arg1)->getMassCenter(*arg2);
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1setMassCenter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1setMassCenter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jboolean jresult = 0 ;
   OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
-  double *arg2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   bool result;
-  jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
-  result = (bool)(arg1)->setMassCenter((double const (*))arg2);
+  } 
+  result = (bool)(arg1)->setMassCenter((SimTK::Vec3 const &)*arg2);
   jresult = (jboolean)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1getInertia(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
-  double (*arg2)[3] ;
+  SimTK::Mat33 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
-  arg2 = *(double (**)[3])&jarg2; 
-  ((OpenSim::AbstractBody const *)arg1)->getInertia((double (*)[3])arg2);
-  
+  arg2 = *(SimTK::Mat33 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Mat33 & reference is null");
+    return ;
+  } 
+  ((OpenSim::AbstractBody const *)arg1)->getInertia(*arg2);
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1setInertia(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1setInertia(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jboolean jresult = 0 ;
   OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Mat33 *arg2 = 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Mat33 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Mat33 const & reference is null");
     return 0;
   } 
-  result = (bool)(arg1)->setInertia((OpenSim::Array<double > const &)*arg2);
+  result = (bool)(arg1)->setInertia((SimTK::Mat33 const &)*arg2);
   jresult = (jboolean)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scale_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scale_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jboolean jarg3) {
   OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   bool arg3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
   arg3 = jarg3 ? true : false; 
-  (arg1)->scale((OpenSim::Array<double > const &)*arg2,arg3);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2,arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scale_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scale_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale((OpenSim::Array<double > const &)*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scaleInertialProperties_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scaleInertialProperties_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jboolean jarg3) {
   OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   bool arg3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
   arg3 = jarg3 ? true : false; 
-  (arg1)->scaleInertialProperties((OpenSim::Array<double > const &)*arg2,arg3);
+  (arg1)->scaleInertialProperties((SimTK::Vec3 const &)*arg2,arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scaleInertialProperties_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractBody_1scaleInertialProperties_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractBody *arg1 = (OpenSim::AbstractBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::AbstractBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scaleInertialProperties((OpenSim::Array<double > const &)*arg2);
+  (arg1)->scaleInertialProperties((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -47934,159 +47845,151 @@ SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1getMassCenter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1getMassCenter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::SimmBody const *)arg1)->getMassCenter(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::SimmBody const *)arg1)->getMassCenter(*arg2);
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1setMassCenter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1setMassCenter(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jboolean jresult = 0 ;
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
-  double *arg2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   bool result;
-  jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
-  result = (bool)(arg1)->setMassCenter((double const (*))arg2);
+  } 
+  result = (bool)(arg1)->setMassCenter((SimTK::Vec3 const &)*arg2);
   jresult = (jboolean)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
   return jresult;
 }
 
 
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1getInertia(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
-  double (*arg2)[3] ;
+  SimTK::Mat33 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
-  arg2 = *(double (**)[3])&jarg2; 
-  ((OpenSim::SimmBody const *)arg1)->getInertia((double (*)[3])arg2);
-  
+  arg2 = *(SimTK::Mat33 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Mat33 & reference is null");
+    return ;
+  } 
+  ((OpenSim::SimmBody const *)arg1)->getInertia(*arg2);
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1setInertia(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1setInertia(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jboolean jresult = 0 ;
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Mat33 *arg2 = 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Mat33 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Mat33 const & reference is null");
     return 0;
   } 
-  result = (bool)(arg1)->setInertia((OpenSim::Array<double > const &)*arg2);
+  result = (bool)(arg1)->setInertia((SimTK::Mat33 const &)*arg2);
   jresult = (jboolean)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scale_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scale_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jboolean jarg3) {
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   bool arg3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
   arg3 = jarg3 ? true : false; 
-  (arg1)->scale((OpenSim::Array<double > const &)*arg2,arg3);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2,arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scale_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scale_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale((OpenSim::Array<double > const &)*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scaleInertialProperties_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scaleInertialProperties_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jboolean jarg3) {
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   bool arg3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
   arg3 = jarg3 ? true : false; 
-  (arg1)->scaleInertialProperties((OpenSim::Array<double > const &)*arg2,arg3);
+  (arg1)->scaleInertialProperties((SimTK::Vec3 const &)*arg2,arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scaleInertialProperties_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1scaleInertialProperties_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scaleInertialProperties((OpenSim::Array<double > const &)*arg2);
+  (arg1)->scaleInertialProperties((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -48118,18 +48021,17 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1get
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1getScaleFactors(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmBody_1getScaleFactors(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmBody *arg1 = (OpenSim::SimmBody *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::SimmBody **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
   } 
   ((OpenSim::SimmBody const *)arg1)->getScaleFactors(*arg2);
@@ -50339,43 +50241,37 @@ SWIGEXPORT jint JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1g
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1setAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1setAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractDof *arg1 = (OpenSim::AbstractDof *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractDof **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->setAxis((double const (*))arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->setAxis((SimTK::Vec3 const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1getAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDof_1getAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractDof *arg1 = (OpenSim::AbstractDof *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractDof **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::AbstractDof const *)arg1)->getAxis(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::AbstractDof const *)arg1)->getAxis(*arg2);
 }
 
 
@@ -54320,21 +54216,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1sca
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1scale_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmJoint_1scale_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmJoint *arg1 = (OpenSim::SimmJoint *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::SimmJoint **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale((OpenSim::Array<double > const &)*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -55451,46 +55346,40 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynam
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getGravity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getGravity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractDynamicsEngine **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getGravity(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getGravity(*arg2);
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1setGravity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT jboolean JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1setGravity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jboolean jresult = 0 ;
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
-  double *arg2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   bool result;
-  jdouble *jarr2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractDynamicsEngine **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return 0; 
-  result = (bool)(arg1)->setGravity(arg2);
+  } 
+  result = (bool)(arg1)->setGravity((SimTK::Vec3 const &)*arg2);
   jresult = (jboolean)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
   return jresult;
 }
 
@@ -56083,27 +55972,24 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDyn
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getSystemInertia_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jdoubleArray jarg3, jlong jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getSystemInertia_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   double *arg2 = (double *) 0 ;
-  double *arg3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   double (*arg4)[3] ;
-  jdouble *jarr3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::AbstractDynamicsEngine **)&jarg1; 
   arg2 = *(double **)&jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
+  } 
   arg4 = *(double (**)[3])&jarg4; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getSystemInertia(arg2,arg3,(double (*)[3])arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getSystemInertia(arg2,*arg3,(double (*)[3])arg4);
   
 }
 
@@ -56125,13 +56011,11 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getPosition(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getPosition(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56143,31 +56027,25 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getPosition((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getPosition((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,*arg4);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56179,31 +56057,25 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getVelocity((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getVelocity((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,*arg4);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getAcceleration(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getAcceleration(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56215,21 +56087,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getAcceleration((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getAcceleration((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,*arg4);
 }
 
 
@@ -56274,11 +56142,10 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getAngularVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getAngularVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56290,22 +56157,19 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getAngularVelocity((OpenSim::AbstractBody const &)*arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getAngularVelocity((OpenSim::AbstractBody const &)*arg2,*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getAngularVelocityBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getAngularVelocityBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56317,22 +56181,19 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getAngularVelocityBodyLocal((OpenSim::AbstractBody const &)*arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getAngularVelocityBodyLocal((OpenSim::AbstractBody const &)*arg2,*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getAngularAcceleration(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getAngularAcceleration(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56344,22 +56205,19 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getAngularAcceleration((OpenSim::AbstractBody const &)*arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getAngularAcceleration((OpenSim::AbstractBody const &)*arg2,*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getAngularAccelerationBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1getAngularAccelerationBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56371,14 +56229,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getAngularAccelerationBodyLocal((OpenSim::AbstractBody const &)*arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->getAngularAccelerationBodyLocal((OpenSim::AbstractBody const &)*arg2,*arg3);
 }
 
 
@@ -56404,13 +56260,11 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynam
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1applyForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1applyForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56422,21 +56276,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  (arg1)->applyForce((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,(double const (*))arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  (arg1)->applyForce((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,(SimTK::Vec3 const &)*arg4);
 }
 
 
@@ -56482,13 +56332,11 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1applyForceBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1applyForceBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56500,21 +56348,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  (arg1)->applyForceBodyLocal((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,(double const (*))arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  (arg1)->applyForceBodyLocal((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,(SimTK::Vec3 const &)*arg4);
 }
 
 
@@ -56560,11 +56404,10 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1applyTorque(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1applyTorque(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56576,14 +56419,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  (arg1)->applyTorque((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  (arg1)->applyTorque((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3);
 }
 
 
@@ -56624,11 +56465,10 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1applyTorqueBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1applyTorqueBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -56640,14 +56480,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  (arg1)->applyTorqueBodyLocal((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  (arg1)->applyTorqueBodyLocal((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3);
 }
 
 
@@ -56880,13 +56718,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1formJacobianTranslation_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jlong jarg4, jlong jarg5, jobject jarg5_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1formJacobianTranslation_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jlong jarg5, jobject jarg5_) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   double *arg4 = (double *) 0 ;
   OpenSim::AbstractBody *arg5 = (OpenSim::AbstractBody *) 0 ;
-  jdouble *jarr3 ;
   
   (void)jenv;
   (void)jcls;
@@ -56899,25 +56736,22 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
+  } 
   arg4 = *(double **)&jarg4; 
   arg5 = *(OpenSim::AbstractBody **)&jarg5; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->formJacobianTranslation((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,arg4,(OpenSim::AbstractBody const *)arg5);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->formJacobianTranslation((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,arg4,(OpenSim::AbstractBody const *)arg5);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1formJacobianTranslation_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jlong jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1formJacobianTranslation_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   double *arg4 = (double *) 0 ;
-  jdouble *jarr3 ;
   
   (void)jenv;
   (void)jcls;
@@ -56929,15 +56763,13 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
+  } 
   arg4 = *(double **)&jarg4; 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->formJacobianTranslation((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->formJacobianTranslation((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,arg4);
 }
 
 
@@ -57085,29 +56917,27 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1transform_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1transform_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::AbstractBody *arg4 = 0 ;
-  OpenSim::Array<double > *arg5 = 0 ;
+  SimTK::Vec3 *arg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
-  (void)jarg5_;
   arg1 = *(OpenSim::AbstractDynamicsEngine **)&jarg1; 
   arg2 = *(OpenSim::AbstractBody **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
   arg4 = *(OpenSim::AbstractBody **)&jarg4;
@@ -57115,12 +56945,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  arg5 = *(OpenSim::Array<double > **)&jarg5;
+  arg5 = *(SimTK::Vec3 **)&jarg5;
   if(!arg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
   } 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->transform((OpenSim::AbstractBody const &)*arg2,(OpenSim::Array<double > const &)*arg3,(OpenSim::AbstractBody const &)*arg4,*arg5);
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->transform((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,(OpenSim::AbstractBody const &)*arg4,*arg5);
 }
 
 
@@ -57167,29 +56997,27 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1transformPosition_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1transformPosition_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::AbstractBody *arg4 = 0 ;
-  OpenSim::Array<double > *arg5 = 0 ;
+  SimTK::Vec3 *arg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
-  (void)jarg5_;
   arg1 = *(OpenSim::AbstractDynamicsEngine **)&jarg1; 
   arg2 = *(OpenSim::AbstractBody **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
   arg4 = *(OpenSim::AbstractBody **)&jarg4;
@@ -57197,12 +57025,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  arg5 = *(OpenSim::Array<double > **)&jarg5;
+  arg5 = *(SimTK::Vec3 **)&jarg5;
   if(!arg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
   } 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->transformPosition((OpenSim::AbstractBody const &)*arg2,(OpenSim::Array<double > const &)*arg3,(OpenSim::AbstractBody const &)*arg4,*arg5);
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->transformPosition((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,(OpenSim::AbstractBody const &)*arg4,*arg5);
 }
 
 
@@ -57242,35 +57070,33 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynami
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1transformPosition_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1transformPosition_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
-  OpenSim::Array<double > *arg4 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  (void)jarg3_;
-  (void)jarg4_;
   arg1 = *(OpenSim::AbstractDynamicsEngine **)&jarg1; 
   arg2 = *(OpenSim::AbstractBody **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  arg4 = *(OpenSim::Array<double > **)&jarg4;
+  arg4 = *(SimTK::Vec3 **)&jarg4;
   if(!arg4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
   } 
-  ((OpenSim::AbstractDynamicsEngine const *)arg1)->transformPosition((OpenSim::AbstractBody const &)*arg2,(OpenSim::Array<double > const &)*arg3,*arg4);
+  ((OpenSim::AbstractDynamicsEngine const *)arg1)->transformPosition((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,*arg4);
 }
 
 
@@ -57321,31 +57147,29 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDyn
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1calcDistance_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDynamicsEngine_1calcDistance_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5) {
   jdouble jresult = 0 ;
   OpenSim::AbstractDynamicsEngine *arg1 = (OpenSim::AbstractDynamicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::AbstractBody *arg4 = 0 ;
-  OpenSim::Array<double > *arg5 = 0 ;
+  SimTK::Vec3 *arg5 = 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
-  (void)jarg5_;
   arg1 = *(OpenSim::AbstractDynamicsEngine **)&jarg1; 
   arg2 = *(OpenSim::AbstractBody **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return 0;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return 0;
   } 
   arg4 = *(OpenSim::AbstractBody **)&jarg4;
@@ -57353,12 +57177,12 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_AbstractDyn
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return 0;
   } 
-  arg5 = *(OpenSim::Array<double > **)&jarg5;
+  arg5 = *(SimTK::Vec3 **)&jarg5;
   if(!arg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return 0;
   } 
-  result = (double)((OpenSim::AbstractDynamicsEngine const *)arg1)->calcDistance((OpenSim::AbstractBody const &)*arg2,(OpenSim::Array<double > const &)*arg3,(OpenSim::AbstractBody const &)*arg4,(OpenSim::Array<double > const &)*arg5);
+  result = (double)((OpenSim::AbstractDynamicsEngine const *)arg1)->calcDistance((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,(OpenSim::AbstractBody const &)*arg4,(SimTK::Vec3 const &)*arg5);
   jresult = (jdouble)result; 
   return jresult;
 }
@@ -58178,27 +58002,24 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinemat
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getSystemInertia_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jdoubleArray jarg3, jlong jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getSystemInertia_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3, jlong jarg4) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   double *arg2 = (double *) 0 ;
-  double *arg3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   double (*arg4)[3] ;
-  jdouble *jarr3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::SimmKinematicsEngine **)&jarg1; 
   arg2 = *(double **)&jarg2; 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
+  } 
   arg4 = *(double (**)[3])&jarg4; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->getSystemInertia(arg2,arg3,(double (*)[3])arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->getSystemInertia(arg2,*arg3,(double (*)[3])arg4);
   
 }
 
@@ -58220,13 +58041,11 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getPosition(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getPosition(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58238,31 +58057,25 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->getPosition((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->getPosition((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,*arg4);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58274,31 +58087,25 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->getVelocity((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->getVelocity((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,*arg4);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getAcceleration_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getAcceleration_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58310,21 +58117,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->getAcceleration((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->getAcceleration((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,*arg4);
 }
 
 
@@ -58369,11 +58172,10 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getAngularVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getAngularVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58385,22 +58187,19 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->getAngularVelocity((OpenSim::AbstractBody const &)*arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->getAngularVelocity((OpenSim::AbstractBody const &)*arg2,*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getAngularVelocityBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getAngularVelocityBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58412,22 +58211,19 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->getAngularVelocityBodyLocal((OpenSim::AbstractBody const &)*arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->getAngularVelocityBodyLocal((OpenSim::AbstractBody const &)*arg2,*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getAngularAcceleration(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getAngularAcceleration(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58439,22 +58235,19 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->getAngularAcceleration((OpenSim::AbstractBody const &)*arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->getAngularAcceleration((OpenSim::AbstractBody const &)*arg2,*arg3);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getAngularAccelerationBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1getAngularAccelerationBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58466,14 +58259,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->getAngularAccelerationBodyLocal((OpenSim::AbstractBody const &)*arg2,arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->getAngularAccelerationBodyLocal((OpenSim::AbstractBody const &)*arg2,*arg3);
 }
 
 
@@ -58499,13 +58290,11 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematic
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1applyForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1applyForce(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58517,21 +58306,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  (arg1)->applyForce((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,(double const (*))arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  (arg1)->applyForce((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,(SimTK::Vec3 const &)*arg4);
 }
 
 
@@ -58577,13 +58362,11 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1applyForceBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jdoubleArray jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1applyForceBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  double *arg4 ;
-  jdouble *jarr3 ;
-  jdouble *jarr4 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58595,21 +58378,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  if (jarg4 && jenv->GetArrayLength(jarg4) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  } 
+  arg4 = *(SimTK::Vec3 **)&jarg4;
+  if(!arg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr4, &arg4, jarg4)) return ; 
-  (arg1)->applyForceBodyLocal((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,(double const (*))arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr4, arg4, jarg4); 
-  delete [] arg3; 
-  delete [] arg4; 
+  } 
+  (arg1)->applyForceBodyLocal((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,(SimTK::Vec3 const &)*arg4);
 }
 
 
@@ -58655,11 +58434,10 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1applyTorque(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1applyTorque(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58671,14 +58449,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  (arg1)->applyTorque((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  (arg1)->applyTorque((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3);
 }
 
 
@@ -58719,11 +58495,10 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1applyTorqueBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1applyTorqueBodyLocal(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
-  jdouble *jarr3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   
   (void)jenv;
   (void)jcls;
@@ -58735,14 +58510,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
-  (arg1)->applyTorqueBodyLocal((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  } 
+  (arg1)->applyTorqueBodyLocal((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3);
 }
 
 
@@ -58933,13 +58706,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1formJacobianTranslation_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jlong jarg4, jlong jarg5, jobject jarg5_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1formJacobianTranslation_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jlong jarg5, jobject jarg5_) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   double *arg4 = (double *) 0 ;
   OpenSim::AbstractBody *arg5 = (OpenSim::AbstractBody *) 0 ;
-  jdouble *jarr3 ;
   
   (void)jenv;
   (void)jcls;
@@ -58952,25 +58724,22 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
+  } 
   arg4 = *(double **)&jarg4; 
   arg5 = *(OpenSim::AbstractBody **)&jarg5; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->formJacobianTranslation((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,arg4,(OpenSim::AbstractBody const *)arg5);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->formJacobianTranslation((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,arg4,(OpenSim::AbstractBody const *)arg5);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1formJacobianTranslation_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jdoubleArray jarg3, jlong jarg4) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1formJacobianTranslation_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  double *arg3 ;
+  SimTK::Vec3 *arg3 = 0 ;
   double *arg4 = (double *) 0 ;
-  jdouble *jarr3 ;
   
   (void)jenv;
   (void)jcls;
@@ -58982,15 +58751,13 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  if (jarg3 && jenv->GetArrayLength(jarg3) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg3 = *(SimTK::Vec3 **)&jarg3;
+  if(!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr3, &arg3, jarg3)) return ; 
+  } 
   arg4 = *(double **)&jarg4; 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->formJacobianTranslation((OpenSim::AbstractBody const &)*arg2,(double const (*))arg3,arg4);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr3, arg3, jarg3); 
-  delete [] arg3; 
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->formJacobianTranslation((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,arg4);
 }
 
 
@@ -59138,29 +58905,27 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1transform_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1transform_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::AbstractBody *arg4 = 0 ;
-  OpenSim::Array<double > *arg5 = 0 ;
+  SimTK::Vec3 *arg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
-  (void)jarg5_;
   arg1 = *(OpenSim::SimmKinematicsEngine **)&jarg1; 
   arg2 = *(OpenSim::AbstractBody **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
   arg4 = *(OpenSim::AbstractBody **)&jarg4;
@@ -59168,12 +58933,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  arg5 = *(OpenSim::Array<double > **)&jarg5;
+  arg5 = *(SimTK::Vec3 **)&jarg5;
   if(!arg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
   } 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->transform((OpenSim::AbstractBody const &)*arg2,(OpenSim::Array<double > const &)*arg3,(OpenSim::AbstractBody const &)*arg4,*arg5);
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->transform((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,(OpenSim::AbstractBody const &)*arg4,*arg5);
 }
 
 
@@ -59220,29 +58985,27 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1transformPosition_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1transformPosition_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::AbstractBody *arg4 = 0 ;
-  OpenSim::Array<double > *arg5 = 0 ;
+  SimTK::Vec3 *arg5 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
-  (void)jarg5_;
   arg1 = *(OpenSim::SimmKinematicsEngine **)&jarg1; 
   arg2 = *(OpenSim::AbstractBody **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
   arg4 = *(OpenSim::AbstractBody **)&jarg4;
@@ -59250,12 +59013,12 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  arg5 = *(OpenSim::Array<double > **)&jarg5;
+  arg5 = *(SimTK::Vec3 **)&jarg5;
   if(!arg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
   } 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->transformPosition((OpenSim::AbstractBody const &)*arg2,(OpenSim::Array<double > const &)*arg3,(OpenSim::AbstractBody const &)*arg4,*arg5);
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->transformPosition((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,(OpenSim::AbstractBody const &)*arg4,*arg5);
 }
 
 
@@ -59295,35 +59058,33 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematics
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1transformPosition_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1transformPosition_1_1SWIG_13(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
-  OpenSim::Array<double > *arg4 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
+  SimTK::Vec3 *arg4 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  (void)jarg3_;
-  (void)jarg4_;
   arg1 = *(OpenSim::SimmKinematicsEngine **)&jarg1; 
   arg2 = *(OpenSim::AbstractBody **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return ;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  arg4 = *(OpenSim::Array<double > **)&jarg4;
+  arg4 = *(SimTK::Vec3 **)&jarg4;
   if(!arg4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
   } 
-  ((OpenSim::SimmKinematicsEngine const *)arg1)->transformPosition((OpenSim::AbstractBody const &)*arg2,(OpenSim::Array<double > const &)*arg3,*arg4);
+  ((OpenSim::SimmKinematicsEngine const *)arg1)->transformPosition((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,*arg4);
 }
 
 
@@ -59374,31 +59135,29 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinemat
 }
 
 
-SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1calcDistance_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jlong jarg5, jobject jarg5_) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinematicsEngine_1calcDistance_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jobject jarg4_, jlong jarg5) {
   jdouble jresult = 0 ;
   OpenSim::SimmKinematicsEngine *arg1 = (OpenSim::SimmKinematicsEngine *) 0 ;
   OpenSim::AbstractBody *arg2 = 0 ;
-  OpenSim::Array<double > *arg3 = 0 ;
+  SimTK::Vec3 *arg3 = 0 ;
   OpenSim::AbstractBody *arg4 = 0 ;
-  OpenSim::Array<double > *arg5 = 0 ;
+  SimTK::Vec3 *arg5 = 0 ;
   double result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  (void)jarg3_;
   (void)jarg4_;
-  (void)jarg5_;
   arg1 = *(OpenSim::SimmKinematicsEngine **)&jarg1; 
   arg2 = *(OpenSim::AbstractBody **)&jarg2;
   if(!arg2) {
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return 0;
   } 
-  arg3 = *(OpenSim::Array<double > **)&jarg3;
+  arg3 = *(SimTK::Vec3 **)&jarg3;
   if(!arg3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return 0;
   } 
   arg4 = *(OpenSim::AbstractBody **)&jarg4;
@@ -59406,12 +59165,12 @@ SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmKinemat
     SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::AbstractBody const & reference is null");
     return 0;
   } 
-  arg5 = *(OpenSim::Array<double > **)&jarg5;
+  arg5 = *(SimTK::Vec3 **)&jarg5;
   if(!arg5) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > const & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return 0;
   } 
-  result = (double)((OpenSim::SimmKinematicsEngine const *)arg1)->calcDistance((OpenSim::AbstractBody const &)*arg2,(OpenSim::Array<double > const &)*arg3,(OpenSim::AbstractBody const &)*arg4,(OpenSim::Array<double > const &)*arg5);
+  result = (double)((OpenSim::SimmKinematicsEngine const *)arg1)->calcDistance((OpenSim::AbstractBody const &)*arg2,(SimTK::Vec3 const &)*arg3,(OpenSim::AbstractBody const &)*arg4,(SimTK::Vec3 const &)*arg5);
   jresult = (jdouble)result; 
   return jresult;
 }
@@ -59748,41 +59507,73 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1i
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1getAttachment(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1getAttachment_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
-  OpenSim::Array<double > *result = 0 ;
+  SimTK::Vec3 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::MusclePoint **)&jarg1; 
   {
-    OpenSim::Array<double > &_result_ref = ((OpenSim::MusclePoint const *)arg1)->getAttachment();
-    result = (OpenSim::Array<double > *) &_result_ref;
+    SimTK::Vec3 const &_result_ref = ((OpenSim::MusclePoint const *)arg1)->getAttachment();
+    result = (SimTK::Vec3 *) &_result_ref;
   }
-  *(OpenSim::Array<double > **)&jresult = result; 
+  *(SimTK::Vec3 **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1setAttachment_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT jdouble JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1getAttachmentCoord(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jdouble jresult = 0 ;
   OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  int arg2 ;
+  double *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::MusclePoint **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
-    return ;
+  arg2 = (int)jarg2; 
+  {
+    double const &_result_ref = ((OpenSim::MusclePoint const *)arg1)->getAttachmentCoord(arg2);
+    result = (double *) &_result_ref;
   }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->setAttachment(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  jresult = (jdouble)*result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1setAttachmentCoord(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jdouble jarg3) {
+  OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
+  int arg2 ;
+  double arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MusclePoint **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (double)jarg3; 
+  (arg1)->setAttachmentCoord(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1setAttachment_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MusclePoint **)&jarg1; 
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
+    return ;
+  } 
+  (arg1)->setAttachment(*arg2);
 }
 
 
@@ -59798,6 +59589,22 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1s
   arg2 = (int)jarg2; 
   arg3 = (double)jarg3; 
   (arg1)->setAttachment(arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1setAttachment_1_1SWIG_12(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+  OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
+  double *arg2 ;
+  jdouble *jarr2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::MusclePoint **)&jarg1; 
+  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
+  (arg1)->setAttachment(arg2);
+  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  delete [] arg2; 
 }
 
 
@@ -59887,21 +59694,20 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::MusclePoint **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale(*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -59963,23 +59769,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1u
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1getVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MusclePoint_1getVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::MusclePoint *arg1 = (OpenSim::MusclePoint *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::MusclePoint **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->getVelocity(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->getVelocity(*arg2);
 }
 
 
@@ -60999,21 +60802,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePo
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePoint_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePoint_1scale(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::MovingMusclePoint *arg1 = (OpenSim::MovingMusclePoint *) 0 ;
-  OpenSim::Array<double > *arg2 = 0 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
   arg1 = *(OpenSim::MovingMusclePoint **)&jarg1; 
-  arg2 = *(OpenSim::Array<double > **)&jarg2;
+  arg2 = *(SimTK::Vec3 **)&jarg2;
   if(!arg2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::Array<double > & reference is null");
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
   } 
-  (arg1)->scale(*arg2);
+  (arg1)->scale((SimTK::Vec3 const &)*arg2);
 }
 
 
@@ -61060,23 +60862,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePo
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePoint_1getVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_MovingMusclePoint_1getVelocity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::MovingMusclePoint *arg1 = (OpenSim::MovingMusclePoint *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::MovingMusclePoint **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->getVelocity(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->getVelocity(*arg2);
 }
 
 
@@ -63645,83 +63444,71 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1getBod
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1setPointA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1setPointA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Force *arg1 = (OpenSim::Force *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Force **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->setPointA((double const (*))arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->setPointA((SimTK::Vec3 const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1getPointA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1getPointA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Force *arg1 = (OpenSim::Force *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Force **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::Force const *)arg1)->getPointA(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::Force const *)arg1)->getPointA(*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1setForceDirectionA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1setForceDirectionA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Force *arg1 = (OpenSim::Force *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Force **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->setForceDirectionA((double const (*))arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->setForceDirectionA((SimTK::Vec3 const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1getForceDirectionA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1getForceDirectionA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Force *arg1 = (OpenSim::Force *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Force **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::Force const *)arg1)->getForceDirectionA(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::Force const *)arg1)->getForceDirectionA(*arg2);
 }
 
 
@@ -63754,63 +63541,54 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1getBod
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1setPointB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1setPointB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Force *arg1 = (OpenSim::Force *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Force **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->setPointB((double const (*))arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->setPointB((SimTK::Vec3 const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1getPointB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1getPointB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Force *arg1 = (OpenSim::Force *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Force **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::Force const *)arg1)->getPointB(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::Force const *)arg1)->getPointB(*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1getForceDirectionB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1getForceDirectionB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Force *arg1 = (OpenSim::Force *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Force **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::Force const *)arg1)->getForceDirectionB(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::Force const *)arg1)->getForceDirectionB(*arg2);
 }
 
 
@@ -64065,23 +63843,20 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1setup(J
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1computeLineOfAction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Force_1computeLineOfAction(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Force *arg1 = (OpenSim::Force *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Force **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::Force const *)arg1)->computeLineOfAction(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::Force const *)arg1)->computeLineOfAction(*arg2);
 }
 
 
@@ -64669,43 +64444,37 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Torque_1getBo
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Torque_1setDirectionA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Torque_1setDirectionA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Torque *arg1 = (OpenSim::Torque *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Torque **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->setDirectionA((double const (*))arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->setDirectionA((SimTK::Vec3 const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Torque_1getDirectionA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Torque_1getDirectionA(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Torque *arg1 = (OpenSim::Torque *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Torque **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::Torque const *)arg1)->getDirectionA(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::Torque const *)arg1)->getDirectionA(*arg2);
 }
 
 
@@ -64738,23 +64507,20 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_Torque_1getBo
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Torque_1getDirectionB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_Torque_1getDirectionB(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::Torque *arg1 = (OpenSim::Torque *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::Torque **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::Torque const *)arg1)->getDirectionB(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::Torque const *)arg1)->getDirectionB(*arg2);
 }
 
 
@@ -66237,23 +66003,20 @@ SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmPoin
 }
 
 
-SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmPoint_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jdoubleArray jarg1) {
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1SimmPoint_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
-  double *arg1 ;
+  SimTK::Vec3 *arg1 = 0 ;
   OpenSim::SimmPoint *result = 0 ;
-  jdouble *jarr1 ;
   
   (void)jenv;
   (void)jcls;
-  if (jarg1 && jenv->GetArrayLength(jarg1) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg1 = *(SimTK::Vec3 **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return 0;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr1, &arg1, jarg1)) return 0; 
-  result = (OpenSim::SimmPoint *)new OpenSim::SimmPoint(arg1);
+  } 
+  result = (OpenSim::SimmPoint *)new OpenSim::SimmPoint((SimTK::Vec3 const &)*arg1);
   *(OpenSim::SimmPoint **)&jresult = result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr1, arg1, jarg1); 
-  delete [] arg1; 
   return jresult;
 }
 
@@ -66323,14 +66086,17 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmPoint_1set
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmPoint_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::SimmPoint *arg1 = (OpenSim::SimmPoint *) 0 ;
-  double *result = 0 ;
+  SimTK::Vec3 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::SimmPoint **)&jarg1; 
-  result = (double *)(arg1)->get();
-  *(double **)&jresult = result; 
+  {
+    SimTK::Vec3 &_result_ref = (arg1)->get();
+    result = (SimTK::Vec3 *) &_result_ref;
+  }
+  *(SimTK::Vec3 **)&jresult = result; 
   return jresult;
 }
 
@@ -66438,60 +66204,54 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmRotationDo
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmRotationDof_1setAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmRotationDof_1setAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmRotationDof *arg1 = (OpenSim::SimmRotationDof *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::SimmRotationDof **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->setAxis((double const (*))arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->setAxis((SimTK::Vec3 const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmRotationDof_1getAxis_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmRotationDof_1getAxis_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmRotationDof *arg1 = (OpenSim::SimmRotationDof *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::SimmRotationDof **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::SimmRotationDof const *)arg1)->getAxis(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::SimmRotationDof const *)arg1)->getAxis(*arg2);
 }
 
 
 SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmRotationDof_1getAxis_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   OpenSim::SimmRotationDof *arg1 = (OpenSim::SimmRotationDof *) 0 ;
-  OpenSim::Array<double > *result = 0 ;
+  SimTK::Vec3 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::SimmRotationDof **)&jarg1; 
   {
-    OpenSim::Array<double > const &_result_ref = ((OpenSim::SimmRotationDof const *)arg1)->getAxis();
-    result = (OpenSim::Array<double > *) &_result_ref;
+    SimTK::Vec3 const &_result_ref = ((OpenSim::SimmRotationDof const *)arg1)->getAxis();
+    result = (SimTK::Vec3 *) &_result_ref;
   }
-  *(OpenSim::Array<double > **)&jresult = result; 
+  *(SimTK::Vec3 **)&jresult = result; 
   return jresult;
 }
 
@@ -66678,43 +66438,37 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmTranslatio
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmTranslationDof_1setAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmTranslationDof_1setAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmTranslationDof *arg1 = (OpenSim::SimmTranslationDof *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::SimmTranslationDof **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 const & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  (arg1)->setAxis((double const (*))arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  (arg1)->setAxis((SimTK::Vec3 const &)*arg2);
 }
 
 
-SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmTranslationDof_1getAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jdoubleArray jarg2) {
+SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_SimmTranslationDof_1getAxis(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   OpenSim::SimmTranslationDof *arg1 = (OpenSim::SimmTranslationDof *) 0 ;
-  double *arg2 ;
-  jdouble *jarr2 ;
+  SimTK::Vec3 *arg2 = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(OpenSim::SimmTranslationDof **)&jarg1; 
-  if (jarg2 && jenv->GetArrayLength(jarg2) != 3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, "incorrect array size");
+  arg2 = *(SimTK::Vec3 **)&jarg2;
+  if(!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "SimTK::Vec3 & reference is null");
     return ;
-  }
-  if (!SWIG_JavaArrayInDouble(jenv, &jarr2, &arg2, jarg2)) return ; 
-  ((OpenSim::SimmTranslationDof const *)arg1)->getAxis(arg2);
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
-  delete [] arg2; 
+  } 
+  ((OpenSim::SimmTranslationDof const *)arg1)->getAxis(*arg2);
 }
 
 

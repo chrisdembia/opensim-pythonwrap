@@ -308,6 +308,14 @@ public class Storage extends OpenSimObject {
     return opensimModelJNI.Storage_append__SWIG_4(swigCPtr, this, aT, aN, SWIGTYPE_p_double.getCPtr(aY));
   }
 
+  public int append(double aT, SWIGTYPE_p_SimTK__Vec3 aY, boolean aCheckForDuplicateTime) {
+    return opensimModelJNI.Storage_append__SWIG_5(swigCPtr, this, aT, SWIGTYPE_p_SimTK__Vec3.getCPtr(aY), aCheckForDuplicateTime);
+  }
+
+  public int append(double aT, SWIGTYPE_p_SimTK__Vec3 aY) {
+    return opensimModelJNI.Storage_append__SWIG_6(swigCPtr, this, aT, SWIGTYPE_p_SimTK__Vec3.getCPtr(aY));
+  }
+
   public int store(int aStep, double aT, int aN, SWIGTYPE_p_double aY) {
     return opensimModelJNI.Storage_store(swigCPtr, this, aStep, aT, aN, SWIGTYPE_p_double.getCPtr(aY));
   }

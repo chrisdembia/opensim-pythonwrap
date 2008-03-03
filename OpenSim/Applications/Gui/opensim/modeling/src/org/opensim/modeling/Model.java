@@ -124,12 +124,12 @@ public class Model extends OpenSimObject {
     return new Units(opensimModelJNI.Model_getForceUnits(swigCPtr, this), false);
   }
 
-  public void getGravity(double[] rGrav) {
-    opensimModelJNI.Model_getGravity(swigCPtr, this, rGrav);
+  public void getGravity(SWIGTYPE_p_SimTK__Vec3 rGrav) {
+    opensimModelJNI.Model_getGravity(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rGrav));
   }
 
-  public boolean setGravity(double[] aGrav) {
-    return opensimModelJNI.Model_setGravity(swigCPtr, this, aGrav);
+  public boolean setGravity(SWIGTYPE_p_SimTK__Vec3 aGrav) {
+    return opensimModelJNI.Model_setGravity(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aGrav));
   }
 
   public int getNumControls() {

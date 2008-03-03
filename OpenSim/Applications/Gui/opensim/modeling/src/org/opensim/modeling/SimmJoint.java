@@ -93,8 +93,8 @@ public class SimmJoint extends AbstractJoint {
     opensimModelJNI.SimmJoint_scale__SWIG_0(swigCPtr, this, ScaleSet.getCPtr(aScaleSet), aScaleSet);
   }
 
-  public void scale(ArrayDouble aScaleFactors) {
-    opensimModelJNI.SimmJoint_scale__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  public void scale(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
+    opensimModelJNI.SimmJoint_scale__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
   public void addPathToList(SWIGTYPE_p_OpenSim__SimmPath aPath) {

@@ -42,8 +42,8 @@ public class AbstractWrapObject extends OpenSimObject {
     opensimModelJNI.AbstractWrapObject_copyData(swigCPtr, this, AbstractWrapObject.getCPtr(aWrapObject), aWrapObject);
   }
 
-  public void scale(ArrayDouble aScaleFactors) {
-    opensimModelJNI.AbstractWrapObject_scale(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  public void scale(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
+    opensimModelJNI.AbstractWrapObject_scale(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
   public void setup(AbstractDynamicsEngine aEngine, AbstractBody aBody) {
@@ -97,8 +97,8 @@ public class AbstractWrapObject extends OpenSimObject {
     return opensimModelJNI.AbstractWrapObject_wrapMuscleSegment(swigCPtr, this, MusclePoint.getCPtr(aPoint1), aPoint1, MusclePoint.getCPtr(aPoint2), aPoint2, MuscleWrap.getCPtr(aMuscleWrap), aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(aWrapResult));
   }
 
-  public int wrapLine(ArrayDouble aPoint1, ArrayDouble aPoint2, MuscleWrap aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult aWrapResult, SWIGTYPE_p_bool aFlag) {
-    return opensimModelJNI.AbstractWrapObject_wrapLine(swigCPtr, this, ArrayDouble.getCPtr(aPoint1), aPoint1, ArrayDouble.getCPtr(aPoint2), aPoint2, MuscleWrap.getCPtr(aMuscleWrap), aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(aWrapResult), SWIGTYPE_p_bool.getCPtr(aFlag));
+  public int wrapLine(SWIGTYPE_p_SimTK__Vec3 aPoint1, SWIGTYPE_p_SimTK__Vec3 aPoint2, MuscleWrap aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult aWrapResult, SWIGTYPE_p_bool aFlag) {
+    return opensimModelJNI.AbstractWrapObject_wrapLine(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint1), SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint2), MuscleWrap.getCPtr(aMuscleWrap), aMuscleWrap, SWIGTYPE_p_OpenSim__WrapResult.getCPtr(aWrapResult), SWIGTYPE_p_bool.getCPtr(aFlag));
   }
 
   public VisibleObject getDisplayer() {

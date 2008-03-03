@@ -33,8 +33,8 @@ public class ArrowGeometry extends LineGeometry {
     super.delete();
   }
 
-  public ArrowGeometry(double[] aPoint1, double[] aUnitDirTo, double aLength) {
-    this(opensimModelJNI.new_ArrowGeometry(aPoint1, aUnitDirTo, aLength), true);
+  public ArrowGeometry(SWIGTYPE_p_SimTK__Vec3 aPoint1, SWIGTYPE_p_SimTK__Vec3 aUnitDirTo, double aLength) {
+    this(opensimModelJNI.new_ArrowGeometry(SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint1), SWIGTYPE_p_SimTK__Vec3.getCPtr(aUnitDirTo), aLength), true);
   }
 
 }

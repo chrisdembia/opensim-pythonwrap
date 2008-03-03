@@ -42,21 +42,16 @@ public class AbstractMarker extends OpenSimObject {
     opensimModelJNI.AbstractMarker_updateFromMarker(swigCPtr, this, AbstractMarker.getCPtr(aMarker), aMarker);
   }
 
-  public void getOffset(SWIGTYPE_p_double rOffset) {
-    opensimModelJNI.AbstractMarker_getOffset__SWIG_0(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rOffset));
+  public void getOffset(SWIGTYPE_p_SimTK__Vec3 rOffset) {
+    opensimModelJNI.AbstractMarker_getOffset__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rOffset));
   }
 
-  public SWIGTYPE_p_double getOffset() {
-    long cPtr = opensimModelJNI.AbstractMarker_getOffset__SWIG_1(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
+  public SWIGTYPE_p_SimTK__Vec3 getOffset() {
+    return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.AbstractMarker_getOffset__SWIG_1(swigCPtr, this), false);
   }
 
-  public boolean setOffset(ArrayDouble aOffset) {
-    return opensimModelJNI.AbstractMarker_setOffset__SWIG_0(swigCPtr, this, ArrayDouble.getCPtr(aOffset), aOffset);
-  }
-
-  public boolean setOffset(double[] aPoint) {
-    return opensimModelJNI.AbstractMarker_setOffset__SWIG_1(swigCPtr, this, aPoint);
+  public boolean setOffset(SWIGTYPE_p_SimTK__Vec3 aOffset) {
+    return opensimModelJNI.AbstractMarker_setOffset(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aOffset));
   }
 
   public boolean getOffsetUseDefault() {
@@ -101,8 +96,8 @@ public class AbstractMarker extends OpenSimObject {
     opensimModelJNI.AbstractMarker_setBody(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody);
   }
 
-  public void scale(ArrayDouble aScaleFactors) {
-    opensimModelJNI.AbstractMarker_scale(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  public void scale(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
+    opensimModelJNI.AbstractMarker_scale(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
   public void setup(AbstractDynamicsEngine aEngine) {

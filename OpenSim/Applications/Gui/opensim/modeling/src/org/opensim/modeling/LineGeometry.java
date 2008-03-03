@@ -33,20 +33,28 @@ public class LineGeometry extends Geometry {
     super.delete();
   }
 
-  public LineGeometry(double[] aPoint1, double[] aPoint2) {
-    this(opensimModelJNI.new_LineGeometry__SWIG_0(aPoint1, aPoint2), true);
+  public LineGeometry(SWIGTYPE_p_SimTK__Vec3 aPoint1, SWIGTYPE_p_SimTK__Vec3 aPoint2) {
+    this(opensimModelJNI.new_LineGeometry__SWIG_0(SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint1), SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint2)), true);
   }
 
   public LineGeometry() {
     this(opensimModelJNI.new_LineGeometry__SWIG_1(), true);
   }
 
+  public void getPoints(SWIGTYPE_p_SimTK__Vec3 rPoint1, SWIGTYPE_p_SimTK__Vec3 rPoint2) {
+    opensimModelJNI.LineGeometry_getPoints__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rPoint1), SWIGTYPE_p_SimTK__Vec3.getCPtr(rPoint2));
+  }
+
   public void getPoints(double[] rPoint1, double[] rPoint2) {
-    opensimModelJNI.LineGeometry_getPoints(swigCPtr, this, rPoint1, rPoint2);
+    opensimModelJNI.LineGeometry_getPoints__SWIG_1(swigCPtr, this, rPoint1, rPoint2);
+  }
+
+  public void setPoints(SWIGTYPE_p_SimTK__Vec3 aPoint1, SWIGTYPE_p_SimTK__Vec3 aPoint2) {
+    opensimModelJNI.LineGeometry_setPoints__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint1), SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint2));
   }
 
   public void setPoints(double[] aPoint1, double[] aPoint2) {
-    opensimModelJNI.LineGeometry_setPoints(swigCPtr, this, aPoint1, aPoint2);
+    opensimModelJNI.LineGeometry_setPoints__SWIG_1(swigCPtr, this, aPoint1, aPoint2);
   }
 
   public static LineGeometry dynamic_cast(Geometry geometry) {

@@ -67,12 +67,12 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     return (cPtr == 0) ? null : new Model(cPtr, false);
   }
 
-  public void getGravity(double[] rGrav) {
-    opensimModelJNI.AbstractDynamicsEngine_getGravity(swigCPtr, this, rGrav);
+  public void getGravity(SWIGTYPE_p_SimTK__Vec3 rGrav) {
+    opensimModelJNI.AbstractDynamicsEngine_getGravity(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rGrav));
   }
 
-  public boolean setGravity(double[] aGrav) {
-    return opensimModelJNI.AbstractDynamicsEngine_setGravity(swigCPtr, this, aGrav);
+  public boolean setGravity(SWIGTYPE_p_SimTK__Vec3 aGrav) {
+    return opensimModelJNI.AbstractDynamicsEngine_setGravity(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aGrav));
   }
 
   public BodySet getBodySet() {
@@ -203,24 +203,24 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     return opensimModelJNI.AbstractDynamicsEngine_getMass(swigCPtr, this);
   }
 
-  public void getSystemInertia(SWIGTYPE_p_double rM, double[] rCOM, SWIGTYPE_p_a_3__double rI) {
-    opensimModelJNI.AbstractDynamicsEngine_getSystemInertia__SWIG_0(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rM), rCOM, SWIGTYPE_p_a_3__double.getCPtr(rI));
+  public void getSystemInertia(SWIGTYPE_p_double rM, SWIGTYPE_p_SimTK__Vec3 rCOM, SWIGTYPE_p_a_3__double rI) {
+    opensimModelJNI.AbstractDynamicsEngine_getSystemInertia__SWIG_0(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rM), SWIGTYPE_p_SimTK__Vec3.getCPtr(rCOM), SWIGTYPE_p_a_3__double.getCPtr(rI));
   }
 
   public void getSystemInertia(SWIGTYPE_p_double rM, SWIGTYPE_p_double rCOM, SWIGTYPE_p_double rI) {
     opensimModelJNI.AbstractDynamicsEngine_getSystemInertia__SWIG_1(swigCPtr, this, SWIGTYPE_p_double.getCPtr(rM), SWIGTYPE_p_double.getCPtr(rCOM), SWIGTYPE_p_double.getCPtr(rI));
   }
 
-  public void getPosition(AbstractBody aBody, double[] aPoint, double[] rPos) {
-    opensimModelJNI.AbstractDynamicsEngine_getPosition(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, aPoint, rPos);
+  public void getPosition(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 aPoint, SWIGTYPE_p_SimTK__Vec3 rPos) {
+    opensimModelJNI.AbstractDynamicsEngine_getPosition(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint), SWIGTYPE_p_SimTK__Vec3.getCPtr(rPos));
   }
 
-  public void getVelocity(AbstractBody aBody, double[] aPoint, double[] rVel) {
-    opensimModelJNI.AbstractDynamicsEngine_getVelocity(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, aPoint, rVel);
+  public void getVelocity(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 aPoint, SWIGTYPE_p_SimTK__Vec3 rVel) {
+    opensimModelJNI.AbstractDynamicsEngine_getVelocity(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint), SWIGTYPE_p_SimTK__Vec3.getCPtr(rVel));
   }
 
-  public void getAcceleration(AbstractBody aBody, double[] aPoint, double[] rAcc) {
-    opensimModelJNI.AbstractDynamicsEngine_getAcceleration(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, aPoint, rAcc);
+  public void getAcceleration(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 aPoint, SWIGTYPE_p_SimTK__Vec3 rAcc) {
+    opensimModelJNI.AbstractDynamicsEngine_getAcceleration(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint), SWIGTYPE_p_SimTK__Vec3.getCPtr(rAcc));
   }
 
   public void getDirectionCosines(AbstractBody aBody, SWIGTYPE_p_a_3__double rDirCos) {
@@ -231,28 +231,28 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_getDirectionCosines__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_double.getCPtr(rDirCos));
   }
 
-  public void getAngularVelocity(AbstractBody aBody, double[] rAngVel) {
-    opensimModelJNI.AbstractDynamicsEngine_getAngularVelocity(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, rAngVel);
+  public void getAngularVelocity(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 rAngVel) {
+    opensimModelJNI.AbstractDynamicsEngine_getAngularVelocity(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(rAngVel));
   }
 
-  public void getAngularVelocityBodyLocal(AbstractBody aBody, double[] rAngVel) {
-    opensimModelJNI.AbstractDynamicsEngine_getAngularVelocityBodyLocal(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, rAngVel);
+  public void getAngularVelocityBodyLocal(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 rAngVel) {
+    opensimModelJNI.AbstractDynamicsEngine_getAngularVelocityBodyLocal(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(rAngVel));
   }
 
-  public void getAngularAcceleration(AbstractBody aBody, double[] rAngAcc) {
-    opensimModelJNI.AbstractDynamicsEngine_getAngularAcceleration(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, rAngAcc);
+  public void getAngularAcceleration(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 rAngAcc) {
+    opensimModelJNI.AbstractDynamicsEngine_getAngularAcceleration(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(rAngAcc));
   }
 
-  public void getAngularAccelerationBodyLocal(AbstractBody aBody, double[] rAngAcc) {
-    opensimModelJNI.AbstractDynamicsEngine_getAngularAccelerationBodyLocal(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, rAngAcc);
+  public void getAngularAccelerationBodyLocal(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 rAngAcc) {
+    opensimModelJNI.AbstractDynamicsEngine_getAngularAccelerationBodyLocal(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(rAngAcc));
   }
 
   public Transform getTransform(AbstractBody aBody) {
     return new Transform(opensimModelJNI.AbstractDynamicsEngine_getTransform(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody), true);
   }
 
-  public void applyForce(AbstractBody aBody, double[] aPoint, double[] aForce) {
-    opensimModelJNI.AbstractDynamicsEngine_applyForce(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, aPoint, aForce);
+  public void applyForce(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 aPoint, SWIGTYPE_p_SimTK__Vec3 aForce) {
+    opensimModelJNI.AbstractDynamicsEngine_applyForce(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint), SWIGTYPE_p_SimTK__Vec3.getCPtr(aForce));
   }
 
   public void applyForces(int aN, SWIGTYPE_p_p_OpenSim__AbstractBody aBodies, SWIGTYPE_p_a_3__double aPoints, SWIGTYPE_p_a_3__double aForces) {
@@ -263,8 +263,8 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_applyForces__SWIG_1(swigCPtr, this, aN, SWIGTYPE_p_p_OpenSim__AbstractBody.getCPtr(aBodies), SWIGTYPE_p_double.getCPtr(aPoints), SWIGTYPE_p_double.getCPtr(aForces));
   }
 
-  public void applyForceBodyLocal(AbstractBody aBody, double[] aPoint, double[] aForce) {
-    opensimModelJNI.AbstractDynamicsEngine_applyForceBodyLocal(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, aPoint, aForce);
+  public void applyForceBodyLocal(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 aPoint, SWIGTYPE_p_SimTK__Vec3 aForce) {
+    opensimModelJNI.AbstractDynamicsEngine_applyForceBodyLocal(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint), SWIGTYPE_p_SimTK__Vec3.getCPtr(aForce));
   }
 
   public void applyForcesBodyLocal(int aN, SWIGTYPE_p_p_OpenSim__AbstractBody aBodies, SWIGTYPE_p_a_3__double aPoints, SWIGTYPE_p_a_3__double aForces) {
@@ -275,8 +275,8 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_applyForcesBodyLocal__SWIG_1(swigCPtr, this, aN, SWIGTYPE_p_p_OpenSim__AbstractBody.getCPtr(aBodies), SWIGTYPE_p_double.getCPtr(aPoints), SWIGTYPE_p_double.getCPtr(aForces));
   }
 
-  public void applyTorque(AbstractBody aBody, double[] aTorque) {
-    opensimModelJNI.AbstractDynamicsEngine_applyTorque(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, aTorque);
+  public void applyTorque(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 aTorque) {
+    opensimModelJNI.AbstractDynamicsEngine_applyTorque(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aTorque));
   }
 
   public void applyTorques(int aN, SWIGTYPE_p_p_OpenSim__AbstractBody aBodies, SWIGTYPE_p_a_3__double aTorques) {
@@ -287,8 +287,8 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_applyTorques__SWIG_1(swigCPtr, this, aN, SWIGTYPE_p_p_OpenSim__AbstractBody.getCPtr(aBodies), SWIGTYPE_p_double.getCPtr(aTorques));
   }
 
-  public void applyTorqueBodyLocal(AbstractBody aBody, double[] aTorque) {
-    opensimModelJNI.AbstractDynamicsEngine_applyTorqueBodyLocal(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, aTorque);
+  public void applyTorqueBodyLocal(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 aTorque) {
+    opensimModelJNI.AbstractDynamicsEngine_applyTorqueBodyLocal(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aTorque));
   }
 
   public void applyTorquesBodyLocal(int aN, SWIGTYPE_p_p_OpenSim__AbstractBody aBodies, SWIGTYPE_p_a_3__double aTorques) {
@@ -339,12 +339,12 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_formEulerTransform(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_double.getCPtr(rE));
   }
 
-  public void formJacobianTranslation(AbstractBody aBody, double[] aPoint, SWIGTYPE_p_double rJ, AbstractBody aRefBody) {
-    opensimModelJNI.AbstractDynamicsEngine_formJacobianTranslation__SWIG_0(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, aPoint, SWIGTYPE_p_double.getCPtr(rJ), AbstractBody.getCPtr(aRefBody), aRefBody);
+  public void formJacobianTranslation(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 aPoint, SWIGTYPE_p_double rJ, AbstractBody aRefBody) {
+    opensimModelJNI.AbstractDynamicsEngine_formJacobianTranslation__SWIG_0(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint), SWIGTYPE_p_double.getCPtr(rJ), AbstractBody.getCPtr(aRefBody), aRefBody);
   }
 
-  public void formJacobianTranslation(AbstractBody aBody, double[] aPoint, SWIGTYPE_p_double rJ) {
-    opensimModelJNI.AbstractDynamicsEngine_formJacobianTranslation__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, aPoint, SWIGTYPE_p_double.getCPtr(rJ));
+  public void formJacobianTranslation(AbstractBody aBody, SWIGTYPE_p_SimTK__Vec3 aPoint, SWIGTYPE_p_double rJ) {
+    opensimModelJNI.AbstractDynamicsEngine_formJacobianTranslation__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBody), aBody, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint), SWIGTYPE_p_double.getCPtr(rJ));
   }
 
   public void formJacobianOrientation(AbstractBody aBody, SWIGTYPE_p_double rJ0, AbstractBody aRefBody) {
@@ -371,32 +371,32 @@ public class AbstractDynamicsEngine extends OpenSimObject {
     opensimModelJNI.AbstractDynamicsEngine_transform__SWIG_0(swigCPtr, this, AbstractBody.getCPtr(aBodyFrom), aBodyFrom, aVec, AbstractBody.getCPtr(aBodyTo), aBodyTo, rVec);
   }
 
-  public void transform(AbstractBody aBodyFrom, ArrayDouble aVec, AbstractBody aBodyTo, ArrayDouble rVec) {
-    opensimModelJNI.AbstractDynamicsEngine_transform__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBodyFrom), aBodyFrom, ArrayDouble.getCPtr(aVec), aVec, AbstractBody.getCPtr(aBodyTo), aBodyTo, ArrayDouble.getCPtr(rVec), rVec);
+  public void transform(AbstractBody aBodyFrom, SWIGTYPE_p_SimTK__Vec3 aVec, AbstractBody aBodyTo, SWIGTYPE_p_SimTK__Vec3 rVec) {
+    opensimModelJNI.AbstractDynamicsEngine_transform__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBodyFrom), aBodyFrom, SWIGTYPE_p_SimTK__Vec3.getCPtr(aVec), AbstractBody.getCPtr(aBodyTo), aBodyTo, SWIGTYPE_p_SimTK__Vec3.getCPtr(rVec));
   }
 
   public void transformPosition(AbstractBody aBodyFrom, double[] aPos, AbstractBody aBodyTo, double[] rPos) {
     opensimModelJNI.AbstractDynamicsEngine_transformPosition__SWIG_0(swigCPtr, this, AbstractBody.getCPtr(aBodyFrom), aBodyFrom, aPos, AbstractBody.getCPtr(aBodyTo), aBodyTo, rPos);
   }
 
-  public void transformPosition(AbstractBody aBodyFrom, ArrayDouble aPos, AbstractBody aBodyTo, ArrayDouble rPos) {
-    opensimModelJNI.AbstractDynamicsEngine_transformPosition__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBodyFrom), aBodyFrom, ArrayDouble.getCPtr(aPos), aPos, AbstractBody.getCPtr(aBodyTo), aBodyTo, ArrayDouble.getCPtr(rPos), rPos);
+  public void transformPosition(AbstractBody aBodyFrom, SWIGTYPE_p_SimTK__Vec3 aPos, AbstractBody aBodyTo, SWIGTYPE_p_SimTK__Vec3 rPos) {
+    opensimModelJNI.AbstractDynamicsEngine_transformPosition__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBodyFrom), aBodyFrom, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPos), AbstractBody.getCPtr(aBodyTo), aBodyTo, SWIGTYPE_p_SimTK__Vec3.getCPtr(rPos));
   }
 
   public void transformPosition(AbstractBody aBodyFrom, double[] aPos, double[] rPos) {
     opensimModelJNI.AbstractDynamicsEngine_transformPosition__SWIG_2(swigCPtr, this, AbstractBody.getCPtr(aBodyFrom), aBodyFrom, aPos, rPos);
   }
 
-  public void transformPosition(AbstractBody aBodyFrom, ArrayDouble aPos, ArrayDouble rPos) {
-    opensimModelJNI.AbstractDynamicsEngine_transformPosition__SWIG_3(swigCPtr, this, AbstractBody.getCPtr(aBodyFrom), aBodyFrom, ArrayDouble.getCPtr(aPos), aPos, ArrayDouble.getCPtr(rPos), rPos);
+  public void transformPosition(AbstractBody aBodyFrom, SWIGTYPE_p_SimTK__Vec3 aPos, SWIGTYPE_p_SimTK__Vec3 rPos) {
+    opensimModelJNI.AbstractDynamicsEngine_transformPosition__SWIG_3(swigCPtr, this, AbstractBody.getCPtr(aBodyFrom), aBodyFrom, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPos), SWIGTYPE_p_SimTK__Vec3.getCPtr(rPos));
   }
 
   public double calcDistance(AbstractBody aBody1, double[] aPoint1, AbstractBody aBody2, double[] aPoint2) {
     return opensimModelJNI.AbstractDynamicsEngine_calcDistance__SWIG_0(swigCPtr, this, AbstractBody.getCPtr(aBody1), aBody1, aPoint1, AbstractBody.getCPtr(aBody2), aBody2, aPoint2);
   }
 
-  public double calcDistance(AbstractBody aBody1, ArrayDouble aPoint1, AbstractBody aBody2, ArrayDouble aPoint2) {
-    return opensimModelJNI.AbstractDynamicsEngine_calcDistance__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBody1), aBody1, ArrayDouble.getCPtr(aPoint1), aPoint1, AbstractBody.getCPtr(aBody2), aBody2, ArrayDouble.getCPtr(aPoint2), aPoint2);
+  public double calcDistance(AbstractBody aBody1, SWIGTYPE_p_SimTK__Vec3 aPoint1, AbstractBody aBody2, SWIGTYPE_p_SimTK__Vec3 aPoint2) {
+    return opensimModelJNI.AbstractDynamicsEngine_calcDistance__SWIG_1(swigCPtr, this, AbstractBody.getCPtr(aBody1), aBody1, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint1), AbstractBody.getCPtr(aBody2), aBody2, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint2));
   }
 
   public void convertQuaternionsToAngles(SWIGTYPE_p_double aQ, SWIGTYPE_p_double rQAng) {

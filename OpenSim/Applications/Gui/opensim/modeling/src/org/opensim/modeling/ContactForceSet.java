@@ -80,44 +80,44 @@ public class ContactForceSet extends ActuatorSet {
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
-  public void setContactPointA(int aID, double[] aPoint) {
-    opensimModelJNI.ContactForceSet_setContactPointA(swigCPtr, this, aID, aPoint);
+  public void setContactPointA(int aID, SWIGTYPE_p_SimTK__Vec3 aPoint) {
+    opensimModelJNI.ContactForceSet_setContactPointA(swigCPtr, this, aID, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint));
   }
 
-  public void getContactPointA(int aID, double[] rPoint) {
-    opensimModelJNI.ContactForceSet_getContactPointA(swigCPtr, this, aID, rPoint);
+  public void getContactPointA(int aID, SWIGTYPE_p_SimTK__Vec3 rPoint) {
+    opensimModelJNI.ContactForceSet_getContactPointA(swigCPtr, this, aID, SWIGTYPE_p_SimTK__Vec3.getCPtr(rPoint));
   }
 
-  public void setContactPointB(int aID, double[] aPoint) {
-    opensimModelJNI.ContactForceSet_setContactPointB(swigCPtr, this, aID, aPoint);
+  public void setContactPointB(int aID, SWIGTYPE_p_SimTK__Vec3 aPoint) {
+    opensimModelJNI.ContactForceSet_setContactPointB(swigCPtr, this, aID, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint));
   }
 
-  public void getContactPointB(int aID, double[] rPoint) {
-    opensimModelJNI.ContactForceSet_getContactPointB(swigCPtr, this, aID, rPoint);
+  public void getContactPointB(int aID, SWIGTYPE_p_SimTK__Vec3 rPoint) {
+    opensimModelJNI.ContactForceSet_getContactPointB(swigCPtr, this, aID, SWIGTYPE_p_SimTK__Vec3.getCPtr(rPoint));
   }
 
-  public void getContactForce(int aID, double[] rF) {
-    opensimModelJNI.ContactForceSet_getContactForce__SWIG_0(swigCPtr, this, aID, rF);
+  public void getContactForce(int aID, SWIGTYPE_p_SimTK__Vec3 rF) {
+    opensimModelJNI.ContactForceSet_getContactForce__SWIG_0(swigCPtr, this, aID, SWIGTYPE_p_SimTK__Vec3.getCPtr(rF));
   }
 
-  public void getContactNormalForce(int aID, double[] rFP, double[] rFV, double[] rF) {
-    opensimModelJNI.ContactForceSet_getContactNormalForce(swigCPtr, this, aID, rFP, rFV, rF);
+  public void getContactNormalForce(int aID, SWIGTYPE_p_SimTK__Vec3 rFP, SWIGTYPE_p_SimTK__Vec3 rFV, SWIGTYPE_p_SimTK__Vec3 rF) {
+    opensimModelJNI.ContactForceSet_getContactNormalForce(swigCPtr, this, aID, SWIGTYPE_p_SimTK__Vec3.getCPtr(rFP), SWIGTYPE_p_SimTK__Vec3.getCPtr(rFV), SWIGTYPE_p_SimTK__Vec3.getCPtr(rF));
   }
 
-  public void getContactTangentForce(int aID, double[] rFP, double[] rFV, double[] rF) {
-    opensimModelJNI.ContactForceSet_getContactTangentForce(swigCPtr, this, aID, rFP, rFV, rF);
+  public void getContactTangentForce(int aID, SWIGTYPE_p_SimTK__Vec3 rFP, SWIGTYPE_p_SimTK__Vec3 rFV, SWIGTYPE_p_SimTK__Vec3 rF) {
+    opensimModelJNI.ContactForceSet_getContactTangentForce(swigCPtr, this, aID, SWIGTYPE_p_SimTK__Vec3.getCPtr(rFP), SWIGTYPE_p_SimTK__Vec3.getCPtr(rFV), SWIGTYPE_p_SimTK__Vec3.getCPtr(rF));
   }
 
-  public void getContactStiffness(int aID, double[] aDX, double[] rDF) {
-    opensimModelJNI.ContactForceSet_getContactStiffness(swigCPtr, this, aID, aDX, rDF);
+  public void getContactStiffness(int aID, SWIGTYPE_p_SimTK__Vec3 aDX, SWIGTYPE_p_SimTK__Vec3 rDF) {
+    opensimModelJNI.ContactForceSet_getContactStiffness(swigCPtr, this, aID, SWIGTYPE_p_SimTK__Vec3.getCPtr(aDX), SWIGTYPE_p_SimTK__Vec3.getCPtr(rDF));
   }
 
-  public void getContactViscosity(int aID, double[] aDV, double[] rDF) {
-    opensimModelJNI.ContactForceSet_getContactViscosity(swigCPtr, this, aID, aDV, rDF);
+  public void getContactViscosity(int aID, SWIGTYPE_p_SimTK__Vec3 aDV, SWIGTYPE_p_SimTK__Vec3 rDF) {
+    opensimModelJNI.ContactForceSet_getContactViscosity(swigCPtr, this, aID, SWIGTYPE_p_SimTK__Vec3.getCPtr(aDV), SWIGTYPE_p_SimTK__Vec3.getCPtr(rDF));
   }
 
-  public void getContactFrictionCorrection(int aID, double[] aDFFric) {
-    opensimModelJNI.ContactForceSet_getContactFrictionCorrection(swigCPtr, this, aID, aDFFric);
+  public void getContactFrictionCorrection(int aID, SWIGTYPE_p_SimTK__Vec3 aDFFric) {
+    opensimModelJNI.ContactForceSet_getContactFrictionCorrection(swigCPtr, this, aID, SWIGTYPE_p_SimTK__Vec3.getCPtr(aDFFric));
   }
 
   public double getContactForce(int aID) {

@@ -54,12 +54,12 @@ public class SimmTranslationDof extends AbstractDof {
     opensimModelJNI.SimmTranslationDof_copyData(swigCPtr, this, SimmTranslationDof.getCPtr(aDof), aDof);
   }
 
-  public void setAxis(double[] rAxis) {
-    opensimModelJNI.SimmTranslationDof_setAxis(swigCPtr, this, rAxis);
+  public void setAxis(SWIGTYPE_p_SimTK__Vec3 rAxis) {
+    opensimModelJNI.SimmTranslationDof_setAxis(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rAxis));
   }
 
-  public void getAxis(double[] rAxis) {
-    opensimModelJNI.SimmTranslationDof_getAxis(swigCPtr, this, rAxis);
+  public void getAxis(SWIGTYPE_p_SimTK__Vec3 rAxis) {
+    opensimModelJNI.SimmTranslationDof_getAxis(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rAxis));
   }
 
   public SWIGTYPE_p_double getAxisPtr() {

@@ -63,12 +63,12 @@ public class Torque extends AbstractActuator {
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
-  public void setDirectionA(double[] aDirection) {
-    opensimModelJNI.Torque_setDirectionA(swigCPtr, this, aDirection);
+  public void setDirectionA(SWIGTYPE_p_SimTK__Vec3 aDirection) {
+    opensimModelJNI.Torque_setDirectionA(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aDirection));
   }
 
-  public void getDirectionA(double[] rDirection) {
-    opensimModelJNI.Torque_getDirectionA(swigCPtr, this, rDirection);
+  public void getDirectionA(SWIGTYPE_p_SimTK__Vec3 rDirection) {
+    opensimModelJNI.Torque_getDirectionA(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rDirection));
   }
 
   public void setBodyB(AbstractBody aBody) {
@@ -80,8 +80,8 @@ public class Torque extends AbstractActuator {
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
-  public void getDirectionB(double[] rDirection) {
-    opensimModelJNI.Torque_getDirectionB(swigCPtr, this, rDirection);
+  public void getDirectionB(SWIGTYPE_p_SimTK__Vec3 rDirection) {
+    opensimModelJNI.Torque_getDirectionB(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rDirection));
   }
 
   public void setOptimalForce(double aOptimalForce) {

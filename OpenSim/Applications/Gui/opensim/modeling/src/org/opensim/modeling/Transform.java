@@ -45,8 +45,8 @@ public class Transform {
     this(opensimModelJNI.new_Transform__SWIG_2(SWIGTYPE_p_a_4__double.getCPtr(aMat44)), true);
   }
 
-  public Transform(double r, Transform.AnglePreference preference, double[] axis) {
-    this(opensimModelJNI.new_Transform__SWIG_3(r, preference.swigValue(), axis), true);
+  public Transform(double r, Transform.AnglePreference preference, SWIGTYPE_p_SimTK__Vec3 axis) {
+    this(opensimModelJNI.new_Transform__SWIG_3(r, preference.swigValue(), SWIGTYPE_p_SimTK__Vec3.getCPtr(axis)), true);
   }
 
   public Transform copy() {
@@ -58,12 +58,16 @@ public class Transform {
     opensimModelJNI.Transform_printMatrix(swigCPtr, this);
   }
 
-  public void getPosition(double[] pos) {
-    opensimModelJNI.Transform_getPosition(swigCPtr, this, pos);
+  public void getPosition(SWIGTYPE_p_SimTK__Vec3 pos) {
+    opensimModelJNI.Transform_getPosition__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(pos));
   }
 
-  public void setPosition(double[] pos) {
-    opensimModelJNI.Transform_setPosition(swigCPtr, this, pos);
+  public void getPosition(double[] pos) {
+    opensimModelJNI.Transform_getPosition__SWIG_1(swigCPtr, this, pos);
+  }
+
+  public void setPosition(SWIGTYPE_p_SimTK__Vec3 pos) {
+    opensimModelJNI.Transform_setPosition(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(pos));
   }
 
   public void getOrientation(SWIGTYPE_p_a_3__double rOrientation) {
@@ -94,8 +98,8 @@ public class Transform {
     opensimModelJNI.Transform_rotateZ(swigCPtr, this, r, preference.swigValue());
   }
 
-  public void rotateAxis(double r, Transform.AnglePreference preference, double[] axis) {
-    opensimModelJNI.Transform_rotateAxis(swigCPtr, this, r, preference.swigValue(), axis);
+  public void rotateAxis(double r, Transform.AnglePreference preference, SWIGTYPE_p_SimTK__Vec3 axis) {
+    opensimModelJNI.Transform_rotateAxis(swigCPtr, this, r, preference.swigValue(), SWIGTYPE_p_SimTK__Vec3.getCPtr(axis));
   }
 
   public void rotateXBodyFixed(double r, Transform.AnglePreference preference) {
@@ -122,24 +126,24 @@ public class Transform {
     opensimModelJNI.Transform_translateZ(swigCPtr, this, t);
   }
 
-  public void translate(double[] t) {
-    opensimModelJNI.Transform_translate(swigCPtr, this, t);
+  public void translate(SWIGTYPE_p_SimTK__Vec3 t) {
+    opensimModelJNI.Transform_translate(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(t));
   }
 
   public void transformPoint(double[] pt) {
     opensimModelJNI.Transform_transformPoint__SWIG_0(swigCPtr, this, pt);
   }
 
-  public void transformPoint(ArrayDouble pt) {
-    opensimModelJNI.Transform_transformPoint__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(pt), pt);
+  public void transformPoint(SWIGTYPE_p_SimTK__Vec3 pt) {
+    opensimModelJNI.Transform_transformPoint__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(pt));
   }
 
   public void transformVector(double[] vec) {
     opensimModelJNI.Transform_transformVector__SWIG_0(swigCPtr, this, vec);
   }
 
-  public void transformVector(ArrayDouble vec) {
-    opensimModelJNI.Transform_transformVector__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(vec), vec);
+  public void transformVector(SWIGTYPE_p_SimTK__Vec3 vec) {
+    opensimModelJNI.Transform_transformVector__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(vec));
   }
 
   public SWIGTYPE_p_double getMatrix() {

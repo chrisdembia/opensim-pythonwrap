@@ -62,36 +62,36 @@ public class SimmBody extends AbstractBody {
     return opensimModelJNI.SimmBody_setMass(swigCPtr, this, aMass);
   }
 
-  public void getMassCenter(double[] rVec) {
-    opensimModelJNI.SimmBody_getMassCenter(swigCPtr, this, rVec);
+  public void getMassCenter(SWIGTYPE_p_SimTK__Vec3 rVec) {
+    opensimModelJNI.SimmBody_getMassCenter(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rVec));
   }
 
-  public boolean setMassCenter(double[] aVec) {
-    return opensimModelJNI.SimmBody_setMassCenter(swigCPtr, this, aVec);
+  public boolean setMassCenter(SWIGTYPE_p_SimTK__Vec3 aVec) {
+    return opensimModelJNI.SimmBody_setMassCenter(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aVec));
   }
 
-  public void getInertia(SWIGTYPE_p_a_3__double rInertia) {
-    opensimModelJNI.SimmBody_getInertia(swigCPtr, this, SWIGTYPE_p_a_3__double.getCPtr(rInertia));
+  public void getInertia(SWIGTYPE_p_SimTK__Mat33 rMat) {
+    opensimModelJNI.SimmBody_getInertia(swigCPtr, this, SWIGTYPE_p_SimTK__Mat33.getCPtr(rMat));
   }
 
-  public boolean setInertia(ArrayDouble aInertia) {
-    return opensimModelJNI.SimmBody_setInertia(swigCPtr, this, ArrayDouble.getCPtr(aInertia), aInertia);
+  public boolean setInertia(SWIGTYPE_p_SimTK__Mat33 aInertia) {
+    return opensimModelJNI.SimmBody_setInertia(swigCPtr, this, SWIGTYPE_p_SimTK__Mat33.getCPtr(aInertia));
   }
 
-  public void scale(ArrayDouble aScaleFactors, boolean aScaleMass) {
-    opensimModelJNI.SimmBody_scale__SWIG_0(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors, aScaleMass);
+  public void scale(SWIGTYPE_p_SimTK__Vec3 aScaleFactors, boolean aScaleMass) {
+    opensimModelJNI.SimmBody_scale__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors), aScaleMass);
   }
 
-  public void scale(ArrayDouble aScaleFactors) {
-    opensimModelJNI.SimmBody_scale__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  public void scale(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
+    opensimModelJNI.SimmBody_scale__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
-  public void scaleInertialProperties(ArrayDouble aScaleFactors, boolean aScaleMass) {
-    opensimModelJNI.SimmBody_scaleInertialProperties__SWIG_0(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors, aScaleMass);
+  public void scaleInertialProperties(SWIGTYPE_p_SimTK__Vec3 aScaleFactors, boolean aScaleMass) {
+    opensimModelJNI.SimmBody_scaleInertialProperties__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors), aScaleMass);
   }
 
-  public void scaleInertialProperties(ArrayDouble aScaleFactors) {
-    opensimModelJNI.SimmBody_scaleInertialProperties__SWIG_1(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  public void scaleInertialProperties(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
+    opensimModelJNI.SimmBody_scaleInertialProperties__SWIG_1(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
   public void scaleMass(double aScaleFactor) {
@@ -103,8 +103,8 @@ public class SimmBody extends AbstractBody {
     return (cPtr == 0) ? null : new VisibleObject(cPtr, false);
   }
 
-  public void getScaleFactors(ArrayDouble aScaleFactors) {
-    opensimModelJNI.SimmBody_getScaleFactors(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  public void getScaleFactors(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
+    opensimModelJNI.SimmBody_getScaleFactors(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
 }

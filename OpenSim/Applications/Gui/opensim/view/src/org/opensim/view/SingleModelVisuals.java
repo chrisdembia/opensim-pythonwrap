@@ -252,7 +252,18 @@ public class SingleModelVisuals {
             // Move rep to proper location 
             vtkTransformPolyDataFilter mover = new vtkTransformPolyDataFilter();
             vtkTransform moverTransform = new vtkTransform();
-            moverTransform.SetMatrix(convertTransformToVtkMatrix4x4(visibleObject.getTransform()));
+            Transform xform=visibleObject.getTransform();
+            double[] matRows = new double[16];
+            xform.getMatrix(matRows);
+            System.out.println("===createAndAddWrapObjectActor.visibleObject.getTransform");
+            for (int i=0; i<4; i++){
+                for(int j=0; j<4; j++){
+                    System.out.print(" "+matRows[4*i+j]+" ");
+                }
+                System.out.println("");
+            }
+            System.out.println("==visibleObject.getTransform");
+            moverTransform.SetMatrix(convertTransformToVtkMatrix4x4(xform));
             mover.SetInput(analyticPolyData);
             mover.SetTransform(moverTransform);
             

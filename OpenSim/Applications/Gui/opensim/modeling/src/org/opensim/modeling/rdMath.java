@@ -33,20 +33,8 @@ public class rdMath {
     swigCPtr = 0;
   }
 
-  public static double getPI() {
-    return opensimModelJNI.rdMath_PI_get();
-  }
-
   public static double getPI_2() {
     return opensimModelJNI.rdMath_PI_2_get();
-  }
-
-  public static double getRTD() {
-    return opensimModelJNI.rdMath_RTD_get();
-  }
-
-  public static double getDTR() {
-    return opensimModelJNI.rdMath_DTR_get();
   }
 
   public static double getSMALL() {
@@ -109,48 +97,44 @@ public class rdMath {
     return opensimModelJNI.rdMath_Interpolate(aX1, aY1, aX2, aY2, aX);
   }
 
-  public static int ComputeIntersection(SWIGTYPE_p_OpenSim__Line aLine, SWIGTYPE_p_OpenSim__Plane aPlane, double[] rPoint) {
-    return opensimModelJNI.rdMath_ComputeIntersection(SWIGTYPE_p_OpenSim__Line.getCPtr(aLine), SWIGTYPE_p_OpenSim__Plane.getCPtr(aPlane), rPoint);
+  public static void ComputeNormal(double aP1X, double aP1Y, double aP1Z, double aP2X, double aP2Y, double aP2Z, double aP3X, double aP3Y, double aP3Z, SWIGTYPE_p_SimTK__Vec3 rNormal) {
+    opensimModelJNI.rdMath_ComputeNormal(aP1X, aP1Y, aP1Z, aP2X, aP2Y, aP2Z, aP3X, aP3Y, aP3Z, SWIGTYPE_p_SimTK__Vec3.getCPtr(rNormal));
   }
 
-  public static void ComputeNormal(double aP1X, double aP1Y, double aP1Z, double aP2X, double aP2Y, double aP2Z, double aP3X, double aP3Y, double aP3Z, double[] rNormal) {
-    opensimModelJNI.rdMath_ComputeNormal(aP1X, aP1Y, aP1Z, aP2X, aP2Y, aP2Z, aP3X, aP3Y, aP3Z, rNormal);
+  public static boolean IntersectLines(SWIGTYPE_p_SimTK__Vec3 p1, SWIGTYPE_p_SimTK__Vec3 p2, SWIGTYPE_p_SimTK__Vec3 p3, SWIGTYPE_p_SimTK__Vec3 p4, SWIGTYPE_p_SimTK__Vec3 pInt1, SWIGTYPE_p_double s, SWIGTYPE_p_SimTK__Vec3 pInt2, SWIGTYPE_p_double t) {
+    return opensimModelJNI.rdMath_IntersectLines(SWIGTYPE_p_SimTK__Vec3.getCPtr(p1), SWIGTYPE_p_SimTK__Vec3.getCPtr(p2), SWIGTYPE_p_SimTK__Vec3.getCPtr(p3), SWIGTYPE_p_SimTK__Vec3.getCPtr(p4), SWIGTYPE_p_SimTK__Vec3.getCPtr(pInt1), SWIGTYPE_p_double.getCPtr(s), SWIGTYPE_p_SimTK__Vec3.getCPtr(pInt2), SWIGTYPE_p_double.getCPtr(t));
   }
 
-  public static boolean IntersectLines(double[] p1, double[] p2, double[] p3, double[] p4, double[] pInt1, SWIGTYPE_p_double s, double[] pInt2, SWIGTYPE_p_double t) {
-    return opensimModelJNI.rdMath_IntersectLines(p1, p2, p3, p4, pInt1, SWIGTYPE_p_double.getCPtr(s), pInt2, SWIGTYPE_p_double.getCPtr(t));
+  public static boolean IntersectLineSegPlane(SWIGTYPE_p_SimTK__Vec3 pt1, SWIGTYPE_p_SimTK__Vec3 pt2, SWIGTYPE_p_SimTK__Vec3 plane, double d, SWIGTYPE_p_SimTK__Vec3 inter) {
+    return opensimModelJNI.rdMath_IntersectLineSegPlane(SWIGTYPE_p_SimTK__Vec3.getCPtr(pt1), SWIGTYPE_p_SimTK__Vec3.getCPtr(pt2), SWIGTYPE_p_SimTK__Vec3.getCPtr(plane), d, SWIGTYPE_p_SimTK__Vec3.getCPtr(inter));
   }
 
-  public static boolean IntersectLineSegPlane(double[] pt1, double[] pt2, double[] plane, double d, double[] inter) {
-    return opensimModelJNI.rdMath_IntersectLineSegPlane(pt1, pt2, plane, d, inter);
+  public static void ConvertAxisAngleToQuaternion(SWIGTYPE_p_SimTK__Vec3 axis, double angle, double[] quat) {
+    opensimModelJNI.rdMath_ConvertAxisAngleToQuaternion(SWIGTYPE_p_SimTK__Vec3.getCPtr(axis), angle, quat);
   }
 
-  public static void ConvertAxisAngleToQuaternion(double[] axis, double angle, double[] quat) {
-    opensimModelJNI.rdMath_ConvertAxisAngleToQuaternion(axis, angle, quat);
-  }
-
-  public static void GetClosestPointOnLineToPoint(double[] pt, double[] linePt, double[] line, double[] closestPt, SWIGTYPE_p_double t) {
-    opensimModelJNI.rdMath_GetClosestPointOnLineToPoint(pt, linePt, line, closestPt, SWIGTYPE_p_double.getCPtr(t));
+  public static void GetClosestPointOnLineToPoint(SWIGTYPE_p_SimTK__Vec3 pt, SWIGTYPE_p_SimTK__Vec3 linePt, SWIGTYPE_p_SimTK__Vec3 line, SWIGTYPE_p_SimTK__Vec3 closestPt, SWIGTYPE_p_double t) {
+    opensimModelJNI.rdMath_GetClosestPointOnLineToPoint(SWIGTYPE_p_SimTK__Vec3.getCPtr(pt), SWIGTYPE_p_SimTK__Vec3.getCPtr(linePt), SWIGTYPE_p_SimTK__Vec3.getCPtr(line), SWIGTYPE_p_SimTK__Vec3.getCPtr(closestPt), SWIGTYPE_p_double.getCPtr(t));
   }
 
   public static void Make3x3DirCosMatrix(double angle, SWIGTYPE_p_a_3__double mat) {
     opensimModelJNI.rdMath_Make3x3DirCosMatrix(angle, SWIGTYPE_p_a_3__double.getCPtr(mat));
   }
 
-  public static void ConvertAxisAngleTo4x4DirCosMatrix(double[] axis, double angle, SWIGTYPE_p_a_4__double mat) {
-    opensimModelJNI.rdMath_ConvertAxisAngleTo4x4DirCosMatrix(axis, angle, SWIGTYPE_p_a_4__double.getCPtr(mat));
+  public static void ConvertAxisAngleTo4x4DirCosMatrix(SWIGTYPE_p_SimTK__Vec3 axis, double angle, SWIGTYPE_p_a_4__double mat) {
+    opensimModelJNI.rdMath_ConvertAxisAngleTo4x4DirCosMatrix(SWIGTYPE_p_SimTK__Vec3.getCPtr(axis), angle, SWIGTYPE_p_a_4__double.getCPtr(mat));
   }
 
-  public static double CalcDistanceSquaredBetweenPoints(double[] point1, double[] point2) {
-    return opensimModelJNI.rdMath_CalcDistanceSquaredBetweenPoints(point1, point2);
+  public static double CalcDistanceSquaredBetweenPoints(SWIGTYPE_p_SimTK__Vec3 point1, SWIGTYPE_p_SimTK__Vec3 point2) {
+    return opensimModelJNI.rdMath_CalcDistanceSquaredBetweenPoints(SWIGTYPE_p_SimTK__Vec3.getCPtr(point1), SWIGTYPE_p_SimTK__Vec3.getCPtr(point2));
   }
 
-  public static double CalcDistanceSquaredPointToLine(double[] point, double[] linePt, double[] line) {
-    return opensimModelJNI.rdMath_CalcDistanceSquaredPointToLine(point, linePt, line);
+  public static double CalcDistanceSquaredPointToLine(SWIGTYPE_p_SimTK__Vec3 point, SWIGTYPE_p_SimTK__Vec3 linePt, SWIGTYPE_p_SimTK__Vec3 line) {
+    return opensimModelJNI.rdMath_CalcDistanceSquaredPointToLine(SWIGTYPE_p_SimTK__Vec3.getCPtr(point), SWIGTYPE_p_SimTK__Vec3.getCPtr(linePt), SWIGTYPE_p_SimTK__Vec3.getCPtr(line));
   }
 
-  public static void RotateMatrixAxisAngle(SWIGTYPE_p_a_4__double matrix, double[] axis, double angle) {
-    opensimModelJNI.rdMath_RotateMatrixAxisAngle(SWIGTYPE_p_a_4__double.getCPtr(matrix), axis, angle);
+  public static void RotateMatrixAxisAngle(SWIGTYPE_p_a_4__double matrix, SWIGTYPE_p_SimTK__Vec3 axis, double angle) {
+    opensimModelJNI.rdMath_RotateMatrixAxisAngle(SWIGTYPE_p_a_4__double.getCPtr(matrix), SWIGTYPE_p_SimTK__Vec3.getCPtr(axis), angle);
   }
 
   public static void ConvertQuaternionToMatrix(double[] quat, SWIGTYPE_p_a_4__double matrix) {

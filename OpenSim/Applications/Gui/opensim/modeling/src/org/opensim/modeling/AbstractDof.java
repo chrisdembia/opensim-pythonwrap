@@ -58,12 +58,12 @@ public class AbstractDof extends OpenSimObject {
     return AbstractDof.DofType.swigToEnum(opensimModelJNI.AbstractDof_getMotionType(swigCPtr, this));
   }
 
-  public void setAxis(double[] axis) {
-    opensimModelJNI.AbstractDof_setAxis(swigCPtr, this, axis);
+  public void setAxis(SWIGTYPE_p_SimTK__Vec3 axis) {
+    opensimModelJNI.AbstractDof_setAxis(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(axis));
   }
 
-  public void getAxis(double[] axis) {
-    opensimModelJNI.AbstractDof_getAxis(swigCPtr, this, axis);
+  public void getAxis(SWIGTYPE_p_SimTK__Vec3 axis) {
+    opensimModelJNI.AbstractDof_getAxis(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(axis));
   }
 
   public SWIGTYPE_p_double getAxisPtr() {

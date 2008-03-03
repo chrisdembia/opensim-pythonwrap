@@ -63,20 +63,20 @@ public class Force extends AbstractActuator {
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
-  public void setPointA(double[] aPoint) {
-    opensimModelJNI.Force_setPointA(swigCPtr, this, aPoint);
+  public void setPointA(SWIGTYPE_p_SimTK__Vec3 aPoint) {
+    opensimModelJNI.Force_setPointA(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint));
   }
 
-  public void getPointA(double[] rPoint) {
-    opensimModelJNI.Force_getPointA(swigCPtr, this, rPoint);
+  public void getPointA(SWIGTYPE_p_SimTK__Vec3 rPoint) {
+    opensimModelJNI.Force_getPointA(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rPoint));
   }
 
-  public void setForceDirectionA(double[] aDirection) {
-    opensimModelJNI.Force_setForceDirectionA(swigCPtr, this, aDirection);
+  public void setForceDirectionA(SWIGTYPE_p_SimTK__Vec3 aDirection) {
+    opensimModelJNI.Force_setForceDirectionA(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aDirection));
   }
 
-  public void getForceDirectionA(double[] rDirection) {
-    opensimModelJNI.Force_getForceDirectionA(swigCPtr, this, rDirection);
+  public void getForceDirectionA(SWIGTYPE_p_SimTK__Vec3 rDirection) {
+    opensimModelJNI.Force_getForceDirectionA(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rDirection));
   }
 
   public void setBodyB(AbstractBody aBody) {
@@ -88,16 +88,16 @@ public class Force extends AbstractActuator {
     return (cPtr == 0) ? null : new AbstractBody(cPtr, false);
   }
 
-  public void setPointB(double[] aPoint) {
-    opensimModelJNI.Force_setPointB(swigCPtr, this, aPoint);
+  public void setPointB(SWIGTYPE_p_SimTK__Vec3 aPoint) {
+    opensimModelJNI.Force_setPointB(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aPoint));
   }
 
-  public void getPointB(double[] rPoint) {
-    opensimModelJNI.Force_getPointB(swigCPtr, this, rPoint);
+  public void getPointB(SWIGTYPE_p_SimTK__Vec3 rPoint) {
+    opensimModelJNI.Force_getPointB(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rPoint));
   }
 
-  public void getForceDirectionB(double[] rDirection) {
-    opensimModelJNI.Force_getForceDirectionB(swigCPtr, this, rDirection);
+  public void getForceDirectionB(SWIGTYPE_p_SimTK__Vec3 rDirection) {
+    opensimModelJNI.Force_getForceDirectionB(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(rDirection));
   }
 
   public void setPointAFunction(SWIGTYPE_p_VectorFunction aVectorFunction) {
@@ -179,8 +179,8 @@ public class Force extends AbstractActuator {
     opensimModelJNI.Force_setup(swigCPtr, this, Model.getCPtr(aModel), aModel);
   }
 
-  public void computeLineOfAction(double[] aLineOfAction) {
-    opensimModelJNI.Force_computeLineOfAction(swigCPtr, this, aLineOfAction);
+  public void computeLineOfAction(SWIGTYPE_p_SimTK__Vec3 aLineOfAction) {
+    opensimModelJNI.Force_computeLineOfAction(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aLineOfAction));
   }
 
   public static boolean isKindOf(String type) {

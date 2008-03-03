@@ -54,16 +54,28 @@ public class MusclePoint extends OpenSimObject {
     opensimModelJNI.MusclePoint_init(swigCPtr, this, MusclePoint.getCPtr(aPoint), aPoint);
   }
 
-  public ArrayDouble getAttachment() {
-    return new ArrayDouble(opensimModelJNI.MusclePoint_getAttachment(swigCPtr, this), false);
+  public SWIGTYPE_p_SimTK__Vec3 getAttachment() {
+    return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.MusclePoint_getAttachment__SWIG_0(swigCPtr, this), false);
   }
 
-  public void setAttachment(double[] aAttachment) {
-    opensimModelJNI.MusclePoint_setAttachment__SWIG_0(swigCPtr, this, aAttachment);
+  public double getAttachmentCoord(int aXYZ) {
+    return opensimModelJNI.MusclePoint_getAttachmentCoord(swigCPtr, this, aXYZ);
+  }
+
+  public void setAttachmentCoord(int aXYZ, double aValue) {
+    opensimModelJNI.MusclePoint_setAttachmentCoord(swigCPtr, this, aXYZ, aValue);
+  }
+
+  public void setAttachment(SWIGTYPE_p_SimTK__Vec3 aAttachment) {
+    opensimModelJNI.MusclePoint_setAttachment__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aAttachment));
   }
 
   public void setAttachment(int aCoordIndex, double aAttachment) {
     opensimModelJNI.MusclePoint_setAttachment__SWIG_1(swigCPtr, this, aCoordIndex, aAttachment);
+  }
+
+  public void setAttachment(double[] pt) {
+    opensimModelJNI.MusclePoint_setAttachment__SWIG_2(swigCPtr, this, pt);
   }
 
   public AbstractBody getBody() {
@@ -88,8 +100,8 @@ public class MusclePoint extends OpenSimObject {
     return (cPtr == 0) ? null : new AbstractMuscle(cPtr, false);
   }
 
-  public void scale(ArrayDouble aScaleFactors) {
-    opensimModelJNI.MusclePoint_scale(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  public void scale(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
+    opensimModelJNI.MusclePoint_scale(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
   public boolean isActive() {
@@ -109,8 +121,8 @@ public class MusclePoint extends OpenSimObject {
     opensimModelJNI.MusclePoint_update(swigCPtr, this);
   }
 
-  public void getVelocity(double[] aVelocity) {
-    opensimModelJNI.MusclePoint_getVelocity(swigCPtr, this, aVelocity);
+  public void getVelocity(SWIGTYPE_p_SimTK__Vec3 aVelocity) {
+    opensimModelJNI.MusclePoint_getVelocity(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aVelocity));
   }
 
   public VisibleObject getDisplayer() {

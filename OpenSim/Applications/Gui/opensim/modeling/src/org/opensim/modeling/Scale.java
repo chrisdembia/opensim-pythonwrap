@@ -75,16 +75,24 @@ public class Scale extends OpenSimObject {
     opensimModelJNI.Scale_setSegmentName(swigCPtr, this, aSegmentName);
   }
 
-  public void getScaleFactors(ArrayDouble aScaleFactors) {
-    opensimModelJNI.Scale_getScaleFactors__SWIG_0(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  public void getScaleFactors(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
+    opensimModelJNI.Scale_getScaleFactors__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
-  public ArrayDouble getScaleFactors() {
-    return new ArrayDouble(opensimModelJNI.Scale_getScaleFactors__SWIG_1(swigCPtr, this), false);
+  public SWIGTYPE_p_SimTK__Vec3 getScaleFactors() {
+    return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.Scale_getScaleFactors__SWIG_1(swigCPtr, this), false);
   }
 
-  public void setScaleFactors(ArrayDouble aScaleFactors) {
-    opensimModelJNI.Scale_setScaleFactors(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  public void getScaleFactors(double[] rScaleFactors) {
+    opensimModelJNI.Scale_getScaleFactors__SWIG_2(swigCPtr, this, rScaleFactors);
+  }
+
+  public void setScaleFactors(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
+    opensimModelJNI.Scale_setScaleFactors__SWIG_0(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
+  }
+
+  public void setScaleFactors(double[] aScaleFactors) {
+    opensimModelJNI.Scale_setScaleFactors__SWIG_1(swigCPtr, this, aScaleFactors);
   }
 
   public boolean getApply() {

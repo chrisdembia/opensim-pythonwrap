@@ -37,8 +37,8 @@ public class SimmPoint extends OpenSimObject {
     this(opensimModelJNI.new_SimmPoint__SWIG_0(), true);
   }
 
-  public SimmPoint(double[] coords) {
-    this(opensimModelJNI.new_SimmPoint__SWIG_1(coords), true);
+  public SimmPoint(SWIGTYPE_p_SimTK__Vec3 coords) {
+    this(opensimModelJNI.new_SimmPoint__SWIG_1(SWIGTYPE_p_SimTK__Vec3.getCPtr(coords)), true);
   }
 
   public SimmPoint(SimmPoint aPoint) {
@@ -54,9 +54,8 @@ public class SimmPoint extends OpenSimObject {
     opensimModelJNI.SimmPoint_set(swigCPtr, this, x, y, z);
   }
 
-  public SWIGTYPE_p_double get() {
-    long cPtr = opensimModelJNI.SimmPoint_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
+  public SWIGTYPE_p_SimTK__Vec3 get() {
+    return new SWIGTYPE_p_SimTK__Vec3(opensimModelJNI.SimmPoint_get(swigCPtr, this), false);
   }
 
   public void scale(double aScaleFactor) {

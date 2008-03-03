@@ -225,6 +225,7 @@ public class Property {
     public final static PropertyType DblArray = new PropertyType("DblArray");
     public final static PropertyType StrArray = new PropertyType("StrArray");
     public final static PropertyType ObjArray = new PropertyType("ObjArray");
+    public final static PropertyType DblVec3 = new PropertyType("DblVec3");
 
     public final int swigValue() {
       return swigValue;
@@ -260,7 +261,7 @@ public class Property {
       swigNext = this.swigValue+1;
     }
 
-    private static PropertyType[] swigValues = { None, Bool, Int, Dbl, Str, Obj, ObjPtr, BoolArray, IntArray, DblArray, StrArray, ObjArray };
+    private static PropertyType[] swigValues = { None, Bool, Int, Dbl, Str, Obj, ObjPtr, BoolArray, IntArray, DblArray, StrArray, ObjArray, DblVec3 };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

@@ -120,8 +120,8 @@ public class MovingMusclePoint extends MusclePoint {
     opensimModelJNI.MovingMusclePoint_setZFunction(swigCPtr, this, Function.getCPtr(aFunction), aFunction);
   }
 
-  public void scale(ArrayDouble aScaleFactors) {
-    opensimModelJNI.MovingMusclePoint_scale(swigCPtr, this, ArrayDouble.getCPtr(aScaleFactors), aScaleFactors);
+  public void scale(SWIGTYPE_p_SimTK__Vec3 aScaleFactors) {
+    opensimModelJNI.MovingMusclePoint_scale(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aScaleFactors));
   }
 
   public boolean isActive() {
@@ -136,8 +136,8 @@ public class MovingMusclePoint extends MusclePoint {
     opensimModelJNI.MovingMusclePoint_update(swigCPtr, this);
   }
 
-  public void getVelocity(double[] aVelocity) {
-    opensimModelJNI.MovingMusclePoint_getVelocity(swigCPtr, this, aVelocity);
+  public void getVelocity(SWIGTYPE_p_SimTK__Vec3 aVelocity) {
+    opensimModelJNI.MovingMusclePoint_getVelocity(swigCPtr, this, SWIGTYPE_p_SimTK__Vec3.getCPtr(aVelocity));
   }
 
   public static boolean isKindOf(String type) {

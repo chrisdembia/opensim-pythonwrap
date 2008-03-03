@@ -681,7 +681,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
    public void AttachmentPointEntered(javax.swing.JTextField field, int attachmentNum, int coordNum) {
       AbstractMuscle asm = AbstractMuscle.safeDownCast(currentAct);
       MusclePointSet musclePoints = asm.getAttachmentSet();
-      double newValue, oldValue = musclePoints.get(attachmentNum).getAttachment().getitem(coordNum);
+      double newValue, oldValue = musclePoints.get(attachmentNum).getAttachmentCoord(coordNum);
       try {
          newValue = Double.parseDouble(field.getText());
       } catch (NumberFormatException ex) {
@@ -1321,9 +1321,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
          javax.swing.JLabel bodyLabel = new javax.swing.JLabel();
          javax.swing.JLabel typeLabel = new javax.swing.JLabel();
          indexLabel.setText(String.valueOf(i+1) + ".");
-         xField.setText(positionFormat.format(asmp.get(i).getAttachment().getitem(0)));
-         yField.setText(positionFormat.format(asmp.get(i).getAttachment().getitem(1)));
-         zField.setText(positionFormat.format(asmp.get(i).getAttachment().getitem(2)));
+         xField.setText(positionFormat.format(asmp.get(i).getAttachmentCoord(0)));
+         yField.setText(positionFormat.format(asmp.get(i).getAttachmentCoord(1)));
+         zField.setText(positionFormat.format(asmp.get(i).getAttachmentCoord(2)));
          bodyLabel.setText(asmp.get(i).getBodyName());
          if (asmp.get(i).getWrapObject() != null)
             typeLabel.setText("wrap" + " (" + asmp.get(i).getWrapObject().getName() + ")");
@@ -1755,7 +1755,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             javax.swing.JTextField xField = new javax.swing.JTextField();
             xField.setHorizontalAlignment(SwingConstants.TRAILING);
             xField.setBounds(x, height, width - 5, 21);
-            xField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(0)));
+            xField.setText(positionFormat.format(musclePoints.get(i).getAttachmentCoord(0)));
             xField.setToolTipText("X coordinate of the attachment point");
             xField.addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1808,7 +1808,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             javax.swing.JTextField yField = new javax.swing.JTextField();
             yField.setHorizontalAlignment(SwingConstants.TRAILING);
             yField.setBounds(x, height, width - 5, 21);
-            yField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(1)));
+            yField.setText(positionFormat.format(musclePoints.get(i).getAttachmentCoord(1)));
             yField.setToolTipText("Y coordinate of the attachment point");
             yField.addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1860,7 +1860,7 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             javax.swing.JTextField zField = new javax.swing.JTextField();
             zField.setHorizontalAlignment(SwingConstants.TRAILING);
             zField.setBounds(x, height, width - 5, 21);
-            zField.setText(positionFormat.format(musclePoints.get(i).getAttachment().getitem(2)));
+            zField.setText(positionFormat.format(musclePoints.get(i).getAttachmentCoord(2)));
             zField.setToolTipText("Z coordinate of the attachment point");
             zField.addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2575,9 +2575,9 @@ final public class MuscleEditorTopComponent extends TopComponent implements Obse
             double dragVectorBody[] = new double[3];
             engine.transform(ground, ev.getDragVector(), body, dragVectorBody);
             //System.out.println("drag: " + ev.getDragVector()[0] + " " + ev.getDragVector()[1] + " " + ev.getDragVector()[2]);
-            mp.setAttachment(0, mp.getAttachment().getitem(0) + dragVectorBody[0]);
-            mp.setAttachment(1, mp.getAttachment().getitem(1) + dragVectorBody[1]);
-            mp.setAttachment(2, mp.getAttachment().getitem(2) + dragVectorBody[2]);
+            mp.setAttachment(0, mp.getAttachmentCoord(0) + dragVectorBody[0]);
+            mp.setAttachment(1, mp.getAttachmentCoord(1) + dragVectorBody[1]);
+            mp.setAttachment(2, mp.getAttachmentCoord(2) + dragVectorBody[2]);
             m = mp.getMuscle();
             if (m != null)
                setPendingChanges(true, (AbstractActuator)m, false);
