@@ -51,7 +51,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
     * which is either the highlight color (yellow) or the default fill
     * color.
     **/
-   private PaintList shapeFillPaintList[];
+   private PaintList shapeFillPaintList;
    /** For each function, the color of the function lines and shape outlines. */
    private PaintList functionPaintList;
    /** For each function, the shape fill color for unselected control points. */
@@ -66,22 +66,29 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
 
    /** Creates a FunctionRenderer for a single function. */
    public FunctionRenderer(Function theFunction) {
-      functionList.add(theFunction);
-      shapeFillPaintList = new PaintList[functionList.size()];
-      shapeFillPaintList[0] = new PaintList();
-      functionPaintList = new PaintList();
-      functionDefaultFillPaintList = new PaintList();
-      functionHighlightFillPaintList = new PaintList();
-      setFunctionPaint(0, Color.GREEN);
-      functionDefaultFillPaintList.setPaint(0, Color.GREEN);
-      functionHighlightFillPaintList.setPaint(0, Color.BLACK);
-      for (int i=0; i<theFunction.getNumberOfPoints(); i++)
-         shapeFillPaintList[0].setPaint(i, Color.GREEN);
+      addFunction(theFunction);
       XUnits = new Units(Units.UnitType.simmRadians);
       XDisplayUnits = new Units(Units.UnitType.simmDegrees);
       YUnits = new Units(Units.UnitType.simmMeters);
       YDisplayUnits = new Units(Units.UnitType.simmMeters);
    }
+   /**
+    * Separate function for potentially adding more than one function by the Excitation editor e.g. min/max
+    */
+    public void addFunction(final Function theFunction) {
+        functionList.add(theFunction);
+        int index = functionList.size()-1;
+        shapeFillPaintList = new PaintList();
+        functionPaintList = new PaintList();
+        functionDefaultFillPaintList = new PaintList();
+        functionHighlightFillPaintList = new PaintList();
+        setFunctionPaint(index, Color.GREEN);
+        functionDefaultFillPaintList.setPaint(index, Color.GREEN);
+        functionHighlightFillPaintList.setPaint(index, Color.BLACK);
+        for (int i=0; i<theFunction.getNumberOfPoints(); i++)
+           shapeFillPaintList.setPaint(i, Color.GREEN);
+    }
+   
    
    /**
     * Draws the visual representation of a single data item.
@@ -251,17 +258,17 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
     */
    public void highlightNode(int function, int point) {
       if (function < functionList.size())
-         shapeFillPaintList[function].setPaint(point, functionHighlightFillPaintList.getPaint(function));
+         shapeFillPaintList.setPaint(point, functionHighlightFillPaintList.getPaint(function));
    }
 
    public void unhighlightNode(int function, int point) {
       if (function < functionList.size())
-         shapeFillPaintList[function].setPaint(point, functionDefaultFillPaintList.getPaint(function));
+         shapeFillPaintList.setPaint(point, functionDefaultFillPaintList.getPaint(function));
    }
 
    public Paint getNodePaint(int function, int point) {
       if (function < functionList.size())
-         return shapeFillPaintList[function].getPaint(point);
+         return shapeFillPaintList.getPaint(point);
       else
          return Color.BLACK;
    }
@@ -340,4 +347,8 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    public void setYDisplayUnits(Units YDisplayUnits) {
       this.YDisplayUnits = YDisplayUnits;
    }
+
+    public ArrayList<Function> getFunctionList() {
+        return functionList;
+    }
 }

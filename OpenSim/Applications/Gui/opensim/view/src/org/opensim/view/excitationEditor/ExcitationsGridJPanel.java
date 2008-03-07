@@ -8,10 +8,11 @@ package org.opensim.view.excitationEditor;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JPanel;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlSet;
-import org.opensim.view.functionEditor.FunctionPanel;
+import org.opensim.modeling.Function;
 
 /**
  *
@@ -31,9 +32,10 @@ public class ExcitationsGridJPanel extends JPanel {
         setPreferredSize(new Dimension(200, 300));
     }
 
-    public void addColumn() {
+    public void addColumn(String colLabel) {
         // Append one Excitation column to the end by default
         ExcitationColumnJPanel newColumn = new ExcitationColumnJPanel();
+        newColumn.setLabel(colLabel);
         excitationColumns.add(newColumn);
         add(newColumn);
         //doLayout();
@@ -65,7 +67,7 @@ public class ExcitationsGridJPanel extends JPanel {
     private org.opensim.view.excitationEditor.ExcitationColumnJPanel excitationColumnJPanel1;
     // End of variables declaration//GEN-END:variables
 
-    void removeFunction(int row, int column) {
+    void removePanel(int row, int column) {
         getExcitationColumn(column).removePanel(row);
     }
 
@@ -73,8 +75,8 @@ public class ExcitationsGridJPanel extends JPanel {
         excitationColumns.get(col).exchange(row1, row2);
     }
     
-    void addFunction(int j, FunctionPanel excPanel, ControlLinear excitation) {
-        excitationColumns.get(j).append(excPanel, excitation);
+    void addExcitationPanel(int j, ExcitationPanel excPanel, ControlLinear excitation, Vector<Function> functions) {
+        excitationColumns.get(j).append(excPanel, excitation, functions);
     }
 
     void addColumn(String[] selNames) {
@@ -97,6 +99,15 @@ public class ExcitationsGridJPanel extends JPanel {
     void applyValueToSelectedNodes(double valueDouble) {
         for(int i=0; i<excitationColumns.size(); i++)
             excitationColumns.get(i).applyValueToSelectedNodes(valueDouble);
+    }
+
+    void removeSelectedNodes() {
+        for(int i=0; i<excitationColumns.size(); i++)
+            excitationColumns.get(i).removeSelectedNodes();
+    }
+
+    void removePanel(int idx, ExcitationPanel functionPanel) {
+        getExcitationColumn(idx).remove(functionPanel);
     }
 
 }

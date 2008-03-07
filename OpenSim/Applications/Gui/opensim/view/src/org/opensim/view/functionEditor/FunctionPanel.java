@@ -62,7 +62,7 @@ public class FunctionPanel extends ChartPanel
    int rightClickY = -1;
    private Point boxSelectPoint = null;
    private transient Rectangle2D boxSelectRectangle = null;
-   private ArrayList<FunctionNode> selectedNodes = new ArrayList<FunctionNode>(0);
+   protected ArrayList<FunctionNode> selectedNodes = new ArrayList<FunctionNode>(0);
    private ArrayList<FunctionNode> oldBoxSelectNodes = null;
    private final java.awt.Color boxSelectColor = java.awt.Color.green; // to get purple select box
    private XYLineAndShapeRendererWithHighlight renderer;
@@ -637,7 +637,7 @@ public class FunctionPanel extends ChartPanel
       return false;
    }
 
-   private void clearSelectedNodes() {
+   public void clearSelectedNodes() {   // Made public so that after nodes are removed nothing remains selected -Ayman
       // Unhighlight the selected nodes.
       for (int i = 0; i < selectedNodes.size(); i++)
          renderer.unhighlightNode(selectedNodes.get(i).series, selectedNodes.get(i).node);

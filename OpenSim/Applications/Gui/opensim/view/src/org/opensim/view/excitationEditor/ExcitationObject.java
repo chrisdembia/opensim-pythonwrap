@@ -14,7 +14,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.jfree.chart.plot.Plot;
-import org.opensim.view.functionEditor.FunctionPanel;
 
 /**
  *
@@ -23,12 +22,12 @@ import org.opensim.view.functionEditor.FunctionPanel;
  */
 public class ExcitationObject extends DefaultMutableTreeNode{
     
-    FunctionPanel excitationPanel;
+    ExcitationPanel excitationPanel;
     String name;
     /**
      * Creates a new instance of ExcitationObject
      */
-    public ExcitationObject(FunctionPanel aPlot, String name) {
+    public ExcitationObject(ExcitationPanel aPlot, String name) {
         this.excitationPanel = aPlot;
         this.name = name;
     }
@@ -42,7 +41,7 @@ public class ExcitationObject extends DefaultMutableTreeNode{
        return filtered;
     }
     
-    FunctionPanel getPlotPanel()
+    ExcitationPanel getPlotPanel()
     {
         return excitationPanel;
     }

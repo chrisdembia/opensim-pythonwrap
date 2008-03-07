@@ -40,7 +40,6 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         jFileMenu = new javax.swing.JMenu();
         jLoadMenuItem = new javax.swing.JMenuItem();
         jSaveMenuItem = new javax.swing.JMenuItem();
-        jExitMenuItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -59,10 +58,6 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
         jSaveMenuItem.setText("Save...");
         jSaveMenuItem.setToolTipText("Store excitations into an XML file");
         jFileMenu.add(jSaveMenuItem);
-
-        jExitMenuItem.setText("Exit");
-        jExitMenuItem.setToolTipText("Close Excitation Editor");
-        jFileMenu.add(jExitMenuItem);
 
         jMenuBar1.add(jFileMenu);
 
@@ -113,7 +108,6 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jExitMenuItem;
     private javax.swing.JMenu jFileMenu;
     private javax.swing.JMenuItem jLoadMenuItem;
     private javax.swing.JMenu jMenu1;

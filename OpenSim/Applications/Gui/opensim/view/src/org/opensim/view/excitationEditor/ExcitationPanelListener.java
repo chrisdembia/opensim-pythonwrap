@@ -15,9 +15,11 @@ import java.util.Vector;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlLinearNode;
+import org.opensim.modeling.Function;
 import org.opensim.view.functionEditor.FunctionNode;
 import org.opensim.view.functionEditor.FunctionPanel;
 import org.opensim.view.functionEditor.FunctionPanelListener;
+import org.opensim.view.functionEditor.FunctionXYSeries;
 
 /**
  *
@@ -25,13 +27,15 @@ import org.opensim.view.functionEditor.FunctionPanelListener;
  */
 public class ExcitationPanelListener implements FunctionPanelListener{
     FunctionPanel functionPanel;
-    ControlLinear function;
+    ControlLinear control;
+    Vector<Function> functions=new  Vector<Function>(3);
     /**
      * Creates a new instance of ExcitationPanelListener
      */
-    public ExcitationPanelListener(FunctionPanel functionPanel, ControlLinear excitation) {
+    public ExcitationPanelListener(FunctionPanel functionPanel, ControlLinear excitation, Vector<Function> functions) {
         this.functionPanel = functionPanel;
-        this.function = excitation;
+        this.control = excitation;
+        this.functions=functions;
     }
 
    public void toggleSelectedNode(int series, int node) {
@@ -48,7 +52,7 @@ public class ExcitationPanelListener implements FunctionPanelListener{
 
    private void cropDragVector(double dragVector[]) {
       // Don't allow any dragged node to go past either of its neighbors in the X dimension.
-       /* Taken out for now. Probably doesn't need function since values are in the dataset anyway!
+      /*
       double minGap = 99999999.9;
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       if (dragVector[0] < 0.0) {
@@ -56,7 +60,7 @@ public class ExcitationPanelListener implements FunctionPanelListener{
             int index = selectedNodes.get(i).node;
             if (index == 0 || functionPanel.isNodeSelected(0, index-1))
                continue;
-            double gap = function.getX(index) - function.getX(index-1);
+            double gap = control.getX(index) - control.getX(index-1);
             if (gap < minGap)
                minGap = gap;
          }
@@ -68,9 +72,9 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       } else if (dragVector[0] > 0.0) {
          for (int i=0; i<selectedNodes.size(); i++) {
             int index = selectedNodes.get(i).node;
-            if (index == function.getNumberOfPoints()-1 || functionPanel.isNodeSelected(0, index+1))
+            if (index == control.getNumberOfPoints()-1 || functionPanel.isNodeSelected(0, index+1))
                continue;
-            double gap = function.getX(index+1) - function.getX(index);
+            double gap = control.getX(index+1) - control.getX(index);
             if (gap < minGap)
                minGap = gap;
          }
@@ -84,29 +88,39 @@ public class ExcitationPanelListener implements FunctionPanelListener{
 
    public void dragSelectedNodes(int series, int node, double dragVector[]) {
       cropDragVector(dragVector);
-      // Now move all the function points by dragVector.
+      // Now move all the control points by dragVector.
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       for (int i=0; i<selectedNodes.size(); i++) {
          int index = selectedNodes.get(i).node;
-         ControlLinearNode controlNode = function.getControlValues().get(index);
+         ControlLinearNode controlNode;
+         if (series==0)
+             controlNode = control.getControlValues().get(index);
+         else if (series==1)
+            controlNode = control.getControlMinValues().get(index);
+         else
+            controlNode = control.getControlMaxValues().get(index);
+
          double newX = controlNode.getTime() + dragVector[0];
          double newY = controlNode.getValue() + dragVector[1];
          controlNode.setTime(newX);
          controlNode.setValue(newY);
          XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
-         seriesCollection.getSeries(series).getDataItem(index).setY(newY);
+         ((FunctionXYSeries)seriesCollection.getSeries(series)).updateByIndex(index, newX, newY);
+         // Update the function so that when render as line segment is called it's uptodate'
+         functions.get(series).setX(index, newX);
+         functions.get(series).setY(index, newY);
          seriesCollection.getSeries(series).fireSeriesChanged();
       }
       //updateXYTextFields();
       //setPendingChanges(true, true);
-      //notifyListeners(new FunctionModifiedEvent(model, object, function));
+      //notifyListeners(new FunctionModifiedEvent(model, object, control));
    }
 
    public void duplicateNode(int series, int node) {
-      if (function != null && node >= 0 && node < function.getControlValues().getSize()) {
+      if (control != null && node >= 0 && node < control.getControlValues().getSize()) {
          // Make a new point that is offset slightly in the X direction from
          // the point to be duplicated.
-         ControlLinearNode controlNode = function.getControlValues().get(node);
+         ControlLinearNode controlNode = control.getControlValues().get(node);
           
          double newX = controlNode.getTime() + 0.00001;
          double newY = controlNode.getValue();
@@ -115,8 +129,8 @@ public class ExcitationPanelListener implements FunctionPanelListener{
    }
 
    public void deleteNode(int series, int node) {
-      if (function != null && node >= 0 && node < function.getControlValues().getSize()) {
-         //if (function.deletePoint(node)) {
+      if (control != null && node >= 0 && node < control.getControlValues().getSize()) {
+         //if (control.deletePoint(node)) {
             //xySeries.delete(node, node);
             //setPendingChanges(true, true);
          //}
@@ -124,8 +138,8 @@ public class ExcitationPanelListener implements FunctionPanelListener{
    }
 
    public void addNode(int series, double x, double y) {
-      if (function != null) {
-         //function.addPoint(x, y);
+      if (control != null) {
+         //control.addPoint(x, y);
          //xySeries.add(x, y);
          //setPendingChanges(true, true);
       }
@@ -135,11 +149,14 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       for (int i=0; i<selectedNodes.size(); i++) {
          int index = selectedNodes.get(i).node;
-         ControlLinearNode controlNode = function.getControlValues().get(index);
+         ControlLinearNode controlNode = control.getControlValues().get(index);
          double newX = controlNode.getTime();
          double newY = newValue;
          controlNode.setTime(newX);
          controlNode.setValue(newY);
+         // Update underlying function
+         functions.get(series).setX(index, newX);
+         functions.get(series).setY(index, newY);
          XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
          seriesCollection.getSeries(series).getDataItem(index).setY(newY);
          seriesCollection.getSeries(series).fireSeriesChanged();
@@ -147,19 +164,17 @@ public class ExcitationPanelListener implements FunctionPanelListener{
        
    }
 
-    public void deleteSelectedNodes(int series) {
-      ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
-      // Need to sort indices so that nodes are deleted from last to first thus respecting indices
-      Vector<Integer> sortedIndices = new Vector<Integer>(selectedNodes.size());
-      for (int i=0; i<selectedNodes.size(); i++) {
-         int index = selectedNodes.get(i).node;
-         sortedIndices.add(new Integer(index));
-      }
-      Collections.sort(sortedIndices);
-      for (int i=selectedNodes.size()-1; i>=0; i--) {
-         int index = sortedIndices.get(i);
-         //functionPanel.removeNode();
-      }
-    }
+   public void deleteSelectedNodes() {
  
+   }
+ 
+    public void addFunction(Function aFunction)
+    {
+        functions.add(aFunction);
+    }
+    
+    public void removeFunction(Function aFunction)
+    {
+        functions.remove(aFunction);
+    }
 }

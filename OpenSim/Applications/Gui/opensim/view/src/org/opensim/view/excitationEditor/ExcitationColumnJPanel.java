@@ -6,12 +6,11 @@
 
 package org.opensim.view.excitationEditor;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Vector;
 import org.opensim.modeling.ControlLinear;
+import org.opensim.modeling.Function;
 import org.opensim.view.functionEditor.FunctionPanel;
-import org.opensim.view.functionEditor.FunctionPanelListener;
 
 /**
  *
@@ -19,8 +18,11 @@ import org.opensim.view.functionEditor.FunctionPanelListener;
  */
 public class ExcitationColumnJPanel extends javax.swing.JPanel {
     
-    Vector<FunctionPanel> cache= new Vector<FunctionPanel>(4);
-    Vector<ExcitationPanelListener> listeners = new Vector<ExcitationPanelListener>(4);
+    Vector<ExcitationPanel> cache= new Vector<ExcitationPanel>(4);
+    // When adding panels, the only way to specify location is adding them as JComponents at index. 
+    // this number accounts for components other than ExcitationPanels in 
+    int componentOffset=1;  
+    //Vector<ExcitationPanelListener> listeners = new Vector<ExcitationPanelListener>(4);
     /** Creates new form ExcitationColumnJPanel */
     public ExcitationColumnJPanel() {
         initComponents();
@@ -34,16 +36,21 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
+        jColumnNameLabel = new javax.swing.JLabel();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
         setToolTipText("\"Column of Excitations\"");
         setAutoscrolls(true);
         setName("name");
+        jColumnNameLabel.setText("jColumnLabel");
+        add(jColumnNameLabel);
+
     }// </editor-fold>//GEN-END:initComponents
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jColumnNameLabel;
     // End of variables declaration//GEN-END:variables
     
     void exchange(int position1, int position2)
@@ -59,29 +66,35 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
             lower = position1;            
         }
             
-        FunctionPanel p1 = getPanel(lower);
-        FunctionPanel p2 = getPanel(upper);
+        ExcitationPanel p1 = getPanel(lower);
+        ExcitationPanel p2 = getPanel(upper);
         this.remove(p1);
         this.remove(p2);
-        this.add(p1, upper);
-        this.add(p2, lower);
+        this.add(p1, upper+1);
+        this.add(p2, lower+1);
         validate();
     }
 
     void removePanel(int row) {
-        FunctionPanel fp = cache.get(row);
+        ExcitationPanel fp = cache.get(row);
         int index = cache.indexOf(fp);
         remove(fp);
-        listeners.removeElementAt(index); // wouldn'r hurt to remove listener from panel as well'
+        //listeners.removeElementAt(index); // wouldn'r hurt to remove listener from panel as well'
         validate();
     }
     
-    public FunctionPanel getPanel(int row)
-    {
-        return (FunctionPanel) getComponents()[row];
+    void removePanel(ExcitationPanel aPanel) {
+         remove(aPanel);
+        //listeners.removeElementAt(index); // wouldn'r hurt to remove listener from panel as well'
+        validate();
     }
     
-    void set(int row, FunctionPanel panel)
+    public ExcitationPanel getPanel(int row)
+    {
+        return (ExcitationPanel) getComponents()[row+1];
+    }
+    
+    void set(int row, ExcitationPanel panel)
     {
         add(panel);
         if (cache.size()<row+1){  // We should make sure cache.size()
@@ -90,14 +103,14 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
         cache.set(row, panel);
     }
     
-    void append(FunctionPanel excitationPanel, ControlLinear excitation)
+    void append(ExcitationPanel excitationPanel, ControlLinear excitation, Vector<Function> functionsToEdit)
     {
         excitationPanel.setPreferredSize(new Dimension(300, 100));
         add(excitationPanel);
         cache.add(excitationPanel);
         // Create listener and add it too
-        ExcitationPanelListener listener= new ExcitationPanelListener(excitationPanel, excitation);
-        listeners.add(listener);
+        ExcitationPanelListener listener= new ExcitationPanelListener(excitationPanel, excitation, functionsToEdit);
+        //listeners.add(listener);
         excitationPanel.addFunctionPanelListener(listener);
     }
     public ExcitationColumnJPanel(String[] names) {
@@ -106,7 +119,21 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
     }
     
     public void applyValueToSelectedNodes(double valueDouble) {
-        for(int i=0; i<listeners.size(); i++)
-            listeners.get(i).setSelectedNodesToValue(0, valueDouble);
+        for(int i=0; i<cache.size(); i++)
+            cache.get(i).setSelectedNodesToValue(0, valueDouble);
+    }
+    
+    public void removeSelectedNodes() {
+        
+        for(int i=0; i<cache.size(); i++)
+            cache.get(i).deleteSelectedNodes();
+    }
+
+    public String toString() {
+        return jColumnNameLabel.getText();
+    }
+
+    void setLabel(String colLabel) {
+        jColumnNameLabel.setText(colLabel);
     }
 }

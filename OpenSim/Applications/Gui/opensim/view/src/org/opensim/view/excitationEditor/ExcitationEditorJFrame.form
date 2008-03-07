@@ -24,12 +24,6 @@
                 <Property name="toolTipText" type="java.lang.String" value="Store excitations into an XML file"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jExitMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Exit"/>
-                <Property name="toolTipText" type="java.lang.String" value="Close Excitation Editor"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
