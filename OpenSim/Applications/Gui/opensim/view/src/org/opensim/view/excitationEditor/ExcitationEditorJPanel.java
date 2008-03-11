@@ -10,6 +10,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Shape;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -80,8 +81,16 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jValueToFormattedTextField.getInputMap().put(KeyStroke.getKeyStroke(
               KeyEvent.VK_ENTER, 0),
               "check");
-        jValueToFormattedTextField.getActionMap().put("check", new handleReturnAction());
-
+        jValueToFormattedTextField.getActionMap().put("check", new handleReturnAction());   
+        // Drag and Drop support
+        jExcitationsTree.setDragEnabled(true);
+        MoveExcitationHandler th = new MoveExcitationHandler(excitationGridPanel);
+        jExcitationsTree.setTransferHandler(th);
+        jExcitationsTree.setDropTarget(new TreeDropTarget(th));
+        /**
+        jExcitationsTree.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACKSPACE),
+                            "doSomething");
+                            */
     }
     
     /** This method is called from within the constructor to
@@ -822,4 +831,65 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
 
        }
    }
+   /*
+   class ExcitationTreeTransferHandler extends TransferHandler {
+       //The data type exported from JTree.
+       DataFlavor flavor = DataFlavor.stringFlavor;
+       
+       
+       public boolean importData(JComponent c, Transferable t) {
+           if (hasStringFlavor(t.getTransferDataFlavors())) {
+                try {
+                    String name = (String)t.getTransferData(flavor);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (UnsupportedFlavorException ex) {
+                    ex.printStackTrace();
+                }
+               
+           }
+           return false;
+       }
+       
+       protected boolean hasStringFlavor(DataFlavor[] flavors) {
+           
+           for (int i = 0; i < flavors.length; i++) {
+               if (flavor.equals(flavors[i])) {
+                   return true;
+               }
+           }
+           return false;
+       }
+       public boolean canImport(JComponent c, DataFlavor[] flavors) {
+            return hasStringFlavor(flavors);
+       }
+
+        protected void exportDone(JComponent source, Transferable data, int action) {
+            super.exportDone(source, data, action);
+        }
+
+        protected Transferable createTransferable(JComponent c) {
+            JTree source = (JTree)c;
+            TreePath[]  selected = source.getSelectionPaths();
+            TreePath first = selected[0];   // Must have at least one other wise shouldn't be here!'
+            return null;
+        }
+
+        public int getSourceActions(JComponent c) {
+            int retValue;
+            
+            retValue = super.getSourceActions(c);
+            return retValue;
+        }
+
+   }
+   private class DragMouseAdapter extends MouseAdapter {
+    public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
+        JComponent c = (JComponent)e.getSource();
+        TransferHandler handler = c.getTransferHandler();
+        handler.exportAsDrag(c, e, TransferHandler.MOVE);
+    }
+}
+*/
 }
