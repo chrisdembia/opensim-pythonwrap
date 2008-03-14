@@ -10,6 +10,7 @@
 package org.opensim.view.functionEditor;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Shape;
@@ -24,13 +25,13 @@ import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRendererState;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer.State;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.text.TextUtilities;
 import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.TextAnchor;
 import org.jfree.util.PaintList;
 import org.jfree.util.PublicCloneable;
-import org.jfree.util.ShapeUtilities;
 import org.opensim.modeling.ArrayXYPoint;
 import org.opensim.modeling.Function;
 import org.opensim.modeling.Units;
@@ -44,7 +45,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
         Cloneable,
         PublicCloneable,
         Serializable {
-
+   
    private ArrayList<Function> functionList = new ArrayList<Function>(0);
    
    /** For each control point in each function, the shape fill color,
@@ -58,12 +59,17 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    private PaintList functionDefaultFillPaintList;
    /** For each function, the shape fill color for selected control points. */
    private PaintList functionHighlightFillPaintList;
-
+   
    private Units XUnits;         // units of array of X values
    private Units XDisplayUnits;  // units for displaying X values to user
    private Units YUnits;         // units of array of Y values
    private Units YDisplayUnits;  // units for displaying Y values to user
-
+   
+   /** the string to display in the lower left corner of the plot area */
+   private String interiorTitle = null;
+   private Font interiorTitleFont = new Font("SansSerif", Font.BOLD, 12);
+   private Paint interiorTitlePaint = Color.RED;
+   
    /** Creates a FunctionRenderer for a single function. */
    public FunctionRenderer(Function theFunction) {
       addFunction(theFunction);
@@ -75,19 +81,19 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    /**
     * Separate function for potentially adding more than one function by the Excitation editor e.g. min/max
     */
-    public void addFunction(final Function theFunction) {
-        functionList.add(theFunction);
-        int index = functionList.size()-1;
-        shapeFillPaintList = new PaintList();
-        functionPaintList = new PaintList();
-        functionDefaultFillPaintList = new PaintList();
-        functionHighlightFillPaintList = new PaintList();
-        setFunctionPaint(index, Color.GREEN);
-        functionDefaultFillPaintList.setPaint(index, Color.GREEN);
-        functionHighlightFillPaintList.setPaint(index, Color.BLACK);
-        for (int i=0; i<theFunction.getNumberOfPoints(); i++)
-           shapeFillPaintList.setPaint(i, Color.GREEN);
-    }
+   public void addFunction(final Function theFunction) {
+      functionList.add(theFunction);
+      int index = functionList.size()-1;
+      shapeFillPaintList = new PaintList();
+      functionPaintList = new PaintList();
+      functionDefaultFillPaintList = new PaintList();
+      functionHighlightFillPaintList = new PaintList();
+      setFunctionPaint(index, Color.GREEN);
+      functionDefaultFillPaintList.setPaint(index, Color.GREEN);
+      functionHighlightFillPaintList.setPaint(index, Color.BLACK);
+      for (int i=0; i<theFunction.getNumberOfPoints(); i++)
+         shapeFillPaintList.setPaint(i, Color.GREEN);
+   }
    
    
    /**
@@ -125,7 +131,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       if (!getItemVisible(series, item)) {
          return;
       }
-
+      
       // TODO:
       // get rid of getDrawSeriesLineAsPath() -- always draw as path
       double f1 = rangeAxis.getLowerBound();
@@ -161,6 +167,9 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
          
          drawSecondaryPass(g2, plot, dataset, pass, series, item,
                  domainAxis, dataArea, rangeAxis, crosshairState, entities);
+         
+         if (item == dataset.getItemCount(series) - 1)
+            drawInteriorTitle(g2, plot, series, item, domainAxis, rangeAxis, dataArea, (State) state);
       }
    }
    
@@ -191,13 +200,13 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
            ValueAxis domainAxis,
            ValueAxis rangeAxis,
            Rectangle2D dataArea) {
-
+      
       if (series >= functionList.size())
          return;
-
+      
       RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
       RectangleEdge yAxisLocation = plot.getRangeAxisEdge();
-
+      
       State s = (State) state;
       ArrayXYPoint xyPts = functionList.get(series).renderAsLineSegments(item);
       if (xyPts != null) {
@@ -247,7 +256,21 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       g2.setPaint(getFunctionPaint(series));
       g2.draw(shape);
    }
-
+   
+   private void drawInteriorTitle(Graphics2D g2, XYPlot plot, int series, int item, ValueAxis domainAxis,
+           ValueAxis rangeAxis, Rectangle2D dataArea, State state) {
+      RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
+      RectangleEdge yAxisLocation = plot.getRangeAxisEdge();
+      
+      if (this.interiorTitle != null) {
+         g2.setFont(this.interiorTitleFont);
+         g2.setPaint(this.interiorTitlePaint);
+         double textX = domainAxis.valueToJava2D(domainAxis.getLowerBound(), dataArea, xAxisLocation) + 5;
+         double textY = rangeAxis.valueToJava2D(rangeAxis.getLowerBound(), dataArea, yAxisLocation) - 5;
+         TextUtilities.drawAlignedString(this.interiorTitle, g2, (float)textX, (float)textY, TextAnchor.BOTTOM_LEFT);
+      }
+   }
+   
    /**
     * Function colors
     * Each function (series) has its own color, which is used for the
@@ -260,12 +283,12 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       if (function < functionList.size())
          shapeFillPaintList.setPaint(point, functionHighlightFillPaintList.getPaint(function));
    }
-
+   
    public void unhighlightNode(int function, int point) {
       if (function < functionList.size())
          shapeFillPaintList.setPaint(point, functionDefaultFillPaintList.getPaint(function));
    }
-
+   
    public Paint getNodePaint(int function, int point) {
       if (function < functionList.size())
          return shapeFillPaintList.getPaint(point);
@@ -294,14 +317,14 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
          }
       }
    }
-
+   
    public Paint getFunctionDefaultFillPaint(int function) {
       if (function < functionList.size())
          return functionDefaultFillPaintList.getPaint(function);
       else
          return Color.BLACK;
    }
-
+   
    public void setFunctionHighlightFillPaint(int function, Paint paint) {
       if (function < functionList.size()) {
          Paint oldPaint = functionHighlightFillPaintList.getPaint(function);
@@ -313,14 +336,14 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
          }
       }
    }
-
+   
    public Paint getFunctionHighlightFillPaint(int function) {
       if (function < functionList.size())
          return functionHighlightFillPaintList.getPaint(function);
       else
          return Color.BLACK;
    }
-
+   
    public void setFunctionPaint(int function, Paint paint) {
       functionPaintList.setPaint(function, paint);
    }
@@ -331,24 +354,36 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       else
          return Color.BLACK;
    }
-
+   
    public void setXUnits(Units XUnits) {
       this.XUnits = XUnits;
    }
-
+   
    public void setXDisplayUnits(Units XDisplayUnits) {
       this.XDisplayUnits = XDisplayUnits;
    }
-
+   
    public void setYUnits(Units YUnits) {
       this.YUnits = YUnits;
    }
-
+   
    public void setYDisplayUnits(Units YDisplayUnits) {
       this.YDisplayUnits = YDisplayUnits;
    }
-
-    public ArrayList<Function> getFunctionList() {
-        return functionList;
-    }
+   
+   public void setInteriorTitle(String title) {
+      this.interiorTitle = title;
+   }
+   
+   public void setInteriorTitlePaint(Paint paint) {
+      this.interiorTitlePaint = paint;
+   }
+   
+   public void setInteriorTitleFont(Font font) {
+      this.interiorTitleFont = font;
+   }
+   
+   public ArrayList<Function> getFunctionList() {
+      return functionList;
+   }
 }

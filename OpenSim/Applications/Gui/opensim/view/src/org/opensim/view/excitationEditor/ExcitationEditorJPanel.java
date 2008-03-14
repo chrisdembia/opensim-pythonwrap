@@ -747,6 +747,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
          renderer.setBaseSeriesVisibleInLegend(false);
          renderer.setDrawOutlines(true);
          renderer.setUseFillPaint(true);
+         renderer.setInteriorTitle(excitation.getName().replace(".excitation",""));
          ValueAxis va = xyPlot.getRangeAxis();
          if (va instanceof NumberAxis) {
             NumberAxis na = (NumberAxis) va;
