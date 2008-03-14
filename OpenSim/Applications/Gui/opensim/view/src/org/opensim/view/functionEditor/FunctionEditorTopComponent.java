@@ -159,6 +159,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       backupFunctionButton = new javax.swing.JButton();
       restoreFunctionButton = new javax.swing.JButton();
       crosshairsCheckBox = new javax.swing.JCheckBox();
+      PropertiesButton = new javax.swing.JButton();
 
       xValueTextField.setMaximumSize(new java.awt.Dimension(100, 21));
       xValueTextField.setMinimumSize(new java.awt.Dimension(100, 21));
@@ -182,11 +183,11 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       functionJPanel.setLayout(functionJPanelLayout);
       functionJPanelLayout.setHorizontalGroup(
          functionJPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(0, 493, Short.MAX_VALUE)
+         .add(0, 499, Short.MAX_VALUE)
       );
       functionJPanelLayout.setVerticalGroup(
          functionJPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(0, 234, Short.MAX_VALUE)
+         .add(0, 281, Short.MAX_VALUE)
       );
 
       org.openide.awt.Mnemonics.setLocalizedText(xValueLabel, "X");
@@ -244,6 +245,13 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
          }
       });
 
+      org.openide.awt.Mnemonics.setLocalizedText(PropertiesButton, "Properties...");
+      PropertiesButton.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            PropertiesButtonActionPerformed(evt);
+         }
+      });
+
       org.jdesktop.layout.GroupLayout FunctionEditorPanelLayout = new org.jdesktop.layout.GroupLayout(FunctionEditorPanel);
       FunctionEditorPanel.setLayout(FunctionEditorPanelLayout);
       FunctionEditorPanelLayout.setHorizontalGroup(
@@ -251,32 +259,34 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
          .add(FunctionEditorPanelLayout.createSequentialGroup()
             .add(FunctionEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                .add(FunctionEditorPanelLayout.createSequentialGroup()
-                  .addContainerGap()
-                  .add(typeLabel)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(typeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .add(41, 41, 41)
-                  .add(backupFunctionButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .add(34, 34, 34)
-                  .add(restoreFunctionButton))
-               .add(FunctionEditorPanelLayout.createSequentialGroup()
                   .add(90, 90, 90)
                   .add(functionDescriptionLabel))
                .add(FunctionEditorPanelLayout.createSequentialGroup()
                   .addContainerGap()
-                  .add(FunctionEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                     .add(FunctionEditorPanelLayout.createSequentialGroup()
-                        .add(10, 10, 10)
-                        .add(xValueLabel)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(xValueTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(21, 21, 21)
-                        .add(yValueLabel)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(yValueTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(28, 28, 28)
-                        .add(crosshairsCheckBox))
-                     .add(functionJPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                  .add(functionJPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+               .add(FunctionEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, FunctionEditorPanelLayout.createSequentialGroup()
+                     .add(22, 22, 22)
+                     .add(xValueLabel)
+                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                     .add(xValueTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(21, 21, 21)
+                     .add(yValueLabel)
+                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                     .add(yValueTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(28, 28, 28)
+                     .add(crosshairsCheckBox)
+                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                     .add(PropertiesButton))
+                  .add(org.jdesktop.layout.GroupLayout.LEADING, FunctionEditorPanelLayout.createSequentialGroup()
+                     .addContainerGap()
+                     .add(typeLabel)
+                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                     .add(typeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(41, 41, 41)
+                     .add(backupFunctionButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                     .add(34, 34, 34)
+                     .add(restoreFunctionButton))))
             .addContainerGap())
       );
       FunctionEditorPanelLayout.setVerticalGroup(
@@ -286,14 +296,15 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
             .add(functionDescriptionLabel)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(functionJPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(17, 17, 17)
             .add(FunctionEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(xValueLabel)
                .add(xValueTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                .add(yValueLabel)
                .add(yValueTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-               .add(crosshairsCheckBox))
-            .add(36, 36, 36)
+               .add(crosshairsCheckBox)
+               .add(PropertiesButton))
+            .add(26, 26, 26)
             .add(FunctionEditorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                .add(restoreFunctionButton)
                .add(typeComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -307,13 +318,18 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
       this.setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(FunctionEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+         .add(FunctionEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-         .add(FunctionEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+         .add(FunctionEditorScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
       );
    }// </editor-fold>//GEN-END:initComponents
+
+   private void PropertiesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PropertiesButtonActionPerformed
+      if (functionPanel != null)
+         functionPanel.doEditChartProperties();
+   }//GEN-LAST:event_PropertiesButtonActionPerformed
    
    private void crosshairsCheckBoxStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_crosshairsCheckBoxStateChanged
       if (function != null && functionPanel != null) {
@@ -483,6 +499,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JPanel FunctionEditorPanel;
    private javax.swing.JScrollPane FunctionEditorScrollPane;
+   private javax.swing.JButton PropertiesButton;
    private javax.swing.JButton backupFunctionButton;
    private javax.swing.JCheckBox crosshairsCheckBox;
    private javax.swing.JLabel functionDescriptionLabel;
@@ -644,6 +661,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
             xValueTextField.setEnabled(false);
             yValueTextField.setEnabled(false);
             crosshairsCheckBox.setEnabled(false);
+            PropertiesButton.setEnabled(false);
             valueField.addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(java.awt.event.ActionEvent evt) {
                   constantValueActionPerformed(evt);
@@ -724,6 +742,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
             xValueTextField.setEnabled(true);
             yValueTextField.setEnabled(true);
             crosshairsCheckBox.setEnabled(true);
+            PropertiesButton.setEnabled(true);
             // Update the crosshair state, to handle cases like:
             // 1. while editing function, turned crosshairs on
             // 2. switched type to Constant
@@ -738,6 +757,7 @@ final public class FunctionEditorTopComponent extends TopComponent implements Ob
          xValueTextField.setEnabled(false);
          yValueTextField.setEnabled(false);
          crosshairsCheckBox.setEnabled(false);
+         PropertiesButton.setEnabled(false);
          functionDescriptionLabel.setText("");
          clearChangeListenerList();
       }
