@@ -6,6 +6,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import org.opensim.utils.FileUtils;
 import org.opensim.view.pub.ViewDB;
 
 //===========================================================================
@@ -352,22 +353,31 @@ public class CameraEditorPanel extends javax.swing.JPanel implements Observer {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
       // TODO: file chooser
-      String fileName = "C:/test.cam";
-      CameraDB.getInstance().saveCameras(fileName);
+      String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.getFileFilter("*.cam", "Save camera dolly settings file"), true, "dollyFile.cam");
+      if(fileName != null){
+        CameraDB.getInstance().saveCameras(fileName);
+      }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
       // TODO: file chooser
-      String fileName = "C:/test.cam";
+      String fileName = FileUtils.getInstance().browseForFilename(FileUtils.getFileFilter(".cam", "Load camera dolly settings file"));
       CameraDB.getInstance().loadCameras(fileName);
     }//GEN-LAST:event_loadButtonActionPerformed
 
     private void removeCameraButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeCameraButtonActionPerformed
 // TODO add your handling code here:
+       int i = camerasListTable.getSelectedRow();
+       if(i >= 0){
+         CameraDB.instance.removeCamera(i);
+       }
     }//GEN-LAST:event_removeCameraButtonActionPerformed
 
     private void addCameraButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCameraButtonActionPerformed
-       CameraDB.getInstance().createCamera("MyCam");
+       int nc = CameraDB.getInstance().getNumCameras()+1;
+       String cameraName = "Camera ";
+       cameraName = cameraName.concat(String.valueOf(nc));
+       CameraDB.getInstance().createCamera(cameraName);
     }//GEN-LAST:event_addCameraButtonActionPerformed
 
     private void setFromViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setFromViewButtonActionPerformed

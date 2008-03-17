@@ -39,6 +39,16 @@ public final class CameraDB extends Observable {
       return camera;
    }
 
+      public void removeCamera(int i) {
+      Camera camera = cameras.get(i);
+      cameras.remove(camera);
+
+      setChanged();
+      notifyObservers(new CameraEvent(this, camera, CameraEvent.Operation.CameraRemoved));
+      
+      return;
+   }
+   
    public void fireEvent(CameraEvent event) {
       if(!suppressEvents) {
          setChanged();
