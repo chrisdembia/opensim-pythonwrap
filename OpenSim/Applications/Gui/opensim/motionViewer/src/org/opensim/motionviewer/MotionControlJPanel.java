@@ -85,7 +85,7 @@ public class MotionControlJPanel extends javax.swing.JPanel
             double speed = (double)(((Double)smodel.getValue()).doubleValue());
             double factor = (double)direction*1e-9*speed;
             if (org.opensim.view.OpenSimCanvas.movieWriterReady) { // check if movie is being written in any view
-                masterMotion.advanceTime(speed/15.0); // vtkAVIWriter writes at 15 fps, so advance time by (speed/15) seconds
+                masterMotion.advanceTime(direction*speed/15.0); // vtkAVIWriter writes at 15 fps, so advance time by (speed/15) seconds
                 //System.out.println("writingMovie masterMotion current time = "+(masterMotion.getCurrentTime()));
             }
             else {
