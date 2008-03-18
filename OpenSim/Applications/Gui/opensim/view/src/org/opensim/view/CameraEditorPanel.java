@@ -353,7 +353,7 @@ public class CameraEditorPanel extends javax.swing.JPanel implements Observer {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
       // TODO: file chooser
-      String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.getFileFilter("*.cam", "Save camera dolly settings file"), true, "dollyFile.cam");
+      String fileName = FileUtils.getInstance().browseForFilenameToSave(FileUtils.getFileFilter(".cam", "Save camera dolly settings file"), true, "dollyFile.cam");
       if(fileName != null){
         CameraDB.getInstance().saveCameras(fileName);
       }
@@ -362,8 +362,8 @@ public class CameraEditorPanel extends javax.swing.JPanel implements Observer {
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
       // TODO: file chooser
       String fileName = FileUtils.getInstance().browseForFilename(FileUtils.getFileFilter(".cam", "Load camera dolly settings file"));
-      if(fileName != null){
-        CameraDB.getInstance().saveCameras(fileName);
+       if(fileName != null){
+        CameraDB.getInstance().loadCameras(fileName);
       }
     }//GEN-LAST:event_loadButtonActionPerformed
 
