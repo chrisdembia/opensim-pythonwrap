@@ -126,15 +126,6 @@
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/rewindToStart_beveled_selected.png"/>
             </Property>
@@ -166,15 +157,6 @@
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
-            </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
             </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/reverseStep_beveled_selected.png"/>
@@ -208,15 +190,6 @@
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/reverse_beveled_selected.png"/>
             </Property>
@@ -248,15 +221,6 @@
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
-            </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
             </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/pause_beveled_selected.png"/>
@@ -290,15 +254,6 @@
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/play_beveled_selected.png"/>
             </Property>
@@ -331,15 +286,6 @@
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/step_beveled_selected.png"/>
             </Property>
@@ -371,15 +317,6 @@
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
-            </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[24, 16]"/>
             </Property>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/opensim/motionviewer/images/fastforwardToEnd_beveled_selected.png"/>

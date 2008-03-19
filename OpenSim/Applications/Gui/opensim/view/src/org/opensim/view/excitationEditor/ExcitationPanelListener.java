@@ -1,4 +1,29 @@
 /*
+ * Copyright (c)  2005-2008, Stanford University
+ * Use of the OpenSim software in source form is permitted provided that the following
+ * conditions are met:
+ * 	1. The software is used only for non-commercial research and education. It may not
+ *     be used in relation to any commercial activity.
+ * 	2. The software is not distributed or redistributed.  Software distribution is allowed 
+ *     only through https://simtk.org/home/opensim.
+ * 	3. Use of the OpenSim software or derivatives must be acknowledged in all publications,
+ *      presentations, or documents describing work in which OpenSim or derivatives are used.
+ * 	4. Credits to developers may not be removed from executables
+ *     created from modifications of the source.
+ * 	5. Modifications of source code must retain the above copyright notice, this list of
+ *     conditions and the following disclaimer. 
+ * 
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ *  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ *  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ *  SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ *  TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
+ *  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ *  OR BUSINESS INTERRUPTION) OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ *  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+/*
  * ExcitationPanelListener.java
  *
  * Created on February 14, 2008, 10:21 AM
@@ -10,12 +35,13 @@
 package org.opensim.view.excitationEditor;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Vector;
+import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.opensim.modeling.ControlLinear;
 import org.opensim.modeling.ControlLinearNode;
 import org.opensim.modeling.Function;
+import org.opensim.modeling.SetControlNodes;
 import org.opensim.view.functionEditor.FunctionNode;
 import org.opensim.view.functionEditor.FunctionPanel;
 import org.opensim.view.functionEditor.FunctionPanelListener;
@@ -52,7 +78,7 @@ public class ExcitationPanelListener implements FunctionPanelListener{
 
    private void cropDragVector(double dragVector[]) {
       // Don't allow any dragged node to go past either of its neighbors in the X dimension.
-      /*
+      
       double minGap = 99999999.9;
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       if (dragVector[0] < 0.0) {
@@ -60,7 +86,9 @@ public class ExcitationPanelListener implements FunctionPanelListener{
             int index = selectedNodes.get(i).node;
             if (index == 0 || functionPanel.isNodeSelected(0, index-1))
                continue;
-            double gap = control.getX(index) - control.getX(index-1);
+            ControlLinearNode cn= getControlNodeForSeries(selectedNodes.get(i).series, index);
+            ControlLinearNode cnMinus1= getControlNodeForSeries(selectedNodes.get(i).series, index-1);
+            double gap = cn.getTime() - cnMinus1.getTime();
             if (gap < minGap)
                minGap = gap;
          }
@@ -72,9 +100,11 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       } else if (dragVector[0] > 0.0) {
          for (int i=0; i<selectedNodes.size(); i++) {
             int index = selectedNodes.get(i).node;
-            if (index == control.getNumberOfPoints()-1 || functionPanel.isNodeSelected(0, index+1))
+            if (index == getControlNodeCountForSeries(selectedNodes.get(i).series)-1 || functionPanel.isNodeSelected(selectedNodes.get(i).series, index+1))
                continue;
-            double gap = control.getX(index+1) - control.getX(index);
+            ControlLinearNode cn= getControlNodeForSeries(selectedNodes.get(i).series, index);
+            ControlLinearNode cnPlus1= getControlNodeForSeries(selectedNodes.get(i).series, index+1);
+            double gap = cnPlus1.getTime() - cn.getTime();
             if (gap < minGap)
                minGap = gap;
          }
@@ -83,7 +113,7 @@ public class ExcitationPanelListener implements FunctionPanelListener{
          // number than this value.
          if (dragVector[0] > minGap)
             dragVector[0] = minGap;
-      }*/
+      }
    }
 
    public void dragSelectedNodes(int series, int node, double dragVector[]) {
@@ -92,14 +122,7 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       for (int i=0; i<selectedNodes.size(); i++) {
          int index = selectedNodes.get(i).node;
-         ControlLinearNode controlNode;
-         if (series==0)
-             controlNode = control.getControlValues().get(index);
-         else if (series==1)
-            controlNode = control.getControlMinValues().get(index);
-         else
-            controlNode = control.getControlMaxValues().get(index);
-
+         ControlLinearNode controlNode=getControlNodeForSeries(series, index);
          double newX = controlNode.getTime() + dragVector[0];
          double newY = controlNode.getValue() + dragVector[1];
          controlNode.setTime(newX);
@@ -117,31 +140,51 @@ public class ExcitationPanelListener implements FunctionPanelListener{
    }
 
    public void duplicateNode(int series, int node) {
-      if (control != null && node >= 0 && node < control.getControlValues().getSize()) {
+      if (control != null && node >= 0 && node < getControlNodeCountForSeries(series)) {
          // Make a new point that is offset slightly in the X direction from
          // the point to be duplicated.
-         ControlLinearNode controlNode = control.getControlValues().get(node);
+         ControlLinearNode controlNode;
+         if (series==0)
+            controlNode = control.getControlValues().get(node);
+         else if (series==1)
+            controlNode = control.getControlMinValues().get(node);
+         else
+            controlNode = control.getControlMaxValues().get(node);
           
          double newX = controlNode.getTime() + 0.00001;
          double newY = controlNode.getValue();
-         addNode(0, newX, newY);
+         // function, control, series
+         functions.get(series).addPoint(newX, newY);
+         getSelectedControlNodes(series).insert(node, controlNode);
+         XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
+         XYSeries dSeries=seriesCollection.getSeries(series);
+         dSeries.add(newX, newY);
       }
    }
 
    public void deleteNode(int series, int node) {
       if (control != null && node >= 0 && node < control.getControlValues().getSize()) {
-         //if (control.deletePoint(node)) {
-            //xySeries.delete(node, node);
-            //setPendingChanges(true, true);
-         //}
+         // node is to be removed from:
+         // function, control, series
+         functions.get(series).deletePoint(node);
+         XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
+         XYSeries dSeries=seriesCollection.getSeries(series);
+         dSeries.delete(node, node);
+         if (series==0)
+            control.getControlValues().remove(node);
+         else if (series==1)
+            control.getControlMinValues().remove(node);
+         else
+            control.getControlMaxValues().remove(node);
       }
    }
 
    public void addNode(int series, double x, double y) {
       if (control != null) {
-         //control.addPoint(x, y);
-         //xySeries.add(x, y);
-         //setPendingChanges(true, true);
+         functions.get(series).addPoint(x, y);
+         XYSeriesCollection seriesCollection = (XYSeriesCollection) functionPanel.getChart().getXYPlot().getDataset();
+         seriesCollection.getSeries(series).add(x, y);
+         // Now the control 
       }
    }
 
@@ -149,7 +192,7 @@ public class ExcitationPanelListener implements FunctionPanelListener{
       ArrayList<FunctionNode> selectedNodes = functionPanel.getSelectedNodes();
       for (int i=0; i<selectedNodes.size(); i++) {
          int index = selectedNodes.get(i).node;
-         ControlLinearNode controlNode = control.getControlValues().get(index);
+         ControlLinearNode controlNode = getControlNodeForSeries(series, index);
          double newX = controlNode.getTime();
          double newY = newValue;
          controlNode.setTime(newX);
@@ -176,5 +219,37 @@ public class ExcitationPanelListener implements FunctionPanelListener{
     public void removeFunction(Function aFunction)
     {
         functions.remove(aFunction);
+    }
+    private ControlLinearNode getControlNodeForSeries(int series, int index)
+    {
+        ControlLinearNode controlNode;
+         if (series==0)
+             controlNode = control.getControlValues().get(index);
+         else if (series==1)
+            controlNode = control.getControlMinValues().get(index);
+         else
+            controlNode = control.getControlMaxValues().get(index);
+ 
+         return controlNode;
+    }
+
+    private int getControlNodeCountForSeries(int series) {
+         if (series==0)
+             return control.getControlValues().getSize();
+         else if (series==1)
+            return control.getControlMinValues().getSize();
+         else
+            return control.getControlMaxValues().getSize();
+
+    }
+    private SetControlNodes getSelectedControlNodes(int series)
+    {
+         if (series==0)
+             return control.getControlValues();
+         else if (series==1)
+            return control.getControlMinValues();
+         else
+            return control.getControlMaxValues();
+        
     }
 }

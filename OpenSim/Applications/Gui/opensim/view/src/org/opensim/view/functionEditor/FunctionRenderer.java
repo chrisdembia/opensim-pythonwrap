@@ -1,4 +1,29 @@
 /*
+ * Copyright (c)  2005-2008, Stanford University
+ * Use of the OpenSim software in source form is permitted provided that the following
+ * conditions are met:
+ * 	1. The software is used only for non-commercial research and education. It may not
+ *     be used in relation to any commercial activity.
+ * 	2. The software is not distributed or redistributed.  Software distribution is allowed 
+ *     only through https://simtk.org/home/opensim.
+ * 	3. Use of the OpenSim software or derivatives must be acknowledged in all publications,
+ *      presentations, or documents describing work in which OpenSim or derivatives are used.
+ * 	4. Credits to developers may not be removed from executables
+ *     created from modifications of the source.
+ * 	5. Modifications of source code must retain the above copyright notice, this list of
+ *     conditions and the following disclaimer. 
+ * 
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ *  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ *  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ *  SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ *  TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
+ *  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ *  OR BUSINESS INTERRUPTION) OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ *  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+/*
  * FunctionRenderer.java
  *
  * Created on October 25, 2007, 10:52 AM
@@ -46,19 +71,19 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
         PublicCloneable,
         Serializable {
    
-   private ArrayList<Function> functionList = new ArrayList<Function>(0);
+   protected ArrayList<Function> functionList = new ArrayList<Function>(0);
    
    /** For each control point in each function, the shape fill color,
     * which is either the highlight color (yellow) or the default fill
     * color.
     **/
-   private PaintList shapeFillPaintList;
+   private ArrayList<PaintList> shapeFillPaintList = new  ArrayList<PaintList>(0);
    /** For each function, the color of the function lines and shape outlines. */
-   private PaintList functionPaintList;
+   private ArrayList<PaintList> functionPaintList = new  ArrayList<PaintList>(0);
    /** For each function, the shape fill color for unselected control points. */
-   private PaintList functionDefaultFillPaintList;
+   private ArrayList<PaintList> functionDefaultFillPaintList = new  ArrayList<PaintList>(0);
    /** For each function, the shape fill color for selected control points. */
-   private PaintList functionHighlightFillPaintList;
+   private ArrayList<PaintList> functionHighlightFillPaintList = new  ArrayList<PaintList>(0);
    
    private Units XUnits;         // units of array of X values
    private Units XDisplayUnits;  // units for displaying X values to user
@@ -84,15 +109,15 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    public void addFunction(final Function theFunction) {
       functionList.add(theFunction);
       int index = functionList.size()-1;
-      shapeFillPaintList = new PaintList();
-      functionPaintList = new PaintList();
-      functionDefaultFillPaintList = new PaintList();
-      functionHighlightFillPaintList = new PaintList();
+      shapeFillPaintList.add(new PaintList());
+      functionPaintList.add(new PaintList());
+      functionDefaultFillPaintList.add(new PaintList());
+      functionHighlightFillPaintList.add(new PaintList());
       setFunctionPaint(index, Color.GREEN);
-      functionDefaultFillPaintList.setPaint(index, Color.GREEN);
-      functionHighlightFillPaintList.setPaint(index, Color.BLACK);
+      functionDefaultFillPaintList.get(index).setPaint(index, Color.GREEN);
+      functionHighlightFillPaintList.get(index).setPaint(index, Color.BLACK);
       for (int i=0; i<theFunction.getNumberOfPoints(); i++)
-         shapeFillPaintList.setPaint(i, Color.GREEN);
+         shapeFillPaintList.get(index).setPaint(i, Color.GREEN);
    }
    
    
@@ -281,17 +306,17 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
     */
    public void highlightNode(int function, int point) {
       if (function < functionList.size())
-         shapeFillPaintList.setPaint(point, functionHighlightFillPaintList.getPaint(function));
+         shapeFillPaintList.get(function).setPaint(point, functionHighlightFillPaintList.get(function).getPaint(function));
    }
    
    public void unhighlightNode(int function, int point) {
       if (function < functionList.size())
-         shapeFillPaintList.setPaint(point, functionDefaultFillPaintList.getPaint(function));
+         shapeFillPaintList.get(function).setPaint(point, functionDefaultFillPaintList.get(function).getPaint(function));
    }
    
    public Paint getNodePaint(int function, int point) {
       if (function < functionList.size())
-         return shapeFillPaintList.getPaint(point);
+         return shapeFillPaintList.get(function).getPaint(point);
       else
          return Color.BLACK;
    }
@@ -299,7 +324,7 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    // The item paint is used for the outlines of the control
    // point shapes.
    public Paint getItemPaint(int series, int item) {
-      return functionPaintList.getPaint(series);
+      return functionPaintList.get(series).getPaint(series);
    }
    
    public Paint getItemFillPaint(int series, int item) {
@@ -308,8 +333,8 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    
    public void setFunctionDefaultFillPaint(int function, Paint paint) {
       if (function < functionList.size()) {
-         Paint oldPaint = functionDefaultFillPaintList.getPaint(function);
-         functionDefaultFillPaintList.setPaint(function, paint);
+         Paint oldPaint = functionDefaultFillPaintList.get(function).getPaint(function);
+         functionDefaultFillPaintList.get(function).setPaint(function, paint);
          // Update the individual point's fill colors if they were equal to the old default color
          for (int i=0; i<functionList.get(function).getNumberOfPoints(); i++) {
             if (getNodePaint(function, i) == oldPaint)
@@ -320,15 +345,15 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    
    public Paint getFunctionDefaultFillPaint(int function) {
       if (function < functionList.size())
-         return functionDefaultFillPaintList.getPaint(function);
+         return functionDefaultFillPaintList.get(function).getPaint(function);
       else
          return Color.BLACK;
    }
    
    public void setFunctionHighlightFillPaint(int function, Paint paint) {
       if (function < functionList.size()) {
-         Paint oldPaint = functionHighlightFillPaintList.getPaint(function);
-         functionHighlightFillPaintList.setPaint(function, paint);
+         Paint oldPaint = functionHighlightFillPaintList.get(function).getPaint(function);
+         functionHighlightFillPaintList.get(function).setPaint(function, paint);
          // Update the individual point's fill colors if they were equal to the old highlight color
          for (int i=0; i<functionList.get(function).getNumberOfPoints(); i++) {
             if (getNodePaint(function, i) == oldPaint)
@@ -339,18 +364,18 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    
    public Paint getFunctionHighlightFillPaint(int function) {
       if (function < functionList.size())
-         return functionHighlightFillPaintList.getPaint(function);
+         return functionHighlightFillPaintList.get(function).getPaint(function);
       else
          return Color.BLACK;
    }
    
    public void setFunctionPaint(int function, Paint paint) {
-      functionPaintList.setPaint(function, paint);
+      functionPaintList.get(function).setPaint(function, paint);
    }
    
    public Paint getFunctionPaint(int function) {
       if (function < functionList.size())
-         return functionPaintList.getPaint(function);
+         return functionPaintList.get(function).getPaint(function);
       else
          return Color.BLACK;
    }

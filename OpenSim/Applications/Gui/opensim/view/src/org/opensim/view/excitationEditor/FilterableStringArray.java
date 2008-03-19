@@ -28,6 +28,8 @@
  */
 package org.opensim.view.excitationEditor;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -53,6 +55,7 @@ public class FilterableStringArray implements FilterableInterface {
       for(int i=0; i<names.length; i++){
          selectionStatus[i]=false;
       }
+      sortAlphabetically(allAvailable);
    }
 
     public FilterableStringArray(ArrayStr names) {
@@ -62,6 +65,7 @@ public class FilterableStringArray implements FilterableInterface {
          selectionStatus[i]=false;
          allAvailable[i]=names.getitem(i);
       }
+      sortAlphabetically(allAvailable);
    }
 
    public String[] getAllQuantities() {
@@ -148,6 +152,15 @@ public class FilterableStringArray implements FilterableInterface {
 
     public boolean convertAngularUnits() {
         return false;
+    }
+
+    private void sortAlphabetically(String[] allAvailable) {
+        ArrayList<String> sortedNames = new ArrayList<String>(allAvailable.length);
+        for(int i=0; i<allAvailable.length; i++){
+            sortedNames.add(allAvailable[i]);
+        }
+        Collections.sort(sortedNames);
+        sortedNames.toArray(allAvailable);
     }
 
 }

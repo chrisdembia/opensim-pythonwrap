@@ -186,5 +186,4 @@ public class ControlLinear extends Control {
   public void copy(OpenSimObject aObject) {
     opensimModelJNI.ControlLinear_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
-
 }

@@ -1,4 +1,29 @@
 /*
+ * Copyright (c)  2005-2008, Stanford University
+ * Use of the OpenSim software in source form is permitted provided that the following
+ * conditions are met:
+ * 	1. The software is used only for non-commercial research and education. It may not
+ *     be used in relation to any commercial activity.
+ * 	2. The software is not distributed or redistributed.  Software distribution is allowed 
+ *     only through https://simtk.org/home/opensim.
+ * 	3. Use of the OpenSim software or derivatives must be acknowledged in all publications,
+ *      presentations, or documents describing work in which OpenSim or derivatives are used.
+ * 	4. Credits to developers may not be removed from executables
+ *     created from modifications of the source.
+ * 	5. Modifications of source code must retain the above copyright notice, this list of
+ *     conditions and the following disclaimer. 
+ * 
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ *  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ *  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ *  SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ *  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ *  TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
+ *  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ *  OR BUSINESS INTERRUPTION) OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ *  WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+/*
  * ExcitationEditorJPanel.java
  *
  * Created on January 29, 2008, 1:43 PM
@@ -27,6 +52,7 @@ import javax.swing.KeyStroke;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -38,6 +64,8 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ArrayStr;
 import org.opensim.modeling.Control;
 import org.opensim.modeling.ControlLinear;
@@ -58,7 +86,7 @@ import org.opensim.view.functionEditor.FunctionXYSeries;
  */
 public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSelectionListener {
     
-    ControlSet controlSet;
+    private ControlSet controlSet;
     ControlSet backupControlSet;
     JFrame frame;
     ExcitationTreeModel treeModel;
@@ -66,9 +94,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
     boolean somethingSelected=false;
     ExcitationsGridJPanel excitationGridPanel = new ExcitationsGridJPanel();
     static int MAX_EXCITATIONS_PER_COLUMN=10;
-    
+    static Color[] defaultColors = new Color[]{Color.BLUE, Color.RED, Color.BLACK};
     /** Creates new form ExcitationEditorJPanel */
-    public ExcitationEditorJPanel(JFrame owner) {
+    
+    public ExcitationEditorJPanel(JFrame owner, ControlSet controls) {
         frame = owner;
         DefaultMutableTreeNode root=new DefaultMutableTreeNode("Excitation columns");
         treeModel = new ExcitationTreeModel(root);
@@ -87,10 +116,15 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         MoveExcitationHandler th = new MoveExcitationHandler(excitationGridPanel);
         jExcitationsTree.setTransferHandler(th);
         jExcitationsTree.setDropTarget(new TreeDropTarget(th));
-        /**
-        jExcitationsTree.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACKSPACE),
-                            "doSomething");
-                            */
+
+        jExcitationsTree.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0),
+                            "handleDelete");
+        jExcitationsTree.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0),
+                            "handleDelete");
+        jExcitationsTree.getActionMap().put("handleDelete", new handleDelete());
+        if (controls!=null){
+            populate(controls);
+        }
     }
     
     /** This method is called from within the constructor to
@@ -117,7 +151,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jInsertButton = new javax.swing.JButton();
         jDeleteButton = new javax.swing.JButton();
         jRightPanel = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         jExScrollPane = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -129,7 +162,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jValueToFormattedTextField = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
 
         jButton5.setText("Apply");
@@ -235,8 +267,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
 
         jRightPanel.setLayout(new java.awt.BorderLayout());
 
-        jRightPanel.add(jTabbedPane1, java.awt.BorderLayout.SOUTH);
-
         jExScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jExScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jRightPanel.add(jExScrollPane, java.awt.BorderLayout.CENTER);
@@ -245,7 +275,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
 
         jRestoreAllButton.setText("Restore");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("With Selected Points"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "With Selected Points"));
         jLabel2.setText("Set to");
 
         jRemoveNodesButton.setText("Remove");
@@ -261,33 +291,23 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jLabel2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jValueToFormattedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jRemoveNodesButton)))
+                .add(jLabel2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jValueToFormattedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jRemoveNodesButton)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jValueToFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel2))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 10, Short.MAX_VALUE)
-                .add(jRemoveNodesButton)
-                .addContainerGap())
+            .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jLabel2)
+                .add(jValueToFormattedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jRemoveNodesButton))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "With Selected Excitations"));
         jButton1.setText("Simplify");
-
-        jCheckBox1.setText("Use Steps");
-        jCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         jButton2.setText("Export");
 
@@ -297,23 +317,18 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jCheckBox1)
-                    .add(jPanel4Layout.createSequentialGroup()
-                        .add(jButton2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton1)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .add(jButton2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jButton1)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
-                .add(jCheckBox1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton2)
                     .add(jButton1))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
@@ -323,10 +338,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jBackupAllButton)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 260, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 202, Short.MAX_VALUE)
                 .add(jRestoreAllButton)
                 .addContainerGap())
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
             .add(jPanel1Layout.createSequentialGroup()
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -336,10 +351,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel4, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(jPanel4, 0, 53, Short.MAX_VALUE)
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -359,7 +374,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+            .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -531,7 +546,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton8;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JButton jDeleteButton;
     private javax.swing.JScrollPane jExScrollPane;
     private javax.swing.JTree jExcitationsTree;
@@ -553,7 +567,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JFormattedTextField jValueToFormattedTextField;
     // End of variables declaration//GEN-END:variables
@@ -570,20 +583,12 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         treeModel.insertNodeInto(columnNode, (DefaultMutableTreeNode) treeModel.getRoot(), colIndex);
         excitationGridPanel.addColumn("Column "+String.valueOf(colIndex));
         columnNode.setUserObject(excitationGridPanel.getExcitationColumn(colIndex));
-        if (names==null){ // Do all controls
-            assert(false);
-            for(int i=0; i<15/*controlSet.getSize()/2*/; i++){
-                Control nextControl = controlSet.get(i);
-                addExcitation(columnNode, nextControl, colIndex);
-            } 
-        }
-        else {
-            for(int i=0; i<names.length; i++){
-                Control nextControl = controlSet.get(names[i]);
-                addExcitation(columnNode, nextControl, colIndex);
-            } 
-            
-        }
+        for(int i=0; i<names.length; i++){
+            Control nextControl = getControlSet().get(names[i]);
+            if (nextControl==null)
+                nextControl = getControlSet().get(getLongName(names[i]));
+            addExcitation(columnNode, nextControl, colIndex);
+        } 
         validate();
     }
 
@@ -605,15 +610,18 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
 
     void populate(ControlSet obj) {
        backupControlSet = new ControlSet(obj);
-       controlSet = obj;
+       setControlSet(obj);
       
        excitationGridPanel.setControlSet(obj);
        jExScrollPane.setViewportView(excitationGridPanel);
        
        int numColumns= ((DefaultMutableTreeNode)treeModel.getRoot()).getChildCount();
-       // Get names from filter dialog
-       ArrayStr names = new ArrayStr();
-       controlSet.getNames(names);
+        ArrayStr names = new ArrayStr();
+        obj.getNames(names);
+        for(int i=0; i< names.getSize(); i++){
+            names.setitem(i, getShortName(names.getitem(i)));
+        }
+       removeDisplayedItems((DefaultMutableTreeNode)treeModel.getRoot(), names);
        FilterableStringArray namesSource = new FilterableStringArray(names);
        NameFilterJPanel filterPanel = new NameFilterJPanel(namesSource, false);
        OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent(frame, filterPanel, "Select Excitations");
@@ -650,7 +658,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
        //frame.doLayout();
        frame.validate();
     }
-
 
     public void valueChanged(TreeSelectionEvent e) {
        TreePath[] selectedPaths = e.getPaths();
@@ -693,27 +700,26 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
    static ExcitationPanel createPanel(ControlLinear excitation, Vector<Function> functions)
    {
          XYSeriesCollection seriesCollection = new XYSeriesCollection();
-         FunctionXYSeries xySeries = new FunctionXYSeries("excitation");
-         FunctionXYSeries xySeriesMin = new FunctionXYSeries("min");
-         FunctionXYSeries xySeriesMax = new FunctionXYSeries("max");
          ControlLinear cl = ControlLinear.safeDownCast(excitation);
-         SetControlNodes cnodes = cl.getControlValues();
-         SetControlNodes minNodes = cl.getControlMinValues();
-         SetControlNodes maxNodes = cl.getControlMaxValues();
-         // Create a function to hold the values
-         Function ctrlFunction;
-         Function minFunction;
-         Function maxFunction;
-         ctrlFunction = createFunctionFromControlLinear(xySeries, cnodes, cl);
-         minFunction = createFunctionFromControlLinear(xySeriesMin, minNodes, cl);
-         maxFunction = createFunctionFromControlLinear(xySeriesMax, maxNodes, cl);
-         functions.add(ctrlFunction);
-         functions.add(minFunction);
-         functions.add(maxFunction);
          
+         FunctionXYSeries xySeries = new FunctionXYSeries("excitation");
+         SetControlNodes cnodes = cl.getControlValues();
+         Function ctrlFunction = createFunctionFromControlLinear(xySeries, cnodes, cl, !cl.getUseSteps());
+         functions.add(ctrlFunction);
          seriesCollection.addSeries(xySeries);
+         
+         FunctionXYSeries xySeriesMin = new FunctionXYSeries("min");
+         SetControlNodes minNodes = cl.getControlMinValues();
+         Function minFunction = createFunctionFromControlLinear(xySeriesMin, minNodes, cl, true);
+         functions.add(minFunction);
          seriesCollection.addSeries(xySeriesMin);
+        
+         FunctionXYSeries xySeriesMax = new FunctionXYSeries("max");
+         SetControlNodes maxNodes = cl.getControlMaxValues();
+         Function maxFunction = createFunctionFromControlLinear(xySeriesMax, maxNodes, cl, true);
+         functions.add(maxFunction);
          seriesCollection.addSeries(xySeriesMax);
+         
          JFreeChart chart = ChartFactory.createXYLineChart(
             "",
             "",
@@ -740,7 +746,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
              renderer.setSeriesShape(i, circle);// all series
              renderer.setSeriesStroke(i, new BasicStroke(1.5f));
              renderer.setSeriesOutlineStroke(i, new BasicStroke(1.0f));
-             renderer.setFunctionPaint(i, Color.BLUE);
+             renderer.setFunctionPaint(i, defaultColors[i]);
              renderer.setFunctionDefaultFillPaint(i, Color.WHITE);
              renderer.setFunctionHighlightFillPaint(i, Color.YELLOW);
          }
@@ -762,9 +768,10 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
          return dPanel;
    }
 
-    private static Function createFunctionFromControlLinear(final FunctionXYSeries xySeries, final SetControlNodes cnodes, final ControlLinear cl) {
+
+    public static Function createFunctionFromControlLinear(final FunctionXYSeries xySeries, final SetControlNodes cnodes, final ControlLinear cl, boolean useLinear) {
         Function ctrlFunction;
-        if (cl.getUseSteps()){ // Step function
+        if (!useLinear){ // Step function
             ctrlFunction = new StepFunction();
             for (int i=0; i<cnodes.getSize(); i++) {
                ControlLinearNode clnode = cnodes.get(i);
@@ -787,14 +794,19 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
    private void invokeTreePopupIfNeeded(int evtX, int evtY) {
       final TreePath clickedElement = jExcitationsTree.getPathForLocation(evtX, evtY);
       JPopupMenu contextMenu = new JPopupMenu();
-      if (clickedElement.getLastPathComponent().equals(treeModel.getRoot()) && controlSet!=null){
+      DefaultMutableTreeNode clickedNode=null;
+      Object  clickedObject = null;
+      if (clickedElement.getLastPathComponent() instanceof DefaultMutableTreeNode){
+          clickedNode = (DefaultMutableTreeNode)clickedElement.getLastPathComponent();
+          clickedObject = clickedNode.getUserObject();
+      }
+      
+      if (clickedNode.equals(treeModel.getRoot()) && getControlSet()!=null){
           // allow addition of a new column
             JMenuItem addColMenuItem = new JMenuItem("Add Column...");
             addColMenuItem.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
-                    // Bring up the filter dialog populated by list of names from current control set
-                    ArrayStr names = new ArrayStr();
-                    controlSet.getNames(names);
+                    ArrayStr names = getUndisplayedExcitations();
                     FilterableStringArray namesSource = new FilterableStringArray(names);
                     NameFilterJPanel filterPanel = new NameFilterJPanel(namesSource, false);
                     OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent(frame, filterPanel, "Select Excitations");
@@ -802,23 +814,86 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
                     selectionDlg.setModal(true);
                     selectionDlg.setVisible(true);
                     
+                    int numColumns= ((DefaultMutableTreeNode)treeModel.getRoot()).getChildCount();
                     if (selectionDlg.getDialogReturnValue()==selectionDlg.OK_OPTION) {
                         String[] selNames = new String[filterPanel.getNumSelected()];
                         System.arraycopy(filterPanel.getSelected(), 0, selNames, 0, filterPanel.getNumSelected());
-                        int numColumns= ((DefaultMutableTreeNode)treeModel.getRoot()).getChildCount();
+                        for (int i=0; i<filterPanel.getNumSelected(); i++)
+                            selNames[i] = getShortName(selNames[i]);
                         createExcitationColumnPanel(numColumns, selNames);
                      }
 
-                }});
+                }
+
+});
           contextMenu.add(addColMenuItem );
       }
-      String clickedElementName;
-      if (clickedElement != null){
-         Object[] pathObjects = clickedElement.getPath();
-         int depth =pathObjects.length-1;
-         final DefaultMutableTreeNode node = (DefaultMutableTreeNode)pathObjects[depth];
-       }
+      if (clickedObject instanceof ExcitationColumnJPanel){
+          // Add item to change display name
+          final ExcitationColumnJPanel columnPanel = (ExcitationColumnJPanel) clickedObject;
+          JMenuItem renameMenuItem = new JMenuItem("Rename...");
+            renameMenuItem.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                     NotifyDescriptor.InputLine dlg =
+                            new NotifyDescriptor.InputLine("Current Name: "+columnPanel.toString(), "Rename Object");
+                     if(DialogDisplayer.getDefault().notify(dlg)==NotifyDescriptor.OK_OPTION){
+                        columnPanel.setLabel( dlg.getInputText());
+                     }
+                }
+            });
+          JMenuItem appendMenuItem = new JMenuItem("Append...");
+            appendMenuItem.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                    ArrayStr names = getUndisplayedExcitations();
+                    FilterableStringArray namesSource = new FilterableStringArray(names);
+                    NameFilterJPanel filterPanel = new NameFilterJPanel(namesSource, false);
+                    OpenSimDialog selectionDlg=DialogUtils.createDialogForPanelWithParent(frame, filterPanel, "Select Excitations");
+                    DialogUtils.addStandardButtons(selectionDlg);
+                    selectionDlg.setModal(true);
+                    selectionDlg.setVisible(true);
+                    
+                    int numColumns= ((DefaultMutableTreeNode)treeModel.getRoot()).getChildCount();
+                    if (selectionDlg.getDialogReturnValue()==selectionDlg.OK_OPTION) {
+                        String[] selNames = new String[filterPanel.getNumSelected()];
+                        System.arraycopy(filterPanel.getSelected(), 0, selNames, 0, filterPanel.getNumSelected());
+                        for (int i=0; i<filterPanel.getNumSelected(); i++)
+                            selNames[i] = getShortName(selNames[i]);
+                        // Add selected names to proper column Panel
+                        DefaultMutableTreeNode clickedNode = (DefaultMutableTreeNode)clickedElement.getLastPathComponent();
+                        int colIndex = treeModel.getIndexOfChild(clickedNode.getParent(),clickedNode);
+                        treeModel.insertNodeInto(clickedNode, (DefaultMutableTreeNode) treeModel.getRoot(), colIndex);
+                        for(int i=0; i<selNames.length; i++){
+                            Control nextControl = getControlSet().get(selNames[i]);
+                            if (nextControl==null)
+                                nextControl = getControlSet().get(getLongName(selNames[i]));
+                            addExcitation(clickedNode, nextControl, colIndex);
+                        } 
+                        frame.validate();
+                     }
+                }
+            });
+           contextMenu.add(renameMenuItem);
+           contextMenu.add(appendMenuItem);
+      }
       contextMenu.show(jExcitationsTree, evtX, evtY);
+   }
+
+    private String getShortName(String string) {
+        int idx= string.indexOf(".excitation");
+        if (idx!=-1)
+            return string.substring(0, idx);
+        else
+            return string;
+    }
+
+    private String getLongName(String string) {
+        return string+".excitation";
+    }
+    
+   class handleDelete extends AbstractAction {
+        public void actionPerformed(ActionEvent e) {
+             jDeleteButtonActionPerformed(null);
+        }           
    }
    /**
     * Handler of return button in Value
@@ -893,4 +968,34 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
     }
 }
 */
+
+    public ControlSet getControlSet() {
+        return controlSet;
+    }
+
+    public void setControlSet(ControlSet controlSet) {
+        this.controlSet = controlSet;
+    }
+
+    private void removeDisplayedItems(DefaultMutableTreeNode treeNode, ArrayStr names) {
+        int count = treeNode.getChildCount();
+        for( int i=0;  i < count;  i++ ) {
+            DefaultMutableTreeNode child = (DefaultMutableTreeNode) treeNode.getChildAt(i);
+            if ( child.isLeaf())
+                names.remove(names.findIndex(child.toString()));
+            else
+                removeDisplayedItems( child, names );
+        }
+    }
+
+    private ArrayStr getUndisplayedExcitations() {
+        // Bring up the filter dialog populated by list of names from current control set
+        ArrayStr names = new ArrayStr();
+        getControlSet().getNames(names);
+        for(int i=0; i< names.getSize(); i++){
+            names.setitem(i, getShortName(names.getitem(i)));
+        }
+        removeDisplayedItems((DefaultMutableTreeNode)treeModel.getRoot(), names);
+        return names;
+    }
 }

@@ -20,9 +20,25 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jSaveMenuItem">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+S"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Save..."/>
                 <Property name="toolTipText" type="java.lang.String" value="Store excitations into an XML file"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSaveMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JSeparator" name="jSeparator1">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jCreateDefaultMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New (current model)"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCreateDefaultMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

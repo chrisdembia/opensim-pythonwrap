@@ -21,7 +21,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jColumnNameLabel">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="jColumnLabel"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
     </Component>
   </SubComponents>
