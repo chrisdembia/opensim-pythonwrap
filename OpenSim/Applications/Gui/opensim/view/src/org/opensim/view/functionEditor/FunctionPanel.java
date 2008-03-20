@@ -56,7 +56,6 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
 
@@ -133,6 +132,8 @@ public class FunctionPanel extends ChartPanel
    public void mouseExited(MouseEvent e) {
       updateCursorLocation(e);
       updateCrosshairs(-1, -1);
+      picking = false;
+      endBoxSelect();
       super.mouseExited(e);
    }
 
@@ -266,7 +267,7 @@ public class FunctionPanel extends ChartPanel
       updateCursorLocation(e);
       int keyMods = e.getModifiers();
       if (picking == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
-         endBoxSelect(e);
+         endBoxSelect();
       } else if (getDragging() == true && (keyMods & InputEvent.BUTTON1_MASK) > 0) {
          dragNode = null;
          dragScreenXOld = -1;
@@ -369,7 +370,7 @@ public class FunctionPanel extends ChartPanel
       g2.dispose();
    }
 
-   private void endBoxSelect(MouseEvent e) {
+   private void endBoxSelect() {
       // use XOR to erase the last zoom rectangle.
       if (this.boxSelectRectangle != null) {
          Graphics2D g2 = (Graphics2D) getGraphics();
@@ -577,7 +578,11 @@ public class FunctionPanel extends ChartPanel
 
    public void keyReleased(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_CONTROL)
+      {
+         if (picking == true)
+            endBoxSelect();
          picking = false;
+      }
       else if (e.getKeyCode() == KeyEvent.VK_F1) {
          //mandatoryCrosshairs = false;
          //setCrosshairsState(false);
