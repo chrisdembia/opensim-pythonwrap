@@ -168,4 +168,36 @@ public class ExcitationColumnJPanel extends javax.swing.JPanel {
     void appendExcitations(String[] selNames) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
+    void toggle(ExcitationPanel dPanel) {
+        // Compute size of panel. Expanded panels are 8 times as big as collapsed ones
+        int totalheight = this.getHeight();
+        int width = this.getWidth();
+        int numCollapsed = 0;
+        int numTotal = cache.size();
+        for (int i=0; i<cache.size(); i++){
+            ExcitationPanel p1 = getPanel(i);
+            if (p1.equals(dPanel)){
+                p1.setCollapsed(!p1.isCollapsed());
+            }
+            numCollapsed += (cache.get(i).isCollapsed()?1:0);
+        }
+        int collapsedHeight = (int)((double) totalheight)/(numCollapsed + (numTotal-numCollapsed)*8);
+        //System.out.println("collapsedHeight="+collapsedHeight);
+        for (int i=0; i<cache.size(); i++){
+            ExcitationPanel p1 = getPanel(i);
+            if (p1.isCollapsed()){
+                p1.setSize(new Dimension(width, collapsedHeight));
+                p1.setPreferredSize(new Dimension(width, collapsedHeight));
+                p1.setMaximumDrawHeight(collapsedHeight);
+            }
+            else{
+                p1.setPreferredSize(new Dimension(width, 8*collapsedHeight));
+                p1.setSize(new Dimension(width, 8*collapsedHeight));
+                p1.setMaximumDrawHeight(8*collapsedHeight);
+           }
+        }
+        invalidate();
+        doLayout();
+    }
 }

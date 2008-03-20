@@ -34,6 +34,7 @@
 
 package org.opensim.view.excitationEditor;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -58,6 +59,7 @@ import org.opensim.view.functionEditor.FunctionXYSeries;
 public class ExcitationPanel extends FunctionPanel{
     JPopupMenu nodePopup;
     boolean addedExcitationOptionsToPopup=false;
+    private boolean hidden=false;
     
     /** Creates a new instance of ExcitationPanel */
    public ExcitationPanel(JFreeChart chart) {
@@ -155,4 +157,12 @@ public class ExcitationPanel extends FunctionPanel{
         }
    }
 
+    public boolean isCollapsed() {
+        return hidden;
+    }
+
+    public void setCollapsed(boolean hidden) {
+        this.hidden = hidden;
+    }
+    
 }

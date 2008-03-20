@@ -33,11 +33,13 @@ package org.opensim.view.excitationEditor;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Shape;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Ellipse2D;
 import java.text.DecimalFormat;
@@ -52,7 +54,6 @@ import javax.swing.KeyStroke;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -387,12 +388,16 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
 // TODO add your handling code here:
        if (evt.isPopupTrigger())
         invokeTreePopupIfNeeded(evt.getX(), evt.getY());
+       if (evt.getClickCount()==2 && evt.getModifiers()==InputEvent.BUTTON1_MASK){    // innocent double click on a node. Toggle display
+           toggleDisplay(evt.getX(), evt.getY());
+       }
 
     }//GEN-LAST:event_jExcitationsTreeMouseReleased
 
     private void jExcitationsTreeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExcitationsTreeMousePressed
        if (evt.isPopupTrigger())
         invokeTreePopupIfNeeded(evt.getX(), evt.getY());
+       
 // TODO add your handling code here:
     }//GEN-LAST:event_jExcitationsTreeMousePressed
 
@@ -878,7 +883,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
       contextMenu.show(jExcitationsTree, evtX, evtY);
    }
 
-    private String getShortName(String string) {
+    public static String getShortName(String string) {
         int idx= string.indexOf(".excitation");
         if (idx!=-1)
             return string.substring(0, idx);
@@ -886,7 +891,7 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
             return string;
     }
 
-    private String getLongName(String string) {
+    public static String getLongName(String string) {
         return string+".excitation";
     }
     
@@ -907,67 +912,6 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
 
        }
    }
-   /*
-   class ExcitationTreeTransferHandler extends TransferHandler {
-       //The data type exported from JTree.
-       DataFlavor flavor = DataFlavor.stringFlavor;
-       
-       
-       public boolean importData(JComponent c, Transferable t) {
-           if (hasStringFlavor(t.getTransferDataFlavors())) {
-                try {
-                    String name = (String)t.getTransferData(flavor);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (UnsupportedFlavorException ex) {
-                    ex.printStackTrace();
-                }
-               
-           }
-           return false;
-       }
-       
-       protected boolean hasStringFlavor(DataFlavor[] flavors) {
-           
-           for (int i = 0; i < flavors.length; i++) {
-               if (flavor.equals(flavors[i])) {
-                   return true;
-               }
-           }
-           return false;
-       }
-       public boolean canImport(JComponent c, DataFlavor[] flavors) {
-            return hasStringFlavor(flavors);
-       }
-
-        protected void exportDone(JComponent source, Transferable data, int action) {
-            super.exportDone(source, data, action);
-        }
-
-        protected Transferable createTransferable(JComponent c) {
-            JTree source = (JTree)c;
-            TreePath[]  selected = source.getSelectionPaths();
-            TreePath first = selected[0];   // Must have at least one other wise shouldn't be here!'
-            return null;
-        }
-
-        public int getSourceActions(JComponent c) {
-            int retValue;
-            
-            retValue = super.getSourceActions(c);
-            return retValue;
-        }
-
-   }
-   private class DragMouseAdapter extends MouseAdapter {
-    public void mousePressed(MouseEvent e) {
-        super.mousePressed(e);
-        JComponent c = (JComponent)e.getSource();
-        TransferHandler handler = c.getTransferHandler();
-        handler.exportAsDrag(c, e, TransferHandler.MOVE);
-    }
-}
-*/
 
     public ControlSet getControlSet() {
         return controlSet;
@@ -998,4 +942,22 @@ public class ExcitationEditorJPanel extends javax.swing.JPanel implements TreeSe
         removeDisplayedItems((DefaultMutableTreeNode)treeModel.getRoot(), names);
         return names;
     }
+
+    private void toggleDisplay(int evtX, int evtY) {
+      final TreePath clickedElement = jExcitationsTree.getPathForLocation(evtX, evtY);
+      JPopupMenu contextMenu = new JPopupMenu();
+      DefaultMutableTreeNode clickedNode=null;
+      Object  clickedObject = null;
+      if (clickedElement.getLastPathComponent() instanceof DefaultMutableTreeNode){
+          clickedNode = (DefaultMutableTreeNode)clickedElement.getLastPathComponent();
+          clickedObject = clickedNode.getUserObject();
+      }
+      
+      if (clickedObject instanceof ExcitationObject){
+          ExcitationColumnJPanel parentPanel = (ExcitationColumnJPanel)(((DefaultMutableTreeNode)clickedNode.getParent()).getUserObject());
+          ExcitationPanel dPanel = ((ExcitationObject) clickedObject).getPlotPanel();
+          parentPanel.toggle(dPanel);
+      }
+    }
+
 }

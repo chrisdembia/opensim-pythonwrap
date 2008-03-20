@@ -33,6 +33,14 @@ public class ControlLinear extends Control {
     super.delete();
   }
 
+  public ControlLinear() {
+    this(opensimModelJNI.new_ControlLinear__SWIG_0(), true);
+  }
+
+  public ControlLinear(ControlLinear aControl) {
+    this(opensimModelJNI.new_ControlLinear__SWIG_1(ControlLinear.getCPtr(aControl), aControl), true);
+  }
+
   public OpenSimObject copy() {
     long cPtr = opensimModelJNI.ControlLinear_copy__SWIG_0(swigCPtr, this);
     return (cPtr == 0) ? null : new OpenSimObject(cPtr, false);
@@ -186,4 +194,5 @@ public class ControlLinear extends Control {
   public void copy(OpenSimObject aObject) {
     opensimModelJNI.ControlLinear_copy__SWIG_1(swigCPtr, this, OpenSimObject.getCPtr(aObject), aObject);
   }
+
 }

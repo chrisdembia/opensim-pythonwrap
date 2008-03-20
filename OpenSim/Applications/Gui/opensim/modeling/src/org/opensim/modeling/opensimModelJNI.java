@@ -1528,6 +1528,8 @@ public class opensimModelJNI {
   public final static native boolean ControlConstant_isA(long jarg1, ControlConstant jarg1_, String jarg2);
   public final static native long ControlConstant_safeDownCast(long jarg1, OpenSimObject jarg1_);
   public final static native void ControlConstant_copy__SWIG_1(long jarg1, ControlConstant jarg1_, long jarg2, OpenSimObject jarg2_);
+  public final static native long new_ControlLinear__SWIG_0();
+  public final static native long new_ControlLinear__SWIG_1(long jarg1, ControlLinear jarg1_);
   public final static native void delete_ControlLinear(long jarg1);
   public final static native long ControlLinear_copy__SWIG_0(long jarg1, ControlLinear jarg1_);
   public final static native void ControlLinear_setUseSteps(long jarg1, ControlLinear jarg1_, boolean jarg2);

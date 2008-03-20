@@ -28705,6 +28705,37 @@ SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_ControlConstan
 }
 
 
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinear_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  OpenSim::ControlLinear *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (OpenSim::ControlLinear *)new OpenSim::ControlLinear();
+  *(OpenSim::ControlLinear **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_org_opensim_modeling_opensimModelJNI_new_1ControlLinear_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  OpenSim::ControlLinear *arg1 = 0 ;
+  OpenSim::ControlLinear *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(OpenSim::ControlLinear **)&jarg1;
+  if(!arg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "OpenSim::ControlLinear const & reference is null");
+    return 0;
+  } 
+  result = (OpenSim::ControlLinear *)new OpenSim::ControlLinear((OpenSim::ControlLinear const &)*arg1);
+  *(OpenSim::ControlLinear **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_org_opensim_modeling_opensimModelJNI_delete_1ControlLinear(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   OpenSim::ControlLinear *arg1 = (OpenSim::ControlLinear *) 0 ;
   
