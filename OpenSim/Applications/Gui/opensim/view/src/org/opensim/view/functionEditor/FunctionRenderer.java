@@ -290,9 +290,9 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
       if (this.interiorTitle != null) {
          g2.setFont(this.interiorTitleFont);
          g2.setPaint(this.interiorTitlePaint);
-         double textX = domainAxis.valueToJava2D(domainAxis.getLowerBound(), dataArea, xAxisLocation) + 5;
-         double textY = rangeAxis.valueToJava2D(rangeAxis.getLowerBound(), dataArea, yAxisLocation) - 5;
-         TextUtilities.drawAlignedString(this.interiorTitle, g2, (float)textX, (float)textY, TextAnchor.BOTTOM_LEFT);
+         double textX = domainAxis.valueToJava2D(domainAxis.getUpperBound(), dataArea, xAxisLocation) - 5;
+         double textY = rangeAxis.valueToJava2D(rangeAxis.getUpperBound(), dataArea, yAxisLocation) + 5;
+         TextUtilities.drawAlignedString(this.interiorTitle, g2, (float)textX, (float)textY, TextAnchor.TOP_RIGHT);
       }
    }
    
@@ -398,6 +398,10 @@ public class FunctionRenderer extends XYLineAndShapeRendererWithHighlight
    
    public void setInteriorTitle(String title) {
       this.interiorTitle = title;
+   }
+   
+   public String getInteriorTitle() {
+      return this.interiorTitle;
    }
    
    public void setInteriorTitlePaint(Paint paint) {
