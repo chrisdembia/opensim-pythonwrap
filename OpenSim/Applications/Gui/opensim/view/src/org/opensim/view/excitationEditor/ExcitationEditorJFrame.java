@@ -31,6 +31,7 @@
 
 package org.opensim.view.excitationEditor;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.opensim.modeling.ControlLinear;
@@ -46,6 +47,7 @@ import org.opensim.view.pub.OpenSimDB;
  */
 public class ExcitationEditorJFrame extends javax.swing.JFrame {
     ExcitationEditorJPanel dPanel;
+    ArrayList<ControlLinear> controlsRefs = new ArrayList<ControlLinear>(2);    // This's a hack to prevent early garbage collection
     /** Creates new form ExcitationEditorJFrame */
     public ExcitationEditorJFrame() {
         initComponents();
@@ -155,7 +157,7 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
 	controlSet.setName(currentModel.getName()+"_Default");
 
 	for(int i=0;i<nx;i++) {
-		ControlLinear control = new ControlLinear(0L, false);
+		ControlLinear control = new ControlLinear();
                 control.setControlValue(0.0, 0.0);
                 control.setControlValue(1.0, 0.0);
                 control.setControlValueMin(0.0, 0.0);
@@ -163,8 +165,11 @@ public class ExcitationEditorJFrame extends javax.swing.JFrame {
                 control.setControlValueMax(0.0, 1.0);
                 control.setControlValueMax(1.0, 1.0);
 		control.setName(currentModel.getControlName(i));
+                System.out.println(currentModel.getControlName(i));
 		controlSet.append(control);
+                controlsRefs.add(control);
 	}
+        controlSet.print("defaultControls.xml");
         dPanel.populate(controlSet);
 
     }//GEN-LAST:event_jCreateDefaultMenuItemActionPerformed
